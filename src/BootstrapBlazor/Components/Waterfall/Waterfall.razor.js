@@ -33,9 +33,16 @@ export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const container = el.querySelector('.bb-waterfall-list');
     const loader = el.querySelector('.bb-wf-loader');
-
-    EventHandler.on(container, 'load', 'img', () => setPositions(container, 216));
-    EventHandler.on(window, 'resize', () => setPositions(container, 216));
+    let itemWidth = 216;
+    const itemWidthString = el.getAttribute('data-bb-item-width');
+    if (itemWidthString) {
+        const itemWidthValue = parseFloat(itemWidthString);
+        if (!isNaN(itemWidthValue)) {
+            itemWidth = itemWidthValue;
+        }
+    }
+    EventHandler.on(container, 'load', 'img', () => setPositions(container, itemWidth));
+    EventHandler.on(window, 'resize', () => setPositions(container, itemWidth));
 
     Data.set(id, {
         container,

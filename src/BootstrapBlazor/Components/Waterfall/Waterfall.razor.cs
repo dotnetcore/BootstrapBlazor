@@ -16,6 +16,14 @@ public partial class Waterfall
     [NotNull]
     public List<string>? Items { get; set; }
 
+    /// <summary>
+    /// 获得/设置 每一项宽度 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? ItemWidth { get; set; }
+
+    private string? ItemWidthString => ItemWidth.HasValue ? $"{ItemWidth.Value}" : null;
+
     private string? ClassString => CssBuilder.Default("bb-waterfall")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
