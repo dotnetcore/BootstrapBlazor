@@ -44,7 +44,14 @@ export function init(id, invoke, method) {
     const getWaterfallItem = item => {
         return { id: item.getAttribute('data-bb-waterfall-item-id'), url: item.querySelector('img').src };
     }
-    EventHandler.on(container, 'load', 'img', () => setPositions(container, imgWidth));
+    EventHandler.on(container, 'load', 'img', e => {
+        const item = e.delegateTarget.parentNode;
+        item.style.setProperty('--bb-waterfall-item-min-height', '0px');
+        const loader = item.querySelector('.bb-waterfall-item-loader');
+        loader.remove();
+
+        setPositions(container, imgWidth);
+    });
     EventHandler.on(window, 'resize', () => setPositions(container, imgWidth));
     EventHandler.on(container, 'click', '.bb-waterfall-item', e => {
         const element = e.delegateTarget;

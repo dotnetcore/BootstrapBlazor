@@ -49,12 +49,19 @@ public partial class Waterfall
     [Parameter]
     public int ItemWidth { get; set; } = 216;
 
+    /// <summary>
+    /// 获得/设置 每一项最小宽度 默认 316 用于显示 loading 图标
+    /// </summary>
+    [Parameter]
+    public int ItemMinHeight { get; set; } = 316;
+
     private string? ClassString => CssBuilder.Default("bb-waterfall")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"--bb-waterfall-item-width: {ItemWidth}px;")
+        .AddClass($"--bb-waterfall-item-min-height: {ItemMinHeight}px;")
         .Build();
 
     private bool _rendered;
