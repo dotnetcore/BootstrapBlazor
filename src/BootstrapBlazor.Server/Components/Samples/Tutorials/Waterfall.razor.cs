@@ -9,17 +9,5 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 /// </summary>
 public partial class Waterfall
 {
-    private readonly List<string> _items = [];
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        _items.AddRange(GetImags());
-    }
-
-    private static IEnumerable<string> GetImags() => Enumerable.Range(1, 18).Select(i => $"./images/waterfall/{i}.jpeg");
+    private static Task<IEnumerable<WaterfallItem>> GetItems(WaterfallItem? item) => Task.FromResult(Enumerable.Range(1, 18).Select(i => new WaterfallItem() { Url = $"./images/waterfall/{i}.jpeg", Id = null }));
 }
