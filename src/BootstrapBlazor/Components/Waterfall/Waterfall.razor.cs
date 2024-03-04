@@ -87,7 +87,13 @@ public partial class Waterfall
         StateHasChanged();
     }
 
-    private async Task OnClickItem(WaterfallItem item)
+    /// <summary>
+    /// 点击图片回调方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnClickItem(WaterfallItem item)
     {
         if (OnClickItemAsync != null)
         {

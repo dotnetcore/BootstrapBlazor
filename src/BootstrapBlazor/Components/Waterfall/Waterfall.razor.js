@@ -38,19 +38,25 @@ export function init(id, invoke, method) {
     const imgWidth = parseFloat(container.style.getPropertyValue('--bb-waterfall-item-width'));
 
     const requestItems = item => {
-        //const images = await invoke.invokeMethodAsync(method, item);
-        //append(container, images);
         invoke.invokeMethodAsync(method, item);
     }
 
+    const getWaterfallItem = item => {
+        return { id: item.getAttribute('data-bb-waterfall-item-id'), url: item.querySelector('img').src };
+    }
     EventHandler.on(container, 'load', 'img', () => setPositions(container, imgWidth));
     EventHandler.on(window, 'resize', () => setPositions(container, imgWidth));
+    EventHandler.on(container, 'click', '.bb-waterfall-item', e => {
+        const element = e.delegateTarget;
+        const item = getWaterfallItem(element);
+        invokeMethodAsync('OnClickItem', item);
+    });
     EventHandler.on(window, 'scroll', () => {
         const offsetHeight = (window.innerHeight || document.documentElement.clientHeight) + document.documentElement.scrollTop;
         if (offsetHeight > container.offsetHeight) {
             const last = container.querySelector('.bb-waterfall-item:last-child');
             if (last) {
-                var item = { id: last.getAttribute('data-bb-waterfall-item-id'), url: last.querySelector('img').src }
+                var item = getWaterfallItem(last);
                 requestItems(item);
             }
         }
