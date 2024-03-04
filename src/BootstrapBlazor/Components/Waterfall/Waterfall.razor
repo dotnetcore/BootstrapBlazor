@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="bb-waterfall-list">
+    </div>
+    <div class="bb-wf-loader">
+        loading ...
+    </div>
+</div>

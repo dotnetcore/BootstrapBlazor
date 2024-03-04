@@ -1,0 +1,17 @@
+.bb-waterfall {
+
+    .bb-waterfall-list {
+        position: relative;
+        min-height: 500px;
+    }
+
+    .bb-waterfall-item {
+        position: absolute;
+        width: 216px;
+
+        img {
+            width: 100%;
+            transition: opacity .4s ease-in-out;
+        }
+    }
+}
