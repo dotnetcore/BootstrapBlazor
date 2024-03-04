@@ -6,7 +6,7 @@
     <div class="bb-waterfall-list">
         @foreach (var item in Items)
         {
-            <div class="bb-waterfall-item">
+            <div class="bb-waterfall-item" @onclick="() => OnClickItem(item)">
                 @if (Template == null)
                 {
                     <img alt="" hidden />

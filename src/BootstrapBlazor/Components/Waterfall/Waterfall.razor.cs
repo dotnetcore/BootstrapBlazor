@@ -17,6 +17,12 @@ public partial class Waterfall
     public List<string>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击列表项回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnClickItemAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 图片模板 默认为 null
     /// </summary>
     [Parameter]
@@ -57,5 +63,13 @@ public partial class Waterfall
     public async Task OnloadAsync()
     {
         await InvokeVoidAsync("append", Id, Items);
+    }
+
+    private async Task OnClickItem(string item)
+    {
+        if (OnClickItemAsync != null)
+        {
+            await OnClickItemAsync(item);
+        }
     }
 }
