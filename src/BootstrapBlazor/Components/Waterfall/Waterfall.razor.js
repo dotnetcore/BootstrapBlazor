@@ -1,6 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
-import {debounce} from "../../modules/utility.js?v=$version"
+import { debounce } from "../../modules/utility.js?v=$version"
 
 const cal = (el, imgWidth) => {
     const containerWidth = el.offsetWidth;
@@ -8,7 +8,7 @@ const cal = (el, imgWidth) => {
     const spaceNumber = columns + 1;
     const leftSpace = containerWidth - columns * imgWidth;
     const space = leftSpace / spaceNumber;
-    return {space, columns}
+    return { space, columns }
 }
 
 const setPositions = (container, imgWidth) => {
@@ -30,27 +30,48 @@ const setPositions = (container, imgWidth) => {
     container.style.setProperty("height", `${max}px`);
 }
 
-const checkScroll = (container) => {
-    const height = container.offsetHeight;
+const createItem = v => {
+    const item = document.createElement('div');
+    item.classList.add('bb-waterfall-item');
+    item.setAttribute('data-bb-waterfall-item-id', v.id);
+
+    const img = document.createElement('img');
+    img.setAttribute('src', v.url);
+    item.appendChild(img);
+
+    return item;
+}
+
+const append = (container, images) => {
+    images.forEach(v => {
+        const item = createItem(v);
+        container.appendChild(item);
+    });
 }
 
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const container = el.querySelector('.bb-waterfall-list');
     const loader = el.querySelector('.bb-wf-loader');
-    let itemWidth = 216;
-    const itemWidthString = el.getAttribute('data-bb-item-width');
-    if (itemWidthString) {
-        const itemWidthValue = parseFloat(itemWidthString);
-        if (!isNaN(itemWidthValue)) {
-            itemWidth = itemWidthValue;
-        }
+    const imgWidth = parseFloat(container.style.getPropertyValue('--bb-waterfall-item-width'));
+
+    const requestItems = async item => {
+        const images = await invoke.invokeMethodAsync(method, item);
+        append(container, images);
     }
-    EventHandler.on(container, 'load', 'img', () => setPositions(container, itemWidth));
-    EventHandler.on(window, 'resize', () => debounce(setPositions(container, itemWidth), 500));
 
-    // handler scroll
-
+    EventHandler.on(container, 'load', 'img', () => setPositions(container, imgWidth));
+    EventHandler.on(window, 'resize', () => setPositions(container, imgWidth));
+    EventHandler.on(window, 'scroll', () => {
+        const offsetHeight = (window.innerHeight || document.documentElement.clientHeight) + document.documentElement.scrollTop;
+        if (offsetHeight > container.offsetHeight) {
+            const last = container.querySelector('.bb-waterfall-item:last-child');
+            if (last) {
+                var item = { id: last.getAttribute('data-bb-waterfall-item-id'), url: last.querySelector('img').src }
+                requestItems(item);
+            }
+        }
+    });
 
     Data.set(id, {
         container,
@@ -58,18 +79,7 @@ export function init(id, invoke, method) {
         invoke
     });
 
-    invoke.invokeMethodAsync(method);
-}
-
-export function append(id, images) {
-    const wf = Data.get(id);
-    if (wf) {
-        const items = [...wf.container.querySelectorAll('img[hidden]')];
-        images.forEach((img, i) => {
-            items[i].src = images[i];
-            items[i].removeAttribute('hidden');
-        });
-    }
+    requestItems(null);
 }
 
 export function dispose(id) {
@@ -79,5 +89,6 @@ export function dispose(id) {
     if (wf) {
         EventHandler.off(wf.container, 'load', 'img');
         EventHandler.off(window, 'resize');
+        EventHandler.off(window, 'scroll');
     }
 }

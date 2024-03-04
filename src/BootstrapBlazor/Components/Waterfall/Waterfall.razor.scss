@@ -1,16 +1,14 @@
 .bb-waterfall {
-
     .bb-waterfall-list {
         position: relative;
     }
 
     .bb-waterfall-item {
         position: absolute;
-        width: 216px;
+        width: var(--bb-waterfall-item-width, 216px);
 
         img {
             width: 100%;
-            transition: opacity .4s ease-in-out;
         }
     }
 }

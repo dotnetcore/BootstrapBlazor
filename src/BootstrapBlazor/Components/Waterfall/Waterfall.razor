@@ -2,21 +2,8 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-item-width="@ItemWidthString">
-    <div class="bb-waterfall-list">
-        @foreach (var item in Items)
-        {
-            <div class="bb-waterfall-item" @onclick="() => OnClickItem(item)">
-                @if (Template == null)
-                {
-                    <img alt="" hidden />
-                }
-                else
-                {
-                    @Template(item)
-                }
-            </div>
-        }
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="bb-waterfall-list" style="@StyleString">
     </div>
     <div class="bb-wf-loader">
         loading ...
