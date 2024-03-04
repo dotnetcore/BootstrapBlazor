@@ -21,7 +21,14 @@
     <div class="bb-waterfall-list" style="@StyleString">
     </div>
     <div class="bb-wf-loader">
-        loading ...
+        @if (LoadTemplate == null)
+        {
+            <Spinner />
+        }
+        else
+        {
+            @LoadTemplate
+        }
     </div>
 </div>
 

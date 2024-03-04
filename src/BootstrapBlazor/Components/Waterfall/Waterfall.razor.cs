@@ -35,6 +35,12 @@ public partial class Waterfall
     [Parameter]
     public RenderFragment<WaterfallItem>? ItemTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 加载模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadTemplate { get; set; }
+
     private readonly List<WaterfallItem> _items = [];
 
     /// <summary>
