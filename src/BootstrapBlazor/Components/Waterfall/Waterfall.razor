@@ -20,16 +20,12 @@
     </div>
     <div class="bb-waterfall-list" style="@StyleString">
     </div>
-    <div class="bb-wf-loader">
-        @if (LoadTemplate == null)
-        {
-            <Spinner />
-        }
-        else
-        {
+    @if (LoadTemplate != null)
+    {
+        <div class="bb-waterfall-loader">
             @LoadTemplate
-        }
-    </div>
+        </div>
+    }
 </div>
 
 @code {

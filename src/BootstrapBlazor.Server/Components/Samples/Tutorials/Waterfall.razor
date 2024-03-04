@@ -6,5 +6,11 @@
             @context.Context
             <label>@Path.GetFileNameWithoutExtension(@context.Item.Url)</label>
         </Template>
+        <LoadTemplate>
+            <div class="d-flex">
+                <i class="fa-solid fa-spinner fa-spiner"></i>
+                <span>Loading ...</span>
+            </div>
+        </LoadTemplate>
     </BootstrapBlazor.Components.Waterfall>
 </div>
