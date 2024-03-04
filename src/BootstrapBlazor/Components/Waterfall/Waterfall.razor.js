@@ -1,5 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
+import { debounce } from "../../modules/utility.js?v=$version"
 
 const cal = (el, imgWidth) => {
     const containerWidth = el.offsetWidth;
@@ -42,7 +43,7 @@ export function init(id, invoke, method) {
         }
     }
     EventHandler.on(container, 'load', 'img', () => setPositions(container, itemWidth));
-    EventHandler.on(window, 'resize', () => setPositions(container, itemWidth));
+    EventHandler.on(window, 'resize', () => debounce(setPositions(container, itemWidth), 500));
 
     Data.set(id, {
         container,
