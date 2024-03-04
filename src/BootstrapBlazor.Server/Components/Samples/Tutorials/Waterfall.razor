@@ -2,9 +2,9 @@
 
 <div class="waterfall-demo">
     <BootstrapBlazor.Components.Waterfall OnRequestAsync="GetItems">
-        <ItemTemplate>
-            @context
-            <label>@Path.GetFileNameWithoutExtension(@context.Url)</label>
-        </ItemTemplate>
+        <Template>
+            @context.Context
+            <label>@Path.GetFileNameWithoutExtension(@context.Item.Url)</label>
+        </Template>
     </BootstrapBlazor.Components.Waterfall>
 </div>
