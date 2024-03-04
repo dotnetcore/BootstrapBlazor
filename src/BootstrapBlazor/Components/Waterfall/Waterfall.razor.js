@@ -1,6 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
-import { debounce } from "../../modules/utility.js?v=$version"
+import {debounce} from "../../modules/utility.js?v=$version"
 
 const cal = (el, imgWidth) => {
     const containerWidth = el.offsetWidth;
@@ -8,7 +8,7 @@ const cal = (el, imgWidth) => {
     const spaceNumber = columns + 1;
     const leftSpace = containerWidth - columns * imgWidth;
     const space = leftSpace / spaceNumber;
-    return { space, columns }
+    return {space, columns}
 }
 
 const setPositions = (container, imgWidth) => {
@@ -30,6 +30,10 @@ const setPositions = (container, imgWidth) => {
     container.style.setProperty("height", `${max}px`);
 }
 
+const checkScroll = (container) => {
+    const height = container.offsetHeight;
+}
+
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
     const container = el.querySelector('.bb-waterfall-list');
@@ -45,6 +49,9 @@ export function init(id, invoke, method) {
     EventHandler.on(container, 'load', 'img', () => setPositions(container, itemWidth));
     EventHandler.on(window, 'resize', () => debounce(setPositions(container, itemWidth), 500));
 
+    // handler scroll
+
+
     Data.set(id, {
         container,
         loader,
@@ -57,11 +64,10 @@ export function init(id, invoke, method) {
 export function append(id, images) {
     const wf = Data.get(id);
     if (wf) {
-        images.forEach(img => {
-            const item = document.createElement('div');
-            item.classList.add('bb-waterfall-item');
-            item.innerHTML = `<img alt="" src="${img}" />`;
-            wf.container.appendChild(item);
+        const items = [...wf.container.querySelectorAll('img[hidden]')];
+        images.forEach((img, i) => {
+            items[i].src = images[i];
+            items[i].removeAttribute('hidden');
         });
     }
 }

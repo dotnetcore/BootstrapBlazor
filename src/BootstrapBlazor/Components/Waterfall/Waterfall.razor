@@ -4,6 +4,19 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-item-width="@ItemWidthString">
     <div class="bb-waterfall-list">
+        @foreach (var item in Items)
+        {
+            <div class="bb-waterfall-item">
+                @if (Template == null)
+                {
+                    <img alt="" hidden />
+                }
+                else
+                {
+                    @Template(item)
+                }
+            </div>
+        }
     </div>
     <div class="bb-wf-loader">
         loading ...

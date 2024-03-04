@@ -10,11 +10,17 @@ namespace BootstrapBlazor.Components;
 public partial class Waterfall
 {
     /// <summary>
-    /// 获得/设置 数据源
+    /// 获得/设置 数据源 默认为 null
     /// </summary>
     [Parameter]
     [NotNull]
     public List<string>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图片模板 默认为 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? Template { get; set; }
 
     /// <summary>
     /// 获得/设置 每一项宽度 默认 null 未设置
