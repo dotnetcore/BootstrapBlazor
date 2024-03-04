@@ -87,6 +87,7 @@ export function append(id) {
         [...div.children].forEach(v => {
             const img = v.querySelector('img');
             img.src = img.getAttribute('data-url');
+            img.removeAttribute('data-url');
             wf.container.appendChild(v);
         });
     }
