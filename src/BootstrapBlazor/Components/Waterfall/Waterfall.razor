@@ -3,9 +3,41 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="bb-waterfall-template">
+        @foreach (var item in _items)
+        {
+            <div @key="item" class="bb-waterfall-item" data-bb-waterfall-item-id="@item.Id">
+                @if (Template != null)
+                {
+                    @Template((item, RenderItemTemplate(item)))
+                }
+                else
+                {
+                    @RenderItemTemplate(item)
+                }
+            </div>
+        }
+    </div>
     <div class="bb-waterfall-list" style="@StyleString">
     </div>
     <div class="bb-wf-loader">
         loading ...
     </div>
 </div>
+
+@code {
+    RenderFragment RenderItemTemplate(WaterfallItem item)
+    {
+        if (ItemTemplate != null)
+        {
+            return ItemTemplate(item);
+        }
+        else
+        {
+            return RenderItem(item);
+        }
+    }
+
+    RenderFragment RenderItem(WaterfallItem item) =>
+    @<img alt="" data-url="@item.Url" />;
+}

@@ -27,13 +27,15 @@ public partial class Waterfall
     /// 获得/设置 模板 默认为 null
     /// </summary>
     [Parameter]
-    public RenderFragment<RenderFragment>? Template { get; set; }
+    public RenderFragment<(WaterfallItem Item, RenderFragment Context)>? Template { get; set; }
 
     /// <summary>
     /// 获得/设置 图片模板 默认为 null
     /// </summary>
     [Parameter]
     public RenderFragment<WaterfallItem>? ItemTemplate { get; set; }
+
+    private readonly List<WaterfallItem> _items = [];
 
     /// <summary>
     /// 获得/设置 每一项宽度 默认 216
@@ -49,6 +51,24 @@ public partial class Waterfall
         .AddClass($"--bb-waterfall-item-width: {ItemWidth}px;")
         .Build();
 
+    private bool _rendered;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_rendered)
+        {
+            _rendered = false;
+            await InvokeVoidAsync("append", Id);
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -59,10 +79,12 @@ public partial class Waterfall
     /// 请求数据回调方法
     /// </summary>
     [JSInvokable]
-    public async Task<IEnumerable<WaterfallItem>> OnloadAsync(WaterfallItem? item)
+    public async Task OnloadAsync(WaterfallItem? item)
     {
-        var items = await OnRequestAsync(item);
-        return items;
+        _items.Clear();
+        _items.AddRange(await OnRequestAsync(item));
+        _rendered = true;
+        StateHasChanged();
     }
 
     private async Task OnClickItem(WaterfallItem item)

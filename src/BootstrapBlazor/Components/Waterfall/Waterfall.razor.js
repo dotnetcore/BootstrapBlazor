@@ -30,34 +30,17 @@ const setPositions = (container, imgWidth) => {
     container.style.setProperty("height", `${max}px`);
 }
 
-const createItem = v => {
-    const item = document.createElement('div');
-    item.classList.add('bb-waterfall-item');
-    item.setAttribute('data-bb-waterfall-item-id', v.id);
-
-    const img = document.createElement('img');
-    img.setAttribute('src', v.url);
-    item.appendChild(img);
-
-    return item;
-}
-
-const append = (container, images) => {
-    images.forEach(v => {
-        const item = createItem(v);
-        container.appendChild(item);
-    });
-}
-
 export function init(id, invoke, method) {
     const el = document.getElementById(id);
+    const template = el.querySelector('.bb-waterfall-template');
     const container = el.querySelector('.bb-waterfall-list');
     const loader = el.querySelector('.bb-wf-loader');
     const imgWidth = parseFloat(container.style.getPropertyValue('--bb-waterfall-item-width'));
 
-    const requestItems = async item => {
-        const images = await invoke.invokeMethodAsync(method, item);
-        append(container, images);
+    const requestItems = item => {
+        //const images = await invoke.invokeMethodAsync(method, item);
+        //append(container, images);
+        invoke.invokeMethodAsync(method, item);
     }
 
     EventHandler.on(container, 'load', 'img', () => setPositions(container, imgWidth));
@@ -74,12 +57,26 @@ export function init(id, invoke, method) {
     });
 
     Data.set(id, {
+        template,
         container,
         loader,
         invoke
     });
 
     requestItems(null);
+}
+
+export function append(id) {
+    const wf = Data.get(id);
+    if (wf.template) {
+        const div = document.createElement('div');
+        div.innerHTML = wf.template.innerHTML;
+        [...div.children].forEach(v => {
+            const img = v.querySelector('img');
+            img.src = img.getAttribute('data-url');
+            wf.container.appendChild(v);
+        });
+    }
 }
 
 export function dispose(id) {
