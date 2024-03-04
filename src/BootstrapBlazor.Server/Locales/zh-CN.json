@@ -4603,7 +4603,8 @@
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
     "ZipArchive": "压缩归档服务 IZipArchiveService",
     "BrowserFinger": "浏览器指纹 BrowserFingerService",
-    "SvgEditor": "Svg编辑器 SvgEditor"
+    "SvgEditor": "Svg编辑器 SvgEditor",
+    "Waterfall": "瀑布流 Waterfall"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

@@ -733,6 +733,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["Waterfall"],
+                    Url = "tutorials/waterfall"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["WebSerial"],
                     Url = "web-serial"
                 },

@@ -5,13 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 构造函数
+/// Waterfall 组件数据类
 /// </summary>
-/// <param name="path"></param>
-class BootstrapModuleAutoLoaderAttribute(string? path = null) : JSModuleAutoLoaderAttribute(path)
+public class WaterfallItem
 {
     /// <summary>
-    /// 获得/设置 模块名称 自动使用 modules 文件夹下脚本
+    /// 获得/设置 id
     /// </summary>
-    public string? ModuleName { get; set; }
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// the url of image element
+    /// </summary>
+    public string? Url { get; set; }
 }

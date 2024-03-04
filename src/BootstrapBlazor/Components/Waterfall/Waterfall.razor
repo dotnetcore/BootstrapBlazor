@@ -1,0 +1,49 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="bb-waterfall-template">
+        @foreach (var item in _items)
+        {
+            <div @key="item" class="bb-waterfall-item" data-bb-waterfall-item-id="@item.Id">
+                @if (Template != null)
+                {
+                    @Template((item, RenderItemTemplate(item)))
+                }
+                else
+                {
+                    @RenderItemTemplate(item)
+                }
+                <div class="bb-waterfall-item-loader">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="bb-waterfall-list" style="@StyleString">
+    </div>
+    @if (LoadTemplate != null)
+    {
+        <div class="bb-waterfall-loader">
+            @LoadTemplate
+        </div>
+    }
+</div>
+
+@code {
+    RenderFragment RenderItemTemplate(WaterfallItem item)
+    {
+        if (ItemTemplate != null)
+        {
+            return ItemTemplate(item);
+        }
+        else
+        {
+            return RenderItem(item);
+        }
+    }
+
+    RenderFragment RenderItem(WaterfallItem item) =>
+    @<img alt="" data-url="@item.Url" />;
+}
