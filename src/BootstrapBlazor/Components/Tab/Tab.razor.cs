@@ -9,9 +9,9 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Tab 组件基类
+/// Tab 组件
 /// </summary>
-public partial class Tab : IHandlerException, IDisposable
+public partial class Tab : IHandlerException
 {
     private bool FirstRender { get; set; } = true;
 
@@ -32,13 +32,12 @@ public partial class Tab : IHandlerException, IDisposable
         .AddClass(icon)
         .Build();
 
-    private ElementReference TabElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("tabs")
         .AddClass("tabs-card", IsCard)
         .AddClass("tabs-border-card", IsBorderCard)
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass($"tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+       .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
@@ -47,10 +46,14 @@ public partial class Tab : IHandlerException, IDisposable
 
     private readonly List<TabItem> _items = new(50);
 
+    private readonly List<TabItem> _draggedItems = new(50);
+
     /// <summary>
     /// 获得/设置 TabItem 集合
     /// </summary>
-    public IEnumerable<TabItem> Items => _items;
+    public IEnumerable<TabItem> Items => TabItems;
+
+    private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
     /// 获得/设置 是否为排除地址 默认为 false
@@ -70,13 +73,13 @@ public partial class Tab : IHandlerException, IDisposable
     public bool IsBorderCard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否仅渲染 Active 标签
+    /// 获得/设置 是否仅渲染 Active 标签 默认 false
     /// </summary>
     [Parameter]
     public bool IsOnlyRenderActiveTab { get; set; }
 
     /// <summary>
-    /// 获得/设置 懒加载 Tabitem, 首次不渲染
+    /// 获得/设置 懒加载 TabItem, 首次不渲染 默认 false
     /// </summary>
     [Parameter]
     public bool IsLazyLoadTabItem { get; set; }
@@ -102,8 +105,9 @@ public partial class Tab : IHandlerException, IDisposable
     /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
+    /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
     [Parameter]
-    public Func<TabItem, Task>? OnCloseTabItemAsync { get; set; }
+    public Func<TabItem, Task<bool>>? OnCloseTabItemAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展功能按钮 默认为 false 不显示
@@ -164,7 +168,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// 获得/设置 点击 TabItem 时回调方法
     /// </summary>
     [Parameter]
-    public Func<TabItem, Task>? OnClickTab { get; set; }
+    public Func<TabItem, Task>? OnClickTabItemAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 NotFound 标签文本
@@ -200,6 +204,52 @@ public partial class Tab : IHandlerException, IDisposable
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上一个标签图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下一个标签图标
+    /// </summary>
+    [Parameter]
+    public string? NextIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉菜单标签图标
+    /// </summary>
+    [Parameter]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭标签图标
+    /// </summary>
+    [Parameter]
+    public string? CloseIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导航菜单集合 默认 null
+    /// </summary>
+    /// <remarks>使用自定义布局时，需要 Tab 导航标签显示为菜单项时设置，已内置 <see cref="Layout.Menus"/> 默认 null</remarks>
+    [Parameter]
+    public IEnumerable<MenuItem>? Menus { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool AllowDrag { get; set; }
+
+    /// <summary>
+    /// 获得/设置 拖动标签页结束回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
+
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Tab>? Localizer { get; set; }
@@ -212,17 +262,40 @@ public partial class Tab : IHandlerException, IDisposable
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<TabItemBindOptions>? TabItemMenuBinder { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
+    private bool HandlerNavigation { get; set; }
+
+    private bool InvokeUpdate { get; set; }
+
+    private Placement LastPlacement { get; set; }
+
+    private string? DraggableString => AllowDrag ? "true" : null;
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         ErrorLogger?.Register(this);
+    }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override void OnParametersSet()
+    {
         if (ShowExtendButtons)
         {
             IsBorderCard = true;
@@ -233,22 +306,74 @@ public partial class Tab : IHandlerException, IDisposable
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
         NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
 
-        if (!OperatingSystem.IsBrowser())
+        PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
+        NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabDropdownIcon);
+        CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
+
+        AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+
+        if (ClickTabToNavigation)
         {
-            AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+            if (!HandlerNavigation)
+            {
+                HandlerNavigation = true;
+                Navigator.LocationChanged += Navigator_LocationChanged;
+            }
+            AddTabByUrl();
+        }
+        else
+        {
+            RemoveLocationChanged();
         }
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            LastPlacement = Placement;
+            FirstRender = false;
+        }
+        else if (LastPlacement != Placement)
+        {
+            LastPlacement = Placement;
+            InvokeUpdate = true;
+        }
+
+        if (InvokeUpdate)
+        {
+            InvokeUpdate = false;
+            await InvokeVoidAsync("update", Id);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override void OnParametersSet()
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback));
+
+    private void RemoveLocationChanged()
     {
-        if (ClickTabToNavigation)
+        if (HandlerNavigation)
         {
-            AddTabByUrl();
+            Navigator.LocationChanged -= Navigator_LocationChanged;
+            HandlerNavigation = false;
         }
+    }
+
+    private void Navigator_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        AddTabByUrl();
+
+        StateHasChanged();
     }
 
     private void AddTabByUrl()
@@ -257,14 +382,9 @@ public partial class Tab : IHandlerException, IDisposable
 
         // 判断是否排除
         var urls = ExcludeUrls ?? Enumerable.Empty<string>();
-        if (requestUrl == "")
-        {
-            Excluded = urls.Any(u => u == "" || u == "/");
-        }
-        else
-        {
-            Excluded = urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
-        }
+        Excluded = requestUrl == ""
+            ? urls.Any(u => u is "" or "/")
+            : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
         if (!Excluded)
         {
             // 地址相同参数不同需要重新渲染 TabItem
@@ -280,22 +400,6 @@ public partial class Tab : IHandlerException, IDisposable
         }
     }
 
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            FirstRender = false;
-        }
-
-        await JSRuntime.InvokeVoidAsync(TabElement, "bb_tab");
-    }
-
     private bool ShouldShowExtendButtons() => ShowExtendButtons && (Placement == Placement.Top || Placement == Placement.Bottom);
 
     /// <summary>
@@ -303,15 +407,16 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     private async Task OnClickTabItem(TabItem item)
     {
-        Items.ToList().ForEach(i => i.SetActive(false));
-        if (OnClickTab != null)
+        if (OnClickTabItemAsync != null)
         {
-            await OnClickTab(item);
+            await OnClickTabItemAsync(item);
         }
 
         if (!ClickTabToNavigation)
         {
+            TabItems.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+            InvokeUpdate = true;
             StateHasChanged();
         }
     }
@@ -324,13 +429,13 @@ public partial class Tab : IHandlerException, IDisposable
         var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
-            var index = _items.IndexOf(item);
+            var index = TabItems.IndexOf(item);
             if (index > -1)
             {
                 index--;
                 if (index < 0)
                 {
-                    index = _items.Count - 1;
+                    index = TabItems.Count - 1;
                 }
 
                 if (!ClickTabToNavigation)
@@ -338,7 +443,7 @@ public partial class Tab : IHandlerException, IDisposable
                     item.SetActive(false);
                 }
 
-                item = Items.ElementAt(index);
+                item = TabItems[index];
                 if (ClickTabToNavigation)
                 {
                     Navigator.NavigateTo(item.Url);
@@ -346,6 +451,7 @@ public partial class Tab : IHandlerException, IDisposable
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -358,11 +464,11 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     public Task ClickNextTab()
     {
-        var item = Items.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.Find(i => i.IsActive);
         if (item != null)
         {
-            var index = _items.IndexOf(item);
-            if (index < _items.Count)
+            var index = TabItems.IndexOf(item);
+            if (index < TabItems.Count)
             {
                 if (!ClickTabToNavigation)
                 {
@@ -370,12 +476,12 @@ public partial class Tab : IHandlerException, IDisposable
                 }
 
                 index++;
-                if (index + 1 > _items.Count)
+                if (index + 1 > TabItems.Count)
                 {
                     index = 0;
                 }
 
-                item = Items.ElementAt(index);
+                item = TabItems[index];
 
                 if (ClickTabToNavigation)
                 {
@@ -384,6 +490,7 @@ public partial class Tab : IHandlerException, IDisposable
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -396,14 +503,27 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     public async Task CloseCurrentTab()
     {
-        var tab = _items.FirstOrDefault(t => t.IsActive);
-        if (tab != null && tab.Closable)
+        var tab = TabItems.Find(t => t.IsActive);
+        if (tab is { Closable: true })
         {
             await RemoveTab(tab);
         }
     }
 
-    private void OnClickCloseAllTabs() => _items.RemoveAll(t => t.Closable);
+    private void OnClickCloseAllTabs()
+    {
+        TabItems.RemoveAll(t => t.Closable);
+        if (TabItems.Any())
+        {
+            var activeItem = TabItems.Find(i => i.IsActive);
+            if (activeItem == null)
+            {
+                activeItem = TabItems[0];
+                activeItem.SetActive(true);
+            }
+        }
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭所有标签页方法
@@ -414,7 +534,11 @@ public partial class Tab : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t.Closable && !t.IsActive);
+    private void OnClickCloseOtherTabs()
+    {
+        TabItems.RemoveAll(t => t is { Closable: true, IsActive: false });
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭其他标签页方法
@@ -429,7 +553,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// 添加 TabItem 方法 由 TabItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void AddItem(TabItem item) => _items.Add(item);
+    internal void AddItem(TabItem item) => TabItems.Add(item);
 
     /// <summary>
     /// 通过 Url 添加 TabItem 标签方法
@@ -457,29 +581,40 @@ public partial class Tab : IHandlerException, IDisposable
         if (context.Handler != null)
         {
             // 检查 Options 优先
-            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false);
-            if (Options.Valid())
+            var option = context.Handler.GetCustomAttribute<TabItemOptionAttribute>(false)
+                ?? TabItemMenuBinder.CurrentValue.Binders
+                    .FirstOrDefault(i => i.Key.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase))
+                    .Value;
+            if (option != null)
             {
-                AddParameters(option);
+                // TabItemOptionAttribute
+                SetTabItemParameters(option.Text, option.Icon, option.Closable, true);
+            }
+            else if (Options.Valid())
+            {
+                // TabItemTextOptions
+                SetTabItemParameters(Options.Text, Options.Icon, Options.Closable, Options.IsActive);
+                Options.Reset();
+            }
+            else if (Layout != null)
+            {
+                // CascadeParameter Menus
+                var menu = GetMenuItem(url);
+                SetTabItemParameters(menu?.Text, menu?.Icon, true, true);
             }
             else
             {
-                if (option != null)
-                {
-                    parameters.Add(nameof(TabItem.Icon), option.Icon);
-                    parameters.Add(nameof(TabItem.Closable), option.Closable);
-                    parameters.Add(nameof(TabItem.IsActive), true);
-                }
-                parameters.Add(nameof(TabItem.Text), option?.Text ?? url.Split("/").FirstOrDefault());
-                parameters.Add(nameof(TabItem.Url), url);
+                parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
             }
+            parameters.Add(nameof(TabItem.Url), url);
 
             parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
             {
                 builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
-                builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
-                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
+                builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
+                builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
+                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
                 builder.CloseComponent();
             }));
         }
@@ -494,19 +629,12 @@ public partial class Tab : IHandlerException, IDisposable
 
         AddTabItem(parameters);
 
-        void AddParameters(TabItemOptionAttribute? option)
+        void SetTabItemParameters(string? text, string? icon, bool closable, bool active)
         {
-            var text = option?.Text ?? Options.Text;
-            var icon = option?.Icon ?? Options.Icon ?? string.Empty;
-            var active = Options.IsActive;
-            var closable = option?.Closable ?? Options.Closable;
-            Options.Reset();
-
-            parameters.Add(nameof(TabItem.Url), url);
+            parameters.Add(nameof(TabItem.Text), text);
             parameters.Add(nameof(TabItem.Icon), icon);
             parameters.Add(nameof(TabItem.Closable), closable);
             parameters.Add(nameof(TabItem.IsActive), active);
-            parameters.Add(nameof(TabItem.Text), text);
         }
     }
 
@@ -518,6 +646,7 @@ public partial class Tab : IHandlerException, IDisposable
     public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
         AddTabItem(parameters, index);
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -527,18 +656,17 @@ public partial class Tab : IHandlerException, IDisposable
         item.TabSet = this;
         if (item.IsActive)
         {
-            _items.ForEach(i => i.SetActive(false));
+            TabItems.ForEach(i => i.SetActive(false));
         }
 
         if (index.HasValue)
         {
-            _items.Insert(index.Value, item);
+            TabItems.Insert(index.Value, item);
         }
         else
         {
-            _items.Add(item);
+            TabItems.Add(item);
         }
-
     }
 
     /// <summary>
@@ -547,27 +675,19 @@ public partial class Tab : IHandlerException, IDisposable
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
-        var index = _items.IndexOf(item);
-        _items.Remove(item);
-        if (OnCloseTabItemAsync != null)
+        if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
         {
-            await OnCloseTabItemAsync(item);
+            return;
         }
-        var activeItem = _items.FirstOrDefault(i => i.IsActive);
-        if (activeItem == null)
-        {
-            // 删除的 TabItem 是当前 Tab
-            if (index < _items.Count)
-            {
-                // 查找后面的 Tab
-                activeItem = _items[index];
-            }
-            else
-            {
-                // 查找前面的 Tab
-                activeItem = _items.LastOrDefault();
-            }
-        }
+
+        var index = TabItems.IndexOf(item);
+        TabItems.Remove(item);
+        InvokeUpdate = true;
+
+        // 删除的 TabItem 是当前 Tab
+        // 查找后面的 Tab
+        var activeItem = TabItems.Find(i => i.IsActive)
+                         ?? (index < TabItems.Count ? TabItems[index] : TabItems.LastOrDefault());
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
@@ -594,7 +714,7 @@ public partial class Tab : IHandlerException, IDisposable
     public void ActiveTab(TabItem item)
     {
         ActiveTabItem(item);
-
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -604,7 +724,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// <param name="index"></param>
     public void ActiveTab(int index)
     {
-        var item = _items.ElementAtOrDefault(index);
+        var item = TabItems.ElementAtOrDefault(index);
         if (item != null)
         {
             ActiveTab(item);
@@ -615,15 +735,15 @@ public partial class Tab : IHandlerException, IDisposable
     /// 获得当前活动 Tab
     /// </summary>
     /// <returns></returns>
-    public TabItem? GetActiveTab() => _items.FirstOrDefault(s => s.IsActive);
+    public TabItem? GetActiveTab() => TabItems.Find(s => s.IsActive);
 
     private void ActiveTabItem(TabItem item)
     {
-        _items.ForEach(i => i.SetActive(false));
+        TabItems.ForEach(i => i.SetActive(false));
         item.SetActive(true);
     }
 
-    private RenderFragment? RenderTabItemContent(TabItem item) => builder =>
+    private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
         if (item.IsActive)
         {
@@ -632,7 +752,7 @@ public partial class Tab : IHandlerException, IDisposable
             _errorContent = null;
             if (IsLazyLoadTabItem)
             {
-                LazyTabCache.AddOrUpdate(item, key => true, (_, _) => true);
+                LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
             }
         }
         else if (!IsLazyLoadTabItem || item.AlwaysLoad || LazyTabCache.TryGetValue(item, out var init) && init)
@@ -654,24 +774,55 @@ public partial class Tab : IHandlerException, IDisposable
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
+    private IEnumerable<MenuItem>? _menuItems;
+    private MenuItem? GetMenuItem(string url)
     {
-        if (disposing)
+        _menuItems ??= (Menus ?? Layout?.Menus).GetAllItems();
+        return _menuItems?.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && (i.Url.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private bool _dragged;
+    /// <summary>
+    /// 拖动 TabItem 回调方法有 JS 调用
+    /// </summary>
+    /// <param name="originIndex"></param>
+    /// <param name="currentIndex"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task DragItemCallback(int originIndex, int currentIndex)
+    {
+        var firstColumn = Items.ElementAtOrDefault(originIndex);
+        var targetColumn = Items.ElementAtOrDefault(currentIndex);
+        if (firstColumn != null && targetColumn != null)
         {
-            ErrorLogger?.UnRegister(this);
+            if (_draggedItems.Count == 0)
+            {
+                _draggedItems.AddRange(_items);
+            }
+            _draggedItems.Remove(firstColumn);
+            _draggedItems.Insert(currentIndex, firstColumn);
+            _dragged = true;
+
+            if (OnDragItemEndAsync != null)
+            {
+                await OnDragItemEndAsync(firstColumn);
+            }
+            InvokeUpdate = true;
+            StateHasChanged();
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Dispose()
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
+
+        if (disposing)
+        {
+            RemoveLocationChanged();
+            ErrorLogger?.UnRegister(this);
+        }
     }
 }

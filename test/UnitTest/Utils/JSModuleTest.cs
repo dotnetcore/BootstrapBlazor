@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.JSInterop;
 
 namespace UnitTest.Utils;
@@ -35,7 +34,7 @@ public class JSModuleTest
     }
 
     [Fact]
-    public async ValueTask Dispose_Ok()
+    public async Task Dispose_Ok()
     {
         var js = new MockJSObjectReference();
         var module = new JSModule(js);
@@ -43,94 +42,65 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void Dispose_Error()
+    public async Task Dispose_Error()
     {
         var js = new MockErrorJSObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<InvalidOperationException>(async () => await module.DisposeAsync());
-    }
-
-    [Fact]
-    public async ValueTask JSModuleGeneric_Ok()
-    {
-        var js = new MockJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
-        Assert.NotNull(module);
-
-        await module.InvokeVoidAsync("Test.init", "bb_id");
-        await module.InvokeVoidAsync("Test.init", TimeSpan.Zero, "bb_id");
-        await module.InvokeVoidAsync("Test.init", CancellationToken.None, "bb_id");
-        await module.InvokeAsync<object>("Test.init", "bb_id");
-        await module.InvokeAsync<object>("Test.init", TimeSpan.Zero, "bb_id");
-        await module.InvokeAsync<object>("Test.init", CancellationToken.None, "bb_id");
         await module.DisposeAsync();
     }
 
     [Fact]
-    public async ValueTask JSModuleGeneric_Error()
-    {
-        var js = new MockErrorJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
-        await module.InvokeVoidAsync("Test.init", "bb_id");
-        await module.DisposeAsync();
-    }
-
-    [Fact]
-    public void JSModule_JSDisconnectedException()
+    public async Task JSModule_JSDisconnectedException()
     {
         var js = new MockJSDisconnectedObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
-
-        var module2 = new JSModule<Foo>(js, new Foo());
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module2.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module2.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     [Fact]
-    public void JSModule_TaskCanceledException()
+    public async Task JSModule_JSException()
+    {
+        var js = new MockJSExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_AggregateException()
+    {
+        var js = new MockAggregateExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_InvalidOperationException()
+    {
+        var js = new MockInvalidOperationExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_ObjectDisposedException()
+    {
+        var js = new MockObjectDisposedExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_TaskCanceledException()
     {
         var js = new MockTaskCanceledObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
-
-        var module2 = new JSModule<Foo>(js, new Foo());
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module2.InvokeVoidAsync("test", "args1", "args2");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module2.InvokeAsync<int>("test", "args1", "args2");
-            return Task.CompletedTask;
-        });
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     private class MockErrorJSObjectReference : MockJSObjectReference
@@ -168,8 +138,6 @@ public class JSModuleTest
         {
             return ValueTask.FromResult<TValue>(default!);
         }
-
-        public ValueTask InvokeVoidAsync_JSDisconnected_Test() => throw new JSDisconnectedException("Test");
     }
 
     private class MockJSDisconnectedObjectReference : IJSObjectReference
@@ -188,5 +156,41 @@ public class JSModuleTest
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new TaskCanceledException("Test");
 
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new TaskCanceledException("Test");
+    }
+
+    private class MockJSExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new JSException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new JSException("Test");
+    }
+
+    private class MockAggregateExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new AggregateException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new AggregateException("Test");
+    }
+
+    private class MockInvalidOperationExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new InvalidOperationException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new InvalidOperationException("Test");
+    }
+
+    private class MockObjectDisposedExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new ObjectDisposedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new ObjectDisposedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new ObjectDisposedException("Test");
     }
 }

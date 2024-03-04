@@ -1,0 +1,28 @@
+﻿.carousel-item-demo2 {
+    display: flex;
+}
+
+    .carousel-item-demo2 .demo-item {
+        background-color: rgba(var(--bs-body-color-rgb),.08);
+        border-radius: var(--bs-border-radius);
+        padding: 1rem 2rem;
+    }
+
+        .carousel-item-demo2 .demo-item:not(:last-child) {
+            margin-right: 1rem;
+        }
+
+        .carousel-item-demo2 .demo-item img {
+            border-radius: var(--bs-border-radius);
+            margin: 1rem 0;
+            height: auto;
+        }
+
+        .carousel-item-demo2 .demo-item .top,
+        .carousel-item-demo2 .demo-item .bottom {
+            text-align: center;
+        }
+
+            .carousel-item-demo2 .demo-item .top > div:first-child {
+                font-size: 1.5rem;
+            }

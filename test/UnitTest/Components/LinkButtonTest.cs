@@ -48,10 +48,10 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("link-primary", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
-        Assert.Contains("link-danger", cut.Markup);
+        cut.WaitForAssertion(() => Assert.Contains("link-danger", cut.Markup));
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
-        Assert.DoesNotContain("link-danger", cut.Markup);
+        cut.WaitForAssertion(() => Assert.DoesNotContain("link-danger", cut.Markup));
     }
 
     [Fact]
@@ -81,8 +81,11 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         var click = false;
         var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClick, () => click = true));
 
-        cut.Find("a").Click();
-        Assert.True(click);
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("a").Click();
+            Assert.True(click);
+        });
     }
 
     [Fact]
@@ -95,8 +98,11 @@ public class LinkButtonTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         }));
 
-        cut.Find("a").Click();
-        Assert.True(click);
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("a").Click();
+            Assert.True(click);
+        });
     }
 
     [Fact]

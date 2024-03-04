@@ -39,7 +39,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnErrorHandleAsync_Ok()
+    public async Task OnErrorHandleAsync_Ok()
     {
         var tcs = new TaskCompletionSource<bool>();
         var cut = Context.RenderComponent<ErrorLogger>(pb =>
@@ -60,7 +60,8 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         });
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
-        Assert.True(tcs.Task.Result);
+        var result = await tcs.Task;
+        Assert.True(result);
     }
 
     [Fact]

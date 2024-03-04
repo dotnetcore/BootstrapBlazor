@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Anchor 组件部分类
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Anchor
 {
     /// <summary>
@@ -17,16 +16,16 @@ public partial class Anchor
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动组件 Id 默认为 null 使用 window 元素
+    /// 获得/设置 滚动组件 Id 默认为 null 使用最近滚动条容器元素
     /// </summary>
     [Parameter]
     public string? Container { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动时是否开启动画 默认 false
+    /// 获得/设置 滚动时是否开启动画 默认 true
     /// </summary>
     [Parameter]
-    public bool IsAnimation { get; set; }
+    public bool IsAnimation { get; set; } = true;
 
     /// <summary>
     /// 获得 滚动动画

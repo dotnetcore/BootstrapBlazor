@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Ajax 组件
 /// </summary>
-[JSModuleAutoLoader]
+[BootstrapModuleAutoLoader(ModuleName = "ajax", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public class Ajax : BootstrapModuleComponentBase
 {
     [Inject]
@@ -24,19 +26,9 @@ public class Ajax : BootstrapModuleComponentBase
         AjaxService.RegisterGoto(this, Goto);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override Task ModuleInvokeVoidAsync(bool firstRender)
-    {
-        return Task.CompletedTask;
-    }
+    private Task<JsonDocument?> InvokeAsync(AjaxOption option) => InvokeAsync<JsonDocument?>("execute", option);
 
-    private Task<string?> InvokeAsync(AjaxOption option) => InvokeAsync<string?>("execute", option);
-
-    private Task Goto(string url) => InvokeAsync<string?>("goto", url);
+    private Task Goto(string url) => InvokeVoidAsync("goto", url);
 
     /// <summary>
     /// <inheritdoc/>
@@ -47,12 +39,8 @@ public class Ajax : BootstrapModuleComponentBase
         {
             AjaxService.UnRegister(this);
             AjaxService.UnRegisterGoto(this);
-
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-                Module = null;
-            }
         }
+
+        await base.DisposeAsync(disposing);
     }
 }

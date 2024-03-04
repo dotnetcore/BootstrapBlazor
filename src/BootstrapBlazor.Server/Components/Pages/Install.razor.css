@@ -1,0 +1,32 @@
+﻿.git img {
+    height: 44px;
+    width: auto;
+    display: block;
+}
+
+.git .git-fork {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.git a {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    display: block;
+    padding: 6px 10px;
+    border-radius: var(--bs-border-radius);
+}
+
+.git .git-fork img {
+    height: 56px;
+}
+
+.git .git-fork span {
+    font-size: 1.8rem;
+    color: #1c3949;
+    margin-left: 38px;
+}
+
+[data-bs-theme='dark'] .git .git-fork span {
+    color: var(--bs-body-color);
+}

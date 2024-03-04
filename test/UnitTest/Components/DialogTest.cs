@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class DialogTest : DialogTestBase
@@ -28,12 +26,14 @@ public class DialogTest : DialogTestBase
             Class = "test-class",
             ShowMaximizeButton = true,
             IsBackdrop = false,
+            ShowResize = true,
             OnCloseAsync = () =>
             {
                 closed = true;
                 return Task.CompletedTask;
             }
         }));
+        Assert.Contains("<svg", cut.Markup);
         Assert.Contains("data-bs-backdrop=\"static\"", cut.Markup);
 
         // 全屏按钮
@@ -255,7 +255,7 @@ public class DialogTest : DialogTestBase
 
         // Modal is Null
         editOption.Model = null;
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
+        var t = Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
         cut.InvokeAsync(() => cut.Find(".btn-close").Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
@@ -276,7 +276,7 @@ public class DialogTest : DialogTestBase
             ButtonCloseText = "Test-Close",
             ButtonCloseIcon = "test test-close-icon",
             ButtonCloseColor = Color.Secondary,
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
@@ -294,7 +294,7 @@ public class DialogTest : DialogTestBase
         result = true;
         resultOption = new ResultDialogOption()
         {
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
@@ -310,7 +310,7 @@ public class DialogTest : DialogTestBase
         resultOption = new ResultDialogOption()
         {
             ShowCloseButton = true,
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
@@ -328,8 +328,9 @@ public class DialogTest : DialogTestBase
         cut.InvokeAsync(() => btnElement.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
+        // 点击 FooterTemplate 中的 关闭 按钮
         cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
-        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        button = cut.FindComponents<Button>().Last(b => b.Instance.Text == "关闭");
         cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
@@ -362,11 +363,11 @@ public class DialogTest : DialogTestBase
 
         // 关闭第二个弹窗
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.Equal(1, cut.FindComponents<ModalDialog>().Count);
+        Assert.Single(cut.FindComponents<ModalDialog>());
 
         // 关闭第一个弹窗
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.Equal(0, cut.FindComponents<ModalDialog>().Count);
+        Assert.Empty(cut.FindComponents<ModalDialog>());
         #endregion
 
         #region 全屏弹窗
@@ -477,7 +478,7 @@ public class DialogTest : DialogTestBase
                 return Task.FromResult(save);
             }
         }));
-        var btnClose = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-fw fa-floppy-disk");
+        var btnClose = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-floppy-disk");
         cut.InvokeAsync(() => btnClose.Instance.OnClickWithoutRender!.Invoke());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(save);

@@ -1,0 +1,25 @@
+.layout-gotop {
+    --bb-gotop-bg: #{$bb-gotop-bg};
+    --bb-gotop-widht: #{$bb-gotop-widht};
+    --bb-gotop-height: #{$bb-gotop-height};
+    --bb-gotop-border-radius: #{$bb-gotop-border-radius};
+    --bb-gotop-margin-right: #{$bb-gotop-margin-right};
+    --bb-gotop-color: #{$bb-gotop-color};
+    --bb-gotop-hover-bg: #{$bb-gotop-hover-bg};
+    --bb-gotop-hover-color: #{$bb-gotop-hover-color};
+    background-color: var(--bb-gotop-bg);
+    width: var(--bb-gotop-widht);
+    height: var(--bb-gotop-height);
+    border-radius: var(--bb-gotop-border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: var(--bb-gotop-margin-right);
+    transition: background-color .3s linear;
+    color: var(--bb-gotop-color);
+
+    &:hover {
+        background-color: var(--bb-gotop-hover-bg);
+        color: var(--bb-gotop-hover-color);
+    }
+}

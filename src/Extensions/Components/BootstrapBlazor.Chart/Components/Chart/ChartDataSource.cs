@@ -23,4 +23,9 @@ public class ChartDataSource
     /// 获得 组件配置项 设置标题 轴坐标等
     /// </summary>
     public ChartOptions Options { get; } = new ChartOptions();
+
+    /// <summary>
+    /// 获得/设置 图标类型
+    /// </summary>
+    public string? Type { get; set; }
 }

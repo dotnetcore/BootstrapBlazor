@@ -1,0 +1,33 @@
+﻿@page "/print"
+@inject IStringLocalizer<Print> Localizer
+@inject DialogService DialogService
+@inject PrintService PrintService
+
+<h3>@Localizer["PrintsTitle"]</h3>
+
+<h4>@Localizer["PrintsSubTitle"]</h4>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["PrintsTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["PrintsTips2"].Value)</li>
+    </ul>
+</Tips>
+
+<Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
+
+<DemoBlock Title="@Localizer["PrintButtonTitle"]" Introduction="@Localizer["PrintButtonIntro"]" Name="PrintButton">
+    <p>@Localizer["PrintsButtonDescription"]</p>
+    <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
+    <p>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrint" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PrintServiceTitle"]" Introduction="@Localizer["PrintServiceIntro"]" Name="PrintService">
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrintService" />
+</DemoBlock>
+
+

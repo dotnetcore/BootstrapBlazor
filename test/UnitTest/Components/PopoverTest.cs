@@ -29,4 +29,22 @@ public class PopoverTest : BootstrapBlazorTestBase
         });
         Assert.DoesNotContain("data-bs-custom-class=\"shadow\"", cut.Markup);
     }
+
+    [Fact]
+    public void Content_OK()
+    {
+        var cut = Context.RenderComponent<Popover>(pb =>
+        {
+            pb.Add(a => a.Title, "test_content");
+            pb.Add(a => a.Content, "test_content");
+        });
+        Assert.Contains("data-bs-original-title=\"test_content\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Title, "test");
+            pb.Add(a => a.Content, "test");
+        });
+        Assert.Contains("data-bs-original-title=\"test\"", cut.Markup);
+    }
 }

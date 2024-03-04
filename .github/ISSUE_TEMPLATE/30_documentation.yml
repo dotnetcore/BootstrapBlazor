@@ -1,0 +1,14 @@
+name: 📖 Documentation
+description: Add or update the project document or sample code
+title: "doc(): title"
+labels: [documentation]
+assignees:
+  - argozhang
+body:
+- type: textarea
+  attributes:
+    label: Document describing which component
+    description: |
+      Detailed description of the document update or sample code that the submission code is about the function of that component
+    value: |
+      Add sample code for {Component}

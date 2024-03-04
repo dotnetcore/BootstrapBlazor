@@ -1,0 +1,82 @@
+.split {
+    --bb-split-bar-height: #{$bb-split-bar-height};
+    --bb-split-bar-hover-bg: #{$bb-split-bar-hover-bg};
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    .split-wrapper {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .split-wrapper.is-horizontal {
+        flex-direction: row;
+    }
+
+    &.dragging .split-wrapper {
+        cursor: row-resize;
+    }
+
+    &.dragging .split-wrapper.is-horizontal {
+        cursor: col-resize;
+    }
+
+    .split-pane {
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .split-bar {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: var(--bb-split-bar-height);
+        width: 100%;
+        border: 1px solid var(--bs-border-color);
+        border-left: none;
+        border-right: none;
+        cursor: row-resize;
+        overflow: unset;
+    }
+
+    .split-bar:hover,
+    &.dragging > .split-wrapper > .split-bar {
+        background-color: var(--bb-split-bar-hover-bg);
+    }
+
+    .split-bar:hover .split-trigger-bar,
+    &.dragging > .split-wrapper > .split-bar .split-trigger-bar {
+        background-color: var(--bs-body-bg);
+    }
+
+    .split-trigger {
+        font-size: 0;
+        display: inline-block;
+    }
+
+    .split-bar .split-trigger-bar {
+        width: 1px;
+        height: 4px;
+        background: rgba(var(--bs-body-color-rgb), .25);
+        margin-left: 3px;
+        display: inline-block;
+    }
+
+    .split-wrapper.is-horizontal > .split-bar {
+        width: 6px;
+        height: 100%;
+        border: 1px solid var(--bs-border-color);
+        border-top: none;
+        border-bottom: none;
+        cursor: col-resize;
+
+        .split-trigger-bar {
+            width: 4px;
+            height: 1px;
+            margin-left: 0;
+            margin-top: 3px;
+        }
+    }
+}

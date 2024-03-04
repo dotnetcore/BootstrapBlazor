@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ErrorLogger 全局异常组件
 /// </summary>
 public class ErrorLogger
 #if NET6_0_OR_GREATER
@@ -20,16 +20,10 @@ public class ErrorLogger
     : ComponentBase, IErrorLogger
 #endif
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private ILogger<ErrorLogger>? Logger { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
@@ -52,6 +46,7 @@ public class ErrorLogger
     /// 获得/设置 Toast 弹窗标题
     /// </summary>
     [Parameter]
+    [NotNull]
     public string? ToastTitle { get; set; }
 
     /// <summary>
@@ -79,15 +74,12 @@ public class ErrorLogger
     public RenderFragment<Exception>? ErrorContent { get; set; }
 #endif
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected Exception? Exception { get; set; }
+    private Exception? Exception { get; set; }
 
     private bool ShowErrorDetails { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -95,16 +87,19 @@ public class ErrorLogger
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
 
-        ShowErrorDetails = Configuration.GetValue<bool>("DetailedErrors", false);
+        ShowErrorDetails = Configuration.GetValue("DetailedErrors", false);
 
         if (ShowErrorDetails)
         {
             ErrorContent ??= RenderException();
         }
+#if NET6_0_OR_GREATER
+        MaximumErrorCount = 1;
+#endif
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -134,7 +129,7 @@ public class ErrorLogger
 #endif
         if (ex != null && ErrorContent != null)
         {
-            if (Cache.Any())
+            if (Cache.Count > 0)
             {
                 var component = Cache.Last();
                 if (component is IHandlerException handler)
@@ -207,7 +202,7 @@ public class ErrorLogger
         }
     }
 
-    private List<ComponentBase> Cache { get; } = new();
+    private List<ComponentBase> Cache { get; } = [];
 
     /// <summary>
     /// 

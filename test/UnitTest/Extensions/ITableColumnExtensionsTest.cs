@@ -9,7 +9,7 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void InheritValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
+        var col = new InternalTableColumn("Name", typeof(string));
         var attr = new AutoGenerateClassAttribute()
         {
             Align = Alignment.Center,
@@ -25,41 +25,43 @@ public class ITableColumnExtensionsTest
         };
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
-        Assert.True(attr.TextWrap);
-        Assert.False(attr.Editable);
-        Assert.True(attr.Filterable);
-        Assert.True(attr.Readonly);
-        Assert.True(attr.Searchable);
-        Assert.True(attr.ShowTips);
-        Assert.True(attr.Sortable);
-        Assert.True(attr.TextEllipsis);
-        Assert.True(attr.ShowCopyColumn);
+        Assert.True(col.TextWrap);
+        Assert.False(col.Editable);
+        Assert.True(col.Filterable);
+        Assert.True(col.Readonly);
+        Assert.True(col.Searchable);
+        Assert.True(col.ShowTips);
+        Assert.True(col.Sortable);
+        Assert.True(col.TextEllipsis);
+        Assert.True(col.ShowCopyColumn);
     }
 
     [Fact]
     public void CopyValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
-        var attr = new MockTableColumn("Name", typeof(string))
+        var col = new InternalTableColumn("Name", typeof(string));
+        var attr = new InternalTableColumn("Name", typeof(string))
         {
             ComponentType = typeof(NullSwitch),
-            ComponentParameters = Enumerable.Empty<KeyValuePair<string, object>>(),
+            ComponentParameters = [],
             Editable = false,
             EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
             Items = new List<SelectedItem>(),
             Lookup = new List<SelectedItem>(),
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-key",
+            LookupServiceData = true,
             IsReadonlyWhenAdd = true,
             IsReadonlyWhenEdit = true,
             Readonly = true,
             Rows = 3,
             SkipValidate = true,
             Text = "Test",
-            ValidateRules = new List<IValidator>() { new RequiredValidator() },
+            ValidateRules = [new RequiredValidator()],
             ShowLabelTooltip = true,
             GroupName = "test-group",
             GroupOrder = 1,
+            PlaceHolder = "enter placeholder",
 
             Align = Alignment.Center,
             TextWrap = true,
@@ -73,7 +75,8 @@ public class ITableColumnExtensionsTest
             FormatString = "test-format",
             Formatter = obj =>
             {
-                return Task.FromResult("test-formatter");
+                var ret = "test-formatter";
+                return Task.FromResult<string?>(ret);
             },
             HeaderTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-header")),
             OnCellRender = args => { },
@@ -85,6 +88,8 @@ public class ITableColumnExtensionsTest
             Template = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-template")),
             TextEllipsis = true,
             Visible = false,
+            IsVisibleWhenAdd = false,
+            IsVisibleWhenEdit = false,
             Width = 100,
             ShowHeaderTooltip = true,
             HeaderTextEllipsis = true,
@@ -93,62 +98,72 @@ public class ITableColumnExtensionsTest
             ShowSearchWhenSelect = true,
             IsPopover = true,
             ShowCopyColumn = true,
+            Step = "0.01",
+            Order = -1,
+            IsMarkupString = true
         };
         col.CopyValue(attr);
-        Assert.NotNull(attr.ComponentType);
-        Assert.NotNull(attr.ComponentParameters);
-        Assert.False(attr.Editable);
-        Assert.NotNull(attr.EditTemplate);
-        Assert.NotNull(attr.Items);
-        Assert.NotNull(attr.Lookup);
-        Assert.Equal(StringComparison.Ordinal, attr.LookupStringComparison);
-        Assert.Equal("test-key", attr.LookupServiceKey);
-        Assert.True(attr.IsReadonlyWhenAdd);
-        Assert.True(attr.IsReadonlyWhenEdit);
-        Assert.True(attr.Readonly);
-        Assert.Equal(3, attr.Rows);
-        Assert.True(attr.SkipValidate);
-        Assert.Equal("Test", attr.Text);
-        Assert.NotNull(attr.ValidateRules);
-        Assert.True(attr.ShowLabelTooltip);
-        Assert.Equal("test-group", attr.GroupName);
-        Assert.Equal(1, attr.GroupOrder);
+        Assert.NotNull(col.ComponentType);
+        Assert.NotNull(col.ComponentParameters);
+        Assert.False(col.Editable);
+        Assert.NotNull(col.EditTemplate);
+        Assert.NotNull(col.Items);
+        Assert.NotNull(col.Lookup);
+        Assert.Equal(StringComparison.Ordinal, col.LookupStringComparison);
+        Assert.Equal("test-key", col.LookupServiceKey);
+        Assert.Equal(true, col.LookupServiceData);
+        Assert.True(col.IsReadonlyWhenAdd);
+        Assert.True(col.IsReadonlyWhenEdit);
+        Assert.False(col.IsVisibleWhenAdd);
+        Assert.False(col.IsVisibleWhenEdit);
+        Assert.True(col.Readonly);
+        Assert.Equal(3, col.Rows);
+        Assert.True(col.SkipValidate);
+        Assert.Equal("Test", col.Text);
+        Assert.NotNull(col.ValidateRules);
+        Assert.True(col.ShowLabelTooltip);
+        Assert.Equal("test-group", col.GroupName);
+        Assert.Equal(1, col.GroupOrder);
 
         Assert.Equal(Alignment.Center, col.Align);
-        Assert.True(attr.TextWrap);
-        Assert.Equal("test-css", attr.CssClass);
-        Assert.True(attr.DefaultSort);
-        Assert.Equal(SortOrder.Desc, attr.DefaultSortOrder);
-        Assert.NotNull(attr.Filter);
-        Assert.True(attr.Filterable);
-        Assert.NotNull(attr.FilterTemplate);
-        Assert.True(attr.Fixed);
-        Assert.Equal("test-format", attr.FormatString);
-        Assert.NotNull(attr.Formatter);
-        Assert.NotNull(attr.HeaderTemplate);
-        Assert.NotNull(attr.OnCellRender);
-        Assert.True(attr.Searchable);
-        Assert.NotNull(attr.SearchTemplate);
-        Assert.Equal(BreakPoint.Large, attr.ShownWithBreakPoint);
-        Assert.True(attr.ShowTips);
-        Assert.True(attr.Sortable);
-        Assert.NotNull(attr.Template);
-        Assert.True(attr.TextEllipsis);
-        Assert.False(attr.Visible);
-        Assert.Equal(100, attr.Width);
-        Assert.True(attr.ShowHeaderTooltip);
-        Assert.True(attr.HeaderTextEllipsis);
-        Assert.True(attr.HeaderTextWrap);
-        Assert.Equal("test tooltip", attr.HeaderTextTooltip);
-        Assert.True(attr.ShowSearchWhenSelect);
-        Assert.True(attr.IsPopover);
-        Assert.True(attr.ShowCopyColumn);
+        Assert.True(col.TextWrap);
+        Assert.Equal("test-css", col.CssClass);
+        Assert.True(col.DefaultSort);
+        Assert.Equal(SortOrder.Desc, col.DefaultSortOrder);
+        Assert.NotNull(col.Filter);
+        Assert.True(col.Filterable);
+        Assert.NotNull(col.FilterTemplate);
+        Assert.True(col.Fixed);
+        Assert.Equal("test-format", col.FormatString);
+        Assert.NotNull(col.Formatter);
+        Assert.NotNull(col.HeaderTemplate);
+        Assert.NotNull(col.OnCellRender);
+        Assert.True(col.Searchable);
+        Assert.NotNull(col.SearchTemplate);
+        Assert.Equal(BreakPoint.Large, col.ShownWithBreakPoint);
+        Assert.True(col.ShowTips);
+        Assert.True(col.Sortable);
+        Assert.NotNull(col.Template);
+        Assert.True(col.TextEllipsis);
+        Assert.False(col.Visible);
+        Assert.Equal(100, col.Width);
+        Assert.True(col.ShowHeaderTooltip);
+        Assert.True(col.HeaderTextEllipsis);
+        Assert.True(col.HeaderTextWrap);
+        Assert.Equal("test tooltip", col.HeaderTextTooltip);
+        Assert.True(col.ShowSearchWhenSelect);
+        Assert.True(col.IsPopover);
+        Assert.True(col.ShowCopyColumn);
+        Assert.Equal("0.01", col.Step);
+        Assert.Equal(-1, col.Order);
+
+        Assert.True(col.IsMarkupString);
     }
 
     [Fact]
-    public void ToSearchs_Ok()
+    public void ToSearches_Ok()
     {
-        var cols = new MockTableColumn[]
+        var cols = new InternalTableColumn[]
         {
             new("Test_Name", typeof(string)),
             new("Test_Bool", typeof(bool)),
@@ -170,28 +185,28 @@ public class ITableColumnExtensionsTest
         };
 
         // NullOrEmpty
-        var filters = cols.ToSearchs(null);
+        var filters = cols.ToSearches(null);
         Assert.Empty(filters);
-        filters = cols.ToSearchs("");
+        filters = cols.ToSearches("");
         Assert.Empty(filters);
 
         // bool
-        filters = cols.ToSearchs("true");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is bool)));
+        filters = cols.ToSearches("true");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue is bool));
 
         // Enum
-        filters = cols.ToSearchs("Asc");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is SortOrder)));
+        filters = cols.ToSearches("Asc");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue is SortOrder));
 
         // Number
-        filters = cols.ToSearchs("1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(int))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(short))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(long))));
+        filters = cols.ToSearches("1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(int)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(short)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(long)));
 
-        filters = cols.ToSearchs("2.1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(float))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(double))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(decimal))));
+        filters = cols.ToSearches("2.1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(float)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(double)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(decimal)));
     }
 }

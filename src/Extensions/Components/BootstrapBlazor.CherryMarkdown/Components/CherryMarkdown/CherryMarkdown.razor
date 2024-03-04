@@ -1,4 +1,4 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.CherryMarkdown/js/bootstrap.blazor.cherrymarkdown.min.js", JSObjectReference = true, Relative = false)]
-<div @attributes="@AdditionalAttributes" id="@Id"></div>
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" @ref="@Element"></div>

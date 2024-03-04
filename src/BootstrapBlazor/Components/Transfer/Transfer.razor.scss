@@ -1,0 +1,123 @@
+.transfer {
+    --bb-transfer-panel-header-height: #{$bb-transfer-panel-header-height};
+    --bb-transfer-panel-header-padding: #{$bb-transfer-panel-header-padding};
+    --bb-transfer-panel-body-padding: #{$bb-transfer-panel-body-padding};
+    --bb-transfer-panel-list-max-height: #{$bb-transfer-panel-list-max-height};
+    --bb-transfer-panel-list-min-height: #{$bb-transfer-panel-list-min-height};
+    --bb-transfer-panel-item-padding: #{$bb-transfer-panel-item-padding};
+    --bb-transfer-panel-item-margin: #{$bb-transfer-panel-item-margin};
+    --bb-transfer-panel-item-width: #{$bb-transfer-panel-item-width};
+    --bb-transfer-buttons-padding: #{$bb-transfer-buttons-padding};
+    --bb-transfer-filter-focus-border-color: #{$bb-transfer-filter-focus-border-color};
+    --bb-transfer-filter-margin: #{$bb-transfer-filter-margin};
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+.transfer-panel {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    flex: 1;
+    position: relative;
+}
+
+.transfer-panel.is-invalid {
+    border: 1px solid var(--bs-danger);
+}
+
+.transfer-panel.is-valid {
+    border: 1px solid var(--bs-success);
+}
+
+.transfer-panel .transfer-panel-header {
+    height: var(--bb-transfer-panel-header-height);
+    padding: var(--bb-transfer-panel-header-padding);
+    border-bottom: 1px solid var(--bs-border-color);
+    border-top-left-radius: var(--bs-border-radius);
+    border-top-right-radius: var(--bs-border-radius);
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.transfer-panel-body {
+    padding: var(--bb-transfer-panel-body-padding);
+}
+
+.transfer-panel-list {
+    max-height: var(--bb-transfer-panel-list-max-height);
+    min-height: var(--bb-transfer-panel-list-min-height);
+}
+
+.transfer-panel-item {
+    border-radius: var(--bs-border-radius);
+    padding: var(--bb-transfer-panel-item-padding);
+    margin: var(--bb-transfer-panel-item-margin);
+    width: var(--bb-transfer-panel-item-width);
+}
+
+.transfer-buttons {
+    display: flex;
+    align-items: center;
+    padding: var(--bb-transfer-buttons-padding);
+}
+
+.transfer-buttons .btn {
+    white-space: nowrap;
+}
+
+.transfer-buttons .btn:not(:first-child) {
+    margin-left: 10px;
+}
+
+.transfer-panel-filter {
+    position: relative;
+    margin: var(--bb-transfer-filter-margin);
+}
+
+.transfer-panel-filter .input-inner {
+    height: 32px;
+    line-height: 32px;
+    width: 100%;
+    display: inline-block;
+    border-radius: var(--bs-border-radius);
+    padding-right: 10px;
+    padding-left: 30px;
+    border: 1px solid var(--bs-border-color);
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    color: #606266;
+}
+
+.transfer-panel-filter .input-inner:focus {
+    border-color: var(--bb-transfer-filter-focus-border-color);
+}
+
+.transfer-panel-filter .input-prefix {
+    height: 100%;
+    width: 30px;
+    transition: all .3s;
+    position: absolute;
+    left: 4px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #c0c4cc;
+}
+
+.transfer-panel-filter .input-prefix:not(.disabled):hover i:before,
+.transfer-panel-filter .input-prefix.is-on i:before {
+    cursor: pointer;
+    content: "\f057";
+}
+
+.transfer-panel-filter .input-prefix.disabled:hover i:before {
+    cursor: not-allowed;
+}
+
+.transfer-panel-empty {
+    position: absolute;
+    top: 35%;
+    width: 100%;
+}

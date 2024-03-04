@@ -23,6 +23,17 @@ public class HandwrittenTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Interop_OK()
+    {
+        var cut = Context.RenderComponent<Handwritten>();
+
+        // 反射设置内部 Interop 属性为 null
+        var pi = cut.Instance.GetType().GetProperty("Interop", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        pi.SetValue(cut.Instance, null);
+        cut.Dispose();
+    }
+
+    [Fact]
     public async Task HandwrittenBase64_OK()
     {
         var ret = false;

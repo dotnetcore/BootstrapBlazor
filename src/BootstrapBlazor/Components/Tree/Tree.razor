@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("TreeView/TreeView.razor.js")]
 
 @if (Items == null)
 {
@@ -16,7 +17,7 @@
 }
 else
 {
-    <div tabindex="0" role="tree" class="@ClassString" @ref="@TreeElement">
+    <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" role="tree" class="@ClassString">
         <ul class="tree-root" role="tree">
             @foreach (var item in Items)
             {
@@ -35,46 +36,46 @@ else
         }
     </ul>;
 
-private RenderFragment<TreeItem> RenderTreeItem => item =>
-@<li role="treeitem" class="@GetItemClassString(item)">
-    <div class="tree-content">
-        <i class="@GetCaretClassString(item)" @onclick="() => OnExpandRowAsync(item)"></i>
-        @if (ShowCheckbox)
-        {
-            <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                      ShowLabel="false" ShowAfterLabel="false"
-                      OnStateChanged="(state, v) => OnStateChanged(state, item)" />
-        }
-        else if (ShowRadio)
-        {
-            <Radio @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                   ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
-                   OnClick="p => OnRadioClick(item)" State="@Tree.CheckState(item)" />
-        }
-        <div class="tree-node" @onclick="() => OnClick(item)">
-            @if (ShowIcon)
+    private RenderFragment<TreeItem> RenderTreeItem => item =>
+    @<li role="treeitem" class="@GetItemClassString(item)">
+        <div class="tree-content">
+            <i class="@GetCaretClassString(item)" @onclick="() => OnExpandRowAsync(item)"></i>
+            @if (ShowCheckbox)
             {
-                <i class="@GetIconClassString(item)"></i>
+                <Checkbox @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                          ShowLabel="false" ShowAfterLabel="false"
+                          OnStateChanged="(state, v) => OnStateChanged(state, item)" />
             }
-            @if (item.Template == null)
+            else if (ShowRadio)
             {
-                <span class="@item.CssClass">@item.Text</span>
+                <Radio @bind-Value="@item.Checked" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                       ShowLabel="false" ShowAfterLabel="false" GroupName="@GroupName"
+                       OnClick="p => OnRadioClick(item)" State="@Tree.CheckState(item)" />
             }
-            else
-            {
-                @item.Template    
-            }
+            <div class="tree-node" @onclick="() => OnClick(item)">
+                @if (ShowIcon)
+                {
+                    <i class="@GetIconClassString(item)"></i>
+                }
+                @if (item.Template == null)
+                {
+                    <span class="@item.CssClass">@item.Text</span>
+                }
+                else
+                {
+                    @item.Template    
+                }
+            </div>
         </div>
-    </div>
-    @if (item.ShowLoading)
-    {
-        <ul class="tree-ul show">
-            <Spinner Size="Size.Small" Color="Color.Primary" />
-        </ul>
-    }
-    else if (item.Items.Any())
-    {
-        @RenderTreeNode(item)
-    }
-</li>;
+        @if (item.ShowLoading)
+        {
+            <ul class="tree-ul show">
+                <Spinner Size="Size.Small" Color="Color.Primary" />
+            </ul>
+        }
+        else if (item.Items.Any())
+        {
+            @RenderTreeNode(item)
+        }
+    </li>;
 }

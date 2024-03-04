@@ -50,14 +50,19 @@ public static class ObjectExtensions
     public static bool IsNumber(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check =
-            targetType == typeof(int) ||
-            targetType == typeof(long) ||
-            targetType == typeof(short) ||
-            targetType == typeof(float) ||
-            targetType == typeof(double) ||
-            targetType == typeof(decimal);
-        return check;
+        return targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) ||
+            targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal);
+    }
+
+    /// <summary>
+    /// 检查是否为 Boolean 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsBoolean(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        return targetType == typeof(Boolean);
     }
 
     /// <summary>
@@ -123,17 +128,15 @@ public static class ObjectExtensions
         if (type != typeof(string))
         {
             ret = false;
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
+            var methodInfo = Array.Find(typeof(ObjectExtensions).GetMethods(), m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
             if (methodInfo != null)
             {
                 methodInfo = methodInfo.MakeGenericMethod(type);
                 var v = Activator.CreateInstance(type);
                 var args = new object?[] { source, v };
-                if (methodInfo.Invoke(null, args) is bool b)
-                {
-                    val = b ? args[1] : null;
-                    ret = b;
-                }
+                var b = (bool)methodInfo.Invoke(null, args)!;
+                val = b ? args[1] : null;
+                ret = b;
             }
         }
         return ret;
@@ -203,12 +206,34 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
+    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
         && !item.Readonly && changedType switch
         {
             ItemChangedType.Add => !item.IsReadonlyWhenAdd,
             _ => !item.IsReadonlyWhenEdit
-        } || search;
+        };
+
+    /// <summary>
+    /// 判断当前 IEditorItem 实例是否显示
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
+        && (IsVisible(item, changedType) || IsRevertVisible(item, changedType));
+
+    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => item.Visible && changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
+
+    private static bool IsRevertVisible(IEditorItem item, ItemChangedType changedType) => !item.Visible || changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
 
     /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑
@@ -218,7 +243,7 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search) && item.IsVisible(changedType, search);
 
     /// <summary>
     /// 判断模型是否可写
@@ -255,6 +280,29 @@ public static class ObjectExtensions
                 ret = propertyInfo.CanWrite;
             }
             return ret;
+        }
+    }
+
+    internal static void Clone<TModel>(this TModel source, TModel item)
+    {
+        if (item != null)
+        {
+            var type = typeof(TModel);
+
+            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            foreach (var f in type.GetFields())
+            {
+                var v = f.GetValue(item);
+                f.SetValue(source, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
+            {
+                if (p.CanWrite)
+                {
+                    var v = p.GetValue(item);
+                    p.SetValue(source, v);
+                }
+            }
         }
     }
 }

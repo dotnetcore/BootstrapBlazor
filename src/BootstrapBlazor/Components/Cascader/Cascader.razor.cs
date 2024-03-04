@@ -15,7 +15,7 @@ public partial class Cascader<TValue>
     /// <summary>
     /// 当前选中节点集合
     /// </summary>
-    private List<CascaderItem> SelectedItems { get; } = new();
+    private List<CascaderItem> SelectedItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 Cascader 内部 Input 组件 Id
@@ -67,11 +67,31 @@ public partial class Cascader<TValue>
     [Parameter]
     public bool ShowFullLevels { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? SubMenuIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Cascader<TValue>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string _lastVaslue = string.Empty;
+
+    private string? SubMenuIconString => CssBuilder.Default("nav-link-right")
+        .AddClass(SubMenuIcon, !string.IsNullOrEmpty(SubMenuIcon))
+        .Build();
 
     /// <summary>
     /// OnParametersSet 方法
@@ -79,6 +99,9 @@ public partial class Cascader<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
+        SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
 
         Items ??= Enumerable.Empty<CascaderItem>();
 
@@ -179,7 +202,6 @@ public partial class Cascader<TValue>
             SelectedItems.Clear();
             SetSelectedNodeWithParent(item, SelectedItems);
             await SetValue(item.Value);
-            await JSRuntime.InvokeVoidAsync(InputId, "bb_cascader_hide");
         }
     }
 

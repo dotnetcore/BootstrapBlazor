@@ -1,0 +1,75 @@
+﻿<DropdownWidget>
+    <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4" BadgeColor="Color.Primary">
+        <HeaderTemplate>
+            <span>您有 4 个未读消息</span>
+        </HeaderTemplate>
+        <BodyTemplate>
+            @for (var index = 0; index < 4; index++)
+            {
+                <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
+                    <div style="width: 40px; height: 40px;">
+                        <Avatar Url="./images/Argo-C.png" IsCircle="true" Size="Size.Small" />
+                    </div>
+                    <div class="ms-2">
+                        <div class="d-flex position-relative">
+                            <h4>Argo Zhang</h4>
+                            <small><i class="fa-regular fa-clock"></i> @(4 + index) mins</small>
+                        </div>
+                        <div class="text-truncate">Why not buy a new awesome theme?</div>
+                    </div>
+                </a>
+            }
+        </BodyTemplate>
+        <FooterTemplate>
+            <a href="#" @onclick:preventDefault>查看所有消息</a>
+        </FooterTemplate>
+    </DropdownWidgetItem>
+    <DropdownWidgetItem Icon="fa-regular fa-bell" BadgeNumber="10" HeaderColor="Color.Success" BadgeColor="Color.Success">
+        <HeaderTemplate>
+            <span>您有 10 个未读通知</span>
+        </HeaderTemplate>
+        <BodyTemplate>
+            @for (var index = 0; index < 10; index++)
+            {
+                <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
+                    <i class="fa-solid fa-users text-primary"></i>
+                    <div class="ms-2">5 new members joined</div>
+                </a>
+            }
+        </BodyTemplate>
+        <FooterTemplate>
+            <a href="#" @onclick:preventDefault>查看所有通知</a>
+        </FooterTemplate>
+    </DropdownWidgetItem>
+    <DropdownWidgetItem Icon="fa-solid fa-flag" BadgeNumber="9" HeaderColor="Color.Danger" BadgeColor="Color.Danger">
+        <HeaderTemplate>
+            <span>您有 3 个任务</span>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <a href="#" class="dropdown-item" @onclick:preventDefault>
+                <h3 class="position-relative">
+                    Design some buttons
+                    <small class="pull-right">20%</small>
+                </h3>
+                <BootstrapBlazor.Components.Progress IsAnimated="true" IsStriped="true" Value="20" Color="Color.Primary"></BootstrapBlazor.Components.Progress>
+            </a>
+            <a href="#" class="dropdown-item" @onclick:preventDefault>
+                <h3 class="position-relative">
+                    Create a nice theme
+                    <small class="pull-right">40%</small>
+                </h3>
+                <BootstrapBlazor.Components.Progress Value="40" Color="Color.Success"></BootstrapBlazor.Components.Progress>
+            </a>
+            <a href="#" class="dropdown-item" @onclick:preventDefault>
+                <h3 class="position-relative">
+                    Some task I need to do
+                    <small class="pull-right">60%</small>
+                </h3>
+                <BootstrapBlazor.Components.Progress Value="60" Color="Color.Danger"></BootstrapBlazor.Components.Progress>
+            </a>
+        </BodyTemplate>
+        <FooterTemplate>
+            <a href="#" @onclick:preventDefault>查看所有任务</a>
+        </FooterTemplate>
+    </DropdownWidgetItem>
+</DropdownWidget>

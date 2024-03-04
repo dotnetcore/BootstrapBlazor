@@ -1,0 +1,17 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("TimePicker/TimePickerCell.razor.js", JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    <i class="@UpIconString" @onclick="OnClickUp"></i>
+    <i class="@DownIconString" @onclick="OnClickDown"></i>
+    <div class="time-spinner-list-wrapper">
+        <ul class="time-spinner-list" style="@StyleName">
+            <li class="time-spinner-item">&nbsp;</li>
+            @foreach (var index in Range)
+            {
+                <li class="@GetClassName(index)">@index</li>
+            }
+        </ul>
+    </div>
+</div>

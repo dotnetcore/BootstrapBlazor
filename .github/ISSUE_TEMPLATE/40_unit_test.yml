@@ -1,6 +1,6 @@
 name: 🧪 Test
 description: Unit test for this project
-title: "test: <title>"
+title: "test(): title"
 labels: [test]
 assignees:
   - argozhang
@@ -9,5 +9,6 @@ body:
   attributes:
     label: Which class is this unit test associated with?
     description: Add unit test for code coverage.
+    value: Improve code coverage
   validations:
     required: false

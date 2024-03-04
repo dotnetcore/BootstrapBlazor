@@ -1,0 +1,68 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using Microsoft.Extensions.DependencyInjection;
+
+namespace UnitTest.Services;
+
+public class ZipArchiveServiceTest : BootstrapBlazorTestBase
+{
+    [Fact]
+    public async Task Archive_Ok()
+    {
+        var archService = Context.Services.GetRequiredService<IZipArchiveService>();
+        var root = AppContext.BaseDirectory;
+        var files = new string[]
+        {
+            Path.Combine(root, "1.txt"),
+            Path.Combine(root, "2.txt")
+        };
+        files.ToList().ForEach(f =>
+        {
+            using var fs = File.OpenWrite(f);
+            fs.WriteByte(65);
+        });
+        var stream = await archService.ArchiveAsync(files);
+        Assert.NotNull(stream);
+
+        stream = await archService.ArchiveAsync(files, new ArchiveOptions()
+        {
+            CompressionLevel = System.IO.Compression.CompressionLevel.Optimal,
+            Encoding = System.Text.Encoding.UTF8,
+            Mode = System.IO.Compression.ZipArchiveMode.Create,
+            ReadStreamAsync = f => Task.FromResult<Stream>(new MemoryStream("A"u8.ToArray()))
+        });
+        Assert.NotNull(stream);
+
+        var archiveFile = Path.Combine(root, "test.zip");
+        await archService.ArchiveAsync(archiveFile, files);
+        Assert.True(File.Exists(archiveFile));
+
+        // GetEntry
+        var entry = archService.GetEntry(archiveFile, files[0]);
+        Assert.NotNull(entry);
+
+        // ExtractToDirectory
+        var destFolder = Path.Combine(root, "test");
+        if (Directory.Exists(destFolder))
+        {
+            Directory.Delete(destFolder, true);
+        }
+        archService.ExtractToDirectory(archiveFile, destFolder);
+        Assert.True(Directory.Exists(destFolder));
+
+        // 打包文件夹
+        //stream = await archService.ArchiveDirectory(destFolder);
+        //Assert.NotNull(stream);
+
+        var destFile = Path.Combine(root, "folder.zip");
+        if (File.Exists(destFile))
+        {
+            File.Delete(destFile);
+        }
+        await archService.ArchiveDirectory(destFile, destFolder, includeBaseDirectory: true);
+        Assert.True(File.Exists(destFile));
+        File.Delete(destFile);
+    }
+}

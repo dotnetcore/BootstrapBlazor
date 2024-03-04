@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class RowTest : TestBase
+public class RowTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void RowType_Normal()
@@ -15,7 +15,7 @@ public class RowTest : TestBase
             pb.Add(a => a.ChildContent, CreateContent());
         });
 
-        Assert.Contains("data-type=\"row\"", cut.Markup);
+        Assert.Contains("data-bb-type=\"row\"", cut.Markup);
     }
 
     [Fact]
@@ -27,7 +27,7 @@ public class RowTest : TestBase
             pb.Add(a => a.ChildContent, CreateContent());
         });
 
-        Assert.Contains("data-type=\"inline\"", cut.Markup);
+        Assert.Contains("data-bb-type=\"inline\"", cut.Markup);
     }
 
     [Theory]
@@ -45,7 +45,7 @@ public class RowTest : TestBase
             pb.Add(a => a.ChildContent, CreateContent());
         });
 
-        Assert.Contains($"data-items=\"{cols}\"", cut.Markup);
+        Assert.Contains($"data-bb-items=\"{cols}\"", cut.Markup);
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class RowTest : TestBase
             pb.Add(a => a.ChildContent, CreateContent());
         });
 
-        Assert.Contains($"data-colspan=\"1\"", cut.Markup);
+        Assert.Contains($"data-bb-colspan=\"1\"", cut.Markup);
     }
 
     private static RenderFragment CreateContent() => new(builder =>

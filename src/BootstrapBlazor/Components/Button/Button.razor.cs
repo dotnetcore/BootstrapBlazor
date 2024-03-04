@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Button 按钮组件
 /// </summary>
-public partial class Button
+public partial class Button : ButtonBase
 {
     /// <summary>
     /// 获得/设置 是否自动获取焦点 默认 false 不自动获取焦点
@@ -34,6 +34,32 @@ public partial class Button
     {
         base.OnInitialized();
 
+        SetClickHandler();
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (IsAutoFocus)
+            {
+                await FocusAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 设置 OnClickButton 方法 
+    /// </summary>
+    protected virtual void SetClickHandler()
+    {
         OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
         {
             if (IsAsync && ButtonType == ButtonType.Button)
@@ -60,24 +86,6 @@ public partial class Button
                 IsAsyncLoading = false;
             }
         });
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            if (IsAutoFocus)
-            {
-                await FocusAsync();
-            }
-        }
     }
 
     /// <summary>

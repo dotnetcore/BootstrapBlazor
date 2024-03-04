@@ -1,0 +1,28 @@
+﻿.bb-model-Default {
+    width: 100%;
+    height: 100%;
+}
+
+.bb-model-BottomLeft {
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+}
+
+.bb-model-BottomRight {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+}
+
+.bb-model-TopLeft {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+}
+
+.bb-model-TopRight {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+}

@@ -1,0 +1,93 @@
+.tree-view {
+    --bb-tree-padding: #{$bb-tree-padding};
+    --bb-tree-margin: #{$bb-tree-margin};
+    --bb-tree-ul-padding-left: #{$bb-tree-ul-padding-left};
+    --bb-tree-item-margin: #{$bb-tree-item-margin};
+    --bb-tree-icon-width: #{$bb-tree-icon-width};
+    --bb-tree-check-margin: #{$bb-tree-check-margin};
+    --bb-tree-node-padding: #{$bb-tree-node-padding};
+    --bb-tree-item-active-color: #{$bb-tree-item-active-color};
+    --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
+    --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
+    --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
+    --bb-tree-disabled-opacity: .5;
+    position: relative;
+}
+
+    .tree-view .tree-root {
+        padding: var(--bb-tree-padding);
+        margin: var(--bb-tree-margin);
+    }
+
+    .tree-view .tree-ul {
+        padding: 0 0 0 var(--bb-tree-ul-padding-left);
+        display: none;
+    }
+
+        .tree-view .tree-ul.show {
+            display: block;
+        }
+
+    .tree-view .tree-item {
+        list-style: none;
+        cursor: pointer;
+        margin: var(--bb-tree-item-margin);
+    }
+
+        .tree-view .tree-item .tree-content {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+            .tree-view .tree-item .tree-content .node-icon {
+                width: 18px;
+                height: 18px;
+                transition: transform .3s linear;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                visibility: hidden;
+
+                &.disabled {
+                    opacity: var(--bb-tree-disabled-opacity);
+                }
+            }
+
+            .tree-view .tree-item .tree-content .show .node-icon {
+                transform: rotate(90deg);
+            }
+
+    .tree-view .tree-node {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--bb-tree-node-padding);
+        border-radius: var(--bs-border-radius);
+        flex: 1;
+
+        &.disabled {
+            opacity: var(--bb-tree-disabled-opacity);
+        }
+    }
+
+        .tree-view .tree-node:hover {
+            background-color: var(--bb-tree-item-hover-bg);
+        }
+
+        .tree-view .tree-node .tree-icon {
+            margin-right: var(--bb-tree-icon-margin-right);
+        }
+
+    .tree-view .form-check {
+        margin: var(--bb-tree-check-margin);
+    }
+
+    .tree-view .tree-icon {
+        width: var(--bb-tree-icon-width);
+        text-align: center;
+    }
+
+    .tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
+        color: var(--bb-tree-item-active-color);
+        background-color: var(--bb-tree-item-active-bg);
+    }

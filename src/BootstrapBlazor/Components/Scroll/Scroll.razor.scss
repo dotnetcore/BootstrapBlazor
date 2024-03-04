@@ -1,0 +1,43 @@
+.scroll {
+    --bb-scroll-thumb-bg: #{$bb-scroll-thumb-bg};
+    --bb-scroll-thumb-hover-bg: #{$bb-scroll-thumb-hover-bg};
+    --bb-scroll-thumb-active-bg: #{$bb-scroll-thumb-active-bg};
+    --bb-scroll-track-bg: #{$bb-scroll-track-bg};
+    --bb-scroll-default-width: 4px;
+    --bb-scroll-default-hover-width: 8px;
+    height: 100%;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+        width: var(--bb-scroll-width, var(--bb-scroll-default-width));
+        height: var(--bb-scroll-width, var(--bb-scroll-default-width));
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: calc(var(--bb-scroll-width, var(--bb-scroll-default-width)) / 2);
+        background-color: var(--bb-scroll-thumb-bg);
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: calc(var(--bb-scroll-width, var(--bb-scroll-default-width)) / 2);
+        background-color: var(--bb-scroll-track-bg);
+    }
+
+    &:hover {
+        --bb-scroll-width: var(--bb-scroll-hover-width, var(--bb-scroll-default-hover-width));
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--bb-scroll-thumb-hover-bg);
+        }
+    }
+
+    &:active {
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--bb-scroll-thumb-active-bg);
+        }
+    }
+}

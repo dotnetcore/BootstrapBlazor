@@ -1,0 +1,204 @@
+.ribbon-tab {
+    --bb-ribbon-menu-height: #{$bb-ribbon-menu-height};
+    --bb-ribbon-menu-margin-top: #{$bb-ribbon-menu-margin-top};
+    --bb-ribbon-menu-body-height: #{$bb-ribbon-menu-body-height};
+    --bb-ribbon-menu-body-padding: #{$bb-ribbon-menu-body-padding};
+    --bb-ribbon-menu-radius: #{$bb-ribbon-menu-radius};
+    --bb-ribbon-menu-padding: #{$bb-ribbon-menu-padding};
+    --bb-ribbon-menu-border-color: #{$bb-ribbon-menu-border-color};
+    --bb-ribbon-menu-hover-color: #{$bb-ribbon-menu-hover-color};
+    --bb-ribbon-menu-bg: #{$bb-ribbon-menu-bg};
+    --bb-ribbon-menu-color: #{$bb-ribbon-menu-color};
+    --bb-ribbon-button-hover-bg: #{$bb-ribbon-button-hover-bg};
+    --bb-ribbon-button-hover-border-color: #{$bb-ribbon-button-hover-border-color};
+    --bb-ribbon-button-active-bg: #{$bb-ribbon-button-active-bg};
+    --bb-ribbon-button-active-border-color: #{$bb-ribbon-button-active-border-color};
+    --bb-ribbon-button-border-width: #{$bb-ribbon-button-border-width};
+    --bb-ribbon-button-border-color: #{$bb-ribbon-button-border-color};
+    --bb-ribbon-button-radius: #{$bb-ribbon-button-radius};
+    --bb-ribbon-button-padding: #{$bb-ribbon-button-padding};
+    --bb-ribbon-button-fontsize: #{$bb-ribbon-button-fontsize};
+    --bb-ribbon-button-min-width: #{$bb-ribbon-button-min-width};
+    --bb-ribbon-group-fontsize: #{$bb-ribbon-group-fontsize};
+    --bb-ribbon-group-color: #{$bb-ribbon-group-color};
+    --bb-ribbon-group-margin-top: #{$bb-ribbon-group-margin-top};
+    --bb-ribbon-body-padding: #{$bb-ribbon-body-padding};
+    --bb-ribbon-menu-header-height: calc(var(--bb-ribbon-menu-height) + var(--bb-ribbon-menu-margin-top) + var(--bb-ribbon-menu-body-height));
+    position: relative;
+}
+
+.ribbon-tab.is-float:not(.is-expand) {
+    --bb-ribbon-menu-body-height: 0px;
+}
+
+.ribbon-tab .ribbon-header {
+    position: relative;
+}
+
+.ribbon-tab .ribbon-header .tabs-header {
+    background-color: var(--bb-ribbon-menu-bg);
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card.tabs-top .tabs-header {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card {
+    border-radius: unset;
+    border: none;
+    box-shadow: none;
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item {
+    padding: 0 var(--bb-ribbon-menu-padding);
+    margin-top: var(--bb-ribbon-menu-margin-top);
+    height: var(--bb-ribbon-menu-height);
+    border-top-left-radius: var(--bb-ribbon-menu-radius);
+    border-top-right-radius: var(--bb-ribbon-menu-radius);
+    transition: background-color .3s ease-in-out, color .3s ease-in-out, border-right-color .3s ease-in-out, border-left-color .3s ease-in-out;
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item.active {
+    border-left-color: var(--bb-ribbon-menu-border-color);
+    border-right-color: var(--bb-ribbon-menu-border-color);
+    border-top-color: var(--bb-ribbon-menu-border-color);
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:nth-child(2) {
+    padding-left: var(--bb-ribbon-menu-padding);
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:last-child {
+    padding-right: var(--bb-ribbon-menu-padding);
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:not(:hover):not(.active) {
+    color: var(--bb-ribbon-menu-color);
+}
+
+.ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:hover {
+    color: var(--bb-ribbon-menu-hover-color);
+}
+
+.ribbon-tab .tabs-nav-scroll {
+    padding: 0 var(--bb-ribbon-menu-padding);
+}
+
+.ribbon-tab .tabs .tabs-body {
+    padding: 0;
+}
+
+.ribbon-tab .tabs-body-content {
+    overflow: hidden;
+    height: var(--bb-ribbon-menu-body-height);
+    transition: height .3s ease-in-out;
+}
+
+.ribbon-tab.is-float:not(.is-expand) .tabs-body-content {
+    height: 0;
+}
+
+.ribbon-tab .fa-thumb-tack {
+    width: 18px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ribbon-tab .tab-commands {
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: var(--bb-ribbon-button-fontsize);
+    overflow: hidden;
+    padding: var(--bb-ribbon-menu-body-padding);
+    height: 100%;
+}
+
+.ribbon-tab .link-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ribbon-tab .link-button {
+    font-size: var(--bb-ribbon-button-fontsize);
+    padding: var(--bb-ribbon-button-padding);
+    border-radius: var(--bb-ribbon-button-radius);
+    border: var(--bb-ribbon-button-border-width) solid var(--bb-ribbon-button-border-color);
+    min-width: var(--bb-ribbon-button-min-width);
+    transition: background-color .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.ribbon-tab .link-button.active {
+    background-color: var(--bb-ribbon-button-active-bg);
+    border-color: var(--bb-ribbon-button-active-border-color);
+}
+
+.ribbon-tab .link-button:not(:last-child) {
+    margin-right: 1px;
+}
+
+.ribbon-tab .link-button:not([disabled]):hover {
+    background-color: var(--bb-ribbon-button-hover-bg);
+    border-color: var(--bb-ribbon-button-hover-border-color);
+}
+
+.ribbon-tab .link-button > i {
+    font-size: 1rem;
+    margin-bottom: .25rem;
+}
+
+.ribbon-tab .link-button > span {
+    white-space: nowrap;
+}
+
+.ribbon-tab .link-group-name {
+    margin-top: var(--bb-ribbon-group-margin-top);
+    color: var(--bb-ribbon-group-color);
+    font-size: var(--bb-ribbon-group-fontsize)
+}
+
+.ribbon-tab .divider-vertical {
+    margin: 0 4px;
+}
+
+.ribbon-tab .ribbon-buttons {
+    position: absolute;
+    right: 1rem;
+    top: var(--bb-ribbon-menu-margin-top);
+    height: var(--bb-ribbon-menu-height);
+}
+
+.ribbon-tab .ribbon-buttons,
+.ribbon-tab .ribbon-customer-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.ribbon-tab .ribbon-buttons > * {
+    cursor: pointer;
+}
+
+.ribbon-tab .ribbon-customer-buttons {
+    margin-right: 1rem;
+}
+
+.ribbon-tab .ribbon-button {
+    padding: 1px 8px;
+    cursor: pointer;
+    border-radius: var(--bs-border-radius);
+    transition: background-color .3s ease-in-out;
+}
+
+.ribbon-tab .ribbon-button:hover {
+    background-color: var(--bb-tab-item-hover-color);
+}
+
+.ribbon-tab .ribbon-body {
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
+    padding: var(--bb-ribbon-body-padding);
+    position: relative;
+}

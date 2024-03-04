@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class SkeletonTest : TestBase
+public class SkeletonTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Circle_Ok()

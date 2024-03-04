@@ -8,16 +8,13 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 穿梭框组件
 /// </summary>
 public partial class Transfer<TValue>
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
-    protected IStringLocalizer<Transfer<TValue>>? Localizer { get; set; }
+    private IStringLocalizer<Transfer<TValue>>? Localizer { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮文本样式
@@ -40,17 +37,18 @@ public partial class Transfer<TValue>
     /// <summary>
     /// 获得/设置 左侧数据集合
     /// </summary>
-    private List<SelectedItem> LeftItems { get; } = new List<SelectedItem>();
+    private List<SelectedItem> LeftItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 右侧数据集合
     /// </summary>
-    private List<SelectedItem> RightItems { get; } = new List<SelectedItem>();
+    private List<SelectedItem> RightItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 组件绑定数据项集合
     /// </summary>
     [Parameter]
+    [NotNull]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
@@ -75,6 +73,18 @@ public partial class Transfer<TValue>
     public string? RightPanelText { get; set; }
 
     /// <summary>
+    /// 获得/设置 向左侧转移图标
+    /// </summary>
+    [Parameter]
+    public string? LeftIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 向右侧转移图标
+    /// </summary>
+    [Parameter]
+    public string? RightIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 左侧按钮显示文本
     /// </summary>
     [Parameter]
@@ -96,13 +106,29 @@ public partial class Transfer<TValue>
     /// 获得/设置 左侧面板搜索框 placeholder 文字
     /// </summary>
     [Parameter]
-    public string? LeftPannelSearchPlaceHolderString { get; set; }
+    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 Please use LeftPanelSearchPlaceHolderString")]
+    [ExcludeFromCodeCoverage]
+    public string? LeftPannelSearchPlaceHolderString { get => LeftPanelSearchPlaceHolderString; set => LeftPanelSearchPlaceHolderString = value; }
+
+    /// <summary>
+    /// 获得/设置 左侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
+    public string? LeftPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧面板搜索框 placeholder 文字
     /// </summary>
     [Parameter]
-    public string? RightPannelSearchPlaceHolderString { get; set; }
+    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 Please use RightPanelSearchPlaceHolderString")]
+    [ExcludeFromCodeCoverage]
+    public string? RightPannelSearchPlaceHolderString { get => RightPanelSearchPlaceHolderString; set => RightPanelSearchPlaceHolderString = value; }
+
+    /// <summary>
+    /// 获得/设置 右侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
+    public string? RightPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧面板包含的最大数量, 默认为 0 不限制
@@ -138,11 +164,39 @@ public partial class Transfer<TValue>
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
     /// <summary>
+    /// 获得/设置 左侧 Panel Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? LeftHeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 左侧 Panel Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? LeftItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧 Panel Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? RightHeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧 Panel Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
     /// </summary>
     [Inject]
     [NotNull]
     public IStringLocalizerFactory? LocalizerFactory { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -151,10 +205,7 @@ public partial class Transfer<TValue>
     {
         base.OnInitialized();
 
-        if (OnSetItemClass == null)
-        {
-            OnSetItemClass = _ => null;
-        }
+        OnSetItemClass ??= _ => null;
 
         // 处理 Required 标签
         if (EditContext != null && FieldIdentifier != null)
@@ -183,11 +234,14 @@ public partial class Transfer<TValue>
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
+        LeftIcon ??= IconTheme.GetIconByKey(ComponentIcons.TransferLeftIcon);
+        RightIcon ??= IconTheme.GetIconByKey(ComponentIcons.TransferRightIcon);
+
         var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
         LeftItems.Clear();
         RightItems.Clear();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
 
         // 左侧移除
         LeftItems.AddRange(Items);
@@ -261,7 +315,11 @@ public partial class Transfer<TValue>
 
             if (ValidateForm == null && (Min > 0 || Max > 0))
             {
-                var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+                var validationContext = new ValidationContext(Value);
+                if (FieldIdentifier.HasValue)
+                {
+                    validationContext.MemberName = FieldIdentifier.Value.FieldName;
+                }
                 var validationResults = new List<ValidationResult>();
 
                 await ValidatePropertyAsync(RightItems, validationContext, validationResults);

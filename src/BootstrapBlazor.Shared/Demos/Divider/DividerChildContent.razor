@@ -1,9 +1,0 @@
-﻿@inject IStringLocalizer<DividerChildContent> Localizer
-
-<div>
-    <p>@Localizer["Content1"]</p>
-    <Divider>
-        <div class="text-dagner">@((MarkupString)Localizer["DividerContent"].Value)</div>
-    </Divider>
-    <p>@Localizer["Content2"]</p>
-</div>

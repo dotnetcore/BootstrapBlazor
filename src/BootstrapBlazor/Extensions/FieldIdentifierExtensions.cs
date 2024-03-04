@@ -24,4 +24,11 @@ public static class FieldIdentifierExtensions
     /// <param name="fieldIdentifier"></param>
     /// <returns></returns>
     public static string? GetPlaceHolder(this FieldIdentifier fieldIdentifier) => Utility.GetPlaceHolder(fieldIdentifier.Model, fieldIdentifier.FieldName);
+
+    /// <summary>
+    /// 获取显示名称方法
+    /// </summary>
+    /// <param name="fieldIdentifier"></param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(this FieldIdentifier fieldIdentifier) => Utility.GetRange(fieldIdentifier.Model, fieldIdentifier.FieldName);
 }

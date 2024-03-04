@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-scroll="@AutoScrollString">
     <div class="card-header d-flex">
@@ -20,7 +21,16 @@
         <div class="console-window">
             @foreach (var item in Items)
             {
-                <div @key="@item" class="@GetClassString(item)">@item.Message</div>
+                <div @key="item" class="@GetClassString(item)">
+                    @if (ItemTemplate != null)
+                    {
+                        @ItemTemplate(item)
+                    }
+                    else
+                    {
+                        @item.RenderMessage()
+                    }
+                </div>
             }
         </div>
     </div>

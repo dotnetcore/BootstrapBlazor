@@ -9,22 +9,11 @@ namespace UnitTest.Extensions;
 
 public class JSModuleExtensionsTest : BootstrapBlazorTestBase
 {
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task LoadModule_Ok(bool relative)
+    [Fact]
+    public async Task LoadModule_Ok()
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.LoadModule("./mock.js", relative);
-    }
-
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task LoadModuleOfType_Ok(bool relative)
-    {
-        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.LoadModule<MockComponent>("./mock.js", new MockComponent(), relative);
+        await jsRuntime.LoadModule("./mock.js", "test");
     }
 
     [Fact]
@@ -37,6 +26,50 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
         var type2 = typeof(MockComponent);
         name = type2.GetTypeModuleName();
         Assert.Equal("MockComponent", name);
+    }
+
+    [Fact]
+    public async Task IsMobile_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.IsMobile();
+    }
+
+    [Fact]
+    public async Task OpenUrl_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.OpenUrl("www.blazor.zone");
+    }
+
+    [Fact]
+    public async Task Eval_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.Eval("test");
+        await module.Eval<string>("test2");
+    }
+
+    [Fact]
+    public async Task Function_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.Function("test");
+        await module.Function<string>("test2");
+    }
+
+    [Fact]
+    public async Task GenerateId_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getUID", ["bb"]).SetResult("bb_test");
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        var id = await module.GenerateId("bb");
+        Assert.Equal("bb_test", id);
     }
 
     class MockComponent : ComponentBase

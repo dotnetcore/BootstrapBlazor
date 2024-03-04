@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -23,17 +22,8 @@ public partial class DialogSaveButton : Button
     {
         base.OnInitialized();
 
-        ButtonType = ButtonType.Submit;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        ButtonIcon ??= "fa-solid fa-floppy-disk";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
+        ButtonType = ButtonType.Submit;
     }
 }

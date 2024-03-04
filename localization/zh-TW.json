@@ -239,7 +239,9 @@
     "ExportToastTitle": "匯出資料",
     "ExportToastContent": "匯出資料 {0}，{1} 秒後自動關閉",
     "ExportToastInProgressContent": "正在匯出資料，請稍後, {0} 秒後自動關閉",
-    "ExportExcelDropdownItemText": "微軟 Excel 格式"
+    "ExportCsvDropdownItemText": "微軟 Csv 格式",
+    "ExportExcelDropdownItemText": "微軟 Excel 格式",
+    "ExportPdfDropdownItemText": "Pdf 格式"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "關閉",
@@ -295,6 +297,9 @@
     "Text": "列表"
   },
   "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "未設置 OnExpandNodeAsync 回檔委託方法"
+  },
+  "BootstrapBlazor.Components.TreeView": {
     "NotSetOnTreeExpandErrorMessage": "未設置 OnExpandNodeAsync 回檔委託方法"
   },
   "BootstrapBlazor.Components.UploadBase": {

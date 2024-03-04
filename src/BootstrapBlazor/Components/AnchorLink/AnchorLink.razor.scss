@@ -1,0 +1,21 @@
+.anchor-link {
+    --bb-anchor-link-margin-left: #{$bb-anchor-link-margin-left};
+    --bb-anchor-link-opacity: #{$bb-anchor-link-opacity};
+    --bb-anchor-link-opacity-hover: #{$bb-anchor-link-opacity-hover};
+    --bb-anchor-link-opacity-transition: #{$bb-anchor-link-opacity-transition};
+    cursor: pointer;
+    display: inline-block;
+
+    &:hover {
+        .anchor-link-icon {
+            opacity: var(--bb-anchor-link-opacity-hover);
+        }
+    }
+}
+
+.anchor-link-icon {
+    opacity: var(--bb-anchor-link-opacity);
+    margin-left: var(--bb-anchor-link-margin-left);
+    color: var(--bs-primary);
+    transition: var(--bb-anchor-link-opacity-transition);
+}

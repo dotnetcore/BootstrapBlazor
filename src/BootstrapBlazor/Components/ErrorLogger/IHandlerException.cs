@@ -13,6 +13,6 @@ public interface IHandlerException
     /// 
     /// </summary>
     /// <param name="ex"></param>
-    /// <param name="ErrorContent"></param>
-    Task HandlerException(Exception ex, RenderFragment<Exception> ErrorContent);
+    /// <param name="errorContent"></param>
+    Task HandlerException(Exception ex, RenderFragment<Exception> errorContent);
 }

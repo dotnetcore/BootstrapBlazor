@@ -1,0 +1,20 @@
+.console {
+    --bs-card-color: #{$bb-console-color};
+    --bb-console-body-bg: #{$bb-console-body-bg};
+    --bb-console-clear-button-margin-left: #{$bb-console-clear-button-margin-left};
+
+    .card-body {
+        background-color: var(--bb-console-body-bg);
+        overflow: auto;
+    }
+
+    .card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+
+        .console-clear {
+            margin-left: var(--bb-console-clear-button-margin-left);
+        }
+    }
+}

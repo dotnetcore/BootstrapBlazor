@@ -1,0 +1,118 @@
+﻿@page "/table/toolbar"
+@inject IStringLocalizer<TablesToolbar> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject ToastService ToastService
+
+<h3>@Localizer["TablesToolbarTitle"]</h3>
+<h4>@Localizer["TablesToolbarDescription"]</h4>
+
+<DemoBlock Title="@Localizer["TablesToolbarNormalTitle"]"
+           Introduction="@Localizer["TablesToolbarNormalIntro"]"
+           Name="Normal">
+    <Table TItem="Foo"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsMultipleSelect="true" ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesToolbarQueryTableTitle"]"
+           Introduction="@Localizer["TablesToolbarQueryTableIntro"]"
+           Name="QueryTable">
+    <p>@((MarkupString)Localizer["TablesToolbarQueryTableDescription"].Value)</p>
+    <Table TItem="Foo"
+           IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           ShowToolbar="true" ShowSearch="true" ShowCardView="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
+           OnQueryAsync="@OnSearchQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesToolbarCustomButtonTitle"]" Introduction="@Localizer["TablesToolbarCustomButtonIntro"]" Name="CustomButton">
+    <section ignore>@((MarkupString)Localizer["TablesToolbarCustomButtonDescription"].Value)</section>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["TablesToolbarCustomButtonTips1_title"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesToolbarCustomButtonTips1_note1"].Value)</li>
+        <li>@((MarkupString)Localizer["TablesToolbarCustomButtonTips1_note2"].Value)</li>
+    </ul>
+    <section ignore>@((MarkupString)Localizer["TablesToolbarCustomButtonTips2_title"].Value)</section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="Foo"
+                                Color="Color.Primary"
+                                Icon="fa-fw fa-solid fa-floppy-disk"
+                                Text="@Localizer["TablesToolbarCustomButton1"]"
+                                            IsAsync OnClickCallback="@DownloadAsync" />
+             <TableToolbarButton TItem="Foo"
+                                 Color="Color.Success"
+                                 Icon="fa-fw fa-solid fa-pen-to-square"
+                                 Text="@Localizer["TablesToolbarCustomButton2"]"
+                                            IsAsync OnClickCallback="@DownloadAsync" IsEnableWhenSelectedOneRow="true" />
+             <TableToolbarPopConfirmButton TItem="Foo"
+                                           Color="Color.Success"
+                                           Icon="fa-fw fa-solid fa-pen-to-square"
+                                           Text="@Localizer["TableToolbarPopConfirmButton1"]"
+                                           IsEnableWhenSelectedOneRow="true"
+                                           OnConfirmCallback="DownloadAsync" />
+         </TableToolbarTemplate>
+         <TableColumns>
+             <TableColumn @bind-Field="@context.DateTime" Width="180" />
+             <TableColumn @bind-Field="@context.Name" />
+             <TableColumn @bind-Field="@context.Address" />
+         </TableColumns>
+     </Table>
+ </DemoBlock>
+
+ <DemoBlock Title="@Localizer["TablesToolbarCustomComponentTitle"]" Introduction="@Localizer["TablesToolbarCustomComponentIntro"]" Name="CustomComponent">
+     <section ignore>@((MarkupString)Localizer["TablesToolbarCustomComponentDescription"].Value)</section>
+     <Table TItem="Foo"
+            IsPagination="true" PageItemsSource="@PageItemsSource"
+            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+            ShowToolbar="true" ShowDefaultButtons="true" ShowSearch="false" ShowExtendButtons="false"
+            OnQueryAsync="@OnQueryAsync">
+         <TableToolbarBeforeTemplate>
+             <TableToolbarComponent>
+                 <Button Text="@Localizer["TablesToolbarCustomButton1"]" Icon="fa-fw fa-solid fa-floppy-disk"></Button>
+                 <Select Items="_cityItems" @bind-Value="_cityName"></Select>
+             </TableToolbarComponent>
+         </TableToolbarBeforeTemplate>
+         <TableColumns>
+             <TableColumn @bind-Field="@context.DateTime" Width="180" />
+             <TableColumn @bind-Field="@context.Name" />
+             <TableColumn @bind-Field="@context.Address" />
+         </TableColumns>
+     </Table>
+ </DemoBlock>
+
+ <DemoBlock Title="@Localizer["TablesToolbarCustomDisplayButtonTitle"]"
+            Introduction="@Localizer["TablesToolbarCustomDisplayButtonIntro"]"
+            Name="CustomDisplayButton">
+     <Table TItem="Foo"
+            IsPagination="true" PageItemsSource="@PageItemsSource"
+            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+            ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowExtendButtons="true"
+            OnQueryAsync="@OnQueryAsync" OnDeleteAsync="@OnDeleteAsync">
+         <TableColumns>
+             <TableColumn @bind-Field="@context.DateTime" Width="180" />
+             <TableColumn @bind-Field="@context.Name" Width="100" />
+             <TableColumn @bind-Field="@context.Address" />
+             <TableColumn @bind-Field="@context.Count" />
+         </TableColumns>
+         <TableExtensionToolbarTemplate>
+             <ButtonUpload TValue="string" ShowUploadFileList="false" BrowserButtonClass="btn-secondary" />
+         </TableExtensionToolbarTemplate>
+     </Table>
+ </DemoBlock>

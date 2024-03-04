@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -15,17 +14,14 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CascadedEditContext_Error()
     {
         var foo = new Foo();
-        Assert.ThrowsAny<InvalidOperationException>(() =>
+        Assert.Throws<InvalidCastException>(() => Context.RenderComponent<ValidateForm>(pb =>
         {
-            Context.RenderComponent<ValidateForm>(pb =>
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<EditorForm<Dummy>>(pb =>
             {
-                pb.Add(a => a.Model, foo);
-                pb.AddChildContent<EditorForm<Dummy>>(pb =>
-                {
-                    pb.Add(a => a.Model, new Dummy());
-                });
+                pb.Add(a => a.Model, new Dummy());
             });
-        });
+        }));
     }
 
     [Fact]
@@ -71,7 +67,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.Add(a => a.Items, new List<MockTableColumn>
+            pb.Add(a => a.Items, new List<InternalTableColumn>
             {
                 new("Id", typeof(int)),
                 new("Name", typeof(string))
@@ -173,9 +169,11 @@ public class EditorFormTest : BootstrapBlazorTestBase
             pb.Add(a => a.ItemChangedType, ItemChangedType.Add);
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.LabelAlign, Alignment.Right);
+            pb.Add(a => a.LabelWidth, 80);
         });
         cut.Contains("row g-3 form-inline form-inline-end");
         cut.Contains("col-12");
+        cut.Contains("--bb-row-label-width: 80px;");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -215,18 +213,33 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void IsEditable_Ok()
     {
-        var editorItem = new EditorItem<Foo, string>()
-        {
-            IsReadonlyWhenAdd = true,
-            IsReadonlyWhenEdit = false
-        };
+        var editorItem = new EditorItem<Foo, string>();
         editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["Visible"] = true,
+            ["IsReadonlyWhenAdd"] = true,
+            ["IsReadonlyWhenEdit"] = false
         }));
         Assert.False(editorItem.IsEditable(ItemChangedType.Add));
         Assert.True(editorItem.IsEditable(ItemChangedType.Update));
+    }
+
+
+    [Fact]
+    public void IsVisible_Ok()
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["Editable"] = true,
+            ["Readonly"] = false,
+            ["IsVisibleWhenAdd"] = true,
+            ["IsVisibleWhenEdit"] = false
+        }));
+        Assert.True(editorItem.IsVisible(ItemChangedType.Add));
+        Assert.False(editorItem.IsVisible(ItemChangedType.Update));
     }
 
     [Fact]
@@ -268,7 +281,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.OpenComponent<EditorItem<Foo, int>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Field), f.Count);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
-                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), 3);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), "3");
                     builder.CloseComponent();
 
                     builder.OpenComponent<EditorItem<Foo, bool>>(index++);
@@ -368,6 +381,28 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColumnOrderCallback_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, true);
+            pb.Add(a => a.ColumnOrderCallback, cols =>
+            {
+                return cols.OrderByDescending(i => i.Order);
+            });
+        });
+        var editor = cut.Instance;
+        var itemsField = editor.GetType().GetField("_formItems", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetField);
+        Assert.NotNull(itemsField);
+
+        var v = itemsField.GetValue(editor) as List<IEditorItem>;
+        Assert.NotNull(v);
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+    }
+
+    [Fact]
     public void LookupServiceKey_Ok()
     {
         var foo = new Foo();
@@ -383,6 +418,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceKey), "FooLookup");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceData), true);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                 builder.CloseComponent();
             });
@@ -567,6 +603,18 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Contains("class=\"switch\"", cut.Markup);
     }
 
+    [Fact]
+    public void Cols_Ok()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.AutoGenerateAllItem, true);
+        });
+        Assert.Contains("col-12 col-sm-12", cut.Markup);
+    }
+
     private class Dummy
     {
         public string? Name { get; }
@@ -584,7 +632,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         public List<string>? Names { get; set; }
 
-        [AutoGenerateColumn(ComponentType = typeof(Select<string>))]
+        [AutoGenerateColumn(ComponentType = typeof(Select<string>), Cols = 12)]
         public string? Select { get; set; }
     }
 

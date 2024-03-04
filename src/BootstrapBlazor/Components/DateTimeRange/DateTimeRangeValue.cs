@@ -20,6 +20,24 @@ public class DateTimeRangeValue
     public DateTime End { get; set; }
 
     /// <summary>
+    /// 获得/设置 可为空开始时间
+    /// </summary>
+    public DateTime? NullStart
+    {
+        get => Start == DateTime.MinValue ? null : Start;
+        set => Start = value ?? DateTime.MinValue;
+    }
+
+    /// <summary>
+    /// 获得/设置 可为空结束时间
+    /// </summary>
+    public DateTime? NullEnd
+    {
+        get => End == DateTime.MinValue ? null : End;
+        set => End = value ?? DateTime.MinValue;
+    }
+
+    /// <summary>
     /// ToString 方法
     /// </summary>
     /// <returns></returns>
@@ -32,7 +50,7 @@ public class DateTimeRangeValue
         }
         if (End != DateTime.MinValue)
         {
-            ret = $"{ret} - {End.ToString()}";
+            ret = $"{ret} - {End}";
         }
         return ret;
     }

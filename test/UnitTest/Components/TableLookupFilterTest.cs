@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableLookupFilterTest : BootstrapBlazorTestBase
@@ -16,8 +14,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Type, typeof(string));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
@@ -33,22 +31,22 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Type, typeof(string));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
+        var conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
         // Set Value
         var items = cut.FindAll(".dropdown-item");
         cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.Single(condtions);
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 
     [Fact]
@@ -68,7 +66,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -81,8 +79,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Lookup), new List<SelectedItem>()
                     {
-                        new SelectedItem("true", "True"),
-                        new SelectedItem("false", "False")
+                        new("true", "True"),
+                        new("false", "False")
                     });
                     builder.CloseComponent();
                 }));
@@ -90,44 +88,52 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         });
 
         var items = cut.FindAll(".dropdown-item");
-        IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = cut.FindComponent<LookupFilter>().Instance.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
+        var conditions = cut.FindComponent<LookupFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 
     [Fact]
-    public async Task SetFilterConditions_Ok()
+    public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<LookupFilter>(pb =>
         {
             pb.Add(a => a.Type, typeof(bool));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
-        var newConditions = new List<FilterKeyValueAction>
+        var newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = true }
+            Filters = [new FilterKeyValueAction() { FieldValue = true }]
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Single(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
 
-        newConditions = new List<FilterKeyValueAction>
+        newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = null }
+            Filters = [new FilterKeyValueAction() { FieldValue = null }]
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = true };
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 }

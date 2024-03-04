@@ -112,10 +112,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数 默认为 0
@@ -148,23 +148,40 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool Editable { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 当前列编辑时是否为只读模式 默认为 false
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>此属性覆盖 <see cref="IsReadonlyWhenAdd"/> 与 <see cref="IsReadonlyWhenEdit"/> 即新建与编辑时均只读</remarks>
     [Parameter]
     public bool Readonly { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool IsVisibleWhenAdd { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
@@ -203,12 +220,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool ShowCopyColumn { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示本列 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool Visible { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 字段鼠标悬停提示
     /// </summary>
     [Parameter]
@@ -236,7 +247,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 列格式化回调委托
     /// </summary>
     [Parameter]
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
@@ -382,22 +393,34 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 字典数据源服务的类别 常用于外键自动转换为名称操作
+    /// <inheritdoc/>>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法
     /// </summary>
     [Parameter]
     public Action<TableCellArgs>? OnCellRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsMarkupString { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合
@@ -409,14 +432,14 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 Table 实例
     /// </summary>
     [CascadingParameter]
-    protected ITable? Table { get; set; }
+    protected IColumnCollection? Columns { get; set; }
 
     /// <summary>
     /// 组件初始化方法
     /// </summary>
     protected override void OnInitialized()
     {
-        Table?.Columns.Add(this);
+        Columns?.Columns.Add(this);
         if (FieldExpression != null)
         {
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
@@ -430,7 +453,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
-    public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
+    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
 
     /// <summary>
     /// 获得/设置 绑定类字段名称
@@ -474,7 +497,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = member.Expression;
             }
 
-            if (fields.Any())
+            if (fields.Count != 0)
             {
                 fields.Reverse();
                 FieldName = string.Join(".", fields);

@@ -1,0 +1,13 @@
+name: 👩🏻‍💻 Other
+description: I don't know how to classify
+title: "chore(): title"
+labels: [chore]
+assignees:
+  - argozhang
+body:
+- type: textarea
+  attributes:
+    label: Which class is this unit test associated with?
+    description: Triage this issue later.
+  validations:
+    required: false

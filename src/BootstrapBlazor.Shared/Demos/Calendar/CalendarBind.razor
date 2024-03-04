@@ -1,8 +1,0 @@
-﻿<Calendar @bind-Value="@BindValue" />
-<BootstrapInput @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
-
-@code {
-    private DateTime BindValue { get; set; } = DateTime.Today;
-
-    private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
-}

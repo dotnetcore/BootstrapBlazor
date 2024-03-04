@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Popover 弹出窗组件
 /// </summary>
+[BootstrapModuleAutoLoader(ModuleName = "popover")]
 public class Popover : Tooltip
 {
     /// <summary>
@@ -20,6 +21,8 @@ public class Popover : Tooltip
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
+
+    private string? _lastContent;
 
     /// <summary>
     /// <inheritdoc/>
@@ -42,11 +45,32 @@ public class Popover : Tooltip
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         if (!string.IsNullOrEmpty(Content))
         {
-            await InvokeInitAsync(Id, Title, Content);
+            await InvokeVoidAsync("init", Id, Content);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _lastContent = Content;
+        }
+
+        if (_lastContent != Content)
+        {
+            _lastContent = Content;
+            await InvokeInitAsync();
         }
     }
 }

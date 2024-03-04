@@ -15,18 +15,4 @@ public class FullScreenService : BootstrapServiceBase<FullScreenOption>
     /// <param name="option"></param>
     /// <returns></returns>
     public Task Toggle(FullScreenOption? option = null) => Invoke(option ?? new());
-
-    /// <summary>
-    /// 通过 ElementReference 将指定元素进行全屏
-    /// </summary>
-    /// <param name="element"></param>
-    /// <returns></returns>
-    public Task ToggleByElement(ElementReference element) => Invoke(new() { Element = element });
-
-    /// <summary>
-    /// 通过元素 Id 将指定元素进行全屏
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task ToggleById(string id) => Invoke(new() { Id = id });
 }

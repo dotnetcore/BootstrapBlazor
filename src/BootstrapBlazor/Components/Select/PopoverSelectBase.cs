@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopoverSelectBase 基类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
@@ -38,11 +38,6 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        if (IsPopover && Placement == Placement.Auto)
-        {
-            Placement = Placement.Bottom;
-        }
 
         Offset ??= "[0, 10]";
     }

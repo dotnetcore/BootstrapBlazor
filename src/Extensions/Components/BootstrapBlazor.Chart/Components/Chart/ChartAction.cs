@@ -16,31 +16,31 @@ public enum ChartAction
     /// </summary>
     [Description("update")]
     Update,
-    
+
     /// <summary>
     /// 增加数据集
     /// </summary>
     [Description("addDataset")]
     AddDataset,
-    
+
     /// <summary>
     /// 减少数据集
     /// </summary>
     [Description("removeDataset")]
     RemoveDataset,
-    
+
     /// <summary>
     /// 增加数据
     /// </summary>
     [Description("addData")]
     AddData,
-    
+
     /// <summary>
     /// 减少数据
     /// </summary>
     [Description("removeData")]
     RemoveData,
-    
+
     /// <summary>
     /// 全圆/半圆
     /// </summary>
@@ -51,5 +51,5 @@ public enum ChartAction
     /// 重新渲染图表
     /// </summary>
     [Description("reload")]
-    Reload,
+    Reload
 }

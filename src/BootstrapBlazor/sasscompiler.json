@@ -1,0 +1,12 @@
+﻿{
+  "SourceFolder": "wwwroot/scss/theme",
+  "TargetFolder": "wwwroot/scss/theme",
+  "Arguments": "--style=compressed --no-source-map",
+  "GenerateScopedCss": false,
+  "IncludePaths": [],
+  "Configurations": {
+    "Debug": {
+      "Arguments": "--style=expanded --no-source-map"
+    }
+  }
+}

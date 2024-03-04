@@ -10,8 +10,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Markdown 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js", JSObjectReference = true, Relative = false)]
-public partial class Markdown
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js", JSObjectReference = true)]
+public partial class Markdown : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 控件高度，默认300px
@@ -82,6 +82,11 @@ public partial class Markdown
     private MarkdownOption Option { get; } = new();
 
     /// <summary>
+    /// 获得/设置 DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
+    /// <summary>
     /// 获得 组件样式
     /// </summary>
     protected string? GetClassString() => CssBuilder.Default()
@@ -111,7 +116,7 @@ public partial class Markdown
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Option, nameof(Update));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
 
     /// <summary>
     /// 更新组件值方法
@@ -143,13 +148,13 @@ public partial class Markdown
     }
 
     /// <summary>
-    /// 设置 Value 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public new async ValueTask SetValue(string value)
+    public new async Task SetValue(string value)
     {
         CurrentValueAsString = value;
-        await InvokeExecuteAsync(Id, "update", Value ?? "");
+        await InvokeVoidAsync("update", Element, Value);
     }
 
     /// <summary>
@@ -158,5 +163,5 @@ public partial class Markdown
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public Task DoMethodAsync(string method, params object[] parameters) => InvokeExecuteAsync(Id, "do", method, parameters);
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Element, method, parameters);
 }

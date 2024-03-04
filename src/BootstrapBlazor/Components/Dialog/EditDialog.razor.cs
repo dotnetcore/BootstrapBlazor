@@ -10,14 +10,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗组件
 /// </summary>
-[JSModuleAutoLoader("edit-dialog")]
 public partial class EditDialog<TModel>
 {
     /// <summary>
     /// 获得/设置 保存回调委托
     /// </summary>
     [Parameter]
-    [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public Func<EditContext, Task>? OnSaveAsync { get; set; }
 
     /// <summary>
@@ -70,9 +71,19 @@ public partial class EditDialog<TModel>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SaveButtonIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -81,13 +92,10 @@ public partial class EditDialog<TModel>
     {
         base.OnParametersSet();
 
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
-    }
-
-    private async Task OnClickClose()
-    {
-        if (OnCloseAsync != null) await OnCloseAsync();
     }
 
     private async Task OnValidSubmitAsync(EditContext context)
@@ -109,7 +117,7 @@ public partial class EditDialog<TModel>
     {
         if (ShowLoading)
         {
-            await InvokeExecuteAsync(Id, state);
+            await InvokeVoidAsync("execute", Id, state);
         }
     }
 
@@ -117,26 +125,20 @@ public partial class EditDialog<TModel>
     {
         if (FooterTemplate != null)
         {
-            builder.OpenComponent<CascadingValue<Func<Task>?>>(0);
-            builder.AddAttribute(1, nameof(CascadingValue<Func<Task>?>.Value), OnCloseAsync);
-            builder.AddAttribute(2, nameof(CascadingValue<Func<Task>?>.IsFixed), true);
-            builder.AddAttribute(3, nameof(CascadingValue<Func<Task>?>.ChildContent), FooterTemplate(Model));
-            builder.CloseComponent();
+            builder.AddContent(1, FooterTemplate(Model));
         }
         else
         {
             if (!IsTracking)
             {
-                builder.OpenComponent<Button>(20);
-                builder.AddAttribute(21, nameof(Button.Color), Color.Secondary);
-                builder.AddAttribute(22, nameof(Button.Icon), "fa-solid fa-xmark");
-                builder.AddAttribute(23, nameof(Button.Text), CloseButtonText);
-                builder.AddAttribute(24, nameof(Button.OnClickWithoutRender), OnClickClose);
+                builder.OpenComponent<DialogCloseButton>(20);
+                builder.AddAttribute(21, nameof(Button.Text), CloseButtonText);
+                builder.AddAttribute(22, nameof(Button.OnClickWithoutRender), OnCloseAsync);
                 builder.CloseComponent();
             }
             builder.OpenComponent<Button>(30);
             builder.AddAttribute(31, nameof(Button.Color), Color.Primary);
-            builder.AddAttribute(32, nameof(Button.Icon), "fa-solid fa-floppy-disk");
+            builder.AddAttribute(32, nameof(Button.Icon), SaveButtonIcon);
             builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
             builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
             builder.CloseComponent();

@@ -1,0 +1,92 @@
+.btn {
+    --bs-btn-font-size: #{$bs-btn-font-size};
+    --bs-btn-focus-box-shadow: #{$bs-btn-focus-box-shadow};
+    --bb-btn-label-margin-left: #{$bb-btn-label-margin-left};
+    --bs-btn-active-border-color: #{$bs-btn-active-border-color};
+    --bs-btn-hover-border-color: #{$bs-btn-hover-border-color};
+    --bs-btn-border-radius: var(--bs-border-radius);
+    --bs-btn-xs-padding-x: #{$bs-btn-xs-padding-x};
+    --bs-btn-xs-padding-y: #{$bs-btn-xs-padding-y};
+    --bs-btn-xs-font-size: #{$bs-btn-xs-font-size};
+    --bs-btn-xl-padding-x: #{$bs-btn-xl-padding-x};
+    --bs-btn-xl-padding-y: #{$bs-btn-xl-padding-y};
+    --bs-btn-xl-font-size: #{$bs-btn-xl-font-size};
+    --bs-btn-xxl-padding-x: #{$bs-btn-xxl-padding-x};
+    --bs-btn-xxl-padding-y: #{$bs-btn-xxl-padding-y};
+    --bs-btn-xxl-font-size: #{$bs-btn-xxl-font-size};
+}
+
+.btn-xs, .btn-group-xs > .btn {
+    --bs-btn-padding-x: var(--bs-btn-xs-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xs-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xs-font-size);
+}
+
+.btn-xl, .btn-group-xl > .btn {
+    --bs-btn-padding-x: var(--bs-btn-xl-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xl-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xl-font-size);
+}
+
+.btn-xxl, .btn-group-xxl > .btn {
+    --bs-btn-padding-x: var(--bs-btn-xxl-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xxl-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xxl-font-size);
+}
+
+.btn .badge,
+.btn i + span,
+.badge i + span,
+.link-button i + span {
+    margin-left: var(--bb-btn-label-margin-left);
+}
+
+.btn-circle {
+    --bs-btn-border-radius: 50%;
+    --bb-button-circle-width: #{$bb-button-circle-width};
+    --bb-button-circle-height: #{$bb-button-circle-height};
+    width: var(--bb-button-circle-width);
+    height: var(--bb-button-circle-height);
+}
+
+.btn-round {
+    --bs-btn-border-radius: var(--bs-border-radius-pill);
+}
+
+.btn-block {
+    width: 100%
+}
+
+.btn-vertical {
+    --bb-btn-label-margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-close {
+    &:focus {
+        box-shadow: none;
+    }
+}
+
+.link-button {
+    --bs-btn-bg: transparent;
+    border: none;
+    padding: 0;
+    background-color: var(--bs-btn-bg);
+}
+
+.link-button:disabled {
+    img {
+        opacity: var(--bs-btn-disabled-opacity);
+    }
+}
+
+.btn-group {
+    > .upload {
+        button {
+            display: block;
+        }
+    }
+}

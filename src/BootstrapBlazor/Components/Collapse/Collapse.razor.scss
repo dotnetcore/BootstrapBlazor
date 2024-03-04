@@ -1,0 +1,39 @@
+.accordion {
+    --bs-accordion-btn-focus-box-shadow: #{$bb-accordion-btn-focus-box-shadow};
+    --bs-accordion-btn-padding-x: 1rem;
+    --bs-accordion-btn-padding-y: .5rem;
+
+    .accordion-button {
+        &.btn-primary {
+            background-color: var(--bs-primary);
+        }
+
+        &.btn-secondary {
+            background-color: var(--bs-secondary);
+        }
+
+        &.btn-success {
+            background-color: var(--bs-success);
+        }
+
+        &.btn-info {
+            background-color: var(--bs-info);
+        }
+
+        &.btn-warning {
+            background-color: var(--bs-warning);
+        }
+
+        &.btn-danger {
+            background-color: var(--bs-danger);
+        }
+
+        &.btn-light {
+            background-color: var(--bs-light);
+        }
+
+        &.btn-dark {
+            background-color: var(--bs-dark);
+        }
+    }
+}

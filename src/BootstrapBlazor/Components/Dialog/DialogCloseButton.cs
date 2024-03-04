@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -28,11 +27,11 @@ public partial class DialogCloseButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        base.OnInitialized();
 
-        ButtonIcon ??= "fa-solid fa-fw fa-xmark";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.CloseButtonText)];
     }
 

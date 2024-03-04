@@ -13,8 +13,24 @@ public class TitleTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<MockTitleTest>();
         });
-        var titleService = cut.FindComponent<MockTitleTest>().Instance.TitleService;
-        cut.InvokeAsync(async () => await titleService.SetTitle("test"));
+        cut.InvokeAsync(async () =>
+        {
+            var titleService = cut.FindComponent<MockTitleTest>().Instance.TitleService;
+            await titleService.SetTitle("test");
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var title = cut.FindComponent<Title>();
+            title.SetParametersAndRender();
+
+            // 模拟 Module 为空
+            var moduleProperty = title.Instance.GetType().GetProperty("Module", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            moduleProperty?.SetValue(title.Instance, null);
+
+            var methodInfo = title.Instance.GetType().GetMethod("SetTitle", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            methodInfo?.Invoke(title.Instance, new object[] { new TitleOption() { Title = "test" } });
+        });
     }
 
     [Fact]

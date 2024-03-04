@@ -9,8 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QRCode 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.BarCode/qrcode.bundle.min.js", JSObjectReference = true, ModuleName = "BlazorQRCode", Relative = false)]
-public partial class QRCode
+public partial class QRCode : IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("qrcode")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -23,6 +22,12 @@ public partial class QRCode
     /// </summary>
     [Parameter]
     public Func<Task>? OnGenerated { get; set; }
+
+    /// <summary>
+    /// 获得/设置 二维码清除后回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCleared { get; set; }
 
     /// <summary>
     /// 获得/设置 PlaceHolder 文字
@@ -92,8 +97,21 @@ public partial class QRCode
     [NotNull]
     private IStringLocalizer<QRCode>? Localizer { get; set; }
 
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<QRCode>? Interop { get; set; }
+
     /// <summary>
-    /// OnParametersSet 方法
+    /// 获得/设置 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
+    private string? _content;
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -108,33 +126,48 @@ public partial class QRCode
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(Generated));
-
-    private string? _content;
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (_content != Content)
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/QRCode/QRCode.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(Generated));
+        }
+        else if (_content != Content)
         {
             _content = Content;
-            await InvokeExecuteAsync(Id, Content);
+            await Module.InvokeVoidAsync("update", Element, Content);
         }
     }
 
-    private async Task Clear()
+    private async Task OnClickClear()
     {
         Content = "";
-        await InvokeExecuteAsync(Id, "");
+        if (OnCleared != null)
+        {
+            await OnCleared();
+        }
     }
 
-    private Task Generate() => InvokeExecuteAsync(Id, Content);
+    private Task OnClickGenerate()
+    {
+        return Task.CompletedTask;
+    }
+
+    private Task OnValueChanged(string? v)
+    {
+        Content = v;
+        return Task.CompletedTask;
+    }
 
     /// <summary>
-    ///
+    /// 二维码生成后回调方法由 JavaScript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -145,4 +178,33 @@ public partial class QRCode
             await OnGenerated();
         }
     }
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }

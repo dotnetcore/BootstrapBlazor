@@ -18,6 +18,12 @@ public class ReconnectorOutlet : ComponentBase
     public bool AutoReconnect { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒
+    /// </summary>
+    [Parameter]
+    public int ReconnectInterval { get; set; } = 5000;
+
+    /// <summary>
     /// BuildRenderTree 方法
     /// </summary>
     /// <param name="builder"></param>
@@ -25,6 +31,7 @@ public class ReconnectorOutlet : ComponentBase
     {
         builder.OpenComponent<ReconnectorContent>(0);
         builder.AddAttribute(1, nameof(ReconnectorContent.AutoReconnect), AutoReconnect);
+        builder.AddAttribute(2, nameof(ReconnectorContent.ReconnectInterval), ReconnectInterval);
         builder.CloseComponent();
     }
 }

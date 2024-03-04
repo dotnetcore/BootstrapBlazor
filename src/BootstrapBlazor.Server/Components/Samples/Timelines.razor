@@ -1,0 +1,37 @@
+﻿@page "/timeline"
+@inject IStringLocalizer<Timelines> Localizer
+
+<h3>@Localizer["TimelinesTitle"]</h3>
+
+<h4>@Localizer["TimelinesSubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["TimelinesNormalTitle"]" Introduction="@Localizer["TimelinesNormalIntro"]" Name="Normal">
+    <section ignore class="d-flex align-items-center">
+        <div class="text-nowrap me-1">@Localizer["TimelinesNormalDescription"]</div>
+        <RadioList class="flex-fill" TValue="SelectedItem" OnSelectedChanged="@OnStateChanged" Items="@Items1"></RadioList>
+    </section>
+    <Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TimelinesCustomNodeStyleTitle"]" Introduction="@Localizer["TimelinesCustomNodeStyleIntro"]" Name="CustomStyle">
+    <Timeline Items="CustomerTimelineItems" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TimelinesLeftTitle"]" Introduction="@Localizer["TimelinesLeftIntro"]" Name="IsLeft">
+    <section ignore>@((MarkupString)Localizer["TimelinesLeftDescription"].Value)</section>
+    <Timeline Items="AlternateTimelineItems" IsLeft="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TimelinesAlternateTitle"]" Introduction="@Localizer["TimelinesAlternateIntro"]" Name="IsAlternate">
+    <section ignore>@((MarkupString)Localizer["TimelinesAlternateDescription"].Value)</section>
+    <Timeline Items="AlternateTimelineItems" IsAlternate="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TimelinesDisplayCustomComponentTitle"]" Introduction="@Localizer["TimelinesDisplayCustomComponentIntro"]" Name="CustomComponent">
+    <section ignore>@((MarkupString)Localizer["TimelinesDisplayCustomComponentDescription"].Value)</section>
+    <Timeline Items="GetCustomerComponentTimelineItems()" />
+</DemoBlock>
+
+<AttributeTable Items="GetAttributes()" />
+
+<AttributeTable Items="GetTimelineItemAttributes()" Title="@Localizer["TimelinesAttributeTitle"]" />

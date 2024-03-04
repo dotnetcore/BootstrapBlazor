@@ -13,7 +13,8 @@ public partial class Light
     /// 获得 组件样式
     /// </summary>
     protected string? ClassString => CssBuilder.Default("light")
-        .AddClass("flash", IsFlash)
+        .AddClass("is-flat", IsFlat)
+        .AddClass("flash", IsFlash && !IsFlat)
         .AddClass($"light-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -23,6 +24,12 @@ public partial class Light
     /// </summary>
     [Parameter]
     public bool IsFlash { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为平面图形 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFlat { get; set; }
 
     /// <summary>
     /// 获得/设置 指示灯颜色 默认为 Success 绿色

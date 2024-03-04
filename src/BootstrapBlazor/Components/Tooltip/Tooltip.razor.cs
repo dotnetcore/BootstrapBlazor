@@ -5,9 +5,8 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapTooltip 组件
+/// Tooltip 组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Tooltip : ITooltip
 {
     /// <summary>
@@ -16,12 +15,12 @@ public partial class Tooltip : ITooltip
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
 
     /// <summary>
-    /// 弹窗位置字符串
+    /// 获得 是否关键字过滤字符串
     /// </summary>
     protected string? SanitizeString => Sanitize ? null : "false";
 
     /// <summary>
-    /// 弹窗位置字符串
+    /// 获得 是否 Html 字符串
     /// </summary>
     protected string? HtmlString => IsHtml ? "true" : null;
 

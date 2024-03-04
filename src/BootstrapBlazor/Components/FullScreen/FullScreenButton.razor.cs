@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// FullScreenButton 组件
 /// </summary>
 public partial class FullScreenButton
 {
@@ -17,7 +17,7 @@ public partial class FullScreenButton
 
     [Inject]
     [NotNull]
-    private FullScreenService? FullScrenService { get; set; }
+    private FullScreenService? FullScreenService { get; set; }
 
     private string? ClassString => CssBuilder.Default("btn btn-fs")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -33,14 +33,14 @@ public partial class FullScreenButton
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Icon ??= "fa-solid fa-maximize";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
     }
 
-    private Task ToggleFullScreen() => FullScrenService.Toggle();
+    private Task ToggleFullScreen() => FullScreenService.Toggle();
 }

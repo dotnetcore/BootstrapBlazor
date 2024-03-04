@@ -1,0 +1,10 @@
+﻿@page "/tutorials/waterfall"
+
+<div class="waterfall-demo">
+    <BootstrapBlazor.Components.Waterfall OnRequestAsync="GetItems">
+        <Template>
+            @context.Context
+            <label>@Path.GetFileNameWithoutExtension(@context.Item.Id)</label>
+        </Template>
+    </BootstrapBlazor.Components.Waterfall>
+</div>

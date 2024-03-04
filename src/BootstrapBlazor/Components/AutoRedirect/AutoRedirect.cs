@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoRedirect component
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
+[BootstrapModuleAutoLoader(ModuleName = "autoredirect", JSObjectReference = true)]
 public class AutoRedirect : BootstrapModuleComponentBase
 {
     /// <summary>
@@ -45,7 +45,7 @@ public class AutoRedirect : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Interval, nameof(Lock));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Interval, nameof(Lock));
 
     /// <summary>
     /// 锁屏操作由 JS 调用

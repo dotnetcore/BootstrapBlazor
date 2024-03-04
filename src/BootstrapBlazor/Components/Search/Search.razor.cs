@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Search 组件基类
+/// Search 组件
 /// </summary>
 public partial class Search
 {
@@ -25,7 +25,7 @@ public partial class Search
     /// Clear button icon
     /// </summary>
     [Parameter]
-    public string ClearButtonIcon { get; set; } = "fa-regular fa-trash-can";
+    public string? ClearButtonIcon { get; set; }
 
     /// <summary>
     /// Clear button text
@@ -49,13 +49,13 @@ public partial class Search
     /// 获得/设置 搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonIcon { get; set; } = "fa-fw fa-solid fa-magnifying-glass";
+    public string? SearchButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 正在搜索按钮图标
     /// </summary>
     [Parameter]
-    public string SearchButtonLoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
+    public string? SearchButtonLoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
@@ -92,8 +92,6 @@ public partial class Search
     [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
 
-    private JSInterop<Search>? Interop { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -103,17 +101,30 @@ public partial class Search
         .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
-        ButtonIcon = SearchButtonIcon;
 
         SkipEnter = true;
         SkipEsc = true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
+        SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
+        SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+
+        ButtonIcon = SearchButtonIcon;
     }
 
     /// <summary>
@@ -153,15 +164,13 @@ public partial class Search
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected override async Task OnKeyUp(KeyboardEventArgs args)
+    protected override async Task CustomKeyUp(string key)
     {
-        await base.OnKeyUp(args);
-
         if (!string.IsNullOrEmpty(CurrentValueAsString))
         {
-            if (args.Key == "Escape")
+            if (key == "Escape")
             {
                 if (OnEscAsync != null)
                 {
@@ -172,7 +181,7 @@ public partial class Search
                 await OnClearClick();
             }
 
-            if (IsOnInputTrigger || args.Key == "Enter")
+            if (IsOnInputTrigger || key == "Enter")
             {
                 if (OnEnterAsync != null)
                 {
@@ -198,38 +207,5 @@ public partial class Search
         {
             await OnSearchClick();
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task RegisterComposition()
-    {
-        // 汉字多次触发问题
-        if (ValidateForm != null)
-        {
-            Interop ??= new JSInterop<Search>(JSRuntime);
-
-            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
-        }
-
-        return base.DisposeAsync(disposing);
     }
 }

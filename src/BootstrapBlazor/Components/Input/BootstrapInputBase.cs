@@ -5,8 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapInputBase 组件基类
 /// </summary>
+[BootstrapModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>
@@ -100,9 +101,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 全选文字
     /// </summary>
     /// <returns></returns>
-    public async ValueTask SelectAllTextAsync() => await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
-
-    private JSInterop<BootstrapInputBase<TValue>>? Interop { get; set; }
+    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
 
     /// <summary>
     /// 获得/设置 是否不注册 js 脚本处理 Enter/ESC 键盘处理函数 默认 false
@@ -110,7 +109,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected bool SkipRegisterEnterEscJSInvoke { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -132,7 +131,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -144,16 +143,15 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
-                Interop ??= new JSInterop<BootstrapInputBase<TValue>>(JSRuntime);
-                await Interop.InvokeVoidAsync(this, FocusElement, "bb_input", OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                await InvokeVoidAsync("handleKeyUp", GetInputId(), Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
             }
             if (IsSelectAllTextOnFocus)
             {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll_focus");
+                await InvokeVoidAsync("selectAllByFocus", GetInputId());
             }
             if (IsSelectAllTextOnEnter)
             {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll_enter");
+                await InvokeVoidAsync("selectAllByEnter", GetInputId());
             }
             if (IsAutoFocus)
             {
@@ -165,6 +163,11 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             }
         }
     }
+
+    /// <summary>
+    /// 获得输入框 Id
+    /// </summary>
+    protected virtual string? GetInputId() => Id;
 
     /// <summary>
     /// 数值格式化委托方法
@@ -187,44 +190,29 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
     /// <summary>
-    /// 
+    /// 客户端 EnterCallback 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EnterCallback()
+    public async Task EnterCallback(string val)
     {
         if (OnEnterAsync != null)
         {
+            CurrentValueAsString = val;
             await OnEnterAsync(Value);
         }
     }
 
     /// <summary>
-    /// 
+    /// 客户端 EscCallback 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EscCallback(string val)
+    public async Task EscCallback()
     {
         if (OnEscAsync != null)
         {
-            CurrentValueAsString = val;
             await OnEscAsync(Value);
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-            Interop = null;
-        }
-        await base.DisposeAsync(disposing);
     }
 }

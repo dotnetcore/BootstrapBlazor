@@ -6,16 +6,11 @@ using System.Diagnostics;
 
 namespace UnitTest.Performance;
 
-public class ReflectionTest
+public class ReflectionTest(ITestOutputHelper logger)
 {
-    private ITestOutputHelper Logger { get; }
+    private ITestOutputHelper Logger { get; } = logger;
 
     private int Count { get; } = 1000;
-
-    public ReflectionTest(ITestOutputHelper logger)
-    {
-        Logger = logger;
-    }
 
     [Fact]
     public void GetProperty()

@@ -7,11 +7,11 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopConfirmButton 组件
 /// </summary>
 public partial class PopConfirmButton
 {
-    private string? ClassString => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("pop-confirm")
         .AddClass("disabled", IsDisabled)
         .AddClass(InternalClassName, IsLink)
         .AddClass(ClassName, !IsLink)
@@ -20,6 +20,12 @@ public partial class PopConfirmButton
     private string? InternalClassName => CssBuilder.Default()
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string TagName => IsLink ? "a" : "div";
+
+    private string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
         .Build();
 
     /// <summary>
@@ -32,6 +38,8 @@ public partial class PopConfirmButton
     [NotNull]
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
+    private bool _renderTooltip;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -42,7 +50,23 @@ public partial class PopConfirmButton
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
+
+        _renderTooltip = Tooltip == null && !string.IsNullOrEmpty(TooltipText);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override Task ShowTooltip() => Task.CompletedTask;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override Task RemoveTooltip() => Task.CompletedTask;
+
+    private string? ConfirmString => OnBeforeClick != null ? "true" : null;
 
     /// <summary>
     /// 显示确认弹窗方法
@@ -50,9 +74,14 @@ public partial class PopConfirmButton
     private async Task Show()
     {
         // 回调消费者逻辑 判断是否需要弹出确认框
-        if (await OnBeforeClick())
+        var show = true;
+        if (OnBeforeClick != null)
         {
-            await InvokeExecuteAsync(Id, "showConfirm");
+            show = await OnBeforeClick();
+        }
+        if (show)
+        {
+            await InvokeVoidAsync("showConfirm", Id);
         }
     }
 
@@ -60,7 +89,7 @@ public partial class PopConfirmButton
     /// 确认回调方法
     /// </summary>
     /// <returns></returns>
-    private async Task Confirm()
+    private async Task OnClickConfirm()
     {
         if (IsAsync)
         {
@@ -92,6 +121,6 @@ public partial class PopConfirmButton
 
     private async Task TrySubmit()
     {
-        await InvokeExecuteAsync(Id, "submit");
+        await InvokeVoidAsync("submit", Id);
     }
 }

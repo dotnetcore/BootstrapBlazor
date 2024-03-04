@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// SelectBase 组件基类
 /// </summary>
 public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
 {
@@ -29,10 +29,16 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
+    /// 获得/设置 设置搜索图标
     /// </summary>
     [Parameter]
-    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+    public string? SearchIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsMarkupString { get; set; }
 
     /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
@@ -47,8 +53,22 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 分组项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? GroupItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 IIconTheme 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索框文本
     /// </summary>
+    [NotNull]
     protected string? SearchText { get; set; }
 
     /// <summary>
@@ -73,6 +93,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     {
         base.OnParametersSet();
 
-        SearchIcon ??= "fa-solid fa-magnifying-glass";
+        SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectSearchIcon);
     }
 }

@@ -1,0 +1,9 @@
+<Project>
+
+  <Import Project="..\Version.targets" />
+
+  <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="git reset --hard"></Exec>
+  </Target>
+
+</Project>

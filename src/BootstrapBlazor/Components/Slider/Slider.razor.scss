@@ -1,0 +1,23 @@
+.range-group {
+    display: flex;
+    align-items: center;
+    --bb-form-range-height: #{$bb-form-range-height};
+
+    .form-range {
+        height: var(--bb-form-range-height);
+    }
+}
+
+.row {
+    --bb-form-range-margin-top: #{$bb-form-range-margin-top};
+
+    .form-range {
+        margin-top: var(--bb-form-range-margin-top);
+    }
+}
+
+.form-range {
+    &:disabled {
+        background-color: unset;
+    }
+}

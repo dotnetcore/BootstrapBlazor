@@ -78,7 +78,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GotoNavigator_Ok()
+    public async Task GotoNavigator_Ok()
     {
         var index = 0;
         var cut = Context.RenderComponent<Pagination>(pb =>
@@ -94,7 +94,7 @@ public class PaginationTest : BootstrapBlazorTestBase
 
         var navigator = cut.FindComponent<GotoNavigator>();
         var input = navigator.Find("input");
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             input.Change("5");
             input.KeyUp("Enter");
@@ -148,13 +148,13 @@ public class PaginationTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void NextLink_Ok()
+    public async Task NextLink_Ok()
     {
         var index = 0;
         var cut = Context.RenderComponent<Pagination>(pb =>
         {
             pb.Add(a => a.PageCount, 8);
-            pb.Add(a => a.PageIndex, 8);
+            pb.Add(a => a.PageIndex, 4);
             pb.Add(a => a.MaxPageLinkCount, 5);
             pb.Add(a => a.OnPageLinkClick, pageIndex =>
             {
@@ -163,9 +163,13 @@ public class PaginationTest : BootstrapBlazorTestBase
             });
         });
         var links = cut.FindAll(".page-link");
-        var link = links[links.Count - 1];
-        cut.InvokeAsync(() => link.Click());
-        Assert.Equal(1, index);
+        var link = links[links.Count - 2];
+        await cut.InvokeAsync(() => link.Click());
+        Assert.Equal(8, index);
+
+        link = links[links.Count - 1];
+        await cut.InvokeAsync(() => link.Click());
+        Assert.Equal(8, index);
     }
 
     [Fact]

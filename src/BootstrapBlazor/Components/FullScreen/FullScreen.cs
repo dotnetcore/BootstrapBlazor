@@ -2,14 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FullScreen 组件部分类
 /// </summary>
-[JSModuleAutoLoader]
+[BootstrapModuleAutoLoader(ModuleName = "fullscreen")]
 public class FullScreen : BootstrapModuleComponentBase
 {
     /// <summary>
@@ -35,11 +33,12 @@ public class FullScreen : BootstrapModuleComponentBase
     private async Task Show(FullScreenOption option)
     {
         Option = option;
-        await InvokeExecuteAsync(Id, Option.Element.Context != null ? option.Element : Option.Id);
+
+        await InvokeVoidAsync("execute", Id, Option.Element.Context != null ? option.Element : Option.Id);
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

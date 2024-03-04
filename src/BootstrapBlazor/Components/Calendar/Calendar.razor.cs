@@ -84,6 +84,10 @@ public partial class Calendar
             .AddClass("is-today", item.CellValue.Ticks == DateTime.Today.Ticks)
             .Build();
 
+    private string? ClassString => CssBuilder.Default("calendar")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -102,13 +106,13 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
         WeekHeaderText = Localizer[nameof(WeekHeaderText)];
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
-        Months = Localizer[nameof(Months)].Value.Split(',').ToList();
+        Months = [.. Localizer[nameof(Months)].Value.Split(',')];
     }
 
     /// <summary>
@@ -151,6 +155,12 @@ public partial class Calendar
     public EventCallback<DateTime> ValueChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 值改变时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示周视图 默认为 CalendarVieModel.Month 月视图
     /// </summary>
     [Parameter]
@@ -169,6 +179,12 @@ public partial class Calendar
     public RenderFragment<CalendarCellValue>? CellTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示年按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowYearButtons { get; set; } = true;
+
+    /// <summary>
     /// 选中日期时回调此方法
     /// </summary>
     /// <param name="value"></param>
@@ -179,9 +195,9 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        else
+        if (OnValueChanged != null)
         {
-            StateHasChanged();
+            await OnValueChanged(Value);
         }
     }
 
@@ -195,6 +211,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
@@ -216,6 +236,10 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
     }
 
     /// <summary>
@@ -236,6 +260,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 

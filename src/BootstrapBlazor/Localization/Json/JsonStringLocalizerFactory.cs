@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json;
@@ -110,11 +109,5 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
     /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
-    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(
-            assembly,
-            TypeName,
-            baseName,
-            IgnoreLocalizerMissing,
-            LoggerFactory.CreateLogger<JsonStringLocalizer>(),
-            ResourceNamesCache);
+    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, TypeName, baseName, IgnoreLocalizerMissing, LoggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache);
 }

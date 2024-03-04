@@ -1,0 +1,39 @@
+.bb-waterfall {
+    .bb-waterfall-template {
+        display: none;
+    }
+
+    .bb-waterfall-list {
+        position: relative;
+    }
+
+    .bb-waterfall-item {
+        position: absolute;
+        width: var(--bb-waterfall-item-width, 216px);
+        min-height: var(--bb-waterfall-item-min-height);
+        transition: left .3s linear, top .3s linear;
+
+        img {
+            width: 100%;
+        }
+
+        .bb-waterfall-item-loader {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(var(--bs-body-color-rgb), .8);
+        }
+    }
+
+    .bb-waterfall-load {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

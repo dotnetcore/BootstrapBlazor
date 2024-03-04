@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -14,11 +15,6 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
-    /// <summary>
-    /// 获得/设置 Tree 组件实例引用
-    /// </summary>
-    private ElementReference TreeElement { get; set; }
-
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
@@ -48,9 +44,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("fa-solid fa-caret-right")
+    private string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("node-icon")
         .AddClass("visible", item.HasChildren || item.Items.Any())
-        .AddClass("fa-rotate-90", item.IsExpand)
+        .AddClass(NodeIcon, !item.IsExpand)
+        .AddClass(ExpandNodeIcon, item.IsExpand)
+        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
         .Build();
 
     /// <summary>
@@ -60,7 +58,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private string? GetItemClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-item")
         .AddClass("active", ActiveItem == item)
-        .AddClass("disabled", item.IsDisabled)
+        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
         .Build();
 
     /// <summary>
@@ -72,18 +70,32 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("show", item.IsExpand)
         .Build();
 
-    private static string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", item.IsDisabled)
+    private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
+        .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private static bool TriggerNodeArrow(TreeViewItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
+    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Any());
 
-    private static bool TriggerNodeLabel(TreeViewItem<TItem> item) => !item.IsDisabled;
+    private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
+
+    private bool GetItemDisabledState(TreeViewItem<TItem> item) => item.IsDisabled || IsDisabled;
 
     /// <summary>
     /// 获得/设置 选中节点 默认 null
     /// </summary>
     private TreeViewItem<TItem>? ActiveItem { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用整个组件 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当节点被禁用时 <see cref="IsDisabled"/> 是否可以进行折叠展开操作 默认 false
+    /// </summary>
+    [Parameter]
+    public bool CanExpandWhenDisabled { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -165,12 +177,31 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Tree Node 节点图标
+    /// </summary>
+    [Parameter]
+    public string? NodeIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Tree Node 展开节点图标
+    /// </summary>
+    [Parameter]
+    public string? ExpandNodeIcon { get; set; }
+
+    [CascadingParameter]
+    private ContextMenuZone? ContextMenuZone { get; set; }
+
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<TreeView<TItem>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 节点状态缓存类实例
@@ -191,7 +222,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -203,7 +234,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// OnParametersSetAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        NodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewNodeIcon);
+        ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
@@ -237,35 +279,20 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
-
-            async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
-            {
-                // 恢复当前节点状态
-                foreach (var node in nodes)
-                {
-                    await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
-
-                    if (node.Items.Any())
-                    {
-                        await CheckExpand(node.Items);
-                    }
-                }
-            }
         }
     }
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        // 恢复当前节点状态
+        foreach (var node in nodes)
         {
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
+            await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
+
+            if (node.Items.Any())
+            {
+                await CheckExpand(node.Items);
+            }
         }
     }
 
@@ -309,6 +336,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
+    /// <summary>
+    /// 设置选中节点
+    /// </summary>
+    public void SetActiveItem(TreeViewItem<TItem> item)
+    {
+        ActiveItem = item;
+        ActiveItem.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 设置选中节点
+    /// </summary>
+    public void SetActiveItem(TItem item)
+    {
+        ActiveItem = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+        ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
     {
         CheckboxState.Checked => CheckboxState.UnChecked,
@@ -333,14 +380,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 // 通过 item 找到父节点
                 var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
-                foreach (var n in nodes)
+                foreach (var n in nodes.Where(n => n != node))
                 {
-                    if (n != node)
-                    {
-                        // 收缩同级节点
-                        n.IsExpand = false;
-                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
-                    }
+                    // 收缩同级节点
+                    n.IsExpand = false;
+                    await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                 }
             }
         }
@@ -369,7 +413,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck<TreeViewItem<TItem>, TItem>(item.CheckedState, TreeNodeStateCache);
+            item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
         }
 
         if (AutoCheckParent)
@@ -428,4 +472,57 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="y"></param>
     /// <returns></returns>
     public bool Equals(TItem? x, TItem? y) => this.Equals<TItem>(x, y);
+
+    private async Task OnContextMenu(MouseEventArgs e, TreeViewItem<TItem> item)
+    {
+        if (ContextMenuZone != null)
+        {
+            await ContextMenuZone.OnContextMenu(e, item.Value);
+        }
+    }
+
+    private bool IsPreventDefault => ContextMenuZone != null;
+
+    /// <summary>
+    /// 是否触摸
+    /// </summary>
+    private bool TouchStart { get; set; }
+
+    /// <summary>
+    /// 触摸定时器工作指示
+    /// </summary>
+    private bool IsBusy { get; set; }
+
+    private async Task OnTouchStart(TouchEventArgs e, TreeViewItem<TItem> item)
+    {
+        if (!IsBusy && ContextMenuZone != null)
+        {
+            IsBusy = true;
+            TouchStart = true;
+
+            // 延时保持 TouchStart 状态
+            await Task.Delay(200);
+            if (TouchStart)
+            {
+                var args = new MouseEventArgs()
+                {
+                    ClientX = e.Touches[0].ClientX,
+                    ClientY = e.Touches[0].ClientY,
+                    ScreenX = e.Touches[0].ScreenX,
+                    ScreenY = e.Touches[0].ScreenY,
+                };
+                // 弹出关联菜单
+                await OnContextMenu(args, item);
+
+                //延时防止重复激活菜单功能
+                await Task.Delay(200);
+            }
+            IsBusy = false;
+        }
+    }
+
+    private void OnTouchEnd()
+    {
+        TouchStart = false;
+    }
 }

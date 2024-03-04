@@ -236,6 +236,32 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         Assert.True(item.IsDefault);
     }
 
+    [Fact]
+    public void Render_Ok()
+    {
+        var items = new List<RibbonTabItem>
+        {
+            new RibbonTabItem()
+            {
+                Text = "test 1",
+                Items = new RibbonTabItem[]
+                {
+                    new RibbonTabItem()
+                    {
+                        Text = "Item"
+                    }
+                }
+            }
+        };
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+        items.Add(new RibbonTabItem() { Text = "Test2" });
+        cut.InvokeAsync(() => cut.Instance.Render());
+        cut.Contains("<span class=\"tabs-item-text\">Test2</span>");
+    }
+
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()

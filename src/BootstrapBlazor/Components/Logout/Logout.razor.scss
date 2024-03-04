@@ -1,0 +1,101 @@
+.dropdown-logout {
+    --bb-logout-avatar-width: #{$bb-logout-avatar-width};
+    --bb-logout-avatar-height: #{$bb-logout-avatar-height};
+    --bb-logout-menu-animation: #{$bb-logout-menu-animation};
+    --bb-logout-menu-border-color: #{$bb-logout-menu-border-color};
+    --bb-logout-text-max-width: #{$bb-logout-text-max-width};
+    --bb-logout-text-margin: #{$bb-logout-text-margin};
+    --bb-logout-text-color: #{$bb-logout-text-color};
+    --bb-logout-user-bg: #{$bb-logout-user-bg};
+    --bb-logout-user-color: #{$bb-logout-user-color};
+    --bb-logout-user-avatar-width: #{$bb-logout-user-avatar-width};
+    --bb-logout-user-avatar-height: #{$bb-logout-user-avatar-height};
+    --bb-logout-user-avatar-margin-right: #{$bb-logout-user-avatar-margin-right};
+}
+
+.dropdown-logout .dropdown-menu {
+    padding: 0;
+    overflow: hidden;
+    border-color: var(--bb-logout-menu-border-color);
+
+    &.show {
+        animation: var(--bb-logout-menu-animation);
+    }
+}
+
+@keyframes fade-in2 {
+    0% {
+        margin-top: -50px;
+        visibility: hidden;
+        opacity: 0
+    }
+
+    100% {
+        visibility: visible;
+        opacity: 1
+    }
+}
+
+.dropdown-logout .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.dropdown-logout .dropdown-toggle:after {
+    content: none;
+}
+
+.dropdown-logout .logout-avatar {
+    width: var(--bb-logout-avatar-width);
+    height: var(--bb-logout-avatar-height)
+}
+
+.dropdown-logout .logout-text {
+    color: var(--bb-logout-text-color);
+    font-weight: bold;
+    max-width: var(--bb-logout-text-max-width);
+    margin: var(--bb-logout-text-margin);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdown-logout .dropdown-user {
+    background-color: var(--bb-logout-user-bg);
+    color: var(--bb-logout-user-color);
+}
+
+.dropdown-logout .dropdown-user img {
+    width: var(--bb-logout-user-avatar-width);
+    height: var(--bb-logout-user-avatar-height);
+    margin-right: var(--bb-logout-user-avatar-margin-right);
+}
+
+.dropdown-logout .logout-un {
+    margin-top: .25rem;
+}
+
+.dropdown-logout .dropdown-item:not(.dropdown-user):focus,
+.dropdown-logout .dropdown-item:not(.dropdown-user):hover {
+    background-color: transparent;
+}
+
+.dropdown-logout .dropdown-item a {
+    color: var(--bs-body-color);
+    margin-bottom: .5rem;
+    display: block;
+    transition: color .3s linear;
+}
+
+.dropdown-logout .dropdown-item a:first-child {
+    margin-top: .5rem;
+}
+
+.dropdown-logout .dropdown-item a:hover {
+    color: var(--bs-primary);
+}
+
+.dropdown-logout .dropdown-item a > i {
+    margin-right: .5rem;
+}

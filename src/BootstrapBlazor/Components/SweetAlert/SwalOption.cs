@@ -22,7 +22,7 @@ public class SwalOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
     /// </summary>
-    internal bool IsModalConfirm { get; set; }
+    public bool IsConfirm { get; set; }
 
     /// <summary>
     /// 获得/设置 提示类型 默认为 Success
@@ -90,6 +90,16 @@ public class SwalOption : PopupOptionBase
     public string? Class { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭弹窗回调方法
+    /// </summary>
+    public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击 Confirm 按钮回调方法 用于模态对话框
+    /// </summary>
+    public Func<Task>? OnConfirmAsync { get; set; }
+
+    /// <summary>
     /// 
     /// </summary>
     public SwalOption()
@@ -129,14 +139,14 @@ public class SwalOption : PopupOptionBase
     /// 关闭弹窗方法
     /// </summary>
     /// <param name="returnValue">模态弹窗返回值 默认为 true</param>
-    public async Task Close(bool returnValue = true)
+    public async Task CloseAsync(bool returnValue = true)
     {
         if (Modal != null)
         {
             await Modal.Close();
         }
 
-        if (IsModalConfirm)
+        if (IsConfirm)
         {
             ReturnTask.TrySetResult(returnValue);
         }

@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TableFilter 基类
 /// </summary>
-[JSModuleAutoLoader("table-filter")]
 public partial class TableFilter : IFilter
 {
     /// <summary>
@@ -39,6 +38,18 @@ public partial class TableFilter : IFilter
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 增加过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 减少过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 不支持过滤类型提示信息 默认 null 读取资源文件内容
     /// </summary>
     [Parameter]
@@ -47,8 +58,7 @@ public partial class TableFilter : IFilter
     /// <summary>
     /// 获得/设置 Header 显示文字
     /// </summary>
-    [NotNull]
-    private string? Title { get; set; }
+    private string? _title;
 
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
@@ -59,7 +69,7 @@ public partial class TableFilter : IFilter
     /// <summary>
     /// 获得/设置 条件数量
     /// </summary>
-    private int Count { get; set; }
+    private int _count;
 
     /// <summary>
     /// 获得/设置 是否显示增加减少条件按钮
@@ -117,7 +127,23 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
-    private string? Step => Column.Step?.ToString() ?? "0.01";
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// 组件步长
+    /// </summary>
+    private string? _step;
+
+    /// <summary>
+    /// 外键数据源集合
+    /// </summary>
+    private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -126,9 +152,12 @@ public partial class TableFilter : IFilter
     {
         base.OnInitialized();
 
-        Title = Column.GetDisplayName();
+        _title = Column.GetDisplayName();
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
+
+        _lookup = new(() => Column.Lookup ?? LookupService.GetItemsByKey(Column.LookupServiceKey, Column.LookupServiceData));
+        _step = Column.Step;
     }
 
     /// <summary>
@@ -141,17 +170,29 @@ public partial class TableFilter : IFilter
         FilterButtonText ??= Localizer[nameof(FilterButtonText)];
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         NotSupportedMessage ??= Localizer[nameof(NotSupportedMessage)];
+
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
+
+        if (Table != null && Table.Filters.TryGetValue(Column.GetFieldName(), out var action))
+        {
+            var filter = action.GetFilterConditions();
+            if (filter.Filters?.Count > 1)
+            {
+                _count = 1;
+            }
+        }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         if (!IsHeaderRow)
         {
-            await base.ModuleInitAsync();
+            await base.InvokeInitAsync();
         }
     }
 
@@ -161,13 +202,16 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private async Task OnClickReset()
     {
-        Count = 0;
+        _count = 0;
 
         if (Table != null)
         {
             Table.Filters.Remove(FieldKey);
             FilterAction.Reset();
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 
@@ -175,10 +219,7 @@ public partial class TableFilter : IFilter
     /// 点击确认时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClickConfirm()
-    {
-        await OnFilterAsync();
-    }
+    private Task OnClickConfirm() => OnFilterAsync();
 
     /// <summary>
     /// 过滤数据方法
@@ -188,7 +229,8 @@ public partial class TableFilter : IFilter
     {
         if (Table != null)
         {
-            if (FilterAction.GetFilterConditions().Any())
+            var f = FilterAction.GetFilterConditions();
+            if (f.Filters != null && f.Filters.Any())
             {
                 Table.Filters[FieldKey] = FilterAction;
             }
@@ -196,7 +238,10 @@ public partial class TableFilter : IFilter
             {
                 Table.Filters.Remove(FieldKey);
             }
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 
@@ -206,9 +251,9 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private void OnClickPlus()
     {
-        if (Count == 0)
+        if (_count == 0)
         {
-            Count++;
+            _count++;
         }
     }
 
@@ -218,9 +263,11 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private void OnClickMinus()
     {
-        if (Count == 1)
+        if (_count == 1)
         {
-            Count--;
+            _count--;
         }
     }
+
+    private bool IsLookup => Column.Lookup != null || !string.IsNullOrEmpty(Column.LookupServiceKey);
 }

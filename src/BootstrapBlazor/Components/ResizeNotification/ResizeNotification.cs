@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 网页尺寸变化通知组件
 /// </summary>
-[JSModuleAutoLoader("responsive", ModuleName = "Responsive", JSObjectReference = true)]
+[BootstrapModuleAutoLoader(ModuleName = "responsive", JSObjectReference = true)]
 public class ResizeNotification : BootstrapModuleComponentBase
 {
     [Inject]
@@ -18,21 +18,21 @@ public class ResizeNotification : BootstrapModuleComponentBase
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
-    {
-        if (Module != null)
-        {
-            await InvokeInitAsync(Id, nameof(OnResize));
-            var point = await Module.InvokeAsync<BreakPoint>($"{ModuleName}.getResponsive");
-            await OnResize(point);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnResize));
 
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="point"></param>
+    /// <param name="pointString"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task OnResize(BreakPoint point) => ResizeService.InvokeAsync(point);
+    public Task OnResize(string pointString)
+    {
+        var point = BreakPoint.ExtraExtraLarge;
+        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        {
+            point = p;
+        }
+        return ResizeService.InvokeAsync(point);
+    }
 }

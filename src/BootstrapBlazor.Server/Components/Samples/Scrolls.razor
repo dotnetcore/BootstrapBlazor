@@ -1,0 +1,19 @@
+﻿@page "/scroll"
+@inject IStringLocalizer<Scrolls> Localizer
+
+<h3>@Localizer["ScrollTitle"]</h3>
+
+<h4>@Localizer["ScrollDescription"]</h4>
+
+<p>@((MarkupString)Localizer["ScrollTips"].Value)</p>
+
+<DemoBlock Title="@Localizer["ScrollNormalTitle"]" Introduction="@Localizer["ScrollNormalIntro"]" Name="Normal">
+    <div class="scroll-demo border">
+        <Scroll Height="200px">
+            <div style="height: 400px;">@Localizer["ScrollNormalDescription"]</div>
+            <div>@Localizer["ScrollNormalBottom"]</div>
+        </Scroll>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

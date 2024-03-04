@@ -124,7 +124,7 @@ To start the wizard, use either of the following approaches
 ## Supported browsers
 
 ![chrome](https://img.shields.io/badge/chrome->%3D57-success.svg?logo=google%20chrome&logoColor=red)
-![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=mozilla%20firefox&logoColor=red)
+![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=firefox%20browser&logoColor=red)
 ![edge](https://img.shields.io/badge/edge->%3D16-success.svg?logo=microsoft%20edge&logoColor=blue)
 ![ie](https://img.shields.io/badge/ie->%3D11-success.svg?logo=internet%20explorer&logoColor=blue)
 ![Safari](https://img.shields.io/badge/safari->%3D14-success.svg?logo=safari&logoColor=blue)

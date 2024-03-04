@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits SplitBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" role="group" data-bs-toggle="split" @ref="SplitElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
     <div class="@WrapperClassString">
         <div class="split-pane split-left" style="@StyleString">
             @FirstPaneTemplate

@@ -1,9 +1,10 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
     <div class="ribbon-header">
-        <Tab IsBorderCard="true" OnClickTab="OnClickTab">
+        <Tab OnClickTabItemAsync="OnClickTabItemAsync">
             @foreach (var item in Items)
             {
                 <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
@@ -22,7 +23,7 @@
                                         {
                                             <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
                                                         Url="@group.Url" Target="@group.Target"
-                                                        Text="@group.Text" IsVertical="true" Color="Color.Secondary"
+                                                        Text="@group.Text" IsVertical="true" Color="Color.None"
                                                         class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
                                         }
                                     }
@@ -55,7 +56,9 @@
     @if (ChildContent != null)
     {
         <div class="ribbon-body">
-            @ChildContent
+            <CascadingValue Value="this" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
         </div>
     }
 </div>

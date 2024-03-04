@@ -19,7 +19,7 @@ public class TabItem : ComponentBase
     /// 获得/设置 TabItem Header 模板
     /// </summary>
     [Parameter]
-    public RenderFragment<Tab>? HeaderTemplate { get; set; }
+    public RenderFragment<TabItem>? HeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 请求地址
@@ -47,7 +47,7 @@ public class TabItem : ComponentBase
     public bool AlwaysLoad { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
+    /// 获得/设置 图标字符串
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -64,6 +64,8 @@ public class TabItem : ComponentBase
     [CascadingParameter]
     protected internal Tab? TabSet { get; set; }
 
+    private string? LastText { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -76,10 +78,47 @@ public class TabItem : ComponentBase
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (LastText != null)
+        {
+            Text = LastText;
+        }
+    }
+
+    /// <summary>
     /// 设置是否被选中方法
     /// </summary>
     /// <param name="active"></param>
     public virtual void SetActive(bool active) => IsActive = active;
+
+    /// <summary>
+    /// 重新设置标签文字等参数
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="icon"></param>
+    /// <param name="closable"></param>
+    public void SetHeader(string text, string? icon = null, bool? closable = null)
+    {
+        if (TabSet != null)
+        {
+            LastText = Text = text;
+
+            if (!string.IsNullOrEmpty(icon))
+            {
+                Icon = icon;
+            }
+            if (closable.HasValue)
+            {
+                Closable = closable.Value;
+            }
+            TabSet.ActiveTab(this);
+        }
+    }
 
     /// <summary>
     /// 通过指定参数集合获取 TabItem 实例
@@ -93,7 +132,7 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-        var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
         return item;
     }
 }

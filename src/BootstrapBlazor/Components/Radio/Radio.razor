@@ -2,28 +2,19 @@
 @typeparam TValue
 @inherits Checkbox<TValue>
 
-<div @attributes="AdditionalAttributes" class="@GetClassString(IsButton)">
-    @if (!IsButton)
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    <input class="@InputClassString" type="radio" name="@GroupName" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnClickHandler">
+    @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
     {
-        <input class="@InputClassString" type="radio" name="@GroupName" id="@Id" disabled="@Disabled" checked="@CheckedString" @onclick="@OnClickHandler">
-        @if (ShowAfterLabel && !string.IsNullOrEmpty(DisplayText))
-        {
-            <label class="form-check-label" for="@Id">
-                @if(ChildContent != null)
-                {
-                    @ChildContent
-                }
-                else
-                {
-                    @DisplayText
-                }
-            </label>
-        }
-    }
-    else
-    {
-        <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="OnClickHandler">
-            @DisplayText
-        </DynamicElement>
+        <label class="form-check-label" for="@Id">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @DisplayText
+            }
+        </label>
     }
 </div>

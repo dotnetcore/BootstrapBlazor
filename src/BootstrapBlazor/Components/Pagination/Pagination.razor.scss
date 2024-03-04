@@ -1,0 +1,66 @@
+.nav-pages {
+    --bb-pagination-goto-padding: #{$bb-pagination-goto-padding};
+    --bb-pagiantion-select-width: #{$bb-pagiantion-select-width};
+    --bb-pagiantion-select-margin: #{$bb-pagiantion-select-margin};
+    --bb-pagination-select-algin: #{$bb-pagination-select-algin};
+    --bb-pagination-goto-width: #{$bb-pagination-goto-width};
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .select {
+        width: var(--bb-pagiantion-select-width);
+        margin: var(--bb-pagiantion-select-margin);
+
+        .dropdown-menu {
+            min-width: unset;
+            text-align: var(--bb-pagination-select-algin);
+        }
+
+        .form-select {
+            text-align: var(--bb-pagination-select-algin);
+        }
+    }
+
+    .page-goto {
+        display: flex;
+        align-items: center;
+
+        .goto-text {
+            padding: var(--bb-pagination-goto-padding);
+        }
+
+        > input {
+            max-width: var(--bb-pagination-goto-width);
+        }
+    }
+}
+
+.pagination {
+    margin: 0;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    --bs-pagination-focus-box-shadow: none;
+    --bb-pagination-link-padding: #{$bb-pagination-link-xs-padding};
+
+    .page-link {
+        padding: var(--bb-pagination-link-padding);
+        cursor: pointer;
+    }
+}
+
+[data-bs-theme='dark'] .pagination {
+    --bs-pagination-active-border-color: var(--bs-border-color);
+}
+
+@media (min-width: 375px) {
+    .pagination {
+        --bb-pagination-link-padding: #{$bb-pagination-link-padding};
+    }
+}
+
+@media (min-width: 456px) {
+    .pagination {
+        --bb-pagination-link-padding: #{$bb-pagination-link-sm-padding};
+    }
+}

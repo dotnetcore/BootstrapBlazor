@@ -1,0 +1,36 @@
+.input-group {
+    > .datetime-picker,
+    > .select,
+    > .switch,
+    > .auto-complete {
+        width: 1%;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    > [data-bs-toggle] {
+        flex: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    > .switch {
+        --bb-switch-padding: 7px .5rem;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+    }
+
+    > .segmented {
+        border: 1px solid var(--bs-border-color);
+    }
+
+    > .input-group-text {
+        width: var(--bb-input-group-label-width);
+    }
+}
+
+.input-group-xs {
+    .btn, .form-control, .input-group-text {
+        font-size: .75rem;
+    }
+}

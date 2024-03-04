@@ -88,6 +88,9 @@ public partial class Table<TItem>
 
         SortName = col.GetFieldName();
 
+        // 清除高级排序 (保证点击 Header 排序的优先级最高)
+        AdvancedSortItems.Clear();
+
         // 通知 Table 组件刷新数据
         await InternalOnSortAsync(SortName, SortOrder);
     };
@@ -120,9 +123,55 @@ public partial class Table<TItem>
         .AddClass("fr", IsLastMultiColumn())
         .Build();
 
-    private int MulitiColumnLeft => ShowDetails() ? DetailColumnWidth : 0;
+    private string? DetailColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedDetailRowHeaderColumn)
+        .AddClass("fr", IsLastDetailColumn())
+        .Build();
 
-    private string? MultiColumnStyleString => FixedMultipleColumn ? $"left: {MulitiColumnLeft}px;" : null;
+    private string? LineNoColumnClassString => CssBuilder.Default()
+        .AddClass("fixed", FixedLineNoColumn)
+        .AddClass("fr", IsLastLineNoColumn())
+        .Build();
+
+    private int LineNoColumnLeft()
+    {
+        var left = 0;
+        if (GetFixedDetailRowHeaderColumn && GetFixedMultipleSelectColumn)
+        {
+            left = DetailColumnWidth + MultiColumnWidth;
+        }
+        else if (GetFixedMultipleSelectColumn)
+        {
+            left = MultiColumnWidth;
+        }
+        else if (GetFixedDetailRowHeaderColumn)
+        {
+            left = DetailColumnWidth;
+        }
+        return left;
+    }
+
+    private int MultipleSelectColumnLeft()
+    {
+        var left = 0;
+        if (GetFixedDetailRowHeaderColumn)
+        {
+            left = DetailColumnWidth;
+        }
+        return left;
+    }
+
+    private bool GetFixedDetailRowHeaderColumn => FixedDetailRowHeaderColumn && ShowDetails();
+
+    private bool GetFixedMultipleSelectColumn => FixedMultipleColumn && IsMultipleSelect;
+
+    private bool GetFixedLineNoColumn => FixedLineNoColumn && ShowLineNo;
+
+    private string? DetailColumnStyleString => GetFixedDetailRowHeaderColumn ? "left: 0;" : null;
+
+    private string? LineNoColumnStyleString => GetFixedLineNoColumn ? $"left: {LineNoColumnLeft()}px;" : null;
+
+    private string? MultiColumnStyleString => GetFixedMultipleSelectColumn ? $"left: {MultipleSelectColumnLeft()}px;" : null;
 
     private int MultiColumnWidth => ShowCheckboxText ? ShowCheckboxTextColumnWidth : CheckboxColumnWidth;
 
@@ -170,7 +219,13 @@ public partial class Table<TItem>
         .AddClass($"left: {GetExtendButtonsColumnLeftMargin()}px;", FixedExtendButtonsColumn && IsExtendButtonsInRowHeader)
         .Build();
 
-    private bool IsLastMultiColumn() => FixedMultipleColumn && (!FixedExtendButtonsColumn || !IsExtendButtonsInRowHeader) && !GetVisibleColumns().Any(i => i.Fixed);
+    private bool IsLastDetailColumn() => !GetFixedMultipleSelectColumn && !GetFixedLineNoColumn && IsNotFixedColumn();
+
+    private bool IsLastMultiColumn() => !GetFixedLineNoColumn && IsNotFixedColumn();
+
+    private bool IsLastLineNoColumn() => IsNotFixedColumn();
+
+    private bool IsNotFixedColumn() => !(FixedExtendButtonsColumn && IsExtendButtonsInRowHeader) && !(GetVisibleColumns().FirstOrDefault()?.Fixed ?? false);
 
     private ConcurrentDictionary<ITableColumn, bool> LastFixedColumnCache { get; } = new();
 
@@ -253,7 +308,16 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
-    protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis && !AllowResizing ? $"width: {col.Width ?? 200}px" : null;
+    protected string? GetCellStyleString(ITableColumn col)
+    {
+        return col.TextEllipsis && !AllowResizing
+            ? GetFixedHeaderStyleString()
+            : null;
+
+        string GetFixedHeaderStyleString() => IsFixedHeader
+            ? $"width: calc({col.Width ?? 200}px - 2 * var(--bb-table-td-padding-x));"
+            : $"width: {col.Width ?? 200}px;";
+    }
 
     /// <summary>
     /// 获得指定列头固定列样式
@@ -263,56 +327,61 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetFixedCellStyleString(ITableColumn col, int margin = 0)
     {
-        var style = CssBuilder.Default();
+        string? ret = null;
         if (col.Fixed)
         {
-            var defaultWidth = 200;
-            var isTail = IsTail(col);
-            var index = Columns.IndexOf(col);
-            var width = 0;
-            var start = 0;
-            if (isTail)
-            {
-                // after
-                while (index + 1 < Columns.Count)
-                {
-                    width += Columns[index++].Width ?? defaultWidth;
-                }
-                if (ShowExtendButtons && FixedExtendButtonsColumn)
-                {
-                    width += ExtendButtonColumnWidth;
-                }
-
-                // 如果是固定表头时增加滚动条位置
-                if (IsFixedHeader && (index + 1) == Columns.Count)
-                {
-                    width += margin;
-                }
-
-                style.AddClass($"right: {width}px;");
-            }
-            else
-            {
-                if (FixedMultipleColumn)
-                {
-                    width += MultiColumnWidth;
-                }
-                if (ShowDetails())
-                {
-                    width += DetailColumnWidth;
-                }
-                if (ShowLineNo)
-                {
-                    width += LineNoColumnWidth;
-                }
-                while (index > start)
-                {
-                    width += Columns[start++].Width ?? defaultWidth;
-                };
-                style.AddClass($"left: {width}px;");
-            }
+            ret = IsTail(col) ? GetRightStyle(col, margin) : GetLeftStyle(col);
         }
-        return style.Build();
+        return ret;
+    }
+
+    private string? GetLeftStyle(ITableColumn col)
+    {
+        var defaultWidth = 200;
+        var width = 0;
+        var start = 0;
+        var index = Columns.IndexOf(col);
+        if (GetFixedDetailRowHeaderColumn)
+        {
+            width += DetailColumnWidth;
+        }
+        if (GetFixedMultipleSelectColumn)
+        {
+            width += MultiColumnWidth;
+        }
+        if (GetFixedLineNoColumn)
+        {
+            width += LineNoColumnWidth;
+        }
+        while (index > start)
+        {
+            width += Columns[start++].Width ?? defaultWidth;
+        }
+        return $"left: {width}px;";
+    }
+
+    private string? GetRightStyle(ITableColumn col, int margin)
+    {
+        var defaultWidth = 200;
+        var width = 0;
+        var index = Columns.IndexOf(col);
+
+        // after
+        while (index + 1 < Columns.Count)
+        {
+            width += Columns[index++].Width ?? defaultWidth;
+        }
+        if (ShowExtendButtons && FixedExtendButtonsColumn)
+        {
+            width += ExtendButtonColumnWidth;
+        }
+
+        // 如果是固定表头时增加滚动条位置
+        if (IsFixedHeader && (index + 1) == Columns.Count)
+        {
+            width += margin;
+        }
+        return $"right: {width}px;";
     }
 
     /// <summary>
@@ -353,4 +422,79 @@ public partial class Table<TItem>
         .AddClass(SortIconAsc, SortName == fieldName && SortOrder == SortOrder.Asc)
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
         .Build();
+
+    #region Advanced Sort
+    /// <summary>
+    /// 获得 高级排序样式
+    /// </summary>
+    protected string? AdvancedSortClass => CssBuilder.Default("btn btn-secondary")
+        .AddClass("btn-info", AdvancedSortItems.Any())
+        .Build();
+
+    /// <summary>
+    /// 获得/设置 是否显示高级排序按钮 默认 false 不显示 />
+    /// </summary>
+    [Parameter]
+    public bool ShowAdvancedSort { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级排序按钮图标
+    /// </summary>
+    [Parameter]
+    public string? AdvancedSortButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级排序框的大小 默认 Medium 
+    /// </summary>
+    [Parameter]
+    public Size AdvancedSortDialogSize { get; set; } = Size.Medium;
+
+    /// <summary>
+    /// 获得/设置 高级排序框是否可以拖拽 默认 false 不可以拖拽
+    /// </summary>
+    [Parameter]
+    public bool AdvancedSortDialogIsDraggable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级排序框是否显示最大化按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool AdvancedSortDialogShowMaximizeButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级排序，默认为 Empty
+    /// </summary>
+    [Parameter]
+    public List<TableSortItem> AdvancedSortItems { get; set; } = [];
+
+    /// <summary>
+    /// 高级排序按钮点击时调用此方法
+    /// </summary>
+    private async Task ShowSortDialog()
+    {
+        var result = await DialogService.ShowModal<TableAdvancedSortDialog>(new ResultDialogOption
+        {
+            Title = AdvancedSortModalTitle,
+            Size = AdvancedSortDialogSize,
+            IsDraggable = AdvancedSortDialogIsDraggable,
+            ShowMaximizeButton = AdvancedSortDialogShowMaximizeButton,
+            ComponentParameters = new Dictionary<string, object>
+            {
+                [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
+                [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<TableSortItem>>(this, v => AdvancedSortItems = v),
+                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
+            }
+        });
+        if (result == DialogResult.Yes)
+        {
+            await QueryAsync();
+        }
+    }
+
+    /// <summary>
+    /// 获得 <see cref="AdvancedSortItems"/> 中过滤条件
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerable<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => p.ToString()) : Enumerable.Empty<string>();
+    #endregion
 }

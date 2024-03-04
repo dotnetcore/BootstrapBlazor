@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class RadioTest : BootstrapBlazorTestBase
@@ -17,7 +15,6 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
         });
         Assert.Contains("radio-list form-control", cut.Markup);
-        Assert.Contains("form-check is-label", cut.Markup);
         Assert.Contains("form-check-input", cut.Markup);
     }
 
@@ -31,6 +28,17 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
         });
         Assert.Contains("form-check-input", cut.Markup);
+    }
+
+    [Fact]
+    public void SelectedItem_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem> { new("1", "Test1"), new("2", "Test2") });
+        });
+        var item = cut.Find(".form-check-input");
+        item.Click();
     }
 
     [Fact]
@@ -217,14 +225,32 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
             pb.Add(a => a.Value, EnumEducation.Middle);
         });
-        cut.Contains("is-button");
-        cut.Contains("form-check is-label is-checked");
+        cut.Contains("radio-list btn-group");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("form-check is-label is-checked bg-danger");
+        cut.Contains("btn active bg-danger");
+
+        cut.InvokeAsync(() =>
+        {
+            var btn = cut.Find(".btn");
+            btn.Click();
+            cut.Contains("btn active bg-danger");
+        });
+    }
+
+    [Fact]
+    public void ShowBorder_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.ShowBorder, false);
+            pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
+            pb.Add(a => a.Value, EnumEducation.Middle);
+        });
+        cut.Contains("no-border");
     }
 
     private class RadioListGenericMock<T>

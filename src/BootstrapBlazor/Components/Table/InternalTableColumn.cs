@@ -2,14 +2,17 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Reflection;
-
 namespace BootstrapBlazor.Components;
 
-[ExcludeFromCodeCoverage]
-internal class InternalTableColumn : ITableColumn
+/// <summary>
+/// 构造函数
+/// </summary>
+/// <param name="fieldName">字段名称</param>
+/// <param name="fieldType">字段类型</param>
+/// <param name="fieldText">显示文字</param>
+class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null) : ITableColumn
 {
-    private string FieldName { get; }
+    private string FieldName { get; } = fieldName;
 
     public bool Sortable { get; set; }
 
@@ -25,8 +28,6 @@ internal class InternalTableColumn : ITableColumn
 
     public bool Fixed { get; set; }
 
-    public bool Visible { get; set; } = true;
-
     public bool TextWrap { get; set; }
 
     public bool TextEllipsis { get; set; }
@@ -37,14 +38,34 @@ internal class InternalTableColumn : ITableColumn
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Readonly { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenAdd { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
@@ -75,24 +96,22 @@ internal class InternalTableColumn : ITableColumn
     /// </summary>
     public string? PlaceHolder { get; set; }
 
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     public Alignment Align { get; set; }
 
     public bool ShowTips { get; set; }
 
-    public Type PropertyType { get; }
+    public Type PropertyType { get; } = fieldType;
 
     public bool Editable { get; set; } = true;
 
-    public bool Readonly { get; set; }
-
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 
     [NotNull]
-    public string? Text { get; set; }
+    public string? Text { get; set; } = fieldText;
 
     public RenderFragment<object>? EditTemplate { get; set; }
 
@@ -132,14 +151,19 @@ internal class InternalTableColumn : ITableColumn
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>>
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// <inheritdoc/>>
     /// </summary>
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法
@@ -187,84 +211,11 @@ internal class InternalTableColumn : ITableColumn
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// 构造函数
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="fieldName">字段名称</param>
-    /// <param name="fieldType">字段类型</param>
-    /// <param name="fieldText">显示文字</param>
-    public InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null)
-    {
-        FieldName = fieldName;
-        PropertyType = fieldType;
-        Text = fieldText;
-    }
+    public bool IsMarkupString { get; set; }
 
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;
-
-    /// <summary>
-    /// 通过泛型模型获取模型属性集合
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null) => GetProperties(typeof(TModel), source);
-
-    /// <summary>
-    /// 通过特定类型模型获取模型属性集合
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetProperties(Type type, IEnumerable<ITableColumn>? source = null)
-    {
-        var cols = new List<ITableColumn>(50);
-        var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties();
-        foreach (var prop in props)
-        {
-            ITableColumn? tc;
-            var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-
-            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-            var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
-            if (attr == null)
-            {
-                tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
-
-                if (attrModel != null)
-                {
-                    tc.InheritValue(attrModel);
-                }
-            }
-            else
-            {
-                if (attr.Ignore) continue;
-
-                attr.Text = displayName;
-                attr.FieldName = prop.Name;
-                attr.PropertyType = prop.PropertyType;
-
-                if (attrModel != null)
-                {
-                    attr.InheritValue(attrModel);
-                }
-                tc = attr;
-            }
-
-            // 替换属性 手写优先
-            var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
-            if (col != null)
-            {
-                tc.CopyValue(col);
-            }
-            cols.Add(tc);
-        }
-
-        return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
-            .Concat(cols.Where(a => a.Order == 0))
-            .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
-    }
 }

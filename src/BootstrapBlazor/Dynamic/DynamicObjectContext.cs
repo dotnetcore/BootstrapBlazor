@@ -44,16 +44,12 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
         var attr = attributeType.GetConstructor(types);
         if (attr != null)
         {
-            var cab = new CustomAttributeBuilder(attr, constructorArgs,
-                namedProperties: propertyInfos ?? Array.Empty<PropertyInfo>(),
-                propertyValues: propertyValues ?? Array.Empty<object?>());
-            CustomerAttributeBuilderCache.AddOrUpdate(columnName,
-                key => new List<CustomAttributeBuilder> { cab },
-                (key, builders) =>
-                {
-                    builders.Add(cab);
-                    return builders;
-                });
+            var cab = new CustomAttributeBuilder(attr, constructorArgs, namedProperties: propertyInfos ?? [], propertyValues: propertyValues ?? []);
+            CustomerAttributeBuilderCache.AddOrUpdate(columnName, key => [cab], (key, builders) =>
+            {
+                builders.Add(cab);
+                return builders;
+            });
         }
     }
 
@@ -94,4 +90,9 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// 获得选中行比对回调方法
     /// </summary>
     public Func<IDynamicObject?, IDynamicObject?, bool>? EqualityComparer { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Func<QueryPageOptions, IEnumerable<IDynamicObject>, IEnumerable<IDynamicObject>>? OnFilterCallback { get; set; }
 }

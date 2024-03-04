@@ -1,0 +1,111 @@
+﻿@page "/slider"
+
+@inject IStringLocalizer<Sliders> Localizer
+
+<h3>@Localizer["SlidersTitle"]</h3>
+
+<h4>@Localizer["SlidersDescription"]</h4>
+
+<DemoBlock Title="@Localizer["SlidersNormalTitle"]" Introduction="@Localizer["SlidersNormalIntro"]" Name="Normal">
+    <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="CurrentValue" />
+                <BootstrapInput @bind-Value="@CurrentValue" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="MinValue" />
+                <BootstrapInput @bind-Value="@MinValue" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="MaxValue" />
+                <BootstrapInput @bind-Value="@MaxValue" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="DisplayText" />
+                <BootstrapInput @bind-Value="@DisplayText" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Step" />
+                <BootstrapInput @bind-Value="@Step" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsDisabled" />
+                <Checkbox @bind-Value="@IsDisabled" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="UseInput" />
+                <Checkbox @bind-Value="@UseInput" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowLabel" />
+                <Checkbox @bind-Value="@ShowLabel" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="UseGroup" />
+                <Checkbox @bind-Value="@UseGroup" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            @if (UseGroup)
+            {
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@DisplayText" />
+                    @RenderSlider
+                </BootstrapInputGroup>
+            }
+            else
+            {
+                @RenderSlider
+            }
+        </div>
+        <div class="col-12">
+            <ConsoleLogger @ref="Logger" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlidersRangeTitle"]" Introduction="@Localizer["SlidersRangeIntro"]" Name="Range">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="@RangeValue" Step="1" UseInputEvent="true"></Slider>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@RangeValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlidersIsDisabledTitle"]" Introduction="@Localizer["SlidersIsDisabledIntro"]" Name="IsDisabled">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Slider TValue="double" Step="1" IsDisabled="true"></Slider>
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
+
+@code {
+    RenderFragment RenderSlider =>
+    @<Slider @bind-Value="@CurrentValue" Max="MaxValue" Min="MinValue" Step="Step" UseInputEvent="UseInput"
+            DisplayText="@DisplayText" ShowLabel="ShowLabel" IsDisabled="IsDisabled" OnValueChanged="OnRangeSliderValueChanged" />;
+}

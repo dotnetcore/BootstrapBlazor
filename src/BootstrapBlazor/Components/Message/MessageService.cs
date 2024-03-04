@@ -2,25 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 
 /// </summary>
-public class MessageService : BootstrapServiceBase<MessageOption>
+/// <param name="option"></param>
+public class MessageService(IOptionsMonitor<BootstrapBlazorOptions> option) : BootstrapServiceBase<MessageOption>
 {
-    private BootstrapBlazorOptions Options { get; }
-
-    /// <summary>
-    /// 构造方法
-    /// </summary>
-    /// <param name="option"></param>
-    public MessageService(IOptionsMonitor<BootstrapBlazorOptions> option)
-    {
-        Options = option.CurrentValue;
-    }
+    private BootstrapBlazorOptions Options { get; } = option.CurrentValue;
 
     /// <summary>
     /// Show 方法

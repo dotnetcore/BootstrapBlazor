@@ -8,7 +8,8 @@ namespace BootstrapBlazor.Components;
 /// JSModuleNotInheritedAttribute <see cref="JSModuleAutoLoaderAttribute"/>
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class JSModuleNotInheritedAttribute : Attribute
+public sealed class JSModuleNotInheritedAttribute : Attribute
 {
-
+    // 增加 sealed 关键字防止二开写派生类导致 type.GetCustomAttribute<JSModuleNotInheritedAttribute>() 报错
+    // BootstrapModuleComponentBase 类 OnLoadJSModule 方法
 }

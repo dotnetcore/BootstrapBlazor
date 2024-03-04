@@ -7,36 +7,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 动态组件类
 /// </summary>
-public class BootstrapDynamicComponent
+/// <param name="componentType"></param>
+/// <param name="parameters">TCom 组件所需要的参数集合</param>
+public class BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
 {
-    /// <summary>
-    /// 获得/设置 组件参数集合
-    /// </summary>
-    private IDictionary<string, object?>? Parameters { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件类型
-    /// </summary>
-    private Type ComponentType { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="componentType"></param>
-    /// <param name="parameters">TCom 组件所需要的参数集合</param>
-    public BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
-    {
-        ComponentType = componentType;
-        Parameters = parameters;
-    }
-
     /// <summary>
     /// 创建自定义组件方法
     /// </summary>
     /// <typeparam name="TCom"></typeparam>
     /// <param name="parameters">TCom 组件所需要的参数集合</param>
     /// <returns></returns>
-    public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?>? parameters = null) where TCom : IComponent => new(typeof(TCom), parameters);
+    public static BootstrapDynamicComponent CreateComponent<TCom>(IDictionary<string, object?>? parameters = null) where TCom : IComponent => CreateComponent(typeof(TCom), parameters);
 
     /// <summary>
     /// 创建自定义组件方法
@@ -46,16 +27,24 @@ public class BootstrapDynamicComponent
     public static BootstrapDynamicComponent CreateComponent<TCom>() where TCom : IComponent => CreateComponent<TCom>(new Dictionary<string, object?>());
 
     /// <summary>
+    /// 创建自定义组件方法
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    public static BootstrapDynamicComponent CreateComponent(Type type, IDictionary<string, object?>? parameters = null) => new(type, parameters);
+
+    /// <summary>
     /// 创建组件实例并渲染
     /// </summary>
     /// <returns></returns>
     public RenderFragment Render() => builder =>
     {
         var index = 0;
-        builder.OpenComponent(index++, ComponentType);
-        if (Parameters != null)
+        builder.OpenComponent(index++, componentType);
+        if (parameters != null)
         {
-            foreach (var p in Parameters)
+            foreach (var p in parameters)
             {
                 builder.AddAttribute(index++, p.Key, p.Value);
             }

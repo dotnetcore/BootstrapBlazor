@@ -1,0 +1,8 @@
+﻿.drawing-canvas {
+    height: 70vh;
+    width: 100%;
+    display: block;
+    border: 2px solid var(--bs-border-color);
+    margin-bottom: 1rem;
+    border-radius: var(--bs-border-radius);
+}

@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableExtensionButton 表格扩展按钮类
 /// </summary>
 [JSModuleNotInherited]
 public partial class TableExtensionButton
@@ -13,7 +13,7 @@ public partial class TableExtensionButton
     /// <summary>
     /// 获得 Toolbar 扩展按钮集合
     /// </summary>
-    private List<ButtonBase> Buttons { get; } = new();
+    private readonly List<ITableCellComponent> _buttons = [];
 
     /// <summary>
     /// Specifies the content to be rendered inside this
@@ -30,12 +30,12 @@ public partial class TableExtensionButton
     /// <summary>
     /// 添加按钮到工具栏方法
     /// </summary>
-    public void AddButton(ButtonBase button) => Buttons.Add(button);
+    public void AddButton(ITableCellComponent button) => _buttons.Add(button);
 
     /// <summary>
     ///从工具栏中移除按钮
     /// </summary>
-    public void RemoveButton(ButtonBase button) => Buttons.Remove(button);
+    public void RemoveButton(ITableCellComponent button) => _buttons.Remove(button);
 
     private async Task OnClick(TableCellButton b)
     {
@@ -58,7 +58,7 @@ public partial class TableExtensionButton
         }
     }
 
-    private async Task OnClickConfirm(TableCellPopconfirmButton b)
+    private async Task OnClickConfirm(TableCellPopConfirmButton b)
     {
         await b.OnConfirm();
 

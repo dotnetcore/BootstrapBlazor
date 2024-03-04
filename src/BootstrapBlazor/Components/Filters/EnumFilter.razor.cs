@@ -13,7 +13,7 @@ public partial class EnumFilter
 {
     private string? Value { get; set; }
 
-    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
+    private string? Value2 { get; set; }
 
     /// <summary>
     /// 内部使用
@@ -36,7 +36,7 @@ public partial class EnumFilter
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -44,17 +44,21 @@ public partial class EnumFilter
 
         if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
 
-        if (TableFilter != null)
-        {
-            TableFilter.ShowMoreButton = false;
-        }
-
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
-        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -63,42 +67,65 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = [] };
         if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = val,
                 FilterAction = FilterAction.Equal
             });
         }
-        return filters;
+
+        if (Count > 0 && Enum.TryParse(EnumType, Value2, out var val2))
+        {
+            filter.Filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = val2,
+                FilterAction = FilterAction.Equal
+            });
+            filter.FilterLogic = Logic;
+        }
+        return filter;
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var type = Nullable.GetUnderlyingType(Type) ?? Type;
+        if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
-            var type = Nullable.GetUnderlyingType(Type) ?? Type;
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue != null && first.FieldValue.GetType() == type)
+            Value = first.FieldValue.ToString();
+        }
+        else
+        {
+            Value = "";
+        }
+
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue != null && second.FieldValue.GetType() == type)
             {
-                Value = first.FieldValue.ToString();
+                Value2 = second.FieldValue.ToString();
             }
             else
             {
-                Value = "";
+                Value2 = "";
             }
+            Logic = filter.FilterLogic;
         }
-        await base.SetFilterConditionsAsync(conditions);
+        await base.SetFilterConditionsAsync(filter);
     }
 }

@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Message 组件
 /// </summary>
-public partial class Message : IDisposable
+public partial class Message
 {
     /// <summary>
     /// 获得 组件样式
@@ -24,10 +24,7 @@ public partial class Message : IDisposable
         .AddClass("bottom: 1rem;", Placement == Placement.Bottom)
         .Build();
 
-    /// <summary>
-    /// 获得 弹出窗集合
-    /// </summary>
-    private List<MessageOption> Messages { get; } = new List<MessageOption>();
+    private readonly List<MessageOption> _messages = [];
 
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top
@@ -43,14 +40,48 @@ public partial class Message : IDisposable
     public MessageService? MessageService { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        // 注册 Toast 弹窗事件
+        // 注册 Message 弹窗事件
         MessageService.Register(this, Show);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Clear));
+
+    private static string? GetAutoHideString(MessageOption option) => option.IsAutoHide ? "true" : null;
+
+    private static string? GetItemClassString(MessageOption option) => CssBuilder.Default("alert")
+        .AddClass($"alert-{option.Color.ToDescriptionString()}", option.Color != Color.None)
+        .AddClass($"border-{option.Color.ToDescriptionString()}", option.ShowBorder)
+        .AddClass("shadow", option.ShowShadow)
+        .AddClass("alert-bar", option.ShowBar)
+        .Build();
+
+    private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
+
+    private string? _msgId;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!string.IsNullOrEmpty(_msgId))
+        {
+            await InvokeVoidAsync("show", Id, _msgId);
+        }
     }
 
     /// <summary>
@@ -63,63 +94,50 @@ public partial class Message : IDisposable
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    protected async Task Show(MessageOption option)
+    private Task Show(MessageOption option)
     {
-        Messages.Add(option);
-        await InvokeAsync(StateHasChanged);
+        _messages.Add(option);
+        _msgId = GetItemId(option);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
-    /// 清除 ToastBox 方法
+    /// 清除 Message 方法 由 JSInvoke 触发
     /// </summary>
     [JSInvokable]
-    public async Task Clear()
+    public Task Clear()
     {
-        Messages.Clear();
-        await InvokeAsync(StateHasChanged);
+        _messages.Clear();
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
-    private static async Task OnDismiss(MessageOption option)
+    /// <summary>
+    /// OnDismiss 回调方法 由 JSInvoke 触发
+    /// </summary>
+    /// <param name="id"></param>
+    [JSInvokable]
+    public async Task Dismiss(string id)
     {
-        if (option.OnDismiss != null)
+        var option = _messages.Find(i => GetItemId(i) == id);
+        if (option is { OnDismiss: not null })
         {
             await option.OnDismiss();
         }
     }
 
-    private List<MessageOption> GetMessages()
-    {
-        if (Placement != Placement.Top)
-        {
-            Messages.Reverse();
-        }
-
-        return Messages;
-    }
-
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             MessageService.UnRegister(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }

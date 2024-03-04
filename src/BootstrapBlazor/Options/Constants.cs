@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 系统常量
 /// </summary>
-public class Constants
+public static class Constants
 {
     /// <summary>
     /// 

@@ -1,0 +1,72 @@
+﻿@page "/select-tree"
+@inject IStringLocalizer<SelectTrees> Localizer
+
+<h3>@Localizer["SelectTreesTitle"]</h3>
+<h4>@Localizer["SelectTreesDescription"]</h4>
+
+<DemoBlock Title="@Localizer["SelectTreesNormalTitle"]"
+           Introduction="@Localizer["SelectTreesNormalIntro"]"
+           Name="Normal">
+    <SelectTree TValue="TreeFoo" Items="Items" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectTreesDisableTitle"]"
+           Introduction="@Localizer["SelectTreesDisableIntro"]"
+           Name="Disable">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <SelectTree TValue="TreeFoo" Color="Color.Primary" Items="DisableItems" IsDisabled="true"></SelectTree>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectTreesBindingTitle"]"
+           Introduction="@Localizer["SelectTreesBindingIntro"]"
+           Name="Binding">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <SelectTree Items="BindingItems" @bind-Value="Model"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="Model.Text" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectTreesClientValidationTitle"]"
+           Introduction="@Localizer["SelectTreesClientValidationIntro"]"
+           Name="ClientValidation">
+    <ValidateForm Model="BindModel">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" />
+            </div>
+            <div class="col-12 col-sm-6 align-self-end">
+                <Button ButtonType="ButtonType.Submit">@Localizer["SelectTreesClientValidationButtonText"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectTreesEditTitle"]"
+           Introduction="@Localizer["SelectTreesEditIntro"]"
+           Name="Edit">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <SelectTree Items="EditItems" @bind-Value="@Value" IsEditable="true"></SelectTree>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@Value" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectTreesIsPopoverTitle"]"
+           Introduction="@Localizer["SelectTreesIsPopoverIntro"]"
+           Name="IsPopover">
+    <div class="row">
+        <div class="col-12 col-sm-6 overflow-hidden">
+            <SelectTree Items="PopoverItems" IsPopover="true" />
+        </div>
+    </div>
+</DemoBlock>

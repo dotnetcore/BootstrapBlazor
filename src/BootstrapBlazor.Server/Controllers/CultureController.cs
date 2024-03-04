@@ -4,17 +4,18 @@
 
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace BootstrapBlazor.Server.Controllers;
 
 /// <summary>
-/// 
+/// 文化 Controller
 /// </summary>
 [Route("[controller]/[action]")]
 public class CultureController : Controller
 {
     /// <summary>
-    /// 
+    /// 设置文化方法
     /// </summary>
     /// <param name="culture"></param>
     /// <param name="redirectUri"></param>
@@ -39,7 +40,7 @@ public class CultureController : Controller
     }
 
     /// <summary>
-    /// 
+    /// 重置文化方法
     /// </summary>
     /// <param name="redirectUri"></param>
     /// <returns></returns>

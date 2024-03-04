@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +14,7 @@ public class ChartDataset
     /// <summary>
     /// 获得/设置 数据集合名称
     /// </summary>
-    public string Label { get; set; } = "未设置";
+    public string? Label { get; set; }
 
     /// <summary>
     /// 获得/设置 数据集合
@@ -28,4 +30,44 @@ public class ChartDataset
     /// 获得/设置 折线曲率 默认 0.4
     /// </summary>
     public float Tension { get; set; } = 0.4f;
+
+    /// <summary>
+    /// 获得/设置 是否是Y2坐标轴
+    /// </summary>
+    [JsonIgnore]
+    public bool IsAxisY2 { get; set; }
+
+    /// <summary>
+    /// Y坐标轴ID
+    /// </summary> 
+    public string? YAxisID { get => IsAxisY2 ? "y2" : "y"; }
+
+    /// <summary>
+    /// 数据点样式
+    /// </summary>
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartPointStyle>))]
+    public ChartPointStyle PointStyle { get; set; } = ChartPointStyle.Circle;
+
+    /// <summary>
+    /// 显示数据点样式
+    /// </summary>
+    public bool ShowPointStyle { get; set; } = true;
+
+    /// <summary>
+    /// 数据点半径
+    /// </summary>
+    public int PointRadius { get; set; } = 3;
+
+    /// <summary>
+    /// 数据点悬停半径，鼠标指向时的大小
+    /// </summary>
+    public int PointHoverRadius { get; set; } = 4;
+
+
+    /// <summary>
+    /// 获得/设置 折线图(Line) 宽度 默认 3 个像素
+    /// </summary>
+    public double BorderWidth { get; set; } = 3;
+
+
 }

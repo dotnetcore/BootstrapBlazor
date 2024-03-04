@@ -1,0 +1,113 @@
+.captcha {
+    --bb-captcha-refresh-padding-left: #{$bb-captcha-refresh-padding-left};
+    --bb-captcha-radius: #{$bb-captcha-radius};
+    --bb-captcha-footer-bg: #{$bb-captcha-footer-bg};
+    --bb-captcha-footer-color: #{$bb-captcha-footer-color};
+    --bb-captcha-footer-margin-top: #{$bb-captcha-footer-margin-top};
+    --bb-captcha-footer-height: #{$bb-captcha-footer-height};
+    --bb-captcha-bar-border: #{$bb-captcha-bar-border};
+    --bb-captcha-bar-bg: #{$bb-captcha-bar-bg};
+    --bb-captcha-bar-color: #{$bb-captcha-bar-color};
+    --bb-captcha-bar-shadow: #{$bb-captcha-bar-shadow};
+    --bb-captcha-bar-invalid-border: #{$bb-captcha-bar-invalid-border};
+    --bb-captcha-bar-invalid-bg: #{$bb-captcha-bar-invalid-bg};
+    --bb-captcha-bar-invalid-mask-bg: #{$bb-captcha-bar-invalid-mask-bg};
+    --bb-captcha-bar-valid-border: #{$bb-captcha-bar-valid-border};
+    --bb-captcha-bar-valid-bg: #{$bb-captcha-bar-valid-bg};
+    --bb-captcha-bar-valid-mask-bg: #{$bb-captcha-bar-valid-mask-bg};
+    border-radius: var(--bs-border-radius);
+
+    .captcha-refresh {
+        float: right;
+        cursor: pointer;
+        padding-left: var(--bb-captcha-refresh-padding-left);
+    }
+
+    .captcha-body {
+        position: relative;
+
+        .captcha-load {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .captcha-body-bg, .captcha-body-bar {
+            position: absolute;
+            border-radius: var(--bb-captcha-radius);
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .captcha-footer {
+        text-align: center;
+        background: var(--bb-captcha-footer-bg);
+        color: var(--bb-captcha-footer-color);
+        border-radius: var(--bb-captcha-radius);
+        margin-top: var(--bb-captcha-footer-margin-top);
+        height: var(--bb-captcha-footer-height);
+        position: relative;
+
+        .captcha-bar-mask {
+            line-height: var(--bb-captcha-footer-height);
+            height: var(--bb-captcha-footer-height);
+        }
+
+        &.is-move .captcha-bar-text {
+            display: none;
+        }
+
+        &.is-move .captcha-bar-mask {
+            border: var(--bb-captcha-bar-border);
+            background-color: var(--bb-captcha-bar-bg);
+        }
+
+        &.is-invalid .captcha-bar {
+            border: var(--bb-captcha-bar-invalid-border);
+            background-color: var(--bb-captcha-bar-invalid-bg);
+        }
+
+        &.is-invalid .captcha-bar-mask {
+            border: var(--bb-captcha-bar-invalid-border);
+            background-color: var(--bb-captcha-bar-invalid-mask-bg);
+            border-width: 1px 0 1px 1px;
+        }
+
+        &.is-valid .captcha-bar {
+            border: var(--bb-captcha-bar-valid-border);
+            background-color: var(--bb-captcha-bar-valid-bg);
+        }
+
+        &.is-valid .captcha-bar-mask {
+            border: var(--bb-captcha-bar-valid-border);
+            border-width: 1px 0 1px 1px;
+            background-color: var(--bb-captcha-bar-valid-mask-bg);
+        }
+
+        .captcha-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: var(--bb-captcha-footer-height);
+            height: var(--bb-captcha-footer-height);
+            background: var(--bb-captcha-bar-bg);
+            color: var(---bb-captcha-bar-color);
+            box-shadow: var(--bb-captcha-bar-shadow);
+            cursor: pointer;
+            border-radius: var(--bb-captcha-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .captcha-bar-mask {
+            position: absolute;
+            border-radius: var(--bb-captcha-radius);
+        }
+
+        .captcha-bar-text {
+            line-height: var(--bb-captcha-footer-height);
+        }
+    }
+}

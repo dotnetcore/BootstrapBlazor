@@ -7,16 +7,16 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Timer 组件
 /// </summary>
-[JSModuleAutoLoader("base/utility")]
+[BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class Timer
 {
     /// <summary>
     /// 获得 组件样式字符串
     /// </summary>
-    protected override string? ClassString => CssBuilder.Default("circle timer")
-        .AddClassFromAttributes(AdditionalAttributes)
+    protected override string? ClassString => CssBuilder.Default("timer")
+        .AddClass(base.ClassString)
         .Build();
 
     private string? PauseClassString => CssBuilder.Default("btn")
@@ -38,11 +38,11 @@ public partial class Timer
     /// </summary>
     private string ValueTitleString => CurrentTimespan.Hours == 0 ? $"{CurrentTimespan:mm\\:ss}" : $"{CurrentTimespan:hh\\:mm\\:ss}";
 
-    private string AlertTime { get; set; } = "";
+    private string? AlertTime { get; set; }
 
-    private CancellationTokenSource? CancelTokenSource { get; set; }
+    private CancellationTokenSource CancelTokenSource { get; set; } = new();
 
-    private ManualResetEvent ResetEvent { get; } = new(true);
+    private AutoResetEvent ResetEvent { get; } = new(false);
 
     private bool Vibrate { get; set; }
 
@@ -110,65 +110,82 @@ public partial class Timer
     [NotNull]
     public string? StarText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Alert 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Timer>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         PauseText ??= Localizer[nameof(PauseText)];
         ResumeText ??= Localizer[nameof(ResumeText)];
         CancelText ??= Localizer[nameof(CancelText)];
         StarText ??= Localizer[nameof(StarText)];
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.TimerIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await Timeout();
+        }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => Task.CompletedTask;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task ModuleExecuteAsync()
+    private async Task Timeout()
     {
         if (Vibrate)
         {
             Vibrate = false;
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("vibrate");
-            }
+            await InvokeVoidAsync("vibrate");
         }
     }
 
-    private void OnStart()
+    private Task OnStart(TimeSpan val)
     {
+        Value = val;
         IsPause = false;
         CurrentTimespan = Value;
-        AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm");
+        AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
 
         StateHasChanged();
 
-        Task.Run(async () =>
+        _ = Task.Run(async () =>
         {
             // 点击 Cancel 后重新设置再点击 Star
-            if (CancelTokenSource != null)
+            if (CancelTokenSource.IsCancellationRequested)
             {
-                CancelTokenSource.Cancel();
                 CancelTokenSource.Dispose();
+                CancelTokenSource = new CancellationTokenSource();
             }
 
-            CancelTokenSource = new CancellationTokenSource();
-
-            do
+            while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero)
             {
                 try
                 {
@@ -178,12 +195,20 @@ public partial class Timer
 
                 if (!CancelTokenSource.IsCancellationRequested)
                 {
-                    ResetEvent.WaitOne();
                     CurrentTimespan = CurrentTimespan.Subtract(TimeSpan.FromSeconds(1));
                     await InvokeAsync(StateHasChanged);
                 }
+
+                if (IsPause)
+                {
+                    ResetEvent.WaitOne();
+                    AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
+
+                    // 重建 CancelToken
+                    CancelTokenSource.Dispose();
+                    CancelTokenSource = new CancellationTokenSource();
+                }
             }
-            while (!CancelTokenSource.IsCancellationRequested && CurrentTimespan > TimeSpan.Zero);
 
             if (CurrentTimespan == TimeSpan.Zero)
             {
@@ -203,21 +228,20 @@ public partial class Timer
                 }
             }
         });
+        return Task.CompletedTask;
     }
 
-    private Task OnClickPause()
+    private void OnClickPause()
     {
         IsPause = !IsPause;
-        if (IsPause)
+        if (!IsPause)
         {
-            ResetEvent.Reset();
+            ResetEvent.Set();
         }
         else
         {
-            AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm");
-            ResetEvent.Set();
+            CancelTokenSource.Cancel();
         }
-        return Task.CompletedTask;
     }
 
     private string GetPauseText() => IsPause ? ResumeText : PauseText;
@@ -225,7 +249,7 @@ public partial class Timer
     private async Task OnClickCancel()
     {
         Value = TimeSpan.Zero;
-        CancelTokenSource?.Cancel();
+        CancelTokenSource.Cancel();
         if (OnCancel != null)
         {
             await OnCancel();
@@ -240,12 +264,8 @@ public partial class Timer
     {
         if (disposing)
         {
-            if (CancelTokenSource != null)
-            {
-                CancelTokenSource.Cancel();
-                CancelTokenSource.Dispose();
-                CancelTokenSource = null;
-            }
+            CancelTokenSource.Cancel();
+            CancelTokenSource.Dispose();
 
             ResetEvent.Dispose();
             if (Module != null)

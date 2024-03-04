@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -40,7 +39,7 @@ public class TableDialogTestHost : IDisposable
 
         ConfigureServices(Instance.Services);
 
-        ConfigureConfigration(Instance.Services);
+        ConfigureConfiguration(Instance.Services);
 
         // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
         Instance.Services.GetRequiredService<ICacheManager>();
@@ -50,10 +49,9 @@ public class TableDialogTestHost : IDisposable
     {
         services.AddBootstrapBlazor(op => op.ToastDelay = 2000);
         services.AddSingleton(typeof(IDataService<>), typeof(MockEFCoreDataService<>));
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
     }
 
-    protected virtual void ConfigureConfigration(IServiceCollection services)
+    protected virtual void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration();
@@ -65,11 +63,9 @@ public class TableDialogTestHost : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private class MockNullDataService<TModel> : IDataService<TModel> where TModel : class, new()
+    private class MockNullDataService<TModel>(IStringLocalizer<TModel> localizer) : IDataService<TModel> where TModel : class, new()
     {
-        IStringLocalizer<TModel> Localizer { get; set; }
-
-        public MockNullDataService(IStringLocalizer<TModel> localizer) => Localizer = localizer;
+        IStringLocalizer<TModel> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(TModel model) => Task.FromResult(true);
 
@@ -97,13 +93,8 @@ public class TableDialogTestHost : IDisposable
         public Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(true);
     }
 
-    private class MockEFCoreDataService<TModel> : MockNullDataService<TModel>, IEntityFrameworkCoreDataService where TModel : class, new ()
+    private class MockEFCoreDataService<TModel>(IStringLocalizer<TModel> localizer) : MockNullDataService<TModel>(localizer), IEntityFrameworkCoreDataService where TModel : class, new()
     {
-        public MockEFCoreDataService(IStringLocalizer<TModel> localizer) : base(localizer)
-        {
-
-        }
-
         public Task CancelAsync() => Task.CompletedTask;
 
         public Task EditAsync(object model) => Task.CompletedTask;

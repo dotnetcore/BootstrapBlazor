@@ -1,0 +1,19 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <div class="time-panel-content @HasSecondsCss">
+        <div class="time-spinner @HasSecondsCss">
+            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Hour" />
+            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Minute" />
+            @if (HasSeconds)
+            {
+                <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Second" />
+            }
+        </div>
+        <div class="time-panel-footer">
+            <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelButtonText</button>
+            <button type="button" class="time-panel-btn confirm" @onclick="@OnClickConfirm">@ConfirmButtonText</button>
+        </div>
+    </div>
+</div>

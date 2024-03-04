@@ -26,7 +26,7 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
-                await option.Dialog.Close();
+                await option.CloseDialogAsync();
                 if (option.OnResetSearchClick != null)
                 {
                     await option.OnResetSearchClick();
@@ -34,7 +34,7 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                await option.Dialog.Close();
+                await option.CloseDialogAsync();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
@@ -66,10 +66,7 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = new Func<Task>(async () =>
-            {
-                await option.Dialog.Close();
-            }),
+            [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
             [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
             {
                 if (option.OnEditAsync != null)
@@ -77,7 +74,7 @@ public static class DialogServiceExtensions
                     var ret = await option.OnEditAsync(context);
                     if (ret)
                     {
-                        await option.Dialog.Close();
+                        await option.CloseDialogAsync();
                     }
                 }
             }),
@@ -115,9 +112,9 @@ public static class DialogServiceExtensions
         {
             var index = 0;
             builder.OpenComponent(index++, typeof(TDialog));
-            if (option.ComponentParamters != null)
+            if (option.ComponentParameters != null)
             {
-                foreach (var p in option.ComponentParamters)
+                foreach (var p in option.ComponentParameters)
                 {
                     builder.AddAttribute(index++, p.Key, p.Value);
                 }
@@ -177,7 +174,7 @@ public static class DialogServiceExtensions
                 }
                 else
                 {
-                    await option.Dialog.Close();
+                    await option.CloseDialogAsync();
                 }
                 option.ReturnTask.SetResult(result);
             }
@@ -192,7 +189,7 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出保存对话窗方法
+    /// 弹出带保存按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service">DialogService 服务实例</param>
@@ -210,19 +207,15 @@ public static class DialogServiceExtensions
             ShowSaveButton = true,
             OnSaveAsync = saveCallback
         };
-        Dictionary<string, object?>? parameters = null;
-        if (parametersFactory != null)
-        {
-            parameters = new Dictionary<string, object?>();
-            parametersFactory.Invoke(parameters);
-        }
+        var parameters = new Dictionary<string, object?>();
+        parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
     }
 
     /// <summary>
-    /// 弹出保存对话窗
+    /// 弹出带关闭按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
@@ -241,7 +234,6 @@ public static class DialogServiceExtensions
         parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
-
         await service.Show(option, dialog);
     }
 

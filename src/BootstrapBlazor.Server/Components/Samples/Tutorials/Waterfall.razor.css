@@ -1,0 +1,23 @@
+﻿::deep .bb-waterfall-item {
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-border-color);
+    overflow: hidden;
+}
+
+    ::deep .bb-waterfall-item img {
+        transition: transform .3s linear;
+    }
+
+    ::deep .bb-waterfall-item:hover img {
+        transform: scale(1.1);
+    }
+
+.waterfall-demo label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: .5rem 1rem;
+    text-align: center;
+    background-color: rgba(var(--bs-body-bg-rgb), 0.8);
+}

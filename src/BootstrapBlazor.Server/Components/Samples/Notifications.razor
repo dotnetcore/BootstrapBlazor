@@ -1,0 +1,51 @@
+﻿@page "/notification"
+@inject IStringLocalizer<Notifications> Localizer
+
+<h3>@Localizer["NotificationsTitle"]</h3>
+
+<DemoBlock Title="@Localizer["NotificationsNormalTitle"]"
+           Introduction="@Localizer["NotificationsNormalIntro"]"
+           Name="Normal">
+    <p>@Localizer["NotificationsNormalDescription"]</p>
+    <Tips>
+        <p>@Localizer["NotificationsNormalTips1"]</p>
+    </Tips>
+    <div class="mb-3">
+        <p>@((MarkupString)Localizer["NotificationsNormalTips2"].Value)</p>
+        <Pre>private NotificationItem Model { get; set; } = new NotificationItem();
+
+private async Task Dispatch()
+{
+    Interop ??= new JSInterop&lt;Notifications&gt;(JSRuntime);
+    await BrowserNotification.Dispatch(Interop, this, Model, nameof(ShowNotificationCallback));
+}
+
+[JSInvokable]
+public void ShowNotificationCallback(bool result)
+{
+    // callback
+    StateHasChanged();
+}</Pre>
+    </div>
+    <div class="form-inline row g-3">
+        <div class="col-12">
+            <Checkbox ShowLabel="true" DisplayText="@Localizer["NotificationsNormalPermissionText"]" @bind-Value="@Permission" IsDisabled="true"></Checkbox>
+        </div>
+        <div class="col-12">
+            <BootstrapInput ShowLabel="true" DisplayText="@Localizer["NotificationsNormalTitleText"]" @bind-Value="@Model.Title"></BootstrapInput>
+        </div>
+        <div class="col-12 ">
+            <BootstrapInput ShowLabel="true" DisplayText="@Localizer["NotificationsNormalMessageText"]" @bind-Value="@Model.Message"></BootstrapInput>
+        </div>
+        <div class="col-12">
+            <Checkbox ShowLabel="true" DisplayText="@Localizer["NotificationsNormalSilentText"]" @bind-Value="@Model.Silent"></Checkbox>
+        </div>
+        <div class="col-12">
+            <Button Text="@Localizer["NotificationsNormalCheckPermissionText"]" OnClick="CheckPermission" Color="Color.Secondary"></Button>
+            <Button Text="@Localizer["NotificationsNormalButtonText"]" OnClick="Dispatch" class="ms-2"></Button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<AttributeTable Items="GetNotificationItem()" Title="@nameof(NotificationItem)" />

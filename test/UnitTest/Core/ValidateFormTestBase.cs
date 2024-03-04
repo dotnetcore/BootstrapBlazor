@@ -47,7 +47,7 @@ public class ValidateFormTestHost : IDisposable
     protected virtual void ConfigureServices(IServiceCollection services)
     {
         services.AddBootstrapBlazor();
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly });
+        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
     }
 
     protected virtual void ConfigureConfigration(IServiceCollection services)

@@ -1,8 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits ValidateBase<string>
+@attribute [BootstrapModuleAutoLoader]
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange"></textarea>
+<textarea @attributes="AdditionalAttributes" id="@Id" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" data-bb-scroll="@AutoScrollString"></textarea>

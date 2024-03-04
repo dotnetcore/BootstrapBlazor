@@ -9,8 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Topology 组件类
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.Topology/js/bootstrap.blazor.topology.min.js", ModuleName = "BlazorTopology", JSObjectReference = true, Relative = false)]
-public partial class Topology
+public partial class Topology : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 JSON 文件内容
@@ -43,23 +42,40 @@ public partial class Topology
     /// <summary>
     /// 获得/设置 是否支持树莓派触屏浏览器
     /// </summary>
-    /// <remarks>UserAgent 增加 X11|CrOS 识别为移动端</remarks>
+    /// <remarks></remarks>
     [Parameter]
+    [Obsolete("已过期，脚本已支持")]
     public bool IsSupportTouch { get; set; }
 
-    private string? StyleString => CssBuilder.Default("width: 100%; height: 100%;")
+    /// <summary>
+    /// 获得/设置 是否自适应屏幕显示
+    /// </summary>
+    /// <remarks></remarks>
+    [Parameter]
+    public bool IsFitView { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否居中显示可视区域
+    /// </summary>
+    /// <remarks></remarks>
+    [Parameter]
+    public bool IsCenterView { get; set; }
+
+    private string? StyleString => CssBuilder.Default()
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private CancellationTokenSource? CancelToken { get; set; }
 
-    private string? IsSupportTouchString => IsSupportTouch ? "true" : null;
+    private string? ClassString => CssBuilder.Default("bb-topology")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Content, nameof(PushData));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsFitView, IsCenterView);
 
     /// <summary>
     /// 开始推送数据方法
@@ -68,31 +84,31 @@ public partial class Topology
     [JSInvokable]
     public async Task PushData()
     {
-        if (!_disposing)
+        if (OnBeforePushData != null)
         {
-            if (OnBeforePushData != null)
-            {
-                await OnBeforePushData();
-            }
+            await OnBeforePushData();
+        }
 
-            // 判断工作模式
-            if (OnQueryAsync != null)
+        // 判断工作模式
+        if (OnQueryAsync != null)
+        {
+            // 轮训模式
+            Interval = Math.Max(100, Interval);
+            CancelToken = new CancellationTokenSource();
+            while (CancelToken != null && !CancelToken.IsCancellationRequested)
             {
-                // 轮训模式
-                Interval = Math.Max(100, Interval);
-                CancelToken = new CancellationTokenSource();
-                while (CancelToken != null && !CancelToken.IsCancellationRequested)
+                try
                 {
-                    try
+                    var data = await OnQueryAsync(CancelToken.Token);
+                    await PushData(data);
+                    if (CancelToken != null)
                     {
-                        var data = await OnQueryAsync(CancelToken.Token);
-                        await PushData(data, CancelToken.Token);
                         await Task.Delay(Interval, CancelToken.Token);
                     }
-                    catch (TaskCanceledException)
-                    {
+                }
+                catch (TaskCanceledException)
+                {
 
-                    }
                 }
             }
         }
@@ -102,30 +118,44 @@ public partial class Topology
     /// 推送数据到客户端
     /// </summary>
     /// <param name="items"></param>
-    /// <param name="token"></param>
     /// <returns></returns>
-    public async ValueTask PushData(IEnumerable<TopologyItem> items, CancellationToken token = default)
-    {
-        if (!_disposing)
-        {
-            await InvokeVoidAsync("execute", token, Id, items);
-        }
-    }
+    public Task PushData(IEnumerable<TopologyItem> items) => InvokeVoidAsync("update", Id, items);
 
-    private bool _disposing;
+    /// <summary>
+    /// 重置视图 缩放比例 默认 1 即 100%
+    /// </summary>
+    /// <param name="rate"></param>
+    /// <returns></returns>
+    public Task Scale(int rate = 1) => InvokeVoidAsync("scale", Id, rate);
+
+    /// <summary>
+    /// 重置视图 自适应大小并且居中显示
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset() => InvokeVoidAsync("reset", Id);
+
+    /// <summary>
+    /// 重置可视化引擎大小
+    /// </summary>
+    /// <returns></returns>
+    public Task Resize(int? width = null, int? height = null) => InvokeVoidAsync("resize", Id, width, height);
+
     /// <summary>
     /// DisposeAsync 方法
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        _disposing = true;
-        if (CancelToken != null && disposing)
-        {
-            CancelToken.Cancel();
-            CancelToken.Dispose();
-            CancelToken = null;
-        }
         await base.DisposeAsync(disposing);
+
+        if (disposing)
+        {
+            if (CancelToken != null)
+            {
+                CancelToken.Cancel();
+                CancelToken.Dispose();
+                CancelToken = null;
+            }
+        }
     }
 }

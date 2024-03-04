@@ -22,7 +22,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     public bool IsCollapsed { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
+    /// 获得/设置 图标字符串 默认为 null
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

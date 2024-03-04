@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// 单元格内按钮组件
 /// </summary>
 [JSModuleNotInherited]
-public class TableCellButton : ButtonBase
+public class TableCellButton : ButtonBase, ITableCellButton
 {
     /// <summary>
     /// 获得/设置 Table 扩展按钮集合实例
@@ -17,13 +17,13 @@ public class TableCellButton : ButtonBase
     protected TableExtensionButton? Buttons { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool AutoRenderTableWhenClick { get; set; }

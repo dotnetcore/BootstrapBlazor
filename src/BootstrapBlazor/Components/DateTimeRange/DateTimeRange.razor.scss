@@ -1,0 +1,113 @@
+.datetime-range {
+    --bb-dt-range-bar-color: #{$bb-dt-range-bar-color};
+    --bb-dt-range-input-width: #{$bb-dt-range-input-width};
+    --bb-dt-range-input-time-width: #{$bb-dt-range-input-time-width};
+    background-color: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    display: inline-block;
+    outline: none;
+    transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &.disabled {
+        background-color: var(--bs-secondary-bg);
+
+        .range-separator {
+            opacity: .5;
+        }
+    }
+
+    .datetime-range-body {
+        display: none;
+    }
+
+    &:hover:not(.disabled) {
+        .range-clear {
+            display: inline-block;
+        }
+    }
+
+    &.has-time {
+        .datetime-range-input {
+            width: var(--bb-dt-range-input-time-width);
+        }
+    }
+}
+
+.datetime-range-control {
+    display: inline-flex;
+    align-items: center;
+
+    .datetime-range-input {
+        background-color: var(--bs-body-bg);
+        border: none;
+        display: inline-block;
+        text-align: center;
+        cursor: pointer;
+        width: var(--bb-dt-range-input-width);
+        padding: 0;
+
+        &.disabled {
+            background-color: var(--bs-secondary-bg);
+        }
+    }
+
+    .range-separator {
+        padding: 0 5px;
+    }
+}
+
+.range-panel-body {
+    display: flex;
+
+    .picker-panel {
+        border: none;
+    }
+
+    .picker-panel:first-child {
+        border-right: var(--bs-border-width) solid var(--bs-border-color);
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    @include pick-side;
+
+    .date-picker-header-label {
+        cursor: unset;
+
+        &:hover {
+            color: inherit;
+        }
+    }
+}
+
+.form-label + .datetime-range {
+    display: block;
+}
+
+.range-panel-footer {
+    padding: 0.5rem;
+    display: flex;
+}
+
+.popover-datetime-range {
+    max-width: unset;
+
+    .popover-body {
+        padding: 0;
+    }
+}
+
+.range-bar {
+    cursor: pointer;
+    color: var(--bb-dt-range-bar-color);
+}
+
+.range-clear {
+    display: none;
+    cursor: pointer;
+    color: var(--bb-dt-range-bar-color);
+}

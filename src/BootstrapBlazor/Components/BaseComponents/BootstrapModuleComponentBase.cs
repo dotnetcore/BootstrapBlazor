@@ -7,7 +7,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Bootstrap blazor Javascript isoloation base class
+/// Bootstrap blazor JavaScript isolation base class
 /// </summary>
 public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisposable
 {
@@ -19,24 +19,29 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <summary>
     /// 获得/设置 脚本路径
     /// </summary>
-    [NotNull]
     protected string? ModulePath { get; set; }
 
     /// <summary>
-    /// The javascript dynamic module name
+    /// 获得/设置 是否自动调用 init 默认 true
     /// </summary>
+    protected bool AutoInvokeInit { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否自动调用 dispose 默认 true
+    /// </summary>
+    protected bool AutoInvokeDispose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 DotNetObjectReference 实例
+    /// </summary>
+    protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
+
+    /// <summary>
+    /// 获得 IVersionService 服务实例
+    /// </summary>
+    [Inject]
     [NotNull]
-    protected string? ModuleName { get; set; }
-
-    /// <summary>
-    /// 获得/设置 路径是否为相对路径 默认 false
-    /// </summary>
-    protected bool Relative { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否需要 javascript invoke 默认 false
-    /// </summary>
-    protected bool JSObjectReference { get; set; }
+    protected IVersionService? JSVersionService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -49,6 +54,23 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && !string.IsNullOrEmpty(ModulePath))
+        {
+            Module ??= await JSRuntime.LoadModule(ModulePath, JSVersionService.GetVersion());
+
+            if (AutoInvokeInit)
+            {
+                await InvokeInitAsync();
+            }
+        }
+    }
+
+    /// <summary>
     /// 加载 JS Module 方法
     /// </summary>
     protected virtual void OnLoadJSModule()
@@ -57,85 +79,31 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
         if (inherited)
         {
-            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
-            if (attr != null)
+            var attributes = type.GetCustomAttributes<JSModuleAutoLoaderAttribute>();
+            if (attributes.Any())
             {
-                string? typeName = null;
-                ModulePath = attr.Path ?? GetTypeName().ToLowerInvariant();
-                ModuleName = attr.ModuleName ?? GetTypeName();
-                JSObjectReference = attr.JSObjectReference;
-                Relative = attr.Relative;
+                var attr = attributes.First();
+                AutoInvokeDispose = attr.AutoInvokeDispose;
+                AutoInvokeInit = attr.AutoInvokeInit;
 
-                string GetTypeName()
+                if (attr.JSObjectReference)
                 {
-                    typeName ??= type.GetTypeModuleName();
-                    return typeName;
+                    Interop = DotNetObjectReference.Create(this);
                 }
+
+                ModulePath = attr is BootstrapModuleAutoLoaderAttribute loader ? loader.LoadModulePath(type) : attr.Path;
             }
         }
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && !string.IsNullOrEmpty(ModulePath))
-        {
-            Module ??= JSObjectReference
-                ? await JSRuntime.LoadModule(ModulePath, this, Relative)
-                : await JSRuntime.LoadModule(ModulePath, Relative);
-        }
-
-        await ModuleInvokeVoidAsync(firstRender);
-    }
-
-    /// <summary>
-    /// Load javascript module method
+    /// call JavaScript method
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task ModuleInvokeVoidAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await ModuleInitAsync();
-        }
-        else
-        {
-            await ModuleExecuteAsync();
-        }
-    }
+    protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
     /// <summary>
-    /// call javascript init method
-    /// </summary>
-    /// <returns></returns>
-    protected virtual Task ModuleInitAsync() => InvokeInitAsync(Id);
-
-    /// <summary>
-    /// call javascript execute method
-    /// </summary>
-    /// <returns></returns>
-    protected virtual Task ModuleExecuteAsync() => Task.CompletedTask;
-
-    /// <summary>
-    /// call javascript init method
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected Task InvokeInitAsync(params object?[]? args) => InvokeVoidAsync("init", args);
-
-    /// <summary>
-    /// call javascript execute method
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected Task InvokeExecuteAsync(params object?[]? args) => InvokeVoidAsync("execute", args);
-
-    /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -143,7 +111,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -153,12 +121,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", timeout, args);
+            await Module.InvokeVoidAsync(identifier, timeout, args);
         }
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -168,12 +136,12 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.{identifier}", cancellationToken, args);
+            await Module.InvokeVoidAsync(identifier, cancellationToken, args);
         }
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -181,7 +149,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -192,13 +160,13 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         TValue? ret = default;
         if (Module != null)
         {
-            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", timeout, args);
+            ret = await Module.InvokeAsync<TValue>(identifier, timeout, args);
         }
         return ret;
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -209,7 +177,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         TValue? ret = default;
         if (Module != null)
         {
-            ret = await Module.InvokeAsync<TValue>($"{ModuleName}.{identifier}", cancellationToken, args);
+            ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, args);
         }
         return ret;
     }
@@ -221,11 +189,22 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
-        if (Module != null && disposing)
+        if (disposing)
         {
-            await Module.InvokeVoidAsync($"{ModuleName}.dispose", Id);
-            await Module.DisposeAsync();
-            Module = null;
+            // 销毁 DotNetObjectReference 实例
+            Interop?.Dispose();
+
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                if (AutoInvokeDispose)
+                {
+                    await Module.InvokeVoidAsync("dispose", Id);
+                }
+
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
     }
 

@@ -7,11 +7,12 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// SideMenu 组件
 /// </summary>
 public partial class SideMenu
 {
     private string? GetMenuClassString => CssBuilder.Default("submenu")
+        .AddClass("show", MenuItem is { IsCollapsed: false })
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -29,6 +30,20 @@ public partial class SideMenu
     public IEnumerable<MenuItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件数据源
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 菜单箭头图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ArrowIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单项点击回调委托
     /// </summary>
     [Parameter]
@@ -39,9 +54,16 @@ public partial class SideMenu
     [NotNull]
     private Menu? Parent { get; set; }
 
+    [CascadingParameter]
+    private MenuItem? MenuItem { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Menu>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -55,6 +77,17 @@ public partial class SideMenu
         {
             throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SideMenuDropdownIcon);
+        ArrowIcon ??= IconTheme.GetIconByKey(ComponentIcons.MenuLinkArrowIcon);
     }
 
     private async Task OnClickItem(MenuItem item)

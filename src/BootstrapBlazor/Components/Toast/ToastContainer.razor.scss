@@ -1,0 +1,46 @@
+.toast-container {
+    position: fixed;
+}
+
+.toast-container.top-0 {
+    top: 1rem !important;
+}
+
+.toast-container.bottom-0 {
+    bottom: 1rem !important;
+}
+
+.toast-container.start-0 {
+    left: 1rem !important;
+}
+
+.toast-container.end-0 {
+    right: 1rem !important;
+}
+
+.toast {
+    --bs-toast-border-radius: var(--bs-border-radius);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color .3s ease-in-out, opacity .15s linear;
+}
+
+.toast .toast-progress {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+}
+
+.toast.left .toast-progress {
+    left: 0;
+    right: unset;
+}
+
+.toast .btn-close {
+    height: 4px;
+    width: 4px;
+    margin: 0;
+}

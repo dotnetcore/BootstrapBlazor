@@ -1,0 +1,51 @@
+:root {
+    --bb-row-label-width: #{$bb-row-label-width};
+    --bb-row-control-padding: #{$bb-row-control-padding};
+}
+
+.form-inline {
+    .form-label {
+        display: block;
+    }
+}
+
+@media (min-width: 576px) {
+    .form-inline {
+        > * {
+            display: flex;
+        }
+
+        .form-label {
+            padding: var(--bb-row-control-padding) 0;
+            margin-bottom: 0;
+            padding-right: 10px;
+            width: var(--bb-row-label-width);
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            vertical-align: top;
+            display: inline-block;
+
+            + * {
+                flex: 1;
+            }
+
+            + .switch,
+            + .form-label-check {
+                padding: var(--bb-row-control-padding) 0;
+            }
+
+            + .btn-group {
+                flex: 0;
+            }
+        }
+
+        &.form-inline-end > div > .form-label {
+            text-align: right;
+        }
+
+        &.form-inline-center > div > .form-label {
+            text-align: center;
+        }
+    }
+}

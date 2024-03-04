@@ -1,0 +1,19 @@
+.splitting {
+    --splitting-padding: .25rem;
+    --splitting-text-bottom-margin: .5rem;
+    --splitting-progress-height: 1rem;
+
+    .splitting-text {
+        margin-bottom: .5rem;
+    }
+
+    .splitting-wrap {
+        border: 1px solid var(--bs-border-color);
+        padding: .25rem;
+        border-radius: var(--bs-border-radius);
+
+        .splitting-flip {
+            height: 1rem;
+        }
+    }
+}

@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.1.1</Version>
+    <Version>8.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Bootstrap Blazor Baidu Ocr Components</PackageTags>
+    <PackageTags>Bootstrap Blazor Baidu WebAssembly wasm Ocr Components</PackageTags>
     <Description>Bootstrap UI components extensions of Baidu Ocr</Description>
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Baidu.AI" Version="4.15.10" />
-    <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
+    <PackageReference Include="Baidu.AI" Version="4.15.13" />
+    <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

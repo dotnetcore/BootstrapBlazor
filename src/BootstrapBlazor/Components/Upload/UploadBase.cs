@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
-[JSModuleAutoLoader("upload", ModuleName = "Upload")]
+[BootstrapModuleAutoLoader(ModuleName = "upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
@@ -27,7 +27,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 获得/设置 上传文件集合
     /// </summary>
-    protected List<UploadFile> UploadFiles { get; } = new List<UploadFile>();
+    protected List<UploadFile> UploadFiles { get; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
@@ -44,13 +44,13 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public string? Capture { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击删除按钮时回调此方法
+    /// 获得/设置 点击删除按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击浏览按钮时回调此方法
+    /// 获得/设置 点击浏览按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }

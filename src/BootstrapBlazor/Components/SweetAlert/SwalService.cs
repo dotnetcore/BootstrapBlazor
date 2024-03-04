@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -25,7 +23,7 @@ public class SwalService : BootstrapServiceBase<SwalOption>
     /// <summary>
     /// Show 方法
     /// </summary>
-    /// <param name="option"></param>
+    /// <param name="option"><see cref="SwalOption"/> 实例</param>
     /// <param name="swal">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
     public async Task Show(SwalOption option, SweetAlert? swal = null)
     {

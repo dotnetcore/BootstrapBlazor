@@ -4,16 +4,19 @@
 
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// 默认定位实现类
 /// </summary>
 public class DefaultIPLocator : IIPLocator
 {
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -25,18 +28,18 @@ public class DefaultIPLocator : IIPLocator
     public string? Url { get; set; }
 
     /// <summary>
-    ///
+    /// 泛型定位方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected virtual async Task<string?> Locate<T>(IPLocatorOption option) where T : class
+    protected virtual async Task<string?> Locate<T>(IPLocatorOption option)
     {
         string? ret = null;
-        try
+        if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
         {
-            if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
+            var url = string.Format(Url, option.IP);
+            try
             {
-                var url = string.Format(Url, option.IP);
                 using var token = new CancellationTokenSource(option.RequestTimeout);
                 var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
                 if (result != null)
@@ -44,10 +47,10 @@ public class DefaultIPLocator : IIPLocator
                     ret = result.ToString();
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            option.Logger?.LogError(ex, Url, option.IP);
+            catch (Exception ex)
+            {
+                option.Logger?.LogError(ex, "Url: {url}", url);
+            }
         }
         return ret;
     }

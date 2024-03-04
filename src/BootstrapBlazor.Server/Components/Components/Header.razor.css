@@ -1,0 +1,57 @@
+﻿header {
+    --bb-violet-rgb: 112.520718,44.062154,249.437846;
+    background-color: transparent;
+    background-image: linear-gradient(to right, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.9));
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+    font-size: 1rem;
+    transition: transform .3s ease;
+}
+
+.header-img {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin-right: 0;
+}
+
+::deep .btn-fs {
+    margin-top: 2px;
+}
+
+.btn-bd-download {
+    font-weight: 600;
+    color: #ffe484;
+    border-color: #ffe484;
+}
+
+    .btn-bd-download:active,
+    .btn-bd-download:hover {
+        color: #2a2730;
+        background-color: #ffe484;
+        border-color: #ffe484;
+    }
+
+.nav-link img {
+    height: 24px;
+    width: auto;
+}
+
+.navbar-version {
+    color: var(--bs-navbar-color);
+    border-right: 1px solid #dddddd40;
+    padding-right: 0.5rem;
+    white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+    .navbar-header {
+        position: sticky;
+        top: 0;
+        z-index: 1050;
+        height: var(--bs-header-height);
+    }
+
+    .modal-open .navbar-header {
+        z-index: 1040;
+    }
+}

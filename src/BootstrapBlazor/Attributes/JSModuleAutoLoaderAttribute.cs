@@ -5,20 +5,16 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JSModule attribute <see cref="JSModuleNotInheritedAttribute"/> prevent inherited auto load
+/// JSModuleAutoLoaderAttribute class
 /// </summary>
+/// <param name="path"></param>
 [AttributeUsage(AttributeTargets.Class)]
-public class JSModuleAutoLoaderAttribute : Attribute
+public class JSModuleAutoLoaderAttribute(string? path = null) : Attribute
 {
     /// <summary>
     /// 获得 Name 属性
     /// </summary>
-    public string? Path { get; }
-
-    /// <summary>
-    /// 获得 模块名称
-    /// </summary>
-    public string? ModuleName { get; set; }
+    public string? Path { get; } = path;
 
     /// <summary>
     /// Represents a reference to a JavaScript object Default value false
@@ -26,16 +22,12 @@ public class JSModuleAutoLoaderAttribute : Attribute
     public bool JSObjectReference { get; set; }
 
     /// <summary>
-    /// 获得/设置 脚本路径是否为相对路径 默认 true
+    /// 获得/设置 是否自动调用 init 默认 true
     /// </summary>
-    public bool Relative { get; set; } = true;
+    public bool AutoInvokeInit { get; set; } = true;
 
     /// <summary>
-    /// 构造函数
+    /// 获得/设置 是否自动调用 dispose 默认 true
     /// </summary>
-    /// <param name="path"></param>
-    public JSModuleAutoLoaderAttribute(string? path = null)
-    {
-        Path = path;
-    }
+    public bool AutoInvokeDispose { get; set; } = true;
 }

@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Image 组件
 /// </summary>
-[JSModuleAutoLoader("image-viewer")]
 public partial class ImageViewer
 {
     /// <summary>
@@ -86,6 +85,12 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
+    
+    /// <summary>
+    /// 获得/设置 预览大图当前链接集合点开的索引 默认为 0
+    /// </summary>
+    [Parameter]
+    public int PreviewIndex { get; set; } = 0;
 
     /// <summary>
     /// 获得/设置 图片加载失败时回调方法
@@ -99,6 +104,16 @@ public partial class ImageViewer
     [Parameter]
     public Func<string, Task>? OnLoadAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 图片文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private bool ShowImage => !string.IsNullOrEmpty(Url);
 
     private bool IsLoaded { get; set; }
@@ -110,14 +125,34 @@ public partial class ImageViewer
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        IsError = false;
+        FileIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImageViewerFileIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, Url);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id, PreviewList, PreviewIndex);
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, PreviewList);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList, PreviewIndex);
 
     private RenderFragment RenderChildContent() => builder =>
     {
@@ -146,7 +181,7 @@ public partial class ImageViewer
             }
             if (ShouldHandleError)
             {
-                builder.AddAttribute(4, "onerror", EventCallback.Factory.Create(this, async () =>
+                builder.AddAttribute(5, "onerror", EventCallback.Factory.Create(this, async () =>
                 {
                     IsError = true;
                     if (OnErrorAsync != null)

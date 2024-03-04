@@ -50,13 +50,13 @@ public enum Placement
     /// <summary>
     /// 
     /// </summary>
-    [Description("middel-start")]
+    [Description("middle-start")]
     MiddleStart,
 
     /// <summary>
     /// 
     /// </summary>
-    [Description("middel-center")]
+    [Description("middle-center")]
     MiddleCenter,
 
     /// <summary>

@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class ReconnectorProvider : IReconnectorProvider
+class ReconnectorProvider : IReconnectorProvider
 {
     private Action<RenderFragment?, RenderFragment?, RenderFragment?>? _action;
 

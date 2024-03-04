@@ -18,7 +18,7 @@ public partial class Table<TItem>
     /// 获得/设置 被选中数据集合
     /// </summary>
     [Parameter]
-    public List<TItem> SelectedRows { get; set; } = new List<TItem>();
+    public List<TItem> SelectedRows { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 选中行变化回调方法
@@ -92,6 +92,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnAfterSaveAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, Task>? OnAfterDeleteAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnAfterModifyAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑数据弹窗 Title
@@ -182,21 +194,32 @@ public partial class Table<TItem>
     private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
     {
         QueryData<TItem>? ret = null;
-        if (OnQueryAsync != null)
+        if (_autoQuery)
         {
-            ret = await OnQueryAsync(options);
+            if (OnQueryAsync != null)
+            {
+                ret = await OnQueryAsync(options);
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.QueryAsync(options);
+            }
         }
-        else
+        return ret ?? new QueryData<TItem>()
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.QueryAsync(options);
-        }
-        return ret;
+            Items = [],
+            TotalCount = 0,
+            IsAdvanceSearch = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        };
     }
 
     private async Task<bool> InternalOnDeleteAsync()
     {
-        var ret = false;
+        bool ret;
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(SelectedRows);
@@ -219,7 +242,7 @@ public partial class Table<TItem>
 
     private async Task<bool> InternalOnSaveAsync(TItem item, ItemChangedType changedType)
     {
-        var ret = false;
+        bool ret;
         if (OnSaveAsync != null)
         {
             ret = await OnSaveAsync(item, changedType);
@@ -272,9 +295,9 @@ public partial class Table<TItem>
                 SelectedRows.Clear();
             }
 
-            if (SelectedRows.Contains(val))
+            if (SelectedRows.Any(row => Equals(val, row)))
             {
-                SelectedRows.Remove(val);
+                SelectedRows.RemoveAll(row => Equals(val, row));
             }
             else
             {
@@ -306,7 +329,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
-    protected virtual bool CheckActive(TItem val) => SelectedRows.Contains(val);
+    protected virtual bool CheckActive(TItem val) => SelectedRows.Any(row => Equals(val, row));
 
     /// <summary>
     /// 
@@ -372,7 +395,7 @@ public partial class Table<TItem>
         if (ShowLoading)
         {
             IsLoading = state;
-            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 
@@ -385,7 +408,7 @@ public partial class Table<TItem>
     {
         if (ShowLoading && !IsLoading)
         {
-            await InvokeExecuteAsync(Id, "load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 
@@ -397,13 +420,17 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
-            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            var queryOption = BuildQueryPageOptions();
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
+            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
-                QueryDynamicItems(DynamicContext);
+                QueryDynamicItems(queryOption, DynamicContext);
             }
             else
             {
-                await OnQuery();
+                await OnQuery(queryOption);
             }
         }
         else
@@ -411,20 +438,24 @@ public partial class Table<TItem>
             ResetSelectedRows(Items);
             RowsCache = null;
         }
+        return;
 
-        async Task OnQuery()
+        async Task OnQuery(QueryPageOptions queryOption)
         {
-            QueryData<TItem>? queryData = null;
-            var queryOption = BuildQueryPageOptions();
 
-            queryData = await InternalOnQueryAsync(queryOption);
+            var queryData = await InternalOnQueryAsync(queryOption);
+            PageIndex = queryOption.PageIndex;
+            PageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
             PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
-            QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
+            QueryItems = queryData.Items ?? [];
 
-            // 处理选中行逻辑
-            ResetSelectedRows(QueryItems);
+            if (!IsKeepSelectedRows)
+            {
+                // 处理选中行逻辑
+                ResetSelectedRows(QueryItems);
+            }
 
             // 分页情况下内部不做处理防止页码错乱
             ProcessData();
@@ -434,8 +465,9 @@ public partial class Table<TItem>
                 await ProcessTreeData();
             }
 
-            // 更新数据后清楚缓存防止新数据不显示
+            // 更新数据后清除缓存防止新数据不显示
             RowsCache = null;
+            return;
 
             void ProcessData()
             {
@@ -444,22 +476,22 @@ public partial class Table<TItem>
                 var searched = queryData.IsSearch;
 
                 // 外部未处理 SearchText 模糊查询
-                if (!searched && queryOption.Searchs.Any())
+                if (!searched && queryOption.Searches.Count > 0)
                 {
-                    QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                    QueryItems = QueryItems.Where(queryOption.Searches.GetFilterFunc<TItem>(FilterLogic.Or));
                     TotalCount = QueryItems.Count();
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count > 0)
                 {
-                    QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                    QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
                     IsAdvanceSearch = true;
                 }
 
                 // 外部未过滤，内部自行过滤
-                if (!filtered && queryOption.Filters.Any())
+                if (!filtered && queryOption.Filters.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
@@ -474,7 +506,7 @@ public partial class Table<TItem>
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
                     }
-                    else if (queryOption.SortList.Any())
+                    else if (queryOption.SortList.Count > 0)
                     {
                         var invoker = Utility.GetSortListFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortList);
@@ -490,20 +522,21 @@ public partial class Table<TItem>
                     treeNodes.AddRange(await TreeNodeConverter(QueryItems));
                 }
 
-                if (treeNodes.Any())
+                if (treeNodes.Count > 0)
                 {
                     await CheckExpand(treeNodes);
                 }
 
                 TreeRows.Clear();
                 TreeRows.AddRange(treeNodes);
+                return;
 
                 async Task CheckExpand(IEnumerable<TableTreeNode<TItem>> nodes)
                 {
                     // 恢复当前节点状态
                     foreach (var node in nodes)
                     {
-                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
+                        await TreeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                         if (node.Items.Any())
                         {
@@ -526,13 +559,15 @@ public partial class Table<TItem>
             SortOrder = SortOrder,
             SortName = SortName,
             SearchModel = SearchModel,
-            StartIndex = StartIndex
+            StartIndex = StartIndex,
+            IsVirtualScroll = ScrollMode == ScrollMode.Virtual
         };
 
         queryOption.Filters.AddRange(Filters.Values);
-        queryOption.Searchs.AddRange(GetSearchs());
-        queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
-        queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
+        queryOption.Searches.AddRange(GetSearches());
+        queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
+        queryOption.CustomerSearches.AddRange(GetCustomerSearches());
+        queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
 
         if (!string.IsNullOrEmpty(SortString))
         {
@@ -546,7 +581,13 @@ public partial class Table<TItem>
         return queryOption;
     }
 
-    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+    private void ResetSelectedRows(IEnumerable<TItem> items)
+    {
+        if (SelectedRows.Count > 0)
+        {
+            SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -576,6 +617,10 @@ public partial class Table<TItem>
         // 更新行选中状态
         await EditAsync();
     }
+
+    private bool GetEditButtonDisabledState(TItem item) => DisableExtendEditButtonCallback?.Invoke(item) ?? DisableExtendEditButton;
+
+    private bool GetDeleteButtonDisabledState(TItem item) => DisableExtendDeleteButtonCallback?.Invoke(item) ?? DisableExtendDeleteButton;
 
     private async Task ClickUpdateButtonCallback()
     {

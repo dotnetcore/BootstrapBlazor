@@ -7,8 +7,8 @@ below to ensure a smooth review and merge process for your PR. -->
 
 <!-- Once all that is done, you're ready to go. Open the PR with the content below. -->
 
-Summary of the changes (Less than 80 chars)
+<!-- Summary of the changes (Less than 80 chars) -->
 
 ### Description
 
-fixes #{bug number}
+close #{bug number}

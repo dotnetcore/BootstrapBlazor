@@ -5,21 +5,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Radio 单选框组件
 /// </summary>
-public partial class Radio<TValue>
+public partial class Radio<TValue> : Checkbox<TValue>
 {
     /// <summary>
     /// 获得/设置 点击回调方法
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnClick { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsButton { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件 RenderFragment 实例
@@ -35,6 +29,14 @@ public partial class Radio<TValue>
     [EditorRequired]
 #endif
     public string? GroupName { get; set; }
+
+    private string? ClassString => CssBuilder.Default("form-check")
+        .AddClass("is-checked", State == CheckboxState.Checked)
+        .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("disabled", IsDisabled)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private async Task OnClickHandler()
     {

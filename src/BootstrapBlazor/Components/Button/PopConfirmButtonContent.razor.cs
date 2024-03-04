@@ -12,21 +12,18 @@ public partial class PopConfirmButtonContent
     /// <summary>
     /// 获得 关闭按钮样式
     /// </summary>
-    protected string? CloseButtonClass => CssBuilder.Default("btn btn-xs")
+    private string? CloseButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{CloseButtonColor.ToDescriptionString()}")
         .Build();
 
     /// <summary>
     /// 获得 关闭按钮样式
     /// </summary>
-    protected string? ConfirmButtonClass => CssBuilder.Default("btn btn-xs")
+    private string? ConfirmButtonClass => CssBuilder.Default("btn btn-xs")
         .AddClass($"btn-{ConfirmButtonColor.ToDescriptionString()}")
         .Build();
 
-    /// <summary>
-    /// 获得 图标样式
-    /// </summary>
-    protected string? IconClass => CssBuilder.Default()
+    private string? IconString => CssBuilder.Default("text-info")
         .AddClass(Icon)
         .Build();
 
@@ -76,7 +73,8 @@ public partial class PopConfirmButtonContent
     /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-solid fa-exclamation-circle text-info";
+    [NotNull]
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调方法
@@ -89,6 +87,20 @@ public partial class PopConfirmButtonContent
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
+    }
 
     /// <summary>
     /// 点击关闭按钮调用此方法

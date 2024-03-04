@@ -1,0 +1,5 @@
+.badge {
+    &.bg-secondary, &.bg-light {
+        --bs-badge-color: #{$bb-badge-color};
+    }
+}

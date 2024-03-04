@@ -1,0 +1,31 @@
+.popover {
+    --bs-popover-min-width: #{$bb-popover-min-width};
+    --bb-popover-buttons-justify-content: #{$bb-popover-buttons-justify-content};
+    --bb-popover-buttons-margin-left: #{$bb-popover-buttons-margin-left};
+    --bb-popover-buttons-padding: #{$bb-popover-buttons-padding};
+    --bb-popover-body-span-margin-left: #{$bb-popover-body-span-margin-left};
+    min-width: var(--bs-popover-min-width);
+}
+
+.popover-confirm-body {
+    i + span {
+        margin-left: var(--bb-popover-body-span-margin-left);
+    }
+}
+
+.popover-confirm-buttons {
+    display: flex;
+    justify-content: var(--bb-popover-buttons-justify-content);
+
+    .btn {
+        padding: var(--bb-popover-buttons-padding);
+
+        &:last-child {
+            margin-left: var(--bb-popover-buttons-margin-left);
+        }
+    }
+}
+
+[data-bb-toggle="confirm"] {
+    display: none;
+}

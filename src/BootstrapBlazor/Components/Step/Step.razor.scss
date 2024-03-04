@@ -1,0 +1,135 @@
+.step {
+    --bb-step-border-width: #{$bb-step-border-width};
+    --bb-step-item-color: #{$bb-step-item-color};
+    --bb-step-item-header-height: #{$bb-step-item-header-height};
+    --bb-step-item-text-height: #{$bb-step-item-text-height};
+    --bb-step-item-text-width: #{$bb-step-item-text-width};
+    --bb-step-item-line-height: #{$bb-step-item-line-height};
+    --bb-step-item-line-bg: #{$bb-step-item-line-bg};
+    --bb-step-item-line-transition: #{$bb-step-item-line-transition};
+    --bb-step-item-line-vertical-transition: #{$bb-step-item-line-vertical-transition};
+    --bb-step-item-line-width: #{$bb-step-item-line-width};
+    --bb-step-item-line-progress-bg: #{$bb-step-item-line-progress-bg};
+    --bb-step-vertical-min-height: #{$bb-step-vertical-min-height};
+
+    &.step-vertical {
+        display: flex;
+        flex-direction: row;
+        min-height: var(--bb-step-vertical-min-height);
+
+        .step-header {
+            display: flex;
+            flex-direction: column;
+
+            .step-item {
+                display: flex;
+                flex-direction: row;
+
+                .step-item-header {
+                    flex-direction: column;
+                    height: initial;
+
+                    .step-line {
+                        width: var(--bb-step-item-line-height);
+                        margin: .5rem 0;
+
+                        &:after {
+                            width: var(--bb-step-item-line-height);
+                            height: var(--bb-step-item-line-width);
+                            transition: var(--bb-step-item-line-vertical-transition);
+                        }
+                    }
+                }
+
+                .step-item-content {
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: .5rem;
+
+                    .step-desc {
+                        min-width: 70px;
+                    }
+                }
+            }
+        }
+
+        .step-body {
+            flex: 1;
+            margin-left: .5rem;
+        }
+    }
+
+    .step-header {
+        display: flex;
+
+        .step-item {
+            color: var(--bb-step-item-color);
+
+            &.active {
+                --bb-step-item-color: var(--bs-body-color);
+            }
+
+            &.is-done {
+                --bb-step-item-color: var(--bs-success);
+                --bb-step-item-line-width: 100%;
+            }
+
+            &:not(:last-child) {
+                flex: 1;
+            }
+        }
+
+        .step-item-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: var(--bb-step-item-header-height);
+
+            .step-text {
+                white-space: nowrap;
+            }
+
+            .step-title {
+                border-radius: 50%;
+                border: var(--bb-step-border-width) solid var(--bb-step-item-color);
+                font-weight: 700;
+                height: var(--bb-step-item-text-height);
+                width: var(--bb-step-item-text-width);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .step-line {
+                background-color: var(--bb-step-item-line-bg);
+                height: var(--bb-step-item-line-height);
+                flex: 1;
+                margin: 0 .5rem;
+
+                &:after {
+                    content: "";
+                    transition: var(--bb-step-item-line-transition);
+                    display: block;
+                    height: var(--bb-step-item-line-height);
+                    width: var(--bb-step-item-line-width);
+                    background-color: var(--bb-step-item-line-progress-bg)
+                }
+            }
+        }
+
+        .step-item-content {
+            .step-desc {
+                font-size: .75rem;
+                line-height: 1.25rem;
+            }
+        }
+    }
+
+    .step-body {
+        .step-body-item {
+            &:not(.active) {
+                display: none;
+            }
+        }
+    }
+}

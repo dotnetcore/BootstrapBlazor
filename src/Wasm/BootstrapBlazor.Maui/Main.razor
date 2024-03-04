@@ -1,0 +1,15 @@
+﻿@using BootstrapBlazor.Components
+
+<BootstrapBlazorRoot>
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
+        <Found Context="routeData">
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(BootstrapBlazor.Shared.Shared.MainLayout)" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(BootstrapBlazor.Shared.Shared.MainLayout)">
+                <p>正在玩命开发中 ...</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</BootstrapBlazorRoot>

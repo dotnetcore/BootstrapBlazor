@@ -22,22 +22,22 @@ public class ToastOption : PopupOptionBase
     /// <summary>
     /// 获得/设置 成功图标
     /// </summary>
-    public string SuccessIcon { get; set; } = "fa-solid fa-check-circle text-success";
+    public string? SuccessIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 提示图标
     /// </summary>
-    public string InformationIcon { get; set; } = "fa-solid fa-exclamation-circle text-info";
+    public string? InformationIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 错误图标
     /// </summary>
-    public string ErrorIcon { get; set; } = "fa-solid fa-xmark-circle text-danger";
+    public string? ErrorIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 警告图标
     /// </summary>
-    public string WarningIcon { get; set; } = "fa-solid fa-exclamation-triangle text-warning";
+    public string? WarningIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 显示标题
@@ -60,6 +60,11 @@ public class ToastOption : PopupOptionBase
     public bool ShowHeader { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否阻止重复消息 默认 false
+    /// </summary>
+    public bool PreventDuplicates { get; set; }
+
+    /// <summary>
     /// 获得/设置 Header 模板 默认为 null
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
@@ -70,13 +75,18 @@ public class ToastOption : PopupOptionBase
     public bool Animation { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 关闭当前 Toast 回调委托 默认 null
+    /// </summary>
+    public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
-    public void Close()
+    public async Task Close()
     {
         if (Toast != null)
         {
-            Toast.Close();
+            await Toast.Close();
         }
     }
 }

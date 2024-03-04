@@ -45,11 +45,6 @@ public interface ITableColumn : IEditorItem
     bool Fixed { get; set; }
 
     /// <summary>
-    /// 获得/设置 列是否显示 默认为 true 可见的
-    /// </summary>
-    bool Visible { get; set; }
-
-    /// <summary>
     /// 获得/设置 本列是否允许换行 默认为 false
     /// </summary>
     bool TextWrap { get; set; }
@@ -127,7 +122,7 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// 获得/设置 列格式化回调委托
     /// </summary>
-    Func<object?, Task<string>>? Formatter { get; set; }
+    Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 文字对齐方式 默认为 Alignment.None
@@ -143,4 +138,9 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    bool IsMarkupString { get; set; }
 }

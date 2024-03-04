@@ -1,0 +1,16 @@
+:not(.is-tips) > span[data-bs-toggle="tooltip"] {
+    display: inline-block;
+}
+
+.tooltip.is-invalid {
+    --bs-tooltip-bg: var(--bs-danger);
+}
+
+.input-group > [data-bs-toggle]:not(:last-child) > .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+[data-bs-toggle="tooltip"]:has(.is-display) {
+    overflow: hidden;
+}

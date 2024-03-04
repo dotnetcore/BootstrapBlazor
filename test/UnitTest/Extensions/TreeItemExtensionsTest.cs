@@ -16,11 +16,11 @@ public class TreeItemExtensionsTest
         {
             new TreeViewItem<string>("01")
             {
-                Text="01",Items = new List<TreeViewItem<string>>()
-                {
+                Text="01",Items =
+                [
                     new TreeViewItem<string>("0101") { Text="0101" },
                     new TreeViewItem<string>("0102") { Text="0102" }
-                }
+                ]
             }
         };
         var items = sourceItems.GetAllItems();
@@ -38,19 +38,19 @@ public class TreeItemExtensionsTest
         {
             new TreeViewItem<string>("01")
             {
-                Text="01",Items = new List<TreeViewItem<string>>()
-                {
+                Text="01",Items =
+                [
                     new TreeViewItem<string>("0101") { Text="0101" },
                     new TreeViewItem<string>("0102") { Text="0102" },
-                }
+                ]
             },
             new TreeViewItem<string>("02")
             {
-                Text="02",Items = new List<TreeViewItem<string>>()
-                {
+                Text="02",Items =
+                [
                     new TreeViewItem<string>("0201") { Text="0201" },
                     new TreeViewItem<string>("0202") { Text="0202" },
-                }
+                ]
             },
         };
 

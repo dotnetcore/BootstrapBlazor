@@ -1,15 +1,27 @@
-﻿import { Tooltip } from "./tooltip.js"
-
-export class Popover extends Tooltip {
-    _init() {
-        this._config.title = this._config.arguments[0]
-        this._config.content = this._config.arguments[1]
-        this._popover = new bootstrap.Popover(this._element, this._config)
+﻿export function init(id, content) {
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el)
+        if (pop) {
+            pop._config.content = content
+        }
+        else {
+            new bootstrap.Popover(el, {
+                content,
+                title: () => {
+                    return el.getAttribute('data-bs-original-title')
+                }
+            })
+        }
     }
+}
 
-    _dispose() {
-        if (this._popover) {
-            this._popover.dispose();
+export function dispose(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        const pop = bootstrap.Popover.getInstance(el)
+        if (pop) {
+            pop.dispose();
         }
     }
 }

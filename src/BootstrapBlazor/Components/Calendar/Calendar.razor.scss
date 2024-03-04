@@ -1,0 +1,163 @@
+.calendar {
+    --bb-calendar-padding: #{$bb-calendar-padding};
+    --bb-calendar-header-border-bottom: #{$bb-calendar-header-border-bottom};
+    --bb-calendar-title-color: #{$bb-calendar-title-color};
+    --bb-calendar-title-font-size: #{$bb-calendar-title-font-size};
+    --bb-calendar-toolbar-border: #{$bb-calendar-toolbar-border};
+    --bb-calendar-toolbar-font-size: #{$bb-calendar-toolbar-font-size};
+    --bb-calendar-toolbar-padding: #{$bb-calendar-toolbar-padding};
+    --bb-calendar-toolbar-hover-bg: #{$bb-calendar-toolbar-hover-bg};
+    --bb-calendar-toolbar-hover-color: #{$bb-calendar-toolbar-hover-color};
+    --bb-calendar-toolbar-hover-border-color: #{$bb-calendar-toolbar-hover-border-color};
+    --bb-calendar-toolbar-focus-bg: #{$bb-calendar-toolbar-focus-bg};
+    --bb-calendar-toolbar-focus-color: #{$bb-calendar-toolbar-focus-color};
+    --bb-calendar-toolbar-focus-border-color: #{$bb-calendar-toolbar-focus-border-color};
+    --bb-calendar-toolbar-active-color: #{$bb-calendar-toolbar-active-color};
+    --bb-calendar-toolbar-active-border-color: #{$bb-calendar-toolbar-active-border-color};
+    --bb-calendar-cell-padding: #{$bb-calendar-cell-padding};
+    --bb-calendar-cell-height: #{$bb-calendar-cell-height};
+    --bb-calendar-cell-hover-bg: #{$bb-calendar-cell-hover-bg};
+    --bb-calendar-header-padding: #{$bb-calendar-header-padding};
+    --bb-calendar-today-color: #{$bb-calendar-today-color};
+    --bb-calendar-selected-color: #{$bb-calendar-selected-color};
+    --bb-calendar-selected-bg: #{$bb-calendar-selected-bg};
+    --bb-calendar-week-header-border-bottom: #{$bb-calendar-week-header-border-bottom};
+    --bb-calendar-week-header-min-width: #{$bb-calendar-week-header-min-width};
+    --bb-calendar-week-header-padding: #{$bb-calendar-week-header-padding};
+    --bb-calendar-week-today-color: #{$bb-calendar-week-today-color};
+    --bb-calendar-week-today-border-color: #{$bb-calendar-week-today-border-color};
+    --bb-calendar-week-cell-padding: #{$bb-calendar-week-cell-padding};
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        padding: var(--bb-calendar-padding);
+        border-bottom: var(--bb-calendar-header-border-bottom);
+    }
+
+    .calendar-title {
+        color: var(--bb-calendar-title-color);
+        align-self: center;
+        font-size: var(--bb-calendar-title-font-size);
+    }
+
+    .calendar-button-group {
+        .btn {
+            line-height: 1;
+            white-space: nowrap;
+            cursor: pointer;
+            border: var(--bb-calendar-toolbar-border);
+            outline: none;
+            margin: 0;
+            transition: .3s;
+            padding: var(--bb-calendar-toolbar-padding);
+            font-size: var(--bb-calendar-toolbar-font-size);
+
+            &:focus {
+                color: var(--bb-calendar-toolbar-focus-color);
+                border-color: var(--bb-calendar-toolbar-focus-border-color);
+                background-color: var(--bb-calendar-toolbar-focus-bg);
+            }
+
+            &:hover {
+                color: var(--bb-calendar-toolbar-hover-color);
+                border-color: var(--bb-calendar-toolbar-hover-border-color);
+                background-color: var(--bb-calendar-toolbar-hover-bg);
+            }
+
+            &:not(:focus):not(:hover):active {
+                color: var(--bb-calendar-toolbar-active-color);
+                border-color: var(--bb-calendar-toolbar-active-border-color);
+                outline: none;
+            }
+        }
+    }
+
+    .calendar-table {
+        table-layout: fixed;
+        width: 100%;
+
+        .calendar-day {
+            padding: var(--bb-calendar-cell-padding);
+            height: var(--bb-calendar-cell-height);
+
+            &:hover {
+                cursor: pointer;
+                background-color: var(--bb-calendar-cell-hover-bg);
+            }
+        }
+
+        thead {
+            th {
+                padding: var(--bb-calendar-header-padding);
+                font-weight: 400;
+                text-align: center;
+            }
+        }
+
+        tr {
+            td {
+                border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+                border-right: var(--bs-border-width) solid var(--bs-border-color);
+                vertical-align: top;
+                transition: background-color .2s ease;
+                cursor: pointer;
+
+                &:first-child {
+                    border-left: var(--bs-border-width) solid var(--bs-border-color);
+                }
+
+                &.is-today {
+                    color: var(--bb-calendar-today-color);
+                }
+
+                &.is-selected {
+                    background-color: var(--bb-calendar-selected-bg);
+                    color: var(--bb-calendar-selected-color);
+                }
+            }
+
+            &:first-child td {
+                border-top: var(--bs-border-width) solid var(--bs-border-color);
+            }
+
+            &:not(.is-range) td.next, &:not(.is-range) td.prev {
+                color: rgba(var(--bs-body-color-rgb), 0.5);
+            }
+        }
+    }
+
+    .table-week {
+        thead {
+            tr:last-child {
+                border-bottom: var(--bb-calendar-week-header-border-bottom);
+            }
+        }
+
+        tbody {
+            tr {
+                text-align: center;
+            }
+
+            td {
+                padding: var(--bb-calendar-week-cell-padding);
+                border-right: 0;
+                border-left: 0;
+                position: relative;
+            }
+        }
+
+        .week-header {
+            display: inline-block;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            padding: var(--bb-calendar-week-header-padding);
+            min-width: var(--bb-calendar-week-header-min-width);
+
+            &.is-today {
+                border: 1px solid var(--bb-calendar-week-today-border-color);
+                color: var(--bb-calendar-week-today-color);
+            }
+        }
+    }
+}

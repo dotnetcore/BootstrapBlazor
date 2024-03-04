@@ -1,0 +1,25 @@
+.file-icon {
+    --bb-icon-width: #{$bb-icon-width};
+    --bb-icon-height: #{$bb-icon-height};
+    --bb-icon-padding-left: #{$bb-icon-padding-left};
+    --bb-icon-badge-bottom: #{$bb-icon-badge-bottom};
+    --bb-icon-path-fill-color: #{$bb-icon-path-fill-color};
+    padding-left: var(--bb-icon-padding-left);
+    display: inline-block;
+    position: relative;
+
+    .icon-svg {
+        width: var(--bb-icon-width);
+        height: var(--bb-icon-height);
+
+        path {
+            fill: var(--bb-icon-path-fill-color);
+        }
+    }
+
+    .badge {
+        position: absolute;
+        bottom: var(--bb-icon-badge-bottom);
+        left: 0;
+    }
+}

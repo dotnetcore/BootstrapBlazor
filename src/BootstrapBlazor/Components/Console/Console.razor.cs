@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 控制台消息组件
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Console
 {
     /// <summary>
@@ -34,6 +33,7 @@ public partial class Console
     /// <returns></returns>
     private static string? GetClassString(ConsoleMessageItem item) => CssBuilder.Default()
         .AddClass($"text-{item.Color.ToDescriptionString()}", item.Color != Color.None)
+        .AddClass(item.CssClass, !string.IsNullOrEmpty(item.CssClass))
         .Build();
 
     /// <summary>
@@ -44,6 +44,7 @@ public partial class Console
     /// <summary>
     /// 获得/设置 组件绑定数据源
     /// </summary>
+    /// <remarks><see cref="ConsoleMessageCollection"/> 集合内置了最大消息数量功能</remarks>
     [Parameter]
     [NotNull]
     public IEnumerable<ConsoleMessageItem>? Items { get; set; }
@@ -110,7 +111,7 @@ public partial class Console
     public string? ClearButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮 显示图标 默认值为 fa-times
+    /// 获得/设置 清除按钮颜色 默认值为 Color.Secondary
     /// </summary>
     [Parameter]
     public Color ClearButtonColor { get; set; } = Color.Secondary;
@@ -140,6 +141,12 @@ public partial class Console
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 Item 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ConsoleMessageItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得 是否显示 Footer
     /// </summary>
     protected bool ShowFooter => OnClear != null || ShowAutoScroll || FooterTemplate != null;
@@ -147,6 +154,10 @@ public partial class Console
     [Inject]
     [NotNull]
     private IStringLocalizer<Console>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -160,15 +171,24 @@ public partial class Console
         ClearButtonText ??= Localizer[nameof(ClearButtonText)];
         AutoScrollText ??= Localizer[nameof(AutoScrollText)];
 
-        ClearButtonIcon ??= "fa-solid fa-xmark";
-        Items ??= Enumerable.Empty<ConsoleMessageItem>();
+        ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ConsoleClearButtonIcon);
+        Items ??= [];
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
+    }
 
     /// <summary>
     /// 清空控制台消息方法

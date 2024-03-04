@@ -3,9 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -142,13 +142,139 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => form.Submit());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(itemsChanged);
+
+        // 设置双向绑定 Items 后再测试 Add Save
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsTracking, false);
+            pb.Add(a => a.OnSaveAsync, null);
+            pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows => items = rows.ToList()));
+        });
+        // Add 弹窗
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        await cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.Equal(3, items.Count);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.InsertRowMode, InsertRowMode.Last);
+        });
+
+        // Add 弹窗
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        await cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        Assert.Equal(3, items.Count);
+
+        // 数据源是 OnQueryAsync 提供
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+            pb.Add(a => a.OnQueryAsync, options => Task.FromResult(new QueryData<Foo>()
+            {
+                Items = items,
+                TotalCount = items.Count,
+                IsAdvanceSearch = true,
+                IsSearch = true,
+                IsFiltered = true,
+                IsSorted = true
+            }));
+        });
+
+        // Add 弹窗
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        input = cut.Find(".modal-body form input.form-control");
+        await cut.InvokeAsync(() => input.Change("Test_Name"));
+
+        form = cut.Find(".modal-body form");
+        await cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 数据为三行
+        var rows = cut.FindAll("tbody tr");
+        Assert.Equal(3, rows.Count);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsExcel, false);
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.ShowSearchText, false);
+            pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
+            pb.Add(a => a.SearchDialogIsDraggable, true);
+            pb.Add(a => a.ScrollingDialogContent, true);
+            pb.Add(a => a.SearchDialogShowMaximizeButton, true);
+            pb.Add(a => a.SearchDialogItemsPerRow, 2);
+            pb.Add(a => a.SearchDialogRowType, RowType.Inline);
+            pb.Add(a => a.SearchDialogLabelAlign, Alignment.Right);
+            pb.Add(a => a.ShowAdvancedSearch, true);
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.ShowUnsetGroupItemsOnTop, true);
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.AddAttribute(3, "Searchable", true);
+                builder.CloseComponent();
+            });
+        });
+
+        var searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+
+        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        var queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
+            {
+                return null;
+            }));
+        });
+
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+
+        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
+
+        table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
+            {
+                var v = p.GetValue(model);
+                return
+                [
+                    new SearchFilterAction(p.Name, v, FilterAction.Equal)
+                ];
+            }));
+        });
+
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+
+        cut.WaitForAssertion(() => cut.Find(".fa-magnifying-glass"));
+        queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
     }
 
-    private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService
+    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>, IEntityFrameworkCoreDataService
     {
-        IStringLocalizer<Foo> Localizer { get; set; }
-
-        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) => Localizer = localizer;
+        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
 

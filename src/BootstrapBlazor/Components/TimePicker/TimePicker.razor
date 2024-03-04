@@ -1,0 +1,6 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<TimeSpan>
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <TimePickerBody Value="@Value" OnConfirm="OnInternalValueChanged"></TimePickerBody>
+</div>

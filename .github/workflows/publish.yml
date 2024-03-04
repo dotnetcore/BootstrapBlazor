@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Setup .NET Core 7
-      uses: actions/setup-dotnet@v1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 7.0.x
+        dotnet-version: 8.0.x
 
     - name: Publish wasm
       run: |
         dotnet publish -c Release -o deploy src/Wasm/BootstrapBlazor.WebAssembly.ClientHost
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      uses: JamesIves/github-pages-deploy-action@3
       with:
         GITHUB_TOKEN: ${{ secrets.GH_PUSH_TOKEN }}
         BRANCH: gh-pages

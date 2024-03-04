@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -178,10 +177,11 @@ public class ObjectExtensionsTest
     [InlineData(ItemChangedType.Add, false)]
     public void IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsReadonlyWhenAdd = val
-        };
+            ["IsReadonlyWhenAdd"] = val
+        }));
         Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
     }
 
@@ -190,11 +190,39 @@ public class ObjectExtensionsTest
     [InlineData(ItemChangedType.Update, false)]
     public void IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsReadonlyWhenEdit = val
-        };
+            ["IsReadonlyWhenEdit"] = val
+        }));
         Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
+    }
+
+
+    [Theory]
+    [InlineData(ItemChangedType.Add, true)]
+    [InlineData(ItemChangedType.Add, false)]
+    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["IsVisibleWhenAdd"] = val
+        }));
+        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
+    }
+
+    [Theory]
+    [InlineData(ItemChangedType.Update, true)]
+    [InlineData(ItemChangedType.Update, false)]
+    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["IsVisibleWhenEdit"] = val
+        }));
+        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
     }
 
     [Theory]
@@ -236,6 +264,21 @@ public class ObjectExtensionsTest
     {
         var item = new MockEditItem<Dummy, string>() { FieldName = fieldName };
         Assert.Throws<InvalidOperationException>(() => item.CanWrite(typeof(Dummy)));
+    }
+
+    [Fact]
+    public void IsStatic_Ok()
+    {
+        var v = new MockStatic();
+        var pi = v.GetType().GetProperty(nameof(MockStatic.Test))!;
+        Assert.True(pi.IsStatic());
+    }
+
+    private class MockStatic
+    {
+        private static int _test;
+
+        public static int Test { set { _test = value; } }
     }
 
     [TypeConverter(typeof(DummyConverter))]

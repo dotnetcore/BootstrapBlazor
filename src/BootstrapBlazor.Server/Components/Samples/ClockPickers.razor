@@ -1,0 +1,38 @@
+﻿@page "/clock-picker"
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["Description"]</h4>
+
+<DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <div class="custom-clock">
+                <ClockPicker @bind-Value="@Value" IsAutoSwitch="_autoSwitch" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="_autoSwitch" ShowLabel="true" DisplayText="@Localizer["AutoSwitchText"]"></Switch>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="ShowSecond">
+    <div class="custom-clock">
+        <ClockPicker Value="@SecondValue" ShowSecond="false" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowMinuteTitle"]" Introduction="@Localizer["ShowMinuteIntro"]" Name="ShowMinute">
+    <div class="custom-clock">
+        <ClockPicker Value="@MinuteValue" ShowMinute="false" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowClockScaleTitle"]" Introduction="@Localizer["ShowClockScaleIntro"]" Name="ShowClockScale">
+    <div class="custom-clock">
+        <ClockPicker Value="@ScaleValue" ShowClockScale="true" />
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1,0 +1,47 @@
+.message {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    z-index: 1090;
+    pointer-events: none;
+
+    .alert {
+        display: flex;
+        align-items: baseline;
+        min-width: 160px;
+        max-width: 480px;
+        white-space: normal;
+        opacity: 0;
+        top: -20px;
+        bottom: unset;
+        margin: 1rem auto 0 auto;
+        transition: opacity .3s linear, top .3s linear, bottom .3s linear;
+        pointer-events: auto;
+
+        &.show {
+            opacity: 1;
+            bottom: unset;
+            top: 20px;
+        }
+
+        > i + div {
+            margin-left: .5rem;
+        }
+
+        > div {
+            flex: 1;
+            flex-wrap: wrap;
+            word-break: break-all;
+        }
+    }
+
+    &.is-bottom .alert {
+        top: unset;
+        bottom: -20px;
+    }
+
+    &.is-bottom .alert.show {
+        top: unset;
+        bottom: 20px;
+    }
+}

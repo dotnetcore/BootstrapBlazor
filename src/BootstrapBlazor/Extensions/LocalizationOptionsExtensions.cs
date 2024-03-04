@@ -23,16 +23,31 @@ internal static class LocalizationOptionsExtensions
     /// <returns></returns>
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
-        // 获得程序集内 Json 文件流集合
-        var langHandlers = option.GetJsonHanlders(assembly, cultureName).ToList();
-
         // 创建配置 ConfigurationBuilder
         var builder = new ConfigurationBuilder();
 
-        // 添加 Json 文件流到配置
-        foreach (var h in langHandlers)
+        // 获取程序集中的资源文件
+        var assemblies = new List<Assembly>()
         {
-            builder.AddJsonStream(h);
+            assembly
+        };
+
+        var entryAssembly = GetAssembly();
+        if (assembly != entryAssembly)
+        {
+            assemblies.Add(entryAssembly);
+        }
+        if (option.AdditionalJsonAssemblies != null)
+        {
+            assemblies.AddRange(option.AdditionalJsonAssemblies);
+        }
+
+        var streams = assemblies.SelectMany(i => option.GetResourceStream(i, cultureName));
+
+        // 添加 Json 文件流到配置
+        foreach (var s in streams)
+        {
+            builder.AddJsonStream(s);
         }
 
         // 获得配置外置资源文件
@@ -45,7 +60,7 @@ internal static class LocalizationOptionsExtensions
             });
             foreach (var file in files)
             {
-                builder.AddJsonFile(file, true, true);
+                builder.AddJsonFile(file, true, option.ReloadOnChange);
             }
         }
 
@@ -53,29 +68,20 @@ internal static class LocalizationOptionsExtensions
         var config = builder.Build();
 
         // dispose json stream
-        foreach (var h in langHandlers)
+        foreach (var s in streams)
         {
-            h.Dispose();
+            s.Dispose();
         }
-        return config.GetChildren();
-    }
 
-    private static IEnumerable<Stream> GetJsonHanlders(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
-    {
-        // 获取程序集中的资源文件
-        var assemblies = new List<Assembly>()
-        {
-            assembly
-        };
-        if (option.AdditionalJsonAssemblies != null)
-        {
-            assemblies.AddRange(option.AdditionalJsonAssemblies);
-        }
-        return assemblies.SelectMany(i => option.GetResourceStream(i, cultureName));
+        return config.GetChildren();
+
+        [ExcludeFromCodeCoverage]
+        Assembly GetAssembly() => Assembly.GetEntryAssembly() ?? assembly;
     }
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
+        var resourceNames = assembly.GetManifestResourceNames();
         var ret = new List<Stream>();
 
         // 如果开启回落机制优先增加回落语言
@@ -101,11 +107,14 @@ internal static class LocalizationOptionsExtensions
 
         void AddStream(string name)
         {
-            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{name}.json";
-            var stream = assembly.GetManifestResourceStream(json);
-            if (stream != null)
+            var json = resourceNames.FirstOrDefault(i => i.Contains($".{name}.json"));
+            if (json != null)
             {
-                ret.Add(stream);
+                var stream = assembly.GetManifestResourceStream(json);
+                if (stream != null)
+                {
+                    ret.Add(stream);
+                }
             }
         }
 

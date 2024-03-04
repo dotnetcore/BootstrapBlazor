@@ -5,20 +5,9 @@
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
-    "BarText": "Slide right to fill puzzle",
-    "FailedText": "Load failed",
-    "LoadText": "Loading ...",
-    "TryText": "Try again"
-  },
-  "BootstrapBlazor.Components.Camera": {
-    "DeviceLabel": "Camera",
-    "InitDevicesString": "Initialzie ...",
-    "PlayText": "Open",
-    "StopText": "Close",
-    "PhotoText": "Photo",
-    "FrontText": "Front",
-    "BackText": "Back",
-    "NotFoundDevicesString": "Not found video device"
+    "BarText": "Slide to the right to solve puzzle",
+    "FailedText": "Failed to load",
+    "LoadText": "Loading ..."
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Previous Year",
@@ -63,10 +52,10 @@
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "Months": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>",
+    "GenericTypeErroMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "Today",
     "Yesterday": "Yesterday",
     "Week": "A week ago"
@@ -78,6 +67,7 @@
     "ClearButtonText": "Clear",
     "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
+    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
     "DateFormat": "M/d/yyyy",
     "Last7Days": "Last 7 Days",
     "Last30Days": "Last 30 Days",
@@ -99,7 +89,7 @@
     "PlaceHolder": "Click to edit"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL not match {0} MODEL",
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL does not match {0} MODEL",
     "PlaceHolderText": "Please input ..."
   },
   "BootstrapBlazor.Components.Empty": {
@@ -133,7 +123,7 @@
     "PrintButtonText": "Print"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "...",
+    "PlaceHolder": "Select items ...",
     "SelectAllText": "All",
     "ReverseSelectText": "Reverse",
     "ClearText": "Clear",
@@ -150,6 +140,9 @@
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Print"
+  },
+  "BootstrapBlazor.Components.Repeater": {
+    "EmptyText": "No Data"
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search"
@@ -198,7 +191,9 @@
     "SearchPlaceholderText": "Search",
     "SearchButtonText": "Search",
     "ResetSearchButtonText": "Reset",
-    "AdvanceButtonText": "Advance Search",
+    "AdvanceButtonText": "Advanced Search",
+    "AdvancedSortModalTitle": "Sort",
+    "AdvancedSortButtonText": "Advanced Sort",
     "CheckboxDisplayText": "All",
     "EditModalTitle": "Edit",
     "AddModalTitle": "New",
@@ -230,8 +225,10 @@
     "EmptyText": "No Data",
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",
-    "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s",
+    "ExportToastInProgressContent": "Exporting data, please wait a moment, auto close after {0}s",
+    "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/page",
     "CopyColumnTooltipText": "Copy entire column data to clipboard",
@@ -256,7 +253,7 @@
     "Contains": "Contains",
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All",
-    "NotSupportedMessage": "Not supported filter type, Please custom filter use FilterTemplate"
+    "NotSupportedMessage": "Unsupported filter type, Please customize the filter use FilterTemplate"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "And",
@@ -282,7 +279,9 @@
   },
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "All",
-    "RightPanelText": "Selected"
+    "RightPanelText": "Selected",
+    "MinErrorMessage": "Please select at least {0} items",
+    "MaxErrorMessage": "Up to {0} items can be selected"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "Please input ...",
@@ -291,11 +290,14 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",
-    "FileSizeValidation": "File size must less {0}"
+    "FileSizeValidation": "File size must less than {0}"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Save",
@@ -328,5 +330,30 @@
     "ButtonText": "Copy",
     "DialogHeaderText": "Selected Icon",
     "CopiedTooltipText": "Copied"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "Loading ..."
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "and",
+    "Or": "or",
+    "GreaterThanOrEqual": "GreaterThanOrEqual",
+    "LessThanOrEqual": "LessThanOrEqual",
+    "GreaterThan": "GreaterThan",
+    "LessThan": "LessThan",
+    "Equal": "Equal",
+    "NotEqual": "NotEqual",
+    "Contains": "Contains",
+    "NotContains": "NotContains",
+    "GroupText": "Group",
+    "ItemText": "Item"
+  },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "Ascending",
+    "DescText": "Descending"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "AM",
+    "PMText": "PM"
   }
 }

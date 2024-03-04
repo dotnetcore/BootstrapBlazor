@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.Web;
 
 namespace UnitTest.Components;
@@ -53,6 +52,22 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowResize_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>(pb =>
+                {
+                    pb.Add(d => d.ShowResize, true);
+                });
+            });
+        });
+        Assert.Contains("modal-resizer", cut.Markup);
+    }
+
+    [Fact]
     public void ShowMaximizeButton_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -69,10 +84,10 @@ public class ModalDialogTest : BootstrapBlazorTestBase
 
         var button = cut.Find(".btn-maximize");
         button.Click();
-        Assert.Contains("modal-fullscreen", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("modal-fullscreen"));
 
         button.Click();
-        Assert.DoesNotContain("modal-fullscreen", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("modal-fullscreen"));
     }
 
     [Fact]

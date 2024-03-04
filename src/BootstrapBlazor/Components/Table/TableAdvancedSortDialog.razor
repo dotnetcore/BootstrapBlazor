@@ -1,0 +1,23 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ComponentBase
+
+<div class="dialog-advance-sort">
+    <div class="table-advance-sort-toolbar">
+        <Button Color="Color.Primary" Icon="@PlusIcon" OnClick="OnClickAdd"></Button>
+        <Button Color="Color.Danger" Icon="@RemoveIcon" OnClick="OnClickClear"></Button>
+    </div>
+    @foreach (var item in Value)
+    {
+        <div @key="@item" class="row">
+            <div class="col-6">
+                <Select Items="Items" @bind-Value="@item.SortName" />
+            </div>
+            <div class="col-4">
+                <Select Items="SortOrders" @bind-Value="@item.SortOrder" />
+            </div>
+            <div class="col-2">
+                <Button Color="Color.Danger" Icon="@MinusIcon" OnClick="() => OnClickRemove(item)"></Button>
+            </div>
+        </div>
+    }
+</div>

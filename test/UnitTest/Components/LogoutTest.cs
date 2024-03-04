@@ -69,9 +69,9 @@ public class LogoutTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.PrefixDisplayNameText, "prefix_displayname");
+            pb.Add(a => a.PrefixDisplayNameText, "prefix_display_name");
         });
-        Assert.Contains("prefix_displayname", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("prefix_display_name"));
     }
 
     [Fact]

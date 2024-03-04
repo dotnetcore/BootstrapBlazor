@@ -18,7 +18,7 @@ public partial class Dialog : IDisposable
     /// <summary>
     /// 获得/设置 弹出对话框实例集合
     /// </summary>
-    private List<Dictionary<string, object>> DialogParameters { get; } = new();
+    private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = [];
 
     private bool IsKeyboard { get; set; }
 
@@ -48,10 +48,6 @@ public partial class Dialog : IDisposable
 
         // 注册 Dialog 弹窗事件
         DialogService.Register(this, Show);
-
-        // 增加参数
-        AdditionalAttributes ??= new Dictionary<string, object>();
-        AdditionalAttributes["data-bb-dialog"] = "true";
     }
 
     /// <summary>
@@ -93,7 +89,10 @@ public partial class Dialog : IDisposable
                 DialogParameters.Remove(CurrentParameter);
 
                 // 多弹窗支持
-                CurrentParameter = DialogParameters.LastOrDefault();
+                var p = DialogParameters.LastOrDefault();
+                CurrentParameter = p.Key;
+                IsKeyboard = p.Value.IsKeyboard;
+                IsBackdrop = p.Value.IsBackdrop;
 
                 StateHasChanged();
             }
@@ -101,7 +100,8 @@ public partial class Dialog : IDisposable
 
         IsKeyboard = option.IsKeyboard;
         IsBackdrop = option.IsBackdrop;
-        option.Dialog = ModalContainer;
+
+        option.Modal = ModalContainer;
 
         var parameters = option.ToAttributes();
         var content = option.BodyTemplate ?? option.Component?.Render();
@@ -149,7 +149,7 @@ public partial class Dialog : IDisposable
         CurrentParameter = parameters;
 
         // 添加 ModalDialog 到容器中
-        DialogParameters.Add(parameters);
+        DialogParameters.Add(parameters, (IsKeyboard, IsBackdrop));
         StateHasChanged();
         return Task.CompletedTask;
     }

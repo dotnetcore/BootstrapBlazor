@@ -1,0 +1,142 @@
+﻿.is-draggable .modal-header {
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: .5rem 1rem;
+}
+
+.modal-header.is-drag {
+    cursor: move;
+}
+
+.modal-content {
+    min-height: 160px;
+    min-width: 210px;
+}
+
+.modal-footer {
+    padding: 0.5rem 1rem;
+}
+
+.modal-footer > * {
+    margin: 0;
+}
+
+.modal-footer button:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.modal-resizer {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    cursor: nwse-resize;
+    pointer-events: auto;
+    width: 1rem;
+    height: auto;
+    fill: #8a8a8a;
+}
+
+.bb-printview {
+    background-color: #fff;
+    padding: 1rem;
+    min-height: calc(100vh);
+}
+
+.modal-header-buttons {
+    position: relative;
+}
+
+.modal-header-buttons .btn {
+    --bs-btn-padding-y: 3px;
+}
+
+.modal-header-buttons .btn:not(:last-child) {
+    margin-right: .5rem;
+}
+
+.modal-header-buttons .btn-maximize {
+    color: #6c757d;
+    border: 0;
+}
+
+.modal-fullscreen.is-draggable {
+    margin: 0 !important;
+    width: 100vw !important;
+}
+
+@media print {
+    .bb-printview-open {
+        overflow: auto !important;
+    }
+
+    .bb-printview-open > *:not(.bb-printview) {
+        display: none !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .modal-xxl {
+        --bs-modal-width: 800px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .modal-xxl {
+        --bs-modal-width: 1140px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .modal-xxl {
+        --bs-modal-width: 1280px;
+    }
+}
+
+@media (min-width: 1600px) {
+    .modal-xxl {
+        --bs-modal-width: 1440px;
+    }
+}
+
+@media (min-width: 1900px) {
+    .modal-xxl {
+        --bs-modal-width: 1720px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .modal-fullscreen-sm-down {
+        width: 100vw;
+        max-width: none;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .modal-fullscreen-md-down {
+        width: 100vw;
+        max-width: none;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .modal-fullscreen-lg-down {
+        width: 100vw;
+        max-width: none;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .modal-fullscreen-xl-down {
+        width: 100vw;
+        max-width: none;
+    }
+}
+
+@media (max-width: 1399.98px) {
+    .modal-fullscreen-xxl-down {
+        width: 100vw;
+        max-width: none;
+    }
+}

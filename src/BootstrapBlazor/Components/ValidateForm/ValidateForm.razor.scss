@@ -1,0 +1,83 @@
+.form-control {
+    --bb-form-control-padding: #{$bb-form-control-padding}
+}
+
+form {
+    .input-group-text:before,
+    .form-label:before {
+        content: "";
+        position: relative;
+        top: 2px;
+        margin-right: 2px;
+        display: inline-block;
+        min-width: 5px;
+    }
+
+    .input-group-text[required]:before,
+    .form-label[required]:before {
+        content: "*";
+        color: var(--bs-danger);
+    }
+}
+
+.form-control {
+    padding: var(--bb-form-control-padding);
+
+    &.is-display {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        min-height: var(--bb-height);
+    }
+
+    &:focus {
+        border: var(--bs-border-width) solid var(--bb-border-focus-color);
+        box-shadow: none;
+    }
+
+    &.is-valid[type="number"],
+    &.is-invalid[type="number"] {
+        padding-right: .75rem;
+        background-image: none;
+    }
+
+    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):hover {
+        border: var(--bs-border-width) solid var(--bb-border-hover-color);
+    }
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.was-validated .custom-select:invalid:focus,
+.custom-select.is-invalid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: none;
+}
+
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus,
+.was-validated .custom-select:valid:focus,
+.custom-select.is-valid:focus {
+    border-color: var(--bs-success);
+}
+
+.input-number-fix::-webkit-outer-spin-button,
+.input-number-fix::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield;
+}
+
+.ef-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 2rem;
+}
+
+.table-cell .form-control.is-display,
+form .form-control.is-display {
+    background-color: var(--bs-secondary-bg);
+}

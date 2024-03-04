@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -17,15 +17,26 @@ public class ChartOptions
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 数据集合名称字体大小
+    /// </summary>
+    public int LegendLabelsFontSize { get; set; }
+
+    /// <summary>
     /// 获得 X 坐标轴实例集合
     /// </summary>
     public ChartAxes X { get; } = new ChartAxes();
 
     /// <summary>
-    /// 获得 X 坐标轴实例集合
+    /// 获得 Y 坐标轴实例集合
     /// </summary>
 
     public ChartAxes Y { get; } = new ChartAxes();
+
+    /// <summary>
+    /// 获得 Y2 坐标轴实例集合
+    /// </summary>
+
+    public ChartAxes Y2 { get; } = new ChartAxes();
 
     /// <summary>
     /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
@@ -58,6 +69,37 @@ public class ChartOptions
     public string? Width { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示图例 默认 true 显示
+    /// </summary>
+    public bool ShowLegend { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 图例显示位置 默认 top 显示
+    /// </summary>
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartLegendPosition>))]
+    public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
+
+    /// <summary>
+    /// 获得/设置 是否显示X轴线
+    /// </summary>
+    public bool? ShowXLine { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示Y轴线
+    /// </summary>
+    public bool? ShowYLine { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示X轴刻度
+    /// </summary>
+    public bool? ShowXScales { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示Y轴刻度
+    /// </summary>
+    public bool? ShowYScales { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据显示颜色
     /// </summary>
     public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()
@@ -71,4 +113,44 @@ public class ChartOptions
         { "pink", "rgb(255, 192, 203)" },
         { "violet", "rgb(238, 130, 238)" }
     };
+
+    /// <summary>
+    /// 获得/设置 X轴边界线颜色
+    /// </summary>
+    public string? XScalesBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴边界线颜色
+    /// </summary>
+    public string? YScalesBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格线颜色
+    /// </summary>
+    public string? XScalesGridColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格边界线颜色
+    /// </summary>
+    public string? XScalesGridBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格刻度线颜色
+    /// </summary>
+    public string? XScalesGridTickColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴网格线颜色
+    /// </summary>
+    public string? YScalesGridColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格边界线颜色
+    /// </summary>
+    public string? YScalesGridBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格刻度线颜色
+    /// </summary>
+    public string? YScalesGridTickColor { get; set; }
 }

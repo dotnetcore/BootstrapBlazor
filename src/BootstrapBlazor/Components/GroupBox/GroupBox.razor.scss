@@ -1,0 +1,33 @@
+.groupbox {
+    --bb-groupbox-padding: #{$bb-groupbox-padding};
+    --bb-groupbox-margin-top: #{$bb-groupbox-margin-top};
+    --bb-groupbox-legend-padding: #{$bb-groupbox-legend-padding};
+    --bb-groupbox-legend-left: #{$bb-groupbox-legend-left};
+    --bb-groupbox-legend-top: #{$bb-groupbox-legend-top};
+    border: 1px solid var(--bs-border-color);
+    padding: var(--bb-groupbox-padding);
+    border-radius: var(--bs-border-radius);
+    position: relative;
+    margin-top: var(--bb-groupbox-margin-top);
+
+    .legend {
+        background-color: var(--bs-body-bg);
+        padding: var(--bb-groupbox-legend-padding);
+        position: absolute;
+        left: var(--bb-groupbox-legend-left);
+        top: var(--bb-groupbox-legend-top);
+    }
+}
+
+.form-body {
+    > .groupbox:not(:last-child) {
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+
+    > .row {
+        + .groupbox {
+            margin-top: 1rem;
+        }
+    }
+}

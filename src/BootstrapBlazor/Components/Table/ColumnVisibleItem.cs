@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Table 组件列可见性类
 /// </summary>
-public record ColumnVisibleItem
+public class ColumnVisibleItem
 {
     /// <summary>
     /// 

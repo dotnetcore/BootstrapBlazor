@@ -1,0 +1,14 @@
+﻿.dynamic-tab ::deep .header {
+    background-color: var(--bb-layout-header-backgound);
+    height: var(--bb-layout-header-height);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.dynamic-tab ::deep .layout {
+    min-height: 180px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}

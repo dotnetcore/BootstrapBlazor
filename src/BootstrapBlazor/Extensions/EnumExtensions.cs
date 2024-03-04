@@ -43,20 +43,20 @@ public static class EnumExtensions
     /// <typeparam name="TEnum"></typeparam>
     /// <param name="enum"></param>
     /// <returns></returns>
-    public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName(typeof(TEnum), @enum.ToString());
+    public static string ToDisplayName<TEnum>(this TEnum @enum) where TEnum : Enum => Utility.GetDisplayName<TEnum>(@enum.ToString());
 
     /// <summary>
     /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
     /// </summary>
     /// <param name="type"></param>
-    /// <param name="addtionalItem"></param>
+    /// <param name="additionalItem"></param>
     /// <returns></returns>
-    public static List<SelectedItem> ToSelectList(this Type type, SelectedItem? addtionalItem = null)
+    public static List<SelectedItem> ToSelectList(this Type type, SelectedItem? additionalItem = null)
     {
         var ret = new List<SelectedItem>();
-        if (addtionalItem != null)
+        if (additionalItem != null)
         {
-            ret.Add(addtionalItem);
+            ret.Add(additionalItem);
         }
 
         if (type.IsEnum())

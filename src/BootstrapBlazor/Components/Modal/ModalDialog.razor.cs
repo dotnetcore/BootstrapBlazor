@@ -7,9 +7,9 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ModalDialog 组件
 /// </summary>
-public partial class ModalDialog : IHandlerException, IDisposable
+public partial class ModalDialog : IHandlerException
 {
     private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
 
@@ -43,6 +43,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// </summary>
     [Parameter]
     public string? Class { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以 Resize 弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowResize { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗大小
@@ -123,7 +129,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public bool ShowPrintButtonInHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 
+    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印
     /// </summary>
     [Parameter]
     public string? PrintButtonText { get; set; }
@@ -158,14 +164,8 @@ public partial class ModalDialog : IHandlerException, IDisposable
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
-    ///// <summary>
-    ///// 获得/设置 关闭弹窗回调委托
-    ///// </summary>
-    //[Parameter]
-    //public Func<Task>? OnClose { get; set; }
-
     /// <summary>
-    /// 获得/设置 保存按钮回调委托
+    /// 获得/设置 保存按钮回调委托 返回 true 并且设置 <see cref="IsAutoCloseAfterSave"/> true 时自动关闭弹窗
     /// </summary>
     [Parameter]
     public Func<Task<bool>>? OnSaveAsync { get; set; }
@@ -198,6 +198,27 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public string? SaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 最大化按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? MaximizeWindowIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 恢复按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? RestoreWindowIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? SaveIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 弹窗容器实例
     /// </summary>
     [CascadingParameter]
@@ -207,6 +228,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     [Inject]
     [NotNull]
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    private string? MaximizeIconString { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -230,7 +257,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
-        CloseButtonIcon ??= "fa-solid fa-fw fa-xmark";
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
+        MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaximizeWindowIcon);
+        SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+        RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
+
+        MaximizeIconString = MaximizeWindowIcon;
     }
 
     /// <summary>
@@ -243,16 +275,14 @@ public partial class ModalDialog : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private async Task OnClickClose() => await Modal.Close();
+    private Task OnClickCloseAsync() => Modal.Close();
 
     private bool MaximizeStatus { get; set; }
-
-    private string MaximizeIcon { get; set; } = "fa-regular fa-window-maximize";
 
     private void OnToggleMaximize()
     {
         MaximizeStatus = !MaximizeStatus;
-        MaximizeIcon = MaximizeStatus ? "fa-regular fa-window-restore" : "fa-regular fa-window-maximize";
+        MaximizeIconString = MaximizeStatus ? RestoreWindowIcon : MaximizeWindowIcon;
     }
 
     private async Task OnClickSave()
@@ -260,11 +290,11 @@ public partial class ModalDialog : IHandlerException, IDisposable
         var ret = true;
         if (OnSaveAsync != null)
         {
-            await OnSaveAsync();
+            ret = await OnSaveAsync();
         }
         if (IsAutoCloseAfterSave && ret)
         {
-            await OnClickClose();
+            await OnClickCloseAsync();
         }
     }
 
@@ -295,21 +325,14 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             ErrorLogger?.UnRegister(this);
             Modal.RemoveDialog(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

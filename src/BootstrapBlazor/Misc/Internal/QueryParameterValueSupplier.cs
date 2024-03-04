@@ -20,7 +20,7 @@ internal sealed class QueryParameterValueSupplier
 {
     public static void ClearCache() => _cacheByType.Clear();
 
-    private static readonly Dictionary<Type, QueryParameterValueSupplier?> _cacheByType = new();
+    private static readonly Dictionary<Type, QueryParameterValueSupplier?> _cacheByType = [];
 
     // These two arrays contain the same number of entries, and their corresponding positions refer to each other.
     // Holding the info like this means we can use Array.BinarySearch with less custom implementation.
@@ -158,7 +158,7 @@ internal sealed class QueryParameterValueSupplier
                 }
                 usedQueryParameterNames.Add(queryParameterName);
 
-                mappings ??= new();
+                mappings ??= [];
                 mappings.Add(new QueryParameterMapping
                 {
                     QueryParameterName = queryParameterName,

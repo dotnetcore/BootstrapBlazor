@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Drawer 组件基类
 /// </summary>
-[JSModuleAutoLoader]
 public partial class Drawer
 {
     /// <summary>
@@ -22,8 +21,8 @@ public partial class Drawer
     /// 获得 抽屉 Style 字符串
     /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
-        .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
+        .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
+        .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
         .Build();
 
     /// <summary>
@@ -91,10 +90,25 @@ public partial class Drawer
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否允许调整大小 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AllowResize { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task ModuleExecuteAsync() => InvokeExecuteAsync(Id, IsOpen);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("execute", Id, IsOpen);
+        }
+    }
 
     /// <summary>
     /// 点击背景遮罩方法

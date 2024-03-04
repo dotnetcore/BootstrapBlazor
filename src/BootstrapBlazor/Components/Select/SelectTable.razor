@@ -1,0 +1,48 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits PopoverDropdownBase<TItem>
+@attribute [BootstrapModuleAutoLoader("Select/SelectTable.razor.js", JSObjectReference = true)]
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" data-bb-min-width="@TableMinWidth" class="@ClassName">
+    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
+        @if (Template == null)
+        {
+            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
+        }
+        else
+        {
+            <div id="@InputId" class="form-control is-display" tabindex="0" hidefocus="true">
+                @if (Value is null)
+                {
+                    @PlaceHolder
+                }
+                else
+                {
+                    @Template(Value)
+                }
+            </div>
+        }
+        @if (ShowAppendArrow)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
+    </div>
+    <CascadingValue Value="this" IsFixed="true">
+        @TableColumns?.Invoke(new TItem())
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="dropdown-menu dropdown-table" style="@GetStyleString">
+            <Table TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" IsStriped="true"
+                   RenderMode="TableRenderMode.Table" ClickToSelect="true"
+                   ShowSearch="ShowSearch" SearchMode="SearchMode.Top"
+                   SearchModel="SearchModel" SearchTemplate="SearchTemplate"
+                   CustomerSearchModel="CustomerSearchModel" CustomerSearchTemplate="CustomerSearchTemplate"
+                   IsPagination="IsPagination" PageItemsSource="PageItemsSource" ShowGotoNavigator="false" MaxPageLinkCount="3"
+                   OnClickRowCallback="OnClickRowCallback" OnQueryAsync="OnQueryAsync"></Table>
+        </div>
+    </RenderTemplate>
+</div>

@@ -11,20 +11,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Chart 组件基类
 /// </summary>
-public partial class Chart : BootstrapComponentBase, IDisposable
+public partial class Chart
 {
-    [NotNull]
-    private JSInterop<Chart>? Interop { get; set; }
-
-    /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference ChartElement { get; set; }
-
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("chart is-loading")
+    private string? ClassName => CssBuilder.Default("chart d-flex justify-content-center align-items-center position-relative is-loading")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -55,7 +47,7 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     public string? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
+    /// 获得/设置 图表所在 canvas 是否随其容器大小变化而变化 默认为 true
     /// </summary>
     [Parameter]
     public bool Responsive { get; set; } = true;
@@ -67,7 +59,7 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     public bool MaintainAspectRatio { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 设置canvas的宽高比（值为1表示canvas是正方形），如果显示定义了canvas的高度，则此属性无效 默认为 2
+    /// 获得/设置 设置 canvas 的宽高比（值为1表示 canvas 是正方形），如果显示定义了 canvas 的高度，则此属性无效 默认为 2
     /// </summary>
     [Parameter]
     public int AspectRatio { get; set; } = 2;
@@ -107,6 +99,9 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public Func<Task<ChartDataSource>>? OnInitAsync { get; set; }
 
     /// <summary>
@@ -143,28 +138,30 @@ public partial class Chart : BootstrapComponentBase, IDisposable
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
 
         if (firstRender)
         {
             if (OnInitAsync == null)
             {
-                throw new InvalidOperationException("OnInit paramenter must be set");
+                throw new InvalidOperationException("OnInit parameter must be set");
             }
 
-            Interop ??= new JSInterop<Chart>(JSRuntime);
             var ds = await OnInitAsync.Invoke();
+            ds.Type ??= ChartType.ToDescriptionString();
             ds.Options.Title = ds.Options.Title ?? Title;
             ds.Options.Responsive = ds.Options.Responsive ?? Responsive;
             ds.Options.MaintainAspectRatio = ds.Options.MaintainAspectRatio ?? MaintainAspectRatio;
             ds.Options.AspectRatio = ds.Options.AspectRatio ?? AspectRatio;
             ds.Options.ResizeDelay = ds.Options.ResizeDelay ?? ResizeDelay;
+
             if (Height != null && Width != null)
             {
                 //设置了高度和宽度,会自动禁用约束图表比例,图表充满容器
                 ds.Options.MaintainAspectRatio = false;
             }
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, "", ChartType.ToDescriptionString(), Angle);
+
+            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds);
         }
     }
 
@@ -185,7 +182,9 @@ public partial class Chart : BootstrapComponentBase, IDisposable
         if (OnInitAsync != null)
         {
             var ds = await OnInitAsync();
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, action.ToDescriptionString(), ChartType.ToDescriptionString(), Angle);
+            ds.Type ??= ChartType.ToDescriptionString();
+
+            await InvokeVoidAsync("update", Id, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {
@@ -194,45 +193,8 @@ public partial class Chart : BootstrapComponentBase, IDisposable
         }
     }
 
-
     /// <summary>
     /// 重新加载方法, 强制重新渲染图表
     /// </summary>
-    public async Task Reload()
-    {
-        if (OnInitAsync != null)
-        {
-            var ds = await OnInitAsync();
-            await Interop.InvokeVoidAsync(this, ChartElement, "bb_chart", nameof(Completed), ds, ChartAction.Reload.ToDescriptionString(), ChartType.ToDescriptionString(), Angle);
-
-            if (OnAfterUpdateAsync != null)
-            {
-                await OnAfterUpdateAsync(ChartAction.Reload);
-            }
-        }
-    }
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-            Interop = null;
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
+    public Task Reload() => Update(ChartAction.Reload);
 }

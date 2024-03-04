@@ -1,0 +1,17 @@
+﻿.code-edtior {
+    min-height: 500px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .code-edtior ::deep .spinner {
+        position: fixed
+    }
+
+    .code-edtior .code-editor-body {
+        min-height: 500px;
+        width: 100%;
+        border: calc(var(--stroke-width) * 1px) solid var(--neutral-stroke-rest)
+    }

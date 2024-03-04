@@ -12,30 +12,37 @@ public partial class Toast
     /// <summary>
     /// 获得/设置 弹出框类型
     /// </summary>
-    protected string? AutoHide => Options.IsAutoHide ? null : "false";
+    private string? AutoHide => Options.IsAutoHide ? null : "false";
 
     /// <summary>
     /// 获得/设置 弹出框类型
     /// </summary>
-    protected string? ClassString => CssBuilder.Default("toast")
+    private string? ClassString => CssBuilder.Default("toast")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
     /// 获得/设置 进度条样式
     /// </summary>
-    protected string? ProgressClass => CssBuilder.Default("toast-progress")
+    private string? ProgressClass => CssBuilder.Default("toast-progress")
         .AddClass($"bg-{Options.Category.ToDescriptionString()}")
         .Build();
 
     /// <summary>
     /// 获得/设置 图标样式
     /// </summary>
-    protected string? IconString => CssBuilder.Default()
+    private string? IconString => CssBuilder.Default()
         .AddClass(Options.SuccessIcon, Options.Category == ToastCategory.Success)
         .AddClass(Options.InformationIcon, Options.Category == ToastCategory.Information)
         .AddClass(Options.ErrorIcon, Options.Category == ToastCategory.Error)
         .AddClass(Options.WarningIcon, Options.Category == ToastCategory.Warning)
+        .Build();
+
+    private string? IconBarString => CssBuilder.Default("toast-bar me-2")
+        .AddClass("text-success", Options.Category == ToastCategory.Success)
+        .AddClass("text-info", Options.Category == ToastCategory.Information)
+        .AddClass("text-danger", Options.Category == ToastCategory.Error)
+        .AddClass("text-warning", Options.Category == ToastCategory.Warning)
         .Build();
 
     /// <summary>
@@ -65,6 +72,10 @@ public partial class Toast
     [CascadingParameter]
     protected ToastContainer? ToastContainer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -72,22 +83,37 @@ public partial class Toast
     {
         base.OnInitialized();
 
-        Options ??= new ToastOption();
         Options.Toast = this;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Options.SuccessIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastSuccessIcon);
+        Options.InformationIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon);
+        Options.WarningIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon);
+        Options.ErrorIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(Close));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
     /// 清除 ToastBox 方法
     /// </summary>
     [JSInvokable]
-    public void Close()
+    public async Task Close()
     {
-        ToastContainer?.Close(Options);
+        if (ToastContainer != null)
+        {
+            await ToastContainer.Close(Options);
+        }
     }
 }

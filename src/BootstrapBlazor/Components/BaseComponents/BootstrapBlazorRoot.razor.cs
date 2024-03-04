@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -116,6 +115,10 @@ public partial class BootstrapBlazorRoot
 
     private RenderFragment RenderContent => builder =>
     {
+#if NET8_0_OR_GREATER
+        builder.AddContent(0, RenderChildContent);
+        builder.AddContent(1, RenderComponents());
+#else
         Render();
 
         [ExcludeFromCodeCoverage]
@@ -134,5 +137,6 @@ public partial class BootstrapBlazorRoot
                 builder.AddContent(2, RenderComponents());
             }
         }
+#endif
     };
 }
