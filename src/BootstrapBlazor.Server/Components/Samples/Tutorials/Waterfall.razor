@@ -1,55 +1,10 @@
-﻿@page "/practice/waterfall"
-@inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("/Components/Samples/Practices/Waterfall.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false, JSObjectReference = true)]
+﻿@page "/tutorials/waterfall"
 
-<div class="waterfall">
-    <div class="shadow-sm waterfall-title">
-        瀑布流图片
-    </div>
-
-    <div id="@Id" class="waterfall-body p-4 pt-5">
-        <div class="waterfall-container">
-        </div>
-        <div class="waterfall-fotter my-3">
-            <div class="text-center bg-gray-200 dark:bg-gray-900 text-gray-900 dark:text-white rounded-2xl">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="margin: auto; background: none; shape-rendering: auto;" width="45px" height="45px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                    <circle cx="50" cy="50" r="32" stroke-width="8" stroke="#fe718d" stroke-dasharray="50.26548245743669 50.26548245743669" fill="none" stroke-linecap="round">
-                        <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="0.5s" keyTimes="0;1" values="0 50 50;360 50 50"></animateTransform>
-                    </circle>
-                </svg>
-                <span class="ajax-nomore hidden">已经到底啦 O(∩_∩)O</span>
-            </div>
-        </div>
-    </div>
+<div class="waterfall-demo">
+    <BootstrapBlazor.Components.Waterfall Items="_items">
+        <Template>
+            <img alt="" hidden />
+            <label>@Path.GetFileNameWithoutExtension(@context)</label>
+        </Template>
+    </BootstrapBlazor.Components.Waterfall>
 </div>
-
-@code {
-    private int count = 1;
-
-    /// <summary>
-    /// 滚动到底部回调方法
-    /// </summary>
-    /// <param name="num"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public Task<string[]?> ScrollToBottom(int num)
-    {
-        var datas = new string[num];
-        if (count > 300)
-        {
-            return Task.FromResult<string[]?>(null);
-        }
-
-        for (var i = 0; i < num; i++)
-        {
-            datas[i] = $"https://t.mwm.moe/ycy/?{count}";
-            count++;
-        }
-
-        return Task.FromResult<string[]?>(datas);
-    }
-
-    /// <inheritdoc />
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ScrollToBottom));
-
-}
