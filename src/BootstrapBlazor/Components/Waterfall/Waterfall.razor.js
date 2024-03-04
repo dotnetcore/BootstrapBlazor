@@ -34,7 +34,8 @@ export function init(id, invoke, method) {
     const container = el.querySelector('.bb-waterfall-list');
     const loader = el.querySelector('.bb-wf-loader');
 
-    EventHandler.on(el, 'load', 'img', () => setPositions(container, 216));
+    EventHandler.on(container, 'load', 'img', () => setPositions(container, 216));
+    EventHandler.on(window, 'resize', () => setPositions(container, 216));
 
     Data.set(id, {
         container,
@@ -62,6 +63,7 @@ export function dispose(id) {
     Data.remove(id);
 
     if (wf) {
-        EventHandler.off(el, 'load', 'img');
+        EventHandler.off(wf.container, 'load', 'img');
+        EventHandler.off(window, 'resize');
     }
 }
