@@ -19,7 +19,6 @@ public partial class Waterfall
     /// 获得/设置 请求数据回调方法
     /// </summary>
     [Parameter]
-    [EditorRequired]
     [NotNull]
     public Func<WaterfallItem?, Task<IEnumerable<WaterfallItem>>>? OnRequestAsync { get; set; }
 
@@ -94,10 +93,13 @@ public partial class Waterfall
     [JSInvokable]
     public async Task OnloadAsync(WaterfallItem? item)
     {
-        _items.Clear();
-        _items.AddRange(await OnRequestAsync(item));
-        _rendered = true;
-        StateHasChanged();
+        if (OnRequestAsync != null)
+        {
+            _items.Clear();
+            _items.AddRange(await OnRequestAsync(item));
+            _rendered = true;
+            StateHasChanged();
+        }
     }
 
     /// <summary>
