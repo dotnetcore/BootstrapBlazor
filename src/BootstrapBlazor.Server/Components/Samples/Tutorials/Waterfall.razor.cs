@@ -9,5 +9,5 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 /// </summary>
 public partial class Waterfall
 {
-    private static Task<IEnumerable<WaterfallItem>> GetItems(WaterfallItem? item) => Task.FromResult(Enumerable.Range(1, 18).Select(i => new WaterfallItem() { Url = $"./images/waterfall/{i}.jpeg", Id = null }));
+    private static Task<IEnumerable<WaterfallItem>> GetItems(WaterfallItem? item) => Task.FromResult(Enumerable.Range(1, 18).Select(i => new WaterfallItem() { Url = $"Waterfall?id={i}", Id = $"{i}" }));
 }
