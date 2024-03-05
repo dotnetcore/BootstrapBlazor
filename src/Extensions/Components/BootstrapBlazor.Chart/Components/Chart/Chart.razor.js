@@ -348,9 +348,8 @@ export function init(id, invoke, method, option) {
     const op = getChartOption(option);
     op.options.onClick = (event, elements, chart) => {
         if (elements.length > 0) {
-            console.log(elements[0].datasetIndex, elements[0].index);
             if (option.options.onClickDataMethod) {
-                invoke.invokeMethodAsync(option.options.OnClickDataMethod, elements[0].datasetIndex, elements[0].index);
+                invoke.invokeMethodAsync(option.options.onClickDataMethod, elements[0].datasetIndex, elements[0].index);
             }
         }
     };
