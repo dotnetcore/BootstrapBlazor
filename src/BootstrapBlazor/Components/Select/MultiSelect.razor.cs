@@ -21,6 +21,7 @@ public partial class MultiSelect<TValue>
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
         .AddClass("disabled", IsDisabled)
+        .AddClass("show", ValidateForm != null && _isToggle)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
@@ -174,6 +175,17 @@ public partial class MultiSelect<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        _isToggle = false;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleRow));
 
@@ -185,6 +197,8 @@ public partial class MultiSelect<TValue>
     protected override string? FormatValueAsString(TValue value) => value == null
         ? null
         : Utility.ConvertValueToString(value);
+
+    private bool _isToggle;
 
     /// <summary>
     /// 切换当前选项方法
@@ -209,6 +223,7 @@ public partial class MultiSelect<TValue>
                 }
             }
 
+            _isToggle = true;
             // 更新选中值
             await SetValue();
         }
