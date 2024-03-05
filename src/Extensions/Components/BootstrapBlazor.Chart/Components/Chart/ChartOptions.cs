@@ -39,7 +39,7 @@ public class ChartOptions
     public ChartAxes Y2 { get; } = new ChartAxes();
 
     /// <summary>
-    /// 获得/设置 图表所在canvas是否随其容器大小变化而变化 默认为 true
+    /// 获得/设置 图表所在 canvas 是否随其容器大小变化而变化 默认为 true
     /// </summary>
     public bool? Responsive { get; set; }
 
@@ -49,7 +49,7 @@ public class ChartOptions
     public bool? MaintainAspectRatio { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置canvas的宽高比（值为1表示canvas是正方形），如果显示定义了canvas的高度，则此属性无效 默认为 2
+    /// 获得/设置 设置 canvas 的宽高比（值为1表示 canvas 是正方形），如果显示定义了 canvas 的高度，则此属性无效 默认为 2
     /// </summary>
     public int? AspectRatio { get; set; }
 
@@ -59,12 +59,12 @@ public class ChartOptions
     public int? ResizeDelay { get; set; }
 
     /// <summary>
-    /// 获得/设置 图表canvas高度 默认为空,跟随容器高度<para>如: 300px</para>
+    /// 获得/设置 图表 canvas 高度 默认为空,跟随容器高度<para>如: 300px</para>
     /// </summary>
     public string? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 图表canvas宽度 默认为空,跟随容器高度<para>如: 300px</para>
+    /// 获得/设置 图表 canvas 宽度 默认为空,跟随容器高度 <para>如: 300px</para>
     /// </summary>
     public string? Width { get; set; }
 
