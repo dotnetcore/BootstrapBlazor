@@ -375,56 +375,57 @@ public static class Utility
         if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
         {
             builder.OpenComponent<Switch>(0);
-            builder.AddAttribute(1, nameof(Switch.Value), fieldValue);
-            builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
-            builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
-            builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(10, nameof(Switch.Value), fieldValue);
+            builder.AddAttribute(20, nameof(Switch.IsDisabled), true);
+            builder.AddAttribute(30, nameof(Switch.DisplayText), displayName);
+            builder.AddAttribute(40, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
-                builder.AddAttribute(5, "class", col.CssClass);
+                builder.AddAttribute(50, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(6, item.ComponentParameters);
+            builder.AddMultipleAttributes(60, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
         {
             builder.OpenComponent(0, typeof(Textarea));
-            builder.AddAttribute(1, nameof(Textarea.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(Textarea.Value), fieldValue);
-            builder.AddAttribute(3, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
-            builder.AddAttribute(4, "readonly", true);
+            builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
+            builder.AddAttribute(20, nameof(Textarea.Value), fieldValue);
+            builder.AddAttribute(30, nameof(Textarea.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(40, "readonly", true);
             if (item.Rows > 0)
             {
-                builder.AddAttribute(5, "rows", item.Rows);
+                builder.AddAttribute(50, "rows", item.Rows);
             }
             if (item is ITableColumn col)
             {
-                builder.AddAttribute(6, "class", col.CssClass);
+                builder.AddAttribute(60, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(7, item.ComponentParameters);
+            builder.AddMultipleAttributes(70, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
         {
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
-            builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(4, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
-            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(10, nameof(Display<string>.DisplayText), displayName);
+            builder.AddAttribute(20, nameof(Display<string>.Value), fieldValue);
+            builder.AddAttribute(30, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
+            builder.AddAttribute(40, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(50, nameof(Display<string>.Lookup), item.Lookup);
+            builder.AddAttribute(60, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
                 if (col.Formatter != null)
                 {
-                    builder.AddAttribute(6, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+                    builder.AddAttribute(70, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
                 }
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
-                    builder.AddAttribute(6, nameof(Display<string>.FormatString), col.FormatString);
+                    builder.AddAttribute(80, nameof(Display<string>.FormatString), col.FormatString);
                 }
-                builder.AddAttribute(7, "class", col.CssClass);
+                builder.AddAttribute(90, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(8, item.ComponentParameters);
+            builder.AddMultipleAttributes(100, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -453,24 +454,24 @@ public static class Utility
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
         {
-            builder.AddAttribute(1, nameof(ValidateBase<string>.DisplayText), displayName);
-            builder.AddAttribute(2, nameof(ValidateBase<string>.Value), fieldValue);
-            builder.AddAttribute(3, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
-            builder.AddAttribute(4, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(10, nameof(ValidateBase<string>.DisplayText), displayName);
+            builder.AddAttribute(20, nameof(ValidateBase<string>.Value), fieldValue);
+            builder.AddAttribute(30, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
+            builder.AddAttribute(40, nameof(ValidateBase<string>.ValueExpression), valueExpression);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
-                builder.AddAttribute(5, nameof(ValidateBase<string>.IsDisabled), true);
+                builder.AddAttribute(50, nameof(ValidateBase<string>.IsDisabled), true);
             }
 
             if (item.ValidateRules != null)
             {
-                builder.AddAttribute(6, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
+                builder.AddAttribute(60, nameof(ValidateBase<string>.ValidateRules), item.ValidateRules);
             }
 
             if (item.ShowLabelTooltip != null)
             {
-                builder.AddAttribute(7, nameof(ValidateBase<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+                builder.AddAttribute(70, nameof(ValidateBase<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             }
         }
 
@@ -481,50 +482,50 @@ public static class Utility
             if (defaultValueAttr != null)
             {
                 var dv = defaultValueAttr.Value is true;
-                builder.AddAttribute(8, nameof(NullSwitch.DefaultValueWhenNull), dv);
+                builder.AddAttribute(80, nameof(NullSwitch.DefaultValueWhenNull), dv);
             }
         }
 
         if (IsCheckboxList(fieldType, componentType) && item.Items != null)
         {
-            builder.AddAttribute(9, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
+            builder.AddAttribute(90, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
         }
 
         // Nullable<bool?>
         if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && lookup == null && item.Items == null)
         {
-            builder.AddAttribute(10, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
+            builder.AddAttribute(100, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
         }
 
         // Lookup
         if (lookup != null && item.Items == null)
         {
-            builder.AddAttribute(11, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
-            builder.AddAttribute(12, nameof(Select<SelectedItem>.Items), lookup.Clone());
-            builder.AddAttribute(13, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
+            builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(120, nameof(Select<SelectedItem>.Items), lookup.Clone());
+            builder.AddAttribute(130, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
 
         // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
-            builder.AddAttribute(14, nameof(Select<SelectedItem>.Items), item.Items.Clone());
-            builder.AddAttribute(15, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(140, nameof(Select<SelectedItem>.Items), item.Items.Clone());
+            builder.AddAttribute(150, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
         }
 
         // 设置 SkipValidate 参数
         if (IsValidComponent(componentType))
         {
-            builder.AddAttribute(16, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(160, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
 
-        builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
+        builder.AddMultipleAttributes(170, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        builder.AddMultipleAttributes(18, item.ComponentParameters);
+        builder.AddMultipleAttributes(180, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
         {
-            builder.AddAttribute(19, nameof(Select<string>.IsPopover), item.IsPopover);
+            builder.AddAttribute(190, nameof(Select<string>.IsPopover), item.IsPopover);
         }
         builder.CloseComponent();
     }
