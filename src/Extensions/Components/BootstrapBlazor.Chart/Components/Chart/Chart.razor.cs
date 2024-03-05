@@ -105,6 +105,12 @@ public partial class Chart
     public Func<Task<ChartDataSource>>? OnInitAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击图标数据回调方法
+    /// </summary>
+    [Parameter]
+    public Func<(int DatasetIndex, int Index), Task>? OnClickDataAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 客户端绘制图表完毕后回调此委托方法
     /// </summary>
     [Parameter]
@@ -147,8 +153,8 @@ public partial class Chart
                 throw new InvalidOperationException("OnInit parameter must be set");
             }
 
-            var ds = await OnInitAsync.Invoke();
-            ds.Type ??= ChartType.ToDescriptionString();
+            var ds = await OnInitAsync();
+            UpdateOptions(ds);
             ds.Options.Title = ds.Options.Title ?? Title;
             ds.Options.Responsive = ds.Options.Responsive ?? Responsive;
             ds.Options.MaintainAspectRatio = ds.Options.MaintainAspectRatio ?? MaintainAspectRatio;
@@ -175,6 +181,21 @@ public partial class Chart
     }
 
     /// <summary>
+    /// 点击数据回调方法
+    /// </summary>
+    /// <param name="datasetIndex"></param>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnClickCallback(int datasetIndex, int index)
+    {
+        if (OnClickDataAsync != null)
+        {
+            await OnClickDataAsync((datasetIndex, index));
+        }
+    }
+
+    /// <summary>
     /// 更新图表方法
     /// </summary>
     public async Task Update(ChartAction action)
@@ -182,7 +203,7 @@ public partial class Chart
         if (OnInitAsync != null)
         {
             var ds = await OnInitAsync();
-            ds.Type ??= ChartType.ToDescriptionString();
+            UpdateOptions(ds);
 
             await InvokeVoidAsync("update", Id, ds, action.ToDescriptionString(), Angle);
 
@@ -197,4 +218,10 @@ public partial class Chart
     /// 重新加载方法, 强制重新渲染图表
     /// </summary>
     public Task Reload() => Update(ChartAction.Reload);
+
+    private void UpdateOptions(ChartDataSource ds)
+    {
+        ds.Options.OnClickDataMethod = OnClickDataAsync == null ? null : nameof(OnClickCallback);
+        ds.Type ??= ChartType.ToDescriptionString();
+    }
 }

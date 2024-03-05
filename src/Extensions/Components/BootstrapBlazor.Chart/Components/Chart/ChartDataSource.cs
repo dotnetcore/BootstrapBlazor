@@ -17,7 +17,7 @@ public class ChartDataSource
     /// <summary>
     /// 获得 图表 数据集
     /// </summary>
-    public List<ChartDataset> Data { get; } = new List<ChartDataset>();
+    public List<ChartDataset> Data { get; } = [];
 
     /// <summary>
     /// 获得 组件配置项 设置标题 轴坐标等

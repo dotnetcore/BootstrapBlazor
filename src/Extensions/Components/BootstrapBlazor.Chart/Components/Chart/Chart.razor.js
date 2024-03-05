@@ -345,7 +345,14 @@ const updateChart = function (config, option) {
 }
 
 export function init(id, invoke, method, option) {
-    const op = getChartOption(option)
+    const op = getChartOption(option);
+    op.options.onClick = (event, elements, chart) => {
+        if (elements.length > 0) {
+            if (option.options.onClickDataMethod) {
+                invoke.invokeMethodAsync(option.options.onClickDataMethod, elements[0].datasetIndex, elements[0].index);
+            }
+        }
+    };
     const el = document.getElementById(id);
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(id, chart)
