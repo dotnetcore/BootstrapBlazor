@@ -100,6 +100,11 @@ public class ChartOptions
     public bool? ShowYScales { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击图标数据回调方法名称
+    /// </summary>
+    public string? OnClickDataMethod { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据显示颜色
     /// </summary>
     public Dictionary<string, string> Colors { get; set; } = new Dictionary<string, string>()
