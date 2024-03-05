@@ -107,6 +107,7 @@ public partial class Chart
     /// <summary>
     /// 获得/设置 点击图标数据回调方法
     /// </summary>
+    [Parameter]
     public Func<(int DatasetIndex, int Index), Task>? OnClickDataAsync { get; set; }
 
     /// <summary>
