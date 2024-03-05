@@ -36,6 +36,8 @@ public partial class SweetAlert : IAsyncDisposable
     [NotNull]
     private Func<Task>? OnCloseAsync { get; set; }
 
+    private SweetContext _context = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -54,6 +56,10 @@ public partial class SweetAlert : IAsyncDisposable
             if (AutoHideCheck())
             {
                 DelayToken.Cancel();
+            }
+            if (_context != null)
+            {
+                _context.ConfirmTask.TrySetResult(_context.Value);
             }
             StateHasChanged();
             return Task.CompletedTask;
@@ -104,6 +110,11 @@ public partial class SweetAlert : IAsyncDisposable
             Delay = option.Delay;
 
             option.Modal = ModalContainer;
+            if (option.IsConfirm)
+            {
+                _context = new() { ConfirmTask = new() };
+                option.ConfirmContext = _context;
+            }
             var parameters = option.ToAttributes();
             parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
 

@@ -15,9 +15,10 @@ public class SwalOption : PopupOptionBase
     internal Modal? Modal { get; set; }
 
     /// <summary>
-    /// 获得/设置 模态弹窗返回值任务实例
+    /// 获得/设置 模态弹窗任务上下文
     /// </summary>
-    internal TaskCompletionSource<bool> ReturnTask { get; } = new TaskCompletionSource<bool>();
+    [NotNull]
+    internal SweetContext? ConfirmContext { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为确认弹窗模式 此属性给模态弹窗时使用 默认为 false
@@ -148,7 +149,7 @@ public class SwalOption : PopupOptionBase
 
         if (IsConfirm)
         {
-            ReturnTask.TrySetResult(returnValue);
+            ConfirmContext.Value = returnValue;
         }
     }
 }
