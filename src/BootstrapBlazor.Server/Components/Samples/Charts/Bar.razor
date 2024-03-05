@@ -4,7 +4,9 @@
 <DemoBlock Title="@Localizer["BarTypeTitle"]"
            Introduction="@Localizer["BarTypeIntro"]"
            Name="BarType">
-    <Chart ChartType="ChartType.Bar" OnInitAsync="() => OnInit(false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BarChart" />
+    <Chart ChartType="ChartType.Bar"
+           OnInitAsync="() => OnInit(false)" OnClickDataAsync="OnClickDataAsync"
+           OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BarChart" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-info" data-method="play" @onclick="@OnPlayChart">

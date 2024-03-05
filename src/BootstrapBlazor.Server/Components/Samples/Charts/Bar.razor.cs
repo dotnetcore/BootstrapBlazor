@@ -46,6 +46,12 @@ public partial class Bar
 
     private Task OnAfterUpdate(ChartAction action) => InvokeAsync(() => Logger.Log($"Bar Figure update data operation completed -- {action}"));
 
+    private Task OnClickDataAsync((int DatasetIndex, int Index) v)
+    {
+        Logger.Log($"Click: DatasetIndex={v.DatasetIndex} Index={v.Index}");
+        return Task.CompletedTask;
+    }
+
     private Task<ChartDataSource> OnInit(bool stacked, bool setTitle = true)
     {
         var ds = new ChartDataSource();
