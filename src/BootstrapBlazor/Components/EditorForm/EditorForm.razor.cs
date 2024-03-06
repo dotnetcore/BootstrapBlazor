@@ -202,7 +202,7 @@ public partial class EditorForm<TModel> : IShowLabel
     {
         base.OnInitialized();
 
-        if (CascadedEditContext != null)
+        if (CascadedEditContext != null && IsSearch is not true)
         {
             var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
             if (!CascadedEditContext.Model.GetType().IsAssignableTo(typeof(TModel)))
