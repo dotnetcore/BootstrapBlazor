@@ -38,6 +38,12 @@
             --bs-pagination-active-border-color: var(--bb-table-pagination-active-border-color);
         }
     }
+
+    .table-card {
+        &.table-fixed {
+            overflow: auto;
+        }
+    }
 }
 
 .table-container .table:not(.table-excel) .switch {
@@ -413,16 +419,6 @@ tr.active:not(.is-edit):hover {
 
 .table-row:not(:last-child) {
     border-bottom: var(--bs-border-width) solid var(--bs-border-color);
-}
-
-.table-row:first-child {
-    border-top-left-radius: var(--bs-border-radius);
-    border-top-right-radius: var(--bs-border-radius);
-}
-
-.table-row:last-child {
-    border-bottom-left-radius: var(--bs-border-radius);
-    border-bottom-right-radius: var(--bs-border-radius);
 }
 
 .table-row .table-cell:not(:last-child) {
