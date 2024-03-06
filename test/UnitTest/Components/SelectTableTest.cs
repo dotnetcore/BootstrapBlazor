@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -344,6 +345,46 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void EditTemplate_Ok()
+    {
+        // Table 组件 EditTemplate 内使用 SelectTable 组件单元测试
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddCascadingValue(true);
+            pb.AddChildContent<EditForm>(pb =>
+            {
+                pb.Add(a => a.Model, new Dog() { Name = "Dog1" });
+                pb.Add(a => a.ChildContent, new RenderFragment<EditContext>(context => pb =>
+                {
+                    pb.OpenComponent<SelectTable<Foo>>(0);
+                    pb.AddAttribute(1, "OnQueryAsync", new Func<QueryPageOptions, Task<QueryData<Foo>>>(options => OnFilterQueryAsync(options, items)));
+                    pb.AddAttribute(2, "Value", items[0]);
+                    pb.AddAttribute(3, "GetTextCallback", new Func<Foo, string?>(foo => foo.Name));
+                    pb.AddAttribute(4, "ShowSearch", true);
+                    pb.AddAttribute(5, "TableColumns", new RenderFragment<Foo>(foo => builder =>
+                    {
+                        builder.OpenComponent<TableColumn<Foo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Name");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                        builder.CloseComponent();
+
+                        builder.OpenComponent<TableColumn<Foo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Address");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                        builder.CloseComponent();
+                    }));
+                    pb.CloseComponent();
+                }));
+            });
+        });
+
+        // EditForm 模型 与 SelectTable 模型不一致 这里不报错就对了
+        cut.Contains("form");
+    }
+
+    [Fact]
     public void CustomSearch_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -430,6 +471,11 @@ public class SelectTableTest : BootstrapBlazorTestBase
     class SelectTableModel()
     {
         public Foo? Foo { get; set; }
+    }
+
+    class Dog()
+    {
+        public string? Name { get; set; }
     }
 
     class CustomSearchModel : ITableSearchModel
