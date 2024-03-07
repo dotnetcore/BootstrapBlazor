@@ -131,6 +131,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public RenderFragment<TItem>? SearchTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否收缩顶部搜索框 默认为 false 不收缩搜索框 是否显示搜索框请设置 <see cref="SearchMode"/> 值 Top
+    /// </summary>
+    [Parameter]
+    public bool CollapsedTopSearch { get; set; }
+
+    /// <summary>
     /// 获得/设置 SearchModel 实例
     /// </summary>
     [Parameter]
