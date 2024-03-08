@@ -357,7 +357,7 @@ public static class Utility
     /// </summary>
     /// <param name="predicate"></param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => Utility.GetTableColumns<TModel>().Where(predicate);
+    public static IEnumerable<ITableColumn> GenerateColumns<TModel>(Func<ITableColumn, bool> predicate) => GetTableColumns<TModel>().Where(predicate);
 
     /// <summary>
     /// RenderTreeBuilder 扩展方法 通过 IEditorItem 与 model 创建 Display 组件
