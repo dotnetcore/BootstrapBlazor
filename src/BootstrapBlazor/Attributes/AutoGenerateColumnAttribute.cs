@@ -82,7 +82,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     int? ITableColumn.Width
     {
         get => Width <= 0 ? null : Width;
-        set => Width = value == null ? 0 : Width;
+        set => Width = value ?? 0;
     }
 
     /// <summary>
