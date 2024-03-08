@@ -895,7 +895,7 @@
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" ShowLabel="false" SkipValidate="true">
                             </BootstrapInput>
                         </Tooltip>
                     }

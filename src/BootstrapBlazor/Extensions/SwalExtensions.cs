@@ -20,7 +20,7 @@ public static class SwalExtensions
     {
         option.IsConfirm = true;
         await service.Show(option, swal);
-        return await option.ReturnTask.Task;
+        return await option.ConfirmContext.ConfirmTask.Task;
     }
 
     /// <summary>
@@ -38,7 +38,7 @@ public static class SwalExtensions
         {
             if (option.IsConfirm)
             {
-                option.ReturnTask.TrySetResult(false);
+                option.ConfirmContext.Value = false;
             }
             if (option.OnCloseAsync != null)
             {
@@ -49,7 +49,7 @@ public static class SwalExtensions
         {
             if (option.IsConfirm)
             {
-                option.ReturnTask.TrySetResult(true);
+                option.ConfirmContext.Value = true;
             }
             if (option.OnConfirmAsync != null)
             {

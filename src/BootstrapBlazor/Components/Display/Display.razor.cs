@@ -37,18 +37,21 @@ public partial class Display<TValue>
     /// <summary>
     /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
     /// </summary>
+    /// <remarks>设置 <see cref="Lookup"/> 参收后，<see cref="LookupServiceKey"/> 和 <see cref="LookupServiceData"/> 两个参数均失效</remarks>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
     /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
     /// </summary>
+    /// <remarks>未设置 <see cref="Lookup"/> 时生效</remarks>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
     /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
     /// </summary>
+    /// <remarks>未设置 <see cref="Lookup"/> 时生效</remarks>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
@@ -80,7 +83,7 @@ public partial class Display<TValue>
 
         if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            Lookup = LookupService.GetItemsByKey(LookupServiceKey, LookupServiceData);
+            Lookup ??= LookupService.GetItemsByKey(LookupServiceKey, LookupServiceData);
         }
 
         // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.

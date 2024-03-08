@@ -3,7 +3,7 @@ import Data from "../../modules/data.js?v=$version"
 import Popover from "../../modules/base-popover.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
-export function init(id, invoke, callback) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
 
     if (el == null) {
@@ -16,7 +16,7 @@ export function init(id, invoke, callback) {
     })
 
     const ms = {
-        el, invoke, callback,
+        el, invoke, method,
         itemsElement: el.querySelector('.multi-select-items'),
         closeButtonSelector: '.multi-select-close',
         popover
@@ -35,7 +35,7 @@ export function init(id, invoke, callback) {
         if (element) {
             e.stopPropagation()
 
-            invoke.invokeMethodAsync(callback, element.getAttribute('data-bb-val'))
+            invoke.invokeMethodAsync(method, element.getAttribute('data-bb-val'))
         }
     }
     ms.popover.isDisabled = () => {
