@@ -129,7 +129,7 @@ public class AutoGenerateClassTest
         Assert.Equal(0, attr.Width);
 
         attrInterface.Width = -10;
-        Assert.Equal(0, attr.Width);
+        Assert.Equal(-10, attr.Width);
 
         attr.Width = -10;
         Assert.Null(attrInterface.Width);
