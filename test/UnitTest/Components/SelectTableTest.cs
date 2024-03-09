@@ -337,6 +337,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
                 });
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.SearchModel, new Foo());
+                pb.Add(a => a.CollapsedTopSearch, false);
                 pb.Add(a => a.SearchTemplate, foo => builder => builder.AddContent(0, "SearchTemplate"));
             });
         });
