@@ -1,7 +1,6 @@
-﻿header {
-    --bb-violet-rgb: 112.520718,44.062154,249.437846;
+﻿.navbar-header {
     background-color: transparent;
-    background-image: linear-gradient(to right, rgba(var(--bb-violet-rgb), 1), rgba(var(--bb-violet-rgb), 0.9));
+    background-image: linear-gradient(to right, rgba(var(--bb-primary-color-rgb), 1), rgba(var(--bb-primary-color-rgb), 0.9));
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
     font-size: 1rem;
     transition: transform .3s ease;
@@ -20,15 +19,15 @@
 
 .btn-bd-download {
     font-weight: 600;
-    color: #ffe484;
-    border-color: #ffe484;
+    color: var(--bb-bd-download-color);
+    border-color: var(--bb-bd-download-border-color);
 }
 
     .btn-bd-download:active,
     .btn-bd-download:hover {
-        color: #2a2730;
-        background-color: #ffe484;
-        border-color: #ffe484;
+        color: var(--bb-bd-download-hover-color);
+        background-color: var(--bb-bd-download-hover-bg-color);
+        border-color: var(--bb-bd-download-hover-border-color);
     }
 
 .nav-link img {

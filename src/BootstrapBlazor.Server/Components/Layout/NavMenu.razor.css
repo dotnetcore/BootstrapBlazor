@@ -14,11 +14,11 @@
     }
 
 .navbar {
-    background-color: #8548ff;
+    background-color: var(--bb-sidebar-navbar-bg);
 }
 
 .navbar-toggler {
-    background-color: var(--bs-indigo);
+    background-color: var(--bb-sidebar-navbar-bar-bg);
 }
 
 .sidebar-content {

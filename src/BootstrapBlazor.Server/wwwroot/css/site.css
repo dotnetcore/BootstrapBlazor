@@ -2,15 +2,40 @@
     --bb-font-weight: 500;
     --bb-sub-font-size: 1.2rem;
     --bb-primary-color: var(--bs-indigo);
-}
-
-h4, h5 {
-    margin-bottom: 1rem;
+    --bb-primary-color-rgb: 112.520718,44.062154,249.437846;
+    --bb-bd-download-color: #ffe484;
+    --bb-bd-download-border-color: #ffe484;
+    --bb-bd-download-hover-color: #2a2730;
+    --bb-bd-download-hover-border-color: #ffe484;
+    --bb-bd-download-hover-bg-color: #ffe484;
+    --bb-sidebar-navbar-bg: #8548ff;
+    --bb-sidebar-navbar-bar-bg: var(--bs-indigo);
+    --bb-layout-button-bg: #562fff;
+    --bb-layout-button-hover-bg: #562fff;
+    --bb-layout-button-active-bg: #562fff;
+    --bb-layout-button-shadow: 0 0 6px #6143e2;
+    --bb-layout-button-color: var(--bs-body-color);
+    --bb-layout-button-update-bg: #8759ff;
+    --bb-button-theme-list-header-color: #fff;
+    --bb-button-theme-item-bg: #f6f6f6;
+    --bb-button-theme-item-color: var(--bs-body-color);
+    --bb-button-theme-item-hover-color: #fff;
+    --bb-button-theme-item-hover-bg: #6c4bfa;
+    --bb-button-theme-item-active-color: #fff;
+    --bb-button-theme-item-active-bg: #6c4bfa;
+    --bb-button-chat-color: #fff;
+    --bb-header-dropdown-border-color: rgba(255,255,255,.5);
+    --bb-header-dropdown-border-hover-color: rgba(255,255,255,.8);
+    --bb-header-dropdown-color: #fff;
 }
 
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
+}
+
+h4, h5 {
+    margin-bottom: 1rem;
 }
 
 #blazor-error-ui {

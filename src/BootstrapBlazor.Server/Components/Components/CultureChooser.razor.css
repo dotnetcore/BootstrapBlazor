@@ -1,7 +1,7 @@
 ﻿.culture-selector {
-    --bs-border-color: rgba(255,255,255,.2);
-    --bb-border-hover-color: rgba(255,255,255,.8);
-    --bb-select-color: rgba(255,255,255,.85);
+    --bs-border-color: var(--bb-header-dropdown-border-color);
+    --bb-border-hover-color: var(--bb-header-dropdown-border-hover-color);
+    --bb-select-color: var(--bb-header-dropdown-color);
     display: flex;
     align-items: center;
     color: var(--bb-select-color);
