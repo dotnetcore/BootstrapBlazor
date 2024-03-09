@@ -245,10 +245,8 @@ public static class LambdaExtensions
 
     private static BinaryExpression Contains(this Expression left, Expression right)
     {
-        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
-        // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
-        var method = typeof(string).GetMethod("Contains", [typeof(string)])!;
-        return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
+        var method = typeof(string).GetMethod("Contains", [typeof(string), typeof(StringComparison)])!;
+        return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right, Expression.Constant(StringComparison.OrdinalIgnoreCase)));
     }
 
     #region Count
