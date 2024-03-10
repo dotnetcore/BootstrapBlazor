@@ -39,7 +39,7 @@ internal static class ServicesExtensions
         services.AddBootstrapBlazorBaiduSpeech();
 
         // 设置地理位置定位器
-        services.ConfigureIPLocatorOption(op => op.LocatorFactory = sp => new BaiDuIPLocator());
+        services.ConfigureIPLocatorOption(op => op.LocatorFactory = sp => new BaiduIPLocatorV2());
 
         // 增加 Baidu ORC 服务
         services.AddBootstrapBlazorBaiduOcr();
