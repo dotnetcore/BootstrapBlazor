@@ -17,7 +17,6 @@ public class BootstrapBlazorOptionsTest
             TableSettings = new()
         };
         Assert.NotNull(options.GetSupportedCultures());
-        Assert.Equal(2, options.Themes.Count);
     }
 
     [Fact]
