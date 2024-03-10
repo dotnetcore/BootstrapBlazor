@@ -7,12 +7,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 百度搜索引擎 IP 定位器
 /// </summary>
-public class BaiDuIPLocator : DefaultIPLocator
+public class BaiduIPLocator1 : DefaultIPLocator
 {
     /// <summary>
     /// 构造函数
     /// </summary>
-    public BaiDuIPLocator()
+    public BaiduIPLocator1()
     {
         Url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={0}";
     }
