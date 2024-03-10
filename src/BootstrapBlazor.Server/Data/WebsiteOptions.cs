@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
 namespace BootstrapBlazor.Server.Data;
@@ -120,9 +119,9 @@ public class WebsiteOptions
     public Dictionary<string, string?> Links { get; set; }
 
     /// <summary>
-    /// 获得/设置 额外路由程序集
+    /// 获得/设置 网站主题配置集合
     /// </summary>
-    public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+    public List<ThemeOption>? Themes { get; set; }
 
     /// <summary>
     /// 构造函数
