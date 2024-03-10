@@ -29,15 +29,15 @@ public class IPLocatorOption
     /// <summary>
     /// 获得/设置 IP地址
     /// </summary>
-    protected internal string? IP { get; set; }
+    public string? IP { get; set; }
 
     /// <summary>
     /// 获得/设置 HttpClient 实体类
     /// </summary>
-    protected internal HttpClient? HttpClient { get; set; }
+    public HttpClient? HttpClient { get; set; }
 
     /// <summary>
     /// 获得/设置 ILogger 实体类
     /// </summary>
-    protected internal ILogger<IIPLocatorProvider>? Logger { get; set; }
+    public ILogger<IIPLocatorProvider>? Logger { get; set; }
 }
