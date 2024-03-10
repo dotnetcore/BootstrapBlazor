@@ -7,7 +7,7 @@ using Microsoft.Extensions.Options;
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// 
+/// 主题选择器组件
 /// </summary>
 public partial class ThemeChooser
 {
@@ -26,10 +26,6 @@ public partial class ThemeChooser
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? BootstrapOptions { get; set; }
-
-    [Inject]
-    [NotNull]
     private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     /// <summary>
@@ -41,33 +37,21 @@ public partial class ThemeChooser
 
         Title ??= Localizer[nameof(Title)];
         HeaderText ??= Localizer[nameof(HeaderText)];
-        Themes = BootstrapOptions.CurrentValue.Themes.Select(kv => new SelectedItem(kv.Value, kv.Key));
-        SiteOptions.CurrentValue.CurrentTheme = Themes.FirstOrDefault(i => i.Text == "Motronic")?.Value ?? "";
+        Themes = SiteOptions.CurrentValue.Themes.Select(i => new SelectedItem { Text = i.Name, Value = i.Key });
+        SiteOptions.CurrentValue.CurrentTheme = "bootstrap";
     }
 
     private async Task OnClickTheme(SelectedItem item)
     {
         SiteOptions.CurrentValue.CurrentTheme = item.Value;
-
-        await InvokeVoidAsync("addScript", LinksCache[item.Value]);
+        var theme = SiteOptions.CurrentValue.Themes.Find(i => i.Key == item.Value);
+        if (theme != null)
+        {
+            await InvokeVoidAsync("updateTheme", [theme.Files]);
+        }
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
         .AddClass("active", SiteOptions.CurrentValue.CurrentTheme == item.Value)
         .Build();
-
-    private Dictionary<string, ICollection<string>> LinksCache { get; } = new(new KeyValuePair<string, ICollection<string>>[]
-    {
-        new("bootstrap.blazor.bundle.min.css", new List<string>()),
-        new("motronic.min.css", new string[]
-        {
-            "./_content/BootstrapBlazor/css/motronic.min.css"
-        }),
-        new("ant", new List<string>()),
-        new("layui", new List<string>()),
-        new("devui", new string[]
-        {
-            "./css/devui.css"
-        })
-    });
 }

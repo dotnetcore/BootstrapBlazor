@@ -121,6 +121,7 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 网站主题配置集合
     /// </summary>
+    [NotNull]
     public List<ThemeOption>? Themes { get; set; }
 
     /// <summary>
