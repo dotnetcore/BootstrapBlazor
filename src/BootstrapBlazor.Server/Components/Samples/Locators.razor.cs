@@ -9,7 +9,20 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Locators
 {
+    [Inject]
+    [NotNull]
+    IStringLocalizer<Locators>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    WebClientService? ClientService { get; set; }
+
+    [Inject]
+    [NotNull]
+    IIPLocatorProvider? IPLocator { get; set; }
+
     private string? Ip { get; set; }
+
     private string? Location { get; set; }
 
     /// <summary>
