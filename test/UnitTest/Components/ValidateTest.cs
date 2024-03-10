@@ -399,8 +399,8 @@ public class ValidateTest : BootstrapBlazorTestBase
                 pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
                 pb.Add(v => v.Items, new List<SelectedItem>()
                 {
-                    new SelectedItem("1", "test1"),
-                    new SelectedItem("2", "test2")
+                    new("1", "test1"),
+                    new("2", "test2")
                 });
             });
             builder.AddChildContent<Button>(pb =>

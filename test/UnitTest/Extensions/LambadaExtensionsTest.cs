@@ -276,9 +276,9 @@ public class LambadaExtensionsTest
     {
         var foos = new List<Foo>
         {
-            new Foo { Name = "10", Count = 10 },
-            new Foo { Name = "10", Count = 20 },
-            new Foo { Name = "20", Count = 20 },
+            new() { Name = "10", Count = 10 },
+            new() { Name = "10", Count = 20 },
+            new() { Name = "20", Count = 20 },
         }.AsQueryable();
         var orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
@@ -302,9 +302,9 @@ public class LambadaExtensionsTest
     {
         var foos = new List<Foo>
         {
-            new Foo { Name = "10", Count = 10 },
-            new Foo { Name = "10", Count = 20 },
-            new Foo { Name = "20", Count = 20 },
+            new() { Name = "10", Count = 10 },
+            new() { Name = "10", Count = 20 },
+            new() { Name = "20", Count = 20 },
         };
         var orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Unset);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
@@ -333,9 +333,9 @@ public class LambadaExtensionsTest
     {
         var foos = new List<Foo>
         {
-            new Foo { Name = "10", Count = 10 },
-            new Foo { Name = "10", Count = 20 },
-            new Foo { Name = "20", Count = 20 },
+            new() { Name = "10", Count = 10 },
+            new() { Name = "10", Count = 20 },
+            new() { Name = "20", Count = 20 },
         }.AsQueryable();
         var orderFoos = LambdaExtensions.Sort(foos, "Count", SortOrder.Unset);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);

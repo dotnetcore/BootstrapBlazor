@@ -297,7 +297,7 @@ public class TreeNodeCacheTest
         {
             var items = new TreeViewItem<TreeFoo>[]
             {
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1020" })
+                new(new TreeFoo() { Id = "1020" })
             };
             return Task.FromResult(items.Cast<IExpandableNode<TreeFoo>>());
         });

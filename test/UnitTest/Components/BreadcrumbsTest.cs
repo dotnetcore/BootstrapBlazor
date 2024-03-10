@@ -11,8 +11,8 @@ public class BreadcrumbsTest : BootstrapBlazorTestBase
     {
         var DataSource = new List<BreadcrumbItem>
         {
-            new BreadcrumbItem("Library"),
-            new BreadcrumbItem("Data")
+            new("Library"),
+            new("Data")
         };
 
         var cut = Context.RenderComponent<Breadcrumb>(pb =>

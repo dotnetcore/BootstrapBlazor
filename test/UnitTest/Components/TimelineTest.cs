@@ -29,15 +29,15 @@ public class TimelineTest : BootstrapBlazorTestBase
     {
         var items = new List<TimelineItem>()
         {
-            new TimelineItem()
+            new()
             {
                 Color = Color.Danger, Content = "first item", Description = "first description", Icon = "fa-solid fa-house"
             },
-            new TimelineItem()
+            new()
             {
                 Color = Color.None, Content = "no color item", Description = "first description", Icon = "fa-solid fa-house"
             },
-            new TimelineItem()
+            new()
             {
                 Color = Color.Dark, Component = BootstrapDynamicComponent.CreateComponent<Card>()
             }

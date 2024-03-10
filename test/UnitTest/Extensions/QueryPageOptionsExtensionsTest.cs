@@ -6,7 +6,7 @@ namespace UnitTest.Extensions;
 
 public class QueryPageOptionsExtensionsTest
 {
-    private Foo[] _foos;
+    private readonly Foo[] _foos;
 
     public QueryPageOptionsExtensionsTest()
     {

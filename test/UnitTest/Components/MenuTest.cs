@@ -47,16 +47,16 @@ public class MenuTest : BootstrapBlazorTestBase
                             Template = BootstrapDynamicComponent.CreateComponent<Button>().Render(),
                             Items = new List<MenuItem>()
                             {
-                                new MenuItem("Menu2321")
+                                new("Menu2321")
                                 {
                                     Icon = "fa-solid fa-font-awesome",
                                     Url = "/Menu2321"
                                 },
-                                new MenuItem("Menu2322")
+                                new("Menu2322")
                                 {
                                     Icon = "fa-solid fa-fw fa-font-awesome"
                                 },
-                                new MenuItem("Menu2323")
+                                new("Menu2323")
                             }
                         }
                     }
@@ -72,7 +72,7 @@ public class MenuTest : BootstrapBlazorTestBase
                     Icon = "fa-solid fa-font-awesome",
                     Items = new List<MenuItem>
                     {
-                        new MenuItem("Menu251")
+                        new("Menu251")
                         {
                             Icon = "fa-solid fa-font-awesome"
                         }
@@ -85,7 +85,7 @@ public class MenuTest : BootstrapBlazorTestBase
             Icon = "fa-solid fa-font-awesome",
             Items = new List<MenuItem>
             {
-                new MenuItem("Menu31")
+                new("Menu31")
             }
         },
         new("Menu4")
@@ -433,8 +433,8 @@ public class MenuTest : BootstrapBlazorTestBase
                     Text = "Test1",
                     Items = new List<MenuItem>()
                     {
-                        new MenuItem("Test11"),
-                        new MenuItem("Test12")
+                        new("Test11"),
+                        new("Test12")
                     }
                 }
             }

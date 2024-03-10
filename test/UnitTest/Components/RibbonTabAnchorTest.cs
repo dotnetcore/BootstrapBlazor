@@ -25,23 +25,23 @@ public class RibbonTabAnchorTest : RibbonTabTestBase
             pb.Add(a => a.DecodeAnchorCallback, url => url.Split('#').LastOrDefault()?.Split('-').FirstOrDefault());
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test1",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item"
                         }
                     }
                 },
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test2",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item"
                         }

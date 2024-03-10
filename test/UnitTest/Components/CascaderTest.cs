@@ -139,7 +139,7 @@ public class CascaderTest : BootstrapBlazorTestBase
     {
         var items = new List<CascaderItem>()
         {
-            new CascaderItem() { Text = "test1", Value = "1" }
+            new() { Text = "test1", Value = "1" }
         };
         var cut = Context.RenderComponent<CascadingValue<List<CascaderItem>>>(pb =>
         {

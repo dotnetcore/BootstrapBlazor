@@ -108,7 +108,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.Side, CreateSide());
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.ShowGotoTop, true);
-            pb.Add(a => a.Menus, new MenuItem[] { new MenuItem { Url = "/" } });
+            pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
         });
         Assert.Contains("layout has-sidebar", cut.Markup);
 
@@ -173,13 +173,13 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.Menus, new List<MenuItem>()
             {
-                new MenuItem()
+                new()
                 {
                     Text = "menu1",
                     Url = "/Binder",
                     Icon = "fa-solid fa-home"
                 },
-                new MenuItem()
+                new()
                 {
                     Text = "menu1",
                     Url = "/Dog",
@@ -227,7 +227,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.Side, CreateSide());
-            pb.Add(a => a.Menus, new MenuItem[] { new MenuItem { Url = "/" } });
+            pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
             pb.Add(a => a.OnClickMenu, item =>
             {

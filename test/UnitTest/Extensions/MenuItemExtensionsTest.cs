@@ -22,11 +22,11 @@ public class MenuItemExtensionsTest
                 Text = "1",
                 Items = new List<MenuItem>()
                 {
-                    new MenuItem() {
+                    new() {
                         Text = "11",
                         Items = new List<MenuItem>()
                         {
-                            new MenuItem()
+                            new()
                             {
                                 Text = "111"
                             }
@@ -39,11 +39,11 @@ public class MenuItemExtensionsTest
                 Text = "2",
                 Items = new List<MenuItem>()
                 {
-                    new MenuItem() {
+                    new() {
                         Text = "21",
                         Items = new List<MenuItem>()
                         {
-                            new MenuItem()
+                            new()
                             {
                                 Text = "211"
                             }
