@@ -2,162 +2,73 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
 public class IPLocatorTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Locator_Ok()
+    public async Task BaiduIPLocatorProviderV2_Ok()
     {
         var result = "";
         var cut = Context.RenderComponent<IpLocatorTest>();
-        await cut.InvokeAsync(async () =>
-        {
-            result = await cut.Instance.IPLocator.Locate("127.0.0.1");
-        });
+        var factory = cut.Instance.IPLocatorFactory;
+        var provider = factory.Create();
+
+        result = await provider.Locate("127.0.0.1");
         Assert.Equal("本地连接", result);
 
-        result = "";
-        await cut.InvokeAsync(async () =>
-        {
-            result = await cut.Instance.IPLocator.Locate("");
-        });
+        result = await provider.Locate("");
         Assert.Equal("本地连接", result);
 
-        await cut.InvokeAsync(async () =>
-        {
-            result = await cut.Instance.IPLocator.Locate("223.91.188.112");
-        });
-        Assert.NotEqual("", result);
+        result = await provider.Locate("223.91.188.112");
+        Assert.Equal("河南省漯河市舞阳县 中国移动", result);
     }
 
     [Fact]
-    public void BaiduIpLocator_Ok()
+    public async Task BaiduIPLocatorProvider_Ok()
     {
-        var locator = new BaiDuIPLocator
-        {
-            Status = "0"
-        };
-        var ret = locator.ToString();
-        Assert.Equal("XX XX", ret);
+        var result = "";
+        var cut = Context.RenderComponent<IpLocatorTest>();
+        var factory = cut.Instance.IPLocatorFactory;
+        var provider = factory.Create("BaiduIPLocatorProvider");
 
-        locator.Data = Array.Empty<LocationInfo>();
-        ret = locator.ToString();
-        Assert.Equal("XX XX", ret);
+        result = await provider.Locate("127.0.0.1");
+        Assert.Equal("本地连接", result);
 
-        locator.Data = new LocationInfo[]
-        {
-            new()
-        };
-        ret = locator.ToString();
-        Assert.Equal("XX XX", ret);
+        result = await provider.Locate("");
+        Assert.Equal("本地连接", result);
 
-        locator.Data = new LocationInfo[]
-        {
-            new()
-            {
-                Location = "Test"
-            }
-        };
-        ret = locator.ToString();
-        Assert.Equal("Test", ret);
-
-        locator.Status = "1";
-        ret = locator.ToString();
-        Assert.Equal("Error", ret);
+        result = await provider.Locate("223.91.188.112");
+        Assert.Equal("河南省漯河市 移动", result);
     }
 
     [Fact]
-    public async Task BaiduIPLocator_Ok()
+    public void Factory_Error()
     {
-        var locator = new BaiDuIPLocator();
-        var ret = await locator.Locate(new IPLocatorOption()
-        {
-            RequestTimeout = 3000
-        });
-        Assert.Null(ret);
+        var cut = Context.RenderComponent<IpLocatorTest>();
+        var factory = cut.Instance.IPLocatorFactory;
+        Assert.Throws<InvalidOperationException>(() => factory.Create("BaiduIPLocatorProviderV0"));
     }
 
     [Fact]
-    public async Task DefaultIPLocator_Ok()
+    public void GetProvider_Error()
     {
-        var locator = new DefaultIPLocator();
-        var ret = await locator.Locate(new IPLocatorOption()
-        {
-            RequestTimeout = 3000
-        });
-        Assert.Null(ret);
-    }
+        var factory = Context.Services.GetRequiredService<IIPLocatorFactory>();
+        // 利用反射调用 GetProvider 方法
+        var method = factory.GetType().GetMethod("GetProvider", BindingFlags.NonPublic | BindingFlags.Instance);
+        Assert.NotNull(method);
 
-    [Fact]
-    public async Task LocateOfT_Ok()
-    {
-        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-        var locator = new MockLocator();
-        await locator.Test("", null);
-        await locator.Test("223.91.188.112", new HttpClient());
-        await locator.Test("223.91.188.112", new HttpClient(), new MockLogger());
-        await locator.TestMock("223.91.188.112", new HttpClient());
-        await locator.TestMock("223.91.188.112", new HttpClient(), new MockLogger());
-        Assert.NotNull(locator);
-    }
-
-    [Fact]
-    public async Task LocateV2_Ok()
-    {
-        var locator = new BaiduIPLocatorV2();
-        var result = await locator.Locate(new IPLocatorOption() { IP = "223.91.188.112", HttpClient = new() });
-        Assert.NotEqual("", result);
+        // KeyNotFoundException
+        Assert.Throws<TargetInvocationException>(() => method.Invoke(factory, ["BaiduIPLocatorProviderV0"]));
     }
 
     private class IpLocatorTest : ComponentBase
     {
         [Inject]
         [NotNull]
-        public IIPLocatorProvider? IPLocator { get; set; }
-    }
-
-    private class MockLocator : DefaultIPLocator
-    {
-        public async Task Test(string? ip, HttpClient? httpClient, ILogger<IIPLocatorProvider>? logger = null)
-        {
-            Url = "https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={0}";
-            await base.Locate<BaiDuIPLocator>(new MockOption(ip, httpClient, logger));
-        }
-
-        public async Task TestMock(string? ip, HttpClient? httpClient, ILogger<IIPLocatorProvider>? logger = null)
-        {
-            Url = "/test/{0}";
-            await base.Locate<MockModel>(new MockOption(ip, httpClient, logger));
-        }
-    }
-
-    private class MockModel
-    {
-
-    }
-
-    private class MockOption : IPLocatorOption
-    {
-        public MockOption(string? ip, HttpClient? httpClient, ILogger<IIPLocatorProvider>? logger)
-        {
-            IP = ip;
-            HttpClient = httpClient;
-            Logger = logger;
-        }
-    }
-
-    private class MockLogger : ILogger<IIPLocatorProvider>
-    {
-        public IDisposable? BeginScope<TState>(TState state) where TState : notnull => throw new NotImplementedException();
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
-        {
-
-        }
+        public IIPLocatorFactory? IPLocatorFactory { get; set; }
     }
 }
