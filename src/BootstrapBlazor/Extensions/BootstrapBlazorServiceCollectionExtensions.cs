@@ -36,9 +36,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
+        services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
-        services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
