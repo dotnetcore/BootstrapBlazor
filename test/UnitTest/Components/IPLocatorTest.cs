@@ -104,6 +104,14 @@ public class IPLocatorTest : BootstrapBlazorTestBase
         Assert.NotNull(locator);
     }
 
+    [Fact]
+    public async Task LocateV2_Ok()
+    {
+        var locator = new BaiduIPLocatorV2();
+        var result = await locator.Locate(new IPLocatorOption() { IP = "223.91.188.112", HttpClient = new() });
+        Assert.NotEqual("", result);
+    }
+
     private class IpLocatorTest : ComponentBase
     {
         [Inject]
@@ -136,8 +144,8 @@ public class IPLocatorTest : BootstrapBlazorTestBase
         public MockOption(string? ip, HttpClient? httpClient, ILogger<IIPLocatorProvider>? logger)
         {
             IP = ip;
-            base.HttpClient = httpClient;
-            base.Logger = logger;
+            HttpClient = httpClient;
+            Logger = logger;
         }
     }
 
