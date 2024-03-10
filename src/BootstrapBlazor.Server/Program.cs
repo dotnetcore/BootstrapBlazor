@@ -29,16 +29,8 @@ builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 // 增加 SignalR 服务数据传输大小限制配置
 builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
-// 获得当前主题配置
-var themes = builder.Configuration.GetSection("Themes")
-    .GetChildren()
-    .Select(c => new KeyValuePair<string, string>(c.Key, c.Value ?? ""));
-
 // 增加 BootstrapBlazor 服务
-builder.Services.AddBootstrapBlazorServices(options =>
-{
-    options.Themes.AddRange(themes);
-});
+builder.Services.AddBootstrapBlazorServices();
 
 var app = builder.Build();
 

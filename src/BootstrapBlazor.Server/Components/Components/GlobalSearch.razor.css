@@ -1,8 +1,8 @@
 ﻿
 ::deep .auto-complete {
-    --bb-complete-border-color: rgba(255,255,255,.2);
+    --bb-complete-border-color: var(--bb-header-dropdown-border-color);
     --bs-border-width: 0;
-    --bb-complete-color: rgba(255,255,255,.85);
+    --bb-complete-color: var(--bb-header-dropdown-color);
     border: 1px solid var(--bb-complete-border-color);
     border-radius: var(--bs-border-radius);
     transition: border-color .3s linear;
@@ -18,7 +18,7 @@
     }
 
 ::deep .auto-complete:hover {
-    --bb-complete-border-color: rgba(255,255,255,.8);
+    --bb-complete-border-color: var(--bb-header-dropdown-border-hover-color);
 }
 
 ::deep .btn {

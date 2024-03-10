@@ -1,0 +1,21 @@
+﻿:root {
+    --bb-primary-color: #4f33ff;
+    --bb-primary-color-rgb: 79,51,255;
+    --bs-navbar-color: #4d33f8;
+    --bb-sidebar-navbar-bg: #6850ff;
+    --bb-sidebar-navbar-bar-bg: #4a2eff;
+    --bb-layout-button-bg: #0026ff;
+    --bb-layout-button-hover-bg: #0026ff;
+    --bb-layout-button-active-bg: #0026ff;
+    --bb-layout-button-shadow: 0 0 6px #0020ff;
+    --bb-layout-button-color: #ddd;
+    --bb-layout-button-update-bg: #0026ff;
+    --bb-button-theme-list-header-color: #fff;
+    --bb-button-theme-item-bg: #f6f6f6;
+    --bb-button-theme-item-color: var(--bs-body-color);
+    --bb-button-theme-item-hover-color: #fff;
+    --bb-button-theme-item-hover-bg: #506afe;
+    --bb-button-theme-item-active-color: #fff;
+    --bb-button-theme-item-active-bg: #3350f8;
+    --bb-button-chat-color: #fff;
+}

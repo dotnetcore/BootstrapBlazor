@@ -17,14 +17,14 @@ export function init(id) {
     })
 }
 
-export function addScript(args) {
+export function updateTheme(args) {
     const links = document.querySelectorAll('link')
     if (links) {
         const link = [].slice.call(links).filter(function (item) {
             const href = item.getAttribute('href')
-            return href.indexOf('/css/site.css') > -1
+            return href.indexOf('css/site.css') > -1
         });
-        const original = link[0]
+        const original = link[0];
         while (original.nextElementSibling && original.nextElementSibling.nodeName === 'LINK') {
             original.nextElementSibling.remove()
         }
