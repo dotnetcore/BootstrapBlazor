@@ -38,7 +38,7 @@ public class PopoverTestHost : IDisposable
 
         ConfigureServices(Instance.Services);
 
-        ConfigureConfigration(Instance.Services);
+        ConfigureConfiguration(Instance.Services);
 
         // 渲染 SwalRoot 组件 激活 ICacheManager 接口
         Instance.Services.GetRequiredService<ICacheManager>();
@@ -49,7 +49,7 @@ public class PopoverTestHost : IDisposable
         services.AddBootstrapBlazor();
     }
 
-    protected virtual void ConfigureConfigration(IServiceCollection services)
+    protected virtual void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration();

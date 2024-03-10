@@ -44,7 +44,7 @@ public class BootstrapBlazorTestHost : IDisposable
 
         ConfigureServices(Instance.Services);
 
-        ConfigureConfigration(Instance.Services);
+        ConfigureConfiguration(Instance.Services);
 
         // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
         Cache = Instance.Services.GetRequiredService<ICacheManager>();
@@ -64,7 +64,7 @@ public class BootstrapBlazorTestHost : IDisposable
         services.AddSingleton<ILookupService, FooLookupService>();
     }
 
-    protected virtual void ConfigureConfigration(IServiceCollection services)
+    protected virtual void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration();
