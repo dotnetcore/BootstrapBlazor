@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 百度搜索引擎 IP 定位器
 /// </summary>
+[ExcludeFromCodeCoverage]
 class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : DefaultIPLocatorProvider()
 {
     /// <summary>
@@ -29,7 +30,7 @@ class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<Baidu
         var url = GetUrl(ip);
         try
         {
-            await Fetch(url);
+            ret = await Fetch(url);
         }
         catch (Exception ex)
         {
@@ -61,7 +62,12 @@ class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<Baidu
         client ??= GetHttpClient();
         using var token = new CancellationTokenSource(3000);
         var result = await client.GetFromJsonAsync<LocationResult>(url, token.Token);
-        return result?.Data?.FirstOrDefault()?.Location ?? "XX XX";
+        string? ret = null;
+        if (result is { Status: "0" })
+        {
+            ret = result.Data?.FirstOrDefault()?.Location;
+        }
+        return ret ?? "XX XX";
     }
 
     /// <summary>

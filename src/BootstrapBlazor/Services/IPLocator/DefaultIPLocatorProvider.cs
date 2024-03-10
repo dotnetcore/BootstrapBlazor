@@ -43,7 +43,7 @@ public abstract class DefaultIPLocatorProvider : IIPLocatorProvider
         }
         else
         {
-            await LocateByIp(ip);
+            ret = await LocateByIp(ip);
         }
         return ret;
     }

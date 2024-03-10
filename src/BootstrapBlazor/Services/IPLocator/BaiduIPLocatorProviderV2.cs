@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BaiduIPLocatorV2 第二个版本实现类
 /// </summary>
+[ExcludeFromCodeCoverage]
 class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
 {
     /// <summary>
@@ -52,24 +53,59 @@ class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<Bai
 
     class LocationDataV2
     {
+        /// <summary>
+        /// 获得/设置 州
+        /// </summary>
         public string? Continent { get; set; }
+
+        /// <summary>
+        /// 获得/设置 国家
+        /// </summary>
         public string? Country { get; set; }
+
+        /// <summary>
+        /// 获得/设置 邮编
+        /// </summary>
         public string? ZipCode { get; set; }
 
+        /// <summary>
+        /// 获得/设置 时区
+        /// </summary>
         public string? TimeZone { get; set; }
 
+        /// <summary>
+        /// 获得/设置 精度
+        /// </summary>
         public string? Accuracy { get; set; }
 
+        /// <summary>
+        /// 获得/设置 所属
+        /// </summary>
         public string? Owner { get; set; }
 
+        /// <summary>
+        /// 获得/设置 运营商
+        /// </summary>
         public string? Isp { get; set; }
 
+        /// <summary>
+        /// 获得/设置 来源
+        /// </summary>
         public string? Source { get; set; }
 
+        /// <summary>
+        /// 获得/设置 区号
+        /// </summary>
         public string? AreaCode { get; set; }
 
+        /// <summary>
+        /// 获得/设置 行政区划代码
+        /// </summary>
         public string? AdCode { get; set; }
 
+        /// <summary>
+        /// 获得/设置 国家代码
+        /// </summary>
         public string? AsNumber { get; set; }
 
         /// <summary>

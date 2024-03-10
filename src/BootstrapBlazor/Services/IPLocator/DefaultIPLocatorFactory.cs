@@ -10,12 +10,10 @@ namespace BootstrapBlazor.Components;
 /// IIPLocatorFactory 接口实现类
 /// </summary>
 /// <param name="provider"></param>
+[ExcludeFromCodeCoverage]
 class DefaultIPLocatorFactory(IServiceProvider provider) : IIPLocatorFactory
 {
-#if NET8_0_OR_GREATER
-#else
     private Dictionary<object, IIPLocatorProvider>? _providers;
-#endif
 
     /// <summary>
     /// 创建 <see cref="IIPLocatorProvider"/> 实例方法
@@ -24,18 +22,27 @@ class DefaultIPLocatorFactory(IServiceProvider provider) : IIPLocatorFactory
     public IIPLocatorProvider Create(object? key = null)
     {
 #if NET8_0_OR_GREATER
-        return provider.GetKeyedService<IIPLocatorProvider>(key) ?? throw new InvalidOperationException();
+        return key == null ? GetProvider() : provider.GetKeyedService<IIPLocatorProvider>(key) ?? throw new InvalidOperationException();
 #else
+        return GetProvider(key);
+#endif
+    }
+
+    private IIPLocatorProvider GetProvider(object? key = null)
+    {
         if (_providers == null)
         {
             _providers = [];
-            foreach (var p in provider.GetServices<IIPLocatorProvider>().Where(p => p.Key != null))
+            foreach (var p in provider.GetServices<IIPLocatorProvider>())
             {
-                _providers[p.Key!] = p;
+                if (p.Key != null)
+                {
+                    _providers[p.Key] = p;
+                }
             }
         }
-        var v = key == null ? _providers.Values.LastOrDefault() : _providers[key];
-        return v ?? throw new InvalidOperationException();
-#endif
+        return key == null
+            ? _providers.Values.LastOrDefault() ?? throw new InvalidOperationException()
+            : _providers[key];
     }
 }

@@ -36,18 +36,16 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
-        services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddSingleton<ITableExport, DefaultTableExport>();
         services.TryAddSingleton<IExportPdf, DefaultExportPdf>();
         services.TryAddSingleton<IIPLocatorFactory, DefaultIPLocatorFactory>();
-        services.TryAddSingleton<IIPLocatorProvider, DefaultIPLocatorProvider>();
+
+        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>();
+        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>();
 
 #if NET8_0_OR_GREATER
         services.AddKeyedSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>(nameof(BaiduIPLocatorProvider));
         services.AddKeyedSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>(nameof(BaiduIPLocatorProviderV2));
-#else
-        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>();
-        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>();
 #endif
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
@@ -118,22 +116,22 @@ public static class BootstrapBlazorServiceCollectionExtensions
         return services;
     }
 
-    /// <summary>
-    /// IPLocatorOption 扩展配置方法
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="locatorAction"></param>
-    /// <returns></returns>
-    [Obsolete("已弃用")]
-    public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
-    {
-        services.AddOptionsMonitor<IPLocatorOption>();
-        if (locatorAction != null)
-        {
-            services.Configure(locatorAction);
-        }
-        return services;
-    }
+    ///// <summary>
+    ///// IPLocatorOption 扩展配置方法
+    ///// </summary>
+    ///// <param name="services"></param>
+    ///// <param name="locatorAction"></param>
+    ///// <returns></returns>
+    //[Obsolete("已弃用")]
+    //public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
+    //{
+    //    services.AddOptionsMonitor<IPLocatorOption>();
+    //    if (locatorAction != null)
+    //    {
+    //        services.Configure(locatorAction);
+    //    }
+    //    return services;
+    //}
 
     /// <summary>
     /// JsonLocalizationOptions 扩展配置方法
