@@ -1,0 +1,90 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using Microsoft.Extensions.Logging;
+using System.Net.Http.Json;
+
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 百度搜索引擎 IP 定位器
+/// </summary>
+class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : DefaultIPLocatorProvider()
+{
+    /// <summary>
+    /// HttpClient 实例
+    /// </summary>
+    protected HttpClient? client;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    protected override async Task<string?> LocateByIp(string ip)
+    {
+        string? ret = null;
+        var url = GetUrl(ip);
+        try
+        {
+            await Fetch(url);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Url: {url}", url);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 获得 HttpClient 实例方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual HttpClient GetHttpClient() => httpClientFactory.CreateClient();
+
+    /// <summary>
+    /// 获得 Url 地址
+    /// </summary>
+    /// <param name="ip"></param>
+    /// <returns></returns>
+    protected virtual string GetUrl(string ip) => $"https://sp0.baidu.com/8aQDcjqpAAV3otqbppnN2DJv/api.php?resource_id=6006&query={ip}";
+
+    /// <summary>
+    /// 请求获得地理位置接口方法
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    protected virtual async Task<string> Fetch(string url)
+    {
+        client ??= GetHttpClient();
+        using var token = new CancellationTokenSource(3000);
+        var result = await client.GetFromJsonAsync<LocationResult>(url, token.Token);
+        return result?.Data?.FirstOrDefault()?.Location ?? "XX XX";
+    }
+
+    /// <summary>
+    /// LocationResult 结构体
+    /// </summary>
+    class LocationResult
+    {
+        /// <summary>
+        /// 获得/设置 结果状态返回码 为 0 时通讯正常
+        /// </summary>
+        public string? Status { get; set; }
+
+        /// <summary>
+        /// 获得/设置 定位信息
+        /// </summary>
+        public List<LocationData>? Data { get; set; }
+    }
+
+    class LocationData
+    {
+        /// <summary>
+        /// 获得/设置 定位信息
+        /// </summary>
+        public string? Location { get; set; }
+    }
+}
