@@ -85,15 +85,6 @@ public class BootstrapBlazorOptions
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
-    /// 获得/设置 网站主题集合
-    /// </summary>
-    public List<KeyValuePair<string, string>> Themes { get; } =
-    [
-        new("Bootstrap", "bootstrap.blazor.bundle.min.css"),
-        new("Motronic", "motronic.min.css")
-    ];
-
-    /// <summary>
     /// 获得支持多语言集合
     /// </summary>
     /// <returns></returns>
