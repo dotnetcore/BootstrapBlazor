@@ -25,6 +25,7 @@ public class BaiduIPLocatorV2 : DefaultIPLocator
     public override Task<string?> Locate(IPLocatorOption option) => Locate<BaiduIPLocatorV2Data>(option);
 }
 
+[ExcludeFromCodeCoverage]
 class BaiduIPLocatorV2Data
 {
     public string? Code { get; set; }
@@ -38,10 +39,11 @@ class BaiduIPLocatorV2Data
 
     public override string ToString()
     {
-        return Code == "Success" ? $"{Data.Continent} {Data.Country} {Data.Prov} {Data.City} {Data.District} {Data.Isp}" : "XX XX";
+        return Code == "Success" ? $"{Data.Continent}{Data.Country}{Data.Prov}{Data.City}{Data.District}{Data.Isp}" : "XX XX";
     }
 }
 
+[ExcludeFromCodeCoverage]
 class BaiduIPLocatorV2DataDetail
 {
     public string? Continent { get; set; }
@@ -62,30 +64,3 @@ class BaiduIPLocatorV2DataDetail
     public string? City { get; set; }
     public string? District { get; set; }
 }
-
-//{
-//    "code": "Success",
-//    "data": {
-//        "continent": "亚洲",
-//        "country": "新加坡",
-//        "zipcode": "04",
-//        "timezone": "UTC+8",
-//        "accuracy": "城市",
-//        "owner": "微软公司",
-//        "isp": "微软公司",
-//        "source": "数据挖掘",
-//        "areacode": "SG",
-//        "adcode": "",
-//        "asnumber": "8075",
-//        "lat": "1.286529",
-//        "lng": "103.853519",
-//        "radius": "",
-//        "prov": "新加坡",
-//        "city": "新加坡",
-//        "district": ""
-//    },
-//    "charge": false,
-//    "msg": "查询成功",
-//    "ip": "20.205.243.16",
-//    "coordsys": "WGS84"
-//}
