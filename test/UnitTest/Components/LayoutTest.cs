@@ -140,7 +140,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.UseTabSet, false);
             pb.Add(a => a.Main, CreateMain());
-            pb.Add(a => a.ExcludeUrls, new String[] { "/Index" });
+            pb.Add(a => a.ExcludeUrls, new string[] { "/Index" });
             pb.Add(a => a.TabDefaultUrl, "/Index");
             pb.Add(a => a.IsOnlyRenderActiveTab, true);
             pb.Add(a => a.AllowDragTab, true);
@@ -154,7 +154,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb => pb.Add(a => a.UseTabSet, true));
         cut.WaitForAssertion(() => Assert.Contains("tabs", cut.Markup));
 
-        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Cat");
         cut.WaitForAssertion(() => cut.Contains(">Cat<"));
 
@@ -187,7 +187,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 }
             });
         });
-        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
         cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
     }
@@ -200,7 +200,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.UseTabSet, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
         });
-        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        var nav = cut.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/Binder");
         cut.WaitForAssertion(() => cut.Contains("<div class=\"tabs-body-content\">Binder</div>"));
     }

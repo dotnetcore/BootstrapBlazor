@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using static BootstrapBlazor.Components.MindMapNode;
+using BootstrapBlazor.Components.MindMaps;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
