@@ -3,7 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
+using Microsoft.Extensions.Logging;
+using System.Net;
+using System.Text;
 
 namespace UnitTest.Components;
 
@@ -12,12 +14,10 @@ public class IPLocatorTest : BootstrapBlazorTestBase
     [Fact]
     public async Task BaiduIPLocatorProviderV2_Ok()
     {
-        var result = "";
-        var cut = Context.RenderComponent<IpLocatorTest>();
-        var factory = cut.Instance.IPLocatorFactory;
+        var factory = Context.Services.GetRequiredService<IIPLocatorFactory>();
         var provider = factory.Create();
 
-        result = await provider.Locate("127.0.0.1");
+        var result = await provider.Locate("127.0.0.1");
         Assert.Equal("本地连接", result);
 
         result = await provider.Locate("");
@@ -30,12 +30,12 @@ public class IPLocatorTest : BootstrapBlazorTestBase
     [Fact]
     public async Task BaiduIPLocatorProvider_Ok()
     {
-        var result = "";
-        var cut = Context.RenderComponent<IpLocatorTest>();
-        var factory = cut.Instance.IPLocatorFactory;
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+        var factory = Context.Services.GetRequiredService<IIPLocatorFactory>();
         var provider = factory.Create("BaiduIPLocatorProvider");
 
-        result = await provider.Locate("127.0.0.1");
+        var result = await provider.Locate("127.0.0.1");
         Assert.Equal("本地连接", result);
 
         result = await provider.Locate("");
@@ -46,29 +46,68 @@ public class IPLocatorTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Factory_Error()
+    public void Factory_KeyNotFoundException()
     {
-        var cut = Context.RenderComponent<IpLocatorTest>();
-        var factory = cut.Instance.IPLocatorFactory;
-        Assert.Throws<InvalidOperationException>(() => factory.Create("BaiduIPLocatorProviderV0"));
+        var factory = Context.Services.GetRequiredService<IIPLocatorFactory>();
+        Assert.Throws<KeyNotFoundException>(() => factory.Create("BaiduIPLocatorProviderV0"));
     }
 
     [Fact]
-    public void GetProvider_Error()
+    public async Task Fetch_Error()
     {
-        var factory = Context.Services.GetRequiredService<IIPLocatorFactory>();
-        // 利用反射调用 GetProvider 方法
-        var method = factory.GetType().GetMethod("GetProvider", BindingFlags.NonPublic | BindingFlags.Instance);
-        Assert.NotNull(method);
-
-        // KeyNotFoundException
-        Assert.Throws<TargetInvocationException>(() => method.Invoke(factory, ["BaiduIPLocatorProviderV0"]));
+        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
+        var logger = Context.Services.GetRequiredService<ILogger<MockProviderFetchError>>();
+        var provider = new MockProviderFetchError(factory, logger);
+        var result = await provider.Locate("223.91.188.112");
+        Assert.Null(result);
     }
 
-    private class IpLocatorTest : ComponentBase
+    [Fact]
+    public async Task Fetch_Result_Fail()
     {
-        [Inject]
-        [NotNull]
-        public IIPLocatorFactory? IPLocatorFactory { get; set; }
+        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
+        var logger = Context.Services.GetRequiredService<ILogger<MockBaiduProviderHttpClient>>();
+        var provider = new MockBaiduProviderHttpClient(factory, logger);
+        var result = await provider.Locate("223.91.188.112");
+        Assert.Null(result);
+
+        var loggerV2 = Context.Services.GetRequiredService<ILogger<MockBaiduProviderV2HttpClient>>();
+        var providerV2 = new MockBaiduProviderV2HttpClient(factory, loggerV2);
+        result = await providerV2.Locate("223.91.188.112");
+        Assert.Null(result);
+    }
+
+    class MockProviderFetchError(IHttpClientFactory httpClientFactory, ILogger<MockProviderFetchError> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
+    {
+        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token) => throw new InvalidOperationException();
+    }
+
+    class MockBaiduProviderHttpClient(IHttpClientFactory httpClientFactory, ILogger<MockBaiduProviderHttpClient> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
+    {
+        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
+        {
+            client = new HttpClient(new MockHttpMessageHandler(), true);
+            return base.Fetch(url, client, token);
+        }
+    }
+
+    class MockBaiduProviderV2HttpClient(IHttpClientFactory httpClientFactory, ILogger<MockBaiduProviderV2HttpClient> logger) : BaiduIPLocatorProviderV2(httpClientFactory, logger)
+    {
+        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
+        {
+            client = new HttpClient(new MockHttpMessageHandler(), true);
+            return base.Fetch(url, client, token);
+        }
+    }
+
+    class MockHttpMessageHandler : HttpMessageHandler
+    {
+        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        {
+            return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new StringContent("null")
+            });
+        }
     }
 }
