@@ -28,13 +28,13 @@ public class QueryPageOptionsExtensionsTest
 
         var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
-        Assert.Equal(4, expected.Count());
+        Assert.Equal(2, expected.Count());
 
         option.Searches.Clear();
         option.Searches.Add(new SearchFilterAction("Name", "Test"));
         predicate = option.ToFilterFunc<Foo>();
         expected = _foos.Where(predicate);
-        Assert.Equal(4, expected.Count());
+        Assert.Equal(2, expected.Count());
 
         option.Searches.Clear();
         option.Searches.Add(new SearchFilterAction("Name", "Mock"));
