@@ -161,13 +161,10 @@ public partial class Bar
         return Task.FromResult(ds);
     }
 
-    private Task<ChartDataSource> OnInitAspectRatio(bool stacked, bool setTitle = true)
+    private Task<ChartDataSource> OnInitAspectRatio(bool stacked)
     {
         var ds = new ChartDataSource();
-        if (setTitle)
-        {
-            ds.Options.Title = "Bar Histogram";
-        }
+        ds.Options.Title = "Bar stack demo";
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.X.Stacked = stacked;
@@ -181,6 +178,46 @@ public partial class Bar
                 Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
             });
         }
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitShowDataLabel(bool showDataLabel)
+    {
+        var ds = new ChartDataSource();
+
+        ds.Options.Title = "Show data label demo";
+        ds.Options.ShowLegend = false;
+        ds.Options.ShowDataLabel = showDataLabel;
+        ds.Options.Align = ChartDataLabelPosition.Start;
+        ds.Options.Anchor = ChartDataLabelPosition.End;
+        ds.Options.ChartDataLabelColor = "black";
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = $"Set {0}",
+            Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+        });
+        return Task.FromResult(ds);
+    }
+
+    private Task<ChartDataSource> OnInitBarColorSeparately(bool barColorSeparately)
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Bar color separately";
+        ds.Options.ShowLegend = false;
+        ds.Options.BarColorSeparately = barColorSeparately;
+        ds.Options.X.Title = "days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        ds.Data.Add(new ChartDataset()
+        {
+            Label = $"Set {0}",
+            Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>(),
+            BackgroundColor = ["rgb(54, 162, 235, 0.5)", "rgb(75, 192, 192, 0.5)", "rgb(255, 99, 132, 0.5)", "rgb(255, 159, 64, 0.5)", "rgb(255, 205, 86, 0.5)", "rgb(255, 99, 71, 0.5)", "rgb(255, 192, 203, 0.5)"],
+            BorderColor = ["rgb(54, 162, 235)", "rgb(75, 192, 192)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(255, 99, 71)", "rgb(255, 192, 203)"]
+        });
         return Task.FromResult(ds);
     }
 }

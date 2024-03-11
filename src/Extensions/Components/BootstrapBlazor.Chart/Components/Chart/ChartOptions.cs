@@ -158,4 +158,31 @@ public class ChartOptions
     /// 获得/设置 X轴网格刻度线颜色
     /// </summary>
     public string? YScalesGridTickColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示柱状图数据值
+    /// </summary>
+    public bool ShowDataLabel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否单独设置柱状图颜色
+    /// </summary>
+    public bool BarColorSeparately { get; set; }
+
+    /// <summary>
+    /// 获得/设置 柱状图数据值的对齐方式 默认中间对齐
+    /// </summary>
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartDataLabelPosition>))]
+    public ChartDataLabelPosition Align { get; set; } = ChartDataLabelPosition.Center;
+
+    /// <summary>
+    /// 获得/设置 柱状图数据值的位置 默认显示在顶部
+    /// </summary>
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartDataLabelPosition>))]
+    public ChartDataLabelPosition Anchor { get; set; } = ChartDataLabelPosition.End;
+
+    /// <summary>
+    /// 获得/设置 柱状图数据值的颜色
+    /// </summary>
+    public string ChartDataLabelColor { get; set; } = "rgb(75, 192, 192, 0.9)";
 }

@@ -1,6 +1,9 @@
 ﻿import '../../js/chart.js'
+import '../../js/chartjs-plugin-datalabels.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
+
+Chart.register(ChartDataLabels);
 
 const chartOption = {
     options: {
@@ -154,23 +157,39 @@ const getChartOption = function (option) {
         }
 
         config = chartOption
-        colorFunc = function (data) {
-            const color = chartColors[colors.shift()]
 
-            data.backgroundColor = color
-            data.borderColor = color
+        if (option.options.barColorSeparately) {
+            colorFunc = function (data) {
+                data.borderWidth = 1
+            }
+        }
+        else {
+            colorFunc = function (data) {
+                const color = chartColors[colors.shift()]
+
+                data.backgroundColor = color
+                data.borderColor = color
+            }
         }
     }
     else if (option.type === 'bar') {
         config = {
             ...chartOption
         }
-        colorFunc = function (data) {
-            const color = chartColors[colors.shift()]
 
-            data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString()
-            data.borderColor = color
-            data.borderWidth = 1
+        if (option.options.barColorSeparately) {
+            colorFunc = function (data) {
+                data.borderWidth = 1
+            }
+        }
+        else {
+            colorFunc = function (data) {
+                const color = chartColors[colors.shift()]
+
+                data.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString()
+                data.borderColor = color
+                data.borderWidth = 1
+            }
         }
     }
     else if (option.type === 'pie' || option.type === 'doughnut') {
@@ -193,6 +212,7 @@ const getChartOption = function (option) {
             data.backgroundColor = colors.slice(0, data.data.length).map(function (name) {
                 return chartColors[name]
             })
+            data.borderColor = 'white'
         }
 
         if (option.type === 'doughnut') {
@@ -285,6 +305,16 @@ const getChartOption = function (option) {
                     title: {
                         display: option.options.title != null,
                         text: option.options.title
+                    },
+                    datalabels: {
+                        anchor: option.options.anchor,
+                        align: option.options.align,
+                        formatter: Math.round,
+                        display: option.options.showDataLabel,
+                        color: option.options.chartDataLabelColor,
+                        font: {
+                            weight: 'bold'
+                        }
                     }
                 },
                 scales: scale
