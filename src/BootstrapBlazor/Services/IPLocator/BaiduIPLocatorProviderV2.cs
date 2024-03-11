@@ -10,8 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BaiduIPLocatorV2 第二个版本实现类
 /// </summary>
-[ExcludeFromCodeCoverage]
-class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
+public class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
 {
     /// <summary>
     /// <inheritdoc/>
@@ -24,17 +23,16 @@ class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<Bai
     /// <inheritdoc/>
     /// </summary>
     /// <param name="url"></param>
+    /// <param name="client"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    protected override async Task<string> Fetch(string url)
+    protected override async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
-        client ??= GetHttpClient();
-        using var token = new CancellationTokenSource(3000);
-        var result = await client.GetFromJsonAsync<LocationResultV2>(url, token.Token);
-        return result is { Code: "Success" }
-            ? $"{result.Data.Prov}{result.Data.City}{result.Data.District} {result.Data.Isp}"
-            : "XX XX";
+        var result = await client.GetFromJsonAsync<LocationResultV2>(url, token);
+        return result?.ToString();
     }
 
+    [ExcludeFromCodeCoverage]
     class LocationResultV2
     {
         public string? Code { get; set; }
@@ -49,8 +47,19 @@ class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<Bai
         public string? Ip { get; set; }
 
         public string? CoordSys { get; set; }
+
+        public override string? ToString()
+        {
+            string? ret = null;
+            if (this is { Code: "Success" })
+            {
+                ret = $"{Data?.Prov}{Data?.City}{Data?.District} {Data?.Isp}";
+            }
+            return ret;
+        }
     }
 
+    [ExcludeFromCodeCoverage]
     class LocationDataV2
     {
         /// <summary>

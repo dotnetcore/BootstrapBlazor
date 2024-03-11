@@ -10,8 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 百度搜索引擎 IP 定位器
 /// </summary>
-[ExcludeFromCodeCoverage]
-class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : DefaultIPLocatorProvider()
+public class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : DefaultIPLocatorProvider()
 {
     /// <summary>
     /// HttpClient 实例
@@ -30,7 +29,9 @@ class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<Baidu
         var url = GetUrl(ip);
         try
         {
-            ret = await Fetch(url);
+            client ??= GetHttpClient();
+            using var token = new CancellationTokenSource(3000);
+            ret = await Fetch(url, client, token.Token);
         }
         catch (Exception ex)
         {
@@ -56,23 +57,19 @@ class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<Baidu
     /// 请求获得地理位置接口方法
     /// </summary>
     /// <param name="url"></param>
+    /// <param name="client"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    protected virtual async Task<string> Fetch(string url)
+    protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
-        client ??= GetHttpClient();
-        using var token = new CancellationTokenSource(3000);
-        var result = await client.GetFromJsonAsync<LocationResult>(url, token.Token);
-        string? ret = null;
-        if (result is { Status: "0" })
-        {
-            ret = result.Data?.FirstOrDefault()?.Location;
-        }
-        return ret ?? "XX XX";
+        var result = await client.GetFromJsonAsync<LocationResult>(url, token);
+        return result?.ToString();
     }
 
     /// <summary>
     /// LocationResult 结构体
     /// </summary>
+    [ExcludeFromCodeCoverage]
     class LocationResult
     {
         /// <summary>
@@ -84,8 +81,23 @@ class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<Baidu
         /// 获得/设置 定位信息
         /// </summary>
         public List<LocationData>? Data { get; set; }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        public override string? ToString()
+        {
+            string? ret = null;
+            if (this is { Status: "0" })
+            {
+                ret = Data?.FirstOrDefault()?.Location;
+            }
+            return ret;
+        }
     }
 
+    [ExcludeFromCodeCoverage]
     class LocationData
     {
         /// <summary>

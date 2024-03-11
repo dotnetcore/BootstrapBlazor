@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// IIPLocatorFactory 接口实现类
 /// </summary>
 /// <param name="provider"></param>
-[ExcludeFromCodeCoverage]
 class DefaultIPLocatorFactory(IServiceProvider provider) : IIPLocatorFactory
 {
     private Dictionary<object, IIPLocatorProvider>? _providers;
@@ -20,15 +19,6 @@ class DefaultIPLocatorFactory(IServiceProvider provider) : IIPLocatorFactory
     /// </summary>
     /// <param name="key"></param>
     public IIPLocatorProvider Create(object? key = null)
-    {
-#if NET8_0_OR_GREATER
-        return key == null ? GetProvider() : provider.GetKeyedService<IIPLocatorProvider>(key) ?? throw new InvalidOperationException();
-#else
-        return GetProvider(key);
-#endif
-    }
-
-    private IIPLocatorProvider GetProvider(object? key = null)
     {
         if (_providers == null)
         {
@@ -41,8 +31,6 @@ class DefaultIPLocatorFactory(IServiceProvider provider) : IIPLocatorFactory
                 }
             }
         }
-        return key == null
-            ? _providers.Values.LastOrDefault() ?? throw new InvalidOperationException()
-            : _providers[key];
+        return key == null ? _providers.Values.Last() : _providers[key];
     }
 }

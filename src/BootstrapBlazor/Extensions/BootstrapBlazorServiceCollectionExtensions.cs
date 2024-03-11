@@ -38,15 +38,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
         services.TryAddSingleton<ITableExport, DefaultTableExport>();
         services.TryAddSingleton<IExportPdf, DefaultExportPdf>();
-        services.TryAddSingleton<IIPLocatorFactory, DefaultIPLocatorFactory>();
 
+        // IP 地理位置定位服务
+        services.TryAddSingleton<IIPLocatorFactory, DefaultIPLocatorFactory>();
         services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>();
         services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>();
-
-#if NET8_0_OR_GREATER
-        services.AddKeyedSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>(nameof(BaiduIPLocatorProvider));
-        services.AddKeyedSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>(nameof(BaiduIPLocatorProviderV2));
-#endif
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
