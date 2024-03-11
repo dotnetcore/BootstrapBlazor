@@ -52,14 +52,14 @@ public static class QueryPageOptionsExtensions
     }
 
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/>
+    /// 将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/> 推荐 Linq 使用
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
     public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option) => option.ToFilterLambda<TItem>().Compile();
 
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/>
+    /// 将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/> 推荐 EFCore <see cref="IQueryable"/> 使用
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
