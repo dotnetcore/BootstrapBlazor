@@ -25,6 +25,8 @@ public partial class Locators
 
     private string? Location { get; set; }
 
+    private string ProviderName { get; set; } = nameof(BaiduIpLocatorProviderV2);
+
     /// <summary>
     /// OnAfterRenderAsync
     /// </summary>
@@ -45,8 +47,14 @@ public partial class Locators
     {
         if (!string.IsNullOrEmpty(Ip))
         {
-            var provider = IpLocatorFactory.Create();
+            var provider = IpLocatorFactory.Create(ProviderName);
             Location = await provider.Locate(Ip);
         }
+    }
+
+    private Task OnProviderNameChanged(string v)
+    {
+        ProviderName = v;
+        return Task.CompletedTask;
     }
 }

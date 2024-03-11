@@ -3963,7 +3963,8 @@
     "LocatorsNormalTips4": "Shushan District Hefei, Anhui China Telecom",
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
-    "LocatorsNormalButtonText": "Locating"
+    "LocatorsNormalButtonText": "Locating",
+    "LocatorsProviderDesc": "The component library has two built-in geolocation locators: <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",
