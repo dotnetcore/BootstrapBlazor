@@ -9,8 +9,23 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Locators
 {
+    [Inject]
+    [NotNull]
+    IStringLocalizer<Locators>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    WebClientService? ClientService { get; set; }
+
+    [Inject]
+    [NotNull]
+    IIpLocatorFactory? IpLocatorFactory { get; set; }
+
     private string? Ip { get; set; }
+
     private string? Location { get; set; }
+
+    private string ProviderName { get; set; } = nameof(BaiduIpLocatorProviderV2);
 
     /// <summary>
     /// OnAfterRenderAsync
@@ -32,7 +47,14 @@ public partial class Locators
     {
         if (!string.IsNullOrEmpty(Ip))
         {
-            Location = await IPLocator.Locate(Ip);
+            var provider = IpLocatorFactory.Create(ProviderName);
+            Location = await provider.Locate(Ip);
         }
+    }
+
+    private Task OnProviderNameChanged(string v)
+    {
+        ProviderName = v;
+        return Task.CompletedTask;
     }
 }

@@ -14,7 +14,7 @@ public class StructTest
     {
         var cache = new List<KeyValuePair<string, object>>
             {
-                new KeyValuePair<string, object>("1", 12)
+                new("1", 12)
             };
         var c = cache.FirstOrDefault(i => i.Key == "12");
         Assert.Null(c.Key);

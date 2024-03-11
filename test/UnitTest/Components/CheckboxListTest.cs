@@ -144,9 +144,9 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem { Text = "Item 1", Value = "1" },
-                new SelectedItem { Text = "Item 2", Value = "2" , IsDisabled = true },
-                new SelectedItem { Text = "Item 3", Value = "3" },
+                new() { Text = "Item 1", Value = "1" },
+                new() { Text = "Item 2", Value = "2" , IsDisabled = true },
+                new() { Text = "Item 3", Value = "3" },
             });
         });
         cut.Contains("form-check is-label disabled");
@@ -155,8 +155,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem { Text = "Item 1", Value = "1" },
-                new SelectedItem { Text = "Item 2", Value = "2" }
+                new() { Text = "Item 1", Value = "1" },
+                new() { Text = "Item 2", Value = "2" }
             });
             pb.Add(a => a.IsDisabled, true);
         });
@@ -192,8 +192,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem("1", "Test 1"),
-                new SelectedItem("2", "Test 2")
+                new("1", "Test 1"),
+                new("2", "Test 2")
             });
         });
         Assert.Contains("checkbox-list", cut.Markup);
@@ -255,8 +255,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, selectedIntValues);
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem("1", "Test 1"),
-                new SelectedItem("2", "Test 2")
+                new("1", "Test 1"),
+                new("2", "Test 2")
             });
             pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
             {
@@ -322,8 +322,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             pb.Add(a => a.Color, Color.Danger);
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem("1", "Test 1"),
-                new SelectedItem("2", "Test 2")
+                new("1", "Test 1"),
+                new("2", "Test 2")
             });
         });
         cut.InvokeAsync(() =>

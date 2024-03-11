@@ -104,12 +104,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item",
                             Template = builder => builder.AddContent(0, "Test-Template")
@@ -128,12 +128,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item",
                             Component = BootstrapDynamicComponent.CreateComponent<MockCom>()
@@ -152,12 +152,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item"
                         }
@@ -181,12 +181,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test 1",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item"
                         }
@@ -212,12 +212,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new RibbonTabItem[]
             {
-                new RibbonTabItem()
+                new()
                 {
                     Text = "test 1",
                     Items = new RibbonTabItem[]
                     {
-                        new RibbonTabItem()
+                        new()
                         {
                             Text = "Item"
                         }
@@ -241,12 +241,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     {
         var items = new List<RibbonTabItem>
         {
-            new RibbonTabItem()
+            new()
             {
                 Text = "test 1",
                 Items = new RibbonTabItem[]
                 {
-                    new RibbonTabItem()
+                    new()
                     {
                         Text = "Item"
                     }

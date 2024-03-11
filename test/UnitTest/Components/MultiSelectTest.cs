@@ -417,8 +417,8 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCloseButton, false);
             pb.Add(a => a.Items, new List<SelectedItem>
             {
-                new SelectedItem("1", "Test1") { GroupName = "Test1" },
-                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+                new("1", "Test1") { GroupName = "Test1" },
+                new("2", "Test2") { GroupName = "Test2" }
             });
             pb.Add(a => a.GroupItemTemplate, title => builder =>
             {

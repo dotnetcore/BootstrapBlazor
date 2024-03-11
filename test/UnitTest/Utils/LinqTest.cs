@@ -11,12 +11,12 @@ public class LinqTest
     {
         var foo1 = new Dummy[]
         {
-            new Dummy()
+            new()
             {
                 Name = "Test1",
                 Items = ["Test_Item_1"]
             },
-            new Dummy()
+            new()
             {
                 Name = "Test2",
                 Items = ["Test_Item_4"]
@@ -24,12 +24,12 @@ public class LinqTest
         };
         var foo2 = new Dummy[]
         {
-            new Dummy()
+            new()
             {
                 Name = "Test1",
                 Items = ["Test_Item_2", "Test_Item_3"]
             },
-            new Dummy()
+            new()
             {
                 Name = "Test2",
                 Items = ["Test_Item_5", "Test_Item_6"]

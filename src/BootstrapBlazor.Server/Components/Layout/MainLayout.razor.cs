@@ -23,7 +23,7 @@ public partial class MainLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private IIPLocatorProvider? IPLocator { get; set; }
+    private IIpLocatorFactory? IpLocatorFactory { get; set; }
 
     /// <summary>
     /// 
@@ -43,7 +43,8 @@ public partial class MainLayout : IDisposable
             var clientInfo = await ClientService.GetClientInfo();
             if (clientInfo.Ip != null)
             {
-                var location = await IPLocator.Locate(clientInfo.Ip);
+                var provider = IpLocatorFactory.Create();
+                var location = await provider.Locate(clientInfo.Ip);
                 await Toast.Show(new ToastOption()
                 {
                     Title = "Dispatch 服务测试",

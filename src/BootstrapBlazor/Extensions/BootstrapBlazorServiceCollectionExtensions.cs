@@ -36,9 +36,15 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
+        services.TryAddSingleton<ITableExport, DefaultTableExport>();
+        services.TryAddSingleton<IExportPdf, DefaultExportPdf>();
+
+        // IP 地理位置定位服务
+        services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();
+        services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
+        services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
-        services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
@@ -61,11 +67,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<NotificationService>();
         services.AddScoped<EyeDropperService>();
 
-        services.TryAddTransient<ITableExport, DefaultTableExport>();
-        services.TryAddTransient<IExportPdf, DefaultExportPdf>();
-
         services.ConfigureBootstrapBlazorOption(configureOptions);
-        services.ConfigureIPLocatorOption();
 
         services.AddTabItemBindOptions();
         services.AddIconTheme();
@@ -116,6 +118,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="locatorAction"></param>
     /// <returns></returns>
+    [Obsolete("已弃用 请删除即可")]
+    [ExcludeFromCodeCoverage]
     public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
     {
         services.AddOptionsMonitor<IPLocatorOption>();

@@ -313,13 +313,13 @@ public class TabTest : TabTestBase
             pb.Add(a => a.ClickTabToNavigation, true);
             pb.Add(a => a.Menus, new List<MenuItem>()
             {
-                new MenuItem()
+                new()
                 {
                     Text = "menu1",
                     Url = "/Binder",
                     Icon = "fa-solid fa-home"
                 },
-                new MenuItem()
+                new()
                 {
                     Text = "menu1",
                     Url = "/Dog",
@@ -350,8 +350,8 @@ public class TabTest : TabTestBase
             pb.Add(a => a.ClickTabToNavigation, true);
             pb.Add(a => a.Menus, new List<MenuItem>()
             {
-                new MenuItem(),
-                new MenuItem()
+                new(),
+                new()
             });
         });
 

@@ -38,7 +38,7 @@ public class ErrorLoggerTestHost : IDisposable
 
         ConfigureServices(Instance.Services);
 
-        ConfigureConfigration(Instance.Services);
+        ConfigureConfiguration(Instance.Services);
     }
 
     protected virtual void ConfigureServices(IServiceCollection services)
@@ -46,7 +46,7 @@ public class ErrorLoggerTestHost : IDisposable
         services.AddBootstrapBlazor();
     }
 
-    protected virtual void ConfigureConfigration(IServiceCollection services)
+    protected virtual void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration();

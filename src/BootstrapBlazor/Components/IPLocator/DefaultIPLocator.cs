@@ -4,15 +4,14 @@
 
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Text.Unicode;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 默认定位实现类
 /// </summary>
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[ExcludeFromCodeCoverage]
 public class DefaultIPLocator : IIPLocator
 {
     /// <summary>

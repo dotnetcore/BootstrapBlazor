@@ -13,8 +13,8 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
+            new() { Count = 1 },
+            new() { Count = 2 },
         };
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
@@ -42,8 +42,8 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
+            new() { Count = 1 },
+            new() { Count = 2 },
         };
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
@@ -75,9 +75,9 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
-            new Foo() { Count = 3 },
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 3 },
         };
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
         {
@@ -93,9 +93,9 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
-            new Foo() { Count = 3 },
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 3 },
         };
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
@@ -117,9 +117,9 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
-            new Foo() { Count = 3 },
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 3 },
         };
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
@@ -159,9 +159,9 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     {
         var ds = new List<Foo>()
         {
-            new Foo() { Count = 1 },
-            new Foo() { Count = 2 },
-            new Foo() { Count = 3 },
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 3 },
         };
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>

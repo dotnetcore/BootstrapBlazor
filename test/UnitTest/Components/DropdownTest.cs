@@ -63,8 +63,8 @@ public class DropdownTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.IsFixedButtonText, true);
         });
@@ -156,8 +156,8 @@ public class DropdownTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.OnSelectedItemChanged, item =>
@@ -205,8 +205,8 @@ public class DropdownTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1") { GroupName = "Test1" },
-                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+                new("1", "Test1") { GroupName = "Test1" },
+                new("2", "Test2") { GroupName = "Test2" }
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.ItemTemplate, item => builder =>
@@ -228,8 +228,8 @@ public class DropdownTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1") { IsDisabled = true },
-                new SelectedItem("2", "Test2")
+                new("1", "Test1") { IsDisabled = true },
+                new("2", "Test2")
             });
         });
         // 禁用组件不生成 下拉菜单

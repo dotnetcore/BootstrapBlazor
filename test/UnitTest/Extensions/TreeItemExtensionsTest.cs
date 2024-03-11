@@ -14,7 +14,7 @@ public class TreeItemExtensionsTest
     {
         var sourceItems = new List<TreeViewItem<string>>()
         {
-            new TreeViewItem<string>("01")
+            new("01")
             {
                 Text="01",Items =
                 [
@@ -36,7 +36,7 @@ public class TreeItemExtensionsTest
     {
         var sourceItems = new List<TreeViewItem<string>>()
         {
-            new TreeViewItem<string>("01")
+            new("01")
             {
                 Text="01",Items =
                 [
@@ -44,7 +44,7 @@ public class TreeItemExtensionsTest
                     new TreeViewItem<string>("0102") { Text="0102" },
                 ]
             },
-            new TreeViewItem<string>("02")
+            new("02")
             {
                 Text="02",Items =
                 [

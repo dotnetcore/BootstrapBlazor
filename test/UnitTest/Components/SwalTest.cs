@@ -215,8 +215,8 @@ public class SwalTest : SwalTestBase
             {
                 pb.Add(a => a.Items, new List<SelectedItem>()
                 {
-                    new SelectedItem("1", "Test1"),
-                    new SelectedItem("2", "Test2") { IsDisabled = true }
+                    new("1", "Test1"),
+                    new("2", "Test2") { IsDisabled = true }
                 });
                 pb.Add(a => a.SwalCategory, SwalCategory.Question);
                 pb.Add(a => a.SwalTitle, "Swal-Title");

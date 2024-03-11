@@ -5,15 +5,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IP 地址定位服务
+/// IP 地址定位服务接口
 /// </summary>
-[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
-public interface IIPLocatorProvider
+public interface IIpLocatorProvider
 {
     /// <summary>
-    ///
+    /// 获得/设置 定位器 Key   
+    /// </summary>
+    object? Key { get; set; }
+
+    /// <summary>
+    /// 通过 IP 地址定位地理位置信息
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
     Task<string?> Locate(string ip);
 }
