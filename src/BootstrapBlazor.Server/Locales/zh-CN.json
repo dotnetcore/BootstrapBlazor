@@ -566,7 +566,11 @@
     "BarTwoYAxesTitle": "双Y轴",
     "BarTwoYAxesIntro": "显示第二Y轴:对齐方式,标题和对应数据组",
     "BarAspectRatioTitle": "图表比例",
-    "BarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器"
+    "BarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
+    "BarShowDataLabelTitle": "显示图表数据值",
+    "BarShowDataLabelIntro": "通过设置<code>ShowDataLabel</code> 属性，控制是否显示数据值",
+    "BarColorSeparatelyTitle": "单独设置柱状图颜色",
+    "BarColorSeparatelyIntro": "通过设置<code>BarColorSeparately</code>属性，控制是否单独设置柱状图颜色，以及通过<code>BackgroundColor</code> 集合设置柱状图颜色"
   },
   "BootstrapBlazor.Server.Components.Samples.Transitions": {
     "TransitionsTitle": "Transition 过渡效果",

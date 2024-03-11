@@ -566,7 +566,11 @@
     "BarTwoYAxesTitle": "Double Y axis",
     "BarTwoYAxesIntro": "Show secondary Y axis: alignment, title and data group",
     "BarAspectRatioTitle": "Chart ratio",
-    "BarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
+    "BarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",
+    "BarShowDataLabelTitle": "Display chart data values",
+    "BarShowDataLabelIntro": "By setting <code>ShowDataLabel</code> property，control whether to display chart data values",
+    "BarColorSeparatelyTitle": "Set bar chart colors separately",
+    "BarColorSeparatelyIntro": "By setting <code>BarColorSeparately</code> property，control whether to Set bar chart colors separately，and By setting <code>BackgroundColor</code> property, set bar chart color"
   },
   "BootstrapBlazor.Server.Components.Samples.Transitions": {
     "TransitionsTitle": "Transition effect",
