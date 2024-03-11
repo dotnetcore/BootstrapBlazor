@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 默认 IP 地理位置定位器
 /// </summary>
-[Obsolete("已弃用")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 internal class DefaultIPLocatorProvider : IIPLocatorProvider
 {
