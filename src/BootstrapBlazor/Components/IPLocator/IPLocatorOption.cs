@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IP定位器配置项
 /// </summary>
-[Obsolete("已弃用")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class IPLocatorOption
 {

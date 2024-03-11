@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 默认定位实现类
 /// </summary>
-[Obsolete("已弃用")]
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
 [ExcludeFromCodeCoverage]
 public class DefaultIPLocator : IIPLocator
 {
