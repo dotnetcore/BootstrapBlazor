@@ -418,7 +418,7 @@ public static class LambdaExtensions
         var mi = typeof(LambdaExtensions)
             .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
             .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-        return mi!.Invoke(null, new object[] { query.AsQueryable(), pi }) as IOrderedQueryable<TItem>;
+        return mi!.Invoke(null, [query.AsQueryable(), pi]) as IOrderedQueryable<TItem>;
     }
 
     private static IQueryable<TItem>? InvokeSortByPropertyName<TItem>(this IQueryable<TItem> query, string methodName, PropertyInfo pi, string propertyName)
@@ -426,7 +426,7 @@ public static class LambdaExtensions
         var mi = typeof(LambdaExtensions)
             .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Static)!
             .MakeGenericMethod(typeof(TItem), pi.PropertyType);
-        return mi!.Invoke(null, new object[] { query.AsQueryable(), propertyName }) as IOrderedQueryable<TItem>;
+        return mi!.Invoke(null, [query.AsQueryable(), propertyName]) as IOrderedQueryable<TItem>;
     }
 
     private static PropertyInfo? GetPropertyInfoByName<TItem>(this PropertyInfo? pi, string propertyName)
