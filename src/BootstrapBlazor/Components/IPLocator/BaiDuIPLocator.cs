@@ -49,6 +49,8 @@ public class BaiDuIPLocator : DefaultIPLocator
 /// <summary>
 /// LocationInfo 结构体
 /// </summary>
+[Obsolete("已弃用，请参考 https://www.blazor.zone/locator")]
+[ExcludeFromCodeCoverage]
 public struct LocationInfo
 {
     /// <summary>
