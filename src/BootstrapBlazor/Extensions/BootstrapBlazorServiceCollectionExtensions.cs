@@ -112,22 +112,23 @@ public static class BootstrapBlazorServiceCollectionExtensions
         return services;
     }
 
-    ///// <summary>
-    ///// IPLocatorOption 扩展配置方法
-    ///// </summary>
-    ///// <param name="services"></param>
-    ///// <param name="locatorAction"></param>
-    ///// <returns></returns>
-    //[Obsolete("已弃用")]
-    //public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
-    //{
-    //    services.AddOptionsMonitor<IPLocatorOption>();
-    //    if (locatorAction != null)
-    //    {
-    //        services.Configure(locatorAction);
-    //    }
-    //    return services;
-    //}
+    /// <summary>
+    /// IPLocatorOption 扩展配置方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="locatorAction"></param>
+    /// <returns></returns>
+    [Obsolete("已弃用 请删除即可")]
+    [ExcludeFromCodeCoverage]
+    public static IServiceCollection ConfigureIPLocatorOption(this IServiceCollection services, Action<IPLocatorOption>? locatorAction = null)
+    {
+        services.AddOptionsMonitor<IPLocatorOption>();
+        if (locatorAction != null)
+        {
+            services.Configure(locatorAction);
+        }
+        return services;
+    }
 
     /// <summary>
     /// JsonLocalizationOptions 扩展配置方法
