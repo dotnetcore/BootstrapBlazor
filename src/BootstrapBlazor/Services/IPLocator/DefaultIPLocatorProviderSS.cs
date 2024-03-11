@@ -7,12 +7,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 默认 IP 地理位置定位器
 /// </summary>
-public abstract class DefaultIPLocatorProvider : IIPLocatorProvider
+public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
 {
     /// <summary>
     /// 构造函数
     /// </summary>
-    public DefaultIPLocatorProvider()
+    protected DefaultIpLocatorProvider()
     {
         Key = GetType().Name;
     }
@@ -20,12 +20,12 @@ public abstract class DefaultIPLocatorProvider : IIPLocatorProvider
     /// <summary>
     /// 获得 本机地址列表
     /// </summary>
-    private readonly List<string> _localhosts = new(new string[] { "::1", "127.0.0.1" });
+    private readonly List<string> _localhostList = [..new[] { "::1", "127.0.0.1" }];
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public virtual object? Key { get; set; }
+    public object? Key { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -34,10 +34,10 @@ public abstract class DefaultIPLocatorProvider : IIPLocatorProvider
     /// <returns></returns>
     public async Task<string?> Locate(string ip)
     {
-        string? ret = null;
+        string? ret;
 
         // 解析本机地址
-        if (string.IsNullOrEmpty(ip) || _localhosts.Any(p => p == ip))
+        if (string.IsNullOrEmpty(ip) || _localhostList.Any(p => p == ip))
         {
             ret = "本地连接";
         }

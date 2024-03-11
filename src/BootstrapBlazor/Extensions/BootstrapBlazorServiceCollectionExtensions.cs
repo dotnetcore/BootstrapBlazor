@@ -40,9 +40,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IExportPdf, DefaultExportPdf>();
 
         // IP 地理位置定位服务
-        services.TryAddSingleton<IIPLocatorFactory, DefaultIPLocatorFactory>();
-        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProvider>();
-        services.AddSingleton<IIPLocatorProvider, BaiduIPLocatorProviderV2>();
+        services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();
+        services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
+        services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();

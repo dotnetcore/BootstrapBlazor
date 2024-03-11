@@ -10,28 +10,26 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 百度搜索引擎 IP 定位器
 /// </summary>
-public class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : DefaultIPLocatorProvider()
+public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, ILogger<BaiduIpLocatorProvider> logger) : DefaultIpLocatorProvider()
 {
     /// <summary>
-    /// HttpClient 实例
+    /// 获得/设置 HttpClient 实例
     /// </summary>
-    protected HttpClient? client;
+    protected HttpClient? Client { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="ip"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     protected override async Task<string?> LocateByIp(string ip)
     {
         string? ret = null;
         var url = GetUrl(ip);
         try
         {
-            client ??= GetHttpClient();
+            Client ??= GetHttpClient();
             using var token = new CancellationTokenSource(3000);
-            ret = await Fetch(url, client, token.Token);
+            ret = await Fetch(url, Client, token.Token);
         }
         catch (Exception ex)
         {
@@ -89,7 +87,7 @@ public class BaiduIPLocatorProvider(IHttpClientFactory httpClientFactory, ILogge
         public override string? ToString()
         {
             string? ret = null;
-            if (this is { Status: "0" })
+            if (Status == "0")
             {
                 ret = Data?.FirstOrDefault()?.Location;
             }

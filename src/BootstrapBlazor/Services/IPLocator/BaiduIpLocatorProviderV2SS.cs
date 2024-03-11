@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BaiduIPLocatorV2 第二个版本实现类
 /// </summary>
-public class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIPLocatorProvider> logger) : BaiduIPLocatorProvider(httpClientFactory, logger)
+public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIpLocatorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, logger)
 {
     /// <summary>
     /// <inheritdoc/>
@@ -51,7 +51,7 @@ public class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILog
         public override string? ToString()
         {
             string? ret = null;
-            if (this is { Code: "Success" })
+            if (Code == "Success")
             {
                 ret = $"{Data?.Prov}{Data?.City}{Data?.District} {Data?.Isp}";
             }
@@ -138,7 +138,7 @@ public class BaiduIPLocatorProviderV2(IHttpClientFactory httpClientFactory, ILog
         public string? Prov { get; set; }
 
         /// <summary>
-        /// 获得/设置 城市    
+        /// 获得/设置 城市
         /// </summary>
         public string? City { get; set; }
 
