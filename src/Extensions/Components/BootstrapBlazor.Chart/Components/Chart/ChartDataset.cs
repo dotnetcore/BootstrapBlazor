@@ -67,4 +67,14 @@ public class ChartDataset
     /// 获得/设置 折线图(Line) 宽度 默认 3 个像素
     /// </summary>
     public double BorderWidth { get; set; } = 3;
+
+    /// <summary>
+    /// 获得/设置 柱状图的颜色数组
+    /// </summary>
+    public string[] BackgroundColor { get; set; } = { "rgb(255, 205, 86, 0)" };
+
+    /// <summary>
+    /// 获得/设置 柱状图的边框颜色数组
+    /// </summary>
+    public string[] BorderColor { get; set; } = { "rgb(255, 205, 86, 0)" };
 }
