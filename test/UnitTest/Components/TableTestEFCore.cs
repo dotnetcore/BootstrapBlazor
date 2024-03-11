@@ -10,9 +10,10 @@ namespace UnitTest.Components;
 public class TableTestEFCore : EFCoreTableTestBase
 {
     [Fact]
-    public void SearchText_Ok()
+    public async Task SearchText_Ok()
     {
         List<Foo>? items = null;
+        var sql = "";
         var context = Context.Services.GetRequiredService<IDbContextFactory<FooContext>>().CreateDbContext();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -24,7 +25,7 @@ public class TableTestEFCore : EFCoreTableTestBase
                 pb.Add(a => a.SearchText, "ZhangSan");
                 pb.Add(a => a.OnQueryAsync, new Func<QueryPageOptions, Task<QueryData<Foo>>>(op =>
                 {
-                    items = context.Foos.Where(op.ToFilterFunc<Foo>()).ToList();
+                    items = [.. context.Foos.Where(op.ToFilterLambda<Foo>())];
                     return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = items.Count });
                 }));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -47,6 +48,17 @@ public class TableTestEFCore : EFCoreTableTestBase
         });
 
         Assert.NotNull(items);
+        Assert.Empty(items);
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SearchText, "Zhangsan");
+        });
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        Assert.NotNull(items);
         Assert.Equal(2, items.Count);
+
+        // 数据库 Sqlite Contains 使用 InStr 来比较，区分大小写
     }
 }
