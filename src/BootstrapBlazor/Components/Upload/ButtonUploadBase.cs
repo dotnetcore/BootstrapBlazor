@@ -20,6 +20,7 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     /// <summary>
     /// 获得/设置 是否允许多文件上传 默认 false 不允许
     /// </summary>
+    /// <remarks>多选文件时，所有文件处理完毕后，会额外触发一次 <see cref="OnAllFileUploaded"/> 回调</remarks>
     [Parameter]
     public bool IsMultiple { get; set; }
 
@@ -119,6 +120,12 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     [Parameter]
     public Func<UploadFile, Task>? OnCancel { get; set; }
 
+    /// <summary>
+    /// 获得/设置 所有文件上传完毕回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<IReadOnlyCollection<UploadFile>, Task>? OnAllFileUploaded { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -184,6 +191,10 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
                     item.Uploaded = true;
                     StateHasChanged();
                 }
+            }
+            if (OnAllFileUploaded != null)
+            {
+                await OnAllFileUploaded(UploadFiles);
             }
         }
         else
