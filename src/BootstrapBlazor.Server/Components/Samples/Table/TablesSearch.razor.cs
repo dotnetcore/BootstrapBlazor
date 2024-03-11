@@ -146,7 +146,19 @@ public partial class TablesSearch
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         // 使用内置扩展方法 ToFilter 获得过滤条件
-        var items = Items.Where(options.ToFilterFunc<Foo>());
+        // 目前 ToFilterFunc 无法解决大小写敏感问题
+        // var items = Items.Where(options.ToFilterFunc<Foo>());
+        IEnumerable<Foo> items = Items;
+        if (!string.IsNullOrEmpty(options.SearchText))
+        {
+            // 使用 Linq 处理
+            items = Items.Where(i =>
+                (!string.IsNullOrEmpty(i.Name) && i.Name.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase))
+                || (!string.IsNullOrEmpty(i.Address) && i.Address.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase)));
+
+            // EFCore 使用 Like 处理 不推荐 Like 会破坏索引
+            // https://learn.microsoft.com/en-us/ef/core/miscellaneous/collations-and-case-sensitivity
+        }
 
         // 使用 Sort 扩展排序方法进行排序
         var isSorted = false;
