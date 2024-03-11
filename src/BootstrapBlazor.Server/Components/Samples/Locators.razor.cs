@@ -19,7 +19,7 @@ public partial class Locators
 
     [Inject]
     [NotNull]
-    IIPLocatorFactory? IPLocatorFactory { get; set; }
+    IIpLocatorFactory? IpLocatorFactory { get; set; }
 
     private string? Ip { get; set; }
 
@@ -45,7 +45,7 @@ public partial class Locators
     {
         if (!string.IsNullOrEmpty(Ip))
         {
-            var provider = IPLocatorFactory.Create();
+            var provider = IpLocatorFactory.Create();
             Location = await provider.Locate(Ip);
         }
     }

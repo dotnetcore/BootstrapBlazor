@@ -9,7 +9,7 @@
     <p>@((MarkupString)Localizer["LocatorsNormalInjectIPLocator"].Value)</p>
     <Pre>[Inject]
 [NotNull]
-private IIPLocatorProvider? IPLocator { get; set; }
+private IIpLocatorFactory? IpLocatorFactory { get; set; }
 </Pre>
     <Tips>
         <div>@((MarkupString)Localizer["LocatorsNormalTipsTitle"].Value)</div>
@@ -19,21 +19,15 @@ private IIPLocatorProvider? IPLocator { get; set; }
     <Pre>Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)</Pre>
     <p><b>@Localizer["LocatorsNormalExtendDescription"]</b></p>
     <p><b>@Localizer["LocatorsNormalExtend1"]</b></p>
-    <Pre>private class CustomerLocator : IIPLocator
+    <Pre>private class CustomerLocatorProvider : DefaultIpLocatorProvider
 {
-    public Task&lt;string&gt; Locate(IPLocatorOption option)
+    protected override async Task&lt;string?&gt; LocateByIp(string ip)
     {
         throw new NotImplementedException();
     }
 }</Pre>
     <p><b>@Localizer["LocatorsNormalExtend2"]</b></p>
-    <Pre>public void ConfigureServices(IServiceCollection services)
-{
-    services.AddBootstrapBlazor(locatorAction: option =>
-    {
-        option.LocatorFactory = provider => new CustomerLocator();
-    });
-}</Pre>
+    <Pre>services.AddSingleton&lt;IIpLocatorProvider, CustomerLocatorProvider&gt;();</Pre>
     <p>@((MarkupString)Localizer["LocatorsNormalCustomerLocator"].Value)</p>
     <p>@Localizer["LocatorsNormalIpTitle"]</p>
     <p><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</p>
