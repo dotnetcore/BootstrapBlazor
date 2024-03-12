@@ -12,6 +12,7 @@ public abstract class BootstrapInputEventBase<TValue> : BootstrapInputBase<TValu
     /// <summary>
     /// 获得/设置 是否在文本框输入值时触发 bind-value:event="oninput" 默认 false
     /// </summary>
+    /// <remarks>设置 <see cref="UseInputEvent"/> 参数后，Formatter 与 FormatString 均失效</remarks>
     [Parameter]
     public bool UseInputEvent { get; set; }
 
