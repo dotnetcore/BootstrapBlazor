@@ -45,7 +45,7 @@ namespace BootstrapBlazor.Components;
 ///     </code>
 ///     or you can register types individually
 ///     <code>
-///     TableMetadataTypeService.RegisterMatadataType(metadataType, dataType);
+///     TableMetadataTypeService.RegisterMetadataType(metadataType, dataType);
 ///     </code>
 /// </example>
 /// </summary>

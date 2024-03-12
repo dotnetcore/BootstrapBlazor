@@ -9,6 +9,33 @@ namespace UnitTest.Components;
 public class InputNumberTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task OnInput_Ok()
+    {
+        var value = 0.0;
+        var cut = Context.RenderComponent<BootstrapInputNumber<double>>(builder =>
+        {
+            builder.Add(a => a.Value, value);
+            builder.Add(a => a.UseInputEvent, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<double>(this, v =>
+            {
+                value = v;
+            }));
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("0.0");
+        });
+        cut.Contains("value=\"0.0\"");
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("0.01");
+        });
+        cut.Contains("value=\"0.01\"");
+    }
+
+    [Fact]
     public void OnBlur_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInputNumber<int>>(pb =>

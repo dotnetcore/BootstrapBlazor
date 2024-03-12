@@ -119,7 +119,9 @@ public partial class BootstrapInputNumber<TValue>
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue value) => Formatter != null
+    protected override string? FormatValueAsString(TValue value) => UseInputEvent ? _lastInputValueString : GetFormatString(value);
+
+    private string? GetFormatString(TValue value) => Formatter != null
         ? Formatter.Invoke(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
@@ -295,5 +297,24 @@ public partial class BootstrapInputNumber<TValue>
             }
         }
         return val;
+    }
+
+    private string? _lastInputValueString;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        var ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
+        if (ret && UseInputEvent)
+        {
+            _lastInputValueString = value;
+        }
+        return ret;
     }
 }
