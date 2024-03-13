@@ -6,29 +6,29 @@
     @if (ShowHour)
     {
         <div class="bb-flip-clock-list hour">
-            @RenderItem
-            @RenderItem
+            @RenderItem(3)
+            @RenderItem(10)
         </div>
     }
 
     @if (ShowMinute)
     {
         <div class="bb-flip-clock-list minute">
-            @RenderItem
-            @RenderItem
+            @RenderItem(6)
+            @RenderItem(10)
         </div>
     }
 
     <div class="bb-flip-clock-list second">
-        @RenderItem
-        @RenderItem
+        @RenderItem(6)
+        @RenderItem(10)
     </div>
 </div>
 
 @code {
-    RenderFragment RenderItem =>
+    RenderFragment<int> RenderItem => count =>
     @<ul class="bb-flip-clock-item">
-        @foreach (var index in Enumerable.Range(0, 10))
+        @foreach (var index in Enumerable.Range(0, count))
         {
             <li>
                 <div class="up">
