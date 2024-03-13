@@ -1,17 +1,18 @@
 .bb-flip-clock {
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
-    user-select: none;
-    color: #888;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    --bb-flip-clock-text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    --bb-flip-clock-item-box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+    --bb-flip-clock-number-color: #ccc;
+    --bb-flip-clock-number-bg: #333;
+    --bb-flip-clock-number-line-bg: rgba(0,0,0,.4);
+    font: normal 80px "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: bold;
     background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    height: 200px;
-    border-radius: 6px;
+    border-radius: var(--bs-border-radius);
     display: flex;
     justify-content: center;
     align-items: center;
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
-    font-size: 80px;
-    font-weight: bold;
+    height: 200px;
+    user-select: none;
 
     .bb-flip-clock-list {
         display: flex;
@@ -25,16 +26,12 @@
 .bb-flip-clock-item {
     position: relative;
     list-style: none;
-    user-select: none;
-    color: #888;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
-    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bb-flip-clock-item-box-shadow);
     margin: 5px;
     width: 60px;
     height: 90px;
     line-height: 87px;
-    border-radius: 6px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
 
     > li {
         z-index: 1;
@@ -69,7 +66,7 @@
                     z-index: 5;
                     width: 100%;
                     height: 3px;
-                    background-color: rgba(0,0,0,.4);
+                    background-color: var(--bb-flip-clock-number-line-bg);
                 }
 
                 > .inn {
@@ -99,11 +96,10 @@
                 z-index: 1;
                 width: 100%;
                 height: 200%;
-                color: #ccc;
-                text-shadow: 0 1px 2px #000;
                 text-align: center;
-                background-color: #333;
-                border-radius: 6px;
+                color: var(--bb-flip-clock-number-color);
+                background-color: var(--bb-flip-clock-number-bg);
+                border-radius: var(--bs-border-radius);
             }
         }
     }
