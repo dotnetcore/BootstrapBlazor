@@ -2,16 +2,9 @@
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id, options) {
-    console.log(options);
-
-    const { invoke, onCompleted, useLocaleTimeZone } = options;
     const el = document.getElementById(id);
     if (el === null) {
         return;
-    }
-
-    if (useLocaleTimeZone) {
-
     }
 
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
@@ -42,11 +35,14 @@ export function init(id, options) {
     }
 
     requestAnimationFrame(flip);
+
+    Data.set(id, { el, options });
 }
 
 export function dispose(id) {
     const clock = Data.get(id)
     if (clock) {
+
     }
 }
 
