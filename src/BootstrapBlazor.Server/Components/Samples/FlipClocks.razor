@@ -1,0 +1,19 @@
+﻿@page "/flip-clock"
+@inject IStringLocalizer<FlipClocks> Localizer
+
+<h3>@Localizer["FlipClocksTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["FlipClocksDescription"].Value)</h4>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <FlipClock></FlipClock>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowMinuteText"]" Introduction="@Localizer["ShowMinuteIntro"]" Name="ShowMinute">
+    <FlipClock ShowHour="false" ShowMinute="false"></FlipClock>
+</DemoBlock>
+
+@* <DemoBlock Title="@Localizer["IsCountDownText"]" Introduction="@Localizer["IsCountDownIntro"]" Name="CountDown">
+    <FlipClock IsCountDown="true" StartValue="@DateTime.Now"></FlipClock>
+</DemoBlock>
+ *@

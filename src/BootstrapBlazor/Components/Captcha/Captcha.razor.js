@@ -92,6 +92,8 @@ export function reset(id, option) {
 
 export function dispose(id) {
     const captcha = Data.get(id)
+    Data.remove(id)
+
     if (captcha) {
         Drag.dispose(captcha.el)
     }

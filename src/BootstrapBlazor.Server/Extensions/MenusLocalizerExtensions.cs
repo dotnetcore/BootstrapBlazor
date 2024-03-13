@@ -592,6 +592,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FlipClock"],
+                    Url = "flip-clock"
+                },
+                new()
+                {
                     Text = Localizer["FileIcon"],
                     Url = "file-icon"
                 },

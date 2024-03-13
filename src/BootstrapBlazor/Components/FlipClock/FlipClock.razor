@@ -1,0 +1,45 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+    @if (ShowHour)
+    {
+        <div class="bb-flip-clock-list hour">
+            @RenderItem
+            @RenderItem
+        </div>
+    }
+
+    @if (ShowMinute)
+    {
+        <div class="bb-flip-clock-list minute">
+            @RenderItem
+            @RenderItem
+        </div>
+    }
+
+    <div class="bb-flip-clock-list second">
+        @RenderItem
+        @RenderItem
+    </div>
+</div>
+
+@code {
+    RenderFragment RenderItem =>
+    @<ul class="bb-flip-clock-item">
+        @foreach (var index in Enumerable.Range(0, 10))
+        {
+            <li>
+                <div class="up">
+                    <div class="shadow"></div>
+                    <div class="inn">@index</div>
+                </div>
+                <div class="down">
+                    <div class="shadow"></div>
+                    <div class="inn">@index</div>
+                </div>
+            </li>
+        }
+    </ul>;
+}
