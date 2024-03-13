@@ -22,11 +22,11 @@ public partial class FlipClock
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
-    /// <summary>
-    /// 获得/设置 计时结束回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnCompletedAsync { get; set; }
+    ///// <summary>
+    ///// 获得/设置 计时结束回调方法 默认 null
+    ///// </summary>
+    //[Parameter]
+    //public Func<Task>? OnCompletedAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示使用本地时间 默认 true
@@ -34,17 +34,17 @@ public partial class FlipClock
     [Parameter]
     public bool UseLocaleTimeZone { get; set; } = true;
 
-    /// <summary>
-    /// 获得/设置 是否为倒计时 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsCountDown { get; set; }
+    ///// <summary>
+    ///// 获得/设置 是否为倒计时 默认 false
+    ///// </summary>
+    //[Parameter]
+    //public bool IsCountDown { get; set; }
 
-    /// <summary>
-    /// 获得/设置 倒计时开始时间 <see cref="IsCountDown"/> 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public DateTime? StartValue { get; set; }
+    ///// <summary>
+    ///// 获得/设置 倒计时开始时间 <see cref="IsCountDown"/> 默认 null 未设置
+    ///// </summary>
+    //[Parameter]
+    //public DateTime? StartValue { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-flip-clock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -54,17 +54,17 @@ public partial class FlipClock
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, OnCompleted = nameof(OnCompleted), UseLocaleTimeZone });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, UseLocaleTimeZone });
 
-    /// <summary>
-    /// Timing end callback method called by js invoke
-    /// </summary>
-    [JSInvokable]
-    public async Task OnCompleted()
-    {
-        if (OnCompletedAsync != null)
-        {
-            await OnCompletedAsync();
-        }
-    }
+    ///// <summary>
+    ///// Timing end callback method called by js invoke
+    ///// </summary>
+    //[JSInvokable]
+    //public async Task OnCompleted()
+    //{
+    //    if (OnCompletedAsync != null)
+    //    {
+    //        await OnCompletedAsync();
+    //    }
+    //}
 }
