@@ -1,0 +1,199 @@
+.bb-flip-clock {
+    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    user-select: none;
+    color: #888;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    height: 200px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bb-flip-clock-item {
+    list-style: none;
+    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    user-select: none;
+    color: #888;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    position: relative;
+    margin: 5px;
+    width: 60px;
+    height: 90px;
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 87px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+
+    > li {
+        z-index: 1;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        &:first-child {
+            z-index: 2;
+        }
+
+        > div {
+            z-index: 1;
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            overflow: hidden;
+
+            &.up {
+                transform-origin: 50% 100%;
+                top: 0;
+
+                &:after {
+                    content: "";
+                    position: absolute;
+                    top: 44px;
+                    left: 0;
+                    z-index: 5;
+                    width: 100%;
+                    height: 3px;
+                    background-color: rgba(0,0,0,.4);
+                }
+
+                > .inn {
+                    top: 0;
+                }
+            }
+
+            &.down {
+                transform-origin: 50% 0%;
+                bottom: 0;
+
+                > .inn {
+                    bottom: 0;
+                }
+            }
+
+            .shadow {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 2;
+            }
+
+            .inn {
+                position: absolute;
+                left: 0;
+                z-index: 1;
+                width: 100%;
+                height: 200%;
+                color: #ccc;
+                text-shadow: 0 1px 2px #000;
+                text-align: center;
+                background-color: #333;
+                border-radius: 6px;
+            }
+        }
+    }
+}
+
+/* PLAY */
+
+.play ul li.before {
+    z-index: 3;
+}
+
+.play ul li.active {
+    animation: animation-bb-flip-clock-index .5s .5s linear both;
+    z-index: 2;
+}
+
+@keyframes animation-bb-flip-clock-index {
+    0% {
+        z-index: 2;
+    }
+
+    5% {
+        z-index: 4;
+    }
+
+    100% {
+        z-index: 4;
+    }
+}
+
+.play ul li.active .down {
+    z-index: 2;
+    animation: animation-bb-flip-clock-turn-down .5s .5s linear both;
+}
+
+@keyframes animation-bb-flip-clock-turn-down {
+    0% {
+        transform: rotateX(90deg);
+    }
+
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+
+.play ul li.before .up {
+    z-index: 2;
+    animation: animation-bb-flip-clock-turn-up .5s linear both;
+}
+
+@keyframes animation-bb-flip-clock-turn-up {
+    0% {
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        transform: rotateX(-90deg);
+    }
+}
+
+/* SHADOW */
+.play ul li.before .up .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    animation: animation-bb-flip-clock-shadown-show .5s linear both;
+}
+
+.play ul li.active .up .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
+    animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
+}
+
+/*DOWN*/
+
+.play ul li.before .down .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    animation: animation-bb-flip-clock-shadown-show .5s linear both;
+}
+
+.play ul li.active .down .shadow {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
+    animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
+}
+
+@keyframes animation-bb-flip-clock-shadown-show {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes animation-bb-flip-clock-shadown-hide {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
