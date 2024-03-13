@@ -6257,5 +6257,15 @@
     "SvgEditorTitle": "Svg 编辑器",
     "BasicTitle": "Svg 编辑器",
     "BasicIntro": "用于 Svg 编辑"
+  },
+  "BootstrapBlazor.Server.Components.Samples.FlipClocks": {
+    "FlipClocksTitle": "FlipClock 卡片翻转时钟",
+    "FlipClocksDescription": "用于网站计时，或者倒计时使用",
+    "BaseUsageText": "基本功能",
+    "BaseUsageIntro": "同步显示当前时间",
+    "ShowMinuteText": "不显示时、分",
+    "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
+    "IsCountDownText": "倒计时",
+    "IsCountDownIntro": "通过设置 <code>IsCountDown=\"true\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置"
   }
 }
