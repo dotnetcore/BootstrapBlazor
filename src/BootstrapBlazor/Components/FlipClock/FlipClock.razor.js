@@ -47,13 +47,15 @@ export function dispose(id) {
 }
 
 const setTime = (list, time) => {
-    const leftIndex = Math.floor(time / 10);
-    const rightIndex = time % 10;
-    const leftFlip = list.children[0];
-    const rightFlip = list.children[1];
+    if (list) {
+        const leftIndex = Math.floor(time / 10);
+        const rightIndex = time % 10;
+        const leftFlip = list.children[0];
+        const rightFlip = list.children[1];
 
-    setFlip(leftFlip, leftIndex);
-    setFlip(rightFlip, rightIndex);
+        setFlip(leftFlip, leftIndex);
+        setFlip(rightFlip, rightIndex);
+    }
 }
 
 const setFlip = (flip, index) => {
