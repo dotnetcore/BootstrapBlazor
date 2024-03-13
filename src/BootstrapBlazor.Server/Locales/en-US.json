@@ -4566,6 +4566,7 @@
     "PdfReader": "PDF Reader",
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
+    "FlipClock": "FlipClock",
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
