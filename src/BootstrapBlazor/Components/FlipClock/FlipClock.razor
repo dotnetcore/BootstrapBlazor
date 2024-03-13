@@ -2,31 +2,33 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     @if (ShowHour)
     {
-        @RenderItem
-        @RenderItem
-
-        <div class="bb-flip-clock-colon">:</div>
+        <div class="bb-flip-clock-list hour">
+            @RenderItem
+            @RenderItem
+        </div>
     }
 
     @if (ShowMinute)
     {
-        @RenderItem
-        @RenderItem
-
-        <div class="bb-flip-clock-colon">:</div>
+        <div class="bb-flip-clock-list minute">
+            @RenderItem
+            @RenderItem
+        </div>
     }
 
-    @RenderItem
-    @RenderItem
+    <div class="bb-flip-clock-list second">
+        @RenderItem
+        @RenderItem
+    </div>
 </div>
 
 @code {
     RenderFragment RenderItem =>
     @<ul class="bb-flip-clock-item">
-        @foreach (var index in Enumerable.Range(0, 9))
+        @foreach (var index in Enumerable.Range(0, 10))
         {
             <li>
                 <div class="up">

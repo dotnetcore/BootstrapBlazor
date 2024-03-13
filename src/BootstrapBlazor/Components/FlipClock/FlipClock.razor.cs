@@ -28,6 +28,12 @@ public partial class FlipClock
     [Parameter]
     public Func<Task>? OnCompletedAsync { get; set; }
 
+    /// <summary>
+    /// Whether if use locale time default value is true
+    /// </summary>
+    [Parameter]
+    public bool UseLocaleTimeZone { get; set; } = true;
+
     private string? ClassString => CssBuilder.Default("bb-flip-clock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -36,7 +42,7 @@ public partial class FlipClock
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnCompleted));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, OnCompleted = nameof(OnCompleted), UseLocaleTimeZone });
 
     /// <summary>
     /// Timing end callback method called by js invoke
