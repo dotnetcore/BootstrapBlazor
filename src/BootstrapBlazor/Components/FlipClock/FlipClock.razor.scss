@@ -9,21 +9,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 80px;
+    font-weight: bold;
+
+    .bb-flip-clock-colon {
+        font-family: var(--bs-body-font-family);
+        color: #343a40;
+        display: flex;
+        align-items: center;
+        line-height: 87px;
+        height: 90px;
+        width: 30px;
+        justify-content: center;
+    }
 }
 
 .bb-flip-clock-item {
+    position: relative;
     list-style: none;
-    font: normal 11px "Helvetica Neue", Helvetica, sans-serif;
     user-select: none;
     color: #888;
     text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
     background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
-    position: relative;
     margin: 5px;
     width: 60px;
     height: 90px;
-    font-size: 80px;
-    font-weight: bold;
     line-height: 87px;
     border-radius: 6px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
