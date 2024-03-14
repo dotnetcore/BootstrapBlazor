@@ -6,6 +6,10 @@
 @page "/home"
 
 <section class="home-section">
+    <div class="container d-flex position-relative mb-3">
+        <div class="flip-info">@Localizer["OnlineTimeText"]</div>
+        <FlipClock ViewMode="FlipClockViewMode.Count" StartValue="@Cache.GetStartTime()"></FlipClock>
+    </div>
     <div class="welcome container">
         <div class="row g-3">
             <div class="col-12 col-lg-6 position-relative">
