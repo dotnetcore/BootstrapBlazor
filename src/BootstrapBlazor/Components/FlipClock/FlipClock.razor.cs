@@ -35,10 +35,10 @@ public partial class FlipClock
     public FlipClockViewMode ViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 倒计时或者计时的开始时间 <see cref="FlipClockViewMode.CountDown"/> 默认 <see cref="FlipClockViewMode.Count" /> 模式下生效
+    /// 获得/设置 倒计时或者计时的开始时间 <see cref="FlipClockViewMode.Count"/> 默认 <see cref="FlipClockViewMode.CountDown" /> 模式下生效
     /// </summary>
     [Parameter]
-    public DateTimeOffset? StartValue { get; set; }
+    public TimeSpan? StartValue { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-flip-clock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -48,9 +48,11 @@ public partial class FlipClock
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, ViewMode = ViewMode.ToString(), StartValue = GetTicks() / 10000 });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, ViewMode = ViewMode.ToString(), StartValue = GetTicks() });
 
-    private long GetTicks() => StartValue.HasValue ? StartValue.Value.UtcTicks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks : 0;
+    private double GetTicks() => StartValue.HasValue ? StartValue.Value.TotalMilliseconds : 0;
+
+    //private long GetTicks() => StartValue.HasValue ? StartValue.Value.UtcTicks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks : 0;
 
     /// <summary>
     /// Timing end callback method called by js invoke

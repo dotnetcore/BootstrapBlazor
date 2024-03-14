@@ -16,11 +16,8 @@ export function init(id, options) {
             return new Date();
         }
         else if (options.viewMode === "Count") {
-            const now = new Date();
-            const ticks = now.getTime() + now.getTimezoneOffset() * 60 * 1000 - options.startValue;
-            const date = new Date(ticks);
-            options.startValue
-            return date;
+            options.startValue -= 1000;
+            return new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue);
         }
         else if (options.viewMode === "CountDown") {
 
