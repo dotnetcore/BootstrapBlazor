@@ -3,6 +3,7 @@
     --bb-flip-clock-bg: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
     --bb-flip-clock-font-size: 80px;
     --bb-flip-clock-text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+    --bb-flip-clock-justify-content: center;
     --bb-flip-clock-list-margin-right: 20px;
     --bb-flip-clock-item-margin: 5px;
     --bb-flip-clock-item-width: 60px;
@@ -17,10 +18,13 @@
     background: var(--bb-flip-clock-bg);
     border-radius: var(--bs-border-radius);
     display: flex;
-    justify-content: center;
+    justify-content: var(--bb-flip-clock-justify-content);
     align-items: center;
     height: var(--bb-flip-clock-height);
     user-select: none;
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
 
     .bb-flip-clock-list {
         display: flex;

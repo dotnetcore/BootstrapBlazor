@@ -11,9 +11,25 @@ export function init(id, options) {
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
     const listSecond = el.querySelector('.bb-flip-clock-list.second');
 
+    const getDate = () => {
+        if (options.viewMode === "DateTime") {
+            return new Date();
+        }
+        else if (options.viewMode === "Count") {
+            const now = new Date();
+            const ticks = now.getTime() + now.getTimezoneOffset() * 60 * 1000 - options.startValue;
+            const date = new Date(ticks);
+            options.startValue
+            return date;
+        }
+        else if (options.viewMode === "CountDown") {
+
+        }
+    }
+
     const go = () => {
         el.classList.remove('flip');
-        const date = new Date();
+        const date = getDate();
         setTime(listSecond, date.getSeconds());
         setTime(listMinute, date.getMinutes());
         setTime(listHour, date.getHours());
