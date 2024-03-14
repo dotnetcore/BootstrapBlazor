@@ -117,13 +117,11 @@
     }
 }
 
-/* PLAY */
-
-.flip li.before {
+.flip .before {
     z-index: 3;
 }
 
-.flip li.active {
+.flip .active {
     animation: animation-bb-flip-clock-index .5s .5s linear both;
     z-index: 2;
 }
@@ -142,7 +140,7 @@
     }
 }
 
-.flip li.active .down {
+.flip .active .down {
     z-index: 2;
     animation: animation-bb-flip-clock-turn-down .5s .5s linear both;
 }
@@ -157,7 +155,7 @@
     }
 }
 
-.flip li.before .up {
+.flip .before .up {
     z-index: 2;
     animation: animation-bb-flip-clock-turn-up .5s linear both;
 }
@@ -172,25 +170,22 @@
     }
 }
 
-/* SHADOW */
-.flip li.before .up .shadow {
+.flip .before .up .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     animation: animation-bb-flip-clock-shadown-show .5s linear both;
 }
 
-.flip li.active .up .shadow {
+.flip .active .up .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
 }
 
-/*DOWN*/
-
-.flip li.before .down .shadow {
+.flip .before .down .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     animation: animation-bb-flip-clock-shadown-show .5s linear both;
 }
 
-.flip li.active .down .shadow {
+.flip .active .down .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
 }
