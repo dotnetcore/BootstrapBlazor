@@ -253,6 +253,22 @@ $bb-widget-footer-bg: rgba(var(--bs-body-color-rgb),.22);
 $bb-empty-image-margin: 1rem 0 .5rem 0;
 $bb-empty-template-margin: 5px 0 0 0;
 
+// FlipClock
+$bb-flip-clock-height: 200px;
+$bb-flip-clock-bg: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+$bb-flip-clock-font-size: 80px;
+$bb-flip-clock-text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
+$bb-flip-clock-justify-content: center;
+$bb-flip-clock-list-margin-right: 20px;
+$bb-flip-clock-item-margin: 5px;
+$bb-flip-clock-item-width: 60px;
+$bb-flip-clock-item-height: 90px;
+$bb-flip-clock-item-box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
+$bb-flip-clock-number-color: #ccc;
+$bb-flip-clock-number-bg: #333;
+$bb-flip-clock-number-line-bg: rgba(0,0,0,.4);
+$bb-flip-clock-number-line-height: 1px;
+
 // FileIcon
 $bb-icon-width: 42px;
 $bb-icon-height: auto;
