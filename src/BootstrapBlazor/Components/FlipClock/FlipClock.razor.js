@@ -1,6 +1,13 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 
 export function init(id, options) {
+    options = {
+        ...{
+            viewMode: 'DateTime',
+            startValue: 0
+        },
+        ...options
+    }
     const el = document.getElementById(id);
     if (el === null) {
         return;
@@ -9,53 +16,44 @@ export function init(id, options) {
     const listHour = el.querySelector('.bb-flip-clock-list.hour');
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
     const listSecond = el.querySelector('.bb-flip-clock-list.second');
-
-    //if (options.viewMode === "CountDown") {
-    //    listSecond.children[0].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${5 - parseInt(v.innerHTML)}`
-    //    })
-    //    listSecond.children[1].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${9 - parseInt(v.innerHTML)}`
-    //    })
-    //    listMinute.children[0].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${5 - parseInt(v.innerHTML)}`
-    //    })
-    //    listMinute.children[1].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${9 - parseInt(v.innerHTML)}`
-    //    })
-    //    listHour.children[0].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${2 - parseInt(v.innerHTML)}`
-    //    })
-    //    listHour.children[1].querySelectorAll('.inn').forEach(v => {
-    //        v.innerHTML = `${3 - parseInt(v.innerHTML)}`
-    //    })
-    //}
+    const countDown = options.viewMode === "CountDown";
 
     let counter = 0;
     const getDate = () => {
-        if (options.viewMode === "DateTime") {
-            const now = new Date();
-            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
-        }
-        else if (options.viewMode === "Count") {
+        let now = null;
+        if (options.viewMode === "Count") {
             counter += 1000;
-            const now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
-            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
+            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
         }
-        else if (options.viewMode === "CountDown") {
+        else if (countDown) {
             counter += 1000;
-            const now = new Date(new Date().getTimezoneOffset() * 60 * 1000 + options.startValue - counter);
-            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
+            now = new Date(new Date().getTimezoneOffset() * 60 * 1000 + options.startValue - counter);
         }
+        else {
+            now = new Date();
+        }
+        return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds() };
     }
 
+    let lastHour = NaN;
+    let lastMinute = NaN;
+    let lastSecond = NaN;
     const go = () => {
-        el.classList.remove('flip');
-        const date = getDate();
-        setTime(listSecond, date.Seconds);
-        setTime(listMinute, date.Minutes);
-        setTime(listHour, date.Hours);
-        el.classList.add('flip');
+        const { hours, minutes, seconds } = getDate();
+
+        if (lastSecond !== seconds) {
+            lastSecond = seconds;
+            setTime(listSecond, seconds, countDown);
+        }
+        if (lastMinute !== minutes) {
+            lastMinute = minutes;
+            setTime(listMinute, minutes, countDown);
+        }
+        if (lastHour !== hours) {
+            lastHour = hours;
+            setTime(listHour, hours, countDown);
+        }
+        return { hours, minutes, seconds }
     }
 
     let start = void 0
@@ -84,19 +82,21 @@ export function dispose(id) {
     }
 }
 
-const setTime = (list, time) => {
+const setTime = (list, time, countDown) => {
     if (list) {
         const leftIndex = Math.floor(time / 10);
         const rightIndex = time % 10;
         const leftFlip = list.children[0];
         const rightFlip = list.children[1];
 
-        setFlip(leftFlip, leftIndex);
-        setFlip(rightFlip, rightIndex);
+        list.classList.remove('flip');
+        setFlip(leftFlip, leftIndex, countDown);
+        setFlip(rightFlip, rightIndex, countDown);
+        list.classList.add('flip');
     }
 }
 
-const setFlip = (flip, index) => {
+const setFlip = (flip, index, countDown) => {
     const before = flip.querySelector('.before');
     if (before) {
         before.classList.remove('before');
@@ -108,9 +108,17 @@ const setFlip = (flip, index) => {
 
     const items = flip.children;
     items[index].classList.add('active');
-    index--
-    if (index < 0) {
-        index += items.length;
+    if (countDown) {
+        index++;
+        if (index >= items.length) {
+            index = 0;
+        }
+    }
+    else {
+        index--;
+        if (index < 0) {
+            index += items.length;
+        }
     }
     items[index].classList.add('before');
 }
