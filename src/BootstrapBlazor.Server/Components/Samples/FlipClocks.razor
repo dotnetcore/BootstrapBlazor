@@ -18,5 +18,11 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["IsCountDownText"]" Introduction="@Localizer["IsCountDownIntro"]" Name="CountDown">
-    <FlipClock ViewMode="FlipClockViewMode.CountDown" StartValue="@TimeSpan.FromSeconds(10)"></FlipClock>
+    @if (_isCompleted)
+    {
+        <section ignore>
+            <div>Trigger OnCompletedAsync</div>
+        </section>
+    }
+    <FlipClock ViewMode="FlipClockViewMode.CountDown" StartValue="@TimeSpan.FromSeconds(10)" OnCompletedAsync="OnCompletedAsync"></FlipClock>
 </DemoBlock>
