@@ -48,14 +48,12 @@ public partial class FlipClock
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, ViewMode = ViewMode.ToString(), StartValue = GetTicks() });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, OnCompleted = nameof(OnCompleted), ViewMode = ViewMode.ToString(), StartValue = GetTicks() });
 
-    private double GetTicks() => StartValue.HasValue ? StartValue.Value.TotalMilliseconds : 0;
-
-    //private long GetTicks() => StartValue.HasValue ? StartValue.Value.UtcTicks - new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero).Ticks : 0;
+    private double GetTicks() => StartValue?.TotalMilliseconds ?? 0;
 
     /// <summary>
-    /// Timing end callback method called by js invoke
+    /// 倒计时结束回调方法由 JSInvoke 调用
     /// </summary>
     [JSInvokable]
     public async Task OnCompleted()

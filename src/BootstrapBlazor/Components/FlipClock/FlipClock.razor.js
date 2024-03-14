@@ -4,7 +4,8 @@ export function init(id, options) {
     options = {
         ...{
             viewMode: 'DateTime',
-            startValue: 0
+            startValue: 0,
+            onCompleted: null
         },
         ...options
     }
@@ -20,7 +21,7 @@ export function init(id, options) {
 
     let counter = 0;
     const getDate = () => {
-        let now = null;
+        let now;
         if (options.viewMode === "Count") {
             counter += 1000;
             now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
@@ -35,9 +36,9 @@ export function init(id, options) {
         return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds() };
     }
 
-    let lastHour = NaN;
-    let lastMinute = NaN;
-    let lastSecond = NaN;
+    let lastHour;
+    let lastMinute;
+    let lastSecond;
     const go = () => {
         const { hours, minutes, seconds } = getDate();
 
@@ -57,15 +58,21 @@ export function init(id, options) {
     }
 
     let start = void 0
+    let current;
     const flip = ts => {
         if (start === void 0) {
             start = ts;
-            go();
+            current = go();
         }
         const elapsed = ts - start;
         if (elapsed >= 1000) {
             start = ts;
-            go();
+            current = go();
+        }
+
+        if (countDown && current.hours === 0 && current.minutes === 0 && current.seconds === 0) {
+            options.invoke.invokeMethodAsync(options.onCompleted);
+            return;
         }
         requestAnimationFrame(flip);
     }
