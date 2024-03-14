@@ -13,7 +13,18 @@
     <FlipClock ShowHour="false" ShowMinute="false"></FlipClock>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["IsCountDownText"]" Introduction="@Localizer["IsCountDownIntro"]" Name="CountDown">
-    <FlipClock IsCountDown="true" StartValue="@DateTime.Now"></FlipClock>
+<DemoBlock Title="@Localizer["CountText"]" Introduction="@Localizer["CountIntro"]" Name="Count">
+    <FlipClock ViewMode="FlipClockViewMode.Count"></FlipClock>
 </DemoBlock>
- *@
+
+<DemoBlock Title="@Localizer["IsCountDownText"]" Introduction="@Localizer["IsCountDownIntro"]" Name="CountDown">
+    @if (_isCompleted)
+    {
+        <section ignore>
+            <div>Trigger OnCompletedAsync</div>
+        </section>
+    }
+    <FlipClock ViewMode="FlipClockViewMode.CountDown" StartValue="@TimeSpan.FromSeconds(10)" OnCompletedAsync="OnCompletedAsync"></FlipClock>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

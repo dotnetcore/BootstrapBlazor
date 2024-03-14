@@ -1,24 +1,36 @@
 .bb-flip-clock {
-    --bb-flip-clock-text-shadow: 0 1px 0 rgba(0, 0, 0, .3);
-    --bb-flip-clock-item-box-shadow: 0 2px 5px rgba(0, 0, 0, .7);
-    --bb-flip-clock-number-color: #ccc;
-    --bb-flip-clock-number-bg: #333;
-    --bb-flip-clock-number-line-bg: rgba(0,0,0,.4);
-    font: normal 80px "Helvetica Neue", Helvetica, sans-serif;
+    --bb-flip-clock-height: #{$bb-flip-clock-height};
+    --bb-flip-clock-bg: #{$bb-flip-clock-bg};
+    --bb-flip-clock-font-size: #{$bb-flip-clock-font-size};
+    --bb-flip-clock-text-shadow: #{$bb-flip-clock-text-shadow};
+    --bb-flip-clock-justify-content: #{$bb-flip-clock-justify-content};
+    --bb-flip-clock-list-margin-right: #{$bb-flip-clock-list-margin-right};
+    --bb-flip-clock-item-margin: #{$bb-flip-clock-item-margin};
+    --bb-flip-clock-item-width: #{$bb-flip-clock-item-width};
+    --bb-flip-clock-item-height: #{$bb-flip-clock-item-height};
+    --bb-flip-clock-item-box-shadow: #{$bb-flip-clock-item-box-shadow};
+    --bb-flip-clock-number-color: #{$bb-flip-clock-number-color};
+    --bb-flip-clock-number-bg: #{$bb-flip-clock-number-bg};
+    --bb-flip-clock-number-line-bg: #{$bb-flip-clock-number-line-bg};
+    --bb-flip-clock-number-line-height: #{$bb-flip-clock-number-line-height};
+    font: normal var(--bb-flip-clock-font-size) "Helvetica Neue", Helvetica, sans-serif;
     font-weight: bold;
-    background: radial-gradient(ellipse at center, rgba(150, 150, 150, 1) 0%, rgba(89, 89, 89, 1) 100%);
+    background: var(--bb-flip-clock-bg);
     border-radius: var(--bs-border-radius);
     display: flex;
-    justify-content: center;
+    justify-content: var(--bb-flip-clock-justify-content);
     align-items: center;
-    height: 200px;
+    height: var(--bb-flip-clock-height);
     user-select: none;
+    position: relative;
+    width: 100%;
+    flex-shrink: 0;
 
     .bb-flip-clock-list {
         display: flex;
 
         &:not(:last-child) {
-            margin-right: 20px;
+            margin-right: var(--bb-flip-clock-list-margin-right);
         }
     }
 }
@@ -28,10 +40,10 @@
     list-style: none;
     border-radius: var(--bs-border-radius);
     box-shadow: var(--bb-flip-clock-item-box-shadow);
-    margin: 5px;
-    width: 60px;
-    height: 90px;
-    line-height: 87px;
+    margin: var(--bb-flip-clock-item-margin);
+    width: var(--bb-flip-clock-item-width);
+    height: var(--bb-flip-clock-item-height);
+    line-height: calc(var(--bb-flip-clock-item-height) - 3px);
 
     > li {
         z-index: 1;
@@ -61,11 +73,11 @@
                 &:after {
                     content: "";
                     position: absolute;
-                    top: 44px;
+                    top: calc(var(--bb-flip-clock-item-height) / 2 - var(--bb-flip-clock-number-line-height));
                     left: 0;
                     z-index: 5;
                     width: 100%;
-                    height: 3px;
+                    height: var(--bb-flip-clock-number-line-height);
                     background-color: var(--bb-flip-clock-number-line-bg);
                 }
 
@@ -105,13 +117,11 @@
     }
 }
 
-/* PLAY */
-
-.flip li.before {
+.flip .before {
     z-index: 3;
 }
 
-.flip li.active {
+.flip .active {
     animation: animation-bb-flip-clock-index .5s .5s linear both;
     z-index: 2;
 }
@@ -130,7 +140,7 @@
     }
 }
 
-.flip li.active .down {
+.flip .active .down {
     z-index: 2;
     animation: animation-bb-flip-clock-turn-down .5s .5s linear both;
 }
@@ -145,7 +155,7 @@
     }
 }
 
-.flip li.before .up {
+.flip .before .up {
     z-index: 2;
     animation: animation-bb-flip-clock-turn-up .5s linear both;
 }
@@ -160,25 +170,22 @@
     }
 }
 
-/* SHADOW */
-.flip li.before .up .shadow {
+.flip .before .up .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     animation: animation-bb-flip-clock-shadown-show .5s linear both;
 }
 
-.flip li.active .up .shadow {
+.flip .active .up .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, .1) 0%, rgba(0, 0, 0, 1) 100%);
     animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
 }
 
-/*DOWN*/
-
-.flip li.before .down .shadow {
+.flip .before .down .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     animation: animation-bb-flip-clock-shadown-show .5s linear both;
 }
 
-.flip li.active .down .shadow {
+.flip .active .down .shadow {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, .1) 100%);
     animation: animation-bb-flip-clock-shadown-hide .5s .3s linear both;
 }

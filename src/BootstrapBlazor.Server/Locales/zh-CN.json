@@ -20,6 +20,7 @@
     "CopiedText": "复制代码成功"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
+    "OnlineTimeText": "网站运行时间",
     "BodyClassString": "welcome-body",
     "HeaderTitle": "Bootstrap 风格的 Blazor UI 组件库",
     "HeaderDesc": "基于 <code>Bootstrap</code> 样式库精心打造，并且额外增加了 {0} 多种常用的组件，为您快速开发项目带来非一般的感觉",
@@ -6265,7 +6266,9 @@
     "BaseUsageIntro": "同步显示当前时间",
     "ShowMinuteText": "不显示时、分",
     "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
+    "CountText": "计时器",
+    "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
     "IsCountDownText": "倒计时",
-    "IsCountDownIntro": "通过设置 <code>IsCountDown=\"true\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置"
+    "IsCountDownIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置，倒计时结束时触发 <code>OnCompletedAsync</code> 回调方法"
   }
 }

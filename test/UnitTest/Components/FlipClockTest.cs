@@ -28,8 +28,30 @@ public class FlipClockTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowMinute, false);
-            pb.Add(a => a.UseLocaleTimeZone, true);
         });
         cut.DoesNotContain("bb-flip-clock-list minute");
+    }
+
+    [Fact]
+    public async Task ViewMode_Ok()
+    {
+        var completed = false;
+        var cut = Context.RenderComponent<FlipClock>(pb =>
+        {
+            pb.Add(a => a.ViewMode, FlipClockViewMode.CountDown);
+            pb.Add(a => a.StartValue, TimeSpan.FromSeconds(2));
+            pb.Add(a => a.OnCompletedAsync, () =>
+            {
+                completed = true;
+                return Task.CompletedTask;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.OnCompleted());
+        Assert.True(completed);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.StartValue, null);
+        });
     }
 }
