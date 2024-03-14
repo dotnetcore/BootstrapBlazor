@@ -1,5 +1,4 @@
 ﻿import Data from "../../modules/data.js?v=$version"
-import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id, options) {
     const el = document.getElementById(id);
@@ -11,25 +10,51 @@ export function init(id, options) {
     const listMinute = el.querySelector('.bb-flip-clock-list.minute');
     const listSecond = el.querySelector('.bb-flip-clock-list.second');
 
+    //if (options.viewMode === "CountDown") {
+    //    listSecond.children[0].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${5 - parseInt(v.innerHTML)}`
+    //    })
+    //    listSecond.children[1].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${9 - parseInt(v.innerHTML)}`
+    //    })
+    //    listMinute.children[0].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${5 - parseInt(v.innerHTML)}`
+    //    })
+    //    listMinute.children[1].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${9 - parseInt(v.innerHTML)}`
+    //    })
+    //    listHour.children[0].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${2 - parseInt(v.innerHTML)}`
+    //    })
+    //    listHour.children[1].querySelectorAll('.inn').forEach(v => {
+    //        v.innerHTML = `${3 - parseInt(v.innerHTML)}`
+    //    })
+    //}
+
+    let counter = 0;
     const getDate = () => {
         if (options.viewMode === "DateTime") {
-            return new Date();
+            const now = new Date();
+            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
         }
         else if (options.viewMode === "Count") {
-            options.startValue -= 1000;
-            return new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue);
+            counter += 1000;
+            const now = new Date(new Date().getTimezoneOffset() * 60 * 1000 - options.startValue + counter);
+            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
         }
         else if (options.viewMode === "CountDown") {
-
+            counter += 1000;
+            const now = new Date(new Date().getTimezoneOffset() * 60 * 1000 + options.startValue - counter);
+            return { Hours: now.getHours(), Minutes: now.getMinutes(), Seconds: now.getSeconds() };
         }
     }
 
     const go = () => {
         el.classList.remove('flip');
         const date = getDate();
-        setTime(listSecond, date.getSeconds());
-        setTime(listMinute, date.getMinutes());
-        setTime(listHour, date.getHours());
+        setTime(listSecond, date.Seconds);
+        setTime(listMinute, date.Minutes);
+        setTime(listHour, date.Hours);
         el.classList.add('flip');
     }
 
