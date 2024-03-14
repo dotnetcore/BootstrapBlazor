@@ -26,3 +26,5 @@
     }
     <FlipClock ViewMode="FlipClockViewMode.CountDown" StartValue="@TimeSpan.FromSeconds(10)" OnCompletedAsync="OnCompletedAsync"></FlipClock>
 </DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
