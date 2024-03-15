@@ -225,7 +225,7 @@ public static class ObjectExtensions
     public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
         && item.IsVisible(changedType);
 
-    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => changedType switch
+    private static bool IsVisible(this IEditorItem item, ItemChangedType changedType) => changedType switch
     {
         ItemChangedType.Add => item.IsVisibleWhenAdd ?? item.Visible,
         _ => item.IsVisibleWhenEdit ?? item.Visible
