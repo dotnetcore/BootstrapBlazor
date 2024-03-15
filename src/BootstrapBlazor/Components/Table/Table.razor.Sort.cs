@@ -373,7 +373,11 @@ public partial class Table<TItem>
         // after
         while (index + 1 < Columns.Count)
         {
-            width += Columns[index++].Width ?? defaultWidth;
+            var column = Columns[index++];
+            if (column.Visible)
+            {
+                width += column.Width ?? defaultWidth;
+            }
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
