@@ -45,12 +45,12 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsReadonlyWhenAdd { get; set; }
+    public bool? IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsReadonlyWhenEdit { get; set; }
+    public bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -60,12 +60,12 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsVisibleWhenAdd { get; set; } = true;
+    public bool? IsVisibleWhenAdd { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsVisibleWhenEdit { get; set; } = true;
+    public bool? IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null

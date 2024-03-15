@@ -207,11 +207,13 @@ public static class ObjectExtensions
     /// <param name="search"></param>
     /// <returns></returns>
     public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && !item.Readonly && changedType switch
-        {
-            ItemChangedType.Add => !item.IsReadonlyWhenAdd,
-            _ => !item.IsReadonlyWhenEdit
-        };
+        && item.IsEditable(changedType);
+
+    private static bool IsEditable(this IEditorItem item, ItemChangedType changedType) => changedType switch
+    {
+        ItemChangedType.Add => item.IsReadonlyWhenAdd ?? !item.Readonly,
+        _ => item.IsReadonlyWhenEdit ?? !item.Readonly
+    };
 
     /// <summary>
     /// 判断当前 IEditorItem 实例是否显示
@@ -221,18 +223,12 @@ public static class ObjectExtensions
     /// <param name="search"></param>
     /// <returns></returns>
     public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && (IsVisible(item, changedType) || IsRevertVisible(item, changedType));
+        && item.IsVisible(changedType);
 
-    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => item.Visible && changedType switch
+    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => changedType switch
     {
-        ItemChangedType.Add => item.IsVisibleWhenAdd,
-        _ => item.IsVisibleWhenEdit
-    };
-
-    private static bool IsRevertVisible(IEditorItem item, ItemChangedType changedType) => !item.Visible || changedType switch
-    {
-        ItemChangedType.Add => item.IsVisibleWhenAdd,
-        _ => item.IsVisibleWhenEdit
+        ItemChangedType.Add => item.IsVisibleWhenAdd ?? item.Visible,
+        _ => item.IsVisibleWhenEdit ?? item.Visible
     };
 
     /// <summary>
