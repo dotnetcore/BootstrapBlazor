@@ -207,12 +207,12 @@ public static class ObjectExtensions
     /// <param name="search"></param>
     /// <returns></returns>
     public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && item.IsEditable(changedType);
+        && !item.IsReadonly(changedType);
 
-    private static bool IsEditable(this IEditorItem item, ItemChangedType changedType) => changedType switch
+    private static bool IsReadonly(this IEditorItem item, ItemChangedType changedType) => changedType switch
     {
-        ItemChangedType.Add => item.IsReadonlyWhenAdd ?? !item.Readonly,
-        _ => item.IsReadonlyWhenEdit ?? !item.Readonly
+        ItemChangedType.Add => item.IsReadonlyWhenAdd ?? item.Readonly,
+        _ => item.IsReadonlyWhenEdit ?? item.Readonly
     };
 
     /// <summary>
