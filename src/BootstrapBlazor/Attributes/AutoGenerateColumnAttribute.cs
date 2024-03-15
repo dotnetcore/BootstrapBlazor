@@ -41,20 +41,44 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
+    bool? IEditorItem.IsReadonlyWhenAdd
+    {
+        get => IsReadonlyWhenAdd;
+        set => IsReadonlyWhenAdd = value ?? false;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
+
+    bool? IEditorItem.IsReadonlyWhenEdit
+    {
+        get => IsReadonlyWhenEdit;
+        set => IsReadonlyWhenEdit = value ?? false;
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
+    bool? IEditorItem.IsVisibleWhenAdd
+    {
+        get => IsVisibleWhenAdd;
+        set => IsVisibleWhenAdd = value ?? true;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
+
+    bool? IEditorItem.IsVisibleWhenEdit
+    {
+        get => IsVisibleWhenEdit;
+        set => IsVisibleWhenEdit = value ?? true;
+    }
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 false

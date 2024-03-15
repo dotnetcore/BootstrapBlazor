@@ -23,39 +23,33 @@ public interface IEditorItem
     /// 获得/设置 当前编辑项是否只读 默认为 false
     /// <para>新建与编辑时可单独设置 <see cref="IsReadonlyWhenAdd"/> 与 <seealso cref="IsReadonlyWhenEdit"/></para>
     /// </summary>
-    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenAdd"/> 与 <seealso cref="IsReadonlyWhenEdit"/> 值被覆盖</remarks>
     bool Readonly { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// 获得/设置 新建时此列只读 默认为 null 使用 <see cref="Readonly"/> 值
     /// </summary>
-    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenAdd"/> 值被覆盖</remarks>
-    bool IsReadonlyWhenAdd { get; set; }
+    bool? IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// 获得/设置 编辑时此列只读 默认为 null 使用 <see cref="Readonly"/> 值
     /// </summary>
-    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenEdit"/> 值被覆盖</remarks>
-    bool IsReadonlyWhenEdit { get; set; }
+    bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 当前编辑项是否显示 默认为 true
     /// <para>新建与编辑时可单独设置 <see cref="IsVisibleWhenAdd"/> 与 <seealso cref="IsVisibleWhenEdit"/></para>
-    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenAdd"/> 与 <seealso cref="IsVisibleWhenEdit"/> 值被覆盖</remarks>
     /// </summary>
     bool Visible { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时是否此列显示  默认为 true
+    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
-    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenAdd"/> 值被覆盖</remarks>
-    bool IsVisibleWhenAdd { get; set; }
+    bool? IsVisibleWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时是否此列显示  默认为 true
+    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
-    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenEdit"/> 值被覆盖</remarks>
-    bool IsVisibleWhenEdit { get; set; }
+    bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

@@ -48,11 +48,11 @@ public static class IEditItemExtensions
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
-        if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-        if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
+        if (source.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
+        if (source.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.Readonly) dest.Readonly = source.Readonly;
-        if (!source.IsVisibleWhenAdd) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
-        if (!source.IsVisibleWhenEdit) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
+        if (source.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
+        if (source.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
         if (source.Visible) dest.Visible = source.Visible;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;

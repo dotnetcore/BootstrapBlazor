@@ -157,13 +157,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool IsReadonlyWhenAdd { get; set; }
+    public bool? IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool IsReadonlyWhenEdit { get; set; }
+    public bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -175,13 +175,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool IsVisibleWhenAdd { get; set; } = true;
+    public bool? IsVisibleWhenAdd { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool IsVisibleWhenEdit { get; set; } = true;
+    public bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
