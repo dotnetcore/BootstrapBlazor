@@ -78,6 +78,10 @@ public sealed partial class DateTimePickers
         set => BindValue = DateTime.TryParse(value, out var d) ? d : null;
     }
 
+    private static string? GetMarkByDay(DateTime dt) => CssBuilder.Default("bb-picker-body-lunar-text")
+        .AddClass("mark", Enumerable.Range(7, 7).Contains(dt.Day))
+        .Build();
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }

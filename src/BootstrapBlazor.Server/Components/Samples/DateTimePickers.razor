@@ -13,7 +13,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" />
+    <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" ShowLunar="true" />
     <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
@@ -147,7 +147,7 @@
         <DayTemplate>
             <span class="custom-cell">
                 <span>@context.Day</span>
-                <span>day</span>
+                <span class="@GetMarkByDay(context)"></span>
             </span>
         </DayTemplate>
     </DateTimePicker>
