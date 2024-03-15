@@ -168,5 +168,11 @@ public class AutoGenerateClassTest
 
         attrEditor.IsVisibleWhenEdit = false;
         Assert.False(attrEditor.IsVisibleWhenEdit);
+
+        attrEditor.IsReadonlyWhenAdd = true;
+        Assert.True(attrEditor.IsReadonlyWhenAdd);
+
+        attrEditor.IsReadonlyWhenEdit = true;
+        Assert.True(attrEditor.IsReadonlyWhenEdit);
     }
 }
