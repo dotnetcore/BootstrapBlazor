@@ -355,7 +355,11 @@ public partial class Table<TItem>
         }
         while (index > start)
         {
-            width += Columns[start++].Width ?? defaultWidth;
+            var column = Columns[start++];
+            if (column.Visible)
+            {
+                width += column.Width ?? defaultWidth;
+            }
         }
         return $"left: {width}px;";
     }
