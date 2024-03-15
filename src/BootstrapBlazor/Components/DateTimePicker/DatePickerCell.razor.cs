@@ -45,5 +45,5 @@ public sealed partial class DatePickerCell
     [Parameter]
     public bool ShowLunar { get; set; }
 
-    private static string GetLunarText(DateTime dateTime) => "初九";
+    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
 }
