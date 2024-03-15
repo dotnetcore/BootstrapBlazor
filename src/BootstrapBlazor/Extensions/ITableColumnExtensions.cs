@@ -51,8 +51,8 @@ public static class IEditItemExtensions
         if (source.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
         if (source.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.Readonly) dest.Readonly = source.Readonly;
-        if (!source.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
-        if (!source.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
+        if (source.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
+        if (source.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
         if (source.Visible) dest.Visible = source.Visible;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
