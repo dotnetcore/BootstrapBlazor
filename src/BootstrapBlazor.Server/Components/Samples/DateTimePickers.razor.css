@@ -1,0 +1,15 @@
+﻿.custom-cell {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+    .custom-cell > span:last-child {
+        font-size: 9px;
+        position: absolute;
+        top: 22px;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 9px;
+        height: 9px;
+    }

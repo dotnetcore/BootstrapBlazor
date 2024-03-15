@@ -138,6 +138,21 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowLunarTitle"]" Introduction="@Localizer["ShowLunarIntro"]" Name="ShowLunar">
+    <DateTimePicker TValue="DateTimeOffset" ShowLunar="true"></DateTimePicker>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DayTemplateTitle"]" Introduction="@Localizer["DayTemplateIntro"]" Name="DayTemplate">
+    <DateTimePicker TValue="DateTimeOffset?" CustomClass="custom-picker">
+        <DayTemplate>
+            <span class="custom-cell">
+                <span>@context.Day</span>
+                <span>day</span>
+            </span>
+        </DayTemplate>
+    </DateTimePicker>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
