@@ -21,4 +21,20 @@ public class DateTimeExtensionsTest
         dt = new DateTime(2023, 4, 20).ToLunar();
         Assert.Equal("2023-03-01", dt.ToString("yyyy-MM-dd"));
     }
+
+    [Fact]
+    public void ToLunarText_Ok()
+    {
+        var v = new DateTime(2024, 3, 16).ToLunarText();
+        Assert.Equal("初七", v);
+
+        v = new DateTime(2023, 2, 20).ToLunarText();
+        Assert.Equal("二月", v);
+
+        v = new DateTime(2023, 3, 22).ToLunarText();
+        Assert.Equal("闰二月", v);
+
+        v = new DateTime(2023, 4, 20).ToLunarText();
+        Assert.Equal("三月", v);
+    }
 }
