@@ -13,7 +13,6 @@ public class TableTestEFCore : EFCoreTableTestBase
     public async Task SearchText_Ok()
     {
         List<Foo>? items = null;
-        var sql = "";
         var context = Context.Services.GetRequiredService<IDbContextFactory<FooContext>>().CreateDbContext();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
