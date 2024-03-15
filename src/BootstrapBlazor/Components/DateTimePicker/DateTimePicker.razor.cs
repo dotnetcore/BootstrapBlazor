@@ -173,6 +173,24 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public string? DateTimePlaceHolderText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 日单元格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DateTime>? DayTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 禁用日单元格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DateTime>? DayDisabledTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示中国阴历历法 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowLunar { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }

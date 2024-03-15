@@ -73,20 +73,32 @@
                                             var text = GetDayText(day.Day);
                                             var isOverflow = IsDayOverflow(week, index);
                                             <td class="@GetDayClass(day, isOverflow)">
-                                                <div>
-                                                    @if (isOverflow)
-                                                    {
-                                                        <span class="cell"> - </span>
-                                                    }
-                                                    else if (IsDisabled(day))
-                                                    {
-                                                        <span class="cell">@text</span>
-                                                    }
-                                                    else
-                                                    {
-                                                        <DatePickerCell Value="@GetSafeDayDateTime(week, index)" Text="@text" OnClick="d => OnClickDateTime(d)" />
-                                                    }
-                                                </div>
+                                                @if (isOverflow)
+                                                {
+                                                    <span class="cell"> - </span>
+                                                }
+                                                else if (IsDisabled(day))
+                                                {
+                                                    <span class="cell">
+                                                        @if(ShowLunar)
+                                                        {
+                                                            <span>@text</span>
+                                                            <span class="bb-picker-body-lunar-text">@GetLunarText(day)</span>
+                                                        }
+                                                        else if(DayDisabledTemplate != null)
+                                                        {
+                                                            @DayDisabledTemplate(day)
+                                                        }
+                                                        else
+                                                        {
+                                                            @text
+                                                        }
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <DatePickerCell Value="@GetSafeDayDateTime(week, index)" Text="@text" OnClick="d => OnClickDateTime(d)" Template="DayTemplate!" ShowLunar="ShowLunar" />
+                                                }
                                             </td>
                                         }
                                     </tr>
@@ -105,15 +117,11 @@
                                             <td class="@GetYearClassName(year, isOverflow)">
                                                 @if (isOverflow)
                                                 {
-                                                    <div>
-                                                        <span class="cell"> - </span>
-                                                    </div>
+                                                    <span class="cell"> - </span>
                                                 }
                                                 else
                                                 {
-                                                    <div>
-                                                        <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewMode.Month, d)" />
-                                                    </div>
+                                                    <DatePickerCell Value="@GetYear(year)" Text="@GetYearText(year)" OnClick="d => SwitchView(DatePickerViewMode.Month, d)" />
                                                 }
                                             </td>
                                         }
@@ -130,9 +138,7 @@
                                         {
                                             var month = index + row * 4 + 1;
                                             <td class="@GetMonthClassName(month)">
-                                                <div>
-                                                    <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(ViewMode == DatePickerViewMode.Date ? DatePickerViewMode.Date : DatePickerViewMode.DateTime, d)" />
-                                                </div>
+                                                <DatePickerCell Value="@GetMonth(month)" Text="@GetMonthText(month)" OnClick="d => SwitchView(ViewMode == DatePickerViewMode.Date ? DatePickerViewMode.Date : DatePickerViewMode.DateTime, d)" />
                                             </td>
                                         }
                                     </tr>
