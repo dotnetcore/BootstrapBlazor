@@ -10,8 +10,8 @@ namespace BootstrapBlazor.Components;
 public sealed partial class DatePickerCell
 {
     private string? ClassString => CssBuilder.Default("cell")
-        .AddClass("is-solar-term", ShowLunar && ShowSolarTerm && string.IsNullOrEmpty(CalendarFestivals?.GetFestival(Value)) && Value.GetSolarTermName() != null)
-        .AddClass("is-festival", ShowLunar && !string.IsNullOrEmpty(CalendarFestivals?.GetFestival(Value)) && Value.GetSolarTermName() == null)
+        .AddClass("is-solar-term", ShowLunar && ShowSolarTerm && string.IsNullOrEmpty(CalendarFestivals.GetFestival(Value)) && Value.GetSolarTermName() != null)
+        .AddClass("is-festival", ShowLunar && !string.IsNullOrEmpty(CalendarFestivals.GetFestival(Value)) && Value.GetSolarTermName() == null)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
