@@ -52,26 +52,6 @@ internal static class DateTimeExtensions
     /// </summary>
     /// <param name="dt"></param>
     /// <returns></returns>
-    public static DateTime ToLunar(this DateTime dt)
-    {
-        var year = calendar.GetYear(dt);
-        var month = calendar.GetMonth(dt);
-        var day = calendar.GetDayOfMonth(dt);
-
-        // 检查闰月
-        var leap = calendar.GetLeapMonth(year);
-        if (leap > 0 && leap <= month)
-        {
-            month--;
-        }
-        return new DateTime(year, month, day);
-    }
-
-    /// <summary>
-    /// 获得阴历时间
-    /// </summary>
-    /// <param name="dt"></param>
-    /// <returns></returns>
     public static string ToLunarText(this DateTime dt) => dt.GetSolarTermName() ?? dt.GetLunarMonthName();
 
     static string GetLunarMonthName(this DateTime dt)

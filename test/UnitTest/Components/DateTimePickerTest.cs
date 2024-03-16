@@ -304,6 +304,26 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowLunar_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowLunar, true);
+            pb.Add(a => a.Value, new DateTime(2024, 6, 10));
+        });
+
+        cut.Contains("三十");
+        cut.Contains("廿一");
+        cut.Contains("初二");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTime(2023, 3, 22));
+        });
+        cut.Contains("闰二月");
+    }
+
+    [Fact]
     public void DatePickerViewModel_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
