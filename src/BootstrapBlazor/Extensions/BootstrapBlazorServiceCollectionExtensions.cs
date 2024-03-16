@@ -44,8 +44,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
-        // 节假日服务
+        // 节日服务
         services.TryAddSingleton<ICalendarFestivals, DefaultCalendarFestivals>();
+
+        // 假日服务
+        services.TryAddSingleton<ICalendarHolidays, DefaultCalendarHolidays>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
