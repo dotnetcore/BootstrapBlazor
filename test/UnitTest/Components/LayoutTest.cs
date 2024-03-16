@@ -303,7 +303,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnUpdateAsync_Ok()
+    public async Task OnUpdateAsync_Ok()
     {
         var updated = false;
         var cut = Context.RenderComponent<Layout>(pb =>
@@ -314,7 +314,7 @@ public class LayoutTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.InvokeAsync(() => cut.Instance.UpdateAsync("Test"));
+        await cut.InvokeAsync(() => cut.Instance.UpdateAsync("Test"));
         Assert.True(updated);
     }
 
