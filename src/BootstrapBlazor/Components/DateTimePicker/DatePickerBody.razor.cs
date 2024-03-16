@@ -346,6 +346,7 @@ public partial class DatePickerBody
     /// <summary>
     /// 获得/设置 是否显示中国阴历历法 默认 false
     /// </summary>
+    /// <remarks>日期范围 1901 年 2 月 19 日 - 2101 年 1 月 28 日</remarks>
     [Parameter]
     public bool ShowLunar { get; set; }
 

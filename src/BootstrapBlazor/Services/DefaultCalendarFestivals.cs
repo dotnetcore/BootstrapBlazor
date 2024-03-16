@@ -28,7 +28,8 @@ class DefaultCalendarFestivals : ICalendarFestivals
         {"0505", "端午节"},
         {"0815", "中秋节"},
         {"0909", "重阳节"},
-        {"1208", "腊八节"}
+        {"1208", "腊八节"},
+        {"1230", "除夕"},
     };
 
     /// <summary>
@@ -39,7 +40,9 @@ class DefaultCalendarFestivals : ICalendarFestivals
     {
         string? ret = null;
         var key = $"{dt:MMdd}";
-        if (LunarFestivals.TryGetValue(key, out var v1))
+        var lunarDate = dt.ToLunarDateTime();
+        var lunarKey = $"{lunarDate.Month:00}{lunarDate.Day:00}";
+        if (LunarFestivals.TryGetValue(lunarKey, out var v1))
         {
             ret = v1;
         }

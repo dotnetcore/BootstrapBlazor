@@ -148,6 +148,12 @@
                                         color: var(--bs-success);
                                     }
                                 }
+
+                                &.is-festival {
+                                    .bb-picker-body-lunar-text {
+                                        color: var(--bs-info);
+                                    }
+                                }
                             }
                         }
 
