@@ -356,10 +356,20 @@ public partial class DatePickerBody
     public bool ShowSolarTerm { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示节日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFestivals { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
     private DateTimeRange? Ranger { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ICalendarFestivals? CalendarFestivals { get; set; }
 
     [Inject]
     [NotNull]
@@ -845,5 +855,5 @@ public partial class DatePickerBody
         return ret;
     }
 
-    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm);
+    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm, ShowFestivals ? CalendarFestivals : null);
 }
