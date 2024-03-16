@@ -48,7 +48,27 @@ internal static class DateTimeExtensions
     private static readonly ChineseLunisolarCalendar calendar = new();
 
     /// <summary>
-    /// 获得阴历时间
+    /// 获得阴历时间方法
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <returns></returns>
+    public static (int Year, int Month, int Day) ToLunarDateTime(this DateTime dt)
+    {
+        var year = calendar.GetYear(dt);
+        var month = calendar.GetMonth(dt);
+        var day = calendar.GetDayOfMonth(dt);
+
+        // 检查闰月
+        var leapMonth = calendar.GetLeapMonth(year);
+        if (leapMonth > 0 && leapMonth <= month)
+        {
+            month--;
+        }
+        return (year, month, day);
+    }
+
+    /// <summary>
+    /// 获得阴历信息
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="showSolarTerm"></param>
