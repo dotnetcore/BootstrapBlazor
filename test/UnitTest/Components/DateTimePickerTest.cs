@@ -332,14 +332,25 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSolarTerm, true);
             pb.Add(a => a.Value, new DateTime(2024, 3, 5));
         });
-
         cut.Contains("惊蛰");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFestivals, true);
+        });
+        cut.Contains("妇女节");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Value, new DateTime(2023, 2, 20));
         });
         cut.Contains("二月");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTime(2023, 3, 22));
+        });
+        cut.Contains("闰二月");
     }
 
     [Fact]
@@ -371,7 +382,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         cut.Contains("day-disabled-template");
-        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowLunar, true));
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowLunar, true);
+            pb.Add(a => a.ShowSolarTerm, true);
+        });
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFestivals, true);
+        });
     }
 
     [Fact]
