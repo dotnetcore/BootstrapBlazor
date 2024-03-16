@@ -191,6 +191,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool ShowLunar { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示中国 24 节气 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowSolarTerm { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
