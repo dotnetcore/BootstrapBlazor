@@ -59,9 +59,19 @@ public sealed partial class DatePickerCell
     [Parameter]
     public bool ShowFestivals { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示休假日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowHolidays { get; set; }
+
     [Inject]
     [NotNull]
     private ICalendarFestivals? CalendarFestivals { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ICalendarHolidays? CalendarHolidays { get; set; }
 
     private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm, ShowFestivals ? CalendarFestivals : null);
 }

@@ -5,13 +5,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 节日接口
+/// 休假接口
 /// </summary>
-public interface ICalendarFestivals
+public interface ICalendarHolidays
 {
     /// <summary>
     /// 获得 节假日键值对
     /// </summary>
     /// <returns></returns>
-    string? GetFestival(DateTime dt);
+    bool IsHoliday(DateTime dt);
 }

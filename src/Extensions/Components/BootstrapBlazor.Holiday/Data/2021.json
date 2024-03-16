@@ -1,0 +1,72 @@
+[
+  {
+    "name": "元旦",
+    "range": ["2021-01-01", "2021-01-03"],
+    "type": "holiday"
+  },
+  {
+    "name": "春节",
+    "range": ["2021-02-07"],
+    "type": "workingday"
+  },
+  {
+    "name": "春节",
+    "range": ["2021-02-11", "2021-02-17"],
+    "type": "holiday"
+  },
+  {
+    "name": "春节",
+    "range": ["2021-02-20"],
+    "type": "workingday"
+  },
+  {
+    "name": "清明节",
+    "range": ["2021-04-03", "2021-04-05"],
+    "type": "holiday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2021-04-25"],
+    "type": "workingday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2021-05-01", "2021-05-05"],
+    "type": "holiday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2021-05-08"],
+    "type": "workingday"
+  },
+  {
+    "name": "端午节",
+    "range": ["2021-06-12", "2021-06-14"],
+    "type": "holiday"
+  },
+  {
+    "name": "中秋节",
+    "range": ["2021-09-18"],
+    "type": "workingday"
+  },
+  {
+    "name": "中秋节",
+    "range": ["2021-09-19", "2021-09-21"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2021-09-26"],
+    "type": "workingday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2021-10-01", "2021-10-07"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2021-10-09"],
+    "type": "workingday"
+  }
+]

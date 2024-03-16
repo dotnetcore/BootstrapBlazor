@@ -62,7 +62,7 @@
                 }
 
                 .picker-panel-icon-btn {
-                    color: #303133;
+                    color: var(--bs-body-color);
                     border: 0;
                     background: transparent;
                     cursor: pointer;
@@ -107,6 +107,39 @@
                             display: block;
                             margin: 0 auto;
                             cursor: pointer;
+
+                            &:has(.bb-picker-body-lunar-text):hover {
+                                color: var(--bb-picker-panel-today-color);
+
+                                &:before {
+                                    content: "";
+                                    position: absolute;
+                                    width: 33px;
+                                    height: 33px;
+                                    border-radius: var(--bs-border-radius);
+                                    background-color: var(--bb-picker-panel-today-bg);
+                                    top: 3px;
+                                    left: -3.5px;
+                                    opacity: .8;
+                                }
+
+                                .bb-picker-body-lunar-text {
+                                    color: var(--bb-picker-panel-today-color);
+                                }
+                            }
+
+                            span.is-holiday {
+                                background-color: #c0c4cc;
+                                color: var(--bb-picker-panel-today-color);
+                                height: 14px;
+                                width: 15px;
+                                font-size: 9px;
+                                border-radius: 3px;
+                                top: -1px;
+                                right: -9px;
+                                line-height: 14px;
+                                opacity: .8;
+                            }
                         }
 
                         &.today {
@@ -141,18 +174,22 @@
                             }
                         }
 
-                        &:not(.next-month):not(.prev-month):not(.disabled) {
+                        &:not(.next-month):not(.prev-month):not(.disabled):not(.current) {
                             .cell {
-                                &.is-solar-term {
+                                &.is-solar-term:not(:hover) {
                                     .bb-picker-body-lunar-text {
                                         color: var(--bs-success);
                                     }
                                 }
 
-                                &.is-festival {
+                                &.is-festival:not(:hover) {
                                     .bb-picker-body-lunar-text {
                                         color: var(--bs-info);
                                     }
+                                }
+
+                                span.is-holiday {
+                                    background-color: var(--bs-danger);
                                 }
                             }
                         }
@@ -238,17 +275,17 @@
                             display: flex;
                             flex-direction: column;
 
-                            span {
-                                position: absolute;
-                                width: 100%;
-                            }
-
                             .bb-picker-body-lunar-text {
                                 top: 22px;
                                 white-space: nowrap;
                                 line-height: 9px;
                                 height: 9px;
                                 font-size: 9px;
+                            }
+
+                            span {
+                                position: absolute;
+                                width: 100%;
                             }
                         }
                     }
@@ -269,7 +306,7 @@
 }
 
 .picker-panel-footer {
-    border-top: 1px solid #e4e4e4;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
     padding: 4px;
     background-color: #fff;
     position: relative;
@@ -281,7 +318,7 @@
         padding: 4px 12px;
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
-        border: 1px solid #dcdfe6;
+        border: var(--bs-border-width) solid var(--bs-border-color);
         color: #606266;
         transition: border-color .3s linear, color .3s linear;
 

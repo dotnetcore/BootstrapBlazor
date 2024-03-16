@@ -4,14 +4,14 @@
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-/// 节日接口
-/// </summary>
-public interface ICalendarFestivals
+class DefaultCalendarHolidays : ICalendarHolidays
 {
     /// <summary>
-    /// 获得 节假日键值对
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    string? GetFestival(DateTime dt);
+    public bool IsHoliday(DateTime dt)
+    {
+        return false;
+    }
 }
