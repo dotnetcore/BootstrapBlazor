@@ -32,6 +32,9 @@ builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSiz
 // 增加 BootstrapBlazor 服务
 builder.Services.AddBootstrapBlazorServices();
 
+// 增加 BootstrapBlazor 假日服务
+builder.Services.AddBootstrapHolidayService();
+
 var app = builder.Build();
 
 // 启用本地化
