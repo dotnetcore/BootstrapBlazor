@@ -15,4 +15,8 @@
     {
         @Template(Value)
     }
+    @if(ShowHolidays && CalendarHolidays.IsHoliday(Value))
+    {
+        <span class="is-holiday">休</span>
+    }
 </span>
