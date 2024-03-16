@@ -34,8 +34,8 @@ public class DateTimeExtensionsTest
         v = new DateTime(2023, 3, 22).ToLunarText();
         Assert.Equal("闰二月", v);
 
-        v = new DateTime(2023, 4, 20).ToLunarText();
-        Assert.Equal("三月", v);
+        v = new DateTime(2024, 2, 10).ToLunarText();
+        Assert.Equal("正月", v);
     }
 
     [Theory]
