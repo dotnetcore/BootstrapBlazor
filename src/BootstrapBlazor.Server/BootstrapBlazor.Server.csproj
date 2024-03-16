@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Holiday" Version="8.0.0-beta01" />
     <PackageReference Include="Longbow.Logging" Version="8.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
