@@ -2463,7 +2463,11 @@
     "Value.Required": "{0} is required.",
     "ValidateFormValue": "DateTimePick",
     "DateTimePickerTitle": "Select the time",
-    "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time."
+    "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time.",
+    "ShowLunarTitle": "Show lunar",
+    "ShowLunarIntro": "Display the lunar calendar by setting <code>ShowLunar=\"true\"</code>",
+    "DayTemplateTitle": "Custom date display",
+    "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
