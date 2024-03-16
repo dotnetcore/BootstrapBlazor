@@ -48,14 +48,36 @@ internal static class DateTimeExtensions
     private static readonly ChineseLunisolarCalendar calendar = new();
 
     /// <summary>
-    /// 获得阴历时间
+    /// 获得阴历时间方法
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <returns></returns>
+    public static (int Year, int Month, int Day) ToLunarDateTime(this DateTime dt)
+    {
+        var year = calendar.GetYear(dt);
+        var month = calendar.GetMonth(dt);
+        var day = calendar.GetDayOfMonth(dt);
+
+        // 检查闰月
+        var leapMonth = calendar.GetLeapMonth(year);
+        if (leapMonth > 0 && leapMonth <= month)
+        {
+            month--;
+        }
+        return (year, month, day);
+    }
+
+    /// <summary>
+    /// 获得阴历信息
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="showSolarTerm"></param>
+    /// <param name="calendarFestivals"></param>
     /// <returns></returns>
-    public static string ToLunarText(this DateTime dt, bool showSolarTerm = false) => showSolarTerm
-        ? dt.GetSolarTermName() ?? dt.GetLunarMonthName()
-        : dt.GetLunarMonthName();
+    public static string ToLunarText(this DateTime dt, bool showSolarTerm = false, ICalendarFestivals? calendarFestivals = null) => calendarFestivals?.GetFestival(dt)
+        ?? (showSolarTerm
+            ? dt.GetSolarTermName() ?? dt.GetLunarMonthName()
+            : dt.GetLunarMonthName());
 
     static string GetLunarMonthName(this DateTime dt)
     {
@@ -114,7 +136,7 @@ internal static class DateTimeExtensions
         }
     }
 
-    private static readonly string[] Months = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"];
+    private static readonly string[] Months = ["正", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "腊"];
     private static readonly string[] Days = ["初", "十", "廿", "三"];
     private static readonly string[] DaysLeft = ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十"];
     private static readonly string[] SolarTerms = ["小寒", "大寒", "立春", "雨水", "惊蛰", "春分", "清明", "谷雨", "立夏", "小满", "芒种", "夏至", "小暑", "大暑", "立秋", "处暑", "白露", "秋分", "寒露", "霜降", "立冬", "小雪", "大雪", "冬至"];

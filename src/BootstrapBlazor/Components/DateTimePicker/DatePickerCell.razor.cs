@@ -10,7 +10,8 @@ namespace BootstrapBlazor.Components;
 public sealed partial class DatePickerCell
 {
     private string? ClassString => CssBuilder.Default("cell")
-        .AddClass("is-solar-term", ShowLunar && Value.GetSolarTermName() != null)
+        .AddClass("is-solar-term", ShowLunar && ShowSolarTerm && string.IsNullOrEmpty(CalendarFestivals.GetFestival(Value)) && Value.GetSolarTermName() != null)
+        .AddClass("is-festival", ShowLunar && !string.IsNullOrEmpty(CalendarFestivals.GetFestival(Value)) && Value.GetSolarTermName() == null)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -52,5 +53,15 @@ public sealed partial class DatePickerCell
     [Parameter]
     public bool ShowSolarTerm { get; set; }
 
-    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm);
+    /// <summary>
+    /// 获得/设置 是否节日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFestivals { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ICalendarFestivals? CalendarFestivals { get; set; }
+
+    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm, ShowFestivals ? CalendarFestivals : null);
 }

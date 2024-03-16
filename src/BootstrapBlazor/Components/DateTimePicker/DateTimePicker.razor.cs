@@ -197,6 +197,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool ShowSolarTerm { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示节日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFestivals { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }

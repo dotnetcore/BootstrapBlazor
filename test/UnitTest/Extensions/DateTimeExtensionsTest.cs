@@ -32,4 +32,15 @@ public class DateTimeExtensionsTest
         var dt = new DateTime(year, month, day);
         Assert.Equal(name, dt.GetSolarTermName());
     }
+
+    [Theory]
+    [InlineData(2024, 4, 8, 2024, 2, 30)]
+    public void ToLunarDateTime_Ok(int year, int month, int day, int lunarYear, int lunarMonth, int lunarDay)
+    {
+        var dt = new DateTime(year, month, day);
+        var lunarDate = dt.ToLunarDateTime();
+        Assert.Equal(lunarYear, lunarDate.Year);
+        Assert.Equal(lunarMonth, lunarDate.Month);
+        Assert.Equal(lunarDay, lunarDate.Day);
+    }
 }
