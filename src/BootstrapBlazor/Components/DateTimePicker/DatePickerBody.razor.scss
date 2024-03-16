@@ -141,6 +141,16 @@
                             }
                         }
 
+                        &:not(.next-month):not(.prev-month):not(.disabled) {
+                            .cell {
+                                &.is-solar-term {
+                                    .bb-picker-body-lunar-text {
+                                        color: var(--bs-success);
+                                    }
+                                }
+                            }
+                        }
+
                         &.range {
                             div {
                                 background-color: #f2f6fc;
