@@ -354,6 +354,17 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowHolidays_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowHolidays, true);
+            pb.Add(a => a.Value, new DateTime(2024, 3, 5));
+        });
+        cut.DoesNotContain("休");
+    }
+
+    [Fact]
     public void DayTemplate_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
