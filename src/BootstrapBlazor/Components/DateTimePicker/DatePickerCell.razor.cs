@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 public sealed partial class DatePickerCell
 {
     private string? ClassString => CssBuilder.Default("cell")
+        .AddClass("is-solar-term", ShowLunar && Value.GetSolarTermName() != null)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -27,9 +28,23 @@ public sealed partial class DatePickerCell
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮点击回调方法
+    /// 获得/设置 按钮点击回调方法 默认 null
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<DateTime, Task>? OnClick { get; set; }
+
+    /// <summary>
+    /// 获得/设置 单元格模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DateTime>? Template { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示中国阴历历法 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowLunar { get; set; }
+
+    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
 }

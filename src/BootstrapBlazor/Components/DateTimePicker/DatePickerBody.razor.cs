@@ -332,6 +332,24 @@ public partial class DatePickerBody
     public Func<DateTime, Task>? OnDateChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 日单元格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DateTime>? DayTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 禁用日单元格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<DateTime>? DayDisabledTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示中国阴历历法 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowLunar { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -820,4 +838,6 @@ public partial class DatePickerBody
         }
         return ret;
     }
+
+    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
 }

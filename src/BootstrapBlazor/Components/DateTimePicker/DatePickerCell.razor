@@ -1,4 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<span @attributes="@AdditionalAttributes" class="@ClassString" @onclick="e => OnClick(Value)">@Text</span>
+<span @attributes="@AdditionalAttributes" class="@ClassString" @onclick="e => OnClick(Value)">
+    @if(ShowLunar)
+    {
+        <span>@Text</span>
+        <span class="bb-picker-body-lunar-text">@GetLunarText(Value)</span>
+    }
+    else if(Template == null)
+    {
+        @Text
+    }
+    else
+    {
+        @Template(Value)
+    }
+</span>

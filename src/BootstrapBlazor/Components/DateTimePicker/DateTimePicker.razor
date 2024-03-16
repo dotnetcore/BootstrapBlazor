@@ -14,9 +14,9 @@
         <i class="@DateTimePickerIconClassString"></i>
     }
     <DatePickerBody @bind-Value="SelectedValue" ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
-                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
+                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true" ShowLunar="ShowLunar"
                     OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
-                    AutoClose="AutoClose" ViewMode="ViewMode">
+                    AutoClose="AutoClose" ViewMode="ViewMode" DayTemplate="DayTemplate!" DayDisabledTemplate="DayDisabledTemplate!">
         @ChildContent
     </DatePickerBody>
 </div>

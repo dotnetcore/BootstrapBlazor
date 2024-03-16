@@ -14,6 +14,8 @@
     --bb-picker-panel-body-width: 320px;
     --bb-picker-hover-color: #409eff;
     --bb-picker-panel-side-width: 0;
+    --bb-picker-panel-today-color: #fff;
+    --bb-picker-panel-today-bg: #409eff;
     color: #606266;
     border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -118,8 +120,34 @@
                         &.start:not(.next-month):not(.prev-month):not(.disabled),
                         &.end:not(.next-month):not(.prev-month):not(.disabled) {
                             .cell {
-                                color: #fff;
-                                background-color: #409eff;
+                                color: var(--bb-picker-panel-today-color);
+
+                                &:not(:has(.bb-picker-body-lunar-text)) {
+                                    background-color: var(--bb-picker-panel-today-bg);
+                                }
+
+                                &:has(.bb-picker-body-lunar-text) {
+                                    &:before {
+                                        content: "";
+                                        position: absolute;
+                                        width: 33px;
+                                        height: 33px;
+                                        border-radius: var(--bs-border-radius);
+                                        background-color: #409eff;
+                                        top: 3px;
+                                        left: -3.5px;
+                                    }
+                                }
+                            }
+                        }
+
+                        &:not(.next-month):not(.prev-month):not(.disabled) {
+                            .cell {
+                                &.is-solar-term {
+                                    .bb-picker-body-lunar-text {
+                                        color: var(--bs-success);
+                                    }
+                                }
                             }
                         }
 
@@ -155,9 +183,7 @@
                 }
 
                 .year-table td {
-                    div {
-                        padding: 12px 0;
-                    }
+                    padding: 13px 0;
 
                     .cell {
                         width: 48px;
@@ -168,9 +194,7 @@
                 }
 
                 .month-table td {
-                    div {
-                        padding: 26px 0;
-                    }
+                    padding: 27px 0;
 
                     .cell {
                         width: 60px;
@@ -187,13 +211,10 @@
                     }
 
                     td {
+                        padding: 7px 0;
+
                         &.next-month, &.prev-month {
                             color: #c0c4cc;
-                        }
-
-                        div {
-                            margin: 4px 0;
-                            padding: 3px 0;
                         }
 
                         &:not(.prev-month):not(.next-month):hover {
@@ -201,13 +222,28 @@
                         }
 
                         .cell {
-                            display: block;
                             width: 24px;
                             height: 24px;
                             margin: 0 auto;
                             line-height: 24px;
                             border-radius: 50%;
                             cursor: pointer;
+                            position: relative;
+                            display: flex;
+                            flex-direction: column;
+
+                            span {
+                                position: absolute;
+                                width: 100%;
+                            }
+
+                            .bb-picker-body-lunar-text {
+                                top: 22px;
+                                white-space: nowrap;
+                                line-height: 9px;
+                                height: 9px;
+                                font-size: 9px;
+                            }
                         }
                     }
                 }

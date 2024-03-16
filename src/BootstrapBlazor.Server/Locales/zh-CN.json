@@ -2463,7 +2463,11 @@
     "Value.Required": "{0}为必填项",
     "ValidateFormValue": "时间",
     "DateTimePickerTitle": "时间选择",
-    "DateTimePickerIntro": "通过时钟表盘选择时分秒，获取当前的日期和时间。"
+    "DateTimePickerIntro": "通过时钟表盘选择时分秒，获取当前的日期和时间。",
+    "ShowLunarTitle": "显示农历",
+    "ShowLunarIntro": "通过设置 <code>ShowLunar=\"true\"</code> 显示农历",
+    "DayTemplateTitle": "自定义日期显示",
+    "DayTemplateIntro": "通过设置 <code>DayTemplate</code> 自定义显示模板，禁用的日期模板为 <code>DayDisabledTemplate</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
