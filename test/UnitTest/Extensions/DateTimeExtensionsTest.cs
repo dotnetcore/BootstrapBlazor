@@ -37,4 +37,12 @@ public class DateTimeExtensionsTest
         v = new DateTime(2023, 4, 20).ToLunarText();
         Assert.Equal("三月", v);
     }
+
+    [Theory]
+    [InlineData(2024, 3, 5, "惊蛰")]
+    public void GetSolarTerm_Ok(int year, int month, int day, string name)
+    {
+        var dt = new DateTime(year, month, day);
+        Assert.Equal(name, dt.GetSolarTermName());
+    }
 }
