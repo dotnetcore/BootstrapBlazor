@@ -839,5 +839,5 @@ public partial class DatePickerBody
         return ret;
     }
 
-    private static string GetLunarText(DateTime dateTime) => "初九";
+    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
 }
