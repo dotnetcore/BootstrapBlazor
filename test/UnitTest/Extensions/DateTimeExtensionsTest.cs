@@ -39,7 +39,10 @@ public class DateTimeExtensionsTest
     }
 
     [Theory]
+    [InlineData(2021, 7, 7, "小暑")]
+    [InlineData(2021, 7, 22, "大暑")]
     [InlineData(2024, 3, 5, "惊蛰")]
+    [InlineData(2024, 3, 20, "春分")]
     public void GetSolarTerm_Ok(int year, int month, int day, string name)
     {
         var dt = new DateTime(year, month, day);
