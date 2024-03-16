@@ -203,6 +203,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool ShowFestivals { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示休假日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowHolidays { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
