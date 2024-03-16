@@ -1,0 +1,77 @@
+[
+  {
+    "name": "元旦",
+    "range": ["2023-12-30", "2024-01-01"],
+    "type": "holiday"
+  },
+  {
+    "name": "春节",
+    "range": ["2024-02-04"],
+    "type": "workingday"
+  },
+  {
+    "name": "春节",
+    "range": ["2024-02-10", "2024-02-17"],
+    "type": "holiday"
+  },
+  {
+    "name": "春节",
+    "range": ["2024-02-18"],
+    "type": "workingday"
+  },
+  {
+    "name": "清明节",
+    "range": ["2024-04-04", "2024-04-06"],
+    "type": "holiday"
+  },
+  {
+    "name": "清明节",
+    "range": ["2024-04-07"],
+    "type": "workingday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2024-04-28"],
+    "type": "workingday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2024-05-01", "2024-05-05"],
+    "type": "holiday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2024-05-11"],
+    "type": "workingday"
+  },
+  {
+    "name": "端午节",
+    "range": ["2024-06-08", "2024-06-10"],
+    "type": "holiday"
+  },
+  {
+    "name": "中秋节",
+    "range": ["2024-09-14"],
+    "type": "workingday"
+  },
+  {
+    "name": "中秋节",
+    "range": ["2024-09-15", "2024-09-17"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2024-09-29"],
+    "type": "workingday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2024-10-01", "2024-10-07"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2024-10-12"],
+    "type": "workingday"
+  }
+]

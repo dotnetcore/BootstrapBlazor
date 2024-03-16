@@ -1,0 +1,67 @@
+[
+  {
+    "name": "元旦",
+    "range": ["2018-12-29"],
+    "type": "workingday"
+  },
+  {
+    "name": "元旦",
+    "range": ["2018-12-30", "2019-01-01"],
+    "type": "holiday"
+  },
+  {
+    "name": "春节",
+    "range": ["2019-02-02", "2019-02-03"],
+    "type": "workingday"
+  },
+  {
+    "name": "春节",
+    "range": ["2019-02-04", "2019-02-10"],
+    "type": "holiday"
+  },
+  {
+    "name": "清明节",
+    "range": ["2019-04-05", "2019-04-07"],
+    "type": "holiday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2019-04-28"],
+    "type": "workingday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2019-05-01", "2019-05-04"],
+    "type": "holiday"
+  },
+  {
+    "name": "劳动节",
+    "range": ["2019-05-05"],
+    "type": "workingday"
+  },
+  {
+    "name": "端午节",
+    "range": ["2019-06-07", "2019-06-09"],
+    "type": "holiday"
+  },
+  {
+    "name": "中秋节",
+    "range": ["2019-09-13", "2019-09-15"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2019-09-29"],
+    "type": "workingday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2019-10-01", "2019-10-07"],
+    "type": "holiday"
+  },
+  {
+    "name": "国庆节",
+    "range": ["2019-10-12"],
+    "type": "workingday"
+  }
+]
