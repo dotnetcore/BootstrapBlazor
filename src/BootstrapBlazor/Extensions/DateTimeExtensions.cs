@@ -51,8 +51,11 @@ internal static class DateTimeExtensions
     /// 获得阴历时间
     /// </summary>
     /// <param name="dt"></param>
+    /// <param name="showSolarTerm"></param>
     /// <returns></returns>
-    public static string ToLunarText(this DateTime dt) => dt.GetSolarTermName() ?? dt.GetLunarMonthName();
+    public static string ToLunarText(this DateTime dt, bool showSolarTerm = false) => showSolarTerm
+        ? dt.GetSolarTermName() ?? dt.GetLunarMonthName()
+        : dt.GetLunarMonthName();
 
     static string GetLunarMonthName(this DateTime dt)
     {

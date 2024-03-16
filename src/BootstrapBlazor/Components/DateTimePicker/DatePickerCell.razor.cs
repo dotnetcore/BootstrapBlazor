@@ -46,5 +46,11 @@ public sealed partial class DatePickerCell
     [Parameter]
     public bool ShowLunar { get; set; }
 
-    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
+    /// <summary>
+    /// 获得/设置 是否显示中国 24 节气 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowSolarTerm { get; set; }
+
+    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm);
 }

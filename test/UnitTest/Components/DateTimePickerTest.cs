@@ -324,6 +324,57 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowSolarTerm_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowLunar, true);
+            pb.Add(a => a.ShowSolarTerm, true);
+            pb.Add(a => a.Value, new DateTime(2024, 3, 5));
+        });
+
+        cut.Contains("惊蛰");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTime(2023, 2, 20));
+        });
+        cut.Contains("二月");
+    }
+
+    [Fact]
+    public void DayTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.DayTemplate, dt => builder =>
+            {
+                builder.AddContent(0, "day-template");
+            });
+        });
+
+        cut.Contains("day-template");
+    }
+
+    [Fact]
+    public void DayDisabledTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.DayDisabledTemplate, dt => builder =>
+            {
+                builder.AddContent(0, "day-disabled-template");
+            });
+            pb.Add(a => a.MinValue, new DateTime(2024, 3, 7));
+            pb.Add(a => a.MaxValue, new DateTime(2024, 3, 17));
+            pb.Add(a => a.Value, new DateTime(2024, 3, 10));
+        });
+
+        cut.Contains("day-disabled-template");
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowLunar, true));
+    }
+
+    [Fact]
     public void DatePickerViewModel_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>

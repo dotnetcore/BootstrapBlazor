@@ -350,6 +350,12 @@ public partial class DatePickerBody
     public bool ShowLunar { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示中国 24 节气 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowSolarTerm { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -839,5 +845,5 @@ public partial class DatePickerBody
         return ret;
     }
 
-    private static string GetLunarText(DateTime dateTime) => dateTime.ToLunarText();
+    private string GetLunarText(DateTime dateTime) => dateTime.ToLunarText(ShowSolarTerm);
 }
