@@ -62,7 +62,7 @@
                 }
 
                 .picker-panel-icon-btn {
-                    color: #303133;
+                    color: var(--bs-body-color);
                     border: 0;
                     background: transparent;
                     cursor: pointer;
@@ -306,7 +306,7 @@
 }
 
 .picker-panel-footer {
-    border-top: 1px solid #e4e4e4;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
     padding: 4px;
     background-color: #fff;
     position: relative;
@@ -318,7 +318,7 @@
         padding: 4px 12px;
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
-        border: 1px solid #dcdfe6;
+        border: var(--bs-border-width) solid var(--bs-border-color);
         color: #606266;
         transition: border-color .3s linear, color .3s linear;
 
