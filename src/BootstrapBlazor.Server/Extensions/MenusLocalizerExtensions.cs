@@ -1333,6 +1333,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Holiday"],
+                    Url = "holiday"
+                },
+                new()
+                {
                     Text = Localizer["Html2Pdf"],
                     Url = "html2pdf"
                 },

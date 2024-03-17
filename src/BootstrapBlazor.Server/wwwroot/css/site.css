@@ -198,7 +198,7 @@ h4, h5 {
 
 code {
     display: inline-block;
-    padding: 0px 8px;
+    padding: 0 8px;
     margin: 0;
     border-radius: var(--bs-border-radius);
     background-color: #e9ecef;
@@ -218,15 +218,20 @@ code {
 }
 
 .btn-code {
-    position: absolute;
-    top: .65rem;
-    right: 1.5rem;
-    font-size: 65%;
     --bs-btn-color: var(--bs-primary);
     --bs-btn-bg: var(--bs-body-bg);
     --bs-btn-padding-y: .25rem;
     --bs-btn-padding-x: .5rem;
+    position: absolute;
+    top: .65rem;
+    right: 1.5rem;
+    font-size: 65%;
+    transition: opacity .3s linear; 
 }
+
+    .btn-code:not(:hover) {
+        opacity: .5;
+    }
 
 [data-bs-theme='dark'] .btn-code {
     --bs-btn-bg: rgba(255, 255, 255, 0.12);

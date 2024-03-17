@@ -2421,8 +2421,10 @@
     "ValidateFormIntro": "Check data validity and prompt automatically based on custom validation rules",
     "DateTimeOffsetTitle": "Click on the pop-up date box",
     "DateTimeOffsetIntro": "Select the control based on the date of the day in 「day」 as the base unit",
+    "IsEditableTitle": "Editable",
+    "IsEditableIntro": "Enable manual input function by setting <code>IsEditable=\"true\"</code>",
     "BindValueTitle": "Data is bound in both directions",
-    "BindValueIntro": "The values in the text box change as the date component time changes. Enable manual input function by setting <code>IsEditable=\"true\"</code>",
+    "BindValueIntro": "The values in the text box change as the date component time changes",
     "ViewModeTitle": "Selector with time",
     "ViewModeIntro": "Select the date and time in the same selector, click the confirm button and close the pop-up window",
     "ViewModeTip": "Set the value of the <code>viewMode</code> property to The <code>DateTime</code> of DatePickerViewMode.DateTime",
@@ -2467,7 +2469,11 @@
     "ShowLunarTitle": "Show lunar",
     "ShowLunarIntro": "Display the lunar calendar by setting <code>ShowLunar=\"true\"</code>",
     "DayTemplateTitle": "Custom date display",
-    "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>"
+    "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>",
+    "AttrShowLunar": "Whether to display ChineseLunar",
+    "AttrShowSolarTerm": "Whether to display the 24 solar terms",
+    "AttrShowFestivals": "Whether to display festival",
+    "AttrShowHolidays": "Whether to display legal holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
@@ -4615,7 +4621,8 @@
     "ZipArchive": "IZipArchiveService",
     "BrowserFinger": "BrowserFingerService",
     "SvgEditor": "SvgEditor",
-    "Waterfall": "Waterfall"
+    "Waterfall": "Waterfall",
+    "Holiday": "Holiday"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

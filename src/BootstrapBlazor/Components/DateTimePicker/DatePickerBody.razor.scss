@@ -16,10 +16,10 @@
     --bb-picker-panel-side-width: 0;
     --bb-picker-panel-today-color: #fff;
     --bb-picker-panel-today-bg: #409eff;
-    color: #606266;
-    border: 1px solid #ced4da;
+    color: var(--bs-body-color);
+    border: 1px solid var(--bs-border-color);
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-    background: #fff;
+    background-color: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     line-height: 30px;
     display: inline-block;
@@ -174,20 +174,24 @@
                             }
                         }
 
-                        &:not(.next-month):not(.prev-month):not(.disabled):not(.current) {
+                        &:not(.next-month):not(.prev-month):not(.disabled) {
+                            &:not(.current) {
+                                .cell {
+                                    &.is-solar-term:not(:hover) {
+                                        .bb-picker-body-lunar-text {
+                                            color: var(--bs-success);
+                                        }
+                                    }
+
+                                    &.is-festival:not(:hover) {
+                                        .bb-picker-body-lunar-text {
+                                            color: var(--bs-info);
+                                        }
+                                    }
+                                }
+                            }
+
                             .cell {
-                                &.is-solar-term:not(:hover) {
-                                    .bb-picker-body-lunar-text {
-                                        color: var(--bs-success);
-                                    }
-                                }
-
-                                &.is-festival:not(:hover) {
-                                    .bb-picker-body-lunar-text {
-                                        color: var(--bs-info);
-                                    }
-                                }
-
                                 span.is-holiday {
                                     background-color: var(--bs-danger);
                                 }
