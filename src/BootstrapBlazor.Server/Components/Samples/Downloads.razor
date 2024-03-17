@@ -55,7 +55,7 @@
 <DemoBlock Title="@Localizer["DownloadBigFileTitle"]"
            Introduction="@Localizer["DownloadBigFileIntro"]"
            Name="BigFile">
-    <p>@((MarkupString)Localizer["DownloadBigFileButtonText"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["DownloadBigFileButtonText"].Value)</section>
     <Button IsAsync="true" Icon="fa-solid fa-download" Text="Download" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
 </DemoBlock>
 
