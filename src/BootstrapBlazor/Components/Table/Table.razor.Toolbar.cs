@@ -430,11 +430,11 @@ public partial class Table<TItem>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
         // 不可见列
-        var items = VisibleColumns.Where(i => !i.Visible);
-        return Columns.Where(i => !items.Any(v => v.Name == i.GetFieldName()));
+        var items = VisibleColumns.Where(i => i.Visible);
+        return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
     }
 
-    private bool GetColumnsListState(ITableColumn col) => VisibleColumns.First(i => i.Name == col.GetFieldName()).Visible && VisibleColumns.Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ColumnVisibleItem item) => VisibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && VisibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -1004,7 +1004,7 @@ public partial class Table<TItem>
             FirstFixedColumnCache.Clear();
             LastFixedColumnCache.Clear();
 
-            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
+            InternalResetVisibleColumns();
 
             var queryOption = BuildQueryPageOptions();
             // 设置是否为首次查询

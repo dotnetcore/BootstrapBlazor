@@ -902,7 +902,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await OnColumnCreating(Columns);
         }
 
-        InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
+        InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
         var columnWidths = await ReloadColumnWidth();
@@ -955,10 +955,26 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
+    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? columns = null)
     {
+        var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible) { DisplayName = i.GetDisplayName() }).ToList();
+        if (columns != null)
+        {
+            foreach (var column in cols)
+            {
+                var c = columns.FirstOrDefault(i => i.Name == column.Name);
+                if (c != null)
+                {
+                    column.Visible = c.Visible;
+                    if (!string.IsNullOrEmpty(c.DisplayName))
+                    {
+                        column.DisplayName = c.DisplayName;
+                    }
+                }
+            }
+        }
         VisibleColumns.Clear();
-        VisibleColumns.AddRange(columns);
+        VisibleColumns.AddRange(cols);
     }
 
     /// <summary>

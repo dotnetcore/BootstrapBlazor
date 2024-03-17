@@ -93,17 +93,11 @@
                                 <span class="caret"></span>
                             </button>
                             <div class="dropdown-menu dropdown-menu-end shadow">
-                                @foreach (var item in Columns)
+                                @foreach (var item in VisibleColumns)
                                 {
-                                    var poco = VisibleColumns.Find(i => i.Name == item.GetFieldName());
-                                    if (poco == null)
-                                    {
-                                        poco = new(item.GetFieldName(), item.Visible);
-                                        VisibleColumns.Add(poco);
-                                    }
                                     <div class="dropdown-item">
-                                        <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                        DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.Name, visible)">
+                                        <Checkbox ShowAfterLabel="true" DisplayText="@item.DisplayName" IsDisabled="@GetColumnsListState(item)"
+                                                  @bind-Value="@item.Visible" OnValueChanged="visible => OnToggleColumnVisible(item.Name, visible)">
                                         </Checkbox>
                                     </div>
                                 }

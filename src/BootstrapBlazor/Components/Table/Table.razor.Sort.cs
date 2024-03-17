@@ -356,7 +356,7 @@ public partial class Table<TItem>
         while (index > start)
         {
             var column = Columns[start++];
-            if (column.Visible)
+            if (IsVisible(column))
             {
                 width += column.Width ?? defaultWidth;
             }
@@ -374,7 +374,7 @@ public partial class Table<TItem>
         while (index + 1 < Columns.Count)
         {
             var column = Columns[index++];
-            if (column.Visible)
+            if (IsVisible(column))
             {
                 width += column.Width ?? defaultWidth;
             }
@@ -391,6 +391,8 @@ public partial class Table<TItem>
         }
         return $"right: {width}px;";
     }
+
+    private bool IsVisible(ITableColumn col) => col.Visible && VisibleColumns.Find(i => i.Name == col.GetFieldName()) is { Visible: true };
 
     /// <summary>
     /// 获取指定列头样式字符串
