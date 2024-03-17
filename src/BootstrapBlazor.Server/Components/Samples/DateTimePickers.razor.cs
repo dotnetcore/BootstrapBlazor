@@ -86,6 +86,11 @@ public sealed partial class DateTimePickers
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
 
+    private bool _showLunar;
+    private bool _showSolarTerm;
+    private bool _showFestivals;
+    private bool _showHolidays;
+
     /// <summary>
     /// 获得事件方法
     /// </summary>
@@ -186,6 +191,34 @@ public sealed partial class DateTimePickers
         new() {
             Name = "IsEditable",
             Description = Localizer["AttrIsEditable"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "ShowLunar",
+            Description = Localizer["AttrShowLunar"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "ShowSolarTerm",
+            Description = Localizer["AttrShowSolarTerm"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "ShowFestivals",
+            Description = Localizer["AttrShowFestivals"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "ShowHolidays",
+            Description = Localizer["AttrShowHolidays"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"

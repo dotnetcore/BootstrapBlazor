@@ -2469,7 +2469,11 @@
     "ShowLunarTitle": "Show lunar",
     "ShowLunarIntro": "Display the lunar calendar by setting <code>ShowLunar=\"true\"</code>",
     "DayTemplateTitle": "Custom date display",
-    "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>"
+    "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>",
+    "AttrShowLunar": "Whether to display ChineseLunar",
+    "AttrShowSolarTerm": "Whether to display the 24 solar terms",
+    "AttrShowFestivals": "Whether to display festival",
+    "AttrShowHolidays": "Whether to display legal holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

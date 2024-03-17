@@ -2469,7 +2469,11 @@
     "ShowLunarTitle": "显示农历",
     "ShowLunarIntro": "通过设置 <code>ShowLunar=\"true\"</code> 显示农历",
     "DayTemplateTitle": "自定义日期显示",
-    "DayTemplateIntro": "通过设置 <code>DayTemplate</code> 自定义显示模板，禁用的日期模板为 <code>DayDisabledTemplate</code>"
+    "DayTemplateIntro": "通过设置 <code>DayTemplate</code> 自定义显示模板，禁用的日期模板为 <code>DayDisabledTemplate</code>",
+    "AttrShowLunar": "是否显示农历",
+    "AttrShowSolarTerm": "是否显示 24 节气",
+    "AttrShowFestivals": "是否显示节日",
+    "AttrShowHolidays": "是否显示法定假日"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
