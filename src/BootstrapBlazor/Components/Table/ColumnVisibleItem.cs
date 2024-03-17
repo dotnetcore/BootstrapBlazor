@@ -7,26 +7,22 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Table 组件列可见性类
 /// </summary>
-public class ColumnVisibleItem
+/// <param name="name"></param>
+/// <param name="visible"></param>
+public class ColumnVisibleItem(string name, bool visible)
 {
     /// <summary>
-    /// 
+    /// 获得 列名称
     /// </summary>
-    /// <param name="name"></param>
-    /// <param name="visible"></param>
-    public ColumnVisibleItem(string name, bool visible)
-    {
-        Name = name;
-        Visible = visible;
-    }
+    public string Name { get; init; } = name;
 
     /// <summary>
     /// 获得 列名称
     /// </summary>
-    public string Name { get; init; }
+    public string? DisplayName { get; set; }
 
     /// <summary>
     /// 获得 列可见性
     /// </summary>
-    public bool Visible { get; set; }
+    public bool Visible { get; set; } = visible;
 }
