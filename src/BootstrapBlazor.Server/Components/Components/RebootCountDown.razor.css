@@ -1,0 +1,10 @@
+﻿::deep .bb-flip-clock {
+    --bb-flip-clock-height: 100px;
+    --bb-flip-clock-bg: radial-gradient(ellipse at center, #ac85f1 0%, #833bf8 100%);
+    --bb-flip-clock-font-size: 46px;
+    --bb-flip-clock-list-margin-right: 20px;
+    --bb-flip-clock-item-margin: 5px;
+    --bb-flip-clock-item-width: 46px;
+    --bb-flip-clock-item-height: 60px;
+    --bb-flip-clock-number-bg: #333;
+}
