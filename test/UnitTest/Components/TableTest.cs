@@ -262,6 +262,7 @@ public class TableTest : TableTestBase
                 {
                     t.ResetVisibleColumns(new List<ColumnVisibleItem>()
                     {
+                        new(nameof(Foo.Name), false) { DisplayName = "Name-Display" },
                         new(nameof(Foo.Address), false),
                     });
                     return Task.CompletedTask;
@@ -271,7 +272,7 @@ public class TableTest : TableTestBase
 
         // Address 不可见
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Single(table.Instance.GetVisibleColumns());
+        Assert.Empty(table.Instance.GetVisibleColumns());
     }
 
     [Fact]
