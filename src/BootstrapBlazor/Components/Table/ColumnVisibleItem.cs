@@ -14,7 +14,7 @@ public class ColumnVisibleItem(string name, bool visible)
     /// <summary>
     /// 获得 列名称
     /// </summary>
-    public string Name { get; set; } = name;
+    public string Name { get; } = name;
 
     /// <summary>
     /// 获得 列名称

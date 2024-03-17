@@ -955,20 +955,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
-    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? columns = null)
+    private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? items = null)
     {
         var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible) { DisplayName = i.GetDisplayName() }).ToList();
-        if (columns != null)
+        if (items != null)
         {
             foreach (var column in cols)
             {
-                var c = columns.FirstOrDefault(i => i.Name == column.Name);
-                if (c != null)
+                var item = items.FirstOrDefault(i => i.Name == column.Name);
+                if (item != null)
                 {
-                    column.Visible = c.Visible;
-                    if (!string.IsNullOrEmpty(c.DisplayName))
+                    column.Visible = item.Visible;
+                    if (!string.IsNullOrEmpty(item.DisplayName))
                     {
-                        column.DisplayName = c.DisplayName;
+                        column.DisplayName = item.DisplayName;
                     }
                 }
             }

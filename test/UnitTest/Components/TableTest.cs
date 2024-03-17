@@ -9,6 +9,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -272,7 +273,7 @@ public class TableTest : TableTestBase
 
         // Address 不可见
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Empty(table.Instance.GetVisibleColumns());
+        Assert.Single(table.Instance.GetVisibleColumns());
     }
 
     [Fact]
@@ -1708,6 +1709,17 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("style=\"left: 0;\"");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        var methodIsVisible = table.Instance.GetType().GetMethod("IsVisible", BindingFlags.Instance | BindingFlags.NonPublic);
+        Assert.NotNull(methodIsVisible);
+
+        var v = methodIsVisible.Invoke(table.Instance, [new MockTableColumn()]);
+        Assert.Equal(false, v);
+    }
+    class MockTableColumn : AutoGenerateColumnAttribute
+    {
+        public new string GetFieldName() => "Test";
     }
 
     [Fact]

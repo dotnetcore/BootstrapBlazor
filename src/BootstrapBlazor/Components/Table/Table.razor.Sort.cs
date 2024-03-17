@@ -392,7 +392,7 @@ public partial class Table<TItem>
         return $"right: {width}px;";
     }
 
-    private bool IsVisible(ITableColumn col) => col.Visible && VisibleColumns.Find(i => i.Name == col.GetFieldName()) is { Visible: true };
+    private bool IsVisible(ITableColumn col) => VisibleColumns.Find(i => i.Name == col.GetFieldName()) is { Visible: true };
 
     /// <summary>
     /// 获取指定列头样式字符串
