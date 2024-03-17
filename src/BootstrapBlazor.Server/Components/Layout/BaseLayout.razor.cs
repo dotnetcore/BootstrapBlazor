@@ -29,7 +29,7 @@ public partial class BaseLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private IDispatchService<RebootMessage>? RebootDispatchService { get; set; }
+    private IDispatchService<bool>? RebootDispatchService { get; set; }
 
     [NotNull]
     private string? FlowText { get; set; }
@@ -90,19 +90,25 @@ public partial class BaseLayout : IDisposable
         }
     }
 
-    private async Task NotifyReboot(DispatchEntry<RebootMessage> payload)
+    private ToastOption? _option;
+
+    private async Task NotifyReboot(DispatchEntry<bool> payload)
     {
-        if (payload.Entry != null)
+        if (payload.Entry)
         {
-            var option = new ToastOption()
+            _option = new ToastOption()
             {
-                Category = ToastCategory.Error,
-                Title = payload.Entry.Title,
-                Delay = 120 * 1000,
-                ForceDelay = true,
-                Content = payload.Entry.Content
+                Category = ToastCategory.Information,
+                Title = "网站更新中 ...",
+                IsAutoHide = false,
+                ChildContent = BootstrapDynamicComponent.CreateComponent<RebootCountDown>().Render(),
+                PreventDuplicates = true
             };
-            await Toast.Show(option);
+            await Toast.Show(_option);
+        }
+        else if (_option != null)
+        {
+            await InvokeAsync(_option.Close);
         }
     }
 
