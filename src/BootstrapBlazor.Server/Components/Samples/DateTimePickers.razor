@@ -49,6 +49,14 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IsEditableTitle"]" Introduction="@Localizer["IsEditableIntro"]" Name="IsEditable">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <DateTimePicker @bind-Value="@BindValue" IsEditable="true" DateFormat="yyyy-MM-dd" />
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode">
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
     <div class="row g-3">

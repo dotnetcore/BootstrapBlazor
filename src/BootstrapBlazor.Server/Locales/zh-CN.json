@@ -2419,6 +2419,8 @@
     "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\" 不显示组件图标节约空间",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
+    "IsEditableTitle": "手工录入",
+    "IsEditableIntro": "通过设置 <code>IsEditable=\"true\"</code> 开启手工录入日期功能",
     "DateTimeOffsetTitle": "点击弹出日期框",
     "DateTimeOffsetIntro": "以「日」为基本单位，基础的日期选择控件，此示例绑定 <code>DateTimeOffset</code> 数据类型",
     "BindValueTitle": "数据双向绑定",
