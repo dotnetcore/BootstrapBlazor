@@ -272,7 +272,7 @@ public class TableTest : TableTestBase
 
         // Address 不可见
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Empty(table.Instance.GetVisibleColumns());
+        Assert.Single(table.Instance.GetVisibleColumns());
     }
 
     [Fact]
@@ -1675,6 +1675,55 @@ public class TableTest : TableTestBase
         cut.Contains("style=\"left: 100px;\"");
         // Name
         cut.Contains("style=\"left: 200px;\"");
+    }
+
+    [Fact]
+    public async Task Column_IsFixed_Visible_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Visible), true);
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Address);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Width), 100);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(0);
+                    builder.AddAttribute(1, "Field", foo.Count);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Width), 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("style=\"left: 0px;\"");
+        cut.Contains("style=\"left: 100px;\"");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.ResetVisibleColumns(new ColumnVisibleItem[]
+            {
+                new(nameof(Foo.Address), false)
+            });
+        });
+        //cut.DoesNotContain("style=\"left: 0px;\"");
     }
 
     [Fact]
