@@ -262,7 +262,7 @@ public class TableTest : TableTestBase
                 {
                     t.ResetVisibleColumns(new List<ColumnVisibleItem>()
                     {
-                        new(nameof(Foo.Name), false) { DisplayName = "Name-Display" },
+                        new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
                         new(nameof(Foo.Address), false),
                     });
                     return Task.CompletedTask;
