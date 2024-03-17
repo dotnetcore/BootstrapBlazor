@@ -16,10 +16,10 @@
     --bb-picker-panel-side-width: 0;
     --bb-picker-panel-today-color: #fff;
     --bb-picker-panel-today-bg: #409eff;
-    color: #606266;
-    border: 1px solid #ced4da;
+    color: var(--bs-body-color);
+    border: 1px solid var(--bs-border-color);
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-    background: #fff;
+    background-color: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     line-height: 30px;
     display: inline-block;
