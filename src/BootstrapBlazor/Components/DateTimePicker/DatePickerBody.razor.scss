@@ -174,20 +174,24 @@
                             }
                         }
 
-                        &:not(.next-month):not(.prev-month):not(.disabled):not(.current) {
+                        &:not(.next-month):not(.prev-month):not(.disabled) {
+                            &:not(.current) {
+                                .cell {
+                                    &.is-solar-term:not(:hover) {
+                                        .bb-picker-body-lunar-text {
+                                            color: var(--bs-success);
+                                        }
+                                    }
+
+                                    &.is-festival:not(:hover) {
+                                        .bb-picker-body-lunar-text {
+                                            color: var(--bs-info);
+                                        }
+                                    }
+                                }
+                            }
+
                             .cell {
-                                &.is-solar-term:not(:hover) {
-                                    .bb-picker-body-lunar-text {
-                                        color: var(--bs-success);
-                                    }
-                                }
-
-                                &.is-festival:not(:hover) {
-                                    .bb-picker-body-lunar-text {
-                                        color: var(--bs-info);
-                                    }
-                                }
-
                                 span.is-holiday {
                                     background-color: var(--bs-danger);
                                 }
