@@ -129,7 +129,7 @@ public partial class Menu
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<MenuItem>();
+        Items ??= [];
         InitMenus(null, Items, GetUrl());
         if (!DisableNavigation)
         {
