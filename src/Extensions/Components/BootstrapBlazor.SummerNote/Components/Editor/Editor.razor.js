@@ -201,6 +201,8 @@ const setLang = async option => {
         await addScript(option.langUrl)
     }
 
+    initLang();
+
     if ($.summernote.lang[option.lang] === undefined) {
         option.lang = 'en-US'
     }
@@ -210,7 +212,9 @@ const setLang = async option => {
             submit: "submit"
         }
     }
+}
 
+const initLang = () => {
     $.summernote.lang["zh-CN"] = {
         font: {
             bold: "粗体",
