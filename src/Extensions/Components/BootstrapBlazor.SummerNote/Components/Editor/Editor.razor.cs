@@ -132,7 +132,7 @@ public partial class Editor : IAsyncDisposable
             new List<object> { "insert", new List<string>() { "link", "picture", "video" } },
             new List<object> { "view", new List<string>() { "fullscreen", "codeview", "help"} }
         };
-        CustomerToolbarButtons ??= Enumerable.Empty<EditorToolbarButton>();
+        CustomerToolbarButtons ??= [];
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public partial class Editor : IAsyncDisposable
             await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language, LanguageUrl);
         }
 
-        // ShowSubmiit 处理
+        // ShowSubmit 处理
         if (_lastShowSubmit != ShowSubmit)
         {
             _lastShowSubmit = ShowSubmit;
