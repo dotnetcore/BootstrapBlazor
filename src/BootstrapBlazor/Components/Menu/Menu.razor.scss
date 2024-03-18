@@ -20,7 +20,7 @@
     border-bottom: 2px solid transparent;
 }
 
-.menu > .nav > li.active:after {
+.menu > .nav > li:has(.active):after {
     width: 100%;
     left: 0;
 }
@@ -35,40 +35,29 @@
     transition: width .3s linear, left .3s linear;
 }
 
-.menu .nav .nav-link,
-.cascade .dropdown-item {
+.menu .nav .nav-link, .cascade .dropdown-item {
     padding: 0.5rem 1rem;
     user-select: none;
     white-space: nowrap;
     position: relative;
 }
 
-.menu .nav .nav-link.active,
-.menu .nav .nav-link:not(.disabled):hover {
+.menu .nav .nav-link.active, .menu .nav .nav-link:not(.disabled):hover {
     color: var(--bb-menu-active-color);
 }
 
-.menu .nav .dropdown-menu,
-.cascade .dropdown-menu {
+.menu .nav .dropdown-menu, .cascade .dropdown-menu {
     overflow: unset;
     max-height: unset;
     margin-top: 10px;
 }
 
-.menu .nav .dropdown-menu .nav-link:not(.disabled):hover,
-.menu .nav .dropdown-menu .nav-link.active,
-.menu .submenu .nav-link.active,
-.menu .submenu .nav-link:not(.disabled):hover,
-.cascade .dropdown-item:not(.disabled):hover,
-.cascade .dropdown-item.active,
-.cascade .nav .nav-link:not(.disabled):hover,
-.cascade .nav .nav-link.active {
+.menu .nav .dropdown-menu .nav-link:not(.disabled):hover, .menu .nav .dropdown-menu .nav-link.active, .menu .submenu .nav-link.active, .menu .submenu .nav-link:not(.disabled):hover, .cascade .dropdown-item:not(.disabled):hover, .cascade .dropdown-item.active, .cascade .nav .nav-link:not(.disabled):hover, .cascade .nav .nav-link.active {
     background-color: var(--bb-menu-item-hover-bg);
     color: var(--bb-menu-item-hover-color);
 }
 
-.menu .nav .sub-menu,
-.cascade .has-leaf .sub-menu {
+.menu .nav .sub-menu, .cascade .has-leaf .sub-menu {
     display: none;
     background-color: var(--bb-menu-sub-bg);
     white-space: nowrap;
@@ -81,14 +70,11 @@
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
 }
 
-.menu .nav .dropdown-menu,
-.menu .nav .sub-menu,
-.cascade .sub-menu {
+.menu .nav .dropdown-menu, .menu .nav .sub-menu, .cascade .sub-menu {
     min-width: var(--bb-menu-min-width);
 }
 
-.menu .nav .nav-link:hover > .sub-menu,
-.cascade .dropdown-item:hover > .sub-menu {
+.menu .nav .nav-link:hover > .sub-menu, .cascade .dropdown-item:hover > .sub-menu {
     display: block;
 }
 
