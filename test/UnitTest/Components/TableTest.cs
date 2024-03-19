@@ -1953,14 +1953,17 @@ public class TableTest : TableTestBase
         cut.Contains("table-cell-class");
     }
 
-    [Fact]
-    public void OnCellRender_ValueTemplate_Ok()
+    [Theory]
+    [InlineData(TableRenderMode.Table)]
+    [InlineData(TableRenderMode.CardView)]
+    public void OnCellRender_ValueTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.RenderMode, mode);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
