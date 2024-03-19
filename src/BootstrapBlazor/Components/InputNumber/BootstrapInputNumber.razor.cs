@@ -106,6 +106,11 @@ public partial class BootstrapInputNumber<TValue>
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
         StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
+
+        if (!Equals(CurrentValue, _lastInputValueString))
+        {
+            _lastInputValueString = CurrentValue.ToString();
+        }
     }
 
     /// <summary>
