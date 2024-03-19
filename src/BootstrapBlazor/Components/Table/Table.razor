@@ -657,12 +657,14 @@
                 var cellClass = "";
                 var colspan = 0;
                 string? value = null;
+                RenderFragment? valueTemplate = null;
                 if (col.OnCellRender != null)
                 {
                     var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
                     col.OnCellRender(cell);
                     cellClass = cell.Class;
                     colspan = cell.Colspan;
+                    valueTemplate = cell.ValueTemplate;
                     value = cell.Value;
                     colIndex = colspan;
                 }
@@ -709,13 +711,17 @@
                             <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick" GenerateElement="false"
                                             OnDoubleClick="TriggerDoubleClickCell(col, item)" StopPropagation="true"
                                             class="@GetDoubleClickCellClassString(triggerDoubleClick)">
-                                @if (value == null)
+                                @if (valueTemplate != null)
                                 {
-                                    @GetValue(col, item)
+                                    @valueTemplate
+                                }
+                                else if (value != null)
+                                {
+                                    @value
                                 }
                                 else
                                 {
-                                    @value
+                                    @GetValue(col, item)
                                 }
                             </DynamicElement>
                         }
