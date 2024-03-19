@@ -54,4 +54,30 @@ public class FlipClockTest : BootstrapBlazorTestBase
             pb.Add(a => a.StartValue, null);
         });
     }
+
+    [Theory]
+    [InlineData("Height", "100px", "--bb-flip-clock-height: 100px;")]
+    [InlineData("BackgroundColor", "100px", "--bb-flip-clock-bg: 100px;")]
+    [InlineData("FontSize", "100px", "--bb-flip-clock-font-size: 100px;")]
+    [InlineData("CardWidth", "100px", "--bb-flip-clock-item-width: 100px;")]
+    [InlineData("CardHeight", "100px", "--bb-flip-clock-item-height: 100px;")]
+    [InlineData("CardColor", "100px", "--bb-flip-clock-number-color: 100px;")]
+    [InlineData("CardBackgroundColor", "100px", "--bb-flip-clock-number-bg: 100px;")]
+    [InlineData("CardDividerHeight", "100px", "--bb-flip-clock-number-line-height: 100px;")]
+    [InlineData("CardDividerColor", "100px", "--bb-flip-clock-number-line-bg: 100px;")]
+    [InlineData("CardMargin", "100px", "--bb-flip-clock-item-margin: 100px;")]
+    [InlineData("CardGroupMargin", "100px", "--bb-flip-clock-list-margin-right: 100px;")]
+    public void FlipParameter_Ok(string parameterName, string value, string expected)
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent(builder =>
+            {
+                builder.OpenComponent<FlipClock>(0);
+                builder.AddAttribute(1, parameterName, value);
+                builder.CloseComponent();
+            });
+        });
+        cut.Contains(expected);
+    }
 }

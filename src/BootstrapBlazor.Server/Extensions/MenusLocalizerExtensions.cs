@@ -592,12 +592,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
-                    Text = Localizer["FlipClock"],
-                    Url = "flip-clock"
-                },
-                new()
-                {
                     Text = Localizer["FileIcon"],
                     Url = "file-icon"
                 },
@@ -1067,6 +1061,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["EditDialog"],
                     Url = "edit-dialog"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["FlipClock"],
+                    Url = "flip-clock"
                 },
                 new()
                 {
