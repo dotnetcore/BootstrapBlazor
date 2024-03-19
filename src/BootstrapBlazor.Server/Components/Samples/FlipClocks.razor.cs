@@ -9,6 +9,31 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class FlipClocks
 {
+    private int HeightValue { get; set; } = 100;
+
+    private int FontSizeValue { get; set; } = 46;
+
+    private int CardHeightValue { get; set; } = 60;
+
+    private int CardWidthValue { get; set; } = 46;
+
+    private int CardMarginValue { get; set; } = 5;
+
+    private int CardGroupMarginValue { get; set; } = 20;
+
+    private string HeightValueString => $"{HeightValue}px";
+
+    private string FontSizeValueString => $"{FontSizeValue}px";
+
+    private string CardHeightValueString => $"{CardHeightValue}px";
+
+    private string CardWidthValueString => $"{CardWidthValue}px";
+
+    private string CardMarginValueString => $"{CardMarginValue}px";
+
+    private string CardGroupMarginValueString => $"{CardGroupMarginValue}px";
+
+
     private bool _isCompleted;
 
     private Task OnCompletedAsync()
