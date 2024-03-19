@@ -239,6 +239,7 @@
                         {
                             var cellClass = "";
                             string? value = null;
+                            RenderFragment? valueTemplate = null;
                             <div class="table-cell">
                                 <label>
                                     @col.GetDisplayName()
@@ -249,19 +250,22 @@
                                     col.OnCellRender(cell);
                                     cellClass = cell.Class;
                                     value = cell.Value;
+                                    valueTemplate = cell.ValueTemplate;
                                 }
-                                @if(value == null)
-                                {
-                                    <span>
-                                        @GetValue(col, item)
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="@cellClass">
+                                <span class="@cellClass">
+                                    @if (valueTemplate != null)
+                                    {
+                                        @valueTemplate
+                                    }
+                                    else if(value != null)
+                                    {
                                         @value
-                                    </span>
-                                }
+                                    }
+                                    else
+                                    {
+                                        @GetValue(col, item)
+                                    }
+                                </span>
                             </div>
                         }
                         @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)

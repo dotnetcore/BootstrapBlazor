@@ -35,4 +35,9 @@ public class TableCellArgs
     /// 获得/设置 当前单元格显示内容
     /// </summary>
     public string? Value { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前单元格内容模板
+    /// </summary>
+    public RenderFragment? ValueTemplate { get; set; }
 }
