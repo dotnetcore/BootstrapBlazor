@@ -66,9 +66,89 @@ public partial class FlipClocks
         },
         new()
         {
-            Name = nameof(FlipClock.ShowHour),
-            Description = "Excel/Word 文件路径或者URL",
-            Type = "boolean",
+            Name = nameof(FlipClock.Height),
+            Description = "组件高度",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.BackgroundColor),
+            Description = "组件背景色",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.FontSize),
+            Description = "组件字体大小",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardWidth),
+            Description = "组件卡片宽度",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardHeight),
+            Description = "组件卡片高度",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardColor),
+            Description = "组件卡片字体颜色",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardBackgroundColor),
+            Description = "组件卡片背景颜色",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardDividerHeight),
+            Description = "组件卡片分割线高度",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardDividerColor),
+            Description = "组件卡片分割线颜色",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardMargin),
+            Description = "组件卡片间隔",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(FlipClock.CardGroupMargin),
+            Description = "组件卡片组间隔",
+            Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
         }
