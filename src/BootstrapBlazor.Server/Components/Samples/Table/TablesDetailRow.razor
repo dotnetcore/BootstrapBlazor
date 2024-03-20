@@ -12,7 +12,7 @@
            Name="IsDetails">
     <p>@((MarkupString)Localizer["DetailRowTemplateP"].Value)</p>
     <Table TItem="Foo" @ref="@Table"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsPagination="true" PageItemsSource="@PageItemsSource" CollapseDetailAutomatically="true"
            IsStriped="true" IsBordered="true" IsDetails="IsDetails"
            ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback()!"
            OnQueryAsync="@OnQueryAsync">
