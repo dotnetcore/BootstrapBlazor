@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+
 using System.Reflection;
 using System.Text.Json;
 
@@ -342,6 +343,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         : IsDetails.Value && DetailRowTemplate != null;
 
     /// <summary>
+    /// 自动收起其他明细表，仅保当前展开
+    /// </summary>
+    [Parameter]
+    public bool CollapseDetailAutomatically { get; set; }
+
+    /// <summary>
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
@@ -350,6 +357,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         DetailRows.Add(item);
         if (!ExpandRows.Remove(item))
         {
+            if (CollapseDetailAutomatically)
+            {
+                ExpandRows.Clear();
+            }
+
             ExpandRows.Add(item);
         }
     }
