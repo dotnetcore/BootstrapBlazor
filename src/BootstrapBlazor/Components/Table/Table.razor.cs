@@ -342,10 +342,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         : IsDetails.Value && DetailRowTemplate != null;
 
     /// <summary>
-    /// 自动收起其他明细表，仅保当前展开
+    /// 获得/设置 明细行手风琴效果 默认 false
     /// </summary>
     [Parameter]
-    public bool CollapseDetailAutomatically { get; set; }
+    public bool IsAccordion { get; set; }
 
     /// <summary>
     /// 明细行功能中切换行状态时调用此方法
@@ -356,7 +356,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         DetailRows.Add(item);
         if (!ExpandRows.Remove(item))
         {
-            if (CollapseDetailAutomatically)
+            if (IsAccordion)
             {
                 ExpandRows.Clear();
             }
