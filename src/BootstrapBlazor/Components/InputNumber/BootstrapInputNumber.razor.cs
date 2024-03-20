@@ -315,10 +315,20 @@ public partial class BootstrapInputNumber<TValue>
     /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        var ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
-        if (ret && UseInputEvent)
+        var ret = false;
+        if (string.IsNullOrEmpty(value))
         {
-            _lastInputValueString = value;
+            result = default;
+            validationErrorMessage = null;
+            ret = true;
+        }
+        else
+        {
+            ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
+            if (ret && UseInputEvent)
+            {
+                _lastInputValueString = value;
+            }
         }
         return ret;
     }
