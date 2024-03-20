@@ -94,6 +94,21 @@ public partial class BootstrapInputNumber<TValue>
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
 
+    private string? _lastInputValueString;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (UseInputEvent)
+        {
+            _lastInputValueString ??= Value?.ToString();
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -107,9 +122,9 @@ public partial class BootstrapInputNumber<TValue>
 
         StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
 
-        if (!Equals(CurrentValue, _lastInputValueString))
+        if (Value is null)
         {
-            _lastInputValueString = CurrentValue.ToString();
+            _lastInputValueString = "";
         }
     }
 
@@ -304,8 +319,6 @@ public partial class BootstrapInputNumber<TValue>
         return val;
     }
 
-    private string? _lastInputValueString;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -315,11 +328,14 @@ public partial class BootstrapInputNumber<TValue>
     /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        var ret = false;
+        bool ret;
         if (string.IsNullOrEmpty(value))
         {
             result = default;
             validationErrorMessage = null;
+
+            // nullable data type do not run here
+            _lastInputValueString = result!.ToString();
             ret = true;
         }
         else
