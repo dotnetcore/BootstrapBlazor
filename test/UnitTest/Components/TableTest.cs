@@ -2719,6 +2719,69 @@ public class TableTest : TableTestBase
         Assert.True(showDetail);
     }
 
+    [Fact]
+    public async Task IsAccordion_OK()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsDetails, true);
+                pb.Add(a => a.IsAccordion, false);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.DetailRowTemplate, foo => builder =>
+                {
+                    builder.AddContent(1, new MarkupString($"<div class=\"detail-row-test\">{foo.Address}</div>"));
+                });
+            });
+        });
+
+        var buttons = cut.FindAll(".is-master .is-bar > i");
+        Assert.Equal(4, buttons.Count);
+
+        await cut.InvokeAsync(() => buttons[0].Click());
+        var rows = cut.FindAll(".detail-row-test");
+        Assert.Single(rows);
+
+        buttons = cut.FindAll(".is-master .is-bar > i");
+        await cut.InvokeAsync(() => buttons[1].Click());
+        rows = cut.FindAll(".detail-row-test");
+        Assert.Equal(2, rows.Count);
+
+        rows = cut.FindAll(".is-detail.show");
+        Assert.Equal(2, rows.Count);
+
+        // 更改为手风琴模式
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAccordion, true);
+        });
+        await cut.InvokeAsync(() =>
+        {
+            table.Instance.ExpandDetailRow(items[0]);
+            table.Instance.ExpandDetailRow(items[1]);
+            table.Instance.ExpandDetailRow(items[2]);
+            table.Instance.ExpandDetailRow(items[3]);
+        });
+        table.SetParametersAndRender();
+        rows = cut.FindAll(".detail-row-test");
+        Assert.Equal(4, rows.Count);
+
+        rows = cut.FindAll(".is-detail.show");
+        Assert.Single(rows);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
