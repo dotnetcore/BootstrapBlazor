@@ -2478,7 +2478,8 @@
     "FeatureShowLunar": "Lunar",
     "FeatureShowSolarTerm": "Solar Term",
     "FeatureShowFestivals": "Festivals",
-    "FeatureShowHolidays": "Holidays"
+    "FeatureShowHolidays": "Holidays",
+    "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

@@ -2478,7 +2478,8 @@
     "FeatureShowLunar": "显示农历",
     "FeatureShowSolarTerm": "24 节气",
     "FeatureShowFestivals": "节日",
-    "FeatureShowHolidays": "法定假日"
+    "FeatureShowHolidays": "法定假日",
+    "FeatureIntro": "<b>节假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

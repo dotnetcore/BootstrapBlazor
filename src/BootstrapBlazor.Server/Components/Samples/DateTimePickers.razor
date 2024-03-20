@@ -31,12 +31,10 @@
             </div>
         </GroupBox>
         <div class="mt-3">
-            <b>节假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href="holiday" target="_blank">[传送门]</a>
+            
         </div>
         <div class="mt-3">
-            <Pre>// 增加 BootstrapBlazor 假日服务
-builder.Services.AddBootstrapHolidayService();
-</Pre>
+            <Pre>builder.Services.AddBootstrapHolidayService();</Pre>
         </div>
     </section>
     <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" ShowLunar="_showLunar" ShowSolarTerm="_showSolarTerm" ShowFestivals="_showFestivals" ShowHolidays="_showHolidays" />
