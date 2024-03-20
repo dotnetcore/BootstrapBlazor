@@ -2756,7 +2756,9 @@
     "InputNumbersValidateFormDivider1": "Bidirectional binding displays labels",
     "InputNumbersValidateFormDivider2": "Bidirectional bindings do not display labels",
     "InputNumbersValidateFormDivider3": "Custom  DisplayText",
-    "InputNumbersValidateFormInputText": "Customization"
+    "InputNumbersValidateFormInputText": "Customization",
+    "InputNumbersUseInputEventTitle": "OnInput",
+    "InputNumbersUseInputEventIntro": "Component uses <code>OnInput</code> event for value updates"
   },
   "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsTitle": "InputGroup",

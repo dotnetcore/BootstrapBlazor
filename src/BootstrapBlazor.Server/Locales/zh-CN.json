@@ -2756,7 +2756,9 @@
     "InputNumbersValidateFormDivider1": "双向绑定显示标签",
     "InputNumbersValidateFormDivider2": "双向绑定不显示标签",
     "InputNumbersValidateFormDivider3": "自定义  DisplayText",
-    "InputNumbersValidateFormInputText": "自定义"
+    "InputNumbersValidateFormInputText": "自定义",
+    "InputNumbersUseInputEventTitle": "OnInput 事件",
+    "InputNumbersUseInputEventIntro": "组件使用 OnInput 事件进行数值更新"
   },
   "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsTitle": "InputGroup 组件",
