@@ -2479,7 +2479,8 @@
     "FeatureShowSolarTerm": "24 节气",
     "FeatureShowFestivals": "节日",
     "FeatureShowHolidays": "法定假日",
-    "FeatureIntro": "<b>节假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>"
+    "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
+    "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

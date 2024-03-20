@@ -86,10 +86,10 @@ public sealed partial class DateTimePickers
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
 
-    private bool _showLunar;
-    private bool _showSolarTerm;
-    private bool _showFestivals;
-    private bool _showHolidays;
+    private bool _showLunar = true;
+    private bool _showSolarTerm = true;
+    private bool _showFestivals = true;
+    private bool _showHolidays = true;
 
     /// <summary>
     /// 获得事件方法

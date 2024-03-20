@@ -2479,7 +2479,8 @@
     "FeatureShowSolarTerm": "Solar Term",
     "FeatureShowFestivals": "Festivals",
     "FeatureShowHolidays": "Holidays",
-    "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>"
+    "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>",
+    "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
