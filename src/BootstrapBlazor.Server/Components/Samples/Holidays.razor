@@ -1,9 +1,9 @@
 ﻿@page "/holiday"
 @layout MainLayout
-@inject IStringLocalizer<BrowserFingers> Localizer
+@inject IStringLocalizer<Holidays> Localizer
 
-<h3>节假日服务 ICalendarHolidays</h3>
-<h4>本服务负责解析指定日期是否为法定节假日</h4>
+<h3>假日服务 <code>ICalendarHolidays</code></h3>
+<h4>本服务负责解析指定日期是否为法定假日</h4>
 
 <PackageTips Name="BootstrapBlazor.Holiday" />
 
@@ -12,14 +12,14 @@
 <Pre>public interface ICalendarHolidays
 {
     /// &lt;Summary&gt;
-    /// 获得 节假日键值对
+    /// 获得 假日键值对
     /// &lt;/Summary&gt;
     bool IsHoliday(DateTime dt);
 }</Pre>
 
 <p class="code-label">内置接口实现</p>
 
-<div>1、获取节假日数据</div>
+<p>1、获取假日数据</p>
 
 <Pre>[
    {
@@ -34,5 +34,11 @@
    }
 ]</Pre>
 
-<div>2、服务解析数据后通过判断指定时间是否在 <code>Range</code> 区间内，方法 <code>IsHoliday</code> 返回 <b>true</b> 时为假日</div>
-<div>3、内置服务节假日数据区间为 <code>[2016]</code> 至今，其他年份数据未收集整理</div>
+<p>2、服务解析数据后通过判断指定时间是否在 <code>Range</code> 区间内，方法 <code>IsHoliday</code> 返回 <b>true</b> 时为假日</p>
+<p>3、内置服务假日数据区间为 <code>[2016]</code> 至今，其他年份数据未收集整理</p>
+
+<p class="code-label">使用</p>
+
+<Pre>// 增加 BootstrapBlazor 假日服务
+builder.Services.AddBootstrapHolidayService();
+</Pre>

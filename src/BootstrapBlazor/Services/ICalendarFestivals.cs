@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public interface ICalendarFestivals
 {
     /// <summary>
-    /// 获得 节假日键值对
+    /// 获得 节日键值对
     /// </summary>
     /// <returns></returns>
     string? GetFestival(DateTime dt);
