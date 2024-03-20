@@ -166,6 +166,7 @@ public partial class MultiSelect<TValue>
         // 通过 Value 对集合进行赋值
         if (PreviousValue != CurrentValueAsString)
         {
+            PreviousValue = CurrentValueAsString;
             var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
             SelectedItems.Clear();
             SelectedItems.AddRange(GetData().Where(item => list.Any(i => i == item.Value)));
