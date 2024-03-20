@@ -353,7 +353,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="item"></param>
     public void ExpandDetailRow(TItem item)
     {
-        DetailRows.Add(item);
+        if (!DetailRows.Contains(item))
+        {
+            DetailRows.Add(item);
+        }
         if (!ExpandRows.Remove(item))
         {
             if (IsAccordion)
