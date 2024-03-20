@@ -39,8 +39,8 @@ class DefaultCalendarFestivals : ICalendarFestivals
     {
         string? ret = null;
         var key = $"{dt:MMdd}";
-        var lunarDate = dt.ToLunarDateTime();
-        var lunarKey = $"{lunarDate.Month:00}{lunarDate.Day:00}";
+        var (_, Month, Day) = dt.ToLunarDateTime();
+        var lunarKey = $"{Month:00}{Day:00}";
         if (LunarFestivals.TryGetValue(lunarKey, out var v1))
         {
             ret = v1;

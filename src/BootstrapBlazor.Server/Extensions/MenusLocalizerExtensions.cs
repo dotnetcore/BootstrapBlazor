@@ -1328,6 +1328,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Festival"],
+                    Url = "festival"
+                },
+                new()
+                {
                     Text = Localizer["Geolocation"],
                     Url = "geolocation"
                 },

@@ -4631,7 +4631,8 @@
     "BrowserFinger": "浏览器指纹 BrowserFingerService",
     "SvgEditor": "Svg编辑器 SvgEditor",
     "Waterfall": "瀑布流 Waterfall",
-    "Holiday": "节假日服务 Holiday"
+    "Holiday": "假日服务 Holiday",
+    "Festival": "节日服务 Festival"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
