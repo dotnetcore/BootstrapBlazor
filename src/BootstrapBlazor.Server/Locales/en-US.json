@@ -2473,7 +2473,12 @@
     "AttrShowLunar": "Whether to display ChineseLunar",
     "AttrShowSolarTerm": "Whether to display the 24 solar terms",
     "AttrShowFestivals": "Whether to display festival",
-    "AttrShowHolidays": "Whether to display legal holidays"
+    "AttrShowHolidays": "Whether to display legal holidays",
+    "Feature": "Feature",
+    "FeatureShowLunar": "Lunar",
+    "FeatureShowSolarTerm": "Solar Term",
+    "FeatureShowFestivals": "Festivals",
+    "FeatureShowHolidays": "Holidays"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

@@ -2473,7 +2473,12 @@
     "AttrShowLunar": "是否显示农历",
     "AttrShowSolarTerm": "是否显示 24 节气",
     "AttrShowFestivals": "是否显示节日",
-    "AttrShowHolidays": "是否显示法定假日"
+    "AttrShowHolidays": "是否显示法定假日",
+    "Feature": "功能体验区",
+    "FeatureShowLunar": "显示农历",
+    "FeatureShowSolarTerm": "24 节气",
+    "FeatureShowFestivals": "节日",
+    "FeatureShowHolidays": "法定假日"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
