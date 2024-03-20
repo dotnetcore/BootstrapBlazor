@@ -4676,7 +4676,8 @@
     "EducationText": "Education:",
     "DetailTextTrue": "Enable",
     "DetailTextFalse": "Disable",
-    "TabItemText": "Associated Data"
+    "TabItemText": "Associated Data",
+    "DetailRowTemplateIsAccordion": "IsAccordion"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.Tables": {
     "ButtonAddColumnText": "Add Column",

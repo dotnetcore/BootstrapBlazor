@@ -342,14 +342,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         : IsDetails.Value && DetailRowTemplate != null;
 
     /// <summary>
+    /// 获得/设置 明细行手风琴效果 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAccordion { get; set; }
+
+    /// <summary>
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
     public void ExpandDetailRow(TItem item)
     {
-        DetailRows.Add(item);
+        if (!DetailRows.Contains(item))
+        {
+            DetailRows.Add(item);
+        }
         if (!ExpandRows.Remove(item))
         {
+            if (IsAccordion)
+            {
+                ExpandRows.Clear();
+            }
+
             ExpandRows.Add(item);
         }
     }

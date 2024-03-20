@@ -29,6 +29,8 @@ public partial class TablesDetailRow
     [NotNull]
     private Table<Foo>? Table { get; set; }
 
+    private bool _isAccordion;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>

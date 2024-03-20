@@ -4676,7 +4676,8 @@
     "EducationText": "学历:",
     "DetailTextTrue": "关闭明细行",
     "DetailTextFalse": "开启明细行",
-    "TabItemText": "关联数据"
+    "TabItemText": "关联数据",
+    "DetailRowTemplateIsAccordion": "手风琴效果"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.Tables": {
     "ButtonAddColumnText": "增加列",
