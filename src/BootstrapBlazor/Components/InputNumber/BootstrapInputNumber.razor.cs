@@ -94,6 +94,21 @@ public partial class BootstrapInputNumber<TValue>
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
 
+    private string? _lastInputValueString;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (UseInputEvent)
+        {
+            _lastInputValueString ??= Value?.ToString();
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -107,9 +122,9 @@ public partial class BootstrapInputNumber<TValue>
 
         StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
 
-        if (!Equals(CurrentValue, _lastInputValueString))
+        if (Value is null)
         {
-            _lastInputValueString = CurrentValue.ToString();
+            _lastInputValueString = "";
         }
     }
 
@@ -120,7 +135,7 @@ public partial class BootstrapInputNumber<TValue>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
 
     /// <summary>
-    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <c>CurrentValueAsString</c>.
+    /// Formats the value as a string. Derived classes can override this to determine the formatting used for <see cref="ValidateBase{TValue}.CurrentValueAsString"/>.
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
@@ -304,8 +319,6 @@ public partial class BootstrapInputNumber<TValue>
         return val;
     }
 
-    private string? _lastInputValueString;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -315,10 +328,23 @@ public partial class BootstrapInputNumber<TValue>
     /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        var ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
-        if (ret && UseInputEvent)
+        bool ret;
+        if (string.IsNullOrEmpty(value))
         {
-            _lastInputValueString = value;
+            result = default;
+            validationErrorMessage = null;
+
+            // nullable data type do not run here
+            _lastInputValueString = result!.ToString();
+            ret = true;
+        }
+        else
+        {
+            ret = base.TryParseValueFromString(value, out result, out validationErrorMessage);
+            if (ret && UseInputEvent)
+            {
+                _lastInputValueString = value;
+            }
         }
         return ret;
     }

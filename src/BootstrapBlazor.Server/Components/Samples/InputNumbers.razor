@@ -21,6 +21,25 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["InputNumbersUseInputEventTitle"]"
+           Introduction="@Localizer["InputNumbersUseInputEventIntro"]"
+           Name="UseInputEvent">
+    <div class="row g-2 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber @bind-Value="@InputNullableValue" Step="any" UseInputEvent="true" ShowLabel="true" DisplayText="double?" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@InputNullableValue"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber @bind-Value="@InputValue" Step="any" UseInputEvent="true" ShowLabel="true" DisplayText="double" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@InputValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["InputNumbersShowButtonTitle"]"
            Introduction="@Localizer["InputNumbersShowButtonIntro"]"
            Name="ShowButton">

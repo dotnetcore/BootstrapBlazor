@@ -48,6 +48,10 @@ public sealed partial class InputNumbers
 
     private static string Formatter(double val) => val.ToString("0.0");
 
+    private double? InputNullableValue { get; set; } = 12.01;
+
+    private double InputValue { get; set; } = 12.01;
+
     private AttributeItem[] GetAttributes() =>
     [
         new()
