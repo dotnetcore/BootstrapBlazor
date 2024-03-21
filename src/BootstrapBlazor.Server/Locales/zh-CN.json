@@ -4631,8 +4631,9 @@
     "BrowserFinger": "浏览器指纹 BrowserFingerService",
     "SvgEditor": "Svg编辑器 SvgEditor",
     "Waterfall": "瀑布流 Waterfall",
-    "Holiday": "假日服务 Holiday",
-    "Festival": "节日服务 Festival"
+    "Holiday": "假日服务 ICalendarHoliday",
+    "Festival": "节日服务 ICalendarFestival",
+    "Lookup": "外键数据源服务 ILookupService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5312,7 +5313,8 @@
     "TableLookupNormalTitle": "Lookup 外置数据源",
     "TableLookupNormalIntro": "通过设置 <code>Lookup</code> 自动翻译显示文字",
     "TableLookupNormalTips2": "组件自动将 <code>Complete</code> 转换为 <code>DataSource</code> 集合中的预设值",
-    "TableLookupNormalTips3": "本例中使用 <code>ILookupService</code> 服务进行统一处理，通过设置 <code>LookupServiceKey</code> 值，从服务中获取 <code>Lookup</code> 数据集合"
+    "TableLookupNormalTips3": "本例中使用 <code>ILookupService</code> 服务进行统一处理，通过设置 <code>LookupServiceKey=\"Foo.Complete\"</code>，从服务中获取 <code>Complete</code> 相关数据集合，将值 <code>true</code> 自动转化为 <code>通过</code> <code>false</code> 转化为 <code>未通过</code>",
+    "TableLookupNormalTips1": "关于详细 <code>ILookupService</code> 文档请参阅 <a href=\"lookup\" target=\"_blank\">[传送门]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table 表格",
