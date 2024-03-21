@@ -25,7 +25,6 @@ public partial class TablesLookup
         await Task.Delay(200);
 
         //获取随机数据
-        //Get random data
-        Items = Foo.GenerateFoo(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
     }
 }

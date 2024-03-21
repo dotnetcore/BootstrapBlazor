@@ -76,6 +76,12 @@ internal static class ServicesExtensions
         services.ConfigureMaterialDesignIconTheme();
         services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
+        // 增加 BootstrapBlazor 假日服务
+        services.AddBootstrapHolidayService();
+
+        // 增加 Table Excel 导出服务
+        services.AddBootstrapBlazorTableExportService();
+
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>
@@ -137,9 +143,6 @@ internal static class ServicesExtensions
         services.AddAuthorization();
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
-
-        // 增加 Table Excel 导出服务
-        services.AddBootstrapBlazorTableExportService();
 
         // 增加 Pdf 导出服务
         services.AddTransient<IExportPdf, ExportPdfService>();

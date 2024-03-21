@@ -26,13 +26,25 @@
            Name="UseInputEvent">
     <div class="row g-2 form-inline">
         <div class="col-12 col-sm-6">
-            <BootstrapInputNumber @bind-Value="@InputNullableValue" Step="any" UseInputEvent="true" ShowLabel="true" DisplayText="double?" />
+            <BootstrapInputNumber @bind-Value="@BindInputNullableValue" ShowLabel="true" DisplayText="int?" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@BindInputNullableValue"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber @bind-Value="@BindInputValue" ShowLabel="true" DisplayText="int" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@BindInputValue"></Display>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber @bind-Value="@InputNullableValue" UseInputEvent="true" ShowLabel="true" DisplayText="double?" />
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="@InputNullableValue"></Display>
         </div>
         <div class="col-12 col-sm-6">
-            <BootstrapInputNumber @bind-Value="@InputValue" Step="any" UseInputEvent="true" ShowLabel="true" DisplayText="double" />
+            <BootstrapInputNumber @bind-Value="@InputValue" UseInputEvent="true" ShowLabel="true" DisplayText="double" />
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="@InputValue"></Display>

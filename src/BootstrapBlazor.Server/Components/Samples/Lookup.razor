@@ -1,0 +1,60 @@
+﻿@page "/lookup"
+@layout MainLayout
+@inject IStringLocalizer<Lookup> Localizer
+
+<h3>外键数据服务 <code>ILookupService</code></h3>
+<h4>本服务负责解析指定键值为文本，多用于数据显示</h4>
+
+<p><code>ILookupService</code> 组件库内置未做实现，因为这是纯业务逻辑，常用于将数据库外键 <code>Id</code> 显示时显示其对应的 <code>Text</code>，使用这个功能时需要自行实现这个接口，组件库内置了虚类 <code>LookupServiceBase</code> 实现类继承这个类更方法</p>
+
+<p class="code-label">1. 接口实现</p>
+
+<Pre>public abstract class LookupServiceBase : ILookupService
+{
+    public virtual IEnumerable&lt;SelectedItem&gt;? GetItemsByKey(string? key) =&gt; GetItemsByKey(key, null);
+
+    public abstract IEnumerable&lt;SelectedItem&gt;? GetItemsByKey(string? key, object? data);
+}</Pre>
+
+<p>在自定义实现类中只需要实现这两个方法即可，下面是表格示例 <a href="table/lookup" target="_blank">[传送门]</a> 实现代码</p>
+
+<Pre>internal class DemoLookupService(IServiceProvider provider) : LookupServiceBase
+{
+    private IServiceProvider Provider { get; } = provider;
+
+    public override IEnumerable&lt;SelectedItem&gt;? GetItemsByKey(string? key, object? data)
+    {
+        IEnumerable&lt;SelectedItem&gt;? items = null;
+        if (key == "Foo.Complete")
+        {
+            var localizer = Provider.GetRequiredService&lt;IStringLocalizer&lt;Foo&gt;&gt;();
+            items = new List&lt;SelectedItem>()
+            {
+                new() { Value = "True", Text = localizer["True"].Value },
+                new() { Value = "False", Text = localizer["False"].Value }
+            };
+        }
+        return items;
+    }
+}
+</Pre>
+
+<p>通过键值 <code>key</code> 判断将 <code>true/false</code> 通过本地化接口翻译成当前文化显示文本，中文即显示为 <code>通过/未通过</code></p>
+
+<Tips><p>这里可以通过主构造函数获得数据库相关操作服务，从而可以通过外键字典表获得所需数据集合</p></Tips>
+
+<p class="code-label">2. 注入服务</p>
+
+<Pre>services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));</Pre>
+
+<Tips>
+    <p><code>ILookupService</code> 接口方法 <code>GetItemsByKey(string? key, object? data)</code> 的第二个参数是为了一些额外信息使用的，这里可以做出很高级的功能，例如键值 <code>key</code> 相同时，可以通过 <code>data</code> 来进行数据的过滤、分组、排序等操作</p>
+</Tips>
+
+<p class="code-label">3. 使用方法</p>
+
+<Pre>&lt;TableColumn @@bind-Field="@@context.Complete" LookupServiceKey="Foo.Complete" LookupServiceData="LookupData" /&gt;</Pre>
+
+<Tips>
+    <p><code>ILookupService</code> 不仅仅可以给 <code>TableColumn</code> 使用，所有数据源是 <code>List&lt;SelectedItem&gt;</code> 的组件，如 <code>Select</code> 均可以使用</p>
+</Tips>

@@ -4631,8 +4631,9 @@
     "BrowserFinger": "BrowserFingerService",
     "SvgEditor": "SvgEditor",
     "Waterfall": "Waterfall",
-    "Holiday": "Holiday",
-    "Festival": "Festival"
+    "Holiday": "ICalendarHoliday",
+    "Festival": "ICalendarFestival",
+    "Lookup": "ILookupService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5312,7 +5313,8 @@
     "TableLookupNormalTitle": "Lookup external data source",
     "TableLookupNormalIntro": "Auto-translate display text by setting <code>Lookup</code>",
     "TableLookupNormalTips2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
-    "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
+    "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value",
+    "TableLookupNormalTips1": "For detailed <code>ILookupService</code> documentation, please refer to <a href=\"lookup\" target=\"_blank\">[Portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table Row",

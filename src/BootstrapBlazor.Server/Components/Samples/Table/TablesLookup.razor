@@ -9,16 +9,16 @@
 <DemoBlock Title="@Localizer["TableLookupNormalTitle"]"
            Introduction="@Localizer["TableLookupNormalIntro"]"
            Name="Lookup">
-    <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
-    <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
-    @if (Items != null)
-    {
-        <Table TItem="Foo" Items="@Items.Take(3)">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                <TableColumn @bind-Field="@context.Name" />
-                <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
-            </TableColumns>
-        </Table>
-    }
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
+        <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
+        <div>@((MarkupString)Localizer["TableLookupNormalTips1"].Value)</div>
+    </section>
+    <Table TItem="Foo" Items="@Items">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
