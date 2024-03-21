@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 获取 Select 的 Items 的接口
+/// ILookupService 接口
 /// </summary>
 public interface ILookupService
 {
