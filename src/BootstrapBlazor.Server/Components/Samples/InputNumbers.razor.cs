@@ -52,6 +52,10 @@ public sealed partial class InputNumbers
 
     private double InputValue { get; set; } = 12.01;
 
+    private int? BindInputNullableValue { get; set; } = 2;
+
+    private int BindInputValue { get; set; } = 2;
+
     private AttributeItem[] GetAttributes() =>
     [
         new()
