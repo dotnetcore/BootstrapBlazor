@@ -764,7 +764,7 @@
     "Title": "Dialog 对话框组件",
     "Description": "通过注入服务调用 <code>Show</code> 方法弹出窗口进行人机交互",
     "Tip1": "组件使用介绍",
-    "Tip2": "注入服务 <code>DialogService</code>",
+    "Tip2": "注入服务 <code>DialogService</code> <a href=\"dialog-service\" target=\"_blank\">[传送门]</a>",
     "Tip3": "调用其 <code>DialogOption</code> 实例 <code>OnCloseAsync</code> 方法",
     "Tip4": "级联参数关闭弹窗方法",
     "Tip5": "关窗按钮",

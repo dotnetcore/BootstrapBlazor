@@ -75,7 +75,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 组件参数集合
     /// </summary>
-    [Obsolete("已过期，请使用 ComponentParameters 代替 Please use ComponentParameters")]
+    [Obsolete("已过期，单词拼写错误。请使用 ComponentParameters 代替 Please use ComponentParameters")]
     [ExcludeFromCodeCoverage]
     public Dictionary<string, object>? ComponentParamters
     {
