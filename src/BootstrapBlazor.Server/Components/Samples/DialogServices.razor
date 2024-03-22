@@ -65,7 +65,7 @@ private DialogService? DialogService { get; set; }</Pre>
             <p>这个组件时专门为弹窗设计的按钮组件，此组件内置了关闭所在弹窗功能，无需任何代码</p>
             <Pre>&lt;DialogCloseButton&gt;</Pre>
             <p>业务逻辑可使用 <code>OnClick</code> 或者 <code>OnClickWithoutRender</code> 处理，结束后自动关闭弹窗</p>
-            <li>级联参数</li>
+            <li>关闭回调方法</li>
             <Pre class="mt-3">[CascadingParameter]
 private Func&lt;Task&gt;? OnCloseAsync { get; set; }</Pre>
             <p>弹窗内部任何组件中均可以通过此级联参数获得一个关闭弹窗的方法，可以根据自己的业务逻辑需求自行调用关闭弹窗</p>
