@@ -4633,7 +4633,8 @@
     "Waterfall": "瀑布流 Waterfall",
     "Holiday": "假日服务 ICalendarHoliday",
     "Festival": "节日服务 ICalendarFestival",
-    "Lookup": "外键数据源服务 ILookupService"
+    "Lookup": "外键数据源服务 ILookupService",
+    "DialogService": "弹窗服务 DialogService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
