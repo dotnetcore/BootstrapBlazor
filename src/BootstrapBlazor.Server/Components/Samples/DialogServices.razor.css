@@ -1,0 +1,7 @@
+﻿::deep .legend {
+    font-weight: bolder;
+}
+
+::deep .groupbox .ul-demo > li {
+    font-weight: bolder;
+}

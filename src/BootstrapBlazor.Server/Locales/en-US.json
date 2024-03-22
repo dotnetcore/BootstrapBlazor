@@ -764,7 +764,7 @@
     "Title": "Dialog component",
     "Description": "Human-computer interaction by calling the <code>Show</code> method pop-up window by injecting the service",
     "Tip1": "Component usage introduction",
-    "Tip2": "inject service <code>DialogService</code>",
+    "Tip2": "inject service <code>DialogService</code> <a href=\"dialog-service\" target=\"_blank\">[Portal]</a>",
     "Tip3": "call <code>DialogOption</code> instance method <code>OnCloseAsync</code>",
     "Tip4": "CascadingParameter",
     "Tip5": "DialogCloseButton",
