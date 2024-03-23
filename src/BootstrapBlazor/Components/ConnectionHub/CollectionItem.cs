@@ -12,6 +12,7 @@ public class CollectionItem
     /// <summary>
     /// 获得/设置 连接 Id
     /// </summary>
+    [NotNull]
     public string? Id { get; internal set; }
 
     /// <summary>
@@ -22,10 +23,10 @@ public class CollectionItem
     /// <summary>
     /// 获得/设置 开始连接时间
     /// </summary>
-    public DateTimeOffset? ConnectionTime { get; internal set; }
+    public DateTimeOffset ConnectionTime { get; internal set; }
 
     /// <summary>
     /// 获得/设置 上次心跳时间
     /// </summary>
-    public DateTimeOffset? LastBeatTime { get; internal set; }
+    public DateTimeOffset LastBeatTime { get; internal set; }
 }

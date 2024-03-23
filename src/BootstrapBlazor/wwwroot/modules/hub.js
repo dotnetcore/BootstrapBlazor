@@ -18,10 +18,10 @@ export async function init(options) {
         url: './ip.axd'
     });
     const code = getFingerCode();
-    data.id = cdoe;
+    data.id = code;
     data.ip = result.ip;
 
     setTimeout(() => {
-        invoke.invokeMethodAsync(method, code);
+        invoke.invokeMethodAsync(method, data);
     }, interval);
 }

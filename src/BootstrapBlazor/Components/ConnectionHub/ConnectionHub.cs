@@ -28,7 +28,10 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [JSInvokable]
     public Task Callback(ClientInfo client)
     {
-        ConnectionService.AddOrUpdate(client.Id);
+        if (!string.IsNullOrEmpty(client.Id))
+        {
+            ConnectionService.AddOrUpdate(client.Id);
+        }
         return Task.CompletedTask;
     }
 }
