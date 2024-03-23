@@ -66,5 +66,5 @@ public class GanttOption
     /// <summary>
     /// 
     /// </summary>
-    public string? Language { get; set; } = "zh";
+    public string? Language { get; set; } = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
