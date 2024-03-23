@@ -13,34 +13,34 @@ class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, CollectionItem> _connectionCache = new();
 
-    public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromSeconds(2);
-
-    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.AddMilliseconds(Interval) > DateTimeOffset.Now);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public int Interval { get; set; } = 5000;
+    private readonly CollectionHubOptions _options = default!;
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    public DefaultConnectionService()
+    public DefaultConnectionService(IOptionsMonitor<CollectionHubOptions> options)
     {
+        _options = options.CurrentValue;
+
         Task.Run(() =>
         {
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
                 try
                 {
-                    Task.Delay(ExpirationScanFrequency, _cancellationTokenSource.Token);
+                    Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
 
-                    var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(Interval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                    var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
                     keys.ForEach(i => _connectionCache.TryRemove(i, out _));
                 }
                 catch { }
             }
         });
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) > DateTimeOffset.Now);
 
     /// <summary>
     /// <inheritdoc/>

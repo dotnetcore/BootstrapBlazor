@@ -122,6 +122,23 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
+    /// CollectionHubOption 扩展配置方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    private static IServiceCollection ConfigureCollectionHubOptions(this IServiceCollection services, Action<CollectionHubOptions>? configureOptions = null)
+    {
+        services.AddOptionsMonitor<CollectionHubOptions>();
+        services.Configure<CollectionHubOptions>(op =>
+        {
+            configureOptions?.Invoke(op);
+
+        });
+        return services;
+    }
+
+    /// <summary>
     /// IPLocatorOption 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
