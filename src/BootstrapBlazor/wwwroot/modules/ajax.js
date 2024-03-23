@@ -22,8 +22,15 @@
         init.body = JSON.stringify(option.data)
     }
 
-    const response = await fetch(option.url, init)
-    const json = await response.json()
+    let json = null;
+    try {
+
+        const response = await fetch(option.url, init)
+        json = await response.json()
+    }
+    catch (e) {
+        console.info(e);
+    }
     return json
 }
 

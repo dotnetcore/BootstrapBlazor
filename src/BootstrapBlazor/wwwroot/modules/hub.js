@@ -13,12 +13,15 @@ export async function init(options) {
         userAgent: navigator.userAgent,
         os: info.system + ' ' + info.systemVersion
     }
+
+    data.id = getFingerCode();
     const result = await execute({
         method: 'GET',
         url: './ip.axd'
     });
-    data.id = getFingerCode();
-    data.ip = result.ip;
+    if (result) {
+        data.ip = result.ip;
+    }
 
     setInterval(() => {
         invoke.invokeMethodAsync(method, data);
