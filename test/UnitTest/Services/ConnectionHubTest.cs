@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace UnitTest.Components;
+namespace UnitTest.Services;
 
 public class ConnectionHubTest : BootstrapBlazorTestBase
 {
@@ -40,5 +40,26 @@ public class ConnectionHubTest : BootstrapBlazorTestBase
         Assert.True(service.TryGetValue(mockData.Id, out var item));
         Assert.NotNull(item?.ClientInfo);
         Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
+    }
+}
+
+public class ConnectionServiceTest : TestBase
+{
+    [Fact]
+    public void ConnectionService_Ok()
+    {
+        var type = Type.GetType("BootstrapBlazor.Components.DefaultConnectionService, BootstrapBlazor");
+        Assert.NotNull(type);
+
+        var service = Activator.CreateInstance(type, new BootstrapBlazorOptions());
+        Assert.NotNull(service);
+
+        var fieldInfo = type.GetField("_cancellationTokenSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(fieldInfo);
+
+        var token = fieldInfo.GetValue(service) as CancellationTokenSource;
+        Assert.NotNull(token);
+
+        token.Cancel();
     }
 }
