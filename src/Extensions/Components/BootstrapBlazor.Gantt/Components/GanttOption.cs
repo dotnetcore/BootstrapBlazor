@@ -2,12 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// GanttOption 配置类
 /// </summary>
 public class GanttOption
 {
@@ -66,5 +67,5 @@ public class GanttOption
     /// <summary>
     /// 
     /// </summary>
-    public string? Language { get; set; } = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    public string? Language { get; set; } = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
