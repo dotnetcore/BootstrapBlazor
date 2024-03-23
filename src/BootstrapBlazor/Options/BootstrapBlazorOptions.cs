@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 组件全局配置类
 /// </summary>
-public class BootstrapBlazorOptions
+public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
 {
     /// <summary>
     /// 获得/设置 Toast 组件 Delay 默认值 默认为 0
@@ -88,6 +88,8 @@ public class BootstrapBlazorOptions
     /// 获得/设置 CollectionHubOptions 配置 默认为 null
     /// </summary>
     public CollectionHubOptions? CollectionHubOptions { get; set; }
+
+    BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>
     /// 获得支持多语言集合
