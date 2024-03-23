@@ -7,6 +7,10 @@
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
+<Tips>
+    <p>@((MarkupString)Localizer["TableTemplateTips"].Value)</p>
+</Tips>
+
 <DemoBlock Title="@Localizer["TableColumnTitle"]"
            Introduction="@Localizer["TableColumnIntro"]"
            Name="TableColumnNormal">
@@ -73,15 +77,15 @@
 <DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
            Introduction="@Localizer["AutoGenerateColumnsIntro"]"
            Name="AutoGenerateColumns">
-    <p>
-        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
+    <section ignore>
+        <p>@((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)</p>
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
             <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
             <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.GiteeRepositoryUrl))</li>
         </ul>
         @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
-    </p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
