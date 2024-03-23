@@ -17,5 +17,5 @@ public class CollectionHubOptions
     /// <summary>
     /// 获得/设置 ConnectionHub 组件心跳间隔
     /// </summary>
-    public int BeatInterval { get; set; }
+    public int BeatInterval { get; set; } = 5000;
 }

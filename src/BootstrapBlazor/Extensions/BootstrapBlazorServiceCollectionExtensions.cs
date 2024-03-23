@@ -122,23 +122,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
     }
 
     /// <summary>
-    /// CollectionHubOption 扩展配置方法
-    /// </summary>
-    /// <param name="services"></param>
-    /// <param name="configureOptions"></param>
-    /// <returns></returns>
-    private static IServiceCollection ConfigureCollectionHubOptions(this IServiceCollection services, Action<CollectionHubOptions>? configureOptions = null)
-    {
-        services.AddOptionsMonitor<CollectionHubOptions>();
-        services.Configure<CollectionHubOptions>(op =>
-        {
-            configureOptions?.Invoke(op);
-
-        });
-        return services;
-    }
-
-    /// <summary>
     /// IPLocatorOption 扩展配置方法
     /// </summary>
     /// <param name="services"></param>
@@ -161,7 +144,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="localizationConfigure"></param>
-    /// <returns></returns>
     public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationConfigure)
     {
         services.Configure(localizationConfigure);
@@ -173,7 +155,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="services"></param>
-    /// <returns></returns>
     public static IServiceCollection AddOptionsMonitor<TOptions>(this IServiceCollection services) where TOptions : class
     {
         services.AddOptions();
