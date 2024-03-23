@@ -11,14 +11,25 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task WebClientService_Ok()
     {
+        var mockData = new ClientInfo()
+        {
+            Id = "test_id",
+            Ip = "192.168.0.1",
+            OS = "ios",
+            Browser = "chrome",
+            Device = WebClientDeviceType.Mobile,
+            Language = "zh",
+            Engine = "engine",
+            UserAgent = "test_agent"
+        };
         var service = Context.Services.GetRequiredService<WebClientService>();
-        service.SetData("test_id", "192.168.0.1", "ios", "chrome", "mobile", "zh", "engine", "test_agent");
+        service.SetData(mockData);
         ClientInfo? client = null;
         _ = Task.Run(async () => client = await service.GetClientInfo());
         while (client == null)
         {
             await Task.Delay(100);
-            service.SetData("test_id", "192.168.0.1", "ios", "chrome", "mobile", "zh", "engine", "test_agent");
+            service.SetData(mockData);
         }
         client.City = "test_city";
         client.RequestUrl = "test_url";
