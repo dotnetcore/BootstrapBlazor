@@ -17,11 +17,10 @@ export async function init(options) {
         method: 'GET',
         url: './ip.axd'
     });
-    const code = getFingerCode();
-    data.id = code;
+    data.id = getFingerCode();
     data.ip = result.ip;
 
-    setTimeout(() => {
+    setInterval(() => {
         invoke.invokeMethodAsync(method, data);
     }, interval);
 }
