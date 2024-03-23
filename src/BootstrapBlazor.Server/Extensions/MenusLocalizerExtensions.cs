@@ -1328,18 +1328,23 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DialogService"],
+                    Url = "dialog-service"
+                },
+                new()
+                {
                     Text = Localizer["Festival"],
                     Url = "festival"
                 },
                 new()
                 {
-                    Text = Localizer["Geolocation"],
-                    Url = "geolocation"
+                    Text = Localizer["Holiday"],
+                    Url = "holiday"
                 },
                 new()
                 {
-                    Text = Localizer["Holiday"],
-                    Url = "holiday"
+                    Text = Localizer["Geolocation"],
+                    Url = "geolocation"
                 },
                 new()
                 {

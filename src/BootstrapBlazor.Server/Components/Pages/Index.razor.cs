@@ -20,10 +20,6 @@ public partial class Index
 
     [Inject]
     [NotNull]
-    ICacheManager? Cache { get; set; }
-
-    [Inject]
-    [NotNull]
     private IOptionsMonitor<WebsiteOptions>? Options { get; set; }
 
     /// <summary>
