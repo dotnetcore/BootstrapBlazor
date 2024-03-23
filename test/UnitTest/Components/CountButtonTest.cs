@@ -26,8 +26,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         await Task.Delay(500);
         Assert.Contains("(1) DisplayText", cut.Markup);
 
-        await Task.Delay(700);
-        Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
+        cut.WaitForState(() => !cut.Markup.Contains("disabled=\"disabled\""), TimeSpan.FromSeconds(1));
         Assert.Contains("DisplayText", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
@@ -60,7 +59,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         await Task.Delay(500);
         Assert.Contains("2-test-callback", cut.Markup);
 
-        await Task.Delay(600);
+        await Task.Delay(700);
         Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
         Assert.Contains("DisplayText", cut.Markup);
 

@@ -21,13 +21,13 @@ class DefaultConnectionService : IConnectionService, IDisposable
     {
         _options = options.Value.CollectionHubOptions ?? new CollectionHubOptions();
 
-        Task.Run(() =>
+        Task.Run(async () =>
         {
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
                 try
                 {
-                    Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
+                    await Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
 
                     var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
                     keys.ForEach(i => _connectionCache.TryRemove(i, out _));
@@ -87,8 +87,8 @@ class DefaultConnectionService : IConnectionService, IDisposable
             if (!_cancellationTokenSource.IsCancellationRequested)
             {
                 _cancellationTokenSource.Cancel();
-                _cancellationTokenSource.Dispose();
             }
+            _cancellationTokenSource.Dispose();
         }
     }
 
