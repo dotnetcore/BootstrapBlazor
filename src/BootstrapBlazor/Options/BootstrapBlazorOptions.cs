@@ -85,6 +85,11 @@ public class BootstrapBlazorOptions
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
+    /// 获得/设置 CollectionHubOptions 配置 默认为 null
+    /// </summary>
+    public CollectionHubOptions? CollectionHubOptions { get; set; }
+
+    /// <summary>
     /// 获得支持多语言集合
     /// </summary>
     /// <returns></returns>

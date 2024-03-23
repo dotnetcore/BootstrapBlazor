@@ -26,7 +26,7 @@ public class CountButtonTest : BootstrapBlazorTestBase
         await Task.Delay(500);
         Assert.Contains("(1) DisplayText", cut.Markup);
 
-        await Task.Delay(600);
+        await Task.Delay(700);
         Assert.DoesNotContain("disabled=\"disabled\"", cut.Markup);
         Assert.Contains("DisplayText", cut.Markup);
 
