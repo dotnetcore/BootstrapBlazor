@@ -50,6 +50,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // 假日服务
         services.TryAddSingleton<ICalendarHolidays, DefaultCalendarHolidays>();
 
+        // 在线连接服务
+        services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
