@@ -2,42 +2,30 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// WebClient 服务类
 /// </summary>
-public class WebClientService : IAsyncDisposable
+/// <param name="runtime"></param>
+/// <param name="navigation"></param>
+/// <param name="versionService"></param>
+public class WebClientService(IJSRuntime runtime, NavigationManager navigation, IVersionService versionService) : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
     private TaskCompletionSource? ReturnTask { get; set; }
 
-    private IJSRuntime JSRuntime { get; }
-
-    private NavigationManager Navigation { get; }
+    private NavigationManager Navigation { get; } = navigation;
 
     private JSModule? Module { get; set; }
 
     private DotNetObjectReference<WebClientService>? Interop { get; set; }
 
     private ClientInfo? Client { get; set; }
-
-    private IVersionService JSVersionService { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="runtime"></param>
-    /// <param name="navigation"></param>
-    /// <param name="versionService"></param>
-    public WebClientService(IJSRuntime runtime, NavigationManager navigation, IVersionService versionService)
-    {
-        JSRuntime = runtime;
-        Navigation = navigation;
-        JSVersionService = versionService;
-    }
 
     /// <summary>
     /// 获得 ClientInfo 实例方法
@@ -50,7 +38,7 @@ public class WebClientService : IAsyncDisposable
         {
             RequestUrl = Navigation.Uri
         };
-        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js", JSVersionService.GetVersion());
+        Module ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js", versionService.GetVersion());
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
 
@@ -62,39 +50,13 @@ public class WebClientService : IAsyncDisposable
     /// <summary>
     /// SetData 方法由 JS 调用
     /// </summary>
-    /// <param name="id"></param>
-    /// <param name="ip"></param>
-    /// <param name="os"></param>
-    /// <param name="browser"></param>
-    /// <param name="device"></param>
-    /// <param name="language"></param>
-    /// <param name="engine"></param>
-    /// <param name="agent"></param>
+    /// <param name="client"></param>
     [JSInvokable]
-    public void SetData(string id, string ip, string os, string browser, string device, string language, string engine, string agent)
+    public void SetData(ClientInfo client)
     {
-        if (Client != null)
-        {
-            Client.Id = id;
-            Client.Ip = ip;
-            Client.OS = os;
-            Client.Browser = browser;
-            Client.Device = WebClientService.ParseDeviceType(device);
-            Client.Language = language;
-            Client.Engine = engine;
-            Client.UserAgent = agent;
-        }
+        Client = client;
+        Client.RequestUrl = Navigation.Uri;
         ReturnTask?.TrySetResult();
-    }
-
-    private static WebClientDeviceType ParseDeviceType(string device)
-    {
-        var ret = WebClientDeviceType.PC;
-        if (Enum.TryParse<WebClientDeviceType>(device, true, out var d))
-        {
-            ret = d;
-        }
-        return ret;
     }
 
     /// <summary>
@@ -162,6 +124,7 @@ public class ClientInfo
     /// <summary>
     /// 获得/设置 客户端设备类型
     /// </summary>
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public WebClientDeviceType Device { get; set; }
 
     /// <summary>
