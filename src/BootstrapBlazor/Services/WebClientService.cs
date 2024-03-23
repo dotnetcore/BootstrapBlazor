@@ -59,16 +59,6 @@ public class WebClientService(IJSRuntime runtime, NavigationManager navigation, 
         ReturnTask?.TrySetResult();
     }
 
-    private static WebClientDeviceType ParseDeviceType(string device)
-    {
-        var ret = WebClientDeviceType.PC;
-        if (Enum.TryParse<WebClientDeviceType>(device, true, out var d))
-        {
-            ret = d;
-        }
-        return ret;
-    }
-
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
     /// </summary>
