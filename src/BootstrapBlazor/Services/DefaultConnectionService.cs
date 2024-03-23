@@ -17,9 +17,9 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
-    public DefaultConnectionService(IOptionsMonitor<CollectionHubOptions> options)
+    public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options)
     {
-        _options = options.CurrentValue;
+        _options = options.Value.CollectionHubOptions ?? new CollectionHubOptions();
 
         Task.Run(() =>
         {
@@ -45,22 +45,30 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="key"></param>
-    public void AddOrUpdate(string key) => _connectionCache.AddOrUpdate(key, CreateItem, UpdateItem);
+    /// <param name="client"></param>
+    public void AddOrUpdate(ClientInfo client)
+    {
+        if (!string.IsNullOrEmpty(client.Id))
+        {
+            _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
+        }
+    }
 
-    private static CollectionItem CreateItem(string key)
+    private static CollectionItem CreateItem(string key, ClientInfo client)
     {
         return new CollectionItem()
         {
             Id = key,
             ConnectionTime = DateTimeOffset.Now,
-            LastBeatTime = DateTimeOffset.Now
+            LastBeatTime = DateTimeOffset.Now,
+            ClientInfo = client
         };
     }
 
-    private static CollectionItem UpdateItem(string key, CollectionItem item)
+    private static CollectionItem UpdateItem(CollectionItem item, ClientInfo val)
     {
         item.LastBeatTime = DateTimeOffset.Now;
+        item.ClientInfo = val;
         return item;
     }
 

@@ -12,8 +12,8 @@ public interface IConnectionService
     /// <summary>
     /// 增加或更新当前 Key
     /// </summary>
-    /// <param name="key">键值</param>
-    void AddOrUpdate(string key);
+    /// <param name="client">ClientInfo 实例</param>
+    void AddOrUpdate(ClientInfo client);
 
     /// <summary>
     /// 获得指定 key 的连接信息

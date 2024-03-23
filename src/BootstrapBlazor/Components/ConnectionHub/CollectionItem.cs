@@ -18,7 +18,7 @@ public class CollectionItem
     /// <summary>
     /// 获得/设置 连接 Ip 地址
     /// </summary>
-    public string? Ip { get; internal set; }
+    public ClientInfo? ClientInfo { get; set; }
 
     /// <summary>
     /// 获得/设置 开始连接时间

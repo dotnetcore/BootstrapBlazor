@@ -30,7 +30,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
     {
         if (!string.IsNullOrEmpty(client.Id))
         {
-            ConnectionService.AddOrUpdate(client.Id);
+            ConnectionService.AddOrUpdate(client);
         }
         return Task.CompletedTask;
     }
