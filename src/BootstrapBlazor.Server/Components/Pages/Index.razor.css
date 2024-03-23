@@ -137,26 +137,6 @@
         width: 280px;
     }
 
-.flip-info {
-    position: absolute;
-    top: 0;
-    left: 2rem;
-    z-index: 5;
-    color: #fff;
-    font-size: 1rem;
-    line-height: 100px;
-}
-
-::deep .bb-flip-clock {
-    --bb-flip-clock-bg: radial-gradient(ellipse at center, rgb(141 97 229) 0%, rgb(113 45 249) 100%);
-    --bb-flip-clock-height: 100px;
-    --bb-flip-clock-font-size: 46px;
-    --bb-flip-clock-list-margin-right: 8px;
-    --bb-flip-clock-item-margin: 5px;
-    --bb-flip-clock-item-width: 46px;
-    --bb-flip-clock-item-height: 68px;
-}
-
 @media (max-width: 576px) {
     .intro .card {
         border-color: transparent !important;

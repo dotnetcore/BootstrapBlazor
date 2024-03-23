@@ -20,7 +20,6 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "OnlineTimeText": "Online Time",
     "BodyClassString": "welcome-body-en",
     "HeaderTitle": "Bootstrap style Blazor UI component library",
     "HeaderDesc": "Based on the <code>Bootstrap</code> style library, it is carefully built, and {0} a variety of commonly used components have been added to bring you an extraordinary feeling for rapid development projects",
