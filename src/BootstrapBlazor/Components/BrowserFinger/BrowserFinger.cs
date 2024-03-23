@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 浏览器指纹组件
 /// </summary>
-[BootstrapModuleAutoLoader("BrowserFinger/BrowserFinger.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
-public partial class BrowserFinger : IDisposable
+[BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
+public partial class BrowserFinger : BootstrapModuleComponentBase, IDisposable
 {
     [Inject]
     [NotNull]

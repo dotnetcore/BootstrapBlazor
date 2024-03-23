@@ -50,6 +50,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // 假日服务
         services.TryAddSingleton<ICalendarHolidays, DefaultCalendarHolidays>();
 
+        // 在线连接服务
+        services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
+
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
@@ -141,7 +144,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <param name="localizationConfigure"></param>
-    /// <returns></returns>
     public static IServiceCollection ConfigureJsonLocalizationOptions(this IServiceCollection services, Action<JsonLocalizationOptions> localizationConfigure)
     {
         services.Configure(localizationConfigure);
@@ -153,7 +155,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// </summary>
     /// <typeparam name="TOptions"></typeparam>
     /// <param name="services"></param>
-    /// <returns></returns>
     public static IServiceCollection AddOptionsMonitor<TOptions>(this IServiceCollection services) where TOptions : class
     {
         services.AddOptions();

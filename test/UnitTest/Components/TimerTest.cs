@@ -106,8 +106,10 @@ public class TimerTest : BootstrapBlazorTestBase
             });
         });
         var downs = cut.FindAll(".time-spinner-arrow.fa-angle-down");
-        downs[2].Click();
-        cut.Find(".time-panel-btn.confirm").Click();
+        await cut.InvokeAsync(() => downs[2].Click());
+
+        var confirm = cut.Find(".time-panel-btn.confirm");
+        await cut.InvokeAsync(() => confirm.Click());
 
         await Task.Delay(2000);
         Assert.True(timeout);

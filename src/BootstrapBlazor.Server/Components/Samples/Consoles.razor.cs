@@ -185,6 +185,14 @@ public sealed partial class Consoles
             ValueList = " — ",
             DefaultValue = " — "
         },
+        new()
+        {
+            Name = "ItemTemplate",
+            Description = "Item 模板",
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
         new(){
             Name = "LightTitle",
             Description = "指示灯 Title",
