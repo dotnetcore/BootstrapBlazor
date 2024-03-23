@@ -37,6 +37,8 @@ public class ConnectionHubTest : BootstrapBlazorTestBase
         {
             cut.Instance.Callback(mockData);
         });
-        Assert.True(service.TryGetValue(mockData.Id, out var _));
+        Assert.True(service.TryGetValue(mockData.Id, out var item));
+        Assert.NotNull(item?.ClientInfo);
+        Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
     }
 }
