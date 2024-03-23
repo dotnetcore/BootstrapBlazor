@@ -2,28 +2,26 @@
 import { execute } from "./ajax.js?v=$version"
 import { getFingerCode } from "./utility.js?v=$version"
 
-export function init(options) {
+export async function init(options) {
     const { invoke, method, interval = 3000 } = options;
-    var info = browser()
-    var data = {
-        Browser: info.browser + ' ' + info.version,
-        Device: info.device,
-        Language: info.language,
-        Engine: info.engine,
-        UserAgent: navigator.userAgent,
-        Os: info.system + ' ' + info.systemVersion
+    const info = browser()
+    let data = {
+        browser: info.browser + ' ' + info.version,
+        device: info.device,
+        language: info.language,
+        engine: info.engine,
+        userAgent: navigator.userAgent,
+        os: info.system + ' ' + info.systemVersion
     }
-    setTimeout(() => {
-        const code = getFingerCode();
-        invoke.invokeMethodAsync(method, code);
-    }, interval);
-}
-
-export async function ping(url, invoke, method) {
-
     const result = await execute({
         method: 'GET',
-        url
-    })
-    await invoke.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent)
+        url: './ip.axd'
+    });
+    const code = getFingerCode();
+    data.id = cdoe;
+    data.ip = result.ip;
+
+    setTimeout(() => {
+        invoke.invokeMethodAsync(method, code);
+    }, interval);
 }

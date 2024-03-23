@@ -23,7 +23,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="key"></param>
+    /// <param name="client"></param>
     /// <returns></returns>
     [JSInvokable]
     public Task Callback(ClientInfo client)
