@@ -65,6 +65,7 @@ public partial class Online : IDisposable
         _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
         _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
         _table.Columns.Add("Ip", typeof(string));
+        _table.Columns.Add("City", typeof(string));
         _table.Columns.Add("OS", typeof(string));
         _table.Columns.Add("Device", typeof(string));
         _table.Columns.Add("Browser", typeof(string));
@@ -78,7 +79,19 @@ public partial class Online : IDisposable
         _table.Rows.Clear();
         foreach (var item in ConnectionService.Connections)
         {
-            _table.Rows.Add(item.Id, item.ConnectionTime, item.LastBeatTime, item.ClientInfo?.Ip ?? "", item.ClientInfo?.OS ?? "", item.ClientInfo?.Device.ToString() ?? "", item.ClientInfo?.Browser ?? "", item.ClientInfo?.Language ?? "", item.ClientInfo?.Engine ?? "", item.ClientInfo?.RequestUrl ?? "");
+            _table.Rows.Add(
+                item.Id,
+                item.ConnectionTime,
+                item.LastBeatTime,
+                item.ClientInfo?.Ip ?? "",
+                item.ClientInfo?.City ?? "",
+                item.ClientInfo?.OS ?? "",
+                item.ClientInfo?.Device.ToString() ?? "",
+                item.ClientInfo?.Browser ?? "",
+                item.ClientInfo?.Language ?? "",
+                item.ClientInfo?.Engine ?? "",
+                item.ClientInfo?.RequestUrl ?? ""
+            );
         }
         _table.AcceptChanges();
 

@@ -24,9 +24,15 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
     [Inject]
     [NotNull]
+    private IIpLocatorFactory? IpLocatorFactory { get; set; }
+
+    [Inject]
+    [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
     private ClientInfo? _clientInfo;
+
+    private IIpLocatorProvider? _ipLocatorProvider;
 
     /// <summary>
     /// <inheritdoc/>
@@ -48,14 +54,22 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <param name="code"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task Callback(string? code)
+    public async Task Callback(string? code)
     {
         if (_clientInfo != null && !string.IsNullOrEmpty(code))
         {
             _clientInfo.Id = code;
             _clientInfo.RequestUrl = NavigationManager.Uri;
+
+            if (!string.IsNullOrEmpty(_clientInfo.Ip))
+            {
+                _ipLocatorProvider ??= IpLocatorFactory.Create();
+                if (_ipLocatorProvider != null)
+                {
+                    _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
+                }
+            }
             ConnectionService.AddOrUpdate(_clientInfo);
         }
-        return Task.CompletedTask;
     }
 }
