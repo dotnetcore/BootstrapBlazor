@@ -16,7 +16,17 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
     [Inject]
     [NotNull]
+    private WebClientService? WebClientService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
+    private ClientInfo? _clientInfo;
 
     /// <summary>
     /// <inheritdoc/>
@@ -27,6 +37,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
         var options = BootstrapBlazorOptions.Value.CollectionHubOptions ?? new();
         if (options.Enable)
         {
+            _clientInfo = await WebClientService.GetClientInfo();
             await InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval });
         }
     }
@@ -34,14 +45,16 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="client"></param>
+    /// <param name="code"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task Callback(ClientInfo client)
+    public Task Callback(string? code)
     {
-        if (!string.IsNullOrEmpty(client.Id))
+        if (_clientInfo != null && !string.IsNullOrEmpty(code))
         {
-            ConnectionService.AddOrUpdate(client);
+            _clientInfo.Id = code;
+            _clientInfo.RequestUrl = NavigationManager.Uri;
+            ConnectionService.AddOrUpdate(_clientInfo);
         }
         return Task.CompletedTask;
     }

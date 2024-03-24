@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 连接对象实体类
 /// </summary>
-public class CollectionItem
+public class ConnectionItem
 {
     /// <summary>
     /// 获得/设置 连接 Id

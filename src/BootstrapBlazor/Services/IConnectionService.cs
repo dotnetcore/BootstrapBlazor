@@ -21,7 +21,12 @@ public interface IConnectionService
     /// <param name="key">键值</param>
     /// <param name="value">连接信息</param>
     /// <returns></returns>
-    bool TryGetValue(string key, out CollectionItem? value);
+    bool TryGetValue(string key, out ConnectionItem? value);
+
+    /// <summary>
+    /// 获得 链接集合
+    /// </summary>
+    ICollection<ConnectionItem> Connections { get; }
 
     /// <summary>
     /// 获得在线连接数
