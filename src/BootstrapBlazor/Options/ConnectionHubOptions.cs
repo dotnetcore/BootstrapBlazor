@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// CollectionHub 配置类
+/// ConnectionHubOptions 配置类
 /// </summary>
-public class CollectionHubOptions
+public class ConnectionHubOptions
 {
     /// <summary>
     /// 获得/设置 过期扫描周期 默认 1 分钟

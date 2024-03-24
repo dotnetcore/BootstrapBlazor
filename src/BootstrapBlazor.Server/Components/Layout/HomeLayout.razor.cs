@@ -27,7 +27,7 @@ public partial class HomeLayout
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
-    private CollectionHubOptions _options = default!;
+    private ConnectionHubOptions _options = default!;
 
     /// <summary>
     /// <inheritdoc />

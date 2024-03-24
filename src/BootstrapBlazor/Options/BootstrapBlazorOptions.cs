@@ -87,7 +87,7 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// <summary>
     /// 获得/设置 CollectionHubOptions 配置 默认为 null
     /// </summary>
-    public CollectionHubOptions? CollectionHubOptions { get; set; }
+    public ConnectionHubOptions? CollectionHubOptions { get; set; }
 
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 

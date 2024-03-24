@@ -13,13 +13,13 @@ class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
 
-    private readonly CollectionHubOptions _options = default!;
+    private readonly ConnectionHubOptions _options = default!;
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options)
     {
-        _options = options.Value.CollectionHubOptions ?? new CollectionHubOptions();
+        _options = options.Value.CollectionHubOptions ?? new ConnectionHubOptions();
 
         if (_options.Enable)
         {
