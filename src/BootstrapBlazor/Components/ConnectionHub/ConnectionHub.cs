@@ -14,11 +14,22 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [NotNull]
     private IConnectionService? ConnectionService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback) });
+    protected override async Task InvokeInitAsync()
+    {
+        var options = BootstrapBlazorOptions.Value.CollectionHubOptions ?? new();
+        if (options.Enable)
+        {
+            await InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval });
+        }
+    }
 
     /// <summary>
     /// JSInvoke 回调方法

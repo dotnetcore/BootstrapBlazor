@@ -21,20 +21,23 @@ class DefaultConnectionService : IConnectionService, IDisposable
     {
         _options = options.Value.CollectionHubOptions ?? new CollectionHubOptions();
 
-        Task.Run(async () =>
+        if (_options.Enable)
         {
-            while (!_cancellationTokenSource.IsCancellationRequested)
+            Task.Run(async () =>
             {
-                try
+                while (!_cancellationTokenSource.IsCancellationRequested)
                 {
-                    await Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
+                    try
+                    {
+                        await Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
 
-                    var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
-                    keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                        var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                        keys.ForEach(i => _connectionCache.TryRemove(i, out _));
+                    }
+                    catch { }
                 }
-                catch { }
-            }
-        });
+            });
+        }
     }
 
     /// <summary>

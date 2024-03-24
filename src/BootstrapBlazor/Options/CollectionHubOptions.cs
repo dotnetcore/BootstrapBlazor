@@ -18,4 +18,9 @@ public class CollectionHubOptions
     /// 获得/设置 ConnectionHub 组件心跳间隔
     /// </summary>
     public int BeatInterval { get; set; } = 5000;
+
+    /// <summary>
+    /// 获得/设置 是否开启 CollectionHub 功能 默认 false 未开启
+    /// </summary>
+    public bool Enable { get; set; }
 }
