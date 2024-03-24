@@ -12,7 +12,7 @@ public class CollectionHubOptions
     /// <summary>
     /// 获得/设置 过期扫描周期 默认 1 分钟
     /// </summary>
-    public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(1);
+    public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(10);
 
     /// <summary>
     /// 获得/设置 ConnectionHub 组件心跳间隔
