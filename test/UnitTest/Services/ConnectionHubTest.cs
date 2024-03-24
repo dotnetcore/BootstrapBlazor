@@ -4,17 +4,30 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 
 namespace UnitTest.Services;
 
-public class ConnectionHubTest : BootstrapBlazorTestBase
+public class ConnectionHubTest
 {
     [Fact]
     public async Task AddConnection_Ok()
     {
-        var client = Context.Services.GetRequiredService<WebClientService>();
-        var service = Context.Services.GetRequiredService<IConnectionService>();
-        var cut = Context.RenderComponent<ConnectionHub>();
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+
+        var options = context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        options.Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromSeconds(1),
+            BeatInterval = 500
+        };
+
+        var client = context.Services.GetRequiredService<WebClientService>();
+        var service = context.Services.GetRequiredService<IConnectionService>();
+        var cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
             client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
@@ -31,6 +44,14 @@ public class ConnectionHubTest : BootstrapBlazorTestBase
         Assert.True(service.TryGetValue("test_id", out var item));
         Assert.NotNull(item?.ClientInfo);
         Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
+        cut.Dispose();
+
+        options.Value.ConnectionHubOptions = null;
+        cut = context.RenderComponent<ConnectionHub>();
+        await cut.InvokeAsync(async () =>
+        {
+            await cut.Instance.Callback("test_id");
+        });
     }
 
     [Fact]
