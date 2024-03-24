@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Layout;
 
+/// <summary>
+/// Home 模板
+/// </summary>
 public partial class HomeLayout
 {
     private static string Version => Environment.Version.ToString();
