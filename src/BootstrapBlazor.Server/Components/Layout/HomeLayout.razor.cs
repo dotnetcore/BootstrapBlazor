@@ -51,7 +51,7 @@ public partial class HomeLayout
             OS = "Unknown";
         }
 
-        _options = BootstrapBlazorOptions.Value.CollectionHubOptions ?? new();
+        _options = BootstrapBlazorOptions.Value.ConnectionHubOptions ?? new();
         UpdateRuntime();
     }
 

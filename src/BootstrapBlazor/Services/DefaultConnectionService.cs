@@ -19,7 +19,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 
     public DefaultConnectionService(IOptions<BootstrapBlazorOptions> options)
     {
-        _options = options.Value.CollectionHubOptions ?? new ConnectionHubOptions();
+        _options = options.Value.ConnectionHubOptions ?? new ConnectionHubOptions();
 
         if (_options.Enable)
         {

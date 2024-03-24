@@ -40,7 +40,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        var options = BootstrapBlazorOptions.Value.CollectionHubOptions ?? new();
+        var options = BootstrapBlazorOptions.Value.ConnectionHubOptions ?? new();
         if (options.Enable)
         {
             _clientInfo = await WebClientService.GetClientInfo();
@@ -56,8 +56,9 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [JSInvokable]
     public async Task Callback(string? code)
     {
-        if (_clientInfo != null && !string.IsNullOrEmpty(code))
+        if (!string.IsNullOrEmpty(code))
         {
+            _clientInfo ??= new();
             _clientInfo.Id = code;
             _clientInfo.RequestUrl = NavigationManager.Uri;
 
