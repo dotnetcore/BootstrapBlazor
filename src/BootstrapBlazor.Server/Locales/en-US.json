@@ -2168,10 +2168,7 @@
     "FullScreenTitleTitle": "Button",
     "FullScreenTitleIntro": "The full screen of the entire web page is component <code>FullScreenButton</code>",
     "FullScreenTitleLi1": "The button default icon can be set through the <code>ButtonIcon</code>, and the full-screen icon can be set through the <code>FullScreenIcon</code> property",
-    "FullScreenTitleLi2": "Use the <code>Title</code> property to set the prompt bar text when the mouse hovers",
-    "FullScreenTitleLi3": "Use the <code>Text</code> property to set current page title",
-    "FullScreenTitleButton1Text": "Tap for a full screen operation",
-    "Pre": "FullScreenButton Title=\"Click for full screen operation\""
+    "FullScreenTitleLi3": "Use the <code>Text</code> property to set current page title"
   },
   "BootstrapBlazor.Server.Components.Samples.Buttons": {
     "Title": "Button",

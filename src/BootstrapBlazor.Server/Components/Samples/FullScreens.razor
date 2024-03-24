@@ -11,11 +11,11 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FullScreenTitleTitle"]" Introduction="@Localizer["FullScreenTitleIntro"]" Name="Title">
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["FullScreenTitleLi1"].Value)</li>
-        <li>@((MarkupString)Localizer["FullScreenTitleLi2"].Value)</li>
-        <li>@((MarkupString)Localizer["FullScreenTitleLi3"].Value)</li>
-    </ul>
-    <Pre class="mt-3">&lt;@Localizer["Pre"] /&gt;</Pre>
-    <FullScreenButton Title="@Localizer["FullScreenTitleButton1Text"]" FullScreenIcon="fa-solid fa-font-awesome" />
+    <section ignore>
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["FullScreenTitleLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["FullScreenTitleLi3"].Value)</li>
+        </ul>
+    </section>
+    <FullScreenButton FullScreenIcon="fa-solid fa-font-awesome"></FullScreenButton>
 </DemoBlock>

@@ -12,7 +12,7 @@ export function init(id) {
         else {
             fs.enter()
         }
-        fs.toggleElement.classList.toggle('fs-open')
+        fs.toggleElement.classList.toggle('bb-fs-open')
     }
 
     fs.enter = () => {
