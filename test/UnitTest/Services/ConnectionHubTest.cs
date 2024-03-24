@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Services;
 
@@ -11,35 +12,61 @@ public class ConnectionHubTest : BootstrapBlazorTestBase
     [Fact]
     public async Task AddConnection_Ok()
     {
-        var mockData = new ClientInfo()
-        {
-            Id = "test_id",
-            Ip = "192.168.0.1",
-            OS = "ios",
-            Browser = "chrome",
-            Device = WebClientDeviceType.Mobile,
-            Language = "zh",
-            Engine = "engine",
-            UserAgent = "test_agent"
-        };
-
+        var client = Context.Services.GetRequiredService<WebClientService>();
         var service = Context.Services.GetRequiredService<IConnectionService>();
         var cut = Context.RenderComponent<ConnectionHub>();
-        await cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
-            cut.Instance.Callback(mockData);
+            client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            await cut.Instance.Callback("test_id");
         });
         Assert.Equal(1, service.Count);
 
         // 触发 Beat 时间
-        await Task.Delay(10);
-        await cut.InvokeAsync(() =>
+        await Task.Delay(100);
+        await cut.InvokeAsync(async () =>
         {
-            cut.Instance.Callback(mockData);
+            await cut.Instance.Callback("test_id");
         });
-        Assert.True(service.TryGetValue(mockData.Id, out var item));
+        Assert.True(service.TryGetValue("test_id", out var item));
         Assert.NotNull(item?.ClientInfo);
         Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
+    }
+
+    [Fact]
+    public async Task ExpirationScanFrequency_Ok()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        var provider = services.BuildServiceProvider();
+        var options = provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        options.Value.ConnectionHubOptions = new()
+        {
+            Enable = true,
+            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
+            BeatInterval = 100
+        };
+
+        var service = provider.GetRequiredService<IConnectionService>();
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
+        Assert.Single(service.Connections);
+
+        await Task.Delay(200);
+        Assert.Equal(0, service.Count);
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_Ok()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
     }
 }
 
