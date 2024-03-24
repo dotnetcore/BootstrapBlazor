@@ -4,4 +4,11 @@
 <a @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @onclick="ToggleFullScreen">
     <i class="@ButtonIconString"></i>
     <i class="@FullScreenIconString"></i>
+    @if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
 </a>

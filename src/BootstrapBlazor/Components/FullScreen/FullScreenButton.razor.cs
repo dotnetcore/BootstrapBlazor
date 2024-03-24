@@ -23,13 +23,12 @@ public partial class FullScreenButton
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ButtonIconString => CssBuilder.Default()
-        .AddClass(Icon)
-        .AddClass("fs-off", !string.IsNullOrEmpty(FullScreenIcon))
+    private string? ButtonIconString => CssBuilder.Default(Icon)
+        .AddClass("bb-fs-off")
         .Build();
 
-    private string? FullScreenIconString => CssBuilder.Default("fs-on")
-        .AddClass(FullScreenIcon)
+    private string? FullScreenIconString => CssBuilder.Default(FullScreenIcon)
+        .AddClass("bb-fs-on")
         .Build();
 
     /// <summary>
