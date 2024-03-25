@@ -20,7 +20,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <summary>
     /// 获得 本机地址列表
     /// </summary>
-    private readonly List<string> _localhostList = [..new[] { "::1", "127.0.0.1" }];
+    private readonly List<string> _localhostList = [.. new[] { "::1", "127.0.0.1" }];
 
     /// <summary>
     /// <inheritdoc/>
