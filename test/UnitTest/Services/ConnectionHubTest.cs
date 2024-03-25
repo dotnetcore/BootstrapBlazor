@@ -21,7 +21,7 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromSeconds(1),
+            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
             BeatInterval = 500
         };
 
@@ -79,27 +79,18 @@ public class ConnectionHubTest
     }
 
     [Fact]
-    public void ConnectionHubOptions_Ok()
-    {
-        var services = new ServiceCollection();
-        services.AddBootstrapBlazor();
-
-        var provider = services.BuildServiceProvider();
-        var service = provider.GetRequiredService<IConnectionService>();
-        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
-        Assert.Equal(1, service.Count);
-    }
-}
-
-public class ConnectionServiceTest : TestBase
-{
-    [Fact]
-    public void ConnectionService_Ok()
+    public void ExpirationScanFrequency_Cancel()
     {
         var type = Type.GetType("BootstrapBlazor.Components.DefaultConnectionService, BootstrapBlazor");
         Assert.NotNull(type);
 
-        var service = Activator.CreateInstance(type, new BootstrapBlazorOptions());
+        var service = Activator.CreateInstance(type, new BootstrapBlazorOptions()
+        {
+            ConnectionHubOptions = new()
+            {
+                Enable = true,
+            }
+        });
         Assert.NotNull(service);
 
         var fieldInfo = type.GetField("_cancellationTokenSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -109,5 +100,17 @@ public class ConnectionServiceTest : TestBase
         Assert.NotNull(token);
 
         token.Cancel();
+    }
+
+    [Fact]
+    public void ConnectionHubOptions_Ok()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
     }
 }
