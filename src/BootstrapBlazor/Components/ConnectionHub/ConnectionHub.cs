@@ -40,7 +40,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        var options = BootstrapBlazorOptions.Value.ConnectionHubOptions ?? new();
+        var options = BootstrapBlazorOptions.Value.ConnectionHubOptions;
         if (options.Enable)
         {
             _clientInfo = await WebClientService.GetClientInfo();
@@ -70,6 +70,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
                     _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
                 }
             }
+            ConnectionService.AddOrUpdate(_clientInfo);
         }
     }
 }
