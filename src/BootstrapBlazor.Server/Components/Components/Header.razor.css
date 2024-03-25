@@ -6,6 +6,10 @@
     transition: transform .3s ease;
 }
 
+.navbar-brand span {
+    color: var(--bs-navbar-color);
+}
+
 .header-img {
     display: flex;
     align-items: center;

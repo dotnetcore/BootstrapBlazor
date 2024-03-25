@@ -16,7 +16,9 @@ export async function ping(url, invoke, method) {
         method: 'GET',
         url
     });
-    data.id = result.Id;
-    data.ip = result.Ip;
+    if (result) {
+        data.ip = result.Ip;
+        data.id = result.Id;
+    }
     await invoke.invokeMethodAsync(method, data)
 }

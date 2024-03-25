@@ -85,9 +85,9 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
-    /// 获得/设置 CollectionHubOptions 配置 默认为 null
+    /// 获得/设置 ConnectionHubOptions 配置 默认为 null
     /// </summary>
-    public CollectionHubOptions? CollectionHubOptions { get; set; }
+    public ConnectionHubOptions? ConnectionHubOptions { get; set; }
 
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
