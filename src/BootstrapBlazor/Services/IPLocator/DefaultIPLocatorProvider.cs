@@ -17,10 +17,16 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     protected MemoryCache IpCache { get; } = new(new MemoryCacheOptions());
 
     /// <summary>
+    /// 获得 IpLocator 配置信息
+    /// </summary>
+    protected IpLocatorOptions Options { get; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
-    protected DefaultIpLocatorProvider()
+    protected DefaultIpLocatorProvider(IOptions<BootstrapBlazorOptions> options)
     {
+        Options = options.Value.IpLocatorOptions;
         Key = GetType().Name;
     }
 
@@ -48,7 +54,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
         {
             ret = "本地连接";
         }
-        else
+        else if (Options.EnableCache)
         {
             if (IpCache.TryGetValue(ip, out var v) && v is string city && !string.IsNullOrEmpty(city))
             {
@@ -59,8 +65,12 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
                 ret = await LocateByIp(ip);
                 var entry = IpCache.CreateEntry(ip);
                 entry.Value = ret;
-                entry.SetSlidingExpiration(TimeSpan.FromHours(24 * 30));
+                entry.SetSlidingExpiration(Options.SlidingExpiration);
             }
+        }
+        else
+        {
+            ret = await LocateByIp(ip);
         }
         return ret;
     }

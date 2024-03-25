@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BaiduIPLocatorV2 第二个版本实现类
 /// </summary>
-public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, ILogger<BaiduIpLocatorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, logger)
+public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> options, ILogger<BaiduIpLocatorProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, options, logger)
 {
     /// <summary>
     /// <inheritdoc/>

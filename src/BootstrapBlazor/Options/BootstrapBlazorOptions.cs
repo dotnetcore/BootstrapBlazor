@@ -89,6 +89,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public ConnectionHubOptions ConnectionHubOptions { get; set; } = new();
 
+    /// <summary>
+    /// 获得/设置 IpLocatorOptions 配置 默认为 null
+    /// </summary>
+    public IpLocatorOptions IpLocatorOptions { get; set; } = new();
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>
