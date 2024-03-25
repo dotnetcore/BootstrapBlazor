@@ -63,9 +63,12 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
             else
             {
                 ret = await LocateByIp(ip);
-                var entry = IpCache.CreateEntry(ip);
-                entry.Value = ret;
-                entry.SetSlidingExpiration(Options.SlidingExpiration);
+                if (!string.IsNullOrEmpty(ret))
+                {
+                    using var entry = IpCache.CreateEntry(ip);
+                    entry.Value = ret;
+                    entry.SetSlidingExpiration(Options.SlidingExpiration);
+                }
             }
         }
         else
