@@ -11,7 +11,7 @@ namespace UnitTest.Services;
 public class ConnectionHubTest
 {
     [Fact]
-    public async Task AddConnection_Ok()
+    public async Task Callback_Ok()
     {
         var context = new TestContext();
         context.JSInterop.Mode = JSRuntimeMode.Loose;
@@ -46,10 +46,13 @@ public class ConnectionHubTest
         Assert.True(item?.ConnectionTime < DateTimeOffset.Now);
         cut.Dispose();
 
-        options.Value.ConnectionHubOptions = null;
+        // 触发内部 ClientInfo 为空情况 覆盖 _clientInfo ??= new();
+        options.Value.ConnectionHubOptions.Enable = false;
+        client = context.Services.GetRequiredService<WebClientService>();
         cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
+            client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
             await cut.Instance.Callback("test_id");
         });
     }

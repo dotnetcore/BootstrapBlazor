@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -10,10 +12,21 @@ namespace BootstrapBlazor.Components;
 public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
 {
     /// <summary>
+    /// 获得 Ip 定位结果缓存
+    /// </summary>
+    protected MemoryCache IpCache { get; } = new(new MemoryCacheOptions());
+
+    /// <summary>
+    /// 获得 IpLocator 配置信息
+    /// </summary>
+    protected IpLocatorOptions Options { get; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
-    protected DefaultIpLocatorProvider()
+    protected DefaultIpLocatorProvider(IOptions<BootstrapBlazorOptions> options)
     {
+        Options = options.Value.IpLocatorOptions;
         Key = GetType().Name;
     }
 
@@ -40,6 +53,23 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
         if (string.IsNullOrEmpty(ip) || _localhostList.Any(p => p == ip))
         {
             ret = "本地连接";
+        }
+        else if (Options.EnableCache)
+        {
+            if (IpCache.TryGetValue(ip, out var v) && v is string city && !string.IsNullOrEmpty(city))
+            {
+                ret = city;
+            }
+            else
+            {
+                ret = await LocateByIp(ip);
+                if (!string.IsNullOrEmpty(ret))
+                {
+                    using var entry = IpCache.CreateEntry(ip);
+                    entry.Value = ret;
+                    entry.SetSlidingExpiration(Options.SlidingExpiration);
+                }
+            }
         }
         else
         {
