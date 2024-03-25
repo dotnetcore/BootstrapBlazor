@@ -79,7 +79,7 @@ public class ConnectionHubTest
     }
 
     [Fact]
-    public void ExpirationScanFrequency_Cancel()
+    public async Task ExpirationScanFrequency_Cancel()
     {
         var type = Type.GetType("BootstrapBlazor.Components.DefaultConnectionService, BootstrapBlazor");
         Assert.NotNull(type);
@@ -99,6 +99,7 @@ public class ConnectionHubTest
         var token = fieldInfo.GetValue(service) as CancellationTokenSource;
         Assert.NotNull(token);
 
+        await Task.Delay(100);
         token.Cancel();
     }
 
