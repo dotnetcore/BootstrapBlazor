@@ -4,7 +4,7 @@ export async function init(options) {
     const { invoke, method, interval = 3000 } = options;
     const code = getFingerCode();
 
-    setInterval(() => {
-        invoke.invokeMethodAsync(method, code);
+    setInterval(async () => {
+        await invoke.invokeMethodAsync(method, code);
     }, interval);
 }
