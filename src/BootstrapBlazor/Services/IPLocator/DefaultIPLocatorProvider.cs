@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -9,6 +11,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
 {
+    /// <summary>
+    /// 获得 Ip 定位结果缓存
+    /// </summary>
+    protected MemoryCache IpCache { get; } = new(new MemoryCacheOptions());
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -43,7 +50,17 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
         }
         else
         {
-            ret = await LocateByIp(ip);
+            if (IpCache.TryGetValue(ip, out var v) && v is string city && !string.IsNullOrEmpty(city))
+            {
+                ret = city;
+            }
+            else
+            {
+                ret = await LocateByIp(ip);
+                var entry = IpCache.CreateEntry(ip);
+                entry.Value = ret;
+                entry.SetSlidingExpiration(TimeSpan.FromHours(24 * 30));
+            }
         }
         return ret;
     }
