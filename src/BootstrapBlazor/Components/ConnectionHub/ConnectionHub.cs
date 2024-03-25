@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Collections.Concurrent;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -66,23 +64,12 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
             if (!string.IsNullOrEmpty(_clientInfo.Ip))
             {
-                if (_ipCache.TryGetValue(_clientInfo.Ip, out var city) && !string.IsNullOrEmpty(city))
+                _ipLocatorProvider ??= IpLocatorFactory.Create();
+                if (_ipLocatorProvider != null)
                 {
-                    _clientInfo.City = city;
-                }
-                else
-                {
-                    _ipLocatorProvider ??= IpLocatorFactory.Create(nameof(BaiduIpLocatorProvider));
-                    if (_ipLocatorProvider != null)
-                    {
-                        _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
-                    }
-                    _ipCache.AddOrUpdate(_clientInfo.Ip, key => _clientInfo.City, (_, _) => _clientInfo.City);
+                    _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
                 }
             }
-            ConnectionService.AddOrUpdate(_clientInfo);
         }
     }
-
-    private static readonly ConcurrentDictionary<string, string?> _ipCache = new();
 }
