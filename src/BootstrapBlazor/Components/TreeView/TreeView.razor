@@ -19,6 +19,14 @@
 else
 {
     <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
+        @if (ShowSearch)
+        {
+            <BootstrapInputGroup class="mb-3">
+                <BootstrapInput @bind-Value="@_searchText" />
+                <Button Icon="@ClearSearchIcon" OnClickWithoutRender="OnClickResetSearch"></Button>
+                <Button Icon="@SearchIcon" OnClickWithoutRender="OnClickSearch"></Button>
+            </BootstrapInputGroup>
+        }
         <ul class="tree-root">
             @foreach (var item in Items)
             {
@@ -58,7 +66,7 @@ else
                 }
                 else
                 {
-                    @item.Template(item.Value)    
+                    @item.Template(item.Value)
                 }
             </DynamicElement>
         </div>
