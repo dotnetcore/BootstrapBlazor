@@ -13,5 +13,5 @@ public interface IThrottleDispatcherFactory
     /// 获得或创建限流器
     /// </summary>
     /// <returns></returns>
-    ThrottleDispatcher GetOrCreate(string key, ThrottleOptions options);
+    ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null);
 }

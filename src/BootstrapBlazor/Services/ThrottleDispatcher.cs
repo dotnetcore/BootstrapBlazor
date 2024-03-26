@@ -7,15 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 限流器泛型类
 /// </summary>
-/// <param name="options">配置类实例</param>
-public class ThrottleDispatcher(ThrottleOptions options)
+public class ThrottleDispatcher(ThrottleOptions? options = null)
 {
     private readonly object _locker = new();
     private Task? _lastTask;
     private DateTime? _invokeTime;
     private bool _busy;
+    private readonly ThrottleOptions _options = options ?? new();
 
-    private bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value).TotalMilliseconds < options.Interval;
+    private bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value).TotalMilliseconds < _options.Interval;
 
     /// <summary>
     /// 异步限流方法
@@ -55,14 +55,14 @@ public class ThrottleDispatcher(ThrottleOptions options)
 
             _lastTask.ContinueWith(task =>
             {
-                if (options.DelayAfterExecution)
+                if (_options.DelayAfterExecution)
                 {
                     _invokeTime = DateTime.UtcNow;
                 }
                 _busy = false;
             }, cancellationToken);
 
-            if (options.ResetIntervalOnException)
+            if (_options.ResetIntervalOnException)
             {
                 _lastTask.ContinueWith((task, obj) =>
                 {

@@ -8,12 +8,12 @@ namespace BootstrapBlazor.Components;
 
 class DefaultThrottleDispatcherFactory : IThrottleDispatcherFactory
 {
-    private ConcurrentDictionary<string, ThrottleDispatcher> _cache = new();
+    private readonly ConcurrentDictionary<string, ThrottleDispatcher> _cache = new();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="key"></param>
     /// <param name="options"></param>
-    public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions options) => _cache.GetOrAdd(key, key => new ThrottleDispatcher(options));
+    public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null) => _cache.GetOrAdd(key, key => new ThrottleDispatcher(options));
 }
