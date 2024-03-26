@@ -190,6 +190,7 @@ public class IconThemeOptions
 
         { ComponentIcons.TreeViewExpandNodeIcon, "fa-solid fa-caret-right fa-rotate-90" },
         { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
+        { ComponentIcons.TreeViewSearchIcon, "fa-solid fa-magnifying-glass" },
 
         // Upload
         { ComponentIcons.AvatarUploadDeleteIcon, "fa-regular fa-trash-can" },

@@ -19,6 +19,13 @@
 else
 {
     <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
+        @if (ShowSearch)
+        {
+            <BootstrapInputGroup class="mb-3">
+                <BootstrapInput @bind-Value="@_searchText" />
+                <Button Icon="@SearchIcon" OnClickWithoutRender="OnClickSearch"></Button>
+            </BootstrapInputGroup>
+        }
         <ul class="tree-root">
             @foreach (var item in Items)
             {
