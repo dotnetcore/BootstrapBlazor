@@ -700,6 +700,11 @@ public enum ComponentIcons
     TreeViewSearchIcon,
 
     /// <summary>
+    /// TreeView 组件 ClearSearchIcon 属性图标
+    /// </summary>
+    TreeViewResetSearchIcon,
+
+    /// <summary>
     /// TreeView 组件 NodeIcon 属性图标
     /// </summary>
     TreeViewNodeIcon,

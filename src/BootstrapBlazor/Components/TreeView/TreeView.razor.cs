@@ -134,6 +134,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? SearchIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 清除搜索栏图标 默认 未设置 使用主题内置图标
+    /// </summary>
+    [Parameter]
+    public string? ClearSearchIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索回调方法 默认 null 未设置
     /// </summary>
     /// <remarks>通过设置 <see cref="ShowSearch"/> 开启</remarks>
@@ -264,6 +270,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         NodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewNodeIcon);
         ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
+        ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
     }
 
     /// <summary>
@@ -360,6 +367,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task OnClickSearch()
     {
+        if (OnSearchAsync != null)
+        {
+            await OnSearchAsync(_searchText);
+        }
+    }
+
+    private async Task OnClickResetSearch()
+    {
+        _searchText = null;
         if (OnSearchAsync != null)
         {
             await OnSearchAsync(_searchText);
