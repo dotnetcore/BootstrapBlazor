@@ -7,15 +7,18 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 限流器泛型类
 /// </summary>
-public class ThrottleDispatcher(ThrottleOptions? options = null)
+public class ThrottleDispatcher(ThrottleOptions options)
 {
     private readonly object _locker = new();
     private Task? _lastTask;
     private DateTime? _invokeTime;
     private bool _busy;
-    private readonly ThrottleOptions _options = options ?? new();
 
-    private bool ShouldWait() => _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value).TotalMilliseconds < _options.Interval;
+    /// <summary>
+    /// 判断是否等待方法
+    /// </summary>
+    /// <returns></returns>
+    protected bool ShouldWait() => _busy || _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value).TotalMilliseconds < options.Interval;
 
     /// <summary>
     /// 异步限流方法
@@ -35,6 +38,8 @@ public class ThrottleDispatcher(ThrottleOptions? options = null)
         return Task.CompletedTask;
     }, cancellationToken);
 
+    private Task LastTask => _lastTask ?? Task.CompletedTask;
+
     /// <summary>
     /// 限流异步方法
     /// </summary>
@@ -42,34 +47,29 @@ public class ThrottleDispatcher(ThrottleOptions? options = null)
     /// <param name="cancellationToken">取消令牌</param>
     private Task InternalThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default)
     {
+        if (ShouldWait())
+        {
+            return LastTask;
+        }
+
         lock (_locker)
         {
-            if (_lastTask != null && (_busy || ShouldWait()))
+            if (ShouldWait())
             {
-                return _lastTask;
+                return LastTask;
             }
 
             _busy = true;
             _invokeTime = DateTime.UtcNow;
             _lastTask = function();
-
-            _lastTask.ContinueWith(task =>
+            _lastTask.ContinueWith(_ =>
             {
-                if (_options.DelayAfterExecution)
+                if (options.DelayAfterExecution)
                 {
                     _invokeTime = DateTime.UtcNow;
                 }
                 _busy = false;
             }, cancellationToken);
-
-            if (_options.ResetIntervalOnException)
-            {
-                _lastTask.ContinueWith((task, obj) =>
-                {
-                    _lastTask = null;
-                    _invokeTime = null;
-                }, cancellationToken, TaskContinuationOptions.OnlyOnFaulted);
-            }
             return _lastTask;
         }
     }

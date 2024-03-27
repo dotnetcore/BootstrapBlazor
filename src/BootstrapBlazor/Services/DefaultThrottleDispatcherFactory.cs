@@ -15,5 +15,5 @@ class DefaultThrottleDispatcherFactory : IThrottleDispatcherFactory
     /// </summary>
     /// <param name="key"></param>
     /// <param name="options"></param>
-    public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null) => _cache.GetOrAdd(key, key => new ThrottleDispatcher(options));
+    public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null) => _cache.GetOrAdd(key, key => new ThrottleDispatcher(options ?? new()));
 }
