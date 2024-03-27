@@ -49,4 +49,31 @@ public class ThrottleTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         }
     }
+
+    [Theory]
+    [InlineData(false, 2)]
+    [InlineData(true, 1)]
+    public async Task DelayAfterExecution_Ok(bool delayAfterExecution, int expected)
+    {
+        var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
+        var dispatcher = factory.GetOrCreate($"DelayAfterExecution-{expected}", new ThrottleOptions() { Interval = 200, DelayAfterExecution = delayAfterExecution });
+
+        // 开始执行时计时 100ms 后可再次执行
+        var count = 0;
+        await dispatcher.ThrottleAsync(async () =>
+        {
+            await Task.Delay(100);
+            count++;
+        });
+        await Task.Delay(150);
+
+        // 如果 DelayAfterExecution = false 再次执行时计数 已经超出 200ms
+        // 如果 DelayAfterExecution = true 再次执行时不会计数 invokeTime 重置 未到达 200ms
+        dispatcher.Throttle(() =>
+        {
+            count++;
+        });
+        Assert.Equal(expected, count);
+    }
+
 }
