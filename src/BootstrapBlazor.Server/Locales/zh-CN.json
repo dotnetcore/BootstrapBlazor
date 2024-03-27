@@ -670,6 +670,8 @@
     "TreeViewShowSkeletonTitle": "加载骨架屏",
     "TreeViewShowSkeletonIntro": "通过设置 <code>ShowSkeleton</code> 使异步加载数据时组件显示骨架屏",
     "TreeViewShowSkeletonButtonText": "异步加载",
+    "TreeViewShowSearchTitle": "显示搜索栏",
+    "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",

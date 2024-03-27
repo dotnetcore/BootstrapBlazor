@@ -670,6 +670,8 @@
     "TreeViewShowSkeletonTitle": "Loading skeleton screen",
     "TreeViewShowSkeletonIntro": "By setting <code>ShowSkeleton</code>, the component displays the skeleton screen when the data is loaded asynchronously",
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
+    "TreeViewShowSearchTitle": "Show search",
+    "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",

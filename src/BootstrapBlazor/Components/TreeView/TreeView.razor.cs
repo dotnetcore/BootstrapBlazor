@@ -128,6 +128,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowResetSearchButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 搜索栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? SearchTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索栏图标 默认 未设置 使用主题内置图标
     /// </summary>
     [Parameter]
@@ -364,6 +376,14 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         StateHasChanged();
     }
+
+    private async Task OnEnterAsync(string? searchText)
+    {
+        _searchText = searchText;
+        await OnClickSearch();
+    }
+
+    private Task OnEscAsync(string? searchText) => OnClickResetSearch();
 
     private async Task OnClickSearch()
     {
