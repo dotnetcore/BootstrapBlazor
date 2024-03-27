@@ -383,11 +383,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         await OnClickSearch();
     }
 
-    private async Task OnEscAsync(string? searchText)
-    {
-        _searchText = null;
-        await OnClickSearch();
-    }
+    private Task OnEscAsync(string? searchText) => OnClickResetSearch();
 
     private async Task OnClickSearch()
     {
