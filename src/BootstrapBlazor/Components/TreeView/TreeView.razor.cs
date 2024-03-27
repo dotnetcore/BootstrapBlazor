@@ -127,6 +127,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool ShowSearch { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowResetSearchButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 搜索栏模板 默认 null
