@@ -25,20 +25,48 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// </summary>
     /// <param name="function">异步回调方法</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public Task ThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default) => InternalThrottleAsync(function, cancellationToken);
+    public Task ThrottleAsync(Func<Task> function, CancellationToken cancellationToken = default) => InternalThrottleAsync(() => Task.Run(function), cancellationToken);
 
     /// <summary>
     /// 同步限流方法
     /// </summary>
     /// <param name="action">同步回调方法</param>
     /// <param name="cancellationToken">取消令牌</param>
-    public void Throttle(Action action, CancellationToken cancellationToken = default) => InternalThrottleAsync(() =>
+    public void Throttle(Action action, CancellationToken cancellationToken = default)
     {
-        action();
-        return Task.CompletedTask;
-    }, cancellationToken);
+        var task = InternalThrottleAsync(() => Task.Run(() =>
+        {
+            action();
+            return Task.CompletedTask;
+        }, cancellationToken), cancellationToken);
+        Wait();
+        return;
 
-    private Task LastTask => _lastTask ?? Task.CompletedTask;
+        [ExcludeFromCodeCoverage]
+        void Wait()
+        {
+            try
+            {
+                task.Wait(cancellationToken);
+            }
+            catch (AggregateException ex)
+            {
+                if (ex.InnerException is not null)
+                {
+                    throw ex.InnerException;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 任务实例
+    /// </summary>
+    protected Task LastTask => _lastTask ?? Task.CompletedTask;
 
     /// <summary>
     /// 限流异步方法
@@ -70,7 +98,16 @@ public class ThrottleDispatcher(ThrottleOptions options)
                 }
                 _busy = false;
             }, cancellationToken);
-            return _lastTask;
+
+            if (options.ResetIntervalOnException)
+            {
+                _lastTask.ContinueWith((_, _) =>
+                {
+                    _lastTask = null;
+                    _invokeTime = null;
+                }, cancellationToken, TaskContinuationOptions.OnlyOnFaulted);
+            }
+            return LastTask;
         }
     }
 }
