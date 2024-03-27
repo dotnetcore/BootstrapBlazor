@@ -76,4 +76,26 @@ public class ThrottleTest : BootstrapBlazorTestBase
         Assert.Equal(expected, count);
     }
 
+    [Fact]
+    public async Task ResetIntervalOnException_Ok()
+    {
+        var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
+        var dispatcher = factory.GetOrCreate("Error", new ThrottleOptions() { ResetIntervalOnException = true });
+
+        var count = 0;
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => dispatcher.ThrottleAsync(() =>
+        {
+            count++;
+            throw new InvalidOperationException();
+        }));
+
+        Assert.ThrowsAny<InvalidOperationException>(() => dispatcher.Throttle(() => throw new InvalidOperationException()));
+
+        // 发生错误后可以立即执行下一次任务，不限流
+        dispatcher.Throttle(() =>
+        {
+            count++;
+        });
+        Assert.Equal(2, count);
+    }
 }

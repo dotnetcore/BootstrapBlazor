@@ -18,4 +18,9 @@ public class ThrottleOptions
     /// 获得/设置 是否执行结束后开始延时 默认 false
     /// </summary>
     public bool DelayAfterExecution { get; set; }
+
+    /// <summary>
+    /// 获得/设置 发生错误时是否重置时长 默认 false
+    /// </summary>
+    public bool ResetIntervalOnException { get; set; }
 }
