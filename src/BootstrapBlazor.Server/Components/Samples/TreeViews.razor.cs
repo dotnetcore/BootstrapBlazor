@@ -196,6 +196,20 @@ public sealed partial class TreeViews
         return ret;
     }
 
+    private Task OnSearchAsync(string searchText)
+    {
+        if (string.IsNullOrEmpty(searchText))
+        {
+            Items = TreeFoo.GetTreeItems();
+        }
+        else
+        {
+            Items.Clear();
+        }
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private class CustomerTreeItem : ComponentBase
     {
         [Inject]
