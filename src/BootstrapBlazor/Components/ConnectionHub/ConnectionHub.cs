@@ -34,11 +34,11 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
-    private ClientInfo _clientInfo = default!;
+    private ClientInfo? _clientInfo;
 
     private IIpLocatorProvider? _ipLocatorProvider;
 
-    private ThrottleOptions _throttleOptions = default!;
+    private ThrottleOptions? _throttleOptions = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,7 +50,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
         if (options.Enable)
         {
             _throttleOptions = new ThrottleOptions() { Interval = options.BeatInterval };
-            _clientInfo = await WebClientService.GetClientInfo();
             await InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval });
         }
     }
@@ -68,18 +67,14 @@ public class ConnectionHub : BootstrapModuleComponentBase
             var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
             await dispatch.ThrottleAsync(async () =>
             {
-                System.Console.WriteLine($"{DateTime.Now}: {code}");
-
+                _clientInfo ??= await WebClientService.GetClientInfo();
                 _clientInfo.Id = code;
                 _clientInfo.RequestUrl = NavigationManager.Uri;
 
                 if (!string.IsNullOrEmpty(_clientInfo.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create();
-                    if (_ipLocatorProvider != null)
-                    {
-                        _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
-                    }
+                    _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
                 }
                 ConnectionService.AddOrUpdate(_clientInfo);
             });
