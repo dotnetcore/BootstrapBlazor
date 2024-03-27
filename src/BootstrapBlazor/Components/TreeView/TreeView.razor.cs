@@ -127,6 +127,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool ShowSearch { get; set; }
 
+
+    /// <summary>
+    /// 获得/设置 搜索栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? SearchTemplate { get; set; }
+
     /// <summary>
     /// 获得/设置 搜索栏图标 默认 未设置 使用主题内置图标
     /// </summary>
