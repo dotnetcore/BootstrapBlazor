@@ -135,11 +135,31 @@ public class ThrottleTest : BootstrapBlazorTestBase
         Assert.NotNull(dispatch.TestLastTask());
     }
 
+    [Fact]
+    public void ShouldWait_Ok()
+    {
+        var dispatch = new MockDispatcher(new ThrottleOptions());
+        var count = 0;
+        dispatch.Throttle(() => count++);
+        Assert.Equal(0, count);
+    }
+
     class MockDispatcher(ThrottleOptions options) : ThrottleDispatcher(options)
     {
         public Task TestLastTask()
         {
             return LastTask;
+        }
+
+        private int count = 0;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        protected override bool ShouldWait()
+        {
+            return count++ == 1;
         }
     }
 }
