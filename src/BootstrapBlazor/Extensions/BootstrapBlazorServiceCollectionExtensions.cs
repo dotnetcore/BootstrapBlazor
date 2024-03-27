@@ -53,6 +53,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // 在线连接服务
         services.TryAddSingleton<IConnectionService, DefaultConnectionService>();
 
+        // 限流器服务
+        services.TryAddSingleton<IThrottleDispatcherFactory, DefaultThrottleDispatcherFactory>();
+
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();

@@ -15,7 +15,7 @@ public class ConnectionHubOptions
     public TimeSpan ExpirationScanFrequency { get; set; } = TimeSpan.FromMinutes(10);
 
     /// <summary>
-    /// 获得/设置 ConnectionHub 组件心跳间隔
+    /// 获得/设置 ConnectionHub 组件心跳间隔 默认 5000 单位毫秒
     /// </summary>
     public int BeatInterval { get; set; } = 5000;
 
