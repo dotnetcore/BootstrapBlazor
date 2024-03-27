@@ -12,7 +12,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task Throttle_Ok()
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate("test", new ThrottleOptions() { Interval = 100 });
+        var dispatcher = factory.GetOrCreate("test", 100);
 
         var count = 0;
         dispatcher.Throttle(() => count++);
