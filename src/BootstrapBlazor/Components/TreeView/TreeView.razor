@@ -23,11 +23,11 @@ else
         {
             @if (SearchTemplate == null)
             {
-                <BootstrapInputGroup class="mb-3">
+                <BootstrapInputGroup class="tree-search mb-3">
                     <BootstrapInput @bind-Value="@_searchText" OnEnterAsync="@OnEnterAsync" OnEscAsync="@OnEscAsync" />
                     @if (ShowResetSearchButton)
                     {
-                        <Button Icon="@ClearSearchIcon" OnClickWithoutRender="OnClickResetSearch"></Button>
+                        <Button Icon="@ClearSearchIcon" OnClickWithoutRender="OnClickResetSearch" class="tree-search-reset"></Button>
                     }
                     <Button Icon="@SearchIcon" OnClickWithoutRender="OnClickSearch"></Button>
                 </BootstrapInputGroup>
