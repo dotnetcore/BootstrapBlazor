@@ -118,4 +118,28 @@ public class ThrottleTest : BootstrapBlazorTestBase
             await Task.Delay(300);
         }, cts.Token));
     }
+
+    [Fact]
+    public void Clear()
+    {
+        var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
+        _ = factory.GetOrCreate("Clear");
+        factory.Clear();
+        factory.Clear("Clear");
+    }
+
+    [Fact]
+    public void LatTask_Ok()
+    {
+        var dispatch = new MockDispatcher(new ThrottleOptions());
+        Assert.NotNull(dispatch.TestLastTask());
+    }
+
+    class MockDispatcher(ThrottleOptions options) : ThrottleDispatcher(options)
+    {
+        public Task TestLastTask()
+        {
+            return LastTask;
+        }
+    }
 }
