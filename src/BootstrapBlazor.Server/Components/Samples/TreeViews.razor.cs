@@ -20,6 +20,7 @@ public sealed partial class TreeViews
 
     [NotNull]
     private ConsoleLogger? Logger3 { get; set; }
+
     private bool DisableCanExpand { get; set; }
     private bool IsDisabled { get; set; }
 
@@ -48,6 +49,8 @@ public sealed partial class TreeViews
     private TreeView<TreeFoo>? SetActiveTreeView { get; set; }
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
+
+    private List<TreeViewItem<TreeFoo>>? SearchItems { get; set; } = TreeFoo.GetTreeItems();
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
@@ -102,18 +105,7 @@ public sealed partial class TreeViews
     {
         await Task.Delay(800);
         var item = node.Value;
-        return new TreeViewItem<TreeFoo>[]
-        {
-           new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
-           {
-               Text = "懒加载子节点1",
-               HasChildren = true
-           },
-           new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
-           {
-               Text = "懒加载子节点2"
-           }
-        };
+        return new TreeViewItem<TreeFoo>[] { new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id }) { Text = "懒加载子节点1", HasChildren = true }, new(new TreeFoo() { Id = $"{item.Id}-102", ParentId = item.Id }) { Text = "懒加载子节点2" } };
     }
 
     private static List<TreeViewItem<TreeFoo>> GetExpandItems()
@@ -140,10 +132,7 @@ public sealed partial class TreeViews
     private static List<TreeViewItem<TreeFoo>> GetTemplateItems()
     {
         var ret = TreeFoo.GetTreeItems();
-        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>()
-        {
-            [nameof(CustomerTreeItem.Foo)] = foo
-        }).Render();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>() { [nameof(CustomerTreeItem.Foo)] = foo }).Render();
         return ret;
     }
 
@@ -179,10 +168,11 @@ public sealed partial class TreeViews
             SetActiveTreeView?.SetActiveItem(treeViewItem);
             StateHasChanged();
         }
+
         return Task.CompletedTask;
     }
 
-    private TreeViewItem<T>? FindTreeViewItem<T>(IEnumerable<TreeViewItem<T>> source, Func<TreeViewItem<T>, bool> func)
+    private static TreeViewItem<T>? FindTreeViewItem<T>(IEnumerable<TreeViewItem<T>> source, Func<TreeViewItem<T>, bool> func)
     {
         var ret = source.FirstOrDefault(func);
         if (ret == null)
@@ -193,19 +183,13 @@ public sealed partial class TreeViews
                 ret = FindTreeViewItem(items, func);
             }
         }
+
         return ret;
     }
 
     private Task OnSearchAsync(string searchText)
     {
-        if (string.IsNullOrEmpty(searchText))
-        {
-            Items = TreeFoo.GetTreeItems();
-        }
-        else
-        {
-            Items.Clear();
-        }
+        SearchItems = string.IsNullOrEmpty(searchText) ? TreeFoo.GetTreeItems() : [];
         StateHasChanged();
         return Task.CompletedTask;
     }

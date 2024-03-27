@@ -27,7 +27,7 @@
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" ShowSearch="true" OnSearchAsync="OnSearchAsync" />
+    <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
@@ -152,6 +152,12 @@
            Name="ShowSkeleton">
     <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="@OnLoadAsyncItems"></Button>
     <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3"></TreeView>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TreeViewShowSearchTitle"]"
+           Introduction="@Localizer["TreeViewShowSearchIntro"]"
+           Name="ShowSearch">
+    <TreeView TItem="TreeFoo" Items="@SearchItems" ShowSearch="true" OnSearchAsync="@OnSearchAsync"></TreeView>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
