@@ -20,4 +20,10 @@ public interface IThrottleDispatcherFactory
     /// </summary>
     /// <returns></returns>
     ThrottleDispatcher GetOrCreate(string key, int interval) => GetOrCreate(key, new ThrottleOptions() { Interval = interval });
+
+    /// <summary>
+    /// 销毁限流器
+    /// </summary>
+    /// <param name="key">为空时销毁所有限流器</param>
+    void Clear(string? key = null);
 }

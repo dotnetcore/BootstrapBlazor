@@ -16,4 +16,20 @@ class DefaultThrottleDispatcherFactory : IThrottleDispatcherFactory
     /// <param name="key"></param>
     /// <param name="options"></param>
     public ThrottleDispatcher GetOrCreate(string key, ThrottleOptions? options = null) => _cache.GetOrAdd(key, key => new ThrottleDispatcher(options ?? new()));
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="key"></param>
+    public void Clear(string? key = null)
+    {
+        if (string.IsNullOrEmpty(key))
+        {
+            _cache.Clear();
+        }
+        else
+        {
+            _cache.TryRemove(key, out _);
+        }
+    }
 }
