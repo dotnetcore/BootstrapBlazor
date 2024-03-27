@@ -610,6 +610,76 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.True(noChecked);
     }
 
+    [Fact]
+    public void ShowSearch_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("tree-search");
+        cut.Contains("tree-search-reset");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowResetSearchButton, false);
+        });
+        cut.DoesNotContain("tree-search-reset");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SearchTemplate, builder =>
+            {
+                builder.AddContent(0, "search-template");
+            });
+        });
+        cut.Contains("search-template");
+    }
+
+    [Fact]
+    public async void Enter_Ok()
+    {
+        var key = "";
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.OnSearchAsync, v =>
+            {
+                key = v;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Items, items);
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEnterAsync!("enter"));
+        Assert.Equal("enter", key);
+    }
+
+    [Fact]
+    public async void Esc_Ok()
+    {
+        var key = "123";
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.OnSearchAsync, v =>
+            {
+                key = v;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Items, items);
+        });
+
+        var input = cut.FindComponent<BootstrapInput<string?>>();
+        await cut.InvokeAsync(() => input.Instance.OnEscAsync!(null));
+        Assert.Null(key);
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
