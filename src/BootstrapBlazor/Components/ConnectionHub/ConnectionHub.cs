@@ -38,7 +38,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
     private IIpLocatorProvider? _ipLocatorProvider;
 
-    private ThrottleOptions? _throttleOptions = default!;
+    private ThrottleOptions? _throttleOptions;
 
     /// <summary>
     /// <inheritdoc/>
