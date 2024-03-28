@@ -46,6 +46,14 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Timeout_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebClientService>();
+        var client = await service.GetClientInfo();
+        Assert.Null(client.Ip);
+    }
+
+    [Fact]
     public async Task WebClientService_Dispose()
     {
         var service = Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable;
