@@ -18,7 +18,7 @@ public class ThrottleDispatcher(ThrottleOptions options)
     /// 判断是否等待方法
     /// </summary>
     /// <returns></returns>
-    protected virtual bool ShouldWait() => _busy || _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value).TotalMilliseconds < options.Interval;
+    protected virtual bool ShouldWait() => _busy || _invokeTime.HasValue && (DateTime.UtcNow - _invokeTime.Value) < options.Interval;
 
     /// <summary>
     /// 异步限流方法

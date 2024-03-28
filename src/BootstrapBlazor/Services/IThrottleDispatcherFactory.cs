@@ -19,7 +19,7 @@ public interface IThrottleDispatcherFactory
     /// 获得或创建限流器
     /// </summary>
     /// <returns></returns>
-    ThrottleDispatcher GetOrCreate(string key, int interval) => GetOrCreate(key, new ThrottleOptions() { Interval = interval });
+    ThrottleDispatcher GetOrCreate(string key, int interval) => GetOrCreate(key, new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(interval) });
 
     /// <summary>
     /// 销毁限流器

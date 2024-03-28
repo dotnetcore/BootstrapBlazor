@@ -21,8 +21,8 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
-            BeatInterval = 500
+            TimeoutInterval = TimeSpan.FromMilliseconds(1000),
+            BeatInterval = TimeSpan.FromMilliseconds(200)
         };
 
         var client = context.Services.GetRequiredService<WebClientService>();
@@ -30,13 +30,24 @@ public class ConnectionHubTest
         var cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
-            client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(100);
+                client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            });
             await cut.Instance.Callback("test_id");
         });
         Assert.Equal(1, service.Count);
 
+        // 测试 IConnectionService AddOrUpdate
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
+
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
+
         // 触发 Beat 时间
-        await Task.Delay(100);
+        await Task.Delay(200);
         await cut.InvokeAsync(async () =>
         {
             await cut.Instance.Callback("test_id");
@@ -68,8 +79,9 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
-            BeatInterval = 100
+            ExpirationScanFrequency = TimeSpan.FromMicroseconds(300),
+            TimeoutInterval = TimeSpan.FromMilliseconds(200),
+            BeatInterval = TimeSpan.FromMilliseconds(100)
         };
 
         var service = provider.GetRequiredService<IConnectionService>();
@@ -77,7 +89,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
         Assert.Single(service.Connections);
 
-        await Task.Delay(200);
+        await Task.Delay(500);
         Assert.Equal(0, service.Count);
     }
 
@@ -102,7 +114,7 @@ public class ConnectionHubTest
         var token = fieldInfo.GetValue(service) as CancellationTokenSource;
         Assert.NotNull(token);
 
-        await Task.Delay(100);
+        await Task.Delay(200);
         token.Cancel();
     }
 
@@ -116,5 +128,19 @@ public class ConnectionHubTest
         var service = provider.GetRequiredService<IConnectionService>();
         service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
+    }
+
+    [Fact]
+    public void ConnectionService_Ok()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        service.AddOrUpdate(new ClientInfo() { Id = "test_dispose" });
+
+        var d = service as IDisposable;
+        d?.Dispose();
     }
 }

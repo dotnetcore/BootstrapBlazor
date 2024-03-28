@@ -46,6 +46,33 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Timeout_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebClientService>();
+        var client = await service.GetClientInfo();
+        Assert.Null(client.Ip);
+    }
+
+    [Fact]
+    public async Task SetData_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebClientService>();
+
+        // 内部 ReturnTask 为空
+        var fieldInfo = service.GetType().GetField("_taskCompletionSource", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        fieldInfo!.SetValue(service, null);
+
+        service.SetData(new ClientInfo() { Id = "test" });
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(150);
+            service.SetData(new ClientInfo() { Id = "test-id", Ip = "192.168.0.1" });
+        });
+        var client = await service.GetClientInfo();
+        Assert.Equal("192.168.0.1", client.Ip);
+    }
+
+    [Fact]
     public async Task WebClientService_Dispose()
     {
         var service = Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable;

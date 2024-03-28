@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Logging;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -12,20 +13,23 @@ namespace BootstrapBlazor.Components;
 /// <param name="runtime"></param>
 /// <param name="navigation"></param>
 /// <param name="versionService"></param>
-public class WebClientService(IJSRuntime runtime, NavigationManager navigation, IVersionService versionService) : IAsyncDisposable
+/// <param name="logger"></param>
+public class WebClientService(
+    IJSRuntime runtime,
+    NavigationManager navigation,
+    IVersionService versionService,
+    ILogger<WebClientService> logger) : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
-    private TaskCompletionSource? ReturnTask { get; set; }
+    private TaskCompletionSource? _taskCompletionSource;
 
-    private NavigationManager Navigation { get; } = navigation;
+    private JSModule? _jsModule;
 
-    private JSModule? Module { get; set; }
+    private DotNetObjectReference<WebClientService>? _interop;
 
-    private DotNetObjectReference<WebClientService>? Interop { get; set; }
-
-    private ClientInfo? Client { get; set; }
+    private ClientInfo? _client;
 
     /// <summary>
     /// 获得 ClientInfo 实例方法
@@ -33,18 +37,25 @@ public class WebClientService(IJSRuntime runtime, NavigationManager navigation, 
     /// <returns></returns>
     public async Task<ClientInfo> GetClientInfo()
     {
-        ReturnTask = new TaskCompletionSource();
-        Client = new ClientInfo()
+        _taskCompletionSource = new TaskCompletionSource();
+        _client = new ClientInfo()
         {
-            RequestUrl = Navigation.Uri
+            RequestUrl = navigation.Uri
         };
-        Module ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js", versionService.GetVersion());
-        Interop ??= DotNetObjectReference.Create(this);
-        await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
+        _jsModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js", versionService.GetVersion());
+        _interop ??= DotNetObjectReference.Create(this);
+        await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
 
         // 等待 SetData 方法执行完毕
-        await ReturnTask.Task;
-        return Client;
+        try
+        {
+            await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(1));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "method GetClientInfo failed");
+        }
+        return _client;
     }
 
     /// <summary>
@@ -54,9 +65,9 @@ public class WebClientService(IJSRuntime runtime, NavigationManager navigation, 
     [JSInvokable]
     public void SetData(ClientInfo client)
     {
-        Client = client;
-        Client.RequestUrl = Navigation.Uri;
-        ReturnTask?.TrySetResult();
+        _client = client;
+        _client.RequestUrl = navigation.Uri;
+        _taskCompletionSource?.TrySetResult();
     }
 
     /// <summary>
@@ -69,13 +80,13 @@ public class WebClientService(IJSRuntime runtime, NavigationManager navigation, 
         if (disposing)
         {
             // 销毁 DotNetObjectReference 实例
-            Interop?.Dispose();
+            _interop?.Dispose();
 
             // 销毁 JSModule
-            if (Module != null)
+            if (_jsModule != null)
             {
-                await Module.DisposeAsync();
-                Module = null;
+                await _jsModule.DisposeAsync();
+                _jsModule = null;
             }
         }
     }

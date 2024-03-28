@@ -12,7 +12,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task Throttle_Ok()
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate("test", 100);
+        var dispatcher = factory.GetOrCreate("test", 200);
 
         var count = 0;
         dispatcher.Throttle(() => count++);
@@ -21,7 +21,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
         dispatcher.Throttle(() => count++);
         Assert.Equal(1, count);
 
-        await Task.Delay(100);
+        await Task.Delay(250);
         dispatcher.Throttle(() => count++);
         Assert.Equal(2, count);
     }
@@ -30,7 +30,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task ThrottleAsync_Ok()
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate("test-async", new ThrottleOptions() { Interval = 100 });
+        var dispatcher = factory.GetOrCreate("test-async", new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(200) });
 
         var count = 0;
         await dispatcher.ThrottleAsync(Count);
@@ -39,7 +39,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
         await dispatcher.ThrottleAsync(Count);
         Assert.Equal(1, count);
 
-        await Task.Delay(100);
+        await Task.Delay(250);
         await dispatcher.ThrottleAsync(Count);
         Assert.Equal(2, count);
 
@@ -56,7 +56,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task DelayAfterExecution_Ok(bool delayAfterExecution, int expected)
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate($"DelayAfterExecution-{expected}", new ThrottleOptions() { Interval = 200, DelayAfterExecution = delayAfterExecution });
+        var dispatcher = factory.GetOrCreate($"DelayAfterExecution-{expected}", new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(200), DelayAfterExecution = delayAfterExecution });
 
         // 开始执行时计时 100ms 后可再次执行
         var count = 0;
