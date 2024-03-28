@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Logging;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -12,7 +13,12 @@ namespace BootstrapBlazor.Components;
 /// <param name="runtime"></param>
 /// <param name="navigation"></param>
 /// <param name="versionService"></param>
-public class WebClientService(IJSRuntime runtime, NavigationManager navigation, IVersionService versionService) : IAsyncDisposable
+/// <param name="logger"></param>
+public class WebClientService(
+    IJSRuntime runtime,
+    NavigationManager navigation,
+    IVersionService versionService,
+    ILogger<WebClientService> logger) : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
@@ -43,7 +49,14 @@ public class WebClientService(IJSRuntime runtime, NavigationManager navigation, 
         await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
 
         // 等待 SetData 方法执行完毕
-        await ReturnTask.Task;
+        try
+        {
+            await ReturnTask.Task.WaitAsync(TimeSpan.FromSeconds(1));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "method GetClientInfo failed");
+        }
         return Client;
     }
 
