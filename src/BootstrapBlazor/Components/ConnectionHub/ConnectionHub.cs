@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 客户端链接组件
 /// </summary>
-[BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true, AutoInvokeInit = true, AutoInvokeDispose = false)]
+[BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true)]
 public class ConnectionHub : BootstrapModuleComponentBase
 {
     [Inject]
@@ -50,7 +50,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
         if (options.Enable)
         {
             _throttleOptions = new ThrottleOptions() { Interval = options.BeatInterval };
-            await InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval });
+            await InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval.TotalMilliseconds });
         }
     }
 
@@ -62,6 +62,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [JSInvokable]
     public async Task Callback(string? code)
     {
+        System.Console.WriteLine($"{DateTime.Now}: {code}");
+
         if (!string.IsNullOrEmpty(code))
         {
             var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
