@@ -13,7 +13,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
 {
     private readonly ConcurrentDictionary<string, ConnectionItem> _connectionCache = new();
 
-    private readonly ConnectionHubOptions _options = default!;
+    private readonly ConnectionHubOptions _options;
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -25,7 +25,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
         {
             Task.Run(async () =>
             {
-                while (!_cancellationTokenSource.IsCancellationRequested)
+                while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     try
                     {
@@ -89,7 +89,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     {
         if (disposing)
         {
-            if (!_cancellationTokenSource.IsCancellationRequested)
+            if (_cancellationTokenSource is { IsCancellationRequested: false })
             {
                 _cancellationTokenSource.Cancel();
             }
