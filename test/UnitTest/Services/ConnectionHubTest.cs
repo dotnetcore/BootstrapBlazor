@@ -80,6 +80,7 @@ public class ConnectionHubTest
         {
             Enable = true,
             ExpirationScanFrequency = TimeSpan.FromMicroseconds(300),
+            TimeoutInterval = TimeSpan.FromMilliseconds(200),
             BeatInterval = TimeSpan.FromMilliseconds(100)
         };
 
@@ -88,7 +89,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
         Assert.Single(service.Connections);
 
-        await Task.Delay(300);
+        await Task.Delay(500);
         Assert.Equal(0, service.Count);
     }
 
@@ -127,5 +128,19 @@ public class ConnectionHubTest
         var service = provider.GetRequiredService<IConnectionService>();
         service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
+    }
+
+    [Fact]
+    public void ConnectionService_Ok()
+    {
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+
+        var provider = services.BuildServiceProvider();
+        var service = provider.GetRequiredService<IConnectionService>();
+        service.AddOrUpdate(new ClientInfo() { Id = "test_dispose" });
+
+        var d = service as IDisposable;
+        d?.Dispose();
     }
 }

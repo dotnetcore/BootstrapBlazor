@@ -54,6 +54,13 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SetData_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebClientService>();
+        service.SetData(new ClientInfo() { Id = "test" });
+    }
+
+    [Fact]
     public async Task WebClientService_Dispose()
     {
         var service = Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable;

@@ -25,7 +25,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
         {
             Task.Run(async () =>
             {
-                while (_cancellationTokenSource is { IsCancellationRequested: false })
+                while (!_cancellationTokenSource.IsCancellationRequested)
                 {
                     try
                     {
@@ -89,7 +89,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     {
         if (disposing)
         {
-            if (_cancellationTokenSource is { IsCancellationRequested: false })
+            if (!_cancellationTokenSource.IsCancellationRequested)
             {
                 _cancellationTokenSource.Cancel();
             }
