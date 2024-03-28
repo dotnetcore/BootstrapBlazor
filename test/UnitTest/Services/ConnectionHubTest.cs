@@ -21,8 +21,8 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMinutes(1),
-            BeatInterval = 500
+            TimeoutInterval = TimeSpan.FromMilliseconds(1000),
+            BeatInterval = TimeSpan.FromMilliseconds(200)
         };
 
         var client = context.Services.GetRequiredService<WebClientService>();
@@ -32,7 +32,7 @@ public class ConnectionHubTest
         {
             _ = Task.Run(async () =>
             {
-                await Task.Delay(200);
+                await Task.Delay(100);
                 client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
             });
             await cut.Instance.Callback("test_id");
@@ -47,7 +47,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
 
         // 触发 Beat 时间
-        await Task.Delay(100);
+        await Task.Delay(200);
         await cut.InvokeAsync(async () =>
         {
             await cut.Instance.Callback("test_id");
@@ -79,8 +79,8 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
-            BeatInterval = 100
+            ExpirationScanFrequency = TimeSpan.FromMicroseconds(300),
+            BeatInterval = TimeSpan.FromMilliseconds(100)
         };
 
         var service = provider.GetRequiredService<IConnectionService>();
@@ -88,7 +88,7 @@ public class ConnectionHubTest
         Assert.Equal(1, service.Count);
         Assert.Single(service.Connections);
 
-        await Task.Delay(200);
+        await Task.Delay(300);
         Assert.Equal(0, service.Count);
     }
 
@@ -113,7 +113,7 @@ public class ConnectionHubTest
         var token = fieldInfo.GetValue(service) as CancellationTokenSource;
         Assert.NotNull(token);
 
-        await Task.Delay(100);
+        await Task.Delay(200);
         token.Cancel();
     }
 

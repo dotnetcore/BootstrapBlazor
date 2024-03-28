@@ -12,7 +12,7 @@ public class ThrottleOptions
     /// <summary>
     /// 获得/设置 限流时长 默认 500 单位毫秒
     /// </summary>
-    public int Interval { get; set; } = 500;
+    public TimeSpan Interval { get; set; } = TimeSpan.FromMilliseconds(500);
 
     /// <summary>
     /// 获得/设置 是否执行结束后开始延时 默认 false

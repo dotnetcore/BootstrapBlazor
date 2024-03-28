@@ -30,7 +30,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task ThrottleAsync_Ok()
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate("test-async", new ThrottleOptions() { Interval = 200 });
+        var dispatcher = factory.GetOrCreate("test-async", new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(200) });
 
         var count = 0;
         await dispatcher.ThrottleAsync(Count);
@@ -56,7 +56,7 @@ public class ThrottleTest : BootstrapBlazorTestBase
     public async Task DelayAfterExecution_Ok(bool delayAfterExecution, int expected)
     {
         var factory = Context.Services.GetRequiredService<IThrottleDispatcherFactory>();
-        var dispatcher = factory.GetOrCreate($"DelayAfterExecution-{expected}", new ThrottleOptions() { Interval = 200, DelayAfterExecution = delayAfterExecution });
+        var dispatcher = factory.GetOrCreate($"DelayAfterExecution-{expected}", new ThrottleOptions() { Interval = TimeSpan.FromMilliseconds(200), DelayAfterExecution = delayAfterExecution });
 
         // 开始执行时计时 100ms 后可再次执行
         var count = 0;

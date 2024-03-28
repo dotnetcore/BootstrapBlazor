@@ -31,7 +31,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
                     {
                         await Task.Delay(_options.ExpirationScanFrequency, _cancellationTokenSource.Token);
 
-                        var keys = _connectionCache.Values.Where(i => i.LastBeatTime.AddMilliseconds(5 * _options.BeatInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
+                        var keys = _connectionCache.Values.Where(i => i.LastBeatTime.Add(_options.TimeoutInterval) < DateTimeOffset.Now).Select(i => i.Id).ToList();
                         keys.ForEach(i => _connectionCache.TryRemove(i, out _));
                     }
                     catch { }
@@ -43,7 +43,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.AddMilliseconds(_options.BeatInterval) > DateTimeOffset.Now);
+    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.BeatInterval) > DateTimeOffset.Now);
 
     /// <summary>
     /// <inheritdoc/>
