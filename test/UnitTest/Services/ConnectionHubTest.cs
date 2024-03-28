@@ -21,7 +21,7 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
-            ExpirationScanFrequency = TimeSpan.FromMicroseconds(200),
+            ExpirationScanFrequency = TimeSpan.FromMinutes(1),
             BeatInterval = 500
         };
 
@@ -30,9 +30,20 @@ public class ConnectionHubTest
         var cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
         {
-            client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(200);
+                client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            });
             await cut.Instance.Callback("test_id");
         });
+        Assert.Equal(1, service.Count);
+
+        // 测试 IConnectionService AddOrUpdate
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
+        Assert.Equal(1, service.Count);
+
+        service.AddOrUpdate(new ClientInfo() { Id = "test_id" });
         Assert.Equal(1, service.Count);
 
         // 触发 Beat 时间
