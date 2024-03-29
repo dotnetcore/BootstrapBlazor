@@ -7,16 +7,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 客户端链接组件
 /// </summary>
-[BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true, AutoInvokeInit = true, AutoInvokeDispose = false)]
+[BootstrapModuleAutoLoader(ModuleName = "hub", JSObjectReference = true)]
 public class ConnectionHub : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
     private IConnectionService? ConnectionService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private WebClientService? WebClientService { get; set; }
 
     [Inject]
     [NotNull]
@@ -34,8 +30,6 @@ public class ConnectionHub : BootstrapModuleComponentBase
     [NotNull]
     private IOptions<BootstrapBlazorOptions>? BootstrapBlazorOptions { get; set; }
 
-    private ClientInfo? _clientInfo;
-
     private IIpLocatorProvider? _ipLocatorProvider;
 
     private ThrottleOptions? _throttleOptions;
@@ -50,33 +44,32 @@ public class ConnectionHub : BootstrapModuleComponentBase
         if (options.Enable)
         {
             _throttleOptions = new ThrottleOptions() { Interval = options.BeatInterval };
-            await InvokeVoidAsync("init", new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval });
+            await InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval.TotalMilliseconds, Url = "ip.axd" });
         }
     }
 
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="code"></param>
+    /// <param name="client"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Callback(string? code)
+    public async Task Callback(ClientInfo client)
     {
+        var code = client.Id;
         if (!string.IsNullOrEmpty(code))
         {
             var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
             await dispatch.ThrottleAsync(async () =>
             {
-                _clientInfo ??= await WebClientService.GetClientInfo();
-                _clientInfo.Id = code;
-                _clientInfo.RequestUrl = NavigationManager.Uri;
+                client.RequestUrl = NavigationManager.Uri;
 
-                if (!string.IsNullOrEmpty(_clientInfo.Ip))
+                if (!string.IsNullOrEmpty(client.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create();
-                    _clientInfo.City = await _ipLocatorProvider.Locate(_clientInfo.Ip);
+                    client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
-                ConnectionService.AddOrUpdate(_clientInfo);
+                ConnectionService.AddOrUpdate(client);
             });
         }
     }

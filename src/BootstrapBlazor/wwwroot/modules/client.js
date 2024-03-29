@@ -2,6 +2,11 @@
 import { execute } from "./ajax.js?v=$version"
 
 export async function ping(url, invoke, method) {
+    const data = await getClientInfo(url);
+    await invoke.invokeMethodAsync(method, data)
+}
+
+export async function getClientInfo(url) {
     const info = browser()
     let data = {
         browser: info.browser + ' ' + info.version,
@@ -20,5 +25,5 @@ export async function ping(url, invoke, method) {
         data.ip = result.Ip;
         data.id = result.Id;
     }
-    await invoke.invokeMethodAsync(method, data)
+    return data;
 }
