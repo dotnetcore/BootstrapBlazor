@@ -44,7 +44,7 @@ public partial class Carousel
     /// 获得 Images 集合
     /// </summary>
     [Parameter]
-    public IEnumerable<string> Images { get; set; } = Enumerable.Empty<string>();
+    public IEnumerable<string> Images { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 内部图片的宽度
@@ -63,6 +63,12 @@ public partial class Carousel
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnClick { get; set; }
+
+    /// <summary>
+    /// 获得/设置 幻灯片切换后回调方法
+    /// </summary>
+    [Parameter]
+    public Func<int, Task>? OnSlideChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件 要求使用 <see cref="CarouselItem"/>
@@ -158,6 +164,14 @@ public partial class Carousel
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = InvokeMethodName });
+
+    private string? InvokeMethodName => OnSlideChanged == null ? null : nameof(TriggerSlideChanged);
+
+    /// <summary>
     /// 点击 Image 是触发此方法
     /// </summary>
     /// <returns></returns>
@@ -179,4 +193,18 @@ public partial class Carousel
     /// </summary>
     /// <param name="item"></param>
     internal void RemoveItem(CarouselItem item) => Items.Remove(item);
+
+    /// <summary>
+    /// 幻灯片切换事件回调 由 JavaScript 调用
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async ValueTask TriggerSlideChanged(int index)
+    {
+        if (OnSlideChanged != null)
+        {
+            await OnSlideChanged(index);
+        }
+    }
 }
