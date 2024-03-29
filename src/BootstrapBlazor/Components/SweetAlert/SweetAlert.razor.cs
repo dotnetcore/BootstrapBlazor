@@ -99,7 +99,7 @@ public partial class SweetAlert : IAsyncDisposable
 
     private bool AutoHideCheck() => IsAutoHide && Delay > 0;
 
-    private Task Show(SwalOption option)
+    private async Task Show(SwalOption option)
     {
         if (!IsShowDialog)
         {
@@ -121,9 +121,8 @@ public partial class SweetAlert : IAsyncDisposable
             DialogParameter = parameters;
 
             // 渲染 UI 准备弹窗 Dialog
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
-        return Task.CompletedTask;
     }
 
     private RenderFragment RenderDialog() => builder =>
