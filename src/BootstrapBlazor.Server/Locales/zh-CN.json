@@ -1252,7 +1252,7 @@
     "P13": "步骤二、将 BootstrapBlazor 组件添加到现有项目",
     "P14": "1. 通过 <b>nuget.org</b> 源搜索 <code>BootstrapBlazor</code>",
     "P15": "右键点击解决方案中的项目并选择",
-    "P16": "2. 安装 BootstrapBlazor 包",
+    "P16": "2. 安装 BootstrapBlazor 包最新版",
     "P17": "3. 添加样式表文件",
     "P18": "在宿主文件中增加主题样式表",
     "P19": "需引用 BootstrapBlazor.FontAwesome 包",
