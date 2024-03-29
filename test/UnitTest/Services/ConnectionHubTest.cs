@@ -35,7 +35,7 @@ public class ConnectionHubTest
                 await Task.Delay(100);
                 client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
             });
-            await cut.Instance.Callback("test_id");
+            await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
         });
         Assert.Equal(1, service.Count);
 
@@ -50,7 +50,7 @@ public class ConnectionHubTest
         await Task.Delay(200);
         await cut.InvokeAsync(async () =>
         {
-            await cut.Instance.Callback("test_id");
+            await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
         });
         Assert.True(service.TryGetValue("test_id", out var item));
         Assert.NotNull(item?.ClientInfo);
@@ -64,7 +64,7 @@ public class ConnectionHubTest
         await cut.InvokeAsync(async () =>
         {
             client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
-            await cut.Instance.Callback("test_id");
+            await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
         });
     }
 
