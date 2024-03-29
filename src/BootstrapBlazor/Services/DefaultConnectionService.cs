@@ -70,7 +70,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val)
     {
         item.LastBeatTime = DateTimeOffset.Now;
-        item.ClientInfo = val;
+        //item.ClientInfo = val;
         return item;
     }
 
