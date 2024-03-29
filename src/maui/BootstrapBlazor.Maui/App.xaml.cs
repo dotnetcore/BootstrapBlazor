@@ -4,8 +4,14 @@
 
 namespace BootstrapBlazor.Maui;
 
+/// <summary>
+/// 
+/// </summary>
 public partial class App : Application
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public App()
     {
         InitializeComponent();

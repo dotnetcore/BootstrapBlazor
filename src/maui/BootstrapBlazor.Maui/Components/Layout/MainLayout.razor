@@ -8,7 +8,7 @@
         <span class="ms-3 flex-sm-fill d-none d-sm-block">Bootstrap of Blazor</span>
         <div class="flex-fill d-sm-none">
         </div>
-        <Logout ImageUrl="images/Argo.png" DisplayName="超级管理员" UserName="Admin">
+        <Logout ImageUrl="images/Argo-C.png" DisplayName="超级管理员" UserName="Admin">
             <LinkTemplate>
                 <a href="#"><i class="fa-solid fa-suitcase"></i>个人中心</a>
                 <a href="#"><i class="fa-solid fa-cog"></i>设置</a>
@@ -16,7 +16,6 @@
                 <LogoutLink />
             </LinkTemplate>
         </Logout>
-        <Widget></Widget>
         <div class="layout-drawer" @onclick="@(e => IsOpen = !IsOpen)"><i class="fa fa-gears"></i></div>
     </Header>
     <Side>
@@ -52,8 +51,7 @@
 <Drawer Placement="Placement.Right" @bind-IsOpen="@IsOpen" IsBackdrop="true">
     <div class="layout-drawer-body">
         <div class="btn btn-info w-100" @onclick="@(e => IsOpen = false)">点击关闭</div>
-        <div class="page-layout-demo-option">
-            <p>布局调整</p>
+        <GroupBox Title="布局调整">
             <div class="row">
                 <div class="col-6">
                     <div class="layout-item @(IsFullSide ? "active d-flex" : "d-flex")" @onclick="@(e => IsFullSide = true)" data-toggle="tooltip" title="左右结构">
@@ -78,18 +76,17 @@
                             <div class="layout-right flex-fill">
                             </div>
                         </div>
-                        <div class="layout-footer">
+                        <div class="layout-right-footer">
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </GroupBox>
 
-        <div class="page-layout-demo-option">
-            <p>固定调整</p>
+        <GroupBox Title="固定调整">
             <div class="row">
                 <div class="col-6 d-flex align-items-center">
-                    <Switch @bind-Value="@IsFixedHeader" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                    <Switch @bind-Value="@IsFixedHeader" OnColor="@Color.Success"></Switch>
                 </div>
                 <div class="col-6 text-right">
                     <span class="cell-label">固定页头</span>
@@ -97,7 +94,7 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6 d-flex align-items-center">
-                    <Switch @bind-Value="@IsFixedFooter" OnColor="@Color.Success" OffColor="@Color.Secondary"></Switch>
+                    <Switch @bind-Value="@IsFixedFooter" OnColor="@Color.Success"></Switch>
                 </div>
                 <div class="col-6 text-right">
                     <span class="cell-label">固定页脚</span>
@@ -105,48 +102,29 @@
             </div>
             <div class="row mt-3">
                 <div class="col-6 d-flex align-items-center">
-                    <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                    <Switch @bind-Value="@ShowFooter" OnColor="@Color.Success"></Switch>
                 </div>
                 <div class="col-6 text-right">
                     <span class="cell-label">显示页脚</span>
                 </div>
             </div>
-        </div>
+        </GroupBox>
 
-        <div class="page-layout-demo-option">
-            <p>主题配色</p>
-            <div class="row">
-                <div class="col-2">
-                    <span class="color color1" @onclick="@(e => Theme = "color1")"></span>
-                </div>
-                <div class="col-2">
-                    <span class="color color2" @onclick="@(e => Theme = "color2")"></span>
-                </div>
-                <div class="col-2">
-                    <span class="color color3" @onclick="@(e => Theme = "color3")"></span>
-                </div>
-                <div class="col-2">
-                    <span class="color color4" @onclick="@(e => Theme = "color4")"></span>
-                </div>
-                <div class="col-2">
-                    <span class="color color5" @onclick="@(e => Theme = "color5")"></span>
-                </div>
-                <div class="col-2">
-                    <span class="color color6" @onclick="@(e => Theme = "color6")"></span>
-                </div>
-            </div>
-        </div>
-
-        <div class="page-layout-demo-option">
-            <p>更多设置</p>
+        <GroupBox Title="更多设置">
             <div class="row">
                 <div class="col-6 d-flex align-items-center">
-                    <Switch @bind-Value="@UseTabSet" OnColor="@Color.Success" OffColor="@Color.Primary"></Switch>
+                    <Switch @bind-Value="@UseTabSet" OnColor="@Color.Success"></Switch>
                 </div>
                 <div class="col-6 text-right">
                     <span class="cell-label">@(UseTabSet ? "多标签" : "单页")</span>
                 </div>
             </div>
-        </div>
+        </GroupBox>
     </div>
 </Drawer>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

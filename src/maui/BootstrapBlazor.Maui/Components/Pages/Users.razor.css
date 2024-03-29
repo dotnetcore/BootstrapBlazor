@@ -1,0 +1,3 @@
+﻿.page-user {
+    height: calc(100vh - 82px - var(--bb-layout-footer-height) - var(--bb-tabs-item-height, 0px));
+}
