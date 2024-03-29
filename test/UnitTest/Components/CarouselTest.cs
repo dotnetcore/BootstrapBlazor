@@ -157,6 +157,23 @@ public class CarouselTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnSlideChanged_Ok()
+    {
+        var index = 0;
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(b => b.Images, new List<string>() { "test1.jpg", null!, "test3.jpg", "test4.jpg" });
+            pb.Add(b => b.OnSlideChanged, i =>
+            {
+                index = i;
+                return Task.CompletedTask;
+            });
+        });
+        cut.InvokeAsync(() => cut.Instance.TriggerSlideChanged(1));
+        Assert.Equal(1, index);
+    }
+
+    [Fact]
     public void CarouselItem_Ok()
     {
         var cut = Context.RenderComponent<Carousel>(pb =>

@@ -169,7 +169,7 @@ public partial class Carousel
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = InvokeMethodName });
 
-    private string? InvokeMethodName => OnSlideChanged == null ? null : nameof(OnSlidChanged);
+    private string? InvokeMethodName => OnSlideChanged == null ? null : nameof(TriggerSlideChanged);
 
     /// <summary>
     /// 点击 Image 是触发此方法
@@ -200,7 +200,7 @@ public partial class Carousel
     /// <param name="index"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async ValueTask OnSlidChanged(int index)
+    public async ValueTask TriggerSlideChanged(int index)
     {
         if (OnSlideChanged != null)
         {
