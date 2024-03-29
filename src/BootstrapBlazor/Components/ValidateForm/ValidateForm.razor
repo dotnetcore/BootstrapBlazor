@@ -6,7 +6,7 @@
 {
     <CascadingValue Value="this" IsFixed="true">
         <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" data-bb-dissubmit="@DisableAutoSubmitString" OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
-            <BootstrapBlazorDataAnnotationsValidator></BootstrapBlazorDataAnnotationsValidator>
+            <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
             @ChildContent
         </EditForm>
     </CascadingValue>
