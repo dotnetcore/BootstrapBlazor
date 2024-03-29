@@ -4,8 +4,14 @@
 
 namespace BootstrapBlazor.Maui;
 
+/// <summary>
+/// 
+/// </summary>
 public partial class MainPage : ContentPage
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public MainPage()
     {
         InitializeComponent();

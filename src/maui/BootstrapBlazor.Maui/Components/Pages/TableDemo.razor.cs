@@ -7,9 +7,8 @@ using BootstrapBlazor.Maui.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 
-namespace BootstrapBlazor.Maui.Pages;
+namespace BootstrapBlazor.Maui.Components.Pages;
 
 /// <summary>
 /// 

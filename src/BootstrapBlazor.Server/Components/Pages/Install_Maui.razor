@@ -8,8 +8,8 @@
 
 <p>@Localizer["P1"]</p>
 <ul class="ul-demo">
-    <li><code>visual studio 2022 17.3.0</code> @Localizer["P2"] </li>
-    <li><code>net6</code></li>
+    <li><code>visual studio 2022 latest</code> @Localizer["P2"] </li>
+    <li><code>net latest</code></li>
 </ul>
 
 <h4>@Localizer["P3"]</h4>
@@ -41,6 +41,7 @@
     &lt;!-- @Localizer["P19"] !--&gt;
     &lt;link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet"&gt;
     &lt;link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet"&gt;
+    &lt;link href="_content/BootstrapBlazor/css/motronic.min.css" rel="stylesheet"&gt;
 </b>
     ...
     &lt;link href="css/app.css" rel="stylesheet"&gt;
@@ -75,7 +76,7 @@ return builder.Build();
 <p>@Localizer["P24"] <code>~/_Imports.razor</code> @Localizer["P25"] <code>Razor</code> @Localizer["P26"]</p>
 <Pre><b>@@using BootstrapBlazor.Components</b></Pre>
 
-<p class="code-label">@Localizer["P27"] <code>BootstrapBlazorRoot</code> @Localizer["P28"] <code>~/Main.razor</code> @Localizer["P29"]</p>
+<p class="code-label">@Localizer["P27"] <code>BootstrapBlazorRoot</code> @Localizer["P28"] <code>~/Components/Routes.razor</code> @Localizer["P29"]</p>
 <Pre>&lt;BootstrapBlazorRoot&gt;
     &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
         &lt;Found Context="routeData"&gt;
@@ -83,12 +84,6 @@ return builder.Build();
             &lt;RouteView RouteData="@@routeData" DefaultLayout="@@typeof(MainLayout)" /&gt;
             &lt;FocusOnNavigate RouteData="@@routeData" Selector="h1" /&gt;
         &lt;/Found&gt;
-    &lt;NotFound&gt;
-            &lt;PageTitle&gt;Not found&lt;/PageTitle&gt;
-                &lt;LayoutView Layout="@@typeof(MainLayout)"&gt;
-                &lt;p&gt;@Localizer["P30"] ...&lt;/p&gt;
-            &lt;/LayoutView&gt;
-        &lt;/NotFound&gt;
     &lt;/Router&gt;
 &lt;/BootstrapBlazorRoot&gt;</Pre>
 

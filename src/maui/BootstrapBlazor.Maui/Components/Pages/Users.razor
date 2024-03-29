@@ -1,0 +1,45 @@
+﻿@page "/users"
+@attribute [TabItemOption(Text = "花名册")]
+<PageTitle>花名册</PageTitle>
+
+<div class="page-user">
+    <h1>花名册</h1>
+
+    <p>只读数据 - 更改每页显示数量体验固定表头功能</p>
+
+    <Table TItem="Foo" RenderMode="TableRenderMode.Table" class="table-users"
+           IsPagination="true" PageItemsSource="@PageItemsSource" IsFixedHeader="true"
+           IsStriped="true" IsBordered="true" OnQueryAsync="OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="260">
+                <Template Context="value">
+                    <div class="d-flex">
+                        @{
+                            var row = (Foo)value.Row;
+                        }
+                        <div>
+                            <img src="@GetAvatarUrl(row.Id)" />
+                        </div>
+                        <div class="ps-2">
+                            <div>@value.Value</div>
+                            <div class="user-demo-address">@row.Address</div>
+                        </div>
+                    </div>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Education" Align="Alignment.Center" Width="80" />
+            <TableColumn @bind-Field="@context.Count" Sortable="true" Width="160">
+                <Template Context="value">
+                    <div class="w-100">
+                        <div>@value.Value %</div>
+                        <div>
+                            <Progress Value="@value.Value" Color="@GetProgressColor(value.Value)"></Progress>
+                        </div>
+                    </div>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
+        </TableColumns>
+    </Table>
+</div>

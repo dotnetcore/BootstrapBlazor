@@ -1252,7 +1252,7 @@
     "P13": "Step 2. Add the BootstrapBlazor component to the existing project",
     "P14": "1. Search <code>BootstrapBlazor</code> through the <b>nuget.org</b> source",
     "P15": "Right click on the project in the solution and select",
-    "P16": "2. Install the BootstrapBlazor package",
+    "P16": "2. Install the BootstrapBlazor package latest version",
     "P17": "3. Add stylesheet file",
     "P18": "Add a theme style sheet to the host file",
     "P19": "Need to reference BootstrapBlazor.FontAwesome package",

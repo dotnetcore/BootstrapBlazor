@@ -1,0 +1,57 @@
+﻿.layout-drawer-body ::deep .groupbox {
+    margin-top: 1rem;
+}
+
+.layout-drawer-body ::deep .btn-info {
+    margin-bottom: 1rem;
+}
+
+.layout-item {
+    --bb-layout-sidebar-bg: #f8f9fa;
+    --bb-layout-footer-bg: #e9ecef;
+    cursor: pointer;
+    border: 2px solid #e9ecef;
+    padding: 4px;
+    border-radius: 4px;
+    height: 80px;
+    width: 120px;
+    transition: border .3s linear;
+}
+
+    .layout-item:hover,
+    .layout-item.active {
+        border: 2px solid #28a745;
+    }
+
+    .layout-item .layout-left {
+        width: 30%;
+        border-right: 1px solid var(--bs-border-color);
+    }
+
+        .layout-item .layout-left .layout-left-header {
+            height: 16px;
+            background-color: var(--bb-header-bg);
+        }
+
+        .layout-item .layout-left .layout-left-body,
+        .layout-item .layout-body .layout-left {
+            background-color: var(--bb-layout-sidebar-bg);
+        }
+
+    .layout-item .layout-right .layout-right-header,
+    .layout-item .layout-top {
+        background-color: var(--bb-header-bg);
+        height: 16px;
+    }
+
+    .layout-item .layout-right .layout-right-footer,
+    .layout-item .layout-right-footer {
+        background-color: var(--bb-layout-footer-bg);
+        height: 12px;
+    }
+
+    .layout-item .layout-top,
+    .layout-item .layout-body,
+    .layout-item .layout-right-footer {
+        width: 100%;
+    }

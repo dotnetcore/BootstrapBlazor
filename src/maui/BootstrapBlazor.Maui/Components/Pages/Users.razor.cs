@@ -7,10 +7,9 @@ using BootstrapBlazor.Maui.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 using Color = BootstrapBlazor.Components.Color;
 
-namespace BootstrapBlazor.Maui.Pages;
+namespace BootstrapBlazor.Maui.Components.Pages;
 
 /// <summary>
 /// 
