@@ -1,16 +1,21 @@
 ﻿import { getClientInfo } from "./client.js?v=$version"
-import { getFingerCode } from "./utility.js?v=$version"
 import Data from "./data.js?v=$version"
 import EventHandler from "./event-handler.js?v=$version";
 
 export async function init(id, options) {
-    const { invoke, method, interval = 3000, url } = options;
+    const { invoke, method, interval = 3000, url, connectionId } = options;
     const hubs = [];
     const chanel = new BroadcastChannel('bb_hubs_chanel');
-    const localStorageKey = 'bb_hub_id';
-
+    const localStorageKey = 'bb_hub_el_id';
+    const localStorageConnectionIdKey = 'bb_hub_connection_id';
     if (localStorage.getItem(localStorageKey) === null) {
         localStorage.setItem(localStorageKey, id);
+    }
+
+    let clientId = localStorage.getItem(localStorageConnectionIdKey);
+    if (clientId === null) {
+        localStorage.setItem(localStorageConnectionIdKey, connectionId);
+        clientId = connectionId;
     }
     window.addEventListener('unload', () => {
         chanel.close();
@@ -25,7 +30,7 @@ export async function init(id, options) {
     });
 
     const info = await getClientInfo(url);
-    info.id = getFingerCode();
+    info.id = clientId;
     const handler = setInterval(async () => {
         chanel.postMessage(id);
         let hubId = localStorage.getItem(localStorageKey);
@@ -34,7 +39,6 @@ export async function init(id, options) {
             localStorage.setItem(localStorageKey, id);
             hubId = id;
         }
-        console.log(hubId);
         if (hubId === id) {
             await invoke.invokeMethodAsync(method, info);
         }
