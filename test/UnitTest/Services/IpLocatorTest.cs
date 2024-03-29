@@ -56,7 +56,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
 
         // 河南省漯河市 移动
         result = await provider.Locate("223.91.188.112");
-        Assert.Equal("测试 测试", result);
+        Assert.Equal("省份 城市 区县 测试", result);
     }
 
     [Fact]
@@ -172,7 +172,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         {
             return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK)
             {
-                Content = new StringContent("{\"code\":\"Success\",\"data\": {\"prov\":\"测试\", \"isp\": \"测试\"}}")
+                Content = new StringContent("{\"code\":\"Success\",\"data\": {\"country\": \"中国\", \"prov\":\"省份\", \"city\":\"城市\", \"district\":\"区县\", \"isp\": \"测试\"}}")
             });
         }
     }

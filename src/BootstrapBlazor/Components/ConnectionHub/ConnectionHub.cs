@@ -44,7 +44,13 @@ public class ConnectionHub : BootstrapModuleComponentBase
         if (options.Enable)
         {
             _throttleOptions = new ThrottleOptions() { Interval = options.BeatInterval };
-            await InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(Callback), Interval = options.BeatInterval.TotalMilliseconds, Url = "ip.axd" });
+            await InvokeVoidAsync("init", Id, new
+            {
+                Invoke = Interop,
+                Method = nameof(Callback),
+                ConnectionId = Guid.NewGuid(),
+                Interval = options.BeatInterval.TotalMilliseconds, Url = "ip.axd"
+            });
         }
     }
 

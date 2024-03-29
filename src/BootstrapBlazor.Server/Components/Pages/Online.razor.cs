@@ -61,7 +61,6 @@ public partial class Online : IDisposable
 
     private void CreateTable()
     {
-        _table.Columns.Add("Id", typeof(string));
         _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
         _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
         _table.Columns.Add("Ip", typeof(string));
@@ -80,7 +79,6 @@ public partial class Online : IDisposable
         foreach (var item in ConnectionService.Connections)
         {
             _table.Rows.Add(
-                item.Id,
                 item.ConnectionTime,
                 item.LastBeatTime,
                 item.ClientInfo?.Ip ?? "",
