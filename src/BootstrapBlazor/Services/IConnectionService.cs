@@ -13,7 +13,6 @@ public interface IConnectionService
     /// 增加或更新当前 Key
     /// </summary>
     /// <param name="client">ClientInfo 实例</param>
-    /// <remarks>未设置 <see cref="ClientInfo.Id"/> 时返回 null</remarks>
     void AddOrUpdate(ClientInfo client);
 
     /// <summary>

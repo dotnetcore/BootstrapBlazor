@@ -63,6 +63,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
             await dispatch.ThrottleAsync(async () =>
             {
                 client.RequestUrl = NavigationManager.Uri;
+
                 if (!string.IsNullOrEmpty(client.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create();
