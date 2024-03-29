@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="@PlayMode.ToDescriptionString()" data-bs-touch="@DisableTouchSwipingString" data-bs-pause="@PauseString">
     <CascadingValue Value="this" IsFixed="true">

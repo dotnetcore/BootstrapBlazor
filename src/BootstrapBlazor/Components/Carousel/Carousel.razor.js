@@ -1,17 +1,17 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
-export function init(id) {
+export function init(id, options) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
 
-    const options = { delay: 10 }
+    const { invoke, method, delay = 10 } = options;
     const carousel = {
         element: el,
         controls: el.querySelectorAll('[data-bs-slide]'),
-        carousel: new bootstrap.Carousel(el, options)
+        carousel: new bootstrap.Carousel(el, { delay })
     }
     Data.set(id, carousel)
 
@@ -20,7 +20,7 @@ export function init(id) {
             clearTimeout(carousel.enterHandler)
             carousel.enterHandler = null
             el.classList.add('hover')
-        }, options.delay)
+        }, delay)
     })
 
     EventHandler.on(el, 'mouseleave', () => {
@@ -28,8 +28,19 @@ export function init(id) {
             window.clearTimeout(carousel.leaveHandler)
             carousel.leaveHandler = null
             el.classList.remove('hover')
-        }, options.delay)
+        }, delay)
     })
+
+    if (method) {
+        const slides = el.querySelectorAll('.carousel-item');
+        EventHandler.on(el, 'slid.bs.carousel', e => {
+            const active = el.querySelector('.carousel-item.active');
+            if (active) {
+                const index = [...slides].indexOf(active);
+                invoke.invokeMethodAsync(method, index);
+            }
+        })
+    }
 }
 
 export function dispose(id) {
@@ -51,4 +62,5 @@ export function dispose(id) {
     }
     EventHandler.off(carousel.element, 'mouseenter')
     EventHandler.off(carousel.element, 'mouseleave')
+    EventHandler.off(carousel.element, 'slid.bs.carousel')
 }
