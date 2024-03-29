@@ -14,8 +14,12 @@ export async function init(id, options) {
     const info = await getClientInfo(url);
     info.id = getFingerCode();
     const handler = setInterval(async () => {
-        const hubId = localStorage.getItem('bootstrapblazor_hub_id');
+        let hubId = localStorage.getItem('bootstrapblazor_hub_id');
 
+        if (hubId === null) {
+            localStorage.setItem('bootstrapblazor_hub_id', id);
+            hubId = id;
+        }
         if (hubId === id) {
             await invoke.invokeMethodAsync(method, info);
         }
