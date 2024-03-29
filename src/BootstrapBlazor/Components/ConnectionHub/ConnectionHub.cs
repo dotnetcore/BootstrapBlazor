@@ -60,16 +60,17 @@ public class ConnectionHub : BootstrapModuleComponentBase
         if (!string.IsNullOrEmpty(code))
         {
             var dispatch = ThrottleDispatcherFactory.GetOrCreate(code, _throttleOptions);
-            await dispatch.ThrottleAsync(async () =>
+            await dispatch.ThrottleAsync(() =>
             {
                 client.RequestUrl = NavigationManager.Uri;
 
-                var item = ConnectionService.AddOrUpdate(client);
-                if (item != null && !string.IsNullOrEmpty(item.ClientInfo?.Ip))
-                {
-                    _ipLocatorProvider ??= IpLocatorFactory.Create();
-                    item.ClientInfo.City = await _ipLocatorProvider.Locate(item.ClientInfo.Ip);
-                }
+                ConnectionService.AddOrUpdate(client);
+                //if (item != null && !string.IsNullOrEmpty(item.ClientInfo?.Ip))
+                //{
+                //    _ipLocatorProvider ??= IpLocatorFactory.Create();
+                //    item.ClientInfo.City = await _ipLocatorProvider.Locate(item.ClientInfo.Ip);
+                //}
+                return Task.CompletedTask;
             });
         }
     }
