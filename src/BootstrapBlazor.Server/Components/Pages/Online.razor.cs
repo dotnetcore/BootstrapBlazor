@@ -79,7 +79,6 @@ public partial class Online : IDisposable
         foreach (var item in ConnectionService.Connections)
         {
             _table.Rows.Add(
-                item.Id,
                 item.ConnectionTime,
                 item.LastBeatTime,
                 item.ClientInfo?.Ip ?? "",
