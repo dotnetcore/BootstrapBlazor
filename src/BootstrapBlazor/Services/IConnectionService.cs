@@ -14,7 +14,7 @@ public interface IConnectionService
     /// </summary>
     /// <param name="client">ClientInfo 实例</param>
     /// <remarks>未设置 <see cref="ClientInfo.Id"/> 时返回 null</remarks>
-    ConnectionItem? AddOrUpdate(ClientInfo client);
+    void AddOrUpdate(ClientInfo client);
 
     /// <summary>
     /// 获得指定 key 的连接信息

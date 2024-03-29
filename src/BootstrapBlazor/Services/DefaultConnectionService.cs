@@ -49,14 +49,12 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="client"></param>
-    public ConnectionItem? AddOrUpdate(ClientInfo client)
+    public void AddOrUpdate(ClientInfo client)
     {
-        ConnectionItem? item = null;
         if (!string.IsNullOrEmpty(client.Id))
         {
-            item = _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
+            _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
         }
-        return item;
     }
 
     private static ConnectionItem CreateItem(string key, ClientInfo client) => new()
@@ -70,7 +68,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     private static ConnectionItem UpdateItem(ConnectionItem item, ClientInfo val)
     {
         item.LastBeatTime = DateTimeOffset.Now;
-        //item.ClientInfo = val;
+        item.ClientInfo = val;
         return item;
     }
 

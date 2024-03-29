@@ -63,13 +63,12 @@ public class ConnectionHub : BootstrapModuleComponentBase
             await dispatch.ThrottleAsync(async () =>
             {
                 client.RequestUrl = NavigationManager.Uri;
-
-                var item = ConnectionService.AddOrUpdate(client);
-                if (item != null && !string.IsNullOrEmpty(item.ClientInfo?.Ip))
+                if (!string.IsNullOrEmpty(client.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create();
-                    item.ClientInfo.City = await _ipLocatorProvider.Locate(item.ClientInfo.Ip);
+                    client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
+                ConnectionService.AddOrUpdate(client);
             });
         }
     }
