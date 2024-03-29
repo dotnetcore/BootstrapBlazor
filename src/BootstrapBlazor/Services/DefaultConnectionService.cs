@@ -43,7 +43,7 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.BeatInterval) > DateTimeOffset.Now);
+    public long Count => _connectionCache.Values.LongCount(i => i.LastBeatTime.Add(_options.TimeoutInterval) > DateTimeOffset.Now);
 
     /// <summary>
     /// <inheritdoc/>
