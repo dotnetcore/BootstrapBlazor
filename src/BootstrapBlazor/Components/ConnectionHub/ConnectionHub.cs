@@ -64,12 +64,12 @@ public class ConnectionHub : BootstrapModuleComponentBase
             {
                 client.RequestUrl = NavigationManager.Uri;
 
-                if (!string.IsNullOrEmpty(client.Ip))
+                var item = ConnectionService.AddOrUpdate(client);
+                if (item != null && !string.IsNullOrEmpty(item.ClientInfo?.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create();
-                    client.City = await _ipLocatorProvider.Locate(client.Ip);
+                    item.ClientInfo.City = await _ipLocatorProvider.Locate(item.ClientInfo.Ip);
                 }
-                ConnectionService.AddOrUpdate(client);
             });
         }
     }

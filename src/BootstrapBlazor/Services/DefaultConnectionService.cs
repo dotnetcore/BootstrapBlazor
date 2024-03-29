@@ -49,12 +49,14 @@ class DefaultConnectionService : IConnectionService, IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="client"></param>
-    public void AddOrUpdate(ClientInfo client)
+    public ConnectionItem? AddOrUpdate(ClientInfo client)
     {
+        ConnectionItem? item = null;
         if (!string.IsNullOrEmpty(client.Id))
         {
-            _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
+            item = _connectionCache.AddOrUpdate(client.Id, key => CreateItem(key, client), (k, v) => UpdateItem(v, client));
         }
+        return item;
     }
 
     private static ConnectionItem CreateItem(string key, ClientInfo client) => new()
