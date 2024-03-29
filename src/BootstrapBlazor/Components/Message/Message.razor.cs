@@ -94,12 +94,11 @@ public partial class Message
         StateHasChanged();
     }
 
-    private Task Show(MessageOption option)
+    private async Task Show(MessageOption option)
     {
         _messages.Add(option);
         _msgId = GetItemId(option);
-        StateHasChanged();
-        return Task.CompletedTask;
+        await InvokeAsync(StateHasChanged);
     }
 
     /// <summary>
