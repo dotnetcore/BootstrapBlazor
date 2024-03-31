@@ -4,20 +4,17 @@ import EventHandler from "./event-handler.js?v=$version";
 
 export async function init(id, options) {
     const { invoke, method, interval = 3000, url, connectionId } = options;
-    const localStorageKey = 'bb_hub_el_id';
-    if (localStorage.getItem(localStorageKey) === null) {
-        localStorage.setItem(localStorageKey, id);
+    const elKey = 'bb_hub_el_id';
+    if (localStorage.getItem(elKey) === null) {
+        localStorage.setItem(elKey, id);
     }
 
-    const localStorageConnectionIdKey = 'bb_hub_connection_id';
-    let clientId = localStorage.getItem(localStorageConnectionIdKey);
+    const connectionIdKey = 'bb_hub_connection_id';
+    let clientId = localStorage.getItem(connectionIdKey);
     if (clientId === null) {
-        localStorage.setItem(localStorageConnectionIdKey, connectionId);
+        localStorage.setItem(connectionIdKey, connectionId);
         clientId = connectionId;
     }
-    window.addEventListener('unload', () => {
-        dispose(id);
-    });
 
     const hubs = [];
     const chanel = new BroadcastChannel('bb_hubs_chanel');
@@ -27,44 +24,42 @@ export async function init(id, options) {
             hubs.push(id);
         }
         else if (type === 'dispose') {
-            const index = hubs.indexOf(v => v === id);
+            const index = hubs.indexOf(id);
             if (index > -1) {
                 hubs.splice(index, 1);
             }
-            if (clientId === connectionId) {
-                localStorage.removeItem(localStorageConnectionIdKey);
-            }
-            if (localStorage.getItem(localStorageKey) === id) {
-                localStorage.removeItem(localStorageKey);
+            if (localStorage.getItem(elKey) === id) {
+                localStorage.removeItem(elKey);
             }
         }
     });
 
     const info = await getClientInfo(url);
     info.id = clientId;
-    const handler = setInterval(async () => {
-        chanel.postMessage({ id, type: 'ping' });
-        let hubId = localStorage.getItem(localStorageKey);
 
-        if (hubId === null) {
-            localStorage.setItem(localStorageKey, id);
+    const callback = async () => {
+        chanel.postMessage({ id, type: 'ping' });
+
+        let hubId = localStorage.getItem(elKey);
+        if (hubId === null || hubs.length === 0) {
+            localStorage.setItem(elKey, id);
             hubId = id;
         }
         if (hubId === id) {
             await invoke.invokeMethodAsync(method, info);
         }
-        else if (hubs.length > 0) {
-            const h = hubs.find(v => v === hubId);
-            if (h === void 0) {
-                localStorage.removeItem(localStorageKey);
-            }
-        }
-        else {
-            localStorage.removeItem(localStorageKey);
-        }
+    }
+    await callback();
+
+    const handler = setInterval(async () => {
+        await callback();
     }, interval);
 
-    const hub = { handler, chanel, connectionId };
+    window.addEventListener('unload', () => {
+        dispose(id);
+    });
+
+    const hub = { handler, chanel };
     Data.set(id, hub);
 }
 

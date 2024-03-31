@@ -49,7 +49,7 @@ public partial class Online : IDisposable
                 {
                     try
                     {
-                        await Task.Delay(2000, _cancellationTokenSource.Token);
+                        await Task.Delay(10000, _cancellationTokenSource.Token);
                         BuildContext();
                         await InvokeAsync(StateHasChanged);
                     }
@@ -63,6 +63,7 @@ public partial class Online : IDisposable
     {
         _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
         _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
+        _table.Columns.Add("Dur", typeof(TimeSpan));
         _table.Columns.Add("Ip", typeof(string));
         _table.Columns.Add("City", typeof(string));
         _table.Columns.Add("OS", typeof(string));
@@ -81,6 +82,7 @@ public partial class Online : IDisposable
             _table.Rows.Add(
                 item.ConnectionTime,
                 item.LastBeatTime,
+                item.LastBeatTime - item.ConnectionTime,
                 item.ClientInfo?.Ip ?? "",
                 item.ClientInfo?.City ?? "",
                 item.ClientInfo?.OS ?? "",
@@ -105,6 +107,25 @@ public partial class Online : IDisposable
             {
                 col.FormatString = "yyyy/MM/dd HH:mm:ss";
                 col.Width = 118;
+            }
+            else if (col.GetFieldName() == "Dur")
+            {
+                col.FormatString = "hh\\:mm\\:ss";
+                col.Width = 54;
+            }
+            else if (col.GetFieldName() == "RequestUrl")
+            {
+                col.Template = v => builder =>
+                {
+                    if(v is IDynamicObject val)
+                    {
+                        var url = val.GetValue("RequestUrl")?.ToString();
+                        if(!string.IsNullOrEmpty(url))
+                        {
+                            builder.AddContent(0, new MarkupString($"<a href=\"{url}\" target=\"_blank\">{url}</a>"));
+                        }
+                    }
+                };
             }
         });
     }

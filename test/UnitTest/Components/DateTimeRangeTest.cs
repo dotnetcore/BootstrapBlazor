@@ -68,7 +68,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         var value = cut.Instance.Value;
-        var startDate = DateTime.Today.AddMonths(-1).AddDays(1 - DateTime.Today.Day);
+        var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(-1);
         var endDate = startDate.AddDays(7).AddSeconds(-1);
         Assert.Equal(startDate, value.Start);
         Assert.Equal(endDate, value.End);
