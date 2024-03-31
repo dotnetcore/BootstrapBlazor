@@ -70,10 +70,5 @@ export async function dispose(id) {
         clearInterval(hub.handler);
         hub.chanel.postMessage({ id, type: 'dispose' });
         hub.chanel.close();
-
-        if (hub.hubs.length === 0) {
-            localStorage.removeItem(hub.localStorageConnectionIdKey)
-            localStorage.removeItem(hub.localStorageElKey)
-        }
     }
 }
