@@ -1588,7 +1588,7 @@
     "LocatorText": "地理位置定位 IpLocator",
     "ImageViewerText": "图片 ImageViewer",
     "IpText": "IP 地址 IpAddress",
-    "PrintText": "打印组件 Print",
+    "PrintText": "打印按钮 Print",
     "TitleText": "网站标题 Title",
     "DownloadText": "文件下载 Download",
     "TransitionText": "过渡效果 Transition",
@@ -3989,7 +3989,7 @@
     "LocatorsProviderDesc": "组件库内置两个地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
-    "PrintsTitle": "Print 打印组件",
+    "PrintsTitle": "Print 打印按钮",
     "PrintsSubTitle": "用于打印文档或者局部视图",
     "PrintsTips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
     "PrintsTips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
@@ -4001,7 +4001,7 @@
     "PrintDialogIntro": "通过设置弹窗组件 <code>ShowPrint</code> 开启打印功能",
     "PrintDialogP": "本例中弹窗内容为自定义组件 <code>{0}</code> 弹窗自身按钮所在 <code>Footer</code> 被隐藏，所以弹窗内置的 <code>Print</code> 按钮无法显示，设置 <code>@nameof(DialogOption.ShowPrintButtonInHeader)</code> 使 <b>打印</b> 按钮显示在标题栏中",
     "PrintServiceTitle": "打印服务",
-    "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业",
+    "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业，打印服务 <code>DialogService</code> 服务文档 <a href=\"print-service\" target=\"_blank\">[传送门]</a>",
     "PrintsDialogTitle": "数据查询窗口"
   },
   "BootstrapBlazor.Server.Components.Samples.Tags": {
@@ -4508,7 +4508,7 @@
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
-    "Print": "打印组件 Print",
+    "Print": "打印按钮 Print",
     "QRCode": "二维码 QRCode",
     "Repeater": "重复组件 Repeater",
     "Search": "搜索框 Search",
@@ -4633,7 +4633,8 @@
     "Festival": "节日服务 ICalendarFestival",
     "Lookup": "外键数据源服务 ILookupService",
     "DialogService": "弹窗服务 DialogService",
-    "OnlineText": "在线统计 Online"
+    "OnlineText": "在线统计 Online",
+    "PrintService": "打印服务 PrintService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

@@ -1,0 +1,50 @@
+﻿@page "/print-service"
+@layout MainLayout
+
+<h3>打印服务 <code>PrintService</code></h3>
+<h4>组件库内置了打印服务</h4>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private PrintService? PrintService { get; set; }</Pre>
+
+<p class="code-label">2. 使用服务</p>
+<p>调用 <code>PrintService</code> 实例方法 <code>PrintAsync</code> 即可</p>
+
+<Pre>PrintService.PrintAsync&lt;TComponent&gt;</Pre>
+
+<p class="code-label">3. 使用方法</p>
+
+<ul class="ul-demo">
+    <li>打印服务弹窗是弹窗服务 <code>DialogService</code> 的扩展方法，具体使用方法请参阅弹窗服务文档 <a href="/dialog-service" target="_blank">[传送门]</a></li>
+    <li>通过 <code>ShowPrintButton</code> 设置是否显示 <b>打印按钮</b></li>
+    <li>通过 <code>ShowPrintButtonInHeader</code> 设置弹窗 <code>Header</code> 部分显示 <b>打印按钮</b></li>
+    <li>泛型方法 <code>PrintAsync&lt;TComponent&gt;</code> 其中 <code>TComponent</code> 为弹窗内显示的组件</li>
+</ul>
+
+<Pre>private Task OnClickPrintService() => PrintService.PrintAsync&lt;DataDialogComponent&gt;(op =>
+{
+    // 弹窗配置
+    op.Title = Localizer["PrintsDialogTitle"];
+    op.ShowPrintButton = true;
+    op.ShowPrintButtonInHeader = true;
+    op.ShowFooter = false;
+    op.BodyContext = 2;
+
+    // 弹窗组件所需参数
+    return new Dictionary&lt;string, object?&gt;();
+});</Pre>
+
+<p>由于浏览器限制，无法使用代码直接后台打印，所以设计 <code>PrintButton</code> 用于 <b>弹出</b> 新窗口或者 <b>跳转</b> 到新标签页，进行打印数据准备工作</p>
+
+<p><code>打印按钮示例</code> <a href="/print" target="_blank">[传送门]</a> 通过设置 <code>PreviewUrl</code> 参数控制跳转还是打印弹窗内容</p>
+
+<p>仅打印其弹窗原理，通过样式控制弹窗以外内容在打印模式下不显示，通过此方法可以在跳转标签页中做一些特殊样式，配合打印按钮实现任何打印需求</p>
+
+<Pre>@@media print {
+    .print-header {
+        display: none;
+    }
+}</Pre>

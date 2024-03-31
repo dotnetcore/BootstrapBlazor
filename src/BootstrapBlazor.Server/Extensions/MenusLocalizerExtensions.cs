@@ -1373,8 +1373,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Print"],
-                    Url = "print"
+                    Text = Localizer["PrintService"],
+                    Url = "print-service"
                 },
                 new()
                 {
