@@ -4001,7 +4001,7 @@
     "PrintDialogIntro": "通过设置弹窗组件 <code>ShowPrint</code> 开启打印功能",
     "PrintDialogP": "本例中弹窗内容为自定义组件 <code>{0}</code> 弹窗自身按钮所在 <code>Footer</code> 被隐藏，所以弹窗内置的 <code>Print</code> 按钮无法显示，设置 <code>@nameof(DialogOption.ShowPrintButtonInHeader)</code> 使 <b>打印</b> 按钮显示在标题栏中",
     "PrintServiceTitle": "打印服务",
-    "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业",
+    "PrintServiceIntro": "通过设置要打印的内容组件，直接调用 <b>打印服务</b> 进行打印作业，打印服务 <code>DialogService</code> 服务文档 <a href=\"print-service\" target=\"_blank\">[传送门]</a>",
     "PrintsDialogTitle": "数据查询窗口"
   },
   "BootstrapBlazor.Server.Components.Samples.Tags": {
@@ -4633,7 +4633,8 @@
     "Festival": "节日服务 ICalendarFestival",
     "Lookup": "外键数据源服务 ILookupService",
     "DialogService": "弹窗服务 DialogService",
-    "OnlineText": "在线统计 Online"
+    "OnlineText": "在线统计 Online",
+    "PrintService": "打印服务 PrintService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
