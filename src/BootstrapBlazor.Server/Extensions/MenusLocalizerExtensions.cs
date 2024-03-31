@@ -123,6 +123,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["JSExtension"],
                     Url = "js-extensions"
+                },
+                new()
+                {
+                    Text = Localizer["OnlineText"],
+                    Url = "online"
                 }
             };
             AddBadge(item);

@@ -4632,7 +4632,8 @@
     "Holiday": "假日服务 ICalendarHoliday",
     "Festival": "节日服务 ICalendarFestival",
     "Lookup": "外键数据源服务 ILookupService",
-    "DialogService": "弹窗服务 DialogService"
+    "DialogService": "弹窗服务 DialogService",
+    "OnlineText": "在线统计 Online"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
