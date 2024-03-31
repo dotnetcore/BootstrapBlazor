@@ -106,6 +106,20 @@ public partial class Online : IDisposable
                 col.FormatString = "yyyy/MM/dd HH:mm:ss";
                 col.Width = 118;
             }
+            else if(col.GetFieldName() == "RequestUrl")
+            {
+                col.Template = v => builder =>
+                {
+                    if(v is IDynamicObject val)
+                    {
+                        var url = val.GetValue("RequestUrl")?.ToString();
+                        if(!string.IsNullOrEmpty(url))
+                        {
+                            builder.AddContent(0, new MarkupString($"<a href=\"{url}\" target=\"_blank\">{url}</a>"));
+                        }
+                    }
+                };
+            }
         });
     }
 
