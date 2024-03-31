@@ -4,15 +4,15 @@ import EventHandler from "./event-handler.js?v=$version";
 
 export async function init(id, options) {
     const { invoke, method, interval = 3000, url, connectionId } = options;
-    const localStorageElKey = 'bb_hub_el_id';
-    if (localStorage.getItem(localStorageElKey) === null) {
-        localStorage.setItem(localStorageElKey, id);
+    const elKey = 'bb_hub_el_id';
+    if (localStorage.getItem(elKey) === null) {
+        localStorage.setItem(elKey, id);
     }
 
-    const localStorageConnectionIdKey = 'bb_hub_connection_id';
-    let clientId = localStorage.getItem(localStorageConnectionIdKey);
+    const connectionIdKey = 'bb_hub_connection_id';
+    let clientId = localStorage.getItem(connectionIdKey);
     if (clientId === null) {
-        localStorage.setItem(localStorageConnectionIdKey, connectionId);
+        localStorage.setItem(connectionIdKey, connectionId);
         clientId = connectionId;
     }
 
@@ -28,8 +28,8 @@ export async function init(id, options) {
             if (index > -1) {
                 hubs.splice(index, 1);
             }
-            if (localStorage.getItem(localStorageElKey) === id) {
-                localStorage.removeItem(localStorageElKey);
+            if (localStorage.getItem(elKey) === id) {
+                localStorage.removeItem(elKey);
             }
         }
     });
@@ -39,10 +39,10 @@ export async function init(id, options) {
 
     const callback = async () => {
         chanel.postMessage({ id, type: 'ping' });
-        let hubId = localStorage.getItem(localStorageElKey);
+        let hubId = localStorage.getItem(elKey);
 
         if (hubId === null || hubs.length === 0) {
-            localStorage.setItem(localStorageElKey, id);
+            localStorage.setItem(elKey, id);
             hubId = id;
         }
         if (hubId === id) {
@@ -59,7 +59,7 @@ export async function init(id, options) {
         dispose(id);
     });
 
-    const hub = { handler, chanel, connectionId, hubs, localStorageConnectionIdKey, localStorageElKey };
+    const hub = { handler, chanel, connectionId, hubs, connectionIdKey, elKey };
     Data.set(id, hub);
 }
 
