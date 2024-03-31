@@ -1588,7 +1588,7 @@
     "LocatorText": "地理位置定位 IpLocator",
     "ImageViewerText": "图片 ImageViewer",
     "IpText": "IP 地址 IpAddress",
-    "PrintText": "打印组件 Print",
+    "PrintText": "打印按钮 Print",
     "TitleText": "网站标题 Title",
     "DownloadText": "文件下载 Download",
     "TransitionText": "过渡效果 Transition",
@@ -3989,7 +3989,7 @@
     "LocatorsProviderDesc": "组件库内置两个地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
-    "PrintsTitle": "Print 打印组件",
+    "PrintsTitle": "Print 打印按钮",
     "PrintsSubTitle": "用于打印文档或者局部视图",
     "PrintsTips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
     "PrintsTips2": "不设置 <code>PreviewUrl</code> 时，如果是 <code>Dialog</code> 组件中的打印按钮，则打印弹窗内容",
@@ -4508,7 +4508,7 @@
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
-    "Print": "打印组件 Print",
+    "Print": "打印按钮 Print",
     "QRCode": "二维码 QRCode",
     "Repeater": "重复组件 Repeater",
     "Search": "搜索框 Search",
