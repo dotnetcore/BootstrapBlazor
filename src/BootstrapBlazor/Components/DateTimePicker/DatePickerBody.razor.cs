@@ -764,7 +764,7 @@ public partial class DatePickerBody
         TimePickerPanel?.Reset();
     }
 
-    private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
+    private bool Validate() => (!MinValue.HasValue || SelectValue >= MinValue.Value) && (!MaxValue.HasValue || SelectValue <= MaxValue.Value);
 
     /// <summary>
     /// 
