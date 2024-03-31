@@ -39,8 +39,8 @@ export async function init(id, options) {
 
     const callback = async () => {
         chanel.postMessage({ id, type: 'ping' });
-        let hubId = localStorage.getItem(elKey);
 
+        let hubId = localStorage.getItem(elKey);
         if (hubId === null || hubs.length === 0) {
             localStorage.setItem(elKey, id);
             hubId = id;
@@ -59,7 +59,7 @@ export async function init(id, options) {
         dispose(id);
     });
 
-    const hub = { handler, chanel, connectionId, hubs, connectionIdKey, elKey };
+    const hub = { handler, chanel };
     Data.set(id, hub);
 }
 
