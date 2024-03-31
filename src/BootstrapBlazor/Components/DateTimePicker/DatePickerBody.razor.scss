@@ -192,22 +192,23 @@
                             &.start:before {
                                 border-top-left-radius: 40%;
                                 border-bottom-left-radius: 40%;
+                                left: 6px;
                             }
 
                             &.end:before {
                                 border-top-right-radius: 40%;
                                 border-bottom-right-radius: 40%;
-                                width: 33px;
+                                right: 6px;
                             }
 
                             &:before {
                                 content: "";
                                 position: absolute;
                                 background-color: #f2f6fc;
-                                width: 42px;
-                                height: 33px;
-                                top: 2px;
-                                left: 5px;
+                                top: 4px;
+                                bottom: 4px;
+                                left: 0;
+                                right: 0;
                             }
                         }
 
