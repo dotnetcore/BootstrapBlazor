@@ -227,6 +227,30 @@ public partial class DateTimeRange
     [NotNull]
     public string? DateTimeFormat { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示中国阴历历法 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowLunar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示中国 24 节气 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowSolarTerm { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示节日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowFestivals { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示休假日 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowHolidays { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }

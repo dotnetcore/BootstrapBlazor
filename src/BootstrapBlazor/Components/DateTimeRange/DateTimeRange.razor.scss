@@ -82,26 +82,26 @@
             color: inherit;
         }
     }
+}
 
-    .picker-panel-body {
-        .picker-panel-body-main .picker-panel-content table td {
-            &.range {
-                &:before {
-                    top: 8px;
-                    bottom: -7px;
-                }
+.is-lunar .picker-panel-body {
+    .picker-panel-body-main .picker-panel-content table td {
+        &.range {
+            &:before {
+                top: 8px;
+                bottom: -7px;
+            }
 
-                &.start:before {
-                    border-top-left-radius: 8px;
-                    border-bottom-left-radius: 8px;
-                    left: 0;
-                }
+            &.start:before {
+                border-top-left-radius: 8px;
+                border-bottom-left-radius: 8px;
+                left: 0;
+            }
 
-                &.end:before {
-                    border-top-right-radius: 8px;
-                    border-bottom-right-radius: 8px;
-                    right: 0;
-                }
+            &.end:before {
+                border-top-right-radius: 8px;
+                border-bottom-right-radius: 8px;
+                right: 0;
             }
         }
     }
