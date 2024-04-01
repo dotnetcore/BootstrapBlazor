@@ -1,4 +1,5 @@
 ﻿import { addScript } from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, interop, options) {
@@ -48,6 +49,8 @@ export async function init(id, interop, options) {
         EventHandler.on(window, "resize", () => {
             editor.editor.layout();
         });
+
+        Data.set(id, editor)
     });
 }
 
@@ -65,5 +68,6 @@ export function monacoSetOptions(id, options) {
 }
 
 export function dispose(id) {
+    Data.remove(id);
     EventHandler.off(window, "resize");
 }
