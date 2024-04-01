@@ -1,5 +1,4 @@
 ﻿import { addScript } from '../../../BootstrapBlazor/modules/utility.js'
-import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, interop, options) {
@@ -14,43 +13,50 @@ export async function init(id, interop, options) {
         var container = document.getElementById(id);
         var body = container.querySelector(".code-editor-body");
 
-        // Hide the Progress Ring
-        monaco.editor.onDidCreateEditor((e) => {
-            var progress = container.querySelector(".spinner");
-            if (progress && progress.style) {
-                progress.style.display = "none";
-            }
-        });
+        const init = () => {
+            // Hide the Progress Ring
+            monaco.editor.onDidCreateEditor((e) => {
+                var progress = container.querySelector(".spinner");
+                if (progress && progress.style) {
+                    progress.style.display = "none";
+                }
+            });
 
-        const editor = {}
+            const editor = {}
 
-        // Create the Monaco Editor
-        editor.editor = monaco.editor.create(body, {
-            ariaLabel: "online code editor",
-            value: options.value,
-            language: options.language,
-            theme: options.theme,
-            lineNumbers: options.lineNumbers ? "on" : "off",
-            readOnly: options.readOnly,
-        });
+            // Create the Monaco Editor
+            editor.editor = monaco.editor.create(body, {
+                ariaLabel: "online code editor",
+                value: options.value,
+                language: options.language,
+                theme: options.theme,
+                lineNumbers: options.lineNumbers ? "on" : "off",
+                readOnly: options.readOnly,
+            });
 
-        // Catch when the editor lost the focus (didType to immediate)
-        editor.editor.onDidBlurEditorText((e) => {
-            var code = editor.editor.getValue();
-            interop.invokeMethodAsync("UpdateValueAsync", code);
-        });
+            // Catch when the editor lost the focus (didType to immediate)
+            editor.editor.onDidBlurEditorText((e) => {
+                var code = editor.editor.getValue();
+                interop.invokeMethodAsync("UpdateValueAsync", code);
+            });
 
-        monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
+            monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
 
-        editor.interop = interop;
+            editor.interop = interop;
 
-        Data.set(id, editor)
-
-        editor.editor.layout();
-
-        EventHandler.on(window, "resize", () => {
             editor.editor.layout();
-        })
+
+            EventHandler.on(window, "resize", () => {
+                editor.editor.layout();
+            });
+        }
+
+        const handler = setInterval(() => {
+            if (body.offsetWidth !== 0 && body.offsetHeight !== 0) {
+                clearInterval(handler);
+                init();
+            }
+        }, 350);
     });
 }
 
@@ -68,6 +74,5 @@ export function monacoSetOptions(id, options) {
 }
 
 export function dispose(id) {
-    Data.remove(id);
     EventHandler.off(window, "resize");
 }
