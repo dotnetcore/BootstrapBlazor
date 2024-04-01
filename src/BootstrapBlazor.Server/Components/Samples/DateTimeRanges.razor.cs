@@ -24,6 +24,11 @@ public sealed partial class DateTimeRanges
 
     private string? BindValueDemoRange;
 
+    private bool _showLunar = true;
+    private bool _showSolarTerm = true;
+    private bool _showFestivals = true;
+    private bool _showHolidays = true;
+
     private Task BindValueDemoOnValueChanged(DateTimeRangeValue val, int index)
     {
         var ret = "";
