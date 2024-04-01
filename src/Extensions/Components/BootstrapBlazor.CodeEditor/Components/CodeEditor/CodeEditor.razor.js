@@ -13,50 +13,41 @@ export async function init(id, interop, options) {
         var container = document.getElementById(id);
         var body = container.querySelector(".code-editor-body");
 
-        const init = () => {
-            // Hide the Progress Ring
-            monaco.editor.onDidCreateEditor((e) => {
-                var progress = container.querySelector(".spinner");
-                if (progress && progress.style) {
-                    progress.style.display = "none";
-                }
-            });
-
-            const editor = {}
-
-            // Create the Monaco Editor
-            editor.editor = monaco.editor.create(body, {
-                ariaLabel: "online code editor",
-                value: options.value,
-                language: options.language,
-                theme: options.theme,
-                lineNumbers: options.lineNumbers ? "on" : "off",
-                readOnly: options.readOnly,
-            });
-
-            // Catch when the editor lost the focus (didType to immediate)
-            editor.editor.onDidBlurEditorText((e) => {
-                var code = editor.editor.getValue();
-                interop.invokeMethodAsync("UpdateValueAsync", code);
-            });
-
-            monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
-
-            editor.interop = interop;
-
-            editor.editor.layout();
-
-            EventHandler.on(window, "resize", () => {
-                editor.editor.layout();
-            });
-        }
-
-        const handler = setInterval(() => {
-            if (body.offsetWidth !== 0 && body.offsetHeight !== 0) {
-                clearInterval(handler);
-                init();
+        // Hide the Progress Ring
+        monaco.editor.onDidCreateEditor((e) => {
+            var progress = container.querySelector(".spinner");
+            if (progress && progress.style) {
+                progress.style.display = "none";
             }
-        }, 350);
+        });
+
+        const editor = {}
+
+        // Create the Monaco Editor
+        editor.editor = monaco.editor.create(body, {
+            ariaLabel: "online code editor",
+            value: options.value,
+            language: options.language,
+            theme: options.theme,
+            lineNumbers: options.lineNumbers ? "on" : "off",
+            readOnly: options.readOnly,
+        });
+
+        // Catch when the editor lost the focus (didType to immediate)
+        editor.editor.onDidBlurEditorText((e) => {
+            var code = editor.editor.getValue();
+            interop.invokeMethodAsync("UpdateValueAsync", code);
+        });
+
+        monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
+
+        editor.interop = interop;
+
+        editor.editor.layout();
+
+        EventHandler.on(window, "resize", () => {
+            editor.editor.layout();
+        });
     });
 }
 
