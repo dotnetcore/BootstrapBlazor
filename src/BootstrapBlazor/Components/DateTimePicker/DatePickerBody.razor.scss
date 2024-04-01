@@ -163,7 +163,7 @@
                         }
 
                         &:not(.next-month):not(.prev-month):not(.disabled) {
-                            &:not(.current) {
+                            &:not(.current):not(.start):not(.end):not(.range) {
                                 .cell {
                                     &.is-solar-term:not(:hover) {
                                         .bb-picker-body-lunar-text {
