@@ -54,7 +54,7 @@ public class BaiduIpLocatorProviderV2(IHttpClientFactory httpClientFactory, IOpt
             if (Code == "Success")
             {
                 ret = Data?.Country == "中国"
-                    ? $"{Data?.Prov} {Data?.City} {Data?.District} {Data?.Isp}"
+                    ? $"{Data?.Prov}{Data?.City}{Data?.District} {Data?.Isp}"
                     : $"{Data?.Continent} {Data?.Country} {Data?.City}";
             }
             return ret;

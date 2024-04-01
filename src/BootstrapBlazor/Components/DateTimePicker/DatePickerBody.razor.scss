@@ -1,15 +1,3 @@
-@mixin cell-margin($direction) {
-    div {
-        margin-#{$direction}: 5px;
-        border-top-#{$direction}-radius: 15px;
-        border-bottom-#{$direction}-radius: 15px;
-
-        .cell {
-            margin-#{$direction}: 4px;
-        }
-    }
-}
-
 .picker-panel {
     --bb-picker-panel-body-width: 320px;
     --bb-picker-hover-color: #409eff;
@@ -175,7 +163,7 @@
                         }
 
                         &:not(.next-month):not(.prev-month):not(.disabled) {
-                            &:not(.current) {
+                            &:not(.current):not(.start):not(.end):not(.range) {
                                 .cell {
                                     &.is-solar-term:not(:hover) {
                                         .bb-picker-body-lunar-text {
@@ -199,16 +187,28 @@
                         }
 
                         &.range {
-                            div {
+                            position: relative;
+
+                            &.start:before {
+                                border-top-left-radius: 40%;
+                                border-bottom-left-radius: 40%;
+                                left: 6px;
+                            }
+
+                            &.end:before {
+                                border-top-right-radius: 40%;
+                                border-bottom-right-radius: 40%;
+                                right: 6px;
+                            }
+
+                            &:before {
+                                content: "";
+                                position: absolute;
                                 background-color: #f2f6fc;
-                            }
-
-                            &.start {
-                                @include cell-margin(left)
-                            }
-
-                            &.end {
-                                @include cell-margin(right)
+                                top: 4px;
+                                bottom: 4px;
+                                left: 0;
+                                right: 0;
                             }
                         }
 

@@ -51,6 +51,7 @@ public partial class DatePickerBody
 
     private string? ClassString => CssBuilder.Default("picker-panel")
         .AddClass("is-sidebar", ShowSidebar)
+        .AddClass("is-lunar", ShowLunar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -764,7 +765,7 @@ public partial class DatePickerBody
         TimePickerPanel?.Reset();
     }
 
-    private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
+    private bool Validate() => (!MinValue.HasValue || SelectValue >= MinValue.Value) && (!MaxValue.HasValue || SelectValue <= MaxValue.Value);
 
     /// <summary>
     /// 
