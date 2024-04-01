@@ -56,7 +56,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
 
         // 河南省漯河市 移动
         result = await provider.Locate("223.91.188.112");
-        Assert.Equal("省份 城市 区县 测试", result);
+        Assert.Equal("省份城市区县 测试", result);
     }
 
     [Fact]
