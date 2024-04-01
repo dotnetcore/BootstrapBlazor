@@ -44,13 +44,13 @@ export async function init(id, interop, options) {
 
         editor.interop = interop;
 
-        Data.set(id, editor)
-
         editor.editor.layout();
 
         EventHandler.on(window, "resize", () => {
             editor.editor.layout();
-        })
+        });
+
+        Data.set(id, editor)
     });
 }
 

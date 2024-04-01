@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.CodeEditor/Components/CodeEditor/CodeEditor.razor.js", JSObjectReference = true)]
 
-<div id="@Id" class="code-edtior">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
     <Spinner />
-    <div class="code-editor-body" @attributes="@AdditionalAttributes"></div>
+    <div class="code-editor-body"></div>
 </div>
