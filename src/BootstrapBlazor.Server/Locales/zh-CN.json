@@ -1584,7 +1584,7 @@
     "ClientText": "客户信息服务 Client",
     "DisplayText": "数据显示 Display",
     "EmptyText": "空状态 Empty",
-    "LocatorText": "地理位置定位 IpLocator",
+    "LocatorText": "地理位置定位 IpLocatorFactory ",
     "ImageViewerText": "图片 ImageViewer",
     "IpText": "IP 地址 IpAddress",
     "PrintText": "打印按钮 Print",

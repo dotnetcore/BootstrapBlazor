@@ -4503,7 +4503,7 @@
     "LinkButton": "LinkButton",
     "ListView": "ListView",
     "ListGroup": "ListGroup",
-    "Locator": "IpLocator",
+    "Locator": "IpLocatorFactory",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
     "Popover": "Popover",
