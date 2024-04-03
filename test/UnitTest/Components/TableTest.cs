@@ -4712,6 +4712,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(30, "IsPopover", false);
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
+                    builder.AddAttribute(33, "Ignore", true);
                     builder.CloseComponent();
                 });
             });
@@ -4725,6 +4726,7 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.SkipValidate);
         Assert.Equal("test", column.Instance.Text);
         Assert.True(column.Instance.Visible);
+        Assert.True(column.Instance.Ignore);
         Assert.True(column.Instance.ShowTips);
         Assert.Equal("test", column.Instance.CssClass);
         Assert.Equal(Alignment.Right, column.Instance.Align);
