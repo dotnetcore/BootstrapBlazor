@@ -4437,7 +4437,7 @@ public class TableTest : TableTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         var seqs = table.Instance.Columns.Select(i => i.Order);
-        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, seqs);
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1, 0 }, seqs);
     }
 
     [Fact]
@@ -6491,6 +6491,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsExcel, true);
             });
         });
+
         cut.Contains("table table-excel");
 
         // trigger value changed
@@ -6943,7 +6944,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(7, table.Instance.Columns.Count);
+        Assert.Equal(8, table.Instance.Columns.Count);
     }
 
     [Fact]

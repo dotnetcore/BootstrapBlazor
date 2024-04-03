@@ -399,7 +399,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
         Assert.NotNull(v);
-        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1, 0 }, v.Select(i => i.Order));
     }
 
     [Fact]

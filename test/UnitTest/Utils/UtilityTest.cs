@@ -536,7 +536,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GenerateEditorItems_Ok()
     {
         var cols = Utility.GenerateEditorItems<Foo>();
-        Assert.Equal(7, cols.Count());
+        Assert.Equal(8, cols.Count());
 
         cols = Utility.GenerateEditorItems<Foo>(new InternalTableColumn[]
         {
@@ -706,7 +706,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         TableMetadataTypeService.RegisterMetadataTypes(typeof(Pig).Assembly);
         TableMetadataTypeService.RegisterMatadataType(typeof(PigMetadata), typeof(Pig));
         var cols = Utility.GetTableColumns<Pig>().ToList();
-        Assert.Single(cols);
+        Assert.Equal(2, cols.Count);
     }
 
     [AutoGenerateClass(Align = Alignment.Center)]
