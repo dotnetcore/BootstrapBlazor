@@ -60,6 +60,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public bool Ignore { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public bool? IsVisibleWhenAdd { get; set; } = true;
 
     /// <summary>

@@ -52,9 +52,15 @@ public interface IEditorItem
     bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
+    /// 获得/设置 渲染时是否忽略本列 默认为 false 不忽略
+    /// </summary>
+    /// <remarks>忽略列不会出现在 ColumnList 列表中，<see cref="Visible"/> 为 False 列会出现在 ColumnList 中</remarks>
+    bool Ignore { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
-    public bool SkipValidate { get; set; }
+    bool SkipValidate { get; set; }
 
     /// <summary>
     /// 获得/设置 表头显示文字

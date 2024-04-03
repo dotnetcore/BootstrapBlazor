@@ -321,9 +321,6 @@ public static class Utility
             }
             else
             {
-                // 设置 AutoGenerateColumnAttribute 时
-                if (columnAttribute.Ignore) continue;
-
                 columnAttribute.Text = displayName;
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;

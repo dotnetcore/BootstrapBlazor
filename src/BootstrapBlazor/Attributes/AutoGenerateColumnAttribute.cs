@@ -22,7 +22,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public int Order { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否忽略 默认为 false 不忽略
+    /// <inheritdoc/>
     /// </summary>
     public bool Ignore { get; set; }
 
