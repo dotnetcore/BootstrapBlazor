@@ -167,6 +167,8 @@ internal class DefaultIcon
 
         { ComponentIcons.TreeViewExpandNodeIcon, "mdi mdi-menu-right mdi-rotate-90" },
         { ComponentIcons.TreeViewNodeIcon, "mdi mdi-menu-right" },
+        { ComponentIcons.TreeViewSearchIcon, "mdi mdi-magnify" },
+        { ComponentIcons.TreeViewResetSearchIcon, "mdi mdi-trash-can-outline" },
 
         // Upload
         { ComponentIcons.AvatarUploadDeleteIcon, "mdi mdi-trash-can-outline" },
