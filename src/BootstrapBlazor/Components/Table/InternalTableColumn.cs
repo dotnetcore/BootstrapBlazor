@@ -60,7 +60,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Ignore { get; set; } = true;
+    public bool Ignore { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
