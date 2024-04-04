@@ -15,7 +15,7 @@ public interface IEditorItem
     Type PropertyType { get; }
 
     /// <summary>
-    /// 获得/设置 当前列是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+    /// 获得/设置 当前编辑项是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
     /// </summary>
     bool Editable { get; set; }
 
@@ -50,12 +50,6 @@ public interface IEditorItem
     /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
     bool? IsVisibleWhenEdit { get; set; }
-
-    /// <summary>
-    /// 获得/设置 渲染时是否忽略本列 默认为 false 不忽略
-    /// </summary>
-    /// <remarks>忽略列不会出现在 ColumnList 列表中，<see cref="Visible"/> 为 False 列会出现在 ColumnList 中</remarks>
-    bool Ignore { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

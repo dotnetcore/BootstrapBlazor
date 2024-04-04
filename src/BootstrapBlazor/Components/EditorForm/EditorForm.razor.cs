@@ -83,7 +83,7 @@ public partial class EditorForm<TModel> : IShowLabel
     public int? LabelWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 列模板
+    /// 获得/设置 列模板 设置 <see cref="Items"/> 时本参数不生效
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? FieldItems { get; set; }
@@ -134,7 +134,7 @@ public partial class EditorForm<TModel> : IShowLabel
     public bool AutoGenerateAllItem { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 级联上下文绑定字段信息集合
+    /// 获得/设置 级联上下文绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板不生效
     /// </summary>
     [Parameter]
     public IEnumerable<IEditorItem>? Items { get; set; }
@@ -220,7 +220,7 @@ public partial class EditorForm<TModel> : IShowLabel
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -228,6 +228,46 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
+
+        _formItems.Clear();
+        if (Items != null)
+        {
+            _formItems.AddRange(Items);
+        }
+        else
+        {
+            // 如果 EditorItems 有值表示 用户自定义列
+            if (AutoGenerateAllItem)
+            {
+                // 获取绑定模型所有属性
+                var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
+
+                // 通过设定的 FieldItems 模板获取项进行渲染
+                foreach (var el in _editorItems)
+                {
+                    var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+                    if (item != null)
+                    {
+                        // 过滤掉不编辑与不可见的列
+                        if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
+                        {
+                            items.Remove(item);
+                        }
+                        else
+                        {
+                            // 设置只读属性与列模板
+                            item.Editable = true;
+                            item.CopyValue(el);
+                        }
+                    }
+                }
+                _formItems.AddRange(items);
+            }
+            else
+            {
+                _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
+            }
+        }
     }
 
     private bool _firstRender = true;
@@ -244,45 +284,6 @@ public partial class EditorForm<TModel> : IShowLabel
         if (firstRender)
         {
             _firstRender = false;
-
-            if (Items != null)
-            {
-                _formItems.AddRange(Items);
-            }
-            else
-            {
-                // 如果 EditorItems 有值表示 用户自定义列
-                if (AutoGenerateAllItem)
-                {
-                    // 获取绑定模型所有属性
-                    var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
-
-                    // 通过设定的 FieldItems 模板获取项进行渲染
-                    foreach (var el in _editorItems)
-                    {
-                        var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-                        if (item != null)
-                        {
-                            // 过滤掉不编辑与不可见的列
-                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
-                            {
-                                items.Remove(item);
-                            }
-                            else
-                            {
-                                // 设置只读属性与列模板
-                                item.Editable = true;
-                                item.CopyValue(el);
-                            }
-                        }
-                    }
-                    _formItems.AddRange(items);
-                }
-                else
-                {
-                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
-                }
-            }
             StateHasChanged();
         }
     }
