@@ -54,7 +54,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
             invisibleColumns: new string[] { nameof(Foo.DateTime) },
             shownColumns: new string[] { nameof(Foo.Name) },
             hiddenColumns: new string[] { nameof(Foo.Count) });
-        Assert.Equal(4, context.GetColumns().Count());
+        Assert.Equal(5, context.GetColumns().Count());
     }
 
     [Fact]

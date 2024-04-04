@@ -90,7 +90,6 @@ public class ITableColumnExtensionsTest
             Visible = false,
             IsVisibleWhenAdd = false,
             IsVisibleWhenEdit = false,
-            Ignore = true,
             Width = 100,
             ShowHeaderTooltip = true,
             HeaderTextEllipsis = true,
@@ -146,7 +145,6 @@ public class ITableColumnExtensionsTest
         Assert.True(col.Sortable);
         Assert.NotNull(col.Template);
         Assert.True(col.TextEllipsis);
-        Assert.True(col.Ignore);
         Assert.False(col.Visible);
         Assert.Equal(100, col.Width);
         Assert.True(col.ShowHeaderTooltip);

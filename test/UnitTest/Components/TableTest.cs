@@ -4609,20 +4609,45 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Editable", true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
             });
         });
-        var column = cut.FindComponent<TableColumn<Foo, string>>();
-        Assert.True(column.Instance.Editable);
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(2, table.Instance.Columns.Count);
+        Assert.Equal(2, table.Instance.GetVisibleColumns().Count());
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TableColumns, foo => builder =>
+            {
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Name");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<TableColumn<Foo, string>>(0);
+                builder.AddAttribute(1, "Field", "Address");
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                builder.AddAttribute(3, "Editable", false);
+                builder.CloseComponent();
+            });
+        });
+        table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(2, table.Instance.Columns.Count);
+        Assert.Single(table.Instance.GetVisibleColumns());
     }
 
     [Theory]
@@ -4712,7 +4737,6 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(30, "IsPopover", false);
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
-                    builder.AddAttribute(33, "Ignore", true);
                     builder.CloseComponent();
                 });
             });
@@ -4726,7 +4750,6 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.SkipValidate);
         Assert.Equal("test", column.Instance.Text);
         Assert.True(column.Instance.Visible);
-        Assert.True(column.Instance.Ignore);
         Assert.True(column.Instance.ShowTips);
         Assert.Equal("test", column.Instance.CssClass);
         Assert.Equal(Alignment.Right, column.Instance.Align);
