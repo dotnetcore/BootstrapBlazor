@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class EditorForm<TModel> : IShowLabel
 {
-    private string? ClassString => CssBuilder.Default("form-body")
+    private string? ClassString => CssBuilder.Default("bb-editor")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -186,7 +186,8 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private readonly List<IEditorItem> _formItems = [];
+    [NotNull]
+    private List<IEditorItem>? _formItems = null;
 
     private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
@@ -228,63 +229,64 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
+        _formItems = null;
+    }
 
-        _formItems.Clear();
-        if (Items != null)
+    private bool _inited;
+
+    private Task OnRenderAsync(bool firstRender)
+    {
+        if (firstRender)
         {
-            _formItems.AddRange(Items);
+            _inited = true;
+            StateHasChanged();
         }
-        else
-        {
-            // 如果 EditorItems 有值表示 用户自定义列
-            if (AutoGenerateAllItem)
-            {
-                // 获取绑定模型所有属性
-                var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
+        return Task.CompletedTask;
+    }
 
-                // 通过设定的 FieldItems 模板获取项进行渲染
-                foreach (var el in _editorItems)
-                {
-                    var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-                    if (item != null)
-                    {
-                        // 过滤掉不编辑与不可见的列
-                        if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
-                        {
-                            items.Remove(item);
-                        }
-                        else
-                        {
-                            // 设置只读属性与列模板
-                            item.Editable = true;
-                            item.CopyValue(el);
-                        }
-                    }
-                }
-                _formItems.AddRange(items);
+    private void ResetItems()
+    {
+        if (_formItems == null)
+        {
+            _formItems = [];
+            if (Items != null)
+            {
+                _formItems.AddRange(Items);
             }
             else
             {
-                _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                // 如果 EditorItems 有值表示 用户自定义列
+                if (AutoGenerateAllItem)
+                {
+                    // 获取绑定模型所有属性
+                    var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
+
+                    // 通过设定的 FieldItems 模板获取项进行渲染
+                    foreach (var el in _editorItems)
+                    {
+                        var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+                        if (item != null)
+                        {
+                            // 过滤掉不编辑与不可见的列
+                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
+                            {
+                                items.Remove(item);
+                            }
+                            else
+                            {
+                                // 设置只读属性与列模板
+                                item.Editable = true;
+                                item.CopyValue(el);
+                            }
+                        }
+                    }
+                    _formItems.AddRange(items);
+                }
+                else
+                {
+                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                }
             }
-        }
-    }
-
-    private bool _firstRender = true;
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            _firstRender = false;
-            StateHasChanged();
         }
     }
 
