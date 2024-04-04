@@ -13,8 +13,8 @@
 }
 else
 {
-    <div class="@ClassString">
-        <CascadingValue Value="this" Name="EditorForm">
+    <CascadingValue Value="this" Name="EditorForm">
+        <div class="@ClassString">
             @if (ShowUnsetGroupItemsOnTop)
             {
                 if (UnsetGroupItems.Any())
@@ -37,8 +37,8 @@ else
                     @RenderUnsetGroupItems
                 }
             }
-        </CascadingValue>
-    </div>
+        </div>
+    </CascadingValue>
     @if (Buttons != null)
     {
         <div class="form-footer">

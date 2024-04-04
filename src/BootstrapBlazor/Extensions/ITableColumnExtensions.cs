@@ -54,7 +54,6 @@ public static class IEditItemExtensions
         if (source.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
         if (source.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
         if (source.Visible) dest.Visible = source.Visible;
-        if (source.Ignore) dest.Ignore = source.Ignore;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
@@ -95,7 +94,6 @@ public static class IEditItemExtensions
         if (col.Template != null) dest.Template = col.Template;
         if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
         if (!col.Visible) dest.Visible = col.Visible;
-        if (!col.Ignore) dest.Ignore = col.Ignore;
         if (col.Width != null) dest.Width = col.Width;
         if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
         if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;

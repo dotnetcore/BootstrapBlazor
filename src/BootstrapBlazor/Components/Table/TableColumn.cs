@@ -175,12 +175,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool Ignore { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
     public bool? IsVisibleWhenAdd { get; set; }
 
     /// <summary>
