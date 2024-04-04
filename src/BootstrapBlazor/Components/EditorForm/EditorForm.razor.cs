@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class EditorForm<TModel> : IShowLabel
 {
-    private string? ClassString => CssBuilder.Default("bb-editor")
+    private string? ClassString => CssBuilder.Default("bb-editor form-body")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
