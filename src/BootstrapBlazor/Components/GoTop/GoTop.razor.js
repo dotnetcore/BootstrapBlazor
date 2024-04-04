@@ -3,7 +3,7 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const getScrollElement = el => {
     let ele = el
-    while (ele && ele.scrollHeight <= ele.clientHeight) {
+    while (ele && ele.scrollHeight <= ele.clientHeight + 1) {
         ele = ele.parentNode
     }
     return ele || window
