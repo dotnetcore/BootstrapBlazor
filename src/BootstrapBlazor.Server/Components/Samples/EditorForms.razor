@@ -15,13 +15,16 @@
 </ul>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <p>@((MarkupString)Localizer["NormalDescription"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["NormalDescription"].Value)</p>
+        <Button OnClick="OnClickIgnoreColumn" Text="@Localizer["ColumnIgnoreButtonText"]"></Button>
+    </section>
     <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Education" Editable="false" />
                 <EditorItem @bind-Field="@context.Complete" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" Editable="IgnoreItem"/>
             </FieldItems>
             <Buttons>
                 <Button Icon="fa-solid fa-floppy-disk" Text="@Localizer["SubButtonText"]" />

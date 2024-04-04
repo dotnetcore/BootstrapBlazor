@@ -24,6 +24,8 @@ public sealed partial class EditorForms
     [NotNull]
     private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
+    private bool IgnoreItem { get; set; } = true;
+
     private List<SelectedItem> DummyItems { get; } =
     [
         new SelectedItem("1", "1"),
@@ -52,6 +54,8 @@ public sealed partial class EditorForms
 
     [NotNull]
     private Foo? ValidateModel { get; set; }
+
+    private void OnClickIgnoreColumn() => IgnoreItem = !IgnoreItem;
 
     private AttributeItem[] GetAttributes() =>
     [
