@@ -113,14 +113,21 @@ public partial class Online : IDisposable
                 col.FormatString = "hh\\:mm\\:ss";
                 col.Width = 54;
             }
+            else if (col.GetFieldName() == "Ip")
+            {
+                col.Template = v => builder =>
+                {
+                    builder.AddContent(0, FormatIp(v));
+                };
+            }
             else if (col.GetFieldName() == "RequestUrl")
             {
                 col.Template = v => builder =>
                 {
-                    if(v is IDynamicObject val)
+                    if (v is IDynamicObject val)
                     {
                         var url = val.GetValue("RequestUrl")?.ToString();
-                        if(!string.IsNullOrEmpty(url))
+                        if (!string.IsNullOrEmpty(url))
                         {
                             builder.AddContent(0, new MarkupString($"<a href=\"{url}\" target=\"_blank\">{url}</a>"));
                         }
@@ -128,6 +135,25 @@ public partial class Online : IDisposable
                 };
             }
         });
+    }
+
+    private static string FormatIp(object v)
+    {
+        var ret = "";
+        if (v is IDynamicObject val)
+        {
+            var ip = val.GetValue("Ip")?.ToString();
+            if (!string.IsNullOrEmpty(ip))
+            {
+                var index = ip.LastIndexOf('.');
+                if (index > -1)
+                {
+                    var mask = ip[(index + 1)..];
+                    ret = ip.Replace(mask, "***");
+                }
+            }
+        }
+        return ret;
     }
 
     private void Dispose(bool disposing)
