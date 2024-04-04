@@ -49,7 +49,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 Invoke = Interop,
                 Method = nameof(Callback),
                 ConnectionId = Guid.NewGuid(),
-                Interval = options.BeatInterval.TotalMilliseconds, Url = "ip.axd"
+                Interval = options.BeatInterval.TotalMilliseconds,
+                Url = "ip.axd"
             });
         }
     }
@@ -72,7 +73,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
                 if (!string.IsNullOrEmpty(client.Ip))
                 {
-                    _ipLocatorProvider ??= IpLocatorFactory.Create();
+                    _ipLocatorProvider ??= IpLocatorFactory.Create(typeof(BaiduIpLocatorProvider).Name);
                     client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
                 ConnectionService.AddOrUpdate(client);
