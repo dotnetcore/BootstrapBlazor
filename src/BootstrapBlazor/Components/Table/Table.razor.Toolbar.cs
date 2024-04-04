@@ -431,7 +431,7 @@ public partial class Table<TItem>
     {
         // 不可见列
         var items = VisibleColumns.Where(i => i.Visible);
-        return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
+        return Columns.Where(i => i.Editable && items.Any(v => v.Name == i.GetFieldName()));
     }
 
     private bool GetColumnsListState(ColumnVisibleItem item) => VisibleColumns.Find(i => i.Name == item.Name) is { Visible: true } && VisibleColumns.Where(i => i.Visible).DistinctBy(i => i.Name).Count(i => i.Visible) == 1;

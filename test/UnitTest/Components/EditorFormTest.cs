@@ -358,6 +358,50 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void EditorItem_Editable_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Address);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                builder.CloseComponent();
+            });
+        });
+        cut.Contains("地址");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.CloseComponent();
+
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Address);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Editable), false);
+                builder.CloseComponent();
+            });
+        });
+        cut.DoesNotContain("地址");
+    }
+
+    [Fact]
     public void Order_Ok()
     {
         var foo = new Foo();

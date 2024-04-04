@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class EditorForm<TModel> : IShowLabel
 {
-    private string? ClassString => CssBuilder.Default("form-body")
+    private string? ClassString => CssBuilder.Default("bb-editor form-body")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -83,7 +83,7 @@ public partial class EditorForm<TModel> : IShowLabel
     public int? LabelWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 列模板
+    /// 获得/设置 列模板 设置 <see cref="Items"/> 时本参数不生效
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? FieldItems { get; set; }
@@ -134,7 +134,7 @@ public partial class EditorForm<TModel> : IShowLabel
     public bool AutoGenerateAllItem { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 级联上下文绑定字段信息集合
+    /// 获得/设置 级联上下文绑定字段信息集合 设置此参数后 <see cref="FieldItems"/> 模板不生效
     /// </summary>
     [Parameter]
     public IEnumerable<IEditorItem>? Items { get; set; }
@@ -186,7 +186,8 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private readonly List<IEditorItem> _formItems = [];
+    [NotNull]
+    private List<IEditorItem>? _formItems = null;
 
     private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
@@ -220,7 +221,7 @@ public partial class EditorForm<TModel> : IShowLabel
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -228,23 +229,26 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
+        _formItems = null;
     }
 
-    private bool _firstRender = true;
+    private bool _inited;
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    private Task OnRenderAsync(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
-
         if (firstRender)
         {
-            _firstRender = false;
+            _inited = true;
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
+    }
 
+    private void ResetItems()
+    {
+        if (_formItems == null)
+        {
+            _formItems = [];
             if (Items != null)
             {
                 _formItems.AddRange(Items);
@@ -283,7 +287,6 @@ public partial class EditorForm<TModel> : IShowLabel
                     _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
-            StateHasChanged();
         }
     }
 

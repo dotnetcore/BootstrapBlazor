@@ -19,6 +19,8 @@ public partial class TablesColumn
 
     private static IEnumerable<int> PageItemsSource => new int[] { 5, 10, 20 };
 
+    private bool IgnoreColumn { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -28,6 +30,8 @@ public partial class TablesColumn
 
         Items = Foo.GenerateFoo(FooLocalizer);
     }
+
+    private void OnClickIgnoreColumn() => IgnoreColumn = !IgnoreColumn;
 
     private static bool ShowCheckbox(Foo foo) => foo.Complete;
 

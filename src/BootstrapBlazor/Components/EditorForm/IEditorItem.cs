@@ -15,7 +15,7 @@ public interface IEditorItem
     Type PropertyType { get; }
 
     /// <summary>
-    /// 获得/设置 当前列是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+    /// 获得/设置 当前编辑项是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
     /// </summary>
     bool Editable { get; set; }
 
@@ -54,7 +54,7 @@ public interface IEditorItem
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
-    public bool SkipValidate { get; set; }
+    bool SkipValidate { get; set; }
 
     /// <summary>
     /// 获得/设置 表头显示文字

@@ -571,12 +571,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 OnAfterRenderCallback 是否已经触发 默认 false
-    /// </summary>
-    /// <remarks>与 <see cref="OnAfterRenderCallback"/> 回调配合</remarks>
-    private bool OnAfterRenderIsTriggered { get; set; }
-
-    /// <summary>
     /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
     /// </summary>
     [Parameter]
@@ -794,22 +788,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await ProcessFirstRender();
         }
 
-        if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
-        {
-            OnAfterRenderIsTriggered = true;
-            await OnAfterRenderCallback(this);
-        }
-
-        if (_init)
-        {
-            _init = false;
-            await InvokeVoidAsync("init", Id, Interop, new
-            {
-                DragColumnCallback = nameof(DragColumnCallback),
-                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
-            });
-        }
-
         if (_breakPointChanged)
         {
             _breakPointChanged = false;
@@ -840,6 +818,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _loop = true;
             await LoopQueryAsync();
             _loop = false;
+        }
+    }
+
+    private async Task OnTableRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (OnAfterRenderCallback != null)
+            {
+                await OnAfterRenderCallback(this);
+            }
+
+            await InvokeVoidAsync("init", Id, Interop, new
+            {
+                DragColumnCallback = nameof(DragColumnCallback),
+                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
+            });
         }
     }
 
@@ -949,9 +944,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 恢复自动查询功能
         _autoQuery = true;
 
-        // 设置 init 执行客户端脚本
-        _init = true;
-
         IsLoading = false;
     }
 
@@ -1021,7 +1013,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     private bool _loop;
-    private bool _init;
     private bool _firstQuery;
     private bool _autoQuery;
 
