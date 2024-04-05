@@ -2788,6 +2788,10 @@ public class TableTest : TableTestBase
 
         rows = cut.FindAll(".is-detail.show");
         Assert.Single(rows);
+
+        Assert.NotNull(currentDetailRow);
+        Assert.Equal(4, currentDetailRow.Id);
+        Assert.True(toggleDetailRow);
     }
 
     [Theory]
