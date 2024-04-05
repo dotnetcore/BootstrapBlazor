@@ -2724,6 +2724,8 @@ public class TableTest : TableTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 4);
+        Foo? currentDetailRow = null;
+        var toggleDetailRow = false;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -2742,6 +2744,12 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
                 {
                     builder.AddContent(1, new MarkupString($"<div class=\"detail-row-test\">{foo.Address}</div>"));
+                });
+                pb.Add(a => a.OnToggleDetailRowCallback, (foo, toggle) =>
+                {
+                    currentDetailRow = foo;
+                    toggleDetailRow = toggle;
+                    return Task.CompletedTask;
                 });
             });
         });
@@ -2767,12 +2775,12 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.IsAccordion, true);
         });
-        await cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
-            table.Instance.ExpandDetailRow(items[0]);
-            table.Instance.ExpandDetailRow(items[1]);
-            table.Instance.ExpandDetailRow(items[2]);
-            table.Instance.ExpandDetailRow(items[3]);
+            await table.Instance.ExpandDetailRow(items[0]);
+            await table.Instance.ExpandDetailRow(items[1]);
+            await table.Instance.ExpandDetailRow(items[2]);
+            await table.Instance.ExpandDetailRow(items[3]);
         });
         table.SetParametersAndRender();
         rows = cut.FindAll(".detail-row-test");
