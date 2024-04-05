@@ -84,10 +84,9 @@ public partial class TablesDetailRow
         Func<Foo, Task>? ret = null;
         if (IsDetails)
         {
-            ret = foo =>
+            ret = async foo =>
             {
-                Table.ExpandDetailRow(foo);
-                return Task.CompletedTask;
+                await Table.ExpandDetailRow(foo);
             };
         }
         return ret;

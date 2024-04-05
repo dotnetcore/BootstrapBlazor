@@ -291,6 +291,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, TItem, object?, Task>? OnDoubleClickCellCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 展开收起明细行回调方法 第二个参数 true 时表示展开 false 时表示收起
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool, Task>? OnToggleDetailRowCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false
     /// </summary>
     [Parameter]
@@ -351,8 +357,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
-    public void ExpandDetailRow(TItem item)
+    public async Task ExpandDetailRow(TItem item)
     {
+        // 展开明细行回调方法
+        if (OnToggleDetailRowCallback != null)
+        {
+            await OnToggleDetailRowCallback(item, !ExpandRows.Contains(item));
+        }
         if (!DetailRows.Contains(item))
         {
             DetailRows.Add(item);
