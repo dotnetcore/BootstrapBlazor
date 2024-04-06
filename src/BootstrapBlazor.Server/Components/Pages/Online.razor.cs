@@ -110,7 +110,7 @@ public partial class Online : IDisposable
             }
             else if (col.GetFieldName() == "Dur")
             {
-                col.FormatString = "hh\\:mm\\:ss";
+                col.FormatString = @"hh\:mm\:ss";
                 col.Width = 54;
             }
             else if (col.GetFieldName() == "Ip")
@@ -148,8 +148,8 @@ public partial class Online : IDisposable
                 var index = ip.LastIndexOf('.');
                 if (index > -1)
                 {
-                    var mask = ip[(index + 1)..];
-                    ret = ip.Replace(mask, "***");
+                    var mask = ip[index..];
+                    ret = ip.Replace(mask, ".***");
                 }
             }
         }
