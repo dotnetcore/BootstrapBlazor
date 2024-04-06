@@ -8,7 +8,7 @@ internal static class IpExtensions
 {
     public static string MaskIpString(this string ip)
     {
-        var ret = "";
+        var ret = ip;
         if (!string.IsNullOrEmpty(ip))
         {
             var index = ip.LastIndexOf('.');
