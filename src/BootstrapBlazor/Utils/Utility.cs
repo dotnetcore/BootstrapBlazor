@@ -297,6 +297,12 @@ public static class Utility
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
+        var columns = new List<ITableColumn>();
+        if (source != null)
+        {
+            columns.AddRange(source);
+        }
+
         var cols = new List<ITableColumn>(50);
         var metadataType = TableMetadataTypeService.GetMetadataType(type);
         var classAttribute = metadataType.GetCustomAttribute<AutoGenerateClassAttribute>(true);
@@ -337,14 +343,19 @@ public static class Utility
             }
 
             // 替换属性 手写优先
-            var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
+            var col = columns.Find(c => c.GetFieldName() == tc.GetFieldName());
             if (col != null)
             {
                 tc.CopyValue(col);
+                columns.Remove(col);
             }
             cols.Add(tc);
         }
 
+        if (columns.Count > 0)
+        {
+            cols.AddRange(columns);
+        }
         return defaultOrderCallback?.Invoke(cols) ?? cols.OrderFunc();
     }
 
