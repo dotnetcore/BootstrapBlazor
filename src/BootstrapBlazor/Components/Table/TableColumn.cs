@@ -429,6 +429,24 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public List<IValidator>? ValidateRules { get; set; }
 
     /// <summary>
+    /// 获得/设置 绑定类字段名称
+    /// </summary>
+    [Parameter]
+    public string? FieldName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组 默认 null
+    /// </summary>
+    [Parameter]
+    public string? GroupName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前属性分组排序 默认 0
+    /// </summary>
+    [Parameter]
+    public int GroupOrder { get; set; }
+
+    /// <summary>
     /// 获得/设置 Table 实例
     /// </summary>
     [CascadingParameter]
@@ -454,24 +472,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获取绑定字段显示名称方法
     /// </summary>
     public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
-
-    /// <summary>
-    /// 获得/设置 绑定类字段名称
-    /// </summary>
-    [Parameter]
-    public string? FieldName { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前属性分组 默认 null
-    /// </summary>
-    [Parameter]
-    public string? GroupName { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前属性分组排序 默认 0
-    /// </summary>
-    [Parameter]
-    public int GroupOrder { get; set; }
 
     /// <summary>
     /// 获取绑定字段信息方法
