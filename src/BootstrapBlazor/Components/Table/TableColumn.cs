@@ -501,6 +501,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = lambda.Body;
             }
 
+            var firstProperty = true;
             while (express is MemberExpression member)
             {
                 if (member.Expression is MemberExpression)
@@ -510,11 +511,22 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                     if (!_ignore)
                     {
                         var attribute = member.Member.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-                        if (attribute is { Ignore: true })
+                        if (attribute != null)
                         {
-                            _ignore = true;
+                            if (attribute.Ignore)
+                            {
+                                _ignore = true;
+                            }
+                            else if (firstProperty)
+                            {
+                                var col = new AutoGenerateColumnAttribute();
+                                col.CopyValue(attribute);
+                                col.CopyValue(this);
+                                this.CopyValue(col);
+                            }
                         }
                     }
+                    firstProperty = false;
                 }
                 express = member.Expression;
             }
