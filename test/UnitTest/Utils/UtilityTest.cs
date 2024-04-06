@@ -709,6 +709,28 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Single(cols);
     }
 
+    [Fact]
+    public void FormatIp_Test()
+    {
+        var result = FormatIp("192.168.1.192");
+        Assert.Equal("192.168.1.***", result);
+    }
+
+    private static string FormatIp(string ip)
+    {
+        var ret = "";
+        if (!string.IsNullOrEmpty(ip))
+        {
+            var index = ip.LastIndexOf('.');
+            if (index > -1)
+            {
+                var mask = ip[index..];
+                ret = ip.Replace(mask, ".***");
+            }
+        }
+        return ret;
+    }
+
     [AutoGenerateClass(Align = Alignment.Center)]
     private class Dog
     {
