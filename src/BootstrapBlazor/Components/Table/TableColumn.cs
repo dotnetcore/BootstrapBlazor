@@ -4,8 +4,10 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
+
 #if NET5_0
 /// <summary>
 /// 表头组件
@@ -457,7 +459,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     protected override void OnInitialized()
     {
-        Columns?.Columns.Add(this);
         if (FieldExpression != null)
         {
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
@@ -465,9 +466,21 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
         // 获取模型属性定义类型
         PropertyType = typeof(TType);
+
+        // Check AutoGenerateColumn attribute
+        if (Columns != null)
+        {
+            GetFieldName();
+            if (!_ignore)
+            {
+                Columns.Columns.Add(this);
+            }
+        }
     }
 
     private FieldIdentifier? _fieldIdentifier;
+    private bool _ignore;
+
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
@@ -493,6 +506,15 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 if (member.Expression is MemberExpression)
                 {
                     fields.Add(member.Member.Name);
+
+                    if (!_ignore)
+                    {
+                        var attribute = member.Member.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+                        if (attribute is { Ignore: true })
+                        {
+                            _ignore = true;
+                        }
+                    }
                 }
                 express = member.Expression;
             }
