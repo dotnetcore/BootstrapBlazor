@@ -145,12 +145,7 @@ public partial class Online : IDisposable
             var ip = val.GetValue("Ip")?.ToString();
             if (!string.IsNullOrEmpty(ip))
             {
-                var index = ip.LastIndexOf('.');
-                if (index > -1)
-                {
-                    var mask = ip[index..];
-                    ret = ip.Replace(mask, ".***");
-                }
+                ret = ip.MaskIpString();
             }
         }
         return ret;

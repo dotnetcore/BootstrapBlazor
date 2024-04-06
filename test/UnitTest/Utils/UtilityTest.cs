@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
+using BootstrapBlazor.Server.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -712,23 +713,8 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void FormatIp_Test()
     {
-        var result = FormatIp("192.168.1.192");
-        Assert.Equal("192.168.1.***", result);
-    }
-
-    private static string FormatIp(string ip)
-    {
-        var ret = "";
-        if (!string.IsNullOrEmpty(ip))
-        {
-            var index = ip.LastIndexOf('.');
-            if (index > -1)
-            {
-                var mask = ip[index..];
-                ret = ip.Replace(mask, ".***");
-            }
-        }
-        return ret;
+        var result = "192.168.1.192".MaskIpString();
+        Assert.Equal("192.168.1.###", result);
     }
 
     [AutoGenerateClass(Align = Alignment.Center)]
