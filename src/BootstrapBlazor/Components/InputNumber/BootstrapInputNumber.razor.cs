@@ -96,6 +96,8 @@ public partial class BootstrapInputNumber<TValue>
 
     private string? _lastInputValueString;
 
+    private bool _manualInput;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -125,6 +127,25 @@ public partial class BootstrapInputNumber<TValue>
         if (Value is null)
         {
             _lastInputValueString = "";
+        }
+
+        if (UseInputEvent && !_manualInput)
+        {
+            _lastInputValueString = GetFormatString(Value);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (_manualInput)
+        {
+            _manualInput = false;
         }
     }
 
@@ -345,6 +366,11 @@ public partial class BootstrapInputNumber<TValue>
             {
                 _lastInputValueString = value;
             }
+        }
+
+        if (UseInputEvent)
+        {
+            _manualInput = true;
         }
         return ret;
     }
