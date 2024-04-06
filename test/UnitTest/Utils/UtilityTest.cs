@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
+using BootstrapBlazor.Server.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -707,6 +708,13 @@ public class UtilityTest : BootstrapBlazorTestBase
         TableMetadataTypeService.RegisterMatadataType(typeof(PigMetadata), typeof(Pig));
         var cols = Utility.GetTableColumns<Pig>().ToList();
         Assert.Single(cols);
+    }
+
+    [Fact]
+    public void FormatIp_Test()
+    {
+        var result = "192.168.1.192".MaskIpString();
+        Assert.Equal("192.168.1.###", result);
     }
 
     [AutoGenerateClass(Align = Alignment.Center)]

@@ -44,14 +44,15 @@ public partial class Online : IDisposable
         {
             Task.Run(async () =>
             {
+                await Task.Delay(500);
                 _cancellationTokenSource = new();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     try
                     {
-                        await Task.Delay(10000, _cancellationTokenSource.Token);
                         BuildContext();
                         await InvokeAsync(StateHasChanged);
+                        await Task.Delay(10000, _cancellationTokenSource.Token);
                     }
                     catch { }
                 }
@@ -110,7 +111,7 @@ public partial class Online : IDisposable
             }
             else if (col.GetFieldName() == "Dur")
             {
-                col.FormatString = "hh\\:mm\\:ss";
+                col.FormatString = @"dd\.hh\:mm\:ss";
                 col.Width = 54;
             }
             else if (col.GetFieldName() == "Ip")
@@ -145,12 +146,7 @@ public partial class Online : IDisposable
             var ip = val.GetValue("Ip")?.ToString();
             if (!string.IsNullOrEmpty(ip))
             {
-                var index = ip.LastIndexOf('.');
-                if (index > -1)
-                {
-                    var mask = ip[(index + 1)..];
-                    ret = ip.Replace(mask, "***");
-                }
+                ret = ip.MaskIpString();
             }
         }
         return ret;
