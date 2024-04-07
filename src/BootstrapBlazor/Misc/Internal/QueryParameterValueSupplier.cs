@@ -7,6 +7,7 @@ using System.Buffers;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Collections.Concurrent;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Reflection;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -20,7 +21,7 @@ internal sealed class QueryParameterValueSupplier
 {
     public static void ClearCache() => _cacheByType.Clear();
 
-    private static readonly Dictionary<Type, QueryParameterValueSupplier?> _cacheByType = [];
+    private static readonly ConcurrentDictionary<Type, QueryParameterValueSupplier?> _cacheByType = [];
 
     // These two arrays contain the same number of entries, and their corresponding positions refer to each other.
     // Holding the info like this means we can use Array.BinarySearch with less custom implementation.
