@@ -23,18 +23,25 @@ class DefaultCalendarHolidays : ICalendarHolidays
                 if (items is List<HolidayItem> list)
                 {
                     _holidays.AddRange(list.Where(i => i.Type == "holiday"));
+                    _workdays.AddRange(list.Where(i => i.Type == "workingday"));
                 }
             }
         }
     }
 
     private readonly List<HolidayItem> _holidays = new();
+    private readonly List<HolidayItem> _workdays = new();
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="dt"></param>
     public bool IsHoliday(DateTime dt) => _holidays.Find(i => FindHoliday(i, dt)) != null;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="dt"></param>
+    public bool IsWorkday(DateTime dt) => _workdays.Find(i => FindHoliday(i, dt)) != null;
 
     private static bool FindHoliday(HolidayItem item, DateTime value)
     {

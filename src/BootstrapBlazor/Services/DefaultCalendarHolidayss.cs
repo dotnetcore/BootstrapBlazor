@@ -14,4 +14,9 @@ class DefaultCalendarHolidays : ICalendarHolidays
     {
         return false;
     }
+
+    public bool IsWorkday(DateTime dt)
+    {
+        return false;
+    }
 }
