@@ -365,6 +365,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.DoesNotContain("休");
     }
 
+
+    [Fact]
+    public void ShowWorkdays_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowHolidays, true);
+            pb.Add(a => a.Value, new DateTime(2024, 4, 7));
+        });
+        cut.DoesNotContain("班");
+    }
+
     [Fact]
     public void ShowHolidays_Custom()
     {
@@ -383,9 +395,28 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.Contains("休");
     }
 
+    [Fact]
+    public void ShowWorkdays_Custom()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var services = context.Services;
+        services.AddBootstrapBlazor();
+        services.AddSingleton<ICalendarHolidays, MockCalendarHolidayService>();
+
+        var cut = context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowHolidays, true);
+            pb.Add(a => a.Value, new DateTime(2024, 4, 7));
+        });
+        cut.Contains("班");
+    }
+
     class MockCalendarHolidayService : ICalendarHolidays
     {
         public bool IsHoliday(DateTime dt) => dt == new DateTime(2024, 3, 17);
+        public bool IsWorkday(DateTime dt) => dt == new DateTime(2024, 4, 7);
     }
 
     [Fact]
