@@ -116,7 +116,7 @@
                                 }
                             }
 
-                            span.is-holiday {
+                            span.is-holiday, span.is-workday {
                                 background-color: #c0c4cc;
                                 color: var(--bb-picker-panel-today-color);
                                 height: 14px;
@@ -182,6 +182,10 @@
                             .cell {
                                 span.is-holiday {
                                     background-color: var(--bs-danger);
+                                }
+
+                                span.is-workday {
+                                    background-color: var(--bs-black);
                                 }
                             }
                         }
