@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.0.0</Version>
+    <Version>8.0.1</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Holidays</PackageTags>
     <Description>Bootstrap UI components extensions of ICalendarHolidays</Description>
   </PropertyGroup>
@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="8.3.4" />
+    <PackageReference Include="BootstrapBlazor" Version="8.4.1" />
   </ItemGroup>
 
 </Project>

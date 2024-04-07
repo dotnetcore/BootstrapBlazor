@@ -29,14 +29,15 @@ class DefaultCalendarHolidays : ICalendarHolidays
         }
     }
 
-    private readonly List<HolidayItem> _holidays = new();
-    private readonly List<HolidayItem> _workdays = new();
+    private readonly List<HolidayItem> _holidays = [];
+    private readonly List<HolidayItem> _workdays = [];
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="dt"></param>
     public bool IsHoliday(DateTime dt) => _holidays.Find(i => FindHoliday(i, dt)) != null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

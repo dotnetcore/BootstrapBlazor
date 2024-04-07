@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public interface ICalendarHolidays
 {
     /// <summary>
-    /// 是否为节假日
+    /// 是否为假日
     /// </summary>
     /// <returns></returns>
     bool IsHoliday(DateTime dt);
