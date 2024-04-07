@@ -8,5 +8,5 @@ namespace BootstrapBlazor.Localization;
 
 internal class NullLocalizationResolve : ILocalizationResolve
 {
-    public IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures) => Enumerable.Empty<LocalizedString>();
+    public IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures) => [];
 }

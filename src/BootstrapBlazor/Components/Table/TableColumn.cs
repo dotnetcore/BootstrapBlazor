@@ -4,8 +4,10 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
+
 #if NET5_0
 /// <summary>
 /// 表头组件
@@ -429,33 +431,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public List<IValidator>? ValidateRules { get; set; }
 
     /// <summary>
-    /// 获得/设置 Table 实例
-    /// </summary>
-    [CascadingParameter]
-    protected IColumnCollection? Columns { get; set; }
-
-    /// <summary>
-    /// 组件初始化方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        Columns?.Columns.Add(this);
-        if (FieldExpression != null)
-        {
-            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
-        }
-
-        // 获取模型属性定义类型
-        PropertyType = typeof(TType);
-    }
-
-    private FieldIdentifier? _fieldIdentifier;
-    /// <summary>
-    /// 获取绑定字段显示名称方法
-    /// </summary>
-    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
-
-    /// <summary>
     /// 获得/设置 绑定类字段名称
     /// </summary>
     [Parameter]
@@ -474,6 +449,44 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public int GroupOrder { get; set; }
 
     /// <summary>
+    /// 获得/设置 Table 实例
+    /// </summary>
+    [CascadingParameter]
+    protected IColumnCollection? Columns { get; set; }
+
+    /// <summary>
+    /// 组件初始化方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        if (FieldExpression != null)
+        {
+            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+        }
+
+        // 获取模型属性定义类型
+        PropertyType = typeof(TType);
+
+        // Check AutoGenerateColumn attribute
+        if (Columns != null)
+        {
+            GetFieldName();
+            if (!_ignore)
+            {
+                Columns.Columns.Add(this);
+            }
+        }
+    }
+
+    private FieldIdentifier? _fieldIdentifier;
+    private bool _ignore;
+
+    /// <summary>
+    /// 获取绑定字段显示名称方法
+    /// </summary>
+    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
+
+    /// <summary>
     /// 获取绑定字段信息方法
     /// </summary>
     public string GetFieldName()
@@ -488,11 +501,32 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = lambda.Body;
             }
 
+            var firstProperty = true;
             while (express is MemberExpression member)
             {
                 if (member.Expression is MemberExpression)
                 {
                     fields.Add(member.Member.Name);
+
+                    if (!_ignore)
+                    {
+                        var attribute = member.Member.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+                        if (attribute != null)
+                        {
+                            if (attribute.Ignore)
+                            {
+                                _ignore = true;
+                            }
+                            else if (firstProperty)
+                            {
+                                var col = new AutoGenerateColumnAttribute();
+                                col.CopyValue(attribute);
+                                col.CopyValue(this);
+                                this.CopyValue(col);
+                            }
+                        }
+                    }
+                    firstProperty = false;
                 }
                 express = member.Expression;
             }
