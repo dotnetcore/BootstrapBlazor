@@ -365,7 +365,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.DoesNotContain("休");
     }
 
-
     [Fact]
     public void ShowWorkdays_Ok()
     {
