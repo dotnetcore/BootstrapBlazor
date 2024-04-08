@@ -36,6 +36,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         // 关闭缓存
         option.Value.IpLocatorOptions.EnableCache = false;
         option.Value.IpLocatorOptions.SlidingExpiration = TimeSpan.FromMinutes(5);
+        option.Value.IpLocatorOptions.ProviderName = nameof(BaiduIpLocatorProviderV2);
         await provider.Locate("223.91.188.112");
         Assert.Equal("美国", result);
     }
