@@ -1,7 +1,7 @@
 ﻿.footer-body {
     padding: 1rem;
-    color: #fff;
-    background-color: #5b6e84;
+    color: var(--bb-footer-body-color);
+    background-color: var(--bb-footer-body-bg);
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -67,7 +67,7 @@
 
 @media (min-width: 768px) {
     .footer-body {
-        padding: 3rem;
+        padding: 2rem;
         flex-direction: row;
     }
 }
