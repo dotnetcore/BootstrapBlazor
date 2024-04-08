@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 public interface IIpLocatorProvider
 {
     /// <summary>
-    /// 获得/设置 定位器 Key   
+    /// 获得/设置 定位器 Key 默认 null 使用已注册的最后一个 Provider
     /// </summary>
-    object? Key { get; set; }
+    string? Key { get; set; }
 
     /// <summary>
     /// 通过 IP 地址定位地理位置信息
