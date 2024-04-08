@@ -94,6 +94,12 @@ public partial class DockView
     [Parameter]
     public string? LayoutConfig { get; set; }
 
+    /// <summary>
+    /// 获得/设置 版本设置 默认 v1 用于本地配置
+    /// </summary>
+    [Parameter]
+    public string? Version { get; set; } = "v1";
+
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -101,8 +107,6 @@ public partial class DockView
     private bool IsRendered { get; set; }
 
     private bool _isLock;
-
-    private readonly string _version = "v1";
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -151,7 +155,7 @@ public partial class DockView
 
     private DockViewConfig GetOption() => new()
     {
-        Version = _version,
+        Version = Version,
         Name = Name,
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
