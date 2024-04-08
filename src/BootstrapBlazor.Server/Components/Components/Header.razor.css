@@ -2,8 +2,8 @@
     background-color: transparent;
     background-image: linear-gradient(to right, rgba(var(--bb-primary-color-rgb), 1), rgba(var(--bb-primary-color-rgb), 0.9));
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
-    font-size: 1rem;
     transition: transform .3s ease;
+    font-size: var(--bb-header-font-size);
 }
 
 .navbar-brand span {

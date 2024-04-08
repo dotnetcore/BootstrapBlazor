@@ -43,8 +43,7 @@
 
 .footer-info {
     background-color: #222;
-    padding: 0 8px;
-    line-height: 42px;
+    padding: var(--bb-footer-padding);
     color: #9d9d9d;
 }
 
