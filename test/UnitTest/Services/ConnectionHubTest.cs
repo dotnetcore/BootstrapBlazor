@@ -103,8 +103,7 @@ public class ConnectionHubTest
         {
             ConnectionHubOptions = new()
             {
-                Enable = true,
-                IpLocatorProviderName = nameof(BaiduIpLocatorProviderV2)
+                Enable = true
             }
         });
         Assert.NotNull(service);
