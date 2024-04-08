@@ -27,6 +27,11 @@ public class ConnectionHubOptions
     public TimeSpan BeatInterval { get; set; } = TimeSpan.FromSeconds(5);
 
     /// <summary>
+    /// 获得/设置 定位器名称 内置支持 BaiduIpLocatorProvider BaiduIpLocatorProviderV2
+    /// </summary>
+    public string? IpLocatorProviderName { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否开启 CollectionHub 功能 默认 false 未开启
     /// </summary>
     public bool Enable { get; set; }
