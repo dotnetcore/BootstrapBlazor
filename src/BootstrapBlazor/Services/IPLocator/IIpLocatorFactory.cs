@@ -14,5 +14,5 @@ public interface IIpLocatorFactory
     /// </summary>
     /// <param name="key">注入时使用的 key 值</param>
     /// <returns></returns>
-    IIpLocatorProvider Create(object? key = null);
+    IIpLocatorProvider Create(string? key = null);
 }

@@ -73,7 +73,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
 
                 if (!string.IsNullOrEmpty(client.Ip))
                 {
-                    _ipLocatorProvider ??= IpLocatorFactory.Create(typeof(BaiduIpLocatorProvider).Name);
+                    _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
                     client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
                 ConnectionService.AddOrUpdate(client);

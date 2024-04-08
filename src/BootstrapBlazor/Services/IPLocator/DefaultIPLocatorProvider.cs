@@ -38,7 +38,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public object? Key { get; set; }
+    public string? Key { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

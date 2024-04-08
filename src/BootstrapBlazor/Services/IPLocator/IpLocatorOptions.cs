@@ -18,4 +18,9 @@ public class IpLocatorOptions
     /// 获得/设置 是否开启缓存降低请求频率
     /// </summary>
     public TimeSpan SlidingExpiration { get; set; } = TimeSpan.FromMinutes(5);
+
+    /// <summary>
+    /// 获得/设置 定位器名称 内置支持 BaiduIpLocatorProvider BaiduIpLocatorProviderV2
+    /// </summary>
+    public string? ProviderName { get; set; }
 }

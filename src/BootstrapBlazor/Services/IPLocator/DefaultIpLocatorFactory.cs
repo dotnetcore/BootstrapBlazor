@@ -9,28 +9,27 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IIPLocatorFactory 接口实现类
 /// </summary>
-/// <param name="provider"></param>
-class DefaultIpLocatorFactory(IServiceProvider provider) : IIpLocatorFactory
+class DefaultIpLocatorFactory : IIpLocatorFactory
 {
-    private Dictionary<object, IIpLocatorProvider>? _providers;
+    private readonly Dictionary<string, IIpLocatorProvider> _providers = [];
+
+    public DefaultIpLocatorFactory(IServiceProvider provider)
+    {
+        foreach (var p in provider.GetServices<IIpLocatorProvider>())
+        {
+            if (p.Key != null)
+            {
+                _providers[p.Key] = p;
+            }
+        }
+    }
 
     /// <summary>
     /// 创建 <see cref="IIpLocatorProvider"/> 实例方法
     /// </summary>
     /// <param name="key"></param>
-    public IIpLocatorProvider Create(object? key = null)
+    public IIpLocatorProvider Create(string? key = null)
     {
-        if (_providers == null)
-        {
-            _providers = [];
-            foreach (var p in provider.GetServices<IIpLocatorProvider>())
-            {
-                if (p.Key != null)
-                {
-                    _providers[p.Key] = p;
-                }
-            }
-        }
-        return key == null ? _providers.Values.Last() : _providers[key];
+        return string.IsNullOrEmpty(key) ? _providers.Values.Last() : _providers[key];
     }
 }

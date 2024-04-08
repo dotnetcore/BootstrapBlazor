@@ -103,7 +103,7 @@ public class ConnectionHubTest
         {
             ConnectionHubOptions = new()
             {
-                Enable = true,
+                Enable = true
             }
         });
         Assert.NotNull(service);
