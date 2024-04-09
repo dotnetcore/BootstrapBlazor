@@ -69,4 +69,26 @@ public class BootstrapBlazorOptionsTest
         Assert.Equal("0.01", options.GetStep<double?>());
         Assert.Equal("0.001", options.GetStep<decimal?>());
     }
+
+    [Fact]
+    public void Options_TableExportOptions()
+    {
+        var options = new BootstrapBlazorOptions();
+        Assert.NotNull(options.TableSettings.TableExportOptions);
+
+        var exportOptions = options.TableSettings.TableExportOptions;
+
+        exportOptions.EnableLookup = false;
+        exportOptions.EnableFormat = false;
+        exportOptions.AutoMergeArray = false;
+        exportOptions.ArrayDelimiter = ",";
+        exportOptions.UseEnumDescription = false;
+
+        Assert.False(exportOptions.EnableLookup);
+        Assert.False(exportOptions.EnableFormat);
+        Assert.False(exportOptions.AutoMergeArray);
+        Assert.False(exportOptions.UseEnumDescription);
+
+        Assert.Equal(",", exportOptions.ArrayDelimiter);
+    }
 }
