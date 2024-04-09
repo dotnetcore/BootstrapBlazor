@@ -85,12 +85,12 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
-    /// 获得/设置 ConnectionHubOptions 配置 默认为 null
+    /// 获得/设置 ConnectionHubOptions 配置 默认为不为空
     /// </summary>
     public ConnectionHubOptions ConnectionHubOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 IpLocatorOptions 配置 默认为 null
+    /// 获得/设置 IpLocatorOptions 配置 默认为不为空
     /// </summary>
     public IpLocatorOptions IpLocatorOptions { get; set; } = new();
 

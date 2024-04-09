@@ -10,7 +10,7 @@ class DefaultTableExport : ITableExport
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null)
+    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null)
     {
         return Task.FromResult(false);
     }
@@ -19,20 +19,7 @@ class DefaultTableExport : ITableExport
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public Task<bool> ExportExcelAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null)
-    {
-        return Task.FromResult(false);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <param name="items"></param>
-    /// <param name="cols"></param>
-    /// <param name="fileName"></param>
-    /// <returns></returns>
-    public Task<bool> ExportCsvAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    public Task<bool> ExportExcelAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null)
     {
         return Task.FromResult(false);
     }
@@ -44,8 +31,23 @@ class DefaultTableExport : ITableExport
     /// <param name="items"></param>
     /// <param name="cols"></param>
     /// <param name="fileName"></param>
+    /// <param name="options"></param>
     /// <returns></returns>
-    public Task<bool> ExportPdfAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    public Task<bool> ExportCsvAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null)
+    {
+        return Task.FromResult(false);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <param name="options"></param>
+    /// <returns></returns>
+    public Task<bool> ExportPdfAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null)
     {
         return Task.FromResult(false);
     }
