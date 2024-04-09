@@ -33,4 +33,9 @@ public class TableSettings
     /// 获得/设置 表格渲染模式
     /// </summary>
     public TableRenderMode? TableRenderMode { get; set; }
+
+    /// <summary>
+    /// 获得/设置 TableExportExcelOptions 配置 默认为不为空
+    /// </summary>
+    public TableExportOptions TableExportOptions { get; set; } = new();
 }
