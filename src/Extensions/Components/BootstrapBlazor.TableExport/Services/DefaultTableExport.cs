@@ -2,8 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using MiniExcelLibs;
 using System.Text;
 
@@ -15,7 +17,7 @@ namespace BootstrapBlazor.Components;
 /// <param name="serviceProvider"></param>
 class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 {
-    private IServiceProvider ServiceProvider { get; set; } = serviceProvider;
+    private IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     /// <summary>
     /// 导出 方法
@@ -23,8 +25,9 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// <param name="items">导出数据集合</param>
     /// <param name="cols">导出列集合 默认 null 全部导出</param>
     /// <param name="fileName">导出后下载文件名</param>
+    /// <param name="options">TableExportOptions 实例</param>
     /// <returns></returns>
-    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
+    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName, options);
 
     /// <summary>
     /// 导出 Excel 方法
@@ -32,8 +35,9 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// <param name="items">导出数据集合</param>
     /// <param name="cols">导出列集合 默认 null 全部导出</param>
     /// <param name="fileName">导出后下载文件名</param>
+    /// <param name="options">TableExportOptions 实例</param>
     /// <returns></returns>
-    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
+    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName, options);
 
     /// <summary>
     /// <inheritdoc/>
@@ -42,26 +46,16 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// <param name="items"></param>
     /// <param name="cols"></param>
     /// <param name="fileName"></param>
+    /// <param name="options">TableExportOptions 实例</param>
     /// <returns></returns>
-    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName);
+    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName, options);
 
-    private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null)
+    private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null, TableExportOptions? options = null)
     {
-        var value = new List<Dictionary<string, object?>>();
+        options ??= ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
         cols ??= Utility.GetTableColumns<TModel>();
-        foreach (var item in items)
-        {
-            if (item != null)
-            {
-                var row = new Dictionary<string, object?>();
-                foreach (var pi in cols)
-                {
-                    var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
-                    row.Add(pi.GetDisplayName(), val);
-                }
-                value.Add(row);
-            }
-        }
+        var value = new ExportDataReader<TModel>(items, cols, options);
+
         using var stream = new MemoryStream();
         await MiniExcel.SaveAsAsync(stream, value, excelType: excelType);
 
@@ -74,34 +68,6 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
         string GetExtension() => excelType == ExcelType.XLSX ? "xlsx" : "csv";
     }
 
-    private static async Task<object?> FormatValue(ITableColumn col, object? value)
-    {
-        var ret = value;
-        if (col.Lookup != null)
-        {
-            ret = col.Lookup.FirstOrDefault(i => i.Value.Equals(value?.ToString(), col.LookupStringComparison))?.Text;
-        }
-        if (col.Formatter != null)
-        {
-            // 格式化回调委托
-            ret = await col.Formatter(value);
-        }
-        else if (!string.IsNullOrEmpty(col.FormatString))
-        {
-            // 格式化字符串
-            ret = Utility.Format(value, col.FormatString);
-        }
-        else if (col.PropertyType.IsEnum())
-        {
-            ret = col.PropertyType.ToDescriptionString(value?.ToString());
-        }
-        else if (value is IEnumerable<object> v)
-        {
-            ret = string.Join(",", v);
-        }
-        return ret;
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -109,8 +75,9 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// <param name="items"></param>
     /// <param name="cols"></param>
     /// <param name="fileName"></param>
+    /// <param name="options">TableExportOptions 实例</param>
     /// <returns></returns>
-    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null)
     {
         var ret = false;
         var logger = ServiceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
@@ -118,7 +85,8 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
         try
         {
             // 生成表格
-            var html = await GenerateTableHtmlAsync(items, cols);
+            options ??= ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
+            var html = await GenerateTableHtmlAsync(items, cols, options);
 
             // 得到 Pdf 文件数据
             var pdfService = ServiceProvider.GetRequiredService<IExportPdf>();
@@ -137,7 +105,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
         return ret;
     }
 
-    private static async Task<string> GenerateTableHtmlAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols)
+    private static async Task<string> GenerateTableHtmlAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options)
     {
         var builder = new StringBuilder();
         cols ??= Utility.GetTableColumns<TModel>();
@@ -159,7 +127,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
                 builder.AppendLine("<tr>");
                 foreach (var pi in cols)
                 {
-                    var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
+                    var val = await pi.FormatValue(Utility.GetPropertyValue(item, pi.GetFieldName()), options);
                     builder.AppendLine($"<td><div class=\"table-cell\">{val}</div></td>");
                 }
                 builder.AppendLine("</tr>");
