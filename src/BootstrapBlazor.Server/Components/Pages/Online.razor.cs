@@ -62,17 +62,17 @@ public partial class Online : IDisposable
 
     private void CreateTable()
     {
-        _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
-        _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
-        _table.Columns.Add("Dur", typeof(TimeSpan));
-        _table.Columns.Add("Ip", typeof(string));
-        _table.Columns.Add("City", typeof(string));
-        _table.Columns.Add("OS", typeof(string));
-        _table.Columns.Add("Device", typeof(string));
-        _table.Columns.Add("Browser", typeof(string));
-        _table.Columns.Add("Language", typeof(string));
-        _table.Columns.Add("Engine", typeof(string));
-        _table.Columns.Add("RequestUrl", typeof(string));
+        _table.Columns.Add(Localizer["ConnectionTime"], typeof(DateTimeOffset));
+        _table.Columns.Add(Localizer["LastBeatTime"], typeof(DateTimeOffset));
+        _table.Columns.Add(Localizer["Dur"], typeof(TimeSpan));
+        _table.Columns.Add(Localizer["Ip"], typeof(string));
+        _table.Columns.Add(Localizer["City"], typeof(string));
+        _table.Columns.Add(Localizer["OS"], typeof(string));
+        _table.Columns.Add(Localizer["Device"], typeof(string));
+        _table.Columns.Add(Localizer["Browser"], typeof(string));
+        _table.Columns.Add(Localizer["Language"], typeof(string));
+        _table.Columns.Add(Localizer["Engine"], typeof(string));
+        _table.Columns.Add(Localizer["RequestUrl"], typeof(string));
     }
 
     private void BuildContext()
