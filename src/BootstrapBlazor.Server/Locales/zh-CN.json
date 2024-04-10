@@ -6,6 +6,7 @@
     "Dur": "持续时间",
     "Ip": "IP地址",
     "City": "城市",
+    "LocalHost": "本地连接",
     "OS": "操作系统",
     "Device": "设备",
     "Browser": "浏览器",

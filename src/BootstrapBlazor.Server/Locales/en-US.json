@@ -6,6 +6,7 @@
     "Dur": "Dur",
     "Ip": "Ip",
     "City": "City",
+    "LocalHost": "localhost",
     "OS": "OS",
     "Device": "Device",
     "Browser": "Browser",

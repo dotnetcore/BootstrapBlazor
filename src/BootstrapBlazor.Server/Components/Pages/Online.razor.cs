@@ -116,10 +116,11 @@ public partial class Online : IDisposable
             }
             else if (col.GetFieldName() == "Ip")
             {
-                col.Template = v => builder =>
-                {
-                    builder.AddContent(0, FormatIp(v));
-                };
+                col.Template = v => builder => builder.AddContent(0, FormatIp(v));
+            }
+            else if (col.GetFieldName() == "City")
+            {
+                col.Template = v => builder => builder.AddContent(0, ReplaceCity(v));
             }
             else if (col.GetFieldName() == "RequestUrl")
             {
@@ -136,6 +137,20 @@ public partial class Online : IDisposable
                 };
             }
         });
+    }
+
+    private string ReplaceCity(object v)
+    {
+        var ret = "";
+        if (v is IDynamicObject val)
+        {
+            var city = val.GetValue("City")?.ToString();
+            if (!string.IsNullOrEmpty(city) && city == "本地连接")
+            {
+                ret = Localizer["LocalHost"];
+            }
+        }
+        return ret;
     }
 
     private static string FormatIp(object v)
