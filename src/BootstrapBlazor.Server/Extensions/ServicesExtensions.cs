@@ -67,6 +67,7 @@ internal static class ServicesExtensions
         // 配置 Tab 与 Menu 联动字典
         services.ConfigureTabItemMenuBindOptions(options =>
         {
+            options.Binders.Add("layout-demo/text=Parameter1", new() { Text = "示例网页" });
             options.Binders.Add("layout-demo", new() { Text = "Text 1" });
             options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
             options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
