@@ -513,7 +513,7 @@ public partial class Tab : IHandlerException
     private void OnClickCloseAllTabs()
     {
         TabItems.RemoveAll(t => t.Closable);
-        if (TabItems.Any())
+        if (TabItems.Count > 0)
         {
             var activeItem = TabItems.Find(i => i.IsActive);
             if (activeItem == null)
