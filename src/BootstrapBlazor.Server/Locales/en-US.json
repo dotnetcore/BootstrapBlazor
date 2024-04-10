@@ -1,4 +1,19 @@
 ﻿{
+  "BootstrapBlazor.Server.Components.Pages.Online": {
+    "SubTitle": "Online population statistics",
+    "ConnectionTime": "ConnectionTime",
+    "LastBeatTime": "LastBeatTime",
+    "Dur": "Dur",
+    "Ip": "Ip",
+    "City": "City",
+    "LocalHost": "localhost",
+    "OS": "OS",
+    "Device": "Device",
+    "Browser": "Browser",
+    "Language": "Language",
+    "Engine": "Engine",
+    "RequestUrl": "RequestUrl"
+  },
   "BootstrapBlazor.Server.Components.Pages.Tutorials": {
     "CategoryTitle": "Bootstrap Blazor Practical Cases",
     "DashboardSummary": "Dashboard",

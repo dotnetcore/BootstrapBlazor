@@ -1,4 +1,19 @@
 ﻿{
+  "BootstrapBlazor.Server.Components.Pages.Online": {
+    "SubTitle": "在线人数统计",
+    "ConnectionTime": "连接时间",
+    "LastBeatTime": "最后心跳时间",
+    "Dur": "持续时间",
+    "Ip": "IP地址",
+    "City": "城市",
+    "LocalHost": "本地连接",
+    "OS": "操作系统",
+    "Device": "设备",
+    "Browser": "浏览器",
+    "Language": "语言",
+    "Engine": "引擎",
+    "RequestUrl": "请求URL"
+  },
   "BootstrapBlazor.Server.Components.Pages.Tutorials": {
     "CategoryTitle": "BootstrapBlazor 实战案例",
     "DashboardSummary": "仪表盘 Dashboard",
