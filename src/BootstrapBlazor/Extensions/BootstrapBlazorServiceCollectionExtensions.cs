@@ -41,6 +41,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         // IP 地理位置定位服务
         services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();
+        services.AddSingleton<IIpLocatorProvider, JuHeIpLocatorProvider>();
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
