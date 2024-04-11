@@ -111,6 +111,7 @@ public class QueryPageOptions
     /// </summary>
     /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
     [Obsolete("This property is obsolete. Use IsFirstQuery. 已弃用单词拼写错误，请使用 IsFirstQuery")]
+    [ExcludeFromCodeCoverage]
     public bool IsFristQuery { get => IsFirstQuery; set => IsFirstQuery = value; }
 
     /// <summary>
