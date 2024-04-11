@@ -38,11 +38,7 @@ private IIpLocatorFactory? IpLocatorFactory { get; set; }
     </section>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">
-            <Select Value="@ProviderName" OnValueChanged="OnProviderNameChanged" ShowLabel="true" DisplayText="LocatorProvider">
-                <Options>
-                    <SelectOption Text="@nameof(BaiduIpLocatorProvider)" Value="@nameof(BaiduIpLocatorProvider)" />
-                    <SelectOption Text="@nameof(BaiduIpLocatorProviderV2)" Value="@nameof(BaiduIpLocatorProviderV2)" />
-                </Options>
+            <Select Items="_providers" Value="@ProviderName" OnValueChanged="OnProviderNameChanged" ShowLabel="true" DisplayText="LocatorProvider">
             </Select>
         </div>
         <div class="col-12 col-sm-6">
