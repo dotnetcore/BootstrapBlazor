@@ -1044,7 +1044,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.OnQueryAsync, option =>
                 {
                     isQuery = true;
-                    isFirstQuery = option.IsFristQuery;
+                    isFirstQuery = option.IsFirstQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
                         Items = Array.Empty<Foo>(),
@@ -1090,7 +1090,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, option =>
                 {
-                    isFirstQuery = option.IsFristQuery;
+                    isFirstQuery = option.IsFirstQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
                         Items = Array.Empty<Foo>(),
