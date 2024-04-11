@@ -110,5 +110,13 @@ public class QueryPageOptions
     /// 获得 是否为首次查询 默认 false
     /// </summary>
     /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
-    public bool IsFristQuery { get; set; }
+    [Obsolete("This property is obsolete. Use IsFirstQuery. 已弃用单词拼写错误，请使用 IsFirstQuery")]
+    [ExcludeFromCodeCoverage]
+    public bool IsFristQuery { get => IsFirstQuery; set => IsFirstQuery = value; }
+
+    /// <summary>
+    /// 获得 是否为首次查询 默认 false
+    /// </summary>
+    /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
+    public bool IsFirstQuery { get; set; }
 }

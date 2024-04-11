@@ -422,7 +422,7 @@ public partial class Table<TItem>
         {
             var queryOption = BuildQueryPageOptions();
             // 设置是否为首次查询
-            queryOption.IsFristQuery = _firstQuery;
+            queryOption.IsFirstQuery = _firstQuery;
 
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
