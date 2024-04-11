@@ -13,7 +13,7 @@ public class WaterfallTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnRequestAsync, item => Task.FromResult(Enumerable.Range(1, 4).Select(i => new WaterfallItem() { Id = $"{i}", Url = $"url_{i}" })));
         });
-        cut.MarkupMatches("<div class\"bb-waterfall\" diff:ignore><div class=\"bb-waterfall-template\"></div><div class=\"bb-waterfall-list\" style=\"--bb-waterfall-item-width: 216px; --bb-waterfall-item-min-height: 316px;\"></div></div>");
+        cut.MarkupMatches("<div class=\"bb-waterfall\" diff:ignore><div class=\"bb-waterfall-template\"></div><div class=\"bb-waterfall-list\" style=\"--bb-waterfall-item-width: 216px; --bb-waterfall-item-min-height: 316px;\"></div></div>");
 
         await cut.InvokeAsync(async () =>
         {
