@@ -27,6 +27,7 @@ public partial class MultiSelect<TValue>
 
     private string? GetItemClassString(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", GetCheckedState(item))
+        .AddClass("disabled", item.IsDisabled)
         .Build();
 
     private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
