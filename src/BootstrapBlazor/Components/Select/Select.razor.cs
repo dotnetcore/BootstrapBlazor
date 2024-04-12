@@ -327,7 +327,7 @@ public partial class Select<TValue> : ISelect
 
             SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
                 ?? DataSource.Find(i => i.Active)
-                ?? DataSource.FirstOrDefault()
+                ?? DataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
 
             if (SelectedItem != null && ((_init || !DisableItemChangedWhenFirstRender)))
