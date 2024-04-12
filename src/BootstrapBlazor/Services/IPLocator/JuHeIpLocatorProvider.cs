@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components;
 /// <param name="configuration"></param>
 /// <param name="options"></param>
 /// <param name="logger"></param>
-public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> options, ILogger<BaiduIpLocatorProvider> logger) : DefaultIpLocatorProvider(options)
+public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> options, ILogger<JuHeIpLocatorProvider> logger) : DefaultIpLocatorProvider(options)
 {
     private HttpClient? _client;
 
@@ -54,9 +54,9 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
     protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
     {
         var result = await client.GetFromJsonAsync<LocationResult>(url, token);
-        if (result.ErrorCode != 0)
+        if (result != null && result.ErrorCode != 0)
         {
-            logger.LogError("ErrorCode: {ErrorCode}", result.ErrorCode);
+            logger.LogError("ErrorCode: {ErrorCode} Reason: {Reason}", result.ErrorCode, result.Reason);
         }
         return result?.ToString();
     }
@@ -72,6 +72,9 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
         /// </summary>
         public string? Reason { get; set; }
 
+        /// <summary>
+        /// 获得/设置 错误码
+        /// </summary>
         [JsonPropertyName("error_code")]
         public int ErrorCode { get; set; }
 
