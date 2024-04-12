@@ -397,7 +397,7 @@ public static class Utility
             builder.AddMultipleAttributes(60, item.ComponentParameters);
             builder.CloseComponent();
         }
-        else if (item.ComponentType == typeof(Textarea))
+        else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
             builder.OpenComponent(0, typeof(Textarea));
             builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
