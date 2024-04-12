@@ -21,11 +21,32 @@ public partial class Locators
     [NotNull]
     IIpLocatorFactory? IpLocatorFactory { get; set; }
 
+    [Inject]
+    [NotNull]
+    IEnumerable<IIpLocatorProvider>? IpLocatorProviders { get; set; }
+
     private string? Ip { get; set; }
 
     private string? Location { get; set; }
 
     private string ProviderName { get; set; } = nameof(BaiduIpLocatorProviderV2);
+
+    [NotNull]
+    private List<SelectedItem>? _providers = null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _providers = IpLocatorProviders.Select(provider => new SelectedItem
+        {
+            Text = provider.GetType().Name,
+            Value = provider.GetType().Name
+        }).ToList();
+    }
 
     /// <summary>
     /// OnAfterRenderAsync
