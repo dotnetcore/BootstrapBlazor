@@ -29,7 +29,7 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
     protected override async Task<string?> LocateByIp(string ip)
     {
         string? ret = null;
-        _key ??= configuration["JuHe:IpLocatorKey"];
+        _key ??= GetKey();
         var url = $"https://apis.juhe.cn/iplocation/ipv4dist/query?ip={ip}&key={_key}";
         try
         {
@@ -40,6 +40,16 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
         catch (Exception ex)
         {
             logger.LogError(ex, "Url: {url}", url);
+        }
+        return ret;
+    }
+
+    private string GetKey()
+    {
+        var ret = configuration["JuHe:IpLocatorKey"];
+        if (string.IsNullOrEmpty(ret))
+        {
+            throw new InvalidOperationException("JuHe:IpLocatorKey not value in appsettings configuration file. 未配置 JuHe:IpLocatorKey 请在 appsettings.json 中配置 JuHe:IpLocatorKey");
         }
         return ret;
     }
