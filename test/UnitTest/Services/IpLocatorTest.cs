@@ -142,6 +142,22 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         Assert.Null(result);
     }
 
+    [Fact]
+    public async Task JuHe_Section_Error()
+    {
+        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
+        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        var logger = Context.Services.GetRequiredService<ILogger<JuHeIpLocatorProvider>>();
+        var builder = new ConfigurationBuilder();
+        builder.AddInMemoryCollection(new Dictionary<string, string?>
+        {
+            ["JuHe:IpLocatorKey"] = ""
+        });
+        var configuration = builder.Build();
+        var provider = new MockJuHeNullProvider(factory, configuration, option, logger);
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await provider.Locate("223.91.188.112"));
+    }
+
     class MockProviderFetchError(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProviderFetchError> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
     {
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token) => throw new InvalidOperationException();
