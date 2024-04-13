@@ -434,7 +434,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     private JSModule? ValidateModule { get; set; }
 
-    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/validate.js", JSVersionService.GetVersion());
+    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/validate.js");
 
     /// <summary>
     /// 增加客户端 Tooltip 方法

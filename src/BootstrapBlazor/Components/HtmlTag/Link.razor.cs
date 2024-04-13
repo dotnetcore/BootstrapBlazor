@@ -22,9 +22,5 @@ public partial class Link
     [Parameter]
     public string? Version { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IVersionService? VersionService { get; set; }
-
-    private string GetHref() => $"{Href}?v={Version ?? VersionService.GetVersion()}";
+    private string GetHref() => $"{Href}?v={Version}";
 }
