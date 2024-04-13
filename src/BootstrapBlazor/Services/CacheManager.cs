@@ -563,7 +563,7 @@ internal class CacheManager : ICacheManager
     #region Lambda Sort
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).FullName}-{typeof(T).TypeHandle.Value}";
+        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
@@ -573,7 +573,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).FullName}-{typeof(T).TypeHandle.Value}";
+        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
@@ -615,7 +615,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
-        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.FullName}-{fieldType.TypeHandle.Value}";
+        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(fieldType);
