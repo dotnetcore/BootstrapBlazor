@@ -1,4 +1,4 @@
-﻿import EventHandler from "./event-handler.js?v=$version"
+﻿import EventHandler from "./event-handler.js"
 
 export default {
     composition(id, invoke, callback) {

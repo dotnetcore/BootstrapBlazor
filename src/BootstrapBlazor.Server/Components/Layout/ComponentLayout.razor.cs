@@ -47,13 +47,6 @@ public partial class ComponentLayout : IAsyncDisposable
     /// </summary>
     private JSModule? Module { get; set; }
 
-    /// <summary>
-    /// 获得 IVersionService 服务实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IVersionService? JSVersionService { get; set; }
-
     [Inject]
     [NotNull]
     private IOptions<IconThemeOptions>? IconThemeOptions { get; set; }
@@ -109,7 +102,7 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./Components/Layout/ComponentLayout.razor.js", JSVersionService.GetVersion());
+            Module = await JSRuntime.LoadModule("./Components/Layout/ComponentLayout.razor.js");
         }
         if (Module != null)
         {

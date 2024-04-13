@@ -8,7 +8,6 @@
     <AssemblyOriginatorKeyFile>$(MSBuildThisFileDirectory)src\keys\Longbow.Utility.snk</AssemblyOriginatorKeyFile>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
   <PropertyGroup>

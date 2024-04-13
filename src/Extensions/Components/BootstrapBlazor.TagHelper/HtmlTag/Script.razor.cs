@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.WebUtilities;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -22,9 +25,8 @@ public partial class Script
     [Parameter]
     public string? Version { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IVersionService? VersionService { get; set; }
+    [Inject, NotNull]
+    private IWebHostEnvironment? Env { get; set; }
 
-    private string GetSrc() => $"{Src}?v={Version ?? VersionService.GetVersion()}";
+    private string GetSrc() => $"{Src}?v={Env.GetVersionHash(Src)}";
 }

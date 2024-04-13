@@ -19,23 +19,19 @@ public class NotificationService : IAsyncDisposable
 
     private ICacheManager Cache { get; }
 
-    private IVersionService JSVersionService { get; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="runtime"></param>
     /// <param name="cache"></param>
-    /// <param name="versionService"></param>
-    public NotificationService(IJSRuntime runtime, ICacheManager cache, IVersionService versionService)
+    public NotificationService(IJSRuntime runtime, ICacheManager cache)
     {
         JSRuntime = runtime;
         Cache = cache;
-        JSVersionService = versionService;
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/noti.js", JSVersionService.GetVersion());
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/noti.js");
 
     /// <summary>
     /// 检查浏览器通知权限状态

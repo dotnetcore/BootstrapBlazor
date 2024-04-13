@@ -1,5 +1,5 @@
-﻿import Data from "./data.js?v=$version"
-import EventHandler from "./event-handler.js?v=$version"
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
 export function init(id) {
     const el = document.getElementById(id)

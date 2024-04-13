@@ -24,10 +24,6 @@ public partial class Chats
     [NotNull]
     private IBrowserFingerService? BrowserFingerService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IVersionService? VersionService { get; set; }
-
     private string? Context { get; set; }
 
     private List<AzureOpenAIChatMessage> Messages { get; } = [];
@@ -129,7 +125,7 @@ public partial class Chats
     private async Task<string> GetFingerCodeAsync()
     {
         var code = await BrowserFingerService.GetFingerCodeAsync();
-        code ??= $"BootstrapBlazor{VersionService.GetVersion()}";
+        code ??= "BootstrapBlazor";
         return code;
     }
 

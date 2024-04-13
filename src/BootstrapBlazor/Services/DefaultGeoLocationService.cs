@@ -16,22 +16,18 @@ class DefaultGeoLocationService : IGeoLocationService
 
     private long WatchId { get; set; }
 
-    private IVersionService JSVersionService { get; }
-
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="jsRuntime"></param>
-    /// <param name="versionService"></param>
-    public DefaultGeoLocationService(IJSRuntime jsRuntime, IVersionService versionService)
+    public DefaultGeoLocationService(IJSRuntime jsRuntime)
     {
         JSRuntime = jsRuntime;
-        JSVersionService = versionService;
 
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js", JSVersionService.GetVersion());
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js");
 
     /// <summary>
     /// get the current position of the device

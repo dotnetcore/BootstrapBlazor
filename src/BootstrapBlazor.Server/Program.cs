@@ -21,7 +21,14 @@ builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
 builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
-builder.Services.AddResponseCompression();
+
+#if DEBUG
+#else
+    builder.Services.AddResponseCompression(options =>
+    {
+        options.EnableForHttps = true;
+    });
+#endif
 
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -48,14 +55,19 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
-    app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 }
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 
-var provider = new FileExtensionContentTypeProvider();
-provider.Mappings[".properties"] = "application/octet-stream";
-provider.Mappings[".moc"] = "application/x-msdownload";
-provider.Mappings[".moc3"] = "application/x-msdownload";
-provider.Mappings[".mtn"] = "application/x-msdownload";
+var provider = new FileExtensionContentTypeProvider
+{
+    Mappings =
+    {
+        [".properties"] = "application/octet-stream",
+        [".moc"] = "application/x-msdownload",
+        [".moc3"] = "application/x-msdownload",
+        [".mtn"] = "application/x-msdownload"
+    }
+};
 
 app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
 app.UseStaticFiles();
@@ -63,7 +75,7 @@ app.UseStaticFiles();
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)
 {
-    app.UseCors(builder => builder.WithOrigins()
+    app.UseCors(options => options.WithOrigins()
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials());

@@ -226,7 +226,7 @@ code {
     top: .65rem;
     right: 1.5rem;
     font-size: 65%;
-    transition: opacity .3s linear; 
+    transition: opacity .3s linear;
 }
 
     .btn-code:not(:hover) {

@@ -1,5 +1,5 @@
-﻿import { getHeight } from "../../modules/utility.js?v=$version"
-import Data from "../../modules/data.js?v=$version"
+﻿import { getHeight } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
 
 export function init(id) {
     const con = {

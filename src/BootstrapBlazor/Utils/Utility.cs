@@ -596,7 +596,7 @@ public static class Utility
     /// 通过指定类型生成组件类型
     /// </summary>
     /// <param name="fieldType"></param>
-    /// <param name="hasRows">是否为 Textarea 组件</param>
+    /// <param name="hasRows">是否为 TextArea 组件</param>
     /// <param name="lookup"></param>
     /// <returns></returns>
     private static Type GenerateComponentType(Type fieldType, bool hasRows, IEnumerable<SelectedItem>? lookup)
