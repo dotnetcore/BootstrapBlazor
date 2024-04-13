@@ -3,12 +3,20 @@
   <Import Project="..\Directory.Build.props" />
 
   <PropertyGroup>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
     <PackageProjectUrl>https://www.blazor.zone</PackageProjectUrl>
     <RepositoryType>github</RepositoryType>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
   <PropertyGroup>
     <NoWarn>NETSDK1138</NoWarn>

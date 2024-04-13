@@ -1,13 +1,8 @@
 <Project>
 
   <PropertyGroup>
-    <IsPackable>true</IsPackable>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Include="logo.png" Pack="true" PackagePath="" />

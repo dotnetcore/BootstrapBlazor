@@ -1,6 +1,6 @@
 <Project>
 
-  <Import Project="..\Version.targets" />
+  <Import Project="..\Version.targets" Condition="'$(TargetFramework)' == 'net1.0'" />
 
   <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
     <Exec Command="git reset --hard"></Exec>

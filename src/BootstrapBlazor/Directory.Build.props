@@ -5,7 +5,7 @@
   <Import Project="..\Logo.props" />
   <Import Project="..\Bundle.props" />
   <Import Project="..\SourceLink.targets" />
-  <Import Project="..\Version.targets" />
+  <Import Project="..\Version.targets" Condition="'$(TargetFramework)' == 'net1.0'" />
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
