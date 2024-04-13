@@ -44,8 +44,9 @@ internal static class ServicesExtensions
         // 增加多语言支持配置信息
         services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
         {
-            blazorOption.OnChange(op => Invoke(op));
+            blazorOption.OnChange(Invoke);
             Invoke(blazorOption.CurrentValue);
+            return;
 
             void Invoke(BootstrapBlazorOptions option)
             {
