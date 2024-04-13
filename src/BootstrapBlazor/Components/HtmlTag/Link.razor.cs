@@ -22,5 +22,11 @@ public partial class Link
     [Parameter]
     public string? Version { get; set; }
 
-    private string GetHref() => $"{Href}?v={Version}";
+    /// <summary>
+    /// 获得/设置 wwwroot 路径
+    /// </summary>
+    [Parameter]
+    public string? WebRootPath { get; set; }
+
+    private string GetHref() => $"{Href}?v={Version ?? Utility.HashFile(WebRootPath, Href)}";
 }

@@ -22,5 +22,11 @@ public partial class Script
     [Parameter]
     public string? Version { get; set; }
 
-    private string GetSrc() => $"{Src}?v={Version}";
+    /// <summary>
+    /// 获得/设置 wwwroot 路径
+    /// </summary>
+    [Parameter]
+    public string? WebRootPath { get; set; }
+
+    private string GetSrc() => $"{Src}?v={Version ?? Utility.HashFile(WebRootPath, Src)}";
 }
