@@ -51,7 +51,6 @@ if (option != null)
 // 启用转发中间件
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
