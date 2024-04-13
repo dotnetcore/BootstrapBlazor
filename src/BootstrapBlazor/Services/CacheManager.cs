@@ -4,12 +4,10 @@
 
 using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
-
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
@@ -189,23 +187,23 @@ internal class CacheManager : ICacheManager
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
         : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+    {
+        IStringLocalizer? ret = null;
+        var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
+        if (factories != null)
         {
-            IStringLocalizer? ret = null;
-            var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-            if (factories != null)
+            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+            if (factory != null)
             {
-                var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-                if (factory != null)
+                var type = assembly.GetType(typeName);
+                if (type != null)
                 {
-                    var type = assembly.GetType(typeName);
-                    if (type != null)
-                    {
-                        ret = factory.Create(type);
-                    }
+                    ret = factory.Create(type);
                 }
             }
-            return ret;
-        });
+        }
+        return ret;
+    });
 
     /// <summary>
     /// 获取指定文化本地化资源集合
@@ -279,7 +277,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{modelType.TypeHandle.Value}-{fieldName}";
+        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         var displayName = Instance.GetOrCreate(cacheKey, entry =>
         {
             string? dn = null;
@@ -328,7 +326,7 @@ internal class CacheManager : ICacheManager
 
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{modelType.TypeHandle.Value}-{fieldName}";
+        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var items = new List<SelectedItem>();
@@ -411,7 +409,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static RangeAttribute? GetRange(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetRange)}-{modelType.FullName}-{modelType.TypeHandle.Value}-{fieldName}";
+        var cacheKey = $"{nameof(GetRange)}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             RangeAttribute? dn = null;
@@ -429,7 +427,7 @@ internal class CacheManager : ICacheManager
     #region Placeholder
     public static string? GetPlaceholder(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{modelType.TypeHandle.Value}-{fieldName}";
+        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             // 通过资源文件查找 FieldName 项
@@ -461,7 +459,7 @@ internal class CacheManager : ICacheManager
     #region Lambda Property
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
     {
-        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.FullName}-{modelType.TypeHandle.Value}-{fieldName}";
+        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.GetUniqueTypeName()}-{fieldName}";
         propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
