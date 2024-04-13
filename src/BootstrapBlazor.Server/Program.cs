@@ -22,10 +22,13 @@ builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
+#if DEBUG
+#else
+    builder.Services.AddResponseCompression(options =>
+    {
+        options.EnableForHttps = true;
+    });
+#endif
 
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -48,14 +51,13 @@ if (option != null)
 // 启用转发中间件
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
-// 启用压缩
-app.UseResponseCompression();
 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    //app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
+    app.UseResponseCompression();
 }
+app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 
 var provider = new FileExtensionContentTypeProvider
 {
