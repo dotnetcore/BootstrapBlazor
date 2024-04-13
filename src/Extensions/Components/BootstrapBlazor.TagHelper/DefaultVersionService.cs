@@ -8,17 +8,24 @@ using System.Security.Cryptography;
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-/// IWebHostEnvironment 扩展方法
-/// </summary>
-static class WebHostEnvironmentExtensions
+class DefaultVersionService(IWebHostEnvironment webHost) : IVersionService
 {
-    public static string? GetVersionHash(this IWebHostEnvironment env, string? href)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public string GetVersion() => string.Empty;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public string GetVersion(string? url)
     {
-        var ret = "";
-        if (!string.IsNullOrEmpty(href))
+        var version = "";
+        if (!string.IsNullOrEmpty(url))
         {
-            var fileInfo = env.WebRootFileProvider.GetFileInfo(href);
+            var fileInfo = webHost.WebRootFileProvider.GetFileInfo(url);
             using var readStream = fileInfo.CreateReadStream();
 #if NET6_0
             var length = readStream.Length;
@@ -28,8 +35,9 @@ static class WebHostEnvironmentExtensions
 #else
             var hash = SHA256.HashData(readStream);
 #endif
-            ret = WebEncoders.Base64UrlEncode(hash);
+            version = WebEncoders.Base64UrlEncode(hash);
         }
-        return $"{href}?v={ret}";
+        return version;
+
     }
 }
