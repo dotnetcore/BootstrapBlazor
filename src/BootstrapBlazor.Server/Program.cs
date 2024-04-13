@@ -71,7 +71,7 @@ app.UseStaticFiles();
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)
 {
-    app.UseCors(builder => builder.WithOrigins()
+    app.UseCors(options => options.WithOrigins()
         .AllowAnyHeader()
         .AllowAnyMethod()
         .AllowCredentials());
