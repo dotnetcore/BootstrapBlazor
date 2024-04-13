@@ -857,28 +857,4 @@ public static class Utility
     /// <param name="type"></param>
     /// <returns></returns>
     public static IStringLocalizer? CreateLocalizer(Type type) => CacheManager.CreateLocalizerByType(type);
-
-    /// <summary>
-    /// 计算指定文件 Hash 值方法 wasm 模式使用文件时间戳
-    /// </summary>
-    /// <returns></returns>
-    internal static string? HashFile(string? path, string? fileName)
-    {
-        string? ret = null;
-#if DEBUG
-#else
-        if (!string.IsNullOrEmpty(path) && !string.IsNullOrEmpty(fileName))
-        {
-            var file = Path.Combine(path, fileName);
-            if (File.Exists(file))
-            {
-                if (!OperatingSystem.IsBrowser())
-                {
-                    ret = Convert.ToBase64String(System.Security.Cryptography.MD5.HashData(File.ReadAllBytes(file)));
-                }
-            }
-        }
-#endif
-        return ret;
-    }
 }
