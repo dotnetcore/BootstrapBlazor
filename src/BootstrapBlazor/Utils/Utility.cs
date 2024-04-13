@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Security.Cryptography;
 
 namespace BootstrapBlazor.Components;
 
@@ -873,13 +872,9 @@ public static class Utility
             var file = Path.Combine(path, fileName);
             if (File.Exists(file))
             {
-                if (OperatingSystem.IsBrowser())
+                if (!OperatingSystem.IsBrowser())
                 {
-                    ret = File.GetLastWriteTime(file).Ticks.ToString();
-                }
-                else
-                {
-                    ret = Convert.ToBase64String(MD5.HashData(File.ReadAllBytes(file)));
+                    ret = Convert.ToBase64String(System.Security.Cryptography.MD5.HashData(File.ReadAllBytes(file)));
                 }
             }
         }
