@@ -12,7 +12,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="runtime"></param>
 /// <param name="navigation"></param>
-/// <param name="versionService"></param>
 /// <param name="logger"></param>
 public class WebClientService(
     IJSRuntime runtime,
