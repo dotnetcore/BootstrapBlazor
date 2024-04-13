@@ -1,4 +1,4 @@
-﻿@inject IHostEnvironment Env
+﻿@inject IWebHostEnvironment Env
 @inject IStringLocalizer<App> Localizer
 
 <!DOCTYPE html>
@@ -16,15 +16,15 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.png">
     <base href="/" />
-    <Link Href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" />
-    <Link Href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css" />
-    <Link Href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
-    <Link Href="_content/BootstrapBlazor/css/motronic.min.css" />
-    <Link Href="BootstrapBlazor.Server.styles.css" />
-    <Link Href="css/site.css" />
-    <title>@Localizer["Title"]</title>
+    <Link Href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" WebRootPath="@Env.WebRootPath" />
+    <Link Href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css" WebRootPath="@Env.WebRootPath" />
+    <Link Href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" WebRootPath="@Env.WebRootPath" />
+    <Link Href="_content/BootstrapBlazor/css/motronic.min.css" WebRootPath="@Env.WebRootPath" />
+    <Link Href="BootstrapBlazor.Server.styles.css" WebRootPath="@Env.WebRootPath" />
+    <Link Href="css/site.css" WebRootPath="@Env.WebRootPath" />
+    <Script Src="lib/theme.js" WebRootPath="@Env.WebRootPath" type="module"></Script>
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
-    <Script Src="lib/theme.js" type="module"></Script>
+    <title>@Localizer["Title"]</title>
 </head>
 
 <body>
@@ -36,14 +36,14 @@
 
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <Script Src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></Script>
+    <Script Src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js" WebRootPath="@Env.WebRootPath"></Script>
     @if (Env.IsDevelopment())
     {
-        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></Script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js" WebRootPath="@Env.WebRootPath"></Script>
     }
     @if (Env.IsProduction())
     {
-        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js" WebRootPath="@Env.WebRootPath"></Script>
     }
     <script src="_framework/blazor.web.js"></script>
     @if (Env.IsProduction())
