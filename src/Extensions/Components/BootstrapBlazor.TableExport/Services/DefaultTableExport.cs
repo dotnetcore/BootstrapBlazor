@@ -20,35 +20,34 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     private IServiceProvider ServiceProvider { get; } = serviceProvider;
 
     /// <summary>
-    /// 导出 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="items">导出数据集合</param>
-    /// <param name="cols">导出列集合 默认 null 全部导出</param>
-    /// <param name="fileName">导出后下载文件名</param>
-    /// <param name="options">TableExportOptions 实例</param>
-    /// <returns></returns>
-    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName, options);
-
-    /// <summary>
-    /// 导出 Excel 方法
-    /// </summary>
-    /// <param name="items">导出数据集合</param>
-    /// <param name="cols">导出列集合 默认 null 全部导出</param>
-    /// <param name="fileName">导出后下载文件名</param>
-    /// <param name="options">TableExportOptions 实例</param>
-    /// <returns></returns>
-    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName, options);
+    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.UNKNOWN, fileName);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="items"></param>
-    /// <param name="cols"></param>
-    /// <param name="fileName"></param>
-    /// <param name="options">TableExportOptions 实例</param>
-    /// <returns></returns>
-    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName, options);
+    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.UNKNOWN, fileName, options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName, options);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName, options);
 
     private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null, TableExportOptions? options = null)
     {
@@ -71,21 +70,22 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="items"></param>
-    /// <param name="cols"></param>
-    /// <param name="fileName"></param>
-    /// <param name="options">TableExportOptions 实例</param>
-    /// <returns></returns>
-    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null, TableExportOptions? options = null)
+    public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    {
+        var options = ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
+        return ExportPdfAsync(items, cols, options, fileName);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null)
     {
         var ret = false;
         var logger = ServiceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
 
         try
         {
-            // 生成表格
-            options ??= ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
             var html = await GenerateTableHtmlAsync(items, cols, options);
 
             // 得到 Pdf 文件数据
