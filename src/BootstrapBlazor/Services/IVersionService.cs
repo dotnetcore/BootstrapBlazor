@@ -14,4 +14,11 @@ public interface IVersionService
     /// </summary>
     /// <returns></returns>
     string GetVersion();
+
+    /// <summary>
+    /// 获得 版本号
+    /// </summary>
+    /// <param name="url">当前资源 相对路径 如 ./css/site.css</param>
+    /// <returns></returns>
+    string GetVersion(string? url) => GetVersion();
 }
