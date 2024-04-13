@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../modules/event-handler.js?v=$version"
+﻿import EventHandler from "../../modules/event-handler.js"
 
 export function clear(id) {
     const el = document.getElementById(id)

@@ -1,5 +1,5 @@
-﻿import Data from "./data.js?v=$version"
-import EventHandler from "./event-handler.js?v=$version"
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
 export function init(id, invoke, interval, callback) {
     const m = { invoke, interval, callback, mousePosition: {}, count: 1000 }
@@ -35,7 +35,7 @@ export function dispose(id) {
     const m = Data.get(id)
     Data.remove(id)
 
-    if(m) {
+    if (m) {
         EventHandler.off(document, 'mousemove', m.fnMouseHandler)
         EventHandler.off(document, 'keydown', m.fnKeyHandler)
 
