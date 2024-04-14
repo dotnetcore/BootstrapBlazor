@@ -98,7 +98,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
         var resourcePrefix = base.GetResourcePrefix(baseResourceName, baseNamespace);
         TypeName = $"{baseNamespace}.{baseResourceName}";
- 
+
         return resourcePrefix;
     }
 
