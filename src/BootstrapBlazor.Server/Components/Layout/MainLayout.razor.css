@@ -1,5 +1,5 @@
 ﻿.main {
-    padding: 1rem;
+    padding: var(--bb-main-pading);
 }
 
 .section {
@@ -10,7 +10,7 @@
     height: 50px;
     align-items: center;
     padding: 1rem;
-    border-bottom: solid 1px #c0c4cc;
+    border-bottom: solid 1px var(--bs-border-color);
     display: none;
 }
 

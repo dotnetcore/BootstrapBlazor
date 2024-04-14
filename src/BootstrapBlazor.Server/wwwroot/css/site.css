@@ -31,6 +31,7 @@
     --bb-footer-body-bg: #404850;
     --bb-footer-body-color: #fff;
     --bb-footer-padding: 10px 8px;
+    --bb-main-pading: 1rem;
 }
 
 .navbar {
