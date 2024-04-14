@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-
 using System.Reflection;
 
 namespace BootstrapBlazor.Localization.Json;
@@ -84,6 +83,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         }
         TypeName = typeName;
         var resourcePrefix = base.GetResourcePrefix(typeInfo);
+        
         return typeInfo.IsCollectible ? $"{typeInfo.GetUniqueTypeName()}-{resourcePrefix}" : resourcePrefix;
     }
 
@@ -98,6 +98,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
         var resourcePrefix = base.GetResourcePrefix(baseResourceName, baseNamespace);
         TypeName = $"{baseNamespace}.{baseResourceName}";
+        
         return resourcePrefix;
     }
 
