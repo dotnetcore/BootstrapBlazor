@@ -547,7 +547,7 @@ internal class CacheManager : ICacheManager
         if (model != null)
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.FullName}", typeof(TModel));
+            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.GetUniqueTypeName()}", typeof(TModel));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -615,7 +615,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
-        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.GetUniqueTypeName()}";
+        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(fieldType);

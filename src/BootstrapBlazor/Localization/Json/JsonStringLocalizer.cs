@@ -102,7 +102,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = GetLocalizedString();
@@ -133,7 +133,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = localizer[name];
