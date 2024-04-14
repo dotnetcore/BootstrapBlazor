@@ -4,10 +4,12 @@
 
 using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
+
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
@@ -187,23 +189,23 @@ internal class CacheManager : ICacheManager
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
         : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
-    {
-        IStringLocalizer? ret = null;
-        var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-        if (factories != null)
         {
-            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-            if (factory != null)
+            IStringLocalizer? ret = null;
+            var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
+            if (factories != null)
             {
-                var type = assembly.GetType(typeName);
-                if (type != null)
+                var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+                if (factory != null)
                 {
-                    ret = factory.Create(type);
+                    var type = assembly.GetType(typeName);
+                    if (type != null)
+                    {
+                        ret = factory.Create(type);
+                    }
                 }
             }
-        }
-        return ret;
-    });
+            return ret;
+        });
 
     /// <summary>
     /// 获取指定文化本地化资源集合
@@ -547,7 +549,7 @@ internal class CacheManager : ICacheManager
         if (model != null)
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.FullName}", typeof(TModel));
+            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.GetUniqueTypeName()}", typeof(TModel));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -615,7 +617,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
-        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.GetUniqueTypeName()}";
+        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(fieldType);
