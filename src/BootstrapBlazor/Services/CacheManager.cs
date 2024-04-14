@@ -4,10 +4,12 @@
 
 using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
+
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
@@ -186,7 +188,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
-        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", entry =>
     {
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
@@ -229,7 +231,7 @@ internal class CacheManager : ICacheManager
         IEnumerable<LocalizedString>? GetJsonStringByTypeName()
         {
             cultureName ??= CultureInfo.CurrentUICulture.Name;
-            var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetName().Name}-{cultureName}";
+            var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
             var typeKey = $"{key}-{typeName}";
             if (forceLoad)
             {
