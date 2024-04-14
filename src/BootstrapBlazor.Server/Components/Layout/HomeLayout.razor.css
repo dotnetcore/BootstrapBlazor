@@ -1,7 +1,7 @@
 ﻿.footer-body {
     padding: 1rem;
-    color: #fff;
-    background-color: #5b6e84;
+    color: var(--bb-footer-body-color);
+    background-color: var(--bb-footer-body-bg);
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,6 @@
         transition: all .3s linear;
         color: rgba(255,255,255,.9);
         text-decoration: none;
-        font-size: 0.875rem;
         line-height: 2;
         display: block;
         cursor: pointer;
@@ -44,8 +43,7 @@
 
 .footer-info {
     background-color: #222;
-    padding: 0 8px;
-    line-height: 42px;
+    padding: var(--bb-footer-padding);
     color: #9d9d9d;
 }
 
@@ -69,7 +67,7 @@
 
 @media (min-width: 768px) {
     .footer-body {
-        padding: 3rem;
+        padding: 2rem;
         flex-direction: row;
     }
 }
