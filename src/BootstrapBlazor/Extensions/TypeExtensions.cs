@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
-
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -59,5 +58,7 @@ internal static class TypeExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static string GetUniqueTypeName(this Type type) => (type.IsCollectible ? $"{type.FullName}-{type.TypeHandle.Value}" : $"{type.FullName}");
+    public static string GetUniqueTypeName(this Type type) => (type.IsCollectible
+        ? $"{type.FullName}-{type.TypeHandle.Value}"
+        : $"{type.FullName}");
 }

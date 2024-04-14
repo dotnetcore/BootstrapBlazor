@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -103,8 +102,9 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        //可回收alc内程序集，改用hashcode作为key
-        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{(Assembly.IsCollectible ? Assembly.GetHashCode() : Assembly.GetName().Name)}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{(Assembly.IsCollectible
+            ? Assembly.GetHashCode()
+            : Assembly.GetName().Name)}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = GetLocalizedString();
@@ -135,8 +135,9 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        //可回收alc内程序集，改用hashcode作为key
-        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{(Assembly.IsCollectible ? Assembly.GetHashCode() : Assembly.GetName().Name)}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{(Assembly.IsCollectible
+            ? Assembly.GetHashCode()
+            : Assembly.GetName().Name)}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = localizer[name];

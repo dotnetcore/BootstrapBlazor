@@ -189,23 +189,23 @@ internal class CacheManager : ICacheManager
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
         : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetName().Name}-{typeName}", entry =>
+    {
+        IStringLocalizer? ret = null;
+        var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
+        if (factories != null)
         {
-            IStringLocalizer? ret = null;
-            var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-            if (factories != null)
+            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+            if (factory != null)
             {
-                var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-                if (factory != null)
+                var type = assembly.GetType(typeName);
+                if (type != null)
                 {
-                    var type = assembly.GetType(typeName);
-                    if (type != null)
-                    {
-                        ret = factory.Create(type);
-                    }
+                    ret = factory.Create(type);
                 }
             }
-            return ret;
-        });
+        }
+        return ret;
+    });
 
     /// <summary>
     /// 获取指定文化本地化资源集合
