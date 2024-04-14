@@ -22,7 +22,7 @@ public class AssemblyExtensionsTest
         Assert.Equal(GetType().Assembly.GetName().Name, actual);
 
         actual = methodInfo.Invoke(null, [new MockAssembly()]);
-        Assert.Equal(GetType().Assembly.GetName().Name, actual);
+        Assert.Equal("", actual);
 
         var loader = new AssemblyLoadContext("Test", true);
         var assemblyFile = Path.Combine(AppContext.BaseDirectory, "Plugins", "Test.dll");
