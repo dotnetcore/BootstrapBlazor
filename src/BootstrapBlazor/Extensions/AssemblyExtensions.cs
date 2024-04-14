@@ -13,7 +13,7 @@ static class AssemblyExtensions
     /// </summary>
     /// <param name="assembly"></param>
     /// <returns></returns>
-    public static string GetUniqueName(this Assembly assembly) => (assembly.IsCollectible
-        ? $"{assembly.GetHashCode()}"
-        : $"{assembly.GetName().Name}");
+    public static string GetUniqueName(this Assembly assembly) => assembly.IsCollectible
+        ? $"{assembly.GetName().Name}-{assembly.GetHashCode()}"
+        : $"{assembly.GetName().Name}";
 }

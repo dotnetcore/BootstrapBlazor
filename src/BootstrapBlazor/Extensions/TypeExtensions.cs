@@ -58,7 +58,7 @@ internal static class TypeExtensions
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
-    public static string GetUniqueTypeName(this Type type) => (type.IsCollectible
+    public static string GetUniqueTypeName(this Type type) => type.IsCollectible
         ? $"{type.FullName}-{type.TypeHandle.Value}"
-        : $"{type.FullName}");
+        : $"{type.FullName}";
 }
