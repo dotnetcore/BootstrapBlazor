@@ -39,10 +39,6 @@
     margin-top: 0;
 }
 
-::deep .alert-info .fa-lightbulb-o {
-    color: #17a2b8
-}
-
 .sidebar-bar {
     width: 1px;
     position: absolute;
@@ -62,12 +58,12 @@
     }
 
         .sidebar-bar .sidebar-body:hover {
-            background-color: rgba(175, 184, 193, 0.2);
+            background-color: var(--bb-sidebar-body-hover-bg);
         }
 
         .sidebar-bar .sidebar-body.drag,
         .sidebar-bar .sidebar-body.drag:hover {
-            background-color: rgb(9, 105, 218);
+            background-color: var(--bb-sidebar-body-drag-hover-bg);
         }
 
 ::deep .wwads-cn {
@@ -101,7 +97,7 @@
         position: sticky;
         top: 0;
         border-right: solid 1px var(--bs-border-color);
-        margin-top: calc(var(--bs-header-height)*-1);
+        margin-top: calc(var(--bs-header-height) * -1);
     }
 
     .main {

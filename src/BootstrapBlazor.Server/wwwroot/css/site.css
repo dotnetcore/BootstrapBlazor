@@ -32,6 +32,8 @@
     --bb-footer-body-color: #fff;
     --bb-footer-padding: 10px 8px;
     --bb-main-pading: 1rem;
+    --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
+    --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
 }
 
 .navbar {
