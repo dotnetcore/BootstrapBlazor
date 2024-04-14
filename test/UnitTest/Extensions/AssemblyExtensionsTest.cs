@@ -76,7 +76,4 @@ public class AssemblyExtensionsTest
 
         public override bool IsCollectible => false;
     }
-
-    //[UnsafeAccessor(UnsafeAccessorKind.StaticMethod, Name = "GetUniqueName")]
-    //static extern int CallMethod(Assembly assembly);
 }
