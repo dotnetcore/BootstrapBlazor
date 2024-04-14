@@ -38,6 +38,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Plugins\Test.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="Plugins\Test.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
