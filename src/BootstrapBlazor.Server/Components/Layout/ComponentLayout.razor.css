@@ -1,9 +1,14 @@
 ﻿.bb-title {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 0.5rem;
+}
+
+.bb-theme-label {
+    margin-right: 1rem;
+    white-space: nowrap;
 }
 
 .tab-navigators {
@@ -46,10 +51,6 @@
 }
 
 @media (min-width: 576px) {
-    .bb-title {
-        font-size: 1.2rem;
-    }
-
     ::deep .bb-icon {
         display: inline-block;
     }
