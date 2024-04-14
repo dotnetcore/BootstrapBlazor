@@ -4,12 +4,10 @@
 
 using BootstrapBlazor.Localization;
 using BootstrapBlazor.Localization.Json;
-
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq.Expressions;
