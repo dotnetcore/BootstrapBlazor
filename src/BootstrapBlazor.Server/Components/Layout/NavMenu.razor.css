@@ -25,32 +25,6 @@
     position: relative;
 }
 
-.sidebar-bar {
-    width: 1px;
-    position: absolute;
-    top: 0;
-    right: -1px;
-    bottom: 0;
-    background-color: var(--bs-border-color);
-}
-
-    .sidebar-bar .sidebar-body {
-        position: absolute;
-        inset: 0px -2px;
-        cursor: col-resize;
-        background-color: transparent;
-        border-radius: 4px;
-    }
-
-        .sidebar-bar .sidebar-body:hover {
-            background-color: rgba(175, 184, 193, 0.2);
-        }
-
-        .sidebar-bar .sidebar-body.drag,
-        .sidebar-bar .sidebar-body.drag:hover {
-            background-color: rgb(9, 105, 218);
-        }
-
 ::deep .badge-menu {
     background-color: var(--bb-primary-color);
 }
