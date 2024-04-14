@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js?v=$version"
+﻿import Data from "../../modules/data.js"
 
 const showTooltip = (id, title) => {
     const el = document.getElementById(id)

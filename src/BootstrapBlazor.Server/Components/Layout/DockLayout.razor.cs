@@ -24,13 +24,6 @@ public partial class DockLayout : IAsyncDisposable
     private IJSRuntime? JSRuntime { get; set; }
 
     /// <summary>
-    /// 获得 IVersionService 服务实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private IVersionService? JSVersionService { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
@@ -39,7 +32,7 @@ public partial class DockLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./Components/Layout/DockLayout.razor.js", JSVersionService.GetVersion());
+            Module = await JSRuntime.LoadModule("./Components/Layout/DockLayout.razor.js");
             await Module.InvokeVoidAsync("init");
         }
     }

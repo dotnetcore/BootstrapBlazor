@@ -1,7 +1,8 @@
 ﻿@page "/online"
 @layout MainLayout
+@inject IStringLocalizer<Online> Localizer
 
-<h4>在线人数统计</h4>
+<h4>@Localizer["SubTitle"]：@ConnectionService.Connections.Count</h4>
 
 <section class="mt-3">
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" IsBordered="true" IsStriped="true"></Table>

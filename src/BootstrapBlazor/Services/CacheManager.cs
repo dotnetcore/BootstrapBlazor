@@ -143,7 +143,7 @@ internal class CacheManager : ICacheManager
         if (value != null)
         {
             var type = value.GetType();
-            var cacheKey = $"Lambda-Count-{type.FullName}";
+            var cacheKey = $"Lambda-Count-{type.GetUniqueTypeName()}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -277,7 +277,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static string GetDisplayName(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetDisplayName)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         var displayName = Instance.GetOrCreate(cacheKey, entry =>
         {
             string? dn = null;
@@ -326,7 +326,7 @@ internal class CacheManager : ICacheManager
 
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var items = new List<SelectedItem>();
@@ -409,7 +409,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static RangeAttribute? GetRange(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetRange)}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetRange)}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             RangeAttribute? dn = null;
@@ -427,7 +427,7 @@ internal class CacheManager : ICacheManager
     #region Placeholder
     public static string? GetPlaceholder(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             // 通过资源文件查找 FieldName 项
@@ -459,7 +459,7 @@ internal class CacheManager : ICacheManager
     #region Lambda Property
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
     {
-        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.FullName}-{fieldName}";
+        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.GetUniqueTypeName()}-{fieldName}";
         propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
         {
             var props = modelType.GetRuntimeProperties().AsEnumerable();
@@ -494,7 +494,7 @@ internal class CacheManager : ICacheManager
         TResult GetValue()
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-Get-{type.FullName}", typeof(TModel), fieldName, typeof(TResult));
+            var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -523,7 +523,7 @@ internal class CacheManager : ICacheManager
         void SetValue()
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-Set-{type.FullName}", typeof(TModel), fieldName, typeof(TValue));
+            var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -547,7 +547,7 @@ internal class CacheManager : ICacheManager
         if (model != null)
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-GetKeyValue-{type.FullName}-{customAttribute?.FullName}", typeof(TModel));
+            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.FullName}", typeof(TModel));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 entry.SetDynamicAssemblyPolicy(type);
@@ -563,7 +563,7 @@ internal class CacheManager : ICacheManager
     #region Lambda Sort
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).FullName}";
+        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
@@ -573,7 +573,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).FullName}";
+        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(typeof(T));
@@ -585,7 +585,7 @@ internal class CacheManager : ICacheManager
     #region Lambda ConvertTo
     public static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
     {
-        var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.FullName}";
+        var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var method = typeof(CacheManager)
@@ -615,7 +615,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
-        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.FullName}";
+        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).FullName}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(fieldType);
@@ -627,7 +627,7 @@ internal class CacheManager : ICacheManager
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatInvoker)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -669,7 +669,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -700,7 +700,7 @@ internal class CacheManager : ICacheManager
 
     public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
     {
-        var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);

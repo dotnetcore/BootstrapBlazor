@@ -26,6 +26,15 @@ public interface ITableExport
     Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
+    /// 导出 Excel 方法
+    /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
+    /// <param name="options">导出配置实例</param>
+    /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
+    Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => Task.FromResult(false);
+
+    /// <summary>
     /// 导出 Csv 方法
     /// </summary>
     /// <param name="items">导出数据集合</param>
@@ -34,10 +43,28 @@ public interface ITableExport
     Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
+    /// 导出 Csv 方法
+    /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
+    /// <param name="options">导出配置实例</param>
+    /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
+    Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => Task.FromResult(false);
+
+    /// <summary>
     /// 导出 Pdf 方法
     /// </summary>
     /// <param name="items">导出数据集合</param>
     /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
     /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
     Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
+
+    /// <summary>
+    /// 导出 Pdf 方法
+    /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
+    /// <param name="options">导出配置实例</param>
+    /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
+    Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => Task.FromResult(false);
 }

@@ -97,5 +97,8 @@ jobs:
         dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAccess.FreeSql -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.DataAccess.FreeSql.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
+        dotnet pack src/Extensions/BootstrapBlazor.TagHelper -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.TagHelper.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        
         dotnet pack src/Middleware/BootstrapBlazor.Middleware -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.Middleware.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate

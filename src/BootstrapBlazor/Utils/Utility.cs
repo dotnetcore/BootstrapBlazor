@@ -397,7 +397,7 @@ public static class Utility
             builder.AddMultipleAttributes(60, item.ComponentParameters);
             builder.CloseComponent();
         }
-        else if (item.ComponentType == typeof(Textarea))
+        else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
             builder.OpenComponent(0, typeof(Textarea));
             builder.AddAttribute(10, nameof(Textarea.DisplayText), displayName);
@@ -596,7 +596,7 @@ public static class Utility
     /// 通过指定类型生成组件类型
     /// </summary>
     /// <param name="fieldType"></param>
-    /// <param name="hasRows">是否为 Textarea 组件</param>
+    /// <param name="hasRows">是否为 TextArea 组件</param>
     /// <param name="lookup"></param>
     /// <returns></returns>
     private static Type GenerateComponentType(Type fieldType, bool hasRows, IEnumerable<SelectedItem>? lookup)

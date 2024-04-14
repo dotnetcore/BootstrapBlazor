@@ -52,4 +52,11 @@ internal static class TypeExtensions
             }
         }
     }
+
+    /// <summary>
+    /// 获得唯一类型名称方法
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static string GetUniqueTypeName(this Type type) => $"{type.FullName}-{type.TypeHandle.Value}";
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.0.3</Version>
+    <Version>8.0.5</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -10,8 +10,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="8.0.6" />
-    <PackageReference Include="MiniExcel" Version="1.31.2" />
+    <PackageReference Include="BootstrapBlazor" Version="8.4.3" />
+    <PackageReference Include="MiniExcel" Version="1.31.3" />
   </ItemGroup>
 
   <ItemGroup>

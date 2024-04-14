@@ -22,9 +22,8 @@ public partial class Script
     [Parameter]
     public string? Version { get; set; }
 
-    [Inject]
-    [NotNull]
+    [Inject, NotNull]
     private IVersionService? VersionService { get; set; }
 
-    private string GetSrc() => $"{Src}?v={Version ?? VersionService.GetVersion()}";
+    private string GetSrc() => $"{Src}?v={Version ?? VersionService.GetVersion(Src)}";
 }

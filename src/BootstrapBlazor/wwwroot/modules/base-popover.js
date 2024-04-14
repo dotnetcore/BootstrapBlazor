@@ -1,5 +1,5 @@
-﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "./utility.js?v=$version"
-import EventHandler from "./event-handler.js?v=$version"
+﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "./utility.js"
+import EventHandler from "./event-handler.js"
 
 const Popover = {
     init(el, config) {

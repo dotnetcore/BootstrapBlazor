@@ -1,5 +1,5 @@
-﻿import "./browser.js?v=$version"
-import { execute } from "./ajax.js?v=$version"
+﻿import "./browser.js"
+import { execute } from "./ajax.js"
 
 export async function ping(url, invoke, method) {
     const data = await getClientInfo(url);

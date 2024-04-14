@@ -37,13 +37,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
 
     /// <summary>
-    /// 获得 IVersionService 服务实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    protected IVersionService? JSVersionService { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -61,7 +54,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
-            Module ??= await JSRuntime.LoadModule(ModulePath, JSVersionService.GetVersion());
+            Module ??= await JSRuntime.LoadModule(ModulePath);
 
             if (AutoInvokeInit)
             {

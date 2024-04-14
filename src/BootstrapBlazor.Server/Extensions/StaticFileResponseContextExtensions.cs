@@ -3,15 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 
 namespace BootstrapBlazor.Server.Extensions;
 
-/// <summary>
-/// 
-/// </summary>
-internal static class CacheExtensions
+internal static class StaticFileResponseContextExtensions
 {
     public static void ProcessCache(this StaticFileResponseContext context, IConfiguration configuration)
     {
@@ -26,8 +22,8 @@ internal static class CacheExtensions
         var ret = false;
         age = 0;
 
-        var files = configuration.GetFiles();
-        if (files.Any(i => context.CanCache(i)))
+        var fileTypes = configuration.GetFileTypes();
+        if (fileTypes.Any(context.CanCache))
         {
             ret = true;
             age = configuration.GetAge();
@@ -35,30 +31,19 @@ internal static class CacheExtensions
         return ret;
     }
 
-    private static bool CanCache(this StaticFileResponseContext context, string file)
+    private static bool CanCache(this StaticFileResponseContext context, string fileType)
     {
         var ext = Path.GetExtension(context.File.PhysicalPath) ?? "";
-        bool ret = file.Equals(ext, StringComparison.OrdinalIgnoreCase);
-        if (ret && ext.Equals(".js", StringComparison.OrdinalIgnoreCase))
-        {
-            // process javascript file
-            ret = false;
-            if (context.Context.Request.QueryString.HasValue)
-            {
-                var paras = QueryHelpers.ParseQuery(context.Context.Request.QueryString.Value);
-                ret = paras.ContainsKey("v");
-            }
-        }
-        return ret;
+        return fileType.Equals(ext, StringComparison.OrdinalIgnoreCase);
     }
 
-    private static List<string>? _files;
-    private static List<string> GetFiles(this IConfiguration configuration)
+    private static List<string>? _fileTypes;
+    private static List<string> GetFileTypes(this IConfiguration configuration)
     {
-        _files ??= GetFiles();
-        return _files;
+        _fileTypes ??= GetFilesFromConfiguration();
+        return _fileTypes;
 
-        List<string> GetFiles()
+        List<string> GetFilesFromConfiguration()
         {
             var cacheSection = configuration.GetSection("Cache-Control");
             return cacheSection.GetSection("Files").Get<List<string>>() ?? [];
@@ -68,13 +53,13 @@ internal static class CacheExtensions
     private static int? _age;
     private static int GetAge(this IConfiguration configuration)
     {
-        _age ??= GetAge();
+        _age ??= GetAgeFromConfiguration();
         return _age.Value;
 
-        int GetAge()
+        int GetAgeFromConfiguration()
         {
             var cacheSection = configuration.GetSection("Cache-Control");
-            return cacheSection.GetValue<int>("Max-Age", 1000 * 60 * 10);
+            return cacheSection.GetValue("Max-Age", 1000 * 60 * 10);
         }
     }
 }

@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <Version>8.0.1-beta01</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor Server UI Components</PackageTags>
+    <Description>Bootstrap UI components extensions of TagHelper</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="8.4.4-beta01" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+  </ItemGroup>
+
+</Project>

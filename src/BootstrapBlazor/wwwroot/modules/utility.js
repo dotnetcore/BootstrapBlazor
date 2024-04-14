@@ -251,8 +251,8 @@ const addLink = (href, rel = "stylesheet") => {
     if (link.length === 0) {
         const css = document.createElement('link')
         link.push(css)
-        css.setAttribute('href', href)
         css.setAttribute("rel", rel)
+        css.setAttribute('href', href)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
             css.setAttribute('loaded', true)

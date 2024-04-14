@@ -12,12 +12,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="runtime"></param>
 /// <param name="navigation"></param>
-/// <param name="versionService"></param>
 /// <param name="logger"></param>
 public class WebClientService(
     IJSRuntime runtime,
     NavigationManager navigation,
-    IVersionService versionService,
     ILogger<WebClientService> logger) : IAsyncDisposable
 {
     /// <summary>
@@ -42,7 +40,7 @@ public class WebClientService(
         {
             RequestUrl = navigation.Uri
         };
-        _jsModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js", versionService.GetVersion());
+        _jsModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
         _interop ??= DotNetObjectReference.Create(this);
         await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
 

@@ -99,6 +99,7 @@ public partial class Online : IDisposable
         //table
         DataTableDynamicContext = new DataTableDynamicContext(_table, (context, col) =>
         {
+            col.Text = Localizer[col.GetFieldName()];
             if (col.GetFieldName() == "ConnectionTime")
             {
                 col.FormatString = "yyyy/MM/dd HH:mm:ss";
@@ -116,10 +117,7 @@ public partial class Online : IDisposable
             }
             else if (col.GetFieldName() == "Ip")
             {
-                col.Template = v => builder =>
-                {
-                    builder.AddContent(0, FormatIp(v));
-                };
+                col.Template = v => builder => builder.AddContent(0, FormatIp(v));
             }
             else if (col.GetFieldName() == "RequestUrl")
             {
