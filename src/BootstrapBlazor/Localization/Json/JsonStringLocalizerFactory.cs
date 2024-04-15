@@ -82,6 +82,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             typeName = typeName[..index];
         }
         TypeName = typeName;
+
         return base.GetResourcePrefix(typeInfo);
     }
 
