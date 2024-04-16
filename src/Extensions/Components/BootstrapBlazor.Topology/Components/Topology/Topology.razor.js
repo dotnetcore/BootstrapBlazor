@@ -1,13 +1,14 @@
 ﻿import '../../meta2d.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export function init(id, invoker, data, callback, isFit, isCenter) {
+export function init(id, options) {
     const el = document.getElementById(id)
     if (el === null) { return }
 
+    const { invoker, data, callback, isFitView, isCenterView } = options;
     const initCanvas = () => {
-        const option = { isFit, isCenter }
-        const meta2d = createMeta2d(el, data, option)
+        const option = { isFitView, isCenterView }
+        const meta2d = createMeta2d(id, data, option)
         Data.set(id, {
             el,
             meta2d,
@@ -59,9 +60,9 @@ export function reset(id) {
 export function resize(id, width, height) {
     const meta = Data.get(id)
     if (meta) {
-        meta2d = meta.meta2d
-        el = meta.el
-        option = meta.option
+        const meta2d = meta.meta2d
+        const el = meta.el
+        const option = meta.option
 
         if (el.offsetHeight > 0 && el.offsetWidth > 0) {
             meta2d.canvas.dirty = true
@@ -72,10 +73,10 @@ export function resize(id, width, height) {
                 meta2d.resize()
             }
 
-            if (option.isCenter) {
+            if (option.isCenterView) {
                 meta2d.centerView()
             }
-            if (option.isFit) {
+            if (option.isFitView) {
                 meta2d.fitView()
             }
         }
@@ -92,19 +93,20 @@ export function dispose(id) {
     }
 }
 
-const createMeta2d = (el, data, option) => {
+const createMeta2d = (id, data, option) => {
+    const el = document.getElementById(id);
     const meta2d = hackMeta2d(el)
     meta2d.open(JSON.parse(data))
     meta2d.lock(1)
 
-    if (option.isFit) {
+    if (option.isFitView) {
         meta2d.fitView()
     }
-    if (option.isCenter) {
+    if (option.isCenterView) {
         meta2d.centerView()
     }
     el.observer = new ResizeObserver(() => {
-        resize(meta2d, null, null, el, option)
+        resize(id)
     })
     el.observer.observe(el)
     return meta2d
