@@ -8,7 +8,8 @@ public partial class Client
     [Inject]
     [NotNull]
     private WebClientService? ClientService { get; set; }
-    private ClientInfo ClientInfo { get; set; } = new ClientInfo();
+
+    private ClientInfo _clientInfo = new();
 
     /// <summary>
     /// OnAfterRenderAsync
@@ -18,9 +19,10 @@ public partial class Client
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
-            ClientInfo = await ClientService.GetClientInfo();
+            _clientInfo = await ClientService.GetClientInfo();
             StateHasChanged();
         }
     }
