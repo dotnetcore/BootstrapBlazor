@@ -75,7 +75,7 @@ public partial class Topology : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsFitView, IsCenterView);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoker = Interop, Data = Content, Callback = nameof(PushData), IsFitView, IsCenterView });
 
     /// <summary>
     /// 开始推送数据方法
