@@ -1323,6 +1323,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ConnectionService"],
+                    Url = "connection-service"
+                },
+                new()
+                {
                     Text = Localizer["Dispatch"],
                     Url = "dispatch"
                 },

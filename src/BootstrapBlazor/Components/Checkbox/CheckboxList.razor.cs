@@ -205,10 +205,10 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         if (instance != null)
         {
             var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange))!;
-            mi.Invoke(instance, new object[] { Value });
-            list = instance as IEnumerable;
-            if (list != null)
+            mi.Invoke(instance, [Value]);
+            if (instance is IEnumerable l)
             {
+                list = l;
                 foreach (var item in Items)
                 {
                     item.Active = false;

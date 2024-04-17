@@ -1,0 +1,159 @@
+﻿@page "/connection-service"
+@layout MainLayout
+@inject IStringLocalizer<ConnectionHub> Localizer
+
+<h3>链接服务 <code>IConnectionService</code></h3>
+<h4>组件库内置了链接服务</h4>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private IConnectionService? ConnectionService { get; set; }</Pre>
+
+<p class="code-label">2. 配置</p>
+
+<Pre>{
+  "BootstrapBlazorOptions": {
+    "ConnectionHubOptions": {
+      "Enable": true,
+      "ExpirationScanFrequency": "00:05:00",
+      "TimeoutInterval": "00:03:00",
+      "BeatInterval": "00:00:30"
+    }
+}</Pre>
+
+<ul class="ul-demo">
+    <li>通过 <code>Enable</code> 开启此功能</li>
+    <li>通过 <code>ExpirationScanFrequency</code> 设置扫描周期，扫描后移除已经断开的链接</li>
+    <li>通过 <code>TimeoutInterval</code> 设置超时时间间隔，到达指定时间间隔时未接收到心跳视为已断开</li>
+    <li>通过 <code>BeatInterval</code> 设置心跳间隔</li>
+</ul>
+
+<p class="code-label">3. 使用服务</p>
+<p>调用 <code>IConnectionService</code> 实例属性 <code>Connections</code> 即可，集合内为 <code>CollectionItem</code> 类型，属性 <code>ClientInfo</code> 包含客户端链接信息</p>
+
+<p class="code-label">ConnectionItem 实体类</p>
+
+<Pre>public class ConnectionItem
+{
+    /// &lt;summary&gt;
+    /// 获得/设置 连接 Id
+    /// &lt;/summary&gt;
+    [NotNull]
+    public string? Id { get; internal set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 连接 Ip 地址
+    /// &lt;/summary&gt;
+    public ClientInfo? ClientInfo { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 开始连接时间
+    /// &lt;/summary&gt;
+    public DateTimeOffset ConnectionTime { get; internal set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 上次心跳时间
+    /// &lt;/summary&gt;
+    public DateTimeOffset LastBeatTime { get; internal set; }
+}
+</Pre>
+
+<p class="code-label">ClientInfo 实体类</p>
+
+<Pre>/// &lt;summary&gt;
+/// 客户端请求信息实体类
+/// &lt;/summary&gt;
+public class ClientInfo
+{
+    /// &lt;summary&gt;
+    /// 获得/设置 操作日志主键ID
+    /// &lt;/summary&gt;
+    public string? Id { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端IP
+    /// &lt;/summary&gt;
+    public string? Ip { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端地点
+    /// &lt;/summary&gt;
+    public string? City { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端浏览器
+    /// &lt;/summary&gt;
+    public string? Browser { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端操作系统
+    /// &lt;/summary&gt;
+    public string? OS { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端设备类型
+    /// &lt;/summary&gt;
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public WebClientDeviceType Device { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端浏览器语言
+    /// &lt;/summary&gt;
+    public string? Language { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获取/设置 请求网址
+    /// &lt;/summary&gt;
+    public string? RequestUrl { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 客户端 UserAgent
+    /// &lt;/summary&gt;
+    public string? UserAgent { get; set; }
+
+    /// &lt;summary&gt;
+    /// 获得/设置 浏览器引擎信息
+    /// &lt;/summary&gt;
+    public string? Engine { get; set; }
+}</Pre>
+
+<p class="code-label">4. 功能说明</p>
+
+<p>为了节约服务器资源，此功能默认为 <b>关闭</b> 需要通过配置开启此功能。此功能通过客户端脚本与服务器建立一个心跳机制，到达超时时间后，服务器端判定为断线，此时 <code>Connections</code> 中不进行统计，但是服务器内存中还保持这个数据，当到达指定 <code>ExpirationScanFrequency</code> 时，服务器抛弃这个数据。</p>
+
+<p>现在大多数浏览器切换标签页后默认都开启了休眠机制，当设置心跳间隔为 <code>10s</code> 标签页休眠后会降频为 <code>1 分钟</code> 一次，所以建议 <code>TimeoutInterval</code> 超时时间间隔至少设置为 <b>2 分钟</b></p>
+
+<p class="code-label">5. 常见问题</p>
+
+<p class="code-quest">同一个浏览器多个标签视为一个链接吗？</p>
+
+<p class="code-answer">对！不管同时打开多少个标签，服务器端均视为一个链接，在底层为了优化性能，只有一个标签与服务器进行心跳链接，其余标签均处于静默状态，当心跳链接标签被关闭时，其余标签会有一个自动跳跃成为心跳标签与服务器继续保持链接</p>
+
+<p class="code-quest">不同浏览器相同内核视为一个链接吗？如相同内核版本的 <code>Chrome</code> 与 <code>Edge</code></p>
+
+<p class="code-answer">不对！由于浏览器不同他们被视为不同 <code>Client</code> 服务器获得的链路信息中 <code>IP</code> 地址等信息是相同的，但是浏览器 <code>UserAgent</code> 是不同的</p>
+
+<p class="code-quest">地理位置定位器 <code>IpLocatorFactory</code> 如何配置</p>
+
+<p class="code-answer">本套组件库内置了一些免费的 IP 地理位置定位器，可通过如下配置文件开启</p>
+
+<ul class="ul-demo">
+    <li><code>EnableCache</code> 是否开启缓存，可避免相同 IP 地址多次请求定位接口，有效减少请求次数</li>
+    <li><code>SlidingExpiration</code> 缓存滑动过期时间</li>
+    <li><code>ProviderName</code> 定位器名称，内置定位器名称为 <code>BaiduIpLocatorProvider</code> (国内比较准确) <code>BaiduIpLocatorProviderV2</code> (国际比较准确)</li>
+    <li>更多定位器相关文档请参阅 <a href="locator" target="_blank"><code>IpLocatorFactory</code></a> 服务</li>
+</ul>
+
+<Pre>"BootstrapBlazorOptions": {
+  "IpLocatorOptions": {
+      "EnableCache": true,
+      "SlidingExpiration": "24:00:00",
+      "ProviderName": "BaiduIpLocatorProviderV2"
+  }
+}</Pre>
+
+<p class="code-quest">地理位置定位器 <code>BaiduIpLocatorProviderV2</code> 为何本地调试能精确到区县，发布后只能到省份</p>
+
+<p class="code-answer">这个定位器使用的是 <b>百度智能云</b> 的免费服务，目前使用的作者的免费额度，发布后 <code>api</code> 提供商会根据请求地址做动态调整，所以会出现开发模式时能精确到区县，发布到服务器上后只能精确到省份的现象，这也是一种销售广告的方法</p>
