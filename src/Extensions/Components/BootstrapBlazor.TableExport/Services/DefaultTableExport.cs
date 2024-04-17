@@ -17,8 +17,6 @@ namespace BootstrapBlazor.Components;
 /// <param name="serviceProvider"></param>
 class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 {
-    private IServiceProvider ServiceProvider { get; } = serviceProvider;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -51,7 +49,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 
     private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null, TableExportOptions? options = null)
     {
-        options ??= ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
+        options ??= serviceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
         cols ??= Utility.GetTableColumns<TModel>();
         var value = new ExportDataReader<TModel>(items, cols, options);
 
@@ -60,7 +58,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 
         fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.{GetExtension()}";
         stream.Position = 0;
-        var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
+        var downloadService = serviceProvider.GetRequiredService<DownloadService>();
         await downloadService.DownloadFromStreamAsync(fileName, stream);
         return true;
 
@@ -72,7 +70,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     /// </summary>
     public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
     {
-        var options = ServiceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
+        var options = serviceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
         return ExportPdfAsync(items, cols, options, fileName);
     }
 
@@ -82,18 +80,18 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null)
     {
         var ret = false;
-        var logger = ServiceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
+        var logger = serviceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
 
         try
         {
             var html = await GenerateTableHtmlAsync(items, cols, options);
 
             // 得到 Pdf 文件数据
-            var pdfService = ServiceProvider.GetRequiredService<IExportPdf>();
+            var pdfService = serviceProvider.GetRequiredService<IExportPdf>();
             var stream = await pdfService.PdfStreamAsync(html);
 
             // 下载 Pdf 文件
-            var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
+            var downloadService = serviceProvider.GetRequiredService<DownloadService>();
             fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.pdf";
             await downloadService.DownloadFromStreamAsync(fileName, stream);
             ret = true;
