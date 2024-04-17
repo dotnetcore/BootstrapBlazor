@@ -6313,6 +6313,15 @@
     "CountText": "计时器",
     "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
     "IsCountDownText": "倒计时",
-    "IsCountDownIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置，倒计时结束时触发 <code>OnCompletedAsync</code> 回调方法"
+    "IsCountDownIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> 用于倒计时功能，开始时间使用 <code>StartValue</code> 设置，倒计时结束时触发 <code>OnCompletedAsync</code> 回调方法",
+    "CustomText": "自定义参数",
+    "CustomIntro": "通过设置参数自定义显示内容",
+    "Custom": "参数设置",
+    "Height": "高度",
+    "FontSize": "字体大小",
+    "CardHeight": "卡片高度",
+    "CardWidth": "卡片宽度",
+    "CardMargin": "卡片边距",
+    "CardGroupMargin": "卡片组边距"
   }
 }

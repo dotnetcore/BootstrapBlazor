@@ -6313,6 +6313,15 @@
     "CountText": "Counter",
     "CountIntro": "By setting <code>ViewMode=\"FlipClockViewMode.Count\"</code> to enable the timer function, the start time can be set using <code>StartValue</code>",
     "IsCountDownText": "CountDown",
-    "IsCountDownIntro": "By setting <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> for the countdown function, the start time can be set using <code>StartValue</code>. Trigger the <code>OnCompletedAsync</code> callback method when the countdown ends"
+    "IsCountDownIntro": "By setting <code>ViewMode=\"FlipClockViewMode.CountDown\"</code> for the countdown function, the start time can be set using <code>StartValue</code>. Trigger the <code>OnCompletedAsync</code> callback method when the countdown ends",
+    "CustomText": "Custom Text",
+    "CustomIntro": "Customize the display content by setting parameters",
+    "Custom": "Parameter Settings",
+    "Height": "Height",
+    "FontSize": "Font Size",
+    "CardHeight": "Card Height",
+    "CardWidth": "Card Width",
+    "CardMargin": "Card Margin",
+    "CardGroupMargin": "Card Group Margin"
   }
 }
