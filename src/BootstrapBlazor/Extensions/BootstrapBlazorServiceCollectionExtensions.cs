@@ -36,8 +36,10 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
-        services.TryAddSingleton<ITableExport, DefaultTableExport>();
         services.TryAddSingleton<IExportPdf, DefaultExportPdf>();
+
+        // Table 导出服务
+        services.TryAddScoped<ITableExport, DefaultTableExport>();
 
         // IP 地理位置定位服务
         services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();

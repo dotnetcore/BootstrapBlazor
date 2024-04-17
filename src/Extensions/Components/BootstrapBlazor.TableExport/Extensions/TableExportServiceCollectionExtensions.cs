@@ -24,7 +24,7 @@ public static class TableExportServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddBootstrapBlazorTableExportService(this IServiceCollection services)
     {
-        services.AddSingleton<ITableExport, DefaultTableExport>();
+        services.AddScoped<ITableExport, DefaultTableExport>();
         return services;
     }
 }
