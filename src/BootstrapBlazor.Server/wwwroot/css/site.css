@@ -220,6 +220,18 @@ code {
     margin-bottom: 1rem;
 }
 
+.code-quest {
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.code-answer {
+    border: 1px solid var(--bs-border-color);
+    padding: .5rem;
+    border-radius: var(--bs-border-radius);
+    background-color: var(--bs-secondary-bg);
+}
+
 .ul-demo li:not(:last-child) {
     margin-bottom: 0.25rem;
 }
