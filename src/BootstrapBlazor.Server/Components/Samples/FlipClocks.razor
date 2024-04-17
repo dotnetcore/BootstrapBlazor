@@ -29,41 +29,41 @@
 
 <DemoBlock Title="@Localizer["CustomText"]" Introduction="@Localizer["CustomIntro"]" Name="Custom">
     <section ignore>
-        <GroupBox Title="Custom">
+        <GroupBox Title="@Localizer["Custom"]">
             <div class="row g-2">
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="Height" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["Height"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="HeightValue" Max="200" Min="80"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="FontSize" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["FontSize"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="FontSizeValue" Max="50" Min="40"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="CardHeight" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["CardHeight"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="CardHeightValue" Max="90" Min="60"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="CardWidth" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["CardWidth"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="CardWidthValue" Max="60" Min="40"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="CardMargin" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["CardMargin"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="CardMarginValue" Max="10" Min="5"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-4">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel DisplayText="CardGroupMargin" Width="150"></BootstrapInputGroupLabel>
+                        <BootstrapInputGroupLabel DisplayText="@Localizer["CardGroupMargin"]" Width="150"></BootstrapInputGroupLabel>
                         <Slider @bind-Value="CardGroupMarginValue" Max="28" Min="18"></Slider>
                     </BootstrapInputGroup>
                 </div>
