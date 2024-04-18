@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <p>@Localizer["BasicUsageP1"]</p>
     <div class="mb-3">
-        <p>@((MarkupString)Localizer["BasicUsageP2"].Value)</p>
+        <p class="code-label">@((MarkupString)Localizer["BasicUsageP2"].Value)</p>
         <Pre>public void Configure(IApplicationBuilder app)
 {
     // ...
@@ -28,7 +28,7 @@
     </Tips>
 
     <div class="mb-3">
-        <p>@((MarkupString)Localizer["BasicUsageP3"].Value)</p>
+        <p class="code-label">@((MarkupString)Localizer["BasicUsageP3"].Value)</p>
         <Pre>[Inject]
 [NotNull]
 private WebClientService? ClientService { get; set; }
@@ -48,6 +48,8 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 </Pre>
     </div>
     <GroupBox Title="@Localizer["GroupBoxTitle"]">
+        <p class="code-label">@Localizer["IpLocatorFactoryDesc"] <a href="locator" target="_blank">IpLocatorFactory</a></p>
+
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
                 <Display Value="_clientInfo.Id" DisplayText="@Localizer["Id"]" ShowLabel="true" />
