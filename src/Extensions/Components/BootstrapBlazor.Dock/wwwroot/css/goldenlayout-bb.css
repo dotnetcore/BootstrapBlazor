@@ -40,6 +40,10 @@
             top: 5px;
         }
 
+        .bb-dock .lm_header:has(.lm_close_tab.d-none) .lm_controls > .lm_close {
+            display: none;
+        }
+
         .bb-dock .lm_header .lm_tab {
             height: 20px;
         }
