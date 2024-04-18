@@ -52,11 +52,14 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
             <div class="col-12 col-sm-6">
                 <Display Value="_clientInfo.Id" DisplayText="@Localizer["Id"]" ShowLabel="true" />
             </div>
-            <div class="col-12">
+            <div class="col-12 col-sm-6">
                 <Display Value="_clientInfo.RequestUrl" DisplayText="@Localizer["RequestUrl"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
                 <Display Value="_clientInfo.Ip" DisplayText="@Localizer["Ip"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="_clientInfo.City" DisplayText="@Localizer["City"]" ShowLabel="true" />
             </div>
             <div class="col-12 col-sm-6">
                 <Display Value="_clientInfo.OS" DisplayText="@Localizer["OS"]" ShowLabel="true" />

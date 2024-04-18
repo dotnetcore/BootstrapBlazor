@@ -3734,6 +3734,7 @@
     "Id": "连接 ID",
     "RequestUrl": "请求地址",
     "Ip": "IP 地址",
+    "City": "城市",
     "OS": "操作系统",
     "Browser": "浏览器",
     "Engine": "浏览器引擎",

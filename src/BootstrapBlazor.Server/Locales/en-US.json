@@ -3734,6 +3734,7 @@
     "Id": "Connection ID",
     "RequestUrl": "RequestUrl",
     "Ip": "Ip",
+    "City": "City",
     "OS": "OS",
     "Browser": "Browser",
     "Engine": "Engine",
