@@ -420,7 +420,24 @@ const resetComponentId = (config, option) => {
     items.forEach(item => {
         // 更新服务器端组件可见状态
         const com = components.find(i => i.componentState.key === item.key)
-        option.invokeVisibleChangedCallback(item.title, com !== undefined)
+        option.invokeVisibleChangedCallback(item.title, com !== void 0)
+
+        // 本地存储中没有，配置中有
+        if (com === void 0) {
+            if (config.root.content.length > 0) {
+                config.root.content.push({
+                    type: 'stack',
+                    content: [{
+                        type: 'component',
+                        content: [],
+                        title: item.title,
+                        id: item.id,
+                        componentType: 'component',
+                        componentState: item.componentState
+                    }]
+                });
+            }
+        }
     })
 }
 
