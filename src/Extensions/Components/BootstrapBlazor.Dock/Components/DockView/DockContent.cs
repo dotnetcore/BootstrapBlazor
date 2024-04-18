@@ -25,7 +25,7 @@ public class DockContent : DockComponentBase
     /// </summary>
     [JsonConverter(typeof(DockComponentConverter))]
     [JsonPropertyName("content")]
-    public List<IDockComponent> Items { get; } = new();
+    public List<IDockComponent> Items { get; } = [];
 
     /// <summary>
     /// 获得/设置 组件宽度百分比 默认 null 未设置
