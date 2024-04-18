@@ -6156,7 +6156,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
-    "ClipboardIntro": "剪切板服务！请注意，只能在HTTPS安全连接下运行，或者在本地 localhost 开发环境中使用",
+    "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
     "ClipboardMessage": "文本内容：{0},已复制到剪切板"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
