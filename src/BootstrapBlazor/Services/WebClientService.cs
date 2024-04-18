@@ -10,10 +10,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// WebClient 服务类
 /// </summary>
+/// <param name="ipLocatorFactory"></param>
+/// <param name="options"></param>
 /// <param name="runtime"></param>
 /// <param name="navigation"></param>
 /// <param name="logger"></param>
 public class WebClientService(
+    IIpLocatorFactory ipLocatorFactory,
+    IOptions<BootstrapBlazorOptions> options,
     IJSRuntime runtime,
     NavigationManager navigation,
     ILogger<WebClientService> logger) : IAsyncDisposable
@@ -52,6 +56,17 @@ public class WebClientService(
         catch (Exception ex)
         {
             logger.LogError(ex, "method GetClientInfo failed");
+        }
+
+        // 补充 IP 地址信息
+        _client.Ip = "183.160.236.53";
+        if (string.IsNullOrEmpty(_client.City))
+        {
+            var locatorProvider = ipLocatorFactory.Create(options.Value.IpLocatorOptions.ProviderName);
+            if (locatorProvider != null)
+            {
+                _client.City = await locatorProvider.Locate(_client.Ip);
+            }
         }
         return _client;
     }
