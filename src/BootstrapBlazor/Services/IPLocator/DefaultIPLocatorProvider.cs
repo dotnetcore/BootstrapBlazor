@@ -45,7 +45,7 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// </summary>
     /// <param name="ip"></param>
     /// <returns></returns>
-    public async Task<string?> Locate(string ip)
+    public async Task<string?> Locate(string? ip)
     {
         string? ret;
 
