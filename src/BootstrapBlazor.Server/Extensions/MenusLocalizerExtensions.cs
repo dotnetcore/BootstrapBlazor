@@ -549,11 +549,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Client"],
-                    Url = "client"
-                },
-                new()
-                {
                     Text = Localizer["Circle"],
                     Url = "circle"
                 },
@@ -1320,6 +1315,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Clipboard"],
                     Url = "clipboard-service"
+                },
+                new()
+                {
+                    Text = Localizer["Client"],
+                    Url = "client"
                 },
                 new()
                 {

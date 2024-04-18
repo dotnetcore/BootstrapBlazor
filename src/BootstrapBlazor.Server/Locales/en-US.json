@@ -3731,9 +3731,11 @@
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> Middleware is located assembly <code>BootstrapBlazor.Middleware</code>, please refer to this package yourself for proper use",
     "BasicUsageP3": "2. The component uses the injection service <code>WebClientService</code> to call the <code>GetClientInfo</code> method.",
     "GroupBoxTitle": "Connection information",
+    "IpLocatorFactoryDesc": "This service has built-in IP geolocation function. For detailed configuration and documentation, please refer to",
     "Id": "Connection ID",
     "RequestUrl": "RequestUrl",
     "Ip": "Ip",
+    "City": "City",
     "OS": "OS",
     "Browser": "Browser",
     "Engine": "Engine",
@@ -6156,8 +6158,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
-    "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the localhost development environment.",
-    "ClipboardMessage": "Text content: {0},copied to clipboard"
+    "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
+    "ClipboardMessage": "Text content: {0}, copied to clipboard"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",

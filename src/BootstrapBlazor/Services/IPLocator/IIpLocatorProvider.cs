@@ -18,5 +18,5 @@ public interface IIpLocatorProvider
     /// 通过 IP 地址定位地理位置信息
     /// </summary>
     /// <param name="ip"></param>
-    Task<string?> Locate(string ip);
+    Task<string?> Locate(string? ip);
 }

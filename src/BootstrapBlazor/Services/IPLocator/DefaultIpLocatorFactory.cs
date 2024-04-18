@@ -28,8 +28,5 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
     /// 创建 <see cref="IIpLocatorProvider"/> 实例方法
     /// </summary>
     /// <param name="key"></param>
-    public IIpLocatorProvider Create(string? key = null)
-    {
-        return string.IsNullOrEmpty(key) ? _providers.Values.Last() : _providers[key];
-    }
+    public IIpLocatorProvider Create(string? key = null) => string.IsNullOrEmpty(key) ? _providers.Values.Last() : _providers[key];
 }

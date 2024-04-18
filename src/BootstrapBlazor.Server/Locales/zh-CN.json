@@ -3731,9 +3731,11 @@
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> 中间件位于程序集 <code>BootstrapBlazor.Middleware</code>，请自行引用此包才能正常使用",
     "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>GetClientInfo</code> 方法",
     "GroupBoxTitle": "您的连接信息",
+    "IpLocatorFactoryDesc": "本服务已内置 IP 地理位置定位功能，详细配置与文档请参考",
     "Id": "连接 ID",
     "RequestUrl": "请求地址",
     "Ip": "IP 地址",
+    "City": "城市",
     "OS": "操作系统",
     "Browser": "浏览器",
     "Engine": "浏览器引擎",
@@ -6156,8 +6158,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
-    "ClipboardIntro": "剪切板服务！请注意，只能在HTTPS安全连接下运行，或者在本地 localhost 开发环境中使用",
-    "ClipboardMessage": "文本内容：{0},已复制到剪切板"
+    "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
+    "ClipboardMessage": "文本内容：{0}, 已复制到剪切板"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "一个简单、交互式、现代的 Web 甘特图库，具有拖动、调整大小、依赖关系和时间刻度",

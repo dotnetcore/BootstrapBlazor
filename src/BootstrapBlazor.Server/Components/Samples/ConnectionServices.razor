@@ -5,6 +5,15 @@
 <h3>链接服务 <code>IConnectionService</code></h3>
 <h4>组件库内置了链接服务</h4>
 
+
+<p class="code-label">本组件依赖 <code>UseBootstrapBlazor</code> 中间件，请正确配置中间件</p>
+
+<Pre>public void Configure(IApplicationBuilder app)
+{
+    // 增加下面这一行
+    app.UseBootstrapBlazor();
+}</Pre>
+
 <p class="code-label">1. 服务注入</p>
 
 <Pre>[Inject]
