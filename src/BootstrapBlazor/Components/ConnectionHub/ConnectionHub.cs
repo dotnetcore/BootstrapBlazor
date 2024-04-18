@@ -74,10 +74,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 if (!string.IsNullOrEmpty(client.Ip))
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
-                    if (_ipLocatorProvider != null)
-                    {
-                        client.City = await _ipLocatorProvider.Locate(client.Ip);
-                    }
+                    client.City = await _ipLocatorProvider.Locate(client.Ip);
                 }
                 ConnectionService.AddOrUpdate(client);
             });

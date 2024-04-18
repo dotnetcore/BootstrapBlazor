@@ -95,7 +95,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
     public void Factory_KeyNotFound()
     {
         var factory = Context.Services.GetRequiredService<IIpLocatorFactory>();
-        Assert.Null(factory.Create("BaiduIpLocatorProviderV0"));
+        Assert.Throws<InvalidOperationException>(() => factory.Create("BaiduIpLocatorProviderV0"));
     }
 
     [Fact]

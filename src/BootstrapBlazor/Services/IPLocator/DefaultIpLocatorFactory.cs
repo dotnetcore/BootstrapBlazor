@@ -28,7 +28,7 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
     /// 创建 <see cref="IIpLocatorProvider"/> 实例方法
     /// </summary>
     /// <param name="key"></param>
-    public IIpLocatorProvider? Create(string? key = null)
+    public IIpLocatorProvider Create(string? key = null)
     {
         IIpLocatorProvider? provider = null;
         if (string.IsNullOrEmpty(key))
@@ -39,6 +39,6 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
         {
             provider = value;
         }
-        return provider;
+        return provider ?? throw new InvalidOperationException($"Create {nameof(IIpLocatorProvider)} failed. the key {key} does not exist");
     }
 }

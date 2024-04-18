@@ -10,42 +10,22 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// WebClient 服务类
 /// </summary>
-public class WebClientService : IAsyncDisposable
+/// <param name="ipLocatorFactory"></param>
+/// <param name="options"></param>
+/// <param name="runtime"></param>
+/// <param name="navigation"></param>
+/// <param name="logger"></param>
+public class WebClientService(IIpLocatorFactory ipLocatorFactory,
+    IOptions<BootstrapBlazorOptions> options,
+    IJSRuntime runtime,
+    NavigationManager navigation,
+    ILogger<WebClientService> logger) : IAsyncDisposable
 {
-    /// <summary>
-    /// 获得/设置 模态弹窗返回值任务实例
-    /// </summary>
     private TaskCompletionSource? _taskCompletionSource;
-
     private JSModule? _jsModule;
-
     private DotNetObjectReference<WebClientService>? _interop;
-
     private ClientInfo? _client;
-    private readonly IJSRuntime _runtime;
-    private readonly NavigationManager _navigation;
-    private readonly ILogger<WebClientService> _logger;
-    private readonly IIpLocatorProvider? _provider;
-
-    /// <summary>
-    /// WebClient 服务类
-    /// </summary>
-    /// <param name="ipLocatorFactory"></param>
-    /// <param name="options"></param>
-    /// <param name="runtime"></param>
-    /// <param name="navigation"></param>
-    /// <param name="logger"></param>
-    public WebClientService(IIpLocatorFactory ipLocatorFactory,
-        IOptions<BootstrapBlazorOptions> options,
-        IJSRuntime runtime,
-        NavigationManager navigation,
-        ILogger<WebClientService> logger)
-    {
-        _runtime = runtime;
-        _navigation = navigation;
-        _logger = logger;
-        _provider = ipLocatorFactory.Create(options.Value.IpLocatorOptions.ProviderName);
-    }
+    private IIpLocatorProvider? _provider;
 
     /// <summary>
     /// 获得 ClientInfo 实例方法
@@ -56,9 +36,9 @@ public class WebClientService : IAsyncDisposable
         _taskCompletionSource = new TaskCompletionSource();
         _client = new ClientInfo()
         {
-            RequestUrl = _navigation.Uri
+            RequestUrl = navigation.Uri
         };
-        _jsModule ??= await _runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
+        _jsModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
         _interop ??= DotNetObjectReference.Create(this);
         await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
 
@@ -69,12 +49,13 @@ public class WebClientService : IAsyncDisposable
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "method GetClientInfo failed");
+            logger.LogError(ex, "method GetClientInfo failed");
         }
 
         // 补充 IP 地址信息
-        if (string.IsNullOrEmpty(_client.City) && _provider != null)
+        if (string.IsNullOrEmpty(_client.City))
         {
+            _provider ??= ipLocatorFactory.Create(options.Value.IpLocatorOptions.ProviderName);
             _client.City = await _provider.Locate(_client.Ip);
         }
         return _client;
@@ -88,7 +69,7 @@ public class WebClientService : IAsyncDisposable
     public void SetData(ClientInfo client)
     {
         _client = client;
-        _client.RequestUrl = _navigation.Uri;
+        _client.RequestUrl = navigation.Uri;
         _taskCompletionSource?.TrySetResult();
     }
 
