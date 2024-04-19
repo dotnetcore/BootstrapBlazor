@@ -136,6 +136,13 @@
     <ConsoleLogger @ref="Logger3"></ConsoleLogger>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewCustomCheckedItemsTitle"]"
+           Introduction="@Localizer["TreeViewCustomCheckedItemsIntro"]"
+           Name="CustomCheckedItems">
+    <TreeView TItem="TreeFoo" ShowCheckbox="true" ClickToggleNode="true" ClickToggleCheck="false" AutoCheckChildren="false"
+              Items="@GetCustomCheckedItems()" OnExpandNodeAsync="CustomCheckedNodeOnExpandNodeAsync"></TreeView>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewSetActiveTitle"]"
            Introduction="@Localizer["TreeViewSetActiveIntro"]"
            Name="SetActive">

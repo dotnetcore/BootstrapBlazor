@@ -59,6 +59,35 @@ class TreeFoo
     }
 
     /// <summary>
+    /// TreeFoo 带选择框树状数据集
+    /// </summary>
+    /// <returns></returns>
+    public static List<TreeViewItem<TreeFoo>> GetCheckedTreeItems(string? parentId=null)
+    {
+        return new List<TreeViewItem<TreeFoo>>
+            {
+            new(new TreeFoo()
+            {
+                Id = $"{parentId}-101",
+                ParentId=parentId
+            })
+            {
+                Text = "navigation one",
+                HasChildren = true
+            },
+            new(new TreeFoo()
+            {
+                Id = $"{parentId}-102",
+                ParentId=parentId
+            })
+            {
+                Text = "navigation two",
+                CheckedState = CheckboxState.Checked
+            }
+        };
+    }
+
+    /// <summary>
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
