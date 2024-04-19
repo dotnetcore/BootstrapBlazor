@@ -117,7 +117,10 @@ public sealed partial class TreeViews
 
     private static List<TreeViewItem<TreeFoo>> GetCustomCheckedItems()
     {
-        return TreeFoo.GetCheckedTreeItems();
+        var ret = TreeFoo.GetCheckedTreeItems();
+        ret[0].IsExpand = true;
+        ret[0].Items= TreeFoo.GetCheckedTreeItems();
+        return ret;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetExpandItems()
