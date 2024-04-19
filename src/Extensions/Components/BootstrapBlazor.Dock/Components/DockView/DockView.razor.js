@@ -386,7 +386,7 @@ const resetComponentId = (config, option) => {
     // 服务器端配置
     const items = getAllContentItems(option.content)
     components.forEach(com => {
-        const item = items.find(i => i.key === com.componentState.key)
+        const item = items.find(i => i.componentState.key === com.componentState.key)
         if (item) {
             const lock = com.componentState.lock || item.componentState.lock
             com.componentState = item.componentState
