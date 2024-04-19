@@ -128,12 +128,23 @@ public partial class DockView
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Config.Contents.Add(Content);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             IsRendered = true;
-            Config.Contents.Add(Content);
             await base.OnAfterRenderAsync(firstRender);
             StateHasChanged();
             return;
