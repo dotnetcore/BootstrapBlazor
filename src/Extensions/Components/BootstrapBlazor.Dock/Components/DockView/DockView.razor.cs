@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 
 namespace BootstrapBlazor.Components;
 
@@ -70,23 +71,11 @@ public partial class DockView
     public Func<Task>? OnResizeCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用本地存储布局 默认 true 启用
-    /// </summary>
-    [Parameter]
-    public bool EnableLocalStorage { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 是否锁定 默认 false
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
     [Parameter]
     public bool IsLock { get; set; }
-
-    /// <summary>
-    /// 获得/设置 本地存储前缀 默认 bb-dock
-    /// </summary>
-    [Parameter]
-    public string? LocalStoragePrefix { get; set; }
 
     /// <summary>
     /// 获得/设置 布局配置
@@ -95,33 +84,53 @@ public partial class DockView
     public string? LayoutConfig { get; set; }
 
     /// <summary>
-    /// 获得/设置 版本设置 默认 v1 用于本地配置
+    /// 获得/设置 版本设置 默认 null 未设置 用于本地配置 可通过全局统一配置
     /// </summary>
     [Parameter]
-    public string? Version { get; set; } = "v1";
+    public string? Version { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用本地存储布局 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? EnableLocalStorage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 本地存储前缀 默认 bb-dock
+    /// </summary>
+    [Parameter]
+    public string? LocalStoragePrefix { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IConfiguration? Configuration { get; set; }
 
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
 
-    private bool IsRendered { get; set; }
+    private bool _rendered;
 
     private bool _isLock;
+
+    private bool _init;
+
+    [NotNull]
+    private DockViewOptions? _options = default!;
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private bool IsInit { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override void OnInitialized()
     {
-        base.OnParametersSet();
+        base.OnInitialized();
 
-        LocalStoragePrefix ??= "bb-dock";
+        var section = Configuration.GetSection(nameof(DockViewOptions));
+        _options = section.Exists() ? section.Get<DockViewOptions>() : new();
     }
 
     /// <summary>
@@ -142,37 +151,38 @@ public partial class DockView
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
-            IsRendered = true;
-            await base.OnAfterRenderAsync(firstRender);
+            _rendered = true;
             StateHasChanged();
             return;
         }
 
-        if (IsRendered && Module != null)
+        if (_rendered)
         {
-            if (IsInit)
+            if (_init)
             {
-                await InvokeVoidAsync("update", Id, GetOption());
+                await InvokeVoidAsync("update", Id, GetOptions());
             }
             else
             {
-                IsInit = true;
-                await InvokeVoidAsync("init", Id, GetOption(), Interop);
+                _init = true;
+                await InvokeVoidAsync("init", Id, GetOptions(), Interop);
             }
         }
     }
 
-    private DockViewConfig GetOption() => new()
+    private DockViewConfig GetOptions() => new()
     {
-        Version = Version,
+        Version = Version ?? _options.Version ?? "v1",
         Name = Name,
-        EnableLocalStorage = EnableLocalStorage,
+        EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
         IsLock = IsLock,
         Contents = Config.Contents,
         LayoutConfig = LayoutConfig,
-        LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
+        LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
@@ -223,7 +233,7 @@ public partial class DockView
     /// <returns></returns>
     public Task Reset(string? layoutConfig = null)
     {
-        var config = GetOption();
+        var config = GetOptions();
         if (layoutConfig != null)
         {
             config.LayoutConfig = layoutConfig;
