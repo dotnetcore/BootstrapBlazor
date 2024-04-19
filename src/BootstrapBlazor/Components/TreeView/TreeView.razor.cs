@@ -371,6 +371,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox && ClickToggleCheck)
         {
+            item.CheckedState = ToggleCheckState(item.CheckedState);
             await OnCheckStateChanged(item);
         }
 
@@ -460,6 +461,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
         }
 
+        if (ShowCheckbox)
+        {
+            if(!AutoCheckChildren&&AutoCheckParent&&node.Items.Any())
+            {
+                node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
+            }
+
+            await OnCheckStateChanged(node);
+        }
+
         if (shouldRender)
         {
             StateHasChanged();
@@ -474,7 +485,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
     {
-        item.CheckedState = ToggleCheckState(item.CheckedState);
+        //item.CheckedState = ToggleCheckState(item.CheckedState);
 
         if (AutoCheckChildren)
         {
