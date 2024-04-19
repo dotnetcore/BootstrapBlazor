@@ -19,7 +19,7 @@ class DockContentRootConverter : JsonConverter<List<DockContent>>
 
     public override void Write(Utf8JsonWriter writer, List<DockContent> value, JsonSerializerOptions options)
     {
-        if (value.Any())
+        if (value.Count > 0)
         {
             var converter = new DockComponentConverter();
             converter.Write(writer, value[0].Items, options);
