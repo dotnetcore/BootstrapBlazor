@@ -40,6 +40,12 @@ public class DockContent : DockComponentBase
     public int? Height { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件是否显示 Header 默认 true
+    /// </summary>
+    [Parameter]
+    public bool HasHeaders { get; set; } = true;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
