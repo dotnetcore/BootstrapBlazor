@@ -180,31 +180,17 @@ public partial class DockView
         LockChangedCallback = nameof(LockChangedCallbackAsync)
     };
 
-    private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
-    {
-        foreach (var content in contents)
-        {
-            builder.AddContent(0, RenderDockComponent(content.Items));
-        }
-    };
-
-    private static RenderFragment RenderDockComponent(List<IDockComponent> items) => builder =>
+    private RenderFragment RenderDockComponent(List<IDockComponent> items) => builder =>
     {
         foreach (var item in items)
         {
             switch (item)
             {
                 case DockComponent com:
-                    builder.OpenElement(0, "div");
-                    builder.AddAttribute(1, "id", com.Id);
-                    builder.AddAttribute(2, "class", "bb-dock-item d-none");
-                    builder.AddAttribute(3, "data-bb-key", com.Key);
-                    builder.AddAttribute(4, "data-bb-title", com.Title);
-                    builder.AddContent(5, com.ChildContent);
-                    builder.CloseComponent();
+                    builder.AddContent(0, RenderComponent(com));
                     break;
                 case DockContent content:
-                    builder.AddContent(6, RenderDockComponent(content.Items));
+                    builder.AddContent(1, RenderDockComponent(content.Items));
                     break;
             }
         }
