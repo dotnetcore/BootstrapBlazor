@@ -1,7 +1,7 @@
 ﻿@page "/dock-view/nest"
 @inherits BaseDockView
 
-<DockView Name="DockViewNest" EnableLocalStorage="false">
+<DockView Name="DockViewNest">
     <DockContent Type="DockContentType.Row">
         <DockComponent Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
@@ -34,7 +34,7 @@
             </Table>
         </DockComponent>
         <DockComponent Title="嵌套布局">
-            <DockView Name="DockViewInnerNest" EnableLocalStorage="false">
+            <DockView Name="DockViewInnerNest">
                 <DockContent Type="DockContentType.Column">
                     <DockComponent Title="内嵌标签一">
                         <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
