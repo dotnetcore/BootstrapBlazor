@@ -12,4 +12,115 @@
 
 <p class="code-label">组件介绍</p>
 
-<ul class="ul-demo"></ul>
+<p><code>DockView</code> 是一个容器组件，内部可使用以下两种组件进行布局操作</p>
+<ul class="ul-demo">
+    <li><code>DockContent</code> 内置容器布局组件，提供行布局 <code>Row</code> 列布局 <code>Column</code> 并列布局 <code>Stack</code> 三种布局方式</li>
+    <li><code>DockComponent</code> 显示内容容器组件，最终渲染的 UI 放置到此组件内部即可</li>
+</ul>
+
+<div>
+    <p class="code-label">行布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Row"&gt;
+        &lt;DockComponent Title="标签一"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockComponent Title="标签二"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+
+    <p class="code-label">列布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Column"&gt;
+        &lt;DockComponent Title="标签一"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockComponent Title="标签二"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+
+    <p class="code-label">并列布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Stack"&gt;
+        &lt;DockComponent Title="标签一"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockComponent Title="标签二"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+
+    <p class="code-label">两行两列布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Row"&gt;
+        &lt;DockContent Type="DockContentType.Column"&gt;
+            &lt;DockComponent Title="标签一"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+            &lt;DockComponent Title="标签二"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+        &lt;/DockContent&gt;
+        &lt;DockContent Type="DockContentType.Column"&gt;
+            &lt;DockComponent Title="标签三"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+            &lt;DockComponent Title="标签四"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+        &lt;/DockContent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+
+    <p class="code-label">复杂布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Row"&gt;
+        &lt;DockComponent Title="标签一"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockComponent Title="标签二"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockContent Type="DockContentType.Column"&gt;
+            &lt;DockComponent Title="标签三"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+            &lt;DockComponent Title="标签四"&gt;
+                &lt;Table&gt;&lt;/Table&gt;
+            &lt;/DockComponent&gt;
+        &lt;/DockContent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+
+    <p class="code-label">嵌套布局示例</p>
+    <Pre>&lt;DockView&gt;
+    &lt;DockContent Type="DockContentType.Row"&gt;
+        &lt;DockComponent Title="标签一"&gt;
+            &lt;Table&gt;&lt;/Table&gt;
+        &lt;/DockComponent&gt;
+        &lt;DockComponent Title="标签二"&gt;
+            &lt;DockView&gt;
+                &lt;DockContent Type="DockContentType.Row"&gt;
+                    &lt;DockComponent Title="标签一"&gt;
+                        &lt;Table&gt;&lt;/Table&gt;
+                    &lt;/DockComponent&gt;
+                    &lt;DockComponent Title="标签二"&gt;
+                        &lt;Table&gt;&lt;/Table&gt;
+                    &lt;/DockComponent&gt;
+                &lt;/DockContent&gt;
+            &lt;/DockView&gt;
+        &lt;/DockComponent&gt;
+    &lt;/DockContent&gt;
+&lt;/DockView&gt;</Pre>
+</div>
+
+<AttributeTable Title="DockView" Items="@GetAttributes()" />
+
+<AttributeTable Title="DockContent" Items="@GetDockContentAttributes()" />
+
+<AttributeTable Title="DockComponent" Items="@GetDockComponentAttributes()" />
