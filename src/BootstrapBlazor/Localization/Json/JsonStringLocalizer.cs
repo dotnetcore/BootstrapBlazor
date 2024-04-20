@@ -13,9 +13,6 @@ namespace BootstrapBlazor.Localization.Json;
 /// <summary>
 /// JsonStringLocalizer 实现类
 /// </summary>
-/// <remarks>
-/// 构造函数
-/// </remarks>
 /// <param name="assembly"></param>
 /// <param name="typeName"></param>
 /// <param name="baseName"></param>
