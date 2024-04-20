@@ -62,7 +62,7 @@ else
             @if (ShowCheckbox)
             {
                 <Checkbox Value="@item.CheckedState" IsDisabled="GetItemDisabledState(item)" SkipValidate="true"
-                          ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
+                          ShowLabel="false" ShowAfterLabel="false" @bind-State="@item.CheckedState"
                           OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
             }
             <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">

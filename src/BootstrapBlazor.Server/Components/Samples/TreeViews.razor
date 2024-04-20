@@ -136,6 +136,22 @@
     <ConsoleLogger @ref="Logger3"></ConsoleLogger>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewCustomCheckedItemsTitle"]"
+           Introduction="@Localizer["TreeViewCustomCheckedItemsIntro"]"
+           Name="CustomCheckedItems">
+    <section ignore>
+        <div>@((MarkupString)Localizer["TreeViewCustomCheckedItemsTips1"].Value)</div>
+    </section>
+    <section ignore class="row form-inline">
+        <div class="col-12 col-lg-auto">
+            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
+            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
+        </div>
+    </section>
+    <TreeView TItem="TreeFoo" ShowCheckbox="true" ClickToggleNode="true" ClickToggleCheck="false" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"
+              Items="@GetCustomCheckedItems()" OnExpandNodeAsync="CustomCheckedNodeOnExpandNodeAsync"></TreeView>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewSetActiveTitle"]"
            Introduction="@Localizer["TreeViewSetActiveIntro"]"
            Name="SetActive">
