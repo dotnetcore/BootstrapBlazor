@@ -72,13 +72,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
-            catch (ObjectDisposedException)
-            {
-#if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
-                throw;
-#endif
-            }
+            catch (ObjectDisposedException) { }
         }
     }
 
@@ -136,13 +130,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
-            catch (ObjectDisposedException)
-            {
-#if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
-                throw;
-#endif
-            }
+            catch (ObjectDisposedException) { }
 
             return ret;
         }
