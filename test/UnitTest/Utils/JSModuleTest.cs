@@ -86,12 +86,12 @@ public class JSModuleTest
     }
 
     [Fact]
-    public async Task JSModule_ObjectDisposedException()
+    public async Task JSModule_ObjectDisposed_Ok()
     {
         var js = new MockObjectDisposedExceptionObjectReference();
         var module = new JSModule(js);
-        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeVoidAsync("test"));
-        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeAsync<int>("test"));
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     [Fact]
