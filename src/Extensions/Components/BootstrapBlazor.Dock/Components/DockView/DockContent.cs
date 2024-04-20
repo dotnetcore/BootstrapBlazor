@@ -43,7 +43,8 @@ public class DockContent : DockComponentBase
     /// 获得/设置 组件是否显示 Header 默认 true
     /// </summary>
     [Parameter]
-    public bool HasHeaders { get; set; } = true;
+    [JsonPropertyName("hasHeaders")]
+    public bool ShowHeader { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
