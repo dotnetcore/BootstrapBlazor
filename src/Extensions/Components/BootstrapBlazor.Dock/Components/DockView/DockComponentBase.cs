@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 public abstract class DockComponentBase : IdComponentBase, IDockComponent
 {
     /// <summary>
-    /// 获得/设置 默认 Component
+    /// 获得/设置 渲染类型 默认 Component
     /// </summary>
     [Parameter]
     [JsonConverter(typeof(DockTypeConverter))]
