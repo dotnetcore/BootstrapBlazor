@@ -66,7 +66,7 @@ class DockViewConfig
     /// </summary>
     [JsonPropertyName("content")]
     [JsonConverter(typeof(DockContentRootConverter))]
-    public List<DockContent> Contents { get; set; } = new();
+    public List<DockContent> Contents { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 布局配置 默认 null 未设置

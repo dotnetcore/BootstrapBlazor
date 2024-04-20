@@ -6,8 +6,17 @@
     <CascadingValue Value="Content" IsFixed="true">
         @ChildContent
     </CascadingValue>
-    @if (IsRendered)
-    {
-        @RenderDockContent(Config.Contents)
-    }
+    <RenderTemplate>
+        @foreach (var content in Config.Contents)
+        {
+            @RenderDockComponent(content.Items)
+        }
+    </RenderTemplate>
 </div>
+
+@code {
+    RenderFragment RenderComponent(DockComponent com) =>
+    @<div id="@com.Id" class="bb-dock-item d-none" data-bb-key="@com.Key" data-bb-title="@com.Title">
+        @com.ChildContent
+    </div>;
+}

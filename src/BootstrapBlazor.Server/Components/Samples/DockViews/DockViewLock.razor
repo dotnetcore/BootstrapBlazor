@@ -8,7 +8,7 @@
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
 <div class="dock-lock-demo">
-    <DockView Name="DockViewLock" EnableLocalStorage="true" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
+    <DockView Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
         <DockContent Type="DockContentType.Row">
             <DockComponent Title="标签一">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
