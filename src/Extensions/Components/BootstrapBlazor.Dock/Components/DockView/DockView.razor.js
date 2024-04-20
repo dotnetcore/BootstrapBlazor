@@ -439,6 +439,34 @@ const resetComponentId = (config, option) => {
             }
         }
     })
+
+    // set stack headers
+    // 本地配置
+    const localStacks = getAllItemsByType('stack', [config.root, ...config.root.content])
+    // 服务器端配置
+    const serverStacks = getAllItemsByType('stack', option.content)
+
+    localStacks.forEach(s => {
+        const stack = {
+            hasHeaders: true,
+            ...findStack(s, serverStacks),
+        };
+        s.header = {
+            ...s.header,
+            show: stack.hasHeaders
+        }
+    });
+}
+
+const findStack = (stack, stacks) => {
+    let find = null;
+    for (let com of stack.content) {
+        find = stacks.find(s => s.content.find(c => c.componentState.key === com.componentState.key));
+        if (find) {
+            break;
+        }
+    }
+    return find;
 }
 
 const removeContent = (content, item) => {
