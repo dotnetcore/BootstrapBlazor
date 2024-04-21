@@ -1288,6 +1288,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 设置列顺序回调方法，默认 null 读取数据库列顺序设置最终呈现列顺序，不设置时如果 <see cref="ClientTableName"/> 有值时取客户端存储的列顺序
+    /// </summary>
+    [Parameter]
+    public Func<List<string>>? OnSetColumnOrder { get; set; }
+
+    /// <summary>
     /// 获得/设置 设置列宽回调方法
     /// </summary>
     [Parameter]
@@ -1314,12 +1320,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
-            StateHasChanged();
-
             if (!string.IsNullOrEmpty(ClientTableName))
             {
                 await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = Columns.Select(i => i.GetFieldName()) });
             }
+            StateHasChanged();
         }
     }
 
