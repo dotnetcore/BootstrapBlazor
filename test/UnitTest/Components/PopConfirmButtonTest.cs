@@ -149,12 +149,18 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // IsAsync
+        var tcs = new TaskCompletionSource();
         popButton = cut.FindComponent<PopConfirmButton>();
         await cut.InvokeAsync(() =>
         {
             popButton.SetParametersAndRender(pb =>
             {
                 pb.Add(a => a.IsAsync, true);
+                pb.Add(a => a.OnConfirm, () =>
+                {
+                    tcs.TrySetResult();
+                    return Task.CompletedTask;
+                });
             });
         });
 
@@ -167,10 +173,11 @@ public class PopConfirmButtonTest : PopoverTestBase
 
         // async confirm
         buttons = cut.FindAll(".popover-confirm-buttons div");
-        await cut.InvokeAsync(() =>
-         {
-             buttons[1].Click();
-         });
+        _ = cut.InvokeAsync(() =>
+        {
+            buttons[1].Click();
+        });
+        await tcs.Task;
 
         popButton = cut.FindComponent<PopConfirmButton>();
         await cut.InvokeAsync(() =>
