@@ -132,7 +132,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string GetHeaderTooltipText(string? headerTooltip, string displayName) => headerTooltip ?? displayName;
 
-    private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
+    private static string? GetColSpan(int colSpan) => colSpan > 1 ? colSpan.ToString() : null;
 
     private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
@@ -1196,22 +1196,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colspan = GetVisibleColumns().Count(col => col.Visible);
+        var colSpan = GetVisibleColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
-            colspan++;
+            colSpan++;
         }
 
         if (ShowLineNo)
         {
-            colspan++;
+            colSpan++;
         }
 
         if (ShowExtendButtons)
         {
-            colspan++;
+            colSpan++;
         }
-        return colspan;
+        return colSpan;
     }
 
     private int GetEmptyColumnCount() => ShowDetails() ? GetColumnCount() + 1 : GetColumnCount();
@@ -1282,7 +1282,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 拖动列结束回调方法
+    /// 获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
