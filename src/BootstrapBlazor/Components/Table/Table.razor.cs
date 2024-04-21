@@ -602,7 +602,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格名称 默认 null 用于列宽持久化功能
+    /// 获得/设置 表格名称 默认 null 用于列宽与列顺序持久化功能
     /// </summary>
     [Parameter]
     public string? ClientTableName { get; set; }
@@ -871,7 +871,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         IEnumerable<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
         {
-            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, ClientTableName);
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", ClientTableName);
             if (!string.IsNullOrEmpty(jsonData))
             {
                 try

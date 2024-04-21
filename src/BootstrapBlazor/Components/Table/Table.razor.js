@@ -468,7 +468,7 @@ export function init(id, invoke, callbacks) {
     reset(id)
 }
 
-export function reloadColumnWidth(id, tableName) {
+export function reloadColumnWidth(tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);
 }
