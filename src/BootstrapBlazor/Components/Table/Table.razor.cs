@@ -1315,6 +1315,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
             StateHasChanged();
+
+            if (!string.IsNullOrEmpty(ClientTableName))
+            {
+                await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = Columns.Select(i => i.GetFieldName()) });
+            }
         }
     }
 
