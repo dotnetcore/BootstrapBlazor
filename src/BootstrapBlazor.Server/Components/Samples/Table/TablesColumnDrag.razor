@@ -11,7 +11,7 @@
            Introduction="@Localizer["AllowDragOrderIntro"]"
            Name="AllowDragColumn">
     <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
-    <Table TItem="Foo"
+    <Table TItem="Foo" ClientTableName="table-test"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowDragColumn="true"
            IsStriped="true" IsBordered="true" OnDragColumnEndAsync="OnDragColumnEndAsync"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
