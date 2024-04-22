@@ -602,10 +602,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格名称 默认 null 用于列宽与列顺序持久化功能
+    /// 获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能
     /// </summary>
     [Parameter]
     public string? ClientTableName { get; set; }
+
+    /// <summary>
+    /// 获得/设置 服务器端表格名称 默认 null 用于服务器端列宽与列顺序持久化功能
+    /// </summary>
+    [Parameter]
+    public string? ServerTableName { get; set; }
 
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
@@ -866,7 +872,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
+    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidthAsync()
     {
         IEnumerable<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
@@ -890,6 +896,25 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
         }
         return ret ?? [];
+    }
+
+    private async Task<List<string>> ReloadColumnOrderAsync()
+    {
+        List<string>? cols = null;
+        if (AllowDragColumn)
+        {
+            // from client
+            if (!string.IsNullOrEmpty(ClientTableName))
+            {
+                cols = await InvokeAsync<List<string>>("reloadColumnOrder", ClientTableName);
+            }
+
+            if (!string.IsNullOrEmpty(ServerTableName) && OnSetColumnOrderAsync != null)
+            {
+                cols = await OnSetColumnOrderAsync(ServerTableName);
+            }
+        }
+        return cols ?? [];
     }
 
     private async Task ProcessFirstRender()
@@ -925,7 +950,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
-        var columnWidths = await ReloadColumnWidth();
+        var columnWidths = await ReloadColumnWidthAsync();
 
         foreach (var cw in columnWidths.Where(c => c.Width > 0))
         {
@@ -1291,7 +1316,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 设置列顺序回调方法，默认 null 读取数据库列顺序设置最终呈现列顺序，不设置时如果 <see cref="ClientTableName"/> 有值时取客户端存储的列顺序
     /// </summary>
     [Parameter]
-    public Func<List<string>>? OnSetColumnOrder { get; set; }
+    public Func<string, Task<List<string>>>? OnSetColumnOrderAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 设置列宽回调方法
