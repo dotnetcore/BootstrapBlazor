@@ -53,7 +53,7 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
         }
 
         // 补充 IP 地址信息
-        if (string.IsNullOrEmpty(_client.City))
+        if (options.Value.IpLocatorOptions.Enable && string.IsNullOrEmpty(_client.City))
         {
             _provider ??= ipLocatorFactory.Create(options.Value.IpLocatorOptions.ProviderName);
             _client.City = await _provider.Locate(_client.Ip);
