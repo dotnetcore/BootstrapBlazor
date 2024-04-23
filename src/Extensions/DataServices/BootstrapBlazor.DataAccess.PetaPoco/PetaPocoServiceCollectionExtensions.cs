@@ -9,7 +9,7 @@ using PetaPoco;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BootstrapBlazor 服务扩展类
+/// BootstrapBlazor PetaPoco 服务扩展类
 /// </summary>
 public static class PetaPocoServiceCollectionExtensions
 {

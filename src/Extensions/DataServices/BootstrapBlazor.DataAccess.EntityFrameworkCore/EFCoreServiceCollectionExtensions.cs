@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BootstrapBlazor 服务扩展类
+/// BootstrapBlazor EFCore 服务扩展类
 /// </summary>
 public static class EFCoreServiceCollectionExtensions
 {

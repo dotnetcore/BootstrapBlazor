@@ -9,7 +9,7 @@ using FreeSql;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BootstrapBlazor 服务扩展类
+/// BootstrapBlazor FreeSql 服务扩展类
 /// </summary>
 public static class FreeSqlServiceCollectionExtensions
 {
@@ -22,7 +22,7 @@ public static class FreeSqlServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
     {
-        services.AddSingleton<IFreeSql>(sp =>
+        services.AddSingleton(sp =>
         {
             var builder = new FreeSqlBuilder();
             optionsAction(builder);

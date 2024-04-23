@@ -9,9 +9,6 @@ namespace BootstrapBlazor.DataAccess.FreeSql;
 /// <summary>
 /// FreeSql ORM 的 IDataService 接口实现
 /// </summary>
-/// <remarks>
-/// 构造函数
-/// </remarks>
 class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TModel : class, new()
 {
     /// <summary>
@@ -64,9 +61,9 @@ class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TM
             TotalCount = (int)count,
             Items = items.ToList<TModel>(),
             IsSorted = option.SortOrder != SortOrder.Unset,
-            IsFiltered = option.Filters.Any(),
-            IsAdvanceSearch = option.AdvanceSearches.Any(),
-            IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
+            IsFiltered = option.Filters.Count > 0,
+            IsAdvanceSearch = option.AdvanceSearches.Count > 0,
+            IsSearch = option.Searches.Count > 0 || option.CustomerSearches.Count > 0
         };
         return Task.FromResult(ret);
     }
