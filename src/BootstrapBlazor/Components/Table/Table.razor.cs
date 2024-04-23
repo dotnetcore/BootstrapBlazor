@@ -936,11 +936,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             Columns.AddRange(cols);
         }
 
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(Columns);
-        }
-
         InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
@@ -961,6 +956,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             SortName = col.GetFieldName();
             SortOrder = col.DefaultSortOrder;
+        }
+
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(Columns);
         }
 
         // 获取是否自动查询参数值
