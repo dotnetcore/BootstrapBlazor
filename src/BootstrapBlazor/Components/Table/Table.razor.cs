@@ -578,6 +578,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
     /// </summary>
+    /// <remarks>如果设置 <see cref="AllowDragColumn"/> 并且设置 <see cref="ClientTableName"/> 开启客户端持久化后本回调不生效</remarks>
     [Parameter]
     public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
 
@@ -866,7 +867,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidthAsync()
+    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
     {
         IEnumerable<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
@@ -892,7 +893,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret ?? [];
     }
 
-    private async Task<List<string>> ReloadColumnOrderAsync()
+    private async Task<List<ITableColumn>?> ReloadColumnOrdersFromBrowserAsync()
     {
         List<string>? cols = null;
         if (AllowDragColumn)
@@ -939,8 +940,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
-        var columnWidths = await ReloadColumnWidthAsync();
-
+        var columnWidths = await ReloadColumnWidthFromBrowserAsync();
         foreach (var cw in columnWidths.Where(c => c.Width > 0))
         {
             var c = Columns.Find(c => c.GetFieldName() == cw.Name);
