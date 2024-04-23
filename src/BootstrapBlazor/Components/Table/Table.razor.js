@@ -488,16 +488,12 @@ const saveColumnWidth = table => {
 
 export function reloadColumnOrder(tableName) {
     const key = `bb-table-column-order-${tableName}`
-    return localStorage.getItem(key);
+    return JSON.parse(localStorage.getItem(key)) || [];
 }
 
 export function saveColumnOrder(options) {
     const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify({
-        "order": options.columns
-    }));
-
-    console.log(options.columns);
+    localStorage.setItem(key, JSON.stringify(options.columns));
 }
 
 export function reset(id) {
