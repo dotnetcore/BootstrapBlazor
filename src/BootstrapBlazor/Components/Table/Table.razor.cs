@@ -607,12 +607,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public string? ClientTableName { get; set; }
 
-    /// <summary>
-    /// 获得/设置 服务器端表格名称 默认 null 用于服务器端列宽与列顺序持久化功能
-    /// </summary>
-    [Parameter]
-    public string? ServerTableName { get; set; }
-
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
