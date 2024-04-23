@@ -4,12 +4,13 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.DataAccess.FreeSql;
+namespace BootstrapBlazor.DataAccess.SqlSugar;
+
 
 /// <summary>
-/// FreeSql ORM 的 IDataService 接口实现
+/// SqlSugar ORM 的 IDataService 接口实现
 /// </summary>
-class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TModel : class, new()
+class DefaultDataService<TModel>(ISqlSugarClient db) : DataServiceBase<TModel> where TModel : class, new()
 {
     /// <summary>
     /// 删除方法
@@ -20,7 +21,7 @@ class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TM
     {
         // 通过模型获取主键列数据
         // 支持批量删除
-        await db.Delete<TModel>(models).ExecuteAffrowsAsync();
+        await db.Deleteable<TModel>(models).ExecuteCommandAsync();
         return true;
     }
 
@@ -32,7 +33,7 @@ class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TM
     /// <returns></returns>
     public override async Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
     {
-        await db.GetRepository<TModel>().InsertOrUpdateAsync(model);
+        await db.Storageable(model).ExecuteCommandAsync();
         return true;
     }
 
@@ -43,23 +44,19 @@ class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TM
     /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
     {
-        var items = db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
-            .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
-            .Count(out var count);
+        int count = 0;
 
-        if (option.IsPage)
-        {
-            items = items.Page(option.PageIndex, option.PageItems);
-        }
-        else if (option.IsVirtualScroll)
-        {
-            items = items.Skip(option.StartIndex).Take(option.PageItems);
-        }
+        var filter = option.ToFilter();
+
+        var items = db.Queryable<TModel>()
+            .WhereIF(filter.HasFilters(), filter.GetFilterLambda<TModel>())
+            .OrderByIF(option.SortOrder != SortOrder.Unset, $"{option.SortName} {option.SortOrder}")
+            .ToPageList(option.PageIndex, option.PageItems, ref count);
 
         var ret = new QueryData<TModel>()
         {
-            TotalCount = (int)count,
-            Items = items.ToList<TModel>(),
+            TotalCount = count,
+            Items = items,
             IsSorted = option.SortOrder != SortOrder.Unset,
             IsFiltered = option.Filters.Count > 0,
             IsAdvanceSearch = option.AdvanceSearches.Count > 0,
