@@ -4949,7 +4949,7 @@
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "AllowDragOrderTitle": "Allow dragging column headings to adjust table column order",
     "AllowDragOrderIntro": "By specifying <code>AllowDragColumn</code>, set the table columns to allow dragging column headings to adjust the table column order",
-    "AllowDragOrderDesc": "Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the Table component, such as DetailRow, LineNo, MultipleSelect, and Operation columns, cannot be adjusted"
+    "AllowDragOrderDesc": "<p>Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the Table component, such as <code>DetailRow</code>, <code>LineNo</code>, <code>MultipleSelect</code>, and <code>Operation</code> columns, cannot be adjusted</p><p>This example enables localized storage by setting the <code>ClientTableName</code> parameter. After dragging and adjusting the order, the page can be refreshed, and the column order remains in the previous state</p><p>By setting the <code>ColumnOrderCallback</code> callback method, server-side column order persistence can be achieved</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnResizing": {
     "TablesColumnTitle": "Table Column",

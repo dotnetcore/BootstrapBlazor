@@ -4949,7 +4949,7 @@
     "TablesColumnDescription": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
     "AllowDragOrderTitle": "允许拖动列标题调整表格列顺序",
     "AllowDragOrderIntro": "通过指定 <code>AllowDragColumn</code> 设置表格列允许拖动列标题调整表格列顺序",
-    "AllowDragOrderDesc": "在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整"
+    "AllowDragOrderDesc": "<p>在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整</p><p>本示例通过设置 <code>ClientTableName</code> 参数开启了本地化存储，拖动调整顺序后，可刷新页面，列顺序是保持上次状态的</p><p>通过设置 <code>ColumnOrderCallback</code> 回调方法可以实现服务器端列顺序持久化</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnResizing": {
     "TablesColumnTitle": "Table 表格",
