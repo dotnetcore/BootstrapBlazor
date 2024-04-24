@@ -4443,13 +4443,15 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.AutoGenerateColumns, true);
                 pb.Add(a => a.ColumnOrderCallback, cols =>
                 {
-                    return cols.OrderByDescending(i => i.Order);
+                    cols.ElementAt(0).Order = 100;
+                    cols.ElementAt(1).Order = -3;
+                    return cols;
                 });
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
         var seqs = table.Instance.Columns.Select(i => i.Order);
-        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, seqs);
+        Assert.Equal(new List<int>() { 20, 40, 50, 60, 70, 100, -3 }, seqs);
     }
 
     [Fact]
@@ -5439,7 +5441,7 @@ public class TableTest : TableTestBase
     [InlineData(false)]
     public void ReloadColumnWidth_Ok(bool fixedHeader)
     {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
             {
                 "cols": [
                     { "name": "Name", "width": 20 },
@@ -5457,7 +5459,6 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.IsFixedHeader, fixedHeader);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.Id, "test_table_id");
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -5481,7 +5482,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ReloadColumnWidth_TableWidth_Invalid()
     {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
             {
                 "cols": [
                     { "name": "Name", "width": 20 },
@@ -5498,7 +5499,6 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.Id, "test_table_id");
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -5522,7 +5522,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ReloadColumnWidth_NoTableElement()
     {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
             {
                 "cols": [
                     { "name": "Name", "width": 20 },
@@ -5538,7 +5538,6 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.Id, "test_table_id");
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -5562,7 +5561,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ReloadColumnWidth_Columns_Invalid()
     {
-        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
             {
                 "cols": {
                     "name": "Name",
@@ -5578,7 +5577,6 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ClientTableName, "test_client_name");
-                pb.Add(a => a.Id, "test_table_id");
                 pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.TableColumns, foo => builder =>
