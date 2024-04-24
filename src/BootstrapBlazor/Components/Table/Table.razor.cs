@@ -920,23 +920,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         var cols = new List<ITableColumn>();
         if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
         {
-            AutoGenerateColumns = false;
-
-            var columns = DynamicContext.GetColumns();
-            if (ColumnOrderCallback != null)
-            {
-                cols.AddRange(ColumnOrderCallback(columns));
-            }
+            cols.AddRange(DynamicContext.GetColumns());
         }
         else if (AutoGenerateColumns)
         {
-            cols.AddRange(Utility.GetTableColumns<TItem>(Columns, ColumnOrderCallback));
+            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
         }
         else
         {
             cols.AddRange(Columns);
         }
 
+        if (ColumnOrderCallback != null)
+        {
+            cols = ColumnOrderCallback(cols).ToList();
+        }
         await ReloadColumnOrdersFromBrowserAsync(cols);
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
