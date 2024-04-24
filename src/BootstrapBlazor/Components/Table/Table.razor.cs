@@ -893,23 +893,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret ?? [];
     }
 
-    private async Task<List<ITableColumn>?> ReloadColumnOrdersFromBrowserAsync()
+    private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
     {
-        List<string>? cols = null;
-        if (AllowDragColumn)
+        var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
+        if (orders != null && orders.Count > 0)
         {
-            // from client
-            if (!string.IsNullOrEmpty(ClientTableName))
+            for (int i = 0; i < orders.Count; i++)
             {
-                cols = await InvokeAsync<List<string>>("reloadColumnOrder", ClientTableName);
-            }
-
-            if (!string.IsNullOrEmpty(ServerTableName) && OnSetColumnOrderAsync != null)
-            {
-                cols = await OnSetColumnOrderAsync(ServerTableName);
+                var col = columns.Find(c => c.GetFieldName() == orders[i]);
+                if (col != null)
+                {
+                    col.Order = i + 1;
+                }
             }
         }
-        return cols ?? [];
     }
 
     private async Task ProcessFirstRender()
@@ -920,22 +917,29 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         FirstRender = false;
 
         // 动态列模式
+        var cols = new List<ITableColumn>();
         if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
         {
             AutoGenerateColumns = false;
 
-            var cols = DynamicContext.GetColumns();
-            Columns.Clear();
-            Columns.AddRange(cols);
+            var columns = DynamicContext.GetColumns();
+            if (ColumnOrderCallback != null)
+            {
+                cols.AddRange(ColumnOrderCallback(columns));
+            }
+        }
+        else if (AutoGenerateColumns)
+        {
+            cols.AddRange(Utility.GetTableColumns<TItem>(Columns, ColumnOrderCallback));
+        }
+        else
+        {
+            cols.AddRange(Columns);
         }
 
-        // 初始化列
-        if (AutoGenerateColumns)
-        {
-            var cols = Utility.GetTableColumns<TItem>(Columns, ColumnOrderCallback);
-            Columns.Clear();
-            Columns.AddRange(cols);
-        }
+        await ReloadColumnOrdersFromBrowserAsync(cols);
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
 
         InternalResetVisibleColumns();
 
@@ -966,14 +970,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 获取是否自动查询参数值
         _autoQuery = IsAutoQueryFirstRender;
 
-        // 设置 QueryOption IsFirstQuery 参数值
         _firstQuery = true;
         await QueryAsync();
         _firstQuery = false;
 
         // 恢复自动查询功能
         _autoQuery = true;
-
         IsLoading = false;
     }
 
