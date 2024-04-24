@@ -19,6 +19,17 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ColumnOrderTitle"]" Introduction="@Localizer["ColumnOrderIntro"]" Name="Order">
+    <Table TItem="Foo" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["CustomColText1"]" Width="180" Order="3" />
+            <TableColumn @bind-Field="@context.Name" Text="@Localizer["CustomColText2"]" Order="1" />
+            <TableColumn @bind-Field="@context.Address" Text="@Localizer["CustomColText3"]" Order="2" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ColumnIgnoreTitle"]" Introduction="@Localizer["ColumnIgnoreIntro"]" Name="Ignore">
     <section ignore>
         <Button OnClick="OnClickIgnoreColumn" Text="@Localizer["ColumnIgnoreButtonText"]"></Button>

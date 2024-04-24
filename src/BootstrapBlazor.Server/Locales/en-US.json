@@ -4940,7 +4940,9 @@
     "CustomColText3": "Custom column name 3",
     "ColumnIgnoreTitle": "Column Ignored",
     "ColumnIgnoreIntro": "By setting the <code>Editable</code> parameter to control whether the column is rendered, this parameter is different from <code>Visible</code>. Setting<code>Visible=\"false\"</code> to not display the column can be checked and displayed in the list through <code>ShowColumnList=\"true\"</code>",
-    "ColumnIgnoreButtonText": "Ignoring/Not Ignoring"
+    "ColumnIgnoreButtonText": "Ignoring/Not Ignoring",
+    "ColumnOrderTitle": "Column Order",
+    "ColumnOrderIntro": "Set the order by setting the <code>Order</code> parameter of <code>TableColumn</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "TablesColumnTitle": "Table Column",
