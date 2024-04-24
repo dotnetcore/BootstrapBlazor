@@ -23,7 +23,7 @@
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
         <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" IsClearable ShowSearch="ShowSearch"></Select>
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="ShowSearch"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
