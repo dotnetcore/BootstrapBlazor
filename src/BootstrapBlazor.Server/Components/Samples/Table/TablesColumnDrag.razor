@@ -7,11 +7,9 @@
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
-<DemoBlock Title="@Localizer["AllowDragOrderTitle"]"
-           Introduction="@Localizer["AllowDragOrderIntro"]"
-           Name="AllowDragColumn">
-    <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
-    <Table TItem="Foo"
+<DemoBlock Title="@Localizer["AllowDragOrderTitle"]" Introduction="@Localizer["AllowDragOrderIntro"]" Name="AllowDragColumn">
+    <section ignore>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</section>
+    <Table TItem="Foo" ClientTableName="table-test"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowDragColumn="true"
            IsStriped="true" IsBordered="true" OnDragColumnEndAsync="OnDragColumnEndAsync"
            ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
@@ -23,6 +21,5 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
-
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>

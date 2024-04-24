@@ -132,7 +132,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string GetHeaderTooltipText(string? headerTooltip, string displayName) => headerTooltip ?? displayName;
 
-    private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
+    private static string? GetColSpan(int colSpan) => colSpan > 1 ? colSpan.ToString() : null;
 
     private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
@@ -578,6 +578,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
     /// </summary>
+    /// <remarks>如果设置 <see cref="AllowDragColumn"/> 并且设置 <see cref="ClientTableName"/> 开启客户端持久化后本回调不生效</remarks>
     [Parameter]
     public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
 
@@ -602,7 +603,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格名称 默认 null 用于列宽持久化功能
+    /// 获得/设置 客户端表格名称 默认 null 用于客户端列宽与列顺序持久化功能
     /// </summary>
     [Parameter]
     public string? ClientTableName { get; set; }
@@ -866,12 +867,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
+    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
     {
         IEnumerable<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
         {
-            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, ClientTableName);
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", ClientTableName);
             if (!string.IsNullOrEmpty(jsonData))
             {
                 try
@@ -892,6 +893,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret ?? [];
     }
 
+    private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
+    {
+        var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
+        if (orders != null && orders.Count > 0)
+        {
+            for (int i = 0; i < orders.Count; i++)
+            {
+                var col = columns.Find(c => c.GetFieldName() == orders[i]);
+                if (col != null)
+                {
+                    col.Order = i + 1;
+                }
+            }
+        }
+    }
+
     private async Task ProcessFirstRender()
     {
         IsLoading = true;
@@ -900,33 +917,32 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         FirstRender = false;
 
         // 动态列模式
+        var cols = new List<ITableColumn>();
         if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
         {
-            AutoGenerateColumns = false;
-
-            var cols = DynamicContext.GetColumns();
-            Columns.Clear();
-            Columns.AddRange(cols);
+            cols.AddRange(DynamicContext.GetColumns());
         }
-
-        // 初始化列
-        if (AutoGenerateColumns)
+        else if (AutoGenerateColumns)
         {
-            var cols = Utility.GetTableColumns<TItem>(Columns, ColumnOrderCallback);
-            Columns.Clear();
-            Columns.AddRange(cols);
+            cols.AddRange(Utility.GetTableColumns<TItem>(Columns));
+        }
+        else
+        {
+            cols.AddRange(Columns);
         }
 
-        if (OnColumnCreating != null)
+        if (ColumnOrderCallback != null)
         {
-            await OnColumnCreating(Columns);
+            cols = ColumnOrderCallback(cols).ToList();
         }
+        await ReloadColumnOrdersFromBrowserAsync(cols);
+        Columns.Clear();
+        Columns.AddRange(cols.OrderFunc());
 
         InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
-        var columnWidths = await ReloadColumnWidth();
-
+        var columnWidths = await ReloadColumnWidthFromBrowserAsync();
         foreach (var cw in columnWidths.Where(c => c.Width > 0))
         {
             var c = Columns.Find(c => c.GetFieldName() == cw.Name);
@@ -944,17 +960,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             SortOrder = col.DefaultSortOrder;
         }
 
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(Columns);
+        }
+
         // 获取是否自动查询参数值
         _autoQuery = IsAutoQueryFirstRender;
 
-        // 设置 QueryOption IsFirstQuery 参数值
         _firstQuery = true;
         await QueryAsync();
         _firstQuery = false;
 
         // 恢复自动查询功能
         _autoQuery = true;
-
         IsLoading = false;
     }
 
@@ -1196,22 +1215,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colspan = GetVisibleColumns().Count(col => col.Visible);
+        var colSpan = GetVisibleColumns().Count(col => col.Visible);
         if (IsMultipleSelect)
         {
-            colspan++;
+            colSpan++;
         }
 
         if (ShowLineNo)
         {
-            colspan++;
+            colSpan++;
         }
 
         if (ShowExtendButtons)
         {
-            colspan++;
+            colSpan++;
         }
-        return colspan;
+        return colSpan;
     }
 
     private int GetEmptyColumnCount() => ShowDetails() ? GetColumnCount() + 1 : GetColumnCount();
@@ -1282,7 +1301,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 拖动列结束回调方法
+    /// 获得/设置 拖动列结束回调方法，默认 null 可存储数据库用于服务器端保持列顺序
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
@@ -1313,6 +1332,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             if (OnDragColumnEndAsync != null)
             {
                 await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
+            }
+            if (!string.IsNullOrEmpty(ClientTableName))
+            {
+                await InvokeVoidAsync("saveColumnOrder", new { TableName = ClientTableName, Columns = Columns.Select(i => i.GetFieldName()) });
             }
             StateHasChanged();
         }
