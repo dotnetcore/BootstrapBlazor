@@ -440,6 +440,10 @@ public partial class Select<TValue> : ISelect
 
     private void OnClearValue()
     {
+        if (ShowSearch)
+        {
+            ClearSearchText();
+        }
         CurrentValue = default;
     }
 
