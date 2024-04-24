@@ -3,34 +3,32 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.DataAccess.FreeSql;
-using FreeSql;
+using BootstrapBlazor.DataAccess.SqlSugar;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BootstrapBlazor FreeSql 服务扩展类
+/// BootstrapBlazor SqlSugar 服务扩展类
 /// </summary>
-public static class FreeSqlServiceCollectionExtensions
+public static class SqlSugarServiceCollectionExtensions
 {
     /// <summary>
-    /// 增加 FreeSql 数据库操作服务
+    /// 增加 SqlSugar 数据库操作服务
     /// </summary>
     /// <param name="services"></param>
     /// <param name="optionsAction"></param>
     /// <param name="configureAction"></param>
     /// <returns></returns>
-    public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
+    public static IServiceCollection AddSqlSugar(this IServiceCollection services,
+        Action<ConnectionConfig> optionsAction,
+        Action<SqlSugarClient>? configureAction = null)
     {
-        services.AddSingleton(sp =>
+        services.AddSingleton<ISqlSugarClient>(sp =>
         {
-            var builder = new FreeSqlBuilder();
-            optionsAction(builder);
-            var instance = builder.Build();
-            configureAction?.Invoke(instance);
-            return instance;
+            var config = new ConnectionConfig();
+            optionsAction(config);
+            return new SqlSugarScope(config, configureAction);
         });
-
         services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
         return services;
     }

@@ -4,12 +4,13 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.DataAccess.PetaPoco;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using PetaPoco;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// BootstrapBlazor 服务扩展类
+/// BootstrapBlazor PetaPoco 服务扩展类
 /// </summary>
 public static class PetaPocoServiceCollectionExtensions
 {
@@ -21,13 +22,13 @@ public static class PetaPocoServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddPetaPoco(this IServiceCollection services, Action<IDatabaseBuildConfiguration> optionsAction)
     {
-        services.AddTransient<IDatabase>(sp =>
+        services.TryAddTransient<IDatabase>(sp =>
         {
             var builder = DatabaseConfiguration.Build();
             optionsAction(builder);
             return new Database(builder);
         });
-        services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
+        services.TryAddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
         return services;
     }
 }

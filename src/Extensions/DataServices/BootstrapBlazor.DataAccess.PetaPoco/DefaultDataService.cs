@@ -51,9 +51,9 @@ internal class DefaultDataService<TModel>(IDatabase db) : DataServiceBase<TModel
         var ret = new QueryData<TModel>()
         {
             IsSorted = option.SortOrder != SortOrder.Unset,
-            IsFiltered = option.Filters.Any(),
-            IsAdvanceSearch = option.AdvanceSearches.Any(),
-            IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
+            IsFiltered = option.Filters.Count > 0,
+            IsAdvanceSearch = option.AdvanceSearches.Count > 0,
+            IsSearch = option.Searches.Count > 0 || option.CustomerSearches.Count > 0
         };
 
         if (option.IsPage)

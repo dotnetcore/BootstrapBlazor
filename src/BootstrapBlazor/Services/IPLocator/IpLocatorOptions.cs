@@ -10,7 +10,12 @@ namespace BootstrapBlazor.Components;
 public class IpLocatorOptions
 {
     /// <summary>
-    /// 获得/设置 是否开启缓存降低请求频率
+    /// 获得/设置 是否开启 默认 false 未开启
+    /// </summary>
+    public bool Enable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启缓存降低请求频率 默认 true 缓存
     /// </summary>
     public bool EnableCache { get; set; } = true;
 

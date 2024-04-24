@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>8.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components SqlSugar</PackageTags>
+    <Description>Bootstrap UI components extensions of SqlSugar</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.152" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="SqlSugar"/>
+  </ItemGroup>
+</Project>
