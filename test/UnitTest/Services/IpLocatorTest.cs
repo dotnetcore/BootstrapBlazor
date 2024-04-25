@@ -17,6 +17,7 @@ public class IpLocatorTest : BootstrapBlazorTestBase
     {
         var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
         var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        option.Value.IpLocatorOptions.Enable = true;
         var logger = Context.Services.GetRequiredService<ILogger<MockProvider>>();
         var provider = new MockProvider(factory, option, logger);
 
@@ -40,6 +41,12 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         option.Value.IpLocatorOptions.ProviderName = nameof(BaiduIpLocatorProviderV2);
         await provider.Locate("223.91.188.112");
         Assert.Equal("美国", result);
+
+        // 关闭 Enable
+        option.Value.IpLocatorOptions.Enable = false;
+        provider = new MockProvider(factory, option, logger);
+        result = await provider.Locate("223.91.188.112");
+        Assert.Null(result);
     }
 
     [Fact]
