@@ -7596,9 +7596,10 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void AllowDragColumn_Ok()
+    public async Task AllowDragColumn_Ok()
     {
         Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);
+        Context.JSInterop.SetupVoid("saveColumnOrder").SetVoidResult();
 
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -7631,13 +7632,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(async () =>
+        await cut.InvokeAsync(async () =>
         {
             await table.Instance.DragColumnCallback(1, 0);
             Assert.Equal("Address", name);
         });
 
-        cut.InvokeAsync(async () =>
+        await cut.InvokeAsync(async () =>
         {
             var columns = cut.FindAll("th");
             Assert.Contains("地址", columns[0].InnerHtml);
