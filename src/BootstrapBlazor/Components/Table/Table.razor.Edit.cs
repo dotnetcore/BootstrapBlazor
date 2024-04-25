@@ -442,7 +442,6 @@ public partial class Table<TItem>
 
         async Task OnQuery(QueryPageOptions queryOption)
         {
-
             var queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
             PageItems = queryOption.PageItems;

@@ -356,10 +356,11 @@ public static class Utility
         {
             cols.AddRange(columns);
         }
-        return defaultOrderCallback?.Invoke(cols) ?? cols.OrderFunc();
+        return defaultOrderCallback?.Invoke(cols) ?? cols;
     }
 
-    private static IEnumerable<ITableColumn> OrderFunc(this List<ITableColumn> cols) => cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
+    internal static IEnumerable<ITableColumn> OrderFunc(this IEnumerable<ITableColumn> cols) => cols
+        .Where(a => a.Order > 0).OrderBy(a => a.Order)
         .Concat(cols.Where(a => a.Order == 0))
         .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
 

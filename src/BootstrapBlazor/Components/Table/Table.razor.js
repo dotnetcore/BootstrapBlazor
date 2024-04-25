@@ -468,7 +468,7 @@ export function init(id, invoke, callbacks) {
     reset(id)
 }
 
-export function reloadColumnWidth(id, tableName) {
+export function reloadColumnWidth(tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);
 }
@@ -484,6 +484,16 @@ const saveColumnWidth = table => {
         }),
         "table": tableWidth
     }));
+}
+
+export function reloadColumnOrder(tableName) {
+    const key = `bb-table-column-order-${tableName}`
+    return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+export function saveColumnOrder(options) {
+    const key = `bb-table-column-order-${options.tableName}`
+    localStorage.setItem(key, JSON.stringify(options.columns));
 }
 
 export function reset(id) {
