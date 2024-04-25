@@ -7598,6 +7598,8 @@ public class TableTest : TableTestBase
     [Fact]
     public void AllowDragColumn_Ok()
     {
+        Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);
+
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7606,6 +7608,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.OnDragColumnEndAsync, (fieldName, columns) =>
                 {
