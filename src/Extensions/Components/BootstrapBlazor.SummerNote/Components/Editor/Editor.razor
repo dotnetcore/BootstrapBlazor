@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits IdComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js", JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="editor" data-bb-submit="@ShowSubmitString">
     <div class="@EditClassString" placeholder="@PlaceHolder"></div>
