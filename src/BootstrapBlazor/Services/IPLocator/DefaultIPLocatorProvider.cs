@@ -47,7 +47,11 @@ public abstract class DefaultIpLocatorProvider : IIpLocatorProvider
     /// <returns></returns>
     public async Task<string?> Locate(string? ip)
     {
-        string? ret;
+        string? ret = null;
+        if (Options.Enable == false)
+        {
+            return ret;
+        }
 
         // 解析本机地址
         if (string.IsNullOrEmpty(ip) || _localhostList.Any(p => p == ip))
