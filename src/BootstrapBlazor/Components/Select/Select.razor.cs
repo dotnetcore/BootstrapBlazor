@@ -172,10 +172,10 @@ public partial class Select<TValue> : ISelect
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 清除文本内容 OnClear 回调方法 默认
+    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
     /// </summary>
     [Parameter]
-    public EventCallback OnClear { get; set; }
+    public Func<Task>? OnClearAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false
@@ -450,11 +450,11 @@ public partial class Select<TValue> : ISelect
         {
             ClearSearchText();
         }
-        CurrentValue = default;
-        if (OnClear.HasDelegate)
+        if (OnClearAsync != null)
         {
-            await OnClear.InvokeAsync();
+            await OnClearAsync();
         }
+        CurrentValue = default;
     }
 
     private async Task OnChange(ChangeEventArgs args)
