@@ -5442,14 +5442,14 @@ public class TableTest : TableTestBase
     public void ReloadColumnWidth_Ok(bool fixedHeader)
     {
         Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-            {
-                "cols": [
-                    { "name": "Name", "width": 20 },
-                    { "name": "Address", "width": 80 }
-                ],
-                "table": 100
-            }
-            """);
+        {
+            "cols": [
+                { "name": "Name", "width": 20 },
+                { "name": "Address", "width": 80 }
+            ],
+            "table": 100
+        }
+        """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7596,8 +7596,11 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void AllowDragColumn_Ok()
+    public async Task AllowDragColumn_Ok()
     {
+        Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);
+        Context.JSInterop.SetupVoid("saveColumnOrder").SetVoidResult();
+
         var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7606,6 +7609,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.ClientTableName, "table-unit-test");
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.OnDragColumnEndAsync, (fieldName, columns) =>
                 {
@@ -7628,13 +7632,13 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(async () =>
+        await cut.InvokeAsync(async () =>
         {
             await table.Instance.DragColumnCallback(1, 0);
             Assert.Equal("Address", name);
         });
 
-        cut.InvokeAsync(async () =>
+        await cut.InvokeAsync(async () =>
         {
             var columns = cut.FindAll("th");
             Assert.Contains("地址", columns[0].InnerHtml);

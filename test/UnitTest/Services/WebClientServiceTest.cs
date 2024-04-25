@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Services;
 
@@ -71,6 +72,17 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
         });
         var client = await service.GetClientInfo();
         Assert.Equal("192.168.0.1", client.Ip);
+    }
+
+    [Fact]
+    public async Task Enable_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebClientService>();
+        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        option.Value.IpLocatorOptions.Enable = false;
+        var client = await service.GetClientInfo();
+        Assert.Null(client.City);
+        option.Value.IpLocatorOptions.Enable = true;
     }
 
     [Fact]
