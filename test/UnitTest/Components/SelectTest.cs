@@ -836,4 +836,35 @@ public class SelectTest : BootstrapBlazorTestBase
         Assert.Equal("Test3", cut.Instance.Value);
         Assert.True(updated);
     }
+
+    [Fact]
+    public async Task OnClearAsync_Ok()
+    {
+        var clear = false;
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "<div>Test1</div>"),
+                new("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.ShowSearch, true);
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnClearAsync, () =>
+            {
+                clear = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var span = cut.Find(".clear-icon");
+        Assert.NotNull(span);
+
+        await cut.InvokeAsync(() =>
+        {
+            span.Click();
+        });
+        Assert.True(clear);
+    }
 }
