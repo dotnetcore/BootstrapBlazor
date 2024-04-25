@@ -5442,14 +5442,14 @@ public class TableTest : TableTestBase
     public void ReloadColumnWidth_Ok(bool fixedHeader)
     {
         Context.JSInterop.Setup<string>("reloadColumnWidth", "test_client_name").SetResult("""
-            {
-                "cols": [
-                    { "name": "Name", "width": 20 },
-                    { "name": "Address", "width": 80 }
-                ],
-                "table": 100
-            }
-            """);
+        {
+            "cols": [
+                { "name": "Name", "width": 20 },
+                { "name": "Address", "width": 80 }
+            ],
+            "table": 100
+        }
+        """);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
