@@ -131,7 +131,7 @@ public partial class TablesExport
     private async Task ExcelExportAllAsync(ITableExportContext<Foo> context)
     {
         // 自定义导出模板导出当前页面数据为 Excel 方法
-        // 使用 BootstrapBlazor 内置服务 ITableExcelExport 实例方法 ExportAsync 进行导出操作
+        // 使用 BootstrapBlazor 内置服务 ITableExport 实例方法 ExportExcelAsync 进行导出操作
         // 通过 context 参数的查询条件
         var option = context.BuildQueryPageOptions();
 
