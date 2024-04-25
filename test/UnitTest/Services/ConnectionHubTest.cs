@@ -21,6 +21,7 @@ public class ConnectionHubTest
         options.Value.ConnectionHubOptions = new()
         {
             Enable = true,
+            EnableIpLocator = true,
             TimeoutInterval = TimeSpan.FromMilliseconds(1000),
             BeatInterval = TimeSpan.FromMilliseconds(200)
         };
@@ -59,6 +60,17 @@ public class ConnectionHubTest
 
         // 触发内部 ClientInfo 为空情况 覆盖 _clientInfo ??= new();
         options.Value.ConnectionHubOptions.Enable = false;
+        client = context.Services.GetRequiredService<WebClientService>();
+        cut = context.RenderComponent<ConnectionHub>();
+        await cut.InvokeAsync(async () =>
+        {
+            client.SetData(new ClientInfo() { Id = "test_id", Ip = "::1" });
+            await cut.Instance.Callback(new ClientInfo { Id = "test_id", Ip = "::1" });
+        });
+
+        // 设置 EnableIpLocator 为 false
+        options.Value.ConnectionHubOptions.Enable = true;
+        options.Value.ConnectionHubOptions.EnableIpLocator = false;
         client = context.Services.GetRequiredService<WebClientService>();
         cut = context.RenderComponent<ConnectionHub>();
         await cut.InvokeAsync(async () =>
