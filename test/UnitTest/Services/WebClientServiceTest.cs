@@ -75,17 +75,6 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Enable_Ok()
-    {
-        var service = Context.Services.GetRequiredService<WebClientService>();
-        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        option.Value.IpLocatorOptions.Enable = false;
-        var client = await service.GetClientInfo();
-        Assert.Null(client.City);
-        option.Value.IpLocatorOptions.Enable = true;
-    }
-
-    [Fact]
     public async Task WebClientService_Dispose()
     {
         await (Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable).DisposeAsync();

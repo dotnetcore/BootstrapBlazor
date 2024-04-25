@@ -26,6 +26,7 @@ private IConnectionService? ConnectionService { get; set; }</Pre>
   "BootstrapBlazorOptions": {
     "ConnectionHubOptions": {
       "Enable": true,
+      "EnableIpLocator": true,
       "ExpirationScanFrequency": "00:05:00",
       "TimeoutInterval": "00:03:00",
       "BeatInterval": "00:00:30"
@@ -34,6 +35,7 @@ private IConnectionService? ConnectionService { get; set; }</Pre>
 
 <ul class="ul-demo">
     <li>通过 <code>Enable</code> 开启此功能</li>
+    <li>通过 <code>EnableIpLocator</code> 开启 <code>Ip</code> 地址定位功能</li>
     <li>通过 <code>ExpirationScanFrequency</code> 设置扫描周期，扫描后移除已经断开的链接</li>
     <li>通过 <code>TimeoutInterval</code> 设置超时时间间隔，到达指定时间间隔时未接收到心跳视为已断开</li>
     <li>通过 <code>BeatInterval</code> 设置心跳间隔</li>

@@ -71,7 +71,7 @@ public class ConnectionHub : BootstrapModuleComponentBase
             {
                 client.RequestUrl = NavigationManager.Uri;
 
-                if (!string.IsNullOrEmpty(client.Ip))
+                if (BootstrapBlazorOptions.Value.ConnectionHubOptions.EnableIpLocator)
                 {
                     _ipLocatorProvider ??= IpLocatorFactory.Create(BootstrapBlazorOptions.Value.IpLocatorOptions.ProviderName);
                     client.City = await _ipLocatorProvider.Locate(client.Ip);
