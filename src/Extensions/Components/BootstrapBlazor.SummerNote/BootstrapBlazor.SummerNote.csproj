@@ -3,7 +3,7 @@
   <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
-    <Version>8.0.2</Version>
+    <Version>8.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>

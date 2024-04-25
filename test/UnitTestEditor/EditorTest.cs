@@ -58,7 +58,7 @@ public class EditorTest : Core.BootstrapBlazorTestBase
         Assert.NotNull(buttons);
 
         IEnumerable<EditorToolbarButton>? btns = null;
-        await cut.InvokeAsync(async () => btns = await cut.Instance.GetPluginAttrs());
+        await cut.InvokeAsync(async () => btns = await cut.Instance.GetPluginAttributes());
         Assert.NotNull(btns);
         Assert.Single(btns);
         Assert.Equal("Class1", btns!.First().IconClass);

@@ -11,14 +11,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Editor 组件基类
 /// </summary>
-public partial class Editor : IAsyncDisposable
+public partial class Editor
 {
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<Editor>? Interop { get; set; }
-
     /// <summary>
     /// 获得 Editor 样式
     /// </summary>
@@ -160,34 +154,39 @@ public partial class Editor : IAsyncDisposable
         if (firstRender)
         {
             _lastShowSubmit = ShowSubmit;
-
-            var methodGetPluginAttrs = "";
-            var methodClickPluginItem = "";
-            if (CustomerToolbarButtons.Any())
-            {
-                methodGetPluginAttrs = nameof(GetPluginAttrs);
-                methodClickPluginItem = nameof(ClickPluginItem);
-            }
-
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language, LanguageUrl);
+            _lastValue = Value;
         }
 
         // ShowSubmit 处理
         if (_lastShowSubmit != ShowSubmit)
         {
             _lastShowSubmit = ShowSubmit;
-            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
+            await InvokeVoidAsync("reset", Id, Value ?? "");
         }
 
         // Value 处理
         if (_lastValue != Value)
         {
             _lastValue = Value;
-            await Module.InvokeVoidAsync("update", Id, Value ?? "");
+            await InvokeVoidAsync("update", Id, Value ?? "");
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
+    {
+        var methodGetPluginAttributes = "";
+        var methodClickPluginItem = "";
+        if (CustomerToolbarButtons.Any())
+        {
+            methodGetPluginAttributes = nameof(GetPluginAttributes);
+            methodClickPluginItem = nameof(ClickPluginItem);
+        }
+
+        await InvokeVoidAsync("init", Id, Interop, methodGetPluginAttributes, methodClickPluginItem, Height, Value ?? "", Language, LanguageUrl);
     }
 
     /// <summary>
@@ -236,7 +235,7 @@ public partial class Editor : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public Task<IEnumerable<EditorToolbarButton>> GetPluginAttrs()
+    public Task<IEnumerable<EditorToolbarButton>> GetPluginAttributes()
     {
         return Task.FromResult(CustomerToolbarButtons);
     }
@@ -267,34 +266,4 @@ public partial class Editor : IAsyncDisposable
             await Module.InvokeVoidAsync("invoke", Id, method, value);
         }
     }
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Id);
-                await Module.DisposeAsync();
-                Module = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }
