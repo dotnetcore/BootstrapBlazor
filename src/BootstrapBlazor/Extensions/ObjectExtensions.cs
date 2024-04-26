@@ -206,14 +206,21 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && !item.IsReadonly(changedType);
+    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || !item.IsReadonly(changedType);
 
-    private static bool IsReadonly(this IEditorItem item, ItemChangedType changedType) => changedType switch
+    private static bool IsReadonly(this IEditorItem item, ItemChangedType changedType)
     {
-        ItemChangedType.Add => item.IsReadonlyWhenAdd ?? item.Readonly,
-        _ => item.IsReadonlyWhenEdit ?? item.Readonly
-    };
+        bool ret = item.Readonly;
+        if (item is ITableColumn col)
+        {
+            ret = changedType switch
+            {
+                ItemChangedType.Add => col.IsReadonlyWhenAdd ?? col.Readonly,
+                _ => col.IsReadonlyWhenEdit ?? col.Readonly
+            };
+        }
+        return ret;
+    }
 
     /// <summary>
     /// 判断当前 IEditorItem 实例是否显示
@@ -222,14 +229,21 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && item.IsVisible(changedType);
+    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.IsVisible(changedType);
 
-    private static bool IsVisible(this IEditorItem item, ItemChangedType changedType) => changedType switch
+    private static bool IsVisible(this IEditorItem item, ItemChangedType changedType)
     {
-        ItemChangedType.Add => item.IsVisibleWhenAdd ?? item.Visible,
-        _ => item.IsVisibleWhenEdit ?? item.Visible
-    };
+        bool ret = item.Visible;
+        if (item is ITableColumn col)
+        {
+            ret = changedType switch
+            {
+                ItemChangedType.Add => col.IsVisibleWhenAdd ?? col.Visible,
+                _ => col.IsVisibleWhenEdit ?? col.Visible
+            };
+        }
+        return ret;
+    }
 
     /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑

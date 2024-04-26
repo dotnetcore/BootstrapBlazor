@@ -251,7 +251,7 @@ public partial class EditorForm<TModel> : IShowLabel
             _formItems = [];
             if (Items != null)
             {
-                _formItems.AddRange(Items);
+                _formItems.AddRange(Items.Where(i => !i.Ignore));
             }
             else
             {
@@ -268,7 +268,7 @@ public partial class EditorForm<TModel> : IShowLabel
                         if (item != null)
                         {
                             // 过滤掉不编辑与不可见的列
-                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
+                            if (el.Ignore || !el.IsVisible(ItemChangedType, IsSearch.Value))
                             {
                                 items.Remove(item);
                             }
@@ -284,7 +284,7 @@ public partial class EditorForm<TModel> : IShowLabel
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                    _formItems.AddRange(_editorItems.Where(i => !i.Ignore && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
         }

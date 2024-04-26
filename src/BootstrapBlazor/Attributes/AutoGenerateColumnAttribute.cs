@@ -41,7 +41,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
-    bool? IEditorItem.IsReadonlyWhenAdd
+    bool? ITableColumn.IsReadonlyWhenAdd
     {
         get => IsReadonlyWhenAdd;
         set => IsReadonlyWhenAdd = value ?? false;
@@ -52,7 +52,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
 
-    bool? IEditorItem.IsReadonlyWhenEdit
+    bool? ITableColumn.IsReadonlyWhenEdit
     {
         get => IsReadonlyWhenEdit;
         set => IsReadonlyWhenEdit = value ?? false;
@@ -63,7 +63,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
-    bool? IEditorItem.IsVisibleWhenAdd
+    bool? ITableColumn.IsVisibleWhenAdd
     {
         get => IsVisibleWhenAdd;
         set => IsVisibleWhenAdd = value ?? true;
@@ -74,7 +74,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
 
-    bool? IEditorItem.IsVisibleWhenEdit
+    bool? ITableColumn.IsVisibleWhenEdit
     {
         get => IsVisibleWhenEdit;
         set => IsVisibleWhenEdit = value ?? true;
