@@ -29,19 +29,19 @@
 <hr />
 
 <div class="tabs-coms">
-    <Tab IsBorderCard="true" IsLazyLoadTabItem="true" @ref="Tab">
-        <TabItem Text="Example" Icon="fa-solid fa-desktop" ShowFullScreen="true">
+    <Tab IsBorderCard="true" IsLazyLoadTabItem="true" ShowFullScreen="true" @ref="Tab">
+        <TabItem Text="Example" Icon="fa-solid fa-desktop">
             <CascadingValue Value="@RazorFileName" Name="RazorFileName">
                 @Body
             </CascadingValue>
         </TabItem>
-        <TabItem Text="Razor" Icon="fa-brands fa-html5" ShowFullScreen="true">
+        <TabItem Text="Razor" Icon="fa-brands fa-html5">
             <Pre @key="@RazorFileName" CodeFile="@RazorFileName" class="code-razor"></Pre>
         </TabItem>
-        <TabItem Text="C#" Icon="fa-regular fa-file-code" ShowFullScreen="true">
+        <TabItem Text="C#" Icon="fa-regular fa-file-code">
             <Pre @key="@CSharpFileName" CodeFile="@CSharpFileName" class="code-cs"></Pre>
         </TabItem>
-        <TabItem Text="@Video" Icon="fa-regular fa-file-video">
+        <TabItem Text="@Video" Icon="fa-regular fa-file-video" ShowFullScreen="false">
             <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
             <p><b>交流群</b></p>
             <QQGroup />
