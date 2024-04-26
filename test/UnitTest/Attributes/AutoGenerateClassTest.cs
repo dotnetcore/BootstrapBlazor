@@ -137,6 +137,18 @@ public class AutoGenerateClassTest
         attr.Width = 10;
         Assert.Equal(10, attrInterface.Width);
 
+        attrInterface.IsVisibleWhenAdd = false;
+        Assert.False(attrInterface.IsVisibleWhenAdd);
+
+        attrInterface.IsVisibleWhenEdit = false;
+        Assert.False(attrInterface.IsVisibleWhenEdit);
+
+        attrInterface.IsReadonlyWhenAdd = true;
+        Assert.True(attrInterface.IsReadonlyWhenAdd);
+
+        attrInterface.IsReadonlyWhenEdit = true;
+        Assert.True(attrInterface.IsReadonlyWhenEdit);
+
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;
         Assert.Null(attrEditor.Items);
