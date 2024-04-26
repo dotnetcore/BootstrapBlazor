@@ -16,20 +16,22 @@ public class FullScreenTest : BootstrapBlazorTestBase
             builder.Add(s => s.Icon, "fa-solid fa-maximize");
             builder.Add(s => s.Text, "button-text");
         });
-        var ele = cut.Find(".fa-maximize");
-        Assert.NotNull(ele);
+        var elements = cut.FindAll(".fa-maximize");
+        Assert.Equal(2, elements.Count);
+        cut.Contains("bb-fs-off");
+        cut.Contains("bb-fs-on");
     }
 
     [Fact]
     public void FullScreenIcon_Ok()
     {
         var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.FullScreenIcon, "fa-test"));
-        var ele = cut.Find(".fa-test");
-        Assert.NotNull(ele);
+        cut.Contains("fa-test");
+        cut.Contains("fa-maximize");
     }
 
     [Fact]
-    public void ToggleFullScreen_Ok()
+    public async Task ToggleFullScreen_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
@@ -39,7 +41,18 @@ public class FullScreenTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.Find(".btn-fs").Click();
+        var component = cut.FindComponent<FullScreen>();
+        var id = component.Instance.Id;
+        var button = cut.Find(".btn-fs");
+        await cut.InvokeAsync(() => button.Click());
+        var invocation = Context.JSInterop.VerifyInvoke("execute");
+        Assert.Equal(id, invocation.Arguments[0]);
+
+        var options = invocation.Arguments[1] as FullScreenOption;
+        Assert.NotNull(options);
+        Assert.Null(options.Id);
+        Assert.Null(options.Element.Id);
+        Assert.Null(options.Element.Context);
     }
 
     [Fact]
@@ -93,8 +106,8 @@ public class FullScreenTest : BootstrapBlazorTestBase
             base.BuildRenderTree(builder);
         }
 
-        public async Task Test(ElementReference ele) => await FullScreenService.ToggleByElement(ele);
+        public Task Test(ElementReference ele) => FullScreenService.ToggleByElement(ele);
 
-        public async Task TestById(string id) => await FullScreenService.ToggleById(id);
+        public Task TestById(string id) => FullScreenService.ToggleById(id);
     }
 }
