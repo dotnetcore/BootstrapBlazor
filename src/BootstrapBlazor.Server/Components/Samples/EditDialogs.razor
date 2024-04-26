@@ -19,10 +19,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NoRenderTitle"]" Introduction="@Localizer["NoRenderIntro"]" Name="NoRender">
-    <div>
-        <Button Text="@Localizer["PopupButton"]" OnClickWithoutRender="@NoRenderShowEditDialog" />
+    <Button Text="@Localizer["PopupButton"]" OnClickWithoutRender="@NoRenderShowEditDialog" />
+    <section ignore>
         <ConsoleLogger @ref="NoRenderLogger" />
-    </div>
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["EditDialogOption"]" />
