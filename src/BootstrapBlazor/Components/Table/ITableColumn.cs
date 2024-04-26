@@ -147,6 +147,7 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// 获得/设置 当前编辑项是否可编辑 默认为 true
     /// </summary>
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
     bool Editable { get; set; }
 
     /// <summary>

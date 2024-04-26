@@ -22,11 +22,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public int Order { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool Ignore { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否为默认排序列 默认为 false
     /// </summary>
     public bool DefaultSort { get; set; }
@@ -35,6 +30,13 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     public bool SkipValidate { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit")]
+    [ExcludeFromCodeCoverage]
+    public bool Editable { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

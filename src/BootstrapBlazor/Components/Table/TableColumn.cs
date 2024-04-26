@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -153,6 +152,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 
     /// <summary>
@@ -465,6 +465,8 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     protected override void OnInitialized()
     {
+        Columns?.Columns.Add(this);
+
         if (FieldExpression != null)
         {
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
@@ -472,20 +474,9 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
         // 获取模型属性定义类型
         PropertyType = typeof(TType);
-
-        // Check AutoGenerateColumn attribute
-        if (Columns != null)
-        {
-            GetFieldName();
-            if (!_ignore)
-            {
-                Columns.Columns.Add(this);
-            }
-        }
     }
 
     private FieldIdentifier? _fieldIdentifier;
-    private bool _ignore;
 
     /// <summary>
     /// 获取绑定字段显示名称方法
@@ -507,32 +498,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = lambda.Body;
             }
 
-            var firstProperty = true;
+            //var firstProperty = true;
             while (express is MemberExpression member)
             {
                 if (member.Expression is MemberExpression)
                 {
                     fields.Add(member.Member.Name);
-
-                    if (!_ignore)
-                    {
-                        var attribute = member.Member.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-                        if (attribute != null)
-                        {
-                            if (attribute.Ignore)
-                            {
-                                _ignore = true;
-                            }
-                            else if (firstProperty)
-                            {
-                                var col = new AutoGenerateColumnAttribute();
-                                col.CopyValue(attribute);
-                                col.CopyValue(this);
-                                this.CopyValue(col);
-                            }
-                        }
-                    }
-                    firstProperty = false;
                 }
                 express = member.Expression;
             }

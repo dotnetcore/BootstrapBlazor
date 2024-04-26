@@ -275,7 +275,6 @@ public partial class EditorForm<TModel> : IShowLabel
                             else
                             {
                                 // 设置只读属性与列模板
-                                item.Editable = true;
                                 item.CopyValue(el);
                             }
                         }

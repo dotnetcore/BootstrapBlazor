@@ -758,7 +758,7 @@ public partial class Table<TItem>
             ShowLoading = ShowLoading,
             Title = EditModalTitleString,
             Model = EditModel,
-            Items = Columns.Where(i => i.Editable),
+            Items = Columns.Where(i => !i.Ignore),
             SaveButtonText = EditDialogSaveButtonText,
             CloseButtonText = EditDialogCloseButtonText,
             DialogBodyTemplate = EditTemplate,

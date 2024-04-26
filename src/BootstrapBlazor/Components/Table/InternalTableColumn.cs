@@ -109,6 +109,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public Type PropertyType { get; } = fieldType;
 
+    [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 
     public string? Step { get; set; }

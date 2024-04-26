@@ -20,7 +20,7 @@ public static class IEditItemExtensions
     {
         if (source.Align != Alignment.None) dest.Align = source.Align;
         if (source.TextWrap) dest.TextWrap = source.TextWrap;
-        if (!source.Editable) dest.Editable = source.Editable;
+        if (source.Ignore) dest.Ignore = source.Ignore;
         if (source.Filterable) dest.Filterable = source.Filterable;
         if (source.Readonly) dest.Readonly = source.Readonly;
         if (source.Searchable) dest.Searchable = source.Searchable;
@@ -39,7 +39,7 @@ public static class IEditItemExtensions
     {
         if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
         if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-        if (!source.Ignore) dest.Ignore = source.Ignore;
+        if (source.Ignore) dest.Ignore = source.Ignore;
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;

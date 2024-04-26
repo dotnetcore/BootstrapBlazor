@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 public abstract class AutoGenerateBaseAttribute : Attribute
 {
     /// <summary>
-    /// 获得/设置 当前列是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+    /// 获得/设置 当前列是否渲染 默认为 false 当设置为 true 时 UI 不生成此列
     /// </summary>
-    public bool Editable { get; set; } = true;
+    public bool Ignore { get; set; }
 
     /// <summary>
     /// 获得/设置 当前编辑项是否只读 默认为 false
