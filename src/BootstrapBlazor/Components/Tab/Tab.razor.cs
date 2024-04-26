@@ -103,6 +103,12 @@ public partial class Tab : IHandlerException
     public bool ShowClose { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示全屏按钮 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowFullScreen { get; set; }
+
+    /// <summary>
     /// 关闭标签页回调方法
     /// </summary>
     /// <remarks>返回 false 时不关 <see cref="TabItem"/> 标签页</remarks>
@@ -812,7 +818,7 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private string? GetIdByTabItem(TabItem item) => item.ShowFullScreen ? ComponentIdGenerator.Generate(item) : null;
+    private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
 
     /// <summary>
     /// <inheritdoc/>

@@ -53,10 +53,10 @@ public class TabItem : ComponentBase
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标字符串
+    /// 获得/设置 是否显示全屏按钮 默认 true
     /// </summary>
     [Parameter]
-    public bool ShowFullScreen { get; set; }
+    public bool ShowFullScreen { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件内容
