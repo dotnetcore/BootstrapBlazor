@@ -43,7 +43,7 @@ else
                                             <i class="@GetIconClassString(item.Icon)"></i>
                                         }
                                         <span class="tabs-item-text">@item.Text</span>
-                                        @if(item.ShowFullScreen)
+                                        @if (ShowFullScreen && item.ShowFullScreen)
                                         {
                                             <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
                                         }
