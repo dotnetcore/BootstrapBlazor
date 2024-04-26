@@ -748,4 +748,21 @@ public class TabTest : TabTestBase
         cut.InvokeAsync(() => cut.Instance.DragItemCallback(10, 1));
         Assert.False(dragged);
     }
+
+    [Fact]
+    public async Task FullScreen_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.ShowFullScreen, true);
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+            });
+        });
+
+        var button = cut.Find(".btn-fs");
+        await cut.InvokeAsync(() => button.Click());
+    }
 }
