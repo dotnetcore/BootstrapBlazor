@@ -233,7 +233,7 @@ public static class ObjectExtensions
 
     private static bool IsVisible(this IEditorItem item, ItemChangedType changedType)
     {
-        bool ret = item.Visible;
+        bool ret = !item.Ignore;
         if (item is ITableColumn col)
         {
             ret = changedType switch

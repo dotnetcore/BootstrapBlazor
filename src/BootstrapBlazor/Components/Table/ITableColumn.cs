@@ -161,12 +161,17 @@ public interface ITableColumn : IEditorItem
     bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="IEditorItem.Visible"/> 值
+    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// </summary>
+    bool Visible { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
     bool? IsVisibleWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="IEditorItem.Visible"/> 值
+    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
     bool? IsVisibleWhenEdit { get; set; }
 }

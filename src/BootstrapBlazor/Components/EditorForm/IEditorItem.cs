@@ -25,11 +25,6 @@ public interface IEditorItem
     bool Ignore { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否显示 默认为 true
-    /// </summary>
-    bool Visible { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     bool SkipValidate { get; set; }
