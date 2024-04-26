@@ -75,7 +75,7 @@ public class Foo
     /// </summary>
     [Required(ErrorMessage = "请选择一种{0}")]
     [Display(Name = "爱好")]
-    [AutoGenerateColumn(Order = 70, Editable = false)]
+    [AutoGenerateColumn(Order = 70, Ignore = true)]
     public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
     #region Static methods
