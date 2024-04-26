@@ -1191,11 +1191,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["FullScreen"],
-                    Url = "fullscreen"
-                },
-                new()
-                {
                     Text = Localizer["GoTop"],
                     Url = "go-top"
                 },
@@ -1340,6 +1335,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DialogService"],
                     Url = "dialog-service"
+                },
+                new()
+                {
+                    Text = Localizer["FullScreen"],
+                    Url = "fullscreen"
                 },
                 new()
                 {
