@@ -752,13 +752,16 @@ public class TabTest : TabTestBase
     [Fact]
     public async Task FullScreen_Ok()
     {
-        var cut = Context.RenderComponent<Tab>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<TabItem>(pb =>
+            pb.AddChildContent<Tab>(pb =>
             {
-                pb.Add(a => a.ShowFullScreen, true);
-                pb.Add(a => a.Text, "Text1");
-                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.ShowFullScreen, true);
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
             });
         });
 
