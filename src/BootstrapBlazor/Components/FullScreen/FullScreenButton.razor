@@ -2,8 +2,8 @@
 @inherits ButtonBase
 
 <a @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @onclick="ToggleFullScreen">
-    <i class="@Icon"></i>
-    <i class="@FullScreenIcon"></i>
+    <i class="@ButtonIconString"></i>
+    <i class="@FullScreenIconString"></i>
     @if (!string.IsNullOrEmpty(Text))
     {
         <span>@Text</span>
