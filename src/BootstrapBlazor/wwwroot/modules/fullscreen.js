@@ -2,10 +2,20 @@
 import Data from "./data.js"
 
 export function init(id) {
-    const fs = {}
+    const fs = { toggleElement: null };
     Data.set(id, fs)
 
-    fs.toggle = () => {
+    fs.toggle = options => {
+        if (options.id) {
+            fs.toggleElement = document.getElementById(options.id)
+        }
+        else if (options.element && isElement(options.element)) {
+            fs.toggleElement = el
+        }
+        else {
+            fs.toggleElement = document.documentElement
+        }
+
         if (isFullscreen()) {
             exit()
         }
@@ -23,18 +33,11 @@ export function init(id) {
     }
 }
 
-export function execute(id, el) {
+export function execute(id, options) {
     const fs = Data.get(id)
-    if (el && typeof (el) === 'string' && el.length > 0) {
-        fs.toggleElement = document.getElementById(el)
+    if (fs) {
+        fs.toggle(options);
     }
-    else if (el && isElement(el)) {
-        fs.toggleElement = el
-    }
-    else {
-        fs.toggleElement = document.documentElement
-    }
-    fs.toggle()
 }
 
 export function dispose(id) {
