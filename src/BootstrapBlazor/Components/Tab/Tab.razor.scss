@@ -11,11 +11,16 @@
     --bb-tabs-header-vertical-min-width: #{$bb-tabs-header-vertical-min-width};
     display: flex;
     flex-flow: column;
-}
-
-.tabs,
-.tabs-body-content {
     height: 100%;
+
+    .tabs-body-content {
+        background-color: var(--bs-body-bg);
+
+        &.bb-fs-open {
+            padding: var(--bb-tabs-body-padding);
+            overflow: auto;
+        }
+    }
 }
 
 .tabs-header {

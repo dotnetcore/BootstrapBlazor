@@ -43,6 +43,10 @@ else
                                             <i class="@GetIconClassString(item.Icon)"></i>
                                         }
                                         <span class="tabs-item-text">@item.Text</span>
+                                        @if(item.ShowFullScreen)
+                                        {
+                                            <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
+                                        }
                                         @if (ShowClose && item.Closable)
                                         {
                                             <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
@@ -95,7 +99,7 @@ else
                 {
                     foreach (var item in Items)
                     {
-                        <div @key="@item" class="@GetContentClassString(item)">
+                        <div @key="@item" class="@GetContentClassString(item)" id="@GetIdByTabItem(item)">
                             @RenderTabItem(item)
                         </div>
                     }

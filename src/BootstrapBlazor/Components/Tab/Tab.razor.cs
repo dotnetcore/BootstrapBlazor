@@ -812,6 +812,8 @@ public partial class Tab : IHandlerException
         }
     }
 
+    private string? GetIdByTabItem(TabItem item) => ComponentIdGenerator.Generate(item);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
