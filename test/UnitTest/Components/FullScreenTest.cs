@@ -113,6 +113,24 @@ public class FullScreenTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => fs.Instance.TestById("test-id"));
     }
 
+    [Fact]
+    public async Task Toggle_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        {
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "id", "test-id");
+                builder.CloseElement();
+                builder.OpenComponent<FullScreenServiceTest>(0);
+                builder.CloseComponent();
+            }));
+        });
+        var fs = cut.FindComponent<FullScreenServiceTest>();
+        await cut.InvokeAsync(fs.Instance.Toggle);
+    }
+
     private class FullScreenServiceTest : ComponentBase
     {
         [Inject]
@@ -127,5 +145,7 @@ public class FullScreenTest : BootstrapBlazorTestBase
         public Task Test(ElementReference ele) => FullScreenService.ToggleByElement(ele);
 
         public Task TestById(string id) => FullScreenService.ToggleById(id);
+
+        public Task Toggle() => FullScreenService.Toggle();
     }
 }

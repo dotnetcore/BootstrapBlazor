@@ -812,6 +812,8 @@ public partial class Tab : IHandlerException
         }
     }
 
+    private string? GetIdByTabItem(TabItem item) => item.ShowFullScreen ? ComponentIdGenerator.Generate(item) : null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

@@ -22,7 +22,6 @@ export function init(id) {
         else {
             fs.enter()
         }
-        fs.toggleElement.classList.toggle('bb-fs-open')
     }
 
     fs.enter = () => {
@@ -40,6 +39,7 @@ export function init(id) {
                     fs.toggleElement.classList.remove('bb-fs-open')
                 }
                 else {
+                    fs.toggleElement.classList.add('bb-fs-open')
                     requestAnimationFrame(fullscreenCheck);
                 }
             }
