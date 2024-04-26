@@ -756,6 +756,7 @@ public class TabTest : TabTestBase
         {
             pb.AddChildContent<Tab>(pb =>
             {
+                pb.Add(a => a.ShowFullScreen, true);
                 pb.AddChildContent<TabItem>(pb =>
                 {
                     pb.Add(a => a.ShowFullScreen, true);
