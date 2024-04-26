@@ -173,59 +173,6 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add, true)]
-    [InlineData(ItemChangedType.Add, false)]
-    public void IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["IsReadonlyWhenAdd"] = val
-        }));
-        Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
-    }
-
-    [Theory]
-    [InlineData(ItemChangedType.Update, true)]
-    [InlineData(ItemChangedType.Update, false)]
-    public void IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["IsReadonlyWhenEdit"] = val
-        }));
-        Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
-    }
-
-
-    [Theory]
-    [InlineData(ItemChangedType.Add, true)]
-    [InlineData(ItemChangedType.Add, false)]
-    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["IsVisibleWhenAdd"] = val
-        }));
-        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
-    }
-
-    [Theory]
-    [InlineData(ItemChangedType.Update, true)]
-    [InlineData(ItemChangedType.Update, false)]
-    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["IsVisibleWhenEdit"] = val
-        }));
-        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
-    }
-
-    [Theory]
     [InlineData(ItemChangedType.Add)]
     [InlineData(ItemChangedType.Update)]
     public void IsEditable_Search(ItemChangedType itemChangedType)
@@ -233,7 +180,7 @@ public class ObjectExtensionsTest
         var editorItem = new EditorItem<Foo, string>();
         editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["Editable"] = false
+            ["Ignore"] = true
         }));
         Assert.True(editorItem.IsEditable(itemChangedType, true));
     }

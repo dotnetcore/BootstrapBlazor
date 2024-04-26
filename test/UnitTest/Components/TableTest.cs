@@ -4451,7 +4451,7 @@ public class TableTest : TableTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         var seqs = table.Instance.Columns.Select(i => i.Order);
-        Assert.Equal(new List<int>() { 20, 40, 50, 60, 70, 100, -3 }, seqs);
+        Assert.Equal(new List<int>() { 20, 40, 50, 60, 100, -3 }, seqs);
     }
 
     [Fact]
@@ -4655,7 +4655,7 @@ public class TableTest : TableTestBase
                 builder.OpenComponent<TableColumn<Foo, string>>(0);
                 builder.AddAttribute(1, "Field", "Address");
                 builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
-                builder.AddAttribute(3, "Editable", false);
+                builder.AddAttribute(3, "Ignore", true);
                 builder.CloseComponent();
             });
         });
@@ -4944,7 +4944,7 @@ public class TableTest : TableTestBase
 
         // 自动生成 2 列 手动 Id 列忽略 Name, Address 列追加
         var table = cut.FindComponent<Table<MockComplexFoo>>();
-        Assert.Equal(3, table.Instance.Columns.Count);
+        Assert.Equal(4, table.Instance.Columns.Count);
     }
 
     [Fact]
@@ -7020,7 +7020,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(7, table.Instance.Columns.Count);
+        Assert.Equal(6, table.Instance.Columns.Count);
     }
 
     [Fact]
@@ -7249,34 +7249,6 @@ public class TableTest : TableTestBase
 
         })));
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut1.Markup);
-    }
-
-    [Fact]
-    public void RenderCell_Editable_False()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<MockTable>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Foo> { new ReadonlyFoo() });
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "ReadonlyValue");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Editable", false);
-                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-EditTemplate")));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var table = cut.FindComponent<MockTable>();
-        var foo = new Foo();
-        var cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
-        {
-        })));
-        Assert.Equal("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
