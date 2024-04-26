@@ -30,6 +30,21 @@ export function init(id) {
             fs.toggleElement.webkitRequestFullscreen ||
             fs.toggleElement.mozRequestFullScreen ||
             fs.toggleElement.msRequestFullscreen
+
+        // 处理 ESC 按键退出全屏
+        var handler = setTimeout(() => {
+            clearTimeout(handler);
+
+            const fullscreenCheck = () => {
+                if (!isFullscreen()) {
+                    fs.toggleElement.classList.remove('bb-fs-open')
+                }
+                else {
+                    requestAnimationFrame(fullscreenCheck);
+                }
+            }
+            requestAnimationFrame(fullscreenCheck);
+        }, 200);
     }
 }
 
