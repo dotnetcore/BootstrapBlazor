@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
@@ -33,7 +35,11 @@ public class FullScreenTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ToggleFullScreen_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        ConfigureServices(context.Services);
+
+        var cut = context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
@@ -43,9 +49,12 @@ public class FullScreenTest : BootstrapBlazorTestBase
         });
         var component = cut.FindComponent<FullScreen>();
         var id = component.Instance.Id;
+        context.JSInterop.SetupVoid("execute", id);
+
         var button = cut.Find(".btn-fs");
         await cut.InvokeAsync(() => button.Click());
-        var invocation = Context.JSInterop.VerifyInvoke("execute");
+
+        var invocation = context.JSInterop.VerifyInvoke("execute");
         Assert.Equal(id, invocation.Arguments[0]);
 
         var options = invocation.Arguments[1] as FullScreenOption;
@@ -53,6 +62,15 @@ public class FullScreenTest : BootstrapBlazorTestBase
         Assert.Null(options.Id);
         Assert.Null(options.Element.Id);
         Assert.Null(options.Element.Context);
+
+        void ConfigureServices(IServiceCollection services)
+        {
+            services.AddBootstrapBlazor();
+            services.ConfigureJsonLocalizationOptions(op =>
+            {
+                op.IgnoreLocalizerMissing = false;
+            });
+        }
     }
 
     [Fact]
