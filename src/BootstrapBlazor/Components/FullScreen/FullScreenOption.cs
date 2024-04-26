@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 public class FullScreenOption
 {
     /// <summary>
-    /// 
+    /// 获得/设置 要全屏的 HTML Element 实例
     /// </summary>
     public ElementReference Element { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 要全屏的 HTML Element Id
     /// </summary>
     public string? Id { get; set; }
 }

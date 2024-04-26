@@ -39,6 +39,7 @@ public partial class FullScreenButton
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
+        FullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
     }
 
     private Task ToggleFullScreen() => FullScreenService.Toggle();

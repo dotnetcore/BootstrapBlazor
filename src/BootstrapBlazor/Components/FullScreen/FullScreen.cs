@@ -28,14 +28,7 @@ public class FullScreen : BootstrapModuleComponentBase
         FullScreenService.Register(this, Show);
     }
 
-    private FullScreenOption? Option { get; set; }
-
-    private async Task Show(FullScreenOption option)
-    {
-        Option = option;
-
-        await InvokeVoidAsync("execute", Id, Option.Element.Context != null ? option.Element : Option.Id);
-    }
+    private Task Show(FullScreenOption option) => InvokeVoidAsync("execute", Id, option);
 
     /// <summary>
     /// <inheritdoc/>
