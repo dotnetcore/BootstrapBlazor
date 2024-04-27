@@ -34,13 +34,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit")]
-    [ExcludeFromCodeCoverage]
-    public bool Editable { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
     bool? ITableColumn.IsReadonlyWhenAdd
