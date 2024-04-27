@@ -498,7 +498,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = lambda.Body;
             }
 
-            //var firstProperty = true;
             while (express is MemberExpression member)
             {
                 if (member.Expression is MemberExpression)
