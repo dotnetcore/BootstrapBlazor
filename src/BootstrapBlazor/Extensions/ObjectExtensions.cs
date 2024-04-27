@@ -253,7 +253,7 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search) && item.IsVisible(changedType, search);
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
 
     /// <summary>
     /// 判断模型是否可写
