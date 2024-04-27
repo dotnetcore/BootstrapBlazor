@@ -44,17 +44,17 @@ internal class DefaultIcon
         { ComponentIcons.DateTimeRangeClearIcon, "bi bi-x-circle" },
 
         { ComponentIcons.DialogCloseButtonIcon, "bi bi-x" },
-        { ComponentIcons.DialogSaveButtonIcon, "bi bi-content-save" },
-        { ComponentIcons.DialogMaximizeWindowIcon, "bi bi-window-maximize" },
-        { ComponentIcons.DialogRestoreWindowIcon, "bi bi-window-restore" },
+        { ComponentIcons.DialogSaveButtonIcon, "bi bi-check" },
+        { ComponentIcons.DialogMaximizeWindowIcon, "bi bi-window" },
+        { ComponentIcons.DialogRestoreWindowIcon, "bi bi-window-stack" },
 
         { ComponentIcons.TopMenuDropdownIcon, "bi bi-chevron-down" },
         { ComponentIcons.SideMenuDropdownIcon, "bi bi-chevron-down" },
         { ComponentIcons.MenuLinkArrowIcon, "bi bi-chevron-left" },
 
         { ComponentIcons.ResultDialogYesIcon, "bi bi-check" },
-        { ComponentIcons.ResultDialogNoIcon, "bi bi-x-circle" },
-        { ComponentIcons.ResultDialogCloseIcon, "bi bi-x-circle" },
+        { ComponentIcons.ResultDialogNoIcon, "bi bi-x" },
+        { ComponentIcons.ResultDialogCloseIcon, "bi bi-x" },
 
         { ComponentIcons.SearchDialogClearIcon, "bi bi-trash-can" },
         { ComponentIcons.SearchDialogSearchIcon, "bi bi-magnify-plus" },
@@ -68,7 +68,7 @@ internal class DefaultIcon
         { ComponentIcons.TableFilterPlusIcon, "bi bi-plus" },
         { ComponentIcons.TableFilterMinusIcon, "bi bi-minus" },
 
-        { ComponentIcons.FullScreenButtonIcon, "bi bi-fullscreen" },
+        { ComponentIcons.FullScreenButtonIcon, "bi bi-arrows-fullscreen" },
 
         { ComponentIcons.GoTopIcon, "bi bi-chevron-up" },
 
