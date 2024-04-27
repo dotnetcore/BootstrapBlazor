@@ -42,46 +42,24 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public Expression<Func<TValue>>? FieldExpression { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
+    [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     [Parameter]
+    public bool Ignore { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    [Parameter]
     public bool Readonly { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
-    [Parameter]
-    public bool? IsReadonlyWhenAdd { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
-    [Parameter]
-    public bool? IsReadonlyWhenEdit { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
-    [Parameter]
-    public bool Visible { get; set; } = true;
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
-    [Parameter]
-    public bool? IsVisibleWhenAdd { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
-    [Parameter]
-    public bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

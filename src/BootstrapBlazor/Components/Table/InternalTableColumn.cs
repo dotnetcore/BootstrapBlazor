@@ -40,6 +40,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public bool Ignore { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public bool Readonly { get; set; }
 
     /// <summary>
@@ -104,6 +109,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public Type PropertyType { get; } = fieldType;
 
+    [ExcludeFromCodeCoverage]
     public bool Editable { get; set; } = true;
 
     public string? Step { get; set; }

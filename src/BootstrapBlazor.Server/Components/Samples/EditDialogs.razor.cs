@@ -19,9 +19,9 @@ public sealed partial class EditDialogs
         item.Items = Foo.GenerateHobbies(FooLocalizer);
 
         item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
-        item.Editable = false;
+        item.Ignore = true;
         item = items.First(i => i.GetFieldName() == nameof(Foo.Count));
-        item.Editable = false;
+        item.Ignore = true;
 
         var option = new EditDialogOption<Foo>()
         {

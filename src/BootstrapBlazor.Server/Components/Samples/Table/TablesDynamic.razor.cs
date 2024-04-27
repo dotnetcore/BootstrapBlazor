@@ -73,8 +73,7 @@ public partial class TablesDynamic
             }
             else if (propertyName == nameof(Foo.Id))
             {
-                col.Editable = false;
-                col.Visible = false;
+                col.Ignore = true;
             }
         })
         {
@@ -232,8 +231,7 @@ public partial class TablesDynamic
             }
             else if (propertyName == nameof(Foo.Id))
             {
-                col.Editable = false;
-                col.Visible = false;
+                col.Ignore = true;
             }
         });
     }

@@ -15,41 +15,20 @@ public interface IEditorItem
     Type PropertyType { get; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否可编辑 默认为 true 当设置为 false 时自动生成编辑 UI 不生成此列
+    /// 获得/设置 当前编辑项是否可编辑 默认为 true
     /// </summary>
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
     bool Editable { get; set; }
 
     /// <summary>
     /// 获得/设置 当前编辑项是否只读 默认为 false
-    /// <para>新建与编辑时可单独设置 <see cref="IsReadonlyWhenAdd"/> 与 <seealso cref="IsReadonlyWhenEdit"/></para>
     /// </summary>
     bool Readonly { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 null 使用 <see cref="Readonly"/> 值
+    /// 获得/设置 当前编辑项是否忽略 默认为 false 当设置为 true 时 UI 不生成此列
     /// </summary>
-    bool? IsReadonlyWhenAdd { get; set; }
-
-    /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 null 使用 <see cref="Readonly"/> 值
-    /// </summary>
-    bool? IsReadonlyWhenEdit { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前编辑项是否显示 默认为 true
-    /// <para>新建与编辑时可单独设置 <see cref="IsVisibleWhenAdd"/> 与 <seealso cref="IsVisibleWhenEdit"/></para>
-    /// </summary>
-    bool Visible { get; set; }
-
-    /// <summary>
-    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
-    /// </summary>
-    bool? IsVisibleWhenAdd { get; set; }
-
-    /// <summary>
-    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
-    /// </summary>
-    bool? IsVisibleWhenEdit { get; set; }
+    bool Ignore { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

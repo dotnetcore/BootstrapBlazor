@@ -58,11 +58,11 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Editable_Ok()
+    public void Ignore_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var fooData = GenerateDataTable(localizer);
-        var context = new DataTableDynamicContext(fooData, EditableCallback(localizer));
+        var context = new DataTableDynamicContext(fooData, IgnoreCallback(localizer));
         Assert.Equal(4, context.GetColumns().Count());
     }
 
@@ -285,7 +285,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
         }
     });
 
-    private static Action<DataTableDynamicContext, ITableColumn> EditableCallback(IStringLocalizer<Foo> localizer) => new((context, col) =>
+    private static Action<DataTableDynamicContext, ITableColumn> IgnoreCallback(IStringLocalizer<Foo> localizer) => new((context, col) =>
     {
         var propertyName = col.GetFieldName();
         if (propertyName == nameof(Foo.DateTime))
@@ -300,7 +300,7 @@ public class DataTableDynamicContextTest : BootstrapBlazorTestBase
             {
                 new(nameof(DisplayAttribute.Name), localizer[nameof(Foo.DateTime)].Value)
             });
-            col.Editable = false;
+            col.Ignore = true;
         }
         else if (propertyName == nameof(Foo.Name))
         {

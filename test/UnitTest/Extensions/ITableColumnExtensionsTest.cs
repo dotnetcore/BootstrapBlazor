@@ -14,7 +14,7 @@ public class ITableColumnExtensionsTest
         {
             Align = Alignment.Center,
             TextWrap = true,
-            Editable = false,
+            Ignore = true,
             Filterable = true,
             Readonly = true,
             Searchable = true,
@@ -26,7 +26,7 @@ public class ITableColumnExtensionsTest
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
         Assert.True(col.TextWrap);
-        Assert.False(col.Editable);
+        Assert.True(col.Ignore);
         Assert.True(col.Filterable);
         Assert.True(col.Readonly);
         Assert.True(col.Searchable);
@@ -44,7 +44,7 @@ public class ITableColumnExtensionsTest
         {
             ComponentType = typeof(NullSwitch),
             ComponentParameters = [],
-            Editable = false,
+            Ignore = true,
             EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
             Items = new List<SelectedItem>(),
             Lookup = new List<SelectedItem>(),
@@ -105,7 +105,7 @@ public class ITableColumnExtensionsTest
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
         Assert.NotNull(col.ComponentParameters);
-        Assert.False(col.Editable);
+        Assert.True(col.Ignore);
         Assert.NotNull(col.EditTemplate);
         Assert.NotNull(col.Items);
         Assert.NotNull(col.Lookup);

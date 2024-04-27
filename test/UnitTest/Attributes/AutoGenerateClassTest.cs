@@ -11,7 +11,7 @@ public class AutoGenerateClassTest
     {
         var attr = new AutoGenerateClassAttribute()
         {
-            Editable = true,
+            Ignore = false,
             Readonly = true,
             Sortable = true,
             Filterable = true,
@@ -21,7 +21,7 @@ public class AutoGenerateClassTest
             ShowTips = true,
             Align = Alignment.Center
         };
-        Assert.True(attr.Editable);
+        Assert.True(!attr.Ignore);
         Assert.True(attr.Readonly);
         Assert.True(attr.Sortable);
         Assert.True(attr.Filterable);
@@ -137,6 +137,18 @@ public class AutoGenerateClassTest
         attr.Width = 10;
         Assert.Equal(10, attrInterface.Width);
 
+        attrInterface.IsVisibleWhenAdd = false;
+        Assert.False(attrInterface.IsVisibleWhenAdd);
+
+        attrInterface.IsVisibleWhenEdit = false;
+        Assert.False(attrInterface.IsVisibleWhenEdit);
+
+        attrInterface.IsReadonlyWhenAdd = true;
+        Assert.True(attrInterface.IsReadonlyWhenAdd);
+
+        attrInterface.IsReadonlyWhenEdit = true;
+        Assert.True(attrInterface.IsReadonlyWhenEdit);
+
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;
         Assert.Null(attrEditor.Items);
@@ -162,17 +174,5 @@ public class AutoGenerateClassTest
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
-
-        attrEditor.IsVisibleWhenAdd = false;
-        Assert.False(attrEditor.IsVisibleWhenAdd);
-
-        attrEditor.IsVisibleWhenEdit = false;
-        Assert.False(attrEditor.IsVisibleWhenEdit);
-
-        attrEditor.IsReadonlyWhenAdd = true;
-        Assert.True(attrEditor.IsReadonlyWhenAdd);
-
-        attrEditor.IsReadonlyWhenEdit = true;
-        Assert.True(attrEditor.IsReadonlyWhenEdit);
     }
 }

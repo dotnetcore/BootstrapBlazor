@@ -20,7 +20,7 @@ public static class IEditItemExtensions
     {
         if (source.Align != Alignment.None) dest.Align = source.Align;
         if (source.TextWrap) dest.TextWrap = source.TextWrap;
-        if (!source.Editable) dest.Editable = source.Editable;
+        if (source.Ignore) dest.Ignore = source.Ignore;
         if (source.Filterable) dest.Filterable = source.Filterable;
         if (source.Readonly) dest.Readonly = source.Readonly;
         if (source.Searchable) dest.Searchable = source.Searchable;
@@ -39,7 +39,7 @@ public static class IEditItemExtensions
     {
         if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
         if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-        if (!source.Editable) dest.Editable = source.Editable;
+        if (source.Ignore) dest.Ignore = source.Ignore;
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
@@ -48,12 +48,7 @@ public static class IEditItemExtensions
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
-        if (source.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
-        if (source.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.Readonly) dest.Readonly = source.Readonly;
-        if (source.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
-        if (source.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
-        if (source.Visible) dest.Visible = source.Visible;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
@@ -101,6 +96,11 @@ public static class IEditItemExtensions
         if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
         if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
         if (col.IsMarkupString) dest.IsMarkupString = col.IsMarkupString;
+        if (!col.Visible) dest.Visible = col.Visible;
+        if (col.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = col.IsVisibleWhenAdd;
+        if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
+        if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
+        if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
     }
 
     /// <summary>

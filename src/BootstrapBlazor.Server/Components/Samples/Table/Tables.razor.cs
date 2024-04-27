@@ -154,22 +154,6 @@ public partial class Tables
         },
         new()
         {
-            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = Localizer["IsReadonlyWhenAddAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = Localizer["IsReadonlyWhenEditAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "SearchTemplate",
             Description = Localizer["SearchTemplateColumnAttr"],
             Type = "RenderFragment<object>",

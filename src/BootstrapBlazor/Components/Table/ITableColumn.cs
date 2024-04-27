@@ -143,4 +143,29 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 是否为 MarkupString 默认 false
     /// </summary>
     bool IsMarkupString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建时此列只读 默认为 null 使用 <see cref="IEditorItem.Readonly"/> 值
+    /// </summary>
+    bool? IsReadonlyWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列只读 默认为 null 使用 <see cref="IEditorItem.Readonly"/> 值
+    /// </summary>
+    bool? IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// </summary>
+    bool Visible { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
+    /// </summary>
+    bool? IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
+    /// </summary>
+    bool? IsVisibleWhenEdit { get; set; }
 }

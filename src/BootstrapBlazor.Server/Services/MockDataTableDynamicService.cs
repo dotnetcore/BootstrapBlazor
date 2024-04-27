@@ -73,8 +73,7 @@ internal class MockDataTableDynamicService
             }
             else if (propertyName == nameof(Foo.Id))
             {
-                col.Editable = false;
-                col.Visible = false;
+                col.Ignore = true;
             }
         })
         {
@@ -149,8 +148,7 @@ internal class MockDataTableDynamicService
             }
             else if (propertyName == nameof(Foo.Id))
             {
-                col.Editable = false;
-                col.Visible = false;
+                col.Ignore = true;
             }
         })
         {

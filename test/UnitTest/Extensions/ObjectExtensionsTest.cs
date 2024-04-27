@@ -151,91 +151,97 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add)]
-    [InlineData(ItemChangedType.Update)]
-    public void IsEditable_Editable(ItemChangedType itemChangedType)
+    [InlineData(ItemChangedType.Add, true, false)]
+    [InlineData(ItemChangedType.Update, true, false)]
+    [InlineData(ItemChangedType.Add, false, true)]
+    [InlineData(ItemChangedType.Update, false, true)]
+    public void Readonly_Ok(ItemChangedType itemChangedType, bool @readonly, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        Assert.True(editorItem.IsEditable(itemChangedType));
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["Readonly"] = @readonly,
+        }));
+        Assert.Equal(expected, column.IsEditable(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add)]
-    [InlineData(ItemChangedType.Update)]
-    public void IsEditable_Readonly(ItemChangedType itemChangedType)
+    [InlineData(ItemChangedType.Add, true, false, true)]
+    [InlineData(ItemChangedType.Add, true, true, false)]
+    [InlineData(ItemChangedType.Add, false, false, true)]
+    [InlineData(ItemChangedType.Add, false, true, false)]
+    public void ReadonlyWhenAdd_Ok(ItemChangedType itemChangedType, bool @readonly, bool readonlyWhenAdd, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["Readonly"] = true
+            ["Readonly"] = @readonly,
+            [nameof(ITableColumn.IsReadonlyWhenAdd)] = readonlyWhenAdd,
         }));
-        Assert.False(editorItem.IsEditable(itemChangedType));
+        Assert.Equal(expected, column.IsEditable(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add, true)]
-    [InlineData(ItemChangedType.Add, false)]
-    public void IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
+    [InlineData(ItemChangedType.Update, true, false, true)]
+    [InlineData(ItemChangedType.Update, true, true, false)]
+    [InlineData(ItemChangedType.Update, false, false, true)]
+    [InlineData(ItemChangedType.Update, false, true, false)]
+    public void ReadonlyWhenUpdate_Ok(ItemChangedType itemChangedType, bool @readonly, bool readonlyWhenUpdate, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["IsReadonlyWhenAdd"] = val
+            ["Readonly"] = @readonly,
+            [nameof(ITableColumn.IsReadonlyWhenEdit)] = readonlyWhenUpdate,
         }));
-        Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
+        Assert.Equal(expected, column.IsEditable(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Update, true)]
-    [InlineData(ItemChangedType.Update, false)]
-    public void IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
+    [InlineData(ItemChangedType.Add, true, true)]
+    [InlineData(ItemChangedType.Update, true, true)]
+    [InlineData(ItemChangedType.Add, false, false)]
+    [InlineData(ItemChangedType.Update, false, false)]
+    public void Visible_Ok(ItemChangedType itemChangedType, bool visible, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["IsReadonlyWhenEdit"] = val
+            [nameof(ITableColumn.Visible)] = visible,
         }));
-        Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
-    }
-
-
-    [Theory]
-    [InlineData(ItemChangedType.Add, true)]
-    [InlineData(ItemChangedType.Add, false)]
-    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["IsVisibleWhenAdd"] = val
-        }));
-        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
+        Assert.Equal(expected, column.IsVisible(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Update, true)]
-    [InlineData(ItemChangedType.Update, false)]
-    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
+    [InlineData(ItemChangedType.Add, true, false, false)]
+    [InlineData(ItemChangedType.Add, true, true, true)]
+    [InlineData(ItemChangedType.Add, false, false, false)]
+    [InlineData(ItemChangedType.Add, false, true, true)]
+    public void VisibleWhenAdd_Ok(ItemChangedType itemChangedType, bool visible, bool visibleWhenAdd, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["IsVisibleWhenEdit"] = val
+            [nameof(ITableColumn.Visible)] = visible,
+            [nameof(ITableColumn.IsVisibleWhenAdd)] = visibleWhenAdd,
         }));
-        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
+        Assert.Equal(expected, column.IsVisible(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add)]
-    [InlineData(ItemChangedType.Update)]
-    public void IsEditable_Search(ItemChangedType itemChangedType)
+    [InlineData(ItemChangedType.Update, true, false, false)]
+    [InlineData(ItemChangedType.Update, true, true, true)]
+    [InlineData(ItemChangedType.Update, false, false, false)]
+    [InlineData(ItemChangedType.Update, false, true, true)]
+    public void VisibleWhenUpdate_Ok(ItemChangedType itemChangedType, bool visible, bool visibleWhenUpdate, bool expected)
     {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var column = new TableColumn<Foo, string>();
+        column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["Editable"] = false
+            [nameof(ITableColumn.Visible)] = visible,
+            [nameof(ITableColumn.IsVisibleWhenEdit)] = visibleWhenUpdate,
         }));
-        Assert.True(editorItem.IsEditable(itemChangedType, true));
+        Assert.Equal(expected, column.IsVisible(itemChangedType));
     }
 
     [Fact]

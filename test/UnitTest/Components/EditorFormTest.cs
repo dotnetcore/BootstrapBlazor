@@ -211,38 +211,6 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsEditable_Ok()
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["Editable"] = true,
-            ["Readonly"] = false,
-            ["Visible"] = true,
-            ["IsReadonlyWhenAdd"] = true,
-            ["IsReadonlyWhenEdit"] = false
-        }));
-        Assert.False(editorItem.IsEditable(ItemChangedType.Add));
-        Assert.True(editorItem.IsEditable(ItemChangedType.Update));
-    }
-
-
-    [Fact]
-    public void IsVisible_Ok()
-    {
-        var editorItem = new EditorItem<Foo, string>();
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
-        {
-            ["Editable"] = true,
-            ["Readonly"] = false,
-            ["IsVisibleWhenAdd"] = true,
-            ["IsVisibleWhenEdit"] = false
-        }));
-        Assert.True(editorItem.IsVisible(ItemChangedType.Add));
-        Assert.False(editorItem.IsVisible(ItemChangedType.Update));
-    }
-
-    [Fact]
     public void EditorItem_Ok()
     {
         var foo = new Foo();
@@ -394,7 +362,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.OpenComponent<EditorItem<Foo, string>>(index++);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Address);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
-                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Editable), false);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Ignore), true);
                 builder.CloseComponent();
             });
         });
@@ -443,7 +411,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
         Assert.NotNull(v);
-        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+        Assert.Equal(new List<int>() { 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
     }
 
     [Fact]
@@ -532,7 +500,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         builder.OpenComponent<EditorItem<Foo, string>>(0);
         builder.AddAttribute(1, nameof(EditorItem<Foo, string>.Field), f.Address);
         builder.AddAttribute(2, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
-        builder.AddAttribute(3, nameof(EditorItem<Foo, string>.Editable), false);
+        builder.AddAttribute(3, nameof(EditorItem<Foo, string>.Ignore), true);
         builder.CloseComponent();
     };
 
