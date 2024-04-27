@@ -42,6 +42,14 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public Expression<Func<TValue>>? FieldExpression { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
+    [ExcludeFromCodeCoverage]
+    public bool Editable { get; set; } = true;
+
+    /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     [Parameter]
