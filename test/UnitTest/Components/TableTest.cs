@@ -7249,6 +7249,17 @@ public class TableTest : TableTestBase
 
         })));
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut1.Markup);
+
+        var col = cut.FindComponent<TableColumn<ReadonlyFoo, string>>();
+        col.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Template, foo => builder => builder.AddContent(0, "test-Template"));
+        });
+        cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
+        {
+
+        })));
+        Assert.Equal("test-Template", cut1.Markup);
     }
 
     [Fact]
