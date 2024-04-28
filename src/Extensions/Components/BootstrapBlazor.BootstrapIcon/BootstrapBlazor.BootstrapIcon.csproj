@@ -3,24 +3,24 @@
   <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
-    <Version>8.0.1</Version>
+    <Version>8.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
-    <Description>Bootstrap UI components extensions of MaterialDesign</Description>
+    <Description>Bootstrap UI components extensions of Bootstrap</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
-    <Content Remove="wwwroot\md\css\*.css" />
-    <Content Remove="wwwroot\md\css\*.css.map" />
+    <Content Remove="wwwroot\css\bootstrap-icons.css" />
+    <Content Remove="wwwroot\css\bs.css" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\md\css\*.css" />
-    <None Include="wwwroot\md\css\*.css.map" />
     <None Include="bundleconfig.json" />
+    <None Include="wwwroot\css\bootstrap-icons.css" />
+    <None Include="wwwroot\css\bs.css" />
   </ItemGroup>
 
 </Project>

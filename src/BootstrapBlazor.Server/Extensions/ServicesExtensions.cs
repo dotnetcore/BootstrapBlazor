@@ -76,6 +76,11 @@ internal static class ServicesExtensions
 
         // 增加 MaterialDesign 图标主题
         services.ConfigureMaterialDesignIconTheme();
+
+        // 增加 Bootstrap 图标主题
+        services.ConfigureBootstrapIconTheme();
+
+        // 增加 FontAwesome 图标主题
         services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
         // 增加 BootstrapBlazor 假日服务

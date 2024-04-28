@@ -8,8 +8,10 @@
 <DemoBlock Title="@Localizer["TablesAutoRefreshNormalTitle"]"
            Introduction="@Localizer["TablesAutoRefreshNormalIntro"]"
            Name="TablesAutoRefreshNormal">
-    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -28,8 +30,10 @@
 <DemoBlock Title="@Localizer["TablesAutoRefreshControlTitle"]"
            Introduction="@Localizer["TablesAutoRefreshControlIntro"]"
            Name="TablesAutoRefreshControl">
-        <div>@Localizer["TablesAutoRefreshControlDescription"]</div>
+    <section ignore>
+        <p>@Localizer["TablesAutoRefreshControlDescription"]</p>
         <Button Text="@Localizer["TablesAutoRefreshControlToggleAuto"]" OnClick="@ToggleAuto" /> <span><code>IsAutoRefresh</code> @Localizer["TablesAutoRefreshControlIsAutoRefresh"]：<code>@IsAutoRefresh</code></span>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
