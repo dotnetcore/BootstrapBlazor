@@ -1,0 +1,9 @@
+﻿[
+  {
+    "outputFileName": "wwwroot/css/bootstrap-icons.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap-icons.css",
+      "wwwroot/css/bs.css"
+    ]
+  }
+]

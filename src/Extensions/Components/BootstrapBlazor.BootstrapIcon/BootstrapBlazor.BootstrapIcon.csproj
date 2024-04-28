@@ -11,4 +11,16 @@
     <Description>Bootstrap UI components extensions of Bootstrap</Description>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="bundleconfig.json" />
+    <Content Remove="wwwroot\css\bootstrap-icons.css" />
+    <Content Remove="wwwroot\css\bs.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bundleconfig.json" />
+    <None Include="wwwroot\css\bootstrap-icons.css" />
+    <None Include="wwwroot\css\bs.css" />
+  </ItemGroup>
+
 </Project>
