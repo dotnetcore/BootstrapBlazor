@@ -23,8 +23,4 @@
     <None Include="bundleconfig.json" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
-  </ItemGroup>
-
 </Project>
