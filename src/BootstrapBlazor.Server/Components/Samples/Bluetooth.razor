@@ -23,7 +23,7 @@
     {
         <p>@Localizer["BasicUsage"]</p>
         <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
-        <div @ref="printer.PrinterElement">
+        <div>
             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
             <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
             <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
