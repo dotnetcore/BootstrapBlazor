@@ -4451,7 +4451,7 @@ public class TableTest : TableTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         var seqs = table.Instance.Columns.Select(i => i.Order);
-        Assert.Equal(new List<int>() { 20, 40, 50, 60, 100, -3 }, seqs);
+        Assert.Equal(new List<int>() { 20, 40, 50, 60, 70, 100, -3 }, seqs);
     }
 
     [Fact]
@@ -7020,7 +7020,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Equal(6, table.Instance.Columns.Count);
+        Assert.Equal(7, table.Instance.Columns.Count);
     }
 
     [Fact]
