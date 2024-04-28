@@ -11,8 +11,7 @@
     display: flex;
     align-items: center;
 
-    .card-collapse-arrow:not(.mdi),
-    .card-collapse-arrow.mdi:before {
+    .card-collapse-arrow {
         transition: transform .3s linear;
     }
 
@@ -48,8 +47,7 @@
 }
 
 [aria-expanded="true"] {
-    > .card-collapse-arrow:not(.mdi),
-    > .card-collapse-arrow.mdi:before {
+    > .card-collapse-arrow {
         transform: rotate(90deg);
     }
 }

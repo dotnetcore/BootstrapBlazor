@@ -100,7 +100,7 @@ public enum ComponentIcons
     CameraPhotoIcon,
 
     /// <summary>
-    /// Collapse 组件 Icon 属性图标
+    /// Card 组件 CollapseIcon 属性图标
     /// </summary>
     CardCollapseIcon,
 
