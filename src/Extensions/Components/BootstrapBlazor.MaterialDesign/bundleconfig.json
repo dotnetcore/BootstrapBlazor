@@ -2,7 +2,8 @@
   {
     "outputFileName": "wwwroot/css/md.min.css",
     "inputFiles": [
-      "wwwroot/md/css/*.min.css"
+      "wwwroot/md/css/materialdesignicons.css",
+      "wwwroot/md/css/md.css"
     ]
   }
 ]
