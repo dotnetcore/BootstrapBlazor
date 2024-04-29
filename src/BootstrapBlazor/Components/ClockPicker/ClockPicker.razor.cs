@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -81,6 +82,12 @@ public partial class ClockPicker
 
     private string HourValue => (Value.Hours > 12 ? (Value.Hours - 12) : Value.Hours).ToString("D2");
 
+#if NET6_0
+    private string _version = "NET6.0";
+#else
+    private string _version = $"NET{Environment.Version}";
+#endif
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -90,9 +97,9 @@ public partial class ClockPicker
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && Module != null)
+        if (!firstRender)
         {
-            await Module.InvokeVoidAsync("update", Id, Value.Hours, Value.Minutes, Value.Seconds);
+            await InvokeVoidAsync("update", Id, new { Hour = Value.Hours, Minute = Value.Minutes, Second = Value.Seconds, Version = _version });
         }
     }
 
@@ -100,7 +107,7 @@ public partial class ClockPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours, Value.Minutes, Value.Seconds);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Hour = Value.Hours, Minute = Value.Minutes, Second = Value.Seconds, Version = _version });
 
     private void SetMode(TimeMode mode) => Mode = mode;
 
