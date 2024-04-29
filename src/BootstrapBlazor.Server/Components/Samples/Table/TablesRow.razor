@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["RowNumberTitle"]"
            Introduction="@Localizer["RowNumberIntro"]"
            Name="LineNoText">
-    <p>@((MarkupString)Localizer["RowNumberP"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["RowNumberP"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -29,8 +29,10 @@
 <DemoBlock Title="@Localizer["ClickToSelectTitle"]"
            Introduction="@Localizer["ClickToSelectIntro"]"
            Name="ClickToSelect">
-    <p>@((MarkupString)Localizer["ClickToSelectP"].Value)</p>
-    <p>@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["ClickToSelectP"].Value)</p>
+        <p>@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -51,9 +53,10 @@
 <DemoBlock Title="@Localizer["DoubleClickToEditTitle"]"
            Introduction="@Localizer["DoubleClickToEditIntro"]"
            Name="DoubleClickToEdit">
-    <p>@((MarkupString)Localizer["DoubleClickToEditP"].Value)</p>
-    <p>@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
-
+    <section ignore>
+        <p>@((MarkupString)Localizer["DoubleClickToEditP"].Value)</p>
+        <p>@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -93,7 +96,7 @@
 <DemoBlock Title="@Localizer["DoubleClickRowCallbackTitle"]"
            Introduction="@Localizer["DoubleClickRowCallbackIntro"]"
            Name="DoubleClickRowCallback">
-    <p>@Localizer["DoubleClickRowCallbackP"]</p>
+    <section ignore>@Localizer["DoubleClickRowCallbackP"]</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
