@@ -29,22 +29,24 @@
             <TableColumn @bind-Field="@context.Count" Width="80" />
         </TableColumns>
     </Table>
-    <Modal @ref="Modal">
-        <ModalDialog Title="@Localizer["TableDialogNormalSelectItem"]" IsCentered="true">
-            <BodyTemplate>
-                <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
-                       ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
-                       OnQueryAsync="@OnQueryProductAsync">
-                    <TableColumns>
-                        <TableColumn @bind-Field="@context.DateTime" />
-                        <TableColumn @bind-Field="@context.Name" />
-                        <TableColumn @bind-Field="@context.Count" />
-                    </TableColumns>
-                </Table>
-            </BodyTemplate>
-            <FooterTemplate>
-                <Button Text="@Localizer["TableDialogNormalSure"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
-            </FooterTemplate>
-        </ModalDialog>
-    </Modal>
+    <section ignore>
+        <Modal @ref="Modal">
+            <ModalDialog Title="@Localizer["TableDialogNormalSelectItem"]" IsCentered="true">
+                <BodyTemplate>
+                    <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
+                           ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
+                           OnQueryAsync="@OnQueryProductAsync">
+                        <TableColumns>
+                            <TableColumn @bind-Field="@context.DateTime" />
+                            <TableColumn @bind-Field="@context.Name" />
+                            <TableColumn @bind-Field="@context.Count" />
+                        </TableColumns>
+                    </Table>
+                </BodyTemplate>
+                <FooterTemplate>
+                    <Button Text="@Localizer["TableDialogNormalSure"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
+                </FooterTemplate>
+            </ModalDialog>
+        </Modal>
+    </section>
 </DemoBlock>
