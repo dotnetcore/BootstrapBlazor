@@ -7,30 +7,40 @@
 
 <h4>@Localizer["TablesCellDescription"]</h4>
 
+<HeadContent>
+    <style>
+        .cell-demo {
+            --bs-table-bg: #e9ecef;
+        }
+    </style>
+</HeadContent>
+
 <DemoBlock Title="@Localizer["TableCellMergeCellTitle"]"
            Introduction="@Localizer["TableCellMergeCellIntro"]"
            Name="MergeCell">
-    <p>@((MarkupString)Localizer["TableCellMergeCellTip"].Value)</p>
-    <Pre class="mb-3">.cell-demo {
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableCellMergeCellTip"].Value)</p>
+        <Pre class="mb-3">.cell-demo {
     --bs-table-bg: #e9ecef;
 }</Pre>
-    <div class="table-demo">
-        <Table TItem="Foo" Items="@Items.Take(3)">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="140" />
-                <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
-                <TableColumn @bind-Field="@context.Address" />
-            </TableColumns>
-        </Table>
-    </div>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="140" />
+            <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TableCellOnDoubleClickCellTitle"]"
            Introduction="@Localizer["TableCellOnDoubleClickCellIntro"]"
            Name="OnDoubleClickCell">
-    <Tips class="mb-3">
-        <p>@((MarkupString)Localizer["TableCellOnDoubleClickCellTip"].Value)</p>
-    </Tips>
+    <section ignore>
+        <Tips>
+            <p>@((MarkupString)Localizer["TableCellOnDoubleClickCellTip"].Value)</p>
+        </Tips>
+    </section>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
