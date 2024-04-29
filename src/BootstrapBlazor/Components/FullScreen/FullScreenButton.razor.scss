@@ -1,8 +1,8 @@
-.bb-fs-off,
-.bb-fs-open .bb-fs-on {
+.bb-fs-on,
+.bb-fs-open .bb-fs-off {
     display: none;
 }
 
-.bb-fs-open .bb-fs-off {
+.bb-fs-open .bb-fs-on {
     display: inline-block;
 }
