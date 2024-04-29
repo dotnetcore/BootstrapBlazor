@@ -20,6 +20,13 @@ public sealed partial class Selects
         new SelectedItem ("Shanghai", "上海") { Active = true },
     };
 
+    private IEnumerable<SelectedItem> ClearableItems { get; set; } = new[]
+    {
+        new SelectedItem ("", "未选择"),
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海")
+    };
+
     private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
 
     private SelectedItem? VirtualItem1 { get; set; }
