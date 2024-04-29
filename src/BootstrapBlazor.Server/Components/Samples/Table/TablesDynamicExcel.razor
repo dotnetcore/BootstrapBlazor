@@ -9,17 +9,18 @@
 <DemoBlock Title="@Localizer["TablesDynamicExcelNormalTitle"]"
            Introduction="@Localizer["TablesDynamicExcelNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["TablesDynamicExcelNormalDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["TablesDynamicExcelNormalDescription"].Value)</section>
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
            IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowToolbar="true">
     </Table>
-
-    <ConsoleLogger @ref="Logger" />
+    <section ignore>
+        <ConsoleLogger @ref="Logger" />
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesDynamicExcelEnumTitle"]"
            Introduction="@Localizer["TablesDynamicExcelEnumIntro"]"
-           Name="Enum">
+           Name="Enum" ShowCode="false">
     <Pre>DataTableDynamicContext = new(UserData, (context, col) =>
 {
     if (col.GetFieldName() == nameof(Foo.Education))
@@ -36,7 +37,7 @@
 <DemoBlock Title="@Localizer["TablesDynamicExcelKeyboardTitle"]"
            Introduction="@Localizer["TablesDynamicExcelKeyboardIntro"]"
            Name="Keyboard">
-    <p>@Localizer["TablesDynamicExcelKeyboardDescription"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
+    <section ignore>@Localizer["TablesDynamicExcelKeyboardDescription"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></section>
     <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
            IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
     </Table>

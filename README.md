@@ -3,15 +3,15 @@
 <div align="center">
 <h2>A set of enterprise-class UI components based on Bootstrap and Blazor.</h2>
 
-[![Security Status](https://www.murphysec.com/platform3/v3/badge/1619783039836532736.svg)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
+[![Security Status](https://www.murphysec.com/platform3/v3/badge/1619783039836532736.svg)](https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
 
-[![oscs](https://www.oscs1024.com/platform/badge/murphysecurity/murphysec.svg)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
-[![License](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
+[![oscs](https://www.oscs1024.com/platform/badge/murphysecurity/murphysec.svg)](https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&logoColor=red)](https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
 [![Nuget](https://img.shields.io/nuget/v/BootstrapBlazor.svg?color=red&logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
 [![Nuget](https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
-[![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
-[![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
-[![Github build](https://img.shields.io/github/actions/workflow/status/ArgoZhang/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
+[![Repo Size](https://img.shields.io/github/repo-size/dotnetcore/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/dotnetcore/BootstrapBlazor)
+[![Commit Date](https://img.shields.io/github/last-commit/dotnetcore/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/dotnetcore/BootstrapBlazor)
+[![Github build](https://img.shields.io/github/actions/workflow/status/dotnetcore/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/dotnetcore/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
 [![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
 </div>
 

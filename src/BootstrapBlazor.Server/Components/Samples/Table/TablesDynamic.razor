@@ -15,7 +15,7 @@
 <DemoBlock Title="@Localizer["TablesDynamicEditTitle"]"
            Introduction="@Localizer["TablesDynamicEditIntro"]"
            Name="Edit">
-    <p>@((MarkupString)Localizer["TablesDynamicEditDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["TablesDynamicEditDescription"].Value)</section>
     <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext" ModelEqualityComparer="ModelEqualityComparer"
            IsMultipleSelect="true" IsBordered="true" IsStriped="true" @bind-SelectedRows="SelectedItems"
            ShowToolbar="true" ShowExtendButtons="true" />

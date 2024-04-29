@@ -11,9 +11,11 @@
 <DemoBlock Title="@Localizer["WidthTitle"]"
            Introduction="@Localizer["WidthIntro"]"
            Name="Width">
-    <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
-    <p>@((MarkupString)Localizer["WidthP2"].Value)</p>
-    <p>@((MarkupString)Localizer["WidthP3"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
+        <p>@((MarkupString)Localizer["WidthP2"].Value)</p>
+        <p>@((MarkupString)Localizer["WidthP3"].Value)</p>
+    </section>
     <Table TItem="Foo" @ref="TableRows"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"

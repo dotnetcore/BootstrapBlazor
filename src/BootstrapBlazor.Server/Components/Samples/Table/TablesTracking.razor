@@ -8,8 +8,10 @@
 <DemoBlock Title="@Localizer["TablesTrackingNormalTitle"]"
            Introduction="@Localizer["TablesTrackingNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["TablesTrackingNormalTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesTrackingNormalTips2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesTrackingNormalTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesTrackingNormalTips2"].Value)</p>
+    </section>
     <Table TItem="Foo" IsTracking="true" @bind-Items="Items" ShowToastAfterSaveOrDeleteModel="false"
            IsBordered="true" IsMultipleSelect="true" ShowToolbar="true" ShowExtendButtons="true">
         <TableColumns>
