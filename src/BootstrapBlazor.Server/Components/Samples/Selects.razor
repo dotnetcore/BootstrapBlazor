@@ -124,8 +124,13 @@
 <DemoBlock Title="@Localizer["SelectsClearableTitle"]"
            Introduction="@Localizer["SelectsClearableIntro"]"
            Name="IsClearable">
-    <div style="width: 120px;">
-        <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
+        </div>
     </div>
 </DemoBlock>
 
