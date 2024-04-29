@@ -8,7 +8,8 @@ const setValue = (picker, point, value) => {
 
     if (mode === "Hour") {
         val.Hour = Math.floor(value)
-        if (picker.isPM) {
+        const isPM = el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm');
+        if (isPM) {
             val.Hour += 12;
         }
     }
@@ -61,20 +62,9 @@ const setDeg = (point, value, rate) => {
     point.style.setProperty('transform', `rotate(${deg}deg)`);
 }
 
-export function init(id, invoke, hour, minute, second) {
-    const el = document.getElementById(id);
-    const picker = {
-        el, invoke,
-        val:
-        {
-            Hour: hour, Minute: minute, Second: second
-        },
-        body: el.querySelector('.bb-time-body'),
-        isPM: el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm'),
-        pointers: [...el.querySelectorAll('.bb-clock-point')]
-    };
-
-    picker.pointers.forEach(p => {
+const initDrag = (picker, pointers) => {
+    const { el, invoke } = picker;
+    pointers.forEach(p => {
         Drag.drag(p,
             e => {
                 el.classList.add('dragging');
@@ -95,15 +85,30 @@ export function init(id, invoke, hour, minute, second) {
             },
             e => {
                 el.classList.remove('dragging');
+                console.log('drop-end')
                 invoke.invokeMethodAsync('SetTime', picker.val.Hour, picker.val.Minute, picker.val.Second);
             }
         );
 
         setPoint(picker, p);
     })
+}
+
+export function init(id, options) {
+    const { invoke, hour, minute, second } = options;
+    const el = document.getElementById(id);
+    const picker = {
+        el, invoke,
+        val:
+        {
+            Hour: hour, Minute: minute, Second: second
+        }
+    };
     Data.set(id, picker);
 
-    EventHandler.on(picker.body, 'click', '.bb-clock-panel > div', e => {
+    initDrag(picker, [...el.querySelectorAll('.bb-clock-point')]);
+
+    EventHandler.on(el, 'click', '.bb-time-body .bb-clock-panel > div', e => {
         const val = parseInt(e.delegateTarget.textContent);
         const point = e.delegateTarget.parentNode.querySelector('.bb-clock-point');
 
@@ -123,10 +128,18 @@ export function init(id, invoke, hour, minute, second) {
     })
 }
 
-export function update(id, hour, minute, second) {
+export function update(id, options) {
+    const { hour, minute, second, version } = options;
     const picker = Data.get(id);
     if (picker) {
         const { el, val } = picker;
+        if (version === 'NET6.0') {
+            const pointers = [...el.querySelectorAll('.bb-clock-point')];
+            pointers.forEach(p => {
+                Drag.dispose(p);
+            });
+            initDrag(picker, pointers);
+        }
         if (val.Hour !== hour) {
             val.Hour = hour;
             const point = el.querySelector('.bb-clock-panel-hour > .bb-clock-point')
@@ -142,8 +155,6 @@ export function update(id, hour, minute, second) {
             const point = el.querySelector('.bb-clock-panel-second > .bb-clock-point')
             setDeg(point, second, 6)
         }
-
-        picker.isPM = el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm');
     }
 }
 
