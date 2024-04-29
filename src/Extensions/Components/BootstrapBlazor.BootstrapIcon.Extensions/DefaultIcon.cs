@@ -68,7 +68,8 @@ internal class DefaultIcon
         { ComponentIcons.TableFilterPlusIcon, "bi bi-plus" },
         { ComponentIcons.TableFilterMinusIcon, "bi bi-dash" },
 
-        { ComponentIcons.FullScreenButtonIcon, "bi bi-arrows-fullscreen" },
+        { ComponentIcons.FullScreenButtonIcon, "bi bi-fullscreen" },
+        { ComponentIcons.FullScreenExitButtonIcon, "bi bi-fullscreen-exit" },
 
         { ComponentIcons.GoTopIcon, "bi bi-chevron-up" },
 
