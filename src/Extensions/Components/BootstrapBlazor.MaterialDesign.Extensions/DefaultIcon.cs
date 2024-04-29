@@ -69,6 +69,7 @@ internal class DefaultIcon
         { ComponentIcons.TableFilterMinusIcon, "mdi mdi-minus" },
 
         { ComponentIcons.FullScreenButtonIcon, "mdi mdi-fullscreen" },
+        { ComponentIcons.FullScreenExitButtonIcon, "mdi mdi-fullscreen-exit" },
 
         { ComponentIcons.GoTopIcon, "mdi mdi-chevron-up" },
 
