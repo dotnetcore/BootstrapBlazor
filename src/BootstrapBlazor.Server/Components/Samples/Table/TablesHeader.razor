@@ -8,10 +8,10 @@
 <DemoBlock Title="@Localizer["TablesHeaderNormalTitle"]"
            Introduction="@Localizer["TablesHeaderNormalIntro"]"
            Name="Normal">
-    <p>
+    <section ignore>
         <div>@((MarkupString)Localizer["TablesHeaderNormalTips1"].Value)</div>
         <div>@((MarkupString)Localizer["TablesHeaderNormalTips2"].Value)</div>
-    </p>
+    </section>
     <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true" ShowMultiFilterHeader="false">
         <MultiHeaderTemplate>
             <tr>
