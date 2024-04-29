@@ -19,10 +19,10 @@
 <DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
            Introduction="@Localizer["TableBaseNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</p>
-
-    <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="mb-3" />
-
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</p>
+        <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" />
+    </section>
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -59,7 +59,7 @@
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
            Name="TableSize">
-    <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</section>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
@@ -72,8 +72,10 @@
 <DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
            Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
            Name="HeaderStyle">
-    <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
-    <div class="code-label mb-3"><code>Light</code> @Localizer["TableBaseHeaderStyleMode"]</div>
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
+        <div class="code-label mb-3"><code>Light</code> @Localizer["TableBaseHeaderStyleMode"]</div>
+    </section>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -82,7 +84,7 @@
         </TableColumns>
     </Table>
 
-    <div class="code-label my-3"><code>Dark</code> @Localizer["TableBaseHeaderStyleMode"]</div>
+    <section ignore class="code-label my-3"><code>Dark</code> @Localizer["TableBaseHeaderStyleMode"]</section>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
