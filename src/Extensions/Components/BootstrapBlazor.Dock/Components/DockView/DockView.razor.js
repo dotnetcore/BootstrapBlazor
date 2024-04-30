@@ -361,7 +361,7 @@ const getConfig = option => {
                 close: 'close',
                 maximise: 'maximise',
                 minimise: 'minimise',
-                popout: 'lock/unlock'
+                popout: false
             }
         },
         ...option
@@ -531,25 +531,6 @@ const hackGoldenLayout = dock => {
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
             this.layoutManager.emit('splitterDragStop')
-        }
-
-        // hack Header
-        goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
-            // find own dock
-            const dock = goldenLayout.bb_docks.find(i => i.layout === this.layoutManager);
-            const eventsData = dock.eventsData
-
-            const stack = this.parent
-            const lock = eventsData.has(stack)
-            if (lock) {
-                unLockStack(stack, dock)
-            }
-            else {
-                lockStack(stack, dock)
-            }
-
-            resetDockLock(dock)
-            this.layoutManager.emit('lockChanged')
         }
 
         const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
