@@ -526,15 +526,6 @@ const hackGoldenLayout = dock => {
             this._layoutManager.emit('tabClosed', component, title)
         }
 
-        const originSetTitle = goldenLayout.Tab.prototype.setTitle
-        goldenLayout.Tab.prototype.setTitle = function (title) {
-            originSetTitle.call(this, title)
-            const showClose = this.contentItem.container.initialState.showClose
-            if (!showClose) {
-                this.closeElement.classList.add('d-none')
-            }
-        }
-
         // hack RowOrColumn
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
@@ -559,31 +550,6 @@ const hackGoldenLayout = dock => {
 
             resetDockLock(dock)
             this.layoutManager.emit('lockChanged')
-        }
-
-        const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
-        goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
-            originprocessTabDropdownActiveChanged.call(this)
-
-            this._closeButton.onClick = function (ev) {
-                // find own dock
-                const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
-                const eventsData = dock.eventsData
-
-                const tabs = this._header.tabs.map(tab => {
-                    return { element: tab.componentItem.element, title: tab.componentItem.title }
-                })
-                if (!eventsData.has(this._header.parent)) {
-                    this._pushEvent(ev)
-
-                    const handler = setTimeout(() => {
-                        clearTimeout(handler)
-                        tabs.forEach(tab => {
-                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
-                        })
-                    }, 100)
-                }
-            }
         }
     }
 }
