@@ -104,7 +104,7 @@ public class DockComponent : DockComponentBase
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Class, Key = Key ?? Title, ShowClose, Lock = IsLock, TitleWidth, TitleClass };
+        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth, TitleClass };
         Type = DockContentType.Component;
     }
 

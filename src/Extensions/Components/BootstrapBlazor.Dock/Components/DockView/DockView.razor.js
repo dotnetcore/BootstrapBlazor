@@ -560,25 +560,23 @@ const hackGoldenLayout = dock => {
         goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
             originprocessTabDropdownActiveChanged.call(this)
 
-            if (this._closeButton) {
-                this._closeButton.onClick = function (ev) {
-                    // find own dock
-                    const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
-                    const eventsData = dock.eventsData
+            this._closeButton.onClick = function (ev) {
+                // find own dock
+                const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
+                const eventsData = dock.eventsData
 
-                    const tabs = this._header.tabs.map(tab => {
-                        return { element: tab.componentItem.element, title: tab.componentItem.title }
-                    })
-                    if (!eventsData.has(this._header.parent)) {
-                        this._pushEvent(ev)
+                const tabs = this._header.tabs.map(tab => {
+                    return { element: tab.componentItem.element, title: tab.componentItem.title }
+                })
+                if (!eventsData.has(this._header.parent)) {
+                    this._pushEvent(ev)
 
-                        const handler = setTimeout(() => {
-                            clearTimeout(handler)
-                            tabs.forEach(tab => {
-                                this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
-                            })
-                        }, 100)
-                    }
+                    const handler = setTimeout(() => {
+                        clearTimeout(handler)
+                        tabs.forEach(tab => {
+                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
+                        })
+                    }, 100)
                 }
             }
         }
