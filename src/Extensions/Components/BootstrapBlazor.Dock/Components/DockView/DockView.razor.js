@@ -25,12 +25,34 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
     })
     layout.on('tabCreated', tab => {
-        if (tab.contentItem.container.initialState.titleClass) {
-            tab.titleElement.classList.add(tab.contentItem.container.initialState.titleClass);
+        var state = tab.contentItem.container.getState()
+        if (state.titleClass) {
+            tab.titleElement.classList.add(state.titleClass);
         }
-        if (tab.contentItem.container.initialState.titleWidth) {
-            tab.titleElement.style.setProperty('width', `${tab.contentItem.container.initialState.titleWidth}px`);
+        if (state.titleWidth) {
+            tab.titleElement.style.setProperty('width', `${state.titleWidth}px`);
         }
+    });
+    layout.on('stackCreated', stack => {
+        const stackElement = stack.target;
+        var lockElement = document.createElement('div');
+        lockElement.classList = 'bb-dock-lock';
+        lockElement.title = 'lock/unlock';
+        lockElement.onclick = () => {
+            const lock = eventsData.has(stackElement)
+            if (lock) {
+                unLockStack(stackElement, dock)
+            }
+            else {
+                lockStack(stackElement, dock)
+            }
+
+            resetDockLock(dock)
+            stackElement.layoutManager.emit('lockChanged')
+        }
+        var dropdown = stackElement.header.controlsContainerElement.querySelector('.lm_tabdropdown');
+        dropdown.after(lockElement);
+        stackElement.lockElement = lockElement;
     })
     layout.init()
 
@@ -171,9 +193,8 @@ const lockStack = (stack, dock) => {
     if (!eventsData.has(stack)) {
         eventsData.set(stack, stack)
 
-        const header = stack.header
-        header.controlsContainerElement.classList.add('bb-dock-lock')
-        header.tabs.forEach(tab => {
+        stack.lockElement.classList.add('lock')
+        stack.header.tabs.forEach(tab => {
             lockTab(tab, eventsData)
         })
     }
@@ -185,9 +206,8 @@ const unLockStack = (stack, dock) => {
     if (eventsData.has(stack)) {
         eventsData.delete(stack)
 
-        const header = stack.header
-        header.controlsContainerElement.classList.remove('bb-dock-lock')
-        header.tabs.forEach(tab => {
+        stack.lockElement.classList.remove('lock')
+        stack.header.tabs.forEach(tab => {
             unLockTab(tab, eventsData)
         })
     }
