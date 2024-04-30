@@ -24,7 +24,7 @@
                     </DetailRowTemplate>
                 </Table>
             </DockComponent>
-            <DockComponent Title="标签二" ShowClose="false">
+            <DockComponent Title="标签二" IsClosable="false">
                 <Table TItem="Foo" @bind-Items="Items"
                        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
@@ -39,7 +39,7 @@
                     </TableColumns>
                 </Table>
             </DockComponent>
-            <DockComponent Title="标签三" ShowClose="false">
+            <DockComponent Title="标签三" IsClosable="false">
                 <FetchData></FetchData>
             </DockComponent>
         </DockContent>
