@@ -42,6 +42,7 @@ public class DockComponent : DockComponentBase
     /// 获得/设置 组件 Class
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public string? Class { get; set; }
 
     /// <summary>
