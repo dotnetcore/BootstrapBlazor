@@ -30,7 +30,6 @@ class DockComponentConverter : JsonConverter<List<IDockComponent>>
         writer.WriteStartArray();
         foreach (var item in value)
         {
-#if NET6_0_OR_GREATER
             if (item is DockContent content)
             {
                 writer.WriteRawValue(JsonSerializer.Serialize(content, options));
@@ -42,7 +41,6 @@ class DockComponentConverter : JsonConverter<List<IDockComponent>>
                     writer.WriteRawValue(JsonSerializer.Serialize(contentItem, options));
                 }
             }
-#endif
         }
         writer.WriteEndArray();
     }
