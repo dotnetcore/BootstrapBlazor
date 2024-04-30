@@ -220,7 +220,7 @@ const toggleComponent = (dock, option) => {
     // gt 没有 items 有时添加
     items.forEach(v => {
         const c = comps.find(i => i.id === v.id)
-        if (c === undefined) {
+        if (c === void 0) {
             if (dock.layout.root.contentItems.length === 0) {
                 const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                 dock.layout.root.addChild(componentItem)
@@ -254,7 +254,7 @@ const toggleComponent = (dock, option) => {
     // gt 有 items 没有时移除
     comps.forEach(v => {
         const c = items.find(i => i.id === v.id)
-        if (c === undefined) {
+        if (c === void 0) {
             closeItem(dock.el, v)
         }
         else if (v.title !== c.title) {
@@ -433,17 +433,17 @@ const resetComponentId = (config, option) => {
         // 本地存储中没有，配置中有
         if (com === void 0) {
             if (config.root.content.length > 0) {
-                config.root.content.push({
-                    type: 'stack',
-                    content: [{
-                        type: 'component',
-                        content: [],
-                        title: item.title,
-                        id: item.id,
-                        componentType: 'component',
-                        componentState: item.componentState
-                    }]
-                });
+                if (config.root.type === 'stack' && config.root.content.length === 1 && option.content.length === 1) {
+                    config.root.type = option.content[0].type;
+                    config.root.content = option.content[0].content
+                }
+                else {
+                    config.root.content.push(createItem(item))
+                }
+            }
+            else {
+                config.root.type = option.content[0].type;
+                config.root.content = option.content[0].content;
             }
         }
     })
@@ -465,6 +465,15 @@ const resetComponentId = (config, option) => {
         }
     });
 }
+
+const createItem = item => ({
+    type: 'component',
+    content: [],
+    title: item.title,
+    id: item.id,
+    componentType: 'component',
+    componentState: item.componentState
+});
 
 const findStack = (stack, stacks) => {
     let find = null;
