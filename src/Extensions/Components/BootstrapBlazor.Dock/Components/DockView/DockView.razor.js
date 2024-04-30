@@ -24,6 +24,39 @@ export async function init(id, option, invoke) {
     layout.on('initialised', () => {
         saveConfig(option, layout)
     })
+    layout.on('tabCreated', tab => {
+        var state = tab.contentItem.container.getState()
+        if (state.titleClass) {
+            tab.titleElement.classList.add(state.titleClass);
+        }
+        if (state.titleWidth) {
+            tab.titleElement.style.setProperty('width', `${state.titleWidth}px`);
+        }
+        if (state.showClose === false) {
+            tab.closeElement.classList.add('d-none');
+        }
+    });
+    layout.on('stackCreated', stack => {
+        const stackElement = stack.target;
+        var lockElement = document.createElement('div');
+        lockElement.classList = 'bb-dock-lock';
+        lockElement.title = 'lock/unlock';
+        lockElement.onclick = () => {
+            const lock = eventsData.has(stackElement)
+            if (lock) {
+                unLockStack(stackElement, dock)
+            }
+            else {
+                lockStack(stackElement, dock)
+            }
+
+            resetDockLock(dock)
+            stackElement.layoutManager.emit('lockChanged')
+        }
+        var dropdown = stackElement.header.controlsContainerElement.querySelector('.lm_tabdropdown');
+        dropdown.after(lockElement);
+        stackElement.lockElement = lockElement;
+    })
     layout.init()
 
     layout.on('tabClosed', (component, title) => {
@@ -163,9 +196,8 @@ const lockStack = (stack, dock) => {
     if (!eventsData.has(stack)) {
         eventsData.set(stack, stack)
 
-        const header = stack.header
-        header.controlsContainerElement.classList.add('bb-dock-lock')
-        header.tabs.forEach(tab => {
+        stack.lockElement.classList.add('lock')
+        stack.header.tabs.forEach(tab => {
             lockTab(tab, eventsData)
         })
     }
@@ -177,16 +209,15 @@ const unLockStack = (stack, dock) => {
     if (eventsData.has(stack)) {
         eventsData.delete(stack)
 
-        const header = stack.header
-        header.controlsContainerElement.classList.remove('bb-dock-lock')
-        header.tabs.forEach(tab => {
+        stack.lockElement.classList.remove('lock')
+        stack.header.tabs.forEach(tab => {
             unLockTab(tab, eventsData)
         })
     }
 }
 
 const resetDockLock = dock => {
-    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
+    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.getState().lock)
     const lock = unlocks.length === 0
     if (dock.lock !== lock) {
         dock.lock = lock
@@ -199,7 +230,7 @@ const lockTab = (tab, eventsData) => {
         tab.disableReorder()
         tab.onCloseClick = () => { }
         eventsData.set(tab, tab.onCloseClick)
-        tab.componentItem.container.initialState.lock = true
+        tab.componentItem.container.getState().lock = true
     }
 }
 
@@ -208,7 +239,7 @@ const unLockTab = (tab, eventsData) => {
         tab.enableReorder()
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
-        tab.componentItem.container.initialState.lock = false
+        tab.componentItem.container.getState().lock = false
     }
 }
 
@@ -220,7 +251,7 @@ const toggleComponent = (dock, option) => {
     // gt 没有 items 有时添加
     items.forEach(v => {
         const c = comps.find(i => i.id === v.id)
-        if (c === undefined) {
+        if (c === void 0) {
             if (dock.layout.root.contentItems.length === 0) {
                 const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                 dock.layout.root.addChild(componentItem)
@@ -235,9 +266,12 @@ const toggleComponent = (dock, option) => {
                 rowOrColumn.updateSize()
             }
             else {
-                const stack = stacks.find(s => s.id == v.parent.id) || stacks.pop();
+                const stack = stacks.find(s => s.id == v.parent.id);
                 if (stack) {
                     stack.addItem(v);
+                }
+                else if (v.parent.type === 'stack' && stacks.length > 0) {
+                    stacks.pop().addItem(v);
                 }
                 else {
                     dock.layout.root.contentItems[0].addItem(v);
@@ -254,7 +288,7 @@ const toggleComponent = (dock, option) => {
     // gt 有 items 没有时移除
     comps.forEach(v => {
         const c = items.find(i => i.id === v.id)
-        if (c === undefined) {
+        if (c === void 0) {
             closeItem(dock.el, v)
         }
         else if (v.title !== c.title) {
@@ -353,7 +387,7 @@ const getConfig = option => {
                 close: 'close',
                 maximise: 'maximise',
                 minimise: 'minimise',
-                popout: 'lock/unlock'
+                popout: false
             }
         },
         ...option
@@ -433,17 +467,17 @@ const resetComponentId = (config, option) => {
         // 本地存储中没有，配置中有
         if (com === void 0) {
             if (config.root.content.length > 0) {
-                config.root.content.push({
-                    type: 'stack',
-                    content: [{
-                        type: 'component',
-                        content: [],
-                        title: item.title,
-                        id: item.id,
-                        componentType: 'component',
-                        componentState: item.componentState
-                    }]
-                });
+                if (config.root.type === 'stack' && config.root.content.length === 1 && option.content.length === 1) {
+                    config.root.type = option.content[0].type;
+                    config.root.content = option.content[0].content
+                }
+                else {
+                    config.root.content.push(createItem(item))
+                }
+            }
+            else {
+                config.root.type = option.content[0].type;
+                config.root.content = option.content[0].content;
             }
         }
     })
@@ -465,6 +499,15 @@ const resetComponentId = (config, option) => {
         }
     });
 }
+
+const createItem = item => ({
+    type: 'component',
+    content: [],
+    title: item.title,
+    id: item.id,
+    componentType: 'component',
+    componentState: item.componentState
+});
 
 const findStack = (stack, stacks) => {
     let find = null;
@@ -509,39 +552,11 @@ const hackGoldenLayout = dock => {
             this._layoutManager.emit('tabClosed', component, title)
         }
 
-        const originSetTitle = goldenLayout.Tab.prototype.setTitle
-        goldenLayout.Tab.prototype.setTitle = function (title) {
-            originSetTitle.call(this, title)
-            const showClose = this.contentItem.container.initialState.showClose
-            if (!showClose) {
-                this.closeElement.classList.add('d-none')
-            }
-        }
-
         // hack RowOrColumn
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
             this.layoutManager.emit('splitterDragStop')
-        }
-
-        // hack Header
-        goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
-            // find own dock
-            const dock = goldenLayout.bb_docks.find(i => i.layout === this.layoutManager);
-            const eventsData = dock.eventsData
-
-            const stack = this.parent
-            const lock = eventsData.has(stack)
-            if (lock) {
-                unLockStack(stack, dock)
-            }
-            else {
-                lockStack(stack, dock)
-            }
-
-            resetDockLock(dock)
-            this.layoutManager.emit('lockChanged')
         }
 
         const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged

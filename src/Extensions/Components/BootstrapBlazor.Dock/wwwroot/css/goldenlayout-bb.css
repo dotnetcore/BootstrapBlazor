@@ -48,10 +48,10 @@
             height: 20px;
         }
 
-    .bb-dock .lm_controls .lm_popout {
+    .bb-dock .lm_controls .bb-dock-lock {
         background-image: url(../images/unlock.svg);
     }
 
-    .bb-dock .lm_controls.bb-dock-lock .lm_popout {
-        background-image: url(../images/lock.svg);
-    }
+        .bb-dock .lm_controls .bb-dock-lock.lock {
+            background-image: url(../images/lock.svg);
+        }
