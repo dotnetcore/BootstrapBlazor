@@ -32,6 +32,9 @@ export async function init(id, option, invoke) {
         if (state.titleWidth) {
             tab.titleElement.style.setProperty('width', `${state.titleWidth}px`);
         }
+        if (state.showClose === false) {
+            tab.closeElement.classList.add('d-none');
+        }
     });
     layout.on('stackCreated', stack => {
         const stackElement = stack.target;

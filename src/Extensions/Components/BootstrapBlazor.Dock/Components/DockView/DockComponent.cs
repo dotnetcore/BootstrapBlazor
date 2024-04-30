@@ -56,14 +56,7 @@ public class DockComponent : DockComponentBase
     /// 获得/设置 组件是否允许关闭 默认 true
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 IsClosable 参数")]
-    public bool ShowClose { get => IsClosable; set => IsClosable = value; }
-
-    /// <summary>
-    /// 获得/设置 组件是否允许关闭 默认 true
-    /// </summary>
-    [Parameter]
-    public bool IsClosable { get; set; } = true;
+    public bool ShowClose { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件宽度百分比 默认 null 未设置
@@ -111,7 +104,7 @@ public class DockComponent : DockComponentBase
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth, TitleClass };
+        ComponentState = new { Id, Class, Key = Key ?? Title, ShowClose, Lock = IsLock, TitleWidth, TitleClass };
         Type = DockContentType.Component;
     }
 
