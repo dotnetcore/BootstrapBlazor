@@ -266,9 +266,12 @@ const toggleComponent = (dock, option) => {
                 rowOrColumn.updateSize()
             }
             else {
-                const stack = stacks.find(s => s.id == v.parent.id) || stacks.pop();
+                const stack = stacks.find(s => s.id == v.parent.id);
                 if (stack) {
                     stack.addItem(v);
+                }
+                else if (v.parent.type === 'stack' && stacks.length > 0) {
+                    stacks.pop().addItem(v);
                 }
                 else {
                     dock.layout.root.contentItems[0].addItem(v);
