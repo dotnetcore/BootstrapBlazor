@@ -56,6 +56,13 @@ public class DockComponent : DockComponentBase
     /// 获得/设置 组件是否允许关闭 默认 true
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请使用 IsClosable 参数")]
+    public bool ShowClose { get => IsClosable; set => IsClosable = value; }
+
+    /// <summary>
+    /// 获得/设置 组件是否允许关闭 默认 true
+    /// </summary>
+    [Parameter]
     public bool IsClosable { get; set; } = true;
 
     /// <summary>
