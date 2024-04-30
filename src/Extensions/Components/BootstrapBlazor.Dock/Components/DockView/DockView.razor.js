@@ -194,7 +194,7 @@ const unLockStack = (stack, dock) => {
 }
 
 const resetDockLock = dock => {
-    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
+    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.getState().lock)
     const lock = unlocks.length === 0
     if (dock.lock !== lock) {
         dock.lock = lock
@@ -207,7 +207,7 @@ const lockTab = (tab, eventsData) => {
         tab.disableReorder()
         tab.onCloseClick = () => { }
         eventsData.set(tab, tab.onCloseClick)
-        tab.componentItem.container.initialState.lock = true
+        tab.componentItem.container.getState().lock = true
     }
 }
 
@@ -216,7 +216,7 @@ const unLockTab = (tab, eventsData) => {
         tab.enableReorder()
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
-        tab.componentItem.container.initialState.lock = false
+        tab.componentItem.container.getState().lock = false
     }
 }
 
