@@ -24,6 +24,14 @@ export async function init(id, option, invoke) {
     layout.on('initialised', () => {
         saveConfig(option, layout)
     })
+    layout.on('tabCreated', tab => {
+        if (tab.contentItem.container.initialState.titleClass) {
+            tab.titleElement.classList.add(tab.contentItem.container.initialState.titleClass);
+        }
+        if (tab.contentItem.container.initialState.titleWidth) {
+            tab.titleElement.style.setProperty('width', `${tab.contentItem.container.initialState.titleWidth}px`);
+        }
+    })
     layout.init()
 
     layout.on('tabClosed', (component, title) => {
