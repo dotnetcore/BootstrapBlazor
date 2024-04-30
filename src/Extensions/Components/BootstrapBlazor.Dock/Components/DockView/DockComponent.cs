@@ -25,6 +25,13 @@ public class DockComponent : DockComponentBase
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件 Title 宽度 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public int? TitleWidth { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件 Class
     /// </summary>
     [Parameter]
@@ -88,7 +95,7 @@ public class DockComponent : DockComponentBase
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock };
+        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth };
         Type = DockContentType.Component;
     }
 
