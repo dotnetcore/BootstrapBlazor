@@ -64,11 +64,16 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
     {
         await using var browser = await LaunchBrowserAsync();
         await using var page = await browser.NewPageAsync();
+        await page.SetExtraHttpHeadersAsync(new Dictionary<string, string>
+        {
+            ["Content-Type"] = "text/html; charset=utf-8"
+        });
         await page.SetContentAsync(html);
 
         await AddWebsiteLinks(page, links);
         await AddWebsiteScripts(page, scripts);
 
+        var content = await page.GetContentAsync();
         return await page.PdfStreamAsync();
     }
 
