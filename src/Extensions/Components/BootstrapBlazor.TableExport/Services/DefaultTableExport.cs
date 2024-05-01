@@ -90,7 +90,12 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 
         try
         {
-            var linkString = links == null ? "" : string.Join("", links);
+            var tags = GetDefaultLinks();
+            if (links != null)
+            {
+                tags.AddRange(links);
+            }
+            var linkString = string.Join("", tags.Select(i => $"<link rel=\"stylesheet\" href=\"{i}\">"));
             var html = await GenerateTableHtmlAsync(items, cols, options);
             var htmlString = $"""
                 <!DOCTYPE html>
@@ -120,6 +125,20 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
             logger.LogError(ex, "ExportPdfAsync execute failed");
         }
         return ret;
+    }
+
+    private List<string> GetDefaultLinks()
+    {
+        var navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
+        var baseUri = navigationManager.BaseUri;
+        return
+        [
+            $"{baseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
+            $"{baseUri}_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
+            $"{baseUri}_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
+            $"{baseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
+            $"{baseUri}_content/BootstrapBlazor/css/motronic.min.css"
+        ];
     }
 
     private static async Task<string> GenerateTableHtmlAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options)
