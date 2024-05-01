@@ -85,10 +85,21 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
         try
         {
             var html = await GenerateTableHtmlAsync(items, cols, options);
+            html = $"""
+                <!DOCTYPE html>
 
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <meta charset="utf-8" />
+                </head>
+                <body class="p-3">
+                    {html}
+                </body>
+                </html>
+                """;
             // 得到 Pdf 文件数据
-            var pdfService = serviceProvider.GetRequiredService<IExportPdf>();
-            var stream = await pdfService.PdfStreamAsync(html);
+            var pdfService = serviceProvider.GetRequiredService<IHtml2Pdf>();
+            var stream = await pdfService.PdfStreamFromHtmlAsync(html);
 
             // 下载 Pdf 文件
             var downloadService = serviceProvider.GetRequiredService<DownloadService>();
