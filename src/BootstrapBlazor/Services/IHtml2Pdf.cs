@@ -20,4 +20,20 @@ public interface IHtml2Pdf
     /// </summary>
     /// <param name="url">url</param>
     Task<Stream> PdfStreamAsync(string url);
+
+    /// <summary>
+    /// Export method
+    /// </summary>
+    /// <param name="html">html raw string</param>
+    /// <param name="links"></param>
+    /// <param name="scripts"></param>
+    Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null);
+
+    /// <summary>
+    /// Export method
+    /// </summary>
+    /// <param name="html">html raw string</param>
+    /// <param name="links"></param>
+    /// <param name="scripts"></param>
+    Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null);
 }
