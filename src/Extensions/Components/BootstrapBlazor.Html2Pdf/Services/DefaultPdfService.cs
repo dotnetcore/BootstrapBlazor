@@ -89,13 +89,11 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
         var baseUri = navigationManager.BaseUri;
         var websiteLinks = new List<string>()
         {
-#if DEBUG
             $"{baseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
             $"{baseUri}_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
             $"{baseUri}_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
             $"{baseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
             $"{baseUri}_content/BootstrapBlazor/css/motronic.min.css"
-#endif
         };
 
         if (links != null)
