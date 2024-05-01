@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components.Extensions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -71,26 +72,33 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
     {
         var options = serviceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
-        return ExportPdfAsync(items, cols, options, fileName);
+        return ExportPdfAsync(items, cols, options, fileName, null);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null)
+    public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportPdfAsync(items, cols, options, fileName, null);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null, IEnumerable<string>? links = null)
     {
         var ret = false;
         var logger = serviceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
 
         try
         {
+            var linkString = links == null ? "" : string.Join("", links);
             var html = await GenerateTableHtmlAsync(items, cols, options);
-            html = $"""
+            var htmlString = $"""
                 <!DOCTYPE html>
 
                 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
                 <head>
                     <meta charset="utf-8" />
+                    {linkString}
                 </head>
                 <body class="p-3">
                     {html}
@@ -99,7 +107,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
                 """;
             // 得到 Pdf 文件数据
             var pdfService = serviceProvider.GetRequiredService<IHtml2Pdf>();
-            var stream = await pdfService.PdfStreamFromHtmlAsync(html);
+            var stream = await pdfService.PdfStreamFromHtmlAsync(htmlString);
 
             // 下载 Pdf 文件
             var downloadService = serviceProvider.GetRequiredService<DownloadService>();
