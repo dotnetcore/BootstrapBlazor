@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using PuppeteerSharp;
-using System.Text;
 
 namespace BootstrapBlazor.Components;
 
@@ -65,13 +64,16 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
     {
         await using var browser = await LaunchBrowserAsync();
         await using var page = await browser.NewPageAsync();
+        await page.SetExtraHttpHeadersAsync(new Dictionary<string, string>
+        {
+            ["Content-Type"] = "text/html; charset=utf-8"
+        });
+        await page.SetContentAsync(html);
 
-        html = $"data:text/html;base64,{Convert.ToBase64String(Encoding.UTF8.GetBytes(html))}";
-        await page.GoToAsync(html);
+        await AddWebsiteLinks(page, links);
+        await AddWebsiteScripts(page, scripts);
 
-        //await AddWebsiteLinks(page, links);
-        //await AddWebsiteScripts(page, scripts);
-
+        var content = await page.GetContentAsync();
         return await page.PdfStreamAsync();
     }
 
