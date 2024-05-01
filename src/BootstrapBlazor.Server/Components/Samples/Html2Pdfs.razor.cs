@@ -11,6 +11,10 @@ public partial class Html2Pdfs
 {
     [Inject]
     [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject]
+    [NotNull]
     private IHtml2Pdf? Html2PdfService { get; set; }
 
     [Inject]
@@ -20,6 +24,14 @@ public partial class Html2Pdfs
     [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Html2Pdfs>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     [NotNull]
     private List<Foo>? Items { get; set; }
