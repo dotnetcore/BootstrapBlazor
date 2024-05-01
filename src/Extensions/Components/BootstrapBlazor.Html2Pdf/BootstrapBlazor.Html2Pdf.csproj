@@ -10,8 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="8.5.1-beta03" />
+    <!--<PackageReference Include="BootstrapBlazor" Version="8.5.1-beta03" />-->
     <PackageReference Include="PuppeteerSharp" Version="17.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
 </Project>

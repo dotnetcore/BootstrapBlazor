@@ -42,7 +42,7 @@
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.0-beta01" />
+    <!--<PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.0-beta01" />-->
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
@@ -68,6 +68,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Html2Pdf\BootstrapBlazor.Html2Pdf.csproj" />
   </ItemGroup>
 
   <ItemGroup>
