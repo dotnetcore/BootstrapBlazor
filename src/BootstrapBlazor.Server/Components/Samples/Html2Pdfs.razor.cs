@@ -19,17 +19,13 @@ public partial class Html2Pdfs
 
     [Inject]
     [NotNull]
-    private IWebHostEnvironment? WebHostEnvironment { get; set; }
-
-    [Inject]
-    [NotNull]
     private NavigationManager? NavigationManager { get; set; }
 
     [NotNull]
     private List<Foo>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -40,33 +36,26 @@ public partial class Html2Pdfs
 
     private async Task OnExportAsync()
     {
-        if (OperatingSystem.IsWindows())
+        // 通过脚本获得 table 表格 Html
+        var html = await InvokeAsync<string>("getHtml", "table-9527");
+        if (!string.IsNullOrEmpty(html))
         {
-            // 通过脚本获得 table 表格 Html
-            var html = await InvokeAsync<string>("getHtml", "table-9527");
+            var htmlString = $"""
+                <!DOCTYPE html>
 
-            // 通过 template 模板文件生成网页文件
-            var templateFileName = Path.Combine(WebHostEnvironment.WebRootPath, "pdf/template.htm");
-            var template = await File.ReadAllTextAsync(templateFileName);
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <meta charset="utf-8" />
+                </head>
+                <body class="p-3">
+                    {html}
+                </body>
+                </html>
+                """;
 
-            // 生成静态 html 文件
-            var fileName = $"pdf/{Guid.NewGuid()}.html";
-            var filePath = Path.Combine(WebHostEnvironment.WebRootPath, fileName);
-            await using var writer = File.CreateText(filePath);
-            await writer.WriteLineAsync(string.Format(template, html));
-            await writer.FlushAsync();
-            writer.Close();
-
-            // 拼接导出文件网址
-            var url = $"{NavigationManager.BaseUri}{fileName}";
-            var data = await Html2PdfService.PdfDataAsync(url);
-            using var stream = new MemoryStream(data);
-            await DownloadService.DownloadFromStreamAsync("table.pdf", stream);
-            await ToastService.Success("Pdf Export", "Export pdf element success.");
-        }
-        else
-        {
-            await ToastService.Information("Pdf Export", "请本地运行此功能，服务器为 Linux 系统未配置其运行环境Please use localhost check this function. ");
+            using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, [$"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]);
+            await DownloadService.DownloadFromStreamAsync($"table-{DateTime.Now:HHmmss}.pdf", stream);
+            await ToastService.Success(Localizer["ToastTitle"], Localizer["ToastContent"]);
         }
     }
 }

@@ -5942,7 +5942,10 @@
     "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "Html2PdfElementTitle": "Export DOM",
     "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
-    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportDataAsync</code>. export <code>html</code> to <code>Pdf</code>"
+    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportDataAsync</code>. export <code>html</code> to <code>Pdf</code>",
+    "ExportButtonText": "Export Pdf",
+    "ToastTitle": "Export Pdf",
+    "ToastContent": "Export table by id to pdf success."
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",
