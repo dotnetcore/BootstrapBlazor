@@ -48,8 +48,8 @@ class DefaultPdfService : IHtml2Pdf
         await using var page = await browser.NewPageAsync();
         await page.SetContentAsync(html);
 
-        await AddWebsiteLinks(page, links);
-        await AddWebsiteScripts(page, scripts);
+        await AddStyleTagAsync(page, links);
+        await AddScriptTagAsync(page, scripts);
 
         return await page.PdfDataAsync();
     }
@@ -66,37 +66,37 @@ class DefaultPdfService : IHtml2Pdf
         await using var page = await browser.NewPageAsync();
         await page.SetContentAsync(html);
 
-        await AddWebsiteLinks(page, links);
-        await AddWebsiteScripts(page, scripts);
+        await AddStyleTagAsync(page, links);
+        await AddScriptTagAsync(page, scripts);
 
         return await page.PdfStreamAsync();
     }
 
-    private static async Task AddWebsiteLinks(IPage page, IEnumerable<string>? links = null)
+    private static async Task AddStyleTagAsync(IPage page, IEnumerable<string>? links = null)
     {
-        var websiteLinks = new List<string>();
+        var styles = new List<string>();
 
         if (links != null)
         {
-            websiteLinks.AddRange(links);
+            styles.AddRange(links);
         }
 
-        foreach (var link in websiteLinks)
+        foreach (var link in styles)
         {
             await page.AddStyleTagAsync(link);
         }
     }
 
-    private static async Task AddWebsiteScripts(IPage page, IEnumerable<string>? scripts = null)
+    private static async Task AddScriptTagAsync(IPage page, IEnumerable<string>? scripts = null)
     {
-        var websiteScripts = new List<string>();
+        var tags = new List<string>();
 
         if (scripts != null)
         {
-            websiteScripts.AddRange(scripts);
+            tags.AddRange(scripts);
         }
 
-        foreach (var script in websiteScripts)
+        foreach (var script in tags)
         {
             await page.AddScriptTagAsync(script);
         }
