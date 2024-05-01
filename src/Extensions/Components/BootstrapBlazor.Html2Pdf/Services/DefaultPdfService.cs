@@ -19,11 +19,10 @@ class DefaultPdfService : IHtml2Pdf
         using var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
 
-        await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
+        await using var browser = await Puppeteer.LaunchAsync(CreateOptions());
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
 
-        var content = await page.GetContentAsync();
         return await page.PdfDataAsync();
     }
 
@@ -35,11 +34,12 @@ class DefaultPdfService : IHtml2Pdf
         using var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
 
-        await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
+        await using var browser = await Puppeteer.LaunchAsync(CreateOptions());
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
 
-        var content = await page.GetContentAsync();
         return await page.PdfStreamAsync();
     }
+
+    private static LaunchOptions CreateOptions() => new() { Headless = true };
 }
