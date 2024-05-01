@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace UnitTest.Components;
+
 public class TableExportTest
 {
     [Fact]
@@ -23,7 +24,13 @@ public class TableExportTest
         actual = await exporter.ExportCsvAsync(items, cols, new TableExportOptions(), null);
         Assert.True(actual);
 
+        actual = await exporter.ExportPdfAsync(items, cols, null);
+        Assert.True(actual);
+
         actual = await exporter.ExportPdfAsync(items, cols, new TableExportOptions(), null);
+        Assert.True(actual);
+
+        actual = await exporter.ExportPdfAsync(items, cols, new TableExportOptions(), null, null);
         Assert.True(actual);
     }
 
