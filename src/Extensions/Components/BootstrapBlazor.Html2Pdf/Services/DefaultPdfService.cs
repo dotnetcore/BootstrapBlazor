@@ -110,7 +110,7 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
         }
     }
 
-    private static LaunchOptions CreateOptions() => new() { Headless = true };
+    private static LaunchOptions CreateOptions() => new() { Headless = true, Args = ["--no-sandbox", "--disable-setuid-sandbox"] };
 
     private static async Task<IBrowser> LaunchBrowserAsync()
     {
