@@ -154,9 +154,6 @@ internal static class ServicesExtensions
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
-        // 增加 Pdf 导出服务
-        services.AddTransient<IExportPdf, ExportPdfService>();
-
         return services;
     }
 }
