@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 默认 Html to Pdf 实现 
 /// </summary>
-class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
+class DefaultPdfService : IHtml2Pdf
 {
     /// <summary>
     /// <inheritdoc/>
@@ -72,17 +72,9 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
         return await page.PdfStreamAsync();
     }
 
-    private async Task AddWebsiteLinks(IPage page, IEnumerable<string>? links = null)
+    private static async Task AddWebsiteLinks(IPage page, IEnumerable<string>? links = null)
     {
-        var baseUri = navigationManager.BaseUri;
-        var websiteLinks = new List<string>()
-        {
-            $"{baseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
-            $"{baseUri}_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
-            $"{baseUri}_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
-            $"{baseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
-            $"{baseUri}_content/BootstrapBlazor/css/motronic.min.css"
-        };
+        var websiteLinks = new List<string>();
 
         if (links != null)
         {
