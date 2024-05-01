@@ -68,13 +68,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="8.3.9" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.14" />
+    <PackageReference Include="BootstrapBlazor" Version="8.5.1-beta03" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Maui" Version="8.0.21" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.14" />
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.14" />
-    <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.14" />
+    <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.21" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.21" />
+    <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.21" />
   </ItemGroup>
 
   <ItemGroup>
