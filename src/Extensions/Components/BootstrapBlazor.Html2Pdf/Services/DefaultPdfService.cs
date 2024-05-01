@@ -48,20 +48,8 @@ class DefaultPdfService(NavigationManager navigationManager) : IHtml2Pdf
         await using var page = await browser.NewPageAsync();
         await page.SetContentAsync(html);
 
-        if (links != null)
-        {
-            foreach (var link in links)
-            {
-                await page.AddStyleTagAsync(link);
-            }
-        }
-        if (scripts != null)
-        {
-            foreach (var script in scripts)
-            {
-                await page.AddScriptTagAsync(script);
-            }
-        }
+        await AddWebsiteLinks(page, links);
+        await AddWebsiteScripts(page, scripts);
 
         return await page.PdfDataAsync();
     }
