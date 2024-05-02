@@ -48,10 +48,11 @@ public partial class Html2Pdfs
 
     private async Task OnExportAsync()
     {
-        // 通过脚本获得 table 表格 Html
+        // 通过脚本 getHtml 获得 table 表格 Html
         var html = await InvokeAsync<string>("getHtml", "table-9527");
         if (!string.IsNullOrEmpty(html))
         {
+            // 通过模板生成完整的 Html
             var htmlString = $"""
                 <!DOCTYPE html>
 
@@ -65,8 +66,13 @@ public partial class Html2Pdfs
                 </html>
                 """;
 
+            // 增加网页所需样式表文件
             using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, [$"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]);
+
+            // 下载 Pdf 文件
             await DownloadService.DownloadFromStreamAsync($"table-{DateTime.Now:HHmmss}.pdf", stream);
+
+            // 提示文件下载成功
             await ToastService.Success(Localizer["ToastTitle"], Localizer["ToastContent"]);
         }
     }
