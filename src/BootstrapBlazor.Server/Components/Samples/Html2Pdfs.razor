@@ -1,7 +1,4 @@
 ﻿@page "/html2pdf"
-@inject ToastService ToastService
-@inject IStringLocalizer<Html2Pdfs> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
 @inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Samples/Html2Pdfs.razor.js", AutoInvokeDispose = false, AutoInvokeInit = false)]
 
@@ -15,11 +12,27 @@
 
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
+<p class="code-label mt-3">@Localizer["Tips1"]</p>
+
+<p>@((MarkupString)Localizer["Html2PdfIntro1"].Value)</p>
+
+<p>@((MarkupString)Localizer["Html2PdfIntro2"].Value)</p>
+
+<p>@((MarkupString)Localizer["Html2PdfIntro3"].Value)</p>
+
+<p>@((MarkupString)Localizer["Html2PdfIntro4"].Value)</p>
+
+<p class="code-label"><code>IHtml2Pdf</code> @Localizer["Tips2"]</p>
+
+<p>@((MarkupString)Localizer["PackageIntro"].Value)</p>
+
+<PackageTips Name="BootstrapBlazor.Html2Pdf" />
+
 <DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Normal">
     <section ignore>
-        @((MarkupString)Localizer["Html2PdfElementDesc"].Value)
+        <p>@((MarkupString)Localizer["Html2PdfElementDesc"].Value)</p>
+        <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["ExportButtonText"]"></Button>
     </section>
-    <Button OnClickWithoutRender="OnExportAsync" Text="ExportPdf" class="mb-3"></Button>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

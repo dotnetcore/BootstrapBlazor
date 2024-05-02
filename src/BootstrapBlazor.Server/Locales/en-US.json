@@ -4607,7 +4607,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
-    "Html2Pdf": "Html2Pdf",
+    "Html2Pdf": "IHtml2Pdf",
     "ContextMenu": "ContextMenu",
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
@@ -5942,7 +5942,17 @@
     "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "Html2PdfElementTitle": "Export DOM",
     "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
-    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportDataAsync</code>. export <code>html</code> to <code>Pdf</code>"
+    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>PdfStreamFromHtmlAsync</code>. export <code>html</code> to <code>Pdf</code>",
+    "ExportButtonText": "Export Pdf",
+    "ToastTitle": "Export Pdf",
+    "ToastContent": "Export table by id to pdf success.",
+    "Tips1": "Introduce",
+    "Tips2": "service",
+    "PackageIntro": "Component default not implemented <code>IHtml2Pdf</code>, please refer to the package <code>BootstrapBlazor.Html2Pdf</code> package",
+    "Html2PdfIntro1": "1. Retrieve web page elements through the <code>getHTML</code> script <code>HTML</code> code",
+    "Html2PdfIntro2": "2. Generate web page code using a template using <code>HTML</code> code. <code>Note</code> the style sheet required for the web page needs to be provided <code>_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css</code>",
+    "Html2PdfIntro3": "3. Convert web pages to Pdf using the <code>IHtml2Pdf</code> service instance method <code>PdfStreamFromHtmlAsync</code>",
+    "Html2PdfIntro4": "4. <code>IHtml2Pdf</code> Implement service usage <code>PuppeterSharp</code> convert web pages to <code>Pdf</code>, download <code>Chromium</code> runtime when running for the first time, which may be slow under poor network conditions"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",

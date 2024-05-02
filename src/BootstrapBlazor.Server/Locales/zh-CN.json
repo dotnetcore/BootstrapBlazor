@@ -4607,7 +4607,7 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
-    "Html2Pdf": "Html 转 Pdf Html2Pdf",
+    "Html2Pdf": "Html 转 Pdf IHtml2Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
     "ClockPicker": "时间选择器 ClockPicker",
     "TimePicker": "时间选择器 TimePicker",
@@ -5942,7 +5942,17 @@
     "Html2PdfNote": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "Html2PdfElementTitle": "导出指定网页元素",
     "Html2PdfElementIntro": "将 <code>Html</code> 元素内容导出为 <code>Pdf</code> 流",
-    "Html2PdfElementDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportDataAsync</code> 将网页 <code>Html</code> 导出为 <code>Pdf</code>"
+    "Html2PdfElementDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>PdfStreamFromHtmlAsync</code> 将网页 <code>Html</code> 导出为 <code>Pdf</code>",
+    "ExportButtonText": "导出 Pdf",
+    "ToastTitle": "Pdf 导出",
+    "ToastContent": "通过表格 Id 导出 Pdf 文件成功",
+    "Tips1": "实现原理",
+    "Tips2": "服务",
+    "PackageIntro": "组件默认未实现 <code>IHtml2Pdf</code>，请通过引用包 <code>BootstrapBlazor.Html2Pdf</code> 实现",
+    "Html2PdfIntro1": "1. 通过 <code>getHtml</code> 脚本获取网页元素 <code>Html</code> 代码",
+    "Html2PdfIntro2": "2. 将 <code>Html</code> 代码，通过模板生成网页代码，<code>注意</code> 需要提供网页需要的样式表 <code>_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css</code>",
+    "Html2PdfIntro3": "3. 通过 <code>IHtml2Pdf</code> 服务实例方法 <code>PdfStreamFromHtmlAsync</code> 将网页 转化为 <code>Pdf</code>",
+    "Html2PdfIntro4": "4. <code>IHtml2Pdf</code> 实现服务使用 <code>PuppeteerSharp</code> 将网页 转化为 <code>Pdf</code>，首次使用时会下载 <code>Chromium</code> 运行时，网络不好的情况下可能会很慢"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D 插件",
