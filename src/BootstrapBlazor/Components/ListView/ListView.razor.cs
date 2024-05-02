@@ -18,6 +18,10 @@ public partial class ListView<TItem> : BootstrapComponentBase
         .AddClass("is-group", GroupName != null)
         .Build();
 
+    private string? BodyTemplateClassString => CssBuilder.Default("listview-item")
+        .AddClass(BodyTemplateClass)
+        .Build();
+
     /// <summary>
     /// 获得/设置 CardHeard
     /// </summary>
@@ -39,6 +43,12 @@ public partial class ListView<TItem> : BootstrapComponentBase
     [EditorRequired]
 #endif
     public RenderFragment<TItem>? BodyTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件 BodyTemplate 样式 默认 null 未设置
+    /// </summary>
+    [Parameter] 
+    public string? BodyTemplateClass { get; set; }
 
     /// <summary>
     /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="Pageable"/> 参数不起作用，请自行实现分页功能
