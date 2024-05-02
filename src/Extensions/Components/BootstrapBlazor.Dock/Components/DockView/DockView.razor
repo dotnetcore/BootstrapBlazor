@@ -19,4 +19,8 @@
     @<div id="@com.Id" class="bb-dock-item d-none" data-bb-key="@com.Key" data-bb-title="@com.Title">
         @com.ChildContent
     </div>;
+    RenderFragment RenderTitleTemplate(DockComponent com) =>
+    @<div class="bb-dock-item-title d-none" data-bb-componentId="@com.Id">
+        @com.TitleTemplate
+    </div>;
 }

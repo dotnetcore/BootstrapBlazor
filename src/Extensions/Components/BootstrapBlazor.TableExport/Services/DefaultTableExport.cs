@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components.Extensions;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -71,24 +72,47 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
     public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
     {
         var options = serviceProvider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value.TableSettings.TableExportOptions;
-        return ExportPdfAsync(items, cols, options, fileName);
+        return ExportPdfAsync(items, cols, options, fileName, null);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null)
+    public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null) => ExportPdfAsync(items, cols, options, fileName, null);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options, string? fileName = null, IEnumerable<string>? links = null)
     {
         var ret = false;
         var logger = serviceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
 
         try
         {
+            var tags = GetDefaultLinks();
+            if (links != null)
+            {
+                tags.AddRange(links);
+            }
+            var linkString = string.Join("", tags.Select(i => $"<link rel=\"stylesheet\" href=\"{i}\">"));
             var html = await GenerateTableHtmlAsync(items, cols, options);
+            var htmlString = $"""
+                <!DOCTYPE html>
 
+                <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+                <head>
+                    <meta charset="utf-8" />
+                    {linkString}
+                </head>
+                <body class="p-3">
+                    {html}
+                </body>
+                </html>
+                """;
             // 得到 Pdf 文件数据
-            var pdfService = serviceProvider.GetRequiredService<IExportPdf>();
-            var stream = await pdfService.PdfStreamAsync(html);
+            var pdfService = serviceProvider.GetRequiredService<IHtml2Pdf>();
+            var stream = await pdfService.PdfStreamFromHtmlAsync(htmlString);
 
             // 下载 Pdf 文件
             var downloadService = serviceProvider.GetRequiredService<DownloadService>();
@@ -101,6 +125,20 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
             logger.LogError(ex, "ExportPdfAsync execute failed");
         }
         return ret;
+    }
+
+    private List<string> GetDefaultLinks()
+    {
+        var navigationManager = serviceProvider.GetRequiredService<NavigationManager>();
+        var baseUri = navigationManager.BaseUri;
+        return
+        [
+            $"{baseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
+            $"{baseUri}_content/BootstrapBlazor.MaterialDesign/css/md.min.css",
+            $"{baseUri}_content/BootstrapBlazor.BootstrapIcon/css/bootstrap-icons.min.css",
+            $"{baseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
+            $"{baseUri}_content/BootstrapBlazor/css/motronic.min.css"
+        ];
     }
 
     private static async Task<string> GenerateTableHtmlAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, TableExportOptions options)
