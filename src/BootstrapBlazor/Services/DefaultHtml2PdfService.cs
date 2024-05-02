@@ -9,15 +9,17 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class DefaultHtml2PdfService : IHtml2Pdf
 {
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public Task<byte[]> PdfDataAsync(string url) => Task.FromResult(Array.Empty<byte>());
+    private const string ErrorMessage = "请增加依赖包 BootstrapBlazor.Html2Pdf 通过 AddBootstrapBlazorHtml2PdfService 进行服务注入; Please add BootstrapBlazor.Html2Pdf package and use AddBootstrapBlazorHtml2PdfService inject service";
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Task<Stream> PdfStreamAsync(string url) => Task.FromResult<Stream>(new MemoryStream());
+    public Task<byte[]> PdfDataAsync(string url) => throw new NotImplementedException(ErrorMessage);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Task<Stream> PdfStreamAsync(string url) => throw new NotImplementedException(ErrorMessage);
 
     /// <summary>
     /// Export method
@@ -25,7 +27,7 @@ class DefaultHtml2PdfService : IHtml2Pdf
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>
     /// <param name="scripts"></param>
-    public Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => Task.FromResult(Array.Empty<byte>());
+    public Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => throw new NotImplementedException(ErrorMessage);
 
     /// <summary>
     /// Export method
@@ -33,5 +35,5 @@ class DefaultHtml2PdfService : IHtml2Pdf
     /// <param name="html">html raw string</param>
     /// <param name="links"></param>
     /// <param name="scripts"></param>
-    public Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => Task.FromResult<Stream>(new MemoryStream());
+    public Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => throw new NotImplementedException(ErrorMessage);
 }
