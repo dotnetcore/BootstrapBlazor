@@ -867,4 +867,19 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         Assert.True(clear);
     }
+
+    [Fact]
+    public async Task Toggle_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+        });
+        await cut.Instance.Show();
+        await cut.Instance.Hide();
+    }
 }

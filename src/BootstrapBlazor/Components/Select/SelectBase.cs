@@ -95,4 +95,16 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
 
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectSearchIcon);
     }
+
+    /// <summary>
+    /// 显示下拉框方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Show() => InvokeVoidAsync("show", Id);
+
+    /// <summary>
+    /// 关闭下拉框方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Hide() => InvokeVoidAsync("hide", Id);
 }

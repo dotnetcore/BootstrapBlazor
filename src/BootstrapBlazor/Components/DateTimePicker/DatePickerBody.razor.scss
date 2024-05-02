@@ -316,7 +316,7 @@
 .picker-panel-footer {
     border-top: var(--bs-border-width) solid var(--bs-border-color);
     padding: 4px;
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
     position: relative;
     display: flex;
     border-bottom-left-radius: var(--bs-border-radius);
@@ -327,7 +327,7 @@
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
         border: var(--bs-border-width) solid var(--bs-border-color);
-        color: #606266;
+        color: var(--bs-body-color);
         transition: border-color .3s linear, color .3s linear;
 
         &:hover {
