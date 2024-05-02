@@ -80,6 +80,19 @@ export function init(id, invoke, method) {
     Data.set(id, select)
 }
 
+export function show(id) {
+    const select = Data.get(id)
+    if (select) {
+        select.popover.show();
+    }
+}
+
+export function hide(id) {
+    const select = Data.get(id)
+    if (select) {
+        select.popover.hide();
+    }
+}
 
 export function dispose(id) {
     const select = Data.get(id)
