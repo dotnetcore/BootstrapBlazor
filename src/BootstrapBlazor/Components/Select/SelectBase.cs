@@ -107,4 +107,10 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     /// <returns></returns>
     public Task Hide() => InvokeVoidAsync("hide", Id);
+
+    /// <summary>
+    /// 切换下拉框显示状态方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Toggle() => InvokeVoidAsync("toggle", Id);
 }
