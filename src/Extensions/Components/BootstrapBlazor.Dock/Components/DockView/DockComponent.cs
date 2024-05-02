@@ -98,13 +98,20 @@ public class DockComponent : DockComponentBase
     public bool IsLock { get; set; }
 
     /// <summary>
+    /// 获得/设置 Title 模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public RenderFragment? TitleTemplate { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth, TitleClass };
+        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth, TitleClass, HasTitleTemplate = TitleTemplate != null };
         Type = DockContentType.Component;
     }
 

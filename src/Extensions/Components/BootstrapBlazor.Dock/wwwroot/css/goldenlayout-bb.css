@@ -48,6 +48,21 @@
             height: 20px;
         }
 
+            .bb-dock .lm_header .lm_tab .bb-dock-item-title {
+                display: inline-flex;
+                margin-left: .5rem;
+            }
+
+                .bb-dock .lm_header .lm_tab .bb-dock-item-title i {
+                    position: relative;
+                    width: unset;
+                    height: unset;
+                }
+
+            .bb-dock .lm_header .lm_tab:has(.lm_close_tab.d-none) {
+                padding-right: 10px;
+            }
+
     .bb-dock .lm_controls .bb-dock-lock {
         background-image: url(../images/unlock.svg);
     }
