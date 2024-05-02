@@ -156,7 +156,6 @@ const Popover = {
                 observer.observe(popover.toggleMenu)
                 popover.observer = observer
             }
-
         }
         else {
             const show = e => {
@@ -167,6 +166,8 @@ const Popover = {
             }
 
             EventHandler.on(el, 'show.bs.dropdown', show)
+
+            popover.popover = bootstrap.Dropdown.getOrCreateInstance(popover.toggleElement);
         }
 
         return popover
