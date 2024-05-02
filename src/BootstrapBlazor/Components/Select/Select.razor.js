@@ -94,13 +94,6 @@ export function hide(id) {
     }
 }
 
-export function toggle(id) {
-    const select = Data.get(id)
-    if (select) {
-        select.popover.toggle();
-    }
-}
-
 export function dispose(id) {
     const select = Data.get(id)
     Data.remove(id)
