@@ -198,6 +198,10 @@ public partial class DockView
             {
                 case DockComponent com:
                     builder.AddContent(0, RenderComponent(com));
+                    if (com.TitleTemplate != null)
+                    {
+                        builder.AddContent(1, RenderTitleTemplate(com));
+                    }
                     break;
                 case DockContent content:
                     builder.AddContent(1, RenderDockComponent(content.Items));

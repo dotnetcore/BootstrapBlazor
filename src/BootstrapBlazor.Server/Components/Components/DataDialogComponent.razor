@@ -11,7 +11,7 @@
     <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit">
         <EditorForm TModel="Foo">
             <FieldItems>
-                <EditorItem @bind-Field="@context.Id" Editable="false"></EditorItem>
+                <EditorItem @bind-Field="@context.Id" Ignore="false"></EditorItem>
                 <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies"></EditorItem>
             </FieldItems>
         </EditorForm>

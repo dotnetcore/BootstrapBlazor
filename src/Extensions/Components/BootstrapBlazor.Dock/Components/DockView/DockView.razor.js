@@ -35,6 +35,13 @@ export async function init(id, option, invoke) {
         if (state.showClose === false) {
             tab.closeElement.classList.add('d-none');
         }
+        if (state.hasTitleTemplate) {
+            const gear = document.querySelector(`[data-bb-componentId="${state.id}"]`);
+            if (gear) {
+                tab.titleElement.append(gear);
+                gear.classList.remove('d-none');
+            }
+        }
     });
     layout.on('stackCreated', stack => {
         const stackElement = stack.target;
