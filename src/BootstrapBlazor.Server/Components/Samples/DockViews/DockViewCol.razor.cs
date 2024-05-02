@@ -3,6 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Server.Components.Samples.DockViews;
+
+/// <summary>
+/// DockView 列布局示例代码
+/// </summary>
 public partial class DockViewCol
 {
     [Inject, NotNull]
