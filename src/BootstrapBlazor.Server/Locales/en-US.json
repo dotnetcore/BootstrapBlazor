@@ -4607,7 +4607,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
-    "Html2Pdf": "Html2Pdf",
+    "Html2Pdf": "IHtml2Pdf",
     "ContextMenu": "ContextMenu",
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
