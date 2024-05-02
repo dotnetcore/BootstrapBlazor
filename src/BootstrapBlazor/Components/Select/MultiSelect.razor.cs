@@ -305,20 +305,32 @@ public partial class MultiSelect<TValue>
         }
     }
 
-    private async Task Clear()
+    /// <summary>
+    /// 清除选择项方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Clear()
     {
         SelectedItems.Clear();
         await SetValue();
     }
 
-    private async Task SelectAll()
+    /// <summary>
+    /// 全选选择项方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task SelectAll()
     {
         SelectedItems.Clear();
         SelectedItems.AddRange(GetData());
         await SetValue();
     }
 
-    private async Task InvertSelect()
+    /// <summary>
+    /// 翻转选择项方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task InvertSelect()
     {
         var items = GetData().Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
         SelectedItems.Clear();
