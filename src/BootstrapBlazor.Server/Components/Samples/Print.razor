@@ -17,12 +17,12 @@
 <Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]" Introduction="@Localizer["PrintButtonIntro"]" Name="PrintButton">
-    <p>@Localizer["PrintsButtonDescription"]</p>
+    <section ignore>@Localizer["PrintsButtonDescription"]</section>
     <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
-    <p>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
+    <section ignore>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</section>
     <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrint" />
 </DemoBlock>
 
