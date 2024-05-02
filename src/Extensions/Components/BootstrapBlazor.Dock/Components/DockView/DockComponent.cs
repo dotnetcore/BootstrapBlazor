@@ -29,14 +29,14 @@ public class DockComponent : DockComponentBase
     /// </summary>
     [Parameter]
     [JsonIgnore]
-    public string? TitleWidth { get; set; }
+    public int? TitleWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 Title 样式 默认 null 未设置
     /// </summary>
     [Parameter]
     [JsonIgnore]
-    public int? TitleClass { get; set; }
+    public string? TitleClass { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 Class 默认 null 未设置
