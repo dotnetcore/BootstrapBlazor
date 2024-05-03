@@ -659,6 +659,21 @@ export function getFingerCode() {
     return hash.toString();
 }
 
+export function getHtml(options) {
+    let html = '';
+    let el = null;
+    if (options.id) {
+        el = document.getElementById(options);
+    }
+    else if (options.selector) {
+        el = document.querySelector(options.selector);
+    }
+    if (el) {
+        html = el.outerHTML;
+    }
+    return html;
+}
+
 export {
     autoAdd,
     autoRemove,
