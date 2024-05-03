@@ -18,6 +18,7 @@ public class ModalDialogTest : BootstrapBlazorTestBase
                 pb.AddChildContent<ModalDialog>(pb =>
                 {
                     pb.Add(d => d.ShowPrintButton, true);
+                    pb.Add(d => d.PrintButtonColor, Color.Danger);
                 });
             });
         });
@@ -31,6 +32,31 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         });
         // 显示在 Header
         Assert.NotNull(cut.FindComponent<PrintButton>());
+    }
+
+    [Fact]
+    public void ShowExportPdfButton_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>(pb =>
+                {
+                    pb.Add(d => d.ShowExportPdfButton, true);
+                });
+            });
+        });
+        // 显示在 Footer
+        Assert.NotNull(cut.FindComponent<ExportPdfButton>());
+
+        var dialog = cut.FindComponent<ModalDialog>();
+        dialog.SetParametersAndRender(pb =>
+        {
+            pb.Add(d => d.ShowExportPdfButtonInHeader, true);
+        });
+        // 显示在 Header
+        Assert.NotNull(cut.FindComponent<ExportPdfButton>());
     }
 
     [Fact]
