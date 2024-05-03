@@ -205,7 +205,7 @@
         <div class="col-12 col-sm-4 col-lg-auto">
             <Button OnClick="() => ScrollModal.Toggle()">@Localizer["ModalsScrollBarPopup"]</Button>
             <Modal @ref="ScrollModal">
-                <ModalDialog IsCentered="true" IsScrolling="true" Title="@Localizer["ModalsScrollBarPopup"]">
+                <ModalDialog IsCentered="true" IsScrolling="true" Title="@Localizer["ModalsScrollBarPopup"]" ShowExportPdfButtonInHeader="true">
                     <BodyTemplate>
                         <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
                         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>

@@ -27,6 +27,9 @@ public class DialogTest : DialogTestBase
             ShowMaximizeButton = true,
             IsBackdrop = false,
             ShowResize = true,
+            ShowExportPdfButton = true,
+            ShowExportPdfButtonInHeader = true,
+            ExportPdfButtonOptions = new(),
             OnCloseAsync = () =>
             {
                 closed = true;

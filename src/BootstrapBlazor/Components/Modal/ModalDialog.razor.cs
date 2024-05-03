@@ -105,6 +105,49 @@ public partial class ModalDialog : IHandlerException
     public bool ShowPrintButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 Header 中是否显示打印按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowPrintButtonInHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印
+    /// </summary>
+    [Parameter]
+    public string? PrintButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 打印按钮图标 未设置 取当前图标主题下打印图标
+    /// </summary>
+    [Parameter]
+    public string? PrintButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 打印按钮颜色 默认 Color.Primary
+    /// </summary>
+    [Parameter]
+    public Color PrintButtonColor { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// 获得/设置 是否显示导出 Pdf 按钮 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 中是否显示导出 Pdf 按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButtonInHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出 Pdf 按钮配置项
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public ExportPdfButtonOptions? ExportPdfButtonOptions { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Header 关闭按钮
     /// </summary>
     [Parameter]
@@ -121,18 +164,6 @@ public partial class ModalDialog : IHandlerException
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 Header 中是否显示打印按钮 默认 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowPrintButtonInHeader { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印
-    /// </summary>
-    [Parameter]
-    public string? PrintButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗内容相关数据 多用于传值
@@ -253,14 +284,22 @@ public partial class ModalDialog : IHandlerException
     {
         base.OnParametersSet();
 
+        ExportPdfButtonOptions ??= new()
+        {
+            Selector = $"#{Id} .modal-body"
+        };
+
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
+        ExportPdfButtonOptions.Text ??= Localizer["ExportPdfButtonText"];
 
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaximizeWindowIcon);
         SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
+        PrintButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
+        ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
 
         MaximizeIconString = MaximizeWindowIcon;
     }

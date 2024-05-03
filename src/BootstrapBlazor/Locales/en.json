@@ -120,7 +120,8 @@
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Close",
     "SaveButtonText": "Save",
-    "PrintButtonText": "Print"
+    "PrintButtonText": "Print",
+    "ExportPdfButtonText": "Export Pdf"
   },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "Select items ...",
