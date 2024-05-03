@@ -663,7 +663,7 @@ export function getHtml(options) {
     let html = '';
     let el = null;
     if (options.id) {
-        el = document.getElementById(options);
+        el = document.getElementById(options.id);
     }
     else if (options.selector) {
         el = document.querySelector(options.selector);
