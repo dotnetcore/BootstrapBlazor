@@ -120,7 +120,8 @@
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "关闭",
     "SaveButtonText": "保存",
-    "PrintButtonText": "打印"
+    "PrintButtonText": "打印",
+    "ExportPdfButtonText": "导出 Pdf"
   },
   "BootstrapBlazor.Components.MultiSelect": {
     "PlaceHolder": "点击进行多选 ...",
