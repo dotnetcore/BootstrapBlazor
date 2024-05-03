@@ -123,10 +123,10 @@ public partial class ModalDialog : IHandlerException
     public string? PrintButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Header 关闭按钮
+    /// 获得/设置 打印按钮颜色 默认 Color.Primary
     /// </summary>
     [Parameter]
-    public bool ShowHeaderCloseButton { get; set; } = true;
+    public Color PrintButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
     /// 获得/设置 是否显示导出 Pdf 按钮 默认为 false 不显示
@@ -141,16 +141,17 @@ public partial class ModalDialog : IHandlerException
     public bool ShowExportPdfButtonInHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 导出 Pdf 按钮显示文字 默认为资源文件中 打印
+    /// 获得/设置 导出 Pdf 按钮配置项
     /// </summary>
     [Parameter]
-    public string? ExportPdfButtonText { get; set; }
+    [NotNull]
+    public ExportPdfButtonOptions? ExportPdfButtonOptions { get; set; }
 
     /// <summary>
-    /// 获得/设置 导出 Pdf 按钮图标 未设置 取当前图标主题下打印图标
+    /// 获得/设置 是否显示 Header 关闭按钮
     /// </summary>
     [Parameter]
-    public string? ExportPdfButtonIcon { get; set; }
+    public bool ShowHeaderCloseButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示 Header 默认为 true
@@ -283,17 +284,22 @@ public partial class ModalDialog : IHandlerException
     {
         base.OnParametersSet();
 
+        ExportPdfButtonOptions ??= new()
+        {
+            Selector = $"#{Id} .modal-body"
+        };
+
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
-        ExportPdfButtonText ??= Localizer[nameof(ExportPdfButtonText)];
+        ExportPdfButtonOptions.Text ??= Localizer["ExportPdfButtonText"];
 
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaximizeWindowIcon);
         SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
         PrintButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
-        ExportPdfButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
+        ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
 
         MaximizeIconString = MaximizeWindowIcon;
     }
