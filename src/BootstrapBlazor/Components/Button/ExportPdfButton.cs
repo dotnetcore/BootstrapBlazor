@@ -99,7 +99,8 @@ public class ExportPdfButton : Button
             using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, styles, scripts);
 
             // 下载 Pdf 文件
-            await DownloadService.DownloadFromStreamAsync($"pdf-{DateTime.Now:HHmmss}.pdf", stream);
+            var downloadFileName = PdfFileName ?? $"pdf-{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            await DownloadService.DownloadFromStreamAsync(downloadFileName, stream);
         }
     }
 }
