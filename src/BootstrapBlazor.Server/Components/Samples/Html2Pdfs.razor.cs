@@ -49,7 +49,7 @@ public partial class Html2Pdfs
     private async Task OnExportAsync()
     {
         // 通过脚本 getHtml 获得 table 表格 Html
-        var html = await InvokeAsync<string>("getHtml", "table-9527");
+        var html = await InvokeAsync<string>("getHtml", new { Id = "table-9527" });
         if (!string.IsNullOrEmpty(html))
         {
             // 通过模板生成完整的 Html
