@@ -256,6 +256,21 @@ public sealed partial class Dialogs
         await DialogService.Show(op);
     }
 
+    private async Task OnExportPdfDialogClick()
+    {
+        var op = new DialogOption
+        {
+            Title = "Export Pdf Demo",
+            ShowExportPdfButton = true,
+            ShowExportPdfButtonInHeader = true,
+            ShowFooter = false,
+            BodyContext = DataPrimaryId,
+            Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>()
+        };
+
+        await DialogService.Show(op);
+    }
+
     private async Task OnMaximizeDialogClick()
     {
         await DialogService.Show(new DialogOption()
