@@ -165,6 +165,25 @@ public class DialogOption
     public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示导出 Pdf 按钮 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 中是否显示导出 Pdf 按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButtonInHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出 Pdf 按钮配置项
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public ExportPdfButtonOptions? ExportPdfButtonOptions { get; set; }
+
+    /// <summary>
     /// 关闭弹窗方法
     /// </summary>
     public async Task CloseDialogAsync()
@@ -196,7 +215,10 @@ public class DialogOption
             [nameof(ModalDialog.ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
             [nameof(ModalDialog.IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
             [nameof(ModalDialog.IsDraggable)] = IsDraggable,
-            [nameof(ModalDialog.ShowMaximizeButton)] = ShowMaximizeButton
+            [nameof(ModalDialog.ShowMaximizeButton)] = ShowMaximizeButton,
+            [nameof(ModalDialog.ShowExportPdfButton)] = ShowExportPdfButton,
+            [nameof(ModalDialog.ShowExportPdfButtonInHeader)] = ShowExportPdfButtonInHeader,
+            [nameof(ModalDialog.ExportPdfButtonOptions)] = ExportPdfButtonOptions
         };
         if (!string.IsNullOrEmpty(PrintButtonText))
         {
