@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -33,6 +35,10 @@ public partial class Html2Pdfs
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
     [NotNull]
     private List<Foo>? Items { get; set; }
 
@@ -49,7 +55,8 @@ public partial class Html2Pdfs
     private async Task OnExportAsync()
     {
         // 通过脚本 getHtml 获得 table 表格 Html
-        var html = await InvokeAsync<string>("getHtml", new { Id = "table-9527" });
+        var module = await JSRuntime.LoadUtility();
+        var html = await module.GetHtml("table-9527");
         if (!string.IsNullOrEmpty(html))
         {
             // 通过模板生成完整的 Html
