@@ -1,9 +1,18 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/css/bootstrap-icons.min.css",
+    "outputFileName": "wwwroot/css/bs.min.css",
     "inputFiles": [
-      "wwwroot/css/bootstrap-icons.css",
       "wwwroot/css/bs.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/bootstrap.min.css",
+    "inputFiles": [
+      "wwwroot/css/bootstrap-icons.min.css",
+      "wwwroot/css/bs.min.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
   }
 ]
