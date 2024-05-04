@@ -1,9 +1,20 @@
 ﻿[
   {
+    "outputFileName": "wwwroot/fa/fa-list.min.css",
+    "inputFiles": [
+      "Components/**/*.css"
+    ],
+    "minify": {
+      "enabled": true
+    }
+  },
+  {
     "outputFileName": "wwwroot/css/font-awesome.min.css",
     "inputFiles": [
-      "wwwroot/fa/*.min.css",
-      "Components/**/*.css"
-    ]
+      "wwwroot/fa/*.min.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
   }
 ]
