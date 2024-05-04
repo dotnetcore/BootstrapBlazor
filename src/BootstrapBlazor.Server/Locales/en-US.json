@@ -5947,11 +5947,22 @@
     "ExportPdfButtonTips": "<code>IHtml2Pdf</code> service interfaces, please refer to <a target=\"_blank\" href=\"./html2pdf\">[Portal]</a>",
     "NormalTitle": "ElementId",
     "NormalIntro": "Export specified elements by <code>Id</code>",
+    "SelectorTitle": "Selector",
+    "SelectorIntro": "Export Pdf by specifying element <code>Selector</code>",
+    "GroupBoxTitle": "Edit form",
+    "ToastTitle": "Export Pdf",
+    "ToastContent": "Exporting Pdf file",
+    "ToastDownloadTitle": "Download Pdf",
+    "ToastDownloadContent": "Pdf file {0} download successful",
     "AttributeElementId": "Specify the export Pdf element Id",
     "AttributeSelector": "Specify export Pdf element selector",
     "AttributeStyleTags": "Specify the export of Pdf element style sheets",
     "AttributeScriptTags": "Specify export Pdf element script",
-    "AttributePdfFileName": "Specify the export Pdf file name"
+    "AttributePdfFileName": "Specify the export Pdf file name",
+    "AttributeAutoDownload": "Do you want to automatically download Pdf",
+    "AttributeOnBeforeExport": "Callback delegate before exporting Pdf",
+    "AttributeOnBeforeDownload": "Callback delegate before downloading Pdf",
+    "AttributeOnAfterDownload": "Callback delegate after downloading Pdf"
   },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html export to Pdf",

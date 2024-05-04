@@ -5947,11 +5947,22 @@
     "ExportPdfButtonTips": "<code>IHtml2Pdf</code> 服务接口请参阅 <a target=\"_blank\" href=\"./html2pdf\">[传送门]</a>",
     "NormalTitle": "ElementId",
     "NormalIntro": "导出指定元素 <code>Id</code>",
+    "SelectorTitle": "Selector",
+    "SelectorIntro": "通过指定元素 <code>Selector</code> 导出 Pdf",
+    "GroupBoxTitle": "编辑表单",
+    "ToastTitle": "导出 Pdf",
+    "ToastContent": "正在导出 Pdf 文件",
+    "ToastDownloadTitle": "下载 Pdf",
+    "ToastDownloadContent": "Pdf 文件 {0} 下载完成",
     "AttributeElementId": "指定导出 Pdf 元素 Id",
     "AttributeSelector": "指定导出 Pdf 元素选择器",
     "AttributeStyleTags": "指定导出 Pdf 元素样式表",
     "AttributeScriptTags": "指定导出 Pdf 元素脚本",
-    "AttributePdfFileName": "指定导出 Pdf 文件名"
+    "AttributePdfFileName": "指定导出 Pdf 文件名",
+    "AttributeAutoDownload": "是否自动下载 Pdf",
+    "AttributeOnBeforeExport": "导出 Pdf 之前回调委托",
+    "AttributeOnBeforeDownload": "下载 Pdf 之前回调委托",
+    "AttributeOnAfterDownload": "下载 Pdf 之后回调委托"
   },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html 导出为 Pdf",

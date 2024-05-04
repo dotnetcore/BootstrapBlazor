@@ -19,7 +19,7 @@
             </TableColumns>
         </Table>
     </section>
-    <ExportPdfButton ElementId="table-9527-01"></ExportPdfButton>
+    <ExportPdfButton ElementId="table-9527-01" IsAsync="true" OnBeforeExport="OnBeforeExport" OnAfterDownload="OnAfterDownload" AutoDownload="true"></ExportPdfButton>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectorTitle"]" Introduction="@Localizer["SelectorIntro"]" Name="Selector">
@@ -34,7 +34,7 @@
             </ValidateForm>
         </GroupBox>
     </section>
-    <ExportPdfButton Selector=".table-9527-02"></ExportPdfButton>
+    <ExportPdfButton Selector=".table-9527-02" IsAsync="true" OnBeforeExport="OnBeforeExport" OnAfterDownload="OnAfterDownload" AutoDownload="true" PdfFileName="@PdfFileName"></ExportPdfButton>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

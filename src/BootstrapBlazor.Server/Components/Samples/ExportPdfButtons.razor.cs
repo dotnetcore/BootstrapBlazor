@@ -27,6 +27,16 @@ public partial class ExportPdfButtons
     [NotNull]
     private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnBeforeExport() => ToastService.Information(Localizer["ToastTitle"], Localizer["ToastContent"]);
+
+    private static string PdfFileName => $"Pdf-{DateTime.Now:HHmmss}.pdf";
+
+    private Task OnAfterDownload(string fileName) => ToastService.Success(Localizer["ToastDownloadTitle"], Localizer["ToastDownloadContent", fileName]);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -76,6 +86,38 @@ public partial class ExportPdfButtons
             Name = nameof(ExportPdfButton.PdfFileName),
             Description = Localizer["AttributePdfFileName"],
             Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ExportPdfButton.AutoDownload),
+            Description = Localizer["AttributeAutoDownload"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ExportPdfButton.OnBeforeExport),
+            Description = Localizer["AttributeOnBeforeExport"],
+            Type = "Func<Task>?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ExportPdfButton.OnBeforeDownload),
+            Description = Localizer["AttributeOnBeforeDownload"],
+            Type = "Func<Task>?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ExportPdfButton.OnAfterDownload),
+            Description = Localizer["AttributeOnAfterDownload"],
+            Type = "Func<Task>?",
             ValueList = " — ",
             DefaultValue = " — "
         }
