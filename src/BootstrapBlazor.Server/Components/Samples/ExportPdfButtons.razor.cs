@@ -83,7 +83,7 @@ public partial class ExportPdfButtons
         },
         new()
         {
-            Name = nameof(ExportPdfButton.PdfFileName),
+            Name = nameof(ExportPdfButton.FileName),
             Description = Localizer["AttributePdfFileName"],
             Type = "string?",
             ValueList = " — ",

@@ -37,7 +37,7 @@ public class ExportPdfButton : Button
     /// 获得/设置 导出 Pdf 文件名 默认为 null 未设置时使用 pdf-时间戳.pdf
     /// </summary>
     [Parameter]
-    public string? PdfFileName { get; set; }
+    public string? FileName { get; set; }
 
     /// <summary>
     /// 获得/设置 导出 Pdf 之前回调委托 默认为 null
@@ -137,7 +137,7 @@ public class ExportPdfButton : Button
             if (AutoDownload)
             {
                 // 下载 Pdf 文件
-                var downloadFileName = PdfFileName ?? $"pdf-{DateTime.Now:yyyyMMddHHmmss}.pdf";
+                var downloadFileName = FileName ?? $"pdf-{DateTime.Now:yyyyMMddHHmmss}.pdf";
                 await DownloadService.DownloadFromStreamAsync(downloadFileName, stream);
 
                 if (OnAfterDownload != null)
