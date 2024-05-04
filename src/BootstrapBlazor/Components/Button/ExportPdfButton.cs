@@ -166,5 +166,6 @@ public class ExportPdfButton : Button
         OnBeforeExport = options.OnBeforeExport;
         OnBeforeDownload = options.OnBeforeDownload;
         OnAfterDownload = options.OnAfterDownload;
+        IsAsync = options.IsAsync;
     }
 }

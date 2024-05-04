@@ -65,7 +65,12 @@ public class ExportPdfButtonOptions
     public Func<string, Task>? OnAfterDownload { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动下载 Pdf 默认为 false
+    /// 获得/设置 是否自动下载 Pdf 默认为 true
     /// </summary>
-    public bool AutoDownload { get; set; }
+    public bool AutoDownload { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否异步导出 默认为 true
+    /// </summary>
+    public bool IsAsync { get; set; } = true;
 }
