@@ -26,6 +26,9 @@ public class ExportPdfButtonTest : ExportPdfTestBase
     [Fact]
     public async Task Property_Ok()
     {
+        bool export = false;
+        bool download = false;
+        bool downloaded = false;
         Context.JSInterop.Setup<string?>("getHtml", v => true).SetResult("test-html-result");
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -38,10 +41,29 @@ public class ExportPdfButtonTest : ExportPdfTestBase
                 pb.Add(p => p.StyleTags, ["test.css"]);
                 pb.Add(p => p.ScriptTags, ["test.js"]);
                 pb.Add(p => p.PdfFileName, "test.pdf");
+                pb.Add(p => p.AutoDownload, true);
+                pb.Add(p => p.OnBeforeExport, () =>
+                {
+                    export = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(p => p.OnBeforeDownload, _ =>
+                {
+                    download = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(p => p.OnAfterDownload, _ =>
+                {
+                    downloaded = true;
+                    return Task.CompletedTask;
+                });
             });
         });
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
+        Assert.True(export);
+        Assert.True(download);
+        Assert.True(downloaded);
     }
 
     [Fact]
