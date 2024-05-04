@@ -36,8 +36,7 @@ export function init(id) {
 
             const fullscreenCheck = () => {
                 if (!isFullscreen()) {
-                    fs.toggleElement.classList.remove('bb-fs-open');
-                    document.documentElement.classList.remove('bb-fs-open');
+                    fs.toggleElement.classList.remove('bb-fs-open')
                 }
                 else {
                     fs.toggleElement.classList.add('bb-fs-open')
