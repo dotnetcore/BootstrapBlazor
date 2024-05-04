@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
@@ -19,7 +18,7 @@ public class FullScreenTest : BootstrapBlazorTestBase
             builder.Add(s => s.Text, "button-text");
         });
         var elements = cut.FindAll(".fa-maximize");
-        Assert.Equal(2, elements.Count);
+        Assert.Single(elements);
         cut.Contains("bb-fs-off");
         cut.Contains("bb-fs-on");
     }
@@ -27,9 +26,8 @@ public class FullScreenTest : BootstrapBlazorTestBase
     [Fact]
     public void FullScreenIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.FullScreenIcon, "fa-test"));
+        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Icon, "fa-test"));
         cut.Contains("fa-test");
-        cut.Contains("fa-maximize");
     }
 
     [Fact]

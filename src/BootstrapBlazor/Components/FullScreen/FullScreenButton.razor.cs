@@ -10,10 +10,18 @@ namespace BootstrapBlazor.Components;
 public partial class FullScreenButton
 {
     /// <summary>
-    /// 获得/设置 全屏图标 默认 fa-solid fa-maximize
+    /// 获得/设置 退出全屏图标 默认 fa-solid fa-maximize
     /// </summary>
     [Parameter]
-    public string? FullScreenIcon { get; set; }
+    [Obsolete("已启用，请使用 Icon 参数 Please use Icon parameter")]
+    [ExcludeFromCodeCoverage]
+    public string? FullScreenIcon { get => FullScreenExitIcon; set => FullScreenExitIcon = value; }
+
+    /// <summary>
+    /// 获得/设置 退出全屏图标 默认 fa-solid fa-compress
+    /// </summary>
+    [Parameter]
+    public string? FullScreenExitIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 全屏元素 Id 默认为 null
@@ -33,7 +41,7 @@ public partial class FullScreenButton
         .AddClass("bb-fs-off")
         .Build();
 
-    private string? FullScreenIconString => CssBuilder.Default(FullScreenIcon)
+    private string? FullScreenExitIconString => CssBuilder.Default(FullScreenExitIcon)
         .AddClass("bb-fs-on")
         .Build();
 
@@ -45,7 +53,7 @@ public partial class FullScreenButton
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
-        FullScreenIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenButtonIcon);
+        FullScreenExitIcon ??= IconTheme.GetIconByKey(ComponentIcons.FullScreenExitButtonIcon);
     }
 
     private Task ToggleFullScreen() => FullScreenService.Toggle(new FullScreenOption() { Id = TargetId });
