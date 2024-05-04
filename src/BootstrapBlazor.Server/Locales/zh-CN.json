@@ -888,7 +888,6 @@
     "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
     "ExportPdfDialogTip": "可通过设置 <code>ExportPdfButtonOptions</code> 对更多参数进行设置",
     "ExportPdfButton": "导出 Pdf 弹窗"
-
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",
@@ -4659,7 +4658,8 @@
     "DialogService": "弹窗服务 DialogService",
     "OnlineText": "在线统计 Online",
     "PrintService": "打印服务 PrintService",
-    "ConnectionService": "在线连接服务 ConnectionService"
+    "ConnectionService": "在线连接服务 ConnectionService",
+    "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5940,6 +5940,13 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
     "MouseFollowersGlobalMode": "全局|局部，模式",
     "MouseFollowersContent": "文本，图标，图片路径，视频路径"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
+    "ExportPdfButtonsTitle": "Html 导出为 Pdf",
+    "ExportPdfButtonsDescription": "将 Html 片段或者网页元素导出为 Pdf",
+    "NormalTitle": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
+    "NormalIntro": "导出指定网页元素",
+    "NormalDescription": "将 <code>Html</code> 元素内容导出为 <code>Pdf</code> 流"
   },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html 导出为 Pdf",

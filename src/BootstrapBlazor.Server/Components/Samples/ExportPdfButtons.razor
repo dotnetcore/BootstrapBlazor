@@ -1,0 +1,13 @@
+﻿@page "/export-pdf-button"
+@inject IStringLocalizer<ExportPdfButtons> Localizer
+
+<h3>@Localizer["ExportPdfButtonsTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["ExportPdfButtonsDescription"].Value)</h4>
+
+<PackageTips Name="BootstrapBlazor.Html2Pdf" />
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <section ignore>@((MarkupString)Localizer["NormalDescription"].Value)</section>
+
+</DemoBlock>
