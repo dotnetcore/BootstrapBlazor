@@ -43,6 +43,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         // Table 导出服务
         services.TryAddScoped<ITableExport, DefaultTableExport>();
 
+        // 主题服务
+        services.TryAddScoped<IThemeProvider, DefaultThemeProvider>();
+
         // IP 地理位置定位服务
         services.TryAddSingleton<IIpLocatorFactory, DefaultIpLocatorFactory>();
         services.AddSingleton<IIpLocatorProvider, JuHeIpLocatorProvider>();
