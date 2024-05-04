@@ -40,7 +40,6 @@ public class ExportPdfButtonTest : ExportPdfTestBase
                 pb.Add(p => p.Selector, ".modal-body");
                 pb.Add(p => p.StyleTags, ["test.css"]);
                 pb.Add(p => p.ScriptTags, ["test.js"]);
-                pb.Add(p => p.PdfFileName, "test.pdf");
                 pb.Add(p => p.AutoDownload, true);
                 pb.Add(p => p.OnBeforeExport, () =>
                 {
