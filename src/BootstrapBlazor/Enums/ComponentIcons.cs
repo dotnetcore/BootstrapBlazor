@@ -782,5 +782,20 @@ public enum ComponentIcons
     /// <summary>
     /// QueryBuilder 组件 移除按钮图标
     /// </summary>
-    QueryBuilderRemoveIcon
+    QueryBuilderRemoveIcon,
+
+    /// <summary>
+    /// ThemeProvider 组件 自动模式图标
+    /// </summary>
+    ThemeProviderAutoModeIcon,
+
+    /// <summary>
+    /// ThemeProvider 组件 暗黑模式图标
+    /// </summary>
+    ThemeProviderDarkModeIcon,
+
+    /// <summary>
+    /// ThemeProvider 组件 明亮模式图标
+    /// </summary>
+    ThemeProviderLightModeIcon
 }
