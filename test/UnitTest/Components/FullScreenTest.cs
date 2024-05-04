@@ -27,7 +27,7 @@ public class FullScreenTest : BootstrapBlazorTestBase
     [Fact]
     public void FullScreenIcon_Ok()
     {
-        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.FullScreenIcon, "fa-test"));
+        var cut = Context.RenderComponent<FullScreenButton>(builder => builder.Add(s => s.Icon, "fa-test"));
         cut.Contains("fa-test");
         cut.Contains("fa-maximize");
     }
