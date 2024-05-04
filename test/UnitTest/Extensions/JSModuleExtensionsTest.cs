@@ -72,6 +72,16 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
         Assert.Equal("bb_test", id);
     }
 
+    [Fact]
+    public async Task GetHtml_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getHtml", v => true).SetResult("bb_test");
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        var html = await module.GetHtml("bb");
+        Assert.Equal("bb_test", html);
+    }
+
     class MockComponent : ComponentBase
     {
 
