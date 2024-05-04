@@ -26,10 +26,9 @@
                     }
                     @if (ShowExportPdfButtonInHeader)
                     {
-                        <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" PdfFileName="@ExportPdfButtonOptions.FileName"
-                                         Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
-                                         Selector="@ExportPdfButtonOptions.Selector"
-                                         StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"></ExportPdfButton>
+                        <ExportPdfButton class="btn-export-pdf">
+                            <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
+                        </ExportPdfButton>
                     }
                     @if (ShowMaximizeButton)
                     {
@@ -60,10 +59,9 @@
                         }
                         @if (ShowExportPdfButton)
                         {
-                            <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" PdfFileName="@ExportPdfButtonOptions.FileName"
-                                             Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
-                                             Selector="@ExportPdfButtonOptions.Selector"
-                                             StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"></ExportPdfButton>
+                            <ExportPdfButton class="btn-export-pdf">
+                                <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
+                            </ExportPdfButton>
                         }
                         @if (ShowSaveButton)
                         {
