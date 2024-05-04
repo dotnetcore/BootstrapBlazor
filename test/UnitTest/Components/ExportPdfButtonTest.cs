@@ -97,4 +97,52 @@ public class ExportPdfButtonTest : ExportPdfTestBase
         Assert.NotNull(options.OnBeforeDownload);
         Assert.NotNull(options.OnAfterDownload);
     }
+
+    [Fact]
+    public void ExportPdfButtonSettings_Ok()
+    {
+        var options = new ExportPdfButtonOptions()
+        {
+            ElementId = "test-id",
+            Selector = ".modal-body",
+            StyleTags = ["test.css"],
+            ScriptTags = ["test.js"],
+            FileName = "test.pdf",
+            Color = Color.Primary,
+            Text = "test",
+            Icon = "icon",
+            AutoDownload = true,
+            OnBeforeExport = () => Task.CompletedTask,
+            OnBeforeDownload = _ => Task.CompletedTask,
+            OnAfterDownload = _ => Task.CompletedTask,
+            IsAsync = true
+        };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<ExportPdfButton>(pb =>
+            {
+                pb.Add(p => p.ChildContent, new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<ExportPdfButtonSettings>(0);
+                    builder.AddAttribute(1, nameof(ExportPdfButtonSettings.Options), options);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+
+        var button = cut.FindComponent<ExportPdfButton>().Instance;
+        Assert.Equal("test-id", button.ElementId);
+        Assert.Equal(".modal-body", button.Selector);
+        Assert.Equal(["test.css"], button.StyleTags);
+        Assert.Equal(["test.js"], button.ScriptTags);
+        Assert.Equal(Color.Primary, button.Color);
+        Assert.Equal("test", button.Text);
+        Assert.Equal("icon", button.Icon);
+        Assert.Equal("test.pdf", button.FileName);
+        Assert.True(button.AutoDownload);
+        Assert.NotNull(button.OnBeforeExport);
+        Assert.NotNull(button.OnBeforeDownload);
+        Assert.NotNull(button.OnAfterDownload);
+        Assert.True(button.IsAsync);
+    }
 }
