@@ -16,7 +16,7 @@ public class ExportPdfButtonSettings : ComponentBase
     public ExportPdfButtonOptions? Options { get; set; }
 
     [CascadingParameter]
-    private ExportPdfButton? Button { get; set; }
+    private Button? Button { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,9 +25,9 @@ public class ExportPdfButtonSettings : ComponentBase
     {
         base.OnInitialized();
 
-        if (Button != null)
+        if (Button is ExportPdfButton pdfButton)
         {
-            Button.SetOptions(Options);
+            pdfButton.SetOptions(Options);
         }
     }
 }
