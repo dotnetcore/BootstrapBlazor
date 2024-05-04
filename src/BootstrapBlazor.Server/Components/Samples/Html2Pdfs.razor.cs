@@ -39,8 +39,17 @@ public partial class Html2Pdfs
     [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
+    /// <summary>
+    /// 获得 IconTheme 实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
     [NotNull]
     private List<Foo>? Items { get; set; }
+
+    private string? _exportIcon = "";
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,6 +59,8 @@ public partial class Html2Pdfs
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(LocalizerFoo);
+
+        _exportIcon = IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
     }
 
     private async Task OnExportAsync()

@@ -581,6 +581,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new ()
                 {
+                    IsNew = true,
+                    Text=Localizer["ExportPdfButton"],
+                    Url = "export-pdf-button"
+                },
+                new ()
+                {
                     Text=Localizer["Empty"],
                     Url = "empty"
                 },
