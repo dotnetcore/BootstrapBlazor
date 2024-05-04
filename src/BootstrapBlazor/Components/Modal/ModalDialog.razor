@@ -26,12 +26,9 @@
                     }
                     @if (ShowExportPdfButtonInHeader)
                     {
-                        <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" FileName="@ExportPdfButtonOptions.FileName"
-                                         Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
-                                         Selector="@ExportPdfButtonOptions.Selector"
-                                         StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"
-                                         AutoDownload="@ExportPdfButtonOptions.AutoDownload" OnBeforeExport="@(ExportPdfButtonOptions.OnBeforeExport!)"
-                                         OnBeforeDownload="@(ExportPdfButtonOptions.OnBeforeDownload!)" OnAfterDownload="@(ExportPdfButtonOptions.OnAfterDownload!)"></ExportPdfButton>
+                        <ExportPdfButton class="btn-export-pdf">
+                            <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
+                        </ExportPdfButton>
                     }
                     @if (ShowMaximizeButton)
                     {
@@ -62,12 +59,9 @@
                         }
                         @if (ShowExportPdfButton)
                         {
-                            <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" FileName="@ExportPdfButtonOptions.FileName"
-                                             Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
-                                             Selector="@ExportPdfButtonOptions.Selector"
-                                             StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"
-                                             AutoDownload="@ExportPdfButtonOptions.AutoDownload" OnBeforeExport="@(ExportPdfButtonOptions.OnBeforeExport!)"
-                                             OnBeforeDownload="@(ExportPdfButtonOptions.OnBeforeDownload!)" OnAfterDownload="@(ExportPdfButtonOptions.OnAfterDownload!)"></ExportPdfButton>
+                            <ExportPdfButton class="btn-export-pdf">
+                                <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
+                            </ExportPdfButton>
                         }
                         @if (ShowSaveButton)
                         {

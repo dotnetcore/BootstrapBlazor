@@ -147,4 +147,24 @@ public class ExportPdfButton : Button
             }
         }
     }
+
+    /// <summary>
+    /// 设置配置方法
+    /// </summary>
+    /// <param name="options"></param>
+    internal void SetOptions(ExportPdfButtonOptions options)
+    {
+        Color = options.Color;
+        Text = options.Text;
+        Icon = options.Icon;
+        ElementId = options.ElementId;
+        Selector = options.Selector;
+        StyleTags = options.StyleTags;
+        ScriptTags = options.ScriptTags;
+        FileName = options.FileName;
+        AutoDownload = options.AutoDownload;
+        OnBeforeExport = options.OnBeforeExport;
+        OnBeforeDownload = options.OnBeforeDownload;
+        OnAfterDownload = options.OnAfterDownload;
+    }
 }
