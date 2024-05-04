@@ -176,4 +176,13 @@ public static class JSModuleExtensions
     /// <param name="prefix">A prefix of type <see cref="string"/></param>
     /// <returns>Returns a <see cref="string"/> formatted element ID</returns>
     public static ValueTask<string?> GenerateId(this JSModule module, string? prefix = null) => module.InvokeAsync<string?>("getUID", prefix);
+
+    /// <summary>
+    /// 获取一个页面内指定元素 Html 字符串
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    /// <param name="id"></param>
+    /// <param name="selector"></param>
+    /// <returns>Returns a <see cref="string"/> formatted element ID</returns>
+    public static ValueTask<string?> GetHtml(this JSModule module, string? id = null, string? selector = null) => module.InvokeAsync<string?>("getHtml", new { id, selector });
 }
