@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 导出 Pdf 按钮
 /// </summary>
-[BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public class ExportPdfButton : Button
 {
     /// <summary>
@@ -40,6 +39,30 @@ public class ExportPdfButton : Button
     [Parameter]
     public string? PdfFileName { get; set; }
 
+    /// <summary>
+    /// 获得/设置 导出 Pdf 之前回调委托 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnBeforeExport { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下载 Pdf 之前回调委托 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<Stream, Task>? OnBeforeDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下载 Pdf 之后回调委托 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnAfterDownload { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动下载 Pdf 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool AutoDownload { get; set; }
+
     [Inject, NotNull]
     private IHtml2Pdf? Html2PdfService { get; set; }
 
@@ -48,6 +71,8 @@ public class ExportPdfButton : Button
 
     [Inject, NotNull]
     private DownloadService? DownloadService { get; set; }
+
+    private JSModule? _getHtmlModule;
 
     /// <summary>
     /// <inheritdoc/>
@@ -68,7 +93,13 @@ public class ExportPdfButton : Button
     {
         await base.HandlerClick();
 
-        var html = await InvokeAsync<string?>("getHtml", new { Id = ElementId, Selector });
+        if (OnBeforeExport != null)
+        {
+            await OnBeforeExport();
+        }
+
+        _getHtmlModule ??= await JSRuntime.LoadUtility();
+        var html = await _getHtmlModule.GetHtml(ElementId, Selector);
         if (!string.IsNullOrEmpty(html))
         {
             // 通过模板生成完整的 Html
@@ -98,9 +129,22 @@ public class ExportPdfButton : Button
             // 生成 Pdf 流
             using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, styles, scripts);
 
-            // 下载 Pdf 文件
-            var downloadFileName = PdfFileName ?? $"pdf-{DateTime.Now:yyyyMMddHHmmss}.pdf";
-            await DownloadService.DownloadFromStreamAsync(downloadFileName, stream);
+            if (OnBeforeDownload != null)
+            {
+                await OnBeforeDownload(stream);
+            }
+
+            if (AutoDownload)
+            {
+                // 下载 Pdf 文件
+                var downloadFileName = PdfFileName ?? $"pdf-{DateTime.Now:yyyyMMddHHmmss}.pdf";
+                await DownloadService.DownloadFromStreamAsync(downloadFileName, stream);
+
+                if (OnAfterDownload != null)
+                {
+                    await OnAfterDownload(downloadFileName);
+                }
+            }
         }
     }
 }
