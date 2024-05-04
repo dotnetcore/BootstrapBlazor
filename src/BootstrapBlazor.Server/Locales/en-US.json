@@ -5942,11 +5942,16 @@
     "MouseFollowersContent": "Text | icon | imagepath | videopath"
   },
   "BootstrapBlazor.Server.Components.Samples.ExportPdfButtons": {
-    "ExportPdfButtonsTitle": "Html 导出为 Pdf",
-    "ExportPdfButtonsDescription": "将 Html 片段或者网页元素导出为 Pdf",
-    "NormalTitle": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
-    "NormalIntro": "导出指定网页元素",
-    "NormalDescription": "将 <code>Html</code> 元素内容导出为 <code>Pdf</code> 流"
+    "ExportPdfButtonsTitle": "Convert specified webpage content to Pdf",
+    "ExportPdfButtonsDescription": "Export <code>HTML</code> fragments or web page elements as <code>Pdf</code>",
+    "ExportPdfButtonTips": "<code>IHtml2Pdf</code> service interfaces, please refer to <a target=\"_blank\" href=\"./html2pdf\">[Portal]</a>",
+    "NormalTitle": "ElementId",
+    "NormalIntro": "Export specified elements by <code>Id</code>",
+    "AttributeElementId": "Specify the export Pdf element Id",
+    "AttributeSelector": "Specify export Pdf element selector",
+    "AttributeStyleTags": "Specify the export of Pdf element style sheets",
+    "AttributeScriptTags": "Specify export Pdf element script",
+    "AttributePdfFileName": "Specify the export Pdf file name"
   },
   "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html export to Pdf",

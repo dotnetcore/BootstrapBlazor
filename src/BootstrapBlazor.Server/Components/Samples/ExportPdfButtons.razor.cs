@@ -37,12 +37,12 @@ public partial class ExportPdfButtons
         Model = Foo.Generate(FooLocalizer);
     }
 
-    private static AttributeItem[] GetAttributes() =>
+    private AttributeItem[] GetAttributes() =>
     [
         new()
         {
             Name = nameof(ExportPdfButton.ElementId),
-            Description = "指定导出 Pdf 元素 Id",
+            Description = Localizer["AttributeElementId"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -50,7 +50,7 @@ public partial class ExportPdfButtons
         new()
         {
             Name = nameof(ExportPdfButton.Selector),
-            Description = "指定导出 Pdf 元素选择器",
+            Description = Localizer["AttributeSelector"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
@@ -58,7 +58,7 @@ public partial class ExportPdfButtons
         new()
         {
             Name = nameof(ExportPdfButton.StyleTags),
-            Description = "导出 Pdf 所需样式集合",
+            Description = Localizer["AttributeStyleTags"],
             Type = "List<string>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -66,7 +66,7 @@ public partial class ExportPdfButtons
         new()
         {
             Name = nameof(ExportPdfButton.ScriptTags),
-            Description = "导出 Pdf 所需脚本集合",
+            Description = Localizer["AttributeScriptTags"],
             Type = "List<string>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -74,7 +74,7 @@ public partial class ExportPdfButtons
         new()
         {
             Name = nameof(ExportPdfButton.PdfFileName),
-            Description = "导出 Pdf 文件名",
+            Description = Localizer["AttributePdfFileName"],
             Type = "string?",
             ValueList = " — ",
             DefaultValue = " — "
