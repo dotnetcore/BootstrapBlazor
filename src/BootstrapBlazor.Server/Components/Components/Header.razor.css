@@ -46,6 +46,10 @@
     white-space: nowrap;
 }
 
+::deep .bb-theme-mode .dropdown-toggle {
+    color: var(--bs-navbar-color);
+}
+
 @media (min-width: 768px) {
     .navbar-header {
         position: sticky;
