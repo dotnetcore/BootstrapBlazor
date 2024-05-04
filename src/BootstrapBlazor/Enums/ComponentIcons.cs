@@ -510,11 +510,6 @@ public enum ComponentIcons
     FullScreenButtonIcon,
 
     /// <summary>
-    /// FullScreenButton 组件 FullScreenExitButtonIcon 属性图标
-    /// </summary>
-    FullScreenExitButtonIcon,
-
-    /// <summary>
     /// Print 组件 ButtonIcon 属性图标
     /// </summary>
     PrintButtonIcon,
