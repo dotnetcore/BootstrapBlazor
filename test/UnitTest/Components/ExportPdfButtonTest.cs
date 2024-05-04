@@ -77,7 +77,11 @@ public class ExportPdfButtonTest : ExportPdfTestBase
             FileName = "test.pdf",
             Color = Color.Primary,
             Text = "test",
-            Icon = "icon"
+            Icon = "icon",
+            AutoDownload = true,
+            OnBeforeExport = () => Task.CompletedTask,
+            OnBeforeDownload = _ => Task.CompletedTask,
+            OnAfterDownload = _ => Task.CompletedTask,
         };
 
         Assert.Equal("test-id", options.ElementId);
@@ -88,5 +92,9 @@ public class ExportPdfButtonTest : ExportPdfTestBase
         Assert.Equal("test", options.Text);
         Assert.Equal("icon", options.Icon);
         Assert.Equal("test.pdf", options.FileName);
+        Assert.True(options.AutoDownload);
+        Assert.NotNull(options.OnBeforeExport);
+        Assert.NotNull(options.OnBeforeDownload);
+        Assert.NotNull(options.OnAfterDownload);
     }
 }
