@@ -883,7 +883,12 @@
     "SizeButton": "全屏弹窗(&lt; 1200px)",
     "PrintDialogButton": "点击打开 Dialog",
     "ShowMaximizeButton": "点击打开 Dialog",
-    "ErrorLoggerButton": "全局异常测试"
+    "ErrorLoggerButton": "全局异常测试",
+    "ExportPdfDialogTitle": "带导出 Pdf 功能的弹窗",
+    "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
+    "ExportPdfDialogTip": "可通过设置 <code>ExportPdfButtonOptions</code> 对更多参数进行设置",
+    "ExportPdfButton": "导出 Pdf 弹窗"
+
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",

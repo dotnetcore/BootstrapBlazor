@@ -883,7 +883,11 @@
     "SizeButton": "Fullscreen popup (&lt; 1200px)",
     "PrintDialogButton": "Click to open Dialog",
     "ShowMaximizeButton": "Click to open Dialog",
-    "ErrorLoggerButton": "global exception test"
+    "ErrorLoggerButton": "global exception test",
+    "ExportPdfDialogTitle": "Pop up window with export Pdf function",
+    "ExportPdfDialogIntro": "Set <code>ShowExportPdfButtonInHeader</code> to display an export PDF button on the <code>Header</code>",
+    "ExportPdfDialogTip": "More parameters can be set by setting <code>ExportPdfButtonOptions</code>",
+    "ExportPdfButton": "Export Pdf"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch message distribution",

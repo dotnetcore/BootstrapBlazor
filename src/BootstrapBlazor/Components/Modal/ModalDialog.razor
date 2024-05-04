@@ -20,9 +20,16 @@
                     {
                         @HeaderToolbarTemplate
                     }
-                    @if (ShowPrintButton && ShowPrintButtonInHeader)
+                    @if (ShowPrintButtonInHeader)
                     {
-                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
+                        <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
+                    }
+                    @if (ShowExportPdfButtonInHeader)
+                    {
+                        <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" PdfFileName="@ExportPdfButtonOptions.FileName"
+                                         Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
+                                         Selector="@ExportPdfButtonOptions.Selector"
+                                         StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"></ExportPdfButton>
                     }
                     @if (ShowMaximizeButton)
                     {
@@ -47,9 +54,16 @@
                         {
                             <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon"></DialogCloseButton>
                         }
-                        @if (ShowPrintButton && !ShowPrintButtonInHeader)
+                        @if (ShowPrintButton)
                         {
-                            <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
+                            <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
+                        }
+                        @if (ShowExportPdfButton)
+                        {
+                            <ExportPdfButton class="btn-export-pdf" Color="@ExportPdfButtonOptions.Color" PdfFileName="@ExportPdfButtonOptions.FileName"
+                                             Text="@ExportPdfButtonOptions.Text" Icon="@ExportPdfButtonOptions.Icon"
+                                             Selector="@ExportPdfButtonOptions.Selector"
+                                             StyleTags="@ExportPdfButtonOptions.StyleTags" ScriptTags="@ExportPdfButtonOptions.ScriptTags"></ExportPdfButton>
                         }
                         @if (ShowSaveButton)
                         {
