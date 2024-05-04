@@ -29,9 +29,22 @@
 <DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Normal">
     <section ignore>
         <p>@((MarkupString)Localizer["Html2PdfElementDesc"].Value)</p>
-        <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["ExportButtonText"]"></Button>
+        <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["ExportButtonText"]" Icon="@_exportIcon"></Button>
     </section>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ExportPdfButtonTitle"]" Introduction="@Localizer["ExportPdfButtonIntro"]" Name="ExportPdfButton">
+    <section ignore>
+        <ExportPdfButton Text="@Localizer["ExportButtonText"]" ElementId="table-9527-01"></ExportPdfButton>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527-01" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />

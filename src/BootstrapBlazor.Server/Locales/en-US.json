@@ -5947,6 +5947,8 @@
     "Html2PdfElementTitle": "Export DOM",
     "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
     "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>PdfStreamFromHtmlAsync</code>. export <code>html</code> to <code>Pdf</code>",
+    "ExportPdfButtonTitle": "ExportPdfButton",
+    "ExportPdfButtonIntro": "Export the specified <code>Id</code> element content as <code>Pdf</code> by setting <code>ExportPdfButton</code> component parameter <code>ElementId</code>",
     "ExportButtonText": "Export Pdf",
     "ToastTitle": "Export Pdf",
     "ToastContent": "Export table by id to pdf success.",
