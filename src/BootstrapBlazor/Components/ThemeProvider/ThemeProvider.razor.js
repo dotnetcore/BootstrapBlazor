@@ -1,11 +1,12 @@
-﻿import { getPreferredTheme, getAutoThemeValue, setTheme } from "../../modules/theme.js"
+﻿import { getPreferredTheme, saveTheme } from "../../modules/theme.js"
+import { getAutoThemeValue } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
     const el = document.getElementById(id);
     if (el) {
-        const activeTheme = getPreferredTheme();
-        const activeItem = el.querySelector(`.dropdown-item[data-bb-theme-value="${activeTheme}"]`);
+        const currentTheme = getPreferredTheme();
+        const activeItem = el.querySelector(`.dropdown-item[data-bb-theme-value="${currentTheme}"]`);
         if (activeItem) {
             activeItem.classList.add('active');
             setActiveTheme(el, activeItem);
@@ -18,7 +19,7 @@ export function init(id) {
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
-                setTheme(theme);
+                saveTheme(theme);
 
                 const activeThemeItem = el.querySelector('.active');
                 if (activeThemeItem) {

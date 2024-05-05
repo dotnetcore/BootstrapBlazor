@@ -1,4 +1,6 @@
-﻿const getStoredTheme = () => localStorage.getItem('theme')
+﻿import { getAutoThemeValue, setTheme } from "./utility.js"
+
+const getStoredTheme = () => localStorage.getItem('theme')
 const setStoredTheme = theme => localStorage.setItem('theme', theme)
 
 export function getPreferredTheme() {
@@ -10,15 +12,7 @@ export function getPreferredTheme() {
     return getAutoThemeValue();
 }
 
-export function getAutoThemeValue() {
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-}
-
-export function setTheme(theme) {
-    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-bs-theme', 'dark')
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
+export function saveTheme(theme) {
+    setTheme(theme);
     setStoredTheme(theme);
 }
