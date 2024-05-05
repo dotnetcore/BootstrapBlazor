@@ -356,5 +356,10 @@
   "BootstrapBlazor.Components.ClockPicker": {
     "AMText": "上午",
     "PMText": "下午"
+  },
+  "BootstrapBlazor.Components.ThemeProvider": {
+    "AutoModeText": "自动",
+    "DarkModeText": "暗黑",
+    "LightModeText": "明亮"
   }
 }

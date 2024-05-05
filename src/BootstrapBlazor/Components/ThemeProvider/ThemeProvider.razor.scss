@@ -1,0 +1,33 @@
+.bb-theme-mode {
+    --bb-theme-mode-width: 128px;
+    --bb-theme-mode-label-width: 40px;
+    --bb-theme-mode-icon-width: 14px;
+    --bb-theme-mode-item-margin-top: 2px;
+
+    .bb-theme-mode-active {
+        width: var(--bb-theme-mode-icon-width);
+        display: inline-block;
+    }
+
+    .dropdown-menu {
+        --bs-dropdown-min-width: var(--bb-theme-mode-width);
+
+        li:not(:first-child) {
+            margin-top: var(--bb-theme-mode-item-margin-top);
+        }
+
+        .dropdown-item {
+            span {
+                width: var(--bb-theme-mode-label-width);
+            }
+
+            i {
+                width: var(--bb-theme-mode-icon-width);
+            }
+
+            &:not(.active) .bb-theme-mode-check {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bb-theme-mode-active invisible"></i>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bb-theme-value="light">
+                <i class="@LightModeIcon bb-theme-mode-light" data-bb-theme-icon="@LightModeIcon"></i>
+                <span class="mx-2">@LightModeText</span>
+                <i class="@ActiveIcon bb-theme-mode-check"></i>
+            </button>
+        </li>
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bb-theme-value="dark">
+                <i class="@DarkModeIcon bb-theme-mode-dark" data-bb-theme-icon="@DarkModeIcon"></i>
+                <span class="mx-2">@DarkModeText</span>
+                <i class="@ActiveIcon bb-theme-mode-check"></i>
+            </button>
+        </li>
+        <li>
+            <button type="button" class="dropdown-item d-flex align-items-center" data-bb-theme-value="auto">
+                <i class="@AutoModeIcon bb-theme-mode-auto" data-bb-theme-icon="@AutoModeIcon"></i>
+                <span class="mx-2">@AutoModeText</span>
+                <i class="@ActiveIcon bb-theme-mode-check"></i>
+            </button>
+        </li>
+    </ul>
+</div>
