@@ -356,5 +356,10 @@
   "BootstrapBlazor.Components.ClockPicker": {
     "AMText": "AM",
     "PMText": "PM"
+  },
+  "BootstrapBlazor.Components.ThemeProvider": {
+    "AutoModeText": "Auto",
+    "DarkModeText": "Dark",
+    "LightModeText": "Light"
   }
 }
