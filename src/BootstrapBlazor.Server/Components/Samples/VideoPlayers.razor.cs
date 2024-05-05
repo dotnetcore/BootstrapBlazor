@@ -100,7 +100,7 @@ public partial class VideoPlayers
             DefaultValue = "true"
         },
         new() {
-            Name = nameof(VideoPlayer.Autoplay),
+            Name = nameof(VideoPlayer.AutoPlay),
             Description = Localizer["AutoPaly"],
             Type = "bool",
             ValueList = "true|false",
