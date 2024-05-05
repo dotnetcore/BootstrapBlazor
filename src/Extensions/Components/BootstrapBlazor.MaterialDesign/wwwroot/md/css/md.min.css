@@ -1,0 +1,1 @@
+.card-collapse-arrow:before{transition:transform .3s linear}[aria-expanded="true"]>.card-collapse-arrow:before{transform:rotate(90deg)}.mdi:before{transition:transform .3s linear}
