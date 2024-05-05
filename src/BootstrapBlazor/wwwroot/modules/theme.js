@@ -7,6 +7,10 @@ export function getPreferredTheme() {
         return storedTheme
     }
 
+    return getAutoThemeValue();
+}
+
+export function getAutoThemeValue() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
