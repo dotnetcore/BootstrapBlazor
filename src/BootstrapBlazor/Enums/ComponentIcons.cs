@@ -797,5 +797,10 @@ public enum ComponentIcons
     /// <summary>
     /// ThemeProvider 组件 明亮模式图标
     /// </summary>
-    ThemeProviderLightModeIcon
+    ThemeProviderLightModeIcon,
+
+    /// <summary>
+    /// ThemeProvider 组件 明亮模式图标
+    /// </summary>
+    ThemeProviderActiveModeIcon
 }

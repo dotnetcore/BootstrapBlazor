@@ -237,6 +237,7 @@ public class IconThemeOptions
 
         { ComponentIcons.ThemeProviderAutoModeIcon, "fa-solid fa-circle-half-stroke" },
         { ComponentIcons.ThemeProviderLightModeIcon, "fa-solid fa-sun" },
-        { ComponentIcons.ThemeProviderDarkModeIcon, "fa-solid fa-moon" }
+        { ComponentIcons.ThemeProviderDarkModeIcon, "fa-solid fa-moon" },
+        { ComponentIcons.ThemeProviderActiveModeIcon, "fa-solid fa-check" }
     };
 }
