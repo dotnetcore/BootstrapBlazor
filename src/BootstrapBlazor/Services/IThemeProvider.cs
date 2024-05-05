@@ -13,6 +13,10 @@ public interface IThemeProvider
     /// 设置主题方法
     /// </summary>
     /// <param name="themeName"></param>
-    /// <returns></returns>
-    Task SetThemeAsync(string themeName);
+    ValueTask SetThemeAsync(string themeName);
+
+    /// <summary>
+    /// 获得当前主题方法
+    /// </summary>
+    ValueTask<string?> GetThemeAsync();
 }

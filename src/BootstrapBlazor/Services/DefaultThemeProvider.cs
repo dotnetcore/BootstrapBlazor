@@ -11,9 +11,18 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     /// <inheritdoc/>
     /// </summary>
     /// <param name="themeName"></param>
-    public async Task SetThemeAsync(string themeName)
+    public async ValueTask SetThemeAsync(string themeName)
     {
         var module = await jsRuntime.LoadUtility();
         await module.SetTheme(themeName);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async ValueTask<string?> GetThemeAsync()
+    {
+        var module = await jsRuntime.LoadUtility();
+        return await module.GetTheme();
     }
 }
