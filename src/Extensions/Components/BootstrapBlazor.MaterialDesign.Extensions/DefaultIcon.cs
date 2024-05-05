@@ -210,6 +210,11 @@ internal class DefaultIcon
 
         { ComponentIcons.QueryBuilderPlusIcon, "mdi mdi-plus" },
         { ComponentIcons.QueryBuilderMinusIcon, "mdi mdi-minus" },
-        { ComponentIcons.QueryBuilderRemoveIcon, "mdi mdi-close" }
-    };
+        { ComponentIcons.QueryBuilderRemoveIcon, "mdi mdi-close" },
+
+        { ComponentIcons.ThemeProviderAutoModeIcon, "mdi mdi-circle-half-full" },
+        { ComponentIcons.ThemeProviderLightModeIcon, "mdi mdi-white-balance-sunny" },
+        { ComponentIcons.ThemeProviderDarkModeIcon, "mdi mdi-weather-night" },
+        { ComponentIcons.ThemeProviderActiveModeIcon, "mdi mdi-check" }
+  };
 }
