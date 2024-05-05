@@ -3,7 +3,7 @@
   <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
-    <Version>8.0.2</Version>
+    <Version>8.0.3</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\md\css\*.css" />
     <None Include="bundleconfig.json" />
+    <None Include="wwwroot\md\css\*.css" />
   </ItemGroup>
 
 </Project>

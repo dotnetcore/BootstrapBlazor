@@ -1,9 +1,18 @@
 ﻿[
   {
-    "outputFileName": "wwwroot/css/md.min.css",
+    "outputFileName": "wwwroot/md/css/md.min.css",
     "inputFiles": [
-      "wwwroot/md/css/materialdesignicons.css",
       "wwwroot/md/css/md.css"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/css/md.min.css",
+    "inputFiles": [
+      "wwwroot/md/css/materialdesignicons.min.css",
+      "wwwroot/md/css/md.min.css"
+    ],
+    "minify": {
+      "enabled": false
+    }
   }
 ]

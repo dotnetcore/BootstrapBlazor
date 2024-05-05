@@ -3,7 +3,7 @@
   <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
-    <Version>8.0.1</Version>
+    <Version>8.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -14,13 +14,17 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\css\bootstrap-icons.css" />
+    <Content Remove="wwwroot\css\bootstrap-icons.min.css" />
     <Content Remove="wwwroot\css\bs.css" />
+    <Content Remove="wwwroot\css\bs.min.css" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\css\bootstrap-icons.css" />
+    <None Include="wwwroot\css\bootstrap-icons.min.css" />
     <None Include="wwwroot\css\bs.css" />
+    <None Include="wwwroot\css\bs.min.css" />
   </ItemGroup>
 
 </Project>
