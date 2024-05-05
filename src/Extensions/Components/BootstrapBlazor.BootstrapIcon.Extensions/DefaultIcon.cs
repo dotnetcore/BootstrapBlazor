@@ -210,6 +210,11 @@ internal class DefaultIcon
 
         { ComponentIcons.QueryBuilderPlusIcon, "bi bi-plus" },
         { ComponentIcons.QueryBuilderMinusIcon, "bi bi-dash" },
-        { ComponentIcons.QueryBuilderRemoveIcon, "bi bi-x" }
-    };
+        { ComponentIcons.QueryBuilderRemoveIcon, "bi bi-x" },
+
+        { ComponentIcons.ThemeProviderAutoModeIcon, "bi bi-circle-half" },
+        { ComponentIcons.ThemeProviderLightModeIcon, "bi bi-sun-fill" },
+        { ComponentIcons.ThemeProviderDarkModeIcon, "bi bi-moon-stars-fill" },
+        { ComponentIcons.ThemeProviderActiveModeIcon, "bi bi-check2" }
+};
 }
