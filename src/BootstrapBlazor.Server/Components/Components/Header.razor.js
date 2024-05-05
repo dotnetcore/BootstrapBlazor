@@ -8,7 +8,8 @@ export function init() {
         const currentScrollTop = scrollTop()
         if (currentScrollTop > prevScrollTop) {
             items.forEach(item => item.classList.add('hide'))
-        } else {
+        }
+        else {
             items.forEach(item => item.classList.remove('hide'))
         }
         prevScrollTop = currentScrollTop
