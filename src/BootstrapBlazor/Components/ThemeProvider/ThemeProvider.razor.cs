@@ -27,6 +27,12 @@ public partial class ThemeProvider
     [Parameter]
     public string? LightModeIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 当前选中模式图标 默认 null
+    /// </summary>
+    [Parameter]
+    public string? ActiveIcon { get; set; }
+
     [Inject, NotNull]
     private IIconTheme? IconTheme { get; set; }
 
@@ -44,5 +50,6 @@ public partial class ThemeProvider
         AutoModeIcon ??= IconTheme.GetIconByKey(ComponentIcons.ThemeProviderAutoModeIcon);
         DarkModeIcon ??= IconTheme.GetIconByKey(ComponentIcons.ThemeProviderDarkModeIcon);
         LightModeIcon ??= IconTheme.GetIconByKey(ComponentIcons.ThemeProviderLightModeIcon);
+        ActiveIcon ??= IconTheme.GetIconByKey(ComponentIcons.ThemeProviderActiveModeIcon);
     }
 }
