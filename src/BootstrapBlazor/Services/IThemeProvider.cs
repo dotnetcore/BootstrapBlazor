@@ -9,5 +9,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public interface IThemeProvider
 {
-
+    /// <summary>
+    /// 设置主题方法
+    /// </summary>
+    /// <param name="themeName"></param>
+    /// <returns></returns>
+    Task SetThemeAsync(string themeName);
 }

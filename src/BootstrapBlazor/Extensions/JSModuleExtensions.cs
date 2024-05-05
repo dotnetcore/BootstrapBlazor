@@ -185,4 +185,12 @@ public static class JSModuleExtensions
     /// <param name="selector"></param>
     /// <returns>Returns a <see cref="string"/> formatted element ID</returns>
     public static ValueTask<string?> GetHtml(this JSModule module, string? id = null, string? selector = null) => module.InvokeAsync<string?>("getHtml", new { id, selector });
+
+    /// <summary>
+    /// 设置主题方法
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    /// <param name="themeName">theme name</param>
+    /// <returns></returns>
+    public static ValueTask SetTheme(this JSModule module, string themeName) => module.InvokeVoidAsync("setTheme", themeName);
 }
