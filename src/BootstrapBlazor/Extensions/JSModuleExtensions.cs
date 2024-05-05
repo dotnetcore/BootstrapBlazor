@@ -192,12 +192,12 @@ public static class JSModuleExtensions
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="themeName">theme name</param>
     /// <returns></returns>
-    public static ValueTask SetTheme(this JSModule module, string themeName) => module.InvokeVoidAsync("setTheme", themeName, true);
+    public static ValueTask SetThemeAsync(this JSModule module, string themeName) => module.InvokeVoidAsync("setTheme", themeName, true);
 
     /// <summary>
     /// 设置主题方法
     /// </summary>
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <returns></returns>
-    public static ValueTask<string?> GetTheme(this JSModule module) => module.InvokeAsync<string?>("getTheme");
+    public static ValueTask<string?> GetThemeAsync(this JSModule module) => module.InvokeAsync<string?>("getTheme");
 }

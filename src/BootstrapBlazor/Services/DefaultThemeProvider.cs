@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-
 namespace BootstrapBlazor.Components;
 
 class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
@@ -14,7 +13,7 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     public async ValueTask SetThemeAsync(string themeName)
     {
         var module = await jsRuntime.LoadUtility();
-        await module.SetTheme(themeName);
+        await module.SetThemeAsync(themeName);
     }
 
     /// <summary>
@@ -23,6 +22,6 @@ class DefaultThemeProvider(IJSRuntime jsRuntime) : IThemeProvider
     public async ValueTask<string?> GetThemeAsync()
     {
         var module = await jsRuntime.LoadUtility();
-        return await module.GetTheme();
+        return await module.GetThemeAsync();
     }
 }
