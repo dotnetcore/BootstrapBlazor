@@ -1,0 +1,40 @@
+﻿@page "/theme-provider"
+@layout MainLayout
+
+<h3>主题服务 <code>IThemeProvider</code></h3>
+<h4>组件库内置了主题服务</h4>
+
+<p class="code-label">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private IThemeProvider? ThemeProvider { get; set; }</Pre>
+
+<p class="code-label">2. 主题服务</p>
+<p>调用 <code>ThemeProvider</code> 实例方法 <code>SetThemeAsync</code> 即可</p>
+
+<Pre>ThemeProvider.SetThemeAsync("light")</Pre>
+
+<p class="code-label">3. 主题组件</p>
+
+<p>使用 <code>ThemeProvider</code> 组件实现主题全部功能，无需任何代码，见右上角</p>
+
+<Pre>&lt;ThemeProvider&gt;&lt;/ThemeProvider&gt;</Pre>
+
+<p class="code-label">4. 服务说明</p>
+
+<ul class="ul-demo">
+    <li>主题服务是组件 <code>ThemeProvider</code> 的一种补充方法，允许开发人员通过代码切换主题</li>
+    <li><code>ThemeProvider</code> 组件已实现所有功能</li>
+    <li><code>ThemeProvider</code> 组件已内置支持 <code>bootstrap</code> <code>font-awesome</code> <code>material</code> 三种图标库</li>
+    <li><code>ThemeProvider</code> 组件选中主题后，默认使用 <code>localStorage</code> 对值进行了本地存储</li>
+</ul>
+
+<p class="code-label">5. 本地存储</p>
+
+<p>页面首次加载时，通过 <code>ThemeLoader</code> 组件读取本地存储值（<code>App.razor</code> 文件内）</p>
+
+<Pre>&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;ThemeLoader&gt;&lt;/ThemeLoader&gt;
+&lt;/head&gt;</Pre>

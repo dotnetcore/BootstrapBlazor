@@ -1389,6 +1389,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["ThemeProvider"],
+                    Url = "theme-provider"
+                },
+                new()
+                {
                     Text = Localizer["Title"],
                     Url = "title"
                 },
