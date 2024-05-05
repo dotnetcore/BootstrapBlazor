@@ -1,5 +1,4 @@
-﻿import { getPreferredTheme, saveTheme } from "../../modules/theme.js"
-import { getAutoThemeValue } from "../../modules/utility.js"
+﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, setTheme, saveTheme } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
@@ -8,25 +7,20 @@ export function init(id) {
         const currentTheme = getPreferredTheme();
         const activeItem = el.querySelector(`.dropdown-item[data-bb-theme-value="${currentTheme}"]`);
         if (activeItem) {
-            activeItem.classList.add('active');
             setActiveTheme(el, activeItem);
         }
 
         const items = el.querySelectorAll('.dropdown-item');
         items.forEach(item => {
             EventHandler.on(item, 'click', () => {
+                setActiveTheme(el, item);
+
                 let theme = item.getAttribute('data-bb-theme-value');
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
+                setTheme(theme, false);
                 saveTheme(theme);
-
-                const activeThemeItem = el.querySelector('.active');
-                if (activeThemeItem) {
-                    activeThemeItem.classList.remove('active');
-                }
-                item.classList.add('active');
-                setActiveTheme(el, item);
             });
         });
     }
@@ -38,17 +32,4 @@ export function dispose(id) {
     items.forEach(item => {
         EventHandler.off(item, 'click');
     });
-}
-
-const setActiveTheme = (el, activeItem) => {
-    const iconItem = activeItem.querySelector('[data-bb-theme-icon]');
-    if (iconItem) {
-        const icon = iconItem.getAttribute('data-bb-theme-icon');
-        if (icon) {
-            const toggleIcon = el.querySelector('.bb-theme-mode-active');
-            if (toggleIcon) {
-                toggleIcon.outerHTML = `<i class="${icon} bb-theme-mode-active"></i>`;
-            }
-        }
-    }
 }

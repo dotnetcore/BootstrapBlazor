@@ -674,16 +674,64 @@ export function getHtml(options) {
     return html;
 }
 
+
+export function getPreferredTheme() {
+    const storedTheme = getTheme()
+    if (storedTheme) {
+        return storedTheme
+    }
+
+    return getAutoThemeValue();
+}
+
+export function getTheme() {
+    return localStorage.getItem('theme') || document.documentElement.getAttribute('data-bs-theme') || 'light';
+}
+
+export function saveTheme(theme) {
+    localStorage.setItem('theme', theme)
+}
+
 export function getAutoThemeValue() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
-export function setTheme(theme) {
+export function setTheme(theme, sync) {
     if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
         document.documentElement.setAttribute('data-bs-theme', 'dark')
     }
     else {
         document.documentElement.setAttribute('data-bs-theme', theme);
+    }
+
+    if (sync === true) {
+        const providers = document.querySelectorAll('.bb-theme-mode');
+        providers.forEach(p => {
+            const activeItem = p.querySelector(`.dropdown-item[data-bb-theme-value="${theme}"]`);
+            setActiveTheme(p, activeItem)
+        })
+        saveTheme(theme);
+    }
+}
+
+export function setActiveTheme(el, activeItem) {
+    const currentTheme = el.querySelector('.active');
+    if (currentTheme) {
+        currentTheme.classList.remove('active');
+    }
+
+    if (activeItem) {
+        activeItem.classList.add('active');
+        const iconItem = activeItem.querySelector('[data-bb-theme-icon]');
+        if (iconItem) {
+            const icon = iconItem.getAttribute('data-bb-theme-icon');
+            if (icon) {
+                const toggleIcon = el.querySelector('.bb-theme-mode-active');
+                if (toggleIcon) {
+                    toggleIcon.outerHTML = `<i class="${icon} bb-theme-mode-active"></i>`;
+                }
+            }
+        }
     }
 }
 
