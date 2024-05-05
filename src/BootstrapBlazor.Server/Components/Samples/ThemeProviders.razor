@@ -28,4 +28,17 @@ private IThemeProvider? ThemeProvider { get; set; }</Pre>
 
 <p>页面首次加载时，会读取本地存储值，可通过如下代码实现</p>
 
-<Pre>&lt;Script Src="lib/theme.js" type="module"&gt;&lt;/Script&gt;</Pre>
+<Pre>import { getPreferredTheme, setTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+
+setTheme(getPreferredTheme(), false)
+</Pre>
+
+<p>完整解决方案是，在 <code>App.razor</code> 文件中的 <code>Head</code> 中加载脚本，在页面渲染前读取主题；以上代码内置到 <code>lib/theme.js</code> 文件内</p>
+
+<Pre>&lt;head&gt;
+    &lt;meta charset="utf-8" /&gt;
+    &lt;Link Href="css/site.css" /&gt;
+    &lt;Script Src="lib/theme.js" type="module"&gt;&lt;/Script&gt;
+&lt;/head&gt;</Pre>
+
+<p><code>Script</code> 标签内置版本控制类似 <code>MVC</code> 模式下 <code>TagHelper</code> <code>asp-append-version</code></p>
