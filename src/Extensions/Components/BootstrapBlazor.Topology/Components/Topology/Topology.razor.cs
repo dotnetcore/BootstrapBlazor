@@ -125,14 +125,18 @@ public partial class Topology : IAsyncDisposable
     /// 重置视图 缩放比例 默认 1 即 100%
     /// </summary>
     /// <param name="rate"></param>
+    /// <param name="isCenterView"></param>
+    /// <param name="isFitView"></param>
     /// <returns></returns>
-    public Task Scale(int rate = 1) => InvokeVoidAsync("scale", Id, rate);
+    public Task Scale(int rate = 1, bool isCenterView = false, bool isFitView = false) => InvokeVoidAsync("scale", Id, rate, new { isCenterView, isFitView });
 
     /// <summary>
     /// 重置视图 自适应大小并且居中显示
     /// </summary>
+    /// <param name="isCenterView"></param>
+    /// <param name="isFitView"></param>
     /// <returns></returns>
-    public Task Reset() => InvokeVoidAsync("reset", Id);
+    public Task Reset(bool isCenterView = true, bool isFitView = true) => InvokeVoidAsync("reset", Id, new { isCenterView, isFitView });
 
     /// <summary>
     /// 重置可视化引擎大小
