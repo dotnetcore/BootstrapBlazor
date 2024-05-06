@@ -39,21 +39,27 @@ export function update(id, data) {
     }
 }
 
-export function scale(id, rate) {
+export function scale(id, rate, options) {
     const meta = Data.get(id)
     if (meta) {
         meta.meta2d.scale(rate)
-        if (meta.option.isCenter) {
-            meta.meta2d.centerView()
-        }
+        reset(id, options);
     }
 }
 
-export function reset(id) {
+export function reset(id, options) {
     const meta = Data.get(id)
     if (meta) {
-        meta.meta2d.fitView()
-        meta.meta2d.centerView()
+        options = { isFitView: false, isCenterView: false, ...options };
+        meta.option.isFitView = options.isFitView;
+        meta.option.isCenterView = options.isCenterView;
+
+        if (meta.option.isCenterView) {
+            meta2d.centerView()
+        }
+        if (meta.option.isFitView) {
+            meta2d.fitView()
+        }
     }
 }
 
