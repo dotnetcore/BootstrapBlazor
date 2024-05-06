@@ -92,7 +92,7 @@ public class IconThemeOptions
         { ComponentIcons.TableFilterMinusIcon, "fa-solid fa-minus" },
 
         { ComponentIcons.FullScreenButtonIcon, "fa-solid fa-maximize" },
-        { ComponentIcons.FullScreenExitButtonIcon, "fa-solid fa-compress" },
+        { ComponentIcons.FullScreenExitButtonIcon, "fa-solid fa-minimize" },
 
         { ComponentIcons.GoTopIcon, "fa-solid fa-angle-up" },
 
