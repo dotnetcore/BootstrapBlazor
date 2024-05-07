@@ -143,14 +143,24 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认为 8
+    /// 获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/>
     /// </summary>
     [Parameter]
-    public int ScrollWidth { get; set; } = 8;
+    public int? ScrollWidth { get; set; }
 
-    private string ScrollWidthString => $"width: {ScrollWidth}px;";
+    /// <summary>
+    /// 获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/>
+    /// </summary>
+    [Parameter]
+    public int? ScrollHoverWidth { get; set; }
 
-    private string ScrollWidthStyleString => $"--bb-scroll-width: {ScrollWidth}px;";
+    private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
+
+    private string ScrollStyleString => $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;";
+
+    private int ActualScrollWidth => ScrollWidth ?? Options.CurrentValue.ScrollOptions.ScrollWidth;
+
+    private int ActualScrollHoverWidth => ScrollHoverWidth ?? Options.CurrentValue.ScrollOptions.ScrollHoverWidth;
 
     /// <summary>
     /// 获得/设置 Table 高度 默认为 null
