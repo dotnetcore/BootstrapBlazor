@@ -44,7 +44,7 @@ const setBodyHeight = table => {
         }
         let headerHeight = 0
         if (table.thead) {
-            headerHeight = getOuterHeight(table.thead.querySelector('thead'))
+            headerHeight = getOuterHeight(table.thead)
         }
         if (headerHeight > 0) {
             body.style.height = `calc(100% - ${headerHeight}px)`
@@ -284,11 +284,11 @@ const setResizeListener = table => {
             },
             () => {
                 eff(col, false)
-                if (table.callbacks.resizeColumnCallback) {
+                if (table.options.resizeColumnCallback) {
                     const th = col.closest('th')
                     const width = getWidth(th);
                     const currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th > .col-resizer')].indexOf(col)
-                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, currentIndex, width)
+                    table.invoke.invokeMethodAsync(table.options.resizeColumnCallback, currentIndex, width)
                 }
 
                 saveColumnWidth(table)
@@ -401,8 +401,8 @@ const setDraggable = table => {
         EventHandler.on(col, 'drop', e => {
             e.stopPropagation()
             e.preventDefault()
-            if (table.callbacks.dragColumnCallback) {
-                table.invoke.invokeMethodAsync(table.callbacks.dragColumnCallback, index, table.dragColumns.indexOf(col))
+            if (table.options.dragColumnCallback) {
+                table.invoke.invokeMethodAsync(table.options.dragColumnCallback, index, table.dragColumns.indexOf(col))
             }
             return false
         })
@@ -453,7 +453,7 @@ const setToolbarDropdown = (table, toolbar) => {
     })
 }
 
-export function init(id, invoke, callbacks) {
+export function init(id, invoke, options) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -461,7 +461,7 @@ export function init(id, invoke, callbacks) {
     const table = {
         el,
         invoke,
-        callbacks
+        options
     }
     Data.set(id, table)
 
@@ -523,6 +523,8 @@ export function reset(id) {
                 const left = table.body.scrollLeft
                 table.thead.scrollTo(left, 0)
             });
+
+            setTableDefaultWidth(table);
         }
         else {
             table.isExcel = shim.firstChild.classList.contains('table-excel')
@@ -562,6 +564,19 @@ export function reset(id) {
         });
         observer.observe(table.search)
         table.observer = observer
+    }
+}
+
+const setTableDefaultWidth = table => {
+    const width = table.tables[0].style.getPropertyValue('width');
+    if (width === "") {
+        const { scrollWidth, columnMinWidth } = table.options;
+        const length = table.tables[0].querySelectorAll('th').length;
+        const tableWidth = length * columnMinWidth;
+        if (tableWidth > table.tables[0].offsetWidth) {
+            table.tables[0].style.setProperty('width', `${tableWidth}px`);
+            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+        }
     }
 }
 
