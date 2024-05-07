@@ -64,6 +64,11 @@
     <DateTimeRange Value="@TodayDateTimeRangeValue" ShowToday="true" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SingleViewTitle"]" Introduction="@Localizer["SingleViewTitle"]" Name="SingleView">
+    <section ignore class="mb-3">@((MarkupString)Localizer["SingleViewTitle"].Value)</section>
+    <DateTimeRange Value="@TodayDateTimeRangeValue" RenderMode="DatePickerRenderMode.Single" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
     <FormInlineSwitch @bind-Value="@ValidateFormRowType" class="mb-2" />
 

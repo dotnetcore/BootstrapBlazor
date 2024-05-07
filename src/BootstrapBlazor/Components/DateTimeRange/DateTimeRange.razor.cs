@@ -127,6 +127,12 @@ public partial class DateTimeRange
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
+    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// </summary>
+    [Parameter]
+    public DatePickerRenderMode RenderMode { get; set; } = DatePickerRenderMode.Double;
+
+    /// <summary>
     /// 获得/设置 今天按钮文字
     /// </summary>
     [Parameter]
@@ -270,6 +276,8 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
+    private bool _showRightButtons = false;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -293,6 +301,11 @@ public partial class DateTimeRange
                     });
                 }
             }
+        }
+
+        if (RenderMode == DatePickerRenderMode.Single)
+        {
+            _showRightButtons = true;
         }
     }
 
