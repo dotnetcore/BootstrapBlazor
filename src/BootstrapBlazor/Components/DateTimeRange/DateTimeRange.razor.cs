@@ -303,10 +303,7 @@ public partial class DateTimeRange
             }
         }
 
-        if (RenderMode == DatePickerRenderMode.Single)
-        {
-            _showRightButtons = true;
-        }
+        _showRightButtons = RenderMode == DatePickerRenderMode.Single;
     }
 
     /// <summary>
