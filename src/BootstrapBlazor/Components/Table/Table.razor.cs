@@ -366,6 +366,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool IsAccordion { get; set; }
 
     /// <summary>
+    /// 获得/设置 列最小宽度 默认 null 未设置 可通过 <see cref="TableSettings.ColumnMinWidth"/> 统一设置
+    /// </summary>
+    [Parameter]
+    public int? ColumnMinWidth { get; set; }
+
+    /// <summary>
     /// 明细行功能中切换行状态时调用此方法
     /// </summary>
     /// <param name="item"></param>
@@ -860,7 +866,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
-                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
+                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
+                ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
+                ScrollWidth = ActualScrollWidth
             });
         }
     }
@@ -872,7 +880,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         string? ret = null;
         if (_localStorageTableWidth.HasValue)
         {
-            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - 6;
+            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - ActualScrollWidth;
             ret = $"width: {width}px;";
         }
         return ret;
@@ -880,7 +888,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
 
-    private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+    private readonly JsonSerializerOptions _serializerOption = new(JsonSerializerDefaults.Web);
 
     private async Task<List<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
     {

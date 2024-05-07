@@ -30,6 +30,11 @@ public class TableSettings
     public int LineNoColumnWidth { get; set; } = 60;
 
     /// <summary>
+    /// 获得/设置 列最小宽度 默认 64
+    /// </summary>
+    public int ColumnMinWidth { get; set; } = 64;
+
+    /// <summary>
     /// 获得/设置 表格渲染模式
     /// </summary>
     public TableRenderMode? TableRenderMode { get; set; }
