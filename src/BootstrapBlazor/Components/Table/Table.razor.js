@@ -570,10 +570,13 @@ export function reset(id) {
 const setTableDefaultWidth = table => {
     const width = table.tables[0].style.getPropertyValue('width');
     if (width === "") {
-        const length = table.tables[0].querySelectorAll('th').length;
         const { scrollWidth, columnMinWidth } = table.options;
-        table.tables[0].style.setProperty('width', `${length * columnMinWidth}px`);
-        table.tables[1].style.setProperty('width', `${length * columnMinWidth - scrollWidth}px`);
+        const length = table.tables[0].querySelectorAll('th').length;
+        const tableWidth = length * columnMinWidth;
+        if (tableWidth > table.tables[0].offsetWidth) {
+            table.tables[0].style.setProperty('width', `${tableWidth}px`);
+            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+        }
     }
 }
 
