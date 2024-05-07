@@ -343,6 +343,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _breakPointChanged;
 
+    private List<ColumnWidth> _clientColumnWidths = [];
+
     private async Task OnBreakPointChanged(BreakPoint size)
     {
         if (size != ScreenSize)
@@ -794,6 +796,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
+
+            // resize column width;
+            ResetColumnWidth();
         }
     }
 
@@ -877,9 +882,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 
-    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
+    private async Task<List<ColumnWidth>> ReloadColumnWidthFromBrowserAsync()
     {
-        IEnumerable<ColumnWidth>? ret = null;
+        List<ColumnWidth>? ret = null;
         if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
         {
             var jsonData = await InvokeAsync<string>("reloadColumnWidth", ClientTableName);
@@ -890,7 +895,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     var doc = JsonDocument.Parse(jsonData);
                     if (doc.RootElement.TryGetProperty("cols", out var element))
                     {
-                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(_serializerOption);
+                        ret = element.Deserialize<List<ColumnWidth>>(_serializerOption);
                     }
                     if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
                     {
@@ -952,15 +957,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         InternalResetVisibleColumns();
 
         // 查看是否开启列宽序列化
-        var columnWidths = await ReloadColumnWidthFromBrowserAsync();
-        foreach (var cw in columnWidths.Where(c => c.Width > 0))
-        {
-            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
-            if (c != null)
-            {
-                c.Width = cw.Width;
-            }
-        }
+        _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
+        ResetColumnWidth();
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
@@ -998,6 +996,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
         {
             ScreenSize = p;
+        }
+    }
+
+    private void ResetColumnWidth()
+    {
+        foreach (var cw in _clientColumnWidths.Where(c => c.Width > 0))
+        {
+            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            if (c != null)
+            {
+                c.Width = cw.Width;
+            }
         }
     }
 
