@@ -16,10 +16,14 @@ public partial class Scroll
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
         .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
-        .AddClass($"--bb-scroll-width: {ScrollWidth}px;", ScrollWidth > 4)
-        .AddClass($"--bb-scroll-hover-width: {ScrollHoverWidth}px;", ScrollHoverWidth > 8)
+        .AddClass($"--bb-scroll-width: {ActualScrollWidth}px;")
+        .AddClass($"--bb-scroll-hover-width: {ActualScrollHoverWidth}px;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
+
+    private int ActualScrollWidth => ScrollWidth ?? Options.CurrentValue.ScrollOptions.ScrollWidth;
+
+    private int ActualScrollHoverWidth => ScrollHoverWidth ?? Options.CurrentValue.ScrollOptions.ScrollHoverWidth;
 
     /// <summary>
     /// 获得/设置 子组件
@@ -40,14 +44,18 @@ public partial class Scroll
     public string? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认 4px
+    /// 获得/设置 滚动条宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollWidth"/>
     /// </summary>
     [Parameter]
-    public int ScrollWidth { get; set; } = 4;
+    public int? ScrollWidth { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条 hover 状态下宽度 默认 8px
+    /// 获得/设置 滚动条 hover 状态下宽度 默认 null 未设置使用 <see cref="ScrollOptions"/> 配置类中的 <see cref="ScrollOptions.ScrollHoverWidth"/>
     /// </summary>
     [Parameter]
-    public int ScrollHoverWidth { get; set; } = 8;
+    public int? ScrollHoverWidth { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 }
