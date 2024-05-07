@@ -199,7 +199,7 @@
                                 @RenderHeader(true)
                             </table>
                         </div>
-                        <div class="table-fixed-body scroll" style="@ScrollWidthStyleString">
+                        <div class="table-fixed-body scroll" style="@ScrollStyleString">
                             @RenderTable(false)
                         </div>
                     }
@@ -489,7 +489,7 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ScrollWidth)"
+                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ActualScrollWidth)"
                                         TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
@@ -582,7 +582,7 @@
                 {
                     if (CheckShownWithBreakpoint(col))
                     {
-                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, ScrollWidth)" @key="col">
+                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, ActualScrollWidth)" @key="col">
                             <div class="table-cell">
                                 @if(col.Filterable)
                                 {
@@ -594,7 +594,7 @@
                 }
                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                 {
-                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ScrollWidth)">
+                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ActualScrollWidth)">
                         <div class="table-cell">&nbsp;</div>
                     </th>
                 }
@@ -807,7 +807,7 @@
     </Button>;
 
     RenderFragment RenderExtendButtonsHeader =>
-    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ScrollWidth)">
+    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ActualScrollWidth)">
         <div class="@ExtendButtonsCellClassString">
             @ColumnButtonTemplateHeaderText
         </div>

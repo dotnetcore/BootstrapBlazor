@@ -94,6 +94,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public IpLocatorOptions IpLocatorOptions { get; set; } = new();
 
+    /// <summary>
+    /// 获得/设置 ScrollOptions 配置 默认为不为空
+    /// </summary>
+    public ScrollOptions ScrollOptions { get; set; } = new();
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>

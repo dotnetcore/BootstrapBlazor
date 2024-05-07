@@ -30,13 +30,13 @@ public class ScrollTest : TestBase
             builder.Add(a => a.Width, "500px");
         });
 
-        Assert.Equal("<div class=\"scroll\" style=\"width: 500px;\"></div>", cut.Markup);
+        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 5px; --bb-scroll-hover-width: 5px;\"></div>", cut.Markup);
 
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.ScrollWidth, 6);
         });
-        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px;\"></div>", cut.Markup);
+        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 5px;\"></div>", cut.Markup);
 
         cut.SetParametersAndRender(builder =>
         {

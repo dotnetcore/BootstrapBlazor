@@ -1597,6 +1597,55 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void ScrollWidth_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
+                pb.Add(a => a.IsFixedHeader, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, int>>(4);
+                    builder.AddAttribute(5, "Field", foo.Count);
+                    builder.AddAttribute(6, "FieldExpression", Utility.GenerateValueExpression(foo, "Count", typeof(int)));
+                    builder.AddAttribute(3, nameof(TableColumn<Foo, string>.Fixed), true);
+                    builder.AddAttribute(3, "Width", 100);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("--bb-scroll-width: 5px; --bb-scroll-hover-width: 5px;");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ScrollWidth, 6);
+            pb.Add(a => a.ScrollHoverWidth, 6);
+        });
+        cut.Contains("--bb-scroll-width: 6px; --bb-scroll-hover-width: 6px;");
+
+        var options = cut.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.ScrollOptions.ScrollWidth = 7;
+        options.CurrentValue.ScrollOptions.ScrollHoverWidth = 7;
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ScrollWidth, null);
+            pb.Add(a => a.ScrollHoverWidth, null);
+        });
+        cut.Contains("--bb-scroll-width: 7px; --bb-scroll-hover-width: 7px;");
+    }
+
+    [Fact]
     public void FixedColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
