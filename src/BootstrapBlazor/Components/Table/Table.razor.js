@@ -44,7 +44,7 @@ const setBodyHeight = table => {
         }
         let headerHeight = 0
         if (table.thead) {
-            headerHeight = getOuterHeight(table.thead.querySelector('thead'))
+            headerHeight = getOuterHeight(table.thead)
         }
         if (headerHeight > 0) {
             body.style.height = `calc(100% - ${headerHeight}px)`
