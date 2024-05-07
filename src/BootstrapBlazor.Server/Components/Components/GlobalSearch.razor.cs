@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Meilisearch;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Server.Components.Components;
@@ -11,47 +12,40 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class GlobalSearch
 {
-    [Inject]
     [NotNull]
-    private IStringLocalizer<GlobalSearch>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
-    private MenuService? MenuService { get; set; }
+    private MeilisearchClient? MeilisearchClient { get; set; }
 
     [NotNull]
-    private List<string>? ComponentItems { get; set; }
+    private string? Name { get; set; }
 
-    private IEnumerable<MenuItem> Menus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
+    [NotNull]
+    private string? Content { get; set; } = "";
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        ComponentItems = Menus.Select(i => i.Text!).ToList();
+        MeilisearchClient = new MeilisearchClient("http://47.92.144.33:7700", "BootstrapBlazorSearch");
     }
 
-    private Task OnSearch(string searchText)
+    private async Task OnSearch(ChangeEventArgs args)
     {
-        if (!string.IsNullOrEmpty(searchText))
+        var index = MeilisearchClient.Index("bbsearch");
+        var doc = await index.SearchAsync<SearchModel>(args.Value!.ToString());
+        var str = "";
+        foreach (var item in doc.Hits)
         {
-            var item = Menus.FirstOrDefault(i => i.Text?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (item != null && !string.IsNullOrEmpty(item.Url))
+            str += $"""
+                <br/><h5>{item.Title}<h5/><hr/>
+                """;
+            foreach (var demo in item.DemoBlocks!)
             {
-                NavigationManager.NavigateTo(item.Url, true);
+                str += $"""
+                <a href="{item.Url}">{demo.AnchorText}<a/><br/>
+                """;
             }
         }
-        return Task.CompletedTask;
+        Content = str;
     }
-
-    private Task OnSelectedItemChanged(string searchText) => OnSearch(searchText);
 }
