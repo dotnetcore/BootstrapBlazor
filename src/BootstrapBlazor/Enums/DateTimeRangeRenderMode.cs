@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTimePicker 组件视图显示模式
+/// DateTimeRangeRenderMode 组件视图显示模式
 /// </summary>
-public enum DatePickerRenderMode
+public enum DateTimeRangeRenderMode
 {
     /// <summary>
     /// Single Component Mode

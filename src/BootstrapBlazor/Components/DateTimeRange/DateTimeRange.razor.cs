@@ -130,7 +130,7 @@ public partial class DateTimeRange
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     [Parameter]
-    public DatePickerRenderMode RenderMode { get; set; } = DatePickerRenderMode.Double;
+    public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
 
     /// <summary>
     /// 获得/设置 今天按钮文字
@@ -303,7 +303,7 @@ public partial class DateTimeRange
             }
         }
 
-        _showRightButtons = RenderMode == DatePickerRenderMode.Single;
+        _showRightButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>
@@ -377,6 +377,8 @@ public partial class DateTimeRange
     private async Task ClickClearButton()
     {
         Value = new DateTimeRangeValue();
+        SelectedValue.NullStart = null;
+        SelectedValue.NullEnd = null;
 
         if (OnClearValue != null)
         {

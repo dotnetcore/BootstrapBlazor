@@ -39,7 +39,7 @@
                                 ShowRightButtons="@_showRightButtons" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
-                @if (RenderMode == DatePickerRenderMode.Double)
+                @if (RenderMode == DateTimeRangeRenderMode.Double)
                 {
                     <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
