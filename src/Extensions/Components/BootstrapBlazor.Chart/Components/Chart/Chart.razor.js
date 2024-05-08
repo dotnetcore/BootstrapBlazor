@@ -412,6 +412,41 @@ export function update(id, option, method, angle) {
     chart.update()
 }
 
+function canvasToBlob(canvas, mimeType) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var byteArray = new Uint8Array(event.target.result);
+                resolve(byteArray);
+            };
+            reader.onerror = () => reject(new Error('Failed to read blob as array buffer'));
+            reader.readAsArrayBuffer(blob);
+        }, mimeType);
+    });
+}
+
+export function toImage(id, mimeType) {
+    return new Promise(async (resolve, reject) => {
+        var div = document.getElementById(id);
+        if (div) {
+            var canvas = div.querySelector('canvas');
+            if (canvas) {
+                try {
+                    const blobArray = await canvasToBlob(canvas, mimeType);
+                    resolve(blobArray);
+                } catch (error) {
+                    reject(error);
+                }
+            } else {
+                reject(new Error('No canvas found'));
+            }
+        } else {
+            reject(new Error('No element with given id found'));
+        }
+    });
+}
+
 export function dispose(id) {
     const chart = Data.get(id)
     Data.remove(id)
