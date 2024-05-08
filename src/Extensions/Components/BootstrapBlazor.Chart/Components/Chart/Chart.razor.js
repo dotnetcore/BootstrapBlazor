@@ -412,7 +412,7 @@ export function update(id, option, method, angle) {
     chart.update()
 }
 
-function canvasToBlob(canvas) {
+function canvasToBlob(canvas, mimeType) {
     return new Promise((resolve, reject) => {
         canvas.toBlob(blob => {
             var reader = new FileReader();
@@ -420,20 +420,20 @@ function canvasToBlob(canvas) {
                 var byteArray = new Uint8Array(event.target.result);
                 resolve(byteArray);
             };
-            reader.onerror = reject;
+            reader.onerror = () => reject(new Error('Failed to read blob as array buffer'));
             reader.readAsArrayBuffer(blob);
-        }, 'image/png');
+        }, mimeType);
     });
 }
 
-export function toImage(id) {
+export function toImage(id, mimeType) {
     return new Promise(async (resolve, reject) => {
         var div = document.getElementById(id);
         if (div) {
             var canvas = div.querySelector('canvas');
             if (canvas) {
                 try {
-                    const blobArray = await canvasToBlob(canvas);
+                    const blobArray = await canvasToBlob(canvas, mimeType);
                     resolve(blobArray);
                 } catch (error) {
                     reject(error);
