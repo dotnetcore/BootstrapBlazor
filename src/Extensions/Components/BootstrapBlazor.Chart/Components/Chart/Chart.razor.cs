@@ -226,9 +226,8 @@ public partial class Chart
     }
 
     /// <summary>
-    /// 生成图片
+    /// 生成图片方法
     /// </summary>
     /// <returns></returns>
-    public Task<byte[]?> ToImage() => InvokeAsync<byte[]>("toImage", Id);
-
+    public Task<byte[]?> ToImage() => InvokeAsync<byte[]?>("toImage", Id);
 }
