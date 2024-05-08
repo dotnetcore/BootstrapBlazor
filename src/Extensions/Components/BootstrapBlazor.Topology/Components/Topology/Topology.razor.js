@@ -50,6 +50,7 @@ export function scale(id, rate, options) {
 export function reset(id, options) {
     const meta = Data.get(id)
     if (meta) {
+        const meta2d = meta.meta2d;
         options = { isFitView: false, isCenterView: false, ...options };
         meta.option.isFitView = options.isFitView;
         meta.option.isCenterView = options.isCenterView;
