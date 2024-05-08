@@ -224,4 +224,11 @@ public partial class Chart
         ds.Options.OnClickDataMethod = OnClickDataAsync == null ? null : nameof(OnClickCallback);
         ds.Type ??= ChartType.ToDescriptionString();
     }
+
+    /// <summary>
+    /// 生成图片
+    /// </summary>
+    /// <returns></returns>
+    public Task<byte[]?> ToImage() => InvokeAsync<byte[]>("toImage", Id);
+
 }
