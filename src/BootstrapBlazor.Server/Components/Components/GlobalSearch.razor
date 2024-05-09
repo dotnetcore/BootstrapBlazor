@@ -1,3 +1,9 @@
-﻿<div class="d-none d-xl-flex flex-xl-fill justify-content-xl-end px-3">
-    <Search PlaceHolder="@Localizer["Search"]" IsSelectAllTextOnEnter="true" IsSelectAllTextOnFocus="true" IsLikeMatch="true" Items="@ComponentItems" SearchButtonText="" OnSearch="OnSearch" OnSelectedItemChanged="OnSelectedItemChanged" SearchButtonColor="Color.None" />
+﻿@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Components/GlobalSearch.razor.js")]
+
+<div id="@Id" class="bb-g-search">
+    <i class="fa-solid fa-search"></i>
+    <input type="text" readonly placeholder="search docs" />
+    <div class="search-dialog shadow-lg">
+    </div>
 </div>

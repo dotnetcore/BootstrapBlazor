@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
@@ -11,47 +9,5 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class GlobalSearch
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<GlobalSearch>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
-    private MenuService? MenuService { get; set; }
-
-    [NotNull]
-    private List<string>? ComponentItems { get; set; }
-
-    private IEnumerable<MenuItem> Menus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        ComponentItems = Menus.Select(i => i.Text!).ToList();
-    }
-
-    private Task OnSearch(string searchText)
-    {
-        if (!string.IsNullOrEmpty(searchText))
-        {
-            var item = Menus.FirstOrDefault(i => i.Text?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (item != null && !string.IsNullOrEmpty(item.Url))
-            {
-                NavigationManager.NavigateTo(item.Url, true);
-            }
-        }
-        return Task.CompletedTask;
-    }
-
-    private Task OnSelectedItemChanged(string searchText) => OnSearch(searchText);
+    private string _searchId => $"{Id}_search";
 }
