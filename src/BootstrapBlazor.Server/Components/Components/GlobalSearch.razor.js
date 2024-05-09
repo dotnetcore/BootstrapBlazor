@@ -69,11 +69,11 @@ const updateList = (search, results) => {
     const blockHtml = blockTemplate.innerHTML;
     results.hits.forEach(hit => {
         const div = document.createElement('div');
-        div.innerHTML = html.replace('{url}', hit.url).replace('{title}', hit.title).replace('{sub-title}', hit.subTitle);
+        div.innerHTML = html.replace('{url}', hit.url).replace('{title}', hit.title).replace('{sub-title}', hit.subTitle).replace('{count}', hit.demoBlocks.length);
         const item = div.firstChild;
 
         if (hit.demoBlocks) {
-            const ul = document.createElement('ul');
+            const ul = document.createElement('ol');
             ul.classList.add('mb-0');
             ul.classList.add('mt-2')
             hit.demoBlocks.forEach(block => {

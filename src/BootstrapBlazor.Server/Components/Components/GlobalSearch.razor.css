@@ -120,7 +120,8 @@
 
         .search-dialog-list .search-dialog-item li > a {
             display: block;
-            padding: .5rem;
+            padding: .25rem;
+            font-size: .75rem;
         }
 
 @media (min-width: 768px) {
