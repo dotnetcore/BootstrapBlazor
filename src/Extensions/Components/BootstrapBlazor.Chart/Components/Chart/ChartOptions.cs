@@ -160,6 +160,11 @@ public class ChartOptions
     public string? YScalesGridTickColor { get; set; }
 
     /// <summary>
+    /// 获得/设置 图表背景颜色
+    /// </summary>
+    public string? CanvasBackgroundColor { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示柱状图数据值
     /// </summary>
     public bool ShowDataLabel { get; set; }
