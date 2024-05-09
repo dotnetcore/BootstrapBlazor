@@ -64,7 +64,6 @@
     <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.5" />
     <PackageReference Include="Longbow.Logging" Version="8.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="8.0.2" />
-    <PackageReference Include="MeiliSearch" Version="0.15.0" />
   </ItemGroup>
 
   <ItemGroup>

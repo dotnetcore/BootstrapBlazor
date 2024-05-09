@@ -1,5 +1,3 @@
 ﻿<div class="d-none d-xl-flex flex-xl-fill justify-content-xl-end px-3">
-    <Popover Content="@Content" IsHtml="true" Trigger="oninput" >
-        <InputText @oninput="OnSearch" @bind-Value="Name"></InputText>
-    </Popover>
+    <Search PlaceHolder="@Localizer["Search"]" IsSelectAllTextOnEnter="true" IsSelectAllTextOnFocus="true" IsLikeMatch="true" Items="@ComponentItems" SearchButtonText="" OnSearch="OnSearch" OnSelectedItemChanged="OnSelectedItemChanged" SearchButtonColor="Color.None" />
 </div>
