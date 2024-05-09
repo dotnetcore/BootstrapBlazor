@@ -5,6 +5,20 @@ import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 Chart.register(ChartDataLabels);
 
+const plugin = {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+        if (options.color) {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = options.color;
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
+        }
+    }
+};
+
 const chartOption = {
     options: {
         responsive: true,
@@ -41,7 +55,8 @@ const chartOption = {
                 }
             }
         }
-    }
+    },
+    plugins: [plugin]
 }
 
 const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined
@@ -315,6 +330,9 @@ const getChartOption = function (option) {
                         font: {
                             weight: 'bold'
                         }
+                    },
+                    customCanvasBackgroundColor: {
+                        color: option.options.canvasBackgroundColor,
                     }
                 },
                 scales: scale
