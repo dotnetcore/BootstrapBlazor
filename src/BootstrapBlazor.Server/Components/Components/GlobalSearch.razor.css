@@ -9,6 +9,7 @@
     transition: border-color .3s linear;
     cursor: pointer;
     margin-bottom: .5rem;
+    font-size: .875rem;
 }
 
     .bb-g-search input {
@@ -26,19 +27,101 @@
             color: var(--bb-header-dropdown-color);
         }
 
-    .bb-g-search .search-dialog {
-        position: fixed;
-        top: 72px;
-        left: 10px;
-        right: 10px;
-        height: 400px;
-        background-color: #333;
-        border-radius: var(--bs-border-radius);
-        border: 1px solid var(--bb-primary-color-rgb);
-        background-image: linear-gradient(to right, rgba(var(--bb-primary-color-rgb), 0.9), rgba(var(--bb-primary-color-rgb), 0.4));
-        z-index: 3000;
-        overflow: auto;
+.search-dialog {
+    position: fixed;
+    top: 72px;
+    left: 10px;
+    right: 10px;
+    height: calc(100vh - 160px);
+    background-color: #333;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bb-primary-color-rgb);
+    background-image: linear-gradient(to right, rgba(var(--bb-primary-color-rgb), 0.9), rgba(var(--bb-primary-color-rgb), 0.4));
+    z-index: 50;
+    overflow: auto;
+    padding: 1rem;
+}
+
+.search-dialog-input {
+    border-radius: 10px;
+    border: 1px solid var(--bb-header-dropdown-border-color);
+    display: flex;
+    align-items: center;
+    padding: 0.375rem 0.75rem;
+}
+
+    .search-dialog-input input {
+        color: var(--bb-header-dropdown-color);
+        background-color: transparent;
+        border: none;
+        line-height: 25px;
+        padding: 0;
+        margin: 0 .5rem;
     }
+
+.search-dialog-info {
+    border-bottom: 1px solid #ddd;
+    padding: 0 1rem;
+    font-size: .75rem;
+    display: block;
+    margin: 0 -1rem .5rem -1rem;
+    line-height: 34px;
+}
+
+.search-dialog-item-template,
+.search-dialog-block-template {
+    display: none;
+}
+
+.search-dialog-list {
+    overflow: auto;
+    height: calc(100% - 82px);
+    margin-right: -0.5rem;
+}
+
+    .search-dialog-list.scroll {
+        --bs-emphasis-color-rgb: 255, 255, 255;
+    }
+
+    .search-dialog-list .search-dialog-item {
+        display: block;
+        border: var(--bs-border-width) solid var(--bb-header-dropdown-border-color);
+        border-radius: var(--bs-border-radius);
+        padding: .5rem;
+        margin-right: .5rem;
+        position: relative;
+    }
+
+        .search-dialog-list .search-dialog-item:not(:first-child) {
+            margin-top: .5rem;
+        }
+
+        .search-dialog-list .search-dialog-item:hover {
+            border: var(--bs-border-width) solid var(--bb-border-hover-color);
+            background-color: #6522cc;
+        }
+
+        .search-dialog-list .search-dialog-item a {
+            color: var(--bb-header-dropdown-color);
+        }
+
+        .search-dialog-list .search-dialog-item .badge {
+            --bs-badge-border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            margin-left: 4px;
+        }
+
+        .search-dialog-list .search-dialog-item .search-dialog-item-sub {
+            font-size: .75rem;
+            margin-top: .5rem;
+            opacity: .8;
+        }
+
+        .search-dialog-list .search-dialog-item li > a {
+            display: block;
+            padding: .5rem;
+        }
 
 @media (min-width: 768px) {
     .bb-g-search {
