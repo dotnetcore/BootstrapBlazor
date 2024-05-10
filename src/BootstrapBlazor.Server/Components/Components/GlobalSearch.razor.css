@@ -1,4 +1,7 @@
 ﻿.bb-g-search {
+    --bb-global-search-dialog-left: 20px;
+    --bb-global-search-dialog-right: 20px;
+    --bb-global-search-dialog-top: 72px;
     display: flex;
     align-items: center;
     color: var(--bb-header-dropdown-color);
@@ -31,24 +34,36 @@
             color: rgba(var(--bs-body-bg-rgb), 0.5);
         }
 
+.search-dialog-mask {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    background-color: #000;
+    opacity: 0.3;
+}
+
+    .search-dialog-mask:not(.show),
+    .search-dialog-mask:not(.show) + .search-dialog {
+        display: none;
+    }
+
 .search-dialog {
     position: fixed;
-    top: 72px;
-    left: 10px;
-    right: 10px;
+    top: var(--bb-global-search-dialog-top);
+    left: var(--bb-global-search-dialog-left);
+    right: var(--bb-global-search-dialog-right);
+    z-index: 45;
     height: calc(100vh - 160px);
     background-color: #333;
     border-radius: var(--bs-border-radius);
     border: 1px solid var(--bb-primary-color-rgb);
     background-image: linear-gradient(120deg, rgba(var(--bb-primary-color-rgb), 0.9), rgba(var(--bb-primary-color-rgb), 0.4));
-    z-index: 50;
     overflow: auto;
     padding: 1rem;
 }
-
-    .search-dialog:not(.show) {
-        display: none;
-    }
 
 .search-dialog-input {
     border-radius: 10px;
