@@ -6,16 +6,19 @@ export async function init(id, options) {
     await addScript('../../lib/meilisearch/meilisearch.umd.min.js')
 
     const el = document.getElementById(id);
-    const search = { el, options };
+    const search = {
+        el, options,
+        info: el.querySelector('.search-dialog-info'),
+        list: el.querySelector('.search-dialog-list'),
+        template: el.querySelector('.search-dialog-item-template'),
+        blockTemplate: el.querySelector('.search-dialog-block-template'),
+        dialog: el.querySelector('.search-dialog')
+    };
     Data.set(id, search);
 
     handlerClearButton(search);
-    handlerInput(search);
-
-    search.info = el.querySelector('.search-dialog-info');
-    search.list = el.querySelector('.search-dialog-list');
-    search.template = el.querySelector('.search-dialog-item-template');
-    search.blockTemplate = el.querySelector('.search-dialog-block-template');
+    handlerSearch(search);
+    handlerToggle(search);
 }
 
 export function dispose(id) {
@@ -23,8 +26,23 @@ export function dispose(id) {
     Data.remove(id);
 
     if (search) {
-        EventHandler.off(search.clearButton, 'click');
+        const { el, dialog, clearButton, input } = search;
+        EventHandler.off(clearButton, 'click');
+        EventHandler.off(dialog, 'click');
+        EventHandler.off(input, 'keyup');
+        EventHandler.off(el, 'click');
     }
+}
+
+const handlerToggle = search => {
+    const { el, dialog } = search;
+    EventHandler.on(dialog, 'click', e => {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    EventHandler.on(el, 'click', e => {
+        dialog.classList.toggle('show');
+    });
 }
 
 const handlerClearButton = search => {
@@ -35,7 +53,7 @@ const handlerClearButton = search => {
     search.clearButton = clearButton;
 }
 
-const handlerInput = search => {
+const handlerSearch = search => {
     const input = search.el.querySelector('.search-dialog-input > input');
     EventHandler.on(input, 'keyup', e => {
         if (e.key === 'Enter') {

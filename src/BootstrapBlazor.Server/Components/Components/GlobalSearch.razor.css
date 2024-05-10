@@ -42,6 +42,10 @@
     padding: 1rem;
 }
 
+    .search-dialog:not(.show) {
+        display: none;
+    }
+
 .search-dialog-input {
     border-radius: 10px;
     border: 1px solid var(--bb-header-dropdown-border-color);
