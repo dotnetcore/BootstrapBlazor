@@ -35,7 +35,9 @@ export function dispose(id) {
         EventHandler.off(clearButton, 'click');
         EventHandler.off(dialog, 'click');
         EventHandler.off(input, 'keyup');
+        EventHandler.off(input, 'input');
         EventHandler.off(el, 'click');
+        EventHandler.off(document, 'click');
     }
 }
 
