@@ -5,6 +5,20 @@ import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 Chart.register(ChartDataLabels);
 
+const plugin = {
+    id: 'customCanvasBackgroundColor',
+    beforeDraw: (chart, args, options) => {
+        if (options.color) {
+            const { ctx } = chart;
+            ctx.save();
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = options.color;
+            ctx.fillRect(0, 0, chart.width, chart.height);
+            ctx.restore();
+        }
+    }
+};
+
 const chartOption = {
     options: {
         responsive: true,
@@ -41,7 +55,8 @@ const chartOption = {
                 }
             }
         }
-    }
+    },
+    plugins: [plugin]
 }
 
 const skipped = (ctx, value) => ctx.p0.skip || ctx.p1.skip ? value : undefined
@@ -315,6 +330,9 @@ const getChartOption = function (option) {
                         font: {
                             weight: 'bold'
                         }
+                    },
+                    customCanvasBackgroundColor: {
+                        color: option.options.canvasBackgroundColor,
                     }
                 },
                 scales: scale
@@ -410,6 +428,41 @@ export function update(id, option, method, angle) {
     op.updateMethod = method
     updateChart(chart.config, op)
     chart.update()
+}
+
+function canvasToBlob(canvas, mimeType) {
+    return new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+            var reader = new FileReader();
+            reader.onload = function (event) {
+                var byteArray = new Uint8Array(event.target.result);
+                resolve(byteArray);
+            };
+            reader.onerror = () => reject(new Error('Failed to read blob as array buffer'));
+            reader.readAsArrayBuffer(blob);
+        }, mimeType);
+    });
+}
+
+export function toImage(id, mimeType) {
+    return new Promise(async (resolve, reject) => {
+        var div = document.getElementById(id);
+        if (div) {
+            var canvas = div.querySelector('canvas');
+            if (canvas) {
+                try {
+                    const blobArray = await canvasToBlob(canvas, mimeType);
+                    resolve(blobArray);
+                } catch (error) {
+                    reject(error);
+                }
+            } else {
+                reject(new Error('No canvas found'));
+            }
+        } else {
+            reject(new Error('No element with given id found'));
+        }
+    });
 }
 
 export function dispose(id) {
