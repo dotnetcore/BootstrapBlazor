@@ -27,6 +27,7 @@
     --bb-header-dropdown-border-color: rgba(255,255,255,.5);
     --bb-header-dropdown-border-hover-color: rgba(255,255,255,.8);
     --bb-header-dropdown-color: #fff;
+    --bb-header-dropdown-color-rgb: 255, 255, 255;
     --bb-header-font-size: 1rem;
     --bb-footer-body-bg: #404850;
     --bb-footer-body-color: #fff;

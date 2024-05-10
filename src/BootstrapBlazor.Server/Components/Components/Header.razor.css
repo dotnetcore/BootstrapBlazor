@@ -76,13 +76,13 @@
     }
 }
 
-@media (min-width: 1040px) {
+@media (min-width: 1140px) {
     .nav-repo {
         display: flex;
     }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1240px) {
     .navbar-version {
         display: block;
     }

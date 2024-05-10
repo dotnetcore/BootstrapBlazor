@@ -13,13 +13,15 @@ export async function init(id, options) {
         template: el.querySelector('.search-dialog-item-template'),
         blockTemplate: el.querySelector('.search-dialog-block-template'),
         emptyTemplate: el.querySelector('.search-dialog-empty-template'),
-        dialog: el.querySelector('.search-dialog')
+        dialog: el.querySelector('.search-dialog'),
+        mask: el.querySelector('.search-dialog-mask')
     };
     Data.set(id, search);
 
     handlerClearButton(search);
     handlerSearch(search);
     handlerToggle(search);
+    handlerMask(search);
 
     resetStatus(search);
 }
@@ -37,18 +39,28 @@ export function dispose(id) {
     }
 }
 
+const handlerMask = search => {
+    const { mask } = search;
+    document.body.appendChild(mask);
+}
+
 const handlerToggle = search => {
-    const { el, dialog } = search;
+    const { el, mask, dialog, input } = search;
     EventHandler.on(dialog, 'click', e => {
         e.stopPropagation();
     });
     EventHandler.on(el, 'click', e => {
+        mask.classList.toggle('show');
         dialog.classList.toggle('show');
+        if (dialog.classList.contains('show')) {
+            input.focus();
+        }
     });
     EventHandler.on(document, 'click', e => {
         const element = e.target.closest('.bb-g-search');
         if (element === null) {
             dialog.classList.remove('show');
+            mask.classList.remove('show');
         }
     });
 }

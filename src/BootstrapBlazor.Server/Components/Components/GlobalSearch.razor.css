@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     color: var(--bb-header-dropdown-color);
-    border: 1px solid var(--bb-header-dropdown-border-color);
+    border: var(--bs-border-width) solid var(--bb-header-dropdown-border-color);
     border-radius: var(--bs-border-radius);
     padding: 0.25rem 0.75rem;
     width: 168px;
@@ -18,7 +18,6 @@
 
     .bb-g-search input {
         width: 100%;
-        color: var(--bb-header-dropdown-color);
         background-color: transparent;
         border: none;
         line-height: 25px;
@@ -28,43 +27,53 @@
     }
 
         .bb-g-search input::placeholder {
-            color: rgba(var(--bs-body-bg-rgb), 0.5);
+            color: rgba(var(--bb-header-dropdown-color-rgb), 0.5);
         }
 
-.search-dialog {
+.search-dialog-mask {
     position: fixed;
-    top: 72px;
-    left: 10px;
-    right: 10px;
-    height: calc(100vh - 160px);
-    background-color: #333;
-    border-radius: var(--bs-border-radius);
-    border: 1px solid var(--bb-primary-color-rgb);
-    background-image: linear-gradient(120deg, rgba(var(--bb-primary-color-rgb), 0.9), rgba(var(--bb-primary-color-rgb), 0.4));
-    z-index: 50;
-    overflow: auto;
-    padding: 1rem;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+    background-color: #000;
+    opacity: 0.3;
 }
 
+    .search-dialog-mask:not(.show),
     .search-dialog:not(.show) {
         display: none;
     }
 
+.search-dialog {
+    position: fixed;
+    top: 72px;
+    left: 20px;
+    right: 20px;
+    z-index: 45;
+    height: calc(100vh - 160px);
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    overflow: auto;
+    padding: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 800px;
+}
+
 .search-dialog-input {
     border-radius: 10px;
-    border: 1px solid var(--bb-header-dropdown-border-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: flex;
     align-items: center;
     padding: 0.375rem 0.75rem;
     transition: border-color .3s linear;
 }
 
-    .search-dialog-input:hover {
-        --bb-header-dropdown-border-color: #fff;
-    }
-
     .search-dialog-input input {
-        color: var(--bb-header-dropdown-color);
         background-color: transparent;
         border: none;
         line-height: 25px;
@@ -72,13 +81,17 @@
         margin: 0 .5rem;
     }
 
+        .search-dialog-input input::placeholder {
+            color: rgba(var(--bs-body-color-rgb), 0.5);
+        }
+
 .search-dialog-status {
-    border-bottom: 1px solid var(--bs-border-color);
+    border-bottom: var(--bs-border-width) solid var(--bs-border-color);
     padding: 0 1rem;
     font-size: .75rem;
     display: block;
     margin: 0 -1rem .5rem -1rem;
-    color: rgba(var(--bs-body-bg-rgb), 0.5);
+    color: rgba(var(--bs-body-color-rgb), 0.5);
     line-height: 34px;
 }
 
@@ -94,13 +107,9 @@
     margin-right: -0.5rem;
 }
 
-    .search-dialog-list.scroll {
-        --bs-emphasis-color-rgb: 255, 255, 255;
-    }
-
     .search-dialog-list .search-dialog-item {
         display: block;
-        border: var(--bs-border-width) solid var(--bb-header-dropdown-border-color);
+        border: var(--bs-border-width) solid var(--bs-border-color);
         border-radius: var(--bs-border-radius);
         padding: .5rem;
         margin-right: .5rem;
@@ -113,12 +122,11 @@
         }
 
         .search-dialog-list .search-dialog-item:hover {
-            border: var(--bs-border-width) solid var(--bb-border-hover-color);
-            background-color: var(--bb-global-search-item-bg);
+            border: var(--bs-border-width) solid var(--bs-border-color);
         }
 
         .search-dialog-list .search-dialog-item a {
-            color: var(--bb-header-dropdown-color);
+            color: var(--bs-body-color);
         }
 
         .search-dialog-list .search-dialog-item .badge {
@@ -134,11 +142,21 @@
             opacity: .8;
         }
 
-        .search-dialog-list .search-dialog-item li > a {
-            display: block;
+        .search-dialog-list .search-dialog-item li {
             padding: .25rem;
-            font-size: .75rem;
+            border-radius: var(--bs-border-radius);
+            transition: background-color .3s linear;
         }
+
+            .search-dialog-list .search-dialog-item li > a {
+                display: block;
+                padding: .25rem;
+                font-size: .75rem;
+            }
+
+            .search-dialog-list .search-dialog-item li:hover {
+                background-color: rgba(var(--bb-primary-color-rgb), 0.5);
+            }
 
     .search-dialog-list .search-dialog-empty-template {
         text-align: center;
