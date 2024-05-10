@@ -42,7 +42,7 @@
 }
 
     .search-dialog-mask:not(.show),
-    .search-dialog-mask:not(.show) + .search-dialog {
+    .search-dialog:not(.show) {
         display: none;
     }
 

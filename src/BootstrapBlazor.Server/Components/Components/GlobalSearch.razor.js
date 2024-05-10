@@ -21,6 +21,7 @@ export async function init(id, options) {
     handlerClearButton(search);
     handlerSearch(search);
     handlerToggle(search);
+    handlerMask(search);
 
     resetStatus(search);
 }
@@ -38,6 +39,11 @@ export function dispose(id) {
     }
 }
 
+const handlerMask = search => {
+    const { mask } = search;
+    document.body.appendChild(mask);
+}
+
 const handlerToggle = search => {
     const { el, mask, dialog, input } = search;
     EventHandler.on(dialog, 'click', e => {
@@ -45,13 +51,15 @@ const handlerToggle = search => {
     });
     EventHandler.on(el, 'click', e => {
         mask.classList.toggle('show');
-        if (mask.classList.contains('show')) {
+        dialog.classList.toggle('show');
+        if (dialog.classList.contains('show')) {
             input.focus();
         }
     });
     EventHandler.on(document, 'click', e => {
         const element = e.target.closest('.bb-g-search');
         if (element === null) {
+            dialog.classList.remove('show');
             mask.classList.remove('show');
         }
     });
