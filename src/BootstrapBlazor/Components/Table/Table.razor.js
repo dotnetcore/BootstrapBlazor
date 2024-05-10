@@ -9,7 +9,7 @@ const setBodyHeight = table => {
     const el = table.el
     const children = [...el.children]
     const search = children.find(i => i.classList.contains('table-search'))
-    table.search = search
+    table.search = search;
 
     if (isVisible(el) === false) {
         return;
@@ -573,9 +573,11 @@ const setTableDefaultWidth = table => {
         const { scrollWidth, columnMinWidth } = table.options;
         const length = table.tables[0].querySelectorAll('th').length;
         const tableWidth = length * columnMinWidth;
-        if (tableWidth > table.tables[0].offsetWidth) {
-            table.tables[0].style.setProperty('width', `${tableWidth}px`);
-            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+        if (table.tables[0].checkVisibility()) {
+            if (tableWidth > table.tables[0].offsetWidth) {
+                table.tables[0].style.setProperty('width', `${tableWidth}px`);
+                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+            }
         }
     }
 }
