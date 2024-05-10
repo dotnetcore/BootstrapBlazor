@@ -4391,7 +4391,9 @@
     "Label": "Language："
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
-    "Search": "Search components"
+    "SearchPlaceHolder": "search",
+    "SearchStatus": "Powered by BootstrapBlazor",
+    "SearchResultPlaceHolder": "Type something to search"
   },
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",

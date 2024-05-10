@@ -4391,7 +4391,9 @@
     "Label": "语言："
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
-    "Search": "搜索想要的组件"
+    "SearchPlaceHolder": "搜索",
+    "SearchStatus": "Powered by BootstrapBlazor",
+    "SearchResultPlaceHolder": "键入要搜索的内容"
   },
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
