@@ -1,17 +1,18 @@
 ﻿@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/GlobalSearch.razor.js")]
+@inject IStringLocalizer<GlobalSearch> Localizer
 
 <div id="@Id" class="bb-g-search">
     <i class="fa-solid fa-search"></i>
-    <input type="text" readonly placeholder="search docs" />
+    <input type="text" readonly placeholder="@Localizer["SearchPlaceHolder"]" />
     <div class="search-dialog shadow-lg">
         <div class="search-dialog-input">
             <i class="fa-solid fa-search"></i>
-            <input type="text" placeholder="search docs" value="table" />
+            <input type="text" placeholder="@Localizer["SearchPlaceHolder"]" />
             <i class="fa-solid fa-times search-dialog-clear"></i>
         </div>
-        <div class="search-dialog-info">
-            Powered by BootstrapBlazor
+        <div class="search-dialog-status">
+            @Localizer["SearchStatus"]
         </div>
         <div class="search-dialog-item-template">
             <div class="search-dialog-item">
@@ -28,6 +29,9 @@
                     <div class="search-dialog-block-intro">{intro}</div>
                 </a>
             </li>
+        </div>
+        <div class="search-dialog-empty-template">
+            @Localizer["SearchResultPlaceHolder"]
         </div>
         <div class="search-dialog-list scroll">
         </div>

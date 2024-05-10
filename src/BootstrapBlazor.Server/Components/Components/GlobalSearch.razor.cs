@@ -36,5 +36,5 @@ public partial class GlobalSearch
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, _options);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { _options?.Host, _options?.Key, _options?.Index, SearchStatus = Localizer["SearchStatus"].Value });
 }

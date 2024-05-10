@@ -8,10 +8,11 @@ export async function init(id, options) {
     const el = document.getElementById(id);
     const search = {
         el, options,
-        info: el.querySelector('.search-dialog-info'),
+        status: el.querySelector('.search-dialog-status'),
         list: el.querySelector('.search-dialog-list'),
         template: el.querySelector('.search-dialog-item-template'),
         blockTemplate: el.querySelector('.search-dialog-block-template'),
+        emptyTemplate: el.querySelector('.search-dialog-empty-template'),
         dialog: el.querySelector('.search-dialog')
     };
     Data.set(id, search);
@@ -19,6 +20,8 @@ export async function init(id, options) {
     handlerClearButton(search);
     handlerSearch(search);
     handlerToggle(search);
+
+    resetStatus(search);
 }
 
 export function dispose(id) {
@@ -37,18 +40,23 @@ export function dispose(id) {
 const handlerToggle = search => {
     const { el, dialog } = search;
     EventHandler.on(dialog, 'click', e => {
-        e.preventDefault();
         e.stopPropagation();
     });
     EventHandler.on(el, 'click', e => {
         dialog.classList.toggle('show');
+    });
+    EventHandler.on(document, 'click', e => {
+        const element = e.target.closest('.bb-g-search');
+        if (element === null) {
+            dialog.classList.remove('show');
+        }
     });
 }
 
 const handlerClearButton = search => {
     const clearButton = search.el.querySelector('.search-dialog-clear');
     EventHandler.on(clearButton, 'click', () => {
-        resetInfo(search);
+        resetStatus(search);
     });
     search.clearButton = clearButton;
 }
@@ -60,7 +68,7 @@ const handlerSearch = search => {
             doSearch(search, input.value);
         }
         else if (e.key === 'Escape') {
-            resetInfo(search);
+            resetStatus(search);
         }
     })
     search.input = input;
@@ -74,7 +82,7 @@ const doSearch = async (search, query) => {
         });
         var index = client.index(search.options.index);
         const results = await index.search(query);
-        updateInfo(search, results.estimatedTotalHits, results.processingTimeMs);
+        updateStatus(search, results.estimatedTotalHits, results.processingTimeMs);
         updateList(search, results)
     }
 }
@@ -96,7 +104,8 @@ const updateList = (search, results) => {
             ul.classList.add('mt-2')
             hit.demoBlocks.forEach(block => {
                 const li = document.createElement('ul');
-                li.innerHTML = blockHtml.replace('{url}', block.url).replace('{title}', block.anchorText).replace('{intro}', block.pText);
+                const url = block.url || hit.url;
+                li.innerHTML = blockHtml.replace('{url}', url).replace('{title}', block.anchorText).replace('{intro}', block.pText);
                 ul.appendChild(li.firstChild);
             });
             item.appendChild(ul);
@@ -105,14 +114,14 @@ const updateList = (search, results) => {
     });
 }
 
-const updateInfo = (search, hits, ms) => {
-    const info = search.info;
-    info.innerHTML = `Found ${hits} results in ${ms}ms`;
+const updateStatus = (search, hits, ms) => {
+    const status = search.status;
+    status.innerHTML = `Found ${hits} results in ${ms}ms`;
 }
 
-const resetInfo = search => {
-    const { info, input, list } = search;
-    info.innerHTML = `Powered by BootstrapBlazor`;
+const resetStatus = search => {
+    const { options, status, input, list, emptyTemplate } = search;
+    status.innerHTML = options.searchStatus;
     input.value = '';
-    list.innerHTML = ''
+    list.innerHTML = emptyTemplate.outerHTML;
 }
