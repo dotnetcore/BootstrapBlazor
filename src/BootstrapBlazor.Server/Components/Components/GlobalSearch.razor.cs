@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.Options;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Components;
 
@@ -36,5 +37,17 @@ public partial class GlobalSearch
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { _options?.Host, _options?.Key, _options?.Index, SearchStatus = Localizer["SearchStatus"].Value });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { _options?.Host, _options?.Key, Index = GetIndex(), SearchStatus = Localizer["SearchStatus"].Value });
+
+    private string GetIndex()
+    {
+        var lang = CultureInfo.CurrentUICulture.Name;
+        var segs = lang.Split('-');
+        if (segs.Length > 1)
+        {
+            lang = segs[0];
+        }
+        lang = lang == "zh" ? "" : $"-{lang}";
+        return $"{_options?.Index}{lang}";
+    }
 }
