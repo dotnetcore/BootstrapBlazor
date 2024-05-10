@@ -6,7 +6,6 @@
     border-radius: var(--bs-border-radius);
     padding: 0.25rem 0.75rem;
     width: 168px;
-    cursor: pointer;
     margin-bottom: .5rem;
     font-size: .875rem;
     transition: border-color .3s linear;
@@ -29,6 +28,10 @@
         .bb-g-search input::placeholder {
             color: rgba(var(--bb-header-dropdown-color-rgb), 0.5);
         }
+
+    .bb-g-search i {
+        cursor: pointer;
+    }
 
 .search-dialog-mask {
     position: fixed;

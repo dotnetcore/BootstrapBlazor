@@ -1,4 +1,4 @@
-﻿import { addScript } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { addScript, debounce } from "../../_content/BootstrapBlazor/modules/utility.js"
 import Data from "../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
@@ -8,6 +8,7 @@ export async function init(id, options) {
     const el = document.getElementById(id);
     const search = {
         el, options,
+        searchText: 'searching ...',
         status: el.querySelector('.search-dialog-status'),
         list: el.querySelector('.search-dialog-list'),
         template: el.querySelector('.search-dialog-item-template'),
@@ -35,7 +36,9 @@ export function dispose(id) {
         EventHandler.off(clearButton, 'click');
         EventHandler.off(dialog, 'click');
         EventHandler.off(input, 'keyup');
+        EventHandler.off(input, 'input');
         EventHandler.off(el, 'click');
+        EventHandler.off(document, 'click');
     }
 }
 
@@ -54,6 +57,7 @@ const handlerToggle = search => {
         dialog.classList.toggle('show');
         if (dialog.classList.contains('show')) {
             input.focus();
+            input.select();
         }
     });
     EventHandler.on(document, 'click', e => {
@@ -78,16 +82,22 @@ const handlerSearch = search => {
     EventHandler.on(input, 'keyup', e => {
         if (e.key === 'Enter') {
             doSearch(search, input.value);
+            input.select();
         }
         else if (e.key === 'Escape') {
             resetStatus(search);
         }
-    })
+    });
+    const fn = debounce(doSearch);
+    EventHandler.on(input, 'input', () => {
+        fn(search, input.value);
+    });
     search.input = input;
 }
 
 const doSearch = async (search, query) => {
     if (query) {
+        search.status.innerHTML = search.searchText;
         const client = new MeiliSearch({
             host: search.options.host,
             apiKey: search.options.key,
@@ -95,12 +105,12 @@ const doSearch = async (search, query) => {
         var index = client.index(search.options.index);
         const results = await index.search(query);
         updateStatus(search, results.estimatedTotalHits, results.processingTimeMs);
-        updateList(search, results)
+        updateList(search, results);
     }
 }
 
 const updateList = (search, results) => {
-    const { list, template, blockTemplate } = search;
+    const { list, input, template, blockTemplate } = search;
     list.innerHTML = '';
 
     const html = template.innerHTML;
@@ -124,6 +134,7 @@ const updateList = (search, results) => {
         }
         list.appendChild(item);
     });
+    input.focus();
 }
 
 const updateStatus = (search, hits, ms) => {
