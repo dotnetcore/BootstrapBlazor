@@ -1,4 +1,4 @@
-﻿import { addScript } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { addScript, debounce } from "../../_content/BootstrapBlazor/modules/utility.js"
 import Data from "../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
@@ -85,8 +85,9 @@ const handlerSearch = search => {
             resetStatus(search);
         }
     });
+    const fn = debounce(doSearch);
     EventHandler.on(input, 'input', () => {
-        doSearch(search, input.value);
+        fn(search, input.value);
     });
     search.input = input;
 }
@@ -100,7 +101,7 @@ const doSearch = async (search, query) => {
         var index = client.index(search.options.index);
         const results = await index.search(query);
         updateStatus(search, results.estimatedTotalHits, results.processingTimeMs);
-        updateList(search, results)
+        updateList(search, results);
     }
 }
 
