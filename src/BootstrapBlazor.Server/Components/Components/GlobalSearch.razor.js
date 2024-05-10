@@ -39,12 +39,15 @@ export function dispose(id) {
 }
 
 const handlerToggle = search => {
-    const { el, mask, dialog } = search;
+    const { el, mask, dialog, input } = search;
     EventHandler.on(dialog, 'click', e => {
         e.stopPropagation();
     });
     EventHandler.on(el, 'click', e => {
         mask.classList.toggle('show');
+        if (mask.classList.contains('show')) {
+            input.focus();
+        }
     });
     EventHandler.on(document, 'click', e => {
         const element = e.target.closest('.bb-g-search');
