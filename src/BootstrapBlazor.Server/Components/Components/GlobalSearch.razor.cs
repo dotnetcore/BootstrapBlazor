@@ -2,7 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
+using BootstrapBlazor.Server.Options;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Components;
 
@@ -11,47 +12,42 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class GlobalSearch
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<GlobalSearch>? Localizer { get; set; }
+    [Inject, NotNull]
+    private IConfiguration? Configuration { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private string _searchId => $"{Id}_search";
 
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
-    private MenuService? MenuService { get; set; }
-
-    [NotNull]
-    private List<string>? ComponentItems { get; set; }
-
-    private IEnumerable<MenuItem> Menus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
+    private MeiliSearchOptions? _options = null;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        ComponentItems = Menus.Select(i => i.Text!).ToList();
-    }
+        base.OnInitialized();
 
-    private Task OnSearch(string searchText)
-    {
-        if (!string.IsNullOrEmpty(searchText))
+        var section = Configuration.GetSection(nameof(MeiliSearchOptions));
+        if (section.Exists())
         {
-            var item = Menus.FirstOrDefault(i => i.Text?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (item != null && !string.IsNullOrEmpty(item.Url))
-            {
-                NavigationManager.NavigateTo(item.Url, true);
-            }
+            _options = section.Get<MeiliSearchOptions>();
         }
-        return Task.CompletedTask;
     }
 
-    private Task OnSelectedItemChanged(string searchText) => OnSearch(searchText);
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { _options?.Host, _options?.Key, Index = GetIndex(), SearchStatus = Localizer["SearchStatus"].Value });
+
+    private string GetIndex()
+    {
+        var lang = CultureInfo.CurrentUICulture.Name;
+        var segs = lang.Split('-');
+        if (segs.Length > 1)
+        {
+            lang = segs[0];
+        }
+        lang = lang == "zh" ? "" : $"-{lang}";
+        return $"{_options?.Index}{lang}";
+    }
 }
