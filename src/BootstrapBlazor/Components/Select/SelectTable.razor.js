@@ -16,7 +16,7 @@ export function init(id) {
         }
         const dropdown = el.querySelector('.dropdown-table') || document.querySelector('.popover-dropdown .dropdown-table');
         if (dropdown) {
-            dropdown.style.setProperty('--bb-dropdown-table-width', `${width}px`);
+            dropdown.style.setProperty('--bb-dropdown-table-width', `${width - 2}px`);
         }
     }
 
