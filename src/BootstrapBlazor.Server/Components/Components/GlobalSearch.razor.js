@@ -82,7 +82,10 @@ const handlerSearch = search => {
         else if (e.key === 'Escape') {
             resetStatus(search);
         }
-    })
+    });
+    EventHandler.on(input, 'input', () => {
+        doSearch(search, input.value);
+    });
     search.input = input;
 }
 
