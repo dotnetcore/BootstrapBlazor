@@ -8,6 +8,7 @@ export async function init(id, options) {
     const el = document.getElementById(id);
     const search = {
         el, options,
+        searchText: 'searching ...',
         status: el.querySelector('.search-dialog-status'),
         list: el.querySelector('.search-dialog-list'),
         template: el.querySelector('.search-dialog-item-template'),
@@ -56,6 +57,7 @@ const handlerToggle = search => {
         dialog.classList.toggle('show');
         if (dialog.classList.contains('show')) {
             input.focus();
+            input.select();
         }
     });
     EventHandler.on(document, 'click', e => {
@@ -80,6 +82,7 @@ const handlerSearch = search => {
     EventHandler.on(input, 'keyup', e => {
         if (e.key === 'Enter') {
             doSearch(search, input.value);
+            input.select();
         }
         else if (e.key === 'Escape') {
             resetStatus(search);
@@ -94,6 +97,7 @@ const handlerSearch = search => {
 
 const doSearch = async (search, query) => {
     if (query) {
+        search.status.innerHTML = search.searchText;
         const client = new MeiliSearch({
             host: search.options.host,
             apiKey: search.options.key,
@@ -106,7 +110,7 @@ const doSearch = async (search, query) => {
 }
 
 const updateList = (search, results) => {
-    const { list, template, blockTemplate } = search;
+    const { list, input, template, blockTemplate } = search;
     list.innerHTML = '';
 
     const html = template.innerHTML;
@@ -130,6 +134,7 @@ const updateList = (search, results) => {
         }
         list.appendChild(item);
     });
+    input.focus();
 }
 
 const updateStatus = (search, hits, ms) => {
