@@ -38,8 +38,8 @@
                             </button>
                         }
                         <div class="d-flex align-items-center justify-content-center flex-fill">
-                            <DynamicElement TagName="span" role="button" class="picker-panel-header-label" TriggerClick="@(Ranger == null)" OnClick="() => SwitchView(DatePickerViewMode.Year)">@YearString</DynamicElement>
-                            <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" TriggerClick="@(Ranger == null)" OnClick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</DynamicElement>
+                            <DynamicElement TagName="span" role="button" class="picker-panel-header-label" OnClick="() => SwitchView(DatePickerViewMode.Year)">@YearString</DynamicElement>
+                            <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" OnClick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</DynamicElement>
                             @if (IsDateTimeMode)
                             {
                                 <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime.ToString(TimeFormat)</span>

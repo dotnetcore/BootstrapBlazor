@@ -36,15 +36,18 @@
                 <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                 DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                                ShowRightButtons="@_showRightButtons" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
-                <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
-                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
-                                ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
-                    @ChildContent
-                </DatePickerBody>
+                @if (RenderMode == DateTimeRangeRenderMode.Double)
+                {
+                    <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                                    DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                                    ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                                    ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                        @ChildContent
+                    </DatePickerBody>
+                }
             </CascadingValue>
         </div>
         <div class="picker-panel-footer">
