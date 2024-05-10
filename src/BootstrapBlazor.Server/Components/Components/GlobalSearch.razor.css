@@ -27,7 +27,7 @@
     }
 
         .bb-g-search input::placeholder {
-            color: rgba(var(--bs-body-color-rgb), 0.5);
+            color: rgba(var(--bb-header-dropdown-color-rgb), 0.5);
         }
 
 .search-dialog-mask {
@@ -80,6 +80,10 @@
         padding: 0;
         margin: 0 .5rem;
     }
+
+        .search-dialog-input input::placeholder {
+            color: rgba(var(--bs-body-color-rgb), 0.5);
+        }
 
 .search-dialog-status {
     border-bottom: var(--bs-border-width) solid var(--bs-border-color);
