@@ -41,22 +41,22 @@ public class ChartOptions
     /// <summary>
     /// 获得/设置 图表所在 canvas 是否随其容器大小变化而变化 默认为 true
     /// </summary>
-    public bool? Responsive { get; set; }
+    public bool Responsive { get; set; } = true;
 
     /// <summary>
     /// 获取/设置 是否 约束图表比例 默认为 true
     /// </summary>
-    public bool? MaintainAspectRatio { get; set; }
+    public bool MaintainAspectRatio { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 设置 canvas 的宽高比（值为1表示 canvas 是正方形），如果显示定义了 canvas 的高度，则此属性无效 默认为 2
     /// </summary>
-    public int? AspectRatio { get; set; }
+    public int AspectRatio { get; set; } = 2;
 
     /// <summary>
     /// 获得/设置 图表尺寸延迟变化时间 默认为 0
     /// </summary>
-    public int? ResizeDelay { get; set; }
+    public int ResizeDelay { get; set; } = 0;
 
     /// <summary>
     /// 获得/设置 图表 canvas 高度 默认为空,跟随容器高度<para>如: 300px</para>

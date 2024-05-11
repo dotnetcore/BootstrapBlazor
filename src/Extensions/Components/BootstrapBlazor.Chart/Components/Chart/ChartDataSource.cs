@@ -25,7 +25,7 @@ public class ChartDataSource
     public ChartOptions Options { get; } = new ChartOptions();
 
     /// <summary>
-    /// 获得/设置 图标类型
+    /// 获得/设置 图标类型 默认为 line
     /// </summary>
-    public string? Type { get; set; }
+    public string Type { get; set; } = "line";
 }
