@@ -49,7 +49,7 @@ public class ChartDataset
     public ChartPointStyle PointStyle { get; set; } = ChartPointStyle.Circle;
 
     /// <summary>
-    /// 显示数据点样式
+    /// 显示数据点样式 默认 true
     /// </summary>
     public bool ShowPointStyle { get; set; } = true;
 
