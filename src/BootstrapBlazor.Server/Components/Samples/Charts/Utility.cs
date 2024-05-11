@@ -87,10 +87,4 @@ internal static class Utility
             _ = chart.Update(ChartAction.RemoveData);
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="chart"></param>
-    public static Task ContinueData(Chart chart) => chart.Update(ChartAction.Reload);
 }
