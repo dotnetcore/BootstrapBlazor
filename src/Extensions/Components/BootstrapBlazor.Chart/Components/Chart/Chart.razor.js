@@ -311,6 +311,7 @@ const getChartOption = function (option) {
                 datasets: option.data
             },
             options: {
+                animation: option.options.animation,
                 responsive: option.options.responsive,
                 maintainAspectRatio: option.options.maintainAspectRatio,
                 aspectRatio: option.options.aspectRatio,

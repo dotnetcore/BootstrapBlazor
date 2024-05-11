@@ -96,6 +96,12 @@ public partial class Chart
     public ChartAction ChartAction { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否开启动画 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IsAnimation { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
