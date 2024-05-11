@@ -148,7 +148,7 @@ const getChartOption = function (option) {
     if (option.type === 'line') {
         option.data.forEach(function (v, i) {
             if (!v.showPointStyle) {
-                v.PointStyle = false;
+                v.pointStyle = false;
             }
             v.data.forEach(function (d, j) {
                 if (d === null) {
