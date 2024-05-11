@@ -147,7 +147,7 @@ public partial class Line : IDisposable
             BorderWidth = 1,
             Label = "Dataset 1",
             Data = _continueData.Select(i => (object)i),
-            ShowPointStyle = true,
+            ShowPointStyle = false,
             PointStyle = ChartPointStyle.Circle,
             PointRadius = 2,
             PointHoverRadius = 4
