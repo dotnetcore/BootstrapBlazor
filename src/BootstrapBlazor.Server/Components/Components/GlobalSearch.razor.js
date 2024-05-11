@@ -1,4 +1,4 @@
-﻿import { addScript, debounce } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { addScript, debounce, isMobile } from "../../_content/BootstrapBlazor/modules/utility.js"
 import Data from "../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
@@ -57,7 +57,9 @@ const handlerToggle = search => {
         dialog.classList.toggle('show');
         if (dialog.classList.contains('show')) {
             input.focus();
-            input.select();
+            if (!isMobile()) {
+                input.select();
+            }
         }
     });
     EventHandler.on(document, 'click', e => {
@@ -82,7 +84,9 @@ const handlerSearch = search => {
     EventHandler.on(input, 'keyup', e => {
         if (e.key === 'Enter') {
             doSearch(search, input.value);
-            input.select();
+            if (!isMobile()) {
+                input.select();
+            }
         }
         else if (e.key === 'Escape') {
             resetStatus(search);
