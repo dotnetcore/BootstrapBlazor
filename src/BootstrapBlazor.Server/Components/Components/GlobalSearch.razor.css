@@ -1,4 +1,7 @@
 ﻿.bb-g-search {
+    --bb-global-search-top: 92px;
+    --bb-global-search-left: 10px;
+    --bb-global-search-right: 10px;
     display: flex;
     align-items: center;
     color: var(--bb-header-dropdown-color);
@@ -51,9 +54,9 @@
 
 .search-dialog {
     position: fixed;
-    top: 72px;
-    left: 20px;
-    right: 20px;
+    top: var(--bb-global-search-top);
+    left: var(--bb-global-search-left);
+    right: var(--bb-global-search-right);
     z-index: 45;
     height: calc(100vh - 160px);
     color: var(--bs-body-color);
@@ -62,9 +65,6 @@
     border: var(--bs-border-width) solid var(--bs-border-color);
     overflow: auto;
     padding: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    width: 800px;
 }
 
 .search-dialog-input {
@@ -87,6 +87,10 @@
         .search-dialog-input input::placeholder {
             color: rgba(var(--bs-body-color-rgb), 0.5);
         }
+
+    .search-dialog-input:has(input:focus) {
+        border-color: var(--bb-primary-color);
+    }
 
 .search-dialog-status {
     border-bottom: var(--bs-border-width) solid var(--bs-border-color);
@@ -169,7 +173,15 @@
 
 @media (min-width: 768px) {
     .bb-g-search {
+        --bb-global-search-top: 72px;
+        --bb-global-search-left: 20px;
+        --bb-global-search-right: 20px;
         margin-bottom: 0;
         margin-right: .5rem;
+    }
+
+    .search-dialog {
+        width: 700px;
+        margin: 0 auto;
     }
 }
