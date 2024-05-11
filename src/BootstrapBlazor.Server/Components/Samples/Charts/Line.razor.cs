@@ -8,19 +8,23 @@ namespace BootstrapBlazor.Server.Components.Samples.Charts;
 /// Line 图表示例
 /// </summary>
 [JSModuleAutoLoader("Samples/Charts/Line.razor.js")]
-public partial class Line
+public partial class Line : IDisposable
 {
-    private Random Randomer { get; } = new();
+    private readonly Random _randomer = new();
 
-    private int LineDatasetCount = 2;
+    private int _lineDatasetCount = 2;
 
-    private int LineDataCount = 7;
+    private int _lineDataCount = 7;
 
-    [NotNull]
-    private Chart? LineChart { get; set; }
+    private Chart _lineChart = default!;
 
-    [NotNull]
-    private ConsoleLogger? Logger { get; set; }
+    private Chart _continueChart = default!;
+
+    private ConsoleLogger _logger = default!;
+
+    private CancellationTokenSource _cancellationTokenSource = new();
+
+    private readonly List<int> _continueData = [1, 4, 5, 3, 4, 2, 6, 4, 9, 3, 1, 4, 5, 3, 4, 2, 6, 4, 9, 3];
 
     private readonly ChartPointStyle[] chartPointStyles =
     [
@@ -46,7 +50,21 @@ public partial class Line
 
         if (firstRender)
         {
-            Logger.Log("Line loading data ...");
+            _logger.Log("Line loading data ...");
+
+            Task.Run(async () =>
+            {
+                while (!_cancellationTokenSource.IsCancellationRequested)
+                {
+                    try
+                    {
+                        await Task.Delay(2000, _cancellationTokenSource.Token);
+
+                        await _continueChart.Reload();
+                    }
+                    catch (OperationCanceledException) { }
+                }
+            });
         }
     }
 
@@ -57,7 +75,7 @@ public partial class Line
     {
         await base.OnInitializedAsync();
 
-        Code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
+        _code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
     }
 
     /// <summary>
@@ -88,17 +106,17 @@ public partial class Line
         ds.Options.YScalesGridTickColor = "blue";
         ds.Options.YScalesGridBorderColor = "blue";
 
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-        for (var index = 0; index < LineDatasetCount; index++)
+        ds.Labels = Enumerable.Range(1, _lineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < _lineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
-                BorderWidth = Randomer.Next(1, 5),
+                BorderWidth = _randomer.Next(1, 5),
                 Tension = tension,
                 Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37)),
+                Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 37)),
                 ShowPointStyle = true,
-                PointStyle = chartPointStyles[Randomer.Next(0, 9)],
+                PointStyle = chartPointStyles[_randomer.Next(0, 9)],
                 PointRadius = 5,
                 PointHoverRadius = 10
             });
@@ -109,22 +127,51 @@ public partial class Line
         return ds;
     }
 
+    private int _lineChartStartIndex = 0;
+
+    private async Task<ChartDataSource> OnInitContinue()
+    {
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Line Chart";
+        ds.Options.LegendLabelsFontSize = 16;
+        ds.Options.X.Title = "Count";
+        ds.Options.Y.Title = "Value";
+
+        _lineChartStartIndex++;
+        _continueData.RemoveAt(0);
+        _continueData.Add(_randomer.Next(10));
+
+        ds.Labels = Enumerable.Range(_lineChartStartIndex, 20).Select(i => i.ToString());
+        ds.Data.Add(new ChartDataset()
+        {
+            BorderWidth = 1,
+            Label = "Dataset 1",
+            Data = _continueData.Select(i => (object)i),
+            ShowPointStyle = true,
+            PointStyle = ChartPointStyle.Circle,
+            PointRadius = 2,
+            PointHoverRadius = 4
+        });
+        await Task.Delay(100);
+        return ds;
+    }
+
     private Task OnAfterInit()
     {
-        Logger.Log("Line initialization is complete");
+        _logger.Log("Line initialization is complete");
         return Task.CompletedTask;
     }
 
     private Task OnAfterUpdate(ChartAction action)
     {
-        Logger.Log($"Line Figure update data operation completed -- {action}");
+        _logger.Log($"Line Figure update data operation completed -- {action}");
         return Task.CompletedTask;
     }
 
     private Task OnReloadChart()
     {
-        LineDataCount = Randomer.Next(5, 15);
-        LineChart?.Reload();
+        _lineDataCount = _randomer.Next(5, 15);
+        _lineChart.Reload();
         return Task.CompletedTask;
     }
 
@@ -134,14 +181,14 @@ public partial class Line
         ds.Options.Title = "Line Chart";
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-        for (var index = 0; index < LineDatasetCount; index++)
+        ds.Labels = Enumerable.Range(1, _lineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < _lineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
                 Tension = tension,
                 Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 37))
             });
         }
 
@@ -156,14 +203,14 @@ public partial class Line
         ds.Options.Title = "Line Chart";
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-        for (var index = 0; index < LineDatasetCount; index++)
+        ds.Labels = Enumerable.Range(1, _lineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < _lineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
                 Tension = tension,
                 Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 37))
             });
         }
         return Task.FromResult(ds);
@@ -178,24 +225,24 @@ public partial class Line
         ds.Options.Y2.Title = "Y2 value";
         ds.Options.Y2.PositionLeft = false;
 
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
+        ds.Labels = Enumerable.Range(1, _lineDataCount).Select(i => i.ToString());
         var index = 0;
         ds.Data.Add(new ChartDataset()
         {
             Tension = tension,
             Label = $"Y2 Set {index}",
             IsAxisY2 = index == 0,
-            Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 7000))
+            Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 7000))
         });
 
-        for (index = 1; index < LineDatasetCount; index++)
+        for (index = 1; index < _lineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
                 Tension = tension,
                 Label = $"Y Set {index}",
                 IsAxisY2 = index == 0,
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 37))
             });
         }
         return Task.FromResult(ds);
@@ -207,14 +254,14 @@ public partial class Line
         ds.Options.Title = "Line Chart";
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-        for (var index = 0; index < LineDatasetCount; index++)
+        ds.Labels = Enumerable.Range(1, _lineDataCount).Select(i => i.ToString());
+        for (var index = 0; index < _lineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
             {
                 Tension = tension,
                 Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                Data = Enumerable.Range(1, _lineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)_randomer.Next(20, 37))
             });
         }
         return Task.FromResult(ds);
@@ -237,5 +284,24 @@ public partial class Line
     /// JS 代码段
     /// JS Code
     /// </summary>
-    private string? Code { get; set; }
+    private string? _code;
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }
