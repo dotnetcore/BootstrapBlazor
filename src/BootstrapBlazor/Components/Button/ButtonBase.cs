@@ -96,6 +96,13 @@ public abstract class ButtonBase : TooltipWrapperBase
     public bool IsAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否异步结束后是否保持禁用状态，默认为 false
+    /// </summary>
+    /// <remarks><see cref="IsAsync"/> 开启时有效</remarks>
+    [Parameter]
+    public bool IsKeepDisabled { get; set; }
+
+    /// <summary>
     /// 获得/设置 显示文字
     /// </summary>
     [Parameter]
