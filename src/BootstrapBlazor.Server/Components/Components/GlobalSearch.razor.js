@@ -103,8 +103,8 @@ const doSearch = async (search, query) => {
     if (query) {
         search.status.innerHTML = search.searchText;
         const client = new MeiliSearch({
-            host: search.options.host,
-            apiKey: search.options.key,
+            host: search.options.url,
+            apiKey: search.options.apiKey,
         });
         var index = client.index(search.options.index);
         const results = await index.search(query);
@@ -121,17 +121,17 @@ const updateList = (search, results) => {
     const blockHtml = blockTemplate.innerHTML;
     results.hits.forEach(hit => {
         const div = document.createElement('div');
-        div.innerHTML = html.replace('{url}', hit.url).replace('{title}', hit.title).replace('{sub-title}', hit.subTitle).replace('{count}', hit.demoBlocks.length);
+        div.innerHTML = html.replace('{url}', hit.url).replace('{title}', hit.title).replace('{sub-title}', hit.subTitle).replace('{count}', hit.demos.length);
         const item = div.firstChild;
 
-        if (hit.demoBlocks) {
+        if (hit.demos) {
             const ul = document.createElement('ol');
             ul.classList.add('mb-0');
             ul.classList.add('mt-2')
-            hit.demoBlocks.forEach(block => {
+            hit.demos.forEach(block => {
                 const li = document.createElement('ul');
                 const url = block.url || hit.url;
-                li.innerHTML = blockHtml.replace('{url}', url).replace('{title}', block.anchorText).replace('{intro}', block.pText);
+                li.innerHTML = blockHtml.replace('{url}', url).replace('{title}', block.title).replace('{intro}', block.intro);
                 ul.appendChild(li.firstChild);
             });
             item.appendChild(ul);
