@@ -27,8 +27,8 @@ export function init(id) {
             else {
                 theme = 'dark';
             }
-            document.documentElement.style.setProperty('--x', `${window.innerWidth}px`);
-            document.documentElement.style.setProperty('--y', `${window.innerHeight}px`);
+            document.documentElement.style.setProperty('--bb-theme-x', `${window.innerWidth}px`);
+            document.documentElement.style.setProperty('--bb-theme-y', `${window.innerHeight}px`);
             document.startViewTransition(() => {
                 setTheme(theme, true);
             });

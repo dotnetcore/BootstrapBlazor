@@ -19,8 +19,8 @@ export function init(id) {
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
-                document.documentElement.style.setProperty('--x', `${window.innerWidth}px`);
-                document.documentElement.style.setProperty('--y', '0px');
+                document.documentElement.style.setProperty('--bb-theme-x', `${window.innerWidth}px`);
+                document.documentElement.style.setProperty('--bb-theme-y', '0px');
                 document.startViewTransition(() => {
                     setTheme(theme, true);
                 });
