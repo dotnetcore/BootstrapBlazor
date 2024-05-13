@@ -145,19 +145,23 @@
 
         .search-dialog-list .search-dialog-item .search-dialog-item-sub {
             font-size: .75rem;
-            margin-top: .5rem;
+            margin-top: .25rem;
             opacity: .8;
         }
 
         .search-dialog-list .search-dialog-item li {
-            padding: .25rem;
+            padding: .125rem;
             border-radius: var(--bs-border-radius);
             transition: background-color .3s linear;
         }
 
+            .search-dialog-list .search-dialog-item li:not(:first-child) {
+                margin-top: .125rem;
+            }
+
             .search-dialog-list .search-dialog-item li > a {
                 display: block;
-                padding: .25rem;
+                padding: .125rem;
                 font-size: .75rem;
             }
 
