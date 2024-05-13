@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.MeiliSearch.Data;
 using BootstrapBlazor.MeiliSearch.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,14 @@ public class SearchController : ControllerBase
         var valid = Valid(configuration, id, payload);
         if (valid)
         {
-            ret = Ok(meiliSearch.Build());
+            if (payload.Ref == "refs/heads/main" || payload.Ref == "refs/heads/master")
+            {
+                ret = Ok(meiliSearch.Build());
+            }
+            else
+            {
+                ret = Ok(new MeiliSearchResult() { Code = 0, Message = "Pass" });
+            }
         }
         return ret;
     }
