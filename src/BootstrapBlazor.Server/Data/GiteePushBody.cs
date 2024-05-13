@@ -94,7 +94,7 @@ public class GiteeAuthor
     /// <summary>
     /// 获得/设置 提交人 ID
     /// </summary>
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     /// <summary>
     /// 获得/设置 提交人名称 Argo
@@ -109,10 +109,10 @@ public class GiteeAuthor
     /// <summary>
     /// 获得/设置 提交人名称 Longbow
     /// </summary>
-    public string UserName { get; set; } = "";
+    public string? UserName { get; set; }
 
     /// <summary>
     /// 获得/设置 提交人 Gitee 地址
     /// </summary>
-    public string Url { get; set; } = "";
+    public string? Url { get; set; }
 }
