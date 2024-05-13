@@ -266,20 +266,16 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
-.icon-theme img {
-    cursor: pointer;
-}
-
-.icon-theme .icon-light {
+.icon-theme .icon-dark {
     display: none;
 }
 
 [data-bs-theme='dark'] .icon-dark {
-    display: none;
+    display: block;
 }
 
 [data-bs-theme='dark'] .icon-light {
-    display: block;
+    display: none;
 }
 
 .layout-demo {
@@ -311,6 +307,25 @@ code {
     padding: .5rem;
     border-radius: var(--bs-border-radius);
     width: 320px;
+}
+
+::view-transition-old(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation: clip .3s ease-in;
+}
+
+@keyframes clip {
+    from {
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+
+    to {
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
 }
 
 @media (min-width: 768px) {
