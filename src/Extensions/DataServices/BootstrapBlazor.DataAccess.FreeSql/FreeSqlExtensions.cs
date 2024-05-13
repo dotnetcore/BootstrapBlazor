@@ -19,10 +19,10 @@ public static class FreeSqlExtensions
     /// <returns></returns>
     public static DynamicFilterInfo ToDynamicFilter(this QueryPageOptions option)
     {
-        var ret = new DynamicFilterInfo() { Filters = new() };
+        var ret = new DynamicFilterInfo() { Filters = [] };
 
         // 处理模糊搜索
-        if (option.Searches.Any())
+        if (option.Searches.Count > 0)
         {
             ret.Filters.Add(new()
             {
@@ -32,19 +32,19 @@ public static class FreeSqlExtensions
         }
 
         // 处理自定义搜索
-        if (option.CustomerSearches.Any())
+        if (option.CustomerSearches.Count > 0)
         {
             ret.Filters.AddRange(option.CustomerSearches.Select(i => i.ToDynamicFilter()));
         }
 
         // 处理高级搜索
-        if (option.AdvanceSearches.Any())
+        if (option.AdvanceSearches.Count > 0)
         {
             ret.Filters.AddRange(option.AdvanceSearches.Select(i => i.ToDynamicFilter()));
         }
 
         // 处理表格过滤条件
-        if (option.Filters.Any())
+        if (option.Filters.Count > 0)
         {
             ret.Filters.AddRange(option.Filters.Select(i => i.ToDynamicFilter()));
         }
