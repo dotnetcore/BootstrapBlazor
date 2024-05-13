@@ -1,4 +1,5 @@
-﻿import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import { getTheme, setTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init() {
     const scrollTop = () => (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
@@ -13,7 +14,23 @@ export function init() {
             items.forEach(item => item.classList.remove('hide'))
         }
         prevScrollTop = currentScrollTop
-    })
+    });
+
+    const themeElements = document.querySelectorAll('.icon-theme > i');
+    if (themeElements) {
+        themeElements.forEach(el => {
+            EventHandler.on(el, 'click', e => {
+                let theme = getTheme();
+                if (theme === 'dark') {
+                    theme = 'light';
+                }
+                else {
+                    theme = 'dark';
+                }
+                setTheme(theme, true);
+            });
+        });
+    }
 }
 
 export function dispose() {
