@@ -320,11 +320,11 @@ code {
 
 @keyframes clip {
     from {
-        clip-path: circle(0% at var(--x) var(--y));
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
     }
 
     to {
-        clip-path: circle(100% at var(--x) var(--y));
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
     }
 }
 
