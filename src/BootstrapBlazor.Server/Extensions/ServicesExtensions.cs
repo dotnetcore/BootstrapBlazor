@@ -154,6 +154,9 @@ internal static class ServicesExtensions
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
+        // 增加搜索服务
+        services.AddBootstrapBlazorMeiliSearch();
+
         return services;
     }
 }
