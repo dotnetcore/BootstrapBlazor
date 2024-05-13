@@ -27,7 +27,11 @@ export function init(id) {
             else {
                 theme = 'dark';
             }
-            setTheme(theme, true);
+            document.documentElement.style.setProperty('--x', `${window.innerWidth}px`);
+            document.documentElement.style.setProperty('--y', `${window.innerHeight}px`);
+            document.startViewTransition(() => {
+                setTheme(theme, true);
+            });
         });
     }
 
