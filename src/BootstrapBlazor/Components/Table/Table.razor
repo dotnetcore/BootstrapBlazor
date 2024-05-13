@@ -162,10 +162,10 @@
                                 {
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                 }
+                                <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                </Button>
                             }
-                            <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
                             @if (ShowResetButton)
                             {
                                 <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
