@@ -1,9 +1,10 @@
 ﻿@page "/table/dynamic-excel"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesDynamicExcel> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject IStringLocalizer<Tables> TablesLocalizer
 
-<h3>@Localizer["TablesDynamicExcelTitle"]</h3>
+<h3>@Localizer["TablesDynamicExcelTitle"] - @NavMenuLocalizer["TableDynamicExcel"]</h3>
 <h4>@Localizer["TablesDynamicExcelDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesDynamicExcelNormalTitle"]"

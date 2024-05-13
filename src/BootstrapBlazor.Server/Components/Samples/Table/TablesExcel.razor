@@ -1,8 +1,9 @@
 ﻿@page "/table/excel"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesExcel> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesExcelTitle"]</h3>
+<h3>@Localizer["TablesExcelTitle"] - @NavMenuLocalizer["TableExcel"]</h3>
 <h4>@Localizer["TablesExcelDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesExcelOnQueryTitle"]"

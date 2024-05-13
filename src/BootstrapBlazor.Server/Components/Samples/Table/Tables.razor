@@ -1,8 +1,9 @@
 ﻿@page "/table"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<Tables> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<h3>@Localizer["TableBaseTitle"]</h3>
+<h3>@Localizer["TableBaseTitle"] - @NavMenuLocalizer["TableBase"]</h3>
 <h4>@Localizer["TableBaseDescription"]</h4>
 
 <Tips>

@@ -1,8 +1,10 @@
 ﻿@page "/table/footer"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesFooter> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesFooterTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableFooter"]</h3>
 <h4>@Localizer["TablesFooterDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesFooterStatisticsTitle"]" Introduction="@Localizer["TablesFooterStatisticsIntro"]" Name="Statistics">

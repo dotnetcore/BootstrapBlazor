@@ -1,8 +1,9 @@
 ﻿@page "/table/lookup"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject IStringLocalizer<TablesLookup> Localizer
 
-<h3>@Localizer["TablesLookupTitle"]</h3>
+<h3>@Localizer["TablesLookupTitle"] - @NavMenuLocalizer["TableLookup"]</h3>
 
 <h4>@((MarkupString)Localizer["TablesLookupDescription"].Value)</h4>
 

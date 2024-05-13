@@ -1,9 +1,11 @@
 ﻿@page "/table/filter"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesFilter> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<h3>@Localizer["TablesFilterTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableFilter"]</h3>
 
 <h4>@Localizer["TablesFilterDesc"]</h4>
 

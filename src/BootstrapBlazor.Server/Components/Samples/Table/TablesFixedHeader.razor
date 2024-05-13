@@ -1,9 +1,11 @@
 ﻿@page "/table/header"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesFixedHeader> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject DialogService DialogService
 
-<h3>@Localizer["TablesFixedHeaderTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableFixHeader"]</h3>
 
 <h4>@Localizer["TablesFixedHeaderDesc"]</h4>
 
