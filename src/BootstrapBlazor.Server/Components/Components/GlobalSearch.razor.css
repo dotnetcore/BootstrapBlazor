@@ -145,25 +145,36 @@
 
         .search-dialog-list .search-dialog-item .search-dialog-item-sub {
             font-size: .75rem;
-            margin-top: .5rem;
+            margin-top: .25rem;
             opacity: .8;
         }
 
         .search-dialog-list .search-dialog-item li {
-            padding: .25rem;
+            padding: .125rem;
             border-radius: var(--bs-border-radius);
             transition: background-color .3s linear;
         }
 
+            .search-dialog-list .search-dialog-item li:not(:first-child) {
+                margin-top: .125rem;
+            }
+
             .search-dialog-list .search-dialog-item li > a {
                 display: block;
-                padding: .25rem;
+                padding: .125rem;
                 font-size: .75rem;
             }
 
             .search-dialog-list .search-dialog-item li:hover {
                 background-color: rgba(var(--bb-primary-color-rgb), 0.5);
             }
+
+        .search-dialog-list .search-dialog-item ::deep key {
+            display: inline-block;
+            margin: 0;
+            color: var(--bb-primary-color);
+            font-weight: bold;
+        }
 
     .search-dialog-list .search-dialog-empty-template {
         text-align: center;
