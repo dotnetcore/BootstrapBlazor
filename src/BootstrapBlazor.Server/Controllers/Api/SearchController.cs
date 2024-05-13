@@ -25,17 +25,25 @@ public class SearchController : ControllerBase
     public IActionResult WebHook([FromServices] IConfiguration configuration, [FromServices] IMeiliSearch meiliSearch, [FromQuery] string? id, [FromBody] GiteePostBody payload)
     {
         IActionResult ret = Unauthorized();
-        var valid = Valid(configuration, id, payload);
-        if (valid)
+        if (payload.Ref == "refs/heads/main" || payload.Ref == "refs/heads/master")
         {
-            if (meiliSearch.Status.Code == 0 && (payload.Ref == "refs/heads/main" || payload.Ref == "refs/heads/master"))
+            var valid = Valid(configuration, id, payload);
+            if (valid)
             {
-                ret = Ok(meiliSearch.Build());
+                if (meiliSearch.Status.Code == 0)
+                {
+                    ret = Ok(meiliSearch.Build());
+                }
+                else
+                {
+                    ret = Ok(meiliSearch.Status);
+                }
             }
-            else
-            {
-                ret = Ok(meiliSearch.Status);
-            }
+        }
+        else
+        {
+            meiliSearch.Status.Message = $"skip {payload.Ref}";
+            ret = Ok(meiliSearch.Status);
         }
         return ret;
     }
