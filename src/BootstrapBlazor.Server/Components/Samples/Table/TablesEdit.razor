@@ -21,11 +21,6 @@
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete" />
-            <TableColumn @bind-Field="@context.Hobby">
-                <EditTemplate Context="v">
-                    <DemoHobbyTemplate Model="v" />
-                </EditTemplate>
-            </TableColumn>
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -108,15 +103,21 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
-                <EditTemplate Context="value">
+                <EditTemplate Context="v">
                     <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="value" />
+                        <TablesNameDrop Model="v" />
                     </div>
                 </EditTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Hobby">
+                <EditTemplate Context="v">
+                    <DemoHobbyTemplate Model="v" />
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </DemoBlock>
