@@ -107,21 +107,27 @@ const doSearch = async (search, query) => {
             apiKey: search.options.apiKey,
         });
         var index = client.index(search.options.index);
-        const results = await index.search(query);
-        updateStatus(search, results.estimatedTotalHits, results.processingTimeMs);
-        updateList(search, results);
+        const result = await index.search(query);
+        updateStatus(search, result.estimatedTotalHits, result.processingTimeMs);
+        updateList(search, result);
     }
 }
 
-const updateList = (search, results) => {
+const updateList = (search, result) => {
     const { list, input, template, blockTemplate } = search;
     list.innerHTML = '';
 
     const html = template.innerHTML;
     const blockHtml = blockTemplate.innerHTML;
-    results.hits.forEach(hit => {
+    result.hits.forEach(hit => {
+        if (hit.title === '') {
+            return;
+        }
         const div = document.createElement('div');
-        div.innerHTML = html.replace('{url}', hit.url).replace('{title}', hit.title).replace('{sub-title}', hit.subTitle).replace('{count}', hit.demos.length);
+        div.innerHTML = html.replace('{url}', hit.url)
+            .replace('{title}', highlight(hit.title, result.query))
+            .replace('{sub-title}', highlight(hit.subTitle, result.query))
+            .replace('{count}', hit.demos.length);
         const item = div.firstChild;
 
         if (hit.demos) {
@@ -131,7 +137,9 @@ const updateList = (search, results) => {
             hit.demos.forEach(block => {
                 const li = document.createElement('ul');
                 const url = block.url || hit.url;
-                li.innerHTML = blockHtml.replace('{url}', url).replace('{title}', block.title).replace('{intro}', block.intro);
+                li.innerHTML = blockHtml.replace('{url}', url)
+                    .replace('{title}', highlight(block.title, result.query))
+                    .replace('{intro}', highlight(block.intro, result.query));
                 ul.appendChild(li.firstChild);
             });
             item.appendChild(ul);
@@ -139,6 +147,11 @@ const updateList = (search, results) => {
         list.appendChild(item);
     });
     input.focus();
+}
+
+const highlight = (text, query) => {
+    const regex = new RegExp(query, 'i');
+    return text.replace(regex, `<key>${query}</key>`);
 }
 
 const updateStatus = (search, hits, ms) => {
