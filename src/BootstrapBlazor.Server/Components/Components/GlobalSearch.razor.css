@@ -57,7 +57,7 @@
     top: var(--bb-global-search-top);
     left: var(--bb-global-search-left);
     right: var(--bb-global-search-right);
-    z-index: 45;
+    z-index: 50;
     height: calc(100vh - 160px);
     color: var(--bs-body-color);
     background-color: var(--bs-body-bg);
