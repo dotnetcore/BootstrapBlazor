@@ -1,8 +1,10 @@
 ﻿@page "/table/wrap"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesWrap> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesWrapTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableWrap"]</h3>
 <h4>@Localizer["TablesWrapDescription"]</h4>
 
 <p>@((MarkupString)Localizer["TablesWrapTip"].Value)</p>

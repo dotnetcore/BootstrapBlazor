@@ -1,9 +1,10 @@
 ﻿@page "/table/row"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesRow> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject ToastService ToastService
 
-<h3>@Localizer["TablesRowTitle"]</h3>
+<h3>@Localizer["TablesRowTitle"] - @NavMenuLocalizer["TableRow"]</h3>
 
 <h4>@Localizer["TablesRowDesc"]</h4>
 

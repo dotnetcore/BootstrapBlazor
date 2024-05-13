@@ -1,10 +1,11 @@
 ﻿@page "/table/column/resizing"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumnResizing> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject ToastService ToastService
 
-<h3>@Localizer["TablesColumnTitle"]</h3>
+<h3>@Localizer["TablesColumnTitle"] - @NavMenuLocalizer["TableColumnResizing"]</h3>
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 

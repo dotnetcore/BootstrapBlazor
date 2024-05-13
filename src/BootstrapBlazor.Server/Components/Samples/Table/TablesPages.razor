@@ -1,8 +1,9 @@
 ﻿@page "/table/page"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesPages> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesPagesTitle"]</h3>
+<h3>@Localizer["TablesPagesTitle"] - @NavMenuLocalizer["TablePage"]</h3>
 <h4>@Localizer["TablesPagesDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesPagePaginationTitle"]"

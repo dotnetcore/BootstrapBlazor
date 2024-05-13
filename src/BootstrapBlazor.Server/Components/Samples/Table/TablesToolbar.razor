@@ -1,9 +1,10 @@
 ﻿@page "/table/toolbar"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesToolbar> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject ToastService ToastService
 
-<h3>@Localizer["TablesToolbarTitle"]</h3>
+<h3>@Localizer["TablesToolbarTitle"] - @NavMenuLocalizer["TableToolbar"]</h3>
 <h4>@Localizer["TablesToolbarDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesToolbarNormalTitle"]"

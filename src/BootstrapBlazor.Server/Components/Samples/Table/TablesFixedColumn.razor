@@ -1,8 +1,10 @@
 ﻿@page "/table/fix-column"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesFixedColumn> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesFixedColumnTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableFixColumn"]</h3>
 <h4>@Localizer["TablesFixedColumnDescription"]</h4>
 
 <p>@((MarkupString)Localizer["TablesFixedColumnNote"].Value)</p>

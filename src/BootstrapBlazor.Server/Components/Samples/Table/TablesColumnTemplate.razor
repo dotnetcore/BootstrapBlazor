@@ -1,9 +1,10 @@
 ﻿@page "/table/column/template"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesColumnTemplate> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<h3>@Localizer["TablesColumnTitle"]</h3>
+<h3>@Localizer["TablesColumnTitle"] - @NavMenuLocalizer["TableColumnTemplate"]</h3>
 
 <h4>@Localizer["TablesColumnDescription"]</h4>
 
