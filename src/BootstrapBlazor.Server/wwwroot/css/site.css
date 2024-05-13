@@ -266,20 +266,16 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
-.icon-theme img {
-    cursor: pointer;
-}
-
-.icon-theme .icon-light {
+.icon-theme .icon-dark {
     display: none;
 }
 
 [data-bs-theme='dark'] .icon-dark {
-    display: none;
+    display: block;
 }
 
 [data-bs-theme='dark'] .icon-light {
-    display: block;
+    display: none;
 }
 
 .layout-demo {
