@@ -169,6 +169,13 @@
                 background-color: rgba(var(--bb-primary-color-rgb), 0.5);
             }
 
+        .search-dialog-list .search-dialog-item ::deep key {
+            display: inline-block;
+            margin: 0;
+            color: var(--bb-primary-color);
+            font-weight: bold;
+        }
+
     .search-dialog-list .search-dialog-empty-template {
         text-align: center;
         padding: 24px;
