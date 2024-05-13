@@ -5417,7 +5417,7 @@
     "CustomColSearchP1": "姓名列搜索模板使用下拉框进行数据过滤，并且增加了 <b>请选择...</b> 项",
     "CustomColSearchP2": "生成列搜索模板是查找顺序为 <code>SearchTemplate</code> -> <code>AutoGenerate</code> 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成",
     "CustomColSearchP3": "通过设置 <code>ShowSearch</code> 控制是否显示整个搜索栏",
-    "CustomColSearchP4": "通过设置 <code>ShowSearchText</code> 控制是否显示模糊搜索栏以及搜索按钮",
+    "CustomColSearchP4": "通过设置 <code>ShowSearchText</code> 控制是否显示模糊搜索栏",
     "CustomColSearchP5": "通过设置 <code>ShowResetButton</code> 控制是否显示重置搜索按钮",
     "CustomColSearchP6": "通过设置 <code>ShowAdvancedSearch</code> 控制是否显示高级搜索按钮",
     "CustomColSearchP7": "通过设置 <code>SearchDialogDraggable=\"true\"</code> 使搜索弹出框可拖拽",

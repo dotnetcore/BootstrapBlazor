@@ -5417,7 +5417,7 @@
     "CustomColSearchP1": "Because it is a search condition, in this example, the drop-down box of the name search column is added. Please select... item",
     "CustomColSearchP2": "The column search template is generated in the search order <code>SearchTemplate</code> -> <code>AutoGenerate</code> first to find out whether the search template is set, and then automatically generated according to the bound field type",
     "CustomColSearchP3": "Control whether to display the entire search bar by setting <code>ShowSearch</code>",
-    "CustomColSearchP4": "Control whether to display the fuzzy search bar and search button by setting <code>ShowSearchText</code>",
+    "CustomColSearchP4": "Control whether to display the fuzzy search bar by setting <code>ShowSearchText</code>",
     "CustomColSearchP5": "Control whether to display the reset search button by setting <code>ShowResetButton</code>",
     "CustomColSearchP6": "Control whether to display the advanced search button by setting <code>ShowAdvancedSearch</code>",
     "CustomColSearchP7": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
