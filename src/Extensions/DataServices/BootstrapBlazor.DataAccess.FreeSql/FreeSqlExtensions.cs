@@ -96,6 +96,6 @@ public static class FreeSqlExtensions
         FilterAction.GreaterThanOrEqual => DynamicFilterOperator.GreaterThanOrEqual,
         FilterAction.LessThan => DynamicFilterOperator.LessThan,
         FilterAction.LessThanOrEqual => DynamicFilterOperator.LessThanOrEqual,
-        _ => throw new System.NotSupportedException()
+        _ => throw new NotSupportedException()
     };
 }
