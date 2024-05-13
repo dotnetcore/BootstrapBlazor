@@ -2,7 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.Options;
+using BootstrapBlazor.MeiliSearch.Options;
+using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Components;
@@ -13,41 +14,17 @@ namespace BootstrapBlazor.Server.Components.Components;
 public partial class GlobalSearch
 {
     [Inject, NotNull]
-    private IConfiguration? Configuration { get; set; }
-
-    private string _searchId => $"{Id}_search";
-
-    private MeiliSearchOptions? _options = null;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        var section = Configuration.GetSection(nameof(MeiliSearchOptions));
-        if (section.Exists())
-        {
-            _options = section.Get<MeiliSearchOptions>();
-        }
-    }
+    private IOptionsMonitor<MeiliSearchOptions>? Options { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { _options?.Host, _options?.Key, Index = GetIndex(), SearchStatus = Localizer["SearchStatus"].Value });
-
-    private string GetIndex()
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
     {
-        var lang = CultureInfo.CurrentUICulture.Name;
-        var segs = lang.Split('-');
-        if (segs.Length > 1)
-        {
-            lang = segs[0];
-        }
-        lang = lang == "zh" ? "" : $"-{lang}";
-        return $"{_options?.Index}{lang}";
-    }
+        Options.CurrentValue?.Url,
+        Options.CurrentValue?.ApiKey,
+        Index = $"{Options.CurrentValue?.Index}-{CultureInfo.CurrentUICulture.Name}",
+        SearchStatus = Localizer["SearchStatus"].Value
+    });
 }
