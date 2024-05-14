@@ -36,6 +36,13 @@ export async function init(id, preload, interop, callback) {
     }, 800)
 }
 
+export function updateContent(id, contenet) {
+    var editor = Data.get(id)
+    if (editor) {
+        editor.svgEditor.loadFromString(contenet);
+    }
+}
+
 export function dispose(id) {
     Data.remove(id)
 }

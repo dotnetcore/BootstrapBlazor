@@ -44,6 +44,16 @@ namespace BootstrapBlazor.Components
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="content"></param>
+        /// <returns></returns>
+        public async Task UpdateAsync(string content)
+        {
+            await InvokeVoidAsync("updateContent", Id, content);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>
         [JSInvokable]
