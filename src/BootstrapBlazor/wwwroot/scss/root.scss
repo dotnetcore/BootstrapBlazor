@@ -70,3 +70,22 @@ a, a:hover, a:focus {
     @include direction(right,last);
     @include direction(left,first)
 }
+
+::view-transition-old(root) {
+    animation: none;
+}
+
+::view-transition-new(root) {
+    mix-blend-mode: normal;
+    animation: clip .3s ease-in;
+}
+
+@keyframes clip {
+    from {
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+
+    to {
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+}
