@@ -19,7 +19,7 @@ export function init(id) {
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
-                switchTheme(theme);
+                switchTheme(theme, window.innerWidth, 0);
             });
         });
     }
