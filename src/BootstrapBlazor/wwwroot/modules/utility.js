@@ -735,10 +735,10 @@ export function setActiveTheme(el, activeItem) {
     }
 }
 
-export function switchTheme(theme, sync = true) {
-    if(isFunction(document.startViewTransition)) {
-        document.documentElement.style.setProperty('--bb-theme-x', `${window.innerWidth}px`);
-        document.documentElement.style.setProperty('--bb-theme-y', `${window.innerHeight}px`);
+export function switchTheme(theme, x = 0, y = 0, sync = true) {
+    if (isFunction(document.startViewTransition)) {
+        document.documentElement.style.setProperty('--bb-theme-x', `${x}px`);
+        document.documentElement.style.setProperty('--bb-theme-y', `${y}px`);
         document.startViewTransition(() => {
             setTheme(theme, sync);
         });
