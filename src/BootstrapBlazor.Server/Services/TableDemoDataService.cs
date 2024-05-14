@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.DataAccess.FreeSql;
-
 namespace BootstrapBlazor.Server.Services;
 
 /// <summary>
@@ -23,8 +21,6 @@ class TableDemoDataService<TModel>(IStringLocalizer<TModel> localizer) : DataSer
     /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions options)
     {
-        var filter = options.ToDynamicFilter();
-
         // 此处代码实战中不可用，仅仅为演示而写
         if (Items == null || Items.Count == 0)
         {

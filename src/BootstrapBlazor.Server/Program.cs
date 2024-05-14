@@ -39,16 +39,6 @@ builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSiz
 // 增加 BootstrapBlazor 服务
 builder.Services.AddBootstrapBlazorServices();
 
-builder.Services.AddFreeSql(option =>
-{
-    option.UseConnectionString(FreeSql.DataType.Sqlite, builder.Configuration.GetConnectionString("bb"))
-#if DEBUG
-        //调试 sql 语句输出
-        .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
-#endif
-        ;
-});
-
 var app = builder.Build();
 
 // 启用本地化
