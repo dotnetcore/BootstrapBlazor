@@ -27,7 +27,6 @@ export function init(id) {
             else {
                 theme = 'dark';
             }
-
             switchTheme(theme);
         });
     }
