@@ -1,4 +1,4 @@
-﻿import { getTheme, setTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { getTheme, switchTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
 import Data from "../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
@@ -27,11 +27,7 @@ export function init(id) {
             else {
                 theme = 'dark';
             }
-            document.documentElement.style.setProperty('--bb-theme-x', `${window.innerWidth}px`);
-            document.documentElement.style.setProperty('--bb-theme-y', `${window.innerHeight}px`);
-            document.startViewTransition(() => {
-                setTheme(theme, true);
-            });
+            switchTheme(theme, window.innerWidth, window.innerHeight);
         });
     }
 
