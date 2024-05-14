@@ -7,35 +7,28 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IFilterAction 类默认实现类
 /// </summary>
-public class SearchFilterAction : IFilterAction
+/// <remarks>
+/// 
+/// </remarks>
+/// <param name="name"></param>
+/// <param name="value"></param>
+/// <param name="action"></param>
+public class SearchFilterAction(string name, object? value, FilterAction action = FilterAction.Contains) : IFilterAction
 {
     /// <summary>
     /// 
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = name;
 
     /// <summary>
     /// 
     /// </summary>
-    public object? Value { get; set; }
+    public object? Value { get; set; } = value;
 
     /// <summary>
     /// 
     /// </summary>
-    public FilterAction Action { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="value"></param>
-    /// <param name="action"></param>
-    public SearchFilterAction(string name, object? value, FilterAction action = FilterAction.Contains)
-    {
-        Name = name;
-        Value = value;
-        Action = action;
-    }
+    public FilterAction Action { get; set; } = action;
 
     /// <summary>
     /// 重置过滤条件方法
