@@ -1,4 +1,4 @@
-﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, setTheme } from "../../modules/utility.js"
+﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, switchTheme } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
@@ -19,11 +19,7 @@ export function init(id) {
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
-                document.documentElement.style.setProperty('--bb-theme-x', `${window.innerWidth}px`);
-                document.documentElement.style.setProperty('--bb-theme-y', '0px');
-                document.startViewTransition(() => {
-                    setTheme(theme, true);
-                });
+                switchTheme(theme);
             });
         });
     }
