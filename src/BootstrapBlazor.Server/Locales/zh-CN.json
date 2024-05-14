@@ -2927,6 +2927,7 @@
     "MultiSelectsAttribute_Class": "样式",
     "MultiSelectsAttribute_Color": "颜色",
     "MultiSelectsAttribute_IsDisabled": "是否禁用",
+    "MultiSelectsAttribute_IsSingleLine": "是否单行显示",
     "MultiSelectsAttribute_Items": "数据集合",
     "MultiSelectsAttribute_ButtonTemplate": "扩展按钮模板",
     "MultiSelectsAttribute_ItemTemplate": "选项模板",

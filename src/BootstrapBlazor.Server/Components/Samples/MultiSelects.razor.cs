@@ -367,6 +367,14 @@ public partial class MultiSelects
         },
         new()
         {
+            Name = nameof(MultiSelect<string>.IsSingleLine),
+            Description = Localizer["MultiSelectsAttribute_IsSingleLine"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Items",
             Description = Localizer["MultiSelectsAttribute_Items"],
             Type = "IEnumerable<SelectedItem>",

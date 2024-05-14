@@ -2927,6 +2927,7 @@
     "MultiSelectsAttribute_Class": "Style",
     "MultiSelectsAttribute_Color": "Color",
     "MultiSelectsAttribute_IsDisabled": "Whether to disable it",
+    "MultiSelectsAttribute_IsSingleLine": "Whether to display in a single line",
     "MultiSelectsAttribute_Items": "The data collection",
     "MultiSelectsAttribute_ButtonTemplate": "Extend the button template",
     "MultiSelectsAttribute_ItemTemplate": "The template of selected item",
