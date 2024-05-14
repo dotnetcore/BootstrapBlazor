@@ -44,6 +44,16 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsSingleLine_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.IsSingleLine, true);
+        });
+        cut.Contains("dropdown-toggle scroll is-single-line");
+    }
+
+    [Fact]
     public void EnumValue_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<EnumEducation>>();

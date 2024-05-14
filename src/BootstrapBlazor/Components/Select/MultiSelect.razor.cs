@@ -17,9 +17,10 @@ public partial class MultiSelect<TValue>
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
 
-    private string? ToggleClassString => CssBuilder.Default("dropdown-toggle")
+    private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
+        .AddClass("is-single-line", IsSingleLine)
         .AddClass("disabled", IsDisabled)
         .AddClass("show", ValidateForm != null && _isToggle)
         .AddClass(CssClass).AddClass(ValidCss)
@@ -64,6 +65,12 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public bool IsFixedHeight { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为单行模式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsSingleLine { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮模板

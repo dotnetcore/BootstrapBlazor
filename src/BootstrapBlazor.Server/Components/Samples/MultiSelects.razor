@@ -34,6 +34,17 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MultiSelectIsSingleLineTitle"]" Introduction="@Localizer["MultiSelectIsSingleLineIntro"]" Name="IsSingleLine">
+    <section ignore>
+        @((MarkupString)Localizer["MultiSelectIsSingleLineDescription"].Value)
+    </section>
+    <div class="row g-3">
+        <div class="col-12 col-sm-4">
+            <MultiSelect TValue="string" Items="@Items1" IsSingleLine="true" />
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["MultiSelectBindingStringTitle"]" Introduction="@Localizer["MultiSelectBindingStringIntro"]" Name="BindingString">
     <section ignore>
         @((MarkupString)Localizer["MultiSelectBindingStringDescription"].Value)
