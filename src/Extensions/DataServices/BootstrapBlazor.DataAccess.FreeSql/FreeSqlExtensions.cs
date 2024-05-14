@@ -77,6 +77,12 @@ public static class FreeSqlExtensions
                 item.Operator = c.FilterAction.ToDynamicFilterOperator();
             }
         }
+        else
+        {
+            item.Field = actions.FieldKey;
+            item.Value = actions.FieldValue;
+            item.Operator = actions.FilterAction.ToDynamicFilterOperator();
+        }
         return item;
     }
 
