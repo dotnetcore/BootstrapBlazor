@@ -62,10 +62,9 @@ class TreeFoo
     /// TreeFoo 带选择框树状数据集
     /// </summary>
     /// <returns></returns>
-    public static List<TreeViewItem<TreeFoo>> GetCheckedTreeItems(string? parentId=null)
+    public static List<TreeViewItem<TreeFoo>> GetCheckedTreeItems(string? parentId = null)
     {
-        return new List<TreeViewItem<TreeFoo>>
-            {
+        return [
             new(new TreeFoo()
             {
                 Id = $"{parentId}-101",
@@ -84,7 +83,7 @@ class TreeFoo
                 Text = "navigation two",
                 CheckedState = CheckboxState.Checked
             }
-        };
+        ];
     }
 
     /// <summary>

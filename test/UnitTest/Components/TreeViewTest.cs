@@ -153,7 +153,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         };
 
         // 根节点
-        var nodes = TreeFoo.CascadingTree(items).ToList();
+        var nodes = TreeFoo.CascadingTree(items);
         nodes[0].IsExpand = true;
         nodes[1].IsExpand = true;
 
@@ -252,7 +252,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoCheckParent, true);
             pb.Add(a => a.Items, items);
             pb.Add(a => a.ShowCheckbox, true);
-            pb.Add(a => a.OnExpandNodeAsync,async (item) =>
+            pb.Add(a => a.OnExpandNodeAsync, async (item) =>
             {
                 expanded = true;
 
@@ -676,7 +676,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new() { Text = "SubItem11", Id = "10111", ParentId = "1011" },
             new() { Text = "SubItem21", Id = "10121", ParentId = "1012" }
         ];
-        nodes = TreeFoo.CascadingTree(items).ToList();
+        nodes = TreeFoo.CascadingTree(items);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Items, nodes));
         // 子节点
@@ -834,7 +834,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         public IExpandableNode<TreeFoo>? Parent { get; set; }
 
         [NotNull]
-        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; } = Enumerable.Empty<IExpandableNode<TreeFoo>>();
+        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; } = [];
 
         [NotNull]
         public TreeFoo? Value { get; set; } = foo;
@@ -855,24 +855,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
             {
                 Text = "懒加载子节点2"
-            }
-        };
-    }
-
-    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeWithCheckedStateAsync(TreeFoo item)
-    {
-        await Task.Yield();
-        return new TreeViewItem<TreeFoo>[]
-        {
-            new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
-            {
-                Text = "懒加载子节点1",
-                HasChildren = true
-            },
-            new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
-            {
-                Text = "懒加载子节点2",
-                CheckedState=CheckboxState.Checked
             }
         };
     }
