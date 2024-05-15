@@ -13,11 +13,26 @@ namespace BootstrapBlazor.Components;
 public class SearchFilterAction(string name, object? value, FilterAction action = FilterAction.Contains) : IFilterAction
 {
     /// <summary>
+    /// 获得/设置 过滤条件名称
+    /// </summary>
+    public string Name { get; set; } = name;
+
+    /// <summary>
+    /// 获得/设置 过滤条件值
+    /// </summary>
+    public object? Value { get; set; } = value;
+
+    /// <summary>
+    /// 获得/设置 过滤条件关系运算符
+    /// </summary>
+    public FilterAction Action { get; set; } = action;
+
+    /// <summary>
     /// 重置过滤条件方法
     /// </summary>
     public void Reset()
     {
-        value = null;
+        Value = null;
     }
 
     /// <summary>
@@ -28,9 +43,9 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
     public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
         var first = filter.Filters?.FirstOrDefault() ?? filter;
-        if (first.FieldKey == name)
+        if (first.FieldKey == Name)
         {
-            value = first.FieldValue;
+            Value = first.FieldValue;
         }
         return Task.CompletedTask;
     }
@@ -41,8 +56,8 @@ public class SearchFilterAction(string name, object? value, FilterAction action 
     /// <returns></returns>
     public virtual FilterKeyValueAction GetFilterConditions() => new()
     {
-        FieldKey = name,
-        FieldValue = value,
-        FilterAction = action,
+        FieldKey = Name,
+        FieldValue = Value,
+        FilterAction = Action,
     };
 }
