@@ -434,5 +434,9 @@ public class ButtonTest : BootstrapBlazorTestBase
             var button = cut.Find("button");
             button.Click();
         });
+
+        Assert.Equal("test-share-text", cut.Instance.ShareContext?.Text);
+        Assert.Equal("test-share-title", cut.Instance.ShareContext?.Title);
+        Assert.Equal("www.blazor.zone", cut.Instance.ShareContext?.Url);
     }
 }
