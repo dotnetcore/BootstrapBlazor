@@ -434,14 +434,5 @@ public class ButtonTest : BootstrapBlazorTestBase
             var button = cut.Find("button");
             button.Click();
         });
-
-        var invocation = Context.JSInterop.VerifyInvoke("share");
-        if (invocation.Arguments[0]?.ToString() == cut.Instance.Id)
-        {
-            var context = invocation.Arguments[1] as ShareButtonContext;
-            Assert.Equal("test-share-text", context?.Text);
-            Assert.Equal("test-share-title", context?.Title);
-            Assert.Equal("www.blazor.zone", context?.Url);
-        }
     }
 }

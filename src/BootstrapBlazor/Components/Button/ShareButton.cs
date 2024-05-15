@@ -19,5 +19,5 @@ public class ShareButton : Button
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task HandlerClick() => InvokeVoidAsync("share", Id, ShareContext);
+    protected override Task HandlerClick() => InvokeVoidAsync("share", ShareContext);
 }
