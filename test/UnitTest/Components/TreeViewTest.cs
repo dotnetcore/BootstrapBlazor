@@ -270,7 +270,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
-        cut.WaitForAssertion(() => cut.Instance.Items[0].Items.Any());
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
 
         // 展开状态-级联选中-子级
         checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
@@ -315,7 +315,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
-        cut.WaitForAssertion(() => cut.Instance.Items[0].Items.Any());
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
 
         // 展开状态
         checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
@@ -357,7 +357,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
-        cut.WaitForAssertion(() => cut.Instance.Items[0].Items.Any());
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
 
         // 展开状态
         checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();

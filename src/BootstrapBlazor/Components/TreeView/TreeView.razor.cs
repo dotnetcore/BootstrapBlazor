@@ -45,7 +45,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("node-icon")
-        .AddClass("visible", item.HasChildren || item.Items.Any())
+        .AddClass("visible", item.HasChildren || item.Items.Count > 0)
         .AddClass(NodeIcon, !item.IsExpand)
         .AddClass(ExpandNodeIcon, item.IsExpand)
         .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
@@ -74,7 +74,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Any());
+    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Count > 0);
 
     private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
 
@@ -299,7 +299,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             }
             else
             {
-                if (Items.Any())
+                if (Items.Count > 0)
                 {
                     await CheckExpand(Items);
                 }
@@ -330,7 +330,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
-            if (node.Items.Any())
+            if (node.Items.Count > 0)
             {
                 await CheckExpand(node.Items);
             }
@@ -463,7 +463,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox)
         {
-            if (!AutoCheckChildren && AutoCheckParent && node.Items.Any())
+            if (!AutoCheckChildren && AutoCheckParent && node.Items.Count > 0)
             {
                 node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
             }
