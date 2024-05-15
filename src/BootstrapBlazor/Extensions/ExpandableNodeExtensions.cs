@@ -122,13 +122,13 @@ public static class ExpandableNodeExtensions
     /// <param name="parent">父级节点</param>
     /// <param name="predicate">查找子节点 Lambda 表达式</param>
     /// <param name="valueFactory"></param>
-    public static IEnumerable<TreeViewItem<TItem>> CascadingTree<TItem>(this IEnumerable<TItem> items, TreeViewItem<TItem>? parent, Func<TItem, TreeViewItem<TItem>?, bool> predicate, Func<TItem, TreeViewItem<TItem>> valueFactory) => items
+    public static List<TreeViewItem<TItem>> CascadingTree<TItem>(this IEnumerable<TItem> items, TreeViewItem<TItem>? parent, Func<TItem, TreeViewItem<TItem>?, bool> predicate, Func<TItem, TreeViewItem<TItem>> valueFactory) => items
         .Where(i => predicate(i, parent))
         .Select(i =>
         {
             var item = valueFactory(i);
-            item.Items = CascadingTree(items, item, predicate, valueFactory).ToList();
+            item.Items = items.CascadingTree(item, predicate, valueFactory);
             item.Parent = parent;
             return item;
-        });
+        }).ToList();
 }
