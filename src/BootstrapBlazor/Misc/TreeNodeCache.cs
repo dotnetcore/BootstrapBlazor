@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
-public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> where TNode : ICheckableNode<TItem>
+public class TreeNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer) : ExpandableNodeCache<TNode, TItem>(comparer) where TNode : ICheckableNode<TItem>
 {
     /// <summary>
     /// 获得 所有选中节点集合 作为缓存使用
@@ -25,14 +25,6 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// 获得 所有未选中节点集合 作为缓存使用
     /// </summary>
     protected List<TItem> IndeterminateNodeCache { get; } = new(50);
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public TreeNodeCache(Func<TItem, TItem, bool> comparer) : base(comparer)
-    {
-
-    }
 
     /// <summary>
     /// <inheritdoc/>
