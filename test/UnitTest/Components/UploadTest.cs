@@ -710,7 +710,7 @@ public class UploadTest : BootstrapBlazorTestBase
         cut.Contains("bb-previewer collapse active");
 
         // OnZoom
-        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-zoom").Click());
         Assert.False(zoom);
 
         cut.SetParametersAndRender(pb =>
@@ -721,7 +721,11 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".btn-secondary").Click());
+        await cut.InvokeAsync(() => cut.Find(".btn-zoom").Click());
+        Assert.True(zoom);
+
+        zoom = false;
+        await cut.InvokeAsync(() => cut.Find(".upload-item-body-image").Click());
         Assert.True(zoom);
 
         // OnDelete
