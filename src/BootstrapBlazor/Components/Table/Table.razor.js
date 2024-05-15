@@ -251,6 +251,12 @@ const setResizeListener = table => {
     columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation())
+
+        const bar = col.querySelector('.col-resizer-bar');
+        EventHandler.on(bar, 'dbclick', e => {
+            e.
+                console.log(e);
+        });
         drag(col,
             e => {
                 colIndex = eff(col, true)
