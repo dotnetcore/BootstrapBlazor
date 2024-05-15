@@ -490,7 +490,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+            if (item.CheckedState != CheckboxState.Indeterminate)
+            {
+                item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+            }
         }
 
         if (AutoCheckParent)
