@@ -463,7 +463,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox)
         {
-            if(!AutoCheckChildren&&AutoCheckParent&&node.Items.Any())
+            if (!AutoCheckChildren && AutoCheckParent && node.Items.Any())
             {
                 node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
             }
