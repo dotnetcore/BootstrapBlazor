@@ -170,7 +170,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.IsDisabled);
         await tcs.Task;
         Assert.True(clicked);
-        Assert.False(cut.Instance.IsDisabled);
+        cut.WaitForState(() => cut.Instance.IsDisabled == false);
 
         cut.SetParametersAndRender(pb =>
         {
