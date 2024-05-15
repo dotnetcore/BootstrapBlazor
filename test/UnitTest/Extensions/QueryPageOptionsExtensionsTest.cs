@@ -122,6 +122,18 @@ public class QueryPageOptionsExtensionsTest
     }
 
     [Fact]
+    public void Set_Ok()
+    {
+        var filter = new SearchFilterAction("", "", FilterAction.Equal);
+        filter.Name = "test";
+        filter.Value = "test";
+        filter.Action = FilterAction.GreaterThan;
+        Assert.Equal("test", filter.Name);
+        Assert.Equal("test", filter.Value);
+        Assert.Equal(FilterAction.GreaterThan, filter.Action);
+    }
+
+    [Fact]
     public void HasFilters_Ok()
     {
         var filter = new FilterKeyValueAction();
