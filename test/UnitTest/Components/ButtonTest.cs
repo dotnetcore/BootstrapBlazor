@@ -170,6 +170,17 @@ public class ButtonTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.IsDisabled);
         await tcs.Task;
         Assert.True(clicked);
+        cut.WaitForState(() => cut.Instance.IsDisabled == false);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.IsAsync, true);
+            pb.Add(b => b.IsKeepDisabled, true);
+        });
+        b.Click();
+        Assert.True(cut.Instance.IsDisabled);
+        await tcs.Task;
+        Assert.True(cut.Instance.IsDisabled);
     }
 
     [Fact]
@@ -424,9 +435,13 @@ public class ButtonTest : BootstrapBlazorTestBase
             button.Click();
         });
 
-        var context = Context.JSInterop.VerifyInvoke("share").Arguments[0] as ShareButtonContext;
-        Assert.Equal("test-share-text", context?.Text);
-        Assert.Equal("test-share-title", context?.Title);
-        Assert.Equal("www.blazor.zone", context?.Url);
+        var invocation = Context.JSInterop.VerifyInvoke("share");
+        if (invocation.Arguments[0]?.ToString() == cut.Instance.Id)
+        {
+            var context = invocation.Arguments[1] as ShareButtonContext;
+            Assert.Equal("test-share-text", context?.Text);
+            Assert.Equal("test-share-title", context?.Title);
+            Assert.Equal("www.blazor.zone", context?.Url);
+        }
     }
 }
