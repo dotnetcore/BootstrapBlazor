@@ -37,7 +37,6 @@
                                 DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                 ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                 ShowRightButtons="@_showRightButtons" MaxValue="MaxValue" MinValue="MinValue">
-                    @ChildContent
                 </DatePickerBody>
                 @if (RenderMode == DateTimeRangeRenderMode.Double)
                 {
@@ -45,7 +44,6 @@
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                     ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
                                     ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
-                        @ChildContent
                     </DatePickerBody>
                 }
             </CascadingValue>

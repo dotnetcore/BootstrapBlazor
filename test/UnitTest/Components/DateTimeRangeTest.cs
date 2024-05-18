@@ -40,6 +40,20 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void RenderMode_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+            builder.Add(a => a.RenderMode, DateTimeRangeRenderMode.Single);
+            builder.Add(a => a.TimeFormat, "HH:mm:ss");
+        });
+
+        var body = cut.FindComponents<DatePickerBody>();
+        Assert.Single(body);
+    }
+
+    [Fact]
     public void StarEqualEnd_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>

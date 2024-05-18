@@ -239,7 +239,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var labels = cut.FindAll(".picker-panel-header-label");
         cut.InvokeAsync(() => labels[2].Click());
 
-        cut.Contains("picker-pannel-body-main-wrapper is-open");
+        cut.Contains("picker-panel-body-main-wrapper is-open");
     }
 
     [Fact]
