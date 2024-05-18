@@ -1,23 +1,32 @@
 .time-spinner {
+    --bb-time-picker-spinner-arrow-height: 30px;
+    --bb-time-picker-spinner-arrow-color: var(--bb-primary-color);
+    --bb-time-picker-spinner-body-height: 110px;
+    --bb-time-picker-spinner-body-margin: 40px 0;
+    --bb-time-picker-spinner-item-height: 36.6px;
+    --bb-time-picker-spinner-item-font-size: 0.75rem;
+    --bb-time-picker-spinner-item-active-font-size: 0.875rem;
+    --bb-time-picker-spinner-item-active-color: var(--bb-primary-color);
     position: relative;
     align-items: center;
     justify-content: center;
     width: 30%;
 
     .time-spinner-arrow {
-        font-size: 14px;
-        color: #909399;
+        text-align: center;
+        width: 100%;
+        color: var(--bb-time-picker-spinner-arrow-color);
         position: absolute;
         left: 0;
-        width: 100%;
         z-index: 1;
-        text-align: center;
-        height: 30px;
-        line-height: 30px;
+        height: var(--bb-time-picker-spinner-arrow-height);
+        line-height: var(--bb-time-picker-spinner-arrow-height);
         cursor: pointer;
+        opacity: 0.6;
 
         &:hover {
-            color: #409eff;
+            color: var(--bb-primary-color);
+            opacity: 1;
         }
 
         &.time-up {
@@ -31,8 +40,8 @@
 
     .time-spinner-body {
         overflow: hidden;
-        height: 110px;
-        margin: 40px 0;
+        height: var(--bb-time-picker-spinner-body-height);
+        margin: var(--bb-time-picker-spinner-body-margin);
         width: 100%;
 
         .time-spinner-list {
@@ -43,23 +52,21 @@
             transition: transform .3s linear;
 
             .time-spinner-item {
-                height: 36.6px;
-                line-height: 36.6px;
-                font-size: 12px;
+                line-height: var(--bb-time-picker-spinner-item-height);
+                font-size: var(--bb-time-picker-spinner-item-font-size);
                 opacity: 0.6;
                 cursor: pointer;
 
                 &.active:not(.disabled) {
-                    font-weight: 700;
-                    font-size: 14px;
+                    font-weight: bold;
+                    font-size: var(--bb-time-picker-spinner-item-active-font-size);
                     opacity: 1;
-                    color: #409eff;
+                    color: var(--bb-time-picker-spinner-item-active-color);
                 }
 
                 &.prev, &.next {
                     opacity: 0.8;
                     transform: scale(1, 0.8);
-                    line-height: 30px;
                 }
             }
         }
