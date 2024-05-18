@@ -22,6 +22,24 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowLunar_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+            builder.Add(a => a.ShowLunar, true);
+            builder.Add(a => a.ShowSolarTerm, true);
+            builder.Add(a => a.ShowFestivals, true);
+            builder.Add(a => a.ShowHolidays, true);
+        });
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.True(body.Instance.ShowLunar);
+        Assert.True(body.Instance.ShowSolarTerm);
+        Assert.True(body.Instance.ShowFestivals);
+        Assert.True(body.Instance.ShowHolidays);
+    }
+
+    [Fact]
     public void StarEqualEnd_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
