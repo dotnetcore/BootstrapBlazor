@@ -72,19 +72,6 @@ public partial class TimePicker
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
     }
 
-    private async Task OnInternalValueChanged(TimeSpan val)
-    {
-        Value = val;
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(val);
-        }
-        if (OnValueChanged != null)
-        {
-            await OnValueChanged(Value);
-        }
-    }
-
     /// <summary>
     /// 点击取消按钮回调此方法
     /// </summary>

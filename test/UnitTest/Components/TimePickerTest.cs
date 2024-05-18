@@ -22,33 +22,79 @@ public class TimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeightCallback_Ok()
+    {
+        var cut = Context.RenderComponent<TimePicker>();
+        var cell = cut.FindComponent<TimePickerCell>();
+        cut.InvokeAsync(() => cell.Instance.OnHeightCallback(16));
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
+        });
+    }
+
+    [Fact]
     public async Task ValueChanged_Ok()
     {
-        var changed = false;
         var val = new TimeSpan(10, 10, 10);
         var cut = Context.RenderComponent<TimePicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
-            pb.Add(a => a.OnValueChanged, ts =>
-            {
-                changed = true;
-                return Task.CompletedTask;
-            });
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, ts =>
             {
                 val = ts;
                 return Task.CompletedTask;
             }));
         });
-        var body = cut.FindComponent<TimePickerBody>();
-        body.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Value, new TimeSpan(11, 11, 11));
-        });
         var button = cut.Find(".confirm");
         await cut.InvokeAsync(() => button.Click());
-        Assert.Equal(new TimeSpan(11, 11, 11), cut.Instance.Value);
-        Assert.Equal(new TimeSpan(11, 11, 11), val);
-        Assert.True(changed);
+        Assert.Equal(new TimeSpan(10, 10, 10), cut.Instance.Value);
+        Assert.Equal(new TimeSpan(10, 10, 10), val);
+    }
+
+    [Fact]
+    public void HasSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePicker>(pb =>
+        {
+            pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
+            pb.Add(a => a.HasSeconds, false);
+        });
+        var cells = cut.FindComponents<TimePickerCell>();
+        Assert.Equal(2, cells.Count);
+    }
+
+    [Fact]
+    public async Task OnClickClose_Ok()
+    {
+        var close = false;
+        var cut = Context.RenderComponent<TimePicker>(pb =>
+        {
+            pb.Add(a => a.OnClose, () =>
+            {
+                close = true;
+                return Task.CompletedTask;
+            });
+        });
+        var btn = cut.Find(".cancel");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(close);
+    }
+
+    [Fact]
+    public async Task OnClickConfirm_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<TimePicker>(pb =>
+        {
+            pb.Add(a => a.OnConfirm, ts =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+        var btn = cut.Find(".confirm");
+        await cut.InvokeAsync(() => btn.Click());
+        Assert.True(confirm);
     }
 }
