@@ -85,7 +85,6 @@ const initDrag = (picker, pointers) => {
             },
             e => {
                 el.classList.remove('dragging');
-                console.log('drop-end')
                 invoke.invokeMethodAsync('SetTime', picker.val.Hour, picker.val.Minute, picker.val.Second);
             }
         );
