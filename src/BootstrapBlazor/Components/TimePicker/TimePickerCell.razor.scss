@@ -1,6 +1,7 @@
 .time-spinner {
     --bb-time-picker-spinner-arrow-height: 30px;
-    --bb-time-picker-spinner-arrow-color: var(--bb-primary-color);
+    --bb-time-picker-spinner-arrow-color: rgba(var(--bb-primary-color), 0.6);
+    --bb-time-picker-spinner-arrow-hover-color: var(--bb-primary-color);
     --bb-time-picker-spinner-body-height: 110px;
     --bb-time-picker-spinner-body-margin: 40px 0;
     --bb-time-picker-spinner-item-height: 36.6px;
@@ -22,11 +23,9 @@
         height: var(--bb-time-picker-spinner-arrow-height);
         line-height: var(--bb-time-picker-spinner-arrow-height);
         cursor: pointer;
-        opacity: 0.6;
 
         &:hover {
-            color: var(--bb-primary-color);
-            opacity: 1;
+            color: var(--bb-time-picker-spinner-arrow-hover-color);
         }
 
         &.time-up {
