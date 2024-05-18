@@ -13,6 +13,7 @@ public enum DateTimeRangeRenderMode
     /// Single Component Mode
     /// </summary>
     Single,
+
     /// <summary>
     /// Double Panel Mode
     /// </summary>
