@@ -766,7 +766,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async void Enter_Ok()
+    public async Task Enter_Ok()
     {
         var key = "";
         var items = TreeFoo.GetTreeItems();
@@ -787,7 +787,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async void Esc_Ok()
+    public async Task Esc_Ok()
     {
         var key = "123";
         var items = TreeFoo.GetTreeItems();

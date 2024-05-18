@@ -73,7 +73,7 @@ public partial class Bluetooth
     /// <summary>
     /// 获取心率
     /// </summary>
-    public async void GetHeartrate()
+    public async Task GetHeartrate()
     {
         await heartrate.GetHeartrate();
     }
@@ -81,7 +81,7 @@ public partial class Bluetooth
     /// <summary>
     /// 停止获取心率
     /// </summary>
-    public async void StopHeartrate()
+    public async Task StopHeartrate()
     {
         await heartrate.StopHeartrate();
     }
@@ -108,7 +108,7 @@ public partial class Bluetooth
     /// <summary>
     /// 获取设备电量
     /// </summary>
-    public async void GetBatteryLevel()
+    public async Task GetBatteryLevel()
     {
         await batteryLevel.GetBatteryLevel();
     }
