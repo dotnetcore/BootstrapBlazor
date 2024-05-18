@@ -416,11 +416,13 @@ public partial class Layout : IHandlerException
         }
     }
 
-    private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
+    private void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         if (OnAuthorizing != null)
         {
-            var auth = await OnAuthorizing(e.Location);
+            var task = OnAuthorizing(e.Location);
+            task.Wait();
+            var auth = task.Result;
             if (!auth)
             {
                 Navigation.NavigateTo(NotAuthorizeUrl, true);
