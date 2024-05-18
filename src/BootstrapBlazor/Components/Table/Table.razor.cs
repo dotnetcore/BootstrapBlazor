@@ -918,15 +918,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
     {
-        var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
-        if (orders != null && orders.Count > 0)
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
-            for (int i = 0; i < orders.Count; i++)
+            var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
+            if (orders != null)
             {
-                var col = columns.Find(c => c.GetFieldName() == orders[i]);
-                if (col != null)
+                for (int i = 0; i < orders.Count; i++)
                 {
-                    col.Order = i + 1;
+                    var col = columns.Find(c => c.GetFieldName() == orders[i]);
+                    if (col != null)
+                    {
+                        col.Order = i + 1;
+                    }
                 }
             }
         }
