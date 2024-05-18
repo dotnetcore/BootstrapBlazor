@@ -2966,7 +2966,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void Sortable_Ok()
+    public async Task Sortable_Ok()
     {
         var sorted = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -3248,7 +3248,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void IsTree_OnQuery()
+    public async Task IsTree_OnQuery()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -3286,7 +3286,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void IsTree_OnTreeExpand()
+    public async Task IsTree_OnTreeExpand()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -3532,7 +3532,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void IsTree_OnQuery_NoKey()
+    public async Task IsTree_OnQuery_NoKey()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -3578,7 +3578,7 @@ public class TableTest : TableTestBase
 
 
     [Fact]
-    public async void IsTree_ToggleTreeRow()
+    public async Task IsTree_ToggleTreeRow()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
