@@ -1,0 +1,65 @@
+.time-spinner {
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+
+    .time-spinner-arrow {
+        font-size: 14px;
+        color: #909399;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        text-align: center;
+        height: 30px;
+        line-height: 30px;
+        cursor: pointer;
+
+        &:hover {
+            color: #409eff;
+        }
+
+        &.time-up {
+            top: 10px;
+        }
+
+        &.time-down {
+            bottom: 10px;
+        }
+    }
+
+    .time-spinner-body {
+        overflow: hidden;
+        height: 110px;
+        margin: 40px 0;
+        width: 100%;
+
+        .time-spinner-list {
+            margin: 0;
+            list-style: none;
+            transition: transform .3s linear;
+
+            .time-spinner-item {
+                height: 36.6px;
+                line-height: 36.6px;
+                font-size: 12px;
+                opacity: 0.6;
+                cursor: pointer;
+
+                &.active:not(.disabled) {
+                    font-weight: 700;
+                    font-size: 14px;
+                    opacity: 1;
+                    color: #409eff;
+                }
+
+                &.prev, &.next {
+                    opacity: 0.8;
+                    transform: scale(1, 0.8);
+                    line-height: 30px;
+                }
+            }
+        }
+    }
+}
