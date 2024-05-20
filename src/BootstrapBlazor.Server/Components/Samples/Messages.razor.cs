@@ -88,14 +88,12 @@ public sealed partial class Messages
 
     private int lastCount = 0;
 
-    private async Task ShowLastOnlyMessage()
+    private Task ShowLastOnlyMessage() => MessageService.Show(new MessageOption()
     {
-        await MessageService.Show(new MessageOption()
-        {
-            ShowMode = MessageShowMode.Single,
-            Content = lastCount++.ToString()
-        });
-    }
+        ShowShadow = true,
+        ShowMode = MessageShowMode.Single,
+        Content = lastCount++.ToString()
+    });
 
     private static AttributeItem[] GetAttributes() =>
     [
