@@ -106,6 +106,14 @@ public sealed partial class Messages
             Type = "Placement",
             ValueList = "Top|Bottom",
             DefaultValue = "Top"
+        },
+        new()
+        {
+            Name = "ShowMode",
+            Description = "Display mode",
+            Type = "MessageShowMode",
+            ValueList = "Single|Multiple",
+            DefaultValue = "Multiple"
         }
     ];
 
