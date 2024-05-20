@@ -86,6 +86,17 @@ public sealed partial class Messages
         });
     }
 
+    private int lastCount = 0;
+
+    private async Task ShowLastOnlyMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            LastOnly = true,
+            Content = lastCount++.ToString()
+        });
+    }
+
     private static AttributeItem[] GetAttributes() =>
     [
         new()

@@ -96,6 +96,10 @@ public partial class Message
 
     private async Task Show(MessageOption option)
     {
+        if (option.LastOnly)
+        {
+            _messages.Clear();
+        }
         _messages.Add(option);
         _msgId = GetItemId(option);
         await InvokeAsync(StateHasChanged);

@@ -485,7 +485,10 @@
     "MessagesItem": "MessageOption 属性",
     "MessagesTemplateTitle": "自定义模板",
     "MessagesTemplateIntro": "通过设置 <code>ChildContent</code> 模板可以实现丰富的自定义样式与内容的提示信息",
-    "MessagesTemplatePrompt": "自定义消息"
+    "MessagesTemplatePrompt": "自定义消息",
+    "MessagesLastOnlyTitle": "只显示最后一条",
+    "MessagesLastOnlyIntro": "通过设置 <code>LastOnly</code> 参数，指定只显示最后一条消息",
+    "MessagesLastOnlyPrompt": "只显示最后一条消息"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light 指示灯",
