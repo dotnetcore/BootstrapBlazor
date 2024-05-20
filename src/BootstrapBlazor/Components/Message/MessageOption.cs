@@ -50,7 +50,7 @@ public class MessageOption : PopupOptionBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否只显示最后一个，默认为false
+    /// 获得/设置 消息显示模式，默认为 <see cref="MessageShowMode.Multiple"/>
     /// </summary>
-    public bool LastOnly { get; set; }
+    public MessageShowMode ShowMode { get; set; } = MessageShowMode.Multiple;
 }
