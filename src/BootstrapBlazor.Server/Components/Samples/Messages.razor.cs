@@ -92,7 +92,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            LastOnly = true,
+            ShowMode = MessageShowMode.Single,
             Content = lastCount++.ToString()
         });
     }
