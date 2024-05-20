@@ -485,7 +485,10 @@
     "MessagesItem": "MessageOption property",
     "MessagesTemplateTitle": "Custom template",
     "MessagesTemplateIntro": "By setting the <code>ChildContent</code> template, rich custom styles and content prompt information can be achieved",
-    "MessagesTemplatePrompt": "Custom message"
+    "MessagesTemplatePrompt": "Custom message",
+    "MessagesShowModeTitle": "Show mode",
+    "MessagesShowModeIntro": "Specify the display mode by setting the <code>ShowMode</code> parameter",
+    "MessagesShowModePrompt": "Show only last message"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",
