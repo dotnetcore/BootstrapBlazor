@@ -21,6 +21,7 @@ public static class TableMetadataTypeService
     /// <param name="metadataType">Table ui metadata type</param>
     /// <param name="targetType">the target model/data type</param>
     [Obsolete("已弃用，单词拼写错误，Deprecated, typo")]
+    [ExcludeFromCodeCoverage]
     public static void RegisterMatadataType(Type metadataType, Type targetType)
     {
         _metadataTypeCache.AddOrUpdate(targetType, metadataType, (to, tn) => tn);
