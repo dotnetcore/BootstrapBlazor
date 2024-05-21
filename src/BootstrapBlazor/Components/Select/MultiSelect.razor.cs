@@ -14,7 +14,8 @@ public partial class MultiSelect<TValue>
 {
     private List<SelectedItem> SelectedItems { get; } = [];
 
-    private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
+    private string? ClassString => CssBuilder.Default("select dropdown multi-select")
+        .AddClass(base.CustomClass)
         .Build();
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
