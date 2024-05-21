@@ -20,7 +20,7 @@ class DefaultPanel {
 }
 
 
-export async function init(id) {
+export async function init(id, config) {
     await addLink("./_content/BootstrapBlazor.DockView2/css/dockview.css")
 
     let ele = document.getElementById(id);

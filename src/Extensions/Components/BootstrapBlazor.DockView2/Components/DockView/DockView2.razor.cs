@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,16 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class DockView2
     {
+        private List<DockContent2>? Content { get; set; } = new();
+
+        /// <summary>
+        /// 
+        /// </summary>
+#if NET6_0_OR_GREATER
+        [EditorRequired]
+#endif
+        [Parameter]
+        public RenderFragment? ChildContent { get; set; }
 
         /// <summary>
         /// 
@@ -21,10 +32,9 @@ namespace BootstrapBlazor.Components
         {
             await base.OnAfterRenderAsync(firstRender);
 
-
             if (firstRender)
             {
-                await InvokeVoidAsync("init", Id);
+                await InvokeVoidAsync("init", Id, Content);
             }
         }
     }
