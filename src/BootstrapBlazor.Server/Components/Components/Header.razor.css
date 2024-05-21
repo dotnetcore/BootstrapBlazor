@@ -6,6 +6,10 @@
     font-size: var(--bb-header-font-size);
 }
 
+.nav-repo {
+    display: none;
+}
+
 .navbar-brand span {
     color: var(--bs-navbar-color);
 }
@@ -44,6 +48,7 @@
     border-right: 1px solid #dddddd40;
     padding-right: 0.5rem;
     white-space: nowrap;
+    display: none;
 }
 
 ::deep .bb-theme-mode .dropdown-toggle {
@@ -68,5 +73,17 @@
 
     .modal-open .navbar-header {
         z-index: 1040;
+    }
+}
+
+@media (min-width: 1140px) {
+    .nav-repo {
+        display: flex;
+    }
+}
+
+@media (min-width: 1240px) {
+    .navbar-version {
+        display: block;
     }
 }

@@ -1,4 +1,4 @@
-﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, setTheme, saveTheme } from "../../modules/utility.js"
+﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, switchTheme } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
@@ -19,8 +19,7 @@ export function init(id) {
                 if (theme === 'auto') {
                     theme = getAutoThemeValue();
                 }
-                setTheme(theme, false);
-                saveTheme(theme);
+                switchTheme(theme, window.innerWidth, 0);
             });
         });
     }

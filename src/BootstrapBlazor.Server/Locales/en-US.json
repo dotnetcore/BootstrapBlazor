@@ -485,7 +485,10 @@
     "MessagesItem": "MessageOption property",
     "MessagesTemplateTitle": "Custom template",
     "MessagesTemplateIntro": "By setting the <code>ChildContent</code> template, rich custom styles and content prompt information can be achieved",
-    "MessagesTemplatePrompt": "Custom message"
+    "MessagesTemplatePrompt": "Custom message",
+    "MessagesShowModeTitle": "Show mode",
+    "MessagesShowModeIntro": "Specify the display mode by setting the <code>ShowMode</code> parameter",
+    "MessagesShowModePrompt": "Show only last message"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",
@@ -552,6 +555,10 @@
     "LineOnInitRemoveDataset": "Remove dataset",
     "LineOnInitAddingData": "Adding data",
     "LineOnInitRemoveData": "Remove data",
+    "LineOnInitContinueData": "Continue data",
+    "LineAnimation": "Animation",
+    "LineContinueTitle": "Plot",
+    "LineContinueIntro": "Call the instance method <code>Reload</code>, readjust the data to shift the curve to the left, set <code>IsAnimation</code> to turn off the animation effect",
     "LineTensionTitle": "Line graph",
     "LineTensionIntro": "Use the <code>Tension</code> parameter of the <code>ChartDataset</code> instance to adjust the curvature of the polyline, the default is <b>0.4f</b>",
     "LineNullableTitle": "Line graph",
@@ -2867,6 +2874,9 @@
     "MultiSelectsDescription": "When you have multiple options, use the drop-down menu to present and provide a search for multiple choices",
     "MultiSelectColorTitle": "Color",
     "MultiSelectColorIntro": "Multi-select drop-down boxes in a variety of colors are available",
+    "MultiSelectIsSingleLineTitle": "Single line display",
+    "MultiSelectIsSingleLineIntro": "Make the component always render in one line by setting <code>IsSingleLine=\"true\"</code>",
+    "MultiSelectIsSingleLineDescription": "When there are too many candidates, the component is laid out horizontally, and a horizontal scroll bar is displayed when the mouse is hovering over the component for data scrolling.",
     "MultiSelectBindingStringTitle": "A two-way binding value string",
     "MultiSelectBindingStringIntro": "Bind a comma string-splitting string",
     "MultiSelectBindingStringDescription": "<div>The <code>mutltiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
@@ -2920,6 +2930,7 @@
     "MultiSelectsAttribute_Class": "Style",
     "MultiSelectsAttribute_Color": "Color",
     "MultiSelectsAttribute_IsDisabled": "Whether to disable it",
+    "MultiSelectsAttribute_IsSingleLine": "Whether to display in a single line",
     "MultiSelectsAttribute_Items": "The data collection",
     "MultiSelectsAttribute_ButtonTemplate": "Extend the button template",
     "MultiSelectsAttribute_ItemTemplate": "The template of selected item",
@@ -3821,6 +3832,8 @@
     "TodayTitle": "Show today button",
     "TodayIntro": "When the <code>ShowToday</code> attribute value is set to <code>true</code>, the today shortcut button is displayed below the component",
     "TodayTip": "Click <code>Today</code> Button，time limit <code>yyyy-MM-dd 00:00:00 to yyyy-MM-dd 23:59:59</code>",
+    "SingleViewTitle": "Single view mode",
+    "SingleViewTip": "Allow independent selection of start and end times by setting <code>RenderMode=\"Single\"</code>",
     "ValidateFormTitle": "Used in the form",
     "ValidateFormIntro": "Build components into <code>ValidateForm</code> used in",
     "AutoCloseTitle": "AutoClose",
@@ -4391,7 +4404,9 @@
     "Label": "Language："
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
-    "Search": "Search components"
+    "SearchPlaceHolder": "search",
+    "SearchStatus": "Powered by BootstrapBlazor",
+    "SearchResultPlaceHolder": "Type something to search"
   },
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
@@ -5043,7 +5058,7 @@
     "TablesEditOnAddAsyncTips5": "Make the extension buttons appear in front of the row by setting <code>IsExtendButtonsInRowHeader=true</code>",
     "TablesEditOnAddAsyncTips6": "Make the edit popup draggable by setting <code>EditDialogDraggable='true'</code>",
     "TablesColumnEditTemplateTitle": "Custom column editing template",
-    "TablesColumnEditTemplateIntro": "When the <code>EditTemplate</code> of the column is set, the component automatically generates the form maintenance UI using this template as the rendered UI",
+    "TablesColumnEditTemplateIntro": "When the <code>EditTemplate</code> of the column is set, the component automatically generates the form maintenance UI using this template as the rendered UI; <code>Hobby</code> is listed as a custom component <code>DemoHobbyTemplate</code> and is rendered using a multi-select box component",
     "TablesColumnEditTemplateDescription1": "Use the drop-down box to select the name when custom editing by setting the <code>EditTemplate</code> of the name column",
     "TablesColumnEditTemplateTips": "In this example, <code>Name</code> is listed as a custom component <code>TableNameDrop</code>, which defaults to <code>please select ...</code> when creating a new one",
     "TablesEditModeTitle": "set edit mode",
@@ -5408,8 +5423,11 @@
     "CustomColSearchP": "By setting the <code>SearchTemplate</code> of the name column to customize the edit, use the drop-down box to select the name",
     "CustomColSearchP1": "Because it is a search condition, in this example, the drop-down box of the name search column is added. Please select... item",
     "CustomColSearchP2": "The column search template is generated in the search order <code>SearchTemplate</code> -> <code>AutoGenerate</code> first to find out whether the search template is set, and then automatically generated according to the bound field type",
-    "CustomColSearchP3": "Set the search bar to show only <b>Advanced Search</b> by setting <code>ShowSearch=\"true\"</code> <code>ShowSearchText=\"false\"</code>",
-    "CustomColSearchP4": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
+    "CustomColSearchP3": "Control whether to display the entire search bar by setting <code>ShowSearch</code>",
+    "CustomColSearchP4": "Control whether to display the fuzzy search bar by setting <code>ShowSearchText</code>",
+    "CustomColSearchP5": "Control whether to display the reset search button by setting <code>ShowResetButton</code>",
+    "CustomColSearchP6": "Control whether to display the advanced search button by setting <code>ShowAdvancedSearch</code>",
+    "CustomColSearchP7": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
     "CustomerSearchModelTitle": "Custom Search Model",
     "CustomerSearchModelIntro": "Set <code>CustomerSearchModel</code> and <code>CustomerSearchTemplate</code> to fully control the search criteria UI",
     "CustomerSearchModelP": "Due to a certain application scenario, our form entity class <code>TItem</code> is not ideal as a search model, for example, we have an attribute that is <code>int</code> or <code> enum</code>, we need a blank condition item of <b>all</b> or <b>please select...</b> as a search condition. It is very difficult to use the default model at this time , you can use the custom search model <code>CustomerSearchModel</code> and <code>CustomerSearchTemplate</code> to customize the control search interface",

@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.MeiliSearch.Options;
 using Microsoft.Extensions.Options;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Components;
 
@@ -11,47 +13,18 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class GlobalSearch
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<GlobalSearch>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
-    [Inject]
-    [NotNull]
-    private MenuService? MenuService { get; set; }
-
-    [NotNull]
-    private List<string>? ComponentItems { get; set; }
-
-    private IEnumerable<MenuItem> Menus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
+    [Inject, NotNull]
+    private IOptionsMonitor<MeiliSearchOptions>? Options { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
     {
-        ComponentItems = Menus.Select(i => i.Text!).ToList();
-    }
-
-    private Task OnSearch(string searchText)
-    {
-        if (!string.IsNullOrEmpty(searchText))
-        {
-            var item = Menus.FirstOrDefault(i => i.Text?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
-            if (item != null && !string.IsNullOrEmpty(item.Url))
-            {
-                NavigationManager.NavigateTo(item.Url, true);
-            }
-        }
-        return Task.CompletedTask;
-    }
-
-    private Task OnSelectedItemChanged(string searchText) => OnSearch(searchText);
+        Options.CurrentValue?.Url,
+        Options.CurrentValue?.ApiKey,
+        Index = $"{Options.CurrentValue?.Index}-{CultureInfo.CurrentUICulture.Name}",
+        SearchStatus = Localizer["SearchStatus"].Value
+    });
 }

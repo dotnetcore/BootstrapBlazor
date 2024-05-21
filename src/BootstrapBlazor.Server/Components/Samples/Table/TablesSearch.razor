@@ -1,8 +1,9 @@
 ﻿@page "/table/search"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesSearch> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<h3>@Localizer["TablesSearchTitle"]</h3>
+<h3>@Localizer["TablesSearchTitle"] - @NavMenuLocalizer["TableSearch"]</h3>
 
 <h4>@((MarkupString)Localizer["TablesSearchDesc"].Value)</h4>
 
@@ -105,6 +106,9 @@
         <p>@((MarkupString)Localizer["CustomColSearchP2"].Value)</p>
         <p>@((MarkupString)Localizer["CustomColSearchP3"].Value)</p>
         <p>@((MarkupString)Localizer["CustomColSearchP4"].Value)</p>
+        <p>@((MarkupString)Localizer["CustomColSearchP5"].Value)</p>
+        <p>@((MarkupString)Localizer["CustomColSearchP6"].Value)</p>
+        <p>@((MarkupString)Localizer["CustomColSearchP7"].Value)</p>
     </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"

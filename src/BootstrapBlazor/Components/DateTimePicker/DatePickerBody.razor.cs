@@ -69,7 +69,7 @@ public partial class DatePickerBody
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
 
-    private string? WrapperClassString => CssBuilder.Default("picker-pannel-body-main-wrapper")
+    private string? WrapperClassString => CssBuilder.Default("picker-panel-body-main-wrapper")
         .AddClass("is-open", ShowTimePicker)
         .Build();
 

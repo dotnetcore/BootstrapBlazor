@@ -1,8 +1,9 @@
 ﻿@page "/table/dynamic"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesDynamic> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesDynamicTitle"]</h3>
+<h3>@Localizer["TablesDynamicTitle"] - @NavMenuLocalizer["TableDynamic"]</h3>
 
 <h4>@Localizer["TablesDynamicDescription"]</h4>
 

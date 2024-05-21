@@ -42,7 +42,7 @@ public partial class DateTimeRange
     {
         set
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var startDateValue);
             if (ret)
             {
@@ -53,7 +53,7 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.Start != DateTime.MinValue ? Value.Start.ToString(format) : null;
         }
     }
@@ -64,7 +64,7 @@ public partial class DateTimeRange
     {
         set
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var endDateValue);
             if (ret)
             {
@@ -75,7 +75,7 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.End != DateTime.MinValue ? Value.End.ToString(format) : null;
         }
     }
@@ -102,12 +102,6 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -125,6 +119,12 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
+
+    /// <summary>
+    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// </summary>
+    [Parameter]
+    public DateTimeRangeRenderMode RenderMode { get; set; } = DateTimeRangeRenderMode.Double;
 
     /// <summary>
     /// 获得/设置 今天按钮文字
@@ -270,6 +270,8 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
+    private bool _showRightButtons = false;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -294,6 +296,8 @@ public partial class DateTimeRange
                 }
             }
         }
+
+        _showRightButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>
@@ -367,6 +371,8 @@ public partial class DateTimeRange
     private async Task ClickClearButton()
     {
         Value = new DateTimeRangeValue();
+        SelectedValue.NullStart = null;
+        SelectedValue.NullEnd = null;
 
         if (OnClearValue != null)
         {
@@ -497,6 +503,4 @@ public partial class DateTimeRange
     public override bool IsComplexValue(object? propertyValue) => false;
 
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-
-    private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
 }

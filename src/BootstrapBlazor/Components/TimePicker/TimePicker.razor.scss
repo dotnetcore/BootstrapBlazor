@@ -1,9 +1,44 @@
 .bb-time-picker {
-    color: #606266;
-    border: 1px solid #ced4da;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-    background: #fff;
+    --bb-time-picker-width: 180px;
+    --bb-time-picker-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    --bb-time-picker-footer-padding: 4px;
+    --bb-time-picker-footer-btn-font-size: 0.75rem;
+    --bb-time-picker-footer-btn-padding: 4px 12px;
+    --bb-time-picker-footer-btn-transition: border-color .3s linear, color .3s linear;
+    background-color: var(--bs-body-bg);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    box-shadow: var(--bb-time-picker-shadow);
     border-radius: var(--bs-border-radius);
-    display: inline-block;
-    padding: 1rem;
+    width: var(--bb-time-picker-width);
+    user-select: none;
+
+    .time-picker-body {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-around;
+    }
+
+    .time-picker-footer {
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        padding: var(--bb-time-picker-footer-padding);
+        text-align: right;
+
+        .time-panel-btn {
+            padding: var(--bb-time-picker-footer-btn-padding);
+            font-size: var(--bb-time-picker-footer-btn-font-size);
+            border-radius: var(--bs-border-radius);
+            border: var(--bs-border-width) solid var(--bs-border-color);
+            color: var(--bs-body-color);
+            transition: var(--bb-time-picker-footer-btn-transition);
+
+            &:hover {
+                border-color: var(--bb-primary-color);
+                color: var(--bb-primary-color);
+            }
+
+            &:last-child {
+                margin-left: .25rem;
+            }
+        }
+    }
 }

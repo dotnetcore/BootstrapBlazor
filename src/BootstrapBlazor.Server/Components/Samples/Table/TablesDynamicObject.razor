@@ -1,7 +1,8 @@
 ﻿@page "/table/dynamic-object"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesDynamicObject> Localizer
 
-<h3>@Localizer["TablesDynamicObjectTitle"]</h3>
+<h3>@Localizer["TablesDynamicObjectTitle"] - @NavMenuLocalizer["TableDynamicObject"]</h3>
 <h4>@((MarkupString)Localizer["TablesDynamicObjectDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["TablesDynamicObjectMetaObjectProviderTitle"]"

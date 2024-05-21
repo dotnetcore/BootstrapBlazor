@@ -1,9 +1,11 @@
 ﻿@page "/table/detail"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
+@inject IStringLocalizer<Tables> BaseLocalizer
 @inject IStringLocalizer<TablesDetailRow> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject MockDataTableDynamicService DataTableDynamicService
 
-<h3>@Localizer["TablesDetailRowTitle"]</h3>
+<h3>@BaseLocalizer["TableBaseTitle"] - @NavMenuLocalizer["TableDetail"]</h3>
 
 <h4>@Localizer["TablesDetailRowDesc"]</h4>
 

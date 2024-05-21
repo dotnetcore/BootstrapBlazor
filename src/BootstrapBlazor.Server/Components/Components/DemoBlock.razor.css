@@ -102,7 +102,7 @@
 
 @media (min-width: 768px) {
     ::deep .chart {
-        max-width: 740px;
+        max-width: 840px;
     }
 
         ::deep .chart .btn i + span {

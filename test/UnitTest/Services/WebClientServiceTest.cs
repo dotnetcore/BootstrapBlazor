@@ -48,6 +48,17 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task WebClientOptions_Ok()
+    {
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.WebClientOptions.EnableIpLocator = true;
+
+        var service = Context.Services.GetRequiredService<WebClientService>();
+        var client = await service.GetClientInfo();
+        Assert.Null(client.Ip);
+    }
+
+    [Fact]
     public async Task Timeout_Ok()
     {
         var service = Context.Services.GetRequiredService<WebClientService>();

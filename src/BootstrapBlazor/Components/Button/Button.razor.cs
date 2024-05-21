@@ -82,7 +82,7 @@ public partial class Button : ButtonBase
             if (IsAsync && ButtonType == ButtonType.Button)
             {
                 ButtonIcon = Icon;
-                IsDisabled = false;
+                IsDisabled = IsKeepDisabled;
                 IsAsyncLoading = false;
             }
         });

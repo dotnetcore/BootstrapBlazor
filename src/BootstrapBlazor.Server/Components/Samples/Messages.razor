@@ -19,34 +19,24 @@ private MessageService? MessageService { get; set; }
     Content = "@Localizer["MessagesTips3"]"
 });</Pre>
 
-<DemoBlock Title="@Localizer["MessagesNormalTitle"]"
-           Introduction="@Localizer["MessagesNormalIntro"]"
-           Name="Normal">
+<DemoBlock Title="@Localizer["MessagesNormalTitle"]" Introduction="@Localizer["MessagesNormalIntro"]" Name="Normal">
     <button class="btn btn-primary" @onclick="@ShowMessage">@Localizer["MessagesMessagePrompt"]</button>
     <Message @ref="Message" Placement="Placement.Bottom" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesIconTitle"]"
-           Introduction="@Localizer["MessagesIconIntro"]"
-           Name="Icon">
+<DemoBlock Title="@Localizer["MessagesIconTitle"]" Introduction="@Localizer["MessagesIconIntro"]" Name="Icon">
     <button class="btn btn-primary" @onclick="@ShowIconMessage">@Localizer["MessagesMessagePrompt"]</button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesCloseButtonTitle"]"
-           Introduction="@Localizer["MessagesCloseButtonIntro"]"
-           Name="CloseButton">
+<DemoBlock Title="@Localizer["MessagesCloseButtonTitle"]" Introduction="@Localizer["MessagesCloseButtonIntro"]" Name="CloseButton">
     <button class="btn btn-primary" @onclick="@ShowCloseMessage">@Localizer["MessagesMessagePrompt"]</button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesLeftBoardTitle"]"
-           Introduction="@Localizer["MessagesLeftBoardIntro"]"
-           Name="LeftBoard">
+<DemoBlock Title="@Localizer["MessagesLeftBoardTitle"]" Introduction="@Localizer["MessagesLeftBoardIntro"]" Name="LeftBoard">
     <button class="btn btn-primary" @onclick="@ShowBarMessage">@Localizer["MessagesMessagePrompt"]</button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesDifferentColorTitle"]"
-           Introduction="@Localizer["MessagesDifferentColorIntro"]"
-           Name="DifferentColor">
+<DemoBlock Title="@Localizer["MessagesDifferentColorTitle"]" Introduction="@Localizer["MessagesDifferentColorIntro"]" Name="DifferentColor">
     <div class="row g-3">
         <div class="col-6 col-sm-auto">
             <button class="btn btn-primary" @onclick="@(e => ShowColorMessage(Color.Primary))">@Localizer["MessagesDifferentColorPrimary"]</button>
@@ -69,18 +59,18 @@ private MessageService? MessageService { get; set; }
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesPositionTitle"]"
-           Introduction="@Localizer["MessagesPositionIntro"]"
-           Name="Position">
+<DemoBlock Title="@Localizer["MessagesPositionTitle"]" Introduction="@Localizer["MessagesPositionIntro"]" Name="Position">
     <button class="btn btn-primary" @onclick="@ShowBottomMessage">@Localizer["MessagesMessagePrompt"]</button>
     <Message @ref="Message1" Placement="Placement.Bottom" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MessagesTemplateTitle"]"
-           Introduction="@Localizer["MessagesTemplateIntro"]"
-           Name="Template">
+<DemoBlock Title="@Localizer["MessagesTemplateTitle"]" Introduction="@Localizer["MessagesTemplateIntro"]" Name="Template">
     <button class="btn btn-primary" @onclick="@ShowTemplateMessage">@Localizer["MessagesTemplatePrompt"]</button>
     <Message @ref="Message1" Placement="Placement.Bottom" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MessagesShowModeTitle"]" Introduction="@Localizer["MessagesShowModeIntro"]" Name="ShowMode">
+    <button class="btn btn-primary" @onclick="@ShowLastOnlyMessage">@Localizer["MessagesShowModePrompt"]</button>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

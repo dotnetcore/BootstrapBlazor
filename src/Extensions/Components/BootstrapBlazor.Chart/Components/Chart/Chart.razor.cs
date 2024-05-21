@@ -96,6 +96,12 @@ public partial class Chart
     public ChartAction ChartAction { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否开启动画 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IsAnimation { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
@@ -155,11 +161,6 @@ public partial class Chart
 
             var ds = await OnInitAsync();
             UpdateOptions(ds);
-            ds.Options.Title = ds.Options.Title ?? Title;
-            ds.Options.Responsive = ds.Options.Responsive ?? Responsive;
-            ds.Options.MaintainAspectRatio = ds.Options.MaintainAspectRatio ?? MaintainAspectRatio;
-            ds.Options.AspectRatio = ds.Options.AspectRatio ?? AspectRatio;
-            ds.Options.ResizeDelay = ds.Options.ResizeDelay ?? ResizeDelay;
 
             if (Height != null && Width != null)
             {
@@ -222,7 +223,13 @@ public partial class Chart
     private void UpdateOptions(ChartDataSource ds)
     {
         ds.Options.OnClickDataMethod = OnClickDataAsync == null ? null : nameof(OnClickCallback);
-        ds.Type ??= ChartType.ToDescriptionString();
+        ds.Type = ChartType.ToDescriptionString();
+        ds.Options.Title ??= Title;
+        ds.Options.Responsive = Responsive;
+        ds.Options.MaintainAspectRatio = MaintainAspectRatio;
+        ds.Options.AspectRatio = AspectRatio;
+        ds.Options.ResizeDelay = ResizeDelay;
+        ds.Options.Animation = IsAnimation;
     }
 
     /// <summary>

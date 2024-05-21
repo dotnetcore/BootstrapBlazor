@@ -1,10 +1,11 @@
 ﻿@page "/table/edit"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesEdit> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject ToastService ToastService
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<h3>@Localizer["TablesEditTitle"]</h3>
+<h3>@Localizer["TablesEditTitle"] - @NavMenuLocalizer["TableEdit"]</h3>
 <h4>@((MarkupString)Localizer["TablesEditDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["TablesEditItemsTitle"]" Introduction="@Localizer["TablesEditItemsIntro"]" Name="EditItems">
@@ -26,7 +27,7 @@
 
 <DemoBlock Title="@Localizer["TablesVisibleTitle"]" Introduction="@Localizer["TablesVisibleIntro"]" Name="Visible">
     <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true"
-           ShowToolbar="true" ShowExtendButtons="true" ShowColumnList="true" >
+           ShowToolbar="true" ShowExtendButtons="true" ShowColumnList="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Visible="false" IsVisibleWhenAdd="false" IsVisibleWhenEdit="true" />
@@ -47,7 +48,7 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center"></TableColumn>
             <TableColumn @bind-Field="@context.Count" Align="Alignment.Right"></TableColumn>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies"></TableColumn>
+            <TableColumn @bind-Field="@context.Hobby"></TableColumn>
         </TableColumns>
         <EditTemplate>
             <!--本例中使用了联动功能，必须封装成组件-->
@@ -102,15 +103,21 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name">
-                <EditTemplate Context="value">
+                <EditTemplate Context="v">
                     <div class="col-12 col-sm-6">
-                        <TablesNameDrop Model="value" />
+                        <TablesNameDrop Model="v" />
                     </div>
                 </EditTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Hobby">
+                <EditTemplate Context="v">
+                    <DemoHobbyTemplate Model="v" />
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Education" />
         </TableColumns>
     </Table>
 </DemoBlock>

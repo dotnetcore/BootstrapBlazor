@@ -23,6 +23,22 @@
             --bb-multi-select-max-height: var(--bb-multi-select-min-height);
         }
 
+        &.is-single-line {
+            height: var(--bb-multi-select-min-height);
+            overflow-y: hidden;
+            overflow-x: hidden;
+
+            &:hover {
+                overflow-x: auto;
+            }
+
+            .multi-select-items {
+                display: flex;
+                flex-wrap: nowrap;
+                width: fit-content;
+            }
+        }
+
         &:not(.disabled):hover {
             border: 1px solid var(--bb-border-hover-color);
         }

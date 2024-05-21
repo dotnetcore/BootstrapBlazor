@@ -27,6 +27,7 @@
     --bb-header-dropdown-border-color: rgba(255,255,255,.5);
     --bb-header-dropdown-border-hover-color: rgba(255,255,255,.8);
     --bb-header-dropdown-color: #fff;
+    --bb-header-dropdown-color-rgb: 255, 255, 255;
     --bb-header-font-size: 1rem;
     --bb-footer-body-bg: #404850;
     --bb-footer-body-color: #fff;
@@ -34,6 +35,9 @@
     --bb-main-pading: 1rem;
     --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
+    --bb-global-search-placeholder-color: #a88dbc;
+    --bb-global-search-item-bg: #6522cc;
+    --bb-code-bg: #e9ecef;
 }
 
 .navbar {
@@ -208,7 +212,7 @@ code {
     padding: 0 8px;
     margin: 0;
     border-radius: var(--bs-border-radius);
-    background-color: #e9ecef;
+    background-color: var(--bb-code-bg);
 }
 
 [data-bs-theme='dark'] code {
@@ -262,20 +266,16 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
-.icon-theme img {
-    cursor: pointer;
-}
-
-.icon-theme .icon-light {
+.icon-theme .icon-dark {
     display: none;
 }
 
 [data-bs-theme='dark'] .icon-dark {
-    display: none;
+    display: block;
 }
 
 [data-bs-theme='dark'] .icon-light {
-    display: block;
+    display: none;
 }
 
 .layout-demo {

@@ -10,6 +10,7 @@
     .culture-selector span {
         margin: 0;
         color: var(--bs-navbar-color);
+        display: none;
     }
 
     .culture-selector ::deep .select {
@@ -27,4 +28,10 @@
 
 ::deep .form-select {
     color: var(--bb-select-color);
+}
+
+@media (min-width: 768px) {
+    .culture-selector span {
+        display: block;
+    }
 }

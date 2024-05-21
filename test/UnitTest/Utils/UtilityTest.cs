@@ -705,7 +705,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetTableColumnsWithMetadata_Ok()
     {
         TableMetadataTypeService.RegisterMetadataTypes(typeof(Pig).Assembly);
-        TableMetadataTypeService.RegisterMatadataType(typeof(PigMetadata), typeof(Pig));
+        TableMetadataTypeService.RegisterMetadataType(typeof(PigMetadata), typeof(Pig));
         var cols = Utility.GetTableColumns<Pig>().ToList();
         Assert.Single(cols);
     }

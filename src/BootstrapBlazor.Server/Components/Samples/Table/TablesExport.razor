@@ -1,9 +1,10 @@
 ﻿@page "/table/export"
+@inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesExport> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 @inject ToastService ToastService
 
-<h3>@Localizer["TablesExportTitle"]</h3>
+<h3>@Localizer["TablesExportTitle"] - @NavMenuLocalizer["TableExport"]</h3>
 <h4>@((MarkupString)Localizer["TablesExportDescription1"].Value)</h4>
 
 <p>@((MarkupString)@Localizer["TablesExportDescription2"].Value)</p>
