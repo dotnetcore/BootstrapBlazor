@@ -80,6 +80,7 @@ public partial class TablesEdit
                 oldItem.Count = item.Count;
                 oldItem.Complete = item.Complete;
                 oldItem.Education = item.Education;
+                oldItem.Hobby = item.Hobby;
             }
         }
         return Task.FromResult(true);
