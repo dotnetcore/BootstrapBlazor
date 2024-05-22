@@ -229,6 +229,7 @@
             <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
         </TableColumns>
         <EditTemplate>
+            <!--本处代码未使用联动功能，所以无须封装成组件，如果增加 Hobby 字段使用 MultiSelect 组件必须封装成组件如上例-->
             <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
                     <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
