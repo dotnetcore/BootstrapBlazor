@@ -227,12 +227,14 @@ const setResizeListener = table => {
                 const rows = [...body.children].filter(i => i.nodeName === 'TR')
                 rows.forEach(row => {
                     if (!row.classList.contains('is-detail')) {
-                        const td = row.children.item(index)
-                        if (toggle) td.classList.add('border-resize')
-                        else {
-                            td.classList.remove('border-resize')
-                            if (td.classList.length === 0) {
-                                td.removeAttribute('class')
+                        const td = row.children.item(index);
+                        if (td) {
+                            if (toggle) td.classList.add('border-resize')
+                            else {
+                                td.classList.remove('border-resize')
+                                if (td.classList.length === 0) {
+                                    td.removeAttribute('class')
+                                }
                             }
                         }
                     }
