@@ -2918,6 +2918,8 @@
     "MultiSelectCascadingDescription": "In this example, clicking on the first drop-down box allows you to get the data source for the second multi-box by asynchronous means, and after assigning, call <code>StateHasChanged</code> to re-render the <b>multi-box </b>",
     "MultiSelectItemTemplateTitle": "Item Template",
     "MultiSelectItemTemplateIntro": "customer item template by set <code>ItemTemplate</code>",
+    "MultiSelectDisplayTemplateTitle": "Display Template",
+    "MultiSelectDisplayTemplateIntro": "customize display template by set <code>DisplayTemplate</code>",
     "MultiSelectPopoverTitle": "Popover dropdown menu",
     "MultiSelectPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "MultiSelectsAttribute_ShowLabel": "Whether to display the front label",
