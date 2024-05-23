@@ -79,6 +79,12 @@ public partial class MultiSelect<TValue>
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 显示部分模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? DisplayTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
