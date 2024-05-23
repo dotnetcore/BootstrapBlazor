@@ -145,7 +145,7 @@ public partial class RibbonTab
         RibbonArrowDownIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowDownIcon);
         RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
 
-        Items ??= Enumerable.Empty<RibbonTabItem>();
+        Items ??= [];
 
         if (IsSupportAnchor)
         {
