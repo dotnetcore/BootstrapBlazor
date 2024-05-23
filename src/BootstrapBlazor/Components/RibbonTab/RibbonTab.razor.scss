@@ -82,15 +82,28 @@
                 height: var(--bb-ribbon-menu-body-height);
                 transition: height .3s ease-in-out;
 
-                .link-group {
+                .tab-commands {
                     display: flex;
-                    flex-direction: column;
-                    align-items: center;
+                    flex-wrap: nowrap;
+                    font-size: var(--bb-ribbon-button-fontsize);
+                    overflow: hidden;
+                    padding: var(--bb-ribbon-menu-body-padding);
+                    height: 100%;
 
-                    .link-group-name {
-                        margin-top: var(--bb-ribbon-group-margin-top);
-                        color: var(--bb-ribbon-group-color);
-                        font-size: var(--bb-ribbon-group-fontsize)
+                    .link-group {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+
+                        .link-group-name {
+                            margin-top: var(--bb-ribbon-group-margin-top);
+                            color: var(--bb-ribbon-group-color);
+                            font-size: var(--bb-ribbon-group-fontsize)
+                        }
+                    }
+
+                    .divider-vertical {
+                        margin: 0 4px;
                     }
                 }
             }
@@ -114,19 +127,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.ribbon-tab .tab-commands {
-    display: flex;
-    flex-wrap: nowrap;
-    font-size: var(--bb-ribbon-button-fontsize);
-    overflow: hidden;
-    padding: var(--bb-ribbon-menu-body-padding);
-    height: 100%;
-}
-
-.ribbon-tab .divider-vertical {
-    margin: 0 4px;
 }
 
 .ribbon-tab .ribbon-buttons {
