@@ -17,9 +17,9 @@
             }
             else
             {
-                @foreach (var item in SelectedItems)
+                foreach (var item in SelectedItems)
                 {
-                    @if (ShowCloseButton)
+                    if (ShowCloseButton)
                     {
                         <div class="multi-select-item-group">
                             <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
