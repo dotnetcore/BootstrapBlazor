@@ -25,30 +25,65 @@
     --bb-ribbon-body-padding: #{$bb-ribbon-body-padding};
     --bb-ribbon-menu-header-height: calc(var(--bb-ribbon-menu-height) + var(--bb-ribbon-menu-margin-top) + var(--bb-ribbon-menu-body-height));
     position: relative;
+
+    .ribbon-header {
+        position: relative;
+
+        .tabs-header {
+            background-color: var(--bb-ribbon-menu-bg);
+            border-bottom: 1px solid var(--bs-border-color);
+        }
+
+        .tabs-border-card {
+            border-radius: unset;
+            border: none;
+            box-shadow: none;
+        }
+
+        .tabs-body {
+
+            .link-button {
+                font-size: var(--bb-ribbon-button-fontsize);
+                padding: var(--bb-ribbon-button-padding);
+                border-radius: var(--bb-ribbon-button-radius);
+                border: var(--bb-ribbon-button-border-width) solid var(--bb-ribbon-button-border-color);
+                min-width: var(--bb-ribbon-button-min-width);
+                transition: background-color .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
+            }
+
+            .link-button.active {
+                background-color: var(--bb-ribbon-button-active-bg);
+                border-color: var(--bb-ribbon-button-active-border-color);
+            }
+
+            .link-button:not(:last-child) {
+                margin-right: 1px;
+            }
+
+            .link-button:not([disabled]):hover {
+                background-color: var(--bb-ribbon-button-hover-bg);
+                border-color: var(--bb-ribbon-button-hover-border-color);
+            }
+
+            .link-button > i {
+                font-size: 1rem;
+                margin-bottom: .25rem;
+            }
+
+            .link-button > span {
+                white-space: nowrap;
+            }
+        }
+    }
 }
 
 .ribbon-tab.is-float:not(.is-expand) {
     --bb-ribbon-menu-body-height: 0px;
 }
 
-.ribbon-tab .ribbon-header {
-    position: relative;
-}
-
-.ribbon-tab .ribbon-header .tabs-header {
-    background-color: var(--bb-ribbon-menu-bg);
-    border-bottom: 1px solid var(--bs-border-color);
-}
-
 .ribbon-tab .ribbon-header .tabs-border-card.tabs-top .tabs-header {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}
-
-.ribbon-tab .ribbon-header .tabs-border-card {
-    border-radius: unset;
-    border: none;
-    box-shadow: none;
 }
 
 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item {
@@ -121,38 +156,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.ribbon-tab .link-button {
-    font-size: var(--bb-ribbon-button-fontsize);
-    padding: var(--bb-ribbon-button-padding);
-    border-radius: var(--bb-ribbon-button-radius);
-    border: var(--bb-ribbon-button-border-width) solid var(--bb-ribbon-button-border-color);
-    min-width: var(--bb-ribbon-button-min-width);
-    transition: background-color .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out;
-}
-
-.ribbon-tab .link-button.active {
-    background-color: var(--bb-ribbon-button-active-bg);
-    border-color: var(--bb-ribbon-button-active-border-color);
-}
-
-.ribbon-tab .link-button:not(:last-child) {
-    margin-right: 1px;
-}
-
-.ribbon-tab .link-button:not([disabled]):hover {
-    background-color: var(--bb-ribbon-button-hover-bg);
-    border-color: var(--bb-ribbon-button-hover-border-color);
-}
-
-.ribbon-tab .link-button > i {
-    font-size: 1rem;
-    margin-bottom: .25rem;
-}
-
-.ribbon-tab .link-button > span {
-    white-space: nowrap;
 }
 
 .ribbon-tab .link-group-name {
