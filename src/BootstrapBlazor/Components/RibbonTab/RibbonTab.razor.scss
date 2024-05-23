@@ -76,6 +76,12 @@
                     white-space: nowrap;
                 }
             }
+
+            .tabs-body-content {
+                overflow: hidden;
+                height: var(--bb-ribbon-menu-body-height);
+                transition: height .3s ease-in-out;
+            }
         }
     }
 
@@ -84,12 +90,6 @@
         padding: var(--bb-ribbon-body-padding);
         position: relative;
     }
-}
-
-.ribbon-tab .tabs-body-content {
-    overflow: hidden;
-    height: var(--bb-ribbon-menu-body-height);
-    transition: height .3s ease-in-out;
 }
 
 .ribbon-tab.is-float:not(.is-expand) .tabs-body-content {
