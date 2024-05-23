@@ -81,6 +81,18 @@
                 overflow: hidden;
                 height: var(--bb-ribbon-menu-body-height);
                 transition: height .3s ease-in-out;
+
+                .link-group {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .link-group-name {
+                        margin-top: var(--bb-ribbon-group-margin-top);
+                        color: var(--bb-ribbon-group-color);
+                        font-size: var(--bb-ribbon-group-fontsize)
+                    }
+                }
             }
         }
     }
@@ -111,18 +123,6 @@
     overflow: hidden;
     padding: var(--bb-ribbon-menu-body-padding);
     height: 100%;
-}
-
-.ribbon-tab .link-group {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.ribbon-tab .link-group-name {
-    margin-top: var(--bb-ribbon-group-margin-top);
-    color: var(--bb-ribbon-group-color);
-    font-size: var(--bb-ribbon-group-fontsize)
 }
 
 .ribbon-tab .divider-vertical {
