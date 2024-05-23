@@ -352,7 +352,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, "1");
             pb.Add(a => a.DisplayTemplate, v => builder =>
             {
-                builder.AddContent(0, new MarkupString($"<h1>{string.Join("", v)}</h1>"));
+                builder.AddContent(0, new MarkupString($"<h1>{string.Join("", v.Select(i => i.Value))}</h1>"));
             });
         });
         cut.Contains("<h1>1</h1>");
