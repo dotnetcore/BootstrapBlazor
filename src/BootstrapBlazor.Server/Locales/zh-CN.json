@@ -2918,6 +2918,8 @@
     "MultiSelectCascadingDescription": "本例中点击第一个下拉框，可以通过异步方法获取第二个多选框的数据源，进行赋值后，调用 <code>StateHasChanged</code> 进行对 <b>多选框</b> 重新渲染",
     "MultiSelectItemTemplateTitle": "选项模板",
     "MultiSelectItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 设置下拉框中选项模板，可以自定义样式",
+    "MultiSelectDisplayTemplateTitle": "显示模板",
+    "MultiSelectDisplayTemplateIntro": "通过设置 <code>DisplayTemplate</code> 模板自定义显示样式",
     "MultiSelectPopoverTitle": "悬浮弹窗",
     "MultiSelectPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "MultiSelectsAttribute_ShowLabel": "是否显示前置标签",
