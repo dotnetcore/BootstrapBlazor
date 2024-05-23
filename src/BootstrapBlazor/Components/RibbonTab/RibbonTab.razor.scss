@@ -28,6 +28,10 @@
 
     &.is-float:not(.is-expand) {
         --bb-ribbon-menu-body-height: 0px;
+
+        .tabs-body-content {
+            height: 0;
+        }
     }
 
     .ribbon-header {
@@ -145,10 +149,6 @@
         padding: var(--bb-ribbon-body-padding);
         position: relative;
     }
-}
-
-.ribbon-tab.is-float:not(.is-expand) .tabs-body-content {
-    height: 0;
 }
 
 .ribbon-tab .fa-thumb-tack {
