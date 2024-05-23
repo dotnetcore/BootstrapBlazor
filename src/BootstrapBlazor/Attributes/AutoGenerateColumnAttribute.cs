@@ -69,6 +69,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
 
+    /// <summary>
+    /// 自定义搜索方法
+    /// </summary>
+    public Func<ITableColumn, string, SearchFilterAction>? CustomSearch { get; set; }
+
     bool? ITableColumn.IsVisibleWhenEdit
     {
         get => IsVisibleWhenEdit;
@@ -201,7 +206,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public string? Text { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [NotNull]
     internal string? FieldName { get; set; }
@@ -253,7 +258,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public virtual string GetDisplayName() => Text ?? "";
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     public string GetFieldName() => FieldName;

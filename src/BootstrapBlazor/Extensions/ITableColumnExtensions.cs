@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public static class IEditItemExtensions
 {
@@ -116,6 +116,11 @@ public static class IEditItemExtensions
         {
             foreach (var col in columns)
             {
+                if (col.CustomSearch != null)
+                {
+                    searches.Add(col.CustomSearch(col));
+                    continue;
+                }
                 var type = Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType;
                 if (type == typeof(bool) && bool.TryParse(searchText, out var @bool))
                 {

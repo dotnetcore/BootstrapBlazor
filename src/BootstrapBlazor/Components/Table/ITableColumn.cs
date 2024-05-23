@@ -168,4 +168,9 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
     bool? IsVisibleWhenEdit { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义搜索逻辑
+    /// </summary>
+    Func<ITableColumn, string, SearchFilterAction>? CustomSearch { get; set; }
 }
