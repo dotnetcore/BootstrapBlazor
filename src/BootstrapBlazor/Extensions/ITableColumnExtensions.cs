@@ -101,6 +101,7 @@ public static class IEditItemExtensions
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
+        if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
     }
 
     /// <summary>
