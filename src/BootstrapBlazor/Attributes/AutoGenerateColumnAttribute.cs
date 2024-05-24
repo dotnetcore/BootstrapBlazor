@@ -172,7 +172,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Func<object?, Task<string?>>? TipsContentCallback { get; set; }
+    Func<object?, Task<string?>>? ITableColumn.GetTooltipTextCallback { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
