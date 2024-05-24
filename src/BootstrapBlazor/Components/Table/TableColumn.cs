@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-
 using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
@@ -236,10 +235,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool ShowTips { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段鼠标悬停提示自定义内容回调委托
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public Func<object?, Task<string?>>? TipsContentCallback { get; set; }
+    public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置
