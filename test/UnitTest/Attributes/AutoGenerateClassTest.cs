@@ -149,7 +149,7 @@ public class AutoGenerateClassTest
         attrInterface.IsReadonlyWhenEdit = true;
         Assert.True(attrInterface.IsReadonlyWhenEdit);
 
-        attrInterface.GetTooltipTextCallback = new Func<object, Task<string?>>(_ => Task.FromResult((string?)"Test"));
+        attrInterface.GetTooltipTextCallback = new Func<object?, Task<string?>>(_ => Task.FromResult((string?)"Test"));
         Assert.NotNull(attrInterface.GetTooltipTextCallback);
 
         var attrEditor = (IEditorItem)attr;
