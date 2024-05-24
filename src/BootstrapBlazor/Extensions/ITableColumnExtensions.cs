@@ -4,8 +4,6 @@
 
 using System.Globalization;
 
-using static System.Net.Mime.MediaTypeNames;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -230,14 +228,12 @@ public static class IEditItemExtensions
     {
         if (col.ShowTips)
         {
-            string? tipsContent = text;
-            if (col.TipsContentCallback is not null)
+            if (col.GetTooltipTextCallback != null)
             {
-                tipsContent = await col.TipsContentCallback.Invoke(item);
+                text = await col.GetTooltipTextCallback(item);
             }
-
             pb.OpenComponent<Tooltip>(0);
-            pb.AddAttribute(1, nameof(Tooltip.Title), tipsContent);
+            pb.AddAttribute(1, nameof(Tooltip.Title), text);
             pb.AddAttribute(2, "class", "text-truncate d-block");
             if (col.IsMarkupString)
             {
