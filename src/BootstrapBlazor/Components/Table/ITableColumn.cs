@@ -135,6 +135,11 @@ public interface ITableColumn : IEditorItem
     bool ShowTips { get; set; }
 
     /// <summary>
+    /// 获得/设置 字段鼠标悬停提示自定义内容回调委托
+    /// </summary>
+    Func<object?, Task<string?>>? TipsContentCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
