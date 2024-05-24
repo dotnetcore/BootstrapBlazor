@@ -107,7 +107,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool ShowTips { get; set; }
 
-    public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
+    public Func<object, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     public Type PropertyType { get; } = fieldType;
 

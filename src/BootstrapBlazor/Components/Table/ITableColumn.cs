@@ -137,7 +137,7 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// 获得/设置 鼠标悬停提示自定义内容回调委托 默认 null 使用当前值
     /// </summary>
-    Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
+    Func<object, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法
