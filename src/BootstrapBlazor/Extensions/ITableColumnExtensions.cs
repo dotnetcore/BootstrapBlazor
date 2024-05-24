@@ -101,6 +101,7 @@ public static class IEditItemExtensions
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
+        if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
     }
 
     /// <summary>
@@ -167,7 +168,7 @@ public static class IEditItemExtensions
             var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
             if (lookupVal != null)
             {
-                builder.AddContent(10, col.RenderTooltip(lookupVal.Text));
+                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
             }
         }
         else if (val is bool v1)
@@ -199,7 +200,8 @@ public static class IEditItemExtensions
             {
                 content = val?.ToString();
             }
-            builder.AddContent(30, col.RenderTooltip(content));
+
+            builder.AddContent(30, col.RenderTooltip(content, item));
         }
     };
 
@@ -223,10 +225,14 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => async pb =>
     {
         if (col.ShowTips)
         {
+            if (col.GetTooltipTextCallback != null)
+            {
+                text = await col.GetTooltipTextCallback(item);
+            }
             pb.OpenComponent<Tooltip>(0);
             pb.AddAttribute(1, nameof(Tooltip.Title), text);
             pb.AddAttribute(2, "class", "text-truncate d-block");

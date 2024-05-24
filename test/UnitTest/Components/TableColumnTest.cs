@@ -72,6 +72,7 @@ public class TableColumnTest
         SetValue("HeaderTextTooltip", "Test");
         SetValue("HeaderTextEllipsis", true);
         SetValue("IsMarkupString", true);
+        SetValue("GetTooltipTextCallback", new Func<object, Task<string?>>(_ => Task.FromResult((string?)"")));
 
         void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }

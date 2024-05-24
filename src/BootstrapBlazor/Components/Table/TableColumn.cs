@@ -235,6 +235,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool ShowTips { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public Func<object, Task<string?>>? GetTooltipTextCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置
     /// </summary>
     [Parameter]
