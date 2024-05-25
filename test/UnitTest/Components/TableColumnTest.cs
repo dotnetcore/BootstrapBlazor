@@ -72,6 +72,7 @@ public class TableColumnTest
         SetValue("HeaderTextTooltip", "Test");
         SetValue("HeaderTextEllipsis", true);
         SetValue("IsMarkupString", true);
+        SetValue("CustomSearch", new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test")));
 
         void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }
