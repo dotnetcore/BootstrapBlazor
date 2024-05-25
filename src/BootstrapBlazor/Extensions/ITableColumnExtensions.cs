@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// IEditItem 扩展方法
 /// </summary>
 public static class IEditItemExtensions
 {
@@ -118,7 +118,7 @@ public static class IEditItemExtensions
             {
                 if (col.CustomSearch != null)
                 {
-                    searches.Add(col.CustomSearch(col));
+                    searches.Add(col.CustomSearch(col, searchText));
                     continue;
                 }
                 var type = Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType;

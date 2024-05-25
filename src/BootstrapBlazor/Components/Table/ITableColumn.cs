@@ -172,5 +172,5 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// 获得/设置 自定义搜索逻辑
     /// </summary>
-    Func<ITableColumn, string, SearchFilterAction>? CustomSearch { get; set; }
+    Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }

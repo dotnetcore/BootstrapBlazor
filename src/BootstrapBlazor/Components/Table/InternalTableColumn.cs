@@ -228,5 +228,5 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// 自定义实现搜索方法
     /// </summary>
-    public Func<ITableColumn, string, SearchFilterAction>? CustomSearch { get; set; }
+    public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }
