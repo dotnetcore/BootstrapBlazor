@@ -193,6 +193,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     [Parameter]

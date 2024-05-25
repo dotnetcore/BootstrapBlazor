@@ -226,4 +226,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;
+
+    /// <summary>
+    /// 自定义实现搜索方法
+    /// </summary>
+    public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }

@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IEditItem 扩展方法
 /// </summary>
 public static class IEditItemExtensions
 {
@@ -102,6 +102,7 @@ public static class IEditItemExtensions
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
         if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
+        if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
     }
 
     /// <summary>
@@ -117,6 +118,11 @@ public static class IEditItemExtensions
         {
             foreach (var col in columns)
             {
+                if (col.CustomSearch != null)
+                {
+                    searches.Add(col.CustomSearch(col, searchText));
+                    continue;
+                }
                 var type = Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType;
                 if (type == typeof(bool) && bool.TryParse(searchText, out var @bool))
                 {
