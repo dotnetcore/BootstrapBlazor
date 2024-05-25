@@ -36,4 +36,16 @@ public partial class TablesWrap
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
     }
+
+    private async Task<string?> GetTooltipTextCallback(object? v)
+    {
+        await Task.Delay(0);
+
+        var ret = string.Empty;
+        if (v is Foo foo)
+        {
+            ret = $"{foo.Name}-{DateTime.Now}";
+        }
+        return ret;
+    }
 }

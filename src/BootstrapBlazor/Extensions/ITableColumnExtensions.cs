@@ -229,12 +229,13 @@ public static class IEditItemExtensions
     {
         if (col.ShowTips)
         {
+            var tooltipText = text;
             if (col.GetTooltipTextCallback != null)
             {
-                text = await col.GetTooltipTextCallback(item);
+                tooltipText = await col.GetTooltipTextCallback(item);
             }
             pb.OpenComponent<Tooltip>(0);
-            pb.AddAttribute(1, nameof(Tooltip.Title), text);
+            pb.AddAttribute(1, nameof(Tooltip.Title), tooltipText);
             pb.AddAttribute(2, "class", "text-truncate d-block");
             if (col.IsMarkupString)
             {
