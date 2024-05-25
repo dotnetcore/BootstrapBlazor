@@ -101,7 +101,8 @@ public class ITableColumnExtensionsTest
             Step = "0.01",
             Order = -1,
             IsMarkupString = true,
-            GetTooltipTextCallback = _ => Task.FromResult<string?>(null)
+            GetTooltipTextCallback = _ => Task.FromResult<string?>(null),
+            CustomSearch = new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test"))
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
@@ -159,6 +160,7 @@ public class ITableColumnExtensionsTest
         Assert.Equal(-1, col.Order);
         Assert.NotNull(col.GetTooltipTextCallback);
         Assert.True(col.IsMarkupString);
+        Assert.NotNull(col.CustomSearch);
     }
 
     [Fact]
