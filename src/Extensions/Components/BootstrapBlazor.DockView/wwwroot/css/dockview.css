@@ -210,6 +210,7 @@
   --dv-tabs-container-scrollbar-color: #888;
   --dv-icon-hover-background-color: rgba(90, 93, 94, 0.31);
   --dv-floating-box-shadow: 8px 8px 8px 0px rgba(83, 89, 93, 0.5);
+  --dv-group-gap-size: 3px;
   --dv-group-view-background-color: #ebeced;
   --dv-tabs-and-actions-container-background-color: #fcfcfc;
   --dv-activegroup-visiblepanel-tab-background-color: #f0f1f2;
@@ -226,12 +227,6 @@
   --dv-background-color: #ebeced;
   --dv-separator-handle-background-color: #cfd1d3;
   --dv-separator-handle-hover-background-color: #babbbb;
-}
-.dockview-theme-replit.dv-dockview {
-  padding: 3px;
-}
-.dockview-theme-replit .view:has(> .groupview) {
-  padding: 3px;
 }
 .dockview-theme-replit .dv-resize-container:has(> .groupview) {
   border-radius: 8px;
@@ -443,6 +438,18 @@
 .dv-dockview .dv-overlay-render-container {
   position: relative;
 }
+.dv-dockview .split-view-container.horizontal > .view-container > .view:not(:last-child) {
+  border-right: var(--dv-group-gap-size) solid transparent;
+}
+.dv-dockview .split-view-container.horizontal > .view-container > .view:not(:first-child) {
+  border-left: var(--dv-group-gap-size) solid transparent;
+}
+.dv-dockview .split-view-container.vertical > .view-container > .view:not(:last-child) {
+  border-bottom: var(--dv-group-gap-size) solid transparent;
+}
+.dv-dockview .split-view-container.vertical > .view-container > .view:not(:first-child) {
+  border-top: var(--dv-group-gap-size) solid transparent;
+}
 
 .groupview.active-group > .tabs-and-actions-container > .tabs-container > .tab.active-tab {
   background-color: var(--dv-activegroup-visiblepanel-tab-background-color);
@@ -486,6 +493,10 @@
   flex-grow: 1;
   min-height: 0;
   outline: none;
+}
+.dv-root-wrapper {
+  height: 100%;
+  width: 100%;
 }
 .grid-view,
 .branch-node {
@@ -601,6 +612,9 @@
   overflow: hidden;
   height: 100%;
   width: 100%;
+}
+.split-view-container.dv-splitview-disabled > .sash-container > .sash {
+  pointer-events: none;
 }
 .split-view-container.animation .view,
 .split-view-container.animation .sash {
@@ -723,19 +737,19 @@
   outline-offset: -1px;
   z-index: 5;
 }
-.tab.dv-tab-dragging .tab-action {
+.tab.dv-tab-dragging .dv-default-tab-action {
   background-color: var(--dv-activegroup-visiblepanel-tab-color);
 }
-.tab.active-tab > .default-tab .tab-action {
+.tab.active-tab .dv-default-tab .dv-default-tab-action {
   visibility: visible;
 }
-.tab.inactive-tab > .default-tab .tab-action {
+.tab.inactive-tab .dv-default-tab .dv-default-tab-action {
   visibility: hidden;
 }
-.tab.inactive-tab > .default-tab:hover .tab-action {
+.tab.inactive-tab .dv-default-tab:hover .dv-default-tab-action {
   visibility: visible;
 }
-.tab .default-tab {
+.tab .dv-default-tab {
   position: relative;
   height: 100%;
   display: flex;
@@ -745,28 +759,18 @@
   white-space: nowrap;
   text-overflow: elipsis;
 }
-.tab .default-tab .tab-content {
+.tab .dv-default-tab .dv-default-tab-content {
   padding: 0px 8px;
   flex-grow: 1;
 }
-.tab .default-tab .action-container {
-  text-align: right;
-  display: flex;
-}
-.tab .default-tab .action-container .tab-list {
-  display: flex;
-  padding: 0px;
-  margin: 0px;
-  justify-content: flex-end;
-}
-.tab .default-tab .action-container .tab-list .tab-action {
+.tab .dv-default-tab .dv-default-tab-action {
   padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
 }
-.tab .default-tab .action-container .tab-list .tab-action:hover {
+.tab .dv-default-tab .dv-default-tab-action:hover {
   border-radius: 2px;
   background-color: var(--dv-icon-hover-background-color);
 }
