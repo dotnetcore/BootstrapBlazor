@@ -36,6 +36,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["DockViewComponents"],
+            Icon = "fa-fw fa-solid fa-table-cells-large"
+        };
+        AddDockView2(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["NavigationComponents"],
             Icon = "fa-fw fa-solid fa-bars"
         };
@@ -806,6 +813,19 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DockViewLayout"],
                     Url = "dock-view/layout"
+                }
+            };
+            AddBadge(item, count: 1);
+        }
+
+        void AddDockView2(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["DockView2Index"],
+                    Url = "dock-view2/index"
                 }
             };
             AddBadge(item, count: 1);

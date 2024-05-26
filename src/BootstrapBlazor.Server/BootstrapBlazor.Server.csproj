@@ -69,6 +69,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.DockView\BootstrapBlazor.DockView.csproj" />
   </ItemGroup>
 
   <ItemGroup>

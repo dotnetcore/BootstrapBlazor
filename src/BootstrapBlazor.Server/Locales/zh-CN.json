@@ -4637,6 +4637,8 @@
     "DockViewVisible": "可见性切换",
     "DockViewLock": "布局锁定",
     "DockViewLayout": "布局自定义",
+    "DockView2Components": "可停靠布局",
+    "DockView2Index": "简介",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",
@@ -5939,6 +5941,11 @@
     "DockViewTitle": "DockView 可停靠视图",
     "DockViewDescription": "多标签停靠布局管理器",
     "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
+    "DockView2Title": "DockView 可停靠视图",
+    "DockView2Description": "多标签停靠布局管理器",
+    "DockView2Intro": ""
   },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
