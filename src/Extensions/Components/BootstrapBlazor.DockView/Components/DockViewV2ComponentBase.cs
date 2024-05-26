@@ -22,4 +22,10 @@ public class DockViewV2ComponentBase : IdComponentBase
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父容器级联参数
+    /// </summary>
+    [CascadingParameter, NotNull]
+    protected List<DockViewV2Panel>? Panels { get; set; }
 }

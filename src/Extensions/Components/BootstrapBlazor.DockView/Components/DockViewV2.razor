@@ -5,7 +5,9 @@
     <CascadingValue Value="_panels" IsFixed="true">
         @ChildContent
     </CascadingValue>
-    <RenderTemplate>
+    @if (_isInit)
+    {
+        <div>template</div>
         <template id="@_templateId">
             @foreach (var p in _panels)
             {
@@ -14,5 +16,5 @@
                 </div>
             }
         </template>
-    </RenderTemplate>
+    }
 </div>

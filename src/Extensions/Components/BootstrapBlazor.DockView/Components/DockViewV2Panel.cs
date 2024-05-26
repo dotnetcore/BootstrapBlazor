@@ -60,9 +60,6 @@ public class DockViewV2Panel : DockViewV2ComponentBase
     [Parameter]
     public RenderFragment? TitleTemplate { get; set; }
 
-    [CascadingParameter, NotNull]
-    private List<DockViewV2Panel>? Panels { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

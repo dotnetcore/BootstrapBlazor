@@ -1,6 +1,6 @@
-﻿import "../../js/dockview-core.js"
-import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
-import Data from '../../../BootstrapBlazor/modules/data.js'
+﻿import "../js/dockview-core.esm.js"
+import { addLink } from '../../BootstrapBlazor/modules/utility.js'
+import Data from '../../BootstrapBlazor/modules/data.js'
 
 
 class DefaultPanel {
@@ -21,49 +21,49 @@ class DefaultPanel {
 
 
 export async function init(id, config) {
-    await addLink("./_content/BootstrapBlazor.DockView2/css/dockview.css")
+    await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
 
-    let ele = document.getElementById(id);
-    const dock = new dockview.DockviewComponent({
-        components: {
-            default: DefaultPanel,
-        },
-        parentElement: ele,
-    });
+    //let ele = document.getElementById(id);
+    //const dock = new dockview.DockviewComponent({
+    //    components: {
+    //        default: DefaultPanel,
+    //    },
+    //    parentElement: ele,
+    //});
 
 
-    const panel1 = dock.addPanel({
-        id: 'panel_1',
-        title: 'Panel 1',
-        component: 'default',
-    });
+    //const panel1 = dock.addPanel({
+    //    id: 'panel_1',
+    //    title: 'Panel 1',
+    //    component: 'default',
+    //});
 
-    const panel2 = dock.addPanel({
-        id: 'panel_2',
-        title: 'Panel 2',
-        component: 'default',
-        position: {
-            referencePanel: panel1,
-            direction: 'right',
-        },
-    });
+    //const panel2 = dock.addPanel({
+    //    id: 'panel_2',
+    //    title: 'Panel 2',
+    //    component: 'default',
+    //    position: {
+    //        referencePanel: panel1,
+    //        direction: 'right',
+    //    },
+    //});
 
-    const panel3 = dock.addPanel({
-        id: 'panel_3',
-        title: 'Panel 3',
-        component: 'default',
-        position: {
-            referenceGroup: panel2.group,
-        },
-    });
+    //const panel3 = dock.addPanel({
+    //    id: 'panel_3',
+    //    title: 'Panel 3',
+    //    component: 'default',
+    //    position: {
+    //        referenceGroup: panel2.group,
+    //    },
+    //});
 
-    const pane4 = dock.addPanel({
-        id: 'panel_4',
-        title: 'Panel 4',
-        component: 'default',
-        position: {
-            direction: 'below',
-        },
-    });
+    //const pane4 = dock.addPanel({
+    //    id: 'panel_4',
+    //    title: 'Panel 4',
+    //    component: 'default',
+    //    position: {
+    //        direction: 'below',
+    //    },
+    //});
 
 }

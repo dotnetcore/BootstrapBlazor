@@ -41,6 +41,8 @@ public partial class DockViewV2
 
     private string? _templateId;
 
+    private bool _isInit;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -48,7 +50,7 @@ public partial class DockViewV2
     {
         base.OnInitialized();
 
-        _templateId ??= $"{Id}-template";
+        _templateId ??= $"{Id}_template";
     }
 
     /// <summary>
@@ -62,7 +64,8 @@ public partial class DockViewV2
 
         if (firstRender)
         {
-            //await InvokeVoidAsync("init", Id, Content);
+            _isInit = true;
+            StateHasChanged();
         }
     }
 }
