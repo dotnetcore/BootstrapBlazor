@@ -28,6 +28,12 @@ public partial class DockViewV2
     public string? LayoutConfig { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示关闭按钮 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool ShowClose { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]
@@ -67,5 +73,27 @@ public partial class DockViewV2
             _isInit = true;
             StateHasChanged();
         }
+        else if (_isInit)
+        {
+            await InvokeVoidAsync("init", Id, new { Invoke = Interop, ShowClose, LayoutConfig });
+        }
+    }
+
+    /// <summary>
+    /// 添加 Group 方法
+    /// </summary>
+    /// <returns></returns>
+    public ValueTask AddGroup()
+    {
+        return ValueTask.CompletedTask;
+    }
+
+    /// <summary>
+    /// 添加 Panel 方法
+    /// </summary>
+    /// <returns></returns>
+    public ValueTask AddPanel()
+    {
+        return ValueTask.CompletedTask;
     }
 }

@@ -2,10 +2,10 @@
 import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
-
 class DefaultPanel {
 
     _element;
+
     get element() {
         return this._element;
     }
@@ -19,9 +19,10 @@ class DefaultPanel {
     }
 }
 
-
-export async function init(id, config) {
+export async function init(id, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
+
+    console.log(id, options);
 
     //let ele = document.getElementById(id);
     //const dock = new dockview.DockviewComponent({
@@ -66,4 +67,8 @@ export async function init(id, config) {
     //    },
     //});
 
+}
+
+export function dispose(id) {
+    console.log(id);
 }
