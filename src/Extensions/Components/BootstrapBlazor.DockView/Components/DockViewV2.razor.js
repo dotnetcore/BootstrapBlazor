@@ -1,4 +1,4 @@
-﻿import "../js/dockview-core.esm.js"
+﻿import { DockviewComponent, createComponent } from "../js/dockview-core.esm.js"
 import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
@@ -22,7 +22,13 @@ class DefaultPanel {
 export async function init(id, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
 
-    console.log(id, options);
+    const el = document.getElementById(id);
+    const { templateId } = options;
+    const template = document.getElementById(templateId);
+
+    const dockview = new DockviewComponent({
+        parentElement: el
+    });
 
     //let ele = document.getElementById(id);
     //const dock = new dockview.DockviewComponent({

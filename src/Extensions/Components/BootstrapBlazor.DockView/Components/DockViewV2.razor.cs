@@ -75,7 +75,7 @@ public partial class DockViewV2
         }
         else if (_isInit)
         {
-            await InvokeVoidAsync("init", Id, new { Invoke = Interop, ShowClose, LayoutConfig });
+            await InvokeVoidAsync("init", Id, new { Invoke = Interop, ShowClose, LayoutConfig, TemplateId = _templateId });
         }
     }
 
