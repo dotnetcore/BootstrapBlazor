@@ -36,7 +36,7 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
-            Text = Localizer["DockViewComponents"],
+            Text = Localizer["DockViewComponents2"],
             Icon = "fa-fw fa-solid fa-table-cells-large"
         };
         AddDockView2(item);

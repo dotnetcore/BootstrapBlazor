@@ -4628,6 +4628,7 @@
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
     "DockViewComponents": "DockView",
+    "DockViewComponents2": "DockViewV2",
     "DockViewIndex": "Overview",
     "DockViewColumn": "Column",
     "DockViewRow": "Row",

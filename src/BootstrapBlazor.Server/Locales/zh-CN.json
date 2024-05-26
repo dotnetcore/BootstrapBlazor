@@ -4628,6 +4628,7 @@
     "ClockPicker": "时间选择器 ClockPicker",
     "TimePicker": "时间选择器 TimePicker",
     "DockViewComponents": "可停靠布局",
+    "DockViewComponents2": "可停靠布局 V2",
     "DockViewIndex": "简介",
     "DockViewColumn": "列布局",
     "DockViewRow": "行布局",
