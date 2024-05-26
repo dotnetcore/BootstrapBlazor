@@ -7,12 +7,12 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// DockViewV2 组件
 /// </summary>
-public partial class DockView
+public partial class DockViewV2
 {
     /// <summary>
-    /// 
+    /// 获得/设置 子组件
     /// </summary>
 #if NET6_0_OR_GREATER
     [EditorRequired]
@@ -20,10 +20,12 @@ public partial class DockView
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    private List<DockContent2>? Content { get; set; } = new();
+    private string? ClassString => CssBuilder.Default("bb-dock-view")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -33,7 +35,7 @@ public partial class DockView
 
         if (firstRender)
         {
-            await InvokeVoidAsync("init", Id, Content);
+            //await InvokeVoidAsync("init", Id, Content);
         }
     }
 }

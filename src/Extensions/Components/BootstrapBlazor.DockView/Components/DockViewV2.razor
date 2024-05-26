@@ -1,9 +1,9 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DockView/Components/DockView/DockView.razor.js", JSObjectReference = true)]
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DockView/Components/DockViewV2.razor.js", JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
-    <CascadingValue Value="Content" IsFixed="true">
+@*     <CascadingValue Value="Content" IsFixed="true">
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
@@ -12,11 +12,11 @@
             @RenderDockComponent(content.Items)
         }
     </RenderTemplate>
-</div>
-
+ *@</div>
+@* 
 <CascadingValue Value="@Content">
     <div id="@Id" class="dockview-theme-abyss" style="width:100%;height:100%">
         @ChildContent
     </div>
 </CascadingValue>
-
+ *@
