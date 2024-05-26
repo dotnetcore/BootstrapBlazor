@@ -12,17 +12,44 @@ namespace BootstrapBlazor.Components;
 public partial class DockViewV2
 {
     /// <summary>
-    /// 获得/设置 子组件
+    /// 获得/设置 DockView 名称 默认 null 用于本地存储识别
     /// </summary>
+    [Parameter]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
+    [NotNull]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// 获得/设置 布局配置
+    /// </summary>
+    [Parameter]
+    public string? LayoutConfig { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件
+    /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-dock-view")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private readonly List<DockViewV2Panel> _panels = [];
+
+    private string? _templateId;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _templateId ??= $"{Id}-template";
+    }
 
     /// <summary>
     /// <inheritdoc/>
