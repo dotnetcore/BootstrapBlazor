@@ -826,6 +826,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DockView2Index"],
                     Url = "dock-view2/index"
+                },
+                new()
+                {
+                    Text = Localizer["DockView2Layout"],
+                    Url = "dock-view2/layout"
                 }
             };
             AddBadge(item, count: 1);

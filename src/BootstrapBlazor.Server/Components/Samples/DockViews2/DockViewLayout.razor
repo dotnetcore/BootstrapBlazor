@@ -1,0 +1,27 @@
+﻿@page "/dock-view2/layout"
+
+<h4>自定义布局</h4>
+<p>通过设置 <code>DockView</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局</p>
+
+<GroupBox Title="布局切换">
+    <Button OnClick="OnToggleLayout1" Text="布局1"></Button>
+    <Button OnClick="OnToggleLayout2" Text="布局2"></Button>
+    <Button OnClick="OnToggleLayout3" Text="布局3"></Button>
+    <Button OnClick="Reset" Text="复位"></Button>
+</GroupBox>
+
+<div class="dock-toggle-demo">
+    <DockViewV2 Name="DockViewV2Layout" LayoutConfig="@LayoutConfig">
+        <DockViewV2Panel>
+            <div class="panel1">Panel1</div>
+        </DockViewV2Panel>
+        <DockViewV2Group>
+            <DockViewV2Panel>
+                <div class="group-panel1">Group1 Panel1</div>
+            </DockViewV2Panel>
+            <DockViewV2Panel>
+                <div class="group-panel2">Group1 Panel2</div>
+            </DockViewV2Panel>
+        </DockViewV2Group>
+    </DockViewV2>
+</div>
