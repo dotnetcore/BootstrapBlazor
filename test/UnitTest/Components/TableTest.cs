@@ -2811,6 +2811,7 @@ public class TableTest : TableTestBase
                     showDetail = true;
                     builder.AddContent(1, foo.Name);
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "detail-loading-template"));
             });
         });
 
