@@ -10,28 +10,6 @@ namespace UnitTest.Services;
 public class DrawerServiceTest : DrawerTestBase
 {
     [Fact]
-    public async Task ShowComponent_Ok()
-    {
-        var service = Context.Services.GetRequiredService<DrawerService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
-        await service.Show<DrawerDemo>();
-
-        var button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
-    }
-
-    [Fact]
-    public async Task ShowType_Ok()
-    {
-        var service = Context.Services.GetRequiredService<DrawerService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
-        await service.Show(typeof(DrawerDemo));
-
-        var button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
-    }
-
-    [Fact]
     public async Task Show_Ok()
     {
         var option = new DrawerOption()
@@ -49,8 +27,15 @@ public class DrawerServiceTest : DrawerTestBase
         var service = Context.Services.GetRequiredService<DrawerService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
         await service.Show(option);
-
         var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        await service.Show<DrawerDemo>();
+        button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
+        await service.Show(typeof(DrawerDemo));
+        button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
     }
 
