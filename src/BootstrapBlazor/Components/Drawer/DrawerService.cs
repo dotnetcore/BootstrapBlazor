@@ -13,6 +13,5 @@ public class DrawerService : BootstrapServiceBase<DrawerOption>
     /// Show 方法
     /// </summary>
     /// <param name="option">DrawerOption 实例</param>
-    /// <param name="drawerContainer">指定抽屉容器组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    public Task Show(DrawerOption option, DrawerContainer? drawerContainer = null) => Invoke(option, drawerContainer);
+    public Task Show(DrawerOption option) => Invoke(option);
 }
