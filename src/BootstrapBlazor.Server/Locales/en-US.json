@@ -923,6 +923,8 @@
     "PlacementIntro": "By setting the <code>IsBackdrop</code> property to <code>true</code>, the drawer is automatically closed when the mask part is clicked",
     "NoBackdropTitle": "No backdrop",
     "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop",
+    "DrawerServiceTitle": "Drawer Service",
+    "DrawerServiceIntro": "Open the drawer pop-up window by calling the <code>DrawerService</code> service",
     "Open": "click me to open",
     "Content": "The layout, components, etc. in the drawer are fully customizable",
     "Close": "close the drawer",

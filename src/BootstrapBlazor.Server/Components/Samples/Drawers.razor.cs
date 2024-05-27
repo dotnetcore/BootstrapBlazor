@@ -9,6 +9,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Drawers
 {
+    [Inject, NotNull]
+    private DrawerService? DrawerService { get; set; }
+
     private bool IsOpen { get; set; }
 
     private Placement DrawerAlign { get; set; }
@@ -48,6 +51,15 @@ public sealed partial class Drawers
     private bool IsShowBackdropOpen { get; set; }
 
     private void OpenNoBackdropDrawer() => IsShowBackdropOpen = true;
+
+    private async Task DrawerServiceShow() => await DrawerService.Show(new DrawerOption()
+    {
+        Placement = Placement.Right,
+        ChildContent = builder => builder.AddContent(0, "Test"),
+        ShowBackdrop = true,
+        AllowResize = true,
+        IsBackdrop = true
+    });
 
     /// <summary>
     /// Get property method
@@ -116,6 +128,14 @@ public sealed partial class Drawers
             Name = "ChildContent",
             Description = "Subassembly",
             Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Drawer.OnCloseAsync),
+            Description = "The callback when close drawer",
+            Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }

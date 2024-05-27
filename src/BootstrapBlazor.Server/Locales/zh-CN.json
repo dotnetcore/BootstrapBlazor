@@ -923,6 +923,8 @@
     "PlacementIntro": "通过设置 <code>IsBackdrop</code> 属性为 <code>true</code>，点击遮罩部分时自动关闭抽屉",
     "NoBackdropTitle": "无遮罩效果",
     "NoBackdropIntro": "通过设置 <code>ShowBackdrop=\"false\"</code> 不显示遮罩，这种模式下可以与抽屉下面网页元素进行交互操作",
+    "DrawerServiceTitle": "调用服务打开抽屉",
+    "DrawerServiceIntro": "通过调用 <code>DrawerService</code> 服务打开抽屉弹窗",
     "Open": "点我打开",
     "Content": "抽屉内布局、组件等完全可以自定义",
     "Close": "关闭抽屉",
