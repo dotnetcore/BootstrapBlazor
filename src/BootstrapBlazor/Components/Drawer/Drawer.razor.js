@@ -60,7 +60,7 @@ const initDrag = el => {
     )
 }
 
-export function init(id, options) {
+export function init(id) {
     const el = document.getElementById(id)
     const dw = {
         el,
@@ -76,24 +76,43 @@ export function execute(id, open) {
     const { el, body } = dw
     const drawerBody = el.querySelector('.drawer-body')
 
+    let start = void 0
+    const show = ts => {
+        if (start === void 0) {
+            start = ts
+        }
+        const elapsed = ts - start;
+        if (elapsed < 20) {
+            requestAnimationFrame(show);
+        }
+        else {
+            drawerBody.classList.add('show')
+        }
+    }
+
+    const hide = ts => {
+        if (start === void 0) {
+            start = ts
+        }
+        const elapsed = ts - start;
+        if (elapsed < 320) {
+            requestAnimationFrame(hide);
+        }
+        else {
+            el.classList.remove('show')
+            body.classList.remove('overflow-hidden')
+        }
+    }
+
     if (open) {
         el.classList.add('show')
         body.classList.add('overflow-hidden')
-        let handler = window.setTimeout(() => {
-            drawerBody.classList.add('show')
-            window.clearTimeout(handler)
-            handler = null
-        }, 20);
+        requestAnimationFrame(show)
     }
     else {
         if (el.classList.contains('show')) {
             drawerBody.classList.remove('show')
-            let handler = window.setTimeout(() => {
-                window.clearTimeout(handler)
-                handler = null
-                el.classList.remove('show')
-                body.classList.remove('overflow-hidden')
-            }, 320)
+            requestAnimationFrame(hide)
         }
     }
 }
