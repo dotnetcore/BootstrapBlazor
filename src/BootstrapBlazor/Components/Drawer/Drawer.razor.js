@@ -1,6 +1,5 @@
 ﻿import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
-import EventHandler from "../../modules/event-handler.js"
 
 const initDrag = el => {
     let originX = 0
@@ -69,12 +68,6 @@ export function init(id, options) {
     }
     Data.set(id, dw)
 
-    EventHandler.on(el, 'click', '.drawer-backdrop', e => {
-        const element = e.delegateTarget;
-        if (element.getAttribute('data-bb-backdrop') === 'true') {
-            options.invoke.invokeMethodAsync(options.callback);
-        }
-    });
     initDrag(el);
 }
 
@@ -119,8 +112,6 @@ export function dispose(id) {
         }
         body.classList.remove('overflow-hidden')
     }
-
-    EventHandler.off(el, 'click', '.drawer-backdrop');
 
     const bar = el.querySelector('.drawer-bar');
     if (bar) {

@@ -104,7 +104,7 @@ public partial class Drawer
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender)
+        if (!firstRender || IsOpen)
         {
             await InvokeVoidAsync("execute", Id, IsOpen);
         }
@@ -118,7 +118,10 @@ public partial class Drawer
         if (IsBackdrop)
         {
             await Close();
-            if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
+            if (OnClickBackdrop != null)
+            {
+                await OnClickBackdrop();
+            }
         }
     }
 

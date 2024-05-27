@@ -56,6 +56,10 @@ public class DrawerContainer : ComponentBase, IDisposable
             {
                 parameters.Add(nameof(Drawer.ChildContent), _option.ChildContent);
             }
+            parameters.Add(nameof(Drawer.IsOpenChanged), EventCallback.Factory.Create<bool>(this, v =>
+            {
+                _option = null;
+            }));
             builder.OpenComponent<Drawer>(0);
             builder.AddMultipleAttributes(1, parameters);
             builder.CloseComponent();
