@@ -4814,13 +4814,13 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(10, "GetTooltipTextCallback", new Func<object, Task<string?>>(async v =>
                     {
                         await Task.Delay(0);
-                        return "test-tips-calback";
+                        return "test-tips-callback";
                     }));
                     builder.CloseComponent();
                 });
             });
         });
-        cut.Contains("test-tips-calback");
+        cut.Contains("test-tips-callback");
     }
 
     [Fact]
