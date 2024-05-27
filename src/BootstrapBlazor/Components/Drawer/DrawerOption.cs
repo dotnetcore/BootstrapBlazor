@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toast 弹出窗参数配置类
+/// Drawer 弹出窗参数配置类
 /// </summary>
-public class DrawerOption : PopupOptionBase
+public class DrawerOption
 {
     /// <summary>
     /// 获得/设置 抽屉宽度 左右布局时生效

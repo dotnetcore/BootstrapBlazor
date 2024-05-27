@@ -2,25 +2,20 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Drawer 抽屉容器组件
 /// </summary>
-public partial class DrawerContainer : IDisposable
+public class DrawerContainer : ComponentBase, IDisposable
 {
-    /// <summary>
-    /// 获得 弹出窗集合
-    /// </summary>
-    private readonly List<DrawerOption> _options = [];
-
     [Inject]
     [NotNull]
     private DrawerService? DrawerService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+    private DrawerOption? _option;
 
     /// <summary>
     /// OnInitialized 方法
@@ -33,24 +28,21 @@ public partial class DrawerContainer : IDisposable
         DrawerService.Register(this, Show);
     }
 
-    private async Task Show(DrawerOption option)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        _options.Add(option);
-        await InvokeAsync(StateHasChanged);
+        builder.OpenComponent<Drawer>(0);
+
+        builder.CloseComponent();
     }
 
-    /// <summary>
-    /// 关闭弹窗
-    /// </summary>
-    /// <param name="option"></param>
-    public async Task Close(DrawerOption option)
+    private async Task Show(DrawerOption option)
     {
-        if (option.OnCloseAsync != null)
-        {
-            await option.OnCloseAsync();
-        }
-        _options.Remove(option);
-        StateHasChanged();
+        _option = option;
+        await InvokeAsync(StateHasChanged);
     }
 
     /// <summary>
