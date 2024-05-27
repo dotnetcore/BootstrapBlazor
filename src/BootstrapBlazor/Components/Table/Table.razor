@@ -365,7 +365,7 @@
             {
                 @foreach (var item in Rows)
                 {
-					OnBeforeRenderRow?.Invoke(item);
+                    OnBeforeRenderRow?.Invoke(item);
                     @RenderRow(item)
                     if (ShowDetails())
                     {
