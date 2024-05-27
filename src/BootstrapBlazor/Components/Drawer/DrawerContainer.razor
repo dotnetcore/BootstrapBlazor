@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" tabindex="-1" class="drawer collapse">
+    <CascadingValue Value="Close" IsFixed="true">
+        @foreach (var option in _options)
+        {
+            <DrawerBody @key="option" Option="option"></DrawerBody>
+        }
+    </CascadingValue>
+</div>

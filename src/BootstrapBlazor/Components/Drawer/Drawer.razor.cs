@@ -18,24 +18,6 @@ public partial class Drawer
         .Build();
 
     /// <summary>
-    /// 获得 抽屉 Style 字符串
-    /// </summary>
-    private string? DrawerStyleString => CssBuilder.Default()
-        .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
-        .Build();
-
-    /// <summary>
-    /// 获得 抽屉样式
-    /// </summary>
-    private string? DrawerClassString => CssBuilder.Default("drawer-body")
-        .AddClass("left", Placement != Placement.Right && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddClass("top", Placement == Placement.Top)
-        .AddClass("right", Placement == Placement.Right)
-        .AddClass("bottom", Placement == Placement.Bottom)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 抽屉宽度 左右布局时生效
     /// </summary>
     [Parameter]
@@ -110,6 +92,18 @@ public partial class Drawer
         }
     }
 
+    private DrawerOption GetOption() => new()
+    {
+        Height = Height,
+        Width = Width,
+        IsBackdrop = IsBackdrop,
+        ShowBackdrop = ShowBackdrop,
+        Placement = Placement,
+        AllowResize = AllowResize,
+        OnClickBackdrop = OnClickBackdrop,
+        ChildContent = ChildContent
+    };
+
     /// <summary>
     /// 点击背景遮罩方法
     /// </summary>
@@ -117,7 +111,7 @@ public partial class Drawer
     {
         if (IsBackdrop)
         {
-            await Close();
+            await Close(GetOption());
             if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
         }
     }
@@ -126,7 +120,7 @@ public partial class Drawer
     /// 关闭抽屉方法
     /// </summary>
     /// <returns></returns>
-    public async Task Close()
+    public async Task Close(DrawerOption option)
     {
         IsOpen = false;
         if (IsOpenChanged.HasDelegate)

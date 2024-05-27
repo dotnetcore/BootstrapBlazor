@@ -1,0 +1,18 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// Toast 弹出窗服务类
+/// </summary>
+public class DrawerService : BootstrapServiceBase<DrawerOption>
+{
+    /// <summary>
+    /// Show 方法
+    /// </summary>
+    /// <param name="option">DrawerOption 实例</param>
+    /// <param name="drawerContainer">指定抽屉容器组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    public Task Show(DrawerOption option, DrawerContainer? drawerContainer = null) => Invoke(option, drawerContainer);
+}
