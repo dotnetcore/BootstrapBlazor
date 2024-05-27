@@ -2252,15 +2252,17 @@ public class TableTest : TableTestBase
         cut.WaitForAssertion(() => Assert.Equal(2, row));
     }
 
-    [Fact]
-    public void FooterTemplate_Ok()
+    [Theory]
+    [InlineData(TableRenderMode.CardView)]
+    [InlineData(TableRenderMode.Table)]
+    public void FooterTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.RenderMode, mode);
                 pb.Add(a => a.ShowFooter, true);
                 pb.Add(a => a.IsHideFooterWhenNoData, false);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
