@@ -217,14 +217,31 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MultiSelectDisplayTemplateTitle"]" Introduction="@Localizer["MultiSelectDisplayTemplateIntro"]" Name="DisplayTemplate">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <MultiSelect TValue="string" Items="@TemplateItems">
+                <DisplayTemplate>
+                    @foreach (var item in context)
+                    {
+                        <div class="mul-select-item">
+                            <span>@item.Text </span>
+                        </div>
+                    }
+                </DisplayTemplate>
+            </MultiSelect>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["MultiSelectPopoverTitle"]" Introduction="@Localizer["MultiSelectPopoverIntro"]" Name="Popover">
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
             <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar />
-         </div>
-     </div>
- </DemoBlock>
+        </div>
+    </div>
+</DemoBlock>
 
- <AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()" />
 
- <EventTable Items="@GetEvents()" />
+<EventTable Items="@GetEvents()" />

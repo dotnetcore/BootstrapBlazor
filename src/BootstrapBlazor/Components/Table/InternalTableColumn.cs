@@ -107,6 +107,8 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool ShowTips { get; set; }
 
+    public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
+
     public Type PropertyType { get; } = fieldType;
 
     [ExcludeFromCodeCoverage]
@@ -224,4 +226,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;
+
+    /// <summary>
+    /// 自定义实现搜索方法
+    /// </summary>
+    public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }

@@ -359,6 +359,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "loading-template-test"));
             });
         });
         cut.Contains("float-end table-toolbar-button btn-group");
@@ -431,6 +432,32 @@ public class TableTest : TableTestBase
 
         var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
+    }
+
+    [Fact]
+    public async Task CustomSearch_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var searchModel = new FooSearchModel();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.SearchText, "张三");
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", foo.Name);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.AddAttribute(4, "CustomSearch", new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("Name", "张三")));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
     [Fact]
@@ -2225,15 +2252,17 @@ public class TableTest : TableTestBase
         cut.WaitForAssertion(() => Assert.Equal(2, row));
     }
 
-    [Fact]
-    public void FooterTemplate_Ok()
+    [Theory]
+    [InlineData(TableRenderMode.CardView)]
+    [InlineData(TableRenderMode.Table)]
+    public void FooterTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.RenderMode, mode);
                 pb.Add(a => a.ShowFooter, true);
                 pb.Add(a => a.IsHideFooterWhenNoData, false);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -2782,6 +2811,7 @@ public class TableTest : TableTestBase
                     showDetail = true;
                     builder.AddContent(1, foo.Name);
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "detail-loading-template"));
             });
         });
 
@@ -4763,6 +4793,37 @@ public class TableTest : TableTestBase
             });
         });
         cut.Contains("data-bs-toggle=\"tooltip\"");
+    }
+
+    [Fact]
+    public void GetTooltipTextCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Editable", true);
+                    builder.AddAttribute(7, "Text", "test");
+                    builder.AddAttribute(9, "ShowTips", true);
+                    builder.AddAttribute(10, "GetTooltipTextCallback", new Func<object, Task<string?>>(async v =>
+                    {
+                        await Task.Delay(0);
+                        return "test-tips-callback";
+                    }));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("test-tips-callback");
     }
 
     [Fact]

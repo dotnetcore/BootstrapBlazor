@@ -485,7 +485,10 @@
     "MessagesItem": "MessageOption 属性",
     "MessagesTemplateTitle": "自定义模板",
     "MessagesTemplateIntro": "通过设置 <code>ChildContent</code> 模板可以实现丰富的自定义样式与内容的提示信息",
-    "MessagesTemplatePrompt": "自定义消息"
+    "MessagesTemplatePrompt": "自定义消息",
+    "MessagesShowModeTitle": "显示模式",
+    "MessagesShowModeIntro": "通过设置 <code>ShowMode</code> 参数，指定显示模式",
+    "MessagesShowModePrompt": "只显示最后一条消息"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light 指示灯",
@@ -920,6 +923,8 @@
     "PlacementIntro": "通过设置 <code>IsBackdrop</code> 属性为 <code>true</code>，点击遮罩部分时自动关闭抽屉",
     "NoBackdropTitle": "无遮罩效果",
     "NoBackdropIntro": "通过设置 <code>ShowBackdrop=\"false\"</code> 不显示遮罩，这种模式下可以与抽屉下面网页元素进行交互操作",
+    "DrawerServiceTitle": "调用服务打开抽屉",
+    "DrawerServiceIntro": "通过调用 <code>DrawerService</code> 服务打开抽屉弹窗",
     "Open": "点我打开",
     "Content": "抽屉内布局、组件等完全可以自定义",
     "Close": "关闭抽屉",
@@ -2915,6 +2920,8 @@
     "MultiSelectCascadingDescription": "本例中点击第一个下拉框，可以通过异步方法获取第二个多选框的数据源，进行赋值后，调用 <code>StateHasChanged</code> 进行对 <b>多选框</b> 重新渲染",
     "MultiSelectItemTemplateTitle": "选项模板",
     "MultiSelectItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 设置下拉框中选项模板，可以自定义样式",
+    "MultiSelectDisplayTemplateTitle": "显示模板",
+    "MultiSelectDisplayTemplateIntro": "通过设置 <code>DisplayTemplate</code> 模板自定义显示样式",
     "MultiSelectPopoverTitle": "悬浮弹窗",
     "MultiSelectPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "MultiSelectsAttribute_ShowLabel": "是否显示前置标签",
@@ -5158,7 +5165,7 @@
     "TablesWrapDataResizingTips1": "可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行省略处理",
     "TablesWrapDataResizingTips2": "通过设置 <code>TextEllipsis</code> 来开启文本超长省略功能",
     "TablesWrapDataResizingTips3": "<b>注意：</b>推荐使用 <code>Width</code> 对列宽度进行设置，如未设置列宽内部自动使用 200px 宽度",
-    "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>",
+    "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>，通过设置 <code>GetTooltipTextCallback</code> 回调方法可以自定义 <code>Tooltip</code> 显示内容",
     "TablesWrapDataResizingTips5": "拖动地址列，单元格显示内容自动增加与减少",
     "TablesWrapCustomCellTitle": "自定义单元格内排版",
     "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局",

@@ -72,6 +72,8 @@ public class TableColumnTest
         SetValue("HeaderTextTooltip", "Test");
         SetValue("HeaderTextEllipsis", true);
         SetValue("IsMarkupString", true);
+        SetValue("GetTooltipTextCallback", new Func<object, Task<string?>>(_ => Task.FromResult((string?)"")));
+        SetValue("CustomSearch", new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test")));
 
         void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }

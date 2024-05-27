@@ -193,6 +193,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     [Parameter]
@@ -233,6 +239,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     public bool ShowTips { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置

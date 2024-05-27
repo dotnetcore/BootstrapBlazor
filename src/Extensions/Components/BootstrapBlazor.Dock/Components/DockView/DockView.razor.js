@@ -41,6 +41,17 @@ export async function init(id, option, invoke) {
                 tab.titleElement.append(gear);
                 gear.classList.remove('d-none');
             }
+
+            const originalEvent = tab._dragStartEvent;
+            tab._dragStartEvent = function (x, y, dragListener, item) {
+                const gear = item.parentItem.element.querySelector(`[data-bb-componentId="${state.id}"]`)
+                if (gear) {
+                    gear.classList.add('d-none');
+                    document.body.appendChild(gear);
+                }
+
+                originalEvent(x, y, dragListener, item);
+            }
         }
     });
     layout.on('stackCreated', stack => {
