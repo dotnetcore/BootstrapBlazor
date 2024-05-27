@@ -26,6 +26,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// 构造函数
     /// </summary>
     /// <param name="cacheManager"></param>
+    /// <param name="localizationMissingItemHandler"></param>
     /// <param name="options"></param>
     /// <param name="jsonLocalizationOptions"></param>
     /// <param name="localizationOptions"></param>
