@@ -2,14 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Localization;
-internal class NullLocalizationMissingItemHandler : ILocalizationMissingItemHandler
+
+class NullLocalizationMissingItemHandler : ILocalizationMissingItemHandler
 {
-    public void HandleMissingItem(string name, string typeName, string cultureName) {}
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="typeName"></param>
+    /// <param name="cultureName"></param>
+    public void HandleMissingItem(string name, string typeName, string cultureName) { }
 }
