@@ -478,6 +478,10 @@ public partial class Table<TItem>
                 EditInCell = false;
                 SelectedRows.Add(EditModel);
             }
+            else if (EditMode == EditMode.Drawer)
+            {
+
+            }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
         }
