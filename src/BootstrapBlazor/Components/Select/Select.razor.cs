@@ -248,7 +248,7 @@ public partial class Select<TValue> : ISelect
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
-    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+    private List<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
