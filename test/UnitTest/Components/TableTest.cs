@@ -359,6 +359,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "loading-template-test"));
             });
         });
         cut.Contains("float-end table-toolbar-button btn-group");
@@ -2251,15 +2252,17 @@ public class TableTest : TableTestBase
         cut.WaitForAssertion(() => Assert.Equal(2, row));
     }
 
-    [Fact]
-    public void FooterTemplate_Ok()
+    [Theory]
+    [InlineData(TableRenderMode.CardView)]
+    [InlineData(TableRenderMode.Table)]
+    public void FooterTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.RenderMode, mode);
                 pb.Add(a => a.ShowFooter, true);
                 pb.Add(a => a.IsHideFooterWhenNoData, false);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -2808,6 +2811,7 @@ public class TableTest : TableTestBase
                     showDetail = true;
                     builder.AddContent(1, foo.Name);
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "detail-loading-template"));
             });
         });
 
@@ -4813,13 +4817,13 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(10, "GetTooltipTextCallback", new Func<object, Task<string?>>(async v =>
                     {
                         await Task.Delay(0);
-                        return "test-tips-calback";
+                        return "test-tips-callback";
                     }));
                     builder.CloseComponent();
                 });
             });
         });
-        cut.Contains("test-tips-calback");
+        cut.Contains("test-tips-callback");
     }
 
     [Fact]
