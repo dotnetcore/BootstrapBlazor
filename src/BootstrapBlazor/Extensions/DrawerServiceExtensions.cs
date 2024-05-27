@@ -15,12 +15,11 @@ public static class DrawerServiceExtensions
     /// <param name="service">DrawerService 服务实例</param>
     /// <param name="parameters"></param>
     /// <param name="option">DrawerOption 配置类实例</param>
-    /// <param name="drawerContainer">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    public static async Task Show<TComponent>(this DrawerService service, IDictionary<string, object?>? parameters = null, DrawerOption? option = null, DrawerContainer? drawerContainer = null) where TComponent : IComponent
+    public static async Task Show<TComponent>(this DrawerService service, IDictionary<string, object?>? parameters = null, DrawerOption? option = null) where TComponent : IComponent
     {
         option ??= new DrawerOption();
         option.ChildContent = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters).Render();
-        await service.Show(option, drawerContainer);
+        await service.Show(option);
     }
 
     /// <summary>
@@ -30,11 +29,10 @@ public static class DrawerServiceExtensions
     /// <param name="type"></param>
     /// <param name="parameters"></param>
     /// <param name="option">DrawerOption 配置类实例</param>
-    /// <param name="drawerContainer">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    public static async Task Show(this DrawerService service, Type type, IDictionary<string, object?>? parameters = null, DrawerOption? option = null, DrawerContainer? drawerContainer = null)
+    public static async Task Show(this DrawerService service, Type type, IDictionary<string, object?>? parameters = null, DrawerOption? option = null)
     {
         option ??= new DrawerOption();
         option.ChildContent = BootstrapDynamicComponent.CreateComponent(type, parameters).Render();
-        await service.Show(option, drawerContainer);
+        await service.Show(option);
     }
 }
