@@ -7,29 +7,29 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Core;
 
-[Collection("DrawerTestContext")]
-public class DrawerTestBase
+[Collection("DialogTestContext")]
+public class DialogTestBase
 {
     protected TestContext Context { get; }
 
-    public DrawerTestBase()
+    public DialogTestBase()
     {
-        Context = DrawerTestHost.Instance;
+        Context = DialogTestHost.Instance;
     }
 }
 
-[CollectionDefinition("DrawerTestContext")]
-public class DrawerTestCollection : ICollectionFixture<DrawerTestHost>
+[CollectionDefinition("DialogTestContext")]
+public class DialogTestCollection : ICollectionFixture<DialogTestHost>
 {
 
 }
 
-public class DrawerTestHost : IDisposable
+public class DialogTestHost : IDisposable
 {
     [NotNull]
     internal static TestContext? Instance { get; private set; }
 
-    public DrawerTestHost()
+    public DialogTestHost()
     {
         Instance = new TestContext();
 
