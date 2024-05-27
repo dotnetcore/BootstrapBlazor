@@ -130,6 +130,14 @@ public sealed partial class Drawers
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Drawer.OnCloseAsync),
+            Description = "The callback when close drawer",
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }
