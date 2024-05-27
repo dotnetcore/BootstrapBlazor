@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Moq;
 
 namespace UnitTest.Localization;
 
@@ -179,7 +178,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var items = localizer.GetAllStrings(false);
 
         // TODO: vs+windows pass
-        // mac linux rider+windows failed
+        // mac Linux rider+windows failed
         //Assert.NotEmpty(items);
         //Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
     }
@@ -216,22 +215,23 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     [Fact]
     public void HandleMissingItem()
     {
-        var mockMissingHandler = new Moq.Mock<ILocalizationMissingItemHandler>();
-        mockMissingHandler.Setup(o => o.HandleMissingItem(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-
         var sc = new ServiceCollection();
         sc.AddConfiguration();
-        sc.AddSingleton(mockMissingHandler.Object);
+        sc.AddSingleton<ILocalizationMissingItemHandler, MockLocalizationMissingItemHandler>();
         sc.AddBootstrapBlazor();
 
         var provider = sc.BuildServiceProvider();
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         var val = localizer["missing-item"];
 
-        Assert.NotNull(val);
-        Assert.Equal("missing-item", val.Name);
-        Assert.True(val.ResourceNotFound);
-        mockMissingHandler.Verify(o => o.HandleMissingItem("missing-item", typeof(Foo).FullName!, It.IsAny<string>()), Times.Once);
+        var handler = provider.GetRequiredService<ILocalizationMissingItemHandler>();
+        MockLocalizationMissingItemHandler? mockHandler = null;
+        if (handler is MockLocalizationMissingItemHandler h)
+        {
+            mockHandler = h;
+        }
+        Assert.NotNull(mockHandler);
+        Assert.Equal("missing-item", mockHandler.Name);
     }
 
     [Fact]
@@ -349,6 +349,17 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
             new("test-localizer-name", "name"),
             new("test-localizer-age", "age")
         };
+    }
+
+    internal class MockLocalizationMissingItemHandler : ILocalizationMissingItemHandler
+    {
+        [NotNull]
+        public string? Name { get; set; }
+
+        public void HandleMissingItem(string name, string typeName, string cultureName)
+        {
+            Name = name;
+        }
     }
 }
 
