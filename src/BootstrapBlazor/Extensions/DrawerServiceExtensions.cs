@@ -15,7 +15,7 @@ public static class DrawerServiceExtensions
     /// <param name="service">DrawerService 服务实例</param>
     /// <param name="parameters"></param>
     /// <param name="option">DrawerOption 配置类实例</param>
-    public static async Task Show<TComponent>(this DrawerService service, IDictionary<string, object?>? parameters = null, DrawerOption? option = null) where TComponent : IComponent
+    public static async Task Show<TComponent>(this DrawerService service, DrawerOption? option = null, IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         option ??= new DrawerOption();
         option.ChildContent = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters).Render();
@@ -29,7 +29,7 @@ public static class DrawerServiceExtensions
     /// <param name="type"></param>
     /// <param name="parameters"></param>
     /// <param name="option">DrawerOption 配置类实例</param>
-    public static async Task Show(this DrawerService service, Type type, IDictionary<string, object?>? parameters = null, DrawerOption? option = null)
+    public static async Task Show(this DrawerService service, Type type, DrawerOption? option = null, IDictionary<string, object?>? parameters = null)
     {
         option ??= new DrawerOption();
         option.ChildContent = BootstrapDynamicComponent.CreateComponent(type, parameters).Render();
