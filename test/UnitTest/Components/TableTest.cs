@@ -359,6 +359,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.LoadingTemplate, builder => builder.AddContent(0, "loading-template-test"));
             });
         });
         cut.Contains("float-end table-toolbar-button btn-group");
