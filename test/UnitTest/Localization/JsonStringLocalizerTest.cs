@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using Moq;
 
 namespace UnitTest.Localization;
 
@@ -210,6 +211,27 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("name", localizer["test-localizer-name"]);
         Assert.Equal("test-name", localizer["test-name"]);
+    }
+
+    [Fact]
+    public void HandleMissingItem()
+    {
+        var mockMissingHandler = new Moq.Mock<ILocalizationMissingItemHandler>();
+        mockMissingHandler.Setup(o => o.HandleMissingItem(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddSingleton(mockMissingHandler.Object);
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+        var val = localizer["missing-item"];
+
+        Assert.NotNull(val);
+        Assert.Equal("missing-item", val.Name);
+        Assert.True(val.ResourceNotFound);
+        mockMissingHandler.Verify(o => o.HandleMissingItem("missing-item", typeof(Foo).FullName!, It.IsAny<string>()), Times.Once);
     }
 
     [Fact]
