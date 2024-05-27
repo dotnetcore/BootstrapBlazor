@@ -34,9 +34,32 @@ public class DrawerContainer : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<Drawer>(0);
-
-        builder.CloseComponent();
+        if (_option != null)
+        {
+            var parameters = new Dictionary<string, object>()
+            {
+                [nameof(Drawer.IsOpen)] = true,
+                [nameof(Drawer.IsBackdrop)] = _option.IsBackdrop,
+                [nameof(Drawer.ShowBackdrop)] = _option.ShowBackdrop,
+                [nameof(Drawer.Placement)] = _option.Placement,
+                [nameof(Drawer.AllowResize)] = _option.AllowResize
+            };
+            if (!string.IsNullOrEmpty(_option.Width))
+            {
+                parameters.Add(nameof(Drawer.Width), _option.Width);
+            }
+            if (!string.IsNullOrEmpty(_option.Height))
+            {
+                parameters.Add(nameof(Drawer.Height), _option.Height);
+            }
+            if (_option.ChildContent != null)
+            {
+                parameters.Add(nameof(Drawer.ChildContent), _option.ChildContent);
+            }
+            builder.OpenComponent<Drawer>(0);
+            builder.AddMultipleAttributes(1, parameters);
+            builder.CloseComponent();
+        }
     }
 
     private async Task Show(DrawerOption option)

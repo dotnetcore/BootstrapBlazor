@@ -12,12 +12,12 @@ public class DrawerOption
     /// <summary>
     /// 获得/设置 抽屉宽度 左右布局时生效
     /// </summary>
-    public string Width { get; set; } = "360px";
+    public string? Width { get; set; }
 
     /// <summary>
     /// 获得/设置 抽屉高度 上下布局时生效
     /// </summary>
-    public string Height { get; set; } = "290px";
+    public string? Height { get; set; }
 
     /// <summary>
     /// 获得/设置 点击遮罩是否关闭抽屉 默认为 false
