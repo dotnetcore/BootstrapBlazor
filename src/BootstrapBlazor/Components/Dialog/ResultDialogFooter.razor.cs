@@ -67,7 +67,6 @@ public partial class ResultDialogFooter
     /// 显示关闭按钮
     /// </summary>
     [Parameter]
-    [NotNull]
     public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
