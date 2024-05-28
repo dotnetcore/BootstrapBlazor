@@ -80,6 +80,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DialogCloseButton>();
         Assert.Contains("btn-secondary", cut.Markup);
+
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
