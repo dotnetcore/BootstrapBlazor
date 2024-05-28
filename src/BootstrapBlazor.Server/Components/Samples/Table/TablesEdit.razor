@@ -164,6 +164,25 @@
             <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
+
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesEditModeDrawer"].Value)</p>
+    </section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
+           EditMode="EditMode.Drawer" @bind-Items="@BindItems" InsertRowMode="InsertMode">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]" Introduction="@Localizer["TablesEditInjectDataServiceIntro"]" Name="InjectDataService">

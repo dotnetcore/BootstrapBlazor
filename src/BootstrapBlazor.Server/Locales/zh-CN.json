@@ -5083,6 +5083,7 @@
     "TablesEditModeAddModalTitle": "增加测试数据窗口",
     "TablesEditModeEditModalTitle": "编辑测试数据窗口",
     "TablesEditModeInCell": "<code>InCell</code> 模式示例",
+    "TablesEditModeDrawer": "<code>Drawer</code> 模式示例",
     "TablesEditInjectDataServiceDescription": "通过注册数据服务进行增、删、改、查的数据库操作，而无需对以下回调委托进行赋值，优先级别为有回调方法优先调用回调方法，如无则调用注入服务进行数据操作",
     "TablesEditInjectDataServiceTips1": "Startup 文件注入数据服务",
     "TablesEditInjectDataServiceTips2": "实现原理与用法介绍",
