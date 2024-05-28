@@ -178,7 +178,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var items = localizer.GetAllStrings(false);
 
         // TODO: vs+windows pass
-        // mac linux rider+windows failed
+        // mac Linux rider+windows failed
         //Assert.NotEmpty(items);
         //Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
     }
@@ -210,6 +210,28 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("name", localizer["test-localizer-name"]);
         Assert.Equal("test-name", localizer["test-name"]);
+    }
+
+    [Fact]
+    public void HandleMissingItem()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddSingleton<ILocalizationMissingItemHandler, MockLocalizationMissingItemHandler>();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+        var val = localizer["missing-item"];
+
+        var handler = provider.GetRequiredService<ILocalizationMissingItemHandler>();
+        MockLocalizationMissingItemHandler? mockHandler = null;
+        if (handler is MockLocalizationMissingItemHandler h)
+        {
+            mockHandler = h;
+        }
+        Assert.NotNull(mockHandler);
+        Assert.Equal("missing-item", mockHandler.Name);
     }
 
     [Fact]
@@ -327,6 +349,17 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
             new("test-localizer-name", "name"),
             new("test-localizer-age", "age")
         };
+    }
+
+    internal class MockLocalizationMissingItemHandler : ILocalizationMissingItemHandler
+    {
+        [NotNull]
+        public string? Name { get; set; }
+
+        public void HandleMissingItem(string name, string typeName, string cultureName)
+        {
+            Name = name;
+        }
     }
 }
 

@@ -76,7 +76,6 @@ public partial class ToastContainer : IDisposable
         }
         Toasts.Add(option);
         await InvokeAsync(StateHasChanged);
-        return;
     }
 
     /// <summary>
