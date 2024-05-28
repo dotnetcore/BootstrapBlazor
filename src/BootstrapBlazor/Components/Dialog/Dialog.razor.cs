@@ -147,7 +147,7 @@ public partial class Dialog : IDisposable
 
         if (option is ResultDialogOption resultOption)
         {
-            parameters.Add(nameof(ModalDialog.ResultTask), resultOption.ReturnTask);
+            parameters.Add(nameof(ModalDialog.ResultTask), resultOption.ResultTask);
             if (resultOption.GetDialog != null)
             {
                 parameters.Add(nameof(ModalDialog.GetResultDialog), resultOption.GetDialog);

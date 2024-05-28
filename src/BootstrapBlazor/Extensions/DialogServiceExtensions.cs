@@ -131,8 +131,12 @@ public static class DialogServiceExtensions
             [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon
         }).Render();
 
+        if (option.ResultTask.Task.IsCompleted)
+        {
+            option.ResultTask = new();
+        }
         await service.Show(option, dialog);
-        return await option.ReturnTask.Task;
+        return await option.ResultTask.Task;
     }
 
     /// <summary>

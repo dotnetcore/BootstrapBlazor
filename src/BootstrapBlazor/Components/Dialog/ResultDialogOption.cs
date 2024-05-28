@@ -15,6 +15,7 @@ public class ResultDialogOption : DialogOption
     public ResultDialogOption()
     {
         ShowCloseButton = false;
+        ResultTask = new();
     }
 
     /// <summary>
@@ -91,7 +92,7 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
-    internal TaskCompletionSource<DialogResult> ReturnTask { get; } = new TaskCompletionSource<DialogResult>();
+    internal TaskCompletionSource<DialogResult> ResultTask { get; set; }
 
     /// <summary>
     /// 获得 模态框接口方法
