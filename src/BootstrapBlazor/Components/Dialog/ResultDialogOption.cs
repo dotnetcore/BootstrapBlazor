@@ -61,16 +61,22 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 关闭按钮文本
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮图标
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮颜色
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
     /// <summary>
