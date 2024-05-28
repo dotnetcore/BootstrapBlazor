@@ -65,16 +65,14 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
             [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
-            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
+            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
             {
+                var ret = false;
                 if (option.OnEditAsync != null)
                 {
-                    var ret = await option.OnEditAsync(context);
-                    if (ret)
-                    {
-                        await option.CloseDialogAsync();
-                    }
+                    ret = await option.OnEditAsync(context);
                 }
+                return ret;
             }),
             [nameof(EditDialog<TModel>.RowType)] = option.RowType,
             [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
