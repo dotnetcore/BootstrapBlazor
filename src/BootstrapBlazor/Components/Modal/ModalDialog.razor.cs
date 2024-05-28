@@ -259,6 +259,18 @@ public partial class ModalDialog : IHandlerException
     public string? SaveIcon { get => SaveButtonIcon; set => SaveButtonIcon = value; }
 
     /// <summary>
+    /// 获得/设置 模态弹窗任务 <see cref="TaskCompletionSource{TResult}"/> 实例 默认 null
+    /// </summary>
+    [Parameter]
+    public TaskCompletionSource<DialogResult>? ResultTask { get; set; }
+
+    /// <summary>
+    /// 获得/设置 获得模态弹窗方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<IResultDialog?>? GetResultDialog { get; set; }
+
+    /// <summary>
     /// 获得/设置 弹窗容器实例
     /// </summary>
     [CascadingParameter]
@@ -274,6 +286,8 @@ public partial class ModalDialog : IHandlerException
     private IIconTheme? IconTheme { get; set; }
 
     private string? MaximizeIconString { get; set; }
+
+    private DialogResult _result = DialogResult.Close;
 
     /// <summary>
     /// OnInitialized 方法
@@ -323,7 +337,39 @@ public partial class ModalDialog : IHandlerException
         StateHasChanged();
     }
 
-    private Task OnClickCloseAsync() => Modal.Close();
+    private Task SetResultAsync(DialogResult result)
+    {
+        _result = result;
+        return Task.CompletedTask;
+    }
+
+    private async Task OnClickCloseAsync()
+    {
+        _result = DialogResult.Close;
+        await CloseAsync();
+    }
+
+    private async Task CloseAsync()
+    {
+        if (GetResultDialog != null)
+        {
+            var dialog = GetResultDialog();
+            if (dialog != null)
+            {
+                var result = await dialog.OnClosing(_result);
+                if (result)
+                {
+                    await dialog.OnClose(_result);
+                }
+                else
+                {
+                    return;
+                }
+            }
+        }
+        ResultTask?.SetResult(_result);
+        await Modal.Close();
+    }
 
     private bool MaximizeStatus { get; set; }
 
@@ -342,7 +388,7 @@ public partial class ModalDialog : IHandlerException
         }
         if (IsAutoCloseAfterSave && ret)
         {
-            await OnClickCloseAsync();
+            await CloseAsync();
         }
     }
 
