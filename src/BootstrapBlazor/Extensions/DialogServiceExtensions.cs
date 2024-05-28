@@ -33,7 +33,6 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                await option.CloseDialogAsync();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
