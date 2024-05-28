@@ -129,28 +129,28 @@ public static class DialogServiceExtensions
             [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
             [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
             [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
-            [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(async () =>
+            [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(() =>
             {
                 result = DialogResult.Close;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                return Task.CompletedTask;
             }),
 
             [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
             [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
             [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
-            [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(async () =>
+            [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(() =>
             {
                 result = DialogResult.Yes;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                return Task.CompletedTask;
             }),
 
             [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
             [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
             [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon,
-            [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(async () =>
+            [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(() =>
             {
                 result = DialogResult.No;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
+                return Task.CompletedTask;
             })
         }).Render();
 
