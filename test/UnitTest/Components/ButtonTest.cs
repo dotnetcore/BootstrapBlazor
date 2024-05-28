@@ -195,7 +195,7 @@ public class ButtonTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.Text, null);
+            pb.Add(a => a.Text, null);
             pb.AddChildContent("Button-Test");
         });
         Assert.Contains("Button-Test", cut.Markup);
