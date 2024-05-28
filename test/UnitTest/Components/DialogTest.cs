@@ -98,6 +98,8 @@ public class DialogTest : DialogTestBase
         var option1 = new DialogOption
         {
             BodyTemplate = builder => builder.AddContent(0, "Test-BodyTemplate"),
+            CloseButtonIcon = "btn-close-icon",
+            SaveButtonIcon = "btn-save-icon",
             OnShownAsync = () =>
             {
                 shown = true;
@@ -373,7 +375,6 @@ public class DialogTest : DialogTestBase
                             builder.AddContent(0, "Test");
                         }
                     });
-                    return Task.CompletedTask;
                 }
             }).Render()
         }));
