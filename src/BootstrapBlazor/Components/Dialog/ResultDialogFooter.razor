@@ -2,13 +2,13 @@
 
 @if (ShowCloseButton)
 {
-    <Button Color="@ButtonCloseColor" Icon="@ButtonCloseIcon" Text="@ButtonCloseText" OnClick="() => ButtonClick(DialogResult.Close)" />
+    <DialogCloseButton Color="@ButtonCloseColor" Icon="@ButtonCloseIcon" Text="@ButtonCloseText" OnClickWithoutRender="() => OnClick(DialogResult.Close)" />
 }
 @if (ShowNoButton)
 {
-    <Button Color="@ButtonNoColor" Icon="@ButtonNoIcon" Text="@ButtonNoText" OnClick="() => ButtonClick(DialogResult.No)" />
+    <DialogCloseButton Color="@ButtonNoColor" Icon="@ButtonNoIcon" Text="@ButtonNoText" OnClickWithoutRender="() => OnClick(DialogResult.No)" />
 }
 @if (ShowYesButton)
 {
-    <Button Color="@ButtonYesColor" Icon="@ButtonYesIcon" Text="@ButtonYesText" OnClick="() => ButtonClick(DialogResult.Yes)" />
+    <DialogCloseButton Color="@ButtonYesColor" Icon="@ButtonYesIcon" Text="@ButtonYesText" OnClickWithoutRender="() => OnClick(DialogResult.Yes)" />
 }

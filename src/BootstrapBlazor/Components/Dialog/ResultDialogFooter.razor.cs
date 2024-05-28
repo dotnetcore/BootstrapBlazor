@@ -132,7 +132,7 @@ public partial class ResultDialogFooter
         ButtonCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogCloseIcon);
     }
 
-    private async Task ButtonClick(DialogResult dialogResult)
+    private async Task OnClick(DialogResult dialogResult)
     {
         if (dialogResult == DialogResult.Yes && OnClickYes != null)
         {
