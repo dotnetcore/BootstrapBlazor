@@ -414,6 +414,19 @@ public partial class Table<TItem>
     [NotNull]
     protected DialogService? DialogService { get; set; }
 
+    /// <summary>
+    /// DrawerService 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected DrawerService? DrawerService { get; set; }
+
+    /// <summary>
+    /// 获得/设置 抽屉打开之前回调方法 用于设置 <see cref="DrawerOption"/> 抽屉配置信息
+    /// </summary>
+    [Parameter]
+    public Func<DrawerOption, Task>? OnBeforeShowDrawer { get; set; }
+
     [Inject]
     [NotNull]
     private ITableExport? TableExport { get; set; }
@@ -480,7 +493,7 @@ public partial class Table<TItem>
             }
             else if (EditMode == EditMode.Drawer)
             {
-
+                await ShowEditDrawer(ItemChangedType.Add);
             }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
@@ -543,6 +556,10 @@ public partial class Table<TItem>
                     AddInCell = false;
                     EditInCell = true;
                     StateHasChanged();
+                }
+                else if (EditMode == EditMode.Drawer)
+                {
+                    await ShowEditDrawer(ItemChangedType.Update);
                 }
                 await ToggleLoading(false);
             }
@@ -870,6 +887,128 @@ public partial class Table<TItem>
             }
         };
         await DialogService.ShowEditDialog(option);
+    }
+
+    /// <summary>
+    /// 弹出编辑抽屉方法
+    /// </summary>
+    protected async Task ShowEditDrawer(ItemChangedType changedType)
+    {
+        var saved = false;
+        var editOption = new TableEditDrawerOption<TItem>()
+        {
+            ShowLoading = ShowLoading,
+            Model = EditModel,
+            Items = Columns.Where(i => !i.Ignore),
+            SaveButtonText = EditDialogSaveButtonText,
+            CloseButtonText = EditDialogCloseButtonText,
+            BodyTemplate = EditTemplate,
+            RowType = EditDialogRowType,
+            ItemsPerRow = EditDialogItemsPerRow,
+            LabelAlign = EditDialogLabelAlign,
+            ItemChangedType = changedType,
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
+            DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
+            IsTracking = IsTracking,
+            FooterTemplate = EditFooterTemplate,
+            OnCloseAsync = async () =>
+            {
+                if (EditDialogCloseAsync != null)
+                {
+                    await EditDialogCloseAsync(EditModel, saved);
+                }
+                if (!saved)
+                {
+                    // EFCore 模式保存失败后调用 CancelAsync 回调
+                    var d = DataService ?? InjectDataService;
+                    if (d is IEntityFrameworkCoreDataService ef)
+                    {
+                        // EFCore
+                        await ToggleLoading(true);
+                        await ef.CancelAsync();
+                        await ToggleLoading(false);
+                    }
+                }
+            },
+            OnEditAsync = async context =>
+            {
+                await ToggleLoading(true);
+                if (IsTracking)
+                {
+                    saved = true;
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                        Rows.Insert(index, EditModel);
+                    }
+                    await InvokeItemsChanged();
+                }
+                else
+                {
+                    saved = await SaveModelAsync(context, changedType);
+                    if (saved)
+                    {
+                        if (Items != null)
+                        {
+                            if (changedType == ItemChangedType.Add)
+                            {
+                                await AddItem();
+                            }
+                            else if (changedType == ItemChangedType.Update)
+                            {
+                                await EditItem();
+                            }
+                        }
+                        else
+                        {
+                            await QueryAsync();
+                        }
+                    }
+                }
+                await ToggleLoading(false);
+                return saved;
+
+                async Task AddItem()
+                {
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, (TItem)context.Model);
+                    await UpdateRow();
+                }
+
+                async Task EditItem()
+                {
+                    // 使用 Comparer 确保能找到集合中的编辑项
+                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
+                    var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
+                    if (entity != null)
+                    {
+                        var index = Rows.IndexOf(entity);
+                        Rows.RemoveAt(index);
+                        Rows.Insert(index, (TItem)context.Model);
+                        await UpdateRow();
+                    }
+                }
+
+                async Task UpdateRow()
+                {
+                    if (ItemsChanged.HasDelegate)
+                    {
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        Items = Rows;
+                    }
+                }
+            }
+        };
+
+        var option = new DrawerOption() { Class = "drawer-table-edit", Placement = Placement.Right, AllowResize = true, IsBackdrop = true, Width = "600px" };
+        if (OnBeforeShowDrawer != null)
+        {
+            await OnBeforeShowDrawer(option);
+        }
+        await DrawerService.ShowEditDrawer(editOption, option);
     }
 
     /// <summary>
