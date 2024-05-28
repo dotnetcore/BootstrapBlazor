@@ -130,9 +130,14 @@ public class DialogOption
     public BootstrapDynamicComponent? Component { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭弹窗回调方法
+    /// 获得/设置 保存按钮图标 默认 null 使用当前主题图标
     /// </summary>
-    public Func<Task>? OnCloseAsync { get; set; }
+    public string? SaveButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮文本
+    /// </summary>
+    public string? SaveButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 保存按钮回调方法
@@ -140,14 +145,19 @@ public class DialogOption
     public Func<Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭按钮文本
     /// </summary>
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 查询按钮文本
+    /// 获得/设置 关闭弹窗回调方法
     /// </summary>
-    public string? SaveButtonText { get; set; }
+    public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭

@@ -62,9 +62,19 @@ public class TableEditDrawerOption<TModel>
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭按钮文本
     /// </summary>
     public string? CloseButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    public string? SaveButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 查询按钮文本

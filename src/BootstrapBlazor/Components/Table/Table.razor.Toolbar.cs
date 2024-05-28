@@ -374,10 +374,22 @@ public partial class Table<TItem>
     public string? EditDialogSaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 保存弹窗中的保存按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    [Parameter]
+    public string? EditDialogSaveButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 保存弹窗中的关闭按钮显示文本 默认为资源文件中的 关闭
     /// </summary>
     [Parameter]
     public string? EditDialogCloseButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存弹窗中的关闭按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    [Parameter]
+    public string? EditDialogCloseButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 导出数据弹窗 Title 默认为资源文件 导出数据
@@ -780,7 +792,9 @@ public partial class Table<TItem>
             Title = EditModalTitleString,
             Model = EditModel,
             Items = Columns.Where(i => !i.Ignore),
+            SaveButtonIcon = EditDialogCloseButtonIcon,
             SaveButtonText = EditDialogSaveButtonText,
+            CloseButtonIcon = EditDialogCloseButtonIcon,
             CloseButtonText = EditDialogCloseButtonText,
             DialogBodyTemplate = EditTemplate,
             RowType = EditDialogRowType,
@@ -900,7 +914,9 @@ public partial class Table<TItem>
             ShowLoading = ShowLoading,
             Model = EditModel,
             Items = Columns.Where(i => !i.Ignore),
+            SaveButtonIcon = EditDialogSaveButtonIcon,
             SaveButtonText = EditDialogSaveButtonText,
+            CloseButtonIcon = EditDialogCloseButtonIcon,
             CloseButtonText = EditDialogCloseButtonText,
             BodyTemplate = EditTemplate,
             RowType = EditDialogRowType,
