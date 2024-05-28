@@ -1,9 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
 
-@if (ShowCloseButton)
-{
-    <DialogCloseButton Color="@ButtonCloseColor" Icon="@ButtonCloseIcon" Text="@ButtonCloseText" OnClickWithoutRender="() => OnClick(DialogResult.Close)" />
-}
 @if (ShowNoButton)
 {
     <DialogCloseButton Color="@ButtonNoColor" Icon="@ButtonNoIcon" Text="@ButtonNoText" OnClickWithoutRender="() => OnClick(DialogResult.No)" />

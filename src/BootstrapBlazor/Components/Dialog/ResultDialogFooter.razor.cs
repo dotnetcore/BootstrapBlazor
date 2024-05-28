@@ -67,27 +67,32 @@ public partial class ResultDialogFooter
     /// 显示关闭按钮
     /// </summary>
     [Parameter]
-    [NotNull]
+    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
     /// 关闭按钮文本
     /// </summary>
     [Parameter]
-    [NotNull]
+    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseText { get; set; }
 
     /// <summary>
     /// 关闭按钮图标
     /// </summary>
     [Parameter]
-    [NotNull]
+    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
     /// 关闭按钮颜色
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，请删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
     /// <summary>
@@ -132,11 +137,9 @@ public partial class ResultDialogFooter
     {
         base.OnParametersSet();
 
-        ButtonCloseText ??= Localizer[nameof(ButtonCloseText)];
         ButtonNoText ??= Localizer[nameof(ButtonNoText)];
         ButtonYesText ??= Localizer[nameof(ButtonYesText)];
 
-        ButtonCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogCloseIcon);
         ButtonNoIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogNoIcon);
         ButtonYesIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogYesIcon);
     }

@@ -139,10 +139,27 @@ public partial class Dialog : IDisposable
         {
             parameters.Add(nameof(ModalDialog.CloseButtonText), option.CloseButtonText);
         }
+        if (option.CloseButtonIcon != null)
+        {
+            parameters.Add(nameof(ModalDialog.CloseButtonIcon), option.CloseButtonIcon);
+        }
 
         if (option.SaveButtonText != null)
         {
             parameters.Add(nameof(ModalDialog.SaveButtonText), option.SaveButtonText);
+        }
+        if (option.SaveButtonIcon != null)
+        {
+            parameters.Add(nameof(ModalDialog.SaveButtonIcon), option.SaveButtonIcon);
+        }
+
+        if (option is ResultDialogOption resultOption)
+        {
+            parameters.Add(nameof(ModalDialog.ResultTask), resultOption.ResultTask);
+            if (resultOption.GetDialog != null)
+            {
+                parameters.Add(nameof(ModalDialog.GetResultDialog), resultOption.GetDialog);
+            }
         }
 
         if (option is ResultDialogOption resultOption)
