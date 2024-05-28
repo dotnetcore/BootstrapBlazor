@@ -104,18 +104,14 @@ public static class DialogServiceExtensions
         where TDialog : IComponent, IResultDialog
     {
         IResultDialog? resultDialog = null;
-        var result = DialogResult.Unset;
-
+        option.GetDialog = () => resultDialog;
         option.BodyTemplate = builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, typeof(TDialog));
             if (option.ComponentParameters != null)
             {
-                foreach (var p in option.ComponentParameters)
-                {
-                    builder.AddAttribute(index++, p.Key, p.Value);
-                }
+                builder.AddMultipleAttributes(1, option.ComponentParameters);
             }
             builder.AddComponentReferenceCapture(index++, com => resultDialog = (IResultDialog)com);
             builder.CloseComponent();
@@ -129,58 +125,13 @@ public static class DialogServiceExtensions
             [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
             [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
             [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
-            [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(() =>
-            {
-                result = DialogResult.Close;
-                return Task.CompletedTask;
-            }),
-
             [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
             [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
             [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
-            [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(() =>
-            {
-                result = DialogResult.Yes;
-                return Task.CompletedTask;
-            }),
-
             [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
             [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
-            [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon,
-            [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(() =>
-            {
-                result = DialogResult.No;
-                return Task.CompletedTask;
-            })
+            [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon
         }).Render();
-
-        var closeCallback = option.OnCloseAsync;
-        option.OnCloseAsync = async () =>
-        {
-            if (resultDialog != null && await resultDialog.OnClosing(result))
-            {
-                await resultDialog.OnClose(result);
-                if (closeCallback != null)
-                {
-                    await closeCallback();
-                }
-
-                option.OnCloseAsync = null;
-                if (result == DialogResult.Unset)
-                {
-                    result = DialogResult.Close;
-                }
-                else
-                {
-                    await option.CloseDialogAsync();
-                }
-                option.ReturnTask.SetResult(result);
-            }
-            else
-            {
-                result = DialogResult.Close;
-            }
-        };
 
         await service.Show(option, dialog);
         return await option.ReturnTask.Task;
