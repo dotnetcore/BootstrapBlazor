@@ -26,7 +26,6 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
-                await option.CloseDialogAsync();
                 if (option.OnResetSearchClick != null)
                 {
                     await option.OnResetSearchClick();
@@ -34,7 +33,6 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                await option.CloseDialogAsync();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
@@ -67,16 +65,14 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
             [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
-            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
+            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
             {
+                var ret = false;
                 if (option.OnEditAsync != null)
                 {
-                    var ret = await option.OnEditAsync(context);
-                    if (ret)
-                    {
-                        await option.CloseDialogAsync();
-                    }
+                    ret = await option.OnEditAsync(context);
                 }
+                return ret;
             }),
             [nameof(EditDialog<TModel>.RowType)] = option.RowType,
             [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
@@ -106,18 +102,14 @@ public static class DialogServiceExtensions
         where TDialog : IComponent, IResultDialog
     {
         IResultDialog? resultDialog = null;
-        var result = DialogResult.Unset;
-
+        option.GetDialog = () => resultDialog;
         option.BodyTemplate = builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, typeof(TDialog));
             if (option.ComponentParameters != null)
             {
-                foreach (var p in option.ComponentParameters)
-                {
-                    builder.AddAttribute(index++, p.Key, p.Value);
-                }
+                builder.AddMultipleAttributes(1, option.ComponentParameters);
             }
             builder.AddComponentReferenceCapture(index++, com => resultDialog = (IResultDialog)com);
             builder.CloseComponent();
@@ -125,67 +117,22 @@ public static class DialogServiceExtensions
 
         option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
         {
-            [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText,
             [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText,
             [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText,
-            [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
-            [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
-            [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
-            [nameof(ResultDialogFooter.OnClickClose)] = new Func<Task>(async () =>
-            {
-                result = DialogResult.Close;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
-            }),
-
             [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
             [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
             [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
-            [nameof(ResultDialogFooter.OnClickYes)] = new Func<Task>(async () =>
-            {
-                result = DialogResult.Yes;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
-            }),
-
             [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
             [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
-            [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon,
-            [nameof(ResultDialogFooter.OnClickNo)] = new Func<Task>(async () =>
-            {
-                result = DialogResult.No;
-                if (option.OnCloseAsync != null) { await option.OnCloseAsync(); }
-            })
+            [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon
         }).Render();
 
-        var closeCallback = option.OnCloseAsync;
-        option.OnCloseAsync = async () =>
+        if (option.ResultTask.Task.IsCompleted)
         {
-            if (resultDialog != null && await resultDialog.OnClosing(result))
-            {
-                await resultDialog.OnClose(result);
-                if (closeCallback != null)
-                {
-                    await closeCallback();
-                }
-
-                option.OnCloseAsync = null;
-                if (result == DialogResult.Unset)
-                {
-                    result = DialogResult.Close;
-                }
-                else
-                {
-                    await option.CloseDialogAsync();
-                }
-                option.ReturnTask.SetResult(result);
-            }
-            else
-            {
-                result = DialogResult.Close;
-            }
-        };
-
+            option.ResultTask = new();
+        }
         await service.Show(option, dialog);
-        return await option.ReturnTask.Task;
+        return await option.ResultTask.Task;
     }
 
     /// <summary>
