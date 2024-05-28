@@ -145,6 +145,15 @@ public partial class Dialog : IDisposable
             parameters.Add(nameof(ModalDialog.SaveButtonText), option.SaveButtonText);
         }
 
+        if (option is ResultDialogOption resultOption)
+        {
+            parameters.Add(nameof(ModalDialog.ResultTask), resultOption.ReturnTask);
+            if (resultOption.GetDialog != null)
+            {
+                parameters.Add(nameof(ModalDialog.GetResultDialog), resultOption.GetDialog);
+            }
+        }
+
         // 保存当前 Dialog 参数
         CurrentParameter = parameters;
 

@@ -94,19 +94,28 @@ public partial class ResultDialogFooter
     /// 获得/设置 点击关闭按钮回调方法
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickClose { get; set; }
 
     /// <summary>
     /// 获得/设置 点击确认按钮回调方法
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickYes { get; set; }
 
     /// <summary>
     /// 获得/设置 点击取消按钮回调方法
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Func<Task>? OnClickNo { get; set; }
+
+    [CascadingParameter(Name = "ResultDialogContext")]
+    private Func<DialogResult, Task>? SetResultAsync { get; set; }
 
     [Inject]
     [NotNull]
@@ -127,24 +136,16 @@ public partial class ResultDialogFooter
         ButtonNoText ??= Localizer[nameof(ButtonNoText)];
         ButtonYesText ??= Localizer[nameof(ButtonYesText)];
 
-        ButtonYesIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogYesIcon);
-        ButtonNoIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogNoIcon);
         ButtonCloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogCloseIcon);
+        ButtonNoIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogNoIcon);
+        ButtonYesIcon ??= IconTheme.GetIconByKey(ComponentIcons.ResultDialogYesIcon);
     }
 
     private async Task OnClick(DialogResult dialogResult)
     {
-        if (dialogResult == DialogResult.Yes && OnClickYes != null)
+        if (SetResultAsync != null)
         {
-            await OnClickYes();
-        }
-        if (dialogResult == DialogResult.No && OnClickNo != null)
-        {
-            await OnClickNo();
-        }
-        if (dialogResult == DialogResult.Close && OnClickClose != null)
-        {
-            await OnClickClose();
+            await SetResultAsync(dialogResult);
         }
     }
 }
