@@ -26,12 +26,14 @@ public static class DrawerExtensions
             [nameof(EditDialog<TModel>.ShowLabel)] = editOption.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = editOption.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
             [nameof(EditDialog<TModel>.OnCloseAsync)] = editOption.OnCloseAsync,
-            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
+            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
             {
+                var ret = false;
                 if (editOption.OnEditAsync != null)
                 {
-                    var ret = await editOption.OnEditAsync(context);
+                    ret = await editOption.OnEditAsync(context);
                 }
+                return ret;
             }),
             [nameof(EditDialog<TModel>.RowType)] = editOption.RowType,
             [nameof(EditDialog<TModel>.LabelAlign)] = editOption.LabelAlign,

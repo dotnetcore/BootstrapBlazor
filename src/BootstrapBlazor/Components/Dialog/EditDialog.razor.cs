@@ -43,13 +43,13 @@ public partial class EditDialog<TModel>
     public string? SaveButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存回调委托
+    /// 获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗
     /// </summary>
     [Parameter]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
-    public Func<EditContext, Task>? OnSaveAsync { get; set; }
+    public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮图标
@@ -81,6 +81,9 @@ public partial class EditDialog<TModel>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }
 
+    [CascadingParameter]
+    private Func<Task>? CloseAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
@@ -108,8 +111,13 @@ public partial class EditDialog<TModel>
         if (OnSaveAsync != null)
         {
             await ToggleLoading(true);
-            await OnSaveAsync(context);
+            var save = await OnSaveAsync(context);
             await ToggleLoading(false);
+
+            if (save && CloseAsync != null)
+            {
+                await CloseAsync();
+            }
         }
     }
 
