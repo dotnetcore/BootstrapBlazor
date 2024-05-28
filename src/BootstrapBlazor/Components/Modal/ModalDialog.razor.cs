@@ -229,6 +229,13 @@ public partial class ModalDialog : IHandlerException
     public string? SaveButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 保存按钮显示图标 未设置时 使用主题图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? SaveButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 最大化按钮图标
     /// </summary>
     [Parameter]
@@ -247,7 +254,9 @@ public partial class ModalDialog : IHandlerException
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? SaveIcon { get; set; }
+    [Obsolete("已弃用，请使用 SaveButtonIcon; Deprecated, please use SaveButtonIcon")]
+    [ExcludeFromCodeCoverage]
+    public string? SaveIcon { get => SaveButtonIcon; set => SaveButtonIcon = value; }
 
     /// <summary>
     /// 获得/设置 弹窗容器实例
@@ -294,9 +303,9 @@ public partial class ModalDialog : IHandlerException
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
         ExportPdfButtonOptions.Text ??= Localizer["ExportPdfButtonText"];
 
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaximizeWindowIcon);
-        SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
         PrintButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
         ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
