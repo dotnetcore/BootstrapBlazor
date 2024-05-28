@@ -153,7 +153,7 @@ public partial class Dialog : IDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    private static RenderFragment RenderDialog(int index, IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
+    private static RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>
     {
         builder.OpenComponent<ModalDialog>(100 + index);
         builder.AddMultipleAttributes(101 + index, parameter);
