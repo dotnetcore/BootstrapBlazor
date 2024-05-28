@@ -107,20 +107,6 @@ public sealed partial class Dialogs
         await DialogService.Show(op);
     }
 
-    private async Task CloseDialogByCodeShow()
-    {
-        var option = new DialogOption()
-        {
-            Title = "Close the popup with code",
-        };
-        option.Component = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
-        {
-            [nameof(Button.Text)] = "Click to close the popup",
-            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, option.CloseDialogAsync)
-        });
-        await DialogService.Show(option);
-    }
-
     private async Task CloseButtonShow()
     {
         var option = new DialogOption()
@@ -133,16 +119,15 @@ public sealed partial class Dialogs
 
     private async Task ShowNoHeaderCloseButtonDialog()
     {
-        var option = new DialogOption()
+        var option = new DialogOption
         {
             Title = "Header no close button",
-            ShowHeaderCloseButton = false
+            ShowHeaderCloseButton = false,
+            Component = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>(new Dictionary<string, object?>
+            {
+                [nameof(Button.Text)] = "Click to close the popup"
+            })
         };
-        option.Component = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
-        {
-            [nameof(Button.Text)] = "Click to close the popup",
-            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, option.CloseDialogAsync)
-        });
 
         await DialogService.Show(option);
     }
