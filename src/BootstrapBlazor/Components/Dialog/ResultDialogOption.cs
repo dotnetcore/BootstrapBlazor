@@ -92,4 +92,9 @@ public class ResultDialogOption : DialogOption
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
     internal TaskCompletionSource<DialogResult> ReturnTask { get; } = new TaskCompletionSource<DialogResult>();
+
+    /// <summary>
+    /// 获得 模态框接口方法
+    /// </summary>
+    internal Func<IResultDialog?>? GetDialog { get; set; }
 }
