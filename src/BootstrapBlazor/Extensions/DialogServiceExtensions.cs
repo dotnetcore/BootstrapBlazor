@@ -117,12 +117,8 @@ public static class DialogServiceExtensions
 
         option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
         {
-            [nameof(ResultDialogFooter.ButtonCloseText)] = option.ButtonCloseText,
             [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText,
             [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText,
-            [nameof(ResultDialogFooter.ShowCloseButton)] = option.ShowCloseButton,
-            [nameof(ResultDialogFooter.ButtonCloseColor)] = option.ButtonCloseColor,
-            [nameof(ResultDialogFooter.ButtonCloseIcon)] = option.ButtonCloseIcon,
             [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
             [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
             [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,

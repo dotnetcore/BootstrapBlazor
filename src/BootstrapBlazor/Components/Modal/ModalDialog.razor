@@ -52,7 +52,7 @@
                         <div class="modal-footer">
                             @if (ShowCloseButton)
                             {
-                                <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon"></DialogCloseButton>
+                                <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="@CloseButtonIcon" OnClickWithoutRender="OnClickCloseAsync"></Button>
                             }
                             @if (ShowPrintButton)
                             {
