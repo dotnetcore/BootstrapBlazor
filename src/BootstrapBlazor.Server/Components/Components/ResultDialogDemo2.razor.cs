@@ -54,7 +54,7 @@ public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> OnClosing(DialogResult result)
