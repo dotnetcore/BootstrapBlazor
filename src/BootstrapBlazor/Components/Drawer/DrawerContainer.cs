@@ -46,15 +46,20 @@ public class DrawerContainer : ComponentBase, IDisposable
         await InvokeAsync(StateHasChanged);
     }
 
-    private void RenderDrawer(RenderTreeBuilder builder, DrawerOption option)
+    private static void RenderDrawer(RenderTreeBuilder builder, DrawerOption option)
     {
         builder.OpenComponent<Drawer>(0);
         builder.SetKey(option);
-        builder.AddMultipleAttributes(1, GetParameters(option));
+
+        if (!string.IsNullOrEmpty(option.Class))
+        {
+            builder.AddAttribute(1, "class", option.Class);
+        }
+        builder.AddMultipleAttributes(2, GetParameters(option));
         builder.CloseComponent();
     }
 
-    private Dictionary<string, object> GetParameters(DrawerOption option)
+    private static Dictionary<string, object> GetParameters(DrawerOption option)
     {
         var parameters = new Dictionary<string, object>()
         {
@@ -84,7 +89,7 @@ public class DrawerContainer : ComponentBase, IDisposable
         return parameters;
     }
 
-    private async Task OnCloseAsync(DrawerOption option)
+    private static async Task OnCloseAsync(DrawerOption option)
     {
         if (option.OnCloseAsync != null)
         {
