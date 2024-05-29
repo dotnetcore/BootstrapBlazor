@@ -432,6 +432,12 @@ public class ButtonTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
         Assert.True(clicked);
+
+        clicked = false;
+        cut.SetParametersAndRender(pb => pb.Add(a => a.OnSaveAsync, () => Task.FromResult(false)));
+        button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.False(clicked);
     }
 
     [Fact]
