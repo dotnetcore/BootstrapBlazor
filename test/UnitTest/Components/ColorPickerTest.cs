@@ -29,4 +29,20 @@ public class ColorPickerTest : BootstrapBlazorTestBase
 
         cut.Contains("Test-#AABBCC");
     }
+
+    [Fact]
+    public void Formatter_OK()
+    {
+        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        {
+            builder.Add(a => a.Formatter, async v =>
+            {
+                await Task.Delay(0);
+                return "test-color-value";
+            });
+            builder.Add(a => a.Value, "#AABBCC");
+        });
+
+        cut.Contains("test-color-value");
+    }
 }

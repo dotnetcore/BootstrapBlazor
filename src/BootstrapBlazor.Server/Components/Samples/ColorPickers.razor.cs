@@ -27,8 +27,21 @@ public partial class ColorPickers
         return Task.CompletedTask;
     }
 
-    private string FormatValue(string v)
+    private static string FormatValue(string v)
     {
+        var ret = "";
+        if (!string.IsNullOrEmpty(v) && v.Length > 1)
+        {
+            ret = $"#FF{v[1..].ToUpperInvariant()}";
+        }
+        return ret;
+    }
+
+    private static async Task<string> FormatValueAsync(string v)
+    {
+        // 模拟延时
+        await Task.Delay(0);
+
         var ret = "";
         if (!string.IsNullOrEmpty(v) && v.Length > 1)
         {
@@ -44,8 +57,16 @@ public partial class ColorPickers
             Name = "OnValueChanged",
             Description = Localizer["Event1"],
             Type = "Func<string, Task>",
-            ValueList = "",
-            DefaultValue = ""
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.Template),
+            Description = Localizer["EventTemplate"],
+            Type = "Func<string>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }
