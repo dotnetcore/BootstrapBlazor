@@ -418,8 +418,20 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialogSaveButton_Ok()
     {
-        var cut = Context.RenderComponent<DialogSaveButton>();
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogSaveButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+            pb.Add(a => a.OnSaveAsync, () => Task.FromResult(true));
+        });
         cut.Contains("button type=\"submit\"");
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
     }
 
     [Fact]
