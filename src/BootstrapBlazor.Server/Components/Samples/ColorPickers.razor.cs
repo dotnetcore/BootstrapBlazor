@@ -14,7 +14,7 @@ public partial class ColorPickers
     /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
-    private Foo? Dummy { get; set; } = new Foo() { Name = "#dddddd" };
+    private Foo? Dummy { get; set; } = new Foo() { Name = "#DDDDDD" };
 
     private string Value { get; set; } = "#FFFFFF";
 
@@ -25,6 +25,16 @@ public partial class ColorPickers
     {
         NormalLogger.Log($"Selected color: {color}");
         return Task.CompletedTask;
+    }
+
+    private string FormatValue(string v)
+    {
+        var ret = "";
+        if (!string.IsNullOrEmpty(v) && v.Length > 1)
+        {
+            ret = $"#FF{v[1..].ToUpperInvariant()}";
+        }
+        return ret;
     }
 
     private AttributeItem[] GetAttributes() =>

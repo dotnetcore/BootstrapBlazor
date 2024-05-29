@@ -2429,6 +2429,8 @@
     "NormalIntro": "通过设置 <code>Value</code> 属性设定颜色值",
     "ValueTitle": "设置初始值",
     "ValueIntro": "通过设置 <code>Value</code> 属性设定颜色值",
+    "TemplateTitle": "显示模板",
+    "TemplateIntro": "通过设置 <code>Template</code> 自定义显示模板",
     "ValueDescription": "设置 <code>Value='@Value'</code> 初始化默认值",
     "BindValueTitle": "双向绑定",
     "BindValueIntro": "通过设置 <code>Value</code> 属性设定颜色值",
