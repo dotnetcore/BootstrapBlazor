@@ -31,18 +31,22 @@ public class ColorPickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Formatter_OK()
+    public async Task Formatter_OK()
     {
         var cut = Context.RenderComponent<ColorPicker>(builder =>
         {
             builder.Add(a => a.Formatter, async v =>
             {
                 await Task.Delay(0);
-                return "test-color-value";
+                return $"test-color-value{v}";
             });
             builder.Add(a => a.Value, "#AABBCC");
         });
 
-        cut.Contains("test-color-value");
+        cut.Contains("test-color-value#AABBCC");
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Change("#000000"));
+        cut.Contains("test-color-value#000000");
     }
 }
