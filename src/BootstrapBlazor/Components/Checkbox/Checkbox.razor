@@ -28,16 +28,5 @@ else
     </div>;
 
     RenderFragment RenderLabel =>
-    @<label class="form-check-label" for="@Id">
-        @if(ShowLabelTooltip is true)
-        {
-            <Tooltip Title="@DisplayText">
-                @DisplayText
-            </Tooltip>
-        }
-        else
-        {
-            @DisplayText
-        }
-    </label>;
+        @<BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" ClassString="form-check-label"/>;
 }
