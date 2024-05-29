@@ -285,9 +285,6 @@ public class DialogTest : DialogTestBase
             ButtonNoIcon = "test test-no-icon",
             ButtonNoColor = Color.Danger,
             ShowCloseButton = true,
-            ButtonCloseText = "Test-Close",
-            ButtonCloseIcon = "test test-close-icon",
-            ButtonCloseColor = Color.Secondary,
             ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,

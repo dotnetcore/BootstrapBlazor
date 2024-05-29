@@ -2429,6 +2429,8 @@
     "NormalIntro": "Set the color value by setting the <code>Value</code> property",
     "ValueTitle": "Set Initial Value",
     "ValueIntro": "Set the color value by setting the <code>Value</code> property",
+    "TemplateTitle": "Display Template",
+    "TemplateIntro": "Customize the display template by setting <code>Template</code>",
     "ValueDescription": "Set <code>Value='@Value'</code> to initialize the default value",
     "BindValueTitle": "Two-way binding",
     "BindValueIntro": "Set the color value by setting the <code>Value</code> property",
