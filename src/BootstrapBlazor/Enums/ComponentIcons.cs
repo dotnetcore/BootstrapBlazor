@@ -210,7 +210,7 @@ public enum ComponentIcons
     DialogCloseButtonIcon,
 
     /// <summary>
-    /// Dialog 组件 CloseButtonIcon 属性图标
+    /// Dialog 组件 SaveButtonIcon 属性图标
     /// </summary>
     DialogSaveButtonIcon,
 
