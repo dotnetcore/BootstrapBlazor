@@ -20,7 +20,7 @@ export function init(id, options) {
         return
     }
 
-    const { url, preList, index, async, previewerId } = options;
+    const { url, preList, index, async, previewerId, intersection } = options;
     const viewer = {
         element: el,
         img: el.querySelector('img'),
@@ -33,7 +33,18 @@ export function init(id, options) {
     }
     Data.set(id, viewer)
 
-    if (viewer.img && viewer.async) {
+    if (intersection) {
+        let observer = new IntersectionObserver(enteries => {
+            const entry = enteries[0];
+            if (entry.isIntersecting) {
+                entry.target.setAttribute('src', url);
+                observer.unobserve(entry.target);
+                observer = null;
+            }
+        });
+        observer.observe(viewer.img);
+    }
+    else if (viewer.img && viewer.async) {
         viewer.img.setAttribute('src', url)
     }
 
