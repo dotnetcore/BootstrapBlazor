@@ -119,7 +119,7 @@ public class ImageTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });
-        cut.DoesNotContain("src");
+        cut.Contains("bb-previewer collapse active");
     }
 
     [Fact]
