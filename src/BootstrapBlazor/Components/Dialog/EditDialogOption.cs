@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗配置类
 /// </summary>
-public class EditDialogOption<TModel> : DialogOption
+public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TModel>
 {
     /// <summary>
     /// 构造函数

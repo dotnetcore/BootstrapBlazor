@@ -19,36 +19,7 @@ public static class DrawerExtensions
     /// <param name="option"><see cref="DrawerOption"/> 配置类实例</param>
     public static async Task ShowEditDrawer<TModel>(this DrawerService service, TableEditDrawerOption<TModel> editOption, DrawerOption option)
     {
-        var parameters = new Dictionary<string, object?>
-        {
-            [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = editOption.ShowUnsetGroupItemsOnTop,
-            [nameof(EditDialog<TModel>.ShowLoading)] = editOption.ShowLoading,
-            [nameof(EditDialog<TModel>.ShowLabel)] = editOption.ShowLabel,
-            [nameof(EditDialog<TModel>.Items)] = editOption.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = editOption.OnCloseAsync,
-            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
-            {
-                var ret = false;
-                if (editOption.OnEditAsync != null)
-                {
-                    ret = await editOption.OnEditAsync(context);
-                }
-                return ret;
-            }),
-            [nameof(EditDialog<TModel>.RowType)] = editOption.RowType,
-            [nameof(EditDialog<TModel>.LabelAlign)] = editOption.LabelAlign,
-            [nameof(EditDialog<TModel>.ItemChangedType)] = editOption.ItemChangedType,
-            [nameof(EditDialog<TModel>.IsTracking)] = editOption.IsTracking,
-            [nameof(EditDialog<TModel>.ItemsPerRow)] = editOption.ItemsPerRow,
-            [nameof(EditDialog<TModel>.CloseButtonText)] = editOption.CloseButtonText,
-            [nameof(EditDialog<TModel>.SaveButtonText)] = editOption.SaveButtonText,
-            [nameof(EditDialog<TModel>.Model)] = editOption.Model,
-            [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = editOption.DisableAutoSubmitFormByEnter,
-            [nameof(EditDialog<TModel>.BodyTemplate)] = editOption.BodyTemplate,
-            [nameof(EditDialog<TModel>.FooterTemplate)] = editOption.FooterTemplate
-        };
-
-        option.ChildContent = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters).Render();
+        option.ChildContent = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(editOption.ToParameter()).Render();
         await service.Show(option);
     }
 }

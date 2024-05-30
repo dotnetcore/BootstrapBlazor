@@ -810,6 +810,26 @@ public partial class Table<TItem>
         }
     }
 
+    private void AppendOptions(ITableEditDialogOption<TItem> option, ItemChangedType changedType)
+    {
+        option.ShowLoading = ShowLoading;
+        option.Model = EditModel;
+        option.Items = Columns.Where(i => !i.Ignore);
+        option.SaveButtonIcon = EditDialogCloseButtonIcon;
+        option.SaveButtonText = EditDialogSaveButtonText;
+        option.CloseButtonIcon = EditDialogCloseButtonIcon;
+        option.CloseButtonText = EditDialogCloseButtonText;
+        option.DialogBodyTemplate = EditTemplate;
+        option.RowType = EditDialogRowType;
+        option.ItemsPerRow = EditDialogItemsPerRow;
+        option.LabelAlign = EditDialogLabelAlign;
+        option.ItemChangedType = changedType;
+        option.ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop;
+        option.DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter;
+        option.IsTracking = IsTracking;
+        option.DialogFooterTemplate = EditFooterTemplate;
+    }
+
     /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
@@ -821,27 +841,11 @@ public partial class Table<TItem>
             Class = "modal-dialog-table",
             IsScrolling = ScrollingDialogContent,
             IsKeyboard = IsKeyboard,
-            ShowLoading = ShowLoading,
             Title = EditModalTitleString,
-            Model = EditModel,
-            Items = Columns.Where(i => !i.Ignore),
-            SaveButtonIcon = EditDialogCloseButtonIcon,
-            SaveButtonText = EditDialogSaveButtonText,
-            CloseButtonIcon = EditDialogCloseButtonIcon,
-            CloseButtonText = EditDialogCloseButtonText,
-            DialogBodyTemplate = EditTemplate,
-            RowType = EditDialogRowType,
-            ItemsPerRow = EditDialogItemsPerRow,
-            LabelAlign = EditDialogLabelAlign,
-            ItemChangedType = changedType,
             Size = EditDialogSize,
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             FullScreenSize = EditDialogFullScreenSize,
-            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
-            DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
-            IsTracking = IsTracking,
-            DialogFooterTemplate = EditFooterTemplate,
             OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
             OnEditAsync = async context =>
             {
@@ -849,6 +853,7 @@ public partial class Table<TItem>
                 return saved;
             }
         };
+        AppendOptions(option, changedType);
         await DialogService.ShowEditDialog(option);
     }
 
@@ -860,22 +865,6 @@ public partial class Table<TItem>
         var saved = false;
         var editOption = new TableEditDrawerOption<TItem>()
         {
-            ShowLoading = ShowLoading,
-            Model = EditModel,
-            Items = Columns.Where(i => !i.Ignore),
-            SaveButtonIcon = EditDialogSaveButtonIcon,
-            SaveButtonText = EditDialogSaveButtonText,
-            CloseButtonIcon = EditDialogCloseButtonIcon,
-            CloseButtonText = EditDialogCloseButtonText,
-            BodyTemplate = EditTemplate,
-            RowType = EditDialogRowType,
-            ItemsPerRow = EditDialogItemsPerRow,
-            LabelAlign = EditDialogLabelAlign,
-            ItemChangedType = changedType,
-            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
-            DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
-            IsTracking = IsTracking,
-            FooterTemplate = EditFooterTemplate,
             OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
             OnEditAsync = async context =>
             {
@@ -883,6 +872,7 @@ public partial class Table<TItem>
                 return saved;
             }
         };
+        AppendOptions(editOption, changedType);
 
         var option = new DrawerOption() { Class = "drawer-table-edit", Placement = Placement.Right, AllowResize = true, IsBackdrop = true, Width = "600px" };
         if (OnBeforeShowDrawer != null)
