@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
 {
+    public TableEditDrawerOption()
+    {
+        ShowLabel = true;
+    }
+
     /// <summary>
     /// 获得/设置 组件是否采用 Tracking 模式对编辑项进行直接更新 默认 false
     /// </summary>
@@ -19,7 +24,7 @@ class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
     /// <summary>
     /// 获得/设置 是否显示标签 默认为 true 显示标签
     /// </summary>
-    public bool ShowLabel { get; set; } = true;
+    public bool ShowLabel { get; set; }
 
     /// <summary>
     /// 获得/设置 实体类编辑模式 Add 还是 Update
