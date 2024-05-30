@@ -2,14 +2,16 @@
 @attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DockView/Components/DockViewV2.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
-    <CascadingValue Value="_panels" IsFixed="true">
-        @ChildContent
+    <CascadingValue Value="_root" IsFixed="true">
+        <CascadingValue Value="_components" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
     </CascadingValue>
     @if (_isInit)
     {
         <div>template</div>
         <template id="@_templateId">
-            @foreach (var p in _panels)
+            @foreach (var p in _components)
             {
                 <div @key="p" id="@p.Id">
                     @p.ChildContent

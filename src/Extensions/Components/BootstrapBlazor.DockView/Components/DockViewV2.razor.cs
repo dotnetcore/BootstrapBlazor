@@ -43,7 +43,9 @@ public partial class DockViewV2
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly List<DockViewV2Panel> _panels = [];
+    private readonly DockViewContent _root = new();
+
+    private readonly List<DockViewComponent> _components = [];
 
     private string? _templateId;
 
@@ -77,23 +79,5 @@ public partial class DockViewV2
         {
             await InvokeVoidAsync("init", Id, new { Invoke = Interop, ShowClose, LayoutConfig, TemplateId = _templateId });
         }
-    }
-
-    /// <summary>
-    /// 添加 Group 方法
-    /// </summary>
-    /// <returns></returns>
-    public ValueTask AddGroup()
-    {
-        return ValueTask.CompletedTask;
-    }
-
-    /// <summary>
-    /// 添加 Panel 方法
-    /// </summary>
-    /// <returns></returns>
-    public ValueTask AddPanel()
-    {
-        return ValueTask.CompletedTask;
     }
 }
