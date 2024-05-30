@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockComponent 基类
 /// </summary>
-public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponent
+public abstract class DockViewComponentBase : ComponentBase, IDockViewComponent
 {
     /// <summary>
     /// 获得/设置 渲染类型 默认 Component

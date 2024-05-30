@@ -38,10 +38,10 @@ public class DockViewContent : DockViewComponentBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<DockViewContent>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<DockViewContent>.Value), this);
-        builder.AddAttribute(2, nameof(CascadingValue<DockViewContent>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<DockViewContent>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<List<IDockViewComponent>>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<List<IDockViewComponent>>.Value), Items);
+        builder.AddAttribute(2, nameof(CascadingValue<List<IDockViewComponent>>.IsFixed), true);
+        builder.AddAttribute(3, nameof(CascadingValue<List<IDockViewComponent>>.ChildContent), ChildContent);
         builder.CloseComponent();
     }
 }

@@ -73,12 +73,6 @@ public class DockViewComponent : DockViewComponentBase
     public string? Key { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件状态
-    /// </summary>
-    [Parameter]
-    public object? ComponentState { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否锁定 默认 false
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
@@ -91,6 +85,18 @@ public class DockViewComponent : DockViewComponentBase
     [Parameter]
     [JsonIgnore]
     public RenderFragment? TitleTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件 Id 默认 null 未设置由 <see cref="IComponentIdGenerator"/> 生成
+    /// </summary>
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// 获得 IComponentIdGenerator 实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IComponentIdGenerator? ComponentIdGenerator { get; set; }
 
     /// <summary>
     /// 获得/设置 DockViewComponent 集合
@@ -106,9 +112,17 @@ public class DockViewComponent : DockViewComponentBase
         base.OnInitialized();
 
         Components?.Add(this);
-
-        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock, TitleWidth, TitleClass, HasTitleTemplate = TitleTemplate != null };
         Type = DockViewContentType.Component;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Id ??= ComponentIdGenerator.Generate(this);
     }
 
     /// <summary>
