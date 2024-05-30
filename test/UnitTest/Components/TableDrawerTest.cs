@@ -96,10 +96,24 @@ public class TableDrawerTest : TableDrawerTestBase
         await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
         Assert.True(closed);
 
+        // 保存失败，不关闭抽屉
+        closed = false;
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(false));
+        });
+        input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+        form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(closed);
+
         // IsTracking mode
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsTracking, true);
+            pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(true));
         });
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
