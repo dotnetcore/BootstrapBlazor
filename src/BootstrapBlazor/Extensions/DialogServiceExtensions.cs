@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Forms;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -53,41 +51,12 @@ public static class DialogServiceExtensions
     /// <summary>
     /// 弹出编辑对话框
     /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="option">EditDialogOption 配置类实例</param>
+    /// <param name="service"><see cref="DialogService"/> 服务实例</param>
+    /// <param name="option"><see cref="ITableEditDialogOption{TModel}"/> 配置类实例</param>
     /// <param name="dialog"></param>
     public static async Task ShowEditDialog<TModel>(this DialogService service, EditDialogOption<TModel> option, Dialog? dialog = null)
     {
-        var parameters = new Dictionary<string, object?>
-        {
-            [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
-            [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
-            [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
-            [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
-            [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
-            {
-                var ret = false;
-                if (option.OnEditAsync != null)
-                {
-                    ret = await option.OnEditAsync(context);
-                }
-                return ret;
-            }),
-            [nameof(EditDialog<TModel>.RowType)] = option.RowType,
-            [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
-            [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType,
-            [nameof(EditDialog<TModel>.IsTracking)] = option.IsTracking,
-            [nameof(EditDialog<TModel>.ItemsPerRow)] = option.ItemsPerRow,
-            [nameof(EditDialog<TModel>.CloseButtonText)] = option.CloseButtonText,
-            [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
-            [nameof(EditDialog<TModel>.Model)] = option.Model,
-            [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
-            [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
-            [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate
-        };
-
-        option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
+        option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(option.ToParameter());
         await service.Show(option, dialog);
     }
 

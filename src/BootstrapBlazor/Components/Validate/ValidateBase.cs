@@ -383,6 +383,13 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                     }
                     if (results.Count > 0)
                     {
+                        var memberName = results[0].MemberNames.FirstOrDefault() ?? context.MemberName;
+                        if (!string.IsNullOrEmpty(memberName))
+                        {
+                            var result = new ValidationResult(results[0].ErrorMessage, [memberName]);
+                            results.Clear();
+                            results.Add(result);
+                        }
                         break;
                     }
                 }

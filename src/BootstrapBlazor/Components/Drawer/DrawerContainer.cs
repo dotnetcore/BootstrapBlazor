@@ -50,7 +50,12 @@ public class DrawerContainer : ComponentBase, IDisposable
     {
         builder.OpenComponent<Drawer>(0);
         builder.SetKey(option);
-        builder.AddMultipleAttributes(1, GetParameters(option));
+
+        if (!string.IsNullOrEmpty(option.Class))
+        {
+            builder.AddAttribute(1, "class", option.Class);
+        }
+        builder.AddMultipleAttributes(2, GetParameters(option));
         builder.CloseComponent();
     }
 
@@ -90,6 +95,9 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             await option.OnCloseAsync();
         }
+
+        _option = null;
+        StateHasChanged();
     }
 
     /// <summary>
