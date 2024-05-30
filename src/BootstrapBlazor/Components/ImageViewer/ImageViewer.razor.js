@@ -45,7 +45,7 @@ export function update(id, prevList, index) {
     }
 
     viewer.prevList = prevList
-    setListeners(viewer,index)
+    setListeners(viewer, index)
 }
 
 export function dispose(id) {
