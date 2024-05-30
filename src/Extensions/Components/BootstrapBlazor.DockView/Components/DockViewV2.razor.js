@@ -22,6 +22,8 @@ class DefaultPanel {
 export async function init(id, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
 
+    console.log(id, options);
+
     const el = document.getElementById(id);
     const { templateId } = options;
     const template = document.getElementById(templateId);
@@ -73,6 +75,10 @@ export async function init(id, options) {
     //    },
     //});
 
+}
+
+export function update(id, options) {
+    console.log(id, options);
 }
 
 export function dispose(id) {

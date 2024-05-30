@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DockComponent 转化器
+/// DockViewComponent 转化器
 /// </summary>
 class DockViewComponentConverter : JsonConverter<List<IDockViewComponent>>
 {

@@ -41,16 +41,6 @@ class DockViewConfig
     public string? InitializedCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 拖动标签页事件回调
-    /// </summary>
-    public string? TabDropCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 调整标签页分割线事件回调
-    /// </summary>
-    public string? SplitterCallback { get; set; }
-
-    /// <summary>
     /// 获得/设置 锁定事件回调
     /// </summary>
     public string? LockChangedCallback { get; set; }

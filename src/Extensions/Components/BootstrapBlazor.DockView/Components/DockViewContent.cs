@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -15,6 +16,8 @@ public class DockViewContent : DockViewComponentBase
     /// <summary>
     /// 获得/设置 子项集合
     /// </summary>
+    [JsonConverter(typeof(DockViewComponentConverter))]
+    [JsonPropertyName("content")]
     public List<IDockViewComponent> Items { get; } = [];
 
     /// <summary>

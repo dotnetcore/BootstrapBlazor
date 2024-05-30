@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -15,12 +16,14 @@ public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponen
     /// 获得/设置 渲染类型 默认 Component
     /// </summary>
     [Parameter]
+    [JsonConverter(typeof(DockViewTypeConverter))]
     public DockViewContentType Type { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>

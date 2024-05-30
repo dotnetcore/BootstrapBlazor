@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -88,6 +89,7 @@ public class DockViewComponent : DockViewComponentBase
     /// 获得/设置 Title 模板 默认 null 未设置
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
