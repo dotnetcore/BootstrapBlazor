@@ -777,6 +777,39 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
 
+    private async Task AddItem(EditContext context)
+    {
+        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+        Rows.Insert(index, (TItem)context.Model);
+        await UpdateRow();
+    }
+
+    private async Task EditItem(EditContext context)
+    {
+        // 使用 Comparer 确保能找到集合中的编辑项
+        // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
+        var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
+        if (entity != null)
+        {
+            var index = Rows.IndexOf(entity);
+            Rows.RemoveAt(index);
+            Rows.Insert(index, (TItem)context.Model);
+            await UpdateRow();
+        }
+    }
+
+    private async Task UpdateRow()
+    {
+        if (ItemsChanged.HasDelegate)
+        {
+            await InvokeItemsChanged();
+        }
+        else
+        {
+            Items = Rows;
+        }
+    }
+
     /// <summary>
     /// 弹出编辑对话框方法
     /// </summary>
@@ -809,95 +842,11 @@ public partial class Table<TItem>
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
             DialogFooterTemplate = EditFooterTemplate,
-            OnCloseAsync = async () =>
-            {
-                if (EditDialogCloseAsync != null)
-                {
-                    await EditDialogCloseAsync(EditModel, saved);
-                }
-                if (!saved)
-                {
-                    // EFCore 模式保存失败后调用 CancelAsync 回调
-                    var d = DataService ?? InjectDataService;
-                    if (d is IEntityFrameworkCoreDataService ef)
-                    {
-                        // EFCore
-                        await ToggleLoading(true);
-                        await ef.CancelAsync();
-                        await ToggleLoading(false);
-                    }
-                }
-            },
+            OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
             OnEditAsync = async context =>
             {
-                await ToggleLoading(true);
-                if (IsTracking)
-                {
-                    saved = true;
-                    if (changedType == ItemChangedType.Add)
-                    {
-                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
-                        Rows.Insert(index, EditModel);
-                    }
-                    await InvokeItemsChanged();
-                }
-                else
-                {
-                    saved = await SaveModelAsync(context, changedType);
-                    if (saved)
-                    {
-                        if (Items != null)
-                        {
-                            if (changedType == ItemChangedType.Add)
-                            {
-                                await AddItem();
-                            }
-                            else if (changedType == ItemChangedType.Update)
-                            {
-                                await EditItem();
-                            }
-                        }
-                        else
-                        {
-                            await QueryAsync();
-                        }
-                    }
-                }
-                await ToggleLoading(false);
+                saved = await OnSaveEditCallbackAsync(context, changedType);
                 return saved;
-
-                async Task AddItem()
-                {
-                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
-                    Rows.Insert(index, (TItem)context.Model);
-                    await UpdateRow();
-                }
-
-                async Task EditItem()
-                {
-                    // 使用 Comparer 确保能找到集合中的编辑项
-                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
-                    var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
-                    if (entity != null)
-                    {
-                        var index = Rows.IndexOf(entity);
-                        Rows.RemoveAt(index);
-                        Rows.Insert(index, (TItem)context.Model);
-                        await UpdateRow();
-                    }
-                }
-
-                async Task UpdateRow()
-                {
-                    if (ItemsChanged.HasDelegate)
-                    {
-                        await InvokeItemsChanged();
-                    }
-                    else
-                    {
-                        Items = Rows;
-                    }
-                }
             }
         };
         await DialogService.ShowEditDialog(option);
@@ -927,95 +876,11 @@ public partial class Table<TItem>
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
             FooterTemplate = EditFooterTemplate,
-            OnCloseAsync = async () =>
-            {
-                if (EditDialogCloseAsync != null)
-                {
-                    await EditDialogCloseAsync(EditModel, saved);
-                }
-                if (!saved)
-                {
-                    // EFCore 模式保存失败后调用 CancelAsync 回调
-                    var d = DataService ?? InjectDataService;
-                    if (d is IEntityFrameworkCoreDataService ef)
-                    {
-                        // EFCore
-                        await ToggleLoading(true);
-                        await ef.CancelAsync();
-                        await ToggleLoading(false);
-                    }
-                }
-            },
+            OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
             OnEditAsync = async context =>
             {
-                await ToggleLoading(true);
-                if (IsTracking)
-                {
-                    saved = true;
-                    if (changedType == ItemChangedType.Add)
-                    {
-                        var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
-                        Rows.Insert(index, EditModel);
-                    }
-                    await InvokeItemsChanged();
-                }
-                else
-                {
-                    saved = await SaveModelAsync(context, changedType);
-                    if (saved)
-                    {
-                        if (Items != null)
-                        {
-                            if (changedType == ItemChangedType.Add)
-                            {
-                                await AddItem();
-                            }
-                            else if (changedType == ItemChangedType.Update)
-                            {
-                                await EditItem();
-                            }
-                        }
-                        else
-                        {
-                            await QueryAsync();
-                        }
-                    }
-                }
-                await ToggleLoading(false);
+                saved = await OnSaveEditCallbackAsync(context, changedType);
                 return saved;
-
-                async Task AddItem()
-                {
-                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
-                    Rows.Insert(index, (TItem)context.Model);
-                    await UpdateRow();
-                }
-
-                async Task EditItem()
-                {
-                    // 使用 Comparer 确保能找到集合中的编辑项
-                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
-                    var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
-                    if (entity != null)
-                    {
-                        var index = Rows.IndexOf(entity);
-                        Rows.RemoveAt(index);
-                        Rows.Insert(index, (TItem)context.Model);
-                        await UpdateRow();
-                    }
-                }
-
-                async Task UpdateRow()
-                {
-                    if (ItemsChanged.HasDelegate)
-                    {
-                        await InvokeItemsChanged();
-                    }
-                    else
-                    {
-                        Items = Rows;
-                    }
-                }
             }
         };
 
@@ -1025,6 +890,67 @@ public partial class Table<TItem>
             await OnBeforeShowDrawer(option);
         }
         await DrawerService.ShowEditDrawer(editOption, option);
+    }
+
+    private async Task OnCloseEditDialogCallbackAsync(bool saved)
+    {
+        if (EditDialogCloseAsync != null)
+        {
+            await EditDialogCloseAsync(EditModel, saved);
+        }
+
+        if (!saved)
+        {
+            // EFCore 模式保存失败后调用 CancelAsync 回调
+            var d = DataService ?? InjectDataService;
+            if (d is IEntityFrameworkCoreDataService ef)
+            {
+                // EFCore
+                await ToggleLoading(true);
+                await ef.CancelAsync();
+                await ToggleLoading(false);
+            }
+        }
+    }
+
+    private async Task<bool> OnSaveEditCallbackAsync(EditContext context, ItemChangedType changedType)
+    {
+        bool saved;
+        await ToggleLoading(true);
+        if (IsTracking)
+        {
+            saved = true;
+            if (changedType == ItemChangedType.Add)
+            {
+                var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                Rows.Insert(index, EditModel);
+            }
+            await InvokeItemsChanged();
+        }
+        else
+        {
+            saved = await SaveModelAsync(context, changedType);
+            if (saved)
+            {
+                if (Items != null)
+                {
+                    if (changedType == ItemChangedType.Add)
+                    {
+                        await AddItem(context);
+                    }
+                    else if (changedType == ItemChangedType.Update)
+                    {
+                        await EditItem(context);
+                    }
+                }
+                else
+                {
+                    await QueryAsync();
+                }
+            }
+        }
+        await ToggleLoading(false);
+        return saved;
     }
 
     /// <summary>
