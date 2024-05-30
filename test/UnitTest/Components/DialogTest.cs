@@ -514,7 +514,7 @@ public class DialogTest : DialogTestBase
         await cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog"));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        Dictionary<string, object?> parameterFactory(DialogOption op) => new();
+        Dictionary<string, object?> parameterFactory(DialogOption op) => [];
         void ConfigureOption(DialogOption op) => op.Class = "ValidateFormDialog-Class";
         await cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, ConfigureOption));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());

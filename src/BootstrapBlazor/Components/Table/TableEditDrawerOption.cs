@@ -9,15 +9,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗配置类
 /// </summary>
-public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TModel>
+public class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
 {
     /// <summary>
     /// 构造函数
     /// </summary>
-    public EditDialogOption()
+    public TableEditDrawerOption()
     {
-        ShowCloseButton = false;
-        ShowFooter = false;
+        ShowLabel = true;
     }
 
     /// <summary>
@@ -28,7 +27,7 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     /// <summary>
     /// 获得/设置 是否显示标签 默认为 true 显示标签
     /// </summary>
-    public bool ShowLabel { get; set; } = true;
+    public bool ShowLabel { get; set; }
 
     /// <summary>
     /// 获得/设置 实体类编辑模式 Add 还是 Update
@@ -71,9 +70,24 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
-    /// 获得 编辑项集合
+    /// 获得/设置 关闭按钮图标 默认 null 使用当前主题图标
     /// </summary>
-    public IEnumerable<IEditorItem>? Items { get; set; }
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭按钮文本
+    /// </summary>
+    public string? CloseButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮图标 默认 null 使用当前主题图标
+    /// </summary>
+    public string? SaveButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 查询按钮文本
+    /// </summary>
+    public string? SaveButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 EditDialog Body 模板
@@ -84,6 +98,16 @@ public class EditDialogOption<TModel> : DialogOption, ITableEditDialogOption<TMo
     /// 获得/设置 EditDialog Footer 模板
     /// </summary>
     public RenderFragment<TModel>? DialogFooterTemplate { get; set; }
+
+    /// <summary>
+    /// 获得 编辑项集合
+    /// </summary>
+    public IEnumerable<IEditorItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭弹窗回调方法
+    /// </summary>
+    public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 保存回调委托

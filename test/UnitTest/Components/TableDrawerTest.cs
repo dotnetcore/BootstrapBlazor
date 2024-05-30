@@ -9,7 +9,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableDialogTest : TableDialogTestBase
+public class TableDrawerTest : TableDrawerTestBase
 {
     [Fact]
     public async Task EditAsync_Ok()
@@ -21,18 +21,13 @@ public class TableDialogTest : TableDialogTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.EditMode, EditMode.Drawer);
+                pb.Add(a => a.OnBeforeShowDrawer, new Func<DrawerOption, Task>(op =>
+                {
+                    op.ShowBackdrop = true;
+                    return Task.CompletedTask;
+                }));
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.EditDialogIsDraggable, true);
-                pb.Add(a => a.EditDialogShowMaximizeButton, false);
-                pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.None);
-                pb.Add(a => a.EditDialogSize, Size.Large);
-                pb.Add(a => a.EditDialogSaveButtonText, "test-save");
-                pb.Add(a => a.EditDialogSaveButtonIcon, "icon-test-save");
-                pb.Add(a => a.EditDialogCloseButtonText, "test-close");
-                pb.Add(a => a.EditDialogCloseButtonIcon, "icon-test-close");
-                pb.Add(a => a.EditDialogItemsPerRow, 2);
-                pb.Add(a => a.EditDialogRowType, RowType.Inline);
-                pb.Add(a => a.EditDialogLabelAlign, Alignment.Center);
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -52,22 +47,16 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => input.Click());
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
-        cut.Contains("test-save");
-        cut.Contains("test-close");
-
-        cut.Contains("modal-lg");
-        cut.DoesNotContain("btn-maximize");
-        cut.Contains("is-draggable");
-
         // 编辑弹窗逻辑
-        var form = cut.Find(".modal-body form");
+        var form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        var modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 内置数据服务取消回调
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 获得关闭按钮直接关闭抽屉
+        var closeButton = cut.FindComponent<DialogCloseButton>();
+        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
@@ -75,11 +64,13 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        closeButton = cut.FindComponent<DialogCloseButton>();
+        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        closeButton = cut.FindComponent<DialogCloseButton>();
+        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
@@ -87,8 +78,8 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
         });
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        Assert.Contains(" modal-fullscreen ", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        closeButton = cut.FindComponent<DialogCloseButton>();
+        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
 
         var closed = false;
         // 测试 CloseCallback
@@ -101,24 +92,38 @@ public class TableDialogTest : TableDialogTestBase
             });
         });
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        closeButton = cut.FindComponent<DialogCloseButton>();
+        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
         Assert.True(closed);
+
+        // 保存失败，不关闭抽屉
+        closed = false;
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(false));
+        });
+        input = cut.Find("tbody tr input");
+        await cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => table.Instance.EditAsync());
+        form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(closed);
 
         // IsTracking mode
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsTracking, true);
+            pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(true));
         });
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         // 编辑弹窗逻辑
-        input = cut.Find(".modal-body form input.form-control");
+        input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
-        form = cut.Find(".modal-body form");
+        form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         var itemsChanged = false;
         // 更新插入模式
@@ -137,12 +142,11 @@ public class TableDialogTest : TableDialogTestBase
         cut.Contains("test_edit_footer");
 
         // 编辑弹窗逻辑
-        input = cut.Find(".modal-body form input.form-control");
+        input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
-        form = cut.Find(".modal-body form");
+        form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(itemsChanged);
 
         // 设置双向绑定 Items 后再测试 Add Save
@@ -152,14 +156,14 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.OnSaveAsync, null);
             pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows => items = rows.ToList()));
         });
+
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        input = cut.Find(".modal-body form input.form-control");
+        input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
-        form = cut.Find(".modal-body form");
+        form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Equal(3, items.Count);
 
         table.SetParametersAndRender(pb =>
@@ -169,12 +173,11 @@ public class TableDialogTest : TableDialogTestBase
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        input = cut.Find(".modal-body form input.form-control");
+        input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
-        form = cut.Find(".modal-body form");
+        form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Equal(3, items.Count);
 
         // 数据源是 OnQueryAsync 提供
@@ -194,12 +197,11 @@ public class TableDialogTest : TableDialogTestBase
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        input = cut.Find(".modal-body form input.form-control");
+        input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
-        form = cut.Find(".modal-body form");
+        form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 数据为三行
         var rows = cut.FindAll("tbody tr");
