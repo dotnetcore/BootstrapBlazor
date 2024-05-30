@@ -21,7 +21,7 @@ class DockViewContentRootConverter : JsonConverter<List<DockViewContent>>
     {
         if (value.Count > 0)
         {
-            var converter = new DockComponentConverter();
+            var converter = new DockViewComponentConverter();
             converter.Write(writer, value[0].Items, options);
         }
     }

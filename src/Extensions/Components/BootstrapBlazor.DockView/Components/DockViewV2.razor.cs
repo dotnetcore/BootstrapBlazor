@@ -92,7 +92,7 @@ public partial class DockViewV2
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly DockViewContent _root = new();
+    private readonly List<IDockViewComponent> _root = [];
 
     private readonly List<DockViewComponent> _components = [];
 
@@ -151,6 +151,7 @@ public partial class DockViewV2
         InitializedCallback = nameof(InitializedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
         TemplateId = _templateId,
+        Contents = _root
     };
 
     /// <summary>

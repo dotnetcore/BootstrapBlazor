@@ -27,7 +27,7 @@ public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponen
     /// 获得/设置 DockContent 实例
     /// </summary>
     [CascadingParameter]
-    private DockViewContent? Parent { get; set; }
+    private List<IDockViewComponent>? Parent { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,7 +36,7 @@ public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponen
     {
         base.OnInitialized();
 
-        Parent?.Items.Add(this);
+        Parent?.Add(this);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponen
     {
         if (disposing)
         {
-            Parent?.Items.Remove(this);
+            Parent?.Remove(this);
         }
     }
 
