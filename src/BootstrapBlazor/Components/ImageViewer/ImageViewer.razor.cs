@@ -85,7 +85,7 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
-    
+
     /// <summary>
     /// 获得/设置 预览大图当前链接集合点开的索引 默认为 0
     /// </summary>
@@ -207,7 +207,7 @@ public partial class ImageViewer
 
     private bool ShouldHandleError => HandleError || ErrorTemplate != null;
 
-    private bool ShowPreviewList => PreviewList?.Any() ?? false;
+    private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
 
     private string PreviewerId => $"prev_{Id}";
 }
