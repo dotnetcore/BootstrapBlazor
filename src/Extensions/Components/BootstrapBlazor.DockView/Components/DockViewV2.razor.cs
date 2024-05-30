@@ -34,6 +34,19 @@ public partial class DockViewV2
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否锁定 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    [Parameter]
+    public bool IsLock { get; set; }
+
+    /// <summary>
+    /// 获得/设置 锁定状态回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnLockChangedCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 标签切换 Visible 状态时回调此方法
     /// </summary>
     /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
