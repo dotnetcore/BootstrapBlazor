@@ -11,17 +11,63 @@
 </GroupBox>
 
 <div class="dock-toggle-demo">
-    <DockViewV2 Name="DockViewV2Layout" LayoutConfig="@LayoutConfig">
-        <DockViewV2Panel>
+    <DockViewV2 Name="DockViewV2LayoutColumn">
+        <DockViewContent Type="DockViewContentType.Column">
+            <DockViewComponent Title="标签一">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签二">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签三">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+
+    <DockViewV2 Name="DockViewV2LayoutRow">
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewComponent Title="标签一">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签二">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签三">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+
+    <DockViewV2 Name="DockViewV2LayoutGroup">
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewContent Type="DockViewContentType.Group">
+                <DockViewComponent Title="标签一">
+                    <div class="panel1">Panel1</div>
+                </DockViewComponent>
+                <DockViewComponent Title="标签二">
+                    <div class="panel1">Panel1</div>
+                </DockViewComponent>
+            </DockViewContent>
+            <DockViewComponent Title="标签三">
+                <div class="panel1">Panel1</div>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+
+    <DockViewV2 Name="DockViewV2LayoutGroup">
+        <DockViewComponent Title="标签一">
             <div class="panel1">Panel1</div>
-        </DockViewV2Panel>
-        <DockViewV2Group>
-            <DockViewV2Panel>
-                <div class="group-panel1">Group1 Panel1</div>
-            </DockViewV2Panel>
-            <DockViewV2Panel>
-                <div class="group-panel2">Group1 Panel2</div>
-            </DockViewV2Panel>
-        </DockViewV2Group>
+        </DockViewComponent>
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewContent Type="DockViewContentType.Group">
+                <DockViewComponent Title="标签二">
+                    <div class="panel1">Panel1</div>
+                </DockViewComponent>
+                <DockViewComponent Title="标签三">
+                    <div class="panel1">Panel1</div>
+                </DockViewComponent>
+            </DockViewContent>
+        </DockViewContent>
     </DockViewV2>
 </div>
