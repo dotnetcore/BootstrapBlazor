@@ -14,11 +14,6 @@ public class TableDrawerTest : TableDrawerTestBase
     [Fact]
     public async Task EditAsync_Ok()
     {
-        var option = new TableEditDrawerOption<Foo>()
-        {
-            ShowLabel = true
-        };
-
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
