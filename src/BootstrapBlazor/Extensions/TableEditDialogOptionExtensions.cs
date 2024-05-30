@@ -22,16 +22,6 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
         [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
         [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
-        [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
-        [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
-        {
-            var ret = false;
-            if (option.OnEditAsync != null)
-            {
-                ret = await option.OnEditAsync(context);
-            }
-            return ret;
-        }),
         [nameof(EditDialog<TModel>.RowType)] = option.RowType,
         [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
         [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType,
@@ -44,6 +34,16 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.Model)] = option.Model,
         [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
         [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
-        [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate
+        [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate,
+        [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
+        [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task<bool>>(async context =>
+        {
+            var ret = false;
+            if (option.OnEditAsync != null)
+            {
+                ret = await option.OnEditAsync(context);
+            }
+            return ret;
+        })
     };
 }
