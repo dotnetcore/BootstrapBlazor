@@ -34,6 +34,19 @@ public partial class DockViewV2
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 标签切换 Visible 状态时回调此方法
+    /// </summary>
+    /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
+    [Parameter]
+    public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端组件脚本初始化完成后回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnInitializedCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]
