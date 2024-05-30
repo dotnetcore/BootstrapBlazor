@@ -9,8 +9,11 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 编辑弹窗配置类
 /// </summary>
-class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
+public class TableEditDrawerOption<TModel> : ITableEditDialogOption<TModel>
 {
+    /// <summary>
+    /// 构造函数
+    /// </summary>
     public TableEditDrawerOption()
     {
         ShowLabel = true;
