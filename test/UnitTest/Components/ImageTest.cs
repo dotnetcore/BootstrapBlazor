@@ -119,7 +119,18 @@ public class ImageTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });
-        cut.Contains("bb-previewer collapse active");
+        cut.DoesNotContain("src");
+    }
+
+    [Fact]
+    public void IsIntersectionObserver_Ok()
+    {
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        {
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
+            pb.Add(a => a.IsIntersectionObserver, true);
+        });
+        cut.DoesNotContain("src");
     }
 
     [Fact]

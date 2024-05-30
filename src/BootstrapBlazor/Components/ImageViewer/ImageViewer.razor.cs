@@ -165,7 +165,7 @@ public partial class ImageViewer
         {
             builder.OpenElement(0, "img");
             builder.AddAttribute(1, "class", ImageClassString);
-            if (!IsAsync || !IsIntersectionObserver)
+            if (!IsAsync && !IsIntersectionObserver)
             {
                 builder.AddAttribute(2, "src", Url);
             }
