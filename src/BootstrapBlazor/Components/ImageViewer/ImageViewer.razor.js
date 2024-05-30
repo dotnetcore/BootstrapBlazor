@@ -14,17 +14,19 @@ const setListeners = (viewer, index) => {
     }
 }
 
-export function init(id, url, preList, index) {
+export function init(id, options) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
+
+    const { url, preList, index, async, previewerId } = options;
     const viewer = {
         element: el,
         img: el.querySelector('img'),
-        async: el.getAttribute('data-bb-async'),
+        async: async,
         prevList: preList || [],
-        previewerId: el.getAttribute('data-bb-previewer-id')
+        previewerId: previewerId
     }
     if (url) {
         viewer.prevList.push(url)

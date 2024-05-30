@@ -120,8 +120,6 @@ public partial class ImageViewer
 
     private bool IsError { get; set; }
 
-    private string? IsAsyncString => IsAsync ? "true" : null;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -152,7 +150,7 @@ public partial class ImageViewer
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList, PreviewIndex);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Url, PreviewList, PreviewIndex, Async = IsAsync, PreviewerId });
 
     private RenderFragment RenderChildContent() => builder =>
     {
@@ -209,5 +207,5 @@ public partial class ImageViewer
 
     private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
 
-    private string PreviewerId => $"prev_{Id}";
+    private string? PreviewerId => ShowPreviewList ? $"prev_{Id}" : null;
 }
