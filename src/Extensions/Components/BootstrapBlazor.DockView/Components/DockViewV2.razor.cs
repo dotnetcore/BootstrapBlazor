@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Configuration;
 
 namespace BootstrapBlazor.Components;
 
@@ -65,6 +66,28 @@ public partial class DockViewV2
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 版本设置 默认 null 未设置 用于本地配置 可通过全局统一配置
+    /// </summary>
+    [Parameter]
+    public string? Version { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用本地存储布局 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? EnableLocalStorage { get; set; }
+
+    /// <summary>
+    /// 获得/设置 本地存储前缀 默认 bb-dock
+    /// </summary>
+    [Parameter]
+    public string? LocalStoragePrefix { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IConfiguration? Configuration { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-dock-view")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -77,6 +100,9 @@ public partial class DockViewV2
 
     private bool _isInit;
 
+    [NotNull]
+    private DockViewOptions? _options = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -84,6 +110,8 @@ public partial class DockViewV2
     {
         base.OnInitialized();
 
+        var section = Configuration.GetSection(nameof(DockViewOptions));
+        _options = section.Exists() ? section.Get<DockViewOptions>() : new();
         _templateId ??= $"{Id}_template";
     }
 
@@ -103,7 +131,61 @@ public partial class DockViewV2
         }
         else if (_isInit)
         {
-            await InvokeVoidAsync("init", Id, new { Invoke = Interop, ShowClose, LayoutConfig, TemplateId = _templateId });
+            await InvokeVoidAsync("init", Id, GetOptions(), Interop);
+        }
+        else
+        {
+            await InvokeVoidAsync("update", Id, GetOptions());
+        }
+    }
+
+    private DockViewConfig GetOptions() => new()
+    {
+        Version = Version ?? _options.Version ?? "v1",
+        Name = Name,
+        EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
+        IsLock = IsLock,
+        LayoutConfig = LayoutConfig,
+        LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
+        VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
+        InitializedCallback = nameof(InitializedCallbackAsync),
+        LockChangedCallback = nameof(LockChangedCallbackAsync),
+        TemplateId = _templateId,
+    };
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task VisibleChangedCallbackAsync(string title, bool visible)
+    {
+        if (OnVisibleStateChangedAsync != null)
+        {
+            await OnVisibleStateChangedAsync(title, visible);
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task InitializedCallbackAsync()
+    {
+        if (OnInitializedCallbackAsync != null)
+        {
+            await OnInitializedCallbackAsync();
+        }
+    }
+
+    /// <summary>
+    /// 锁定回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task LockChangedCallbackAsync(bool state)
+    {
+        if (OnLockChangedCallbackAsync != null)
+        {
+            await OnLockChangedCallbackAsync(state);
         }
     }
 }
