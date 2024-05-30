@@ -1,29 +1,29 @@
 ﻿@page "/dock-view2/nest"
 
 <DockViewV2 Name="DockViewNest">
-    <DockContent Type="DockContentType.Row">
-        <DockComponent Title="标签一">
+    <DockViewContent Type="DockViewContentType.Row">
+        <DockViewComponent Title="标签一">
             <div class="panel">Panel1</div>
-        </DockComponent>
-        <DockComponent Title="标签二">
+        </DockViewComponent>
+        <DockViewComponent Title="标签二">
             <div class="panel">Panel2</div>
-        </DockComponent>
-        <DockComponent Title="嵌套布局">
+        </DockViewComponent>
+        <DockViewComponent Title="嵌套布局">
             <DockViewV2 Name="DockViewInnerNest">
-                <DockContent Type="DockContentType.Column">
-                    <DockComponent Title="内嵌标签一">
+                <DockViewContent Type="DockViewContentType.Column">
+                    <DockViewComponent Title="内嵌标签一">
                         <div class="panel">Panel3</div>
-                    </DockComponent>
-                    <DockContent Type="DockContentType.Row">
-                        <DockComponent Title="内嵌标签二">
+                    </DockViewComponent>
+                    <DockViewContent Type="DockViewContentType.Row">
+                        <DockViewComponent Title="内嵌标签二">
                             <div class="panel">Panel4</div>
-                        </DockComponent>
-                        <DockComponent Title="内嵌标签三">
+                        </DockViewComponent>
+                        <DockViewComponent Title="内嵌标签三">
                             <div class="panel">Panel5</div>
-                        </DockComponent>
-                    </DockContent>
-                </DockContent>
+                        </DockViewComponent>
+                    </DockViewContent>
+                </DockViewContent>
             </DockViewV2>
-        </DockComponent>
-    </DockContent>
+        </DockViewComponent>
+    </DockViewContent>
 </DockViewV2>
