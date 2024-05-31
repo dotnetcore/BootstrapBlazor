@@ -54,13 +54,13 @@ public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<bool> OnClosing(DialogResult result)
     {
         var ret = true;
-        if (result == DialogResult.Yes && !SelectedRows.Any())
+        if (result == DialogResult.Yes && SelectedRows.Count == 0)
         {
             await MessageService.Show(new MessageOption()
             {

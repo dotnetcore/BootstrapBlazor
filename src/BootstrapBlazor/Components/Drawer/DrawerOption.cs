@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public class DrawerOption
 {
     /// <summary>
+    /// 获得/设置 Drawer 组件样式
+    /// </summary>
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 获得/设置 抽屉宽度 左右布局时生效
     /// </summary>
     public string? Width { get; set; }

@@ -17,4 +17,36 @@ public class ColorPickerTest : BootstrapBlazorTestBase
 
         Assert.Equal("Test_Color", cut.Find("label").TextContent);
     }
+
+    [Fact]
+    public void Template_OK()
+    {
+        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        {
+            builder.Add(a => a.Template, v => builder => builder.AddContent(0, $"Test-{v}"));
+            builder.Add(a => a.Value, "#AABBCC");
+        });
+
+        cut.Contains("Test-#AABBCC");
+    }
+
+    [Fact]
+    public async Task Formatter_OK()
+    {
+        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        {
+            builder.Add(a => a.Formatter, async v =>
+            {
+                await Task.Delay(0);
+                return $"test-color-value{v}";
+            });
+            builder.Add(a => a.Value, "#AABBCC");
+        });
+
+        cut.Contains("test-color-value#AABBCC");
+
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Change("#000000"));
+        cut.Contains("test-color-value#000000");
+    }
 }

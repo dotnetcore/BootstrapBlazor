@@ -80,6 +80,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DialogCloseButton>();
         Assert.Contains("btn-secondary", cut.Markup);
+
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
@@ -194,7 +195,7 @@ public class ButtonTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.Text, null);
+            pb.Add(a => a.Text, null);
             pb.AddChildContent("Button-Test");
         });
         Assert.Contains("Button-Test", cut.Markup);
@@ -417,8 +418,26 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialogSaveButton_Ok()
     {
-        var cut = Context.RenderComponent<DialogSaveButton>();
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogSaveButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+            pb.Add(a => a.OnSaveAsync, () => Task.FromResult(true));
+        });
         cut.Contains("button type=\"submit\"");
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+
+        clicked = false;
+        cut.SetParametersAndRender(pb => pb.Add(a => a.OnSaveAsync, () => Task.FromResult(false)));
+        button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.False(clicked);
     }
 
     [Fact]

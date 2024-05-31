@@ -22,7 +22,7 @@ public partial class ResultDialogDemo : ComponentBase, IResultDialog
     public EventCallback<int> ValueChanged { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public async Task OnClose(DialogResult result)
     {
