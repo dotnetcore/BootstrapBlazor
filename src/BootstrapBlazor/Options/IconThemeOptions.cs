@@ -127,6 +127,7 @@ public class IconThemeOptions
         { ComponentIcons.RibbonTabArrowDownIcon, "fa-solid fa-angle-down" },
         { ComponentIcons.RibbonTabArrowPinIcon, "fa-solid fa-thumbtack fa-rotate-90" },
 
+        { ComponentIcons.MultiSelectDropdownIcon, "fa-solid fa-angle-up" },
         { ComponentIcons.MultiSelectClearIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
