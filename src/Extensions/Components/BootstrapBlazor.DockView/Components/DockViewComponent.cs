@@ -37,6 +37,13 @@ public class DockViewComponent : DockViewComponentBase
     public string? TitleClass { get; set; }
 
     /// <summary>
+    /// 获得/设置 Title 模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public RenderFragment? TitleTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件 Class 默认 null 未设置
     /// </summary>
     [Parameter]
@@ -78,13 +85,6 @@ public class DockViewComponent : DockViewComponentBase
     /// <remarks>锁定后无法拖动</remarks>
     [Parameter]
     public bool IsLock { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Title 模板 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    [JsonIgnore]
-    public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 Id 默认 null 未设置由 <see cref="IComponentIdGenerator"/> 生成
