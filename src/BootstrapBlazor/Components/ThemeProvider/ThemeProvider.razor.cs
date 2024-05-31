@@ -75,7 +75,7 @@ public partial class ThemeProvider
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? DropdownClassString => CssBuilder.Default("dropdown-menu dropdown-menu-end shadow")
+    private string? DropdownClassString => CssBuilder.Default("dropdown-menu")
         .AddClass($"dropdown-menu-{Alignment.ToDescriptionString()}", Alignment != Alignment.None)
         .AddClass("shadow", ShowShadow)
         .Build();
