@@ -104,6 +104,7 @@ internal class DefaultIcon
         { ComponentIcons.RibbonTabArrowDownIcon, "bi bi-chevron-down" },
         { ComponentIcons.RibbonTabArrowPinIcon, "bi bi-pin bi-pin-angle" },
 
+        { ComponentIcons.MultiSelectDropdownIcon, "bi bi-chevron-up" },
         { ComponentIcons.MultiSelectClearIcon, "bi bi-x" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "bi bi-chevron-up" },
