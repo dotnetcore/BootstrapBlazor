@@ -1,22 +1,20 @@
 ﻿@page "/dock-view2/complex"
 
-<div class="dock-toggle-demo">
-    <DockViewV2 Name="DockViewV2LayoutComplex">
-        <DockViewContent Type="DockViewContentType.Row">
-            <DockViewComponent Title="标签一">
-                <div class="panel">Panel1</div>
+<DockViewV2 Name="DockViewV2LayoutComplex">
+    <DockViewContent Type="DockViewContentType.Row">
+        <DockViewComponent Title="标签一">
+            <div class="panel">Panel1</div>
+        </DockViewComponent>
+        <DockViewComponent Title="标签二">
+            <div class="panel">Panel2</div>
+        </DockViewComponent>
+        <DockViewContent Type="DockViewContentType.Column">
+            <DockViewComponent Title="标签三">
+                <div class="panel">Panel3</div>
             </DockViewComponent>
-            <DockViewComponent Title="标签二">
-                <div class="panel">Panel2</div>
+            <DockViewComponent Title="标签四">
+                <div class="panel">Panel4</div>
             </DockViewComponent>
-            <DockViewContent Type="DockViewContentType.Column">
-                <DockViewComponent Title="标签三">
-                    <div class="panel">Panel3</div>
-                </DockViewComponent>
-                <DockViewComponent Title="标签四">
-                    <div class="panel">Panel4</div>
-                </DockViewComponent>
-            </DockViewContent>
         </DockViewContent>
-    </DockViewV2>
-</div>
+    </DockViewContent>
+</DockViewV2>

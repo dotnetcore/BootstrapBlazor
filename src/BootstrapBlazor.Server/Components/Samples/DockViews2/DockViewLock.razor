@@ -6,21 +6,19 @@
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
-<div class="dock-lock-demo">
-    <DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
-        <DockViewContent Type="DockViewContentType.Row">
-            <DockViewComponent Title="标签一">
-                <div class="panel">Panel1</div>
-            </DockViewComponent>
-            <DockViewComponent Title="标签二">
-                <div class="panel">Panel2</div>
-            </DockViewComponent>
-            <DockViewComponent Title="标签三">
-                <div class="panel">Panel3</div>
-            </DockViewComponent>
-        </DockViewContent>
-    </DockViewV2>
-</div>
+<DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
+    <DockViewContent Type="DockViewContentType.Row">
+        <DockViewComponent Title="标签一">
+            <div class="panel">Panel1</div>
+        </DockViewComponent>
+        <DockViewComponent Title="标签二">
+            <div class="panel">Panel2</div>
+        </DockViewComponent>
+        <DockViewComponent Title="标签三">
+            <div class="panel">Panel3</div>
+        </DockViewComponent>
+    </DockViewContent>
+</DockViewV2>
 
 @code {
     private bool IsLock { get; set; } = true;
