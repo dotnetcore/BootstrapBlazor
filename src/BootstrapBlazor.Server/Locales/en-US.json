@@ -5593,6 +5593,7 @@
     "ImageViewersAttrPreviewList": "A larger preview link set",
     "ImageViewersAttrOnLoadAsync": "The callback method picture when it is loaded successfully",
     "ImageViewersAttrOnErrorAsync": "Images load failed callback methods",
+    "ImageViewersAttrIsIntersectionObserver": "Images lazy loading by view window",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
@@ -5611,7 +5612,9 @@
     "ImageViewerErrorTemplateLoadFailed": "Load failed",
     "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
     "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
-    "ImagePreviewerButton": "Show Previewer"
+    "ImagePreviewerButton": "Show Previewer",
+    "IntersectionObserverTitle": "Intersection Observer",
+    "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible."
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",
