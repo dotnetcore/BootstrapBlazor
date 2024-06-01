@@ -8,7 +8,7 @@ import {
     // indexInParent,
     getRelativeLocation,
     // getLocationOrientation,
-    // getDirectionOrientation
+    // getDirectionOrientation,
   } from "../js/dockview-core.esm.js"
 
   // 给Group添加获取panel.params属性的方法
@@ -255,7 +255,30 @@ class DefaultPanel {
   class GroupControl {
     constructor(dockviewGroupPanel, options, dockview){
       const {element, header, api} = dockviewGroupPanel
-      const {prefixControl, tabsAfterControl, rightControl} = options
+      const {prefixControl, tabsAfterControl, rightControl} = {
+        rightControl: [
+            {
+                name: 'lock',
+                icon: ['<i class="fas fa-unlock"></i>', '<i class="fas fa-lock"></i>']
+            },
+            {
+                name: 'packup/expand',
+                icon: ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>']
+            },
+            {
+                name: 'float',
+                icon: ['<i class="far fa-window-restore"></i>']
+            },
+            {
+                name: 'maximize',
+                icon: ['<i class="fas fa-expand"></i>', '<i class="fas fa-compress"></i>']
+            },
+            {
+                name: 'close',
+                icon: ['<i class="fas fa-times"></i>']
+            }
+        ],
+    }
       // Group
       this.ele = element
       // Group的Header
@@ -295,10 +318,13 @@ class DefaultPanel {
     _createButton(item){
       const divEle = document.createElement('div')
       divEle.title = item.name
+      divEle.className = item.name
       divEle.innerHTML = item.icon[0]
       divEle.style.cssText = 'width: 10px; height: 10px; padding: 2px; margin-left: 6px; cursor: pointer; line-height: .8;'
 
       if(item.name == 'lock'){
+        this.group.locked = this.options.lock ? true : this._getGroupParams('isLock') ? true : false
+        console.log(this.group.locked, 'this.group.locked');
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
       }
@@ -459,6 +485,7 @@ class DefaultPanel {
     return groupId++
   }
   function serialize(options){
+    groupId = 0
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -549,33 +576,6 @@ class DefaultPanel {
         }
     }
 
-    options = {...options, ...{
-        gear: {
-            show: true
-        },
-        rightControl: [
-            {
-                name: 'lock',
-                icon: ['<i class="fas fa-unlock"></i>', '<i class="fas fa-lock"></i>']
-            },
-            {
-                name: 'packup/expand',
-                icon: ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>']
-            },
-            {
-                name: 'float',
-                icon: ['<i class="far fa-window-restore"></i>']
-            },
-            {
-                name: 'maximize',
-                icon: ['<i class="fas fa-expand"></i>', '<i class="fas fa-compress"></i>']
-            },
-            {
-                name: 'close',
-                icon: ['<i class="fas fa-times"></i>']
-            }
-        ],
-    }}
     options.layoutConfig233 = {
         "grid": {
             "root": {
@@ -826,13 +826,7 @@ class DefaultPanel {
     const el = document.getElementById(id);
     const template = document.getElementById(templateId)
     // dockview-theme-replit,dockview-theme-dracula,dockview-theme-vs,dockview-theme-light,dockview-theme-dark,dockview-theme-abyss
-    el.className = `${options.skin || 'dockview-theme-replit'} ${options.name}`
-    el.style.width = '100%'
-    el.style.height = '100%'
-    if(el.parentElement.className == 'dock-toggle-demo') {
-        el.parentElement.style.width = '100%'
-        el.parentElement.style.height = '100%'
-    }
+    el.classList.add(options.theme)
 
     // 1、序列化options数据为dockview可用数据
     let serializedData = serialize(options)
@@ -847,6 +841,8 @@ class DefaultPanel {
       createTabComponent: option => new myDefaultTab(option, options)
     });
     dockview.prefix = options.prefix
+    dockview.locked = options.lock
+    Data.set(id, dockview)
     // 钩子1： 删除panel触发
     dockview.onDidRemovePanel(event => {
       // 在panel上存储信息
@@ -1030,18 +1026,18 @@ class DefaultPanel {
   function addDelPanel(panel, delPanels, options, dockview){
     let group = dockview.api.getGroup(panel.groupId)
       let {position = {},currentPosition, height, isPackup, isMaximized} = panel.params || {}
-      let floatingGroupPosition = isMaximized ? {
-        x: 0, y: 0,
-        width: dockview.width,
-        height: dockview.height
-      } : {
-          x: currentPosition.left,
-          y: currentPosition.top,
-          width: currentPosition.width,
-          height: currentPosition.height
-      }
       if(!group){
         group = dockview.createGroup({id: panel.groupId})
+        let floatingGroupPosition = isMaximized ? {
+            x: 0, y: 0,
+            width: dockview.width,
+            height: dockview.height
+          } : {
+              x: currentPosition?.left || 0,
+              y: currentPosition?.top || 0,
+              width: currentPosition?.width,
+              height: currentPosition?.height
+          }
         dockview.addFloatingGroup(group, floatingGroupPosition, {skipRemoveGroup: true})
 
         if(true){
@@ -1049,7 +1045,7 @@ class DefaultPanel {
           setTimeout(() => {
             // group.setParams({isPackup, height, isMaximized, position})
             new GroupControl(group, options, dockview)
-          }, 0);
+          }, 50);
         }
 
       }else{
@@ -1058,9 +1054,9 @@ class DefaultPanel {
           if(isVisible === false){
             dockview.setVisible(group, true)
             // 修正Group的宽高(待完善...)
-            let lastDelPanel = delPanels.findLast(delPanel => delPanel.groupId == panel.groupId)
-            let {width, height} = lastDelPanel.params.currentPosition
-            console.log(width, height, 'group: width, height');
+            // let lastDelPanel = delPanels.findLast(delPanel => delPanel.groupId == panel.groupId)
+            // let {width, height} = lastDelPanel.params.currentPosition
+            // console.log(width, height, 'group: width, height');
             // group.layout(width, height)
           }
         }
@@ -1169,9 +1165,98 @@ class DefaultPanel {
     return id;
   }
 
-export function update(id, options) {
-    console.log(id, options);
-    // let serializeData =
+function getPanels(content){
+    return getPanel(content[0])
+}
+function getPanel(contentItem, panels = []){
+    if(contentItem.type == 'component'){
+        panels.push({
+            id: contentItem.id,
+            groupId: '0',
+            title: contentItem.title,
+            tabComponent: contentItem.componentName,
+            contentComponent: contentItem.componentName,
+            params: contentItem
+        })
+    }else{
+        contentItem.content?.forEach(item => getPanel(item, panels))
+    }
+    return panels
+}
+
+function toggleComponent(dock, option){
+    let panels = getPanels(option.content)
+    let localPanels = dock.panels || {}
+    panels.forEach(panel => {
+        let pan = localPanels.find(item => item.id == panel.id)
+        if(pan === void 0){//需要添加
+            addDelPanel(panel, [], option, dock)
+        }
+    })
+
+    localPanels.forEach(item => {
+        let pan = panels.find(panel => panel.id == item.id)
+        if(pan === void 0){//需要删除
+            dock.removePanel(item)
+        }
+    })
+}
+function lockDock(dock){
+    console.log('lock');
+    dock.groups.forEach(group => {
+        group.header.rightActionsContainer?.querySelector('.lock').click()
+    })
+}
+function getTheme(element) {
+    function toClassList(element) {
+        const list = [];
+        for (let i = 0; i < element.classList.length; i++) {
+            list.push(element.classList.item(i));
+        }
+        return list;
+    }
+    let theme = undefined;
+    let parent = element;
+    while (parent !== null) {
+        theme = toClassList(parent).find((cls) => cls.startsWith('dockview-theme-'));
+        if (typeof theme === 'string') {
+            break;
+        }
+        parent = parent.parentElement;
+    }
+    return theme;
+}
+function setTheme(ele, theme, newTheme){
+    ele.classList.remove(theme)
+    ele.classList.add(newTheme)
+}
+
+export function update(id, option) {
+    let dock = Data.get(id)
+    let ele = dock.element.parentElement
+    let theme = getTheme(ele)
+    console.log(dock, 'update: dockview');
+    // console.log(option);
+    if (dock) {
+
+        if (dock.locked !== option.lock) {
+            // 处理 Lock 逻辑
+            dock.locked = option.lock
+            lockDock(dock)
+        }
+        else if(theme !== option.theme){
+            setTheme(ele, theme, option.theme)
+        }
+        else {
+            // 处理 toggle 逻辑
+            toggleComponent(dock, option)
+        }
+    }
+
+
+
+
+
 }
 
 export function dispose(id) {
