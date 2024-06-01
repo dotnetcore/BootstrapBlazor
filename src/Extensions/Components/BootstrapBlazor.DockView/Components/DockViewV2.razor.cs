@@ -140,7 +140,7 @@ public partial class DockViewV2
             else
             {
                 _init = true;
-                await InvokeVoidAsync("init", Id, GetOptions(), Interop);
+                await InvokeVoidAsync("init", Id, Interop, GetOptions());
             }
         }
     }

@@ -510,7 +510,7 @@ function getTree(contentItem) {
 }
 
 let resetHandle;
-export async function init(id, options) {
+export async function init(id, invoker, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
     console.log(id, 'id', options, 'options');
     options = {
@@ -812,6 +812,9 @@ export async function init(id, options) {
         },
         createTabComponent: option => new myDefaultTab(option, options)
     });
+
+    //invoke.invokeMethodAsync(option.initializedCallback)
+
     // 钩子1： 删除panel触发
     dockview.onDidRemovePanel(event => {
         console.log(event, 'onDidRemovePanel');
