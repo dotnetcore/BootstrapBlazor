@@ -98,7 +98,9 @@ public partial class DockViewV2
 
     private string? _templateId;
 
-    private bool _isInit;
+    private bool _rendered;
+
+    private bool _init;
 
     [NotNull]
     private DockViewOptions? _options = default!;
@@ -126,16 +128,20 @@ public partial class DockViewV2
 
         if (firstRender)
         {
-            _isInit = true;
+            _rendered = true;
             StateHasChanged();
         }
-        else if (_isInit)
+        if (_rendered)
         {
-            await InvokeVoidAsync("init", Id, GetOptions(), Interop);
-        }
-        else
-        {
-            await InvokeVoidAsync("update", Id, GetOptions());
+            if (_init)
+            {
+                await InvokeVoidAsync("update", Id, GetOptions());
+            }
+            else
+            {
+                _init = true;
+                await InvokeVoidAsync("init", Id, GetOptions(), Interop);
+            }
         }
     }
 
