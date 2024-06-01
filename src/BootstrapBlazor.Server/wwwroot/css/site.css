@@ -38,6 +38,7 @@
     --bb-global-search-placeholder-color: #a88dbc;
     --bb-global-search-item-bg: #6522cc;
     --bb-code-bg: #e9ecef;
+    --bs-header-height: 50px;
 }
 
 .navbar {
@@ -337,7 +338,6 @@ code {
 
 @media (min-width: 768px) {
     .bb-ad {
-        --bs-header-height: 50px;
         --bb-ad-width: 50%;
         display: flex;
     }
@@ -347,6 +347,11 @@ code {
             position: absolute;
             bottom: 1rem;
         }
+
+            .bb-ad.bb-ad-vertical .cc-ad {
+                position: absolute;
+                bottom: 136px;
+            }
 
     .header-img span {
         display: none;
