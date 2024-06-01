@@ -10,7 +10,7 @@
 
             const cc = document.createElement('div');
             cc.classList.add("cc-ad")
-            cc.innerHTML = `<img src='https://ccbpm.cn/img/GenerAD.png?Frm=argo' />`
+            cc.innerHTML = `<a href="https://ccbpm.cn/index.html?Frm=argo" target="_blank"><img src='https://ccbpm.cn/img/GenerAD.png?Frm=argo' /></a>`
             el.appendChild(cc);
         }
     }
