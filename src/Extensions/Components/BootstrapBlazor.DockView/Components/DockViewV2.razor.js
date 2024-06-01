@@ -8,7 +8,7 @@ import {
     // indexInParent,
     getRelativeLocation,
     // getLocationOrientation,
-    // getDirectionOrientation
+    // getDirectionOrientation,
   } from "../js/dockview-core.esm.js"
 
   // 给Group添加获取panel.params属性的方法
@@ -1207,13 +1207,35 @@ function lockDock(dock){
         group.header.rightActionsContainer?.querySelector('.lock').click()
     })
 }
-function setTheme(dock, theme){
-
+function getTheme(element) {
+    function toClassList(element) {
+        const list = [];
+        for (let i = 0; i < element.classList.length; i++) {
+            list.push(element.classList.item(i));
+        }
+        return list;
+    }
+    let theme = undefined;
+    let parent = element;
+    while (parent !== null) {
+        theme = toClassList(parent).find((cls) => cls.startsWith('dockview-theme-'));
+        if (typeof theme === 'string') {
+            break;
+        }
+        parent = parent.parentElement;
+    }
+    return theme;
+}
+function setTheme(ele, theme, newTheme){
+    ele.classList.remove(theme)
+    ele.classList.add(newTheme)
 }
 
 export function update(id, option) {
     let dock = Data.get(id)
-    // console.log(dock, 'update: dockview');
+    let ele = dock.element.parentElement
+    let theme = getTheme(ele)
+    console.log(dock, 'update: dockview');
     // console.log(option);
     if (dock) {
 
@@ -1222,8 +1244,8 @@ export function update(id, option) {
             dock.locked = option.lock
             lockDock(dock)
         }
-        else if(0 && dock.theme !== option.theme){
-            setTheme()
+        else if(theme !== option.theme){
+            setTheme(ele, theme, option.theme)
         }
         else {
             // 处理 toggle 逻辑
