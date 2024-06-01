@@ -84,6 +84,12 @@ public partial class DockViewV2
     [Parameter]
     public string? LocalStoragePrefix { get; set; }
 
+    /// <summary>
+    /// 获得/设置 DockView 组件主题 默认 Light
+    /// </summary>
+    [Parameter]
+    public DockViewTheme Theme { get; set; } = DockViewTheme.Light;
+
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
@@ -157,7 +163,8 @@ public partial class DockViewV2
         InitializedCallback = nameof(InitializedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
         TemplateId = _templateId,
-        Contents = _root
+        Contents = _root,
+        Theme = Theme.ToDescriptionString()
     };
 
     /// <summary>

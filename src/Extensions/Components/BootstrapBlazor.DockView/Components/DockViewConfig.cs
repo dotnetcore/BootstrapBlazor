@@ -67,4 +67,9 @@ class DockViewConfig
     /// 获得/设置 模板元素 Id 默认 null 未设置
     /// </summary>
     public string? TemplateId { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件主题
+    /// </summary>
+    public string? Theme { get; set; }
 }
