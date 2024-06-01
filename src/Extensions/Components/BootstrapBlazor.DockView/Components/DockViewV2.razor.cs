@@ -131,7 +131,7 @@ public partial class DockViewV2
             _rendered = true;
             StateHasChanged();
         }
-        if (_rendered)
+        else if (_rendered)
         {
             if (_init)
             {
