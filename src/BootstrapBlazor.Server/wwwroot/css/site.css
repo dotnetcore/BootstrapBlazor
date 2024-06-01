@@ -311,7 +311,7 @@ code {
 
 .bb-ad {
     --bb-ad-height: 120px;
-    --bb-ad-margin: 20px 0 20px 0;
+    --bb-ad-margin: 20px 0 0 0;
     --bb-ad-bg-color: #f4f8fa;
     --bb-ad-width: 100%;
     display: block
