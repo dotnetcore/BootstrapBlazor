@@ -430,6 +430,11 @@ public enum ComponentIcons
     RibbonTabArrowPinIcon,
 
     /// <summary>
+    /// MultiSelect 组件 DropdownIcon 图标
+    /// </summary>
+    MultiSelectDropdownIcon,
+
+    /// <summary>
     /// MultiSelect 组件 ClearIcon 图标
     /// </summary>
     MultiSelectClearIcon,
