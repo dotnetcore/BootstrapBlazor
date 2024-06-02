@@ -486,6 +486,7 @@ class DefaultPanel {
   }
   function serialize(options){
     groupId = 0
+    console.log(options, 'options77777777777');
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -508,10 +509,11 @@ class DefaultPanel {
     }
     else if(contentItem.type == 'group'){
         obj.type = 'leaf'
+        obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.content[0].id,
-            views: contentItem.content.map(item => {
+            views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
                     id: item.id,
                     title: item.title,
@@ -525,18 +527,21 @@ class DefaultPanel {
     }
     else if(contentItem.type = 'component'){
         obj.type = 'leaf'
+        obj.visible = contentItem.visible !== false
         obj.size = 300
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.id,
-            views: [contentItem.id]
+            views: obj.visible ? [contentItem.id] : []
         }
-        panels[contentItem.id] = {
-            id: contentItem.id,
-            title: contentItem.title,
-            tabComponent: contentItem.componentName,
-            contentComponent: contentItem.componentName,
-            params: contentItem
+        if(obj.visible){
+          panels[contentItem.id] = {
+              id: contentItem.id,
+              title: contentItem.title,
+              tabComponent: contentItem.componentName,
+              contentComponent: contentItem.componentName,
+              params: contentItem
+          }
         }
     }
     return obj
@@ -831,6 +836,7 @@ class DefaultPanel {
     // 1、序列化options数据为dockview可用数据
     let serializedData = serialize(options)
     // 2、以本地优先,对dockview数据进行优化加工,
+    console.log(serializedData, 'serializedData');
     let dockviewData = serializedData || getJson(options.layoutConfig || serializedData)
 
     const dockview = new DockviewComponent({
@@ -875,6 +881,10 @@ class DefaultPanel {
       if(true){
         new PanelControl(event, options)
       }
+      if(!event.group.children){
+        event.group.children = {}
+      }
+      event.group.children[event.id] = event.id
     })
     // 钩子3：添加Group触发
     dockview.onDidAddGroup(event => {
@@ -942,9 +952,17 @@ class DefaultPanel {
     })
 
     // 钩子8：所有造成layout变化的操作都会触发
+    let abc = 0
     let eve = dockview.onDidLayoutChange(event => {
       console.log(event, 'onDidLayoutChange');
+      console.log(++abc, 'abc');
       setTimeout(() => {
+        // 维护Group的children属性
+        dockview.groups.forEach(group => {
+          group.panels.forEach(panel => {
+            group.children[panel.id] = panel.id
+          })
+        })
         saveConfig(dockview)
       }, 50)
     })
@@ -1024,7 +1042,10 @@ class DefaultPanel {
 
   // 手动添加已删除的panel
   function addDelPanel(panel, delPanels, options, dockview){
-    let group = dockview.api.getGroup(panel.groupId)
+    let group = panel.groupId ? dockview.api.getGroup(panel.groupId) : (
+        dockview.groups.find(group => group.children[panel.id]) || dockview.groups[0]
+    )
+
       let {position = {},currentPosition, height, isPackup, isMaximized} = panel.params || {}
       if(!group){
         group = dockview.createGroup({id: panel.groupId})
@@ -1041,7 +1062,6 @@ class DefaultPanel {
         dockview.addFloatingGroup(group, floatingGroupPosition, {skipRemoveGroup: true})
 
         if(true){
-          console.log(group);
           setTimeout(() => {
             // group.setParams({isPackup, height, isMaximized, position})
             new GroupControl(group, options, dockview)
@@ -1172,7 +1192,7 @@ function getPanel(contentItem, panels = []){
     if(contentItem.type == 'component'){
         panels.push({
             id: contentItem.id,
-            groupId: '0',
+            groupId: contentItem.groupId,
             title: contentItem.title,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
