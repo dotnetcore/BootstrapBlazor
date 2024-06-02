@@ -544,7 +544,7 @@ class DefaultPanel {
 
   let resetHandle;
   export async function init(id,invoke, options) {
-    await addLink("./_content/BootstrapBlazor.DockView/css/dockview.css")
+    await addLink("./_content/BootstrapBlazor.DockView/css/dockview-bb.css")
     console.log(id, 'id', options, 'options');
     options = {
         ...options, ...{
