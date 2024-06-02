@@ -51,8 +51,8 @@ public static class IEditorItemExtensions
         {
             ret = changedType switch
             {
-                ItemChangedType.Add => (col.IsVisibleWhenAdd ?? true) && col.Visible,
-                _ => (col.IsVisibleWhenEdit ?? true) && col.Visible
+                ItemChangedType.Add => col.IsVisibleWhenAdd.HasValue ? col.IsVisibleWhenAdd.Value : col.Visible,
+                _ => col.IsVisibleWhenEdit.HasValue ? col.IsVisibleWhenEdit.Value : col.Visible
             };
         }
         return ret;
