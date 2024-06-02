@@ -6,6 +6,6 @@
     margin-bottom: 1rem;
 }
 
-::deep .bb-dock-view {
+::deep .dock-view-demo {
     height: calc(100% - 35px - 1rem);
 }
