@@ -5,6 +5,191 @@ import Data from '../../modules/data.js'
 import EventHandler from '../../modules/event-handler.js'
 import Popover from "../../modules/base-popover.js"
 
+export function init(id, invoke, options) {
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
+    const table = {
+        el,
+        invoke,
+        options
+    }
+    Data.set(id, table)
+
+    reset(id)
+}
+
+export function reloadColumnWidth(tableName) {
+    const key = `bb-table-column-width-${tableName}`
+    return localStorage.getItem(key);
+}
+
+export function reloadColumnOrder(tableName) {
+    const key = `bb-table-column-order-${tableName}`
+    return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+export function saveColumnOrder(options) {
+    const key = `bb-table-column-order-${options.tableName}`
+    localStorage.setItem(key, JSON.stringify(options.columns));
+}
+
+export function reset(id) {
+    const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
+
+    table.columns = []
+    table.tables = []
+    table.dragColumns = []
+
+    const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
+    if (shim !== void 0) {
+        table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
+        table.isResizeColumn = shim.classList.contains('table-resize')
+        if (table.thead) {
+            table.isExcel = table.thead.firstChild.classList.contains('table-excel')
+            table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
+            table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
+            table.tables.push(table.thead.firstChild)
+            table.tables.push(table.body.firstChild)
+            table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
+            fixHeader(table)
+
+            EventHandler.on(table.body, 'scroll', () => {
+                const left = table.body.scrollLeft
+                table.thead.scrollTo(left, 0)
+            });
+
+            setTableDefaultWidth(table);
+        }
+        else {
+            table.isExcel = shim.firstChild.classList.contains('table-excel')
+            table.isDraggable = shim.firstChild.classList.contains('table-draggable')
+            table.tables.push(shim.firstChild)
+        }
+
+        if (table.isExcel) {
+            setExcelKeyboardListener(table)
+        }
+
+        if (table.isResizeColumn) {
+            setResizeListener(table)
+        }
+
+        if (table.isDraggable) {
+            setDraggable(table)
+        }
+
+        setCopyColumn(table)
+
+        // popover
+        const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
+        if (toolbar) {
+            const right = toolbar.querySelector('.table-column-right')
+            if (right) {
+                setToolbarDropdown(table, right)
+            }
+        }
+    }
+
+    setBodyHeight(table)
+
+    if (table.search) {
+        const observer = new ResizeObserver(() => {
+            setBodyHeight(table)
+        });
+        observer.observe(table.search)
+        table.observer = observer
+    }
+}
+
+export function resetColumn(id) {
+    const table = Data.get(id)
+    if (table) {
+        setResizeListener(table)
+        resetTableWidth(table)
+    }
+}
+
+export function bindResizeColumn(id) {
+    const table = Data.get(id)
+    if (table) {
+        if (table.isResizeColumn) {
+            setResizeListener(table)
+        }
+    }
+}
+
+export function sort(id) {
+    const table = Data.get(id)
+    const el = table.el
+
+    const span = el.querySelector('.sortable .table-text[aria-describedby]')
+    if (span) {
+        const tooltip = getDescribedElement(span)
+        if (tooltip) {
+            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
+        }
+    }
+}
+
+export function load(id, method) {
+    const table = Data.get(id)
+
+    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
+    if (method === 'show') {
+        loader.classList.add('show')
+    }
+    else {
+        loader.classList.remove('show')
+    }
+}
+
+export function scroll(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
+        if (selectedRow) {
+            const row = selectedRow.closest('tr');
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
+}
+
+export function dispose(id) {
+    const table = Data.get(id)
+    Data.remove(id)
+
+    if (table) {
+        if (table.thead) {
+            EventHandler.off(table.body, 'scroll')
+        }
+
+        if (table.isExcel) {
+            EventHandler.off(table.element, 'keydown')
+        }
+
+        disposeColumnDrag(table.columns)
+        disposeDragColumns(table.dragColumns)
+        EventHandler.off(table.element, 'click', '.col-copy')
+
+        if (table.observer) {
+            table.observer.disconnect()
+        }
+
+        if (table.popovers) {
+            table.popovers.forEach(p => {
+                Popover.dispose(p)
+            })
+        }
+    }
+}
+
 const setBodyHeight = table => {
     const el = table.el
     const children = [...el.children]
@@ -455,26 +640,6 @@ const setToolbarDropdown = (table, toolbar) => {
     })
 }
 
-export function init(id, invoke, options) {
-    const el = document.getElementById(id)
-    if (el === null) {
-        return
-    }
-    const table = {
-        el,
-        invoke,
-        options
-    }
-    Data.set(id, table)
-
-    reset(id)
-}
-
-export function reloadColumnWidth(tableName) {
-    const key = `bb-table-column-width-${tableName}`
-    return localStorage.getItem(key);
-}
-
 const saveColumnWidth = table => {
     const cols = table.columns
     const tableWidth = table.tables[0].offsetWidth
@@ -488,87 +653,6 @@ const saveColumnWidth = table => {
     }));
 }
 
-export function reloadColumnOrder(tableName) {
-    const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) || [];
-}
-
-export function saveColumnOrder(options) {
-    const key = `bb-table-column-order-${options.tableName}`
-    localStorage.setItem(key, JSON.stringify(options.columns));
-}
-
-export function reset(id) {
-    const table = Data.get(id)
-    if (table === null) {
-        return;
-    }
-
-    table.columns = []
-    table.tables = []
-    table.dragColumns = []
-
-    const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
-    if (shim !== void 0) {
-        table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
-        table.isResizeColumn = shim.classList.contains('table-resize')
-        if (table.thead) {
-            table.isExcel = table.thead.firstChild.classList.contains('table-excel')
-            table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
-            table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
-            table.tables.push(table.thead.firstChild)
-            table.tables.push(table.body.firstChild)
-            table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
-            fixHeader(table)
-
-            EventHandler.on(table.body, 'scroll', () => {
-                const left = table.body.scrollLeft
-                table.thead.scrollTo(left, 0)
-            });
-
-            setTableDefaultWidth(table);
-        }
-        else {
-            table.isExcel = shim.firstChild.classList.contains('table-excel')
-            table.isDraggable = shim.firstChild.classList.contains('table-draggable')
-            table.tables.push(shim.firstChild)
-        }
-
-        if (table.isExcel) {
-            setExcelKeyboardListener(table)
-        }
-
-        if (table.isResizeColumn) {
-            setResizeListener(table)
-        }
-
-        if (table.isDraggable) {
-            setDraggable(table)
-        }
-
-        setCopyColumn(table)
-
-        // popover
-        const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
-        if (toolbar) {
-            const right = toolbar.querySelector('.table-column-right')
-            if (right) {
-                setToolbarDropdown(table, right)
-            }
-        }
-    }
-
-    setBodyHeight(table)
-
-    if (table.search) {
-        const observer = new ResizeObserver(() => {
-            setBodyHeight(table)
-        });
-        observer.observe(table.search)
-        table.observer = observer
-    }
-}
-
 const setTableDefaultWidth = table => {
     const width = table.tables[0].style.getPropertyValue('width');
     if (width === "") {
@@ -580,77 +664,6 @@ const setTableDefaultWidth = table => {
                 table.tables[0].style.setProperty('width', `${tableWidth}px`);
                 table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
             }
-        }
-    }
-}
-
-export function resetColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        setResizeListener(table)
-        resetTableWidth(table)
-    }
-}
-
-export function bindResizeColumn(id) {
-    const table = Data.get(id)
-    if (table) {
-        if (table.isResizeColumn) {
-            setResizeListener(table)
-        }
-    }
-}
-
-export function sort(id) {
-    const table = Data.get(id)
-    const el = table.el
-
-    const span = el.querySelector('.sortable .table-text[aria-describedby]')
-    if (span) {
-        const tooltip = getDescribedElement(span)
-        if (tooltip) {
-            tooltip.querySelector('.tooltip-inner').innerHTML = span.getAttribute('data-bs-original-title')
-        }
-    }
-}
-
-export function load(id, method) {
-    const table = Data.get(id)
-
-    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
-    if (method === 'show') {
-        loader.classList.add('show')
-    }
-    else {
-        loader.classList.remove('show')
-    }
-}
-
-export function dispose(id) {
-    const table = Data.get(id)
-    Data.remove(id)
-
-    if (table) {
-        if (table.thead) {
-            EventHandler.off(table.body, 'scroll')
-        }
-
-        if (table.isExcel) {
-            EventHandler.off(table.element, 'keydown')
-        }
-
-        disposeColumnDrag(table.columns)
-        disposeDragColumns(table.dragColumns)
-        EventHandler.off(table.element, 'click', '.col-copy')
-
-        if (table.observer) {
-            table.observer.disconnect()
-        }
-
-        if (table.popovers) {
-            table.popovers.forEach(p => {
-                Popover.dispose(p)
-            })
         }
     }
 }
