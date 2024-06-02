@@ -72,8 +72,11 @@ public partial class TablesSelection
         });
     }
 
-    private async Task OnAfterRenderCallback(Table<Foo> table)
+    private async Task OnAfterRenderCallback(Table<Foo> table, bool firstRender)
     {
-        await InvokeVoidAsync("scroll", "table-scroll-demo");
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("scroll", table.Id);
+        }
     }
 }
