@@ -301,6 +301,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<Table<TItem>, bool, Task>? OnAfterRenderCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否自动将选中行滚动到可视区域 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoScrollLastSelectedRowToView { get; set; }
+
+    /// <summary>
     /// 获得/设置 双击单元格回调委托
     /// </summary>
     [Parameter]
@@ -849,6 +855,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             UpdateSortTooltip = false;
             await InvokeVoidAsync("sort", Id);
+        }
+
+        if (AutoScrollLastSelectedRowToView)
+        {
+            await InvokeVoidAsync("scroll", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行

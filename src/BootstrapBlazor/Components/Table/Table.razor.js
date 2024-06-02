@@ -148,6 +148,19 @@ export function load(id, method) {
     }
 }
 
+export function scroll(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
+        if (selectedRow) {
+            const row = selectedRow.closest('tr');
+            if (row) {
+                row.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }
+}
+
 export function dispose(id) {
     const table = Data.get(id)
     Data.remove(id)
