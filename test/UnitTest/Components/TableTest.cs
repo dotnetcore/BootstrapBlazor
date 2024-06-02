@@ -944,7 +944,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnAfterRenderCallback, tb =>
+                pb.Add(a => a.OnAfterRenderCallback, (tb, firstRender) =>
                 {
                     return Task.CompletedTask;
                 });
@@ -6787,7 +6787,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnAfterRenderCallback, table =>
+                pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
                     callback = true;
                     return Task.CompletedTask;
