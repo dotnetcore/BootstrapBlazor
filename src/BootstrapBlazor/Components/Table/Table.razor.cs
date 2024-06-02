@@ -298,7 +298,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 Table 组件渲染完毕回调
     /// </summary>
     [Parameter]
-    public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
+    public Func<Table<TItem>, bool, Task>? OnAfterRenderCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 双击单元格回调委托
@@ -864,11 +864,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (firstRender)
         {
-            if (OnAfterRenderCallback != null)
-            {
-                await OnAfterRenderCallback(this);
-            }
-
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
@@ -876,6 +871,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth
             });
+        }
+
+        if (OnAfterRenderCallback != null)
+        {
+            await OnAfterRenderCallback(this, firstRender);
         }
     }
 
