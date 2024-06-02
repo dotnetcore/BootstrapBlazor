@@ -259,9 +259,10 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnAfterRenderCallback, t =>
+                pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
+                pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
-                    t.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                    table.ResetVisibleColumns(new List<ColumnVisibleItem>()
                     {
                         new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
                         new(nameof(Foo.Address), false),
