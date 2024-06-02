@@ -1263,7 +1263,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count(col => col.Visible);
+        var colSpan = GetVisibleColumns().Count(col => col.Visible && ScreenSize >= col.ShownWithBreakPoint);
         if (IsMultipleSelect)
         {
             colSpan++;
