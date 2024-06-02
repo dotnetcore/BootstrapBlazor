@@ -262,11 +262,14 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
                 pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
-                    table.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                    if (firstRender)
                     {
-                        new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
-                        new(nameof(Foo.Address), false),
-                    });
+                        table.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                        {
+                            new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
+                            new(nameof(Foo.Address), false),
+                        });
+                    }
                     return Task.CompletedTask;
                 });
             });
