@@ -4927,6 +4927,7 @@
     "PageInfoTemplateAttr": "分页详细信息自定义组件",
     "PageInfoTextAttr": "分页信息显示文字",
     "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序",
+    "AutoScrollLastSelectedRowToViewAttr": "选中行最后一个是否自动滚动到可视视窗内",
     "TableBaseNormalRefreshText": "刷新",
     "TableBaseHeaderStyleMode": "表头模式",
     "IsPopoverToolbarDropdownButtonAttr": "工具栏下拉框按钮是否浮动"

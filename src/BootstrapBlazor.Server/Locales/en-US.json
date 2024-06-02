@@ -4927,6 +4927,7 @@
     "PageInfoTemplateAttr": "The template for custom page info",
     "PageInfoTextAttr": "Pagination label text",
     "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order",
+    "AutoScrollLastSelectedRowToViewAttr": "whether the last selected row will automatically scroll to the view",
     "TableBaseNormalRefreshText": "Refresh",
     "TableBaseHeaderStyleMode": "The style of table header",
     "IsPopoverToolbarDropdownButtonAttr": "Whether float the popup window for dropdown button in the toolbar"
