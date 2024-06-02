@@ -5233,7 +5233,11 @@
     "TablesSelectionKeepInfo": "Keep State:",
     "TablesSelectionKeepOnText": "Keep",
     "TablesSelectionKeepOffText": "No keep",
-    "TablesSelectionCountText": "Count：{0}"
+    "TablesSelectionCountText": "Count：{0}",
+    "TablesSelectionScrollTitle": "Callback method after rendering",
+    "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window",
+    "TablesSelectionScrollButtonText": "Select Last Row"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
