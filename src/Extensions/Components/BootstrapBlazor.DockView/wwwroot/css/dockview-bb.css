@@ -4,9 +4,13 @@
     --bb-dock-view-padding: .25rem;
     width: 100%;
     height: 100%;
-    border: 1px solid var(--bs-border-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
 .groupview > .content-container {
     padding: var(--bb-dock-view-padding);
+}
+
+.bb-dock-view .bb-dock-view-item-title-icon {
+    cursor: pointer;
 }
