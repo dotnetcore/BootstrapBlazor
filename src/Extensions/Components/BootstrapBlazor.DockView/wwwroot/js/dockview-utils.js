@@ -326,6 +326,7 @@ export function cerateDockview(el, options) {
 
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let serverData = options.layoutConfig || serialize(options)
+    console.log(serverData, 'serverData');
     // 以本地优先, 得到最终的dockviewData并修正
     let dockviewData = getJson(dockview, serverData)
     // 绑定钩子函数
@@ -504,7 +505,9 @@ export function addHook(dockview, dockviewData, options, template) {
 
     // 钩子9: layout加载完成触发
     dockview.onDidLayoutFromJSON(event => {
-        // invoke.invokeMethodAsync(options.initializedCallback)
+        setTimeout(() => {
+            dockview.initialized?.fire()
+        }, 0)
         dockview.groups.forEach(group => {
             if (group.panels.length == 0) {
                 dockview.setVisible(group, false)
@@ -520,16 +523,18 @@ const getGroupId = () => {
 }
 export function serialize(options) {
     groupId = 0
+    const orientation = options.content[0].type == 'row' ? 'HORIZONTAL' : 'VERTICAL'
+    const {width = 100, height = 80} = options
     return options.content ? {
         activeGroup: '1',
         grid: {
+            width,
+            height,
+            orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0])]
+                data: [getTree(options.content[0], {width, height, orientation})]
             },
-            orientation: options.content[0].type == 'row' ? 'HORIZONTAL' : 'VERTICAL',
-            width: 1000,
-            height: 800
         },
         panels
     } : null
@@ -664,14 +669,20 @@ const saveConfig = (dockview, config) => {
         (config && JSON.stringify(config)) || JSON.stringify(json)
     )
 }
-const getTree = contentItem => {
-    let obj = {}
+const getTree = (contentItem, {width, height, orientation}, length = 1) => {
+    let obj = {}, size = orientation == 'HORIZONTAL' ? width : height
+    size = (1/length*size).toFixed(2) * 1
+    orientation == 'HORIZONTAL' ? width = size : height = size
+    orientation =  orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
+
     if (contentItem.type == 'row' || contentItem.type == 'column') {
         obj.type = 'branch'
-        obj.data = contentItem.content.map(item => getTree(item))
+        obj.size = size
+        obj.data = contentItem.content.map(item => getTree(item, {width, height, orientation}, contentItem.content.length))
     }
     else if (contentItem.type == 'group') {
         obj.type = 'leaf'
+        obj.size = size
         obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
             id: getGroupId() + '',
@@ -691,7 +702,7 @@ const getTree = contentItem => {
     else if (contentItem.type = 'component') {
         obj.type = 'leaf'
         obj.visible = contentItem.visible !== false
-        obj.size = 300
+        obj.size = size
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.id,

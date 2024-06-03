@@ -43,6 +43,9 @@ export async function init(id, invoke, options) {
     const dockview = cerateDockview(el, options)
     Data.set(id, { el, dockview });
 
+    dockview.on('initialized', () => {
+        console.log('initialized');
+    })
     dockview.on('lockChanged', isLock => {
         console.log(isLock, 'onLockChange');
     })
