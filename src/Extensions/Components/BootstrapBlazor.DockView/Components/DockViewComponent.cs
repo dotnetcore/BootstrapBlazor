@@ -87,6 +87,27 @@ public class DockViewComponent : DockViewComponentBase
     public bool IsLock { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示标题前置图标 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public bool ShowTitleBar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标题前置图标 默认 null 未设置使用默认 图标
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public string? TitleBarIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标题前置图标点击回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public Func<Task>? OnTitleBarCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 DockViewComponent 集合
     /// </summary>
     [CascadingParameter]
@@ -101,6 +122,16 @@ public class DockViewComponent : DockViewComponentBase
 
         Components?.Add(this);
         Type = DockViewContentType.Component;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        TitleBarIcon ??= "./_content/BootstrapBlazor.DockView/images/bars.svg";
     }
 
     /// <summary>

@@ -2,14 +2,26 @@
 
 <DockViewV2 Name="DockViewV2LayoutColumn">
     <DockViewContent Type="DockViewContentType.Column">
-        <DockViewComponent Title="标签一">
+        <DockViewComponent Title="标签一" ShowTitleBar="true" OnTitleBarCallback="OnTitleBarCallback">
             <div class="panel">Panel1</div>
         </DockViewComponent>
         <DockViewComponent Title="标签二">
-            <div class="panel">Panel2</div>
+            <TitleTemplate>
+                <i class="fa-solid fa-bars"></i>
+            </TitleTemplate>
+            <ChildContent>
+                <div class="panel">Panel2</div>
+            </ChildContent>
         </DockViewComponent>
         <DockViewComponent Title="标签三">
             <div class="panel">Panel3</div>
         </DockViewComponent>
     </DockViewContent>
 </DockViewV2>
+
+@code {
+    private Task OnTitleBarCallback()
+    {
+        return Task.CompletedTask;
+    }
+}
