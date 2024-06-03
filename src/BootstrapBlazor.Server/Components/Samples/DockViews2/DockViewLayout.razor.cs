@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 public partial class DockViewLayout
 {
     [NotNull]
-    private DockView? DockView { get; set; }
+    private DockViewV2? DockView { get; set; }
 
     private Task Reset() => DockView.Reset();
 
