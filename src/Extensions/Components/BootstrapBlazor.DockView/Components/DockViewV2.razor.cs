@@ -168,6 +168,20 @@ public partial class DockViewV2
     };
 
     /// <summary>
+    /// 重置为默认布局
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset(string? layoutConfig = null)
+    {
+        var options = GetOptions();
+        if (layoutConfig != null)
+        {
+            options.LayoutConfig = layoutConfig;
+        }
+        return InvokeVoidAsync("reset", Id, options);
+    }
+
+    /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
