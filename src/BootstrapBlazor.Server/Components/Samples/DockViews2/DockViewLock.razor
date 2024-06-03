@@ -6,48 +6,18 @@
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
-<DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
-    <DockViewContent Type="DockViewContentType.Row">
-        <DockViewComponent Title="标签一">
-            <div class="panel">Panel1</div>
-        </DockViewComponent>
-        <DockViewComponent Title="标签二">
-            <div class="panel">Panel2</div>
-        </DockViewComponent>
-        <DockViewComponent Title="标签三">
-            <div class="panel">Panel3</div>
-        </DockViewComponent>
-    </DockViewContent>
-</DockViewV2>
-
-@code {
-    private bool IsLock { get; set; } = true;
-
-    private string? LockText { get; set; }
-
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        LockText = IsLock ? "解锁" : "锁定";
-    }
-
-    private void OnToggleLock()
-    {
-        IsLock = !IsLock;
-        if (IsLock == true)
-        {
-            LockText = "解锁";
-        }
-        else
-        {
-            LockText = "锁定";
-        }
-    }
-
-    private Task OnLockChangedCallbackAsync(bool state)
-    {
-        IsLock = state;
-        return Task.CompletedTask;
-    }
-}
+<div class="dock-lock-demo">
+    <DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewComponent Title="标签一">
+                <div class="panel">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签二">
+                <div class="panel">Panel2</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签三">
+                <div class="panel">Panel3</div>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+</div>
