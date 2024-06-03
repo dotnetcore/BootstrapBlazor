@@ -1,4 +1,5 @@
 ﻿import { DockviewComponent, DefaultTab, } from "../js/dockview-core.esm.js"
+import '../js/dockview-extensions.js'
 
 export class DefaultPanel {
     _element;
@@ -294,7 +295,7 @@ class GroupControl {
     }
 }
 
-export function cerateDockview(el, template, options){
+export function cerateDockview(el, template, options) {
     return new DockviewComponent({
         parentElement: el,
         createComponent: option => {

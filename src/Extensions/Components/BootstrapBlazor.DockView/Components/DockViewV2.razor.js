@@ -1,5 +1,4 @@
-﻿import '../js/dockview-extensions.js'
-import { addLink } from '../../BootstrapBlazor/modules/utility.js'
+﻿import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import {
     cerateDockview,
     serialize,
