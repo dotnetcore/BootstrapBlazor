@@ -52,15 +52,18 @@ class PanelControl {
     // 添加小齿轮
     createGear(api) {
         const divEle = document.createElement('div')
-        divEle.style.display = api.isVisible ? 'block' : 'none'
+        // divEle.style.display = api.isVisible ? 'block' : 'none'
         divEle.innerHTML = '<i class="fa-solid fa-fw fa-cog">'
         divEle.addEventListener('click', () => {
             alert(api.id)
         })
-        this.tabEle.insertAdjacentElement("afterbegin", divEle)
-        api.onDidVisibilityChange(({ isVisible }) => {
-            divEle.style.display = isVisible ? 'block' : 'none'
+        divEle.addEventListener('mousedown', e => {
+            e.stopPropagation()
         })
+        this.tabEle.insertAdjacentElement("afterbegin", divEle)
+        // api.onDidVisibilityChange(({ isVisible }) => {
+        //     divEle.style.display = isVisible ? 'block' : 'none'
+        // })
     }
 }
 class GroupControl {
