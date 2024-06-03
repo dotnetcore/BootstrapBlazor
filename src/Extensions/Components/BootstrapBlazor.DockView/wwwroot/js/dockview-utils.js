@@ -1,4 +1,4 @@
-﻿import { DockviewComponent, DefaultTab, } from "../js/dockview-core.esm.js"
+﻿import { DockviewComponent, DefaultTab, DockviewEmitter} from "../js/dockview-core.esm.js"
 import '../js/dockview-extensions.js'
 
 export class DefaultPanel {
@@ -166,7 +166,7 @@ class GroupControl {
         this.group.locked = this.group.locked ? false : 'no-drop-target'
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
-        // this.invoke.invokeMethodAsync(this.options.lockChangedCallback, this.group.locked !== false)
+        this.dockview._lockChange.fire(this.group.locked !== false)
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -294,6 +294,7 @@ class GroupControl {
 }
 
 export function cerateDockview(el, options) {
+    console.log(options, 'options77777');
     const { templateId } = options
     const template = document.getElementById(templateId)
     const dockview =  new DockviewComponent({
@@ -320,6 +321,10 @@ export function cerateDockview(el, options) {
     dockview.dispose = () => {
         console.log('dispose:', dockview);
     }
+
+    dockview._lockChange = new DockviewEmitter();
+    dockview.onLockChange = dockview._lockChange.event;
+
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let serverData = options.layoutConfig || serialize(options)
     // 以本地优先, 得到最终的dockviewData并修正
