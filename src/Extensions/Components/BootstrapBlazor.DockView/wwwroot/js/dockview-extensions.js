@@ -3,9 +3,14 @@
     DockviewGroupPanel,
     getGridLocation,
     getRelativeLocation,
+    DockviewEmitter
 } from "./dockview-core.esm.js"
 import { getLocal } from './dockview-utils.js'
 
+DockviewComponent.prototype.on = function (eventType, callback) {
+    this[eventType] = new DockviewEmitter();
+    this[eventType].event(callback)
+}
 DockviewGroupPanel.prototype.getParams = function () {
     return this.activePanel?.params || {}
 }

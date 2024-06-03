@@ -1,4 +1,4 @@
-﻿import { DockviewComponent, DefaultTab, DockviewEmitter} from "../js/dockview-core.esm.js"
+﻿import { DockviewComponent, DefaultTab} from "../js/dockview-core.esm.js"
 import '../js/dockview-extensions.js'
 
 export class DefaultPanel {
@@ -16,17 +16,18 @@ export class DefaultPanel {
     }
 
     init(parameter) {
+        let { params, api } = parameter
+        let { panel, group } = api
+        let { tab, content } = panel.view
         let contentEle = this.template?.querySelector('#' + this.option.id) || '暂无数据...'
-
         if (typeof contentEle != 'string') {
+            let titleMenuEle = contentEle.querySelector(`[data-bb-component-id=${this.option.id}]`)
+            panel.titleMenuEle = titleMenuEle && contentEle.removeChild(titleMenuEle)
             contentEle.style.width = '100%'
             contentEle.style.height = '100%'
         }
         this.element.append(contentEle)
 
-        let { params, api } = parameter
-        let { panel, group } = api
-        let { tab, content } = panel.view
         tab._content.classList.add(params.titleClass || `title-class-${panel.id}`)
         content.element.classList.add(params.contentClass || `content-class-${panel.id}`)
         group.element.classList.add(params.class || `group-class-${group.id}`)
@@ -40,20 +41,21 @@ export class myDefaultTab extends DefaultTab {
 }
 
 class PanelControl {
-    constructor(dockviewPanel, options) {
+    constructor(dockviewPanel) {
         const { view, api } = dockviewPanel
         // Panel的Header
         this.tabEle = view.tab.element
         // Panel的Body
         this.contentEle = view.content.element
-
-        options.gear && this.createGear(api)
+        this.panel = dockviewPanel
+        this.createGear(api)
     }
     // 添加小齿轮
     createGear(api) {
         const divEle = document.createElement('div')
         // divEle.style.display = api.isVisible ? 'block' : 'none'
-        divEle.innerHTML = '<i class="fa-solid fa-fw fa-cog">'
+        // divEle.innerHTML = '<i class="fa-solid fa-fw fa-cog">'
+        divEle.append(this.panel.titleMenuEle)
         divEle.addEventListener('click', () => {
             alert(api.id)
         })
@@ -166,7 +168,7 @@ class GroupControl {
         this.group.locked = this.group.locked ? false : 'no-drop-target'
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
-        this.dockview._lockChange.fire(this.group.locked !== false)
+        this.dockview.lockChanged?.fire(this.group.locked !== false)
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -322,9 +324,6 @@ export function cerateDockview(el, options) {
         console.log('dispose:', dockview);
     }
 
-    dockview._lockChange = new DockviewEmitter();
-    dockview.onLockChange = dockview._lockChange.event;
-
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let serverData = options.layoutConfig || serialize(options)
     // 以本地优先, 得到最终的dockviewData并修正
@@ -412,8 +411,8 @@ export function addHook(dockview, dockviewData, options, template) {
     })
     // 钩子2：添加Panel触发
     dockview.onDidAddPanel(event => {
-        if (true) {
-            new PanelControl(event, options)
+        if (event.titleMenuEle) {
+            new PanelControl(event)
         }
         if (!event.group.children) {
             event.group.children = {}
