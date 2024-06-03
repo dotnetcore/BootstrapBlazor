@@ -75,7 +75,7 @@ export class myDefaultTab extends DefaultTab {
     }
   }
   class GroupControl {
-    constructor(dockviewGroupPanel, options, dockview){
+    constructor(dockviewGroupPanel, options, invoke, dockview){
       const {element, header, api} = dockviewGroupPanel
       const {prefixControl, tabsAfterControl, rightControl} = {
         rightControl: [
@@ -110,6 +110,7 @@ export class myDefaultTab extends DefaultTab {
       this.parentEle = dockviewGroupPanel.element.parentElement
       this.dockview = dockview
       this.options = options
+      this.invoke = invoke
 
       prefixControl && this.creatPrefixControl(prefixControl)
       tabsAfterControl && this.tabsAfterControl(tabsAfterControl)
@@ -175,6 +176,8 @@ export class myDefaultTab extends DefaultTab {
       this.group.locked = this.group.locked ? false : 'no-drop-target'
       divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
       divEle.title = this.group.locked ? 'unlock' : 'lock'
+console.log(this.options.lockChangedCallback, 'this.options.lockChangedCallback');
+      this.invoke.invokeMethodAsync(this.options.lockChangedCallback, this.group.locked !== false)
       saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item){
@@ -218,7 +221,7 @@ export class myDefaultTab extends DefaultTab {
         })
         this.dockview.setVisible(this.group, false)
         group.setParams({isPackup, height, isMaximized})
-        new GroupControl(group, this.options, this.dockview)
+        new GroupControl(group, this.options, this.invoke, this.dockview)
       }
       else if(type == 'floating'){
         let originGroup = this.dockview.groups.find(group => group.id + '_floating' == this.group.id)
@@ -370,7 +373,7 @@ export class myDefaultTab extends DefaultTab {
   }
 
     // 手动添加已删除的panel
-    export function addDelPanel(panel, delPanels, options, dockview){
+    export function addDelPanel(panel, delPanels, options, invoke, dockview){
         let group = panel.groupId ? dockview.api.getGroup(panel.groupId) : (
             dockview.groups.find(group => group.children?.[panel.id]) || dockview.groups[0]
         )
@@ -393,7 +396,7 @@ export class myDefaultTab extends DefaultTab {
             if(true){
               setTimeout(() => {
                 // group.setParams({isPackup, height, isMaximized, position})
-                new GroupControl(group, options, dockview)
+                new GroupControl(group, options, invoke, dockview)
               }, 50);
             }
 
@@ -533,13 +536,13 @@ export class myDefaultTab extends DefaultTab {
         return panels
     }
 
-    export function toggleComponent(dock, option){
+    export function toggleComponent(dock, option, invoke){
         let panels = getPanels(option.content)
         let localPanels = dock.panels || {}
         panels.forEach(panel => {
             let pan = localPanels.find(item => item.id == panel.id)
             if(pan === void 0){//需要添加
-                addDelPanel(panel, [], option, dock)
+                addDelPanel(panel, [], option, invoke, dock)
             }
         })
 
@@ -580,7 +583,7 @@ export class myDefaultTab extends DefaultTab {
         ele.classList.add(newTheme)
     }
 
-    export function addHook(dockview, dockviewData, options, template){
+    export function addHook(dockview, dockviewData, options, invoke, template){
         // 钩子1： 删除panel触发
     dockview.onDidRemovePanel(event => {
         // 在panel上存储信息
@@ -646,7 +649,7 @@ export class myDefaultTab extends DefaultTab {
 
         if(true){
           setTimeout(() => {
-            new GroupControl(event, options, dockview)
+            new GroupControl(event, options, invoke, dockview)
           }, 0);
         }
 
@@ -706,6 +709,7 @@ export class myDefaultTab extends DefaultTab {
 
       // 钩子9: layout加载完成触发
       dockview.onDidLayoutFromJSON(event => {
+        invoke.invokeMethodAsync(options.initializedCallback)
         dockview.groups.forEach(group => {
           if(group.panels.length == 0){
             dockview.setVisible(group, false)
