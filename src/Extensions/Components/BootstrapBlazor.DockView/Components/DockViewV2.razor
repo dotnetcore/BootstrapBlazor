@@ -13,6 +13,12 @@
             @foreach (var p in _components)
             {
                 <div @key="p" id="@p.Id">
+                    @if (p.TitleTemplate != null)
+                    {
+                        <div class="bb-dock-view-item-title" data-bb-componentId="@p.Id">
+                            @p.TitleTemplate
+                        </div>
+                    }
                     @p.ChildContent
                 </div>
             }
