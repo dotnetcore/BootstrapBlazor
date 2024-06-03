@@ -1,26 +1,26 @@
-﻿import { addLink } from '../../BootstrapBlazor/modules/utility.js'
-import Data from '../../BootstrapBlazor/modules/data.js'
-
-import '../js/dockview-override.js'
+﻿import '../js/dockview-extensions.js'
+import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import { DockviewComponent } from "../js/dockview-core.esm.js"
 import {
-  serialize,
-  loadDockview,
-  DefaultPanel,
-  myDefaultTab,
-  getTheme,
-  setTheme,
-  toggleComponent,
-  lockDock,
-  addHook,
-  getJson
+    serialize,
+    loadDockview,
+    DefaultPanel,
+    myDefaultTab,
+    getTheme,
+    setTheme,
+    toggleComponent,
+    lockDock,
+    addHook,
+    getJson
 } from '../js/dockview-utils.js'
+import Data from '../../BootstrapBlazor/modules/data.js'
 
-  export async function init(id,invoke, options) {
+export async function init(id, invoke, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview-bb.css")
     console.log(id, 'id', options, 'options');
     options = {
-        ...options, ...{
+        ...options,
+        ...{
             gear: {
                 show: true
             },
@@ -62,11 +62,11 @@ import {
 
     // 2、创建dockview实例
     const dockview = new DockviewComponent({
-      parentElement: el,
-      createComponent: option => {
-        return new DefaultPanel(option, {template})
-      },
-      createTabComponent: option => new myDefaultTab(option, options)
+        parentElement: el,
+        createComponent: option => {
+            return new DefaultPanel(option, { template })
+        },
+        createTabComponent: option => new myDefaultTab(option, options)
     });
 
     // 3、保存可用信息
@@ -80,7 +80,7 @@ import {
     addHook(dockview, dockviewData, options, invoke, template)
     // 渲染dockview结构
     loadDockview(dockview, dockviewData)
-  }
+}
 
 export function update(id, option) {
     let dock = Data.get(id)
@@ -95,7 +95,7 @@ export function update(id, option) {
             dock.locked = option.lock
             lockDock(dock)
         }
-        else if(theme !== option.theme){
+        else if (theme !== option.theme) {
             setTheme(ele, theme, option.theme)
         }
         else {
@@ -111,5 +111,13 @@ export function update(id, option) {
 }
 
 export function dispose(id) {
-    console.log(id);
+    const dock = Data.get(id)
+    Data.remove(id);
+
+    if (dock) {
+        const { dockview } = dock;
+        if (dockview) {
+            dockview.dispose();
+        }
+    }
 }

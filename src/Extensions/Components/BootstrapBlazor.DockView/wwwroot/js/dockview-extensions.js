@@ -1,4 +1,4 @@
-import {
+﻿import {
     DockviewComponent,
     DefaultTab,
     DockviewGroupPanel,
@@ -7,60 +7,60 @@ import {
     getRelativeLocation,
     // getLocationOrientation,
     // getDirectionOrientation,
-  } from "./dockview-core.esm.js"
-import {getLocal,} from './dockview-utils.js'
-  // 给Group添加获取panel.params属性的方法
-  DockviewGroupPanel.prototype.getParams = function(){
-    return this.activePanel?.params || {}
-  }
-  // 给Group添加设置panel.params的方法
-  DockviewGroupPanel.prototype.setParams = function(data){
-    Object.keys(data).forEach(key => {
-      this.panels.forEach(panel => panel.params[key] = data[key])
-    })
-  }
-  // 给Group添加删除panel.params属性的方法
-  DockviewGroupPanel.prototype.removePropsOfParams = function(keys){
-    return (keys instanceof Array)
-    ? keys.map(key => this.panels.forEach(panel => delete panel.params[key]))
-    : typeof keys == 'string' ? delete panel.params[keys] : false
-  }
+} from "./dockview-core.esm.js"
+import { getLocal } from './dockview-utils.js'
 
-  // 修改removeGroup
-  const removeGroup = DockviewComponent.prototype.removeGroup
-  DockviewComponent.prototype.removeGroup = function (...argu){
+DockviewGroupPanel.prototype.getParams = function () {
+    return this.activePanel?.params || {}
+}
+
+DockviewGroupPanel.prototype.setParams = function (data) {
+    Object.keys(data).forEach(key => {
+        this.panels.forEach(panel => panel.params[key] = data[key])
+    })
+}
+
+DockviewGroupPanel.prototype.removePropsOfParams = function (keys) {
+    return (keys instanceof Array)
+        ? keys.map(key => this.panels.forEach(panel => delete panel.params[key]))
+        : typeof keys == 'string' ? delete panel.params[keys] : false
+}
+
+// 修改removeGroup
+const removeGroup = DockviewComponent.prototype.removeGroup
+DockviewComponent.prototype.removeGroup = function (...argu) {
     const group = argu[0]
     const type = group.api.location.type;
-    if(type == 'grid'){
-      [...group.panels].forEach(panel => {
-        panel.api.close()
-      })
-      this.setVisible(group, false)
+    if (type == 'grid') {
+        [...group.panels].forEach(panel => {
+            panel.api.close()
+        })
+        this.setVisible(group, false)
 
-      // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
-      let delPanels = getLocal('dock-view-panels')
-      delPanels = delPanels?.map(panel => {
-        if(panel.groupId == group.id){
-          panel.groupInvisible = true
-        }
-        return panel
-      })
-      delPanels && localStorage.setItem('dock-view-panels', JSON.stringify(delPanels))
+        // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
+        let delPanels = getLocal('dock-view-panels')
+        delPanels = delPanels?.map(panel => {
+            if (panel.groupId == group.id) {
+                panel.groupInvisible = true
+            }
+            return panel
+        })
+        delPanels && localStorage.setItem('dock-view-panels', JSON.stringify(delPanels))
     }
-    else if(type == 'floating'){
-      removeGroup.apply(this, argu)
+    else if (type == 'floating') {
+        removeGroup.apply(this, argu)
     }
-  }
-  // 修改removePanel
-  const removePanel = DockviewComponent.prototype.removePanel
-  DockviewComponent.prototype.removePanel = function(...argu){
+}
+// 修改removePanel
+const removePanel = DockviewComponent.prototype.removePanel
+DockviewComponent.prototype.removePanel = function (...argu) {
     const panel = argu[0]
-    if(!panel.group.locked){
-      removePanel.apply(this, argu)
+    if (!panel.group.locked) {
+        removePanel.apply(this, argu)
     }
-  }
-  // 修改moveGroupOrPanel
-  DockviewComponent.prototype.moveGroupOrPanel = function moveGroupOrPanel(options) {
+}
+// 修改moveGroupOrPanel
+DockviewComponent.prototype.moveGroupOrPanel = function moveGroupOrPanel(options) {
     var _a;
     const destinationGroup = options.to.group;
     const sourceGroupId = options.from.groupId;
@@ -165,16 +165,16 @@ import {getLocal,} from './dockview-utils.js'
             this.doSetGroupAndPanelActive(group);
         }
     }
-  }
-  // moveGroupOrPanel源码提供1
-  function tail(arr) {
+}
+// moveGroupOrPanel源码提供1
+const tail = arr => {
     if (arr.length === 0) {
         throw new Error('Invalid tail call');
     }
     return [arr.slice(0, arr.length - 1), arr[arr.length - 1]];
-  }
-  // moveGroupOrPanel源码提供2
-  function sequenceEquals(arr1, arr2) {
+}
+// moveGroupOrPanel源码提供2
+const sequenceEquals = (arr1, arr2) => {
     if (arr1.length !== arr2.length) {
         return false;
     }
@@ -184,4 +184,4 @@ import {getLocal,} from './dockview-utils.js'
         }
     }
     return true;
-  }
+}
