@@ -690,12 +690,15 @@ export class myDefaultTab extends DefaultTab {
         console.log(++abc, 'abc');
         setTimeout(() => {
           // 维护Group的children属性
-          dockview.groups.forEach(group => {
-            group.children = {}
-            group.panels.forEach(panel => {
-              group.children[panel.id] = panel.id
-            })
-          })
+          if(dockview.totalPanels >= (dockview.panelSize || 0)){
+              dockview.groups.forEach(group => {
+                group.children = {}
+                group.panels.forEach(panel => {
+                  group.children[panel.id] = panel.id
+                })
+              })
+          }
+          dockview.panelSize = dockview.totalPanels
           console.log(dockview, 'dockview');
           saveConfig(dockview)
         }, 50)
