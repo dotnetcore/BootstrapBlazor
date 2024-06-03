@@ -1,11 +1,9 @@
 ﻿import '../js/dockview-extensions.js'
 import { addLink } from '../../BootstrapBlazor/modules/utility.js'
-import { DockviewComponent } from "../js/dockview-core.esm.js"
 import {
+    cerateDockview,
     serialize,
     loadDockview,
-    DefaultPanel,
-    myDefaultTab,
     getTheme,
     setTheme,
     toggleComponent,
@@ -17,7 +15,7 @@ import Data from '../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, invoke, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview-bb.css")
-    console.log(id, 'id', options, 'options');
+
     options = {
         ...options,
         ...{
@@ -48,26 +46,17 @@ export async function init(id, invoke, options) {
             ],
         }
     }
-
-    // invoke.invokeMethodAsync(options.initializedCallback)
     console.log(options, 'options');
     const { templateId } = options
     const el = document.getElementById(id);
     const template = document.getElementById(templateId)
-    // dockview-theme-replit,dockview-theme-dracula,dockview-theme-vs,dockview-theme-light,dockview-theme-dark,dockview-theme-abyss
     el.classList.add(options.theme)
 
     // 1、序列化options数据为dockview可用数据(layoutConfig优先)
     let serverData = options.layoutConfig || serialize(options)
 
     // 2、创建dockview实例
-    const dockview = new DockviewComponent({
-        parentElement: el,
-        createComponent: option => {
-            return new DefaultPanel(option, { template })
-        },
-        createTabComponent: option => new myDefaultTab(option, options)
-    });
+    const dockview = cerateDockview(el, template, options)
 
     // 3、保存可用信息
     dockview.prefix = options.prefix
