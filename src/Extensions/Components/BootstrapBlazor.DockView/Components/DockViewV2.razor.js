@@ -1,19 +1,13 @@
 ﻿import { addLink } from '../../BootstrapBlazor/modules/utility.js'
-import {
-    cerateDockview,
-    serialize,
-    loadDockview,
-    getTheme,
-    setTheme,
-    toggleComponent,
-    lockDock,
-    addHook,
-    getJson
-} from '../js/dockview-utils.js'
+import { cerateDockview } from '../js/dockview-utils.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, invoke, options) {
     await addLink("./_content/BootstrapBlazor.DockView/css/dockview-bb.css")
+    const el = document.getElementById(id);
+    if (!el) {
+        return;
+    }
 
     options = {
         ...options,
@@ -45,57 +39,16 @@ export async function init(id, invoke, options) {
             ],
         }
     }
-    console.log(options, 'options');
-    const { templateId } = options
-    const el = document.getElementById(id);
-    const template = document.getElementById(templateId)
-    el.classList.add(options.theme)
 
-    // 1、序列化options数据为dockview可用数据(layoutConfig优先)
-    let serverData = options.layoutConfig || serialize(options)
-
-    // 2、创建dockview实例
-    const dockview = cerateDockview(el, template, options)
-
-    // 3、保存可用信息
-    dockview.prefix = options.prefix
-    dockview.locked = options.lock
-    Data.set(id, dockview)
-
-    // 4、以本地优先, 得到最终的dockviewData并修正
-    let dockviewData = getJson(dockview, serverData)
-    // 5、绑定钩子函数
-    addHook(dockview, dockviewData, options, invoke, template)
-    // 渲染dockview结构
-    loadDockview(dockview, dockviewData)
+    const dockview = cerateDockview(el, options)
+    Data.set(id, { el, dockview });
 }
 
-export function update(id, option) {
-    let dock = Data.get(id)
-    let ele = dock.element.parentElement
-    let theme = getTheme(ele)
-    console.log(dock, 'update: dockview');
-    // console.log(option);
+export function update(id, options) {
+    const dock = Data.get(id)
     if (dock) {
-
-        if (dock.locked !== option.lock) {
-            // 处理 Lock 逻辑
-            dock.locked = option.lock
-            lockDock(dock)
-        }
-        else if (theme !== option.theme) {
-            setTheme(ele, theme, option.theme)
-        }
-        else {
-            // 处理 toggle 逻辑
-            toggleComponent(dock, option, option.invoke)
-        }
+        dockview.update(options);
     }
-
-
-
-
-
 }
 
 export function dispose(id) {
