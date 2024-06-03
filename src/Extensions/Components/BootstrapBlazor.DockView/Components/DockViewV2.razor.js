@@ -47,6 +47,7 @@ export async function init(id, invoke, options) {
 export function update(id, options) {
     const dock = Data.get(id)
     if (dock) {
+        const { dockview } = dock;
         dockview.update(options);
     }
 }

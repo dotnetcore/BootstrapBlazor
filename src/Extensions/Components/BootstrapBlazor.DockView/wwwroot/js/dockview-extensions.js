@@ -1,12 +1,8 @@
 ﻿import {
     DockviewComponent,
-    DefaultTab,
     DockviewGroupPanel,
     getGridLocation,
-    // indexInParent,
     getRelativeLocation,
-    // getLocationOrientation,
-    // getDirectionOrientation,
 } from "./dockview-core.esm.js"
 import { getLocal } from './dockview-utils.js'
 

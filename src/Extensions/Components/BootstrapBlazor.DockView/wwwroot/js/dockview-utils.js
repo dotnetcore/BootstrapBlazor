@@ -16,8 +16,6 @@ export class DefaultPanel {
     }
 
     init(parameter) {
-        console.log();
-        console.log(this.option, this.template, parameter, 'option, template');
         let contentEle = this.template?.querySelector('#' + this.option.id) || '暂无数据...'
 
         if (typeof contentEle != 'string') {
@@ -66,7 +64,7 @@ class PanelControl {
     }
 }
 class GroupControl {
-    constructor(dockviewGroupPanel, options, invoke, dockview) {
+    constructor(dockviewGroupPanel, options, dockview) {
         const { element, header, api } = dockviewGroupPanel
         const { prefixControl, tabsAfterControl, rightControl } = {
             rightControl: [
@@ -101,7 +99,6 @@ class GroupControl {
         this.parentEle = dockviewGroupPanel.element.parentElement
         this.dockview = dockview
         this.options = options
-        this.invoke = invoke
 
         prefixControl && this.creatPrefixControl(prefixControl)
         tabsAfterControl && this.tabsAfterControl(tabsAfterControl)
@@ -138,7 +135,6 @@ class GroupControl {
 
         if (item.name == 'lock') {
             this.group.locked = this.options.lock ? true : this._getGroupParams('isLock') ? true : false
-            console.log(this.group.locked, 'this.group.locked');
             divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
             divEle.title = this.group.locked ? 'unlock' : 'lock'
         }
@@ -167,8 +163,7 @@ class GroupControl {
         this.group.locked = this.group.locked ? false : 'no-drop-target'
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
-        console.log(this.options.lockChangedCallback, 'this.options.lockChangedCallback');
-        this.invoke.invokeMethodAsync(this.options.lockChangedCallback, this.group.locked !== false)
+        // this.invoke.invokeMethodAsync(this.options.lockChangedCallback, this.group.locked !== false)
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -212,7 +207,7 @@ class GroupControl {
             })
             this.dockview.setVisible(this.group, false)
             group.setParams({ isPackup, height, isMaximized })
-            new GroupControl(group, this.options, this.invoke, this.dockview)
+            new GroupControl(group, this.options, this.dockview)
         }
         else if (type == 'floating') {
             let originGroup = this.dockview.groups.find(group => group.id + '_floating' == this.group.id)
@@ -295,23 +290,51 @@ class GroupControl {
     }
 }
 
-export function cerateDockview(el, template, options) {
-    return new DockviewComponent({
+export function cerateDockview(el, options) {
+    const { templateId } = options
+    const template = document.getElementById(templateId)
+    const dockview =  new DockviewComponent({
         parentElement: el,
         createComponent: option => {
             return new DefaultPanel(option, { template })
         },
         createTabComponent: option => new myDefaultTab(option, options)
     });
+
+    dockview.prefix = options.prefix
+    dockview.locked = options.lock
+    dockview.update = updateOptions => {
+        if (dockview.locked !== updateOptions.lock) {
+            // 处理 Lock 逻辑
+            dockview.locked = updateOptions.lock
+            lockDock(dockview)
+        }
+        else {
+            // 处理 toggle 逻辑
+            toggleComponent(dockview, updateOptions)
+        }
+    }
+    dockview.dispose = () => {
+        console.log('dispose:', dockview);
+    }
+    // 序列化options数据为dockview可用数据(layoutConfig优先)
+    let serverData = options.layoutConfig || serialize(options)
+    // 以本地优先, 得到最终的dockviewData并修正
+    let dockviewData = getJson(dockview, serverData)
+    // 绑定钩子函数
+    addHook(dockview, dockviewData, options, template)
+    // 渲染dockview结构
+    loadDockview(dockview, dockviewData)
+    return dockview
 }
 
-export function toggleComponent(dock, option, invoke) {
+export function toggleComponent(dock, option) {
     let panels = getPanels(option.content)
     let localPanels = dock.panels || {}
     panels.forEach(panel => {
         let pan = localPanels.find(item => item.id == panel.id)
         if (pan === void 0) {//需要添加
-            addDelPanel(panel, [], option, invoke, dock)
+            addDelPanel(panel, [], option, dock)
         }
     })
 
@@ -323,7 +346,6 @@ export function toggleComponent(dock, option, invoke) {
     })
 }
 export function lockDock(dock) {
-    console.log('lock');
     dock.groups.forEach(group => {
         group.header.rightActionsContainer?.querySelector('.lock').click()
     })
@@ -352,7 +374,7 @@ export function setTheme(ele, theme, newTheme) {
     ele.classList.add(newTheme)
 }
 
-export function addHook(dockview, dockviewData, options, invoke, template) {
+export function addHook(dockview, dockviewData, options, template) {
     // 钩子1： 删除panel触发
     dockview.onDidRemovePanel(event => {
         // 在panel上存储信息
@@ -418,13 +440,13 @@ export function addHook(dockview, dockviewData, options, invoke, template) {
 
         if (true) {
             setTimeout(() => {
-                new GroupControl(event, options, invoke, dockview)
+                new GroupControl(event, options, dockview)
             }, 0);
         }
 
         // console.log(event, event.id, 'onDidAddGroup');
         event.model.onGroupDragStart(function (e) {
-            console.log(e, 'onGroupDragStartonGroupDragStart');
+            // console.log(e, 'onGroupDragStartonGroupDragStart');
         })
     })
     dockview.onDidRemoveGroup(event => { })
@@ -458,8 +480,6 @@ export function addHook(dockview, dockviewData, options, invoke, template) {
     // 钩子8：所有造成layout变化的操作都会触发
     let abc = 0
     let eve = dockview.onDidLayoutChange(event => {
-        console.log(event, 'onDidLayoutChange');
-        console.log(++abc, 'abc');
         setTimeout(() => {
             // 维护Group的children属性
             if (dockview.totalPanels >= (dockview.panelSize || 0)) {
@@ -471,14 +491,13 @@ export function addHook(dockview, dockviewData, options, invoke, template) {
                 })
             }
             dockview.panelSize = dockview.totalPanels
-            console.log(dockview, 'dockview');
             saveConfig(dockview)
         }, 50)
     })
 
     // 钩子9: layout加载完成触发
     dockview.onDidLayoutFromJSON(event => {
-        invoke.invokeMethodAsync(options.initializedCallback)
+        // invoke.invokeMethodAsync(options.initializedCallback)
         dockview.groups.forEach(group => {
             if (group.panels.length == 0) {
                 dockview.setVisible(group, false)
@@ -494,7 +513,6 @@ const getGroupId = () => {
 }
 export function serialize(options) {
     groupId = 0
-    console.log(options, 'options77777777777');
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -509,7 +527,7 @@ export function serialize(options) {
         panels
     } : null
 }
-export function addDelPanel(panel, delPanels, options, invoke, dockview) {
+export function addDelPanel(panel, delPanels, options, dockview) {
     // 手动添加已删除的panel
     let group = panel.groupId ? dockview.api.getGroup(panel.groupId) : (
         dockview.groups.find(group => group.children?.[panel.id]) || dockview.groups[0]
@@ -533,7 +551,7 @@ export function addDelPanel(panel, delPanels, options, invoke, dockview) {
         if (true) {
             setTimeout(() => {
                 // group.setParams({isPackup, height, isMaximized, position})
-                new GroupControl(group, options, invoke, dockview)
+                new GroupControl(group, options, dockview)
             }, 50);
         }
 
@@ -562,7 +580,6 @@ export function addDelPanel(panel, delPanels, options, invoke, dockview) {
 export function loadDockview(dockview, serverData) {
     let data = getJson(dockview, serverData)
     try {
-        console.log(data, 'data');
         dockview.fromJSON(data)
     } catch (error) {
         setTimeout(() => {
