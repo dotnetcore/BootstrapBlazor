@@ -33,7 +33,7 @@
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="0.1.1" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="8.0.2" />
-    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.4" />
+    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.5-beta01" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="8.1.5" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.2" />
@@ -47,7 +47,7 @@
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.3" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.7" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.8-beta01" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.7" />

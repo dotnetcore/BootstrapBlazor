@@ -59,6 +59,7 @@
         flex-wrap: wrap;
         padding-top: var(--bb-multi-select-item-margin-y);
         padding-left: var(--bb-multi-select-item-margin-x);
+        width: calc(100% - var(--bb-select-append-width));
 
         span {
             border: solid 1px var(--bs-border-color);

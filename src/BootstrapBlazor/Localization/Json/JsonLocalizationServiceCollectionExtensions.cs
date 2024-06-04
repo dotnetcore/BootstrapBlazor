@@ -27,6 +27,7 @@ internal static class JsonLocalizationServiceCollectionExtensions
         services.TryAddTransient(typeof(IStringLocalizer<>), typeof(StringLocalizer<>));
         services.TryAddTransient<IStringLocalizer, StringLocalizer>();
         services.TryAddSingleton<ILocalizationResolve, NullLocalizationResolve>();
+        services.TryAddSingleton<ILocalizationMissingItemHandler, NullLocalizationMissingItemHandler>();
         if (localizationConfigure != null)
         {
             services.Configure(localizationConfigure);

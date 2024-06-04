@@ -19,7 +19,8 @@ namespace BootstrapBlazor.Localization.Json;
 /// <param name="ignoreLocalizerMissing"></param>
 /// <param name="logger"></param>
 /// <param name="resourceNamesCache"></param>
-internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
+/// <param name="localizationMissingItemHandler"></param>
+internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache, ILocalizationMissingItemHandler localizationMissingItemHandler) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
 {
     private Assembly Assembly { get; } = assembly;
 
@@ -109,7 +110,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
             else
             {
-                LogSearchedLocation(name);
+                HandleMissingResourceItem(name);
                 CacheManager.AddMissingLocalizerByKey(cacheKey, name);
             }
         }
@@ -140,15 +141,16 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
             else
             {
-                LogSearchedLocation(name);
+                HandleMissingResourceItem(name);
                 CacheManager.AddMissingLocalizerByKey(cacheKey, name);
             }
         }
         return ret;
     }
 
-    private void LogSearchedLocation(string name)
+    private void HandleMissingResourceItem(string name)
     {
+        localizationMissingItemHandler.HandleMissingItem(name, typeName, CultureInfo.CurrentUICulture.Name);
         if (!ignoreLocalizerMissing)
         {
             Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);

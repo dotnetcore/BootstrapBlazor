@@ -18,7 +18,7 @@ public class FileValidationAttribute : ValidationAttribute
     /// <summary>
     /// 获得/设置 允许的扩展名
     /// </summary>
-    public string[] Extensions { get; set; } = Array.Empty<string>();
+    public string[] Extensions { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 文件大小 默认为 0 未限制
@@ -40,7 +40,7 @@ public class FileValidationAttribute : ValidationAttribute
             Localizer = Utility.CreateLocalizer<UploadBase<object>>();
             if (Localizer != null)
             {
-                if (Extensions.Any() && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
+                if (Extensions.Length > 0 && !Extensions.Contains(Path.GetExtension(file.Name), StringComparer.OrdinalIgnoreCase))
                 {
                     var errorMessage = Localizer["FileExtensions", string.Join(", ", Extensions)];
                     ret = new ValidationResult(errorMessage.Value, GetMemberNames(validationContext));
@@ -57,8 +57,8 @@ public class FileValidationAttribute : ValidationAttribute
 
     private static IEnumerable<string>? GetMemberNames(ValidationContext validationContext)
     {
-        return validationContext == null ? Enumerable.Empty<string>() : GetMemberNames();
+        return validationContext == null ? [] : GetMemberNames();
 
-        IEnumerable<string> GetMemberNames() => string.IsNullOrWhiteSpace(validationContext.MemberName) ? Enumerable.Empty<string>() : new string[] { validationContext.MemberName };
+        IEnumerable<string> GetMemberNames() => string.IsNullOrEmpty(validationContext.MemberName) ? [] : [validationContext.MemberName];
     }
 }
