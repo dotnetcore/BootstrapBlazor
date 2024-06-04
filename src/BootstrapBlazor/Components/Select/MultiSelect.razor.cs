@@ -423,4 +423,14 @@ public partial class MultiSelect<TValue>
             }
         }
     }
+
+    private Task OnFocusIn(Microsoft.AspNetCore.Components.Web.FocusEventArgs e)
+    {
+        return !IsDisabled ? Show() : Task.CompletedTask;
+    }
+
+    private Task OnFocusOut(Microsoft.AspNetCore.Components.Web.FocusEventArgs e)
+    {
+        return Hide();
+    }
 }

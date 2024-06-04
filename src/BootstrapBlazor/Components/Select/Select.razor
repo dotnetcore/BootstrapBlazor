@@ -8,7 +8,7 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @onfocusin="OnFocusIn" @onfocusout="OnFocusOut">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
