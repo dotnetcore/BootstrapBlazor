@@ -3,6 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
+
+/// <summary>
+/// 锁定示例
+/// </summary>
 public partial class DockViewLock
 {
     private bool IsLock { get; set; } = true;
