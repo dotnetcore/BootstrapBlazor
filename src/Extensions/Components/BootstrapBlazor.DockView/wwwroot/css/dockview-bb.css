@@ -36,3 +36,8 @@
     .bb-dock-view .tab:focus::after {
         outline-offset: 0;
     }
+
+    .bb-dock-view.dockview-theme-light {
+        --dv-separator-border: var(--bs-border-color);
+        --dv-background-color: var(--bs-body-bg);
+    }
