@@ -49,7 +49,8 @@ class PanelControl {
         // Panel的Body
         this.contentEle = view.content.element
         this.panel = dockviewPanel
-        this.createGear(api)
+        dockviewPanel.titleMenuEle && this.createGear(api)
+        this.creatCloseBtn()
     }
     // 添加小齿轮
     createGear(api) {
@@ -68,6 +69,12 @@ class PanelControl {
         // api.onDidVisibilityChange(({ isVisible }) => {
         //     divEle.style.display = isVisible ? 'block' : 'none'
         // })
+    }
+    creatCloseBtn() {
+        console.log(this.tabEle, 'this.tabEle');
+        if(!this.panel.params?.showClose){
+            this.tabEle.querySelector('.dv-default-tab-action').style.display = 'none'
+        }
     }
 }
 class GroupControl {
@@ -456,9 +463,8 @@ export function addHook(dockview, dockviewData, options, template) {
     })
     // 钩子2：添加Panel触发
     dockview.onDidAddPanel(event => {
-        if (event.titleMenuEle) {
-            new PanelControl(event)
-        }
+        new PanelControl(event)
+
         if (!event.group.children) {
             event.group.children = {}
         }
@@ -764,7 +770,8 @@ const getTree = (contentItem, {width, height, orientation}, length = 1) => {
                 title: contentItem.title,
                 tabComponent: contentItem.componentName,
                 contentComponent: contentItem.componentName,
-                params: {...contentItem, showLock: true, showFloat: true, showMaximize: true}
+                // params: {...contentItem, showClose: true, showLock: true, showFloat: true, showMaximize: true}
+                params: contentItem
             }
         }
     }
