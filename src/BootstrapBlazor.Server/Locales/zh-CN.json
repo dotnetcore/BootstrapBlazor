@@ -4927,6 +4927,7 @@
     "PageInfoTemplateAttr": "分页详细信息自定义组件",
     "PageInfoTextAttr": "分页信息显示文字",
     "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序",
+    "AutoScrollLastSelectedRowToViewAttr": "选中行最后一个是否自动滚动到可视视窗内",
     "TableBaseNormalRefreshText": "刷新",
     "TableBaseHeaderStyleMode": "表头模式",
     "IsPopoverToolbarDropdownButtonAttr": "工具栏下拉框按钮是否浮动"
@@ -5233,7 +5234,11 @@
     "TablesSelectionKeepInfo": "保持选中行状态：",
     "TablesSelectionKeepOnText": "保持",
     "TablesSelectionKeepOffText": "不保持",
-    "TablesSelectionCountText": "选中的行数：{0}"
+    "TablesSelectionCountText": "选中的行数：{0}",
+    "TablesSelectionScrollTitle": "渲染结束后回调方法",
+    "TablesSelectionScrollIntro": "通过设置 <code>OnAfterRenderCallback</code> 回调方法，执行一些特殊操作",
+    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启",
+    "TablesSelectionScrollButtonText": "选中最后一行"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table 表格",
@@ -5593,6 +5598,7 @@
     "ImageViewersAttrPreviewList": "预览大图链接集合",
     "ImageViewersAttrOnLoadAsync": "图片加载成功时回调方法",
     "ImageViewersAttrOnErrorAsync": "图片加载失败时回调方法",
+    "ImageViewersAttrIsIntersectionObserver": "图片懒加载",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> 填充 默认值 使图片拉伸填满整个容器, 不保证保持原有的比例",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> 包含 保持原有尺寸比例缩放 保证整个图片都可以出现在容器中，因此此参数可能会在容器内留下空白",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> 覆盖 保持原有尺寸比例缩放，宽度和高度至少有一个和容器一致（尺寸小的一致）因此此参数可能会让图片部分区域不可见",
@@ -5609,9 +5615,11 @@
     "ImageViewerErrorTemplateUrlError": "Url 路径错误",
     "ImageViewerErrorTemplateCustom": "自定义",
     "ImageViewerErrorTemplateLoadFailed": "加载失败",
-    "ImagePreviewerTitle": "单独使用ImagePreviewer",
-    "ImagePreviewerIntro": "配合Button等其他组件，直接弹出Previewer",
-    "ImagePreviewerButton": "显示Previewer"
+    "ImagePreviewerTitle": "单独使用 ImagePreviewer",
+    "ImagePreviewerIntro": "配合 <code>Button</code> 等其他组件，直接弹出 <code>ImagePreviewer</code>",
+    "ImagePreviewerButton": "显示 Previewer",
+    "IntersectionObserverTitle": "懒加载",
+    "IntersectionObserverIntro": "通过设置 <code>IsIntersectionObserver=\"true\"</code> 开启懒加载特性，当图片在不可见区域时不加载图片，当图片即将可见时才开始加载图片"
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "地理定位/移动距离追踪",

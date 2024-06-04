@@ -35,15 +35,6 @@ public partial class Select<TValue> : ISelect
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
-    private string? AppendClassString => CssBuilder.Default("form-select-append")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
-        .Build();
-
     private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -73,13 +64,6 @@ public partial class Select<TValue> : ISelect
 
     [NotNull]
     private List<SelectedItem> DataSource { get; } = [];
-
-    /// <summary>
-    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? DropdownIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -248,7 +232,7 @@ public partial class Select<TValue> : ISelect
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
-    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+    private List<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法

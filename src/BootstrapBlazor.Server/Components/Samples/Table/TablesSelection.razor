@@ -1,20 +1,11 @@
 ﻿@page "/table/selection"
+@inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesSelection> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesSelectionTitle"] - @NavMenuLocalizer["TableSelection"]</h3>
 <h4>@((MarkupString)Localizer["TablesSelectionDescription"].Value)</h4>
-
-<HeadContent>
-    <style>
-        .table-selection-info {
-            display: flex;
-            white-space: nowrap;
-            align-items: center;
-        }
-    </style>
-</HeadContent>
 
 <DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
@@ -53,4 +44,23 @@
 
         <Button OnClick="OnClick" Color="Color.Primary">@Localizer["TablesSelectionNormalButtonText"]</Button>
     </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesSelectionScrollTitle"]"
+           Introduction="@Localizer["TablesSelectionScrollIntro"]"
+           Name="Normal">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesSelectionScrollDescription"].Value)</p>
+        <Button OnClick="OnTriggerScroll" Color="Color.Primary">@Localizer["TablesSelectionScrollButtonText"]</Button>
+    </section>
+    <Table TItem="Foo" @bind-SelectedRows="_selectedScrollItems" Id="table-scroll-demo" Items="_scrollItems" Height="260"
+           OnAfterRenderCallback="OnAfterRenderCallback"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>

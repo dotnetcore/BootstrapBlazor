@@ -187,6 +187,7 @@ public partial class MultiSelect<TValue>
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ResetItems();

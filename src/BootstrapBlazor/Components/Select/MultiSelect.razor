@@ -36,7 +36,10 @@
                 }
             }
         </div>
-        <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        @if (!IsSingleLine)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
     </div>
     <div class="dropdown-menu">
         @if (ShowSearch)

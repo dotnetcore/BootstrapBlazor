@@ -4927,6 +4927,7 @@
     "PageInfoTemplateAttr": "The template for custom page info",
     "PageInfoTextAttr": "Pagination label text",
     "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order",
+    "AutoScrollLastSelectedRowToViewAttr": "whether the last selected row will automatically scroll to the view",
     "TableBaseNormalRefreshText": "Refresh",
     "TableBaseHeaderStyleMode": "The style of table header",
     "IsPopoverToolbarDropdownButtonAttr": "Whether float the popup window for dropdown button in the toolbar"
@@ -5233,7 +5234,11 @@
     "TablesSelectionKeepInfo": "Keep State:",
     "TablesSelectionKeepOnText": "Keep",
     "TablesSelectionKeepOffText": "No keep",
-    "TablesSelectionCountText": "Count：{0}"
+    "TablesSelectionCountText": "Count：{0}",
+    "TablesSelectionScrollTitle": "Callback method after rendering",
+    "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>",
+    "TablesSelectionScrollButtonText": "Select Last Row"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
@@ -5593,6 +5598,7 @@
     "ImageViewersAttrPreviewList": "A larger preview link set",
     "ImageViewersAttrOnLoadAsync": "The callback method picture when it is loaded successfully",
     "ImageViewersAttrOnErrorAsync": "Images load failed callback methods",
+    "ImageViewersAttrIsIntersectionObserver": "Images lazy loading by view window",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
@@ -5611,7 +5617,9 @@
     "ImageViewerErrorTemplateLoadFailed": "Load failed",
     "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
     "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
-    "ImagePreviewerButton": "Show Previewer"
+    "ImagePreviewerButton": "Show Previewer",
+    "IntersectionObserverTitle": "Intersection Observer",
+    "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible."
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",

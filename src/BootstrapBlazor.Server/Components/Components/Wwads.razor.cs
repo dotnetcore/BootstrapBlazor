@@ -9,7 +9,11 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class Wwads
 {
-    private string? DebugString { get; set; }
+    private string? _debugString;
+
+    private string? ClassString => CssBuilder.Default("bb-ad")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -19,7 +23,7 @@ public partial class Wwads
         base.OnInitialized();
 
 #if DEBUG
-        DebugString = "true";
+        _debugString = "true";
 #endif
     }
 }
