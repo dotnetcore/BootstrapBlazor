@@ -12,9 +12,6 @@ export async function init(id, invoke, options) {
     options = {
         ...options,
         ...{
-            gear: {
-                show: true
-            },
             rightControl: [
                 {
                     name: 'lock',
