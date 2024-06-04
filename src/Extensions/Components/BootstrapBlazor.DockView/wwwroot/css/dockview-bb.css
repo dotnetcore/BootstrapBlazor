@@ -3,7 +3,7 @@
 .bb-dock-view {
     --bb-dock-view-padding: .25rem;
     --bb-dock-view-tab-line-height: 21px;
-    --bb-dock-view-tab-padding: 0 4px;
+    --bb-dock-view-tab-padding: 0 8px;
     width: 100%;
     height: 100%;
     border: var(--bs-border-width) solid var(--bs-border-color);
