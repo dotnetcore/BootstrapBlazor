@@ -393,9 +393,10 @@ export function toggleComponent(dock, option) {
 }
 export function lockDock(dock) {
     dock.groups.forEach(group => {
-        group.locked = dock.locked
+        group.locked = dock.locked ? 'no-drop-target' : false
         group.groupControl.toggleLock()
     })
+    dock._lockChanged?.fire(dock.locked)
 }
 export function getTheme(element) {
     function toClassList(element) {
@@ -626,13 +627,14 @@ export function addDelPanel(panel, delPanels, options, dockview) {console.log('a
             }
         }
     }
-    dockview.addPanel({
+    let panelObj = dockview.addPanel({
         id: panel.id,
         title: panel.title,
         component: panel.component,
         position: { referenceGroup: group },
         params: {...panel.params, isPackup, height, isMaximized, position }
     });
+    dockview._visibleChanged?.fire({panel: panelObj, isVisible: true})
     setDecreaseLocal(dockview.prefix + '-panels', panel)
 }
 export function loadDockview(dockview, dockviewData, serverData) {

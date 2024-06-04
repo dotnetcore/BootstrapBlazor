@@ -62,6 +62,7 @@ DockviewComponent.prototype.removePanel = function (...argu) {
     const panel = argu[0]
     if (!panel.group.locked) {
         removePanel.apply(this, argu)
+        this._visibleChanged?.fire({panel, isVisible: false})
     }
 }
 // 修改moveGroupOrPanel

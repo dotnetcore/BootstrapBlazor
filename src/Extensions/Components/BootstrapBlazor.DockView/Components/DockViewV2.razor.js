@@ -46,6 +46,9 @@ export async function init(id, invoke, options) {
     dockview.on('lockChanged', isLock => {
         console.log(isLock, 'onLockChange');
     })
+    dockview.on('visibleChanged', ({panel, isVisible}) => {
+        console.log(panel, isVisible, 'visibleChanged');
+    })
 }
 
 export function update(id, options) {
