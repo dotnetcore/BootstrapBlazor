@@ -8,8 +8,8 @@
 import { getLocal } from './dockview-utils.js'
 
 DockviewComponent.prototype.on = function (eventType, callback) {
-    this[eventType] = new DockviewEmitter();
-    this[eventType].event(callback)
+    this['_' + eventType] = new DockviewEmitter();
+    this['_' + eventType].event(callback)
 }
 DockviewGroupPanel.prototype.getParams = function () {
     return this.activePanel?.params || {}
@@ -30,12 +30,16 @@ DockviewGroupPanel.prototype.removePropsOfParams = function (keys) {
 // 修改removeGroup
 const removeGroup = DockviewComponent.prototype.removeGroup
 DockviewComponent.prototype.removeGroup = function (...argu) {
+    if(this.isResetIng){
+        return removeGroup.apply(this, argu)
+    }
     const group = argu[0]
     const type = group.api.location.type;
     if (type == 'grid') {
         [...group.panels].forEach(panel => {
             panel.api.close()
         })
+        console.log(group, 'group88888888888888');
         this.setVisible(group, false)
 
         // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
@@ -49,7 +53,7 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         delPanels && localStorage.setItem('dock-view-panels', JSON.stringify(delPanels))
     }
     else if (type == 'floating') {
-        removeGroup.apply(this, argu)
+        return removeGroup.apply(this, argu)
     }
 }
 // 修改removePanel

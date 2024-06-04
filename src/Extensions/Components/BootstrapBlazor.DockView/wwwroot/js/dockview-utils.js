@@ -27,10 +27,11 @@ export class DefaultPanel {
             contentEle.style.height = '100%'
         }
         this.element.append(contentEle)
-
-        tab._content.classList.add(params.titleClass || `title-class-${panel.id}`)
-        content.element.classList.add(params.contentClass || `content-class-${panel.id}`)
-        group.element.classList.add(params.class || `group-class-${group.id}`)
+        const {titleClass, titleWidth, contentClass, class: groupClass} = params
+        titleClass && tab._content.classList.add(titleClass)
+        titleWidth && (tab._content.style.width = titleWidth + 'px')
+        contentClass && content.element.classList.add(contentClass)
+        groupClass && group.element.classList.add(groupClass)
     }
 }
 
@@ -56,9 +57,10 @@ class PanelControl {
         // divEle.style.display = api.isVisible ? 'block' : 'none'
         // divEle.innerHTML = '<i class="fa-solid fa-fw fa-cog">'
         divEle.append(this.panel.titleMenuEle)
-        divEle.addEventListener('click', () => {
-            alert(api.id)
-        })
+        // this.panel.titleMenuEle = null
+        // divEle.addEventListener('click', () => {
+        //     alert(api.id)
+        // })
         divEle.addEventListener('mousedown', e => {
             e.stopPropagation()
         })
@@ -110,20 +112,32 @@ class GroupControl {
         rightControl && this.creatRightControl(rightControl)
     }
 
-    // 添加header前控制按钮
     creatPrefixControl(option) {
+        // 添加header前控制按钮
         // ...
     }
-    // 添加tabs后的控制按钮
     creatTabsAfterControl(option) {
+        // 添加tabs后的控制按钮
         // ...
     }
     // 添加右侧控制按钮
     creatRightControl(option) {
         let divEle = document.createElement('div')
-
-        option.forEach(item => {
-            if (this.group.api.location.type == 'grid' && item.name == 'packup/expand') return
+        // showClose, showFloat, showLock, showMaximize
+        console.log(this.group, 'this.group');
+        let {panels, api} = this.group
+        let filterOption = option.filter(item => {
+            switch(item.name){
+                case 'lock': return panels.some(panel => panel.params.showLock)
+                case 'packup/expand': return true
+                case 'float': return panels.every(panel => panel.params.showFloat)
+                case 'maximize': return panels.some(panel => panel.params.showMaximize)
+                case 'close': return panels.every(panel => panel.params.showClose)
+            }
+        })
+        console.log(filterOption, 'filterOptionfilterOptionfilterOption');
+        filterOption.forEach(item => {
+            if (api.location.type == 'grid' && item.name == 'packup/expand') return
             let btn = this._createButton(item)
             divEle.append(btn)
         })
@@ -168,7 +182,7 @@ class GroupControl {
         this.group.locked = this.group.locked ? false : 'no-drop-target'
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
-        this.dockview.lockChanged?.fire(this.group.locked !== false)
+        this.dockview._lockChanged?.fire(this.group.locked !== false)
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -310,6 +324,7 @@ export function cerateDockview(el, options) {
     dockview.prefix = options.prefix
     dockview.locked = options.lock
     dockview.update = updateOptions => {
+        console.log('update', updateOptions);
         if (dockview.locked !== updateOptions.lock) {
             // 处理 Lock 逻辑
             dockview.locked = updateOptions.lock
@@ -319,6 +334,15 @@ export function cerateDockview(el, options) {
             // 处理 toggle 逻辑
             toggleComponent(dockview, updateOptions)
         }
+    }
+    dockview.reset = (resetOptions) => {
+        console.log('reset', resetOptions);
+        dockview.isResetIng = true
+        dockview.clear()
+        setTimeout(() => {
+            dockview.isResetIng && (delete dockview.isResetIng)
+        }, 0);
+        loadDockview(dockview, getJson(dockview, serverData, true))
     }
     dockview.dispose = () => {
         console.log('dispose:', dockview);
@@ -332,7 +356,7 @@ export function cerateDockview(el, options) {
     // 绑定钩子函数
     addHook(dockview, dockviewData, options, template)
     // 渲染dockview结构
-    loadDockview(dockview, dockviewData)
+    loadDockview(dockview, dockviewData, serverData)
     return dockview
 }
 
@@ -405,6 +429,12 @@ export function addHook(dockview, dockviewData, options, template) {
             obj.groupInvisible = event.params.groupInvisible
         }
         setSumLocal('dock-view-panels', obj)
+        console.log(event, '90909090');
+        let contentEle = event.view.content.element.children[0]
+        if(event.titleMenuEle){
+            contentEle.append(event.titleMenuEle)
+        }
+        console.log(event, '90909090222222');
         template.append(event.view.content.element.children[0])
 
         // 放在onDidLayoutChange里保存
@@ -432,6 +462,9 @@ export function addHook(dockview, dockviewData, options, template) {
                 get() { return JSON.parse(JSON.stringify(event.activePanel?.params || {})) }
             }
         })
+        if(0){
+            event.header.hidden = true
+        }
         // 修正floating Group的位置
         let { floatingGroups = [], panels } = dockviewData
         let floatingGroup = floatingGroups.find(item => item.data.id == event.id)
@@ -506,7 +539,7 @@ export function addHook(dockview, dockviewData, options, template) {
     // 钩子9: layout加载完成触发
     dockview.onDidLayoutFromJSON(event => {
         setTimeout(() => {
-            dockview.initialized?.fire()
+            dockview._initialized?.fire()
         }, 0)
         dockview.groups.forEach(group => {
             if (group.panels.length == 0) {
@@ -589,10 +622,9 @@ export function addDelPanel(panel, delPanels, options, dockview) {
     });
     setDecreaseLocal('dock-view-panels', panel.id)
 }
-export function loadDockview(dockview, serverData) {
-    let data = getJson(dockview, serverData)
+export function loadDockview(dockview, dockviewData, serverData) {
     try {
-        dockview.fromJSON(data)
+        dockview.fromJSON(dockviewData)
     } catch (error) {
         setTimeout(() => {
             localStorage.removeItem('dock-view-panels');
@@ -605,11 +637,13 @@ export function loadDockview(dockview, serverData) {
 
     }
 }
-export function getJson(dockview, data) {
+export function getJson(dockview, data, isReset) {
     // 修正JSON
-    let localData = localStorage.getItem(dockview.prefix)
-    localData = localData && JSON.parse(localData)
-    data = data || localData || data
+    if(isReset !== true){
+        let localData = localStorage.getItem(dockview.prefix)
+        localData = localData && JSON.parse(localData)
+        data = data || localData || data
+    }
     // 修改浮动框的宽高
     data.floatingGroups?.forEach(item => {
         let { width, height } = item.position

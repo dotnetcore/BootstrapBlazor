@@ -59,6 +59,14 @@ export function update(id, options) {
     }
 }
 
+export function reset(id, options) {
+    const dock = Data.get(id)
+    if (dock) {
+        const { dockview } = dock;
+        dockview.reset(options);
+    }
+}
+
 export function dispose(id) {
     const dock = Data.get(id)
     Data.remove(id);
