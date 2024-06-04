@@ -73,30 +73,7 @@ class PanelControl {
 class GroupControl {
     constructor(dockviewGroupPanel, options, dockview) {
         const { element, header, api } = dockviewGroupPanel
-        const { prefixControl, tabsAfterControl, rightControl } = {
-            rightControl: [
-                {
-                    name: 'lock',
-                    icon: ['<i class="fas fa-unlock"></i>', '<i class="fas fa-lock"></i>']
-                },
-                {
-                    name: 'packup/expand',
-                    icon: ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>']
-                },
-                {
-                    name: 'float',
-                    icon: ['<i class="far fa-window-restore"></i>']
-                },
-                {
-                    name: 'maximize',
-                    icon: ['<i class="fas fa-expand"></i>', '<i class="fas fa-compress"></i>']
-                },
-                {
-                    name: 'close',
-                    icon: ['<i class="fas fa-times"></i>']
-                }
-            ],
-        }
+        const { prefixControl, tabsAfterControl, rightControl } = options
         // Group
         this.ele = element
         // Group的Header
@@ -180,9 +157,15 @@ class GroupControl {
     }
     _lock(divEle, item) {
         this.group.locked = this.group.locked ? false : 'no-drop-target'
+        this.toggleLock(divEle, item)
+        this.dockview._lockChanged?.fire(this.group.locked !== false)
+    }
+    toggleLock(divEle, item) {
+        divEle = divEle || this.group.header.rightActionsContainer.querySelector('.lock')
+        item = item || this.options.rightControl.find(option => option.name == 'lock')
+        if(!divEle) return
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
-        this.dockview._lockChanged?.fire(this.group.locked !== false)
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -226,7 +209,7 @@ class GroupControl {
             })
             this.dockview.setVisible(this.group, false)
             group.setParams({ isPackup, height, isMaximized })
-            new GroupControl(group, this.options, this.dockview)
+            group.groupControl = new GroupControl(group, this.options, this.dockview)
         }
         else if (type == 'floating') {
             let originGroup = this.dockview.groups.find(group => group.id + '_floating' == this.group.id)
@@ -379,7 +362,8 @@ export function toggleComponent(dock, option) {
 }
 export function lockDock(dock) {
     dock.groups.forEach(group => {
-        group.header.rightActionsContainer?.querySelector('.lock').click()
+        group.locked = dock.locked
+        group.groupControl.toggleLock()
     })
 }
 export function getTheme(element) {
@@ -481,7 +465,7 @@ export function addHook(dockview, dockviewData, options, template) {
 
         if (true) {
             setTimeout(() => {
-                new GroupControl(event, options, dockview)
+                event.groupControl = new GroupControl(event, options, dockview)
             }, 0);
         }
 
@@ -596,7 +580,7 @@ export function addDelPanel(panel, delPanels, options, dockview) {
         if (true) {
             setTimeout(() => {
                 // group.setParams({isPackup, height, isMaximized, position})
-                new GroupControl(group, options, dockview)
+                group.groupControl = new GroupControl(group, options, dockview)
             }, 50);
         }
 
