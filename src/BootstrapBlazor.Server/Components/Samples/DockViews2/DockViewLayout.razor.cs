@@ -31,9 +31,9 @@ public partial class DockViewLayout
 
     private string? LayoutConfig = "";
 
-    const string LayoutConfig1 = "";
+    const string LayoutConfig1 = "LayoutConfig1";
 
-    const string LayoutConfig2 = "";
+    const string LayoutConfig2 = "LayoutConfig2";
 
-    const string LayoutConfig3 = "";
+    const string LayoutConfig3 = "LayoutConfig3";
 }
