@@ -28,3 +28,11 @@
         .bb-dock-view .tab .dv-default-tab .dv-default-tab-content {
             padding: var(--bb-dock-view-tab-padding);
         }
+
+    .bb-dock-view .tab.inactive-tab .dv-default-tab .dv-default-tab-action {
+        visibility: visible;
+    }
+
+    .bb-dock-view .tab:focus::after {
+        outline-offset: 0;
+    }
