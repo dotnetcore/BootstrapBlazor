@@ -26,6 +26,15 @@ public partial class MultiSelect<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
+    /// <summary>
+    /// 获得 样式集合
+    /// </summary>
+    private string? AppendClassString => CssBuilder.Default("form-select-append")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
     private string? GetItemClassString(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", GetCheckedState(item))
         .AddClass("disabled", item.IsDisabled)
@@ -158,6 +167,13 @@ public partial class MultiSelect<TValue>
     private string? PreviousValue { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -172,7 +188,7 @@ public partial class MultiSelect<TValue>
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
-
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ResetItems();
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
         ResetRules();
