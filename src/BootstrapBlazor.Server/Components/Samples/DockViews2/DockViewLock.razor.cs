@@ -36,7 +36,7 @@ public partial class DockViewLock
         }
     }
 
-    private Task OnLockChangedCallbackAsync(bool state)
+    private Task OnLockChangedCallbackAsync(string[] panels, bool state)
     {
         IsLock = state;
         return Task.CompletedTask;

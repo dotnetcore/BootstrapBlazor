@@ -6,7 +6,7 @@
 <Button OnClick="OnToggleVisible" Text="切换标签一"></Button>
 
 <div class="dock-toggle-demo">
-    <DockViewV2 Name="DockViewVisible" OnVisibleStateChangedAsync="OnVisibleStateChangedAsync">
+    <DockViewV2 Name="DockViewVisible" OnPanelClosedCallbackAsync="OnPanelClosedCallbackAsync">
         <DockViewContent Type="DockViewContentType.Column">
             <DockViewComponent Title="标签一" Visible="Visible">
                 <div class="panel">Panel1</div>

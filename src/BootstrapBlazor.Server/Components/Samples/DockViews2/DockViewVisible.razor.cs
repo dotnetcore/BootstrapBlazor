@@ -16,11 +16,11 @@ public partial class DockViewVisible
         Visible = !Visible;
     }
 
-    private Task OnVisibleStateChangedAsync(string title, bool visible)
+    private Task OnPanelClosedCallbackAsync(string[] panels)
     {
-        if (title == "标签一")
+        if (panels.Contains("标签一"))
         {
-            Visible = visible;
+            Visible = false;
         }
         return Task.CompletedTask;
     }
