@@ -18,7 +18,7 @@ export class DefaultPanel {
         if(template){
             let contentEle = template.querySelector('#' + this.option.id)
             if(!contentEle) {
-                contentEle = panel.params.key ? template.querySelector(`[${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
+                contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
             }
             if (contentEle) {
                 let titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
@@ -470,7 +470,11 @@ export function addHook(dockview, dockviewData) {
         // if (event.titleMenuEle) {
         //     contentEle.append(event.titleMenuEle)
         // }
-        dockview.template.querySelector('#' + event.id).append(event.view.content.element)
+        let boxEle = dockview.template.querySelector('#' + event.id)
+        if(!boxEle){
+            boxEle = event.params.key ? dockview.template.querySelector(`[data-bb-key=${event.params.key}]`) : dockview.template.querySelector(`[data-bb-title=${event.title}]`)
+        }
+        boxEle.append(event.view.content.element)
 
         // 放在onDidLayoutChange里保存
         // saveConfig(dockview)
