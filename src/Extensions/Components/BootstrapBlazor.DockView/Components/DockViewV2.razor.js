@@ -44,7 +44,7 @@ export function save(id) {
     const dock = Data.get(id)
     if (dock) {
         const { dockview } = dock;
-        ret = dockview.save();
+        ret = dockview.saveLayout();
     }
     return ret;
 }
