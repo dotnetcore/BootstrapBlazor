@@ -9,34 +9,6 @@ export async function init(id, invoke, options) {
         return;
     }
 
-    options = {
-        ...options,
-        ...{
-            rightControl: [
-                {
-                    name: 'lock',
-                    icon: ['<i class="fas fa-unlock"></i>', '<i class="fas fa-lock"></i>']
-                },
-                {
-                    name: 'packup/expand',
-                    icon: ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>']
-                },
-                {
-                    name: 'float',
-                    icon: ['<i class="far fa-window-restore"></i>']
-                },
-                {
-                    name: 'maximize',
-                    icon: ['<i class="fas fa-expand"></i>', '<i class="fas fa-compress"></i>']
-                },
-                {
-                    name: 'close',
-                    icon: ['<i class="fas fa-times"></i>']
-                }
-            ],
-        }
-    }
-
     const dockview = cerateDockview(el, options)
     Data.set(id, { el, dockview });
 
@@ -46,7 +18,7 @@ export async function init(id, invoke, options) {
     dockview.on('lockChanged', isLock => {
         console.log(isLock, 'onLockChange');
     })
-    dockview.on('visibleChanged', ({panel, isVisible}) => {
+    dockview.on('visibleChanged', ({ panel, isVisible }) => {
         console.log(panel, isVisible, 'visibleChanged');
     })
 }
@@ -65,6 +37,16 @@ export function reset(id, options) {
         const { dockview } = dock;
         dockview.reset(options);
     }
+}
+
+export function save(id) {
+    let ret = '';
+    const dock = Data.get(id)
+    if (dock) {
+        const { dockview } = dock;
+        ret = dockview.save();
+    }
+    return ret;
 }
 
 export function dispose(id) {

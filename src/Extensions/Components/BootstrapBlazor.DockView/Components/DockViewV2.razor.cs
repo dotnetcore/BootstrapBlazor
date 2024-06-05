@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -180,6 +181,12 @@ public partial class DockViewV2
         }
         return InvokeVoidAsync("reset", Id, options);
     }
+
+    /// <summary>
+    /// 获得当前布局 Json 字符串
+    /// </summary>
+    /// <returns></returns>
+    public Task<string?> SaveLayout() => InvokeAsync<string?>("save", Id);
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
