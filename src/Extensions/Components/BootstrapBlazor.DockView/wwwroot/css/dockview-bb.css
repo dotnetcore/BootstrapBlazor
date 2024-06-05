@@ -41,3 +41,17 @@
         --dv-separator-border: var(--bs-border-color);
         --dv-background-color: var(--bs-body-bg);
     }
+
+    .bb-dock-view .right-actions-container {
+        display: flex;
+        align-items: center;
+        margin-right: .5rem;
+    }
+
+        .bb-dock-view .right-actions-container > div {
+            cursor: pointer;
+        }
+
+            .bb-dock-view .right-actions-container > div:not(:first-child) {
+                margin-left: .5rem;
+            }
