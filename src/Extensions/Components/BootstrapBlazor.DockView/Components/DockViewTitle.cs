@@ -37,7 +37,7 @@ public class DockViewTitle : ComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, "div");
-        builder.AddAttribute(1, "class", "bb-dock-view-item-title-icon");
+        builder.AddAttribute(1, "class", "dv-default-tab-action bb-dock-view-item-title-icon");
 
         if (OnClickBarCallback != null)
         {
@@ -54,7 +54,7 @@ public class DockViewTitle : ComponentBase
         }
         else
         {
-            builder.AddContent(5, new MarkupString("<svg viewBox=\"0 0 1024 1024\" width=\"11\" height=\"11\"><path d=\"M64 161.9h896v49.8H64zM64 488.8h896v49.8H64zM64 812.3h896v49.8H64z\"></path></svg>"));
+            builder.AddContent(5, new MarkupString("<svg width=\"16\" height=\"16\" viewBox=\"0 0 48 48\" fill=\"none\"><path d=\"M7.94971 11.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 23.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 35.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"));
         }
 
         builder.CloseElement();

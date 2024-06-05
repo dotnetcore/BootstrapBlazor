@@ -44,6 +44,8 @@
     .bb-dock-view.dockview-theme-light {
         --dv-separator-border: var(--bs-border-color);
         --dv-background-color: var(--bs-body-bg);
+        --dv-floating-box-shadow: var(--bs-box-shadow);
+        --dv-tab-divider-color: var(--bs-border-color);
     }
 
     .bb-dock-view .right-actions-container {
