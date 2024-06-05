@@ -27,8 +27,8 @@ public static class IEditorItemExtensions
         {
             ret = changedType switch
             {
-                ItemChangedType.Add => col.IsReadonlyWhenAdd ?? col.Readonly,
-                _ => col.IsReadonlyWhenEdit ?? col.Readonly
+                ItemChangedType.Add => (col.IsReadonlyWhenAdd ?? false) || col.Readonly,
+                _ => (col.IsReadonlyWhenEdit ?? false) || col.Readonly
             };
         }
         return ret;
@@ -51,8 +51,8 @@ public static class IEditorItemExtensions
         {
             ret = changedType switch
             {
-                ItemChangedType.Add => col.IsVisibleWhenAdd ?? col.Visible,
-                _ => col.IsVisibleWhenEdit ?? col.Visible
+                ItemChangedType.Add => col.IsVisibleWhenAdd.HasValue ? col.IsVisibleWhenAdd.Value : col.Visible,
+                _ => col.IsVisibleWhenEdit.HasValue ? col.IsVisibleWhenEdit.Value : col.Visible
             };
         }
         return ret;

@@ -259,13 +259,17 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnAfterRenderCallback, t =>
+                pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
+                pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
-                    t.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                    if (firstRender)
                     {
-                        new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
-                        new(nameof(Foo.Address), false),
-                    });
+                        table.ResetVisibleColumns(new List<ColumnVisibleItem>()
+                        {
+                            new(nameof(Foo.Name), true) { DisplayName = "Name-Display" },
+                            new(nameof(Foo.Address), false),
+                        });
+                    }
                     return Task.CompletedTask;
                 });
             });
@@ -943,7 +947,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnAfterRenderCallback, tb =>
+                pb.Add(a => a.OnAfterRenderCallback, (tb, firstRender) =>
                 {
                     return Task.CompletedTask;
                 });
@@ -2804,6 +2808,12 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(10, "Field", "Address");
+                    builder.AddAttribute(12, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.AddAttribute(13, "Visible", false);
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.DetailRowTemplate, foo => builder =>
@@ -6786,7 +6796,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnAfterRenderCallback, table =>
+                pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
                     callback = true;
                     return Task.CompletedTask;

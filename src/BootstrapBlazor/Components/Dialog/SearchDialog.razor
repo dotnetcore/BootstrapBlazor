@@ -9,7 +9,7 @@
     </div>
     <div class="form-footer">
         <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-        <Button Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+        <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
     </div>
 }
 else
@@ -18,7 +18,7 @@ else
         <EditorForm TModel="TModel" Model="Model" Items="Items" RowType="RowType" ItemsPerRow="ItemsPerRow" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
                 <DialogCloseButton Icon="@ClearIcon" Text="@ResetButtonText" OnClickWithoutRender="@OnResetSearchClick" />
-                <Button Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
+                <DialogCloseButton Color="Color.Primary" Icon="@SearchIcon" Text="@QueryButtonText" OnClickWithoutRender="@OnSearchClick" />
             </Buttons>
         </EditorForm>
     </CascadingValue>

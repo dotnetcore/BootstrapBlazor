@@ -298,7 +298,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 Table 组件渲染完毕回调
     /// </summary>
     [Parameter]
-    public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
+    public Func<Table<TItem>, bool, Task>? OnAfterRenderCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动将选中行滚动到可视区域 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoScrollLastSelectedRowToView { get; set; }
 
     /// <summary>
     /// 获得/设置 双击单元格回调委托
@@ -851,6 +857,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("sort", Id);
         }
 
+        if (AutoScrollLastSelectedRowToView)
+        {
+            await InvokeVoidAsync("scroll", Id);
+        }
+
         // 增加去重保护 _loop 为 false 时执行
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
@@ -864,11 +875,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (firstRender)
         {
-            if (OnAfterRenderCallback != null)
-            {
-                await OnAfterRenderCallback(this);
-            }
-
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
@@ -876,6 +882,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth
             });
+        }
+
+        if (OnAfterRenderCallback != null)
+        {
+            await OnAfterRenderCallback(this, firstRender);
         }
     }
 
@@ -1252,7 +1263,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count(col => col.Visible);
+        var colSpan = GetVisibleColumns().Count(col => ScreenSize >= col.ShownWithBreakPoint);
         if (IsMultipleSelect)
         {
             colSpan++;
