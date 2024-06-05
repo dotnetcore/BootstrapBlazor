@@ -1,4 +1,4 @@
-﻿import { DockviewComponent, DefaultTab} from "../js/dockview-core.esm.js"
+﻿import { DockviewComponent, DefaultTab } from "../js/dockview-core.esm.js"
 import '../js/dockview-extensions.js'
 
 export class DefaultPanel {
@@ -26,7 +26,7 @@ export class DefaultPanel {
             contentEle.style.height = '100%'
         }
         this.element.append(contentEle)
-        const {titleClass, titleWidth, contentClass, class: groupClass} = params
+        const { titleClass, titleWidth, contentClass, class: groupClass } = params
         titleClass && tab._content.classList.add(titleClass)
         titleWidth && (tab._content.style.width = titleWidth + 'px')
         contentClass && content.element.classList.add(contentClass)
@@ -70,7 +70,7 @@ class PanelControl {
         // })
     }
     creatCloseBtn() {
-        if(!this.panel.params?.showClose){
+        if (!this.panel.params?.showClose) {
             this.tabEle.querySelector('.dv-default-tab-action').style.display = 'none'
         }
     }
@@ -102,9 +102,9 @@ class GroupControl {
     creatRightControl() {
         // showClose, showFloat, showLock, showMaximize
         let divEle = document.createElement('div')
-        let {panels, api} = this.group
+        let { panels, api } = this.group
         let filterControls = this.dockview.groupControls.filter(item => {
-            switch(item.name){
+            switch (item.name) {
                 case 'lock': return panels.some(panel => panel.params.showLock !== false)
                 case 'packup/expand': return true
                 case 'float': return panels.every(panel => panel.params.showFloat !== false)
@@ -142,7 +142,7 @@ class GroupControl {
         }
         else if (item.name == 'float') {
             let type = this.group.model.location.type
-            if(type == 'floating'){
+            if (type == 'floating') {
                 divEle.title = 'recover'
                 divEle.innerHTML = item.icon[1]
             }
@@ -170,7 +170,7 @@ class GroupControl {
     toggleLock(divEle, item) {
         divEle = divEle || this.group.header.rightActionsContainer.querySelector('.lock')
         item = item || this.dockview.groupControls.find(option => option.name == 'lock')
-        if(!divEle) return
+        if (!divEle) return
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
         saveConfig(this.dockview)
@@ -305,7 +305,7 @@ export function cerateDockview(el, options) {
     console.log(options, 'options77777');
     const { templateId } = options
     const template = document.getElementById(templateId)
-    const dockview =  new DockviewComponent({
+    const dockview = new DockviewComponent({
         parentElement: el,
         createComponent: option => {
             return new DefaultPanel(option)
@@ -315,12 +315,12 @@ export function cerateDockview(el, options) {
 
     dockview.template = template
     dockview.groupControls = [
-        {name: 'lock', icon: ['unlock', 'lock']},
-        {name: 'packup/expand', icon: []},
-        {name: 'float', icon: ['float', 'dock']},
-        {name: 'maximize', icon: ['full', 'restore']},
-        {name: 'close', icon: ['close']}
-    ].map(({name, icon}) => ({
+        { name: 'lock', icon: ['unlock', 'lock'] },
+        { name: 'packup/expand', icon: [] },
+        { name: 'float', icon: ['float', 'dock'] },
+        { name: 'maximize', icon: ['full', 'restore'] },
+        { name: 'close', icon: ['close'] }
+    ].map(({ name, icon }) => ({
         name,
         icon: icon.map(item => template.querySelector(`[data-bb-control=${item}]`)?.outerHTML)
     }))
@@ -356,7 +356,7 @@ export function cerateDockview(el, options) {
     }
 
     // 序列化options数据为dockview可用数据(layoutConfig优先)
-    let serverData = options.layoutConfig || serialize(options)
+    let serverData = JSON.parse(options.layoutConfig) || serialize(options)
     console.log(serverData, 'serverData');
     // 以本地优先, 得到最终的dockviewData并修正
     let dockviewData = getJson(dockview, serverData)
@@ -446,7 +446,7 @@ export function addHook(dockview, dockviewData) {
         }
         setSumLocal(dockview.prefix + '-panels', obj)
         let contentEle = event.view.content.element.children[0]
-        if(event.titleMenuEle){
+        if (event.titleMenuEle) {
             contentEle.append(event.titleMenuEle)
         }
         dockview.template.append(event.view.content.element.children[0])
@@ -475,7 +475,7 @@ export function addHook(dockview, dockviewData) {
                 get() { return JSON.parse(JSON.stringify(event.activePanel?.params || {})) }
             }
         })
-        if(0){
+        if (0) {
             event.header.hidden = true
         }
         // 修正floating Group的位置
@@ -570,7 +570,7 @@ const getGroupId = () => {
 export function serialize(options) {
     groupId = 0
     const orientation = options.content[0].type == 'row' ? 'HORIZONTAL' : 'VERTICAL'
-    const {width = 100, height = 80} = options
+    const { width = 100, height = 80 } = options
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -579,7 +579,7 @@ export function serialize(options) {
             orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0], {width, height, orientation})]
+                data: [getTree(options.content[0], { width, height, orientation })]
             },
         },
         panels
@@ -632,9 +632,9 @@ export function addDelPanel(panel, delPanels, dockview) {
         title: panel.title,
         component: panel.component,
         position: { referenceGroup: group },
-        params: {...panel.params, isPackup, height, isMaximized, position }
+        params: { ...panel.params, isPackup, height, isMaximized, position }
     });
-    dockview._visibleChanged?.fire({panel: panelObj, isVisible: true})
+    dockview._visibleChanged?.fire({ panel: panelObj, isVisible: true })
     setDecreaseLocal(dockview.prefix + '-panels', panel)
 }
 export function loadDockview(dockview, dockviewData, serverData) {
@@ -654,7 +654,7 @@ export function loadDockview(dockview, dockviewData, serverData) {
 }
 export function getJson(dockview, data, isReset) {
     // 修正JSON
-    if(isReset !== true){
+    if (isReset !== true) {
         let localData = localStorage.getItem(dockview.prefix)
         localData = localData && JSON.parse(localData)
         data = data || localData || data
@@ -719,16 +719,16 @@ const saveConfig = (dockview, config) => {
         (config && JSON.stringify(config)) || JSON.stringify(json)
     )
 }
-const getTree = (contentItem, {width, height, orientation}, length = 1) => {
+const getTree = (contentItem, { width, height, orientation }, length = 1) => {
     let obj = {}, size = orientation == 'HORIZONTAL' ? width : height
-    size = (1/length*size).toFixed(2) * 1
+    size = (1 / length * size).toFixed(2) * 1
     orientation == 'HORIZONTAL' ? width = size : height = size
-    orientation =  orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
+    orientation = orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
 
     if (contentItem.type == 'row' || contentItem.type == 'column') {
         obj.type = 'branch'
         obj.size = size
-        obj.data = contentItem.content.map(item => getTree(item, {width, height, orientation}, contentItem.content.length))
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem.content.length))
     }
     else if (contentItem.type == 'group') {
         obj.type = 'leaf'

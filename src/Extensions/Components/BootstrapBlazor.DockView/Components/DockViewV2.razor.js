@@ -13,13 +13,13 @@ export async function init(id, invoke, options) {
     Data.set(id, { el, dockview });
 
     dockview.on('initialized', () => {
-        console.log('initialized');
+        invoke.invokeMethodAsync(options.initializedCallback);
     })
-    dockview.on('lockChanged', isLock => {
-        console.log(isLock, 'onLockChange');
+    dockview.on('lockChanged', (title, isLock) => {
+        invoke.invokeMethodAsync(options.lockChangedCallback, title, isLock);
     })
-    dockview.on('visibleChanged', ({ panel, isVisible }) => {
-        console.log(panel, isVisible, 'visibleChanged');
+    dockview.on('panelClosed', title => {
+        invoke.invokeMethodAsync(options.panelClosedCallback, title, false);
     })
 }
 
