@@ -29,6 +29,11 @@ public partial class DockViewLayout
         LayoutConfig = LayoutConfig3;
     }
 
+    private void OnSaveLayout()
+    {
+        DockView.SaveLayout();
+    }
+
     private string? LayoutConfig = "";
 
     const string LayoutConfig1 = "LayoutConfig1";
