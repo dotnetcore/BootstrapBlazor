@@ -452,8 +452,8 @@ export function addHook(dockview, dockviewData) {
             params: {
                 ...event.params,
                 currentPosition: {
-                    width: event.group.width,
-                    height: event.group.height,
+                    width: event.group.element.parentElement.offsetWidth,
+                    height: event.group.element.parentElement.offsetHeight,
                     top: parseFloat(event.group.element.parentElement.style.top || 0),
                     left: parseFloat(event.group.element.parentElement.style.left || 0)
                 }
