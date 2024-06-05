@@ -53,7 +53,7 @@ public partial class DockViewV2
     /// </summary>
     /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
     [Parameter]
-    public Func<string[], bool, Task>? OnPanelClosedCallbackAsync { get; set; }
+    public Func<string[], Task>? OnPanelClosedCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 客户端组件脚本初始化完成后回调此方法
@@ -204,11 +204,11 @@ public partial class DockViewV2
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task PanelClosedCallbackAsync(string[] panels, bool visible)
+    public async Task PanelClosedCallbackAsync(string[] panels)
     {
         if (OnPanelClosedCallbackAsync != null)
         {
-            await OnPanelClosedCallbackAsync(panels, visible);
+            await OnPanelClosedCallbackAsync(panels);
         }
     }
 

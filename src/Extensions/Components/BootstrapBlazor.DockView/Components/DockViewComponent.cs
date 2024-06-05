@@ -56,10 +56,10 @@ public class DockViewComponent : DockViewComponentBase
     public bool Visible { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 组件是否允许关闭 默认 true
+    /// 获得/设置 组件是否允许关闭 默认 null 使用 DockView 的配置
     /// </summary>
     [Parameter]
-    public bool ShowClose { get; set; } = true;
+    public bool? ShowClose { get; set; }
 
     /// <summary>
     /// 获得/设置 组件宽度百分比 默认 null 未设置
@@ -80,11 +80,11 @@ public class DockViewComponent : DockViewComponentBase
     public string? Key { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否锁定 默认 false
+    /// 获得/设置 是否锁定 默认 null 未设置时取 DockView 的配置
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
     [Parameter]
-    public bool IsLock { get; set; }
+    public bool? IsLock { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示标题前置图标 默认 false 不显示

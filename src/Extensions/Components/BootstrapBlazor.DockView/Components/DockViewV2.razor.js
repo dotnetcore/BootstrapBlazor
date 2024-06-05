@@ -19,7 +19,7 @@ export async function init(id, invoke, options) {
         invoke.invokeMethodAsync(options.lockChangedCallback, title, isLock);
     })
     dockview.on('panelClosed', title => {
-        invoke.invokeMethodAsync(options.panelClosedCallback, title, false);
+        invoke.invokeMethodAsync(options.panelClosedCallback, title);
     })
 }
 
