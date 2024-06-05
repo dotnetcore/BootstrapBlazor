@@ -143,7 +143,7 @@ class GroupControl {
         }
         else if (item.name == 'packup/expand') {
             let isPackup = this._getGroupParams('isPackup')
-            if (isPackup) {
+            if (!isPackup) {
                 // divEle.innerHTML = item.icon[1]
                 divEle.style.transform = 'rotateZ(180deg)'
             }
@@ -199,6 +199,8 @@ class GroupControl {
     }
     _float(divEle, item) {
         if (this.group.locked) return
+        let gridGroups = this.dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
+        if(gridGroups.length <= 1) return
         let type = this.group.model.location.type
         if (type == 'grid') {
             let { position = {}, isPackup, height, isMaximized } = this.group.getParams()
@@ -311,7 +313,7 @@ class GroupControl {
 }
 
 export function cerateDockview(el, options) {
-    console.log(options, 'options77777');
+    console.log(el.id, options, 'options77777');
     const { templateId } = options
     const template = document.getElementById(templateId)
     const dockview = new DockviewComponent({
@@ -671,13 +673,8 @@ export function loadDockview(dockview, dockviewData, serializeData) {
 
     }
 }
-export function getJson(dockview, data, isReset) {
+export function getJson(dockview, data) {
     // 修正JSON
-    if (isReset !== true) {
-        let localData = localStorage.getItem(dockview.prefix)
-        localData = localData && JSON.parse(localData)
-        data = data || localData || data
-    }
     // 修改浮动框的宽高
     data.floatingGroups?.forEach(item => {
         let { width, height } = item.position
