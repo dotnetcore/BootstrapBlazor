@@ -17,6 +17,10 @@
         cursor: pointer;
     }
 
+    .bb-dock-view .bb-dock-view-item-title {
+        position: relative;
+    }
+
     .bb-dock-view .tab .dv-default-tab .dv-default-tab-content {
         line-height: var(--bb-dock-view-tab-line-height);
     }
