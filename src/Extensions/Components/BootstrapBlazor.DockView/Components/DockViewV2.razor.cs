@@ -167,14 +167,6 @@ public partial class DockViewV2
         Contents = _root
     };
 
-    private static async Task OnClickTitleBar(DockViewComponent panel)
-    {
-        if (panel.OnClickTitleBarCallback != null)
-        {
-            await panel.OnClickTitleBarCallback();
-        }
-    }
-
     /// <summary>
     /// 重置为默认布局
     /// </summary>
