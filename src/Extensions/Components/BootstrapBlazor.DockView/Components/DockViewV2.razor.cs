@@ -46,14 +46,14 @@ public partial class DockViewV2
     /// 获得/设置 锁定状态回调此方法
     /// </summary>
     [Parameter]
-    public Func<bool, Task>? OnLockChangedCallbackAsync { get; set; }
+    public Func<string[], bool, Task>? OnLockChangedCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 标签切换 Visible 状态时回调此方法
+    /// 获得/设置 标签关闭时回调此方法
     /// </summary>
     /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
     [Parameter]
-    public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
+    public Func<string[], bool, Task>? OnPanelClosedCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 客户端组件脚本初始化完成后回调此方法
@@ -161,8 +161,8 @@ public partial class DockViewV2
         IsLock = IsLock,
         LayoutConfig = LayoutConfig,
         LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
-        VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
+        PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
         TemplateId = _templateId,
         Contents = _root
@@ -192,18 +192,6 @@ public partial class DockViewV2
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task VisibleChangedCallbackAsync(string title, bool visible)
-    {
-        if (OnVisibleStateChangedAsync != null)
-        {
-            await OnVisibleStateChangedAsync(title, visible);
-        }
-    }
-
-    /// <summary>
-    /// 标签页关闭回调方法 由 JavaScript 调用
-    /// </summary>
-    [JSInvokable]
     public async Task InitializedCallbackAsync()
     {
         if (OnInitializedCallbackAsync != null)
@@ -213,14 +201,26 @@ public partial class DockViewV2
     }
 
     /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task PanelClosedCallbackAsync(string[] panels, bool visible)
+    {
+        if (OnPanelClosedCallbackAsync != null)
+        {
+            await OnPanelClosedCallbackAsync(panels, visible);
+        }
+    }
+
+    /// <summary>
     /// 锁定回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task LockChangedCallbackAsync(bool state)
+    public async Task LockChangedCallbackAsync(string[] panels, bool state)
     {
         if (OnLockChangedCallbackAsync != null)
         {
-            await OnLockChangedCallbackAsync(state);
+            await OnLockChangedCallbackAsync(panels, state);
         }
     }
 }
