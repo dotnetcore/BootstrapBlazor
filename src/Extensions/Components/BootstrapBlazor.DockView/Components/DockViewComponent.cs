@@ -105,7 +105,7 @@ public class DockViewComponent : DockViewComponentBase
     /// </summary>
     [Parameter]
     [JsonIgnore]
-    public Func<Task>? OnTitleBarCallback { get; set; }
+    public Func<Task>? OnClickTitleBarCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 DockViewComponent 集合
