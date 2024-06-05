@@ -12,7 +12,7 @@
         <template id="@_templateId">
             @foreach (var p in _components)
             {
-                <div @key="p" id="@p.Id">
+                <div @key="p" id="@p.Id" data-bb-key="@p.Key" data-bb-title="@p.Title">
                     @if (p.ShowTitleBar && !string.IsNullOrEmpty(p.TitleBarIcon))
                     {
                         <div class="dv-default-tab-action bb-dock-view-item-title-icon" data-bb-component-id="@p.Id" @onclick="@p.OnTitleBarCallback">
