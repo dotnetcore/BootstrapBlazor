@@ -16,9 +16,9 @@ public partial class DockViewVisible
         Visible = !Visible;
     }
 
-    private Task OnPanelClosedCallbackAsync(string[] panels)
+    private Task OnPanelClosedCallbackAsync(string title)
     {
-        if (panels.Contains("标签一"))
+        if (title == "标签一")
         {
             Visible = false;
         }
