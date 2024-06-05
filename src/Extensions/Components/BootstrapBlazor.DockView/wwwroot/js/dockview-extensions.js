@@ -30,9 +30,10 @@ DockviewGroupPanel.prototype.removePropsOfParams = function (keys) {
 // 修改removeGroup
 const removeGroup = DockviewComponent.prototype.removeGroup
 DockviewComponent.prototype.removeGroup = function (...argu) {
-    if(this.isResetIng){
+    if(this.isClearIng){
         return removeGroup.apply(this, argu)
     }
+
     const group = argu[0]
     const type = group.api.location.type;
     if (type == 'grid') {
@@ -62,7 +63,9 @@ DockviewComponent.prototype.removePanel = function (...argu) {
     const panel = argu[0]
     if (!panel.group.locked) {
         removePanel.apply(this, argu)
-        this._visibleChanged?.fire({panel, isVisible: false})
+        if(!this.isClearIng){
+            this._panelClosed?.fire(panel.title)
+        }
     }
 }
 // 修改moveGroupOrPanel

@@ -15,17 +15,23 @@ export class DefaultPanel {
     }
 
     init(parameter) {
-        let { params, api, containerApi: { component } } = parameter
+        let { params, api, containerApi: { component: {template} } } = parameter
         let { panel, group } = api
         let { tab, content } = panel.view
-        let contentEle = component.template?.querySelector('#' + this.option.id)
-        if (contentEle) {
-            let titleMenuEle = contentEle.querySelector(`[data-bb-component-id=${this.option.id}]`)
-            panel.titleMenuEle = titleMenuEle && contentEle.removeChild(titleMenuEle)
-            contentEle.style.width = '100%'
-            contentEle.style.height = '100%'
+        console.log(parameter,panel, this.option, 'parameter,panel, this.option');
+        if(template){
+            let contentEle = template.querySelector('#' + this.option.id)
+            if(!contentEle) {
+                contentEle = panel.params.key ? template.querySelector(`[${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
+            }
+            if (contentEle) {
+                let titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
+                panel.titleMenuEle = titleMenuEle && contentEle.removeChild(titleMenuEle)
+                contentEle.style.width = '100%'
+                contentEle.style.height = '100%'
+            }
+            this.element.append(contentEle)
         }
-        this.element.append(contentEle)
         const { titleClass, titleWidth, contentClass, class: groupClass } = params
         titleClass && tab._content.classList.add(titleClass)
         titleWidth && (tab._content.style.width = titleWidth + 'px')
@@ -48,30 +54,32 @@ class PanelControl {
         // Panel的Body
         this.contentEle = view.content.element
         this.panel = dockviewPanel
+        console.log(dockviewPanel, 'dockviewPanel');
         dockviewPanel.titleMenuEle && this.createGear(api)
         this.creatCloseBtn()
     }
     // 添加小齿轮
     createGear(api) {
-        const divEle = document.createElement('div')
-        // divEle.style.display = api.isVisible ? 'block' : 'none'
-        // divEle.innerHTML = '<i class="fa-solid fa-fw fa-cog">'
-        divEle.append(this.panel.titleMenuEle)
-        // this.panel.titleMenuEle = null
-        // divEle.addEventListener('click', () => {
-        //     alert(api.id)
+        // const divEle = document.createElement('div')
+        // divEle.append(this.panel.titleMenuEle)
+        // divEle.addEventListener('mousedown', e => {
+        //     e.stopPropagation()
         // })
-        divEle.addEventListener('mousedown', e => {
-            e.stopPropagation()
-        })
-        this.tabEle.insertAdjacentElement("afterbegin", divEle)
+        if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
+            this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
+        }
+        else if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')){
+            this.panel.view.tab._content.innerHTML = ''
+            this.panel.view.tab._content.append(this.panel.titleMenuEle)
+        }
         // api.onDidVisibilityChange(({ isVisible }) => {
         //     divEle.style.display = isVisible ? 'block' : 'none'
         // })
     }
     creatCloseBtn() {
-        if (!this.panel.params?.showClose) {
-            this.tabEle.querySelector('.dv-default-tab-action').style.display = 'none'
+        console.log([this.tabEle]);
+        if (this.panel.params?.showClose === false) {
+            this.tabEle.children[this.tabEle.children.length - 1].style.display = 'none'
         }
     }
 }
@@ -101,7 +109,8 @@ class GroupControl {
     // 添加右侧控制按钮
     creatRightControl() {
         // showClose, showFloat, showLock, showMaximize
-        let divEle = document.createElement('div')
+        // let divEle = this.document.createElement('div')
+        let divEle = this.headerEle.querySelector('.right-actions-container')
         let { panels, api } = this.group
         let filterControls = this.dockview.groupControls.filter(item => {
             switch (item.name) {
@@ -118,19 +127,22 @@ class GroupControl {
             let btn = this._createButton(item)
             divEle.append(btn)
         })
-        divEle.style.cssText = `display: flex;align-items: center;padding: 0px 8px;height: 100%;`
-        this.headerEle.querySelector('.right-actions-container').append(divEle)
+        // divEle.style.cssText = `display: flex;align-items: center;padding: 0px 8px;height: 100%;`
+        // this.headerEle.querySelector('.right-actions-container').append(divEle)
     }
 
     _createButton(item) {
         const divEle = document.createElement('div')
         divEle.title = item.name
-        divEle.className = item.name
+        // divEle.className = item.name
         divEle.innerHTML = item.icon[0]
-        divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
+        // divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
 
         if (item.name == 'lock') {
-            this.group.locked = this.isOpenFloat ? false : this.dockview.locked ? true : this._getGroupParams('isLock') ? true : false
+            this.lockEle = divEle
+            console.log(909090909099);
+            let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
+            this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
             divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
             divEle.title = this.group.locked ? 'unlock' : 'lock'
         }
@@ -165,10 +177,10 @@ class GroupControl {
             panel.params && (panel.params.isLock = this.group.locked !== false)
         })
         this.toggleLock(divEle, item)
-        this.dockview._lockChanged?.fire(this.group.locked !== false)
+        this.dockview._lockChanged?.fire({title: this.group.panels.map(panel => panel.title), isLock: this.group.locked !== false})
     }
     toggleLock(divEle, item) {
-        divEle = divEle || this.group.header.rightActionsContainer.querySelector('.lock')
+        divEle = divEle || this.lockEle
         item = item || this.dockview.groupControls.find(option => option.name == 'lock')
         if (!divEle) return
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
@@ -322,7 +334,7 @@ export function cerateDockview(el, options) {
         { name: 'close', icon: ['close'] }
     ].map(({ name, icon }) => ({
         name,
-        icon: icon.map(item => template.querySelector(`[data-bb-control=${item}]`)?.outerHTML)
+        icon: icon.map(item => template.querySelector(`[data-bb-control=${item}]`)?.innerHTML)
     }))
     dockview.prefix = options.prefix
     dockview.locked = options.lock
@@ -332,7 +344,10 @@ export function cerateDockview(el, options) {
     dockview.update = updateOptions => {
         console.log(updateOptions, 'update');
         console.log(dockview, 'dockview0000000');
-        if (dockview.locked !== updateOptions.lock) {
+        if(updateOptions.layoutConfig){
+            reloadDockview(updateOptions, dockview)
+        }
+        else if (dockview.locked !== updateOptions.lock) {
             // 处理 Lock 逻辑
             dockview.locked = updateOptions.lock
             lockDock(dockview)
@@ -344,27 +359,33 @@ export function cerateDockview(el, options) {
     }
     dockview.reset = (resetOptions) => {
         console.log('reset', resetOptions);
-        dockview.isResetIng = true
-        dockview.clear()
-        setTimeout(() => {
-            dockview.isResetIng && (delete dockview.isResetIng)
-        }, 0);
-        loadDockview(dockview, getJson(dockview, serverData, true))
+        reloadDockview(resetOptions, dockview)
     }
     dockview.dispose = () => {
         console.log('dispose:', dockview);
     }
 
     // 序列化options数据为dockview可用数据(layoutConfig优先)
-    let serverData = JSON.parse(options.layoutConfig) || serialize(options)
-    console.log(serverData, 'serverData');
+    let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
+    let layoutConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
+    let serializeData = serialize(options)
+
     // 以本地优先, 得到最终的dockviewData并修正
-    let dockviewData = getJson(dockview, serverData)
+    let dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
     // 绑定钩子函数
     addHook(dockview, dockviewData, options)
     // 渲染dockview结构
-    loadDockview(dockview, dockviewData, serverData)
+    loadDockview(dockview, dockviewData, serializeData)
     return dockview
+}
+const reloadDockview = (options, dockview) => {
+    dockview.isClearIng = true
+    dockview.clear()
+    setTimeout(() => {
+        dockview.isClearIng && (delete dockview.isClearIng)
+    }, 0);
+    let resetConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
+    loadDockview(dockview, getJson(dockview, resetConfig || serialize(options)))
 }
 
 export function toggleComponent(dock, option) {
@@ -396,7 +417,7 @@ const lockGroup = (group, isLock) => {
 }
 export function lockDock(dock) {
     dock.groups.forEach(group => lockGroup(group, dock.locked))
-    dock._lockChanged?.fire(dock.locked)
+    // dock._lockChanged?.fire(dock.locked)
 }
 export function getTheme(element) {
     function toClassList(element) {
@@ -634,17 +655,17 @@ export function addDelPanel(panel, delPanels, dockview) {
         position: { referenceGroup: group },
         params: { ...panel.params, isPackup, height, isMaximized, position }
     });
-    dockview._visibleChanged?.fire({ panel: panelObj, isVisible: true })
+    // dockview._visibleChanged?.fire({ panel: panelObj, isVisible: true })
     setDecreaseLocal(dockview.prefix + '-panels', panel)
 }
-export function loadDockview(dockview, dockviewData, serverData) {
+export function loadDockview(dockview, dockviewData, serializeData) {
     try {
         dockview.fromJSON(dockviewData)
     } catch (error) {
         setTimeout(() => {
-            localStorage.removeItem(dockview.prefix + '-panels',);
+            localStorage.removeItem(dockview.prefix + '-panels');
             localStorage.removeItem(dockview.prefix);
-            dockview.fromJSON(serverData)
+            dockview.fromJSON(serializeData)
         }, 0)
         throw new Error('load error message: ', error)
 
