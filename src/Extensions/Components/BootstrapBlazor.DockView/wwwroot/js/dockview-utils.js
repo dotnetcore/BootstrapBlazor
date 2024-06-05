@@ -70,7 +70,6 @@ class PanelControl {
         // })
     }
     creatCloseBtn() {
-        console.log(this.tabEle, 'this.tabEle');
         if(!this.panel.params?.showClose){
             this.tabEle.querySelector('.dv-default-tab-action').style.display = 'none'
         }
@@ -113,7 +112,6 @@ class GroupControl {
                 case 'close': return panels.every(panel => panel.params.showClose !== false)
             }
         })
-        console.log(filterControls, 'filterOptionfilterOptionfilterOption');
         filterControls.forEach(item => {
             if (api.location.type == 'grid' && item.name == 'packup/expand') return
             item.name == 'packup/expand' && (item.icon = ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>'])
@@ -132,7 +130,6 @@ class GroupControl {
         divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
 
         if (item.name == 'lock') {
-            console.log(this.group, 'this.group');
             this.group.locked = this.isOpenFloat ? false : this.dockview.locked ? true : this._getGroupParams('isLock') ? true : false
             divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
             divEle.title = this.group.locked ? 'unlock' : 'lock'
@@ -329,8 +326,12 @@ export function cerateDockview(el, options) {
     }))
     dockview.prefix = options.prefix
     dockview.locked = options.lock
+    dockview.saveLayout = () => {
+        return dockview.toJSON()
+    }
     dockview.update = updateOptions => {
-        console.log('update', updateOptions);
+        console.log(updateOptions, 'update');
+        console.log(dockview, 'dockview0000000');
         if (dockview.locked !== updateOptions.lock) {
             // 处理 Lock 逻辑
             dockview.locked = updateOptions.lock
