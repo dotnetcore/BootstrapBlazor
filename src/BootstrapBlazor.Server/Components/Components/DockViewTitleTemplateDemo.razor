@@ -1,0 +1,18 @@
+﻿<div class="dv-default-tab-action">
+    <i class="fa-solid fa-gear" @onclick="OnClick"></i>
+    <span>标签二</span>
+    <span class="widget">2</span>
+</div>
+
+@code {
+    [Parameter]
+    public Func<Task>? OnClickTitleBarCallback { get; set; }
+
+    public async Task OnClick()
+    {
+        if (OnClickTitleBarCallback != null)
+        {
+            await OnClickTitleBarCallback();
+        }
+    }
+}
