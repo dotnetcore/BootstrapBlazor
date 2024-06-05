@@ -66,7 +66,8 @@ class PanelControl {
         //     e.stopPropagation()
         // })
         if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
-            this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
+            // this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
+            this.tabEle.append(this.panel.titleMenuEle)
         }
         else if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')){
             this.panel.view.tab._content.innerHTML = ''
@@ -123,7 +124,7 @@ class GroupControl {
         })
         filterControls.forEach(item => {
             if (api.location.type == 'grid' && item.name == 'packup/expand') return
-            item.name == 'packup/expand' && (item.icon = ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>'])
+            // item.name == 'packup/expand' && (item.icon = ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>'])
             let btn = this._createButton(item)
             divEle.append(btn)
         })
@@ -149,7 +150,8 @@ class GroupControl {
         else if (item.name == 'packup/expand') {
             let isPackup = this._getGroupParams('isPackup')
             if (isPackup) {
-                divEle.innerHTML = item.icon[1]
+                // divEle.innerHTML = item.icon[1]
+                divEle.style.transform = 'rotateZ(180deg)'
             }
         }
         else if (item.name == 'float') {
@@ -197,7 +199,8 @@ class GroupControl {
             this._setGroupParams({ 'isPackup': true, 'height': parseFloat(parentEle.style.height) })
             parentEle.style.height = '35px'
         }
-        divEle.innerHTML = item.icon[isPackup ? 0 : 1]
+        // divEle.innerHTML = item.icon[isPackup ? 0 : 1]
+        divEle.style.transform = isPackup ? 'rotateZ(180deg)' : 'rotateZ(0)'
         saveConfig(this.dockview)
     }
     _float(divEle, item) {
@@ -328,7 +331,7 @@ export function cerateDockview(el, options) {
     dockview.template = template
     dockview.groupControls = [
         { name: 'lock', icon: ['unlock', 'lock'] },
-        { name: 'packup/expand', icon: [] },
+        { name: 'packup/expand', icon: ['down'] },
         { name: 'float', icon: ['float', 'dock'] },
         { name: 'maximize', icon: ['full', 'restore'] },
         { name: 'close', icon: ['close'] }
