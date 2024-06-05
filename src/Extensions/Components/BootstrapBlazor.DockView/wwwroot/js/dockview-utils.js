@@ -7,10 +7,6 @@ export class DefaultPanel {
         return this._element;
     }
     constructor(option) {
-        this._element = document.createElement('div');
-        // this._element.style.color = "white";
-        this._element.style.width = '100%'
-        this._element.style.height = '100%'
         this.option = option
     }
 
@@ -27,10 +23,9 @@ export class DefaultPanel {
             if (contentEle) {
                 let titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
                 panel.titleMenuEle = titleMenuEle && contentEle.removeChild(titleMenuEle)
-                contentEle.style.width = '100%'
-                contentEle.style.height = '100%'
+                contentEle = [...contentEle.children].find(div => div.className.includes('panel') || div.className.includes('bb-dock-view'))
             }
-            this.element.append(contentEle)
+            this._element = contentEle
         }
         const { titleClass, titleWidth, contentClass, class: groupClass } = params
         titleClass && tab._content.classList.add(titleClass)
@@ -66,8 +61,7 @@ class PanelControl {
         //     e.stopPropagation()
         // })
         if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
-            // this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
-            this.tabEle.append(this.panel.titleMenuEle)
+            this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
         }
         else if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')){
             this.panel.view.tab._content.innerHTML = ''
@@ -469,11 +463,12 @@ export function addHook(dockview, dockviewData) {
             obj.groupInvisible = event.params.groupInvisible
         }
         setSumLocal(dockview.prefix + '-panels', obj)
-        let contentEle = event.view.content.element.children[0]
-        if (event.titleMenuEle) {
-            contentEle.append(event.titleMenuEle)
-        }
-        dockview.template.append(event.view.content.element.children[0])
+
+        // let contentEle = event.view.content.element
+        // if (event.titleMenuEle) {
+        //     contentEle.append(event.titleMenuEle)
+        // }
+        dockview.template.querySelector('#' + event.id).append(event.view.content.element)
 
         // 放在onDidLayoutChange里保存
         // saveConfig(dockview)
