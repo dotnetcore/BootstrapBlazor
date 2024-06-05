@@ -138,18 +138,17 @@ public partial class DockViewV2
         {
             _rendered = true;
             StateHasChanged();
+            return;
         }
-        else if (_rendered)
+
+        if (_init)
         {
-            if (_init)
-            {
-                await InvokeVoidAsync("update", Id, GetOptions());
-            }
-            else
-            {
-                _init = true;
-                await InvokeVoidAsync("init", Id, Interop, GetOptions());
-            }
+            await InvokeVoidAsync("update", Id, GetOptions());
+        }
+        else
+        {
+            _init = true;
+            await InvokeVoidAsync("init", Id, Interop, GetOptions());
         }
     }
 
@@ -172,14 +171,14 @@ public partial class DockViewV2
     /// 重置为默认布局
     /// </summary>
     /// <returns></returns>
-    public Task Reset(string? layoutConfig = null)
+    public async Task Reset(string? layoutConfig = null)
     {
         var options = GetOptions();
         if (layoutConfig != null)
         {
             options.LayoutConfig = layoutConfig;
         }
-        return InvokeVoidAsync("reset", Id, options);
+        await InvokeVoidAsync("reset", Id, options);
     }
 
     /// <summary>
