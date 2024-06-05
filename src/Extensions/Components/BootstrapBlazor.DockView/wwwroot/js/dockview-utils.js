@@ -21,11 +21,11 @@ export class DefaultPanel {
                 contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
             }
             if (contentEle) {
-                let titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
-                panel.titleMenuEle = titleMenuEle && contentEle.removeChild(titleMenuEle)
-                contentEle = [...contentEle.children].find(div => div.className.includes('panel') || div.className.includes('bb-dock-view'))
+                panel.titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
+
+                contentEle = [...contentEle.children].find(div => div.classList.contains('panel') || div.classList.contains('bb-dock-view'))
             }
-            this._element = contentEle
+            this._element = contentEle || document.createElement('div')
         }
         const { titleClass, titleWidth, contentClass, class: groupClass } = params
         titleClass && tab._content.classList.add(titleClass)
@@ -466,15 +466,14 @@ export function addHook(dockview, dockviewData) {
         }
         setSumLocal(dockview.prefix + '-panels', obj)
 
-        // let contentEle = event.view.content.element
-        // if (event.titleMenuEle) {
-        //     contentEle.append(event.titleMenuEle)
-        // }
         let boxEle = dockview.template.querySelector('#' + event.id)
         if(!boxEle){
             boxEle = event.params.key ? dockview.template.querySelector(`[data-bb-key=${event.params.key}]`) : dockview.template.querySelector(`[data-bb-title=${event.title}]`)
         }
         boxEle.append(event.view.content.element)
+        if (event.titleMenuEle) {
+            boxEle.append(event.titleMenuEle)
+        }
 
         // 放在onDidLayoutChange里保存
         // saveConfig(dockview)
