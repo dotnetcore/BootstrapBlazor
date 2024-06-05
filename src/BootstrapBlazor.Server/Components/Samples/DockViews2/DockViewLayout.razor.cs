@@ -29,9 +29,10 @@ public partial class DockViewLayout
         LayoutConfig = LayoutConfig3;
     }
 
-    private void OnSaveLayout()
+    private Task OnSaveLayout()
     {
         DockView.SaveLayout();
+        return Task.CompletedTask;
     }
 
     private string LayoutConfig = LayoutConfig1;
