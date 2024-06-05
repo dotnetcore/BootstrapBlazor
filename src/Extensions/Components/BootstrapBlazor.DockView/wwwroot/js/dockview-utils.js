@@ -106,11 +106,11 @@ class GroupControl {
         let {panels, api} = this.group
         let filterControls = this.dockview.groupControls.filter(item => {
             switch(item.name){
-                case 'lock': return panels.some(panel => panel.params.showLock)
+                case 'lock': return panels.some(panel => panel.params.showLock !== false)
                 case 'packup/expand': return true
-                case 'float': return panels.every(panel => panel.params.showFloat)
-                case 'maximize': return panels.every(panel => panel.params.showMaximize)
-                case 'close': return panels.every(panel => panel.params.showClose)
+                case 'float': return panels.every(panel => panel.params.showFloat !== false)
+                case 'maximize': return panels.every(panel => panel.params.showMaximize !== false)
+                case 'close': return panels.every(panel => panel.params.showClose !== false)
             }
         })
         console.log(filterControls, 'filterOptionfilterOptionfilterOption');
