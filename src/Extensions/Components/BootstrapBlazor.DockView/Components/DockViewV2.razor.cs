@@ -168,6 +168,14 @@ public partial class DockViewV2
         Contents = _root
     };
 
+    private static Func<Task> OnClickBar(Func<Task>? callback) => new(async () =>
+    {
+        if (callback != null)
+        {
+            await callback();
+        }
+    });
+
     /// <summary>
     /// 重置为默认布局
     /// </summary>
