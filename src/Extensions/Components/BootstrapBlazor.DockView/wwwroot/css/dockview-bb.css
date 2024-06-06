@@ -1,0 +1,100 @@
+﻿@import './dockview.css';
+
+.bb-dock-view {
+    --bb-dock-view-padding: .25rem;
+    --bb-dock-view-tab-line-height: 21px;
+    --bb-dock-view-tab-padding: 0 8px;
+    --bb-dock-view-control-icon-width: 12px;
+    --bb-dock-view-control-icon-color: #333;
+    --dv-tabs-and-actions-container-font-size: 13px;
+    --dv-tabs-and-actions-container-height: 35px;
+    width: 100%;
+    height: 100%;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+    .bb-dock-view .groupview > .content-container {
+        padding: var(--bb-dock-view-padding);
+    }
+
+    .bb-dock-view .bb-dock-view-item-title-icon {
+        cursor: pointer;
+    }
+
+    .bb-dock-view .bb-dock-view-item-title {
+        position: relative;
+    }
+
+    .bb-dock-view .tab .dv-default-tab .dv-default-tab-content {
+        line-height: var(--bb-dock-view-tab-line-height);
+    }
+
+    .bb-dock-view .tab .dv-default-tab {
+        padding: var(--bb-dock-view-tab-padding);
+    }
+
+        .bb-dock-view .tab .dv-default-tab .dv-default-tab-content {
+            padding: var(--bb-dock-view-tab-padding);
+        }
+
+    .bb-dock-view .tab.inactive-tab .dv-default-tab .dv-default-tab-action {
+        visibility: visible;
+    }
+
+    .bb-dock-view .tab:focus::after {
+        outline-offset: 0;
+    }
+
+    .bb-dock-view.dockview-theme-light {
+        --dv-separator-border: var(--bs-border-color);
+        --dv-background-color: var(--bs-body-bg);
+        --dv-floating-box-shadow: var(--bs-box-shadow);
+        --dv-tab-divider-color: var(--bs-border-color);
+    }
+
+    .bb-dock-view.dockview-theme-dark {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-vs {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-abyss {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-dracula {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view .right-actions-container {
+        display: flex;
+        align-items: center;
+        margin-right: .5rem;
+    }
+
+        .bb-dock-view .right-actions-container > div {
+            cursor: pointer;
+        }
+
+            .bb-dock-view .right-actions-container > div:not(:first-child) {
+                margin-left: .5rem;
+            }
+
+    .bb-dock-view .bb-dockview-control-icon {
+        width: var(--bb-dock-view-control-icon-width);
+        height: var(--bb-dock-view-control-icon-width);
+    }
+
+        .bb-dock-view .bb-dockview-control-icon > * {
+            stroke: var(--bb-dock-view-control-icon-color);
+        }
+
+    .bb-dock-view .bb-dock-view-control-up > svg {
+        transition: transform .3s linear;
+    }
+
+    .bb-dock-view .bb-dock-view-control-up.bb-dock-view-control-down > svg {
+        transform: rotate(180deg);
+    }

@@ -1,0 +1,20 @@
+﻿@page "/dock-view2/col"
+
+<DockViewV2 Name="DockViewV2LayoutColumn">
+    <DockViewContent Type="DockViewContentType.Column">
+        <DockViewComponent Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback">
+            <div class="panel">Panel1</div>
+        </DockViewComponent>
+        <DockViewComponent Title="标签二">
+            <TitleTemplate>
+                <DockViewTitleTemplateDemo OnClickTitleBarCallback="OnClickTitleBarCallback"></DockViewTitleTemplateDemo>
+            </TitleTemplate>
+            <ChildContent>
+                <div class="panel">Panel2</div>
+            </ChildContent>
+        </DockViewComponent>
+        <DockViewComponent Title="标签三">
+            <div class="panel">Panel3</div>
+        </DockViewComponent>
+    </DockViewContent>
+</DockViewV2>

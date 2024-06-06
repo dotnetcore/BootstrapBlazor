@@ -1,0 +1,23 @@
+﻿@page "/dock-view2/lock"
+
+<h4>锁定面板</h4>
+<p>通过设置 <code>DockView</code> 的属性 <code>IsLock</code>,控制所有面板是否能拖动</p>
+<p>通过设置 <code>DockComponent</code> 的属性 <code>IsLock</code>,控制某个面板是否能拖动</p>
+
+<Button OnClick="OnToggleLock" Text="@LockText"></Button>
+
+<div class="dock-lock-demo">
+    <DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewComponent Title="标签一">
+                <div class="panel">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签二">
+                <div class="panel">Panel2</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签三">
+                <div class="panel">Panel3</div>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+</div>

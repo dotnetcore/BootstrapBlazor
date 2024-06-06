@@ -1,0 +1,33 @@
+﻿@page "/dock-view2/nest"
+
+<div class="dock-view-theme-demo">
+    <Select @bind-Value="@_theme"></Select>
+
+    <DockViewV2 Name="DockViewNest" Theme="_theme" class="dock-view-demo">
+        <DockViewContent Type="DockViewContentType.Row">
+            <DockViewComponent Title="标签一">
+                <div class="panel">Panel1</div>
+            </DockViewComponent>
+            <DockViewComponent Title="标签二">
+                <div class="panel">Panel2</div>
+            </DockViewComponent>
+            <DockViewComponent Title="嵌套布局">
+                <DockViewV2 Name="DockViewInnerNest" Theme="_theme">
+                    <DockViewContent Type="DockViewContentType.Column">
+                        <DockViewComponent Title="内嵌标签一">
+                            <div class="panel">Panel3</div>
+                        </DockViewComponent>
+                        <DockViewContent Type="DockViewContentType.Row">
+                            <DockViewComponent Title="内嵌标签二">
+                                <div class="panel">Panel4</div>
+                            </DockViewComponent>
+                            <DockViewComponent Title="内嵌标签三">
+                                <div class="panel">Panel5</div>
+                            </DockViewComponent>
+                        </DockViewContent>
+                    </DockViewContent>
+                </DockViewV2>
+            </DockViewComponent>
+        </DockViewContent>
+    </DockViewV2>
+</div>
