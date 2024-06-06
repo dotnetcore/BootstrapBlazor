@@ -14,7 +14,6 @@ export class DefaultPanel {
         let { params, api, containerApi: { component: {template} } } = parameter
         let { panel, group } = api
         let { tab, content } = panel.view
-        console.log(parameter,panel, this.option, 'parameter,panel, this.option');
         if(template){
             let contentEle = template.querySelector('#' + this.option.id)
             if(!contentEle) {
@@ -49,7 +48,6 @@ class PanelControl {
         // Panel的Body
         this.contentEle = view.content.element
         this.panel = dockviewPanel
-        console.log(dockviewPanel, 'dockviewPanel');
         dockviewPanel.titleMenuEle && this.createGear(api)
         this.creatCloseBtn()
     }
@@ -72,9 +70,12 @@ class PanelControl {
         // })
     }
     creatCloseBtn() {
-        console.log([this.tabEle]);
+        let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
         if (this.panel.params?.showClose === false) {
-            this.tabEle.children[this.tabEle.children.length - 1].style.display = 'none'
+            closeBtn.style.display = 'none'
+        }else{
+            let closeControl = this.panel.accessor.groupControls?.find(control => control.name == 'close')
+            closeBtn.innerHTML = closeControl?.icon[0]
         }
     }
 }
@@ -129,29 +130,30 @@ class GroupControl {
     _createButton(item) {
         const divEle = document.createElement('div')
         divEle.title = item.name
-        // divEle.className = item.name
+        divEle.className = 'bb-dock-view-control-' + item.name
         divEle.innerHTML = item.icon[0]
         // divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
 
         if (item.name == 'lock') {
             this.lockEle = divEle
-            console.log(909090909099);
             let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
             this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
             divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
             divEle.title = this.group.locked ? 'unlock' : 'lock'
         }
         else if (item.name == 'packup/expand') {
+            divEle.className = 'bb-dock-view-control-up'
             let isPackup = this._getGroupParams('isPackup')
-            if (!isPackup) {
+            if (isPackup) {
                 // divEle.innerHTML = item.icon[1]
-                divEle.style.transform = 'rotateZ(180deg)'
+                // divEle.style.transform = 'rotateZ(180deg)'
+                divEle.classList.add('bb-dock-view-control-down')
             }
         }
         else if (item.name == 'float') {
             let type = this.group.model.location.type
             if (type == 'floating') {
-                divEle.title = 'recover'
+                divEle.title = 'restore'
                 divEle.innerHTML = item.icon[1]
             }
         }
@@ -194,25 +196,27 @@ class GroupControl {
             parentEle.style.height = '35px'
         }
         // divEle.innerHTML = item.icon[isPackup ? 0 : 1]
-        divEle.style.transform = isPackup ? 'rotateZ(180deg)' : 'rotateZ(0)'
+        divEle.style.transform = isPackup ? divEle.classList.remove('bb-dock-view-control-down') : divEle.classList.add('bb-dock-view-control-down')
         saveConfig(this.dockview)
     }
     _float(divEle, item) {
         if (this.group.locked) return
-        let gridGroups = this.dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
-        if(gridGroups.length <= 1) return
         let type = this.group.model.location.type
+        let x = (this.dockview.width - 500) / 2
+        let y = (this.dockview.height - 460) / 2
         if (type == 'grid') {
+            let gridGroups = this.dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
+            if(gridGroups.length <= 1) return
             let { position = {}, isPackup, height, isMaximized } = this.group.getParams()
             let floatingGroupPosition = isMaximized ? {
                 x: 0, y: 0,
                 width: this.dockview.width,
                 height: this.dockview.height
             } : {
-                x: position.left || 0,
-                y: position.top || 0,
-                width: position.width || this.group.width,
-                height: position.height || this.group.height
+                x: position.left || (x < 35 ? 35 : x),
+                y: position.top || (y < 35 ? 35 : y),
+                width: position.width || 500,
+                height: position.height || 460
             }
 
             let group = this.dockview.createGroup({ id: this.group.id + '_floating' })
@@ -313,7 +317,6 @@ class GroupControl {
 }
 
 export function cerateDockview(el, options) {
-    console.log(el.id, options, 'options77777');
     const { templateId } = options
     const template = document.getElementById(templateId)
     const dockview = new DockviewComponent({
@@ -341,8 +344,6 @@ export function cerateDockview(el, options) {
         return dockview.toJSON()
     }
     dockview.update = updateOptions => {
-        console.log(updateOptions, 'update');
-        console.log(dockview, 'dockview0000000');
         if(updateOptions.layoutConfig){
             reloadDockview(updateOptions, dockview)
         }
@@ -357,11 +358,9 @@ export function cerateDockview(el, options) {
         }
     }
     dockview.reset = (resetOptions) => {
-        console.log('reset', resetOptions);
         reloadDockview(resetOptions, dockview)
     }
     dockview.dispose = () => {
-        console.log('dispose:', dockview);
     }
 
     // 序列化options数据为dockview可用数据(layoutConfig优先)
@@ -489,7 +488,6 @@ export function addHook(dockview, dockviewData) {
     })
     // 钩子3：添加Group触发
     dockview.onDidAddGroup(event => {
-        // console.log('onDidAddGroup', event);
         // 给每个Group实例添加type和params属性
         Object.defineProperties(event, {
             type: {
@@ -522,41 +520,31 @@ export function addHook(dockview, dockviewData) {
             }, 0);
         }
 
-        // console.log(event, event.id, 'onDidAddGroup');
-        event.model.onGroupDragStart(function (e) {
-            // console.log(e, 'onGroupDragStartonGroupDragStart');
-        })
+        event.model.onGroupDragStart(function (e) { })
     })
     dockview.onDidRemoveGroup(event => { })
 
     // 钩子4：拖拽panel标题前触发
     dockview.onWillDragPanel(event => {
-        // console.log(event, 'onWillDragPanel');
         if (event.panel.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
 
     // 钩子5：拖拽panel之后触发
-    dockview._onDidMovePanel.event(event => {
-        console.log('onDidMovePanel');
-    })
+    dockview._onDidMovePanel.event(event => { })
 
     // 狗子6：拖拽Group之前触发
     dockview.onWillDragGroup(event => {
-        // console.log(event, 'onWillDragGroup');
         if (event.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
 
     // 钩子7：拖拽分割线后触发
-    dockview.gridview.onDidChange(event => {
-        console.log(event, 'onDidChange');
-    })
+    dockview.gridview.onDidChange(event => { })
 
     // 钩子8：所有造成layout变化的操作都会触发
-    let abc = 0
     let eve = dockview.onDidLayoutChange(event => {
         setTimeout(() => {
             // 维护Group的children属性
