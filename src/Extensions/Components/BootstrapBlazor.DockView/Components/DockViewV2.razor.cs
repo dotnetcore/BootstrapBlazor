@@ -157,8 +157,7 @@ public partial class DockViewV2
     private DockViewConfig GetOptions() => new()
     {
         EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
-        LocalStorageKey = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock-view"}-{Name}",
-        Version = Version ?? _options.Version ?? "v1",
+        LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         IsLock = IsLock,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
@@ -167,6 +166,10 @@ public partial class DockViewV2
         TemplateId = _templateId,
         Contents = _root
     };
+
+    private string GetVersion() => Version ?? _options.Version ?? "v1";
+
+    private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock-view";
 
     private static Func<Task> OnClickBar(Func<Task>? callback) => new(async () =>
     {
