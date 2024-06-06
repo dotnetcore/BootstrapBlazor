@@ -151,14 +151,6 @@ public sealed partial class DateTimePickers
         },
         new()
         {
-            Name = "IsShown",
-            Description = Localizer["Att5"],
-            Type = "boolean",
-            ValueList = "",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "IsDisabled",
             Description = Localizer["Att6"],
             Type = "bool",
