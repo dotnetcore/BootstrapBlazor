@@ -99,9 +99,10 @@
         transform: rotate(180deg);
     }
 
-    .bb-dock-view .dv-tab-on > .dv-default-tab-action{
+    .bb-dock-view .dv-tab-on > .dv-default-tab-action {
         display: none;
     }
-    .bb-dock-view .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dock-view-control-close{
+
+    .bb-dock-view .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dock-view-control-close {
         display: none;
     }
