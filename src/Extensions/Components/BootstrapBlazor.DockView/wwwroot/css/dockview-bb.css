@@ -23,6 +23,8 @@
 
     .bb-dock-view .bb-dock-view-item-title {
         position: relative;
+        display: flex;
+        align-items: center;
     }
 
     .bb-dock-view .tab .dv-default-tab .dv-default-tab-content {
