@@ -69,3 +69,11 @@
         width: var(--bb-dock-view-control-icon-width);
         height: var(--bb-dock-view-control-icon-width);
     }
+
+    .bb-dock-view .bb-dock-view-control-up > svg {
+        transition: transform .3s linear;
+    }
+
+    .bb-dock-view .bb-dock-view-control-up.bb-dock-view-control-down > svg {
+        transform: rotate(180deg);
+    }
