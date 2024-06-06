@@ -33,12 +33,6 @@ public class DockViewContent : DockViewComponentBase
     public int? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件是否显示 Header 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowHeader { get; set; } = true;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>

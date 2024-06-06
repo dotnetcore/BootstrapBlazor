@@ -19,6 +19,12 @@ public class DockViewComponent : DockViewComponentBase
     public string ComponentName { get; set; } = "component";
 
     /// <summary>
+    /// 获得/设置 组件是否显示 Header 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowHeader { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件 Title
     /// </summary>
     [Parameter]
