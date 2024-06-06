@@ -70,10 +70,10 @@ class PanelControl {
         // })
     }
     creatCloseBtn() {
-        let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
         if (this.panel.params?.showClose === false) {
-            closeBtn.style.display = 'none'
+            this.tabEle.classList.add('dv-tab-on')
         }else{
+            let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
             let closeControl = this.panel.accessor.groupControls?.find(control => control.name == 'close')
             closeBtn.innerHTML = closeControl?.icon[0]
         }
@@ -114,7 +114,7 @@ class GroupControl {
                 case 'packup/expand': return true
                 case 'float': return panels.every(panel => panel.params.showFloat !== false)
                 case 'maximize': return panels.every(panel => panel.params.showMaximize !== false)
-                case 'close': return panels.every(panel => panel.params.showClose !== false)
+                case 'close': return true
             }
         })
         filterControls.forEach(item => {
@@ -744,6 +744,7 @@ const getTree = (contentItem, { width, height, orientation }, length = 1) => {
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.content[0].id,
+            hideHeader: contentItem.content.length == 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
                     id: item.id,
@@ -763,6 +764,7 @@ const getTree = (contentItem, { width, height, orientation }, length = 1) => {
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.id,
+            hideHeader: contentItem.showHeader === false,
             views: obj.visible ? [contentItem.id] : []
         }
         if (obj.visible) {
