@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -154,12 +153,11 @@ public partial class DockViewV2
 
     private DockViewConfig GetOptions() => new()
     {
-        Version = Version ?? _options.Version ?? "v1",
-        Name = Name,
         EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
+        LocalStorageKey = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock-view"}-{Name}",
+        Version = Version ?? _options.Version ?? "v1",
         IsLock = IsLock,
         LayoutConfig = LayoutConfig,
-        LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),

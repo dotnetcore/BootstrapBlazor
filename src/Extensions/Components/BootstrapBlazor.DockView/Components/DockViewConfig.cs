@@ -9,11 +9,6 @@ namespace BootstrapBlazor.Components;
 class DockViewConfig
 {
     /// <summary>
-    /// 获得/设置 DockView 名称 要求页面内唯一
-    /// </summary>
-    public string Name { get; set; } = "default";
-
-    /// <summary>
     /// 获得/设置 是否启用本地布局保持 默认 true
     /// </summary>
     public bool EnableLocalStorage { get; set; } = true;
@@ -48,8 +43,7 @@ class DockViewConfig
     /// <summary>
     /// 获得/设置 客户端缓存键值
     /// </summary>
-    [JsonPropertyName("prefix")]
-    public string? LocalStorageKeyPrefix { get; set; }
+    public string? LocalStorageKey { get; set; }
 
     /// <summary>
     /// 获得/设置 Golden-Layout 配置项集合 默认 空集合
