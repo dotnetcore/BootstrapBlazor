@@ -19,11 +19,6 @@ export class DefaultPanel {
             if(!contentEle) {
                 contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
             }
-            if (contentEle) {
-                panel.titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
-
-                contentEle = [...contentEle.children].find(div => div.classList.contains('panel') || div.classList.contains('bb-dock-view'))
-            }
             this._element = contentEle || document.createElement('div')
         }
         const { titleClass, titleWidth, contentClass, class: groupClass } = params
@@ -47,7 +42,10 @@ class PanelControl {
         this.tabEle = view.tab.element
         // Panel的Body
         this.contentEle = view.content.element
+
+        dockviewPanel.titleMenuEle = this.contentEle.querySelector(`.bb-dock-view-item-title`) || this.contentEle.querySelector(`.bb-dock-view-item-title-icon`)
         this.panel = dockviewPanel
+
         dockviewPanel.titleMenuEle && this.createGear(api)
         this.creatCloseBtn()
     }
@@ -58,6 +56,7 @@ class PanelControl {
         // divEle.addEventListener('mousedown', e => {
         //     e.stopPropagation()
         // })
+
         if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
         }
@@ -65,6 +64,7 @@ class PanelControl {
             this.panel.view.tab._content.innerHTML = ''
             this.panel.view.tab._content.append(this.panel.titleMenuEle)
         }
+
         // api.onDidVisibilityChange(({ isVisible }) => {
         //     divEle.style.display = isVisible ? 'block' : 'none'
         // })
@@ -336,9 +336,9 @@ export function cerateDockview(el, options) {
         { name: 'close', icon: ['close'] }
     ].map(({ name, icon }) => ({
         name,
-        icon: icon.map(item => template.querySelector(`[data-bb-control=${item}]`)?.innerHTML)
+        icon: icon.map(item => template.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML)
     }))
-    dockview.prefix = options.prefix
+    dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
     dockview.saveLayout = () => {
         return dockview.toJSON()
@@ -465,13 +465,13 @@ export function addHook(dockview, dockviewData) {
         }
         setSumLocal(dockview.prefix + '-panels', obj)
 
-        let boxEle = dockview.template.querySelector('#' + event.id)
-        if(!boxEle){
-            boxEle = event.params.key ? dockview.template.querySelector(`[data-bb-key=${event.params.key}]`) : dockview.template.querySelector(`[data-bb-title=${event.title}]`)
-        }
-        boxEle.append(event.view.content.element)
-        if (event.titleMenuEle) {
-            boxEle.append(event.titleMenuEle)
+        if(event.view.content.element){
+            if(event.titleMenuEle){
+                event.view.content.element.append(event.titleMenuEle)
+            }
+            if(dockview.template){
+                dockview.template.append(event.view.content.element)
+            }
         }
 
         // 放在onDidLayoutChange里保存

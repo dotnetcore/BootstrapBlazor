@@ -40,18 +40,17 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         [...group.panels].forEach(panel => {
             panel.api.close()
         })
-        console.log(group, 'group88888888888888');
         this.setVisible(group, false)
 
         // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
-        let delPanels = getLocal('dock-view-panels')
+        let delPanels = getLocal(this.prefix + '-panels')
         delPanels = delPanels?.map(panel => {
             if (panel.groupId == group.id) {
                 panel.groupInvisible = true
             }
             return panel
         })
-        delPanels && localStorage.setItem('dock-view-panels', JSON.stringify(delPanels))
+        delPanels && localStorage.setItem(this.prefix + '-panels', JSON.stringify(delPanels))
     }
     else if (type == 'floating') {
         return removeGroup.apply(this, argu)
