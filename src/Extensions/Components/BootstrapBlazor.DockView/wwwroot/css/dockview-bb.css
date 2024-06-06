@@ -5,6 +5,7 @@
     --bb-dock-view-tab-line-height: 21px;
     --bb-dock-view-tab-padding: 0 8px;
     --bb-dock-view-control-icon-width: 12px;
+    --bb-dock-view-control-icon-color: #333;
     --dv-tabs-and-actions-container-font-size: 13px;
     --dv-tabs-and-actions-container-height: 35px;
     width: 100%;
@@ -51,6 +52,22 @@
         --dv-tab-divider-color: var(--bs-border-color);
     }
 
+    .bb-dock-view.dockview-theme-dark {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-vs {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-abyss {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
+    .bb-dock-view.dockview-theme-dracula {
+        --bb-dock-view-control-icon-color: #dee2e6;
+    }
+
     .bb-dock-view .right-actions-container {
         display: flex;
         align-items: center;
@@ -69,6 +86,10 @@
         width: var(--bb-dock-view-control-icon-width);
         height: var(--bb-dock-view-control-icon-width);
     }
+
+        .bb-dock-view .bb-dockview-control-icon > * {
+            stroke: var(--bb-dock-view-control-icon-color);
+        }
 
     .bb-dock-view .bb-dock-view-control-up > svg {
         transition: transform .3s linear;
