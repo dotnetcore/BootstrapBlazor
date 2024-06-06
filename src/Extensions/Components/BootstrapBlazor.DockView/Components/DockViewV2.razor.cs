@@ -140,14 +140,17 @@ public partial class DockViewV2
             return;
         }
 
-        if (_init)
+        if (Module != null)
         {
-            await InvokeVoidAsync("update", Id, GetOptions());
-        }
-        else
-        {
-            _init = true;
-            await InvokeVoidAsync("init", Id, Interop, GetOptions());
+            if (_init)
+            {
+                await InvokeVoidAsync("update", Id, GetOptions());
+            }
+            else
+            {
+                _init = true;
+                await InvokeVoidAsync("init", Id, Interop, GetOptions());
+            }
         }
     }
 
