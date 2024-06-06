@@ -54,7 +54,7 @@ public class DockViewTitle : ComponentBase
         }
         else
         {
-            builder.AddContent(5, new MarkupString("<svg width=\"16\" height=\"16\" viewBox=\"0 0 48 48\" fill=\"none\"><path d=\"M7.94971 11.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 23.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 35.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"));
+            builder.AddContent(5, new MarkupString("<svg viewBox=\"0 0 48 48\" fill=\"none\" class=\"bb-dockview-control-icon\"><path d=\"M7.94971 11.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 23.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/><path d=\"M7.94971 35.9497H39.9497\" stroke=\"#333\" stroke-width=\"3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg>"));
         }
 
         builder.CloseElement();
