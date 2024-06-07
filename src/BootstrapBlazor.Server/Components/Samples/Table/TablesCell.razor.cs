@@ -34,9 +34,14 @@ public partial class TablesCell
 
         SameNameItems = Foo.GenerateFoo(FooLocalizer);
 
-
         //为了竖向合并
-        SameNameItems.ForEach(x => x.Name = Items[0].Name);
+        SameNameItems[1].Name = SameNameItems[0].Name;
+        SameNameItems[2].Name = SameNameItems[0].Name;
+        SameNameItems[3].Name = SameNameItems[3].Name;
+        SameNameItems[4].Name = SameNameItems[0].Name;
+        SameNameItems[5].Name = SameNameItems[0].Name;
+       
+       
     }
 
     private static void OnCellRenderHandler(TableCellArgs args)

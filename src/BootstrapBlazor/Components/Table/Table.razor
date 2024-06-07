@@ -706,18 +706,13 @@
     object v=null;
     if(col.MergeRow)
     {
-    v = Utility.GetPropertyValue(item, col.GetFieldName());
-
-    same=Rows.Count(r=> Utility.GetPropertyValue(r, col.GetFieldName())==v);
-    i=Rows.IndexOf(item);
-    if(i==0)
-    {
-    rowspan=same;
-    }
+    rowspan=GetSameRowCount(item,col);
 
     }
-    if(rowspan>1&&col.MergeRow||!col.MergeRow)
+    if(rowspan>=1&&col.MergeRow||!col.MergeRow)
     {
+
+
 
         <td rowspan="@GetRowSpan(rowspan)" colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
             @{
