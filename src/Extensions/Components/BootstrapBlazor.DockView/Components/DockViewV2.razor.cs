@@ -105,7 +105,7 @@ public partial class DockViewV2
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly List<IDockViewComponent> _root = [];
+    private readonly List<IDockViewComponentBase> _root = [];
 
     private readonly List<DockViewComponent> _components = [];
 
