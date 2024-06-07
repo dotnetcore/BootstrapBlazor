@@ -6,6 +6,7 @@
     --bb-dock-view-tab-padding: 0 8px;
     --bb-dock-view-control-icon-width: 12px;
     --bb-dock-view-control-icon-color: #333;
+    --bb-dock-view-control-icon-lock-color: #b5b5c3;
     --dv-tabs-and-actions-container-font-size: 13px;
     --dv-tabs-and-actions-container-height: 35px;
     width: 100%;
@@ -112,4 +113,12 @@
 
     .bb-dock-view .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dock-view-control-close {
         display: none;
+    }
+
+    .bb-dock-view .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-close > * {
+        stroke: var(--bb-dock-view-control-icon-lock-color);
+    }
+
+    .bb-dock-view .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-float > * {
+        stroke: var(--bb-dock-view-control-icon-lock-color);
     }
