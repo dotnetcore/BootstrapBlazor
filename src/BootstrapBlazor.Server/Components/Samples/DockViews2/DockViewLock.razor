@@ -10,7 +10,7 @@
 <div class="dock-lock-demo">
     <DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
         <DockViewContent Type="DockViewContentType.Row">
-            <DockViewComponent Key="tab1" Title="标签一">
+            <DockViewComponent Key="tab1" Title="标签一" Width="120">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                        IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="true"
                        ShowDefaultButtons="false" IsFixedHeader="false">
