@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 class DockViewComponentConverter : JsonConverter<List<IDockViewComponent>>
 {
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -25,6 +25,12 @@ class DockViewComponentConverter : JsonConverter<List<IDockViewComponent>>
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="writer"></param>
+    /// <param name="value"></param>
+    /// <param name="options"></param>
     public override void Write(Utf8JsonWriter writer, List<IDockViewComponent> value, JsonSerializerOptions options)
     {
         writer.WriteStartArray();

@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 class DockViewTypeConverter : JsonConverter<DockViewContentType>
 {
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="reader"></param>
     /// <param name="typeToConvert"></param>
@@ -26,7 +26,7 @@ class DockViewTypeConverter : JsonConverter<DockViewContentType>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="writer"></param>
     /// <param name="value"></param>
