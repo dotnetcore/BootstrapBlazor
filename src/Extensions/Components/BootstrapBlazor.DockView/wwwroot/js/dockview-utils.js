@@ -11,12 +11,12 @@ export class DefaultPanel {
     }
 
     init(parameter) {
-        let { params, api, containerApi: { component: {template} } } = parameter
+        let { params, api, containerApi: { component: { template } } } = parameter
         let { panel, group } = api
         let { tab, content } = panel.view
-        if(template){
+        if (template) {
             let contentEle = template.querySelector('#' + this.option.id)
-            if(!contentEle) {
+            if (!contentEle) {
                 contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
             }
             this._element = contentEle || document.createElement('div')
@@ -57,10 +57,10 @@ class PanelControl {
         //     e.stopPropagation()
         // })
 
-        if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
+        if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
         }
-        else if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')){
+        else if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')) {
             this.panel.view.tab._content.innerHTML = ''
             this.panel.view.tab._content.append(this.panel.titleMenuEle)
         }
@@ -72,7 +72,7 @@ class PanelControl {
     creatCloseBtn() {
         if (this.panel.params?.showClose === false) {
             this.tabEle.classList.add('dv-tab-on')
-        }else{
+        } else {
             let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
             let closeControl = this.panel.accessor.groupControls?.find(control => control.name == 'close')
             closeBtn.innerHTML = closeControl?.icon[0]
@@ -175,7 +175,7 @@ class GroupControl {
             panel.params && (panel.params.isLock = this.group.locked !== false)
         })
         this.toggleLock(divEle, item)
-        this.dockview._lockChanged?.fire({title: this.group.panels.map(panel => panel.title), isLock: this.group.locked !== false})
+        this.dockview._lockChanged?.fire({ title: this.group.panels.map(panel => panel.title), isLock: this.group.locked !== false })
     }
     toggleLock(divEle, item) {
         divEle = divEle || this.lockEle
@@ -206,7 +206,7 @@ class GroupControl {
         let y = (this.dockview.height - 460) / 2
         if (type == 'grid') {
             let gridGroups = this.dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
-            if(gridGroups.length <= 1) return
+            if (gridGroups.length <= 1) return
             let { position = {}, isPackup, height, isMaximized } = this.group.getParams()
             let floatingGroupPosition = isMaximized ? {
                 x: 0, y: 0,
@@ -344,7 +344,7 @@ export function cerateDockview(el, options) {
         return dockview.toJSON()
     }
     dockview.update = updateOptions => {
-        if(updateOptions.layoutConfig){
+        if (updateOptions.layoutConfig) {
             reloadDockview(updateOptions, dockview)
         }
         else if (dockview.locked !== updateOptions.lock) {
@@ -465,11 +465,11 @@ export function addHook(dockview, dockviewData) {
         }
         setSumLocal(dockview.prefix + '-panels', obj)
 
-        if(event.view.content.element){
-            if(event.titleMenuEle){
+        if (event.view.content.element) {
+            if (event.titleMenuEle) {
                 event.view.content.element.append(event.titleMenuEle)
             }
-            if(dockview.template){
+            if (dockview.template) {
                 dockview.template.append(event.view.content.element)
             }
         }
@@ -581,7 +581,7 @@ const getGroupId = () => {
 }
 export function serialize(options) {
     groupId = 0
-    const orientation = options.content[0].type == 'row' ? 'HORIZONTAL' : 'VERTICAL'
+    const orientation = options.content[0].type == 'row' ? 'VERTICAL' : 'HORIZONTAL';
     const { width = 100, height = 80 } = options
     return options.content ? {
         activeGroup: '1',
