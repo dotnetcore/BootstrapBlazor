@@ -130,3 +130,13 @@
     .bb-dock-view .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-float > * {
         stroke: var(--bb-dock-view-control-icon-lock-color);
     }
+
+    .bb-dock-view .bb-dock-view-control-dropdown{
+        display: none;
+    }
+    .bb-dock-view .bb-dock-view-control-dropdown li:not(:has(.tab)){
+        display: none;
+    }
+    .bb-dock-view .bb-dock-view-control-dropdown:has(.tab){
+        display: block;
+    }

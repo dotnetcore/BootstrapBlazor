@@ -21,11 +21,10 @@ export class DefaultPanel {
             }
             this._element = contentEle || document.createElement('div')
         }
-        const { titleClass, titleWidth, contentClass, class: groupClass } = params
+        const { titleClass, titleWidth, class: contentClass } = params
         titleClass && tab._content.classList.add(titleClass)
         titleWidth && (tab._content.style.width = titleWidth + 'px')
         contentClass && content.element.classList.add(contentClass)
-        groupClass && group.element.classList.add(groupClass)
     }
 }
 
@@ -70,7 +69,9 @@ class PanelControl {
         // })
     }
     creatCloseBtn() {
-        if (this.panel.params?.showClose === false) {
+        let showClose = this.panel.params?.showClose
+        showClose = showClose === null ? this.panel.accessor.showClose !== false : showClose
+        if (showClose === false) {
             this.tabEle.classList.add('dv-tab-on')
         } else {
             let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
@@ -108,9 +109,11 @@ class GroupControl {
         // let divEle = this.document.createElement('div')
         let divEle = this.headerEle.querySelector('.right-actions-container')
         let { panels, api } = this.group
+        let showLock = panels.every(panel => panel.params.showLock === null) ? this.dockview.showLock !== false : panels.some(panel => panel.params.showLock !== false)
         let filterControls = this.dockview.groupControls.filter(item => {
             switch (item.name) {
-                case 'lock': return panels.some(panel => panel.params.showLock !== false)
+                case 'dropdown': return true
+                case 'lock': return showLock
                 case 'packup/expand': return true
                 case 'float': return panels.every(panel => panel.params.showFloat !== false)
                 case 'maximize': return panels.every(panel => panel.params.showMaximize !== false)
@@ -129,44 +132,54 @@ class GroupControl {
 
     _createButton(item) {
         const divEle = document.createElement('div')
-        divEle.title = item.name
         divEle.className = 'bb-dock-view-control-' + item.name
-        divEle.innerHTML = item.icon[0]
-        // divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
+        if(item.name == 'dropdown'){
+            divEle.innerHTML = `
+                <button  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    ${item.icon[0]}
+                </button>
+                <ul class="dropdown-menu"></ul>
+            `
+        }else{
+            divEle.title = item.name
+            divEle.innerHTML = item.icon[0]
+            if (item.name == 'lock') {
+                this.lockEle = divEle
+                let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
+                this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
+                divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
+                divEle.title = this.group.locked ? 'unlock' : 'lock'
+                if(this.group.locked){
+                    this.group.header.element.classList.add('lock')
+                }
+            }
+            else if (item.name == 'packup/expand') {
+                divEle.className = 'bb-dock-view-control-up'
+                let isPackup = this._getGroupParams('isPackup')
+                if (isPackup) {
+                    // divEle.innerHTML = item.icon[1]
+                    // divEle.style.transform = 'rotateZ(180deg)'
+                    divEle.classList.add('bb-dock-view-control-down')
+                }
+            }
+            else if (item.name == 'float') {
+                let type = this.group.model.location.type
+                if (type == 'floating') {
+                    divEle.title = 'restore'
+                    divEle.innerHTML = item.icon[1]
+                }
+            }
+            else if (item.name == 'maximize') {
+                let isMaximized = this._getGroupParams('isMaximized')
+                if (isMaximized) {
+                    divEle.innerHTML = item.icon[1]
+                }
+            }
+            divEle.addEventListener('click', () => {
+                this['_' + item.name] && this['_' + item.name](divEle, item)
+            })
+        }
 
-        if (item.name == 'lock') {
-            this.lockEle = divEle
-            let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
-            this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
-            divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
-            divEle.title = this.group.locked ? 'unlock' : 'lock'
-        }
-        else if (item.name == 'packup/expand') {
-            divEle.className = 'bb-dock-view-control-up'
-            let isPackup = this._getGroupParams('isPackup')
-            if (isPackup) {
-                // divEle.innerHTML = item.icon[1]
-                // divEle.style.transform = 'rotateZ(180deg)'
-                divEle.classList.add('bb-dock-view-control-down')
-            }
-        }
-        else if (item.name == 'float') {
-            let type = this.group.model.location.type
-            if (type == 'floating') {
-                divEle.title = 'restore'
-                divEle.innerHTML = item.icon[1]
-            }
-        }
-        else if (item.name == 'maximize') {
-            let isMaximized = this._getGroupParams('isMaximized')
-            if (isMaximized) {
-                divEle.innerHTML = item.icon[1]
-            }
-        }
-
-        divEle.addEventListener('click', () => {
-            this['_' + item.name] && this['_' + item.name](divEle, item)
-        })
         return divEle
     }
     _lock(divEle, item) {
@@ -183,6 +196,7 @@ class GroupControl {
         if (!divEle) return
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
+        this.group.locked ? this.group.header.element.classList.add('lock') : this.group.header.element.classList.remove('lock')
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -326,20 +340,22 @@ export function cerateDockview(el, options) {
         },
         createTabComponent: option => new myDefaultTab(option, options)
     });
-
     dockview.template = template
     dockview.groupControls = [
+        { name: 'dropdown', icon: ['dropdown'] },
         { name: 'lock', icon: ['unlock', 'lock'] },
         { name: 'packup/expand', icon: ['down'] },
-        { name: 'float', icon: ['float', 'dock'] },
         { name: 'maximize', icon: ['full', 'restore'] },
+        { name: 'float', icon: ['float', 'dock'] },
         { name: 'close', icon: ['close'] }
     ].map(({ name, icon }) => ({
         name,
-        icon: icon.map(item => template.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML)
+        icon: icon.map(item => template.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
     }))
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
+    dockview.showClose = options.showClose
+    dockview.showLock = options.showLock
     dockview.saveLayout = () => {
         return dockview.toJSON()
     }
@@ -519,8 +535,8 @@ export function addHook(dockview, dockviewData) {
                 event.groupControl = new GroupControl(event, dockview)
             }, 0);
         }
-
-        event.model.onGroupDragStart(function (e) { })
+        // 监听groupHeader的宽度变化
+        observer.observe(event.header.element)
     })
     dockview.onDidRemoveGroup(event => { })
 
@@ -572,7 +588,45 @@ export function addHook(dockview, dockviewData) {
             }
         })
     })
+    dockview.onDidRemove(() => {
+    })
 }
+const setWidth = (observerList) => {
+    observerList.forEach(observer => {
+        let header = observer.target
+        let tabsContainer = header.querySelector('.tabs-container')
+        let voidWidth = header.querySelector('.void-container').offsetWidth
+        let dropdown = header.querySelector('.right-actions-container>.bb-dock-view-control-dropdown')
+        if(!dropdown) return
+        let dropMenu = dropdown.querySelector('.dropdown-menu')
+        if(voidWidth == 0){
+            if(tabsContainer.children.length <=  1) return
+            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
+            let aEle = document.createElement('a')
+            let liEle = document.createElement('li')
+            aEle.className = 'dropdown-item'
+            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
+            liEle.addEventListener('click', () => {
+                dropMenu.children[0].setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
+                dropMenu.children[0].children[0].append(tabsContainer.children[0])
+                tabsContainer.append(liEle.children[0].children[0])
+            })
+            aEle.append(lastTab)
+            liEle.append(aEle)
+            dropMenu.insertAdjacentElement("afterbegin", liEle)
+        }else{
+            let firstLi = dropMenu.children[0]
+            if(firstLi){
+                let firstTab = firstLi.querySelector('.tab')
+                if(voidWidth > firstLi.getAttribute('tabWidth')){
+                    firstTab && tabsContainer.append(firstTab)
+                    firstLi.remove()
+                }
+            }
+        }
+    })
+}
+const observer = new ResizeObserver(setWidth)
 
 let panels = {}
 let groupId = 0
