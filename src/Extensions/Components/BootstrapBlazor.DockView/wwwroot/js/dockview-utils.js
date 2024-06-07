@@ -55,13 +55,12 @@ class PanelControl {
         // divEle.addEventListener('mousedown', e => {
         //     e.stopPropagation()
         // })
-
         if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
         }
         else if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')) {
-            this.panel.view.tab._content.innerHTML = ''
-            this.panel.view.tab._content.append(this.panel.titleMenuEle)
+            // this.panel.view.tab._content.innerHTML = ''
+            this.panel.view.tab.element.replaceChild(this.panel.titleMenuEle, this.panel.view.tab._content)
         }
 
         // api.onDidVisibilityChange(({ isVisible }) => {
@@ -92,7 +91,7 @@ class GroupControl {
         this.parentEle = dockviewGroupPanel.element.parentElement
         this.dockview = dockview
         this.isOpenFloat = isOpenFloat
-        this.creatRightControl()
+        dockviewGroupPanel.header.hidden && this.creatRightControl()
     }
 
     creatPrefixControl() {
