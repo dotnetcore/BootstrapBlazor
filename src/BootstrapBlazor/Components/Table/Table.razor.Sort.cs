@@ -327,10 +327,14 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetFixedCellStyleString(ITableColumn col, int margin = 0)
     {
-        string? ret = null;
+        string? ret = string.Empty ;
         if (col.Fixed)
         {
             ret = IsTail(col) ? GetRightStyle(col, margin) : GetLeftStyle(col);
+        }
+        if(col.MergeRow)
+        {
+            ret += "vertical-align: middle;";
         }
         return ret;
     }

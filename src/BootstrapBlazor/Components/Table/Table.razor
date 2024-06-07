@@ -699,7 +699,27 @@
                     value = cell.Value;
                     colIndex = colspan;
                 }
-                <td colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
+
+                int i=0;
+                int same=0;
+                int rowspan=1;
+                object v=null;
+                if(col.MergeRow)
+                {
+                   v = Utility.GetPropertyValue(item, col.GetFieldName());
+                    
+                    same=Rows.Count(r=> Utility.GetPropertyValue(r, col.GetFieldName())==v);
+                    i=Rows.IndexOf(item);
+                    if(i==0)
+                    {
+                        rowspan=same;
+                    }
+                   
+                }
+                if(rowspan>1&&col.MergeRow||!col.MergeRow)
+                {
+                    
+                <td rowspan="@GetRowSpan(rowspan)" colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                     @{
                         var isFirstColOfTree = IsTree && index++ == 0;
                         var degree = 0;
@@ -758,7 +778,9 @@
                         }
                     </DynamicElement>
                 </td>
-            }
+   
+                }
+         }
         }
         @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
         {

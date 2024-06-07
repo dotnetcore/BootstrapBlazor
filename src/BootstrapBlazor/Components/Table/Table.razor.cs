@@ -140,6 +140,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColSpan(int colSpan) => colSpan > 1 ? colSpan.ToString() : null;
 
+     private static string? GetRowSpan(int rowSpan) => rowSpan > 1 ? rowSpan.ToString() : null;
+
     private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
     private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
