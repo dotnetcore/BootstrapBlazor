@@ -91,7 +91,7 @@ class GroupControl {
         this.parentEle = dockviewGroupPanel.element.parentElement
         this.dockview = dockview
         this.isOpenFloat = isOpenFloat
-        dockviewGroupPanel.header.hidden && this.creatRightControl()
+        !dockviewGroupPanel.header.hidden && this.creatRightControl()
     }
 
     creatPrefixControl() {
@@ -381,7 +381,7 @@ export function cerateDockview(el, options) {
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
     let layoutConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
-    let serializeData = serialize(options)
+    let serializeData = serialize(options, {width: el.clientWidth, height: el.clientHeight})
 
     // 以本地优先, 得到最终的dockviewData并修正
     let dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
@@ -632,10 +632,9 @@ let groupId = 0
 const getGroupId = () => {
     return groupId++
 }
-export function serialize(options) {
+export function serialize(options, {width = 800, height = 600}) {
     groupId = 0
     const orientation = options.content[0].type == 'row' ? 'VERTICAL' : 'HORIZONTAL';
-    const { width = 100, height = 80 } = options
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -644,7 +643,7 @@ export function serialize(options) {
             orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0], { width, height, orientation })]
+                data: [getTree(options.content[0], { width, height, orientation }, options.content)]
             },
         },
         panels
@@ -779,20 +778,28 @@ const saveConfig = (dockview, config) => {
         (config && JSON.stringify(config)) || JSON.stringify(json)
     )
 }
-const getTree = (contentItem, { width, height, orientation }, length = 1) => {
-    let obj = {}, size = orientation == 'HORIZONTAL' ? width : height
-    size = (1 / length * size).toFixed(2) * 1
+const getTree = (contentItem, { width, height, orientation }, parent) => {
+    let length = parent.length || 1
+    let obj = {}, boxSize = orientation == 'HORIZONTAL' ? width : height, size
+    let hasSizeList = parent.filter(item => item.width || item.height)
+    let hasSizeLen = hasSizeList.length
+    if(hasSizeLen == 0){
+        size = (1 / length * boxSize).toFixed(2) * 1
+    }else{
+        size = hasSizeList.reduce((pre, cur) => pre + (cur.width || cur.height), 0)
+        size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
+    }
     orientation == 'HORIZONTAL' ? width = size : height = size
     orientation = orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
 
     if (contentItem.type == 'row' || contentItem.type == 'column') {
         obj.type = 'branch'
-        obj.size = size
-        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem.content.length))
+        obj.size = contentItem.width || contentItem.height || size
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem.content))
     }
     else if (contentItem.type == 'group') {
         obj.type = 'leaf'
-        obj.size = size
+        obj.size = contentItem.width || contentItem.height || size
         obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
             id: getGroupId() + '',
@@ -813,7 +820,7 @@ const getTree = (contentItem, { width, height, orientation }, length = 1) => {
     else if (contentItem.type = 'component') {
         obj.type = 'leaf'
         obj.visible = contentItem.visible !== false
-        obj.size = size
+        obj.size = contentItem.width || contentItem.height || size
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.id,
