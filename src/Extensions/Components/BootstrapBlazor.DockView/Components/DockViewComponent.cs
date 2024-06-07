@@ -66,18 +66,6 @@ public class DockViewComponent : DockViewComponentBase, IDockViewComponent
     public bool? ShowClose { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件宽度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Height { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件唯一标识值 默认 null 未设置时取 Title 作为唯一标识
     /// </summary>
     [Parameter]

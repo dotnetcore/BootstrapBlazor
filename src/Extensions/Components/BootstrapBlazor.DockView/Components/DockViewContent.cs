@@ -17,19 +17,7 @@ public class DockViewContent : DockViewComponentBase, IDockViewContent
     /// </summary>
     List<IDockViewComponentBase> IDockViewContent.Items => _items;
 
-    private List<IDockViewComponentBase> _items = [];
-
-    /// <summary>
-    /// 获得/设置 组件宽度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Height { get; set; }
+    private readonly List<IDockViewComponentBase> _items = [];
 
     /// <summary>
     /// <inheritdoc/>

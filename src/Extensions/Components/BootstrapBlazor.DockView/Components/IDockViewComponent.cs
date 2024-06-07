@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public interface IDockViewComponent : IDockViewComponentBase
 {
     /// <summary>
+    /// 获得/设置 组件 Id
+    /// </summary>
+    public string? Id { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件名称 默认 component golden-layout 渲染使用
     /// </summary>
     string ComponentName { get; set; }
@@ -48,16 +53,6 @@ public interface IDockViewComponent : IDockViewComponentBase
     /// 获得/设置 组件是否允许关闭 默认 null 使用 DockView 的配置
     /// </summary>
     bool? ShowClose { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件宽度百分比 默认 null 未设置
-    /// </summary>
-    int? Width { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
-    /// </summary>
-    int? Height { get; set; }
 
     /// <summary>
     /// 获得/设置 组件唯一标识值 默认 null 未设置时取 Title 作为唯一标识

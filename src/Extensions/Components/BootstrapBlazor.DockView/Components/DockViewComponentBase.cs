@@ -18,6 +18,18 @@ public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponen
     public DockViewContentType Type { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件宽度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Width { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Height { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]

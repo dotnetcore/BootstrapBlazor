@@ -17,14 +17,4 @@ public interface IDockViewContent : IDockViewComponentBase
     [JsonConverter(typeof(DockViewComponentConverter))]
     [JsonPropertyName("content")]
     List<IDockViewComponentBase> Items { get; }
-
-    /// <summary>
-    /// 获得/设置 组件宽度百分比 默认 null 未设置
-    /// </summary>
-    int? Width { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
-    /// </summary>
-    int? Height { get; set; }
 }
