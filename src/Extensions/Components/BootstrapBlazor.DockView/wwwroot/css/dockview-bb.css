@@ -107,6 +107,10 @@
         transform: rotate(180deg);
     }
 
+    .bb-dock-view .bb-dock-view-control-dropdown > svg {
+        transform: rotate(180deg);
+    }
+
     .bb-dock-view .dv-tab-on > .dv-default-tab-action {
         display: none;
     }
