@@ -5,6 +5,10 @@
 using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// DockViewIcon 组件
+/// </summary>
 public partial class DockViewIcon
 {
     /// <summary>
