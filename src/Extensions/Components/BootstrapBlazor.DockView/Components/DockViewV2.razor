@@ -15,7 +15,7 @@
                 <div @key="p" id="@p.Id" class="bb-dock-view-panel" data-bb-key="@p.Key" data-bb-title="@p.Title">
                     @if (p.ShowTitleBar)
                     {
-                        <DockViewTitle BarIcon="@p.TitleBarIcon" BarIconUrl="@p.TitleBarIconUrl" OnClickBarCallback="@OnClickBar(p.OnClickTitleBarCallback)"></DockViewTitle>
+                        <DockViewTitleBar BarIcon="@p.TitleBarIcon" BarIconUrl="@p.TitleBarIconUrl" OnClickBarCallback="@OnClickBar(p.OnClickTitleBarCallback)"></DockViewTitleBar>
                     }
                     @if (p.TitleTemplate != null)
                     {

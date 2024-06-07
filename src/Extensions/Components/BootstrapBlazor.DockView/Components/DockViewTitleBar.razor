@@ -1,0 +1,14 @@
+﻿<div class="dv-default-tab-action bb-dock-view-item-title-icon" onclick="@EventCallback.Factory.Create(this, OnClickBar)">
+    @if (!string.IsNullOrEmpty(BarIconUrl))
+    {
+        <img alt="bar-icon" src="@BarIconUrl" />
+    }
+    else if (!string.IsNullOrEmpty(BarIcon))
+    {
+        <i class="@BarIcon"></i>
+    }
+    else
+    {
+        <svg class="bb-dockview-control-icon bb-dockview-control-icon-bar"><use xlink:href="./_content/BootstrapBlazor.DockView/icon/dockview.svg#bar"></use></svg>
+    }
+</div>
