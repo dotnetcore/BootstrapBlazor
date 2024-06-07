@@ -36,11 +36,11 @@ class DockViewComponentConverter : JsonConverter<List<IDockViewComponentBase>>
         writer.WriteStartArray();
         foreach (var item in value)
         {
-            if (item is DockViewContent content)
+            if (item is IDockViewContent content)
             {
                 writer.WriteRawValue(JsonSerializer.Serialize(content, options));
             }
-            else if (item is DockViewComponent contentItem)
+            else if (item is IDockViewComponent contentItem)
             {
                 if (contentItem.Visible)
                 {
