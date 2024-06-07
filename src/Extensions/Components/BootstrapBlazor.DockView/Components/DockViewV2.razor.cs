@@ -100,7 +100,7 @@ public partial class DockViewV2
     [NotNull]
     private IConfiguration? Configuration { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-dock-view")
+    private string? ClassString => CssBuilder.Default("bb-dockview")
         .AddClass(Theme.ToDescriptionString())
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -177,15 +177,15 @@ public partial class DockViewV2
 
     private string GetVersion() => Version ?? _options.Version ?? "v1";
 
-    private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock-view";
+    private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dockview";
 
-    private static Func<Task> OnClickBar(Func<Task>? callback) => new(async () =>
+    private static async Task OnClickBar(Func<Task>? callback)
     {
         if (callback != null)
         {
             await callback();
         }
-    });
+    }
 
     /// <summary>
     /// 重置为默认布局

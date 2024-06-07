@@ -42,7 +42,7 @@ class PanelControl {
         // Panel的Body
         this.contentEle = view.content.element
 
-        dockviewPanel.titleMenuEle = this.contentEle.querySelector(`.bb-dock-view-item-title`) || this.contentEle.querySelector(`.bb-dock-view-item-title-icon`)
+        dockviewPanel.titleMenuEle = this.contentEle.querySelector(`.bb-dockview-item-title`) || this.contentEle.querySelector(`.bb-dockview-item-title-icon`)
         this.panel = dockviewPanel
 
         dockviewPanel.titleMenuEle && this.createGear(api)
@@ -55,10 +55,10 @@ class PanelControl {
         // divEle.addEventListener('mousedown', e => {
         //     e.stopPropagation()
         // })
-        if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')) {
+        if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
         }
-        else if (this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')) {
+        else if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title')) {
             // this.panel.view.tab._content.innerHTML = ''
             this.panel.view.tab.element.replaceChild(this.panel.titleMenuEle, this.panel.view.tab._content)
         }
@@ -131,7 +131,7 @@ class GroupControl {
 
     _createButton(item) {
         const divEle = document.createElement('div')
-        divEle.className = 'bb-dock-view-control-' + item.name
+        divEle.className = 'bb-dockview-control-' + item.name
         if(item.name == 'dropdown'){
             divEle.innerHTML = `
                 <button  type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -153,12 +153,12 @@ class GroupControl {
                 }
             }
             else if (item.name == 'packup/expand') {
-                divEle.className = 'bb-dock-view-control-up'
+                divEle.className = 'bb-dockview-control-up'
                 let isPackup = this._getGroupParams('isPackup')
                 if (isPackup) {
                     // divEle.innerHTML = item.icon[1]
                     // divEle.style.transform = 'rotateZ(180deg)'
-                    divEle.classList.add('bb-dock-view-control-down')
+                    divEle.classList.add('bb-dockview-control-down')
                 }
             }
             else if (item.name == 'float') {
@@ -209,7 +209,7 @@ class GroupControl {
             parentEle.style.height = '35px'
         }
         // divEle.innerHTML = item.icon[isPackup ? 0 : 1]
-        divEle.style.transform = isPackup ? divEle.classList.remove('bb-dock-view-control-down') : divEle.classList.add('bb-dock-view-control-down')
+        divEle.style.transform = isPackup ? divEle.classList.remove('bb-dockview-control-down') : divEle.classList.add('bb-dockview-control-down')
         saveConfig(this.dockview)
     }
     _float(divEle, item) {
@@ -595,7 +595,7 @@ const setWidth = (observerList) => {
         let header = observer.target
         let tabsContainer = header.querySelector('.tabs-container')
         let voidWidth = header.querySelector('.void-container').offsetWidth
-        let dropdown = header.querySelector('.right-actions-container>.bb-dock-view-control-dropdown')
+        let dropdown = header.querySelector('.right-actions-container>.bb-dockview-control-dropdown')
         if(!dropdown) return
         let dropMenu = dropdown.querySelector('.dropdown-menu')
         if(voidWidth == 0){
