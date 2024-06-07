@@ -1,4 +1,5 @@
 ﻿@page "/dock-view2/layout"
+@inherits BaseDockView
 
 <h4>自定义布局</h4>
 <p>通过设置 <code>DockView</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局</p>
@@ -15,13 +16,34 @@
     <DockViewV2 @ref="DockView" Name="DockViewLayout" LayoutConfig="@LayoutConfig">
         <DockViewContent Type="DockViewContentType.Column">
             <DockViewComponent Title="标签一">
-                <div class="panel">Panel1</div>
+                <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                       IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                       ShowDefaultButtons="false">
+                    <DetailRowTemplate>
+                        <div class="p-2 w-100">
+                            <Table TItem="DynamicObject" DynamicContext="GetDetailDataTableDynamicContext(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                            </Table>
+                        </div>
+                    </DetailRowTemplate>
+                </Table>
             </DockViewComponent>
             <DockViewComponent Title="标签二">
-                <div class="panel">Panel2</div>
+                <Table TItem="Foo" @bind-Items="Items"
+                       IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+                       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                       OnAddAsync="@OnAddAsync">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                        <TableColumn @bind-Field="@context.Education" />
+                        <TableColumn @bind-Field="@context.Count" />
+                        <TableColumn @bind-Field="@context.Complete" />
+                    </TableColumns>
+                </Table>
             </DockViewComponent>
             <DockViewComponent Title="标签三">
-                <div class="panel">Panel3</div>
+                <FetchData></FetchData>
             </DockViewComponent>
         </DockViewContent>
     </DockViewV2>
