@@ -21,11 +21,6 @@ class DockViewConfig
     public bool IsLock { get; set; }
 
     /// <summary>
-    /// 获得/设置 配置信息版本号 默认 null
-    /// </summary>
-    public string? Version { get; set; }
-
-    /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调
     /// </summary>
     public string? PanelClosedCallback { get; set; }
@@ -61,9 +56,4 @@ class DockViewConfig
     /// 获得/设置 模板元素 Id 默认 null 未设置
     /// </summary>
     public string? TemplateId { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件主题
-    /// </summary>
-    public string? Theme { get; set; }
 }
