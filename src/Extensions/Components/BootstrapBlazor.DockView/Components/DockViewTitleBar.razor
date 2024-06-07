@@ -1,4 +1,4 @@
-﻿<div class="dv-default-tab-action bb-dock-view-item-title-icon" onclick="@EventCallback.Factory.Create(this, OnClickBar)">
+﻿<div class="dv-default-tab-action bb-dock-view-item-title-icon" @onclick="@OnClickBar">
     @if (!string.IsNullOrEmpty(BarIconUrl))
     {
         <img alt="bar-icon" src="@BarIconUrl" />
