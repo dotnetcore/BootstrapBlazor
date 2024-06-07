@@ -57,6 +57,8 @@ class PanelControl {
         // })
         if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
+
+            this.panel.titleMenuEle.innerHTML = this.panel.titleMenuEle.innerHTML
         }
         else if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title')) {
             // this.panel.view.tab._content.innerHTML = ''
@@ -133,12 +135,9 @@ class GroupControl {
         const divEle = document.createElement('div')
         divEle.className = 'bb-dockview-control-' + item.name
         if(item.name == 'dropdown'){
-            divEle.innerHTML = `
-                <button  type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    ${item.icon[0]}
-                </button>
-                <ul class="dropdown-menu"></ul>
-            `
+            divEle.innerHTML = `${item.icon[0]}<ul class="dropdown-menu"></ul>`
+            divEle.children[0].setAttribute('data-bs-toggle', "dropdown")
+            divEle.children[0].setAttribute('aria-expanded', "false")
         }else{
             divEle.title = item.name
             divEle.innerHTML = item.icon[0]
