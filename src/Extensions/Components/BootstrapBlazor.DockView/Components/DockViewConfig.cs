@@ -21,9 +21,14 @@ class DockViewConfig
     public bool IsLock { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示锁定按钮 默认 true
+    /// 获得/设置 是否显示锁定按钮 默认 true 显示
     /// </summary>
     public bool ShowLock { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示关闭按钮 默认 true 显示
+    /// </summary>
+    public bool ShowClose { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调

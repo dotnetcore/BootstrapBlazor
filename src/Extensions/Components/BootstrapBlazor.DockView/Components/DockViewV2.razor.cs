@@ -166,6 +166,7 @@ public partial class DockViewV2
         LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         IsLock = IsLock,
         ShowLock = ShowLock,
+        ShowClose = ShowClose,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
