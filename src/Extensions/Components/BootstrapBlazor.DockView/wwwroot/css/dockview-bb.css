@@ -13,6 +13,11 @@
     border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
+    .bb-dock-view .bb-dock-view-panel {
+        height: 100%;
+        width: 100%;
+    }
+
     .bb-dock-view .groupview > .content-container {
         padding: var(--bb-dock-view-padding);
     }
