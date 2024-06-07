@@ -3,7 +3,7 @@
 
 <DockViewV2 Name="DockViewV2LayoutRow">
     <DockViewContent Type="DockViewContentType.Row">
-        <DockViewComponent Key="tab1" Title="标签一" ShowClose="false" ShowLock="false" IsLock="true">
+        <DockViewComponent Key="tab1" Title="标签一" ShowClose="false" ShowLock="false" IsLock="true" Width="120">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false" IsFixedHeader="true">
@@ -33,7 +33,7 @@
                 </TableColumns>
             </Table>
         </DockViewComponent>
-        <DockViewComponent Key="tab3" Title="标签三">
+        <DockViewComponent Key="tab3" Title="标签三" Width="120">
             <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>

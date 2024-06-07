@@ -3,7 +3,7 @@
 
 <DockViewV2 Name="DockViewV2LayoutColumn">
     <DockViewContent Type="DockViewContentType.Column">
-        <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback">
+        <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback" Height="120">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false" IsFixedHeader="true">
@@ -38,7 +38,7 @@
                 </Table>
             </ChildContent>
         </DockViewComponent>
-        <DockViewComponent Key="tab3" Title="标签三">
+        <DockViewComponent Key="tab3" Title="标签三" Height="120">
             <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>
