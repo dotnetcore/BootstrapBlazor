@@ -90,6 +90,10 @@
                 margin-left: .5rem;
             }
 
+    .bb-dock-view .tabs-and-actions-container .tabs-container {
+        overflow: hidden;
+    }
+
     .bb-dock-view .bb-dockview-control-icon {
         width: var(--bb-dock-view-control-icon-width);
         height: var(--bb-dock-view-control-icon-width);
