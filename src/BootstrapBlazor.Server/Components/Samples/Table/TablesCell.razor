@@ -29,7 +29,20 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="140" />
             <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn  @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TableMergeRowTitle"]"
+           Introduction="@Localizer["TableCellMergeRowIntro"]"
+           Name="MergeCell">
+   
+    <Table TItem="Foo" Items="@SameNameItems.Take(3)" IsBordered="true">
+        <TableColumns>
+            <TableColumn  @bind-Field="@context.DateTime" Width="140" />
+            <TableColumn  @bind-Field="@context.Name" MergeRow="true" />
+            <TableColumn  @bind-Field="@context.Address" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -45,7 +58,7 @@
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" OnDoubleClickCellCallback="@OnDoubleClickCellCallback">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn MergeRow="true" @bind-Field="@context.Name" />
+            <TableColumn  @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Complete" />
         </TableColumns>

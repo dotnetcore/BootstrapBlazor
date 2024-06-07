@@ -17,6 +17,10 @@ public partial class TablesCell
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+
+    [NotNull]
+    private List<Foo>? SameNameItems { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -27,6 +31,12 @@ public partial class TablesCell
         //获取随机数据
         //Get random data
         Items = Foo.GenerateFoo(FooLocalizer);
+
+        SameNameItems = Foo.GenerateFoo(FooLocalizer);
+
+
+        //为了竖向合并
+        SameNameItems.ForEach(x => x.Name = Items[0].Name);
     }
 
     private static void OnCellRenderHandler(TableCellArgs args)
