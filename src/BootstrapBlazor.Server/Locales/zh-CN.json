@@ -4646,6 +4646,7 @@
     "DockViewVisible": "可见性切换",
     "DockViewLock": "布局锁定",
     "DockViewLayout": "布局自定义",
+    "DockViewTitle": "设置标题",
     "DockView2Components": "可停靠布局",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
