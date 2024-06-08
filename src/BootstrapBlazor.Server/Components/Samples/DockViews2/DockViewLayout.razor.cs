@@ -29,11 +29,19 @@ public partial class DockViewLayout
         LayoutConfig = LayoutConfig3;
     }
 
+    private void OnToggleShow()
+    {
+        LayoutConfig = string.Empty;
+        _show = !_show;
+    }
+
     private Task OnSaveLayout()
     {
         DockView.SaveLayout();
         return Task.CompletedTask;
     }
+
+    private bool _show = true;
 
     private string LayoutConfig = LayoutConfig1;
 
