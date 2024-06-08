@@ -1,4 +1,4 @@
-﻿.dock-layout-demo {
-    height: calc(100vh - 342px);
+﻿::deep ~ .dock-layout-demo {
+    height: calc(100vh - 316px);
     margin-top: 1rem;
 }

@@ -1,7 +1,11 @@
 ﻿@page "/dock-view2/title"
 @inherits BaseDockView
 
-<DockViewV2 Name="DockViewV2LayoutColumn">
+<h3>@Localizer["DockViewTitleTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewTitleIntro"].Value)</h4>
+
+<DockViewV2 Name="DockViewV2LayoutColumn" class="dockview-demo">
     <DockViewContent Type="DockViewContentType.Column">
         <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback" Height="240">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"

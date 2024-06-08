@@ -3,20 +3,15 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// DockContentItem 配置项子项对标 content 配置项内部 content 配置
 /// </summary>
-public class DockViewComponent : DockViewComponentBase, IDockViewComponent
+public class DockViewComponent : DockViewComponentBase
 {
-    /// <summary>
-    /// 获得/设置 组件名称 默认 component golden-layout 渲染使用
-    /// </summary>
-    [Parameter]
-    public string ComponentName { get; set; } = "component";
-
     /// <summary>
     /// 获得/设置 组件是否显示 Header 默认 true 显示
     /// </summary>
@@ -45,6 +40,7 @@ public class DockViewComponent : DockViewComponentBase, IDockViewComponent
     /// 获得/设置 Title 模板 默认 null 未设置
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
@@ -57,6 +53,7 @@ public class DockViewComponent : DockViewComponentBase, IDockViewComponent
     /// 获得/设置 组件是否可见 默认 true 可见
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public bool Visible { get; set; } = true;
 
     /// <summary>
@@ -88,24 +85,28 @@ public class DockViewComponent : DockViewComponentBase, IDockViewComponent
     /// 获得/设置 是否显示标题前置图标 默认 false 不显示
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public bool ShowTitleBar { get; set; }
 
     /// <summary>
     /// 获得/设置 标题前置图标 默认 null 未设置使用默认图标
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public string? TitleBarIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 标题前置图标 Url 默认 null 未设置使用默认图标
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public string? TitleBarIconUrl { get; set; }
 
     /// <summary>
     /// 获得/设置 标题前置图标点击回调方法 默认 null
     /// </summary>
     [Parameter]
+    [JsonIgnore]
     public Func<Task>? OnClickTitleBarCallback { get; set; }
 
     /// <summary>

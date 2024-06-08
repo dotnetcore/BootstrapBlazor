@@ -5,9 +5,13 @@
 namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 
 /// <summary>
-/// DockViewV2 嵌套示例
+/// DockViewNest 嵌套示例
 /// </summary>
 public partial class DockViewNest
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewNest>? Localizer { get; set; }
+
     private DockViewTheme _theme;
 }

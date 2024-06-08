@@ -5,16 +5,11 @@
 namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 
 /// <summary>
-/// DockViewTitle 示例
+/// DockViewRow 示例
 /// </summary>
-public partial class DockViewTitle
+public partial class DockViewRow
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<DockViewTitle>? Localizer { get; set; }
-
-    [Inject, NotNull]
-    private ToastService? ToastService { get; set; }
-
-    private Task OnClickTitleBarCallback() => ToastService.Success("事件回调", "点击标题图标回调方法");
+    private IStringLocalizer<DockViewRow>? Localizer { get; set; }
 }

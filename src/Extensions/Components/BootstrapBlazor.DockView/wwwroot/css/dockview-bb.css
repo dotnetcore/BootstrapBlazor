@@ -118,7 +118,7 @@
         transform: rotate(180deg);
     }
 
-    .bb-dockview .dv-tab-on > .dv-default-tab-action {
+    .bb-dockview .dv-tab-on > .dv-default-tab-action:last-child {
         display: none;
     }
 

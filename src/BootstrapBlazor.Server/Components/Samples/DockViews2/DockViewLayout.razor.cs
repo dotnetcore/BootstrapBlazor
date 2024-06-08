@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 /// </summary>
 public partial class DockViewLayout
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewLayout>? Localizer { get; set; }
+
     [NotNull]
     private DockViewV2? DockView { get; set; }
 
@@ -29,11 +33,19 @@ public partial class DockViewLayout
         LayoutConfig = LayoutConfig3;
     }
 
+    private void OnToggleShow()
+    {
+        LayoutConfig = string.Empty;
+        _show = !_show;
+    }
+
     private Task OnSaveLayout()
     {
         DockView.SaveLayout();
         return Task.CompletedTask;
     }
+
+    private bool _show = true;
 
     private string LayoutConfig = LayoutConfig1;
 

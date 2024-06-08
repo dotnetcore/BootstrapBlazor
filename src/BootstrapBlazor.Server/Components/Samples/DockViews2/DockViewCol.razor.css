@@ -1,0 +1,4 @@
+﻿::deep + .dockview-demo {
+    height: calc(100% - 92px);
+    margin-top: 1rem;
+}

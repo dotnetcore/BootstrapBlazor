@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockViewComponent 转化器
 /// </summary>
-class DockViewComponentConverter : JsonConverter<List<IDockViewComponentBase>>
+class DockViewComponentConverter : JsonConverter<List<DockViewComponentBase>>
 {
     /// <summary>
     /// <inheritdoc/>
@@ -20,7 +20,7 @@ class DockViewComponentConverter : JsonConverter<List<IDockViewComponentBase>>
     /// <param name="options"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public override List<IDockViewComponentBase>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override List<DockViewComponentBase>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -31,16 +31,16 @@ class DockViewComponentConverter : JsonConverter<List<IDockViewComponentBase>>
     /// <param name="writer"></param>
     /// <param name="value"></param>
     /// <param name="options"></param>
-    public override void Write(Utf8JsonWriter writer, List<IDockViewComponentBase> value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, List<DockViewComponentBase> value, JsonSerializerOptions options)
     {
         writer.WriteStartArray();
         foreach (var item in value)
         {
-            if (item is IDockViewContent content)
+            if (item is DockViewContent content)
             {
                 writer.WriteRawValue(JsonSerializer.Serialize(content, options));
             }
-            else if (item is IDockViewComponent contentItem)
+            else if (item is DockViewComponent contentItem)
             {
                 if (contentItem.Visible)
                 {

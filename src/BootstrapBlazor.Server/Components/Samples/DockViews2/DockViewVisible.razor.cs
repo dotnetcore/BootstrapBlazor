@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 /// </summary>
 public partial class DockViewVisible
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewVisible>? Localizer { get; set; }
+
     private bool Visible { get; set; } = true;
 
     private void OnToggleVisible()
