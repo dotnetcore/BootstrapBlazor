@@ -5960,6 +5960,38 @@
     "DockViewDescription": "多标签停靠布局管理器",
     "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
   },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
+    "DockViewColTitle": "列布局",
+    "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Column\"</code> 使 <code>Dock</code> 垂直布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewRow": {
+    "DockViewRowTitle": "行布局",
+    "DockViewRowIntro": "通过设置 <code>Type=\"DockContentType.Row\"</code> 使 <code>Dock</code> 水平布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewStack": {
+    "DockViewStackTitle": "组布局",
+    "DockViewStackIntro": "通过设置 <code>Type=\"DockContentType.Stack\"</code> 使 <code>Dock</code> 组布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewComplex": {
+    "DockViewComplexTitle": "复杂布局",
+    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockContentType</code> 值可以得到复杂布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLayout": {
+    "DockViewLayoutTitle": "自定义布局",
+    "DockViewLayoutIntro": "通过设置 <code>Dock</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLock": {
+    "DockViewLockTitle": "锁定面板",
+    "DockViewLockIntro": "通过设置 <code>Dock</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewVisible": {
+    "DockViewVisibleTitle": "可见性设置",
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnVisibleStateChangedAsync</code> 设置面板关闭回调委托方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewNest": {
+    "DockViewNestTitle": "嵌套布局",
+    "DockViewNestIntro": "组件 <code>DockComponent</code> 内可嵌套放置 <code>DockView</code> 通过设置 <code>ShowHeader=\"false\"</code> 可使其标签不可见"
+  },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
     "DockView2Title": "DockView 可停靠视图",
     "DockView2Description": "多标签停靠布局管理器",
@@ -5967,19 +5999,19 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
     "DockViewColTitle": "列布局",
-    "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Column\"</code> 使 <code>DockView</code> 垂直布局，通过设置 <code>Height=\"240\"</code> 初始化其面板高度"
+    "DockViewColIntro": "通过设置 <code>Type=\"DockViewContentType.Column\"</code> 使 <code>DockView</code> 垂直布局，通过设置 <code>Height=\"240\"</code> 初始化其面板高度"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewRow": {
     "DockViewRowTitle": "行布局",
-    "DockViewRowIntro": "通过设置 <code>Type=\"DockContentType.Row\"</code> 使 <code>DockView</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度"
+    "DockViewRowIntro": "通过设置 <code>Type=\"DockViewContentType.Row\"</code> 使 <code>DockView</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewGroup": {
     "DockViewGroupTitle": "组布局",
-    "DockViewGroupIntro": "通过设置 <code>Type=\"DockContentType.Group\"</code> 使 <code>DockView</code> 组布局"
+    "DockViewGroupIntro": "通过设置 <code>Type=\"DockViewContentType.Group\"</code> 使 <code>DockView</code> 组布局"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewComplex": {
     "DockViewComplexTitle": "复杂布局",
-    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockContentType</code> 值可以得到复杂布局"
+    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockViewContentType</code> 值可以得到复杂布局"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLayout": {
     "DockViewLayoutTitle": "自定义布局",
