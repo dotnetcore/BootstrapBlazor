@@ -1,4 +1,5 @@
 ﻿@page "/dock-view2/nest"
+@inherits BaseDockView
 
 <div class="dock-view-theme-demo">
     <Select @bind-Value="@_theme"></Select>
@@ -6,23 +7,55 @@
     <DockViewV2 Name="DockViewNest" Theme="_theme" class="dock-view-demo">
         <DockViewContent Type="DockViewContentType.Row">
             <DockViewComponent Title="标签一">
-                <div class="panel">Panel1</div>
+                <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                       IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                       ShowDefaultButtons="false" IsFixedHeader="true">
+                    <DetailRowTemplate>
+                        @{
+                            var detailContext = GetDetailDataTableDynamicContext(context);
+                        }
+                        <div class="p-2 w-100">
+                            <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                            </Table>
+                        </div>
+                    </DetailRowTemplate>
+                </Table>
             </DockViewComponent>
             <DockViewComponent Title="标签二">
-                <div class="panel">Panel2</div>
+                <Table TItem="Foo" @bind-Items="Items"
+                       IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                       OnAddAsync="@OnAddAsync">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                        <TableColumn @bind-Field="@context.Education" />
+                        <TableColumn @bind-Field="@context.Count" />
+                        <TableColumn @bind-Field="@context.Complete" />
+                    </TableColumns>
+                </Table>
             </DockViewComponent>
-            <DockViewComponent Title="嵌套布局">
+            <DockViewComponent Title="嵌套布局" ShowHeader="false">
                 <DockViewV2 Name="DockViewInnerNest" Theme="_theme">
                     <DockViewContent Type="DockViewContentType.Column">
                         <DockViewComponent Title="内嵌标签一">
-                            <div class="panel">Panel3</div>
+                            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+                                   Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
+                                <TableColumns>
+                                    <TableColumn @bind-Field="@context.Name" Width="140" />
+                                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                                    <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" ShowTips="true" />
+                                    <TableColumn @bind-Field="@context.Count" Width="80" />
+                                </TableColumns>
+                            </Table>
                         </DockViewComponent>
                         <DockViewContent Type="DockViewContentType.Row">
                             <DockViewComponent Title="内嵌标签二">
-                                <div class="panel">Panel4</div>
+                                <FetchData></FetchData>
                             </DockViewComponent>
                             <DockViewComponent Title="内嵌标签三">
-                                <div class="panel">Panel5</div>
+                                <Counter></Counter>
                             </DockViewComponent>
                         </DockViewContent>
                     </DockViewContent>

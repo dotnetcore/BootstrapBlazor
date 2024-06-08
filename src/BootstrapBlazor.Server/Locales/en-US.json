@@ -4646,6 +4646,7 @@
     "DockViewVisible": "Visible",
     "DockViewLock": "Lock",
     "DockViewLayout": "Custom",
+    "DockViewTitle": "Title",
     "DockView2Components": "DockView2",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",

@@ -11,26 +11,20 @@ export class DefaultPanel {
     }
 
     init(parameter) {
-        let { params, api, containerApi: { component: {template} } } = parameter
+        let { params, api, containerApi: { component: { template } } } = parameter
         let { panel, group } = api
         let { tab, content } = panel.view
-        if(template){
+        if (template) {
             let contentEle = template.querySelector('#' + this.option.id)
-            if(!contentEle) {
+            if (!contentEle) {
                 contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
-            }
-            if (contentEle) {
-                panel.titleMenuEle = contentEle.querySelector(`.bb-dock-view-item-title`) || contentEle.querySelector(`.bb-dock-view-item-title-icon`)
-
-                contentEle = [...contentEle.children].find(div => div.classList.contains('panel') || div.classList.contains('bb-dock-view'))
             }
             this._element = contentEle || document.createElement('div')
         }
-        const { titleClass, titleWidth, contentClass, class: groupClass } = params
+        const { titleClass, titleWidth, class: contentClass } = params
         titleClass && tab._content.classList.add(titleClass)
         titleWidth && (tab._content.style.width = titleWidth + 'px')
         contentClass && content.element.classList.add(contentClass)
-        groupClass && group.element.classList.add(groupClass)
     }
 }
 
@@ -47,7 +41,10 @@ class PanelControl {
         this.tabEle = view.tab.element
         // Panel的Body
         this.contentEle = view.content.element
+
+        dockviewPanel.titleMenuEle = this.contentEle.querySelector(`.bb-dockview-item-title`) || this.contentEle.querySelector(`.bb-dockview-item-title-icon`)
         this.panel = dockviewPanel
+
         dockviewPanel.titleMenuEle && this.createGear(api)
         this.creatCloseBtn()
     }
@@ -58,22 +55,27 @@ class PanelControl {
         // divEle.addEventListener('mousedown', e => {
         //     e.stopPropagation()
         // })
-        if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title-icon')){
+        if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
+
+            this.panel.titleMenuEle.innerHTML = this.panel.titleMenuEle.innerHTML
         }
-        else if(this.panel.titleMenuEle.className.includes('bb-dock-view-item-title')){
-            this.panel.view.tab._content.innerHTML = ''
-            this.panel.view.tab._content.append(this.panel.titleMenuEle)
+        else if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title')) {
+            // this.panel.view.tab._content.innerHTML = ''
+            this.panel.view.tab.element.replaceChild(this.panel.titleMenuEle, this.panel.view.tab._content)
         }
+
         // api.onDidVisibilityChange(({ isVisible }) => {
         //     divEle.style.display = isVisible ? 'block' : 'none'
         // })
     }
     creatCloseBtn() {
-        let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
-        if (this.panel.params?.showClose === false) {
-            closeBtn.style.display = 'none'
-        }else{
+        let showClose = this.panel.params?.showClose
+        showClose = showClose === null ? this.panel.accessor.showClose !== false : showClose
+        if (showClose === false) {
+            this.tabEle.classList.add('dv-tab-on')
+        } else {
+            let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
             let closeControl = this.panel.accessor.groupControls?.find(control => control.name == 'close')
             closeBtn.innerHTML = closeControl?.icon[0]
         }
@@ -91,7 +93,7 @@ class GroupControl {
         this.parentEle = dockviewGroupPanel.element.parentElement
         this.dockview = dockview
         this.isOpenFloat = isOpenFloat
-        this.creatRightControl()
+        !dockviewGroupPanel.header.hidden && this.creatRightControl()
     }
 
     creatPrefixControl() {
@@ -108,13 +110,15 @@ class GroupControl {
         // let divEle = this.document.createElement('div')
         let divEle = this.headerEle.querySelector('.right-actions-container')
         let { panels, api } = this.group
+        let showLock = panels.every(panel => panel.params.showLock === null) ? this.dockview.showLock !== false : panels.some(panel => panel.params.showLock !== false)
         let filterControls = this.dockview.groupControls.filter(item => {
             switch (item.name) {
-                case 'lock': return panels.some(panel => panel.params.showLock !== false)
+                case 'dropdown': return true
+                case 'lock': return showLock
                 case 'packup/expand': return true
                 case 'float': return panels.every(panel => panel.params.showFloat !== false)
                 case 'maximize': return panels.every(panel => panel.params.showMaximize !== false)
-                case 'close': return panels.every(panel => panel.params.showClose !== false)
+                case 'close': return true
             }
         })
         filterControls.forEach(item => {
@@ -129,44 +133,51 @@ class GroupControl {
 
     _createButton(item) {
         const divEle = document.createElement('div')
-        divEle.title = item.name
-        divEle.className = 'bb-dock-view-control-' + item.name
-        divEle.innerHTML = item.icon[0]
-        // divEle.style.cssText = 'margin-left: 6px; cursor: pointer;'
+        divEle.className = 'bb-dockview-control-' + item.name
+        if(item.name == 'dropdown'){
+            divEle.innerHTML = `${item.icon[0]}<ul class="dropdown-menu"></ul>`
+            divEle.children[0].setAttribute('data-bs-toggle', "dropdown")
+            divEle.children[0].setAttribute('aria-expanded', "false")
+        }else{
+            divEle.title = item.name
+            divEle.innerHTML = item.icon[0]
+            if (item.name == 'lock') {
+                this.lockEle = divEle
+                let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
+                this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
+                divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
+                divEle.title = this.group.locked ? 'unlock' : 'lock'
+                if(this.group.locked){
+                    this.group.header.element.classList.add('lock')
+                }
+            }
+            else if (item.name == 'packup/expand') {
+                divEle.className = 'bb-dockview-control-up'
+                let isPackup = this._getGroupParams('isPackup')
+                if (isPackup) {
+                    // divEle.innerHTML = item.icon[1]
+                    // divEle.style.transform = 'rotateZ(180deg)'
+                    divEle.classList.add('bb-dockview-control-down')
+                }
+            }
+            else if (item.name == 'float') {
+                let type = this.group.model.location.type
+                if (type == 'floating') {
+                    divEle.title = 'restore'
+                    divEle.innerHTML = item.icon[1]
+                }
+            }
+            else if (item.name == 'maximize') {
+                let isMaximized = this._getGroupParams('isMaximized')
+                if (isMaximized) {
+                    divEle.innerHTML = item.icon[1]
+                }
+            }
+            divEle.addEventListener('click', () => {
+                this['_' + item.name] && this['_' + item.name](divEle, item)
+            })
+        }
 
-        if (item.name == 'lock') {
-            this.lockEle = divEle
-            let panelLock = this.group.panels.some(panel => panel.params.isLock === true)
-            this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
-            divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
-            divEle.title = this.group.locked ? 'unlock' : 'lock'
-        }
-        else if (item.name == 'packup/expand') {
-            divEle.className = 'bb-dock-view-control-up'
-            let isPackup = this._getGroupParams('isPackup')
-            if (isPackup) {
-                // divEle.innerHTML = item.icon[1]
-                // divEle.style.transform = 'rotateZ(180deg)'
-                divEle.classList.add('bb-dock-view-control-down')
-            }
-        }
-        else if (item.name == 'float') {
-            let type = this.group.model.location.type
-            if (type == 'floating') {
-                divEle.title = 'restore'
-                divEle.innerHTML = item.icon[1]
-            }
-        }
-        else if (item.name == 'maximize') {
-            let isMaximized = this._getGroupParams('isMaximized')
-            if (isMaximized) {
-                divEle.innerHTML = item.icon[1]
-            }
-        }
-
-        divEle.addEventListener('click', () => {
-            this['_' + item.name] && this['_' + item.name](divEle, item)
-        })
         return divEle
     }
     _lock(divEle, item) {
@@ -175,7 +186,7 @@ class GroupControl {
             panel.params && (panel.params.isLock = this.group.locked !== false)
         })
         this.toggleLock(divEle, item)
-        this.dockview._lockChanged?.fire({title: this.group.panels.map(panel => panel.title), isLock: this.group.locked !== false})
+        this.dockview._lockChanged?.fire({ title: this.group.panels.map(panel => panel.title), isLock: this.group.locked !== false })
     }
     toggleLock(divEle, item) {
         divEle = divEle || this.lockEle
@@ -183,6 +194,7 @@ class GroupControl {
         if (!divEle) return
         divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
         divEle.title = this.group.locked ? 'unlock' : 'lock'
+        this.group.locked ? this.group.header.element.classList.add('lock') : this.group.header.element.classList.remove('lock')
         saveConfig(this.dockview)
     }
     '_packup/expand'(divEle, item) {
@@ -196,7 +208,7 @@ class GroupControl {
             parentEle.style.height = '35px'
         }
         // divEle.innerHTML = item.icon[isPackup ? 0 : 1]
-        divEle.style.transform = isPackup ? divEle.classList.remove('bb-dock-view-control-down') : divEle.classList.add('bb-dock-view-control-down')
+        divEle.style.transform = isPackup ? divEle.classList.remove('bb-dockview-control-down') : divEle.classList.add('bb-dockview-control-down')
         saveConfig(this.dockview)
     }
     _float(divEle, item) {
@@ -206,7 +218,7 @@ class GroupControl {
         let y = (this.dockview.height - 460) / 2
         if (type == 'grid') {
             let gridGroups = this.dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
-            if(gridGroups.length <= 1) return
+            if (gridGroups.length <= 1) return
             let { position = {}, isPackup, height, isMaximized } = this.group.getParams()
             let floatingGroupPosition = isMaximized ? {
                 x: 0, y: 0,
@@ -326,25 +338,27 @@ export function cerateDockview(el, options) {
         },
         createTabComponent: option => new myDefaultTab(option, options)
     });
-
     dockview.template = template
     dockview.groupControls = [
+        { name: 'dropdown', icon: ['dropdown'] },
         { name: 'lock', icon: ['unlock', 'lock'] },
         { name: 'packup/expand', icon: ['down'] },
-        { name: 'float', icon: ['float', 'dock'] },
         { name: 'maximize', icon: ['full', 'restore'] },
+        { name: 'float', icon: ['float', 'dock'] },
         { name: 'close', icon: ['close'] }
     ].map(({ name, icon }) => ({
         name,
-        icon: icon.map(item => template.querySelector(`[data-bb-control=${item}]`)?.innerHTML)
+        icon: icon.map(item => template.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
     }))
-    dockview.prefix = options.prefix
+    dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
+    dockview.showClose = options.showClose
+    dockview.showLock = options.showLock
     dockview.saveLayout = () => {
         return dockview.toJSON()
     }
     dockview.update = updateOptions => {
-        if(updateOptions.layoutConfig){
+        if (updateOptions.layoutConfig) {
             reloadDockview(updateOptions, dockview)
         }
         else if (dockview.locked !== updateOptions.lock) {
@@ -366,7 +380,7 @@ export function cerateDockview(el, options) {
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
     let layoutConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
-    let serializeData = serialize(options)
+    let serializeData = serialize(options, {width: el.clientWidth, height: el.clientHeight})
 
     // 以本地优先, 得到最终的dockviewData并修正
     let dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
@@ -465,13 +479,13 @@ export function addHook(dockview, dockviewData) {
         }
         setSumLocal(dockview.prefix + '-panels', obj)
 
-        let boxEle = dockview.template.querySelector('#' + event.id)
-        if(!boxEle){
-            boxEle = event.params.key ? dockview.template.querySelector(`[data-bb-key=${event.params.key}]`) : dockview.template.querySelector(`[data-bb-title=${event.title}]`)
-        }
-        boxEle.append(event.view.content.element)
-        if (event.titleMenuEle) {
-            boxEle.append(event.titleMenuEle)
+        if (event.view.content.element) {
+            if (event.titleMenuEle) {
+                event.view.content.element.append(event.titleMenuEle)
+            }
+            if (dockview.template) {
+                dockview.template.append(event.view.content.element)
+            }
         }
 
         // 放在onDidLayoutChange里保存
@@ -519,8 +533,8 @@ export function addHook(dockview, dockviewData) {
                 event.groupControl = new GroupControl(event, dockview)
             }, 0);
         }
-
-        event.model.onGroupDragStart(function (e) { })
+        // 监听groupHeader的宽度变化
+        observer.observe(event.header.element)
     })
     dockview.onDidRemoveGroup(event => { })
 
@@ -572,17 +586,54 @@ export function addHook(dockview, dockviewData) {
             }
         })
     })
+    dockview.onDidRemove(() => {
+    })
 }
+const setWidth = (observerList) => {
+    observerList.forEach(observer => {
+        let header = observer.target
+        let tabsContainer = header.querySelector('.tabs-container')
+        let voidWidth = header.querySelector('.void-container').offsetWidth
+        let dropdown = header.querySelector('.right-actions-container>.bb-dockview-control-dropdown')
+        if(!dropdown) return
+        let dropMenu = dropdown.querySelector('.dropdown-menu')
+        if(voidWidth == 0){
+            if(tabsContainer.children.length <=  1) return
+            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
+            let aEle = document.createElement('a')
+            let liEle = document.createElement('li')
+            aEle.className = 'dropdown-item'
+            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
+            liEle.addEventListener('click', () => {
+                dropMenu.children[0].setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
+                dropMenu.children[0].children[0].append(tabsContainer.children[0])
+                tabsContainer.append(liEle.children[0].children[0])
+            })
+            aEle.append(lastTab)
+            liEle.append(aEle)
+            dropMenu.insertAdjacentElement("afterbegin", liEle)
+        }else{
+            let firstLi = dropMenu.children[0]
+            if(firstLi){
+                let firstTab = firstLi.querySelector('.tab')
+                if(voidWidth > firstLi.getAttribute('tabWidth')){
+                    firstTab && tabsContainer.append(firstTab)
+                    firstLi.remove()
+                }
+            }
+        }
+    })
+}
+const observer = new ResizeObserver(setWidth)
 
 let panels = {}
 let groupId = 0
 const getGroupId = () => {
     return groupId++
 }
-export function serialize(options) {
+export function serialize(options, {width = 800, height = 600}) {
     groupId = 0
-    const orientation = options.content[0].type == 'row' ? 'HORIZONTAL' : 'VERTICAL'
-    const { width = 100, height = 80 } = options
+    const orientation = options.content[0].type == 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -591,7 +642,7 @@ export function serialize(options) {
             orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0], { width, height, orientation })]
+                data: [getTree(options.content[0], { width, height, orientation }, options.content)]
             },
         },
         panels
@@ -726,24 +777,33 @@ const saveConfig = (dockview, config) => {
         (config && JSON.stringify(config)) || JSON.stringify(json)
     )
 }
-const getTree = (contentItem, { width, height, orientation }, length = 1) => {
-    let obj = {}, size = orientation == 'HORIZONTAL' ? width : height
-    size = (1 / length * size).toFixed(2) * 1
+const getTree = (contentItem, { width, height, orientation }, parent) => {
+    let length = parent.length || 1
+    let obj = {}, boxSize = orientation == 'HORIZONTAL' ? width : height, size
+    let hasSizeList = parent.filter(item => item.width || item.height)
+    let hasSizeLen = hasSizeList.length
+    if(hasSizeLen == 0){
+        size = (1 / length * boxSize).toFixed(2) * 1
+    }else{
+        size = hasSizeList.reduce((pre, cur) => pre + (cur.width || cur.height), 0)
+        size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
+    }
     orientation == 'HORIZONTAL' ? width = size : height = size
     orientation = orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
 
     if (contentItem.type == 'row' || contentItem.type == 'column') {
         obj.type = 'branch'
-        obj.size = size
-        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem.content.length))
+        obj.size = contentItem.width || contentItem.height || size
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem.content))
     }
     else if (contentItem.type == 'group') {
         obj.type = 'leaf'
-        obj.size = size
+        obj.size = contentItem.width || contentItem.height || size
         obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.content[0].id,
+            hideHeader: contentItem.content.length == 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
                     id: item.id,
@@ -759,10 +819,11 @@ const getTree = (contentItem, { width, height, orientation }, length = 1) => {
     else if (contentItem.type = 'component') {
         obj.type = 'leaf'
         obj.visible = contentItem.visible !== false
-        obj.size = size
+        obj.size = contentItem.width || contentItem.height || size
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.id,
+            hideHeader: contentItem.showHeader === false,
             views: obj.visible ? [contentItem.id] : []
         }
         if (obj.visible) {

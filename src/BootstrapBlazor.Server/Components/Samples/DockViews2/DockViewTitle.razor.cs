@@ -5,8 +5,12 @@
 namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 
 /// <summary>
-/// 列布局示例
+/// DockViewTitle 示例
 /// </summary>
-public partial class DockViewCol
+public partial class DockViewTitle
 {
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnClickTitleBarCallback() => ToastService.Success("事件回调", "点击标题图标回调方法");
 }

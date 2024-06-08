@@ -864,6 +864,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DockViewTitle"],
+                    Url = "dock-view2/title"
+                },
+                new()
+                {
                     Text = Localizer["DockViewLayout"],
                     Url = "dock-view2/layout"
                 }

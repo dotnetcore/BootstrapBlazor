@@ -1,9 +1,9 @@
-﻿@page "/dock-view2/col"
+﻿@page "/dock-view2/title"
 @inherits BaseDockView
 
 <DockViewV2 Name="DockViewV2LayoutColumn">
     <DockViewContent Type="DockViewContentType.Column">
-        <DockViewComponent Key="tab1" Title="标签一" Height="240">
+        <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback" Height="240">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false" IsFixedHeader="true">
@@ -19,19 +19,24 @@
             </Table>
         </DockViewComponent>
         <DockViewComponent Key="tab2" Title="标签二">
-            <Table TItem="Foo" @bind-Items="Items"
-                   IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
-                   ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
-                   OnAddAsync="@OnAddAsync">
-                <TableColumns>
-                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@context.Name" />
-                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
-                    <TableColumn @bind-Field="@context.Education" />
-                    <TableColumn @bind-Field="@context.Count" />
-                    <TableColumn @bind-Field="@context.Complete" />
-                </TableColumns>
-            </Table>
+            <TitleTemplate>
+                <DockViewTitleTemplateDemo OnClickTitleBarCallback="OnClickTitleBarCallback"></DockViewTitleTemplateDemo>
+            </TitleTemplate>
+            <ChildContent>
+                <Table TItem="Foo" @bind-Items="Items"
+                       IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                       OnAddAsync="@OnAddAsync">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                        <TableColumn @bind-Field="@context.Education" />
+                        <TableColumn @bind-Field="@context.Count" />
+                        <TableColumn @bind-Field="@context.Complete" />
+                    </TableColumns>
+                </Table>
+            </ChildContent>
         </DockViewComponent>
         <DockViewComponent Key="tab3" Title="标签三" Height="240">
             <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"

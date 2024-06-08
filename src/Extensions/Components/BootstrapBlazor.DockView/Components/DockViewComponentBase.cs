@@ -3,34 +3,43 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// DockComponent 基类
 /// </summary>
-public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponent
+public abstract class DockViewComponentBase : IdComponentBase, IDockViewComponentBase
 {
     /// <summary>
     /// 获得/设置 渲染类型 默认 Component
     /// </summary>
     [Parameter]
-    [JsonConverter(typeof(DockViewTypeConverter))]
     public DockViewContentType Type { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件宽度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Width { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Height { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]
-    [JsonIgnore]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 DockContent 实例
     /// </summary>
     [CascadingParameter]
-    private List<IDockViewComponent>? Parent { get; set; }
+    private List<IDockViewComponentBase>? Parent { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
