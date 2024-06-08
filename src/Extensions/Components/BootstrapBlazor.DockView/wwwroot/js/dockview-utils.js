@@ -57,8 +57,6 @@ class PanelControl {
         // })
         if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title-icon')) {
             this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
-
-            this.panel.titleMenuEle.innerHTML = this.panel.titleMenuEle.innerHTML
         }
         else if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title')) {
             // this.panel.view.tab._content.innerHTML = ''
