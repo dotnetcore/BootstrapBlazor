@@ -5989,6 +5989,14 @@
     "DockViewLockTitle": "锁定面板",
     "DockViewLockIntro": "通过设置 <code>DockView</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动，通过设置 <code>ShowLock</code> 控制是否显示锁定按钮"
   },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewTitle": {
+    "DockViewTitleTitle": "设置标题",
+    "DockViewTitleIntro": "通过设置 <code>ShowTitleBar</code> 控制是否显示标题前功能按钮，使用 <code>OnClickTitleBarCallback</code> 设置回调委托方法，复杂功能使用 <code>TitleTemplate</code> 自定义"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
+    "DockViewVisibleTitle": "可见性设置",
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnPanelClosedCallbackAsync</code> 设置面板关闭回调委托方法"
+  },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
     "MouseFollowersDescription": "可以为网站上的鼠标光标创建惊人而流畅的效果。",
