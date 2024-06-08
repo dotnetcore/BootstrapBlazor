@@ -8,10 +8,10 @@
             ad.classList.add("wwads-horizontal")
             el.appendChild(ad);
 
-            const cc = document.createElement('div');
-            cc.classList.add("cc-ad")
-            cc.innerHTML = `<a href="https://ccbpm.cn/index.html?Frm=argo" target="_blank"><img src='https://ccbpm.cn/img/GenerAD.png?Frm=argo' /></a>`
-            el.appendChild(cc);
+            //    const cc = document.createElement('div');
+            //    cc.classList.add("cc-ad")
+            //    cc.innerHTML = `<a href="https://ccbpm.cn/index.html?Frm=argo" target="_blank"><img src='https://ccbpm.cn/img/GenerAD.png?Frm=argo' /></a>`
+            //    el.appendChild(cc);
         }
     }
 }

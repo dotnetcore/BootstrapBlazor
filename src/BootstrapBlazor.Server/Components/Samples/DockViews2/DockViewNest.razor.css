@@ -1,11 +1,8 @@
-﻿.dock-view-theme-demo {
-    height: 100%;
+﻿::deep + .select {
+    margin-bottom: 1rem;
 }
 
-    .dock-view-theme-demo ::deep > .select {
-        margin-bottom: 1rem;
-    }
-
-    .dock-view-theme-demo ::deep > .dock-view-demo {
-        height: calc(100% - 35px - 1rem);
-    }
+::deep ~ .dockview-demo {
+    height: calc(100% - 142px);
+    margin-top: 1rem;
+}
