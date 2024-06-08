@@ -4,20 +4,21 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// DockContent 类对标 content 配置项
 /// </summary>
-public class DockViewContent : DockViewComponentBase, IDockViewContent
+public class DockViewContent : DockViewComponentBase
 {
     /// <summary>
     /// 获得/设置 子项集合
     /// </summary>
-    List<IDockViewComponentBase> IDockViewContent.Items => _items;
-
-    private readonly List<IDockViewComponentBase> _items = [];
+    [JsonConverter(typeof(DockViewComponentConverter))]
+    [JsonPropertyName("content")]
+    public List<DockViewComponentBase> Items { get; set; } = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -25,10 +26,10 @@ public class DockViewContent : DockViewComponentBase, IDockViewContent
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<List<IDockViewComponentBase>>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<List<IDockViewComponentBase>>.Value), _items);
-        builder.AddAttribute(2, nameof(CascadingValue<List<IDockViewComponentBase>>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<List<IDockViewComponentBase>>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<List<DockViewComponentBase>>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<List<DockViewComponentBase>>.Value), Items);
+        builder.AddAttribute(2, nameof(CascadingValue<List<DockViewComponentBase>>.IsFixed), true);
+        builder.AddAttribute(3, nameof(CascadingValue<List<DockViewComponentBase>>.ChildContent), ChildContent);
         builder.CloseComponent();
     }
 }

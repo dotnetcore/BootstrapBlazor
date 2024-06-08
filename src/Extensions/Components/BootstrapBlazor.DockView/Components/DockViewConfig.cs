@@ -54,8 +54,8 @@ class DockViewConfig
     /// 获得/设置 Golden-Layout 配置项集合 默认 空集合
     /// </summary>
     [JsonPropertyName("content")]
-    [JsonConverter(typeof(DockViewContentRootConverter))]
-    public List<IDockViewComponentBase> Contents { get; set; } = [];
+    [JsonConverter(typeof(DockViewComponentConverter))]
+    public List<DockViewComponentBase> Contents { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 布局配置 默认 null 未设置
