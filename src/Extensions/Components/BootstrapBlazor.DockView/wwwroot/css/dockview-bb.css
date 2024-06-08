@@ -9,6 +9,9 @@
     --bb-dockview-control-icon-lock-color: #b5b5c3;
     --dv-tabs-and-actions-container-font-size: 13px;
     --dv-tabs-and-actions-container-height: 35px;
+    --bb-dockview-control-dropdown-padding-y: .25rem;
+    --bb-dockview-control-dropdown-item-padding-x: 0;
+    --bb-dockview-control-dropdown-item-padding-y: 3px;
     width: 100%;
     height: 100%;
     border: var(--bs-border-width) solid var(--bs-border-color);
@@ -141,4 +144,10 @@
 
         .bb-dockview .bb-dockview-control-dropdown:has(.tab) {
             display: block;
+        }
+
+        .bb-dockview .bb-dockview-control-dropdown .dropdown-menu {
+            --bs-dropdown-padding-y: var(--bb-dockview-control-dropdown-padding-y);
+            --bs-dropdown-item-padding-x: var(--bb-dockview-control-dropdown-item-padding-x);
+            --bs-dropdown-item-padding-y: var(--bb-dockview-control-dropdown-item-padding-y);
         }
