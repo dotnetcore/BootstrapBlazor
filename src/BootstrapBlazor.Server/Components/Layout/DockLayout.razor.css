@@ -1,9 +1,0 @@
-﻿.dock-tabs-body {
-    overflow: hidden;
-    margin: -0.5rem;
-    height: calc(100vh - 134px);
-}
-
-    .dock-tabs-body ::deep .bb-dock {
-        height: 100%;
-    }
