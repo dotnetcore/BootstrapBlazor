@@ -1,9 +1,9 @@
 ﻿@page "/dock-view2/lock"
 @inherits BaseDockView
 
-<h4>锁定面板</h4>
-<p>通过设置 <code>DockView</code> 的属性 <code>IsLock</code>,控制所有面板是否能拖动</p>
-<p>通过设置 <code>DockComponent</code> 的属性 <code>IsLock</code>,控制某个面板是否能拖动</p>
+<h3>@Localizer["DockViewLockTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewLockIntro"].Value)</h4>
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 

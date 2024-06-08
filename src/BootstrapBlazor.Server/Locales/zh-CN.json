@@ -5985,6 +5985,10 @@
     "DockViewLayoutTitle": "自定义布局",
     "DockViewLayoutIntro": "通过设置 <code>DockView</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局"
   },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLock": {
+    "DockViewLockTitle": "锁定面板",
+    "DockViewLockIntro": "通过设置 <code>DockView</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动，通过设置 <code>ShowLock</code> 控制是否显示锁定按钮"
+  },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
     "MouseFollowersDescription": "可以为网站上的鼠标光标创建惊人而流畅的效果。",
