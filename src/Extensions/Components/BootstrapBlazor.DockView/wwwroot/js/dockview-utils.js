@@ -132,11 +132,11 @@ class GroupControl {
     _createButton(item) {
         const divEle = document.createElement('div')
         divEle.className = 'bb-dockview-control-' + item.name
-        if(item.name == 'dropdown'){
+        if (item.name == 'dropdown') {
             divEle.innerHTML = `${item.icon[0]}<ul class="dropdown-menu"></ul>`
             divEle.children[0].setAttribute('data-bs-toggle', "dropdown")
             divEle.children[0].setAttribute('aria-expanded', "false")
-        }else{
+        } else {
             divEle.title = item.name
             divEle.innerHTML = item.icon[0]
             if (item.name == 'lock') {
@@ -145,7 +145,7 @@ class GroupControl {
                 this.group.locked = this.isOpenFloat ? false : panelLock ? true : this.dockview.locked ? true : false
                 divEle.innerHTML = item.icon[this.group.locked ? 1 : 0]
                 divEle.title = this.group.locked ? 'unlock' : 'lock'
-                if(this.group.locked){
+                if (this.group.locked) {
                     this.group.header.element.classList.add('lock')
                 }
             }
@@ -378,7 +378,7 @@ export function cerateDockview(el, options) {
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
     let layoutConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
-    let serializeData = serialize(options, {width: el.clientWidth, height: el.clientHeight})
+    let serializeData = serialize(options, { width: el.clientWidth, height: el.clientHeight })
 
     // 以本地优先, 得到最终的dockviewData并修正
     let dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
@@ -593,10 +593,10 @@ const setWidth = (observerList) => {
         let tabsContainer = header.querySelector('.tabs-container')
         let voidWidth = header.querySelector('.void-container').offsetWidth
         let dropdown = header.querySelector('.right-actions-container>.bb-dockview-control-dropdown')
-        if(!dropdown) return
+        if (!dropdown) return
         let dropMenu = dropdown.querySelector('.dropdown-menu')
-        if(voidWidth == 0){
-            if(tabsContainer.children.length <=  1) return
+        if (voidWidth == 0) {
+            if (tabsContainer.children.length <= 1) return
             let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
             let aEle = document.createElement('a')
             let liEle = document.createElement('li')
@@ -610,11 +610,11 @@ const setWidth = (observerList) => {
             aEle.append(lastTab)
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
-        }else{
+        } else {
             let firstLi = dropMenu.children[0]
-            if(firstLi){
+            if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
-                if(voidWidth > firstLi.getAttribute('tabWidth')){
+                if (voidWidth > firstLi.getAttribute('tabWidth')) {
                     firstTab && tabsContainer.append(firstTab)
                     firstLi.remove()
                 }
@@ -629,7 +629,7 @@ let groupId = 0
 const getGroupId = () => {
     return groupId++
 }
-export function serialize(options, {width = 800, height = 600}) {
+export function serialize(options, { width = 800, height = 600 }) {
     groupId = 0
     const orientation = options.content[0].type == 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
@@ -780,9 +780,9 @@ const getTree = (contentItem, { width, height, orientation }, parent) => {
     let obj = {}, boxSize = orientation == 'HORIZONTAL' ? width : height, size
     let hasSizeList = parent.filter(item => item.width || item.height)
     let hasSizeLen = hasSizeList.length
-    if(hasSizeLen == 0){
+    if (hasSizeLen == 0) {
         size = (1 / length * boxSize).toFixed(2) * 1
-    }else{
+    } else {
         size = hasSizeList.reduce((pre, cur) => pre + (cur.width || cur.height), 0)
         size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
     }
