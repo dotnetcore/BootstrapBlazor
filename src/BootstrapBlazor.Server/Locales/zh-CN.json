@@ -5970,8 +5970,16 @@
     "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Column\"</code> 使 <code>DockView</code> 垂直布局，通过设置 <code>Height=\"240\"</code> 初始化其面板高度"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewRow": {
-    "DockViewColTitle": "行布局",
-    "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Row\"</code> 使 <code>DockView</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度"
+    "DockViewRowTitle": "行布局",
+    "DockViewRowIntro": "通过设置 <code>Type=\"DockContentType.Row\"</code> 使 <code>DockView</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewGroup": {
+    "DockViewGroupTitle": "组布局",
+    "DockViewGroupIntro": "通过设置 <code>Type=\"DockContentType.Group\"</code> 使 <code>DockView</code> 组布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewComplex": {
+    "DockViewComplexTitle": "复杂布局",
+    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockContentType</code> 值可以得到复杂布局"
   },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
