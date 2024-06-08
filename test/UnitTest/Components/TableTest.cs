@@ -3905,7 +3905,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.Contains("test_search");
+        Assert.Equal(showSearchButton, cut.Markup.Contains("test_search"));
     }
 
     [Fact]
