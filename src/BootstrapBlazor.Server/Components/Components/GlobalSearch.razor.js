@@ -143,6 +143,7 @@ const updateList = (search, result) => {
     const { menu, list, input, template, blockTemplate } = search;
     list.innerHTML = '';
     menu.innerHTML = '';
+    menu.classList.add('show');
 
     const html = template.innerHTML;
     const blockHtml = blockTemplate.innerHTML;
@@ -197,8 +198,10 @@ const updateStatus = (search, hits, ms) => {
 }
 
 const resetStatus = search => {
-    const { options, status, input, list, emptyTemplate } = search;
+    const { options, status, input, list, menu, emptyTemplate } = search;
     status.innerHTML = options.searchStatus;
     input.value = '';
     list.innerHTML = emptyTemplate.outerHTML;
+    menu.innerHTML = '';
+    menu.classList.remove('show');
 }
