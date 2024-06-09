@@ -105,15 +105,9 @@ public partial class DockViewV2
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly List<DockViewComponentBase> _root = [];
-
-    private readonly List<DockViewComponent> _components = [];
+    private readonly List<DockViewComponentBase> _components = [];
 
     private string? _templateId;
-
-    private bool _rendered;
-
-    private bool _init;
 
     [NotNull]
     private DockViewOptions? _options = default!;
@@ -141,22 +135,11 @@ public partial class DockViewV2
 
         if (firstRender)
         {
-            _rendered = true;
-            StateHasChanged();
-            return;
+            await InvokeVoidAsync("init", Id, Interop, GetOptions());
         }
-
-        if (Module != null)
+        else
         {
-            if (_init)
-            {
-                await InvokeVoidAsync("update", Id, GetOptions());
-            }
-            else
-            {
-                _init = true;
-                await InvokeVoidAsync("init", Id, Interop, GetOptions());
-            }
+            await InvokeVoidAsync("update", Id, GetOptions());
         }
     }
 
@@ -172,20 +155,12 @@ public partial class DockViewV2
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
         TemplateId = _templateId,
-        Contents = _root
+        Contents = _components
     };
 
     private string GetVersion() => Version ?? _options.Version ?? "v1";
 
     private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dockview";
-
-    private static async Task OnClickBar(Func<Task>? callback)
-    {
-        if (callback != null)
-        {
-            await callback();
-        }
-    }
 
     /// <summary>
     /// 重置为默认布局
