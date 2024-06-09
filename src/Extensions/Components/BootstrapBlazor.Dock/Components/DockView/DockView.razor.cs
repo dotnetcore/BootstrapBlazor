@@ -161,19 +161,21 @@ public partial class DockView
 
     private DockViewConfig GetOptions() => new()
     {
-        Version = Version ?? _options.Version ?? "v1",
-        Name = Name,
         EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
         IsLock = IsLock,
         Contents = Config.Contents,
         LayoutConfig = LayoutConfig,
-        LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
+        LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
         SplitterCallback = nameof(SplitterCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync)
     };
+
+    private string GetVersion() => Version ?? _options.Version ?? "v1";
+
+    private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dockview";
 
     /// <summary>
     /// 锁定/解锁当前布局

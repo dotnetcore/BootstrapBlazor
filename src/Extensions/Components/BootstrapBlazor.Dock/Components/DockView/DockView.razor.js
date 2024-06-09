@@ -379,7 +379,7 @@ const getConfig = option => {
     let config = null
     let layoutConfig = option.layoutConfig;
     if (layoutConfig === null && option.enableLocalStorage) {
-        layoutConfig = localStorage.getItem(getLocalStorageKey(option));
+        layoutConfig = localStorage.getItem(option.localStorageKey);
     }
     if (layoutConfig) {
         // 当tab全部关闭时，没有root节点
@@ -410,10 +410,6 @@ const getConfig = option => {
     }
 }
 
-const getLocalStorageKey = option => {
-    return `${option.prefix}-${option.version}`
-}
-
 const indexOfKey = (key, option) => {
     return key.indexOf(`${option.prefix}-`) > -1
 }
@@ -425,7 +421,7 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
+        localStorage.setItem(option.localStorageKey, JSON.stringify(layout.saveLayout()));
     }
 }
 
