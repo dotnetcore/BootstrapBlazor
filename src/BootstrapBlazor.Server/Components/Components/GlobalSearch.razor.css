@@ -114,11 +114,9 @@
     padding: .5rem .25rem;
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
+    font-size: 13px;
+    display: none;
 }
-
-    .search-dialog-menu:not(.show) {
-        display: none;
-    }
 
     .search-dialog-menu ::deep .search-dialog-menu-item {
         padding: .25rem .5rem;
@@ -215,6 +213,10 @@
     }
 
 @media (min-width: 768px) {
+    .search-dialog-menu.show {
+        display: block;
+    }
+
     .bb-g-search {
         --bb-global-search-top: 72px;
         --bb-global-search-left: 20px;
