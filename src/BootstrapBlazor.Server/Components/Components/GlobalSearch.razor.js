@@ -114,12 +114,6 @@ const handlerSearch = search => {
 
             if (targetEl) {
                 targetEl.scrollIntoView(true);
-
-                const activeEl = search.menu.querySelector('.active');
-                if (activeEl) {
-                    activeEl.classList.remove('active');
-                }
-                link.classList.add('active');
             }
         }
     });
