@@ -16,26 +16,32 @@
         <div class="search-dialog-status">
             @Localizer["SearchStatus"]
         </div>
-        <div class="search-dialog-item-template">
-            <div class="search-dialog-item">
-                <a href="{url}" target="_blank">
-                    <div class="search-dialog-item-title"><span>{title}</span><span class="badge text-bg-warning">{count}</span></div>
-                    <div class="search-dialog-item-sub">{sub-title}</div>
-                </a>
+        <div class="search-dialog-main">
+            <div class="search-dialog-list scroll">
+            </div>
+            <div class="search-dialog-menu scroll">
             </div>
         </div>
-        <div class="search-dialog-block-template">
-            <li>
-                <a href="{url}" target="_blank">
-                    <div class="search-dialog-block-title"><span>{title}</span></div>
-                    <div class="search-dialog-block-intro">{intro}</div>
-                </a>
-            </li>
-        </div>
-        <div class="search-dialog-empty-template">
-            @Localizer["SearchResultPlaceHolder"]
-        </div>
-        <div class="search-dialog-list scroll">
-        </div>
+        <template>
+            <div class="search-dialog-item-template">
+                <div class="search-dialog-item">
+                    <a href="{url}" target="_blank">
+                        <div class="search-dialog-item-title"><span>{title}</span><span class="badge text-bg-warning">{count}</span></div>
+                        <div class="search-dialog-item-sub">{sub-title}</div>
+                    </a>
+                </div>
+            </div>
+            <ul class="search-dialog-block-template">
+                <li>
+                    <a href="{url}" target="_blank">
+                        <div class="search-dialog-block-title"><span>{title}</span></div>
+                        <div class="search-dialog-block-intro">{intro}</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="search-dialog-empty-template">
+                @Localizer["SearchResultPlaceHolder"]
+            </div>
+        </template>
     </div>
 </div>

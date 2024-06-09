@@ -102,16 +102,47 @@
     line-height: 34px;
 }
 
-.search-dialog-item-template,
-.search-dialog-block-template,
-.search-dialog-empty-template {
+.search-dialog-main {
+    display: flex;
+    height: calc(100% - 82px);
+    margin: 0 -.5rem;
+}
+
+.search-dialog-menu {
+    flex-basis: 240px;
+    margin-left: 0.5rem;
+    padding: .5rem .25rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    font-size: 13px;
     display: none;
 }
 
+    .search-dialog-menu ::deep .search-dialog-menu-item {
+        padding: .25rem .5rem;
+        display: block;
+        color: var(--bs-body-color);
+        border-radius: var(--bs-border-radius);
+    }
+
+        .search-dialog-menu ::deep .search-dialog-menu-item:not(:last-child) {
+            margin-bottom: .125rem;
+        }
+
+        .search-dialog-menu ::deep .search-dialog-menu-item:hover {
+            background-color: rgba(var(--bb-primary-color-rgb), 0.4);
+        }
+
+        .search-dialog-menu ::deep .search-dialog-menu-item.active {
+            background-color: rgba(var(--bb-primary-color-rgb), 0.5);
+        }
+
 .search-dialog-list {
+    flex: 1;
     overflow: auto;
-    height: calc(100% - 82px);
-    margin-right: -0.5rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: .25rem;
 }
 
     .search-dialog-list .search-dialog-item {
@@ -119,7 +150,6 @@
         border: var(--bs-border-width) solid var(--bs-border-color);
         border-radius: var(--bs-border-radius);
         padding: .5rem;
-        margin-right: .5rem;
         position: relative;
         transition: border-color .3s linear, background-color .3s linear;
     }
@@ -183,6 +213,10 @@
     }
 
 @media (min-width: 768px) {
+    .search-dialog-menu.show {
+        display: block;
+    }
+
     .bb-g-search {
         --bb-global-search-top: 72px;
         --bb-global-search-left: 20px;
@@ -194,5 +228,11 @@
     .search-dialog {
         width: 700px;
         margin: 0 auto;
+    }
+}
+
+@media (min-width: 992px) {
+    .search-dialog {
+        width: 900px;
     }
 }
