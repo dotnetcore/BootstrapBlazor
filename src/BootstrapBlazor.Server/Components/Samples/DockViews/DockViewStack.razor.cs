@@ -5,19 +5,11 @@
 namespace BootstrapBlazor.Server.Components.Samples.DockViews;
 
 /// <summary>
-/// DockView 列布局示例代码
+/// DockViewStack 示例文档
 /// </summary>
-public partial class DockViewCol
+public partial class DockViewStack
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<DockViewCol>? Localizer { get; set; }
-
-    [Inject, NotNull]
-    private ToastService? ToastService { get; set; }
-
-    private void OnClickGear()
-    {
-        ToastService.Success("DockView", "Trigger click event from gear icon");
-    }
+    private IStringLocalizer<DockViewStack>? Localizer { get; set; }
 }

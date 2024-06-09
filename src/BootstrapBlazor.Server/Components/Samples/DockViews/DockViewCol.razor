@@ -1,7 +1,11 @@
 ﻿@page "/dock-view/col"
 @inherits BaseDockView
 
-<DockView Name="DockViewCol">
+<h3>@Localizer["DockViewColTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewColIntro"].Value)</h4>
+
+<DockView Name="DockViewCol" class="dock-demo">
     <DockContent Type="DockContentType.Column">
         <DockComponent Title="标签一" ShowClose="false">
             <TitleTemplate>

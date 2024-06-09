@@ -5960,6 +5960,38 @@
     "DockViewDescription": "A multi window layout manager for webapps",
     "DockViewIntro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
   },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
+    "DockViewColTitle": "Column",
+    "DockViewColIntro": "Make the Dock vertical by setting <code>Type=\"DockContentType.Column\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewRow": {
+    "DockViewRowTitle": "Row",
+    "DockViewRowIntro": "Make the Dock horizontal by setting <code>Type=\"DockContentType.Row\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewStack": {
+    "DockViewStackTitle": "Stack",
+    "DockViewStackIntro": "Make the <code>Dock</code> group layout by setting <code>Type=\"DockContentType.Stack\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewComplex": {
+    "DockViewComplexTitle": "Complex",
+    "DockViewComplexIntro": "Complex layouts can be achieved by combining and nesting <code>DockContentType</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLayout": {
+    "DockViewLayoutTitle": "Custom Layout",
+    "DockViewLayoutIntro": "Initialize the display layout of the control panel by setting the <code>LayoutConfig</code> property of <code>Dock</code>, and get the display layout of the panel by using the <code>GetLayoutConfig</code> method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLock": {
+    "DockViewLockTitle": "Lock",
+    "DockViewLockIntro": "By setting the <code>IsLock</code> property of <code>Dock</code>, you can control whether all panels can be dragged."
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewVisible": {
+    "DockViewVisibleTitle": "Visible",
+    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewNest": {
+    "DockViewNestTitle": "Nested Layouts",
+    "DockViewNestIntro": "<code>DockView</code> can be nested inside <code>DockComponent</code> and its label can be made invisible by setting <code>ShowHeader=\"false\"</code>"
+  },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
     "DockView2Title": "DockView",
     "DockView2Description": "A multi window layout manager for webapps",
@@ -5982,7 +6014,7 @@
     "DockViewComplexIntro": "Complex layouts can be achieved by combining and nesting <code>DockContentType</code> values"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLayout": {
-    "DockViewLayoutTitle": "Custom",
+    "DockViewLayoutTitle": "Custom Layout",
     "DockViewLayoutIntro": "Initialize the display layout of the control panel by setting the <code>LayoutConfig</code> property of <code>DockView</code>, and get the display layout of the panel by using the <code>GetLayoutConfig</code> method"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLock": {
