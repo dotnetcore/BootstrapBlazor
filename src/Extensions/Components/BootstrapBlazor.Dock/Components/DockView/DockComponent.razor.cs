@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContentItem 配置项子项对标 content 配置项内部 content 配置
 /// </summary>
-public class DockComponent : DockComponentBase
+public partial class DockComponent
 {
     /// <summary>
     /// 获得/设置 组件名称 默认 component golden-layout 渲染使用

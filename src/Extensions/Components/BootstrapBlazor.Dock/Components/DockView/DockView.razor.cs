@@ -109,11 +109,7 @@ public partial class DockView
 
     private DockContent Content { get; } = new();
 
-    private bool _rendered;
-
     private bool _isLock;
-
-    private bool _init;
 
     [NotNull]
     private DockViewOptions? _options = default!;
@@ -155,22 +151,11 @@ public partial class DockView
 
         if (firstRender)
         {
-            _rendered = true;
-            StateHasChanged();
-            return;
+            await InvokeVoidAsync("init", Id, GetOptions(), Interop);
         }
-
-        if (_rendered)
+        else
         {
-            if (_init)
-            {
-                await InvokeVoidAsync("update", Id, GetOptions());
-            }
-            else
-            {
-                _init = true;
-                await InvokeVoidAsync("init", Id, GetOptions(), Interop);
-            }
+            await InvokeVoidAsync("update", Id, GetOptions());
         }
     }
 
@@ -188,26 +173,6 @@ public partial class DockView
         TabDropCallback = nameof(TabDropCallbackAsync),
         SplitterCallback = nameof(SplitterCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync)
-    };
-
-    private RenderFragment RenderDockComponent(List<IDockComponent> items) => builder =>
-    {
-        foreach (var item in items)
-        {
-            switch (item)
-            {
-                case DockComponent com:
-                    builder.AddContent(0, RenderComponent(com));
-                    if (com.TitleTemplate != null)
-                    {
-                        builder.AddContent(1, RenderTitleTemplate(com));
-                    }
-                    break;
-                case DockContent content:
-                    builder.AddContent(1, RenderDockComponent(content.Items));
-                    break;
-            }
-        }
     };
 
     /// <summary>

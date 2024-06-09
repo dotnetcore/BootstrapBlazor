@@ -11,7 +11,7 @@ export async function init(id, option, invoke) {
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
     const eventsData = new Map()
-    const dock = { el, eventsData, invoke, lock: option.lock, layoutConfig: option.layoutConfig }
+    const dock = { el, template: el.querySelector('template'), eventsData, invoke, lock: option.lock, layoutConfig: option.layoutConfig }
     Data.set(id, dock)
 
     option.invokeVisibleChangedCallback = (title, visible) => {
@@ -39,14 +39,12 @@ export async function init(id, option, invoke) {
             const gear = document.querySelector(`[data-bb-componentId="${state.id}"]`);
             if (gear) {
                 tab.titleElement.append(gear);
-                gear.classList.remove('d-none');
             }
 
             const originalEvent = tab._dragStartEvent;
             tab._dragStartEvent = function (x, y, dragListener, item) {
                 const gear = item.parentItem.element.querySelector(`[data-bb-componentId="${state.id}"]`)
                 if (gear) {
-                    gear.classList.add('d-none');
                     document.body.appendChild(gear);
                 }
 
@@ -307,7 +305,7 @@ const toggleComponent = (dock, option) => {
     comps.forEach(v => {
         const c = items.find(i => i.id === v.id)
         if (c === void 0) {
-            closeItem(dock.el, v)
+            closeItem(dock, v)
         }
         else if (v.title !== c.title) {
             // 更新 Title
@@ -359,11 +357,11 @@ const createGoldenLayout = (option, el) => {
     return layout
 }
 
-const closeItem = (el, component) => {
+const closeItem = (dock, component) => {
+    const { template } = dock;
     const item = document.getElementById(component.id)
     if (item) {
-        item.classList.add('d-none')
-        el.append(item)
+        template.append(item)
     }
     const parent = component.parent
     parent.removeChild(component)

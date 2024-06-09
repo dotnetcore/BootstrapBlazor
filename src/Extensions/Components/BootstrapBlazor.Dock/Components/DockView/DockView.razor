@@ -3,24 +3,9 @@
 @attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Dock/Components/DockView/DockView.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
-    <CascadingValue Value="Content" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
-    <RenderTemplate>
-        @foreach (var content in Config.Contents)
-        {
-            @RenderDockComponent(content.Items)
-        }
-    </RenderTemplate>
+    <template>
+        <CascadingValue Value="Content" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </template>
 </div>
-
-@code {
-    RenderFragment RenderComponent(DockComponent com) =>
-    @<div id="@com.Id" class="bb-dock-item d-none" data-bb-key="@com.Key" data-bb-title="@com.Title">
-        @com.ChildContent
-    </div>;
-    RenderFragment RenderTitleTemplate(DockComponent com) =>
-    @<div class="bb-dock-item-title d-none" data-bb-componentId="@com.Id">
-        @com.TitleTemplate
-    </div>;
-}
