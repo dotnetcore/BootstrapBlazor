@@ -7,20 +7,25 @@ class DefaultPanel {
     }
 
     init(parameter) {
-        let { params, api, containerApi: { component: { template } } } = parameter
-        let { panel, group } = api
-        let { tab, content } = panel.view
+        const { params, api: { panel }, api: { accessor: { template } } } = parameter;
+        const { titleClass, titleWidth, class: panelClass, key, title } = params;
+        const { tab, content } = panel.view
+
         if (template) {
-            let contentEle = template.querySelector('#' + this.option.id)
-            if (!contentEle) {
-                contentEle = panel.params.key ? template.querySelector(`[data-bb-key=${panel.params.key}]`) : template.querySelector(`[data-bb-title=${parameter.title}]`)
-            }
-            this._element = contentEle || document.createElement('div')
+            this._element = key
+                ? template.querySelector(`[data-bb-key=${key}]`)
+                : (template.querySelector(`#${this.option.id}`) ?? template.querySelector(`[data-bb-title=${title}]`))
         }
-        const { titleClass, titleWidth, class: contentClass } = params
-        titleClass && tab._content.classList.add(titleClass)
-        titleWidth && (tab._content.style.width = titleWidth + 'px')
-        contentClass && content.element.classList.add(contentClass)
+
+        if (titleClass) {
+            tab._content.classList.add(titleClass);
+        }
+        if (titleWidth) {
+            tab._content.style.width = `${titleWidth}px`;
+        }
+        if (panelClass) {
+            content.element.classList.add(panelClass);
+        }
     }
 
     get element() {
@@ -56,7 +61,7 @@ class PanelControl {
         const showClose = this.panel.params.showClose ?? this.panel.accessor.showClose;
         if (showClose) {
             const closeButton = this.tabEle.children[this.tabEle.children.length - 1]
-            let closeControl = this.panel.accessor.groupControls.find(control => control.name == 'close')
+            const closeControl = this.panel.accessor.groupControls.find(control => control.name == 'close')
             closeButton.innerHTML = closeControl.icon[0]
         }
         else {
@@ -313,8 +318,7 @@ class GroupControl {
 }
 
 export function cerateDockview(el, options) {
-    const { templateId } = options
-    const template = document.getElementById(templateId)
+    const template = document.getElementById(options.templateId)
     const dockview = new DockviewComponent({
         parentElement: el,
         createComponent: option => {
