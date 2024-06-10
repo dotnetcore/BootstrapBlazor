@@ -29,50 +29,42 @@ class DefaultPanel {
 }
 
 class PanelControl {
-    constructor(dockviewPanel) {
-        const { view, api } = dockviewPanel
-        // Panel的Header
+    constructor(panel) {
+        const { view } = panel
+        this.panel = panel
         this.tabEle = view.tab.element
-        // Panel的Body
         this.contentEle = view.content.element
 
-        dockviewPanel.titleMenuEle = this.contentEle.querySelector(`.bb-dockview-item-title`) || this.contentEle.querySelector(`.bb-dockview-item-title-icon`)
-        this.panel = dockviewPanel
-
-        dockviewPanel.titleMenuEle && this.createGear(api)
-        this.creatCloseBtn()
+        this.updateTitle()
+        this.updateCloseButton()
     }
-    // 添加小齿轮
-    createGear(api) {
-        // const divEle = document.createElement('div')
-        // divEle.append(this.panel.titleMenuEle)
-        // divEle.addEventListener('mousedown', e => {
-        //     e.stopPropagation()
-        // })
-        if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title-icon')) {
-            this.tabEle.insertAdjacentElement("afterbegin", this.panel.titleMenuEle)
-        }
-        else if (this.panel.titleMenuEle.className.includes('bb-dockview-item-title')) {
-            // this.panel.view.tab._content.innerHTML = ''
-            this.panel.view.tab.element.replaceChild(this.panel.titleMenuEle, this.panel.view.tab._content)
-        }
 
-        // api.onDidVisibilityChange(({ isVisible }) => {
-        //     divEle.style.display = isVisible ? 'block' : 'none'
-        // })
+    updateTitle() {
+        const titleElement = this.contentEle.querySelector('.bb-dockview-item-title');
+        if (titleElement) {
+            this.panel.view.tab.element.replaceChild(titleElement, this.panel.view.tab._content);
+        }
+        else {
+            const titleBarElement = this.contentEle.querySelector('.bb-dockview-item-title-icon')
+            if (titleBarElement) {
+                this.tabEle.insertAdjacentElement("afterbegin", titleBarElement);
+            }
+        }
     }
-    creatCloseBtn() {
-        let showClose = this.panel.params?.showClose
-        showClose = showClose === null ? this.panel.accessor.showClose !== false : showClose
-        if (showClose === false) {
+
+    updateCloseButton() {
+        const showClose = this.panel.params.showClose ?? this.panel.accessor.showClose;
+        if (showClose) {
+            const closeButton = this.tabEle.children[this.tabEle.children.length - 1]
+            let closeControl = this.panel.accessor.groupControls.find(control => control.name == 'close')
+            closeButton.innerHTML = closeControl.icon[0]
+        }
+        else {
             this.tabEle.classList.add('dv-tab-on')
-        } else {
-            let closeBtn = this.tabEle.children[this.tabEle.children.length - 1]
-            let closeControl = this.panel.accessor.groupControls?.find(control => control.name == 'close')
-            closeBtn.innerHTML = closeControl?.icon[0]
         }
     }
 }
+
 class GroupControl {
     constructor(dockviewGroupPanel, dockview, isOpenFloat) {
         const { element, header, api } = dockviewGroupPanel
