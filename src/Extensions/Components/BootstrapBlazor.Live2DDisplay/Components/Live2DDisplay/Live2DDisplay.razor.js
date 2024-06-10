@@ -177,18 +177,13 @@ export function addHitAreaFrames(id, isaddHitAreaFrames) {
 }
 
 async function createModel(op) {
-    try {
-        const model = await PIXI.live2d.Live2DModel.from(op.source);
-        model.scale.set(op.scale);
-        model.x = op.x;
-        model.y = op.y;
-        model.dragging = op.isDraggble;
-        if (op.addHitAreaFrames) {
-            createHitAreaFrames(op, model);
-        }
-        return model;
-    } catch (e) {
-        console.log(e);
-        return null;
+    const model = await PIXI.live2d.Live2DModel.from(op.source);
+    model.scale.set(op.scale);
+    model.x = op.x;
+    model.y = op.y;
+    model.dragging = op.isDraggble;
+    if (op.addHitAreaFrames) {
+        createHitAreaFrames(op, model);
     }
+    return model;
 }

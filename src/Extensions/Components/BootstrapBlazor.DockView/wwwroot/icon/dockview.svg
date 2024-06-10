@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <symbol viewBox="0 0 48 48" fill="none" id="bar">
+        <path d="M7.94971 11.9497H39.9497" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7.94971 23.9497H39.9497" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M7.94971 35.9497H39.9497" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="close">
+        <path d="M8 8L40 40" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M8 40L40 8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="lock">
+        <rect x="6" y="22" width="36" height="22" rx="2" fill="none" stroke-width="3" stroke-linejoin="round" />
+        <path d="M14 22V14C14 8.47715 18.4772 4 24 4C29.5228 4 34 8.47715 34 14V22" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M24 30V36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="unlock">
+        <rect x="7" y="22.0476" width="34" height="22" rx="2" fill="none" stroke-width="3" stroke-linejoin="round" />
+        <path d="M14 22V14.0047C13.9948 8.87022 17.9227 4.56718 23.0859 4.05117C28.249 3.53516 32.9673 6.97408 34 12.0059" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M24 30V36" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="full">
+        <path d="M30 6H42V18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M18 6H6V18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M30 42H42V30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M18 42H6V30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M42 6L29 19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M19 29L6 42" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="restore">
+        <path d="M41 19H29V7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M18 6H6V18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M30 42H42V30" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M7 29H19V41" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M42 6L29 19" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M19 29L6 42" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="float">
+        <path d="M19 6H9C7.34315 6 6 7.34315 6 9V39C6 40.6569 7.34315 42 9 42H39C40.6569 42 42 40.6569 42 39V29" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M42 19L38 7L26 11" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M38 7C33 22 30 25 20 29" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="dock">
+        <path d="M44 4H4V44H44V4Z" fill="none" stroke-width="3" stroke-linejoin="round" />
+        <path d="M16 4V16H4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M36 24V36H24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M36 36L24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M4 6V26" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M7 4H27" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="down">
+        <path d="M24 44C35.0457 44 44 35.0457 44 24C44 12.9543 35.0457 4 24 4C12.9543 4 4 12.9543 4 24C4 35.0457 12.9543 44 24 44Z" fill="none" stroke-width="3" stroke-linejoin="round" />
+        <path d="M33 21L24 30L15 21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    </symbol>
+    <symbol viewBox="0 0 48 48" fill="none" id="dropdown">
+        <path d="M12 29L24 17L36 29H12Z" fill="none" stroke-width="3" stroke-linejoin="round"/>
+    </symbol>
+</svg>

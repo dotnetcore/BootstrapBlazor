@@ -1,0 +1,41 @@
+﻿@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DockView/Components/DockViewV2.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
+
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
+    <CascadingValue Value="_root" IsFixed="true">
+        <CascadingValue Value="_components" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+    </CascadingValue>
+    @if (_rendered)
+    {
+        <template id="@_templateId">
+            @foreach (var p in _components)
+            {
+                <div @key="p" id="@p.Id" class="bb-dockview-panel" data-bb-key="@p.Key" data-bb-title="@p.Title">
+                    @if (p.TitleTemplate != null)
+                    {
+                        <div class="bb-dockview-item-title">
+                            @p.TitleTemplate
+                        </div>
+                    }
+                    else if (p.ShowTitleBar)
+                    {
+                        <DockViewTitleBar BarIcon="@p.TitleBarIcon" BarIconUrl="@p.TitleBarIconUrl" OnClickBarCallback="@(() => OnClickBar(p.OnClickTitleBarCallback))"></DockViewTitleBar>
+                    }
+                    @p.ChildContent
+                </div>
+            }
+            <DockViewIcon IconName="bar"></DockViewIcon>
+            <DockViewIcon IconName="close"></DockViewIcon>
+            <DockViewIcon IconName="lock"></DockViewIcon>
+            <DockViewIcon IconName="unlock"></DockViewIcon>
+            <DockViewIcon IconName="full"></DockViewIcon>
+            <DockViewIcon IconName="restore"></DockViewIcon>
+            <DockViewIcon IconName="float"></DockViewIcon>
+            <DockViewIcon IconName="dock"></DockViewIcon>
+            <DockViewIcon IconName="down"></DockViewIcon>
+            <DockViewIcon IconName="dropdown"></DockViewIcon>
+        </template>
+    }
+</div>

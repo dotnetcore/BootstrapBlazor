@@ -170,9 +170,12 @@
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                 }
                             }
-                            <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
+                            @if (ShowSearchButton)
+                            {
+                                <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                </Button>
+                            }
                             @if (ShowResetButton)
                             {
                                 <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
@@ -946,9 +949,12 @@
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
-                <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
-                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                </Button>
+                @if (ShowSearchButton)
+                {
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
+                }
             </div>
             <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)

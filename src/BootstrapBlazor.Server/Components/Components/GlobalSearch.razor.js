@@ -10,6 +10,7 @@ export async function init(id, options) {
         el, options,
         searchText: 'searching ...',
         status: el.querySelector('.search-dialog-status'),
+        menu: el.querySelector('.search-dialog-menu'),
         list: el.querySelector('.search-dialog-list'),
         template: el.querySelector('.search-dialog-item-template'),
         blockTemplate: el.querySelector('.search-dialog-block-template'),
@@ -25,6 +26,10 @@ export async function init(id, options) {
     handlerMask(search);
 
     resetStatus(search);
+
+    new bootstrap.ScrollSpy(search.list, {
+        target: '.search-dialog-menu'
+    })
 }
 
 export function dispose(id) {
@@ -32,11 +37,12 @@ export function dispose(id) {
     Data.remove(id);
 
     if (search) {
-        const { el, dialog, clearButton, input } = search;
+        const { el, menu, dialog, clearButton, input } = search;
         EventHandler.off(clearButton, 'click');
         EventHandler.off(dialog, 'click');
         EventHandler.off(input, 'keyup');
         EventHandler.off(input, 'input');
+        EventHandler.off(menu, 'click');
         EventHandler.off(el, 'click');
         EventHandler.off(document, 'click');
     }
@@ -97,6 +103,20 @@ const handlerSearch = search => {
         fn(search, input.value);
     });
     search.input = input;
+
+    EventHandler.on(search.menu, 'click', '.search-dialog-menu-item', e => {
+        e.preventDefault();
+
+        const link = e.delegateTarget;
+        const target = link.getAttribute('href');
+        if (target) {
+            const targetEl = document.querySelector(target);
+
+            if (targetEl) {
+                targetEl.scrollIntoView(true);
+            }
+        }
+    });
 }
 
 const doSearch = async (search, query) => {
@@ -114,12 +134,21 @@ const doSearch = async (search, query) => {
 }
 
 const updateList = (search, result) => {
-    const { list, input, template, blockTemplate } = search;
+    const { menu, list, input, template, blockTemplate } = search;
     list.innerHTML = '';
+    menu.innerHTML = '';
+    menu.classList.add('show');
 
     const html = template.innerHTML;
     const blockHtml = blockTemplate.innerHTML;
+
     result.hits.forEach(hit => {
+        const link = document.createElement('a');
+        link.className = "search-dialog-menu-item";
+        link.setAttribute('href', `#hit${hit.id}`);
+        link.innerHTML = hit.menu;
+        menu.appendChild(link);
+
         if (hit.title === '') {
             return;
         }
@@ -129,6 +158,7 @@ const updateList = (search, result) => {
             .replace('{sub-title}', highlight(hit.subTitle, result.query))
             .replace('{count}', hit.demos.length);
         const item = div.firstChild;
+        item.setAttribute("id", `hit${hit.id}`);
 
         if (hit.demos) {
             const ul = document.createElement('ol');
@@ -147,6 +177,8 @@ const updateList = (search, result) => {
         list.appendChild(item);
     });
     input.focus();
+
+    bootstrap.ScrollSpy.getInstance(list).refresh()
 }
 
 const highlight = (text, query) => {
@@ -160,8 +192,10 @@ const updateStatus = (search, hits, ms) => {
 }
 
 const resetStatus = search => {
-    const { options, status, input, list, emptyTemplate } = search;
+    const { options, status, input, list, menu, emptyTemplate } = search;
     status.innerHTML = options.searchStatus;
     input.value = '';
     list.innerHTML = emptyTemplate.outerHTML;
+    menu.innerHTML = '';
+    menu.classList.remove('show');
 }

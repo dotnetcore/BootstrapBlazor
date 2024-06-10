@@ -1,0 +1,153 @@
+﻿@import './dockview.css';
+
+.bb-dockview {
+    --bb-dockview-padding: .25rem;
+    --bb-dockview-tab-line-height: 21px;
+    --bb-dockview-tab-padding: 0 8px;
+    --bb-dockview-control-icon-width: 12px;
+    --bb-dockview-control-icon-color: var(--bs-body-color);
+    --bb-dockview-control-icon-lock-color: #b5b5c3;
+    --dv-tabs-and-actions-container-font-size: 13px;
+    --dv-tabs-and-actions-container-height: 35px;
+    --bb-dockview-control-dropdown-padding-y: .25rem;
+    --bb-dockview-control-dropdown-item-padding-x: 0;
+    --bb-dockview-control-dropdown-item-padding-y: 3px;
+    width: 100%;
+    height: 100%;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+}
+
+    .bb-dockview .bb-dockview-panel {
+        height: 100%;
+        width: 100%;
+    }
+
+    .bb-dockview .groupview > .content-container {
+        padding: var(--bb-dockview-padding);
+    }
+
+    .bb-dockview .bb-dockview-item-title-icon {
+        cursor: pointer;
+    }
+
+    .bb-dockview .bb-dockview-item-title {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    .bb-dockview .tab .dv-default-tab .dv-default-tab-content {
+        line-height: var(--bb-dockview-tab-line-height);
+    }
+
+    .bb-dockview .tab .dv-default-tab {
+        padding: var(--bb-dockview-tab-padding);
+    }
+
+        .bb-dockview .tab .dv-default-tab .dv-default-tab-content {
+            padding: var(--bb-dockview-tab-padding);
+        }
+
+    .bb-dockview .tab.inactive-tab .dv-default-tab .dv-default-tab-action {
+        visibility: visible;
+    }
+
+    .bb-dockview .tab:focus::after {
+        outline-offset: 0;
+    }
+
+    .bb-dockview.dockview-theme-light {
+        --dv-separator-border: var(--bs-border-color);
+        --dv-background-color: var(--bs-body-bg);
+        --dv-floating-box-shadow: var(--bs-box-shadow);
+        --dv-tab-divider-color: var(--bs-border-color);
+    }
+
+    .bb-dockview.dockview-theme-dark {
+        --bb-dockview-control-icon-color: #dee2e6;
+    }
+
+    .bb-dockview.dockview-theme-vs {
+        --bb-dockview-control-icon-color: #dee2e6;
+    }
+
+    .bb-dockview.dockview-theme-abyss {
+        --bb-dockview-control-icon-color: #dee2e6;
+    }
+
+    .bb-dockview.dockview-theme-dracula {
+        --bb-dockview-control-icon-color: #dee2e6;
+    }
+
+    .bb-dockview .right-actions-container {
+        display: flex;
+        align-items: center;
+        margin-right: .5rem;
+    }
+
+        .bb-dockview .right-actions-container > div {
+            cursor: pointer;
+        }
+
+            .bb-dockview .right-actions-container > div:not(:first-child) {
+                margin-left: .5rem;
+            }
+
+    .bb-dockview .tabs-and-actions-container .tabs-container {
+        overflow: hidden;
+    }
+
+    .bb-dockview .bb-dockview-control-icon {
+        width: var(--bb-dockview-control-icon-width);
+        height: var(--bb-dockview-control-icon-width);
+    }
+
+        .bb-dockview .bb-dockview-control-icon > * {
+            stroke: var(--bb-dockview-control-icon-color);
+        }
+
+    .bb-dockview .bb-dockview-control-icon-dropdown {
+        transform: rotate(180deg);
+    }
+
+    .bb-dockview .bb-dockview-control-up > svg {
+        transition: transform .3s linear;
+    }
+
+    .bb-dockview .bb-dockview-control-up.bb-dockview-control-down > svg {
+        transform: rotate(180deg);
+    }
+
+    .bb-dockview .dv-tab-on > .dv-default-tab-action:last-child {
+        display: none;
+    }
+
+    .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-close {
+        display: none;
+    }
+
+    .bb-dockview .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-close > * {
+        stroke: var(--bb-dockview-control-icon-lock-color);
+    }
+
+    .bb-dockview .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-float > * {
+        stroke: var(--bb-dockview-control-icon-lock-color);
+    }
+
+    .bb-dockview .bb-dockview-control-dropdown {
+        display: none;
+    }
+
+        .bb-dockview .bb-dockview-control-dropdown li:not(:has(.tab)) {
+            display: none;
+        }
+
+        .bb-dockview .bb-dockview-control-dropdown:has(.tab) {
+            display: block;
+        }
+
+        .bb-dockview .bb-dockview-control-dropdown .dropdown-menu {
+            --bs-dropdown-padding-y: var(--bb-dockview-control-dropdown-padding-y);
+            --bs-dropdown-item-padding-x: var(--bb-dockview-control-dropdown-item-padding-x);
+            --bs-dropdown-item-padding-y: var(--bb-dockview-control-dropdown-item-padding-y);
+        }

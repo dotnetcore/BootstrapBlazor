@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews;
 /// </summary>
 public partial class DockViewLayout
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewLayout>? Localizer { get; set; }
+
     [NotNull]
     private DockView? DockView { get; set; }
 

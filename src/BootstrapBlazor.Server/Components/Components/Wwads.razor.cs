@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class Wwads
 {
-    private string? _debugString;
+    private string _debugString = "false";
 
     private string? ClassString => CssBuilder.Default("bb-ad")
         .AddClassFromAttributes(AdditionalAttributes)

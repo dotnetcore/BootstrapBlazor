@@ -1,0 +1,59 @@
+﻿@page "/dock-view2/layout"
+@inherits BaseDockView
+
+<h3>@Localizer["DockViewLayoutTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewLayoutIntro"].Value)</h4>
+
+<GroupBox Title="布局切换">
+    <Button OnClick="OnToggleLayout1" Text="布局1"></Button>
+    <Button OnClick="OnToggleLayout2" Text="布局2"></Button>
+    <Button OnClick="OnToggleLayout3" Text="布局3"></Button>
+    <Button OnClickWithoutRender="Reset" Text="复位"></Button>
+    <Button OnClickWithoutRender="OnSaveLayout" Text="保存布局"></Button>
+    <Button OnClick="OnToggleShow" Text="切换"></Button>
+</GroupBox>
+
+<DockViewV2 @ref="DockView" Name="DockViewLayout" LayoutConfig="@LayoutConfig" class="dock-layout-demo">
+    <DockViewContent Type="DockViewContentType.Column">
+        <DockViewComponent Title="标签一">
+            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                   ShowDefaultButtons="false">
+                <DetailRowTemplate>
+                    <div class="p-2 w-100">
+                        <Table TItem="DynamicObject" DynamicContext="GetDetailDataTableDynamicContext(context)" IsStriped="true" IsBordered="true" IsExcel="true">
+                        </Table>
+                    </div>
+                </DetailRowTemplate>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Title="标签二">
+            <Table TItem="Foo" @bind-Items="Items"
+                   IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+                   ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                   OnAddAsync="@OnAddAsync">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Education" />
+                    <TableColumn @bind-Field="@context.Count" />
+                    <TableColumn @bind-Field="@context.Complete" />
+                </TableColumns>
+            </Table>
+        </DockViewComponent>
+        @if (_show)
+        {
+            <DockViewComponent Title="标签三">
+                <FetchData></FetchData>
+            </DockViewComponent>
+        }
+        else
+        {
+            <DockViewComponent Title="标签四">
+                <Counter></Counter>
+            </DockViewComponent>
+        }
+    </DockViewContent>
+</DockViewV2>

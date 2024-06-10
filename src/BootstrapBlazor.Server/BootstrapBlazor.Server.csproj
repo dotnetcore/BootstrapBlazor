@@ -37,7 +37,8 @@
     <PackageReference Include="BootstrapBlazor.Chart" Version="8.1.5" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.2" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.4" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.5" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="8.0.1-beta02" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.3" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />

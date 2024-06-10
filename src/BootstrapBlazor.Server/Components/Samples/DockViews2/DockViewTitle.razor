@@ -1,0 +1,57 @@
+﻿@page "/dock-view2/title"
+@inherits BaseDockView
+
+<h3>@Localizer["DockViewTitleTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewTitleIntro"].Value)</h4>
+
+<DockViewV2 Name="DockViewV2LayoutColumn" class="dockview-demo">
+    <DockViewContent Type="DockViewContentType.Column">
+        <DockViewComponent Key="tab1" Title="标签一" ShowTitleBar="true" OnClickTitleBarCallback="OnClickTitleBarCallback" Height="240">
+            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                   ShowDefaultButtons="false" IsFixedHeader="true">
+                <DetailRowTemplate>
+                    @{
+                        var detailContext = GetDetailDataTableDynamicContext(context);
+                    }
+                    <div class="p-2 w-100">
+                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        </Table>
+                    </div>
+                </DetailRowTemplate>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Key="tab2" Title="标签二">
+            <TitleTemplate>
+                <DockViewTitleTemplateDemo OnClickTitleBarCallback="OnClickTitleBarCallback"></DockViewTitleTemplateDemo>
+            </TitleTemplate>
+            <ChildContent>
+                <Table TItem="Foo" @bind-Items="Items"
+                       IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                       OnAddAsync="@OnAddAsync">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                        <TableColumn @bind-Field="@context.Education" />
+                        <TableColumn @bind-Field="@context.Count" />
+                        <TableColumn @bind-Field="@context.Complete" />
+                    </TableColumns>
+                </Table>
+            </ChildContent>
+        </DockViewComponent>
+        <DockViewComponent Key="tab3" Title="标签三" Height="240">
+            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+                   Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.Name" Width="140" />
+                    <TableColumn @bind-Field="@context.DateTime" />
+                    <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Count" Width="80" />
+                </TableColumns>
+            </Table>
+        </DockViewComponent>
+    </DockViewContent>
+</DockViewV2>

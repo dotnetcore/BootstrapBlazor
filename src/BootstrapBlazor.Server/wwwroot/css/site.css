@@ -194,8 +194,8 @@ h4, h5 {
     border-radius: var(--bs-border-radius);
 }
 
-.dock-layout.main > *:not(.tabs-coms) {
-    display: none !important;
+.dock-layout.main .tabs-body-content:first-child {
+    height: calc(100vh - 307px);
 }
 
 .dropdown-menu {

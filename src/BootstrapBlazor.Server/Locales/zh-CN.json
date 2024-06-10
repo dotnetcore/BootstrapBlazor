@@ -4635,16 +4635,28 @@
     "ContextMenu": "右键菜单 ContextMenu",
     "ClockPicker": "时间选择器 ClockPicker",
     "TimePicker": "时间选择器 TimePicker",
-    "DockViewComponents": "可停靠布局",
-    "DockViewIndex": "简介",
-    "DockViewColumn": "列布局",
-    "DockViewRow": "行布局",
-    "DockViewStack": "堆栈布局",
-    "DockViewNest": "嵌套布局",
-    "DockViewComplex": "组合布局",
-    "DockViewVisible": "可见性切换",
-    "DockViewLock": "布局锁定",
-    "DockViewLayout": "布局自定义",
+    "DockViewComponents": "可停靠布局 DockView",
+    "DockViewComponents2": "可停靠布局 DockViewV2",
+    "DockViewIndex": "DockView 简介",
+    "DockViewColumn": "DockView 列布局",
+    "DockViewRow": "DockView 行布局",
+    "DockViewStack": "DockView 堆栈布局",
+    "DockViewNest": "DockView 嵌套布局",
+    "DockViewComplex": "DockView 组合布局",
+    "DockViewVisible": "DockView 可见性切换",
+    "DockViewLock": "DockView 布局锁定",
+    "DockViewLayout": "DockView 布局自定义",
+    "DockViewTitle": "DockView 设置标题",
+    "DockViewV2Index": "DockViewV2 简介",
+    "DockViewV2Column": "DockViewV2 列布局",
+    "DockViewV2Row": "DockViewV2 行布局",
+    "DockViewV2Group": "DockViewV2 组布局",
+    "DockViewV2Nest": "DockViewV2 嵌套布局",
+    "DockViewV2Complex": "DockViewV2 组合布局",
+    "DockViewV2Visible": "DockViewV2 可见性切换",
+    "DockViewV2Lock": "DockViewV2 布局锁定",
+    "DockViewV2Layout": "DockViewV2 布局自定义",
+    "DockViewV2Title": "DockViewV2 设置标题",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",
@@ -5955,7 +5967,80 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
     "DockViewDescription": "多标签停靠布局管理器",
-    "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+    "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
+    "DockViewColTitle": "DockView 列布局",
+    "DockViewColIntro": "通过设置 <code>Type=\"DockContentType.Column\"</code> 使 <code>DockView</code> 垂直布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewRow": {
+    "DockViewRowTitle": "DockView 行布局",
+    "DockViewRowIntro": "通过设置 <code>Type=\"DockContentType.Row\"</code> 使 <code>DockView</code> 水平布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewStack": {
+    "DockViewStackTitle": "DockView 堆栈布局",
+    "DockViewStackIntro": "通过设置 <code>Type=\"DockContentType.Stack\"</code> 使 <code>DockView</code> 堆栈布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewComplex": {
+    "DockViewComplexTitle": "DockView 复杂布局",
+    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockContentType</code> 值可以得到复杂布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLayout": {
+    "DockViewLayoutTitle": "DockView 自定义布局",
+    "DockViewLayoutIntro": "通过设置 <code>DockView</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLock": {
+    "DockViewLockTitle": "DockView 锁定面板",
+    "DockViewLockIntro": "通过设置 <code>Dock</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewVisible": {
+    "DockViewVisibleTitle": "DockView 可见性设置",
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnVisibleStateChangedAsync</code> 设置面板关闭回调委托方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewNest": {
+    "DockViewNestTitle": "DockView 嵌套布局",
+    "DockViewNestIntro": "组件 <code>DockComponent</code> 内可嵌套放置 <code>DockView</code> 通过设置 <code>ShowHeader=\"false\"</code> 可使其标签不可见"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
+    "DockView2Title": "DockViewV2 可停靠视图",
+    "DockView2Description": "多标签停靠布局管理器",
+    "DockView2Intro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">DockView</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
+    "DockViewColTitle": "DockViewV2 列布局",
+    "DockViewColIntro": "通过设置 <code>Type=\"DockViewContentType.Column\"</code> 使 <code>DockViewV2</code> 垂直布局，通过设置 <code>Height=\"240\"</code> 初始化其面板高度"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewRow": {
+    "DockViewRowTitle": "DockViewV2 行布局",
+    "DockViewRowIntro": "通过设置 <code>Type=\"DockViewContentType.Row\"</code> 使 <code>DockViewV2</code> 水平布局，通过设置 <code>Width=\"240\"</code> 初始化其面板宽度"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewGroup": {
+    "DockViewGroupTitle": "DockViewV2 组布局",
+    "DockViewGroupIntro": "通过设置 <code>Type=\"DockViewContentType.Group\"</code> 使 <code>DockViewV2</code> 组布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewComplex": {
+    "DockViewComplexTitle": "DockViewV2 复杂布局",
+    "DockViewComplexIntro": "通过组合、嵌套设置 <code>DockViewContentType</code> 值可以得到复杂布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLayout": {
+    "DockViewLayoutTitle": "DockViewV2 自定义布局",
+    "DockViewLayoutIntro": "通过设置 <code>DockViewV2</code> 的属性 <code>LayoutConfig</code> 初始化控制面板的显示布局, 方法 <code>GetLayoutConfig</code> 获取面板的显示布局"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLock": {
+    "DockViewLockTitle": "DockViewV2 锁定面板",
+    "DockViewLockIntro": "通过设置 <code>DockViewV2</code> 的属性 <code>IsLock</code>，控制所有面板是否能拖动，通过设置 <code>ShowLock</code> 控制是否显示锁定按钮"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewTitle": {
+    "DockViewTitleTitle": "DockViewV2 设置标题",
+    "DockViewTitleIntro": "通过设置 <code>ShowTitleBar</code> 控制是否显示标题前功能按钮，使用 <code>OnClickTitleBarCallback</code> 设置回调委托方法，复杂功能使用 <code>TitleTemplate</code> 自定义"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
+    "DockViewVisibleTitle": "DockViewV2 可见性设置",
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnPanelClosedCallbackAsync</code> 设置面板关闭回调委托方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
+    "DockViewNestTitle": "DockViewV2 嵌套布局",
+    "DockViewNestIntro": "组件 <code>DockViewComponent</code> 内可嵌套放置 <code>DockViewV2</code> 通过设置 <code>ShowHeader=\"false\"</code> 可使其标签不可见"
   },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",

@@ -1,0 +1,16 @@
+﻿<div class="dv-default-tab-action bb-dockview-item-title-icon"><i class="fa-solid fa-gear" @onclick="OnClick"></i></div>
+<span class="dv-default-tab-content">标签二</span>
+<span class="widget">2</span>
+
+@code {
+    [Parameter]
+    public Func<Task>? OnClickTitleBarCallback { get; set; }
+
+    public async Task OnClick()
+    {
+        if (OnClickTitleBarCallback != null)
+        {
+            await OnClickTitleBarCallback();
+        }
+    }
+}

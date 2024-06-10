@@ -1,0 +1,46 @@
+﻿@page "/dock-view2/visible"
+@inherits BaseDockView
+
+<h3>@Localizer["DockViewVisibleTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewVisibleIntro"].Value)</h4>
+
+<Button OnClick="OnToggleVisible" Text="切换标签一"></Button>
+
+<DockViewV2 Name="DockViewVisible" OnPanelClosedCallbackAsync="OnPanelClosedCallbackAsync" class="dockview-demo">
+    <DockViewContent Type="DockViewContentType.Column">
+        <DockViewComponent Title="标签一" Visible="Visible">
+            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                   ShowDefaultButtons="false">
+                <DetailRowTemplate>
+                    @{
+                        var detailContext = GetDetailDataTableDynamicContext(context);
+                    }
+                    <div class="p-2 w-100">
+                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        </Table>
+                    </div>
+                </DetailRowTemplate>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Title="标签二" ShowClose="false">
+            <Table TItem="Foo" @bind-Items="Items"
+                   IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+                   ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                   OnAddAsync="@OnAddAsync">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Education" />
+                    <TableColumn @bind-Field="@context.Count" />
+                    <TableColumn @bind-Field="@context.Complete" />
+                </TableColumns>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Title="标签三" ShowClose="false">
+            <FetchData></FetchData>
+        </DockViewComponent>
+    </DockViewContent>
+</DockViewV2>
