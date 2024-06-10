@@ -3,19 +3,24 @@
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
     <template id="@_templateId">
-        <DockViewIcon IconName="bar"></DockViewIcon>
-        <DockViewIcon IconName="close"></DockViewIcon>
-        <DockViewIcon IconName="lock"></DockViewIcon>
-        <DockViewIcon IconName="unlock"></DockViewIcon>
-        <DockViewIcon IconName="full"></DockViewIcon>
-        <DockViewIcon IconName="restore"></DockViewIcon>
-        <DockViewIcon IconName="float"></DockViewIcon>
-        <DockViewIcon IconName="dock"></DockViewIcon>
-        <DockViewIcon IconName="down"></DockViewIcon>
-        <DockViewIcon IconName="dropdown"></DockViewIcon>
+        @if (DockView == null)
+        {
+            <DockViewIcon IconName="bar"></DockViewIcon>
+            <DockViewIcon IconName="close"></DockViewIcon>
+            <DockViewIcon IconName="lock"></DockViewIcon>
+            <DockViewIcon IconName="unlock"></DockViewIcon>
+            <DockViewIcon IconName="full"></DockViewIcon>
+            <DockViewIcon IconName="restore"></DockViewIcon>
+            <DockViewIcon IconName="float"></DockViewIcon>
+            <DockViewIcon IconName="dock"></DockViewIcon>
+            <DockViewIcon IconName="down"></DockViewIcon>
+            <DockViewIcon IconName="dropdown"></DockViewIcon>
+        }
 
-        <CascadingValue Value="_components" IsFixed="true">
-            @ChildContent
+        <CascadingValue Value="this" IsFixed="true">
+            <CascadingValue Value="_components" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
         </CascadingValue>
     </template>
 </div>

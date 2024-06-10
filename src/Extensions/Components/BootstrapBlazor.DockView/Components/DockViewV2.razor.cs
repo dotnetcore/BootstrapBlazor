@@ -96,6 +96,9 @@ public partial class DockViewV2
     [Parameter]
     public DockViewTheme Theme { get; set; } = DockViewTheme.Light;
 
+    [CascadingParameter]
+    private DockViewV2? DockView { get; set; }
+
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
