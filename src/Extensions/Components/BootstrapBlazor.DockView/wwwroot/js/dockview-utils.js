@@ -71,53 +71,37 @@ class PanelControl {
 }
 
 class GroupControl {
-    constructor(dockviewGroupPanel, dockview, isOpenFloat) {
-        const { element, header, api } = dockviewGroupPanel
-        // Group
-        this.ele = element
-        // Group的Header
-        this.api = api
-        this.headerEle = header.element
-        this.group = dockviewGroupPanel
-        this.parentEle = dockviewGroupPanel.element.parentElement
+    constructor(group, dockview, isOpenFloat) {
+        this.group = group
         this.dockview = dockview
         this.isOpenFloat = isOpenFloat
-        !dockviewGroupPanel.header.hidden && this.creatRightControl()
+
+        if (group.header.hidden === false) {
+            this.creatRightActions();
+        }
     }
 
-    creatPrefixControl() {
-        // 添加header前控制按钮
-        // ...
-    }
-    creatTabsAfterControl() {
-        // 添加tabs后的控制按钮
-        // ...
-    }
-    // 添加右侧控制按钮
-    creatRightControl() {
-        // showClose, showFloat, showLock, showMaximize
-        // let divEle = this.document.createElement('div')
-        let divEle = this.headerEle.querySelector('.right-actions-container')
-        let { panels, api } = this.group
-        let showLock = panels.every(panel => panel.params.showLock === null) ? this.dockview.showLock !== false : panels.some(panel => panel.params.showLock !== false)
-        let filterControls = this.dockview.groupControls.filter(item => {
+    creatRightActions() {
+        const { header, panels, api } = this.group;
+        const divEle = header.element.querySelector('.right-actions-container')
+        const showLock = panels.every(p => p.params.showLock === null)
+            ? this.dockview.showLock
+            : panels.some(p => p.params.showLock === true);
+        const filterControls = this.dockview.groupControls.filter(item => {
             switch (item.name) {
                 case 'dropdown': return true
                 case 'lock': return showLock
                 case 'packup/expand': return true
-                case 'float': return panels.every(panel => panel.params.showFloat !== false)
-                case 'maximize': return panels.every(panel => panel.params.showMaximize !== false)
+                case 'float': return panels.every(p => p.params.showFloat === true)
+                case 'maximize': return panels.every(p => p.params.showMaximize === true)
                 case 'close': return true
             }
-        })
+        });
         filterControls.forEach(item => {
             if (api.location.type == 'grid' && item.name == 'packup/expand') return
-            // item.name == 'packup/expand' && (item.icon = ['<i class="fas fa-chevron-circle-up"></i>', '<i class="fas fa-chevron-circle-down"></i>'])
-            let btn = this._createButton(item)
+            const btn = this._createButton(item)
             divEle.append(btn)
-        })
-        // divEle.style.cssText = `display: flex;align-items: center;padding: 0px 8px;height: 100%;`
-        // this.headerEle.querySelector('.right-actions-container').append(divEle)
+        });
     }
 
     _createButton(item) {
@@ -127,7 +111,8 @@ class GroupControl {
             divEle.innerHTML = `${item.icon[0]}<ul class="dropdown-menu"></ul>`
             divEle.children[0].setAttribute('data-bs-toggle', "dropdown")
             divEle.children[0].setAttribute('aria-expanded', "false")
-        } else {
+        }
+        else {
             divEle.title = item.name
             divEle.innerHTML = item.icon[0]
             if (item.name == 'lock') {
