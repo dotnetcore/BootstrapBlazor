@@ -1,11 +1,7 @@
 ﻿import { DockviewComponent, DefaultTab } from "../js/dockview-core.esm.js"
 import '../js/dockview-extensions.js'
 
-export class DefaultPanel {
-    _element;
-    get element() {
-        return this._element;
-    }
+class DefaultPanel {
     constructor(option) {
         this.option = option
     }
@@ -26,11 +22,9 @@ export class DefaultPanel {
         titleWidth && (tab._content.style.width = titleWidth + 'px')
         contentClass && content.element.classList.add(contentClass)
     }
-}
 
-export class myDefaultTab extends DefaultTab {
-    constructor(option, options) {
-        super();
+    get element() {
+        return this._element;
     }
 }
 
@@ -334,7 +328,7 @@ export function cerateDockview(el, options) {
         createComponent: option => {
             return new DefaultPanel(option)
         },
-        createTabComponent: option => new myDefaultTab(option, options)
+        createTabComponent: () => new DefaultTab()
     });
     dockview.template = template
     dockview.groupControls = [
