@@ -346,7 +346,7 @@ export function cerateDockview(el, options) {
         { name: 'close', icon: ['close'] }
     ].map(({ name, icon }) => ({
         name,
-        icon: icon.map(item => template.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
+        icon: icon.map(item => document.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
     }))
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
