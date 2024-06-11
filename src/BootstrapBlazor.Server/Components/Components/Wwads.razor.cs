@@ -9,21 +9,26 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class Wwads
 {
-    private string _debugString = "false";
+    /// <summary>
+    /// 获得/设置 是否垂直布局
+    /// </summary>
+    [Parameter]
+    public bool IsVertical { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-ad")
+        .AddClass("bb-ad-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+#if DEBUG
+    private readonly bool isDebug = true;
+#else
+    private readonly bool isDebug = false;
+#endif
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-#if DEBUG
-        _debugString = "true";
-#endif
-    }
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { IsVertical, IsDebug = isDebug });
 }
