@@ -66,19 +66,6 @@
             background-color: var(--bb-sidebar-body-drag-hover-bg);
         }
 
-::deep .wwads-cn {
-    --ad-min-height: 120px;
-    --ad-margin-bottom: 1rem;
-    min-height: var(--ad-min-height);
-    margin-bottom: var(--ad-margin-bottom);
-    overflow: hidden;
-}
-
-    ::deep .wwads-cn.debug {
-        --ad-min-height: 0;
-        --ad-margin-bottom: 0;
-    }
-
 @media (min-width: 768px) {
     .section {
         --bb-sidebar-width: 300px;

@@ -1,6 +1,10 @@
-﻿export function init(id) {
+﻿import { addLink } from '../../_content/BootstrapBlazor/modules/utility.js'
+
+export async function init(id) {
     var el = document.getElementById(id)
     if (el) {
+        await addLink("../../css/wwads.css")
+
         if (el.getAttribute('data-bb-debug') !== 'true') {
             const ad = document.createElement('div')
             ad.setAttribute("data-id", 72)
