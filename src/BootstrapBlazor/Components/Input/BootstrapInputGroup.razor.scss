@@ -27,6 +27,18 @@
     > .input-group-text {
         width: var(--bb-input-group-label-width);
     }
+
+    > .radio-list-group {
+        > .btn-group {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+
+            > .btn:first-child {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
 }
 
 .input-group-xs {

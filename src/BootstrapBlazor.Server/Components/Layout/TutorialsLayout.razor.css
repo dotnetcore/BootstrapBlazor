@@ -18,27 +18,9 @@
     font-weight: 700;
 }
 
-    ::deep p:last-child {
-        margin-bottom: 0;
-    }
-
-::deep .wwads-cn {
-    --ad-min-height: 120px;
-    --ad-margin-bottom: 1rem;
-    min-height: var(--ad-min-height);
-    margin-bottom: var(--ad-margin-bottom);
-    overflow: hidden;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: .5rem;
+::deep p:last-child {
+    margin-bottom: 0;
 }
-
-    ::deep .wwads-cn.debug {
-        --ad-min-height: 0;
-        --ad-margin-bottom: 0;
-    }
 
 @media (min-width: 768px) {
     .section {

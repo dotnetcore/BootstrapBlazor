@@ -1,0 +1,12 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits DockComponentBase
+
+<div id="@Id" class="bb-dock-item" data-bb-key="@Key" data-bb-title="@Title">
+    @if (TitleTemplate != null)
+    {
+        <div class="bb-dock-item-title" data-bb-componentId="@Id">
+            @TitleTemplate
+        </div>
+    }
+    @ChildContent
+</div>
