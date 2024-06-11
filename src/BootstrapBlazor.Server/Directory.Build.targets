@@ -2,7 +2,7 @@
 
   <Import Project="..\Version.targets" Condition="'$(TargetFramework)' == 'net1.0'" />
 
-  <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+  <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'net1.0'">
     <Exec Command="git reset --hard"></Exec>
   </Target>
 
