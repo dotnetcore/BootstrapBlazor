@@ -192,10 +192,15 @@ const updateStatus = (search, hits, ms) => {
 }
 
 const resetStatus = search => {
-    const { options, status, input, list, menu, emptyTemplate } = search;
+    const { options, status, input, list, menu, emptyTemplate, dialog, mask } = search;
     status.innerHTML = options.searchStatus;
-    input.value = '';
-    list.innerHTML = emptyTemplate.outerHTML;
-    menu.innerHTML = '';
-    menu.classList.remove('show');
+    if (input.value != '') {
+        input.value = '';
+        list.innerHTML = emptyTemplate.outerHTML;
+        menu.innerHTML = '';
+        menu.classList.remove('show');
+    } else {
+        dialog.classList.remove('show');
+        mask.classList.remove('show');
+    }
 }
