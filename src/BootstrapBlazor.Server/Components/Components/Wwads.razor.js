@@ -1,15 +1,17 @@
 ﻿import { addLink } from '../../_content/BootstrapBlazor/modules/utility.js'
 
-export async function init(id) {
+export async function init(id, options) {
     var el = document.getElementById(id)
     if (el) {
-        await addLink("../../css/wwads.css")
+        await addLink("../../css/wwads.css");
 
-        if (el.getAttribute('data-bb-debug') !== 'true') {
+        const { isVertical, isDebug } = options;
+
+        if (isDebug === false) {
             const ad = document.createElement('div')
             ad.setAttribute("data-id", 72)
             ad.classList.add("wwads-cn")
-            ad.classList.add("wwads-horizontal")
+            ad.classList.add(isVertical ? "wwads-vertical" : "wwads-horizontal");
             el.appendChild(ad);
 
             //    const cc = document.createElement('div');
