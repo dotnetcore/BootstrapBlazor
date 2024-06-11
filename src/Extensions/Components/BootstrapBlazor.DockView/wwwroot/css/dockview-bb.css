@@ -1,5 +1,31 @@
 ﻿@import './dockview.css';
 
+[data-bs-theme='dark'] .bb-dockview {
+    --dv-background-color: black;
+    --dv-paneview-active-outline-color: dodgerblue;
+    --dv-tabs-and-actions-container-font-size: 13px;
+    --dv-tabs-and-actions-container-height: 35px;
+    --dv-drag-over-background-color: rgba(83, 89, 93, 0.5);
+    --dv-drag-over-border-color: white;
+    --dv-tabs-container-scrollbar-color: #888;
+    --dv-icon-hover-background-color: rgba(90, 93, 94, 0.31);
+    --dv-floating-box-shadow: 8px 8px 8px 0px rgba(83, 89, 93, 0.5);
+    --dv-group-view-background-color: #1e1e1e;
+    --dv-tabs-and-actions-container-background-color: #252526;
+    --dv-activegroup-visiblepanel-tab-background-color: #1e1e1e;
+    --dv-activegroup-hiddenpanel-tab-background-color: #2d2d2d;
+    --dv-inactivegroup-visiblepanel-tab-background-color: #1e1e1e;
+    --dv-inactivegroup-hiddenpanel-tab-background-color: #2d2d2d;
+    --dv-tab-divider-color: #1e1e1e;
+    --dv-activegroup-visiblepanel-tab-color: white;
+    --dv-activegroup-hiddenpanel-tab-color: #969696;
+    --dv-inactivegroup-visiblepanel-tab-color: #8f8f8f;
+    --dv-inactivegroup-hiddenpanel-tab-color: #626262;
+    --dv-separator-border: rgb(68, 68, 68);
+    --dv-paneview-header-border-color: rgba(204, 204, 204, 0.2);
+    --dv-active-sash-color: #595959;
+}
+
 .bb-dockview {
     --bb-dockview-padding: .25rem;
     --bb-dockview-tab-line-height: 21px;
@@ -12,7 +38,7 @@
     --bb-dockview-control-dropdown-item-padding-y: 3px;
     --dv-tabs-and-actions-container-font-size: 13px;
     --dv-tabs-and-actions-container-height: 35px;
-    --dv-active-sash-color: var(--bb-primary-color);
+    --dv-active-sash-color: #bcbcbc;
     width: 100%;
     height: 100%;
     border: var(--bs-border-width) solid var(--bs-border-color);
