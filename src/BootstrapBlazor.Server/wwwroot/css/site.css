@@ -195,7 +195,7 @@ h4, h5 {
 }
 
 .dock-layout.main .tabs-body-content:first-child {
-    height: calc(100vh - 307px);
+    height: calc(100vh - 104px);
 }
 
 .dropdown-menu {
