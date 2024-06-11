@@ -4162,7 +4162,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.DemoBlock": {
     "Title": "",
-    "SubTitle": "Demo",
     "TooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Components.Tips": {

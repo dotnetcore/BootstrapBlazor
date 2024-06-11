@@ -26,9 +26,19 @@
     font-weight: bold;
 }
 
+::deep h3 {
+    font-size: var(--bb-title-font-size);
+    font-weight: var(--bb-font-weight);
+}
+
 ::deep h4 {
     margin-top: 1rem;
     font-size: var(--bb-sub-font-size);
+}
+
+::deep h5 {
+    font-size: var(--bb-sub-font-size);
+    font-weight: var(--bb-font-weight);
 }
 
 ::deep .alert:last-child {

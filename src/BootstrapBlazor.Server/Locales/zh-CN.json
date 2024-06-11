@@ -4162,7 +4162,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.DemoBlock": {
     "Title": "未设置",
-    "SubTitle": "示例",
     "TooltipText": "已拷贝到剪贴板"
   },
   "BootstrapBlazor.Server.Components.Components.Tips": {

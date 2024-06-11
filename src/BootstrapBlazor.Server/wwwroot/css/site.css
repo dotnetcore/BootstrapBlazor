@@ -1,6 +1,7 @@
 ﻿:root {
-    --bb-font-weight: 500;
-    --bb-sub-font-size: 1.2rem;
+    --bb-font-weight: bold;
+    --bb-title-font-size: 1rem;
+    --bb-sub-font-size: .875rem;
     --bb-primary-color: var(--bs-indigo);
     --bb-primary-color-rgb: 112.520718,44.062154,249.437846;
     --bb-bd-download-color: #ffe484;
