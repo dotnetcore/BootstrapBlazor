@@ -71,8 +71,7 @@ const handlerToggle = search => {
     EventHandler.on(document, 'click', e => {
         const element = e.target.closest('.bb-g-search');
         if (element === null) {
-            dialog.classList.remove('show');
-            mask.classList.remove('show');
+            closeDialog(search);
         }
     });
 }
@@ -194,8 +193,20 @@ const updateStatus = (search, hits, ms) => {
 const resetStatus = search => {
     const { options, status, input, list, menu, emptyTemplate } = search;
     status.innerHTML = options.searchStatus;
-    input.value = '';
-    list.innerHTML = emptyTemplate.outerHTML;
-    menu.innerHTML = '';
-    menu.classList.remove('show');
+
+    if (input.value === '') {
+        closeDialog(search);
+    }
+    else {
+        input.value = '';
+        list.innerHTML = emptyTemplate.outerHTML;
+        menu.innerHTML = '';
+        menu.classList.remove('show');
+    }
+}
+
+const closeDialog = search => {
+    const { mask, dialog } = search;
+    dialog.classList.remove('show');
+    mask.classList.remove('show');
 }
