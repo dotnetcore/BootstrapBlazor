@@ -177,10 +177,10 @@ class GroupControl {
     _lock() {
         this.toggleLock(false)
     }
-    _unlock(){
+    _unlock() {
         this.toggleLock(true)
     }
-    toggleLock(isLock){
+    toggleLock(isLock) {
         const { accessor: dockview } = this.group.api
         this.group.locked = isLock ? 'no-drop-target' : isLock
         this.group.panels.forEach(panel => {
@@ -190,7 +190,7 @@ class GroupControl {
         dockview._lockChanged?.fire({ title: this.group.panels.map(panel => panel.title), isLock })
         saveConfig(dockview)
     }
-    _down(icon){
+    _down(icon) {
         const { accessor: dockview } = this.group.api
         let isPackup = this._getGroupParams('isPackup')
         let parentEle = this.group.element.parentElement
@@ -204,42 +204,42 @@ class GroupControl {
         isPackup ? this.actionContainer.classList.remove('bb-up') : this.actionContainer.classList.add('bb-up')
         saveConfig(dockview)
     }
-    _full(){
+    _full() {
         return this.toggleFull(false)
         const type = this.group.model.location.type
-        if(type == 'grid'){
+        if (type == 'grid') {
             this.group.api.maximize()
         }
-        else if(type == 'floating'){
+        else if (type == 'floating') {
             this._floatingMaximize()
         }
         this.actionContainer.classList.add('bb-full')
         this.group.panels.forEach(panel => panel.params.isMaximized = true)
     }
-    _restore(){
+    _restore() {
         return this.toggleFull(true)
         const type = this.group.model.location.type
-        if(type == 'grid'){
+        if (type == 'grid') {
             this.group.api.exitMaximized()
         }
-        else if(type == 'floating'){
+        else if (type == 'floating') {
             this._floatingExitMaximized()
         }
         this.actionContainer.classList.remove('bb-full')
         this.group.panels.forEach(panel => panel.params.isMaximized = false)
     }
-    toggleFull(isMaximized){
+    toggleFull(isMaximized) {
         const type = this.group.model.location.type
-        if(type == 'grid'){
+        if (type == 'grid') {
             isMaximized ? this.group.api.exitMaximized() : this.group.api.maximize()
         }
-        else if(type == 'floating'){
+        else if (type == 'floating') {
             isMaximized ? this._floatingExitMaximized() : this._floatingMaximize()
         }
         isMaximized ? this.actionContainer.classList.remove('bb-full') : this.actionContainer.classList.add('bb-full')
         this.group.panels.forEach(panel => panel.params.isMaximized = !isMaximized)
     }
-    _float(){
+    _float() {
         if (this.group.locked) return
         const { accessor: dockview } = this.group.api
         const x = (dockview.width - 500) / 2
@@ -274,7 +274,7 @@ class GroupControl {
         group.groupControl = new GroupControl(group, dockview, true)
         saveConfig(this.dockview)
     }
-    _dock(){
+    _dock() {
         if (this.group.locked) return
         const { accessor: dockview } = this.group.api
         let originGroup = dockview.groups.find(group => group.id + '_floating' == this.group.id)
@@ -298,7 +298,7 @@ class GroupControl {
         originGroup.setParams({ position, isPackup, height, isMaximized })
         saveConfig(dockview)
     }
-    _close(){
+    _close() {
         if (!this.group.locked) {
             this.group.api.close()
         }
@@ -365,27 +365,25 @@ const initActionIcon = () => {
 
 const showLock = (dockview, group) => {
     const { options } = dockview.params;
-    // return group.panels.every(p => p.params.showLock === null)
-    //     ? options.showLock
-    //     : group.panels.every(p => p.params.showLock === true);
-
-    return group.panels.every(panel => panel.params.showLock === null || panel.params.showLock === void 0)
+    return group.panels.every(panel => panel.params.showLock === null)
         ? options.showLock !== false
         : group.panels.some(panel => panel.params.showLock !== false)
 }
+
 const getGroupLockState = (dockview, group) => {
     const { options } = dockview.params;
-    return group.panels.every(p => p.params.isLock === null || p.params.isLock === void 0)
+    return group.panels.every(p => p.params.isLock === null)
         ? options.isLock !== false
         : group.panels.some(p => p.params.isLock === true);
 }
 
 const showFull = (dockview, group) => {
     const { options } = dockview.params;
-    return group.panels.every(p => p.params.showFull === null || p.params.showFull === void 0)
+    return group.panels.every(p => p.params.showFull === null)
         ? options.showFull !== false
         : group.panels.some(p => p.params.showFull === true);
 }
+
 const getGroupFullState = (group) => {
     const type = group.model.location.type
     return type == 'grid' ? group.api.isMaximized() : type == 'floating' ? group.activePanel?.params['isMaximized'] : false
@@ -393,10 +391,11 @@ const getGroupFullState = (group) => {
 
 const showFloat = (dockview, group) => {
     const { options } = dockview.params;
-    return group.panels.every(panel => panel.params.showFloat === null || panel.params.showFloat === void 0)
+    return group.panels.every(panel => panel.params.showFloat === null)
         ? options.showFloat !== false
         : group.panels.some(panel => panel.params.showFloat !== false)
 }
+
 const getGroupFloatState = group => group.model.location.type == 'floating'
 
 export function cerateDockview(el, options) {
@@ -470,7 +469,7 @@ export function toggleComponent(dock, option) {
         if (pan === void 0) {//需要添加
             // 添加时先在localStorage找
             let storagePanels = getLocal(dock.prefix + '-panels') || []
-            let storagePanel = storagePanels.find(item =>  (panel.params.key && panel.params.key == item.params.key) || item.id == panel.id || item.title == panel.title)
+            let storagePanel = storagePanels.find(item => (panel.params.key && panel.params.key == item.params.key) || item.id == panel.id || item.title == panel.title)
             addDelPanel(storagePanel || panel, [], dock)
         }
     })
@@ -722,7 +721,7 @@ export function serialize(options, { width = 800, height = 600 }) {
         panels
     } : null
 }
-function getLayoutConfig({layoutConfig, content}){
+function getLayoutConfig({ layoutConfig, content }) {
     layoutConfig = JSON.parse(layoutConfig)
     let panels = getPanels(content)
     Object.values(layoutConfig.panels).forEach(value => {
@@ -735,8 +734,8 @@ function getLayoutConfig({layoutConfig, content}){
             showClose: contentPanel.params.showClose,
             showHeader: contentPanel.params.showHeader,
             showLock: contentPanel.params.showLock,
-            titleClass:  contentPanel.params.titleClass,
-            titleWidth:  contentPanel.params.titleWidth,
+            titleClass: contentPanel.params.titleClass,
+            titleWidth: contentPanel.params.titleWidth,
             type: contentPanel.params.type,
             width: contentPanel.params.width,
             // key: contentPanel.key,
