@@ -94,6 +94,22 @@ class GroupControl {
                 actionContainer.append(icon);
             }
         });
+
+        if (showLock(this.dockview, this.group)) {
+            actionContainer.classList.add('bb-show-lock');
+
+            if (getGroupLockState(this.dockview, this.group)) {
+                actionContainer.classList.add('bb-lock');
+            }
+        }
+
+        if (showFloat(this.dockview, this.group)) {
+            actionContainer.classList.add('bb-show-float');
+
+            if (getGroupFloatState(this.dockview, this.group)) {
+                actionContainer.classList.add('bb-float');
+            }
+        }
     }
 
     _createButton(item) {
@@ -315,6 +331,34 @@ const initActionIcon = () => {
     });
 }
 
+const showLock = (dockview, group) => {
+    const { options } = dockview.params;
+    return group.panels.every(p => p.params.showLock === null)
+        ? options.showLock
+        : group.panels.every(p => p.params.showLock === true);
+}
+
+const getGroupLockState = (dockview, group) => {
+    const { options } = dockview.params;
+    return group.panels.every(p => p.params.isLock === null)
+        ? options.isLock
+        : group.panels.every(p => p.params.isLock === true);
+}
+
+const showFloat = (dockview, group) => {
+    const { options } = dockview.params;
+    return group.panels.every(p => p.params.showFloat === null)
+        ? options.showFloat
+        : group.panels.every(p => p.params.showFloat === true);
+}
+
+const getGroupFloatState = (dockview, group) => {
+    const { options } = dockview.params;
+    return group.panels.every(p => p.params.IsFloating === null)
+        ? options.IsFloating
+        : group.panels.every(p => p.params.IsFloating === true);
+}
+
 export function cerateDockview(el, options) {
     const dockview = new DockviewComponent({
         parentElement: el,
@@ -329,6 +373,7 @@ export function cerateDockview(el, options) {
     dockview.locked = options.lock
     dockview.showClose = options.showClose
     dockview.showLock = options.showLock
+    dockview.params = { options };
     dockview.saveLayout = () => {
         return dockview.toJSON()
     }

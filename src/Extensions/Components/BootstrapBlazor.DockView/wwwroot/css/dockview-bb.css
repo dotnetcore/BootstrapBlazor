@@ -106,6 +106,10 @@
         --bb-dockview-control-icon-color: #dee2e6;
     }
 
+    .bb-dockview .tabs-and-actions-container .tabs-container {
+        overflow: hidden;
+    }
+
     .bb-dockview .right-actions-container {
         display: flex;
         align-items: center;
@@ -120,22 +124,24 @@
                 margin-left: .5rem;
             }
 
-    .bb-dockview .tabs-and-actions-container .tabs-container {
-        overflow: hidden;
-    }
-
-    .bb-dockview .bb-dockview-control-icon {
-        display: flex;
-    }
-
-        .bb-dockview .bb-dockview-control-icon > svg {
-            width: var(--bb-dockview-control-icon-width);
-            height: var(--bb-dockview-control-icon-width);
+        .bb-dockview .right-actions-container.bb-show-lock .bb-dockview-control-icon-lock,
+        .bb-dockview .right-actions-container.bb-show-lock .bb-dockview-control-icon-unlock {
+            display: flex;
         }
 
-            .bb-dockview .bb-dockview-control-icon > svg > * {
-                stroke: var(--bb-dockview-control-icon-color);
-            }
+        .bb-dockview .right-actions-container:not(.bb-lock) .bb-dockview-control-icon-lock,
+        .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-unlock {
+            display: none;
+        }
+
+    .bb-dockview .bb-dockview-control-icon > svg {
+        width: var(--bb-dockview-control-icon-width);
+        height: var(--bb-dockview-control-icon-width);
+    }
+
+        .bb-dockview .bb-dockview-control-icon > svg > * {
+            stroke: var(--bb-dockview-control-icon-color);
+        }
 
     .bb-dockview .bb-dockview-control-icon-dropdown > svg {
         transform: rotate(180deg);
