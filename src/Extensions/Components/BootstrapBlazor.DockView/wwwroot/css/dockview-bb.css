@@ -149,11 +149,11 @@
         transform: rotate(180deg);
     }
 
-    .bb-dockview .bb-dockview-control-up > svg {
+    .bb-dockview .bb-dockview-control-icon-down > svg {
         transition: transform .3s linear;
     }
 
-    .bb-dockview .bb-dockview-control-up.bb-dockview-control-down > svg {
+    .bb-dockview .bb-up .bb-dockview-control-icon-down > svg {
         transform: rotate(180deg);
     }
 
@@ -161,7 +161,7 @@
         display: none;
     }
 
-    .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-close {
+    .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-icon-close {
         display: none;
     }
 
