@@ -136,6 +136,12 @@
             display: none;
         }
 
+        .bb-dockview .tabs-and-actions-container:has(.bb-lock) .dv-default-tab-content + .dv-default-tab-action svg > *,
+        .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-close > svg > *,
+        .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-float > svg > * {
+            stroke: var(--bb-dockview-control-icon-lock-color);
+        }
+
     .bb-dockview .bb-dockview-control-icon > svg {
         width: var(--bb-dockview-control-icon-width);
         height: var(--bb-dockview-control-icon-width);
@@ -157,20 +163,12 @@
         transform: rotate(180deg);
     }
 
-    .bb-dockview .dv-tab-on > .dv-default-tab-action:last-child {
+    .bb-dockview .dv-tab-on > .dv-default-tab-content + .dv-default-tab-action {
         display: none;
     }
 
     .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-icon-close {
         display: none;
-    }
-
-    .bb-dockview .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-close > * {
-        stroke: var(--bb-dockview-control-icon-lock-color);
-    }
-
-    .bb-dockview .tabs-and-actions-container:has(.bb-dockview-control-icon-lock) .bb-dockview-control-icon-float > * {
-        stroke: var(--bb-dockview-control-icon-lock-color);
     }
 
     .bb-dockview .bb-dockview-control-dropdown {
