@@ -82,6 +82,18 @@ public partial class DockViewComponent
     public bool? ShowLock { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否悬浮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? ShowFloat { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示标题前置图标 默认 false 不显示
     /// </summary>
     [Parameter]

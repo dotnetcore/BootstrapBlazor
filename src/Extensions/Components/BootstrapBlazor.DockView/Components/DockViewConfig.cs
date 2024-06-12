@@ -26,6 +26,17 @@ class DockViewConfig
     public bool ShowLock { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否悬浮 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    public bool IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 true
+    /// </summary>
+    public bool ShowFloat { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认 true 显示
     /// </summary>
     public bool ShowClose { get; set; }

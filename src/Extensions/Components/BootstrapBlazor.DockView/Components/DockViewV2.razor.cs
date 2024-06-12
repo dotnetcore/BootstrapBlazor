@@ -48,6 +48,18 @@ public partial class DockViewV2
     public bool ShowLock { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否悬浮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowFloat { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 锁定状态回调此方法
     /// </summary>
     [Parameter]
@@ -152,6 +164,8 @@ public partial class DockViewV2
         LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         IsLock = IsLock,
         ShowLock = ShowLock,
+        IsFloating = IsFloating,
+        ShowFloat = ShowFloat,
         ShowClose = ShowClose,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
