@@ -4389,10 +4389,10 @@
     "Name": "姓名",
     "Name.Required": "Dummy2 {0} 值是必填项"
   },
-  "BootstrapBlazor.Server.Components.EnumEducation": {
+  "BootstrapBlazor.Server.Data.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
-    "Middel": "中学"
+    "Middle": "中学"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
     "Title": "点击切换主题",
