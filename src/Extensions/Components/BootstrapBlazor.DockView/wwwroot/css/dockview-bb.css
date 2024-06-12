@@ -127,8 +127,12 @@
 
         .bb-dockview .dv-tab-on > .dv-default-tab-content + .dv-default-tab-action,
         .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-icon-close,
+        .bb-dockview .right-actions-container:not(.bb-show-lock) .bb-dockview-control-icon-lock,
+        .bb-dockview .right-actions-container:not(.bb-show-lock) .bb-dockview-control-icon-unlock,
         .bb-dockview .right-actions-container:not(.bb-lock) .bb-dockview-control-icon-lock,
         .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-unlock,
+        .bb-dockview .right-actions-container:not(.bb-show-float) .bb-dockview-control-icon-float,
+        .bb-dockview .right-actions-container:not(.bb-show-float) .bb-dockview-control-icon-dock,
         .bb-dockview .right-actions-container:not(.bb-float) .bb-dockview-control-icon-dock,
         .bb-dockview .right-actions-container:not(.bb-float) .bb-dockview-control-icon-down,
         .bb-dockview .right-actions-container:not(.bb-group) .bb-dockview-control-icon-dropdown,
