@@ -40,8 +40,8 @@ class PanelControl {
         this.tabEle = view.tab.element
         this.contentEle = view.content.element
 
-        this.updateTitle()
         this.updateCloseButton()
+        this.updateTitle()
     }
 
     updateTitle() {
@@ -63,11 +63,9 @@ class PanelControl {
         if (showClose) {
             const closeButton = this.panel.view.tab._content.nextElementSibling;
             if (closeButton) {
-                const closeIcon = this.panel.accessor.groupControls.find(i => i.name == 'close')
+                const closeIcon = getActionIcon(this.panel.accessor, 'close', false);
                 if (closeIcon) {
-                    const icon = closeIcon.icon.cloneNode(true);
-                    icon.removeAttribute('title');
-                    closeButton.replaceChild(icon, closeButton.children[0]);
+                    closeButton.replaceChild(closeIcon, closeButton.children[0]);
                 }
             }
         }
@@ -92,7 +90,8 @@ class GroupControl {
         const actionContainer = this.group.header.element.querySelector('.right-actions-container')
         this.dockview.groupControls.forEach(item => {
             if (item.name !== 'bar') {
-                actionContainer.append(item.icon.cloneNode(true));
+                const icon = getActionIcon(this.dockview, item.name);
+                actionContainer.append(icon);
             }
         });
     }
@@ -295,6 +294,27 @@ class GroupControl {
     }
 }
 
+const getActionIcon = (dockview, name, hasTitle = true) => {
+    let icon = null;
+    var control = dockview.groupControls.find(i => i.name == name);
+    if (control) {
+        icon = control.icon.cloneNode(true);;
+    }
+    if (!hasTitle) {
+        icon.removeAttribute('title');
+    }
+    return icon;
+}
+
+const initActionIcon = () => {
+    return ['bar', 'dropdown', 'lock', 'unlock', 'down', 'full', 'restore', 'float', 'dock', 'close'].map(v => {
+        return {
+            name: v,
+            icon: document.querySelector(`template > .bb-dockview-control-icon-${v}`)
+        };
+    });
+}
+
 export function cerateDockview(el, options) {
     const dockview = new DockviewComponent({
         parentElement: el,
@@ -304,12 +324,7 @@ export function cerateDockview(el, options) {
         createTabComponent: () => new DefaultTab()
     });
     dockview.template = el.querySelector('template');
-    dockview.groupControls = ['bar', 'dropdown', 'lock', 'unlock', 'down', 'full', 'restore', 'float', 'dock', 'close'].map(v => {
-        return {
-            name: v,
-            icon: document.querySelector(`template > .bb-dockview-control-icon-${v}`)
-        };
-    });
+    dockview.groupControls = initActionIcon();
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
     dockview.showClose = options.showClose
