@@ -125,6 +125,8 @@
                 margin-left: .5rem;
             }
 
+        .bb-dockview .dv-tab-on > .dv-default-tab-content + .dv-default-tab-action,
+        .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-icon-close,
         .bb-dockview .right-actions-container:not(.bb-lock) .bb-dockview-control-icon-lock,
         .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-unlock,
         .bb-dockview .right-actions-container:not(.bb-float) .bb-dockview-control-icon-dock,
@@ -163,31 +165,11 @@
         transform: rotate(180deg);
     }
 
-    .bb-dockview .dv-tab-on > .dv-default-tab-content + .dv-default-tab-action {
-        display: none;
+    .bb-dockview .bb-dockview-control-icon-dropdown .dropdown-menu {
+        --bs-dropdown-padding-y: var(--bb-dockview-control-dropdown-padding-y);
+        --bs-dropdown-item-padding-x: var(--bb-dockview-control-dropdown-item-padding-x);
+        --bs-dropdown-item-padding-y: var(--bb-dockview-control-dropdown-item-padding-y);
     }
-
-    .bb-dockview .tabs-and-actions-container:has(.dv-tab-on) > .right-actions-container > .bb-dockview-control-icon-close {
-        display: none;
-    }
-
-    .bb-dockview .bb-dockview-control-dropdown {
-        display: none;
-    }
-
-        .bb-dockview .bb-dockview-control-dropdown li:not(:has(.tab)) {
-            display: none;
-        }
-
-        .bb-dockview .bb-dockview-control-dropdown:has(.tab) {
-            display: block;
-        }
-
-        .bb-dockview .bb-dockview-control-dropdown .dropdown-menu {
-            --bs-dropdown-padding-y: var(--bb-dockview-control-dropdown-padding-y);
-            --bs-dropdown-item-padding-x: var(--bb-dockview-control-dropdown-item-padding-x);
-            --bs-dropdown-item-padding-y: var(--bb-dockview-control-dropdown-item-padding-y);
-        }
 
 .split-view-container .sash-container .sash:not(.disabled):hover {
     transition-delay: unset;
