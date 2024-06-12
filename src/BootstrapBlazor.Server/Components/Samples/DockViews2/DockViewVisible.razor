@@ -9,7 +9,7 @@
 
 <DockViewV2 Name="DockViewVisible" OnPanelClosedCallbackAsync="OnPanelClosedCallbackAsync" class="dockview-demo">
     <DockViewContent Type="DockViewContentType.Column">
-        <DockViewComponent Title="标签一" Visible="Visible">
+        <DockViewComponent Key="tab1" Title="标签一" Visible="Visible">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
                    ShowDefaultButtons="false">
@@ -24,7 +24,7 @@
                 </DetailRowTemplate>
             </Table>
         </DockViewComponent>
-        <DockViewComponent Title="标签二" ShowClose="false">
+        <DockViewComponent Key="tab2" Title="标签二" ShowClose="false">
             <Table TItem="Foo" @bind-Items="Items"
                    IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                    ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
@@ -39,7 +39,7 @@
                 </TableColumns>
             </Table>
         </DockViewComponent>
-        <DockViewComponent Title="标签三" ShowClose="false">
+        <DockViewComponent Key="tab3" Title="标签三" ShowClose="false">
             <FetchData></FetchData>
         </DockViewComponent>
     </DockViewContent>
