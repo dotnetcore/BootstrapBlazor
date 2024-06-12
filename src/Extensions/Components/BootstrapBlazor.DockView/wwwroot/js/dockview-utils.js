@@ -77,11 +77,11 @@ class GroupControl {
         this.isOpenFloat = isOpenFloat
 
         if (group.header.hidden === false) {
-            this.creatRightActions();
+            this._creatRightActions();
         }
     }
 
-    creatRightActions() {
+    _creatRightActions() {
         const { header, panels, api } = this.group;
         const divEle = header.element.querySelector('.right-actions-container')
         const showLock = panels.every(p => p.params.showLock === null)
