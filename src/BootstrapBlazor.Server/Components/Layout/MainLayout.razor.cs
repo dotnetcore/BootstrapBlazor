@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
@@ -25,14 +27,31 @@ public partial class MainLayout : IDisposable
     [NotNull]
     private IIpLocatorFactory? IpLocatorFactory { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [NotNull]
+    private string? Title { get; set; }
+
+    [NotNull]
+    private string? ChatTooltip { get; set; }
+
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         DispatchService.Subscribe(Dispatch);
+
+        Title ??= Localizer[nameof(Title)];
+        ChatTooltip ??= Localizer[nameof(ChatTooltip)];
     }
 
     private async Task Dispatch(DispatchEntry<MessageItem> entry)
