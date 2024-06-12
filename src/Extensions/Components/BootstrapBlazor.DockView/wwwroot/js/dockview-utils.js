@@ -52,6 +52,7 @@ class PanelControl {
         else {
             const titleBarElement = this.contentEle.querySelector('.bb-dockview-item-title-icon')
             if (titleBarElement) {
+                titleBarElement.removeAttribute('title');
                 this.tabEle.insertAdjacentElement("afterbegin", titleBarElement);
             }
         }
@@ -60,9 +61,15 @@ class PanelControl {
     updateCloseButton() {
         const showClose = this.panel.params.showClose ?? this.panel.accessor.showClose;
         if (showClose) {
-            const closeButton = this.tabEle.children[this.tabEle.children.length - 1]
-            const closeControl = this.panel.accessor.groupControls.find(control => control.name == 'close')
-            closeButton.innerHTML = closeControl.icon[0]
+            const closeButton = this.panel.view.tab._content.nextElementSibling;
+            if (closeButton) {
+                const closeIcon = this.panel.accessor.groupControls.find(i => i.name == 'close')
+                if (closeIcon) {
+                    const icon = closeIcon.icon.cloneNode(true);
+                    icon.removeAttribute('title');
+                    closeButton.replaceChild(icon, closeButton.children[0]);
+                }
+            }
         }
         else {
             this.tabEle.classList.add('dv-tab-on')
@@ -82,24 +89,9 @@ class GroupControl {
     }
 
     _creatRightActions() {
-        const { header, panels, api } = this.group;
-        //const showLock = panels.every(p => p.params.showLock === null)
-        //    ? this.dockview.showLock
-        //    : panels.some(p => p.params.showLock === true);
-        //const filterControls = this.dockview.groupControls.filter(item => {
-        //    switch (item.name) {
-        //        case 'dropdown': return true
-        //        case 'lock': return showLock
-        //        case 'packup/expand': return true
-        //        case 'float': return panels.every(p => p.params.showFloat === true)
-        //        case 'maximize': return panels.every(p => p.params.showMaximize === true)
-        //        case 'close': return true
-        //    }
-        //});
-        const actionContainer = header.element.querySelector('.right-actions-container')
+        const actionContainer = this.group.header.element.querySelector('.right-actions-container')
         this.dockview.groupControls.forEach(item => {
             if (item.name !== 'bar') {
-                //const btn = this._createButton(item);
                 actionContainer.append(item.icon.cloneNode(true));
             }
         });
@@ -425,7 +417,8 @@ export function setTheme(ele, theme, newTheme) {
 
 export function addHook(dockview, dockviewData) {
     // 钩子1： 删除panel触发
-    dockview.onDidRemovePanel(event => {console.log('onDidRemovePanel');
+    dockview.onDidRemovePanel(event => {
+        console.log('onDidRemovePanel');
         // 在删除的panel上存储信息并把panel存储到storage
         let obj = {
             id: event.id,
@@ -624,16 +617,17 @@ export function serialize(options, { width = 800, height = 600 }) {
         panels
     } : null
 }
-export function addDelPanel(panel, delPanels, dockview) {console.log(panel, 'panel');
+export function addDelPanel(panel, delPanels, dockview) {
+    console.log(panel, 'panel');
     // 手动添加已删除的panel
     // let group = panel.groupId ? dockview.api.getGroup(panel.groupId) : (
     //     dockview.groups.find(group => group.children?.[panel.id]) || dockview.groups[0]
     // )
     let group
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
-    if(panel.groupId){ //有groupId就按groupId找group,找到就显示, 找不到就按groupId创建浮动窗口
+    if (panel.groupId) { //有groupId就按groupId找group,找到就显示, 找不到就按groupId创建浮动窗口
         group = dockview.api.getGroup(panel.groupId)
-        if(!group){
+        if (!group) {
             group = dockview.createGroup({ id: panel.groupId })
             let floatingGroupPosition = isMaximized ? {
                 x: 0, y: 0,
@@ -673,9 +667,9 @@ export function addDelPanel(panel, delPanels, dockview) {console.log(panel, 'pan
             params: { ...panel.params, isPackup, height, isMaximized, position }
         })
     }
-    else{// 没有groupId就通过group.children来查找,找到就显示, 找不到就按panel.params.parentId来找到group所在的同级结构进行创建
+    else {// 没有groupId就通过group.children来查找,找到就显示, 找不到就按panel.params.parentId来找到group所在的同级结构进行创建
         group = dockview.groups.find(group => group.children?.[panel.id])
-        if(!group){
+        if (!group) {
             let curentPanel = dockview.panels.findLast(item => item.params.parentId == panel.params.parentId)
             console.log(curentPanel, 'curentPanel');
             let direction = getOrientation(dockview.gridview.root, curentPanel.group) == 'VERTICAL' ? 'below' : 'right'
@@ -689,7 +683,7 @@ export function addDelPanel(panel, delPanels, dockview) {console.log(panel, 'pan
             });
             console.log(newPanel, 'newPanel');
         }
-        else{
+        else {
             if (group.api.location.type == 'grid') {
                 let isVisible = dockview.isVisible(group)
                 if (isVisible === false) {
@@ -767,19 +761,19 @@ export function loadDockview(dockview, dockviewData, serializeData) {
     }
 }
 
-const getOrientation = function(child, group){
-    if(child.children){
+const getOrientation = function (child, group) {
+    if (child.children) {
         let targetGroup = child.children.find(item => !item.children && item.element === group.element)
-        if(targetGroup){
+        if (targetGroup) {
             return child.orientation
         }
-        else{
+        else {
             for (const item of child.children) {
                 let orientation = getOrientation(item, group)
-                if(orientation) return orientation
+                if (orientation) return orientation
             }
         }
-    }else{
+    } else {
         return false
     }
 }
@@ -878,7 +872,7 @@ const getTree = (contentItem, { width, height, orientation }, parent) => {
                     title: item.title,
                     tabComponent: item.componentName,
                     contentComponent: item.componentName,
-                    params: {...item, parentId: parent.id}
+                    params: { ...item, parentId: parent.id }
                 }
                 return item.id
             })
@@ -901,7 +895,7 @@ const getTree = (contentItem, { width, height, orientation }, parent) => {
                 tabComponent: contentItem.componentName,
                 contentComponent: contentItem.componentName,
                 // params: {...contentItem, showClose: true, showLock: true, showFloat: true, showMaximize: true}
-                params: {...contentItem, parentId: parent.id}
+                params: { ...contentItem, parentId: parent.id }
             }
         }
     }
@@ -920,7 +914,7 @@ const generateRandomId = length => {
 const getPanels = content => {
     return getPanel(content[0])
 }
-const getPanel = (contentItem,parent = {}, panels = []) => {
+const getPanel = (contentItem, parent = {}, panels = []) => {
     if (contentItem.type == 'component') {
         panels.push({
             id: contentItem.id,
@@ -928,7 +922,7 @@ const getPanel = (contentItem,parent = {}, panels = []) => {
             title: contentItem.title,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
-            params: {...contentItem, parentId: parent.id}
+            params: { ...contentItem, parentId: parent.id }
         })
     } else {
         contentItem.content?.forEach(item => getPanel(item, contentItem, panels))
