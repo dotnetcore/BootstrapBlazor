@@ -138,15 +138,17 @@
         .bb-dockview .right-actions-container:not(:has(.tab)) .bb-dockview-control-icon-dropdown,
         .bb-dockview .right-actions-container .bb-dockview-control-icon-dropdown li:not(:has(.tab)),
         .bb-dockview .right-actions-container.bb-float .bb-dockview-control-icon-float,
-        .bb-dockview .right-actions-container:not(.bb-full) .bb-dockview-control-icon-restore,
-        .bb-dockview .right-actions-container.bb-full .bb-dockview-control-icon-full {
+        .bb-dockview .right-actions-container:not(.bb-show-maximize) .bb-dockview-control-icon-full,
+        .bb-dockview .right-actions-container:not(.bb-show-maximize) .bb-dockview-control-icon-restore,
+        .bb-dockview .right-actions-container:not(.bb-maximize) .bb-dockview-control-icon-restore,
+        .bb-dockview .right-actions-container.bb-maximize .bb-dockview-control-icon-full {
             display: none;
         }
 
         .bb-dockview .tabs-and-actions-container:has(.bb-lock) .dv-default-tab-content + .dv-default-tab-action svg > *,
         .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-close > svg > *,
         .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-float > svg > *,
-        .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-dock > svg > *  {
+        .bb-dockview .right-actions-container.bb-lock .bb-dockview-control-icon-dock > svg > * {
             stroke: var(--bb-dockview-control-icon-lock-color);
         }
 

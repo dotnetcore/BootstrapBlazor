@@ -102,16 +102,15 @@ class GroupControl {
         });
         if (showLock(dockview, group)) {
             actionContainer.classList.add('bb-show-lock');
-
             if (getGroupLockState(dockview, group)) {
                 actionContainer.classList.add('bb-lock');
                 this.toggleLock(true)
             }
         }
-        if (showFull(dockview, group)) {
-            actionContainer.classList.add('bb-show-full');
-            if (getGroupFullState(this.group, this._getGroupParams.bind(this))) {
-                actionContainer.classList.add('bb-full');
+        if (showMaximize(dockview, group)) {
+            actionContainer.classList.add('bb-show-maximize');
+            if (getGroupMaximizeState(this.group, this._getGroupParams.bind(this))) {
+                actionContainer.classList.add('bb-maximize');
                 this.toggleFull(false)
             }
         }
@@ -365,34 +364,36 @@ const initActionIcon = () => {
 const showLock = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(panel => panel.params.showLock === null)
-        ? options.showLock !== false
-        : group.panels.some(panel => panel.params.showLock !== false)
+        ? options.showLock
+        : group.panels.some(panel => panel.params.showLock === true)
 }
 
 const getGroupLockState = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(p => p.params.isLock === null)
-        ? options.isLock === true
+        ? options.isLock
         : group.panels.some(p => p.params.isLock === true);
 }
 
-const showFull = (dockview, group) => {
+const showMaximize = (dockview, group) => {
     const { options } = dockview.params;
-    return group.panels.every(p => p.params.showFull === null)
-        ? options.showFull !== false
-        : group.panels.some(p => p.params.showFull === true);
+    return group.panels.every(p => p.params.showMaximize === null)
+        ? options.showMaximize
+        : group.panels.some(p => p.params.showMaximize === true);
 }
 
-const getGroupFullState = (group) => {
+const getGroupMaximizeState = (group) => {
     const type = group.model.location.type
-    return type == 'grid' ? group.api.isMaximized() : type == 'floating' ? group.activePanel?.params['isMaximized'] : false
+    return type == 'grid'
+        ? group.api.isMaximized()
+        : (type == 'floating' ? group.activePanel?.params['isMaximized'] : false)
 }
 
 const showFloat = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(panel => panel.params.showFloat === null)
-        ? options.showFloat !== false
-        : group.panels.some(panel => panel.params.showFloat !== false)
+        ? options.showFloat
+        : group.panels.some(panel => panel.params.showFloat === true)
 }
 
 const getGroupFloatState = group => group.model.location.type == 'floating'
