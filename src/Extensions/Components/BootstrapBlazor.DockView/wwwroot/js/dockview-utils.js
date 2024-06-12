@@ -373,7 +373,7 @@ const showLock = (dockview, group) => {
 const getGroupLockState = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(p => p.params.isLock === null)
-        ? options.isLock !== false
+        ? options.isLock === true
         : group.panels.some(p => p.params.isLock === true);
 }
 
