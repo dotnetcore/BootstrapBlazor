@@ -350,10 +350,6 @@ code {
     .header-img span {
         display: none;
     }
-
-    .home-section {
-        margin: 2rem;
-    }
 }
 
 :root, [data-bs-theme="light"] {
