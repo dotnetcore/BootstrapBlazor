@@ -52,6 +52,6 @@
         <path d="M33 21L24 30L15 21" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
     </symbol>
     <symbol viewBox="0 0 48 48" fill="none" id="dropdown">
-        <path d="M12 29L24 17L36 29H12Z" fill="none" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M36 19L24 31L12 19H36Z" fill="none" stroke-width="3" stroke-linejoin="round"/>
     </symbol>
 </svg>

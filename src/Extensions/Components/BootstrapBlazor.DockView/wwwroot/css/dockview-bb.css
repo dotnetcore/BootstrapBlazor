@@ -161,16 +161,12 @@
             stroke: var(--bb-dockview-control-icon-color);
         }
 
-    .bb-dockview .bb-dockview-control-icon-dropdown > svg {
+    .bb-dockview .bb-up .bb-dockview-control-icon-down > svg {
         transform: rotate(180deg);
     }
 
     .bb-dockview .bb-dockview-control-icon-down > svg {
         transition: transform .3s linear;
-    }
-
-    .bb-dockview .bb-up .bb-dockview-control-icon-down > svg {
-        transform: rotate(180deg);
     }
 
     .bb-dockview .bb-dockview-control-icon-dropdown .dropdown-menu {
