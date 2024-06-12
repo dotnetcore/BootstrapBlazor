@@ -419,32 +419,10 @@ const lockGroup = (group, isLock) => {
         panel.params && (panel.params.isLock = isLock)
     })
 }
+
 export function lockDock(dock) {
     dock.groups.forEach(group => lockGroup(group, dock.locked))
     // dock._lockChanged?.fire(dock.locked)
-}
-export function getTheme(element) {
-    function toClassList(element) {
-        const list = [];
-        for (let i = 0; i < element.classList.length; i++) {
-            list.push(element.classList.item(i));
-        }
-        return list;
-    }
-    let theme = undefined;
-    let parent = element;
-    while (parent !== null) {
-        theme = toClassList(parent).find((cls) => cls.startsWith('dockview-theme-'));
-        if (typeof theme === 'string') {
-            break;
-        }
-        parent = parent.parentElement;
-    }
-    return theme;
-}
-export function setTheme(ele, theme, newTheme) {
-    ele.classList.remove(theme)
-    ele.classList.add(newTheme)
 }
 
 export function addHook(dockview, dockviewData, options) {
@@ -590,6 +568,7 @@ export function addHook(dockview, dockviewData, options) {
     dockview.onDidRemove(() => {
     })
 }
+
 const setWidth = (observerList) => {
     observerList.forEach(observer => {
         let header = observer.target
