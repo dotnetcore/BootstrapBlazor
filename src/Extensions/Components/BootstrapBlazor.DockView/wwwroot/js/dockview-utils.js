@@ -131,10 +131,10 @@ class GroupControl {
 
     toggleFull(isMaximized) {
         const type = this.group.model.location.type
-        if (type == 'grid') {
+        if (type === 'grid') {
             isMaximized ? this.group.api.exitMaximized() : this.group.api.maximize()
         }
-        else if (type == 'floating') {
+        else if (type === 'floating') {
             isMaximized ? this._floatingExitMaximized() : this._floatingMaximize()
         }
         isMaximized ? this.actionContainer.classList.remove('bb-maximize') : this.actionContainer.classList.add('bb-maximize')
@@ -149,18 +149,20 @@ class GroupControl {
         this.toggleLock(true)
     }
 
-    _down(icon) {
-        const { accessor: dockview } = this.group.api
-        let isPackup = this._getGroupParams('isPackup')
-        let parentEle = this.group.element.parentElement
+    _down() {
+        const dockview = this.group.api.accessor;
+        const isPackup = this._getGroupParams('isPackup')
+        const parentEle = this.group.element.parentElement
         if (isPackup) {
             this._setGroupParams({ 'isPackup': false })
-            parentEle.style.height = this._getGroupParams('height') + 'px'
-        } else {
-            this._setGroupParams({ 'isPackup': true, 'height': parseFloat(parentEle.style.height) })
-            parentEle.style.height = '35px'
+            parentEle.style.height = `${this._getGroupParams('height')}px`;
+            this.actionContainer.classList.remove('bb-up')
         }
-        isPackup ? this.actionContainer.classList.remove('bb-up') : this.actionContainer.classList.add('bb-up')
+        else {
+            this._setGroupParams({ 'isPackup': true, 'height': parseFloat(parentEle.style.height) });
+            parentEle.style.height = `${this.group.activePanel.view._tab._element.offsetHeight}px`;
+            this.actionContainer.classList.add('bb-up');
+        }
         saveConfig(dockview)
     }
 
@@ -173,26 +175,29 @@ class GroupControl {
     }
 
     _float() {
-        if (this.group.locked) return
+        if (this.group.locked) return;
+
         const dockview = this.group.api.accessor;
         const x = (dockview.width - 500) / 2
         const y = (dockview.height - 460) / 2
+        const gridGroups = dockview.groups.filter(group => group.panels.length > 0 && group.type === 'grid')
+        if (gridGroups.length <= 1) return;
 
-        let gridGroups = dockview.groups.filter(group => group.panels.length > 0 && group.type == 'grid')
-        if (gridGroups.length <= 1) return
-        let { position = {}, isPackup, height, isMaximized } = this.group.getParams()
-        let floatingGroupPosition = isMaximized ? {
-            x: 0, y: 0,
-            width: dockview.width,
-            height: dockview.height
-        } : {
-            x: position.left || (x < 35 ? 35 : x),
-            y: position.top || (y < 35 ? 35 : y),
-            width: position.width || 500,
-            height: position.height || 460
-        }
+        const { position = {}, isPackup, height, isMaximized } = this.group.getParams()
+        const floatingGroupPosition = isMaximized
+            ? {
+                x: 0, y: 0,
+                width: dockview.width,
+                height: dockview.height
+            }
+            : {
+                x: position.left || (x < 35 ? 35 : x),
+                y: position.top || (y < 35 ? 35 : y),
+                width: position.width || 500,
+                height: position.height || 460
+            }
 
-        let group = dockview.createGroup({ id: this.group.id + '_floating' })
+        const group = dockview.createGroup({ id: `${this.group.id}_floating` });
         dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
 
         this.group.panels.slice(0).forEach((panel, index) => {
@@ -209,12 +214,13 @@ class GroupControl {
     }
 
     _dock() {
-        if (this.group.locked) return
-        const { accessor: dockview } = this.group.api
-        let originGroup = dockview.groups.find(group => group.id + '_floating' == this.group.id)
+        if (this.group.locked) return;
+
+        const dockview = this.group.api.accessor
+        const originGroup = dockview.groups.find(group => `${group.id}_floating` === this.group.id)
         dockview.setVisible(originGroup, true)
 
-        let { isPackup, height, isMaximized, position } = this.group.getParams()
+        const { isPackup, height, isMaximized, position } = this.group.getParams()
         if (!isMaximized) {
             position = {
                 width: this.group.width,
@@ -228,7 +234,6 @@ class GroupControl {
             to: { group: originGroup, position: 'center' }
         })
 
-        // 把floating移回到grid, floating会被删除,在这之前需要保存悬浮框的position, 此处保存在了原Group的panel的params上
         originGroup.setParams({ position, isPackup, height, isMaximized })
         saveConfig(dockview)
     }
@@ -249,19 +254,15 @@ class GroupControl {
         })
     }
 
-    _removeGroupParams(keys) {
-        return (keys instanceof Array) ? keys.map(key => this.group.panels.forEach(panel => delete panel.params[key])) : false
-    }
-
     _floatingMaximize() {
-        let parentEle = this.group.element.parentElement
-        let { width, height } = parentEle.style
-        let { width: maxWidth, height: maxHeight } = this.group.api.accessor;
-        let { top, left } = parentEle.style
-        parentEle.style.left = 0
-        parentEle.style.top = 0
-        parentEle.style.width = maxWidth + 'px'
-        parentEle.style.height = maxHeight + 'px'
+        const parentEle = this.group.element.parentElement
+        const { width, height } = parentEle.style
+        const { width: maxWidth, height: maxHeight } = this.group.api.accessor;
+        const { top, left } = parentEle.style
+        parentEle.style.left = 0;
+        parentEle.style.top = 0;
+        parentEle.style.width = `${maxWidth}px`;
+        parentEle.style.height = `${maxHeight}px`;
         this._setGroupParams({
             position: {
                 top: parseFloat(top || 0),
@@ -274,8 +275,8 @@ class GroupControl {
     }
 
     _floatingExitMaximized() {
-        let parentEle = this.group.element.parentElement
-        let position = this._getGroupParams('position')
+        const parentEle = this.group.element.parentElement
+        const position = this._getGroupParams('position')
         Object.keys(position).forEach(key => parentEle.style[key] = position[key] + 'px')
         this._setGroupParams({ isMaximized: false })
     }
@@ -351,8 +352,6 @@ export function cerateDockview(el, options) {
     dockview.groupControls = initActionIcon();
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
-    // dockview.showClose = options.showClose
-    // dockview.showLock = options.showLock
     dockview.params = { options };
     dockview.saveLayout = () => {
         return dockview.toJSON()
@@ -760,47 +759,6 @@ export function addDelPanel(panel, delPanels, dockview) {
             })
         }
     }
-
-    // if (!group) {
-    //     group = dockview.createGroup({ id: panel.groupId })
-    //     let floatingGroupPosition = isMaximized ? {
-    //         x: 0, y: 0,
-    //         width: dockview.width,
-    //         height: dockview.height
-    //     } : {
-    //         x: currentPosition?.left || 0,
-    //         y: currentPosition?.top || 0,
-    //         width: currentPosition?.width,
-    //         height: currentPosition?.height
-    //     }
-    //     dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
-
-    //     if (true) {
-    //         setTimeout(() => {
-    //             // group.setParams({isPackup, height, isMaximized, position})
-    //             group.groupControl = new GroupControl(group, dockview)
-    //         }, 50);
-    //     }
-
-    // } else {
-    //     if (group.api.location.type == 'grid') {
-    //         let isVisible = dockview.isVisible(group)
-    //         if (isVisible === false) {
-    //             dockview.setVisible(group, true)
-    //             isMaximized && group.api.maximize()
-    //             // 修正Group的宽高(待完善...)
-    //             // ...
-    //         }
-    //     }
-    // }
-    // let panelObj = dockview.addPanel({
-    //     id: panel.id,
-    //     title: panel.title,
-    //     component: panel.component,
-    //     position: { referenceGroup: group },
-    //     params: { ...panel.params, isPackup, height, isMaximized, position }
-    // });
-    // dockview._visibleChanged?.fire({ panel: panelObj, isVisible: true })
     setDecreaseLocal(dockview.prefix + '-panels', panel)
 }
 export function loadDockview(dockview, dockviewData, serializeData) {
