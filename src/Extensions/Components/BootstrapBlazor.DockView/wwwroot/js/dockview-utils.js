@@ -83,24 +83,25 @@ class GroupControl {
 
     _creatRightActions() {
         const { header, panels, api } = this.group;
-        const divEle = header.element.querySelector('.right-actions-container')
-        const showLock = panels.every(p => p.params.showLock === null)
-            ? this.dockview.showLock
-            : panels.some(p => p.params.showLock === true);
-        const filterControls = this.dockview.groupControls.filter(item => {
-            switch (item.name) {
-                case 'dropdown': return true
-                case 'lock': return showLock
-                case 'packup/expand': return true
-                case 'float': return panels.every(p => p.params.showFloat === true)
-                case 'maximize': return panels.every(p => p.params.showMaximize === true)
-                case 'close': return true
+        //const showLock = panels.every(p => p.params.showLock === null)
+        //    ? this.dockview.showLock
+        //    : panels.some(p => p.params.showLock === true);
+        //const filterControls = this.dockview.groupControls.filter(item => {
+        //    switch (item.name) {
+        //        case 'dropdown': return true
+        //        case 'lock': return showLock
+        //        case 'packup/expand': return true
+        //        case 'float': return panels.every(p => p.params.showFloat === true)
+        //        case 'maximize': return panels.every(p => p.params.showMaximize === true)
+        //        case 'close': return true
+        //    }
+        //});
+        const actionContainer = header.element.querySelector('.right-actions-container')
+        this.dockview.groupControls.forEach(item => {
+            if (item.name !== 'bar') {
+                //const btn = this._createButton(item);
+                actionContainer.append(item.icon.cloneNode(true));
             }
-        });
-        filterControls.forEach(item => {
-            if (api.location.type == 'grid' && item.name == 'packup/expand') return
-            const btn = this._createButton(item)
-            divEle.append(btn)
         });
     }
 
@@ -303,7 +304,6 @@ class GroupControl {
 }
 
 export function cerateDockview(el, options) {
-    const template = document.getElementById(options.templateId)
     const dockview = new DockviewComponent({
         parentElement: el,
         createComponent: option => {
@@ -311,18 +311,13 @@ export function cerateDockview(el, options) {
         },
         createTabComponent: () => new DefaultTab()
     });
-    dockview.groupControls = [
-        { name: 'dropdown', icon: ['dropdown'] },
-        { name: 'lock', icon: ['unlock', 'lock'] },
-        { name: 'packup/expand', icon: ['down'] },
-        { name: 'maximize', icon: ['full', 'restore'] },
-        { name: 'float', icon: ['float', 'dock'] },
-        { name: 'close', icon: ['close'] }
-    ].map(({ name, icon }) => ({
-        name,
-        icon: icon.map(item => document.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
-    }))
     dockview.template = el.querySelector('template');
+    dockview.groupControls = ['bar', 'dropdown', 'lock', 'unlock', 'down', 'full', 'restore', 'float', 'dock', 'close'].map(v => {
+        return {
+            name: v,
+            icon: document.querySelector(`template > .bb-dockview-control-icon-${v}`)
+        };
+    });
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
     dockview.showClose = options.showClose

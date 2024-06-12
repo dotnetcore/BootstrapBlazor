@@ -124,16 +124,16 @@
         overflow: hidden;
     }
 
-    .bb-dockview .bb-dockview-control-icon {
+    .bb-dockview .bb-dockview-control-icon > svg {
         width: var(--bb-dockview-control-icon-width);
         height: var(--bb-dockview-control-icon-width);
     }
 
-        .bb-dockview .bb-dockview-control-icon > * {
+        .bb-dockview .bb-dockview-control-icon > svg > * {
             stroke: var(--bb-dockview-control-icon-color);
         }
 
-    .bb-dockview .bb-dockview-control-icon-dropdown {
+    .bb-dockview .bb-dockview-control-icon-dropdown > svg {
         transform: rotate(180deg);
     }
 
