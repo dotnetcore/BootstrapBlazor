@@ -220,7 +220,7 @@ class GroupControl {
         const originGroup = dockview.groups.find(group => `${group.id}_floating` === this.group.id)
         dockview.setVisible(originGroup, true)
 
-        const { isPackup, height, isMaximized, position } = this.group.getParams()
+        let { isPackup, height, isMaximized, position } = this.group.getParams()
         if (!isMaximized) {
             position = {
                 width: this.group.width,
@@ -284,12 +284,12 @@ class GroupControl {
 
 const getActionIcon = (dockview, name, hasTitle = true) => {
     let icon = null;
-    var control = dockview.groupControls.find(i => i.name == name);
+    const control = dockview.groupControls.find(i => i.name === name);
     if (control) {
         icon = control.icon.cloneNode(true);
-    }
-    if (!hasTitle) {
-        icon.removeAttribute('title');
+        if (!hasTitle) {
+            icon.removeAttribute('title');
+        }
     }
     return icon;
 }
@@ -326,9 +326,9 @@ const showMaximize = (dockview, group) => {
 
 const getGroupMaximizeState = (group) => {
     const type = group.model.location.type
-    return type == 'grid'
+    return type === 'grid'
         ? group.api.isMaximized()
-        : (type == 'floating' ? group.activePanel?.params['isMaximized'] : false)
+        : (type === 'floating' ? group.activePanel.params.isMaximized : false)
 }
 
 const showFloat = (dockview, group) => {
@@ -338,7 +338,7 @@ const showFloat = (dockview, group) => {
         : group.panels.some(panel => panel.params.showFloat === true)
 }
 
-const getGroupFloatState = group => group.model.location.type == 'floating'
+const getGroupFloatState = group => group.model.location.type === 'floating'
 
 export function cerateDockview(el, options) {
     const dockview = new DockviewComponent({
@@ -350,8 +350,6 @@ export function cerateDockview(el, options) {
     });
     dockview.template = el.querySelector('template');
     dockview.groupControls = initActionIcon();
-    dockview.prefix = options.localStorageKey
-    dockview.locked = options.lock
     dockview.params = { options };
     dockview.saveLayout = () => {
         return dockview.toJSON()
@@ -361,12 +359,9 @@ export function cerateDockview(el, options) {
             reloadDockview(updateOptions, dockview, el)
         }
         else if (dockview.locked !== updateOptions.lock) {
-            // 处理 Lock 逻辑
-            dockview.locked = updateOptions.lock
             lockDock(dockview)
         }
         else {
-            // 处理 toggle 逻辑
             toggleComponent(dockview, updateOptions)
         }
     }
@@ -376,48 +371,44 @@ export function cerateDockview(el, options) {
     dockview.dispose = () => {
     }
 
-    // 序列化options数据为dockview可用数据(layoutConfig优先)
-    let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
-    let layoutConfig = options.layoutConfig && getLayoutConfig(options)
-    let serializeData = serialize(options, { width: el.clientWidth, height: el.clientHeight })
+    const localConfig = options.enableLocalStorage ? getLocal(options.localStorageKey) : null
+    const layoutConfig = options.layoutConfig && getLayoutConfig(options)
+    const serializeData = serialize(options, { width: el.clientWidth, height: el.clientHeight })
+    const dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
 
-    // 以本地优先, 得到最终的dockviewData并修正
-    let dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
-    // 绑定钩子函数
     addHook(dockview, dockviewData, options)
-    // 渲染dockview结构
     loadDockview(dockview, dockviewData, serializeData)
     return dockview
 }
+
 const reloadDockview = (options, dockview, el) => {
     dockview.isClearIng = true
     dockview.clear()
     setTimeout(() => {
         dockview.isClearIng && (delete dockview.isClearIng)
-        localStorage.removeItem(dockview.prefix + '-panels');
+        localStorage.removeItem(dockview.params.options.localStorageKey + '-panels');
     }, 0);
     let resetConfig = options.layoutConfig && getLayoutConfig(options)
     loadDockview(dockview, getJson(dockview, resetConfig || serialize(options, { width: el.clientWidth, height: el.clientHeight })))
 
 }
 
-export function toggleComponent(dock, option) {
-    let panels = getPanels(option.content)
-    let localPanels = dock.panels || {}
+export function toggleComponent(dockview, options) {
+    const panels = getPanels(options.content)
+    const localPanels = dockview.panels || {}
     panels.forEach(panel => {
-        let pan = localPanels.find(item => item.title == panel.title)
-        if (pan === void 0) {//需要添加
-            // 添加时先在localStorage找
-            let storagePanels = getLocal(dock.prefix + '-panels') || []
-            let storagePanel = storagePanels.find(item => (panel.params.key && panel.params.key == item.params.key) || item.id == panel.id || item.title == panel.title)
-            addDelPanel(storagePanel || panel, [], dock)
+        let pan = localPanels.find(item => item.title === panel.title)
+        if (pan === void 0) {
+            let storagePanels = getLocal(`${dockview.params.options.localStorageKey}-panels`) || []
+            let storagePanel = storagePanels.find(item => (panel.params.key && panel.params.key === item.params.key) || item.id === panel.id || item.title === panel.title)
+            addDelPanel(storagePanel || panel, [], dockview)
         }
     })
 
     localPanels.forEach(item => {
-        let pan = panels.find(panel => panel.title == item.title)
-        if (pan === void 0) {//需要删除
-            dock.removePanel(item)
+        let pan = panels.find(panel => panel.title === item.title)
+        if (pan === void 0) {
+            dockview.removePanel(item)
         }
     })
 }
@@ -479,12 +470,12 @@ export function addHook(dockview, dockviewData, options) {
         if (event.params.groupInvisible) {
             obj.groupInvisible = event.params.groupInvisible
         }
-        setSumLocal(dockview.prefix + '-panels', obj)
+        setSumLocal(`${dockview.params.options.localStorageKey}-panels`, obj)
 
         // 在group上存储已删除的panel标识
         !event.group.children && (event.group.children = [])
         event.group.children = event.group.children.filter(panel => {
-            return !((event.params.key && event.params.key == panel.params.key) || panel.id == event.id || panel.title == event.title)
+            return !((event.params.key && event.params.key === panel.params.key) || panel.id === event.id || panel.title === event.title)
         })
         event.group.children.push({
             id: event.id,
@@ -529,7 +520,7 @@ export function addHook(dockview, dockviewData, options) {
         }
         // 修正floating Group的位置
         let { floatingGroups = [], panels } = dockviewData
-        let floatingGroup = floatingGroups.find(item => item.data.id == event.id)
+        let floatingGroup = floatingGroups.find(item => item.data.id === event.id)
         if (floatingGroup) {
             let { width, height, top, left } = floatingGroup.position
             setTimeout(() => {
@@ -591,7 +582,7 @@ export function addHook(dockview, dockviewData, options) {
             dockview._initialized?.fire()
         }, 0)
         dockview.groups.forEach(group => {
-            if (group.panels.length == 0) {
+            if (group.panels.length === 0) {
                 dockview.setVisible(group, false)
             }
         })
@@ -607,7 +598,7 @@ const setWidth = (observerList) => {
         let dropdown = header.querySelector('.right-actions-container>.dropdown')
         if (!dropdown) return
         let dropMenu = dropdown.querySelector('.dropdown-menu')
-        if (voidWidth == 0) {
+        if (voidWidth === 0) {
             if (tabsContainer.children.length <= 1) return
             let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
             let aEle = document.createElement('a')
@@ -643,7 +634,7 @@ const getGroupId = () => {
 }
 export function serialize(options, { width = 800, height = 600 }) {
     groupId = 0
-    const orientation = options.content[0].type == 'row' ? 'VERTICAL' : 'HORIZONTAL';
+    const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
         activeGroup: '1',
         grid: {
@@ -662,7 +653,7 @@ function getLayoutConfig({ layoutConfig, content }) {
     layoutConfig = JSON.parse(layoutConfig)
     let panels = getPanels(content)
     Object.values(layoutConfig.panels).forEach(value => {
-        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key == value.params.key) || panel.id == value.id || panel.title == value.title)
+        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
         value.params = {
             ...value.params,
             class: contentPanel.params.class,
@@ -683,14 +674,11 @@ function getLayoutConfig({ layoutConfig, content }) {
 
     return layoutConfig
 }
+
 export function addDelPanel(panel, delPanels, dockview) {
-    // 手动添加已删除的panel
-    // let group = panel.groupId ? dockview.api.getGroup(panel.groupId) : (
-    //     dockview.groups.find(group => group.children?.[panel.id]) || dockview.groups[0]
-    // )
     let group
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
-    if (panel.groupId) { //有groupId就按groupId找group,找到就显示, 找不到就按groupId创建浮动窗口
+    if (panel.groupId) {
         group = dockview.api.getGroup(panel.groupId)
         if (!group) {
             group = dockview.createGroup({ id: panel.groupId })
@@ -711,7 +699,7 @@ export function addDelPanel(panel, delPanels, dockview) {
             }, 0);
         }
         else {
-            if (group.api.location.type == 'grid') {
+            if (group.api.location.type === 'grid') {
                 let isVisible = dockview.isVisible(group)
                 if (isVisible === false) {
                     dockview.setVisible(group, true)
@@ -727,11 +715,11 @@ export function addDelPanel(panel, delPanels, dockview) {
             params: { ...panel.params, isPackup, height, isMaximized, position }
         })
     }
-    else {// 没有groupId就通过group.children来查找,找到就显示, 找不到就按panel.params.parentId来找到group所在的同级结构进行创建
+    else {
         group = dockview.groups.find(group => group.children?.[panel.id])
         if (!group) {
-            let curentPanel = dockview.panels.findLast(item => item.params.parentId == panel.params.parentId)
-            let direction = getOrientation(dockview.gridview.root, curentPanel.group) == 'VERTICAL' ? 'below' : 'right'
+            let curentPanel = dockview.panels.findLast(item => item.params.parentId === panel.params.parentId)
+            let direction = getOrientation(dockview.gridview.root, curentPanel.group) === 'VERTICAL' ? 'below' : 'right'
             let newPanel = dockview.addPanel({
                 id: panel.id,
                 title: panel.title,
@@ -741,13 +729,11 @@ export function addDelPanel(panel, delPanels, dockview) {
             });
         }
         else {
-            if (group.api.location.type == 'grid') {
+            if (group.api.location.type === 'grid') {
                 let isVisible = dockview.isVisible(group)
                 if (isVisible === false) {
                     dockview.setVisible(group, true)
                     isMaximized && group.api.maximize()
-                    // 修正Group的宽高(待完善...)
-                    // ...
                 }
             }
             dockview.addPanel({
@@ -759,20 +745,21 @@ export function addDelPanel(panel, delPanels, dockview) {
             })
         }
     }
-    setDecreaseLocal(dockview.prefix + '-panels', panel)
+    setDecreaseLocal(`${dockview.params.options.localStorageKey}-panels`, panel)
 }
 export function loadDockview(dockview, dockviewData, serializeData) {
     try {
         dockview.fromJSON(dockviewData)
     } catch (error) {
         setTimeout(() => {
-            localStorage.removeItem(dockview.prefix + '-panels');
-            localStorage.removeItem(dockview.prefix);
+            localStorage.removeItem(`${dockview.params.options.localStorageKey}-panels`);
+            localStorage.removeItem(dockview.params.options.localStorageKey);
             dockview.fromJSON(serializeData)
         }, 0)
         throw new Error('load error message: ', error)
 
-    } finally {
+    }
+    finally {
 
     }
 }
@@ -812,7 +799,7 @@ const correctBranch = branch => {
     //   console.log(branch, 'branch');
     //   branch.size = 445
     // }
-    if (branch.type == 'leaf') {
+    if (branch.type === 'leaf') {
         if (branch.visible === false) {
             delete branch.visible
         }
@@ -822,66 +809,61 @@ const correctBranch = branch => {
         correctBranch(item)
     })
 }
+
 export function getLocal(key) {
     return JSON.parse(localStorage.getItem(key))
 }
-const setSumLocal = (key, panel) => {
-    // 在指定Key累加数组数据
-    // 确定是占位的panel就不用管
-    // if(key == 'dock-view-panels' && data.id.includes('_占位')) return
 
-    let localData = getLocal(key) || []
-    // if (localData.find(item => item.id == data.id && item.groupId == data.groupId)) return
-    localData = localData.filter(item => item.title != panel.title)
+const setSumLocal = (key, panel) => {
+    const localData = getLocal(key).filter(item => item.title !== panel.title);
     localData.push(panel)
     localStorage.setItem(key, JSON.stringify(localData))
 }
+
 const setDecreaseLocal = (key, panel) => {
-    // 在指定Key删除对应id的数组元素
-    let localData = getLocal(key) || []
-    localData = localData.filter(item => item.title != panel.title)
-    if (localData.length == 0) {
+    const localData = getLocal(key).filter(item => item.title !== panel.title)
+    if (localData.length === 0) {
         return localStorage.removeItem(key)
     }
     localStorage.setItem(key, JSON.stringify(localData))
 }
 
-const saveConfig = (dockview, config) => {
-    // 操作(拖拽、删除...)dockview后需要调用saveConfig保存数据
-    if (dockview.hasMaximizedGroup()) return
-    let json = dockview.toJSON()
-    localStorage.setItem(
-        dockview.prefix,
-        (config && JSON.stringify(config)) || JSON.stringify(json)
-    )
+const saveConfig = dockview => {
+    if (dockview.hasMaximizedGroup()) return;
+
+    if (dockview.params.options.enableLocalStorage) {
+        const json = dockview.toJSON()
+        localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
+    }
 }
+
 const getTree = (contentItem, { width, height, orientation }, parent) => {
     let length = parent.content.length || 1
-    let obj = {}, boxSize = orientation == 'HORIZONTAL' ? width : height, size
+    let obj = {}, boxSize = orientation === 'HORIZONTAL' ? width : height, size
     let hasSizeList = parent.content.filter(item => item.width || item.height)
     let hasSizeLen = hasSizeList.length
-    if (hasSizeLen == 0) {
+    if (hasSizeLen === 0) {
         size = (1 / length * boxSize).toFixed(2) * 1
     } else {
         size = hasSizeList.reduce((pre, cur) => pre + (cur.width || cur.height), 0)
         size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
     }
-    orientation == 'HORIZONTAL' ? width = size : height = size
-    orientation = orientation == 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
+    orientation === 'HORIZONTAL' ? width = size : height = size
+    orientation = orientation === 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
 
-    if (contentItem.type == 'row' || contentItem.type == 'column') {
+    if (contentItem.type === 'row' || contentItem.type === 'column') {
         obj.type = 'branch'
         obj.size = contentItem.width || contentItem.height || size
         obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem))
     }
-    else if (contentItem.type == 'group') {
+    else if (contentItem.type === 'group') {
         obj.type = 'leaf'
         obj.size = contentItem.width || contentItem.height || size
         obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
             id: getGroupId() + '',
             activeView: contentItem.content[0].id,
-            hideHeader: contentItem.content.length == 1 && contentItem.content[0].showHeader === false,
+            hideHeader: contentItem.content.length === 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
                     id: item.id,
@@ -894,7 +876,7 @@ const getTree = (contentItem, { width, height, orientation }, parent) => {
             })
         }
     }
-    else if (contentItem.type = 'component') {
+    else if (contentItem.type === 'component') {
         obj.type = 'leaf'
         obj.visible = contentItem.visible !== false
         obj.size = contentItem.width || contentItem.height || size
@@ -931,7 +913,7 @@ const getPanels = content => {
     return getPanel(content[0])
 }
 const getPanel = (contentItem, parent = {}, panels = []) => {
-    if (contentItem.type == 'component') {
+    if (contentItem.type === 'component') {
         panels.push({
             id: contentItem.id,
             groupId: contentItem.groupId,
@@ -945,5 +927,3 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
     }
     return panels
 }
-
-
