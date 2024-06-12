@@ -48,6 +48,12 @@ public partial class DockViewV2
     public bool ShowLock { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowMaximize { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否悬浮 默认 false
     /// </summary>
     [Parameter]
@@ -164,6 +170,7 @@ public partial class DockViewV2
         IsFloating = IsFloating,
         ShowFloat = ShowFloat,
         ShowClose = ShowClose,
+        ShowMaximize = ShowMaximize,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),

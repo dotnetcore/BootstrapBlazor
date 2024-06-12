@@ -94,6 +94,12 @@ public partial class DockViewComponent
     public bool? ShowFloat { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? ShowMaximize { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示标题前置图标 默认 false 不显示
     /// </summary>
     [Parameter]

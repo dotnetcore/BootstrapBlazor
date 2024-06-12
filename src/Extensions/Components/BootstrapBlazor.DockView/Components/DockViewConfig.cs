@@ -42,6 +42,11 @@ class DockViewConfig
     public bool ShowClose { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 true
+    /// </summary>
+    public bool ShowMaximize { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调
     /// </summary>
     public string? PanelClosedCallback { get; set; }
