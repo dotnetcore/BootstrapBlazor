@@ -87,8 +87,9 @@ class GroupControl {
     }
 
     _creatRightActions() {
-        const { accessor: dockview } = this.group.api
-        const actionContainer = this.actionContainer
+        const actionContainer = this.actionContainer;
+        const dockview = this.dockview;
+        const group = this.group;
         dockview.groupControls.forEach(item => {
             if (item.name !== 'bar') {
                 const icon = getActionIcon(dockview, item.name);
@@ -99,26 +100,24 @@ class GroupControl {
                 actionContainer.append(icon);
             }
         });
-
-        if (showLock(dockview, this.group)) {
+        if (showLock(dockview, group)) {
             actionContainer.classList.add('bb-show-lock');
 
-            if (getGroupLockState(dockview, this.group)) {
+            if (getGroupLockState(dockview, group)) {
                 actionContainer.classList.add('bb-lock');
                 this.toggleLock(true)
             }
         }
-        if (showFull(dockview, this.group)) {
+        if (showFull(dockview, group)) {
             actionContainer.classList.add('bb-show-full');
             if (getGroupFullState(this.group, this._getGroupParams.bind(this))) {
                 actionContainer.classList.add('bb-full');
                 this.toggleFull(false)
             }
         }
-
-        if (showFloat(dockview, this.group)) {
+        if (showFloat(dockview, group)) {
             actionContainer.classList.add('bb-show-float');
-            if (getGroupFloatState(this.group)) {
+            if (getGroupFloatState(group)) {
                 actionContainer.classList.add('bb-float');
             }
         }
