@@ -17,13 +17,6 @@ public partial class CheckboxLists
         EnumEducation.Middle, EnumEducation.Primary
     };
 
-    enum EnumEducation
-    {
-        [Display(Name = "小学")]
-        Primary,
-        [Display(Name = "中学")]
-        Middle
-    }
 
     [NotNull]
     private IEnumerable<SelectedItem>? Items1 { get; set; }

@@ -25,7 +25,7 @@
   "BootstrapBlazor.Server.Data.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
-    "Middel": "中学"
+    "Middle": "中学"
   },
   "UnitTest.Components.ValidateFormTest+MockFoo": {
     "{0} is Required": "Name is Required",

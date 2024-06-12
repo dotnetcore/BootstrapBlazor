@@ -4356,10 +4356,10 @@
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
   },
-  "BootstrapBlazor.Server.Components.EnumEducation": {
+  "BootstrapBlazor.Server.Data.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
-    "Middel": "Middel"
+    "Middle": "Middle"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
     "Title": "Click to choose theme",
