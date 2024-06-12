@@ -334,7 +334,7 @@ export function cerateDockview(el, options) {
     }
     dockview.update = updateOptions => {
         if (updateOptions.layoutConfig) {
-            reloadDockview(updateOptions, dockview)
+            reloadDockview(updateOptions, dockview, el)
         }
         else if (dockview.locked !== updateOptions.lock) {
             // 处理 Lock 逻辑
@@ -347,14 +347,14 @@ export function cerateDockview(el, options) {
         }
     }
     dockview.reset = (resetOptions) => {
-        reloadDockview(resetOptions, dockview)
+        reloadDockview(resetOptions, dockview, el)
     }
     dockview.dispose = () => {
     }
 
     // 序列化options数据为dockview可用数据(layoutConfig优先)
     let localConfig = options.enableLocalStorage ? getLocal(options.prefix) : null
-    let layoutConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
+    let layoutConfig = options.layoutConfig && getLayoutConfig(options)
     let serializeData = serialize(options, { width: el.clientWidth, height: el.clientHeight })
 
     // 以本地优先, 得到最终的dockviewData并修正
@@ -365,14 +365,16 @@ export function cerateDockview(el, options) {
     loadDockview(dockview, dockviewData, serializeData)
     return dockview
 }
-const reloadDockview = (options, dockview) => {
+const reloadDockview = (options, dockview, el) => {
     dockview.isClearIng = true
     dockview.clear()
     setTimeout(() => {
         dockview.isClearIng && (delete dockview.isClearIng)
+        localStorage.removeItem(dockview.prefix + '-panels');
     }, 0);
-    let resetConfig = options.layoutConfig && JSON.parse(options.layoutConfig)
-    loadDockview(dockview, getJson(dockview, resetConfig || serialize(options)))
+    let resetConfig = options.layoutConfig && getLayoutConfig(options)
+    loadDockview(dockview, getJson(dockview, resetConfig || serialize(options, { width: el.clientWidth, height: el.clientHeight })))
+
 }
 
 export function toggleComponent(dock, option) {
@@ -383,7 +385,7 @@ export function toggleComponent(dock, option) {
         if (pan === void 0) {//需要添加
             // 添加时先在localStorage找
             let storagePanels = getLocal(dock.prefix + '-panels') || []
-            let storagePanel = storagePanels.find(item => item.title == panel.title)
+            let storagePanel = storagePanels.find(item =>  (panel.params.key && panel.params.key == item.params.key) || item.id == panel.id || item.title == panel.title)
             addDelPanel(storagePanel || panel, [], dock)
         }
     })
@@ -456,12 +458,15 @@ export function addHook(dockview, dockviewData) {
         setSumLocal(dockview.prefix + '-panels', obj)
 
         // 在group上存储已删除的panel标识
-        !event.group.children && (event.group.children = {})
-        event.group.children[event.id] = {
+        !event.group.children && (event.group.children = [])
+        event.group.children = event.group.children.filter(panel => {
+            return !((event.params.key && event.params.key == panel.params.key) || panel.id == event.id || panel.title == event.title)
+        })
+        event.group.children.push({
             id: event.id,
             title: event.title,
             params: event.params
-        }
+        })
 
         if (event.view.content.element) {//删除时保存标题和内容
             if (event.titleMenuEle) {
@@ -631,6 +636,31 @@ export function serialize(options, { width = 800, height = 600 }) {
         },
         panels
     } : null
+}
+function getLayoutConfig({layoutConfig, content}){
+    layoutConfig = JSON.parse(layoutConfig)
+    let panels = getPanels(content)
+    Object.values(layoutConfig.panels).forEach(value => {
+        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key == value.params.key) || panel.id == value.id || panel.title == value.title)
+        value.params = {
+            ...value.params,
+            class: contentPanel.params.class,
+            height: contentPanel.params.height,
+            parentId: contentPanel.params.parentId,
+            showClose: contentPanel.params.showClose,
+            showHeader: contentPanel.params.showHeader,
+            showLock: contentPanel.params.showLock,
+            titleClass:  contentPanel.params.titleClass,
+            titleWidth:  contentPanel.params.titleWidth,
+            type: contentPanel.params.type,
+            width: contentPanel.params.width,
+            // key: contentPanel.key,
+            // id: "bb_13852650",
+            // title: contentPanel.title,
+        }
+    })
+
+    return layoutConfig
 }
 export function addDelPanel(panel, delPanels, dockview) {
     console.log(panel, 'panel');
