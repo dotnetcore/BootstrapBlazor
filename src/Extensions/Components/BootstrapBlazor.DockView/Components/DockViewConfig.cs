@@ -72,9 +72,4 @@ class DockViewConfig
     /// 获得/设置 布局配置 默认 null 未设置
     /// </summary>
     public string? LayoutConfig { get; set; }
-
-    /// <summary>
-    /// 获得/设置 模板元素 Id 默认 null 未设置
-    /// </summary>
-    public string? TemplateId { get; set; }
 }

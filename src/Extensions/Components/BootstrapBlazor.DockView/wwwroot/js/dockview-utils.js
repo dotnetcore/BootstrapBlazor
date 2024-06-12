@@ -311,7 +311,6 @@ export function cerateDockview(el, options) {
         },
         createTabComponent: () => new DefaultTab()
     });
-    dockview.template = template
     dockview.groupControls = [
         { name: 'dropdown', icon: ['dropdown'] },
         { name: 'lock', icon: ['unlock', 'lock'] },
@@ -323,6 +322,7 @@ export function cerateDockview(el, options) {
         name,
         icon: icon.map(item => document.querySelector(`.bb-dockview-control-icon-${item}`)?.outerHTML || '')
     }))
+    dockview.template = el.querySelector('template');
     dockview.prefix = options.localStorageKey
     dockview.locked = options.lock
     dockview.showClose = options.showClose

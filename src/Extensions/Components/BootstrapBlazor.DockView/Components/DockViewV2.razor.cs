@@ -122,8 +122,6 @@ public partial class DockViewV2
 
     private readonly List<DockViewComponentBase> _components = [];
 
-    private string? _templateId;
-
     [NotNull]
     private DockViewOptions? _options = default!;
 
@@ -136,7 +134,6 @@ public partial class DockViewV2
 
         var section = Configuration.GetSection(nameof(DockViewOptions));
         _options = section.Exists() ? section.Get<DockViewOptions>() : new();
-        _templateId ??= $"{Id}_template";
     }
 
     /// <summary>
@@ -171,7 +168,6 @@ public partial class DockViewV2
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
-        TemplateId = _templateId,
         Contents = _components
     };
 
