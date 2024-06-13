@@ -10,7 +10,7 @@
 
     .bd-masthead h1 {
         --bs-heading-color: var(--bs-emphasis-color);
-        font-size: calc(1rem + 3.3vw);
+        font-size: calc(1rem + 3vw);
         line-height: 1.2;
     }
 
