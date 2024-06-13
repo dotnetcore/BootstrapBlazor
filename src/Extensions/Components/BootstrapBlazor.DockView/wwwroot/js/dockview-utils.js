@@ -373,7 +373,8 @@ export function cerateDockview(el, options) {
 
     const localConfig = options.enableLocalStorage ? getLocal(options.localStorageKey) : null
     const layoutConfig = options.layoutConfig && getLayoutConfig(options)
-    const serializeData = serialize(options, { width: el.clientWidth, height: el.clientHeight })
+    let wh = el.clientWidth != 0 ? { width: el.clientWidth, height: el.clientHeight } : {}
+    const serializeData = serialize(options, wh)
     const dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
 
     addHook(dockview, dockviewData, options)
@@ -606,13 +607,13 @@ const setWidth = (observerList) => {
 }
 const observer = new ResizeObserver(setWidth)
 
-let panels = {}
 let groupId = 0
 const getGroupId = () => {
     return groupId++
 }
 export function serialize(options, { width = 800, height = 600 }) {
     groupId = 0
+    const panels = {}
     const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
         activeGroup: '1',
@@ -622,7 +623,7 @@ export function serialize(options, { width = 800, height = 600 }) {
             orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0], { width, height, orientation }, options)]
+                data: [getTree(options.content[0], { width, height, orientation }, options, panels)]
             },
         },
         panels
@@ -794,14 +795,14 @@ export function getLocal(key) {
 }
 
 const setSumLocal = (key, panel) => {
-    const localData = getLocal(key).filter(item => item.title !== panel.title);
+    const localData = getLocal(key)?.filter(item => item.title !== panel.title) || [];
     localData.push(panel)
     localStorage.setItem(key, JSON.stringify(localData))
 }
 
 const setDecreaseLocal = (key, panel) => {
-    const localData = getLocal(key).filter(item => item.title !== panel.title)
-    if (localData.length === 0) {
+    const localData = getLocal(key)?.filter(item => item.title !== panel.title)
+    if (!localData || localData.length === 0) {
         return localStorage.removeItem(key)
     }
     localStorage.setItem(key, JSON.stringify(localData))
@@ -816,7 +817,7 @@ const saveConfig = dockview => {
     }
 }
 
-const getTree = (contentItem, { width, height, orientation }, parent) => {
+const getTree = (contentItem, { width, height, orientation }, parent, panels) => {
     let length = parent.content.length || 1
     let obj = {}, boxSize = orientation === 'HORIZONTAL' ? width : height, size
     let hasSizeList = parent.content.filter(item => item.width || item.height)
@@ -833,7 +834,7 @@ const getTree = (contentItem, { width, height, orientation }, parent) => {
     if (contentItem.type === 'row' || contentItem.type === 'column') {
         obj.type = 'branch'
         obj.size = contentItem.width || contentItem.height || size
-        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem))
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels))
     }
     else if (contentItem.type === 'group') {
         obj.type = 'leaf'
