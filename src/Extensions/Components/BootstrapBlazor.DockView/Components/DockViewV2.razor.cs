@@ -48,6 +48,24 @@ public partial class DockViewV2
     public bool ShowLock { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowMaximize { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否悬浮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowFloat { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 锁定状态回调此方法
     /// </summary>
     [Parameter]
@@ -96,6 +114,9 @@ public partial class DockViewV2
     [Parameter]
     public DockViewTheme Theme { get; set; } = DockViewTheme.Light;
 
+    [CascadingParameter]
+    private DockViewV2? DockView { get; set; }
+
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
@@ -105,15 +126,7 @@ public partial class DockViewV2
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly List<DockViewComponentBase> _root = [];
-
-    private readonly List<DockViewComponent> _components = [];
-
-    private string? _templateId;
-
-    private bool _rendered;
-
-    private bool _init;
+    private readonly List<DockViewComponentBase> _components = [];
 
     [NotNull]
     private DockViewOptions? _options = default!;
@@ -127,7 +140,6 @@ public partial class DockViewV2
 
         var section = Configuration.GetSection(nameof(DockViewOptions));
         _options = section.Exists() ? section.Get<DockViewOptions>() : new();
-        _templateId ??= $"{Id}_template";
     }
 
     /// <summary>
@@ -141,22 +153,11 @@ public partial class DockViewV2
 
         if (firstRender)
         {
-            _rendered = true;
-            StateHasChanged();
-            return;
+            await InvokeVoidAsync("init", Id, Interop, GetOptions());
         }
-
-        if (Module != null)
+        else
         {
-            if (_init)
-            {
-                await InvokeVoidAsync("update", Id, GetOptions());
-            }
-            else
-            {
-                _init = true;
-                await InvokeVoidAsync("init", Id, Interop, GetOptions());
-            }
+            await InvokeVoidAsync("update", Id, GetOptions());
         }
     }
 
@@ -166,26 +167,20 @@ public partial class DockViewV2
         LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         IsLock = IsLock,
         ShowLock = ShowLock,
+        IsFloating = IsFloating,
+        ShowFloat = ShowFloat,
         ShowClose = ShowClose,
+        ShowMaximize = ShowMaximize,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
-        TemplateId = _templateId,
-        Contents = _root
+        Contents = _components
     };
 
     private string GetVersion() => Version ?? _options.Version ?? "v1";
 
     private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dockview";
-
-    private static async Task OnClickBar(Func<Task>? callback)
-    {
-        if (callback != null)
-        {
-            await callback();
-        }
-    }
 
     /// <summary>
     /// 重置为默认布局

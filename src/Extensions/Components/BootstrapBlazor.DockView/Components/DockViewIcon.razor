@@ -1,3 +1,5 @@
 ﻿@inherits BootstrapComponentBase
 
-<svg xmlns="http://www.w3.org/2000/svg" @attributes="@AdditionalAttributes" class="@ClassString"><use href="@_href"></use></svg>
+<div @attributes="@AdditionalAttributes" class="@ClassString" title="@Localizer[IconName]">
+    <svg xmlns="http://www.w3.org/2000/svg"><use href="@Href"></use></svg>
+</div>

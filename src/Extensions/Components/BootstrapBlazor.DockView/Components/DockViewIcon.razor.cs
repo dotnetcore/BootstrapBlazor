@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,15 +13,37 @@ namespace BootstrapBlazor.Components;
 public partial class DockViewIcon
 {
     /// <summary>
+    /// 获得/设置 资源文件接口实例
+    /// </summary>
+    [Inject, NotNull]
+    protected IStringLocalizer<DockViewIcon>? Localizer { get; set; }
+
+    /// <summary>
     /// 获得/设置 图标名称
     /// </summary>
-    [Parameter]
+    [Parameter, NotNull]
     [EditorRequired]
     public string? IconName { get; set; }
 
+    /// <summary>
+    /// 获得 样式字符串
+    /// </summary>
     private string? ClassString => CssBuilder.Default("bb-dockview-control-icon")
-        .AddClass($"bb-dockview-control-icon-{IconName}", !string.IsNullOrEmpty(IconName))
+        .AddClass($"bb-dockview-control-icon-{IconName}")
         .Build();
 
-    private string _href => $"./_content/BootstrapBlazor.DockView/icon/dockview.svg#{IconName}";
+    /// <summary>
+    /// 获得 图标地址
+    /// </summary>
+    protected string Href => $"./_content/BootstrapBlazor.DockView/icon/dockview.svg#{IconName}";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        IconName ??= "close";
+    }
 }

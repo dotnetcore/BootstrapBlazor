@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContentItem 配置项子项对标 content 配置项内部 content 配置
 /// </summary>
-public class DockViewComponent : DockViewComponentBase
+public partial class DockViewComponent
 {
     /// <summary>
     /// 获得/设置 组件是否显示 Header 默认 true 显示
@@ -82,6 +82,24 @@ public class DockViewComponent : DockViewComponentBase
     public bool? ShowLock { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否悬浮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? ShowFloat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 null 未设置时取 DockView 的配置
+    /// </summary>
+    [Parameter]
+    public bool? ShowMaximize { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示标题前置图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -110,20 +128,21 @@ public class DockViewComponent : DockViewComponentBase
     public Func<Task>? OnClickTitleBarCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 DockViewComponent 集合
-    /// </summary>
-    [CascadingParameter]
-    private List<DockViewComponent>? Components { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        Components?.Add(this);
         Type = DockViewContentType.Component;
+    }
+
+    private async Task OnClickBar()
+    {
+        if (OnClickTitleBarCallback != null)
+        {
+            await OnClickTitleBarCallback();
+        }
     }
 
     /// <summary>
@@ -133,19 +152,5 @@ public class DockViewComponent : DockViewComponentBase
     public void SetVisible(bool visible)
     {
         Visible = visible;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override void Dispose(bool disposing)
-    {
-        base.Dispose(disposing);
-
-        if (disposing)
-        {
-            Components?.Clear();
-        }
     }
 }
