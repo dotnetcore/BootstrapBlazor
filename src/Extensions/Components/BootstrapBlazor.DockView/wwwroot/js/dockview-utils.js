@@ -1,48 +1,7 @@
 ﻿import { DockviewComponent } from "../js/dockview-core.esm.js"
 import { DockviewPanelContent } from "../js/dockview-content.js"
+import { updateDockviewPanel } from "../js/dockview-panel-extensions.js"
 import '../js/dockview-extensions.js'
-
-class PanelControl {
-    constructor(panel) {
-        const { view } = panel
-        this.panel = panel
-        this.tabEle = view.tab.element
-        this.contentEle = view.content.element
-
-        this.updateCloseButton()
-        this.updateTitle()
-    }
-
-    updateTitle() {
-        const titleElement = this.contentEle.querySelector('.bb-dockview-item-title');
-        if (titleElement) {
-            this.panel.view.tab.element.replaceChild(titleElement, this.panel.view.tab._content);
-        }
-        else {
-            const titleBarElement = this.contentEle.querySelector('.bb-dockview-item-title-icon')
-            if (titleBarElement) {
-                titleBarElement.removeAttribute('title');
-                this.tabEle.insertAdjacentElement("afterbegin", titleBarElement);
-            }
-        }
-    }
-
-    updateCloseButton() {
-        const showClose = this.panel.params.showClose ?? this.panel.accessor.params.options.showClose;
-        if (showClose) {
-            const closeButton = this.panel.view.tab._content.nextElementSibling;
-            if (closeButton) {
-                const closeIcon = getActionIcon(this.panel.accessor, 'close', false);
-                if (closeIcon) {
-                    closeButton.replaceChild(closeIcon, closeButton.children[0]);
-                }
-            }
-        }
-        else {
-            this.tabEle.classList.add('dv-tab-on')
-        }
-    }
-}
 
 class GroupControl {
     constructor(group) {
@@ -251,27 +210,6 @@ class GroupControl {
     }
 }
 
-const getActionIcon = (dockview, name, hasTitle = true) => {
-    let icon = null;
-    const control = dockview.groupControls.find(i => i.name === name);
-    if (control) {
-        icon = control.icon.cloneNode(true);
-        if (!hasTitle) {
-            icon.removeAttribute('title');
-        }
-    }
-    return icon;
-}
-
-const initActionIcon = () => {
-    return ['bar', 'dropdown', 'lock', 'unlock', 'down', 'full', 'restore', 'float', 'dock', 'close'].map(v => {
-        return {
-            name: v,
-            icon: document.querySelector(`template > .bb-dockview-control-icon-${v}`)
-        };
-    });
-}
-
 const showLock = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(panel => panel.params.showLock === null)
@@ -440,15 +378,10 @@ export function addHook(dockview, dockviewData, options) {
         // 放在onDidLayoutChange里保存
         // saveConfig(dockview)
     })
-    // 钩子2：添加Panel触发
-    dockview.onDidAddPanel(event => {
-        new PanelControl(event)
 
-        // if (!event.group.children) {
-        //     event.group.children = {}
-        // }
-        // event.group.children[event.id] = event.id
-    })
+    // 钩子2：添加Panel触发
+    dockview.onDidAddPanel(panel => updateDockviewPanel(panel));
+
     // 钩子3：添加Group触发
     dockview.onDidAddGroup(event => {
         // 给每个Group实例添加type和params属性
