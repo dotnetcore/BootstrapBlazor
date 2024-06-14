@@ -30,8 +30,7 @@ const toggleComponent = (dockview, options) => {
     panels.forEach(panel => {
         let pan = localPanels.find(item => item.title === panel.title)
         if (pan === void 0) {
-            let storagePanels = getLocal(`${dockview.params.options.localStorageKey}-panels`) || []
-            let storagePanel = storagePanels.find(item => (panel.params.key && panel.params.key === item.params.key) || item.id === panel.id || item.title === panel.title)
+            let storagePanel = dockview.params.panels.find(item => (panel.params.key && panel.params.key === item.params.key) || item.id === panel.id || item.title === panel.title)
             addDelPanel(storagePanel || panel, [], dockview)
         }
     })
@@ -45,7 +44,7 @@ const toggleComponent = (dockview, options) => {
 }
 
 const initDockview = (dockview, options, template) => {
-    dockview.params = { panels: [], options, template };
+    dockview.params = { panels: loadPanelsFromLocalstorage(dockview), options, template };
 
     dockview.init = () => {
         const config = options.enableLocalStorage ? getLocal(options.localStorageKey) : getConfigByOptions(options);
@@ -402,6 +401,13 @@ const deletePanel = (dockview, panel) => {
     panels.slice(panel);
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+    }
+}
+
+const loadPanelsFromLocalstorage = dockview => {
+    const { options } = dockview.params;
+    if (options.enableLocalStorage) {
+        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
     }
 }
 
