@@ -20,18 +20,18 @@ const reloadDockview = (dockview, options) => {
     dockview.clear()
     dockview.params.panels = [];
 
-    const jsonData = getJson(getConfigByOptions(options));
+    const jsonData = getConfigByOptions(options);
     dockview.fromJSON(jsonData);
 }
 
 const toggleComponent = (dockview, options) => {
     const panels = getPanels(options.content)
     const localPanels = dockview.panels || {}
-    panels.forEach(panel => {
-        let pan = localPanels.find(item => item.title === panel.title)
+    panels.forEach(p => {
+        let pan = localPanels.find(item => item.title === p.title)
         if (pan === void 0) {
-            let storagePanel = dockview.params.panels.find(item => (panel.params.key && panel.params.key === item.params.key) || item.id === panel.id || item.title === panel.title)
-            addDelPanel(storagePanel || panel, [], dockview)
+            let storagePanel = dockview.params.panels.find(findPanelFunc(p));
+            addDelPanel(storagePanel || p, [], dockview)
         }
     })
 
@@ -49,8 +49,7 @@ const initDockview = (dockview, options, template) => {
 
     dockview.init = () => {
         const config = options.enableLocalStorage ? getLocal(options.localStorageKey) : getConfigByOptions(options);
-        const jsonData = getJson(config)
-        dockview.fromJSON(jsonData);
+        dockview.fromJSON(config);
     }
 
     dockview.update = options => {
@@ -95,9 +94,7 @@ const initDockview = (dockview, options, template) => {
 
         // 在group上存储已删除的panel标识
         !event.group.children && (event.group.children = [])
-        event.group.children = event.group.children.filter(panel => {
-            return !((event.params.key && event.params.key === panel.params.key) || panel.id === event.id || panel.title === event.title)
-        })
+        event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
         event.group.children.push({
             id: event.id,
             title: event.title,
@@ -224,28 +221,25 @@ const getGroupIdFunc = () => {
     return () => `${currentId++}`;
 }
 
+const findPanelFunc = v => p => findPanel(p, v);
+
+const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
+
 const getConfigByOptions = options => options.layoutConfig ? getConfigByLayoutString(options) : getConfigByContent(options);
 
 const getConfigByLayoutString = options => {
     let config = JSON.parse(options.layoutConfig);
     const panels = getPanels(options.content);
     Object.values(config.panels).forEach(value => {
-        let contentPanel = panels.find(p => (p.params.key && p.params.key === value.params.key) || p.id === value.id || p.title === value.title)
-        value.params = {
-            ...value.params,
-            class: contentPanel.params.class,
-            height: contentPanel.params.height,
-            parentId: contentPanel.params.parentId,
-            showClose: contentPanel.params.showClose,
-            showHeader: contentPanel.params.showHeader,
-            showLock: contentPanel.params.showLock,
-            titleClass: contentPanel.params.titleClass,
-            titleWidth: contentPanel.params.titleWidth,
-            type: contentPanel.params.type,
-            width: contentPanel.params.width
+        const contentPanel = panels.find(findPanelFunc(value));
+        if (contentPanel) {
+            value.params = {
+                ...value.params,
+                ...contentPanel.params
+            }
         }
     });
-    return config;
+    return fixObject(config);
 }
 
 const getConfigByContent = options => {
@@ -253,7 +247,7 @@ const getConfigByContent = options => {
     const getGroupId = getGroupIdFunc()
     const panels = {}
     const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
-    return {
+    return fixObject({
         activeGroup: '1',
         grid: {
             width,
@@ -265,7 +259,7 @@ const getConfigByContent = options => {
             },
         },
         panels
-    };
+    });
 }
 
 export function addDelPanel(panel, delPanels, dockview) {
@@ -355,17 +349,14 @@ const getOrientation = function (child, group) {
     }
 }
 
-export function getJson(data) {
-    // 修正JSON
-    // 修改浮动框的宽高
+const fixObject = data => {
     data.floatingGroups?.forEach(item => {
         let { width, height } = item.position
         item.position.width = width - 2
         item.position.height = height - 2
-    })
-    // 修改隐藏Group的父级size可能为0
-    let { grid: { root }, orientation } = data
-    correctBranch(root)
+    });
+
+    correctBranch(data.grid.root)
     return data
 }
 
@@ -374,15 +365,16 @@ const correctBranch = branch => {
         if (branch.visible === false) {
             delete branch.visible
         }
-        return
     }
-    branch.data.forEach(item => {
-        correctBranch(item)
-    })
+    else {
+        branch.data.forEach(item => {
+            correctBranch(item)
+        })
+    }
 }
 
 export function getLocal(key) {
-    return JSON.parse(localStorage.getItem(key))
+    return fixObject(JSON.parse(localStorage.getItem(key)));
 }
 
 const savePanel = (dockview, panel) => {
