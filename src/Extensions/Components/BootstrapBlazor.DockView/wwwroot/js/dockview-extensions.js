@@ -1,5 +1,4 @@
 ﻿import { DockviewComponent, DockviewGroupPanel, getGridLocation, getRelativeLocation, DockviewEmitter } from "./dockview-core.esm.js"
-import { getLocal } from './dockview-utils.js'
 
 DockviewComponent.prototype.on = function (eventType, callback) {
     this['_' + eventType] = new DockviewEmitter();
@@ -37,7 +36,7 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         this.setVisible(group, false)
 
         // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
-        let delPanels = getLocal(this.params.options.localStorageKey + '-panels')
+        let delPanels = getConfigFromStorage(this.params.options.localStorageKey + '-panels')
         delPanels = delPanels?.map(panel => {
             if (panel.groupId == group.id) {
                 panel.groupInvisible = true
@@ -187,3 +186,60 @@ const sequenceEquals = (arr1, arr2) => {
     }
     return true;
 }
+
+const getConfigFromStorage = key => {
+    return fixObject(JSON.parse(localStorage.getItem(key)));
+}
+
+const fixObject = data => {
+    data.floatingGroups?.forEach(item => {
+        let { width, height } = item.position
+        item.position.width = width - 2
+        item.position.height = height - 2
+    });
+
+    removeInvisibleBranch(data.grid.root)
+    return data
+}
+
+const removeInvisibleBranch = branch => {
+    if (branch.type === 'leaf') {
+        if (branch.visible === false) {
+            delete branch.visible
+        }
+    }
+    else {
+        branch.data.forEach(item => {
+            removeInvisibleBranch(item)
+        })
+    }
+}
+
+
+const savePanel = (dockview, panel) => {
+    const { panels, options } = dockview.params;
+    panels.push(panel)
+    if (options.enableLocalStorage) {
+        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+    }
+}
+
+const deletePanel = (dockview, panel) => {
+    const { panels, options } = dockview.params;
+    let index = panels.indexOf(panel);
+    if (index > -1) {
+        panels.splice(index, 1);
+    }
+    if (options.enableLocalStorage) {
+        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+    }
+}
+
+const loadPanelsFromLocalstorage = dockview => {
+    const { options } = dockview.params;
+    if (options.enableLocalStorage) {
+        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
+    }
+}
+
+export { getConfigFromStorage, fixObject, savePanel, deletePanel, loadPanelsFromLocalstorage };

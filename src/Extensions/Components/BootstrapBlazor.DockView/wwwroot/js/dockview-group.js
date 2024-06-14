@@ -11,6 +11,13 @@ const createGroupActions = group => {
     });
     resetActionStates(group, actionContainer);
     addActionEvent(group, actionContainer);
+
+    const dockview = group.api.accessor;
+    if (dockview.params.observer === null) {
+        dockview.params.observer = new ResizeObserver(setWidth);
+    }
+    dockview.params.observer.observe(group.header.element)
+
 }
 
 const removeGroupActions = group => {
@@ -260,6 +267,42 @@ const getPanelParams = (group, key) => {
 const setPanelParams = (group, data) => {
     Object.keys(data).forEach(key => {
         group.panels.forEach(panel => panel.params[key] = data[key])
+    })
+}
+
+const setWidth = (observerList) => {
+    observerList.forEach(observer => {
+        let header = observer.target
+        let tabsContainer = header.querySelector('.tabs-container')
+        let voidWidth = header.querySelector('.void-container').offsetWidth
+        let dropdown = header.querySelector('.right-actions-container>.dropdown')
+        if (!dropdown) return
+        let dropMenu = dropdown.querySelector('.dropdown-menu')
+        if (voidWidth === 0) {
+            if (tabsContainer.children.length <= 1) return
+            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
+            let aEle = document.createElement('a')
+            let liEle = document.createElement('li')
+            aEle.className = 'dropdown-item'
+            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
+            liEle.addEventListener('click', () => {
+                liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
+                liEle.children[0].append(tabsContainer.children[0])
+                tabsContainer.append(liEle.children[0].children[0])
+            })
+            aEle.append(lastTab)
+            liEle.append(aEle)
+            dropMenu.insertAdjacentElement("afterbegin", liEle)
+        } else {
+            let firstLi = dropMenu.children[0]
+            if (firstLi) {
+                let firstTab = firstLi.querySelector('.tab')
+                if (voidWidth > firstLi.getAttribute('tabWidth')) {
+                    firstTab && tabsContainer.append(firstTab)
+                    firstLi.remove()
+                }
+            }
+        }
     })
 }
 

@@ -2,7 +2,7 @@
 import { DockviewPanelContent } from "./dockview-content.js"
 import { createGroupActions } from "./dockview-group.js"
 import { updateDockviewPanel } from "./dockview-panel.js"
-import '../js/dockview-extensions.js'
+import { fixObject, getConfigFromStorage, savePanel, deletePanel, loadPanelsFromLocalstorage } from './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
     const template = el.querySelector('template');
@@ -17,11 +17,11 @@ const cerateDockview = (el, options) => {
 }
 
 const initDockview = (dockview, options, template) => {
-    dockview.params = { panels: [], options, template };
+    dockview.params = { panels: [], options, template, observer: null };
     loadPanelsFromLocalstorage(dockview);
 
     dockview.init = () => {
-        const config = options.enableLocalStorage ? getLocal(options.localStorageKey) : getConfigByOptions(options);
+        const config = options.enableLocalStorage ? getConfigFromStorage(options.localStorageKey) : getConfigFromOptions(options);
         dockview.fromJSON(config);
     }
 
@@ -86,26 +86,22 @@ const initDockview = (dockview, options, template) => {
 
     dockview.onDidAddPanel(updateDockviewPanel);
 
-    dockview.onDidAddGroup(event => {
-        // 给每个Group实例添加type和params属性
-        Object.defineProperties(event, {
+    dockview.onDidAddGroup(group => {
+        Object.defineProperties(group, {
             type: {
-                get() { return this.model.location.type }
+                get() { return model.location.type }
             },
             params: {
-                get() { return JSON.parse(JSON.stringify(event.activePanel?.params || {})) }
+                get() { return JSON.parse(JSON.stringify(group.activePanel?.params || {})) }
             }
         })
-        if (0) {
-            event.header.hidden = true
-        }
 
         const { floatingGroups = [] } = dockview;
-        let floatingGroup = floatingGroups.find(item => item.data.id === event.id)
+        let floatingGroup = floatingGroups.find(item => item.data.id === group.id)
         if (floatingGroup) {
             let { width, height, top, left } = floatingGroup.position
             setTimeout(() => {
-                let style = event.element.parentElement.style
+                let style = group.element.parentElement.style
                 style.width = width + 'px'
                 style.height = height + 'px'
                 style.top = top + 'px'
@@ -113,9 +109,8 @@ const initDockview = (dockview, options, template) => {
             }, 0)
         }
 
-        createGroupActions(event);
-        observer.observe(event.header.element)
-    })
+        createGroupActions(group);
+    });
 
     dockview.onDidRemoveGroup(event => {
         console.log('remove-group', event);
@@ -155,7 +150,7 @@ const reloadDockview = (dockview, options) => {
     dockview.clear()
     dockview.params.panels = [];
 
-    const jsonData = getConfigByOptions(options);
+    const jsonData = getConfigFromOptions(options);
     dockview.fromJSON(jsonData);
 }
 
@@ -178,52 +173,14 @@ const toggleComponent = (dockview, options) => {
     })
 }
 
-const setWidth = (observerList) => {
-    observerList.forEach(observer => {
-        let header = observer.target
-        let tabsContainer = header.querySelector('.tabs-container')
-        let voidWidth = header.querySelector('.void-container').offsetWidth
-        let dropdown = header.querySelector('.right-actions-container>.dropdown')
-        if (!dropdown) return
-        let dropMenu = dropdown.querySelector('.dropdown-menu')
-        if (voidWidth === 0) {
-            if (tabsContainer.children.length <= 1) return
-            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
-            let aEle = document.createElement('a')
-            let liEle = document.createElement('li')
-            aEle.className = 'dropdown-item'
-            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
-            liEle.addEventListener('click', () => {
-                liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
-                liEle.children[0].append(tabsContainer.children[0])
-                tabsContainer.append(liEle.children[0].children[0])
-            })
-            aEle.append(lastTab)
-            liEle.append(aEle)
-            dropMenu.insertAdjacentElement("afterbegin", liEle)
-        } else {
-            let firstLi = dropMenu.children[0]
-            if (firstLi) {
-                let firstTab = firstLi.querySelector('.tab')
-                if (voidWidth > firstLi.getAttribute('tabWidth')) {
-                    firstTab && tabsContainer.append(firstTab)
-                    firstLi.remove()
-                }
-            }
-        }
-    })
-}
-
-const observer = new ResizeObserver(setWidth)
-
 const getGroupIdFunc = () => {
     let currentId = 0;
     return () => `${currentId++}`;
 }
 
-const getConfigByOptions = options => options.layoutConfig ? getConfigByLayoutString(options) : getConfigByContent(options);
+const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
 
-const getConfigByLayoutString = options => {
+const getConfigFromLayoutString = options => {
     let config = JSON.parse(options.layoutConfig);
     const panels = getPanels(options.content);
     Object.values(config.panels).forEach(value => {
@@ -238,7 +195,7 @@ const getConfigByLayoutString = options => {
     return fixObject(config);
 }
 
-const getConfigByContent = options => {
+const getConfigFromContent = options => {
     const { width, height } = { width: 800, height: 600 };
     const getGroupId = getGroupIdFunc()
     const panels = {}
@@ -342,60 +299,6 @@ const getOrientation = function (child, group) {
         }
     } else {
         return false
-    }
-}
-
-const fixObject = data => {
-    data.floatingGroups?.forEach(item => {
-        let { width, height } = item.position
-        item.position.width = width - 2
-        item.position.height = height - 2
-    });
-
-    removeInvisibleBranch(data.grid.root)
-    return data
-}
-
-const removeInvisibleBranch = branch => {
-    if (branch.type === 'leaf') {
-        if (branch.visible === false) {
-            delete branch.visible
-        }
-    }
-    else {
-        branch.data.forEach(item => {
-            removeInvisibleBranch(item)
-        })
-    }
-}
-
-export function getLocal(key) {
-    return fixObject(JSON.parse(localStorage.getItem(key)));
-}
-
-const savePanel = (dockview, panel) => {
-    const { panels, options } = dockview.params;
-    panels.push(panel)
-    if (options.enableLocalStorage) {
-        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
-    }
-}
-
-const deletePanel = (dockview, panel) => {
-    const { panels, options } = dockview.params;
-    let index = panels.indexOf(panel);
-    if (index > -1) {
-        panels.splice(index, 1);
-    }
-    if (options.enableLocalStorage) {
-        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
-    }
-}
-
-const loadPanelsFromLocalstorage = dockview => {
-    const { options } = dockview.params;
-    if (options.enableLocalStorage) {
-        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
     }
 }
 
