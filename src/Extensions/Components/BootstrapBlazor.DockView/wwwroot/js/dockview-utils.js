@@ -9,45 +9,27 @@ export function cerateDockview(el, options) {
         parentElement: el,
         createComponent: option => new DockviewPanelContent(option)
     });
-    dockview.template = el.querySelector('template');
-    dockview.params = { options };
-    dockview.update = updateOptions => {
-        if (updateOptions.layoutConfig) {
-            reloadDockview(updateOptions, dockview, el)
-        }
-        else if (dockview.locked !== updateOptions.lock) {
-            // TODO: 循环所有 Group 锁定 Group
-        }
-        else {
-            toggleComponent(dockview, updateOptions)
-        }
-    }
-    dockview.reset = (resetOptions) => {
-        reloadDockview(resetOptions, dockview, el)
-    }
-    dockview.dispose = () => {
-    }
+    dockview.params = { panels: [], options, template: el.querySelector('template') };
 
-    const localConfig = options.enableLocalStorage ? getLocal(options.localStorageKey) : null
-    const layoutConfig = options.layoutConfig && getLayoutConfig(options)
-    let wh = el.clientWidth != 0 ? { width: el.clientWidth, height: el.clientHeight } : {}
-    const serializeData = serialize(options, wh)
-    const dockviewData = getJson(dockview, localConfig || layoutConfig || serializeData)
+    const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
+    const jsonData = getJson(dockview, config)
+    dockview.formJson(jsonData);
 
-    addHook(dockview, dockviewData, options)
-    loadDockview(dockview, dockviewData, serializeData)
+    addCallback(dockview, jsonData);
     return dockview
 }
 
-const reloadDockview = (options, dockview, el) => {
-    dockview.isClearIng = true
+const reloadDockview = (dockview, options) => {
+    dockview.isClearing = true
     dockview.clear()
     setTimeout(() => {
-        dockview.isClearIng && (delete dockview.isClearIng)
+        delete dockview.isClearing;
         localStorage.removeItem(dockview.params.options.localStorageKey + '-panels');
     }, 0);
-    let resetConfig = options.layoutConfig && getLayoutConfig(options)
-    loadDockview(dockview, getJson(dockview, resetConfig || serialize(options, { width: el.clientWidth, height: el.clientHeight })))
+
+    let resetConfig = getLayoutConfig(options) || serialize(options);
+    const dockviewData = getJson(dockview, resetConfig);
+    dockview.formJson(dockviewData);
 }
 
 const toggleComponent = (dockview, options) => {
@@ -70,11 +52,28 @@ const toggleComponent = (dockview, options) => {
     })
 }
 
-const addHook = (dockview, dockviewData, options) => {
+const addCallback = (dockview, dockviewData) => {
+    dockview.update = options => {
+        if (updateOptions.layoutConfig) {
+            reloadDockview(dockview, options)
+        }
+        else if (dockview.locked !== options.lock) {
+            // TODO: 循环所有 Group 锁定 Group
+        }
+        else {
+            toggleComponent(dockview, options)
+        }
+    }
+
+    dockview.reset = options => {
+        reloadDockview(dockview, options)
+    }
+
+    dockview.dispose = () => {
+    }
+
     dockview.onDidRemovePanel(event => {
-        // console.log('onDidRemovePanel');
-        // 在删除的panel上存储信息并把panel存储到storage
-        let obj = {
+        let panel = {
             id: event.id,
             title: event.title,
             component: event.view.contentComponent,
@@ -90,9 +89,9 @@ const addHook = (dockview, dockviewData, options) => {
             }
         }
         if (event.params.groupInvisible) {
-            obj.groupInvisible = event.params.groupInvisible
+            panel.groupInvisible = event.params.groupInvisible
         }
-        setSumLocal(`${dockview.params.options.localStorageKey}-panels`, obj)
+        savePanel(dockview, panel)
 
         // 在group上存储已删除的panel标识
         !event.group.children && (event.group.children = [])
@@ -105,17 +104,14 @@ const addHook = (dockview, dockviewData, options) => {
             params: event.params
         })
 
-        if (event.view.content.element) {//删除时保存标题和内容
+        if (event.view.content.element) {
             if (event.titleMenuEle) {
                 event.view.content.element.append(event.titleMenuEle)
             }
-            if (dockview.template) {
-                dockview.template.append(event.view.content.element)
+            if (dockview.params.template) {
+                dockview.params.template.append(event.view.content.element)
             }
         }
-
-        // 放在onDidLayoutChange里保存
-        // saveConfig(dockview)
     })
 
     dockview.onDidAddPanel(updateDockviewPanel);
@@ -245,26 +241,29 @@ export function serialize(options, { width = 800, height = 600 }) {
         panels
     } : null
 }
-function getLayoutConfig({ layoutConfig, content }) {
-    layoutConfig = JSON.parse(layoutConfig)
-    let panels = getPanels(content)
-    Object.values(layoutConfig.panels).forEach(value => {
-        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
-        value.params = {
-            ...value.params,
-            class: contentPanel.params.class,
-            height: contentPanel.params.height,
-            parentId: contentPanel.params.parentId,
-            showClose: contentPanel.params.showClose,
-            showHeader: contentPanel.params.showHeader,
-            showLock: contentPanel.params.showLock,
-            titleClass: contentPanel.params.titleClass,
-            titleWidth: contentPanel.params.titleWidth,
-            type: contentPanel.params.type,
-            width: contentPanel.params.width
-        }
-    })
 
+const getLayoutConfig = options => {
+    const { layoutConfig, content } = options;
+    if (layoutConfig) {
+        layoutConfig = JSON.parse(layoutConfig)
+        let panels = getPanels(content)
+        Object.values(layoutConfig.panels).forEach(value => {
+            let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
+            value.params = {
+                ...value.params,
+                class: contentPanel.params.class,
+                height: contentPanel.params.height,
+                parentId: contentPanel.params.parentId,
+                showClose: contentPanel.params.showClose,
+                showHeader: contentPanel.params.showHeader,
+                showLock: contentPanel.params.showLock,
+                titleClass: contentPanel.params.titleClass,
+                titleWidth: contentPanel.params.titleWidth,
+                type: contentPanel.params.type,
+                width: contentPanel.params.width
+            }
+        });
+    }
     return layoutConfig
 }
 
@@ -275,7 +274,7 @@ export function addDelPanel(panel, delPanels, dockview) {
         group = dockview.api.getGroup(panel.groupId)
         if (!group) {
             group = dockview.createGroup({ id: panel.groupId })
-            let floatingGroupPosition = isMaximized ? {
+            const floatingGroupPosition = isMaximized ? {
                 x: 0, y: 0,
                 width: dockview.width,
                 height: dockview.height
@@ -286,10 +285,6 @@ export function addDelPanel(panel, delPanels, dockview) {
                 height: currentPosition?.height
             }
             dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
-
-            //setTimeout(() => {
-            //    group.groupControl = new GroupControl(group)
-            //}, 0);
             createGroupActions(group);
         }
         else {
@@ -339,24 +334,7 @@ export function addDelPanel(panel, delPanels, dockview) {
             })
         }
     }
-    setDecreaseLocal(`${dockview.params.options.localStorageKey}-panels`, panel)
-}
-
-export function loadDockview(dockview, dockviewData, serializeData) {
-    try {
-        dockview.fromJSON(dockviewData)
-    } catch (error) {
-        setTimeout(() => {
-            localStorage.removeItem(`${dockview.params.options.localStorageKey}-panels`);
-            localStorage.removeItem(dockview.params.options.localStorageKey);
-            dockview.fromJSON(serializeData)
-        }, 0)
-        throw new Error('load error message: ', error)
-
-    }
-    finally {
-
-    }
+    deletePanel(dockview, panel)
 }
 
 const getOrientation = function (child, group) {
@@ -406,18 +384,24 @@ export function getLocal(key) {
     return JSON.parse(localStorage.getItem(key))
 }
 
-const setSumLocal = (key, panel) => {
-    const localData = getLocal(key)?.filter(item => item.title !== panel.title) || [];
-    localData.push(panel)
-    localStorage.setItem(key, JSON.stringify(localData))
+const savePanel = (dockview, panel) => {
+    const { panels, options } = dockview.params;
+    panels.push(panel)
+    if (options.enableLocalStorage) {
+        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+    }
 }
 
-const setDecreaseLocal = (key, panel) => {
-    const localData = getLocal(key)?.filter(item => item.title !== panel.title)
-    if (!localData || localData.length === 0) {
-        return localStorage.removeItem(key)
+const deletePanel = (dockview, panel) => {
+    const { panels, options } = dockview.params;
+    let index = panels.indexOf(panel);
+    if (index > -1) {
+        panels.splice(index, 1);
     }
-    localStorage.setItem(key, JSON.stringify(localData))
+    panels.slice(panel);
+    if (options.enableLocalStorage) {
+        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+    }
 }
 
 const saveConfig = dockview => {
