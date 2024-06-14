@@ -1,7 +1,7 @@
 ﻿import Data from '../../BootstrapBlazor/modules/data.js'
 
 const getIcon = (name, hasTitle = true) => {
-    const icons = initIcons();
+    const icons = getIcons();
 
     let icon = null;
     const control = icons.find(i => i.name === name);
@@ -14,7 +14,7 @@ const getIcon = (name, hasTitle = true) => {
     return icon;
 }
 
-const initIcons = () => {
+const getIcons = () => {
     let icons = Data.get('dockview-v2');
     if (icons === null) {
         icons = ['bar', 'dropdown', 'lock', 'unlock', 'down', 'full', 'restore', 'float', 'dock', 'close'].map(v => {
@@ -28,4 +28,4 @@ const initIcons = () => {
     return icons;
 }
 
-export { getIcon };
+export { getIcons, getIcon };
