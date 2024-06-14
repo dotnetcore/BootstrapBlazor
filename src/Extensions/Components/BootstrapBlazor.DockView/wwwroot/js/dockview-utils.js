@@ -4,7 +4,7 @@ import { createGroupActions } from "../js/dockview-group-extensions.js"
 import { updateDockviewPanel } from "../js/dockview-panel-extensions.js"
 import '../js/dockview-extensions.js'
 
-export function cerateDockview(el, options) {
+const cerateDockview = (el, options) => {
     const template = el.querySelector('template');
     const dockview = new DockviewComponent({
         parentElement: el,
@@ -249,11 +249,12 @@ export function serialize(options) {
 }
 
 const getLayoutConfig = options => {
+    let config = null;
     const { layoutConfig, content } = options;
     if (layoutConfig) {
-        layoutConfig = JSON.parse(layoutConfig)
+        config = JSON.parse(layoutConfig)
         let panels = getPanels(content)
-        Object.values(layoutConfig.panels).forEach(value => {
+        Object.values(config.panels).forEach(value => {
             let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
             value.params = {
                 ...value.params,
@@ -270,7 +271,7 @@ const getLayoutConfig = options => {
             }
         });
     }
-    return layoutConfig
+    return config
 }
 
 export function addDelPanel(panel, delPanels, dockview) {
@@ -500,3 +501,5 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
     }
     return panels
 }
+
+export { cerateDockview };
