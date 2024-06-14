@@ -4,7 +4,7 @@
     }
 
     init(parameter) {
-        const { params, api: { panel, accessor: { template } } } = parameter;
+        const { params, api: { panel, accessor: { params: { template } } } } = parameter;
         const { titleClass, titleWidth, class: panelClass, key, title } = params;
         const { tab, content } = panel.view
 

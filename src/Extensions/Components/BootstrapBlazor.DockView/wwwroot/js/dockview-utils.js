@@ -13,9 +13,9 @@ export function cerateDockview(el, options) {
 
     const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
     const jsonData = getJson(dockview, config)
-    dockview.formJson(jsonData);
-
     addCallback(dockview, jsonData);
+    dockview.fromJSON(jsonData);
+
     return dockview
 }
 
@@ -219,12 +219,13 @@ const setWidth = (observerList) => {
 
 const observer = new ResizeObserver(setWidth)
 
-const createIncrementalId  = () => {
+const getGroupIdFunc = () => {
     let currentId = 0;
-    return () => currentId++;
+    return () => `${currentId++}`;
 }
-export function serialize(options, { width = 800, height = 600 }) {
-    const getGroupId = createIncrementalId()
+export function serialize(options) {
+    const { width, height } = { width: 800, height: 600 };
+    const getGroupId = getGroupIdFunc()
     const panels = {}
     const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
@@ -437,7 +438,7 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
         obj.size = contentItem.width || contentItem.height || size
         obj.visible = contentItem.content.some(item => item.visible !== false)
         obj.data = {
-            id: getGroupId() + '',
+            id: getGroupId(),
             activeView: contentItem.content[0].id,
             hideHeader: contentItem.content.length === 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
@@ -457,7 +458,7 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
         obj.visible = contentItem.visible !== false
         obj.size = contentItem.width || contentItem.height || size
         obj.data = {
-            id: getGroupId() + '',
+            id: getGroupId(),
             activeView: contentItem.id,
             hideHeader: contentItem.showHeader === false,
             views: obj.visible ? [contentItem.id] : []
