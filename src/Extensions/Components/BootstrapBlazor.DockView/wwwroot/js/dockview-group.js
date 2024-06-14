@@ -1,4 +1,5 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
+import { deletePanel } from "./dockview-panel.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {

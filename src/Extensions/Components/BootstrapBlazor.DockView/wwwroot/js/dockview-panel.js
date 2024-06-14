@@ -5,6 +5,46 @@ const onAddPanel = panel => {
     updateTitle(panel);
 }
 
+const onRemovePanel = event => {
+    let panel = {
+        id: event.id,
+        title: event.title,
+        component: event.view.contentComponent,
+        groupId: event.group.id,
+        params: {
+            ...event.params,
+            currentPosition: {
+                width: event.group.element.parentElement.offsetWidth,
+                height: event.group.element.parentElement.offsetHeight,
+                top: parseFloat(event.group.element.parentElement.style.top || 0),
+                left: parseFloat(event.group.element.parentElement.style.left || 0)
+            }
+        }
+    }
+    if (event.params.groupInvisible) {
+        panel.groupInvisible = event.params.groupInvisible
+    }
+    savePanel(dockview, panel)
+
+    // 在group上存储已删除的panel标识
+    !event.group.children && (event.group.children = [])
+    event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
+    event.group.children.push({
+        id: event.id,
+        title: event.title,
+        params: event.params
+    })
+
+    if (event.view.content.element) {
+        if (event.titleMenuEle) {
+            event.view.content.element.append(event.titleMenuEle)
+        }
+        if (dockview.params.template) {
+            dockview.params.template.append(event.view.content.element)
+        }
+    }
+}
+
 const updateCloseButton = panel => {
     const showClose = panel.params.showClose ?? panel.accessor.params.options.showClose;
     if (showClose) {
@@ -80,4 +120,4 @@ const deletePanel = (dockview, panel) => {
     }
 }
 
-export { onAddPanel, getPanels, getPanel, findPanelFunc, findPanel };
+export { onAddPanel, onRemovePanel, getPanels, getPanel, findPanelFunc, deletePanel };
