@@ -9,13 +9,9 @@ export function cerateDockview(el, options) {
         parentElement: el,
         createComponent: option => new DockviewPanelContent(option)
     });
-    dockview.params = { panels: [], options, template: el.querySelector('template') };
+    initDockview(dockview);
 
-    const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
-    const jsonData = getJson(dockview, config)
-    addCallback(dockview, jsonData);
-    dockview.fromJSON(jsonData);
-
+    dockview.init(options);
     return dockview
 }
 
@@ -52,7 +48,15 @@ const toggleComponent = (dockview, options) => {
     })
 }
 
-const addCallback = (dockview, dockviewData) => {
+const initDockview = dockview => {
+    dockview.params = { panels: [], options, template: el.querySelector('template') };
+
+    dockview.init = options => {
+        const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
+        const jsonData = getJson(dockview, config)
+        dockview.fromJSON(jsonData);
+    }
+
     dockview.update = options => {
         if (updateOptions.layoutConfig) {
             reloadDockview(dockview, options)
@@ -130,7 +134,7 @@ const addCallback = (dockview, dockviewData) => {
             event.header.hidden = true
         }
 
-        let { floatingGroups = [], panels } = dockviewData
+        const { floatingGroups = [] } = dockview;
         let floatingGroup = floatingGroups.find(item => item.data.id === event.id)
         if (floatingGroup) {
             let { width, height, top, left } = floatingGroup.position
