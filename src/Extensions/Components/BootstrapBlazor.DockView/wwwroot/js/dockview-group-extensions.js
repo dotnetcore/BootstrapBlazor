@@ -167,7 +167,6 @@ const float = group => {
         }
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
-    createGroupActions(floatingGroup);
 
     group.panels.forEach((panel, index) => {
         dockview.moveGroupOrPanel({
@@ -179,13 +178,14 @@ const float = group => {
     dockview.setVisible(group, false)
     floatingGroup.setParams({ isPackup, height, isMaximized })
     dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
+    createGroupActions(floatingGroup);
 }
 
 const dock = group => {
     if (group.locked) return;
 
     const dockview = group.api.accessor
-    const originGroup = dockview.groups.find(group => `${group.id}_floating` === group.id)
+    const originGroup = dockview.groups.find(item => `${item.id}_floating` === group.id)
     dockview.setVisible(originGroup, true)
 
     let { isPackup, height, isMaximized, position } = group.getParams()
