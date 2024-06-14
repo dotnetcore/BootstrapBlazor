@@ -16,33 +16,6 @@ const cerateDockview = (el, options) => {
     return dockview
 }
 
-const reloadDockview = (dockview, options) => {
-    dockview.clear()
-    dockview.params.panels = [];
-
-    const jsonData = getConfigByOptions(options);
-    dockview.fromJSON(jsonData);
-}
-
-const toggleComponent = (dockview, options) => {
-    const panels = getPanels(options.content)
-    const localPanels = dockview.panels || {}
-    panels.forEach(p => {
-        let pan = localPanels.find(item => item.title === p.title)
-        if (pan === void 0) {
-            let storagePanel = dockview.params.panels.find(findPanelFunc(p));
-            addDelPanel(storagePanel || p, [], dockview)
-        }
-    })
-
-    localPanels.forEach(item => {
-        let pan = panels.find(panel => panel.title === item.title)
-        if (pan === void 0) {
-            dockview.removePanel(item)
-        }
-    })
-}
-
 const initDockview = (dockview, options, template) => {
     dockview.params = { panels: [], options, template };
     loadPanelsFromLocalstorage(dockview);
@@ -178,6 +151,33 @@ const initDockview = (dockview, options, template) => {
     })
 }
 
+const reloadDockview = (dockview, options) => {
+    dockview.clear()
+    dockview.params.panels = [];
+
+    const jsonData = getConfigByOptions(options);
+    dockview.fromJSON(jsonData);
+}
+
+const toggleComponent = (dockview, options) => {
+    const panels = getPanels(options.content)
+    const localPanels = dockview.panels
+    panels.forEach(p => {
+        const pan = localPanels.find(findPanelFunc(p));
+        if (pan === void 0) {
+            const panel = dockview.params.panels.find(findPanelFunc(p));
+            addDelPanel(dockview, panel || p);
+        }
+    })
+
+    localPanels.forEach(item => {
+        let pan = panels.find(findPanelFunc(item));
+        if (pan === void 0) {
+            dockview.removePanel(item)
+        }
+    })
+}
+
 const setWidth = (observerList) => {
     observerList.forEach(observer => {
         let header = observer.target
@@ -221,10 +221,6 @@ const getGroupIdFunc = () => {
     return () => `${currentId++}`;
 }
 
-const findPanelFunc = v => p => findPanel(p, v);
-
-const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
-
 const getConfigByOptions = options => options.layoutConfig ? getConfigByLayoutString(options) : getConfigByContent(options);
 
 const getConfigByLayoutString = options => {
@@ -262,7 +258,7 @@ const getConfigByContent = options => {
     });
 }
 
-export function addDelPanel(panel, delPanels, dockview) {
+const addDelPanel = (dockview, panel) => {
     let group
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
     if (panel.groupId) {
@@ -304,7 +300,7 @@ export function addDelPanel(panel, delPanels, dockview) {
         if (!group) {
             let curentPanel = dockview.panels.findLast(item => item.params.parentId === panel.params.parentId)
             let direction = getOrientation(dockview.gridview.root, curentPanel.group) === 'VERTICAL' ? 'below' : 'right'
-            let newPanel = dockview.addPanel({
+            dockview.addPanel({
                 id: panel.id,
                 title: panel.title,
                 component: panel.component,
@@ -391,7 +387,6 @@ const deletePanel = (dockview, panel) => {
     if (index > -1) {
         panels.splice(index, 1);
     }
-    panels.slice(panel);
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
     }
@@ -494,5 +489,9 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
     }
     return panels
 }
+
+const findPanelFunc = v => p => findPanel(p, v);
+
+const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
 
 export { cerateDockview };
