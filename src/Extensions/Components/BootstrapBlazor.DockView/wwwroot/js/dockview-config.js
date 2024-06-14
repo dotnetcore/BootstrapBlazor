@@ -1,4 +1,5 @@
 ﻿import { fixObject } from "./dockview-fix.js"
+import { getPanels, findPanelFunc } from "./dockview-panel.js"
 
 const loadPanelsFromLocalstorage = dockview => {
     const { options } = dockview.params;

@@ -80,4 +80,4 @@ const deletePanel = (dockview, panel) => {
     }
 }
 
-export { onAddPanel, findPanelFunc, findPanel };
+export { onAddPanel, getPanels, getPanel, findPanelFunc, findPanel };

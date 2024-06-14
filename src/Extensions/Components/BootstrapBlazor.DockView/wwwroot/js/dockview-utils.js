@@ -1,7 +1,7 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel } from "./dockview-group.js"
-import { onAddPanel, findPanelFunc, findPanel } from "./dockview-panel.js"
+import { onAddPanel, getPanels, findPanelFunc, findPanel } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
 
