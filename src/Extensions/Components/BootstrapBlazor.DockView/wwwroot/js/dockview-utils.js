@@ -44,7 +44,8 @@ const toggleComponent = (dockview, options) => {
 }
 
 const initDockview = (dockview, options, template) => {
-    dockview.params = { panels: loadPanelsFromLocalstorage(dockview), options, template };
+    dockview.params = { panels: [], options, template };
+    loadPanelsFromLocalstorage(dockview);
 
     dockview.init = () => {
         const config = options.enableLocalStorage ? getLocal(options.localStorageKey) : getConfigByOptions(options);
@@ -226,10 +227,10 @@ const getGroupIdFunc = () => {
 const getConfigByOptions = options => options.layoutConfig ? getConfigByLayoutString(options) : getConfigByContent(options);
 
 const getConfigByLayoutString = options => {
-    let config = JSON.parse(options.layoutConfig)
-    const panels = getPanels(content)
+    let config = JSON.parse(options.layoutConfig);
+    const panels = getPanels(options.content);
     Object.values(config.panels).forEach(value => {
-        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
+        let contentPanel = panels.find(p => (p.params.key && p.params.key === value.params.key) || p.id === value.id || p.title === value.title)
         value.params = {
             ...value.params,
             class: contentPanel.params.class,
