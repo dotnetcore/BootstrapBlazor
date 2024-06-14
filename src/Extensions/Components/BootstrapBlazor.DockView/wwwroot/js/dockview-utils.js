@@ -223,12 +223,12 @@ const setWidth = (observerList) => {
 
 const observer = new ResizeObserver(setWidth)
 
-let groupId = 0
-const getGroupId = () => {
-    return groupId++
+const createIncrementalId  = () => {
+    let currentId = 0;
+    return () => currentId++;
 }
 export function serialize(options, { width = 800, height = 600 }) {
-    groupId = 0
+    const getGroupId = createIncrementalId()
     const panels = {}
     const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
     return options.content ? {
@@ -239,7 +239,7 @@ export function serialize(options, { width = 800, height = 600 }) {
             orientation,
             root: {
                 type: 'branch',
-                data: [getTree(options.content[0], { width, height, orientation }, options, panels)]
+                data: [getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)]
             },
         },
         panels
@@ -429,7 +429,7 @@ const saveConfig = dockview => {
     }
 }
 
-const getTree = (contentItem, { width, height, orientation }, parent, panels) => {
+const getTree = (contentItem, { width, height, orientation }, parent, panels, getGroupId) => {
     let length = parent.content.length || 1
     let obj = {}, boxSize = orientation === 'HORIZONTAL' ? width : height, size
     let hasSizeList = parent.content.filter(item => item.width || item.height)
@@ -446,7 +446,7 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels) =>
     if (contentItem.type === 'row' || contentItem.type === 'column') {
         obj.type = 'branch'
         obj.size = contentItem.width || contentItem.height || size
-        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels))
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId))
     }
     else if (contentItem.type === 'group') {
         obj.type = 'leaf'
