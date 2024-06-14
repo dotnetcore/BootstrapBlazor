@@ -137,7 +137,7 @@ const toggleFull = (group, actionContainer, isMaximized) => {
         isMaximized ? group.api.maximize() : group.api.exitMaximized();
     }
     else if (type === 'floating') {
-        isMaximized ? floatingMaximize() : floatingExitMaximized();
+        isMaximized ? floatingMaximize(group) : floatingExitMaximized(group);
     }
     isMaximized ? actionContainer.classList.add('bb-maximize') : actionContainer.classList.remove('bb-maximize')
     group.panels.forEach(panel => panel.params.isMaximized = isMaximized)
@@ -207,10 +207,10 @@ const dock = group => {
 
 const down = (group, actionContainer) => {
     const parentEle = group.element.parentElement
-    const isPackup = group.getParams('isPackup');
+    const {isPackup, height} = group.getParams();
     if (isPackup) {
         group.setParams({ 'isPackup': false })
-        parentEle.style.height = `${getPanelParams('height')}px`;
+        parentEle.style.height = `${height}px`;
         actionContainer.classList.remove('bb-up')
     }
     else {
@@ -235,7 +235,7 @@ const floatingMaximize = group => {
     parentEle.style.top = 0;
     parentEle.style.width = `${maxWidth}px`;
     parentEle.style.height = `${maxHeight}px`;
-    this._setGroupParams({
+    group.setParams({
         position: {
             top: parseFloat(top || 0),
             left: parseFloat(left || 0),
@@ -248,9 +248,9 @@ const floatingMaximize = group => {
 
 const floatingExitMaximized = group => {
     const parentEle = group.element.parentElement
-    const position = getParams('position')
+    const {position} = group.getParams()
     Object.keys(position).forEach(key => parentEle.style[key] = position[key] + 'px')
-    setParams({ isMaximized: false })
+    group.setParams({ isMaximized: false })
 }
 
 const getPanelParams = (group, key) => {
