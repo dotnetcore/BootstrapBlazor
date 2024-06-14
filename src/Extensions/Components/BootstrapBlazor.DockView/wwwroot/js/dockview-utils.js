@@ -352,11 +352,11 @@ const fixObject = data => {
         item.position.height = height - 2
     });
 
-    correctBranch(data.grid.root)
+    removeInvisibleBranch(data.grid.root)
     return data
 }
 
-const correctBranch = branch => {
+const removeInvisibleBranch = branch => {
     if (branch.type === 'leaf') {
         if (branch.visible === false) {
             delete branch.visible
@@ -364,7 +364,7 @@ const correctBranch = branch => {
     }
     else {
         branch.data.forEach(item => {
-            correctBranch(item)
+            removeInvisibleBranch(item)
         })
     }
 }
