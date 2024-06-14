@@ -1,6 +1,119 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
+const onAddGroup = group => {
+    Object.defineProperties(group, {
+        type: {
+            get() { return this.model.location.type }
+        },
+        params: {
+            get() { return JSON.parse(JSON.stringify(group.activePanel?.params || {})) }
+        }
+    })
+
+    const { floatingGroups = [] } = dockview;
+    let floatingGroup = floatingGroups.find(item => item.data.id === group.id)
+    if (floatingGroup) {
+        let { width, height, top, left } = floatingGroup.position
+        setTimeout(() => {
+            let style = group.element.parentElement.style
+            style.width = width + 'px'
+            style.height = height + 'px'
+            style.top = top + 'px'
+            style.left = left + 'px'
+        }, 0)
+    }
+
+    createGroupActions(group);
+}
+
+const addGroupWithPanel = (dockview, panel) => {
+    let group
+    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    if (panel.groupId) {
+        group = dockview.api.getGroup(panel.groupId)
+        if (!group) {
+            group = dockview.createGroup({ id: panel.groupId })
+            const floatingGroupPosition = isMaximized ? {
+                x: 0, y: 0,
+                width: dockview.width,
+                height: dockview.height
+            } : {
+                x: currentPosition?.left || 0,
+                y: currentPosition?.top || 0,
+                width: currentPosition?.width,
+                height: currentPosition?.height
+            }
+            dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
+            createGroupActions(group);
+        }
+        else {
+            if (group.api.location.type === 'grid') {
+                let isVisible = dockview.isVisible(group)
+                if (isVisible === false) {
+                    dockview.setVisible(group, true)
+                    isMaximized && group.api.maximize();
+                }
+            }
+        }
+        dockview.addPanel({
+            id: panel.id,
+            title: panel.title,
+            component: panel.component,
+            position: { referenceGroup: group },
+            params: { ...panel.params, isPackup, height, isMaximized, position }
+        })
+    }
+    else {
+        group = dockview.groups.find(group => group.children?.[panel.id])
+        if (!group) {
+            let curentPanel = dockview.panels.findLast(item => item.params.parentId === panel.params.parentId)
+            let direction = getOrientation(dockview.gridview.root, curentPanel.group) === 'VERTICAL' ? 'below' : 'right'
+            dockview.addPanel({
+                id: panel.id,
+                title: panel.title,
+                component: panel.component,
+                position: { referenceGroup: curentPanel.group, direction },//direction: "bottom"
+                params: { ...panel.params, isPackup, height, isMaximized, position }
+            });
+        }
+        else {
+            if (group.api.location.type === 'grid') {
+                let isVisible = dockview.isVisible(group)
+                if (isVisible === false) {
+                    dockview.setVisible(group, true)
+                    isMaximized && group.api.maximize()
+                }
+            }
+            dockview.addPanel({
+                id: panel.id,
+                title: panel.title,
+                component: panel.component,
+                position: { referenceGroup: group },
+                params: { ...panel.params, isPackup, height, isMaximized, position }
+            })
+        }
+    }
+    deletePanel(dockview, panel)
+}
+
+const getOrientation = function (child, group) {
+    if (child.children) {
+        let targetGroup = child.children.find(item => !item.children && item.element === group.element)
+        if (targetGroup) {
+            return child.orientation
+        }
+        else {
+            for (const item of child.children) {
+                let orientation = getOrientation(item, group)
+                if (orientation) return orientation
+            }
+        }
+    } else {
+        return false
+    }
+}
+
 const createGroupActions = group => {
     const actionContainer = group.header.element.querySelector('.right-actions-container');
     getIcons().forEach(item => {
@@ -306,4 +419,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { createGroupActions, removeGroupActions };
+export { onAddGroup, addGroupWithPanel };

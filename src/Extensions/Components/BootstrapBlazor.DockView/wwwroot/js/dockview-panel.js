@@ -1,6 +1,6 @@
 ﻿import { getIcon } from "./dockview-icon.js"
 
-const updateDockviewPanel = panel => {
+const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
 }
@@ -62,4 +62,4 @@ const findPanelFunc = v => p => findPanel(p, v);
 const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
 
 
-export { updateDockviewPanel, findPanelFunc, findPanel };
+export { onAddPanel, findPanelFunc, findPanel };
