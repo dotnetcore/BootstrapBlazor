@@ -74,19 +74,6 @@ export function toggleComponent(dockview, options) {
     })
 }
 
-//const lockGroup = (group, isLock) => {
-//    group.locked = isLock ? 'no-drop-target' : false
-//    //group.groupControl.toggleLock(isLock)
-//    group.panels.forEach(panel => {
-//        panel.params && (panel.params.isLock = isLock)
-//    })
-//}
-
-//export function lockDock(dock) {
-//    dock.groups.forEach(group => lockGroup(group, dock.locked))
-//    // dock._lockChanged?.fire(dock.locked)
-//}
-
 export function addHook(dockview, dockviewData, options) {
     // 钩子1： 删除panel触发
     dockview.onDidRemovePanel(event => {
@@ -153,7 +140,7 @@ export function addHook(dockview, dockviewData, options) {
         if (0) {
             event.header.hidden = true
         }
-        // 修正floating Group的位置
+
         let { floatingGroups = [], panels } = dockviewData
         let floatingGroup = floatingGroups.find(item => item.data.id === event.id)
         if (floatingGroup) {
@@ -167,9 +154,6 @@ export function addHook(dockview, dockviewData, options) {
             }, 0)
         }
 
-        //setTimeout(() => {
-        //    event.groupControl = new GroupControl(event)
-        //}, 0);
         createGroupActions(event);
         observer.observe(event.header.element)
     })
