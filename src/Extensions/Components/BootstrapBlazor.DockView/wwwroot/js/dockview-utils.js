@@ -253,7 +253,6 @@ export function cerateDockview(el, options) {
         createComponent: option => new DockviewPanelContent(option)
     });
     dockview.template = el.querySelector('template');
-    dockview.groupControls = initActionIcon();
     dockview.params = { options };
     dockview.saveLayout = () => {
         return dockview.toJSON()
