@@ -11,9 +11,6 @@ export function cerateDockview(el, options) {
     });
     dockview.template = el.querySelector('template');
     dockview.params = { options };
-    dockview.saveLayout = () => {
-        return dockview.toJSON()
-    }
     dockview.update = updateOptions => {
         if (updateOptions.layoutConfig) {
             reloadDockview(updateOptions, dockview, el)
