@@ -14,7 +14,7 @@ const createGroupActions = group => {
 }
 
 const removeGroupActions = group => {
-
+    removeActionEvent(group);
 }
 
 const resetActionStates = (group, actionContainer) => {
@@ -78,7 +78,9 @@ const showFloat = (dockview, group) => {
 
 const getFloatState = group => group.model.location.type === 'floating';
 
-const addActionEvent = (group, actionContainer) => {
+const addActionEvent = group => {
+    const actionContainer = group.header.element.querySelector('.right-actions-container');
+
     EventHandler.on(actionContainer, 'click', '.bb-dockview-control-icon', e => {
         const ele = e.delegateTarget;
 
@@ -88,7 +90,31 @@ const addActionEvent = (group, actionContainer) => {
         else if (ele.classList.contains('bb-dockview-control-icon-unlock')) {
             toggleLock(group, actionContainer, true);
         }
+        else if (ele.classList.contains('bb-dockview-control-icon-restore')) {
+            toggleFull(group, actionContainer, false);
+        }
+        else if (ele.classList.contains('bb-dockview-control-icon-full')) {
+            toggleFull(group, actionContainer, true);
+        }
+        else if (ele.classList.contains('bb-dockview-control-icon-dock')) {
+            dock(group);
+        }
+        else if (ele.classList.contains('bb-dockview-control-icon-float')) {
+            float(group);
+        }
+        else if (ele.classList.contains('bb-dockview-control-icon-down')) {
+            down(group, actionContainer, true);
+        }
+        else if (ele.classList.contains('bb-dockview-control-icon-close')) {
+            close(group, actionContainer, true);
+        }
     });
+}
+
+const removeActionEvent = group => {
+    const actionContainer = group.header.element.querySelector('.right-actions-container');
+
+    EventHandler.off(actionContainer, 'click', '.bb-dockview-control-icon');
 }
 
 const toggleLock = (group, actionContainer, isLock) => {
@@ -104,35 +130,17 @@ const toggleLock = (group, actionContainer, isLock) => {
     dockview._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock })
 }
 
-const toggleFull = (group, isMaximized) => {
+const toggleFull = (group, actionContainer, isMaximized) => {
     const type = group.model.location.type;
-    const actionContainer = group.header.element.querySelector('.right-actions-container');
 
     if (type === 'grid') {
-        isMaximized ? group.api.exitMaximized() : group.api.maximize()
+        isMaximized ? group.api.maximize() : group.api.exitMaximized();
     }
     else if (type === 'floating') {
-        isMaximized ? _floatingExitMaximized() : _floatingMaximize()
+        isMaximized ? floatingMaximize() : floatingExitMaximized();
     }
-    isMaximized ? actionContainer.classList.remove('bb-maximize') : actionContainer.classList.add('bb-maximize')
-    group.panels.forEach(panel => panel.params.isMaximized = !isMaximized)
-}
-
-const down = group => {
-    const dockview = group.api.accessor;
-    const parentEle = group.element.parentElement
-    const actionContainer = group.header.element.querySelector('.right-actions-container');
-    const isPackup = getParams(group, 'isPackup');
-    if (isPackup) {
-        _setGroupParams(group, { 'isPackup': false })
-        parentEle.style.height = `${getParams('height')}px`;
-        actionContainer.classList.remove('bb-up')
-    }
-    else {
-        _setGroupParams(group, { 'isPackup': true, 'height': parseFloat(parentEle.style.height) });
-        parentEle.style.height = `${group.activePanel.view._tab._element.offsetHeight}px`;
-        actionContainer.classList.add('bb-up');
-    }
+    isMaximized ? actionContainer.classList.add('bb-maximize') : actionContainer.classList.remove('bb-maximize')
+    group.panels.forEach(panel => panel.params.isMaximized = isMaximized)
 }
 
 const float = group => {
@@ -159,18 +167,18 @@ const float = group => {
         }
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
-    dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
+    createGroupActions(floatingGroup);
 
-    floatingGroup.panels.slice(0).forEach((panel, index) => {
+    group.panels.forEach((panel, index) => {
         dockview.moveGroupOrPanel({
             from: { groupId: group.id, panelId: panel.id },
-            to: { floatingGroup, position: 'center', index },
+            to: { group: floatingGroup, position: 'center', index },
             skipRemoveGroup: true
         })
     })
     dockview.setVisible(group, false)
     floatingGroup.setParams({ isPackup, height, isMaximized })
-    createGroupActions(floatingGroup);
+    dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
 }
 
 const dock = group => {
@@ -197,20 +205,25 @@ const dock = group => {
     originGroup.setParams({ position, isPackup, height, isMaximized })
 }
 
+const down = (group, actionContainer) => {
+    const parentEle = group.element.parentElement
+    const isPackup = group.getParams('isPackup');
+    if (isPackup) {
+        group.setParams({ 'isPackup': false })
+        parentEle.style.height = `${getPanelParams('height')}px`;
+        actionContainer.classList.remove('bb-up')
+    }
+    else {
+        group.setParams({ 'isPackup': true, 'height': parseFloat(parentEle.style.height) });
+        parentEle.style.height = `${group.activePanel.view._tab._element.offsetHeight}px`;
+        actionContainer.classList.add('bb-up');
+    }
+}
+
 close = group => {
     if (!group.locked) {
         group.api.close()
     }
-}
-
-const getParams = (group, key) => {
-    return key && group.activePanel.params[key]
-}
-
-const setParams = (group, data) => {
-    Object.keys(data).forEach(key => {
-        group.panels.forEach(panel => panel.params[key] = data[key])
-    })
 }
 
 const floatingMaximize = group => {
@@ -238,6 +251,16 @@ const floatingExitMaximized = group => {
     const position = getParams('position')
     Object.keys(position).forEach(key => parentEle.style[key] = position[key] + 'px')
     setParams({ isMaximized: false })
+}
+
+const getPanelParams = (group, key) => {
+    return key && group.activePanel.params[key]
+}
+
+const setPanelParams = (group, data) => {
+    Object.keys(data).forEach(key => {
+        group.panels.forEach(panel => panel.params[key] = data[key])
+    })
 }
 
 export { createGroupActions, removeGroupActions };
