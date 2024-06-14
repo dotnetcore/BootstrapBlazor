@@ -16,7 +16,7 @@ export function cerateDockview(el, options) {
             reloadDockview(updateOptions, dockview, el)
         }
         else if (dockview.locked !== updateOptions.lock) {
-            lockDock(dockview)
+            // TODO: 循环所有 Group 锁定 Group
         }
         else {
             toggleComponent(dockview, updateOptions)
@@ -48,10 +48,9 @@ const reloadDockview = (options, dockview, el) => {
     }, 0);
     let resetConfig = options.layoutConfig && getLayoutConfig(options)
     loadDockview(dockview, getJson(dockview, resetConfig || serialize(options, { width: el.clientWidth, height: el.clientHeight })))
-
 }
 
-export function toggleComponent(dockview, options) {
+const toggleComponent = (dockview, options) => {
     const panels = getPanels(options.content)
     const localPanels = dockview.panels || {}
     panels.forEach(panel => {
@@ -71,8 +70,7 @@ export function toggleComponent(dockview, options) {
     })
 }
 
-export function addHook(dockview, dockviewData, options) {
-    // 钩子1： 删除panel触发
+const addHook = (dockview, dockviewData, options) => {
     dockview.onDidRemovePanel(event => {
         // console.log('onDidRemovePanel');
         // 在删除的panel上存储信息并把panel存储到storage
@@ -120,10 +118,8 @@ export function addHook(dockview, dockviewData, options) {
         // saveConfig(dockview)
     })
 
-    // 钩子2：添加Panel触发
     dockview.onDidAddPanel(updateDockviewPanel);
 
-    // 钩子3：添加Group触发
     dockview.onDidAddGroup(event => {
         // 给每个Group实例添加type和params属性
         Object.defineProperties(event, {
@@ -154,48 +150,27 @@ export function addHook(dockview, dockviewData, options) {
         createGroupActions(event);
         observer.observe(event.header.element)
     })
+
     dockview.onDidRemoveGroup(event => {
         console.log('remove-group', event);
     })
 
-    // 钩子4：拖拽panel标题前触发
     dockview.onWillDragPanel(event => {
         if (event.panel.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
 
-    // 钩子5：拖拽panel之后触发
     dockview._onDidMovePanel.event(event => { })
 
-    // 狗子6：拖拽Group之前触发
     dockview.onWillDragGroup(event => {
         if (event.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
 
-    // 钩子7：拖拽分割线后触发
     dockview.gridview.onDidChange(event => { })
 
-    // 钩子8：所有造成layout变化的操作都会触发
-    let eve = dockview.onDidLayoutChange(event => {
-        setTimeout(() => {
-            // 维护Group的children属性
-            // if (dockview.totalPanels >= (dockview.panelSize || 0)) {
-            //     dockview.groups.forEach(group => {
-            //         group.children = {}
-            //         group.panels.forEach(panel => {
-            //             group.children[panel.id] = panel.id
-            //         })
-            //     })
-            // }
-            dockview.panelSize = dockview.totalPanels
-            saveConfig(dockview)
-        }, 50)
-    })
-
-    // 钩子9: layout加载完成触发
     dockview.onDidLayoutFromJSON(event => {
         setTimeout(() => {
             dockview._initialized?.fire()
@@ -245,6 +220,7 @@ const setWidth = (observerList) => {
         }
     })
 }
+
 const observer = new ResizeObserver(setWidth)
 
 let groupId = 0
@@ -285,10 +261,7 @@ function getLayoutConfig({ layoutConfig, content }) {
             titleClass: contentPanel.params.titleClass,
             titleWidth: contentPanel.params.titleWidth,
             type: contentPanel.params.type,
-            width: contentPanel.params.width,
-            // key: contentPanel.key,
-            // id: "bb_13852650",
-            // title: contentPanel.title,
+            width: contentPanel.params.width
         }
     })
 
@@ -368,6 +341,7 @@ export function addDelPanel(panel, delPanels, dockview) {
     }
     setDecreaseLocal(`${dockview.params.options.localStorageKey}-panels`, panel)
 }
+
 export function loadDockview(dockview, dockviewData, serializeData) {
     try {
         dockview.fromJSON(dockviewData)
@@ -401,6 +375,7 @@ const getOrientation = function (child, group) {
         return false
     }
 }
+
 export function getJson(dockview, data) {
     // 修正JSON
     // 修改浮动框的宽高
@@ -414,12 +389,8 @@ export function getJson(dockview, data) {
     correctBranch(root)
     return data
 }
+
 const correctBranch = branch => {
-    // 修改branch
-    // if(branch.type == 'branch' && branch.size == 0){
-    //   console.log(branch, 'branch');
-    //   branch.size = 445
-    // }
     if (branch.type === 'leaf') {
         if (branch.visible === false) {
             delete branch.visible
@@ -513,26 +484,17 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels) =>
                 title: contentItem.title,
                 tabComponent: contentItem.componentName,
                 contentComponent: contentItem.componentName,
-                // params: {...contentItem, showClose: true, showLock: true, showFloat: true, showMaximize: true}
                 params: { ...contentItem, parentId: parent.id }
             }
         }
     }
     return obj
 }
-const generateRandomId = length => {
-    // 随机生成指定长度的字符串
-    const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let id = '';
-    for (let i = 0; i < length; i++) {
-        id += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return id;
-}
 
 const getPanels = content => {
     return getPanel(content[0])
 }
+
 const getPanel = (contentItem, parent = {}, panels = []) => {
     if (contentItem.type === 'component') {
         panels.push({
