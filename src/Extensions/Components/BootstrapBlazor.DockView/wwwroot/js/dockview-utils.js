@@ -1,9 +1,9 @@
-﻿import { DockviewComponent } from "./dockview-fix.esm.js/index.js"
+﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel } from "./dockview-group.js"
 import { onAddPanel, findPanelFunc, findPanel } from "./dockview-panel.js"
-import { savePanel, loadPanelsFromLocalstorage } from './dockview-extensions.js'
-import { reloadFromConfig } from './dockview-config.js'
+import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
     const template = el.querySelector('template');
@@ -14,7 +14,7 @@ const cerateDockview = (el, options) => {
     initDockview(dockview, options, template);
 
     dockview.init();
-    return dockview
+    return dockview;
 }
 
 const initDockview = (dockview, options, template) => {
@@ -22,8 +22,8 @@ const initDockview = (dockview, options, template) => {
     loadPanelsFromLocalstorage(dockview);
 
     dockview.init = () => {
-        const config =
-            dockview.fromJSON(config);
+        const config = getConfig(options);
+        dockview.fromJSON(config);
     }
 
     dockview.update = options => {

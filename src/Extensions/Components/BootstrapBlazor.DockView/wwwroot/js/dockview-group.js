@@ -11,6 +11,7 @@ const onAddGroup = group => {
         }
     })
 
+    const dockview = group.api.accessor;
     const { floatingGroups = [] } = dockview;
     let floatingGroup = floatingGroups.find(item => item.data.id === group.id)
     if (floatingGroup) {

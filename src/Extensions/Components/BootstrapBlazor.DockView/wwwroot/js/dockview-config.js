@@ -1,4 +1,11 @@
-﻿const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
+﻿import { fixObject } from "./dockview-fix.js"
+
+const loadPanelsFromLocalstorage = dockview => {
+    const { options } = dockview.params;
+    if (options.enableLocalStorage) {
+        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
+    }
+}
 
 const reloadFromConfig = (dockview, options) => {
     dockview.clear()
@@ -8,9 +15,13 @@ const reloadFromConfig = (dockview, options) => {
     dockview.fromJSON(jsonData);
 }
 
-const reload = options => {
-    options.enableLocalStorage ? getConfigFromStorage(options.localStorageKey) : getConfigFromOptions(options);
+const getConfig = options => options.enableLocalStorage ? getConfigFromStorage(options.localStorageKey) : getConfigFromOptions(options);
+
+const getConfigFromStorage = key => {
+    return fixObject(JSON.parse(localStorage.getItem(key)));
 }
+
+const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
 
 const getConfigFromLayoutString = options => {
     let config = JSON.parse(options.layoutConfig);
@@ -25,11 +36,6 @@ const getConfigFromLayoutString = options => {
         }
     });
     return fixObject(config);
-}
-
-const getGroupIdFunc = () => {
-    let currentId = 0;
-    return () => `${currentId++}`;
 }
 
 const getConfigFromContent = options => {
@@ -50,6 +56,11 @@ const getConfigFromContent = options => {
         },
         panels
     });
+}
+
+const getGroupIdFunc = () => {
+    let currentId = 0;
+    return () => `${currentId++}`;
 }
 
 const getTree = (contentItem, { width, height, orientation }, parent, panels, getGroupId) => {
@@ -123,4 +134,4 @@ const saveConfig = dockview => {
     }
 }
 
-export { reloadFromConfig };
+export { getConfig, reloadFromConfig, loadPanelsFromLocalstorage };

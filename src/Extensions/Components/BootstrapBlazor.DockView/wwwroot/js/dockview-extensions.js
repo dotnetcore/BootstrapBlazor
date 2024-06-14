@@ -186,35 +186,3 @@ const sequenceEquals = (arr1, arr2) => {
     }
     return true;
 }
-
-const getConfigFromStorage = key => {
-    return fixObject(JSON.parse(localStorage.getItem(key)));
-}
-
-const savePanel = (dockview, panel) => {
-    const { panels, options } = dockview.params;
-    panels.push(panel)
-    if (options.enableLocalStorage) {
-        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
-    }
-}
-
-const deletePanel = (dockview, panel) => {
-    const { panels, options } = dockview.params;
-    let index = panels.indexOf(panel);
-    if (index > -1) {
-        panels.splice(index, 1);
-    }
-    if (options.enableLocalStorage) {
-        localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
-    }
-}
-
-const loadPanelsFromLocalstorage = dockview => {
-    const { options } = dockview.params;
-    if (options.enableLocalStorage) {
-        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
-    }
-}
-
-export { getConfigFromStorage, fixObject, savePanel, deletePanel, loadPanelsFromLocalstorage };

@@ -21,3 +21,5 @@ const removeInvisibleBranch = branch => {
         })
     }
 }
+
+export { fixObject };
