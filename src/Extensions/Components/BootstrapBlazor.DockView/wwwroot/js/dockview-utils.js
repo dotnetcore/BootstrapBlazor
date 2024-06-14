@@ -379,7 +379,7 @@ export function addHook(dockview, dockviewData, options) {
     })
 
     // 钩子2：添加Panel触发
-    dockview.onDidAddPanel(panel => updateDockviewPanel(panel));
+    dockview.onDidAddPanel(updateDockviewPanel);
 
     // 钩子3：添加Group触发
     dockview.onDidAddGroup(event => {
