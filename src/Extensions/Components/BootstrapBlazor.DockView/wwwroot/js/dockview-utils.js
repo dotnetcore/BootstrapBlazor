@@ -1,7 +1,7 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
 import { createGroupActions } from "./dockview-group.js"
-import { updateDockviewPanel } from "./dockview-panel.js"
+import { updateDockviewPanel, findPanelFunc, findPanel } from "./dockview-panel.js"
 import { fixObject, getConfigFromStorage, savePanel, deletePanel, loadPanelsFromLocalstorage } from './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -89,7 +89,7 @@ const initDockview = (dockview, options, template) => {
     dockview.onDidAddGroup(group => {
         Object.defineProperties(group, {
             type: {
-                get() { return model.location.type }
+                get() { return this.model.location.type }
             },
             params: {
                 get() { return JSON.parse(JSON.stringify(group.activePanel?.params || {})) }
@@ -372,29 +372,5 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
     }
     return obj
 }
-
-const getPanels = content => {
-    return getPanel(content[0])
-}
-
-const getPanel = (contentItem, parent = {}, panels = []) => {
-    if (contentItem.type === 'component') {
-        panels.push({
-            id: contentItem.id,
-            groupId: contentItem.groupId,
-            title: contentItem.title,
-            tabComponent: contentItem.componentName,
-            contentComponent: contentItem.componentName,
-            params: { ...contentItem, parentId: parent.id }
-        })
-    } else {
-        contentItem.content?.forEach(item => getPanel(item, contentItem, panels))
-    }
-    return panels
-}
-
-const findPanelFunc = v => p => findPanel(p, v);
-
-const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
 
 export { cerateDockview };
