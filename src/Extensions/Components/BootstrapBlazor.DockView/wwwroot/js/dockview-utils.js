@@ -17,16 +17,11 @@ const cerateDockview = (el, options) => {
 }
 
 const reloadDockview = (dockview, options) => {
-    dockview.isClearing = true
     dockview.clear()
-    setTimeout(() => {
-        delete dockview.isClearing;
-        localStorage.removeItem(dockview.params.options.localStorageKey + '-panels');
-    }, 0);
+    dockview.params.panels = [];
 
-    let resetConfig = getLayoutConfig(options) || serialize(options);
-    const dockviewData = getJson(dockview, resetConfig);
-    dockview.formJson(dockviewData);
+    const jsonData = getJson(getConfigByOptions(options));
+    dockview.fromJSON(jsonData);
 }
 
 const toggleComponent = (dockview, options) => {
@@ -53,13 +48,13 @@ const initDockview = (dockview, options, template) => {
     dockview.params = { panels: [], options, template };
 
     dockview.init = () => {
-        const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
-        const jsonData = getJson(dockview, config)
+        const config = options.enableLocalStorage ? getLocal(options.localStorageKey) : getConfigByOptions(options);
+        const jsonData = getJson(config)
         dockview.fromJSON(jsonData);
     }
 
     dockview.update = options => {
-        if (updateOptions.layoutConfig) {
+        if (options.layoutConfig) {
             reloadDockview(dockview, options)
         }
         else if (dockview.locked !== options.lock) {
@@ -228,12 +223,37 @@ const getGroupIdFunc = () => {
     let currentId = 0;
     return () => `${currentId++}`;
 }
-export function serialize(options) {
+
+const getConfigByOptions = options => options.layoutConfig ? getConfigByLayoutString(options) : getConfigByContent(options);
+
+const getConfigByLayoutString = options => {
+    let config = JSON.parse(options.layoutConfig)
+    const panels = getPanels(content)
+    Object.values(config.panels).forEach(value => {
+        let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
+        value.params = {
+            ...value.params,
+            class: contentPanel.params.class,
+            height: contentPanel.params.height,
+            parentId: contentPanel.params.parentId,
+            showClose: contentPanel.params.showClose,
+            showHeader: contentPanel.params.showHeader,
+            showLock: contentPanel.params.showLock,
+            titleClass: contentPanel.params.titleClass,
+            titleWidth: contentPanel.params.titleWidth,
+            type: contentPanel.params.type,
+            width: contentPanel.params.width
+        }
+    });
+    return config;
+}
+
+const getConfigByContent = options => {
     const { width, height } = { width: 800, height: 600 };
     const getGroupId = getGroupIdFunc()
     const panels = {}
     const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
-    return options.content ? {
+    return {
         activeGroup: '1',
         grid: {
             width,
@@ -245,33 +265,7 @@ export function serialize(options) {
             },
         },
         panels
-    } : null
-}
-
-const getLayoutConfig = options => {
-    let config = null;
-    const { layoutConfig, content } = options;
-    if (layoutConfig) {
-        config = JSON.parse(layoutConfig)
-        let panels = getPanels(content)
-        Object.values(config.panels).forEach(value => {
-            let contentPanel = panels.find(panel => (panel.params.key && panel.params.key === value.params.key) || panel.id === value.id || panel.title === value.title)
-            value.params = {
-                ...value.params,
-                class: contentPanel.params.class,
-                height: contentPanel.params.height,
-                parentId: contentPanel.params.parentId,
-                showClose: contentPanel.params.showClose,
-                showHeader: contentPanel.params.showHeader,
-                showLock: contentPanel.params.showLock,
-                titleClass: contentPanel.params.titleClass,
-                titleWidth: contentPanel.params.titleWidth,
-                type: contentPanel.params.type,
-                width: contentPanel.params.width
-            }
-        });
-    }
-    return config
+    };
 }
 
 export function addDelPanel(panel, delPanels, dockview) {
@@ -361,7 +355,7 @@ const getOrientation = function (child, group) {
     }
 }
 
-export function getJson(dockview, data) {
+export function getJson(data) {
     // 修正JSON
     // 修改浮动框的宽高
     data.floatingGroups?.forEach(item => {
