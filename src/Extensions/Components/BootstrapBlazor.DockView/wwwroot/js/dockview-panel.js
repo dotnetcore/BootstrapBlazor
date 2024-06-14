@@ -1,4 +1,4 @@
-﻿import { getIcon } from "./dockview-icon-extensions.js"
+﻿import { getIcon } from "./dockview-icon.js"
 
 const updateDockviewPanel = panel => {
     updateCloseButton(panel);

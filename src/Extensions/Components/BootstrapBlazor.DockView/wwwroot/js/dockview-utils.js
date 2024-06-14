@@ -1,7 +1,7 @@
-﻿import { DockviewComponent } from "../js/dockview-core.esm.js"
-import { DockviewPanelContent } from "../js/dockview-content.js"
-import { createGroupActions } from "../js/dockview-group-extensions.js"
-import { updateDockviewPanel } from "../js/dockview-panel-extensions.js"
+﻿import { DockviewComponent } from "./dockview-core.esm.js"
+import { DockviewPanelContent } from "./dockview-content.js"
+import { createGroupActions } from "./dockview-group.js"
+import { updateDockviewPanel } from "./dockview-panel.js"
 import '../js/dockview-extensions.js'
 
 const cerateDockview = (el, options) => {

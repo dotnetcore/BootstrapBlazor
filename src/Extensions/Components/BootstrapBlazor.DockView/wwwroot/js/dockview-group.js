@@ -1,4 +1,4 @@
-﻿import { getIcons, getIcon } from "./dockview-icon-extensions.js"
+﻿import { getIcons, getIcon } from "./dockview-icon.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const createGroupActions = group => {
@@ -207,7 +207,7 @@ const dock = group => {
 
 const down = (group, actionContainer) => {
     const parentEle = group.element.parentElement
-    const {isPackup, height} = group.getParams();
+    const { isPackup, height } = group.getParams();
     if (isPackup) {
         group.setParams({ 'isPackup': false })
         parentEle.style.height = `${height}px`;
@@ -248,7 +248,7 @@ const floatingMaximize = group => {
 
 const floatingExitMaximized = group => {
     const parentEle = group.element.parentElement
-    const {position} = group.getParams()
+    const { position } = group.getParams()
     Object.keys(position).forEach(key => parentEle.style[key] = position[key] + 'px')
     group.setParams({ isMaximized: false })
 }
