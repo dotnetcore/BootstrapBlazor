@@ -343,10 +343,7 @@ const getGroupFloatState = group => group.model.location.type === 'floating'
 export function cerateDockview(el, options) {
     const dockview = new DockviewComponent({
         parentElement: el,
-        createComponent: option => {
-            return new DefaultPanel(option)
-        },
-        createTabComponent: () => new DefaultTab()
+        createComponent: option => new DefaultPanel(option)
     });
     dockview.template = el.querySelector('template');
     dockview.groupControls = initActionIcon();
