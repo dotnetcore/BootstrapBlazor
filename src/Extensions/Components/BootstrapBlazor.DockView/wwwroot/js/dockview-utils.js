@@ -5,13 +5,14 @@ import { updateDockviewPanel } from "../js/dockview-panel-extensions.js"
 import '../js/dockview-extensions.js'
 
 export function cerateDockview(el, options) {
+    const template = el.querySelector('template');
     const dockview = new DockviewComponent({
         parentElement: el,
         createComponent: option => new DockviewPanelContent(option)
     });
-    initDockview(dockview);
+    initDockview(dockview, options, template);
 
-    dockview.init(options);
+    dockview.init();
     return dockview
 }
 
@@ -48,10 +49,10 @@ const toggleComponent = (dockview, options) => {
     })
 }
 
-const initDockview = dockview => {
-    dockview.params = { panels: [], options, template: el.querySelector('template') };
+const initDockview = (dockview, options, template) => {
+    dockview.params = { panels: [], options, template };
 
-    dockview.init = options => {
+    dockview.init = () => {
         const config = (options.enableLocalStorage ? getLocal(options.localStorageKey) : getLayoutConfig(options)) ?? serialize(options)
         const jsonData = getJson(dockview, config)
         dockview.fromJSON(jsonData);
