@@ -146,14 +146,12 @@ const resetActionStates = (group, actionContainer) => {
     if (showLock(dockview, group)) {
         actionContainer.classList.add('bb-show-lock');
         if (getLockState(dockview, group)) {
-            // actionContainer.classList.add('bb-lock');
             toggleLock(group, actionContainer, true)
         }
     }
     if (showMaximize(dockview, group)) {
         actionContainer.classList.add('bb-show-maximize');
         if (getMaximizeState(group)) {
-            // actionContainer.classList.add('bb-maximize');
             toggleFull(group, actionContainer, true)
         }
     }
@@ -294,7 +292,6 @@ const float = group => {
         })
     })
     dockview.setVisible(group, false)
-    // floatingGroup.setParams({ isPackup, height, isMaximized })
     dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
     createGroupActions(floatingGroup);
 }
@@ -369,16 +366,6 @@ const floatingExitMaximized = group => {
     const { position } = group.getParams()
     Object.keys(position).forEach(key => parentEle.style[key] = position[key] + 'px')
     group.setParams({ isMaximized: false })
-}
-
-const getPanelParams = (group, key) => {
-    return key && group.activePanel.params[key]
-}
-
-const setPanelParams = (group, data) => {
-    Object.keys(data).forEach(key => {
-        group.panels.forEach(panel => panel.params[key] = data[key])
-    })
 }
 
 const setWidth = (observerList) => {

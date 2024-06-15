@@ -31,7 +31,6 @@ const initDockview = (dockview, options, template) => {
             reloadFromConfig(dockview, options)
         }
         else if (dockview.params.options.lock !== options.lock) {
-            // TODO: 循环所有 Group 锁定 Group
             dockview.params.options.lock = options.lock
             toggleGroupLock(dockview, options)
         }
