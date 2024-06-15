@@ -18,5 +18,10 @@ public class MaskOption
     /// <summary>
     /// 
     /// </summary>
+    public int ZIndex { get; set; } = 1000;
+
+    /// <summary>
+    /// 
+    /// </summary>
     public RenderFragment? BodyTemplate { get; set; }
 }

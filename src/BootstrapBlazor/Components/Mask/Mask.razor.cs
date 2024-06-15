@@ -27,6 +27,8 @@ public partial class Mask
 
     private RenderFragment? BodyTemplate { get; set; }
 
+    private int ZIndex { get; set; } = 1000;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -47,6 +49,7 @@ public partial class Mask
             {
                 BodyTemplate = option.BodyTemplate;
             }
+            ZIndex = option.ZIndex;
             IsMasking = true;
             StateHasChanged();
         }
