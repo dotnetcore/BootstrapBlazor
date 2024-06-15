@@ -87,6 +87,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
         services.AddScoped<EyeDropperService>();
+        services.AddScoped<IMaskService, MaskService>();
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
 
