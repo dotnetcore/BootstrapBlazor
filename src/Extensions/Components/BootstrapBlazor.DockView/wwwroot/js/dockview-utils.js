@@ -53,17 +53,11 @@ const initDockview = (dockview, options, template) => {
 
     dockview.onDidAddGroup(onAddGroup);
 
-    dockview.onDidRemoveGroup(event => {
-        console.log('remove-group', event);
-    })
-
     dockview.onWillDragPanel(event => {
         if (event.panel.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
-
-    dockview._onDidMovePanel.event(event => { })
 
     dockview.onWillDragGroup(event => {
         if (event.group.locked) {
@@ -71,9 +65,7 @@ const initDockview = (dockview, options, template) => {
         }
     })
 
-    dockview.gridview.onDidChange(event => { })
-
-    dockview.onDidLayoutFromJSON(event => {
+    dockview.onDidLayoutFromJSON(() => {
         setTimeout(() => {
             dockview._initialized?.fire()
         }, 0)
@@ -82,8 +74,6 @@ const initDockview = (dockview, options, template) => {
                 dockview.setVisible(group, false)
             }
         })
-    })
-    dockview.onDidRemove(() => {
     })
 }
 

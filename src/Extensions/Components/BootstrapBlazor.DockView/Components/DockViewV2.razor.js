@@ -12,7 +12,6 @@ export async function init(id, invoke, options) {
     const dockview = cerateDockview(el, options)
     Data.set(id, { el, dockview });
 
-    console.log('razor init');
     dockview.on('initialized', () => {
         invoke.invokeMethodAsync(options.initializedCallback);
     });
