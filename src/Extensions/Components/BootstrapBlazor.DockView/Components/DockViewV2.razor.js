@@ -12,15 +12,16 @@ export async function init(id, invoke, options) {
     const dockview = cerateDockview(el, options)
     Data.set(id, { el, dockview });
 
+    console.log('razor init');
     dockview.on('initialized', () => {
         invoke.invokeMethodAsync(options.initializedCallback);
-    })
+    });
     dockview.on('lockChanged', ({ title, isLock }) => {
         invoke.invokeMethodAsync(options.lockChangedCallback, title, isLock);
-    })
+    });
     dockview.on('panelClosed', title => {
         invoke.invokeMethodAsync(options.panelClosedCallback, title);
-    })
+    });
 }
 
 export function update(id, options) {

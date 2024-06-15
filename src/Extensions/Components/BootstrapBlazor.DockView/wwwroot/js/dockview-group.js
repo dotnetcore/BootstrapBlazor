@@ -210,9 +210,11 @@ const addActionEvent = group => {
 
         if (ele.classList.contains('bb-dockview-control-icon-lock')) {
             toggleLock(group, actionContainer, false);
+            group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: false });
         }
         else if (ele.classList.contains('bb-dockview-control-icon-unlock')) {
             toggleLock(group, actionContainer, true);
+            group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: true });
         }
         else if (ele.classList.contains('bb-dockview-control-icon-restore')) {
             toggleFull(group, actionContainer, false);
@@ -242,8 +244,6 @@ const removeActionEvent = group => {
 }
 
 const toggleLock = (group, actionContainer, isLock) => {
-    const dockview = group.api.accessor;
-
     group.locked = isLock
     group.panels.forEach(panel => panel.params.isLock = isLock);
     if (isLock) {
@@ -252,7 +252,6 @@ const toggleLock = (group, actionContainer, isLock) => {
     else {
         actionContainer.classList.remove('bb-lock')
     }
-    dockview._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock })
 }
 
 const toggleFull = (group, actionContainer, isMaximized) => {
