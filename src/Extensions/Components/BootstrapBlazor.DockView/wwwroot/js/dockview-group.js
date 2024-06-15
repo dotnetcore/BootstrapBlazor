@@ -75,7 +75,7 @@ const addGroupWithPanel = (dockview, panel) => {
                 id: panel.id,
                 title: panel.title,
                 component: panel.component,
-                position: { referenceGroup: curentPanel.group, direction },//direction: "bottom"
+                position: { referenceGroup: curentPanel.group, direction },
                 params: { ...panel.params, isPackup, height, isMaximized, position }
             });
         }
@@ -276,11 +276,11 @@ const float = group => {
 
     const { position = {}, isPackup, height, isMaximized } = group.getParams()
     const floatingGroupPosition = {
-            x: position.left || (x < 35 ? 35 : x),
-            y: position.top || (y < 35 ? 35 : y),
-            width: position.width || 500,
-            height: position.height || 460
-        }
+        x: position.left || (x < 35 ? 35 : x),
+        y: position.top || (y < 35 ? 35 : y),
+        width: position.width || 500,
+        height: position.height || 460
+    }
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
 
