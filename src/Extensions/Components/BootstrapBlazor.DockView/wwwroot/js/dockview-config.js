@@ -129,12 +129,10 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
 }
 
 const saveConfig = dockview => {
-    if (dockview.hasMaximizedGroup()) return;
-
     if (dockview.params.options.enableLocalStorage) {
         const json = dockview.toJSON()
         localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
     }
 }
 
-export { getConfigFromStorage, getConfig, reloadFromConfig, loadPanelsFromLocalstorage };
+export { getConfigFromStorage, getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage };
