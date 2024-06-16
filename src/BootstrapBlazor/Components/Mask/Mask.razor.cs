@@ -2,32 +2,31 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Mask 组件
 /// </summary>
 public partial class Mask
 {
     [Inject]
     [NotNull]
-    private IMaskService? MaskService { get; set; }
+    private MaskService? MaskService { get; set; }
+
+    private string? ClassString => CssBuilder.Default("bb-mask fade")
+        .AddClass("show", IsMasking)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
+        .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
+        .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
+        .Build();
 
     private bool IsMasking { get; set; }
 
-    private RenderFragment? BodyTemplate { get; set; }
-
-    private int ZIndex { get; set; } = 1000;
-
-    private string? ClassString() => CssBuilder.Default("mask")
-        .AddClass("show", IsMasking)
-        .Build();
+    [NotNull]
+    private MaskOption? _options = default;
 
     /// <summary>
     /// <inheritdoc/>
@@ -35,33 +34,21 @@ public partial class Mask
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        if (MaskService is MaskService service)
-        {
-            service.Register(this, Show, Close);
-        }
+
+        MaskService.Register(this, Show);
     }
 
     private Task Show(MaskOption? option)
     {
-        if (option != null)
-        {
-            if (option.BodyTemplate != null)
-            {
-                BodyTemplate = option.BodyTemplate;
-            }
-            ZIndex = option.ZIndex;
-        }
-        IsMasking = true;
+        _options = option;
         StateHasChanged();
-
         return Task.CompletedTask;
     }
 
     private Task Close()
     {
-        IsMasking = false;
+        _options.ChildContent = null;
         StateHasChanged();
-
         return Task.CompletedTask;
     }
 }

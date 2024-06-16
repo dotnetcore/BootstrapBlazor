@@ -1,8 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<div class="@ClassString()" style="z-index:@ZIndex">
-    @if (BodyTemplate != null)
-    {
-        @BodyTemplate
-    }
+<div class="@ClassString" style="@StyleString">
+    <CascadingValue Value="Close" IsFixed="true">
+        @_options.ChildContent
+    </CascadingValue>
 </div>
