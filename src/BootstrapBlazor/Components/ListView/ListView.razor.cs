@@ -125,7 +125,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// 数据集合内部使用
     /// </summary>
-    protected IEnumerable<TItem> Rows => Items ?? Enumerable.Empty<TItem>();
+    protected IEnumerable<TItem> Rows => Items ?? [];
 
     /// <summary>
     /// <inheritdoc/>
