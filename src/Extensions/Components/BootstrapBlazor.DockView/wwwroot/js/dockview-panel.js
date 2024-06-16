@@ -79,8 +79,8 @@ const updateTitle = panel => {
     }
 }
 
-const getPanels = content => {
-    return getPanel(content[0])
+const getPanelsFromOptions = options => {
+    return getPanel(options.content[0])
 }
 
 const getPanel = (contentItem, parent = {}, panels = []) => {
@@ -99,12 +99,8 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
     return panels
 }
 
-const findPanelFunc = v => p => findPanel(p, v);
-
-const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
-
-const findPanels = (panels, v) => {
-    return panels.find((p => p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title);
+const findContentFromPanels = (panels, content) => {
+    return panels.find((p => p.params.key && p.params.key === content.params.key) || p.id === content.id || p.title === content.title);
 }
 
 const savePanel = (dockview, panel) => {
@@ -126,4 +122,4 @@ const deletePanel = (dockview, panel) => {
     }
 }
 
-export { onAddPanel, onRemovePanel, getPanels, getPanel, findPanelFunc, deletePanel };
+export { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels, deletePanel };

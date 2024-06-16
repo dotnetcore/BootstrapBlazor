@@ -1,5 +1,5 @@
 ﻿import { fixObject } from "./dockview-fix.js"
-import { getPanels, findPanelFunc } from "./dockview-panel.js"
+import { getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
 
 const loadPanelsFromLocalstorage = dockview => {
     const { options } = dockview.params;
@@ -28,9 +28,9 @@ const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayo
 
 const getConfigFromLayoutString = options => {
     let config = JSON.parse(options.layoutConfig);
-    const panels = getPanels(options.content);
+    const panels = getPanelsFromOptions(options);
     Object.values(config.panels).forEach(value => {
-        const contentPanel = panels.find(findPanelFunc(value));
+        const contentPanel = findContentFromPanels(panels, value);
         if (contentPanel) {
             value.params = {
                 ...value.params,

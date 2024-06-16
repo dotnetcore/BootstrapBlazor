@@ -1,7 +1,7 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
-import { onAddPanel, onRemovePanel, getPanels, findPanelFunc } from "./dockview-panel.js"
+import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
 
@@ -78,18 +78,18 @@ const initDockview = (dockview, options, template) => {
 }
 
 const toggleComponent = (dockview, options) => {
-    const panels = getPanels(options.content)
+    const panels = getPanelsFromOptions(options)
     const localPanels = dockview.panels
     panels.forEach(p => {
-        const pan = localPanels.find(findPanelFunc(p));
+        const pan = findContentFromPanels(localPanels, p);
         if (pan === void 0) {
-            const panel = dockview.params.panels.find(findPanelFunc(p));
+            const panel = findContentFromPanels(dockview.params.panels, p);
             addGroupWithPanel(dockview, panel || p);
         }
     })
 
     localPanels.forEach(item => {
-        let pan = panels.find(findPanelFunc(item));
+        let pan = findContentFromPanels(panels, item);
         if (pan === void 0) {
             dockview.removePanel(item)
         }
