@@ -101,6 +101,10 @@ const findPanelFunc = v => p => findPanel(p, v);
 
 const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
 
+const findPanels = (panels, v) => {
+    return panels.find((p => p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title);
+}
+
 const savePanel = (dockview, panel) => {
     const { panels, options } = dockview.params;
     panels.push(panel)
