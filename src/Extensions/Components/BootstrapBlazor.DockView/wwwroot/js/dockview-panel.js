@@ -27,14 +27,14 @@ const onRemovePanel = event => {
     }
     savePanel(dockview, panel)
 
-    // 在group上存储已删除的panel标识
-    !event.group.children && (event.group.children = [])
-    event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
-    event.group.children.push({
-        id: event.id,
-        title: event.title,
-        params: event.params
-    })
+    if (event.group.children) {
+        event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
+        event.group.children.push({
+            id: event.id,
+            title: event.title,
+            params: event.params
+        })
+    }
 
     if (event.view.content.element) {
         if (event.titleMenuEle) {
