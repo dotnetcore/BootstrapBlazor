@@ -6206,9 +6206,10 @@
     "GetItemDisplayText": "the callback on get item display text"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeTitle": "Usage",
-    "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
-    "MarqueeDescription": "Marquee component"
+    "MarqueeTitle": "Marquee component",
+    "MarqueeDescription": "The component is mostly used to create scrolling text, usually for news scrolling, advertising scrolling, etc.",
+    "MarqueeBase": "Usage",
+    "MarqueeBaseIntro": "Adjusting the text scrolling effect through parameters"
   },
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",

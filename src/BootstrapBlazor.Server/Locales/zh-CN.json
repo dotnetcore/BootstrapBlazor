@@ -6206,9 +6206,10 @@
     "GetItemDisplayText": "获得显示项显示内容回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeTitle": "基本用法",
-    "MarqueeIntro": "通过参数调节文字滚动效果",
-    "MarqueeDescription": "文字滚动组件"
+    "MarqueeTitle": "循环滚动组件",
+    "MarqueeDescription": "组件多用于创建滚动文本，通常用于新闻滚动、广告滚动等效果",
+    "MarqueeBase": "基本用法",
+    "MarqueeBaseIntro": "通过参数调节文字滚动效果"
   },
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack 布局",
