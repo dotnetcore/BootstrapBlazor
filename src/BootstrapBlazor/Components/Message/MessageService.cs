@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// MessageService 消息弹窗服务
 /// </summary>
 /// <param name="option"></param>
 public class MessageService(IOptionsMonitor<BootstrapBlazorOptions> option) : BootstrapServiceBase<MessageOption>
