@@ -134,6 +134,7 @@ const createGroupActions = group => {
         dockview.params.observer = new ResizeObserver(setWidth);
     }
     dockview.params.observer.observe(group.header.element)
+    dockview.params.observer.observe(group.header.tabContainer)
 
 }
 
@@ -369,9 +370,15 @@ const floatingExitMaximized = group => {
 }
 
 const setWidth = (observerList) => {
-    observerList.forEach(observer => {
-        let header = observer.target
-        let tabsContainer = header.querySelector('.tabs-container')
+    observerList.forEach(({target}) => {
+        let header, tabsContainer
+        if(target.classList.contains('tabs-container')){
+            header = target.parentElement
+            tabsContainer = target
+        }else{
+            header = target
+            tabsContainer = header.querySelector('.tabs-container')
+        }
         let voidWidth = header.querySelector('.void-container').offsetWidth
         let dropdown = header.querySelector('.right-actions-container>.dropdown')
         if (!dropdown) return
@@ -392,10 +399,10 @@ const setWidth = (observerList) => {
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
         } else {
-            let firstLi = dropMenu.children[0]
+            let firstLi = dropMenu.querySelector('li:has(.active-tab)') || dropMenu.children[0]
             if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
-                if (voidWidth > firstLi.getAttribute('tabWidth')) {
+                if (voidWidth > firstLi.getAttribute('tabWidth') || tabsContainer.children.length == 0) {
                     firstTab && tabsContainer.append(firstTab)
                     firstLi.remove()
                 }
