@@ -229,7 +229,7 @@ const addActionEvent = group => {
         else if (ele.classList.contains('bb-dockview-control-icon-down')) {
             down(group, actionContainer, true);
         }
-        else if (ele.classList.contains('bb-dockview-control-icon-close')) {
+        else if (ele.classList.contains('bb-dockview-control-icon-close') && ele.parentElement.classList.contains('right-actions-container')) {
             close(group, actionContainer, true);
         }
     });
