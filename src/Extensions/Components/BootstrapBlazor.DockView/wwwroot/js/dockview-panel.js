@@ -47,6 +47,7 @@ const onRemovePanel = event => {
 
 const updateCloseButton = panel => {
     const showClose = panel.params.showClose ?? panel.accessor.params.options.showClose;
+    const tabEle = panel.view.tab.element
     if (showClose) {
         const closeButton = panel.view.tab._content.nextElementSibling;
         if (closeButton) {
@@ -57,7 +58,7 @@ const updateCloseButton = panel => {
         }
     }
     else {
-        this.tabEle.classList.add('dv-tab-on')
+        tabEle.classList.add('dv-tab-on')
     }
 }
 
