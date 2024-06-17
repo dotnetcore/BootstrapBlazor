@@ -1,0 +1,33 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits FilterBase
+
+<div>
+    <ul style="list-style-type:none;height:100%;padding:0;margin;0;">
+        <li class="mb-1">
+            <Button IsOutline class="w-100">从最小到最大进行排序</Button>
+        </li>
+        <li class="mb-1">
+            <Button IsOutline class="w-100">从最大到最小进行排序</Button>
+        </li>
+        <li class="mb-1">
+            <div>
+                <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" />
+            </div>
+        </li>
+        <li class="mb-1">
+            <div style="height:200px;overflow-y:scroll;overflow-x:hidden;">
+                <div class="mb-1">
+                    <Checkbox @bind-Value="@checkAll" ShowAfterLabel DisplayText="全选" OnStateChanged="@OnStateChanged" />
+                </div>
+                @foreach (var item in FilterItems)
+                {
+                    <div class="mb-1">
+                        <Checkbox @bind-Value="@item.Checked" ShowAfterLabel DisplayText="@item.Value" />
+                    </div>
+                }
+            </div>
+        </li>
+    </ul>
+</div>
+
+
