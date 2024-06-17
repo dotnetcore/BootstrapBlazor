@@ -21,13 +21,13 @@ public partial class Mask
 
     private bool IsMasking { get; set; }
 
-    private string? ClassString() => CssBuilder.Default("mask")
-        .AddClass("show", IsMasking)
-        .Build();
-
     private RenderFragment? BodyTemplate { get; set; }
 
     private int ZIndex { get; set; } = 1000;
+
+    private string? ClassString() => CssBuilder.Default("mask")
+        .AddClass("show", IsMasking)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,9 +50,9 @@ public partial class Mask
                 BodyTemplate = option.BodyTemplate;
             }
             ZIndex = option.ZIndex;
-            IsMasking = true;
-            StateHasChanged();
         }
+        IsMasking = true;
+        StateHasChanged();
 
         return Task.CompletedTask;
     }
