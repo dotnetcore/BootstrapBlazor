@@ -6,6 +6,7 @@ const onAddPanel = panel => {
 }
 
 const onRemovePanel = event => {
+    const dockview = event.accessor
     let panel = {
         id: event.id,
         title: event.title,

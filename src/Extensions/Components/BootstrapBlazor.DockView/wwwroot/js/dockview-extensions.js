@@ -1,5 +1,5 @@
 ﻿import { DockviewComponent, DockviewGroupPanel, getGridLocation, getRelativeLocation, DockviewEmitter } from "./dockview-core.esm.js"
-
+import { getConfigFromStorage } from "./dockview-config.js"
 DockviewComponent.prototype.on = function (eventType, callback) {
     this['_' + eventType] = new DockviewEmitter();
     this['_' + eventType].event(callback)
@@ -23,7 +23,7 @@ DockviewGroupPanel.prototype.removePropsOfParams = function (keys) {
 
 const removeGroup = DockviewComponent.prototype.removeGroup
 DockviewComponent.prototype.removeGroup = function (...argu) {
-    if (this.isClearIng) {
+    if (this.isClearing) {
         return removeGroup.apply(this, argu)
     }
 

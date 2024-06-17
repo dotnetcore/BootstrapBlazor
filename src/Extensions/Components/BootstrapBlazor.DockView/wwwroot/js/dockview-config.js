@@ -9,7 +9,9 @@ const loadPanelsFromLocalstorage = dockview => {
 }
 
 const reloadFromConfig = (dockview, options) => {
+    dockview.isClearing = true
     dockview.clear()
+    dockview.isClearing = false
     dockview.params.panels = [];
 
     const jsonData = getConfigFromOptions(options);
@@ -135,4 +137,4 @@ const saveConfig = dockview => {
     }
 }
 
-export { getConfig, reloadFromConfig, loadPanelsFromLocalstorage };
+export { getConfigFromStorage, getConfig, reloadFromConfig, loadPanelsFromLocalstorage };
