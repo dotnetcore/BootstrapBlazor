@@ -20,9 +20,9 @@ public class MaskOption
     public float? Opacity { get; set; }
 
     /// <summary>
-    /// 获得/设置 backgroup-color 值 默认 未设置 使用 样式 #000
+    /// 获得/设置 background-color 值 默认 未设置 使用 样式 #000
     /// </summary>
-    public string? BackgroupColor { get; set; }
+    public string? BackgroundColor { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件

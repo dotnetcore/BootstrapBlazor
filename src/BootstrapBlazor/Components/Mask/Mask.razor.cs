@@ -19,7 +19,7 @@ public partial class Mask
 
     private string? StyleString => _options == null ? null : CssBuilder.Default()
         .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
-        .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
+        .AddClass($"--bb-mask-bg: {_options.BackgroundColor};", _options.BackgroundColor != null)
         .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
         .Build();
 
@@ -38,13 +38,6 @@ public partial class Mask
     private Task Show(MaskOption? option)
     {
         _options = option;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task Close()
-    {
-        _options = null;
         StateHasChanged();
         return Task.CompletedTask;
     }
