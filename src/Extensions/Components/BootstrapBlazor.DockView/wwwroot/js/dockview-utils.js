@@ -39,7 +39,7 @@ const initDockview = (dockview, options, template) => {
     }
 
     dockview.reset = options => {
-        reloadDockview(dockview, options)
+        reloadFromConfig(dockview, options)
     }
 
     dockview.dispose = () => {
