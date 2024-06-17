@@ -33,20 +33,6 @@ public partial class DockViewLayout
         LayoutConfig = LayoutConfig3;
     }
 
-    private void OnToggleShow()
-    {
-        LayoutConfig = string.Empty;
-        _show = !_show;
-    }
-
-    private Task OnSaveLayout()
-    {
-        DockView.SaveLayout();
-        return Task.CompletedTask;
-    }
-
-    private bool _show = true;
-
     private string LayoutConfig = LayoutConfig1;
 
     const string LayoutConfig1 = """{"grid":{"root":{"type":"branch","data":[{"type":"branch","data":[{"type":"leaf","data":{"views":["bb_5893789"],"activeView":"bb_5893789","id":"0"},"size":364},{"type":"leaf","data":{"views":["bb_11251481"],"activeView":"bb_11251481","id":"1"},"size":364},{"type":"leaf","data":{"views":["bb_39754773"],"activeView":"bb_39754773","id":"2"},"size":364}],"size":601}],"size":1092},"width":1092,"height":601,"orientation":"VERTICAL"},"panels":{"bb_5893789":{"id":"bb_5893789","contentComponent":"component","tabComponent":"component","params":{"componentName":"component","title":"标签一","titleWidth":null,"titleClass":null,"class":null,"visible":true,"showClose":true,"width":null,"height":null,"key":null,"isLock":false,"type":"component","id":"bb_5893789","additionalAttributes":null},"title":"标签一"},"bb_11251481":{"id":"bb_11251481","contentComponent":"component","tabComponent":"component","params":{"componentName":"component","title":"标签二","titleWidth":null,"titleClass":null,"class":null,"visible":true,"showClose":true,"width":null,"height":null,"key":null,"isLock":false,"type":"component","id":"bb_11251481","additionalAttributes":null},"title":"标签二"},"bb_39754773":{"id":"bb_39754773","contentComponent":"component","tabComponent":"component","params":{"componentName":"component","title":"标签三","titleWidth":null,"titleClass":null,"class":null,"visible":true,"showClose":true,"width":null,"height":null,"key":null,"isLock":false,"type":"component","id":"bb_39754773","additionalAttributes":null},"title":"标签三"}},"activeGroup":"1"}""";

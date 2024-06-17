@@ -14,13 +14,13 @@ export async function init(id, invoke, options) {
 
     dockview.on('initialized', () => {
         invoke.invokeMethodAsync(options.initializedCallback);
-    })
+    });
     dockview.on('lockChanged', ({ title, isLock }) => {
         invoke.invokeMethodAsync(options.lockChangedCallback, title, isLock);
-    })
+    });
     dockview.on('panelClosed', title => {
         invoke.invokeMethodAsync(options.panelClosedCallback, title);
-    })
+    });
 }
 
 export function update(id, options) {

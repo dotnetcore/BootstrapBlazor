@@ -6,6 +6,7 @@ const onAddPanel = panel => {
 }
 
 const onRemovePanel = event => {
+    const dockview = event.accessor
     let panel = {
         id: event.id,
         title: event.title,
@@ -26,14 +27,14 @@ const onRemovePanel = event => {
     }
     savePanel(dockview, panel)
 
-    // 在group上存储已删除的panel标识
-    !event.group.children && (event.group.children = [])
-    event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
-    event.group.children.push({
-        id: event.id,
-        title: event.title,
-        params: event.params
-    })
+    if (event.group.children) {
+        event.group.children = event.group.children.filter(p => findPanel(p, event) !== null);
+        event.group.children.push({
+            id: event.id,
+            title: event.title,
+            params: event.params
+        })
+    }
 
     if (event.view.content.element) {
         if (event.titleMenuEle) {
@@ -47,6 +48,7 @@ const onRemovePanel = event => {
 
 const updateCloseButton = panel => {
     const showClose = panel.params.showClose ?? panel.accessor.params.options.showClose;
+    const tabEle = panel.view.tab.element
     if (showClose) {
         const closeButton = panel.view.tab._content.nextElementSibling;
         if (closeButton) {
@@ -57,7 +59,7 @@ const updateCloseButton = panel => {
         }
     }
     else {
-        this.tabEle.classList.add('dv-tab-on')
+        tabEle.classList.add('dv-tab-on')
     }
 }
 
@@ -77,8 +79,8 @@ const updateTitle = panel => {
     }
 }
 
-const getPanels = content => {
-    return getPanel(content[0])
+const getPanelsFromOptions = options => {
+    return getPanel(options.content[0])
 }
 
 const getPanel = (contentItem, parent = {}, panels = []) => {
@@ -97,9 +99,9 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
     return panels
 }
 
-const findPanelFunc = v => p => findPanel(p, v);
-
-const findPanel = (p, v) => (p.params.key && p.params.key === v.params.key) || p.id === v.id || p.title === v.title;
+const findContentFromPanels = (panels, content) => {
+    return panels.find((p => p.params.key && p.params.key === content.params.key) || p.id === content.id || p.title === content.title);
+}
 
 const savePanel = (dockview, panel) => {
     const { panels, options } = dockview.params;
@@ -120,4 +122,4 @@ const deletePanel = (dockview, panel) => {
     }
 }
 
-export { onAddPanel, onRemovePanel, getPanels, getPanel, findPanelFunc, deletePanel };
+export { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels, deletePanel };
