@@ -423,6 +423,13 @@
     "ModalsAttributeShowMaximizeButton": "是否显示弹出的最大化按钮",
     "ModalsAttributeShownCallbackAsync": "弹出菜单显示回调方法"
   },
+  "BootstrapBlazor.Server.Components.Samples.Masks": {
+    "MaskTitle": "遮罩组件",
+    "MaskDescription": "通过调用服务显示，隐藏方法，显示一个遮罩层对数据进行遮罩操作",
+    "MaskNormalTitle": "基本用法",
+    "MaskNormalIntro": "调用 <code>MaskService</code> 遮罩服务示例方法 <code>Show</code> 方法显示一个遮罩，3 秒后调用实例方法 <code>Close</code> 关闭遮罩",
+    "ShowMaskButtonText": "打开"
+  },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message 消息提示",
     "MessagesDescription": "常用于主动操作后的反馈提示。与 Toast 的区别是后者更多用于系统级通知的被动提醒",

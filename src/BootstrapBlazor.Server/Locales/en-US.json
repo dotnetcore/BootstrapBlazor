@@ -423,6 +423,13 @@
     "ModalsAttributeShowMaximizeButton": "Whether to show the popup maximize button",
     "ModalsAttributeShownCallbackAsync": "Popup shows callback method"
   },
+  "BootstrapBlazor.Server.Components.Samples.Masks": {
+    "MaskTitle": "Mask",
+    "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
+    "MaskNormalTitle": "Basic usage",
+    "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "ShowMaskButtonText": "Show"
+  },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
     "MessagesDescription": "Often used for feedback prompts after active operations. The difference from Toast is that the latter is more passive reminder for system-level notifications",
