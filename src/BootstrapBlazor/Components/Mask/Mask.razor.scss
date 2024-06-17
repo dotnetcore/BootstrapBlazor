@@ -13,3 +13,8 @@
     text-align: center;
     align-content: center;
 }
+
+
+.bb-mask:not(.show) {
+    display: none;
+}

@@ -13,20 +13,25 @@ public partial class Mask
     [NotNull]
     private MaskService? MaskService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-mask fade")
-        .AddClass("show", IsMasking)
+    private string? ClassString => CssBuilder.Default("bb-mask")
+        .AddClass("show", _options != null)
         .Build();
 
-    private string? StyleString => CssBuilder.Default()
-        .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
-        .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
-        .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
-        .Build();
+    private string? GetStyleString()
+    {
+        string? ret = null;
+        if (_options != null)
+        {
+            ret = CssBuilder.Default()
+               .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
+               .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
+               .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
+               .Build();
+        }
+        return ret;
+    }
 
-    private bool IsMasking { get; set; }
-
-    [NotNull]
-    private MaskOption? _options = default;
+    private MaskOption? _options;
 
     /// <summary>
     /// <inheritdoc/>
@@ -47,7 +52,7 @@ public partial class Mask
 
     private Task Close()
     {
-        _options.ChildContent = null;
+        _options = null;
         StateHasChanged();
         return Task.CompletedTask;
     }

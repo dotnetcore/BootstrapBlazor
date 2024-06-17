@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<div class="@ClassString" style="@StyleString">
+<div class="@ClassString" style="@GetStyleString()">
     <CascadingValue Value="Close" IsFixed="true">
-        @_options.ChildContent
+        @_options?.ChildContent
     </CascadingValue>
 </div>
