@@ -23,7 +23,7 @@ public class MaskServiceTest : BootstrapBlazorTestBase
                 {
                     await maskService.Show(new MaskOption()
                     {
-                        BackgroupColor = "#000",
+                        BackgroundColor = "#000",
                         Opacity = 0.5f,
                         ZIndex = 1050,
                         ChildContent = builder => builder.AddContent(0, "test-mask-content")
