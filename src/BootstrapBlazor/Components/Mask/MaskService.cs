@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MaskService 遮罩服务
 /// </summary>
-public class MaskService : BootstrapServiceBase<MaskOption>
+public class MaskService : BootstrapServiceBase<MaskOption?>
 {
     /// <summary>
     /// 显示 Mask 方法
@@ -15,4 +15,10 @@ public class MaskService : BootstrapServiceBase<MaskOption>
     /// <param name="option">遮罩配置信息实体类</param>
     /// <returns></returns>
     public Task Show(MaskOption option) => Invoke(option);
+
+    /// <summary>
+    /// 关闭 Mask 方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Close() => Invoke(null);
 }
