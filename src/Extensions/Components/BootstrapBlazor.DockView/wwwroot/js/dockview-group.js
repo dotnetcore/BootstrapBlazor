@@ -124,7 +124,9 @@ const createGroupActions = group => {
             actionContainer.append(icon);
         }
     });
-    resetActionStates(group, actionContainer);
+    setTimeout(() => {
+        resetActionStates(group, actionContainer);
+    }, 0)
     addActionEvent(group, actionContainer);
 
     const dockview = group.api.accessor;
@@ -144,15 +146,15 @@ const resetActionStates = (group, actionContainer) => {
     if (showLock(dockview, group)) {
         actionContainer.classList.add('bb-show-lock');
         if (getLockState(dockview, group)) {
-            actionContainer.classList.add('bb-lock');
-            toggleLock(true)
+            // actionContainer.classList.add('bb-lock');
+            toggleLock(group, actionContainer, true)
         }
     }
     if (showMaximize(dockview, group)) {
         actionContainer.classList.add('bb-show-maximize');
         if (getMaximizeState(group)) {
-            actionContainer.classList.add('bb-maximize');
-            toggleFull(false)
+            // actionContainer.classList.add('bb-maximize');
+            toggleFull(group, actionContainer, true)
         }
     }
     if (showFloat(dockview, group)) {
@@ -242,6 +244,7 @@ const removeActionEvent = group => {
 const toggleLock = (group, actionContainer, isLock) => {
     const dockview = group.api.accessor;
 
+    group.locked = isLock
     group.panels.forEach(panel => panel.params.isLock = isLock);
     if (isLock) {
         actionContainer.classList.add('bb-lock')
@@ -275,13 +278,7 @@ const float = group => {
     if (gridGroups.length <= 1) return;
 
     const { position = {}, isPackup, height, isMaximized } = group.getParams()
-    const floatingGroupPosition = isMaximized
-        ? {
-            x: 0, y: 0,
-            width: dockview.width,
-            height: dockview.height
-        }
-        : {
+    const floatingGroupPosition = {
             x: position.left || (x < 35 ? 35 : x),
             y: position.top || (y < 35 ? 35 : y),
             width: position.width || 500,
@@ -298,7 +295,7 @@ const float = group => {
         })
     })
     dockview.setVisible(group, false)
-    floatingGroup.setParams({ isPackup, height, isMaximized })
+    // floatingGroup.setParams({ isPackup, height, isMaximized })
     dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
     createGroupActions(floatingGroup);
 }

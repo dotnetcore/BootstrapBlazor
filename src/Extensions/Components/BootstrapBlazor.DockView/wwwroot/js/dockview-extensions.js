@@ -55,7 +55,7 @@ DockviewComponent.prototype.removePanel = function (...argu) {
     const panel = argu[0]
     if (!panel.group.locked) {
         removePanel.apply(this, argu)
-        if (!this.isClearIng) {
+        if (!this.isClearing) {
             this._panelClosed?.fire(panel.title)
         }
     }
