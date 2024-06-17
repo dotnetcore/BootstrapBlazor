@@ -16,7 +16,9 @@ public partial class Masks
     {
         await MaskService.Show(new MaskOption()
         {
-            ChildContent = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<i class=\"text-white fa-solid fa-3x fa-spinner fa-spin-pulse\"></i><span class=\"ms-3 fs-2 text-white\">loading ....</span>"))
         });
+        await Task.Delay(3000);
+        await MaskService.Close();
     }
 }
