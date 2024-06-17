@@ -4605,6 +4605,7 @@
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
     "Html2Pdf": "IHtml2Pdf",
+    "Mask": "MaskService",
     "ContextMenu": "ContextMenu",
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
