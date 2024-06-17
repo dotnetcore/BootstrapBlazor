@@ -11,21 +11,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
 
-.bb-mask:not(.show) {
-    display: none;
-}
+    &:not(.show) {
+        display: none;
+    }
 
-.bb-mask-backdrop {
-    background-color: var(--bb-mask-bg);
-    opacity: var(--bb-mask-opacity);
-    height: 100%;
-    width: 100%;
-}
+    .bb-mask-backdrop {
+        background-color: var(--bb-mask-bg);
+        opacity: var(--bb-mask-opacity);
+        height: 100%;
+        width: 100%;
+    }
 
-.bb-mask-content {
-    position: absolute;
-    display: flex;
-    align-items: center;
+    .bb-mask-content {
+        position: absolute;
+        display: flex;
+        align-items: center;
+    }
 }
