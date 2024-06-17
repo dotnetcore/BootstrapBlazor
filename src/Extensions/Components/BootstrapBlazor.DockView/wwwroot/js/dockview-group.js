@@ -418,4 +418,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { onAddGroup, addGroupWithPanel };
+export { onAddGroup, addGroupWithPanel, toggleLock };

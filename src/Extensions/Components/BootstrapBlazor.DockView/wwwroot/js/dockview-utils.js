@@ -1,6 +1,6 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel } from "./dockview-group.js"
+import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanels, findPanelFunc } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
@@ -30,8 +30,10 @@ const initDockview = (dockview, options, template) => {
         if (options.layoutConfig) {
             reloadFromConfig(dockview, options)
         }
-        else if (dockview.locked !== options.lock) {
+        else if (dockview.params.options.lock !== options.lock) {
             // TODO: 循环所有 Group 锁定 Group
+            dockview.params.options.lock = options.lock
+            toggleGroupLock(dockview, options)
         }
         else {
             toggleComponent(dockview, options)
@@ -101,6 +103,11 @@ const toggleComponent = (dockview, options) => {
         if (pan === void 0) {
             dockview.removePanel(item)
         }
+    })
+}
+const toggleGroupLock = (dockview, options) => {
+    dockview.groups.forEach(group => {
+        toggleLock(group, group.header.rightActionsContainer, options.lock)
     })
 }
 
