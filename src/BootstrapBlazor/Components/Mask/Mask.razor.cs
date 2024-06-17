@@ -14,22 +14,14 @@ public partial class Mask
     private MaskService? MaskService { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-mask")
-        .AddClass("show", _options != null)
+        .AddClass("show", _options is { ChildContent: not null })
         .Build();
 
-    private string? GetStyleString()
-    {
-        string? ret = null;
-        if (_options != null)
-        {
-            ret = CssBuilder.Default()
-               .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
-               .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
-               .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
-               .Build();
-        }
-        return ret;
-    }
+    private string? StyleString => _options == null ? null : CssBuilder.Default()
+        .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
+        .AddClass($"--bb-mask-bg: {_options.BackgroupColor};", _options.BackgroupColor != null)
+        .AddClass($"--bb-mask-opacity: {_options.Opacity};", _options.Opacity != null)
+        .Build();
 
     private MaskOption? _options;
 
