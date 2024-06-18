@@ -97,12 +97,13 @@ export function reset(id) {
 
     setBodyHeight(table)
 
+    const observer = new ResizeObserver(() => {
+        setBodyHeight(table);
+    });
+    table.observer = observer
+    observer.observe(table.el);
     if (table.search) {
-        const observer = new ResizeObserver(() => {
-            setBodyHeight(table)
-        });
         observer.observe(table.search)
-        table.observer = observer
     }
 }
 
