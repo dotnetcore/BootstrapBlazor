@@ -240,9 +240,11 @@ const addActionEvent = group => {
         }
         else if (e.target.classList.contains('dv-default-tab-content')) {
             const liEle = e.target.closest('li');
-            liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
-            liEle.children[0].append(tabsContainer.children[0])
-            tabsContainer.append(liEle.children[0].children[0])
+            const tabEle = tabsContainer.children[0]
+            liEle.tabWidth = tabEle.offsetWidth;
+
+            liEle.children[0].appendChild(tabEle);
+            tabsContainer.append(e.target.closest('.tab'));
         }
     });
 }
@@ -381,6 +383,7 @@ const floatingExitMaximized = group => {
 }
 
 const setWidth = (observerList) => {
+    console.log(observerList);
     observerList.forEach(({ target }) => {
         let header, tabsContainer
         if (target.classList.contains('tabs-container')) {
@@ -401,7 +404,7 @@ const setWidth = (observerList) => {
             let aEle = document.createElement('a')
             let liEle = document.createElement('li')
             aEle.className = 'dropdown-item'
-            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
+            liEle.tabWidth = lastTab.offsetWidth;
             aEle.append(lastTab)
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
@@ -410,7 +413,7 @@ const setWidth = (observerList) => {
             let firstLi = dropMenu.querySelector('li:has(.active-tab)') || dropMenu.children[0]
             if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
-                if (voidWidth > firstLi.getAttribute('tabWidth') || tabsContainer.children.length == 0) {
+                if (voidWidth > firstLi.tabWidth || tabsContainer.children.length == 0) {
                     firstTab && tabsContainer.append(firstTab)
                     firstLi.remove()
                 }
