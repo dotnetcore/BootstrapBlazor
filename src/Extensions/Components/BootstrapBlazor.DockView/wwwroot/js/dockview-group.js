@@ -383,7 +383,6 @@ const floatingExitMaximized = group => {
 }
 
 const setWidth = (observerList) => {
-    console.log(observerList);
     observerList.forEach(({ target }) => {
         let header, tabsContainer
         if (target.classList.contains('tabs-container')) {
