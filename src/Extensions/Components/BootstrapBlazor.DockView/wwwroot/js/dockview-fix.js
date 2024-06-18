@@ -1,5 +1,4 @@
 ﻿const fixObject = data => {
-    if (!data) return null
     data.floatingGroups?.forEach(item => {
         let { width, height } = item.position
         item.position.width = width - 2
