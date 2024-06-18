@@ -25,10 +25,16 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 排序回调方法 默认 null 使用内置
+    /// 获得/设置 组排序回调方法 默认 null 使用内置
     /// </summary>
     [Parameter]
-    public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupOrderCallback { get; set; }
+    public Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>? GroupOrderCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组内项目排序回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupItemOrderCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 BodyTemplate
@@ -202,7 +208,12 @@ public partial class ListView<TItem> : BootstrapComponentBase
         }
     };
 
-    private IEnumerable<(object? GroupName, IOrderedEnumerable<TItem> Items)> GetGroupItems(Func<TItem, object?> groupFunc) => GroupOrderCallback == null
-        ? Rows.GroupBy(groupFunc).Select(i => (i.Key, i.OrderBy(g => i.Key)))
-        : Rows.GroupBy(groupFunc).Select(i => (i.Key, GroupOrderCallback(i)));
+    private IEnumerable<(object? GroupName, IOrderedEnumerable<TItem> Items)> GetGroupItems(Func<TItem, object?> groupFunc)
+    {
+        var groupItems = Rows.GroupBy(groupFunc);
+        var groupOrderItems = GroupOrderCallback == null ? groupItems.OrderBy(i => i.Key) : GroupOrderCallback(groupItems);
+        return GroupItemOrderCallback == null
+            ? groupOrderItems.Select(i => (i.Key, i.OrderBy(g => i.Key)))
+            : groupOrderItems.Select(i => (i.Key, GroupItemOrderCallback(i)));
+    }
 }
