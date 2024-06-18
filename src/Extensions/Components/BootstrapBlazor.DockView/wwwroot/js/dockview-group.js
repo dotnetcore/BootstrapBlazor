@@ -203,10 +203,10 @@ const getFloatState = group => group.model.location.type === 'floating';
 
 const addActionEvent = group => {
     const actionContainer = group.header.element.querySelector('.right-actions-container');
+    const tabsContainer = group.header.tabContainer
 
     EventHandler.on(actionContainer, 'click', '.bb-dockview-control-icon', e => {
         const ele = e.delegateTarget;
-
         if (ele.classList.contains('bb-dockview-control-icon-lock')) {
             toggleLock(group, actionContainer, false);
             group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: false });
@@ -232,6 +232,12 @@ const addActionEvent = group => {
         }
         else if (ele.classList.contains('bb-dockview-control-icon-close') && ele.parentElement.classList.contains('right-actions-container')) {
             close(group, actionContainer, true);
+        }
+        else if(e.target.classList.contains('dv-default-tab-content')) {
+            const liEle = e.target.parentElement.parentElement.parentElement.parentElement
+            liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
+            liEle.children[0].append(tabsContainer.children[0])
+            tabsContainer.append(liEle.children[0].children[0])
         }
     });
 }
@@ -390,11 +396,6 @@ const setWidth = (observerList) => {
             let liEle = document.createElement('li')
             aEle.className = 'dropdown-item'
             liEle.setAttribute('tabWidth', lastTab.offsetWidth)
-            liEle.addEventListener('click', () => {
-                liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
-                liEle.children[0].append(tabsContainer.children[0])
-                tabsContainer.append(liEle.children[0].children[0])
-            })
             aEle.append(lastTab)
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
