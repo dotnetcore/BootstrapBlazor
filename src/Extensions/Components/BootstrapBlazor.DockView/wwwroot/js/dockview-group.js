@@ -138,7 +138,9 @@ const createGroupActions = group => {
 
 }
 
-const removeGroupActions = group => {
+const disposeGroup = group => {
+    group.api.accessor.params.observer.unobserve(group.header.element);
+    group.api.accessor.params.observer.unobserve(group.header.tabContainer);
     removeActionEvent(group);
 }
 
@@ -412,4 +414,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { onAddGroup, addGroupWithPanel, toggleLock, removeGroupActions };
+export { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup };

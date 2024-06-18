@@ -1,6 +1,6 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel, toggleLock, removeGroupActions } from "./dockview-group.js"
+import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
@@ -43,8 +43,9 @@ const initDockview = (dockview, options, template) => {
         reloadFromConfig(dockview, options)
     }
 
-    dockview.bbDispose = () => {
+    dockview.close = () => {
         saveConfig(dockview);
+        dockview.params.observer.disconnect();
         dockview.dispose()
     }
 
