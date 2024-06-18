@@ -111,6 +111,10 @@
         overflow: hidden;
     }
 
+    .bb-dockview .tabs-and-actions-container:has(.bb-lock) .void-container {
+        cursor: default;
+    }
+
     .bb-dockview .right-actions-container {
         display: flex;
         align-items: center;
