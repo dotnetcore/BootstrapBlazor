@@ -48,7 +48,9 @@ public sealed partial class ListViews
 
     private static bool CollapsedGroupCallback(object? groupKey) => groupKey?.ToString() != "Group1";
 
-    private static IOrderedEnumerable<Product>? GroupOrderCallback(IGrouping<object?, Product> group) => group.OrderByDescending(i => i.ImageUrl);
+    private static IOrderedEnumerable<IGrouping<object?, Product>>? GroupOrderCallback(IEnumerable<IGrouping<object?, Product>> group) => group.OrderByDescending(i => i.Key);
+
+    private static IOrderedEnumerable<Product>? GroupItemOrderCallback(IGrouping<object?, Product> group) => group.OrderByDescending(i => i.ImageUrl);
 
     internal class Product
     {
