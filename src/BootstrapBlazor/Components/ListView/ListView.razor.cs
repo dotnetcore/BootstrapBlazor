@@ -28,8 +28,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 排序回调方法 默认 null 使用内置
     /// </summary>
     [Parameter]
-    [NotNull]
-    public IOrderedEnumerable<IGrouping<object?, TItem>>? GroupOrderCallback { get; set; }
+    public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupOrderCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 BodyTemplate
@@ -136,10 +135,6 @@ public partial class ListView<TItem> : BootstrapComponentBase
         {
             await QueryData();
         }
-        if (GroupName != null)
-        {
-            GroupOrderCallback = Rows.GroupBy(GroupName).OrderBy(k => k.Key);
-        }
     }
 
     private bool IsCollapsed(int index, object? groupKey) => CollapsedGroupCallback?.Invoke(groupKey) ?? index > 0;
@@ -197,13 +192,17 @@ public partial class ListView<TItem> : BootstrapComponentBase
         }
     }
 
-    private RenderFragment RenderCollapsibleItems() => builder =>
+    private RenderFragment RenderCollapsibleItems(Func<TItem, object?> groupFunc) => builder =>
     {
         var index = 0;
-        foreach (var key in GroupOrderCallback)
+        foreach (var key in GetGroupItems(groupFunc))
         {
             var i = index++;
             builder.AddContent(i, RenderItem(key, i));
         }
     };
+
+    private IEnumerable<(object? GroupName, IOrderedEnumerable<TItem> Items)> GetGroupItems(Func<TItem, object?> groupFunc) => GroupOrderCallback == null
+        ? Rows.GroupBy(groupFunc).Select(i => (i.Key, i.OrderBy(g => i.Key)))
+        : Rows.GroupBy(groupFunc).Select(i => (i.Key, GroupOrderCallback(i)));
 }
