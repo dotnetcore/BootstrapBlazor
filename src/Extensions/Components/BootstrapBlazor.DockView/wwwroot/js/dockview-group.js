@@ -108,10 +108,13 @@ const getOrientation = function (child, group) {
         else {
             for (const item of child.children) {
                 let orientation = getOrientation(item, group)
-                if (orientation) return orientation
+                if (orientation) {
+                    return orientation
+                }
             }
         }
-    } else {
+    }
+    else {
         return false
     }
 }
@@ -235,8 +238,8 @@ const addActionEvent = group => {
         else if (ele.classList.contains('bb-dockview-control-icon-close') && ele.parentElement.classList.contains('right-actions-container')) {
             close(group, actionContainer, true);
         }
-        else if(e.target.classList.contains('dv-default-tab-content')) {
-            const liEle = e.target.parentElement.parentElement.parentElement.parentElement
+        else if (e.target.classList.contains('dv-default-tab-content')) {
+            const liEle = e.target.closest('li');
             liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
             liEle.children[0].append(tabsContainer.children[0])
             tabsContainer.append(liEle.children[0].children[0])
@@ -378,12 +381,13 @@ const floatingExitMaximized = group => {
 }
 
 const setWidth = (observerList) => {
-    observerList.forEach(({target}) => {
+    observerList.forEach(({ target }) => {
         let header, tabsContainer
-        if(target.classList.contains('tabs-container')){
+        if (target.classList.contains('tabs-container')) {
             header = target.parentElement
             tabsContainer = target
-        }else{
+        }
+        else {
             header = target
             tabsContainer = header.querySelector('.tabs-container')
         }
@@ -401,7 +405,8 @@ const setWidth = (observerList) => {
             aEle.append(lastTab)
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
-        } else {
+        }
+        else {
             let firstLi = dropMenu.querySelector('li:has(.active-tab)') || dropMenu.children[0]
             if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
