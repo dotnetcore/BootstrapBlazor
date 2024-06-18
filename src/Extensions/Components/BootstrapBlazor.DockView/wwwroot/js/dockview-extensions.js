@@ -1,10 +1,16 @@
 ﻿import { DockviewComponent, DockviewGroupPanel, getGridLocation, getRelativeLocation, DockviewEmitter } from "./dockview-core.esm.js"
 import { getConfigFromStorage } from "./dockview-config.js"
+import { removeGroupActions } from "./dockview-group.js"
 DockviewComponent.prototype.on = function (eventType, callback) {
     this['_' + eventType] = new DockviewEmitter();
     this['_' + eventType].event(callback)
 }
 
+const groupDispose = DockviewGroupPanel.prototype.dispose
+DockviewGroupPanel.prototype.dispose = function(){
+    removeGroupActions(this)
+    groupDispose.call(this)
+}
 DockviewGroupPanel.prototype.getParams = function () {
     return this.activePanel?.params || {}
 }
