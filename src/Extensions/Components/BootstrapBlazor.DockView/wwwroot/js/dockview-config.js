@@ -4,7 +4,8 @@ import { getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js
 const loadPanelsFromLocalstorage = dockview => {
     const { options } = dockview.params;
     if (options.enableLocalStorage) {
-        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
+        const panelsStr = localStorage.getItem(`${options.localStorageKey}-panels`)
+        dockview.params.panels = panelsStr ? JSON.parse(panelsStr) : [];
     }
 }
 
