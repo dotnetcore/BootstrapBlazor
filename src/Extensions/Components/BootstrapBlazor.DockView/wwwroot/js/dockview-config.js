@@ -80,7 +80,7 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
         size = (1 / length * boxSize).toFixed(2) * 1
     }
     else {
-        size = hasSizeList.reduce((pre, cur) => pre + getActualSize(width, height, cur.width, cur.height), 0)
+        size = hasSizeList.reduce((pre, cur) => pre + getSize(boxSize, cur.width || cur.height), 0)
         size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
     }
     orientation === 'HORIZONTAL' ? width = size : height = size
@@ -89,26 +89,30 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
     let obj = {}
     if (contentItem.type === 'row' || contentItem.type === 'column') {
         obj.type = 'branch';
-        obj.size = getActualSize(width, height, contentItem.width, contentItem.height, size);
+        obj.size = getSize(boxSize, contentItem.width || contentItem.height) || size
         obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId))
     }
     else if (contentItem.type === 'group') {
-        obj = getGroupNode(contentItem, width, height, size, panels, getGroupId);
+        obj = getGroupNode(contentItem, size, boxSize, panels, getGroupId);
     }
     else if (contentItem.type === 'component') {
-        obj = getLeafNode(contentItem, width, height, size, panels, getGroupId);
+        obj = getLeafNode(contentItem, size, boxSize, panels, getGroupId);
     }
     return obj
+}
+
+const getSize = (size, rate) => {
+    return rate ? size * (rate / 100) : false
 }
 
 const getActualSize = (width, height, widthRate, heightRate, defaultSize) => (width ?? height) === null
     ? defaultSize
     : width ? width * widthRate / 100 : height * heightRate / 100;
 
-const getGroupNode = (contentItem, width, height, size, panels, getGroupId) => {
+const getGroupNode = (contentItem, size, boxSize, panels, getGroupId) => {
     return {
         type: 'leaf',
-        size: getActualSize(width, height, contentItem.width, contentItem.height, size),
+        size: getSize(boxSize, contentItem.width || contentItem.height) || size,
         visible: contentItem.content.some(item => item.visible !== false),
         data: {
             id: getGroupId(),
@@ -128,12 +132,12 @@ const getGroupNode = (contentItem, width, height, size, panels, getGroupId) => {
     }
 }
 
-const getLeafNode = (contentItem, width, height, size, panels, getGroupId) => {
+const getLeafNode = (contentItem, size, boxSize, panels, getGroupId) => {
     const visible = contentItem.visible !== false;
     const data = {
         type: 'leaf',
         visible,
-        size: getActualSize(width, height, contentItem.width, contentItem.height, size),
+        size: getSize(boxSize, contentItem.width || contentItem.height) || size,
         data: {
             id: getGroupId(),
             activeView: contentItem.id,
