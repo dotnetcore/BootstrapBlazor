@@ -56,7 +56,7 @@ export function dispose(id) {
     if (dock) {
         const { dockview } = dock;
         if (dockview) {
-            dockview.close();
+            dockview.dispose();
         }
     }
 }

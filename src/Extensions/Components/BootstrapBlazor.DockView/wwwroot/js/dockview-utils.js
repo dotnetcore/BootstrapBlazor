@@ -43,10 +43,11 @@ const initDockview = (dockview, options, template) => {
         reloadFromConfig(dockview, options)
     }
 
-    dockview.close = () => {
+    const dispose = dockview.dispose;
+    dockview.dispose = function () {
         saveConfig(dockview);
         dockview.params.observer.disconnect();
-        dockview.dispose()
+        dispose.call(this);
     }
 
     dockview.onDidRemovePanel(onRemovePanel);
