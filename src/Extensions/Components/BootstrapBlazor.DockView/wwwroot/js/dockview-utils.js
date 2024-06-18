@@ -68,14 +68,7 @@ const initDockview = (dockview, options, template) => {
     })
 
     dockview.onDidLayoutFromJSON(() => {
-        setTimeout(() => {
-            dockview._initialized?.fire()
-        }, 0)
-        dockview.groups.forEach(group => {
-            if (group.panels.length === 0) {
-                dockview.setVisible(group, false)
-            }
-        })
+        dockview._initialized?.fire()
     })
 }
 

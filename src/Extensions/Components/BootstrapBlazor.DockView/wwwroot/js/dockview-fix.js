@@ -5,7 +5,7 @@
         item.position.height = height - 2
     });
 
-    removeInvisibleBranch(data.grid.root)
+    // removeInvisibleBranch(data.grid.root)
     return data
 }
 
