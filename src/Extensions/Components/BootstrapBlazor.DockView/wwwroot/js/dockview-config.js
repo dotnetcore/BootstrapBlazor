@@ -18,10 +18,14 @@ const reloadFromConfig = (dockview, options) => {
     dockview.fromJSON(jsonData);
 }
 
-const getConfig = options => options.enableLocalStorage ? getConfigFromStorage(options.localStorageKey) : getConfigFromOptions(options);
+const getConfig = options => {
+    const config = options.enableLocalStorage ? getConfigFromStorage(options) : null;
+    return config ?? getConfigFromOptions(options);
+}
 
-const getConfigFromStorage = key => {
-    return fixObject(JSON.parse(localStorage.getItem(key)));
+const getConfigFromStorage = options => {
+    const jsonString = localStorage.getItem(options.localStorageKey);
+    return jsonString ? fixObject(JSON.parse(jsonString)) : null;
 }
 
 const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
