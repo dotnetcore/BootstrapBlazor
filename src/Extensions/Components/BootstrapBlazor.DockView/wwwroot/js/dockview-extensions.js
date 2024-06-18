@@ -1,9 +1,17 @@
 ﻿import { DockviewComponent, DockviewGroupPanel, getGridLocation, getRelativeLocation, DockviewEmitter } from "./dockview-core.esm.js"
-import { getConfigFromStorage } from "./dockview-config.js"
+import { getConfigFromStorage, saveConfig } from "./dockview-config.js"
 import { disposeGroup } from "./dockview-group.js"
+
 DockviewComponent.prototype.on = function (eventType, callback) {
     this['_' + eventType] = new DockviewEmitter();
     this['_' + eventType].event(callback)
+}
+
+const dispose = DockviewComponent.prototype.dispose;
+DockviewComponent.prototype.dispose = function () {
+    this.params.observer.disconnect();
+    saveConfig(this);
+    dispose.call(this);
 }
 
 const groupDispose = DockviewGroupPanel.prototype.dispose
@@ -41,7 +49,6 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         })
         this.setVisible(group, false)
 
-        // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
         let delPanels = getConfigFromStorage(this.params.options.localStorageKey + '-panels')
         delPanels = delPanels?.map(panel => {
             if (panel.groupId == group.id) {

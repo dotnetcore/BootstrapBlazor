@@ -2,7 +2,7 @@
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
-import { getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -41,13 +41,6 @@ const initDockview = (dockview, options, template) => {
 
     dockview.reset = options => {
         reloadFromConfig(dockview, options)
-    }
-
-    const dispose = dockview.dispose;
-    dockview.dispose = function () {
-        saveConfig(dockview);
-        dockview.params.observer.disconnect();
-        dispose.call(this);
     }
 
     dockview.onDidRemovePanel(onRemovePanel);
