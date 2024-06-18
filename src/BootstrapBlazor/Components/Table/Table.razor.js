@@ -660,8 +660,14 @@ const setTableDefaultWidth = table => {
         const { scrollWidth, columnMinWidth } = table.options;
         const length = table.tables[0].querySelectorAll('th').length;
         const tableWidth = length * columnMinWidth;
+
         if (table.tables[0].checkVisibility()) {
-            if (tableWidth > table.tables[0].offsetWidth) {
+            if (table.el.offsetWidth < tableWidth) {
+                setTimeout(() => {
+                    setTableDefaultWidth(table);
+                }, 0);
+            }
+            else if (tableWidth > table.tables[0].offsetWidth) {
                 table.tables[0].style.setProperty('width', `${tableWidth}px`);
                 table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
             }
