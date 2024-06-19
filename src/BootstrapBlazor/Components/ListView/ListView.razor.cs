@@ -25,7 +25,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组排序回调方法 默认 null 使用内置
+    /// 获得/设置 获得 <see cref="CollapseItem.Text"/> 值 默认 null 使用分组 Key.ToString() 方法获取
     /// </summary>
     [Parameter]
     public Func<object?, string?>? GroupHeaderTextCallback { get; set; }

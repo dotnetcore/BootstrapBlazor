@@ -136,7 +136,21 @@ public sealed partial class ListViews
         new() {
             Name = nameof(ListView<Foo>.GroupOrderCallback),
             Description = Localizer["GroupOrderCallback"],
-            Type = "IOrderedEnumerable<IGrouping<object?, TItem>>",
+            Type = "Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupItemOrderCallback),
+            Description = Localizer["GroupItemOrderCallback"],
+            Type = "Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupHeaderTextCallback),
+            Description = Localizer["GroupHeaderTextCallback"],
+            Type = "Func<object?, string?>",
             ValueList = " — ",
             DefaultValue = " — "
         }
