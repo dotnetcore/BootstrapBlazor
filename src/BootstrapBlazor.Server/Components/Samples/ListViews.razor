@@ -54,7 +54,7 @@
     <DemoBlock Title="@Localizer["GroupTitle"]"
                Introduction="@Localizer["GroupIntro"]"
                Name="Group">
-        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync">
+        <ListView TItem="Product" GroupName="p => p.Category" GroupOrderCallback="GroupOrderCallback" GroupItemOrderCallback="GroupItemOrderCallback" OnQueryAsync="@OnQueryAsync">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>

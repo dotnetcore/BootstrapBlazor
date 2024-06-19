@@ -3979,7 +3979,9 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
-    "GroupOrderCallback": "Callback for set the order of group"
+    "GroupOrderCallback": "Callback for set the order of group",
+    "GroupItemOrderCallback": "Callback for set the order of items on group",
+    "GroupHeaderTextCallback": "Callback for set the header text of group"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",

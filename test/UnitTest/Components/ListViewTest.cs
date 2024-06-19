@@ -17,7 +17,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ListView_Ok()
+    public async Task ListView_Ok()
     {
         var clicked = false;
         var items = Enumerable.Range(1, 6).Select(i => new Product()
@@ -43,25 +43,27 @@ public class ListViewTest : BootstrapBlazorTestBase
         cut.Contains("images/Pic1.jpg");
 
         var item = cut.Find(".listview-item");
-        cut.InvokeAsync(() => item.Click());
+        await cut.InvokeAsync(() => item.Click());
         cut.WaitForAssertion(() => Assert.True(clicked));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.GroupName, p => p.Category);
+            pb.Add(a => a.GroupItemOrderCallback, group => group.OrderBy(i => i.Description));
             pb.Add(a => a.IsVertical, true);
+            pb.Add(a => a.GroupHeaderTextCallback, key => key?.ToString());
         });
         cut.WaitForAssertion(() => cut.Contains("Group1"));
         cut.Contains("is-vertical");
 
         clicked = false;
         item = cut.Find(".listview-item");
-        cut.InvokeAsync(() => item.Click());
+        await cut.InvokeAsync(() => item.Click());
         cut.WaitForAssertion(() => Assert.True(clicked));
     }
 
     [Fact]
-    public void Pageable_Ok()
+    public async Task Pageable_Ok()
     {
         var items = Enumerable.Range(1, 6).Select(i => new Product()
         {
@@ -78,7 +80,7 @@ public class ListViewTest : BootstrapBlazorTestBase
 
         var pages = cut.FindAll(".page-link");
         Assert.Equal(5, pages.Count);
-        cut.InvokeAsync(() => pages[2].Click());
+        await cut.InvokeAsync(() => pages[2].Click());
 
         Task<QueryData<Product>> Query(QueryPageOptions option) => Task.FromResult(new QueryData<Product>()
         {
@@ -125,6 +127,12 @@ public class ListViewTest : BootstrapBlazorTestBase
             ImageUrl = $"images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
+        }).ToList();
+        items.Add(new()
+        {
+            ImageUrl = "",
+            Description = "test.jpg",
+            Category = null
         });
         var cut = Context.RenderComponent<ListView<Product>>(pb =>
         {
@@ -161,7 +169,8 @@ public class ListViewTest : BootstrapBlazorTestBase
         // 设置分组
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.GroupOrderCallback, items.GroupBy(i => i.Category).OrderBy(i => i.Key));
+            pb.Add(a => a.GroupOrderCallback, items => items.OrderBy(i => i.Key));
+            pb.Add(a => a.GroupHeaderTextCallback, key => key?.ToString());
         });
     }
 
