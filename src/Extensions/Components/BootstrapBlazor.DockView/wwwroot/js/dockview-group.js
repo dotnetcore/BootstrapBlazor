@@ -298,7 +298,7 @@ const float = group => {
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
 
-    group.panels.forEach((panel, index) => {
+    group.panels.slice(0).forEach((panel, index) => {
         dockview.moveGroupOrPanel({
             from: { groupId: group.id, panelId: panel.id },
             to: { group: floatingGroup, position: 'center', index },
