@@ -80,10 +80,10 @@ const updateTitle = panel => {
 }
 
 const getPanelsFromOptions = options => {
-    return getPanel(options.content[0])
+    return getPanels(options.content[0])
 }
 
-const getPanel = (contentItem, parent = {}, panels = []) => {
+const getPanels = (contentItem, parent = {}, panels = []) => {
     if (contentItem.type === 'component') {
         panels.push({
             id: contentItem.id,
@@ -92,9 +92,10 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
             params: { ...contentItem, parentId: parent.id }
-        })
-    } else {
-        contentItem.content?.forEach(item => getPanel(item, contentItem, panels))
+        });
+    }
+    else {
+        contentItem.content?.forEach(item => getPanels(item, contentItem, panels))
     }
     return panels
 }
