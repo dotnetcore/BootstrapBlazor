@@ -28,6 +28,12 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 组排序回调方法 默认 null 使用内置
     /// </summary>
     [Parameter]
+    public Func<IGrouping<object?, TItem>, string>? GroupHeaderTextCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组排序回调方法 默认 null 使用内置
+    /// </summary>
+    [Parameter]
     public Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>? GroupOrderCallback { get; set; }
 
     /// <summary>
