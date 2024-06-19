@@ -64,14 +64,14 @@ const updateCloseButton = panel => {
 }
 
 const updateTitle = panel => {
-    const contentEle = panel.view.content.element;
     const tabEle = panel.view.tab.element;
-    const titleElement = contentEle.querySelector('.bb-dockview-item-title');
+    const contents = [...panel.view.content.element.children];
+    const titleElement = contents.find(i => i.classList.contains('bb-dockview-item-title'));
     if (titleElement) {
         tabEle.replaceChild(titleElement, panel.view.tab._content);
     }
     else {
-        const titleBarElement = [...contentEle.children].find(i => i.classList.contains('bb-dockview-item-title-icon'));
+        const titleBarElement = contents.find(i => i.classList.contains('bb-dockview-item-title-icon'));
         if (titleBarElement) {
             titleBarElement.removeAttribute('title');
             tabEle.insertAdjacentElement("afterbegin", titleBarElement);
