@@ -187,7 +187,7 @@ public partial class Select<TValue> : ISelect
 
     private string _lastSelectedValueString = string.Empty;
 
-    private bool _init;
+    private bool _init = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -208,20 +208,6 @@ public partial class Select<TValue> : ISelect
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        if (firstRender)
-        {
-            _init = true;
         }
     }
 
@@ -320,9 +306,17 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
 
-            if (SelectedItem != null && ((_init || !DisableItemChangedWhenFirstRender)))
+            if (SelectedItem != null)
             {
-                _ = SelectedItemChanged(SelectedItem);
+                if (_init && DisableItemChangedWhenFirstRender)
+                {
+
+                }
+                else
+                {
+                    _ = SelectedItemChanged(SelectedItem);
+                    _init = false;
+                }
             }
         }
         else if (IsVirtualize)
