@@ -7,19 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// SweetAlert 弹窗服务
 /// </summary>
-public class SwalService : BootstrapServiceBase<SwalOption>
+public class SwalService(IOptionsMonitor<BootstrapBlazorOptions> options) : BootstrapServiceBase<SwalOption>
 {
-    private BootstrapBlazorOptions _option;
-
-    /// <summary>
-    /// 构造方法
-    /// </summary>
-    /// <param name="option"></param>
-    public SwalService(IOptionsMonitor<BootstrapBlazorOptions> option)
-    {
-        _option = option.CurrentValue;
-    }
-
     /// <summary>
     /// Show 方法
     /// </summary>
@@ -27,9 +16,9 @@ public class SwalService : BootstrapServiceBase<SwalOption>
     /// <param name="swal">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
     public async Task Show(SwalOption option, SweetAlert? swal = null)
     {
-        if (!option.ForceDelay && _option.SwalDelay != 0)
+        if (!option.ForceDelay && options.CurrentValue.SwalDelay != 0)
         {
-            option.Delay = _option.SwalDelay;
+            option.Delay = options.CurrentValue.SwalDelay;
         }
 
         await Invoke(option, swal);

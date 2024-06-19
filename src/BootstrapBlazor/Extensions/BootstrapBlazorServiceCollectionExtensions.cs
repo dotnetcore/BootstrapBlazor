@@ -72,6 +72,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();
+        services.AddScoped<MaskService>();
         services.AddScoped<MessageService>();
         services.AddScoped<ToastService>();
         services.AddScoped<DrawerService>();

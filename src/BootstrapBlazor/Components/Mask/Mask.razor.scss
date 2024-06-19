@@ -1,0 +1,31 @@
+.bb-mask {
+    --bb-mask-zindex: #{$bb-mask-zindex};
+    --bb-mask-bg: #{$bb-mask-bg};
+    --bb-mask-opacity: #{$bb-mask-opacity};
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: var(--bb-mask-zindex);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:not(.show) {
+        display: none;
+    }
+
+    .bb-mask-backdrop {
+        background-color: var(--bb-mask-bg);
+        opacity: var(--bb-mask-opacity);
+        height: 100%;
+        width: 100%;
+    }
+
+    .bb-mask-content {
+        position: absolute;
+        display: flex;
+        align-items: center;
+    }
+}

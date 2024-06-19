@@ -75,7 +75,7 @@ const addGroupWithPanel = (dockview, panel) => {
                 id: panel.id,
                 title: panel.title,
                 component: panel.component,
-                position: { referenceGroup: curentPanel.group, direction },//direction: "bottom"
+                position: { referenceGroup: curentPanel.group, direction },
                 params: { ...panel.params, isPackup, height, isMaximized, position }
             });
         }
@@ -124,7 +124,9 @@ const createGroupActions = group => {
             actionContainer.append(icon);
         }
     });
-    resetActionStates(group, actionContainer);
+    setTimeout(() => {
+        resetActionStates(group, actionContainer);
+    }, 0)
     addActionEvent(group, actionContainer);
 
     const dockview = group.api.accessor;
@@ -132,6 +134,7 @@ const createGroupActions = group => {
         dockview.params.observer = new ResizeObserver(setWidth);
     }
     dockview.params.observer.observe(group.header.element)
+    dockview.params.observer.observe(group.header.tabContainer)
 
 }
 
@@ -144,15 +147,13 @@ const resetActionStates = (group, actionContainer) => {
     if (showLock(dockview, group)) {
         actionContainer.classList.add('bb-show-lock');
         if (getLockState(dockview, group)) {
-            actionContainer.classList.add('bb-lock');
-            toggleLock(true)
+            toggleLock(group, actionContainer, true)
         }
     }
     if (showMaximize(dockview, group)) {
         actionContainer.classList.add('bb-show-maximize');
         if (getMaximizeState(group)) {
-            actionContainer.classList.add('bb-maximize');
-            toggleFull(false)
+            toggleFull(group, actionContainer, true)
         }
     }
     if (showFloat(dockview, group)) {
@@ -208,9 +209,11 @@ const addActionEvent = group => {
 
         if (ele.classList.contains('bb-dockview-control-icon-lock')) {
             toggleLock(group, actionContainer, false);
+            group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: false });
         }
         else if (ele.classList.contains('bb-dockview-control-icon-unlock')) {
             toggleLock(group, actionContainer, true);
+            group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: true });
         }
         else if (ele.classList.contains('bb-dockview-control-icon-restore')) {
             toggleFull(group, actionContainer, false);
@@ -227,7 +230,7 @@ const addActionEvent = group => {
         else if (ele.classList.contains('bb-dockview-control-icon-down')) {
             down(group, actionContainer, true);
         }
-        else if (ele.classList.contains('bb-dockview-control-icon-close')) {
+        else if (ele.classList.contains('bb-dockview-control-icon-close') && ele.parentElement.classList.contains('right-actions-container')) {
             close(group, actionContainer, true);
         }
     });
@@ -240,8 +243,7 @@ const removeActionEvent = group => {
 }
 
 const toggleLock = (group, actionContainer, isLock) => {
-    const dockview = group.api.accessor;
-
+    group.locked = isLock
     group.panels.forEach(panel => panel.params.isLock = isLock);
     if (isLock) {
         actionContainer.classList.add('bb-lock')
@@ -249,7 +251,6 @@ const toggleLock = (group, actionContainer, isLock) => {
     else {
         actionContainer.classList.remove('bb-lock')
     }
-    dockview._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock })
 }
 
 const toggleFull = (group, actionContainer, isMaximized) => {
@@ -275,18 +276,12 @@ const float = group => {
     if (gridGroups.length <= 1) return;
 
     const { position = {}, isPackup, height, isMaximized } = group.getParams()
-    const floatingGroupPosition = isMaximized
-        ? {
-            x: 0, y: 0,
-            width: dockview.width,
-            height: dockview.height
-        }
-        : {
-            x: position.left || (x < 35 ? 35 : x),
-            y: position.top || (y < 35 ? 35 : y),
-            width: position.width || 500,
-            height: position.height || 460
-        }
+    const floatingGroupPosition = {
+        x: position.left || (x < 35 ? 35 : x),
+        y: position.top || (y < 35 ? 35 : y),
+        width: position.width || 500,
+        height: position.height || 460
+    }
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
 
@@ -298,7 +293,6 @@ const float = group => {
         })
     })
     dockview.setVisible(group, false)
-    floatingGroup.setParams({ isPackup, height, isMaximized })
     dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
     createGroupActions(floatingGroup);
 }
@@ -375,20 +369,16 @@ const floatingExitMaximized = group => {
     group.setParams({ isMaximized: false })
 }
 
-const getPanelParams = (group, key) => {
-    return key && group.activePanel.params[key]
-}
-
-const setPanelParams = (group, data) => {
-    Object.keys(data).forEach(key => {
-        group.panels.forEach(panel => panel.params[key] = data[key])
-    })
-}
-
 const setWidth = (observerList) => {
-    observerList.forEach(observer => {
-        let header = observer.target
-        let tabsContainer = header.querySelector('.tabs-container')
+    observerList.forEach(({target}) => {
+        let header, tabsContainer
+        if(target.classList.contains('tabs-container')){
+            header = target.parentElement
+            tabsContainer = target
+        }else{
+            header = target
+            tabsContainer = header.querySelector('.tabs-container')
+        }
         let voidWidth = header.querySelector('.void-container').offsetWidth
         let dropdown = header.querySelector('.right-actions-container>.dropdown')
         if (!dropdown) return
@@ -409,10 +399,10 @@ const setWidth = (observerList) => {
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
         } else {
-            let firstLi = dropMenu.children[0]
+            let firstLi = dropMenu.querySelector('li:has(.active-tab)') || dropMenu.children[0]
             if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
-                if (voidWidth > firstLi.getAttribute('tabWidth')) {
+                if (voidWidth > firstLi.getAttribute('tabWidth') || tabsContainer.children.length == 0) {
                     firstTab && tabsContainer.append(firstTab)
                     firstLi.remove()
                 }
@@ -421,4 +411,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { onAddGroup, addGroupWithPanel };
+export { onAddGroup, addGroupWithPanel, toggleLock };

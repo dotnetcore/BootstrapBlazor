@@ -385,6 +385,11 @@ $bb-logout-user-avatar-width: 60px;
 $bb-logout-user-avatar-height: 60px;
 $bb-logout-user-avatar-margin-right: 1rem;
 
+// Mask
+$bb-mask-zindex: 1050;
+$bb-mask-bg: #000;
+$bb-mask-opacity: .5;
+
 // Menu
 $bb-menu-nav-pading: 0 1rem;
 $bb-menu-nav-border-bottom: 1px solid var(--bs-border-color);
