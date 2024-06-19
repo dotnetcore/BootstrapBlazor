@@ -71,7 +71,7 @@ const updateTitle = panel => {
         tabEle.replaceChild(titleElement, panel.view.tab._content);
     }
     else {
-        const titleBarElement = contentEle.querySelector('.bb-dockview-item-title-icon')
+        const titleBarElement = [...contentEle.children].find(i => i.classList.contains('bb-dockview-item-title-icon'));
         if (titleBarElement) {
             titleBarElement.removeAttribute('title');
             tabEle.insertAdjacentElement("afterbegin", titleBarElement);
