@@ -978,15 +978,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             cols = ColumnOrderCallback(cols).ToList();
         }
+
         await ReloadColumnOrdersFromBrowserAsync(cols);
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
-        InternalResetVisibleColumns();
-
         // 查看是否开启列宽序列化
         _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
         ResetColumnWidth();
+
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(Columns);
+        }
+
+        InternalResetVisibleColumns();
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
@@ -994,11 +1000,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             SortName = col.GetFieldName();
             SortOrder = col.DefaultSortOrder;
-        }
-
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(Columns);
         }
 
         // 获取是否自动查询参数值
