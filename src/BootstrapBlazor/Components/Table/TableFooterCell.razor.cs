@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableFooterCell 组件
 /// </summary>
 public partial class TableFooterCell
 {
@@ -62,10 +62,19 @@ public partial class TableFooterCell
     public string? Field { get; set; }
 
     /// <summary>
+    /// 获得/设置 colspan 值 默认 null 自己手动设置值
+    /// </summary>
+    [Parameter]
+    public Func<BreakPoint, int>? ColspanCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为移动端模式
     /// </summary>
     [CascadingParameter(Name = "IsMobileMode")]
     private bool IsMobileMode { get; set; }
+
+    [CascadingParameter(Name = "TableBreakPoint")]
+    private BreakPoint BreakPoint { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为移动端模式
@@ -110,6 +119,16 @@ public partial class TableFooterCell
             }
         }
         return v;
+    }
+
+    private int? GetColspanValue()
+    {
+        int? ret = null;
+        if (ColspanCallback != null)
+        {
+            ret = ColspanCallback(BreakPoint);
+        }
+        return ret;
     }
 
     private async Task<string?> GetAggregateValue()

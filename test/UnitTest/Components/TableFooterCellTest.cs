@@ -38,6 +38,30 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColspanCallback_Ok()
+    {
+        var ds = new List<Foo>()
+        {
+            new() { Count = 1 },
+            new() { Count = 2 },
+        };
+        var point = BreakPoint.None;
+        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        {
+            pb.AddCascadingValue("TableBreakPoint", BreakPoint.Large);
+            pb.AddCascadingValue<object>("TableFooterContext", ds);
+            pb.Add(a => a.Field, nameof(Foo.Count));
+            pb.Add(a => a.ColspanCallback, b =>
+            {
+                point = b;
+                return 3;
+            });
+        });
+        cut.Contains("colspan=\"3\"");
+        Assert.Equal(BreakPoint.Large, point);
+    }
+
+    [Fact]
     public void Text_Ok()
     {
         var ds = new List<Foo>()
