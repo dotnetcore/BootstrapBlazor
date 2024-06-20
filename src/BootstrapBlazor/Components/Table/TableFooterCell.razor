@@ -7,7 +7,7 @@
 }
 else
 {
-    <td @attributes="@AdditionalAttributes">
+    <td @attributes="@AdditionalAttributes" colspan="@GetColspanValue()">
         <div class="@ClassString">@_value</div>
     </td>
 }
