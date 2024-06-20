@@ -429,16 +429,18 @@
             <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                     <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                        @if (FooterTemplate != null)
-                        {
-                            @FooterTemplate(Rows)
-                        }
-                        else
-                        {
-                            <tr>
-                                @TableFooter?.Invoke(Rows)
-                            </tr>
-                        }
+                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint" IsFixed="true">
+                            @if (FooterTemplate != null)
+                            {
+                                @FooterTemplate(Rows)
+                            }
+                            else
+                            {
+                                <tr>
+                                    @TableFooter?.Invoke(Rows)
+                                </tr>
+                            }
+                        </CascadingValue>
                     </CascadingValue>
                 </CascadingValue>
             </tfoot>
