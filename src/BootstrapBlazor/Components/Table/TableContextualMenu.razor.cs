@@ -105,7 +105,7 @@ public partial class TableContextualMenu
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = [] };
+        var filter = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
 
         foreach (var item in FilterItems.Where(x => x.Checked))
         {
