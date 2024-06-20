@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableFooterCell 组件
 /// </summary>
 public partial class TableFooterCell
 {
@@ -62,16 +62,19 @@ public partial class TableFooterCell
     public string? Field { get; set; }
 
     /// <summary>
+    /// 获得/设置 colspan 值 默认 null 自己手动设置值
+    /// </summary>
+    [Parameter]
+    public Func<BreakPoint, int>? ColspanCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为移动端模式
     /// </summary>
     [CascadingParameter(Name = "IsMobileMode")]
     private bool IsMobileMode { get; set; }
 
-    /// <summary>
-    /// 获得/设置 客户端屏幕宽度
-    /// </summary>
-    [CascadingParameter(Name = "ScreenSize")]
-    private BreakPoint ScreenSize { get; set; }
+    [CascadingParameter(Name = "TableBreakPoint")]
+    private BreakPoint BreakPoint { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为移动端模式
@@ -100,7 +103,7 @@ public partial class TableFooterCell
     /// 检查当前列是否显示方法
     /// </summary>
     /// <returns></returns>
-    protected bool CheckShownWithBreakpoint=> ScreenSize >= ShownWithBreakPoint;
+    protected bool CheckShownWithBreakpoint => BreakPoint >= ShownWithBreakPoint;
 
     /// <summary>
     /// 解析 Count Aggregate
@@ -128,6 +131,16 @@ public partial class TableFooterCell
             }
         }
         return v;
+    }
+
+    private int? GetColspanValue()
+    {
+        int? ret = null;
+        if (ColspanCallback != null)
+        {
+            ret = ColspanCallback(BreakPoint);
+        }
+        return ret;
     }
 
     private async Task<string?> GetAggregateValue()

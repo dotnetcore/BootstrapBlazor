@@ -428,8 +428,8 @@
         {
             <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
-                    <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                        <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint" IsFixed="true">
                             @if (FooterTemplate != null)
                             {
                                 @FooterTemplate(Rows)
