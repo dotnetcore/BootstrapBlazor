@@ -68,22 +68,10 @@ public partial class TableFooterCell
     private bool IsMobileMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 客户端屏幕宽度
-    /// </summary>
-    [CascadingParameter(Name = "ScreenSize")]
-    private BreakPoint ScreenSize { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否为移动端模式
     /// </summary>
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
-
-    /// <summary>
-    /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
-    /// </summary>
-    [Parameter]
-    public BreakPoint ShownWithBreakPoint { get; set; }
 
     private string? _value { get; set; }
 
@@ -95,12 +83,6 @@ public partial class TableFooterCell
     {
         _value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
     }
-
-    /// <summary>
-    /// 检查当前列是否显示方法
-    /// </summary>
-    /// <returns></returns>
-    protected bool CheckShownWithBreakpoint=> ScreenSize >= ShownWithBreakPoint;
 
     /// <summary>
     /// 解析 Count Aggregate

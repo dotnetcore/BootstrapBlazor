@@ -290,17 +290,15 @@
                     {
                         <div class="table-row table-footer">
                             <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
-                                <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                                        @if (FooterTemplate != null)
-                                        {
-                                            @FooterTemplate(Rows)
-                                        }
-                                        else
-                                        {
-                                            @TableFooter?.Invoke(Rows)
-                                        }
-                                    </CascadingValue>
+                                <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                                    @if (FooterTemplate != null)
+                                    {
+                                        @FooterTemplate(Rows)
+                                    }
+                                    else
+                                    {
+                                        @TableFooter?.Invoke(Rows)
+                                    }
                                 </CascadingValue>
                             </CascadingValue>
                         </div>
@@ -430,19 +428,17 @@
         {
             <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
-                    <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                        <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                            @if (FooterTemplate != null)
-                            {
-                                @FooterTemplate(Rows)
-                            }
-                            else
-                            {
-                                <tr>
-                                    @TableFooter?.Invoke(Rows)
-                                </tr>
-                            }
-                        </CascadingValue>
+                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                        @if (FooterTemplate != null)
+                        {
+                            @FooterTemplate(Rows)
+                        }
+                        else
+                        {
+                            <tr>
+                                @TableFooter?.Invoke(Rows)
+                            </tr>
+                        }
                     </CascadingValue>
                 </CascadingValue>
             </tfoot>
