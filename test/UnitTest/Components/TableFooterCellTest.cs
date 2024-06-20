@@ -19,7 +19,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
         {
-            pb.AddCascadingValue<bool>("IsMobileMode", mobile);
+            pb.AddCascadingValue("IsMobileMode", mobile);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
         });
@@ -39,8 +39,8 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
 
     [Theory]
     [InlineData(BreakPoint.Large)]
-    [InlineData(BreakPoint.Small)] 
-    [InlineData(BreakPoint.ExtraLarge)] 
+    [InlineData(BreakPoint.Small)]
+    [InlineData(BreakPoint.ExtraLarge)]
     public void ScreenSize_Ok(BreakPoint screenSize)
     {
         var ds = new List<Foo>()
@@ -49,10 +49,10 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
             new() { Count = 2 },
         };
 
-        var checkShownWithBreakpoint= screenSize >= BreakPoint.Large;
+        var checkShownWithBreakpoint = screenSize >= BreakPoint.Large;
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
         {
-            pb.AddCascadingValue<BreakPoint>("ScreenSize", screenSize);
+            pb.AddCascadingValue("TableBreakPoint", screenSize);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
             pb.Add(a => a.ShownWithBreakPoint, BreakPoint.Large);
@@ -69,11 +69,10 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         }
     }
 
-
     [Theory]
     [InlineData(BreakPoint.None)]
-    [InlineData(BreakPoint.Small)] 
-    [InlineData(BreakPoint.ExtraLarge)] 
+    [InlineData(BreakPoint.Small)]
+    [InlineData(BreakPoint.ExtraLarge)]
     public void ShownWithBreakPoint_Ok(BreakPoint shownWithBreakPoint)
     {
         var ds = new List<Foo>()
@@ -83,10 +82,10 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         };
 
         var screenSize = BreakPoint.Large;
-        var checkShownWithBreakpoint= screenSize >= shownWithBreakPoint;
+        var checkShownWithBreakpoint = screenSize >= shownWithBreakPoint;
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
         {
-            pb.AddCascadingValue<BreakPoint>("ScreenSize", screenSize);
+            pb.AddCascadingValue("TableBreakPoint", screenSize);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.ShownWithBreakPoint, shownWithBreakPoint);
             pb.Add(a => a.Text, "test-Text");
