@@ -40,6 +40,10 @@ else
         {
             @Column.FilterTemplate
         }
+        else if (Column.CustomFilter != null)
+        {
+            <TableContextualMenu Column="Column" />
+        }
         else if (Column.PropertyType.IsEnum())
         {
             <EnumFilter Type="Column.PropertyType" Count="_count"></EnumFilter>

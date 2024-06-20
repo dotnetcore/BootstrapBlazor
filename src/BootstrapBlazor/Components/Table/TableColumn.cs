@@ -474,6 +474,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     protected IColumnCollection? Columns { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义过滤列表
+    /// </summary>
+    [Parameter]
+    public Func<Task<List<SelectedItem>>>? CustomFilter { get; set; }
+
+    /// <summary>
     /// 组件初始化方法
     /// </summary>
     protected override void OnInitialized()
@@ -532,4 +538,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         }
         return FieldName ?? "";
     }
+
+
 }

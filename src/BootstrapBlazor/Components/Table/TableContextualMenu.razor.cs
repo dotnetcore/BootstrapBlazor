@@ -6,16 +6,27 @@ namespace BootstrapBlazor.Components;
 
 public partial class TableContextualMenu
 {
+    /// <summary>
+    /// 获得/设置 绑定类字段名称
+    /// </summary>
+    [Parameter]
+    public string? FieldName { get; set; }
+
+    /// <summary>
+    /// 获得 相关联 ITableColumn 实例
+    /// </summary>
+    [Parameter]
+    [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    public ITableColumn? Column { get; set; }
+
     private string Value = string.Empty;
+
     private bool checkAll = false;
-    private List<TableContextualMenuData> FilterItems { get; set; } = new List<TableContextualMenuData>()
-    {
-        new(){Value = "1"},
-        new(){Value = "2"},
-        new(){Value = "3"},
-        new(){Value = "4"},
-        new(){Value = "5"}
-    };
+
+    private List<TableContextualMenuData> FilterItems { get; set; } = [];
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
@@ -39,9 +50,20 @@ public partial class TableContextualMenu
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         base.OnInitialized();
+
+        FieldKey = Column.GetFieldName();
+        if (Column.CustomFilter != null)
+        {
+            var items = await Column.CustomFilter();
+            if (items != null)
+            {
+                FilterItems = items.Select(item => new TableContextualMenuData() { Value = item.Value }).ToList();
+            }
+        }
+
         if (TableFilter != null) TableFilter.ShowMoreButton = false;
     }
 
@@ -65,7 +87,7 @@ public partial class TableContextualMenu
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
         filter.Filters.Add(new FilterKeyValueAction()
         {
             FieldKey = FieldKey,
