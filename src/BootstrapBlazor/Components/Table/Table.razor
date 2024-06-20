@@ -290,17 +290,15 @@
                     {
                         <div class="table-row table-footer">
                             <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
-                                <CascadingValue Value="@ScreenSize" Name="ScreenSize">
-                                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                                        @if (FooterTemplate != null)
-                                        {
-                                            @FooterTemplate(Rows)
-                                        }
-                                        else
-                                        {
-                                            @TableFooter?.Invoke(Rows)
-                                        }
-                                    </CascadingValue>
+                                <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                                    @if (FooterTemplate != null)
+                                    {
+                                        @FooterTemplate(Rows)
+                                    }
+                                    else
+                                    {
+                                        @TableFooter?.Invoke(Rows)
+                                    }
                                 </CascadingValue>
                             </CascadingValue>
                         </div>
