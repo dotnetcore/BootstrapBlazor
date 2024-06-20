@@ -82,6 +82,12 @@ public partial class TableFooterCell
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
 
+    /// <summary>
+    /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
+    /// </summary>
+    [Parameter]
+    public BreakPoint ShownWithBreakPoint { get; set; }
+
     private string? _value { get; set; }
 
     /// <summary>
@@ -92,6 +98,12 @@ public partial class TableFooterCell
     {
         _value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
     }
+
+    /// <summary>
+    /// 检查当前列是否显示方法
+    /// </summary>
+    /// <returns></returns>
+    protected bool CheckShownWithBreakpoint => BreakPoint >= ShownWithBreakPoint;
 
     /// <summary>
     /// 解析 Count Aggregate

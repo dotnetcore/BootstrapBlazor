@@ -19,7 +19,7 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
 
         var cut = Context.RenderComponent<TableFooterCell>(pb =>
         {
-            pb.AddCascadingValue<bool>("IsMobileMode", mobile);
+            pb.AddCascadingValue("IsMobileMode", mobile);
             pb.AddCascadingValue<object>("TableFooterContext", ds);
             pb.Add(a => a.Field, nameof(Foo.Count));
         });
@@ -34,6 +34,70 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         else
         {
             cut.DoesNotContain("td");
+        }
+    }
+
+    [Theory]
+    [InlineData(BreakPoint.Large)]
+    [InlineData(BreakPoint.Small)]
+    [InlineData(BreakPoint.ExtraLarge)]
+    public void ScreenSize_Ok(BreakPoint screenSize)
+    {
+        var ds = new List<Foo>()
+        {
+            new() { Count = 1 },
+            new() { Count = 2 },
+        };
+
+        var checkShownWithBreakpoint = screenSize >= BreakPoint.Large;
+        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        {
+            pb.AddCascadingValue("TableBreakPoint", screenSize);
+            pb.AddCascadingValue<object>("TableFooterContext", ds);
+            pb.Add(a => a.Field, nameof(Foo.Count));
+            pb.Add(a => a.ShownWithBreakPoint, BreakPoint.Large);
+            pb.Add(a => a.Text, "test-Text");
+        });
+
+        if (checkShownWithBreakpoint)
+        {
+            cut.Contains("test-Text");
+        }
+        else
+        {
+            cut.DoesNotContain("test-Text");
+        }
+    }
+
+    [Theory]
+    [InlineData(BreakPoint.None)]
+    [InlineData(BreakPoint.Small)]
+    [InlineData(BreakPoint.ExtraLarge)]
+    public void ShownWithBreakPoint_Ok(BreakPoint shownWithBreakPoint)
+    {
+        var ds = new List<Foo>()
+        {
+            new() { Count = 1 },
+            new() { Count = 2 },
+        };
+
+        var screenSize = BreakPoint.Large;
+        var checkShownWithBreakpoint = screenSize >= shownWithBreakPoint;
+        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        {
+            pb.AddCascadingValue("TableBreakPoint", screenSize);
+            pb.AddCascadingValue<object>("TableFooterContext", ds);
+            pb.Add(a => a.ShownWithBreakPoint, shownWithBreakPoint);
+            pb.Add(a => a.Text, "test-Text");
+        });
+
+        if (checkShownWithBreakpoint)
+        {
+            cut.Contains("test-Text");
+        }
+        else
+        {
+            cut.DoesNotContain("test-Text");
         }
     }
 
