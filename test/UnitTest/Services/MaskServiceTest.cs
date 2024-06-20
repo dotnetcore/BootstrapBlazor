@@ -9,13 +9,17 @@ namespace UnitTest.Services;
 /// <summary>
 /// MaskService 单元测试
 /// </summary>
-public class MaskServiceTest : BootstrapBlazorTestBase
+public class MaskServiceTest : TestBase
 {
     [Fact]
     public async Task Mask_Ok()
     {
-        var maskService = Context.Services.GetRequiredService<MaskService>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+
+        var maskService = context.Services.GetRequiredService<MaskService>();
+        var cut = context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Button>(pb =>
             {
