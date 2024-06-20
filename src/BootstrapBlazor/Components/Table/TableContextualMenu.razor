@@ -14,7 +14,7 @@
                 <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" UseInputEvent="true" bind-value:event="oninput" OnValueChanged="OnSearchValueChanged" />
             </div>
         </li>
-        <li class="mb-1">
+        <li class="mb-1 ps-3 pt-2 border">
             <div style="height:200px;overflow-y:scroll;overflow-x:hidden;">
                 <div class="mb-1">
                     <Checkbox @bind-Value="@checkAll" ShowAfterLabel DisplayText="全选" OnStateChanged="@OnStateChanged" />
@@ -29,5 +29,3 @@
         </li>
     </ul>
 </div>
-
-
