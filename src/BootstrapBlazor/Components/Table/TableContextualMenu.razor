@@ -11,7 +11,7 @@
         </li>
         <li class="mb-1">
             <div>
-                <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" />
+                <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" UseInputEvent="true" bind-value:event="oninput" OnValueChanged="OnSearchValueChanged" />
             </div>
         </li>
         <li class="mb-1">

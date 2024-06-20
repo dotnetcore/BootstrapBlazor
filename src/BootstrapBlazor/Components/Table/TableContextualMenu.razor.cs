@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// 表格过滤菜单组件
+/// </summary>
 public partial class TableContextualMenu
 {
     /// <summary>
@@ -26,7 +29,9 @@ public partial class TableContextualMenu
 
     private bool checkAll = false;
 
-    private List<TableContextualMenuData> FilterItems { get; set; } = [];
+    private List<TableContextualMenuItem> FilterItems { get; set; } = [];
+
+    private List<SelectedItem>? SelectedItems { get; set; }
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
@@ -57,10 +62,10 @@ public partial class TableContextualMenu
         FieldKey = Column.GetFieldName();
         if (Column.CustomFilter != null)
         {
-            var items = await Column.CustomFilter();
-            if (items != null)
+            SelectedItems = await Column.CustomFilter();
+            if (SelectedItems != null)
             {
-                FilterItems = items.Select(item => new TableContextualMenuData() { Value = item.Value }).ToList();
+                FilterItems = SelectedItems.Select(item => new TableContextualMenuItem() { Value = item.Value }).ToList();
             }
         }
 
@@ -81,6 +86,19 @@ public partial class TableContextualMenu
         StateHasChanged();
     }
 
+    private Task OnSearchValueChanged(string val)
+    {
+        if (SelectedItems != null)
+        {
+            FilterItems = SelectedItems
+                .Where(x => x.Value.Contains(val))
+                .Select(item => new TableContextualMenuItem() { Value = item.Value })
+                .ToList();
+        }
+
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 生成过滤条件方法
     /// </summary>
@@ -97,10 +115,11 @@ public partial class TableContextualMenu
         return filter;
     }
 
-    class TableContextualMenuData
+    class TableContextualMenuItem
     {
         public bool Checked { get; set; }
-        public string? Value { get; set; }
 
+        public string? Value { get; set; }
     }
+
 }
