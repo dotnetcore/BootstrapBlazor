@@ -157,7 +157,7 @@ const resetComponentId = (config, option) => {
                     config.root.content = option.content[0].content
                 }
                 else {
-                    config.root.content.push(createItem(item))
+                    config.root.content.push(parseItem(item))
                 }
             }
             else {
@@ -185,7 +185,7 @@ const resetComponentId = (config, option) => {
     });
 }
 
-const createItem = item => ({
+const parseItem = item => ({
     type: 'component',
     content: [],
     title: item.title,
