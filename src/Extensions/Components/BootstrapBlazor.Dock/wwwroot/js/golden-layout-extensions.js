@@ -1,67 +1,45 @@
 ﻿import "./golden-layout.js"
 
-const hook = dock => {
-    if (goldenLayout.bb_docks === void 0) {
-        goldenLayout.bb_docks = [];
-    }
-    goldenLayout.bb_docks.push(dock);
+goldenLayout.Tab.prototype.onCloseClick = function () {
+    const component = document.getElementById(this.componentItem.id)
+    const title = this.componentItem.title
 
-    if (!goldenLayout.isHack) {
-        goldenLayout.isHack = true
+    this.notifyClose();
+    this._layoutManager.emit('tabClosed', component, title)
+};
 
-        // hack Tab
-        goldenLayout.Tab.prototype.onCloseClick = function () {
-            const component = document.getElementById(this.componentItem.id)
-            const title = this.componentItem.title
+const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
+goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
+    originSplitterDragStop.call(this, splitter)
+    this.layoutManager.emit('splitterDragStop')
+};
 
-            this.notifyClose();
-            this._layoutManager.emit('tabClosed', component, title)
-        }
+const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged;
+goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
+    originprocessTabDropdownActiveChanged.call(this)
 
-        // hack RowOrColumn
-        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
-        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
-            originSplitterDragStop.call(this, splitter)
-            this.layoutManager.emit('splitterDragStop')
-        }
+    this._closeButton.onClick = function (ev) {
+        // find own dock
+        const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
+        const eventsData = dock.eventsData
 
-        const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
-        goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
-            originprocessTabDropdownActiveChanged.call(this)
+        const tabs = this._header.tabs.map(tab => {
+            return { element: tab.componentItem.element, title: tab.componentItem.title }
+        })
+        if (!eventsData.has(this._header.parent)) {
+            this._pushEvent(ev)
 
-            this._closeButton.onClick = function (ev) {
-                // find own dock
-                const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
-                const eventsData = dock.eventsData
-
-                const tabs = this._header.tabs.map(tab => {
-                    return { element: tab.componentItem.element, title: tab.componentItem.title }
+            const handler = setTimeout(() => {
+                clearTimeout(handler)
+                tabs.forEach(tab => {
+                    this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
                 })
-                if (!eventsData.has(this._header.parent)) {
-                    this._pushEvent(ev)
-
-                    const handler = setTimeout(() => {
-                        clearTimeout(handler)
-                        tabs.forEach(tab => {
-                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
-                        })
-                    }, 100)
-                }
-            }
+            }, 100)
         }
     }
-}
+};
 
-const unhook = dock => {
-    if (goldenLayout.bb_docks !== void 0) {
-        const index = goldenLayout.bb_docks.indexOf(dock);
-        if (index > 0) {
-            goldenLayout.bb_docks.splice(index, 1);
-        }
-    }
-}
-
-const createGoldenLayout = (el, option) => {
+const createDock = (el, option) => {
     const config = getConfig(option)
 
     if (option.lock) {
@@ -242,15 +220,4 @@ const findStack = (stack, stacks) => {
     return find;
 }
 
-const Dock = {
-    createDock(dock, option) {
-        hook(dock);
-        return createGoldenLayout(dock.el, option);
-    },
-    dispose(dock) {
-        dock.layout.destroy()
-        unhook(dock);
-    }
-}
-
-export default Dock
+export { createDock, getAllItemsByType };

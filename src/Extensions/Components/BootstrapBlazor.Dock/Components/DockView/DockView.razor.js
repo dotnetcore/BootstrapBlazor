@@ -1,6 +1,6 @@
 ﻿import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
+import { createDock, getAllItemsByType } from "../../js/golden-layout-extensions.js"
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import Dock from "../../js/golden-layout-extensions.js"
 
 export async function init(id, option, invoke) {
     const el = document.getElementById(id)
@@ -18,7 +18,7 @@ export async function init(id, option, invoke) {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
 
-    const layout = Dock.createDock(dock, option);
+    const layout = createDock(el, option);
     dock.layout = layout
     layout.on('initialised', () => {
         saveConfig(option, layout)
@@ -177,12 +177,10 @@ export function dispose(id) {
     const dock = Data.get(id)
     Data.remove(id)
 
-    if (dock == null) {
-        return
+    if (dock) {
+        dock.eventsData.clear();
+        dock.layout.destroy();
     }
-
-    dock.eventsData.clear()
-    Dock.dispose(dock)
 }
 
 const lockDock = dock => {
