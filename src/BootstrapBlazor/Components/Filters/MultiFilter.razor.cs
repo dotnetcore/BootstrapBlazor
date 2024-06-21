@@ -102,16 +102,17 @@ public partial class MultiFilter
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
+        checkAll = val;
         if (state == CheckboxState.Checked)
         {
-            foreach (var item in GetItems())
+            foreach (var item in _source)
             {
                 item.Checked = true;
             }
         }
         else
         {
-            foreach (var item in GetItems())
+            foreach (var item in _source)
             {
                 item.Checked = false;
             }
