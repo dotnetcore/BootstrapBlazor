@@ -308,22 +308,6 @@ const toggleComponent = (dock, option) => {
     saveConfig(option, dock.layout)
 }
 
-const getAllItemsByType = (type, parent) => {
-    const items = []
-
-    parent.content.forEach(v => {
-        if (v.type === type) {
-            v.parent = parent;
-            items.push(v)
-        }
-
-        if (v.content != null) {
-            items.push.apply(items, getAllItemsByType(type, v))
-        }
-    })
-    return items
-}
-
 const closeItem = (dock, component) => {
     const { template } = dock;
     const item = document.getElementById(component.id)

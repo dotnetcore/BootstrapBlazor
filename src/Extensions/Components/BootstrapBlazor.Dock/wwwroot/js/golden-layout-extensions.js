@@ -206,6 +206,22 @@ const resetComponentId = (config, option) => {
     });
 }
 
+const getAllItemsByType = (type, parent) => {
+    const items = []
+
+    parent.content.forEach(v => {
+        if (v.type === type) {
+            v.parent = parent;
+            items.push(v)
+        }
+
+        if (v.content != null) {
+            items.push.apply(items, getAllItemsByType(type, v))
+        }
+    })
+    return items
+}
+
 const createItem = item => ({
     type: 'component',
     content: [],
