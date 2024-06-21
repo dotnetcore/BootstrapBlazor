@@ -1,12 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.Extensions.Localization
 @inherits FilterBase
+@inject IStringLocalizer<TableContextualMenu> Localizer
 
 <div>
     <ul class="menu-list">
         <li class="mb-1">
             <div>
                 <BootstrapInput class="w-100" TValue="string" UseInputEvent="true"
-                                @bind-Value="@Value" PlaceHolder="请输入 ..." IsSelectAllTextOnFocus="true"
+                                @bind-Value="@Value" PlaceHolder="@Localizer["ContextualMenuSearchPlaceHolderText"]" IsSelectAllTextOnFocus="true"
                                 bind-value:event="oninput" IsAutoFocus="true"
                                 OnValueChanged="OnSearchValueChanged" />
             </div>
@@ -14,7 +16,7 @@
         <li class="mb-1 ps-3 pt-2 border menu-container">
             <div class="menu-items">
                 <div class="item-hover">
-                    <Checkbox class="w-100" @bind-Value="@checkAll" ShowAfterLabel DisplayText="全选" OnStateChanged="@OnStateChanged" />
+                    <Checkbox class="w-100" @bind-Value="@checkAll" ShowAfterLabel DisplayText="@Localizer["ContextualMenuSelectAllText"]" OnStateChanged="@OnStateChanged" />
                 </div>
                 @foreach (var item in FilterItems)
                 {
