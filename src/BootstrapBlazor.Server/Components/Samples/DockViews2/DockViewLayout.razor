@@ -10,8 +10,6 @@
     <Button OnClick="OnToggleLayout2" Text="布局2"></Button>
     <Button OnClick="OnToggleLayout3" Text="布局3"></Button>
     <Button OnClickWithoutRender="Reset" Text="复位"></Button>
-    <Button OnClickWithoutRender="OnSaveLayout" Text="保存布局"></Button>
-    <Button OnClick="OnToggleShow" Text="切换"></Button>
 </GroupBox>
 
 <DockViewV2 @ref="DockView" Name="DockViewLayout" LayoutConfig="@LayoutConfig" class="dock-layout-demo">
@@ -43,17 +41,8 @@
                 </TableColumns>
             </Table>
         </DockViewComponent>
-        @if (_show)
-        {
-            <DockViewComponent Key="tab3" Title="标签三">
-                <FetchData></FetchData>
-            </DockViewComponent>
-        }
-        else
-        {
-            <DockViewComponent Key="tab4" Title="标签四">
-                <Counter></Counter>
-            </DockViewComponent>
-        }
+        <DockViewComponent Key="tab3" Title="标签三">
+            <FetchData></FetchData>
+        </DockViewComponent>
     </DockViewContent>
 </DockViewV2>

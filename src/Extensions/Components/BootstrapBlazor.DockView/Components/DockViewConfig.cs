@@ -17,7 +17,6 @@ class DockViewConfig
     /// 获得/设置 是否锁定 默认 false
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
-    [JsonPropertyName("lock")]
     public bool IsLock { get; set; }
 
     /// <summary>

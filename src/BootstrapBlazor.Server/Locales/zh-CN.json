@@ -423,6 +423,13 @@
     "ModalsAttributeShowMaximizeButton": "是否显示弹出的最大化按钮",
     "ModalsAttributeShownCallbackAsync": "弹出菜单显示回调方法"
   },
+  "BootstrapBlazor.Server.Components.Samples.Masks": {
+    "MaskTitle": "遮罩组件",
+    "MaskDescription": "通过调用服务显示，隐藏方法，显示一个遮罩层对数据进行遮罩操作",
+    "MaskNormalTitle": "基本用法",
+    "MaskNormalIntro": "调用 <code>MaskService</code> 遮罩服务示例方法 <code>Show</code> 方法显示一个遮罩，3 秒后调用实例方法 <code>Close</code> 关闭遮罩",
+    "ShowMaskButtonText": "打开"
+  },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message 消息提示",
     "MessagesDescription": "常用于主动操作后的反馈提示。与 Toast 的区别是后者更多用于系统级通知的被动提醒",
@@ -3972,7 +3979,9 @@
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法",
     "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法",
-    "GroupOrderCallback": "组件分组项排序回调委托方法"
+    "GroupOrderCallback": "组件分组项排序回调委托方法",
+    "GroupItemOrderCallback": "组件分组项内项目集合排序回调方法",
+    "GroupHeaderTextCallback": "分组标题显示文本回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "获取 IP 地理位置",
@@ -4598,6 +4607,7 @@
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
     "Html2Pdf": "Html 转 Pdf IHtml2Pdf",
+    "Mask": "遮罩服务 MaskService",
     "ContextMenu": "右键菜单 ContextMenu",
     "ClockPicker": "时间选择器 ClockPicker",
     "TimePicker": "时间选择器 TimePicker",
@@ -6208,9 +6218,10 @@
     "GetItemDisplayText": "获得显示项显示内容回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeTitle": "基本用法",
-    "MarqueeIntro": "通过参数调节文字滚动效果",
-    "MarqueeDescription": "文字滚动组件"
+    "MarqueeTitle": "循环滚动组件",
+    "MarqueeDescription": "组件多用于创建滚动文本，通常用于新闻滚动、广告滚动等效果",
+    "MarqueeBase": "基本用法",
+    "MarqueeBaseIntro": "通过参数调节文字滚动效果"
   },
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack 布局",

@@ -423,6 +423,13 @@
     "ModalsAttributeShowMaximizeButton": "Whether to show the popup maximize button",
     "ModalsAttributeShownCallbackAsync": "Popup shows callback method"
   },
+  "BootstrapBlazor.Server.Components.Samples.Masks": {
+    "MaskTitle": "Mask",
+    "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
+    "MaskNormalTitle": "Basic usage",
+    "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "ShowMaskButtonText": "Show"
+  },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
     "MessagesDescription": "Often used for feedback prompts after active operations. The difference from Toast is that the latter is more passive reminder for system-level notifications",
@@ -3972,7 +3979,9 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
-    "GroupOrderCallback": "Callback for set the order of group"
+    "GroupOrderCallback": "Callback for set the order of group",
+    "GroupItemOrderCallback": "Callback for set the order of items on group",
+    "GroupHeaderTextCallback": "Callback for set the header text of group"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",
@@ -4598,6 +4607,7 @@
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
     "Html2Pdf": "IHtml2Pdf",
+    "Mask": "MaskService",
     "ContextMenu": "ContextMenu",
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
@@ -6208,9 +6218,10 @@
     "GetItemDisplayText": "the callback on get item display text"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeTitle": "Usage",
-    "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
-    "MarqueeDescription": "Marquee component"
+    "MarqueeTitle": "Marquee component",
+    "MarqueeDescription": "The component is mostly used to create scrolling text, usually for news scrolling, advertising scrolling, etc.",
+    "MarqueeBase": "Usage",
+    "MarqueeBaseIntro": "Adjusting the text scrolling effect through parameters"
   },
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",

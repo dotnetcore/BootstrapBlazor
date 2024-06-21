@@ -1,8 +1,8 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel } from "./dockview-group.js"
-import { onAddPanel, onRemovePanel, getPanels, findPanelFunc } from "./dockview-panel.js"
-import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
+import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
+import { getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -30,8 +30,9 @@ const initDockview = (dockview, options, template) => {
         if (options.layoutConfig) {
             reloadFromConfig(dockview, options)
         }
-        else if (dockview.locked !== options.lock) {
-            // TODO: 循环所有 Group 锁定 Group
+        else if (dockview.params.options.lock !== options.lock) {
+            dockview.params.options.lock = options.lock
+            toggleGroupLock(dockview, options)
         }
         else {
             toggleComponent(dockview, options)
@@ -39,10 +40,11 @@ const initDockview = (dockview, options, template) => {
     }
 
     dockview.reset = options => {
-        reloadDockview(dockview, options)
+        reloadFromConfig(dockview, options)
     }
 
     dockview.dispose = () => {
+        saveConfig(dockview);
     }
 
     dockview.onDidRemovePanel(onRemovePanel);
@@ -51,17 +53,11 @@ const initDockview = (dockview, options, template) => {
 
     dockview.onDidAddGroup(onAddGroup);
 
-    dockview.onDidRemoveGroup(event => {
-        console.log('remove-group', event);
-    })
-
     dockview.onWillDragPanel(event => {
         if (event.panel.group.locked) {
             event.nativeEvent.preventDefault()
         }
     })
-
-    dockview._onDidMovePanel.event(event => { })
 
     dockview.onWillDragGroup(event => {
         if (event.group.locked) {
@@ -69,9 +65,7 @@ const initDockview = (dockview, options, template) => {
         }
     })
 
-    dockview.gridview.onDidChange(event => { })
-
-    dockview.onDidLayoutFromJSON(event => {
+    dockview.onDidLayoutFromJSON(() => {
         setTimeout(() => {
             dockview._initialized?.fire()
         }, 0)
@@ -81,26 +75,29 @@ const initDockview = (dockview, options, template) => {
             }
         })
     })
-    dockview.onDidRemove(() => {
-    })
 }
 
 const toggleComponent = (dockview, options) => {
-    const panels = getPanels(options.content)
+    const panels = getPanelsFromOptions(options)
     const localPanels = dockview.panels
     panels.forEach(p => {
-        const pan = localPanels.find(findPanelFunc(p));
+        const pan = findContentFromPanels(localPanels, p);
         if (pan === void 0) {
-            const panel = dockview.params.panels.find(findPanelFunc(p));
+            const panel = findContentFromPanels(dockview.params.panels, p);
             addGroupWithPanel(dockview, panel || p);
         }
     })
 
     localPanels.forEach(item => {
-        let pan = panels.find(findPanelFunc(item));
+        let pan = findContentFromPanels(panels, item);
         if (pan === void 0) {
             dockview.removePanel(item)
         }
+    })
+}
+const toggleGroupLock = (dockview, options) => {
+    dockview.groups.forEach(group => {
+        toggleLock(group, group.header.rightActionsContainer, options.lock)
     })
 }
 

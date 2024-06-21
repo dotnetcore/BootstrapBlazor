@@ -1,6 +1,8 @@
 ﻿import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
+import { createDock } from "../../js/golden-layout-extensions.js"
+import { saveConfig, removeConfig } from "../../js/golden-layout-config.js"
+import { lockDock, resetDockLock, lockStack, unlockStack, lockTab, toggleComponent, getAllItemsByType } from "../../js/golden-layout-utility.js"
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import Dock from "../../js/golden-layout-extensions.js"
 
 export async function init(id, option, invoke) {
     const el = document.getElementById(id)
@@ -18,10 +20,10 @@ export async function init(id, option, invoke) {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
 
-    const layout = Dock.createDock(dock, option);
+    const layout = createDock(el, option);
     dock.layout = layout
     layout.on('initialised', () => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
     })
     layout.on('tabCreated', tab => {
         var state = tab.contentItem.container.getState()
@@ -59,7 +61,7 @@ export async function init(id, option, invoke) {
         lockElement.onclick = () => {
             const lock = eventsData.has(stackElement)
             if (lock) {
-                unLockStack(stackElement, dock)
+                unlockStack(stackElement, dock)
             }
             else {
                 lockStack(stackElement, dock)
@@ -78,7 +80,7 @@ export async function init(id, option, invoke) {
         component.classList.add('d-none')
         el.append(component)
 
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         option.invokeVisibleChangedCallback(title, false)
 
         resetDockLock(dock)
@@ -89,15 +91,15 @@ export async function init(id, option, invoke) {
             lockTab(item.tab, eventsData)
         }
         resetDockLock(dock)
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
     layout.on('splitterDragStop', () => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         invoke.invokeMethodAsync(option.splitterCallback)
     })
     layout.on('lockChanged', state => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
     })
 
     invoke.invokeMethodAsync(option.initializedCallback)
@@ -132,7 +134,8 @@ export function update(id, option) {
         }
         else {
             // 处理 toggle 逻辑
-            toggleComponent(dock, option)
+            toggleComponent(dock, option);
+            saveConfig(dock.layout, option);
         }
     }
 }
@@ -177,198 +180,8 @@ export function dispose(id) {
     const dock = Data.get(id)
     Data.remove(id)
 
-    if (dock == null) {
-        return
+    if (dock) {
+        dock.eventsData.clear();
+        dock.layout.destroy();
     }
-
-    dock.eventsData.clear()
-    Dock.dispose(dock)
-}
-
-const lockDock = dock => {
-    const stacks = dock.layout.getAllStacks()
-    stacks.forEach(stack => {
-        if (dock.lock) {
-            lockStack(stack, dock)
-        }
-        else {
-            unLockStack(stack, dock)
-        }
-    })
-    dock.layout.emit('lockChanged')
-}
-
-const lockStack = (stack, dock) => {
-    const eventsData = dock.eventsData
-
-    if (!eventsData.has(stack)) {
-        eventsData.set(stack, stack)
-
-        stack.lockElement.classList.add('lock')
-        stack.header.tabs.forEach(tab => {
-            lockTab(tab, eventsData)
-        })
-    }
-}
-
-const unLockStack = (stack, dock) => {
-    const eventsData = dock.eventsData
-
-    if (eventsData.has(stack)) {
-        eventsData.delete(stack)
-
-        stack.lockElement.classList.remove('lock')
-        stack.header.tabs.forEach(tab => {
-            unLockTab(tab, eventsData)
-        })
-    }
-}
-
-const resetDockLock = dock => {
-    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.getState().lock)
-    const lock = unlocks.length === 0
-    if (dock.lock !== lock) {
-        dock.lock = lock
-        dock.invokeLockAsync(lock)
-    }
-}
-
-const lockTab = (tab, eventsData) => {
-    if (!eventsData.has(tab)) {
-        tab.disableReorder()
-        tab.onCloseClick = () => { }
-        eventsData.set(tab, tab.onCloseClick)
-        tab.componentItem.container.getState().lock = true
-    }
-}
-
-const unLockTab = (tab, eventsData) => {
-    if (eventsData.has(tab)) {
-        tab.enableReorder()
-        tab.onCloseClick = eventsData.get(tab)
-        eventsData.delete(tab)
-        tab.componentItem.container.getState().lock = false
-    }
-}
-
-const toggleComponent = (dock, option) => {
-    const items = getAllItemsByType('component', option);
-    const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
-    const stacks = dock.layout.getAllContentItems().filter(s => s.isStack);
-
-    // gt 没有 items 有时添加
-    items.forEach(v => {
-        const c = comps.find(i => i.id === v.id)
-        if (c === void 0) {
-            if (dock.layout.root.contentItems.length === 0) {
-                const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
-                dock.layout.root.addChild(componentItem)
-            }
-            if (dock.layout.root.contentItems[0].isStack) {
-                const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
-                const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
-                const stack = dock.layout.root.contentItems[0]
-                dock.layout.root.replaceChild(stack, rowOrColumn)
-                rowOrColumn.addChild(stack)
-                rowOrColumn.addItem(v)
-                rowOrColumn.updateSize()
-            }
-            else {
-                const stack = stacks.find(s => s.id == v.parent.id);
-                if (stack) {
-                    stack.addItem(v);
-                }
-                else if (v.parent.type === 'stack' && stacks.length > 0) {
-                    stacks.pop().addItem(v);
-                }
-                else {
-                    dock.layout.root.contentItems[0].addItem(v);
-                }
-            }
-
-            if (v.componentState.lock) {
-                const component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
-                lockStack(component.parentItem, dock)
-            }
-        }
-    })
-
-    // gt 有 items 没有时移除
-    comps.forEach(v => {
-        const c = items.find(i => i.id === v.id)
-        if (c === void 0) {
-            closeItem(dock, v)
-        }
-        else if (v.title !== c.title) {
-            // 更新 Title
-            v.setTitle(c.title)
-        }
-    })
-
-    saveConfig(option, dock.layout)
-}
-
-const getAllItemsByType = (type, parent) => {
-    const items = []
-
-    parent.content.forEach(v => {
-        if (v.type === type) {
-            v.parent = parent;
-            items.push(v)
-        }
-
-        if (v.content != null) {
-            items.push.apply(items, getAllItemsByType(type, v))
-        }
-    })
-    return items
-}
-
-const closeItem = (dock, component) => {
-    const { template } = dock;
-    const item = document.getElementById(component.id)
-    if (item) {
-        template.append(item)
-    }
-    const parent = component.parent
-    parent.removeChild(component)
-
-}
-
-const indexOfKey = (key, option) => {
-    return key.indexOf(`${option.prefix}-`) > -1
-}
-
-const saveConfig = (option, layout) => {
-    option = {
-        enableLocalStorage: false,
-        ...option
-    }
-    if (option.enableLocalStorage) {
-        removeConfig(option)
-        localStorage.setItem(option.localStorageKey, JSON.stringify(layout.saveLayout()));
-    }
-}
-
-const removeConfig = option => {
-    for (let index = localStorage.length; index > 0; index--) {
-        const k = localStorage.key(index - 1);
-        if (indexOfKey(k, option)) {
-            localStorage.removeItem(k);
-        }
-    }
-}
-
-const removeContent = (content, item) => {
-    content.forEach(v => {
-        if (Array.isArray(v.content)) {
-            const index = v.content.indexOf(item)
-            if (index > -1) {
-                v.content.splice(index, 1)
-            }
-            else {
-                removeContent(v.content, item)
-            }
-        }
-    })
 }

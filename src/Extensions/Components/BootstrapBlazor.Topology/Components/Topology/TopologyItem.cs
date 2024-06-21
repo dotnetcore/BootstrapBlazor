@@ -35,6 +35,11 @@ public class TopologyItem
     public string? TextColor { get; set; }
 
     /// <summary>
+    /// 获得/设置 背景颜色
+    /// </summary>
+    public string? Background { get; set; }
+
+    /// <summary>
     /// 获得/设置 对象 title 属性一般用于 tooltip 显示
     /// </summary>
     public string? Title { get; set; }
