@@ -19,10 +19,13 @@
         </div>
     }
 
-    <div class="bb-flip-clock-list second">
-        @RenderItem(6)
-        @RenderItem(10)
-    </div>
+    @if (ShowSecond)
+    {
+        <div class="bb-flip-clock-list second">
+            @RenderItem(6)
+            @RenderItem(10)
+        </div>
+    }
 </div>
 
 @code {
