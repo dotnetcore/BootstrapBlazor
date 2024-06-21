@@ -302,9 +302,4 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <inheritdoc/>
     /// </summary>
     public bool IsMarkupString { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public Func<Task<List<SelectedItem>>>? CustomFilter { get; set; }
 }

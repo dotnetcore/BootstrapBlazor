@@ -178,10 +178,4 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 自定义搜索逻辑
     /// </summary>
     Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义过滤列表
-    /// </summary>
-    Func<Task<List<SelectedItem>>>? CustomFilter { get; set; }
-
 }

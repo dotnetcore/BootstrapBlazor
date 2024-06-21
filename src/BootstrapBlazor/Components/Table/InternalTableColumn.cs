@@ -231,9 +231,4 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// 自定义实现搜索方法
     /// </summary>
     public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public Func<Task<List<SelectedItem>>>? CustomFilter { get; set; }
 }
