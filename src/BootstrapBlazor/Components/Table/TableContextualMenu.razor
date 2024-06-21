@@ -2,7 +2,7 @@
 @inherits FilterBase
 
 <div>
-    <ul style="list-style-type:none;height:100%;padding:0;margin;0;">
+    <ul class="menu-list">
         <li class="mb-1">
             <Button IsOutline class="w-100">从最小到最大进行排序</Button>
         </li>
@@ -14,15 +14,15 @@
                 <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" UseInputEvent="true" bind-value:event="oninput" OnValueChanged="OnSearchValueChanged" />
             </div>
         </li>
-        <li class="mb-1 ps-3 pt-2 border">
-            <div style="height:200px;overflow-y:scroll;overflow-x:hidden;">
-                <div class="mb-1">
-                    <Checkbox @bind-Value="@checkAll" ShowAfterLabel DisplayText="全选" OnStateChanged="@OnStateChanged" />
+        <li class="mb-1 ps-3 pt-2 border menu-container">
+            <div class="menu-items">
+                <div class="item-hover">
+                    <Checkbox class="w-100" @bind-Value="@checkAll" ShowAfterLabel DisplayText="全选" OnStateChanged="@OnStateChanged" />
                 </div>
                 @foreach (var item in FilterItems)
                 {
-                    <div class="mb-1">
-                        <Checkbox @bind-Value="@item.Checked" ShowAfterLabel DisplayText="@item.Value" />
+                    <div class="item-hover">
+                        <Checkbox class="w-100" @bind-Value="@item.Checked" ShowAfterLabel DisplayText="@item.Value" />
                     </div>
                 }
             </div>
