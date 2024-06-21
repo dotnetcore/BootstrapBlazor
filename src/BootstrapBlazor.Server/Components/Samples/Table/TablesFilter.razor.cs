@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Linq;
-
 namespace BootstrapBlazor.Server.Components.Samples.Table;
 
 /// <summary>
@@ -127,18 +125,6 @@ public partial class TablesFilter
             await filterAction.SetFilterConditionsAsync(filter);
         }
     }
-
-    private Task<List<SelectedItem>>? NameCustomFilter()
-        => Task.FromResult(Items.Select(x => new SelectedItem(x.Name!, x.Name!)).DistinctBy(x => x.Value).ToList());
-
-    private Task<List<SelectedItem>>? AddressCustomFilter()
-        => Task.FromResult(Items.Select(x => new SelectedItem(x.Address!, x.Address!)).DistinctBy(x => x.Value).ToList());
-
-    private Task<List<SelectedItem>>? CompleteCustomFilter()
-        => Task.FromResult(Items.Select(x => new SelectedItem(x.Complete.ToString(), x.Complete.ToString())).DistinctBy(x => x.Value).ToList());
-
-    private Task<List<SelectedItem>>? EducationCustomFilter()
-        => Task.FromResult(Items.Select(x => new SelectedItem(x.Education.ToString()!, x.Education!.Value.ToDisplayName())).DistinctBy(x => x.Value).ToList());
 
     private Task ResetAllFilters() => TableSetFilter.ResetFilters();
 }
