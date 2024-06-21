@@ -21,6 +21,12 @@ public partial class MultiFilter
     [Parameter]
     public string? SelectAllText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示搜索栏 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; } = true;
+
     private string? _searchText;
 
     private bool checkAll = false;
