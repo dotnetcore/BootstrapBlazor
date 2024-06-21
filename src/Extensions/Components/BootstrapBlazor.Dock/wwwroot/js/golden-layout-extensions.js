@@ -1,4 +1,5 @@
 ﻿import "./golden-layout.js"
+import { getAllItemsByType } from "./golden-layout-utility.js"
 
 goldenLayout.Tab.prototype.onCloseClick = function () {
     const component = document.getElementById(this.componentItem.id)
@@ -106,22 +107,6 @@ const getConfig = option => {
     }
 }
 
-const getAllItemsByType = (type, parent) => {
-    const items = []
-
-    parent.content.forEach(v => {
-        if (v.type === type) {
-            v.parent = parent;
-            items.push(v)
-        }
-
-        if (v.content != null) {
-            items.push.apply(items, getAllItemsByType(type, v))
-        }
-    })
-    return items
-}
-
 const resetComponentId = (config, option) => {
     // 本地配置
     const localComponents = getAllItemsByType('component', config.root)
@@ -220,4 +205,4 @@ const findStack = (stack, stacks) => {
     return find;
 }
 
-export { createDock, getAllItemsByType };
+export { createDock };
