@@ -346,10 +346,6 @@ code {
     .coms-demo .card {
         cursor: pointer;
     }
-
-    .header-img span {
-        display: none;
-    }
 }
 
 :root, [data-bs-theme="light"] {
