@@ -46,7 +46,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FilterTemplateTitle"]"
-            Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
+           Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
     <section ignore>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
 
     <Table TItem="Foo"
@@ -188,6 +188,25 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomFilterTitle"]"
+           Introduction="@Localizer["CustomFilterIntro"]"
+           Name="CustomFilter">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" CustomFilter="@NameCustomFilter" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" CustomFilter="@AddressCustomFilter" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" CustomFilter="@CompleteCustomFilter" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" CustomFilter="@EducationCustomFilter" />
             <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
         </TableColumns>
     </Table>

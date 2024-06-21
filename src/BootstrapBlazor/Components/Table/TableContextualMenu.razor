@@ -21,7 +21,7 @@
                 @foreach (var item in FilterItems)
                 {
                     <div class="item-hover">
-                        <Checkbox class="w-100" @bind-Value="@item.Checked" ShowAfterLabel DisplayText="@item.Value" />
+                        <Checkbox class="w-100" @bind-Value="@item.Checked" ShowAfterLabel DisplayText="@item.Text" />
                     </div>
                 }
             </div>

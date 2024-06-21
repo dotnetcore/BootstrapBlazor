@@ -65,7 +65,7 @@ public partial class TableContextualMenu
             SelectedItems = await Column.CustomFilter();
             if (SelectedItems != null)
             {
-                FilterItems = SelectedItems.Select(item => new TableContextualMenuItem() { Value = item.Value }).ToList();
+                FilterItems = SelectedItems.Select(item => new TableContextualMenuItem() { Value = item.Value, Text = item.Text }).ToList();
             }
         }
 
@@ -96,8 +96,8 @@ public partial class TableContextualMenu
         if (SelectedItems != null)
         {
             FilterItems = SelectedItems
-                .Where(x => x.Value.Contains(val))
-                .Select(item => new TableContextualMenuItem() { Value = item.Value })
+                .Where(x => x.Text.Contains(val))
+                .Select(item => new TableContextualMenuItem() { Value = item.Value, Text = item.Text })
                 .ToList();
         }
 
@@ -125,11 +125,12 @@ public partial class TableContextualMenu
         return filter;
     }
 
-    class TableContextualMenuItem
+    record TableContextualMenuItem
     {
         public bool Checked { get; set; }
 
         public string? Value { get; set; }
-    }
 
+        public string? Text { get; set; }
+    }
 }

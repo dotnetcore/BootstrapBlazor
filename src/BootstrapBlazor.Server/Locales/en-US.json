@@ -5438,6 +5438,8 @@
     "AutoHeightIntro": "<p><b>Highly Adaptive</b></p><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
+    "CustomFilterTitle": "List filtering",
+    "CustomFilterIntro": "Provide a custom filtering list for columns",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
