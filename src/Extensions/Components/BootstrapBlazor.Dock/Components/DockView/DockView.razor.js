@@ -1,5 +1,6 @@
 ﻿import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import { createDock, getAllItemsByType } from "../../js/golden-layout-extensions.js"
+import { saveConfig, removeConfig } from "../../js/golden-layout-config.js"
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, option, invoke) {
@@ -21,7 +22,7 @@ export async function init(id, option, invoke) {
     const layout = createDock(el, option);
     dock.layout = layout
     layout.on('initialised', () => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
     })
     layout.on('tabCreated', tab => {
         var state = tab.contentItem.container.getState()
@@ -78,7 +79,7 @@ export async function init(id, option, invoke) {
         component.classList.add('d-none')
         el.append(component)
 
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         option.invokeVisibleChangedCallback(title, false)
 
         resetDockLock(dock)
@@ -89,15 +90,15 @@ export async function init(id, option, invoke) {
             lockTab(item.tab, eventsData)
         }
         resetDockLock(dock)
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
     layout.on('splitterDragStop', () => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
         invoke.invokeMethodAsync(option.splitterCallback)
     })
     layout.on('lockChanged', state => {
-        saveConfig(option, layout)
+        saveConfig(layout, option);
     })
 
     invoke.invokeMethodAsync(option.initializedCallback)
@@ -303,7 +304,7 @@ const toggleComponent = (dock, option) => {
         }
     })
 
-    saveConfig(option, dock.layout)
+    saveConfig(dock.layout, option)
 }
 
 const closeItem = (dock, component) => {
@@ -315,30 +316,6 @@ const closeItem = (dock, component) => {
     const parent = component.parent
     parent.removeChild(component)
 
-}
-
-const indexOfKey = (key, option) => {
-    return key.indexOf(`${option.prefix}-`) > -1
-}
-
-const saveConfig = (option, layout) => {
-    option = {
-        enableLocalStorage: false,
-        ...option
-    }
-    if (option.enableLocalStorage) {
-        removeConfig(option)
-        localStorage.setItem(option.localStorageKey, JSON.stringify(layout.saveLayout()));
-    }
-}
-
-const removeConfig = option => {
-    for (let index = localStorage.length; index > 0; index--) {
-        const k = localStorage.key(index - 1);
-        if (indexOfKey(k, option)) {
-            localStorage.removeItem(k);
-        }
-    }
 }
 
 const removeContent = (content, item) => {
