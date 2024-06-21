@@ -4,14 +4,11 @@
 <div>
     <ul class="menu-list">
         <li class="mb-1">
-            <Button IsOutline class="w-100">从最小到最大进行排序</Button>
-        </li>
-        <li class="mb-1">
-            <Button IsOutline class="w-100">从最大到最小进行排序</Button>
-        </li>
-        <li class="mb-1">
             <div>
-                <BootstrapInput class="w-100" TValue="string" @bind-Value="@Value" UseInputEvent="true" bind-value:event="oninput" OnValueChanged="OnSearchValueChanged" />
+                <BootstrapInput class="w-100" TValue="string" UseInputEvent="true"
+                                @bind-Value="@Value" PlaceHolder="请输入 ..." IsSelectAllTextOnFocus="true"
+                                bind-value:event="oninput" IsAutoFocus="true"
+                                OnValueChanged="OnSearchValueChanged" />
             </div>
         </li>
         <li class="mb-1 ps-3 pt-2 border menu-container">

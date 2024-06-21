@@ -86,6 +86,11 @@ public partial class TableContextualMenu
         StateHasChanged();
     }
 
+    /// <summary>
+    /// 过滤内容搜索
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
     private Task OnSearchValueChanged(string val)
     {
         if (SelectedItems != null)
