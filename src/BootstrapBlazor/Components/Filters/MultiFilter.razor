@@ -13,7 +13,7 @@
     }
     <div class="bb-multi-filter-list">
         <div class="bb-multi-filter-header">
-            <Checkbox Value="@checkAll" ShowAfterLabel="true" ShowLabel="false" DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="GetState()" />
+            <Checkbox Value="checkAll" ShowAfterLabel="true" ShowLabel="false" DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="GetState()" />
         </div>
         <div class="bb-multi-filter-body scroll">
             @foreach (var item in GetItems())

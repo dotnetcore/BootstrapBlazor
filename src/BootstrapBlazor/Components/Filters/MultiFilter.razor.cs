@@ -69,6 +69,7 @@ public partial class MultiFilter
     public override void Reset()
     {
         checkAll = false;
+        _searchText = string.Empty;
         foreach (var item in _source)
         {
             item.Checked = false;
