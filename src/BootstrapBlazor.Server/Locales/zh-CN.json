@@ -6452,6 +6452,8 @@
     "BaseUsageIntro": "同步显示当前时间",
     "ShowMinuteText": "不显示时、分",
     "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
+    "ShowSecondText": "不显示秒",
+    "ShowSecondIntro": "通过设置 <code>ShowSecond=\"false\"</code> 不显示秒信息",
     "CountText": "计时器",
     "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
     "IsCountDownText": "倒计时",
