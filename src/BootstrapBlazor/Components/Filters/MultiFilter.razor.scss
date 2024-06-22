@@ -1,6 +1,6 @@
 .bb-multi-filter {
-    --bb-multi-filter-max-height: 180px;
-    --bb-multi-filter-max-width: 224px;
+    --bb-multi-filter-height: 180px;
+    --bb-multi-filter-width: 224px;
     --bb-multi-filter-search-margin-bottom: 1rem;
     --bb-multi-filter-body-item-bg: #fff;
     --bb-multi-filter-body-item-hover-bg: #fff;
@@ -22,8 +22,8 @@
         }
 
         .bb-multi-filter-body {
-            max-height: var(--bb-multi-filter-max-height);
-            max-width: var(--bb-multi-filter-max-width);
+            height: var(--bb-multi-filter-height);
+            width: var(--bb-multi-filter-width);
             margin-top: var(--bb-multi-filter-body-item-margin);
 
             .bb-multi-filter-body-item {
