@@ -1,0 +1,47 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using System.Text.RegularExpressions;
+
+namespace UniTestIconPark;
+
+public partial class UnitTest
+{
+    [Fact]
+    public void Build()
+    {
+        var root = AppContext.BaseDirectory;
+        var downloadFolder = Path.Combine(root, "../../../download");
+        Assert.True(Directory.Exists(downloadFolder));
+
+        var folder = new DirectoryInfo(downloadFolder);
+        var svgFile = Path.Combine(root, "../../../icon-park.svg");
+        if (File.Exists(svgFile))
+        {
+            File.Delete(svgFile);
+        }
+        using var writer = new StreamWriter(File.OpenWrite(svgFile));
+        writer.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\">");
+        foreach (var icon in folder.EnumerateFiles())
+        {
+            var id = Path.GetFileNameWithoutExtension(icon.Name);
+            using var reader = new StreamReader(icon.OpenRead());
+            var data = reader.ReadToEnd();
+            reader.Close();
+
+            var regex = SvgRegex();
+            var m = regex.Match(data);
+            var target = m.Groups[1].Value;
+
+            // remove stroke
+            target = $"    <symbol viewBox=\"0 0 48 48\" fill=\"none\" id=\"{id}\">{target.Replace("stroke=\"#333\" ", string.Empty)}</symbol>";
+            writer.WriteLine(target);
+        }
+        writer.WriteLine("</svg>");
+        writer.Close();
+    }
+
+    [GeneratedRegex("svg\">(.*)</svg>")]
+    private static partial Regex SvgRegex();
+}
