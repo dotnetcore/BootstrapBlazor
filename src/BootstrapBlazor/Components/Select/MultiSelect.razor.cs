@@ -119,6 +119,12 @@ public partial class MultiSelect<TValue>
     public string? ClearText { get; set; }
 
     /// <summary>
+    /// 获得/设置 显示最大数
+    /// </summary>
+    [Parameter]
+    public int ShowMax { get; set; } = 0;
+
+    /// <summary>
     /// 获得/设置 选项最大数 默认为 0 不限制
     /// </summary>
     [Parameter]
@@ -383,6 +389,8 @@ public partial class MultiSelect<TValue>
         {
             data = OnSearchTextChanged(SearchText);
         }
+        if (ShowMax != 0)
+            data = data.Take(ShowMax);
         return data;
     }
 
