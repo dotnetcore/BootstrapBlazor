@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+using Microsoft.Extensions.DependencyInjection;
 using System.Text.RegularExpressions;
 
 namespace UniTestIconPark;
@@ -11,10 +13,21 @@ public partial class UnitTest
     [Fact]
     public void Build()
     {
-        var root = AppContext.BaseDirectory;
-        var downloadFolder = Path.Combine(root, "../../../download");
-        Assert.True(Directory.Exists(downloadFolder));
+        var services = new ServiceCollection();
+        services.AddBootstrapBlazor();
+        var provider = services.BuildServiceProvider();
+        var zipService = provider.GetRequiredService<IZipArchiveService>();
 
+        var root = AppContext.BaseDirectory;
+        var downloadFile = Path.Combine(root, "download.zip");
+        Assert.True(File.Exists(downloadFile));
+
+        var downloadFolder = Path.Combine(root, "download");
+        if (Directory.Exists(downloadFile))
+        {
+            Directory.Delete(downloadFile, true);
+        }
+        zipService.ExtractToDirectory(downloadFile, downloadFolder, true);
         var folder = new DirectoryInfo(downloadFolder);
         var svgFile = Path.Combine(root, "../../../icon-park.svg");
         if (File.Exists(svgFile))

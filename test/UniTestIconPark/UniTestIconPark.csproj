@@ -21,4 +21,14 @@
     <Using Remove="UnitTest.Core" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="download.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
