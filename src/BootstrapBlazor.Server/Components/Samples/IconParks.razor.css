@@ -1,0 +1,11 @@
+﻿.icon-park-list {
+    display: flex;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem;
+}
+
+    .icon-park-list ::deep .bb-svg-icon {
+        --bb-svg-icon-width: 16px;
+        padding: 0.5rem;
+    }

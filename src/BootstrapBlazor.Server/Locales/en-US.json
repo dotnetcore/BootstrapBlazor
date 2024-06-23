@@ -6469,5 +6469,12 @@
     "CardWidth": "Card Width",
     "CardMargin": "Card Margin",
     "CardGroupMargin": "Card Group Margin"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+    "IconParkTitle": "ByteDance Svg Icon Lib",
+    "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
+    "NormalTitle": "Icon",
+    "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
+    "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
   }
 }

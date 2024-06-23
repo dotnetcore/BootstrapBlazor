@@ -5,6 +5,14 @@
 
 <h4>@Localizer["IconParkDescription"]</h4>
 
-<BootstrapBlazorSvgIcon Name="close"></BootstrapBlazorSvgIcon>
-<BootstrapBlazorSvgIcon Name="bookmark"></BootstrapBlazorSvgIcon>
-<BootstrapBlazorSvgIcon Name="book-open"></BootstrapBlazorSvgIcon>
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <section ignore>
+        <p>@((MarkupString)Localizer["NormalDesc"].Value)</p>
+    </section>
+    <div class="icon-park-list">
+        <BootstrapBlazorSvgIcon Name="close"></BootstrapBlazorSvgIcon>
+        <BootstrapBlazorSvgIcon Name="bookmark"></BootstrapBlazorSvgIcon>
+        <BootstrapBlazorSvgIcon Name="book-open"></BootstrapBlazorSvgIcon>
+    </div>
+</DemoBlock>
+
