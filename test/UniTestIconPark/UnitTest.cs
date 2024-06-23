@@ -28,12 +28,23 @@ public partial class UnitTest
             Directory.Delete(downloadFile, true);
         }
         zipService.ExtractToDirectory(downloadFile, downloadFolder, true);
+
         var folder = new DirectoryInfo(downloadFolder);
+
+        // 处理 List 文件
+        var iconListFile = Path.Combine(root, "../../../IconParkList.razor");
+        if (File.Exists(iconListFile))
+        {
+            File.Delete(iconListFile);
+        }
+
+        // 处理 svg 文件
         var svgFile = Path.Combine(root, "../../../icon-park.svg");
         if (File.Exists(svgFile))
         {
             File.Delete(svgFile);
         }
+        using var listWriter = new StreamWriter(File.OpenWrite(iconListFile));
         using var writer = new StreamWriter(File.OpenWrite(svgFile));
         writer.WriteLine("<svg xmlns=\"http://www.w3.org/2000/svg\">");
         foreach (var icon in folder.EnumerateFiles())
@@ -50,6 +61,8 @@ public partial class UnitTest
             // remove stroke
             target = $"    <symbol viewBox=\"0 0 48 48\" fill=\"none\" id=\"{id}\">{target.Replace("stroke=\"#333\" ", string.Empty)}</symbol>";
             writer.WriteLine(target);
+
+            listWriter.WriteLine($"<BootstrapBlazorSvgIcon Name=\"{id}\"></BootstrapBlazorSvgIcon>");
         }
         writer.WriteLine("</svg>");
         writer.Close();
