@@ -4668,7 +4668,8 @@
     "PrintService": "打印服务 PrintService",
     "ConnectionService": "在线连接服务 ConnectionService",
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
-    "ThemeProvider": "主题服务 IThemeProvider"
+    "ThemeProvider": "主题服务 IThemeProvider",
+    "IconPark": "字节跳动图标 IconPark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
