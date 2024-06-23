@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockViewIcon 组件
 /// </summary>
-public partial class BootstrapBlazorSvgIcon
+public partial class SvgIcon
 {
     /// <summary>
     /// 获得/设置 图标名称
