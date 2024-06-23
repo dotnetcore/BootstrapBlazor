@@ -1,5 +1,6 @@
 ﻿.icon-park-list {
     display: flex;
+    flex-wrap: wrap;
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: 0.5rem;
