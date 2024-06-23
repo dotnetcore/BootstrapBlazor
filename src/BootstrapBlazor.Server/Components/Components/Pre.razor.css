@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+    .pre-code:not(:last-child) {
+        margin-bottom: 1rem;
+    }
+
     .pre-code .loading {
         padding: .5rem 1rem;
     }

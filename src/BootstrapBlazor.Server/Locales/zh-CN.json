@@ -4668,7 +4668,8 @@
     "PrintService": "打印服务 PrintService",
     "ConnectionService": "在线连接服务 ConnectionService",
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
-    "ThemeProvider": "主题服务 IThemeProvider"
+    "ThemeProvider": "主题服务 IThemeProvider",
+    "IconPark": "字节跳动图标 IconPark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6469,5 +6470,12 @@
     "CardWidth": "卡片宽度",
     "CardMargin": "卡片边距",
     "CardGroupMargin": "卡片组边距"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+    "IconParkTitle": "字节跳动图标库",
+    "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
+    "NormalTitle": "图标组件",
+    "NormalIntro": "使用 <code>BootstrapBlazorSvgIcon</code> 组件设置其 <code>Name</code> 参数即可",
+    "NormalDesc": "更多图标名称请访问字节跳动官网 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
   }
 }
