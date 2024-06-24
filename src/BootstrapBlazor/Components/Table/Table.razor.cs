@@ -864,7 +864,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (ScrollMode == ScrollMode.Virtual)
         {
-            await InvokeVoidAsync("scrollTop", Id);
+            await InvokeVoidAsync("scrollTo", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行

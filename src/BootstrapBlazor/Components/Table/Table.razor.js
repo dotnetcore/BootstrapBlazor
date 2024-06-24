@@ -171,7 +171,7 @@ export function scroll(id) {
     }
 }
 
-export function scrollTop(id) {
+export function scrollTo(id) {
     const element = document.getElementById(id);
     if (element) {
         const scroll = element.querySelector('.scroll');
