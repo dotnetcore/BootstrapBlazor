@@ -171,6 +171,16 @@ export function scroll(id) {
     }
 }
 
+export function scrollTop(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const scroll = element.querySelector('.scroll');
+        if (scroll) {
+            scroll.scrollTo(0, 0, { behavior: 'smooth' });
+        }
+    }
+}
+
 export function dispose(id) {
     const table = Data.get(id)
     Data.remove(id)
