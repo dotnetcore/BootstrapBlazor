@@ -68,7 +68,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
-    private string? FooterClassString => CssBuilder.Default()
+    private string? FooterClassString => CssBuilder.Default("table-footer")
         .AddClass("table-footer-fixed", IsFixedFooter)
         .Build();
 
