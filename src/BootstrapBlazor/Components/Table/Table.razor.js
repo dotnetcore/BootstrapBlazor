@@ -97,10 +97,20 @@ export function reset(id) {
 
     setBodyHeight(table)
 
+    const observer = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.target === shim) {
+                setTableDefaultWidth(table);
+            }
+            else if (entry.target === table.search) {
+                setBodyHeight(table)
+            }
+        })
+    });
+    if (table.thead) {
+        observer.observe(shim);
+    }
     if (table.search) {
-        const observer = new ResizeObserver(() => {
-            setBodyHeight(table)
-        });
         observer.observe(table.search)
         table.observer = observer
     }
@@ -654,22 +664,22 @@ const saveColumnWidth = table => {
 }
 
 const setTableDefaultWidth = table => {
-    const width = table.tables[0].style.getPropertyValue('width');
-    if (width === "") {
+    if (table.tables[0].checkVisibility()) {
         const { scrollWidth, columnMinWidth } = table.options;
-        const length = table.tables[0].querySelectorAll('th').length;
-        const tableWidth = length * columnMinWidth;
+        const tableWidth = [...table.tables[0].querySelectorAll('col')]
+            .map(i => {
+                const colWidth = parseFloat(i.style.width);
+                return isNaN(colWidth) ? columnMinWidth : colWidth;
+            })
+            .reduce((accumulator, val) => accumulator + val, 0);
 
-        if (table.tables[0].checkVisibility()) {
-            if (table.el.offsetWidth < tableWidth) {
-                setTimeout(() => {
-                    setTableDefaultWidth(table);
-                }, 0);
-            }
-            else if (tableWidth > table.tables[0].offsetWidth) {
-                table.tables[0].style.setProperty('width', `${tableWidth}px`);
-                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
-            }
+        if (tableWidth > table.el.offsetWidth) {
+            table.tables[0].style.setProperty('width', `${tableWidth}px`);
+            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+        }
+        else {
+            table.tables[0].style.removeProperty('width');
+            table.tables[1].style.removeProperty('width');
         }
     }
 }
