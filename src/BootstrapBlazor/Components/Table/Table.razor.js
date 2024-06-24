@@ -655,21 +655,16 @@ const saveColumnWidth = table => {
 
 const setTableDefaultWidth = table => {
     const width = table.tables[0].style.getPropertyValue('width');
-    if (width === "") {
+    if (table.tables[0].checkVisibility() && width === "") {
         const { scrollWidth, columnMinWidth } = table.options;
-        const length = table.tables[0].querySelectorAll('th').length;
-        const tableWidth = length * columnMinWidth;
+        const tableWidth = [...table.tables[0].querySelectorAll('col')]
+            .map(i => {
+                const colWidth = parseFloat(i.style.width);
+                return isNaN(colWidth) ? columnMinWidth : colWidth;
+            })
+            .reduce((accumulator, val) => accumulator + val, 0);
 
-        if (table.tables[0].checkVisibility()) {
-            if (table.el.offsetWidth < tableWidth) {
-                setTimeout(() => {
-                    setTableDefaultWidth(table);
-                }, 0);
-            }
-            else if (tableWidth > table.tables[0].offsetWidth) {
-                table.tables[0].style.setProperty('width', `${tableWidth}px`);
-                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
-            }
-        }
+        table.tables[0].style.setProperty('width', `${tableWidth}px`);
+        table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
     }
 }
