@@ -1,5 +1,5 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
-import { deletePanel } from "./dockview-panel.js"
+import { deletePanel, findContentFromPanels } from "./dockview-panel.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {
@@ -29,7 +29,7 @@ const onAddGroup = group => {
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel, panels) => {
+const addGroupWithPanel = (dockview, panel, panels) => {console.log('add233');
     if (panel.groupId) {
         addPanelWidthGroupId(dockview, panel)
     }
@@ -78,22 +78,14 @@ const addPanelWidthGroupId = (dockview, panel) => {
 const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
     let brothers = panels.filter(p => p.params.parentId == panel.params.parentId && p.id != panel.id)
-    let group
+    let group, direction
     if (brothers.length > 0) {
-        group = dockview.groups.find(group => group.panels.find((p => p.params.key && p.params.key === brothers[0].params.key) || p.id === brothers[0].id || p.title === brothers[0].title))
-        dockview.addPanel({
-            id: panel.id,
-            title: panel.title,
-            component: panel.component,
-            position: { referenceGroup: group },
-            params: { ...panel.params, isPackup, height, isMaximized, position }
-        })
+        group = dockview.groups.find(group => findContentFromPanels(group.panels, brothers[0]))
     }
     else {
-        let direction
         for (const i = 0, len = panels.length; i < len; i++) {
             const targetPanel = panels[i]
-            group = dockview.groups.find(group => group.panels.find((p => p.params.key && p.params.key === targetPanel.params.key) || p.id === targetPanel.id || p.title === targetPanel.title))
+            group = dockview.groups.find(group => findContentFromPanels(group.panels, targetPanel))
             if(panels[i + 1]?.id == panel.id){
                 direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
                 break
@@ -103,14 +95,16 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
                 break
             }
         }
-        dockview.addPanel({
-            id: panel.id,
-            title: panel.title,
-            component: panel.component,
-            position: { referenceGroup: group, direction },
-            params: { ...panel.params, isPackup, height, isMaximized, position }
-        });
     }
+    let option = {
+        id: panel.id,
+        title: panel.title,
+        component: panel.component,
+        position: { referenceGroup: group },
+        params: { ...panel.params, isPackup, height, isMaximized, position }
+    }
+    if(direction) option.position.direction = direction
+    dockview.addPanel(option);
 }
 
 const getOrientation = function (child, group) {
