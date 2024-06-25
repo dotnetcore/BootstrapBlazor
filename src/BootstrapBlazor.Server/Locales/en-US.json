@@ -3979,7 +3979,9 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
-    "GroupOrderCallback": "Callback for set the order of group"
+    "GroupOrderCallback": "Callback for set the order of group",
+    "GroupItemOrderCallback": "Callback for set the order of items on group",
+    "GroupHeaderTextCallback": "Callback for set the header text of group"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",
@@ -4666,7 +4668,8 @@
     "PrintService": "PrintService",
     "ConnectionService": "ConnectionService",
     "ExportPdfButton": "ExportPdfButton",
-    "ThemeProvider": "IThemeProvider"
+    "ThemeProvider": "IThemeProvider",
+    "IconPark": "ByteDance IconPark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5446,6 +5449,8 @@
     "AutoHeightIntro": "<p><b>Highly Adaptive</b></p><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
+    "MultiFilterTitle": "Multiple selection list filtering",
+    "MultiFilterIntro": "Use the built-in <code>MultiFilter</code> component to provide multi-select filtering via <code>FilterTemplate</code>",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
@@ -6450,6 +6455,8 @@
     "BaseUsageIntro": "Synchronize display of current time",
     "ShowMinuteText": "not display hours and minutes",
     "ShowMinuteIntro": "By setting <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> to not display hour and minute information",
+    "ShowSecondText": "not display seconds",
+    "ShowSecondIntro": "By setting <code>ShowSecond=\"false\"</code> to display hour and minute information",
     "CountText": "Counter",
     "CountIntro": "By setting <code>ViewMode=\"FlipClockViewMode.Count\"</code> to enable the timer function, the start time can be set using <code>StartValue</code>",
     "IsCountDownText": "CountDown",
@@ -6463,5 +6470,12 @@
     "CardWidth": "Card Width",
     "CardMargin": "Card Margin",
     "CardGroupMargin": "Card Group Margin"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+    "IconParkTitle": "ByteDance Svg Icon Lib",
+    "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
+    "NormalTitle": "Icon",
+    "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
+    "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
   }
 }

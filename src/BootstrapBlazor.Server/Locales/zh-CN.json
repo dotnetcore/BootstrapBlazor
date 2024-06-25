@@ -3979,7 +3979,9 @@
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法",
     "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法",
-    "GroupOrderCallback": "组件分组项排序回调委托方法"
+    "GroupOrderCallback": "组件分组项排序回调委托方法",
+    "GroupItemOrderCallback": "组件分组项内项目集合排序回调方法",
+    "GroupHeaderTextCallback": "分组标题显示文本回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "获取 IP 地理位置",
@@ -4666,7 +4668,8 @@
     "PrintService": "打印服务 PrintService",
     "ConnectionService": "在线连接服务 ConnectionService",
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
-    "ThemeProvider": "主题服务 IThemeProvider"
+    "ThemeProvider": "主题服务 IThemeProvider",
+    "IconPark": "字节跳动图标 IconPark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5446,6 +5449,8 @@
     "AutoHeightIntro": "<p><b>高度自适应</b></p><p>本例中设置父容器高度为 <code>600px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
+    "MultiFilterTitle": "多选列表筛选",
+    "MultiFilterIntro": "通过 <code>FilterTemplate</code> 使用内置 <code>MultiFilter</code> 组件提供多选筛选功能",
     "TablesFilterTitle": "筛选和排序功能",
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
@@ -6450,6 +6455,8 @@
     "BaseUsageIntro": "同步显示当前时间",
     "ShowMinuteText": "不显示时、分",
     "ShowMinuteIntro": "通过设置 <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> 不显示小时、分钟信息",
+    "ShowSecondText": "不显示秒",
+    "ShowSecondIntro": "通过设置 <code>ShowSecond=\"false\"</code> 不显示秒信息",
     "CountText": "计时器",
     "CountIntro": "通过设置 <code>ViewMode=\"FlipClockViewMode.Count\"</code> 开启计时功能，开始时间使用 <code>StartValue</code> 设置",
     "IsCountDownText": "倒计时",
@@ -6463,5 +6470,12 @@
     "CardWidth": "卡片宽度",
     "CardMargin": "卡片边距",
     "CardGroupMargin": "卡片组边距"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+    "IconParkTitle": "字节跳动图标库",
+    "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
+    "NormalTitle": "图标组件",
+    "NormalIntro": "使用 <code>BootstrapBlazorSvgIcon</code> 组件设置其 <code>Name</code> 参数即可",
+    "NormalDesc": "更多图标名称请访问字节跳动官网 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
   }
 }
