@@ -4524,6 +4524,7 @@
     "ListView": "ListView",
     "ListGroup": "ListGroup",
     "Locator": "IpLocatorFactory",
+    "Icon": "Icon",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
     "Popover": "Popover",
@@ -6483,5 +6484,15 @@
     "NormalTitle": "Icon",
     "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
     "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons": {
+    "IconsTitle": "Icon",
+    "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
+    "FATitle": "Font Icons",
+    "FAIntro": "You can specify the icon style by setting <code>Name</code>",
+    "SvgTitle": "Svg Icons",
+    "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
+    "ImageTitle": "Image",
+    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
   }
 }
