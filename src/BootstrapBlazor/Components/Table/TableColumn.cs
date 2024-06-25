@@ -259,12 +259,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public Alignment Align { get; set; }
 
     /// <summary>
-    /// 是否合并相同行
-    /// </summary>
-    [Parameter]
-    public bool MergeRow { get; set; }
-
-    /// <summary>
     /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
     /// </summary>
     [Parameter]

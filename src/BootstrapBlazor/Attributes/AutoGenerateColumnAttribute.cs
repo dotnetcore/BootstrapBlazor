@@ -115,11 +115,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool Fixed { get; set; }
 
     /// <summary>
-    /// 是否合并相同行
-    /// </summary>
-    public bool MergeRow { get; set; }
-
-    /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置
     /// </summary>
     public string? CssClass { get; set; }
