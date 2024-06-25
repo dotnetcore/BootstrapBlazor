@@ -208,7 +208,7 @@ public static class Utility
     public static void Reset<TModel>(TModel source) where TModel : class, new()
     {
         var v = new TModel();
-        foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.CanWrite))
+        foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.IsCanWrite()))
         {
             var pInfo = v.GetType().GetPropertyByName(pi.Name);
             if (pInfo != null)
@@ -268,7 +268,7 @@ public static class Utility
         }
         foreach (var p in type.GetRuntimeProperties())
         {
-            if (p.CanWrite)
+            if (p.IsCanWrite())
             {
                 var v = p.GetValue(source);
                 var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);

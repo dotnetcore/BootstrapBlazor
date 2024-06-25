@@ -100,7 +100,7 @@ public static class IEditorItemExtensions
             }
             if (propertyInfo != null)
             {
-                ret = propertyInfo.CanWrite;
+                ret = propertyInfo.IsCanWrite();
             }
             return ret;
         }

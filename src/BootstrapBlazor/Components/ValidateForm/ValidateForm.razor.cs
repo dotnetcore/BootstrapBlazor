@@ -373,7 +373,7 @@ public partial class ValidateForm
     private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
         // 获得所有可写属性
-        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && p.GetIndexParameters().Length == 0);
+        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.IsCanWrite() && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
         {
             // 设置其关联属性字段
