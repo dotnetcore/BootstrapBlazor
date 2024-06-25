@@ -140,6 +140,10 @@ public partial class TableFooterCell
         {
             ret = ColspanCallback(BreakPoint);
         }
+        else if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("colspan", out var colspan) && int.TryParse(colspan.ToString(), out var d))
+        {
+            ret = d;
+        }
         return ret;
     }
 

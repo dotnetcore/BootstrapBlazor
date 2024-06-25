@@ -68,7 +68,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
-    private string? FooterClassString => CssBuilder.Default()
+    private string? FooterClassString => CssBuilder.Default("table-footer")
         .AddClass("table-footer-fixed", IsFixedFooter)
         .Build();
 
@@ -860,6 +860,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (AutoScrollLastSelectedRowToView)
         {
             await InvokeVoidAsync("scroll", Id);
+        }
+
+        if (ScrollMode == ScrollMode.Virtual)
+        {
+            await InvokeVoidAsync("scrollTo", Id);
         }
 
         // 增加去重保护 _loop 为 false 时执行
