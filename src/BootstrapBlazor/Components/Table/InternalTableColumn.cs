@@ -28,8 +28,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool Fixed { get; set; }
 
-    public bool MergeRow { get; set; }
-
     public bool TextWrap { get; set; }
 
     public bool TextEllipsis { get; set; }

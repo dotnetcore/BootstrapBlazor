@@ -5359,9 +5359,7 @@
     "ValueAttr": "当前单元格显示内容",
     "TableCellOnDoubleClickCellToastTitle": "双击单元格回调",
     "TableCellOnDoubleClickCellCurrentCellName": "当前单元格名称：",
-    "TableCellOnDoubleClickCellCurrentValue": "当前值：",
-    "TableMergeRowTitle": "合并相同行",
-    "TableCellMergeRowIntro": "本例中通过设置 <code>MergeRow</code> 属性，通过相同行的 <code>Name</code> 进行竖向合并操作，同时设置合并单元竖向居中"
+    "TableCellOnDoubleClickCellCurrentValue": "当前值："
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesLookup": {
     "TablesLookupTitle": "Table 表格",

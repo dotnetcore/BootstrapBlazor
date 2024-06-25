@@ -140,8 +140,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColSpan(int colSpan) => colSpan > 1 ? colSpan.ToString() : null;
 
-    private static string? GetRowSpan(int rowSpan) => rowSpan > 1 ? rowSpan.ToString() : null;
-
     private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
     private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
@@ -1287,45 +1285,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             colSpan++;
         }
         return colSpan;
-    }
-
-
-
-    /// <summary>
-    /// 获取同一列相同内容的个数
-    /// </summary>
-    /// <param name="row"></param>
-    /// <param name="col"></param>
-    /// <returns></returns>
-    private int GetSameRowCount(TItem row, ITableColumn col)
-    {
-        var rowspan = 1;
-        var fieldName = col.GetFieldName();
-        var v = Utility.GetPropertyValue(row, fieldName);
-        var index = Rows.IndexOf(row);
-
-        if (index - 1 >= 0)
-        {
-            var pre = Utility.GetPropertyValue(Rows[index - 1], fieldName);
-            if (pre == v)
-            {
-                return 0;
-            }
-        }
-        for (var i = index; i < Rows.Count; i++)
-        {
-            if (i + 1 < Rows.Count && Utility.GetPropertyValue(Rows[i + 1], fieldName) == v)
-            {
-                rowspan++;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-
-        return rowspan;
     }
 
     private int GetEmptyColumnCount() => ShowDetails() ? GetColumnCount() + 1 : GetColumnCount();
