@@ -1,0 +1,8 @@
+﻿.bb-icon-list {
+    display: flex;
+}
+
+::deep .bb-icon {
+    --bb-icon-width: 24px;
+    --bb-icon-color: var(--bs-body-color);
+}
