@@ -23,16 +23,23 @@ public static class PropertyInfoExtensions
     }
 
     /// <summary>
+    /// 判断属性是否只读扩展方法
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
+    public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
+
+    /// <summary>
     /// 判断是否为 Init 扩展方法
     /// </summary>
-    /// <param name="property"></param>
+    /// <param name="p"></param>
     /// <returns></returns>
-    public static bool IsInitOnly(this PropertyInfo property)
+    private static bool IsInit(this PropertyInfo p)
     {
         var isInit = false;
-        if (property.CanWrite)
+        if (p.CanWrite)
         {
-            var setMethod = property.SetMethod;
+            var setMethod = p.SetMethod;
             if (setMethod != null)
             {
                 var setMethodReturnParameterModifiers = setMethod.ReturnParameter.GetRequiredCustomModifiers();
