@@ -5085,7 +5085,10 @@
     "TablesVisibleNormalTitle": "Editor Visible/Hidden",
     "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
     "TablesReadonlyColumnTitle": "Readonly Column",
-    "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>"
+    "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>",
+    "TablesReadonlyColumnDescription": "Corresponding database calculated columns, or model read-only attributes",
+    "TablesReadonlyColumnTips1": "Do not write <code>@bind-Field</code>. Read-only columns cannot be entered when <b>Add</b> or <b>Edit</b>",
+    "TablesReadonlyColumnTips2": "The old version needs to write the complete code as follows"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",

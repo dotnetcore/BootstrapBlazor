@@ -275,10 +275,11 @@
 
 <DemoBlock Title="@Localizer["TablesReadonlyColumnTitle"]" Introduction="@Localizer["TablesReadonlyColumnIntro"]" Name="ReadonlyColumn">
     <section ignore>
-        <b>@Localizer["TablesEditDataServiceDescription"]</b>
-        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
-        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips2"].Value)</div>
-        <Pre class="no-highlight my-3 mb-3">services.AddTableDemoDataService();</Pre>
+        <p>@Localizer["TablesReadonlyColumnDescription"]</p>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips1"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips2"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn TItem="Foo1" TType="string" Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
     </section>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
@@ -286,7 +287,7 @@
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
-            <TableColumn Field="@context.ReadonlyColumn" Fieldname="@nameof(context.ReadonlyColumn)"/>
+            <TableColumn Field="@context.ReadonlyColumn" FieldName="@nameof(context.ReadonlyColumn)" Text="@LocalizerFoo[nameof(context.ReadonlyColumn)]" />
         </TableColumns>
     </Table>
 </DemoBlock>
