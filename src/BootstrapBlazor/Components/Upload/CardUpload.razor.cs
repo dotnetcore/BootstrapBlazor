@@ -134,7 +134,7 @@ public partial class CardUpload<TValue>
 
         bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
         {
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" or ".webp" => true,
             _ => false
         };
         return ret;
