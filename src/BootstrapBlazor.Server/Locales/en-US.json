@@ -5359,7 +5359,9 @@
     "ValueAttr": "Current cell display content",
     "TableCellOnDoubleClickCellToastTitle": "Double-click cell callback",
     "TableCellOnDoubleClickCellCurrentCellName": "Current cell name:",
-    "TableCellOnDoubleClickCellCurrentValue": "Current Value:"
+    "TableCellOnDoubleClickCellCurrentValue": "Current Value:",
+    "TableMergeRowTitle": "Merge the same row",
+    "TableCellMergeRowIntro": "In this example, by setting the <code>MergeRow</code> property,the property is used to merge vertically through the <code>Name</code> of the same row, the cell style is vertically centered"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesLookup": {
     "TablesLookupTitle": "Table Lookup",
