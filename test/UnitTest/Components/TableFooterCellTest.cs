@@ -123,6 +123,26 @@ public class TableFooterCellTest : BootstrapBlazorTestBase
         });
         cut.Contains("colspan=\"3\"");
         Assert.Equal(BreakPoint.Large, point);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
+            {
+                { "colspan", "4" }
+            });
+            pb.Add(a => a.ColspanCallback, null);
+        });
+        cut.Contains("colspan=\"4\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
+            {
+                { "colspan", "4" }
+            });
+            pb.Add(a => a.ColspanCallback, null);
+        });
+        cut.Contains("colspan=\"4\"");
     }
 
     [Fact]
