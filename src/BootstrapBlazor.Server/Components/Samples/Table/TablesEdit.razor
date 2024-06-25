@@ -272,3 +272,21 @@
         </EditTemplate>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesReadonlyColumnTitle"]" Introduction="@Localizer["TablesReadonlyColumnIntro"]" Name="ReadonlyColumn">
+    <section ignore>
+        <b>@Localizer["TablesEditDataServiceDescription"]</b>
+        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
+        <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips2"].Value)</div>
+        <Pre class="no-highlight my-3 mb-3">services.AddTableDemoDataService();</Pre>
+    </section>
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
+            <TableColumn Field="@context.ReadonlyColumn" Fieldname="@nameof(context.ReadonlyColumn)"/>
+        </TableColumns>
+    </Table>
+</DemoBlock>
