@@ -29,35 +29,58 @@ const onAddGroup = group => {
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel) => {
-    let group
-    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+const addGroupWithPanel = (dockview, panel, panels) => {
     if (panel.groupId) {
-        group = dockview.api.getGroup(panel.groupId)
-        if (!group) {
-            group = dockview.createGroup({ id: panel.groupId })
-            const floatingGroupPosition = isMaximized ? {
-                x: 0, y: 0,
-                width: dockview.width,
-                height: dockview.height
-            } : {
-                x: currentPosition?.left || 0,
-                y: currentPosition?.top || 0,
-                width: currentPosition?.width,
-                height: currentPosition?.height
-            }
-            dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
-            createGroupActions(group);
+        addPanelWidthGroupId(dockview, panel)
+    }
+    else {
+        addPanelWidthCreatGroup(dockview, panel, panels)
+    }
+    deletePanel(dockview, panel)
+}
+
+const addPanelWidthGroupId = (dockview, panel) => {
+    let group = dockview.api.getGroup(panel.groupId)
+    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    if (!group) {
+        group = dockview.createGroup({ id: panel.groupId })
+        const floatingGroupPosition = isMaximized ? {
+            x: 0, y: 0,
+            width: dockview.width,
+            height: dockview.height
+        } : {
+            x: currentPosition?.left || 0,
+            y: currentPosition?.top || 0,
+            width: currentPosition?.width,
+            height: currentPosition?.height
         }
-        else {
-            if (group.api.location.type === 'grid') {
-                let isVisible = dockview.isVisible(group)
-                if (isVisible === false) {
-                    dockview.setVisible(group, true)
-                    isMaximized && group.api.maximize();
-                }
+        dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
+        createGroupActions(group);
+    }
+    else {
+        if (group.api.location.type === 'grid') {
+            let isVisible = dockview.isVisible(group)
+            if (isVisible === false) {
+                dockview.setVisible(group, true)
+                isMaximized && group.api.maximize();
             }
         }
+    }
+    dockview.addPanel({
+        id: panel.id,
+        title: panel.title,
+        component: panel.component,
+        position: { referenceGroup: group },
+        params: { ...panel.params, isPackup, height, isMaximized, position }
+    })
+}
+
+const addPanelWidthCreatGroup = (dockview, panel, panels) => {
+    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    let brothers = panels.filter(p => p.params.parentId == panel.params.parentId && p.id != panel.id)
+    let group
+    if (brothers.length > 0) {
+        group = dockview.groups.find(group => group.panels.find((p => p.params.key && p.params.key === brothers[0].params.key) || p.id === brothers[0].id || p.title === brothers[0].title))
         dockview.addPanel({
             id: panel.id,
             title: panel.title,
@@ -67,36 +90,27 @@ const addGroupWithPanel = (dockview, panel) => {
         })
     }
     else {
-        group = dockview.groups.find(group => group.children?.[panel.id])
-        if (!group) {
-            let curentPanel = dockview.panels.findLast(item => item.params.parentId === panel.params.parentId)
-            let direction = getOrientation(dockview.gridview.root, curentPanel.group) === 'VERTICAL' ? 'below' : 'right'
-            dockview.addPanel({
-                id: panel.id,
-                title: panel.title,
-                component: panel.component,
-                position: { referenceGroup: curentPanel.group, direction },
-                params: { ...panel.params, isPackup, height, isMaximized, position }
-            });
-        }
-        else {
-            if (group.api.location.type === 'grid') {
-                let isVisible = dockview.isVisible(group)
-                if (isVisible === false) {
-                    dockview.setVisible(group, true)
-                    isMaximized && group.api.maximize()
-                }
+        let direction
+        for (const i = 0, len = panels.length; i < len; i++) {
+            const targetPanel = panels[i]
+            group = dockview.groups.find(group => group.panels.find((p => p.params.key && p.params.key === targetPanel.params.key) || p.id === targetPanel.id || p.title === targetPanel.title))
+            if(panels[i + 1]?.id == panel.id){
+                direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
+                break
             }
-            dockview.addPanel({
-                id: panel.id,
-                title: panel.title,
-                component: panel.component,
-                position: { referenceGroup: group },
-                params: { ...panel.params, isPackup, height, isMaximized, position }
-            })
+            else if((i == len - 1) && (i - 1 >= 0) && (panels[i - 1].id == panel.id)){
+                direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'above' : 'left'
+                break
+            }
         }
+        dockview.addPanel({
+            id: panel.id,
+            title: panel.title,
+            component: panel.component,
+            position: { referenceGroup: group, direction },
+            params: { ...panel.params, isPackup, height, isMaximized, position }
+        });
     }
-    deletePanel(dockview, panel)
 }
 
 const getOrientation = function (child, group) {

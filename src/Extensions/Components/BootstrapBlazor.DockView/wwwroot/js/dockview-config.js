@@ -94,10 +94,10 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
         obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId))
     }
     else if (contentItem.type === 'group') {
-        obj = getGroupNode(contentItem, size, boxSize, panels, getGroupId);
+        obj = getGroupNode(contentItem, size, boxSize, parent, panels, getGroupId);
     }
     else if (contentItem.type === 'component') {
-        obj = getLeafNode(contentItem, size, boxSize, panels, getGroupId);
+        obj = getLeafNode(contentItem, size, boxSize, parent, panels, getGroupId);
     }
     return obj
 }
@@ -110,14 +110,14 @@ const getActualSize = (width, height, widthRate, heightRate, defaultSize) => (wi
     ? defaultSize
     : width ? width * widthRate / 100 : height * heightRate / 100;
 
-const getGroupNode = (contentItem, size, boxSize, panels, getGroupId) => {
+const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
     return {
         type: 'leaf',
         size: getSize(boxSize, contentItem.width || contentItem.height) || size,
-        visible: contentItem.content.some(item => item.visible !== false),
+        visible: contentItem.content.length > 0 || contentItem.content.some(item => item.visible !== false),
         data: {
             id: getGroupId(),
-            activeView: contentItem.content[0].id,
+            activeView: contentItem.content[0]?.id || '',
             hideHeader: contentItem.content.length === 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
@@ -133,7 +133,7 @@ const getGroupNode = (contentItem, size, boxSize, panels, getGroupId) => {
     }
 }
 
-const getLeafNode = (contentItem, size, boxSize, panels, getGroupId) => {
+const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
     const visible = contentItem.visible !== false;
     const data = {
         type: 'leaf',
