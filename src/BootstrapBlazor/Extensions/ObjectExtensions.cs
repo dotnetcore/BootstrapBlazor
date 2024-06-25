@@ -213,7 +213,7 @@ public static class ObjectExtensions
             }
             foreach (var p in type.GetRuntimeProperties())
             {
-                if (p.CanWrite)
+                if (p.IsCanWrite())
                 {
                     var v = p.GetValue(item);
                     p.SetValue(source, v);
