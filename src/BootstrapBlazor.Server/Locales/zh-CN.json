@@ -4524,6 +4524,7 @@
     "ListView": "列表组件 ListView",
     "ListGroup": "列表框 ListGroup",
     "Locator": "位置定位 IpLocatorFactory",
+    "Icon": "图标 Icon",
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
@@ -6483,5 +6484,15 @@
     "NormalTitle": "图标组件",
     "NormalIntro": "使用 <code>BootstrapBlazorSvgIcon</code> 组件设置其 <code>Name</code> 参数即可",
     "NormalDesc": "更多图标名称请访问字节跳动官网 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons": {
+    "IconsTitle": "Icon 图标",
+    "IconsDescription": "同时支持字体图标、矢量 Svg 图标、以及 Image 图片",
+    "FATitle": "字体图标",
+    "FAIntro": "通过设置 <code>Name</code> 指定图标样式即可",
+    "SvgTitle": "矢量图标",
+    "SvgIntro": "通过设置 <code>IsSvgSprites=\"true\"</code> <code>Url</code> 加载 <code>Svg</code> 雪碧图，通过 <code>Name</code> 指定其 <code>Id</code> 值",
+    "ImageTitle": "图片",
+    "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
   }
 }

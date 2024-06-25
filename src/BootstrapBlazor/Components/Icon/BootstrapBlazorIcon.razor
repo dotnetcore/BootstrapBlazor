@@ -1,0 +1,19 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    else if (IsSvgSprites)
+    {
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <use href="@Href"></use>
+        </svg>
+    }
+    else
+    {
+        <i class="@Name"></i>
+    }
+</div>
