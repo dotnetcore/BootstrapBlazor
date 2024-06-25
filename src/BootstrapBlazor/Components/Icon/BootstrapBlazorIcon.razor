@@ -1,6 +1,19 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<a @attributes="AdditionalAttributes" id="@Id" href="#" class="layout-gotop" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="@TooltipText">
-    <i class="@Icon"></i>
-</a>
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    else if (IsSvgSprites)
+    {
+        <svg xmlns="http://www.w3.org/2000/svg">
+            <use href="@Href"></use>
+        </svg>
+    }
+    else
+    {
+        <i class="@Name"></i>
+    }
+</div>

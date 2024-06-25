@@ -15,7 +15,6 @@ public partial class BootstrapBlazorIcon
     /// <remarks>如果是字库图标应该是样式名称如 fa-solid fa-home 如果是 svg sprites 应该为 Id</remarks>
     [Parameter]
     [NotNull]
-    [EditorRequired]
     public string? Name { get; set; }
 
     /// <summary>
@@ -35,4 +34,10 @@ public partial class BootstrapBlazorIcon
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private string? Href => $"{Url}#{Name}";
+
+    private string? ClassString => CssBuilder.Default("bb-icon")
+        .AddClass($"bb-icon-{Name}", !string.IsNullOrEmpty(Name) && IsSvgSprites)
+        .Build();
 }
