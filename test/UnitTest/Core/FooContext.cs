@@ -33,5 +33,6 @@ public class FooContext(DbContextOptions<FooContext> options) : DbContext(option
         modelBuilder.Entity<Foo>().Ignore(f => f.Complete);
         modelBuilder.Entity<Foo>().Ignore(f => f.Education);
         modelBuilder.Entity<Foo>().Ignore(f => f.Hobby);
+        modelBuilder.Entity<Foo>().Ignore(f => f.ReadonlyColumn);
     }
 }
