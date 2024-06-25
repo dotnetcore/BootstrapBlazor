@@ -1,9 +1,11 @@
 ﻿@page "/marquee"
 @inject IStringLocalizer<Marquees> Localizer
 
-<h3>@Localizer["MarqueeDescription"]</h3>
+<h3>@Localizer["MarqueeTitle"]</h3>
 
-<DemoBlock Title="@Localizer["MarqueeTitle"]" Introduction="@Localizer["MarqueeIntro"]" Name="Normal">
+<h4>@Localizer["MarqueeDescription"]</h4>
+
+<DemoBlock Title="@Localizer["MarqueeBase"]" Introduction="@Localizer["MarqueeBaseIntro"]" Name="Normal">
     <section ignore>
         <h4>Options</h4>
         <BootstrapInputGroup>
@@ -35,5 +37,5 @@
     </section>
 
     <Marquee Text="@Text" Color="@TextColor" BackgroundColor="@BackgroundColor"
-             Duration="@Duration" DirecTion="@Direction" FontSize="@FontSize" />
+             Duration="@Duration" Direction="@Direction" FontSize="@FontSize" />
 </DemoBlock>

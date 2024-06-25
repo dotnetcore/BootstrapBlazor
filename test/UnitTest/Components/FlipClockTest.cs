@@ -33,6 +33,19 @@ public class FlipClockTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowSecond_Ok()
+    {
+        var cut = Context.RenderComponent<FlipClock>();
+        cut.Contains("bb-flip-clock-list second");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowSecond, false);
+        });
+        cut.DoesNotContain("bb-flip-clock-list second");
+    }
+
+    [Fact]
     public async Task ViewMode_Ok()
     {
         var completed = false;

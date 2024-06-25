@@ -18,19 +18,7 @@ public class DockViewContent : DockViewComponentBase
     /// </summary>
     [JsonConverter(typeof(DockViewComponentConverter))]
     [JsonPropertyName("content")]
-    public List<IDockViewComponent> Items { get; } = [];
-
-    /// <summary>
-    /// 获得/设置 组件宽度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Width { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public int? Height { get; set; }
+    public List<DockViewComponentBase> Items { get; set; } = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,10 +26,10 @@ public class DockViewContent : DockViewComponentBase
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<List<IDockViewComponent>>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<List<IDockViewComponent>>.Value), Items);
-        builder.AddAttribute(2, nameof(CascadingValue<List<IDockViewComponent>>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<List<IDockViewComponent>>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<List<DockViewComponentBase>>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<List<DockViewComponentBase>>.Value), Items);
+        builder.AddAttribute(2, nameof(CascadingValue<List<DockViewComponentBase>>.IsFixed), true);
+        builder.AddAttribute(3, nameof(CascadingValue<List<DockViewComponentBase>>.ChildContent), ChildContent);
         builder.CloseComponent();
     }
 }

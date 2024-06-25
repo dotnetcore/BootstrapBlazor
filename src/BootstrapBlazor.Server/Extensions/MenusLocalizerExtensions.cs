@@ -631,6 +631,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["IconPark"],
+                    Url = "icon-park"
+                },
+                new()
+                {
                     Text = Localizer["LinkButton"],
                     Url = "link-button"
                 },
@@ -824,47 +829,52 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    Text = Localizer["DockViewIndex"],
+                    Text = Localizer["DockViewV2Index"],
                     Url = "dock-view2/index"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewColumn"],
+                    Text = Localizer["DockViewV2Column"],
                     Url = "dock-view2/col"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewRow"],
+                    Text = Localizer["DockViewV2Row"],
                     Url = "dock-view2/row"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewStack"],
+                    Text = Localizer["DockViewV2Group"],
                     Url = "dock-view2/group"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewComplex"],
+                    Text = Localizer["DockViewV2Complex"],
                     Url = "dock-view2/complex"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewNest"],
+                    Text = Localizer["DockViewV2Nest"],
                     Url = "dock-view2/nest"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewVisible"],
+                    Text = Localizer["DockViewV2Visible"],
                     Url = "dock-view2/visible"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewLock"],
+                    Text = Localizer["DockViewV2Lock"],
                     Url = "dock-view2/lock"
                 },
                 new()
                 {
-                    Text = Localizer["DockViewLayout"],
+                    Text = Localizer["DockViewV2Title"],
+                    Url = "dock-view2/title"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Layout"],
                     Url = "dock-view2/layout"
                 }
             };
@@ -1441,6 +1451,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Lookup"],
                     Url = "lookup"
+                },
+                new()
+                {
+                    Text = Localizer["Mask"],
+                    Url = "mask"
                 },
                 new()
                 {

@@ -3,8 +3,11 @@
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     overflow: hidden;
-    margin-bottom: 1rem;
 }
+
+    .pre-code:not(:last-child) {
+        margin-bottom: 1rem;
+    }
 
     .pre-code .loading {
         padding: .5rem 1rem;

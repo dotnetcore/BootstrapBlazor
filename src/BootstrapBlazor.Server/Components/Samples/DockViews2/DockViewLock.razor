@@ -1,23 +1,54 @@
 ﻿@page "/dock-view2/lock"
+@inherits BaseDockView
 
-<h4>锁定面板</h4>
-<p>通过设置 <code>DockView</code> 的属性 <code>IsLock</code>,控制所有面板是否能拖动</p>
-<p>通过设置 <code>DockComponent</code> 的属性 <code>IsLock</code>,控制某个面板是否能拖动</p>
+<h3>@Localizer["DockViewLockTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewLockIntro"].Value)</h4>
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
-<div class="dock-lock-demo">
-    <DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
-        <DockViewContent Type="DockViewContentType.Row">
-            <DockViewComponent Title="标签一">
-                <div class="panel">Panel1</div>
-            </DockViewComponent>
-            <DockViewComponent Title="标签二">
-                <div class="panel">Panel2</div>
-            </DockViewComponent>
-            <DockViewComponent Title="标签三">
-                <div class="panel">Panel3</div>
-            </DockViewComponent>
-        </DockViewContent>
-    </DockViewV2>
-</div>
+<DockViewV2 Name="DockViewLock" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" class="dock-lock-demo">
+    <DockViewContent Type="DockViewContentType.Row">
+        <DockViewComponent Key="tab1" Title="标签一" IsLock="IsLock" Width="260">
+            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="true"
+                   ShowDefaultButtons="false" IsFixedHeader="false">
+                <DetailRowTemplate>
+                    @{
+                        var detailContext = GetDetailDataTableDynamicContext(context);
+                    }
+                    <div class="p-2 w-100">
+                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        </Table>
+                    </div>
+                </DetailRowTemplate>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Key="tab2" Title="标签二" IsLock="IsLock">
+            <Table TItem="Foo" @bind-Items="Items"
+                   IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                   ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                   OnAddAsync="@OnAddAsync">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Education" />
+                    <TableColumn @bind-Field="@context.Count" />
+                    <TableColumn @bind-Field="@context.Complete" />
+                </TableColumns>
+            </Table>
+        </DockViewComponent>
+        <DockViewComponent Key="tab3" Title="标签三" IsLock="IsLock">
+            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
+                   Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.Name" Width="140" />
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Address" TextEllipsis="true" ShowTips="true" />
+                    <TableColumn @bind-Field="@context.Count" Width="80" />
+                </TableColumns>
+            </Table>
+        </DockViewComponent>
+    </DockViewContent>
+</DockViewV2>

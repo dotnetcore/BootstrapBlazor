@@ -1,0 +1,22 @@
+﻿.bb-ad {
+    height: 136px;
+    margin-bottom: 1rem;
+}
+
+    .bb-ad.bb-ad-vertical {
+        margin: .25rem;
+        position: absolute;
+        bottom: .25rem;
+        left: 0;
+        right: 0;
+    }
+
+.bb-ad {
+    background-color: #f4f8fa;
+    border-radius: 3px;
+}
+
+    .bb-ad .wwads-horizontal,
+    .bb-ad .wwads-vertical {
+        margin-top: 0;
+    }

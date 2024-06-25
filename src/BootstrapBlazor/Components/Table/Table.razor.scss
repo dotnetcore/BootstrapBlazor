@@ -195,11 +195,28 @@
     text-overflow: ellipsis;
 }
 
-.table .table-footer-fixed {
+.table .table-footer {
     font-weight: var(--bb-table-footer-font-weight);
-    position: sticky;
-    bottom: 0;
-    outline: 2px solid var(--bs-border-color);
+    position: relative;
+
+    &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background-color: var(--bs-border-color);
+    }
+
+    &.table-footer-fixed {
+        position: sticky;
+        z-index: 2;
+        bottom: 0;
+    }
+
+    > tr:last-child {
+        border-bottom: none;
+    }
 }
 
 .table td, .table th {

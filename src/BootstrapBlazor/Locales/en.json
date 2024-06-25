@@ -173,6 +173,10 @@
     "CloseAllTabsText": "Close All",
     "NotFoundTabText": "NotFound"
   },
+  "BootstrapBlazor.Components.MultiFilter": {
+    "MultiFilterSearchPlaceHolderText": "Please enter ...",
+    "MultiFilterSelectAllText": "Select All"
+  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "Add",
     "EditButtonText": "Edit",

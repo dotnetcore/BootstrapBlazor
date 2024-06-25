@@ -272,3 +272,22 @@
         </EditTemplate>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesReadonlyColumnTitle"]" Introduction="@Localizer["TablesReadonlyColumnIntro"]" Name="ReadonlyColumn">
+    <section ignore>
+        <p>@Localizer["TablesReadonlyColumnDescription"]</p>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips1"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips2"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn TItem="Foo1" TType="string" Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
+    </section>
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
+            <TableColumn Field="@context.ReadonlyColumn" FieldName="@nameof(context.ReadonlyColumn)" Text="@LocalizerFoo[nameof(context.ReadonlyColumn)]" />
+        </TableColumns>
+    </Table>
+</DemoBlock>

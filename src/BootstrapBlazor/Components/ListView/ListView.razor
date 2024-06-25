@@ -25,18 +25,18 @@
             {
                 <Collapse IsAccordion="IsAccordion" OnCollapseChanged="OnCollapseChanged!">
                     <CollapseItems>
-                        @RenderCollapsibleItems()
+                        @RenderCollapsibleItems(GroupName)
                     </CollapseItems>
                 </Collapse>
             }
             else
             {
-                foreach (var key in GroupOrderCallback)
+                foreach (var key in GetGroupItems(GroupName))
                 {
-                    <div @key="@key" class="accordion-item">
-                        <div class="accordion-header">@key.Key</div>
+                    <div @key="@key.GroupName" class="accordion-item">
+                        <div class="accordion-header">@key.GroupName</div>
                         <div class="accordion-body">
-                            @foreach (var item in key)
+                            @foreach (var item in key.Items)
                             {
                                 <div class="listview-item" @onclick="@(e => OnClick(item))">
                                     @BodyTemplate(item)
@@ -64,9 +64,9 @@
 </div>
 
 @code {
-    RenderFragment RenderItem(IGrouping<object?, TItem> key, int index) =>
-    @<CollapseItem Text="@key.Key?.ToString()" IsCollapsed="IsCollapsed(index, key.Key)">
-        @foreach (var item in key)
+    RenderFragment RenderItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
+    @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
+        @foreach (var item in key.Items)
         {
             <div class="listview-item" @onclick="@(e => OnClick(item))">
                 @if(BodyTemplate != null)

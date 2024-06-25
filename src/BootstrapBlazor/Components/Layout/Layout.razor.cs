@@ -420,13 +420,14 @@ public partial class Layout : IHandlerException
     {
         if (OnAuthorizing != null)
         {
-            var task = OnAuthorizing(e.Location);
-            task.Wait();
-            var auth = task.Result;
-            if (!auth)
+            InvokeAsync(async () =>
             {
-                Navigation.NavigateTo(NotAuthorizeUrl, true);
-            }
+                var auth = await OnAuthorizing(e.Location);
+                if (!auth)
+                {
+                    Navigation.NavigateTo(NotAuthorizeUrl, true);
+                }
+            });
         }
     }
 

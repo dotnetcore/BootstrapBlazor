@@ -9,8 +9,7 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 /// </summary>
 public partial class DockViewCol
 {
-    [Inject, NotNull]
-    private ToastService? ToastService { get; set; }
-
-    private Task OnClickTitleBarCallback() => ToastService.Success("事件回调", "点击标题图标回调方法");
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewCol>? Localizer { get; set; }
 }

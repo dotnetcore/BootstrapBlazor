@@ -21,4 +21,31 @@ public static class PropertyInfoExtensions
         var mi = p.GetMethod ?? p.SetMethod;
         return mi!.IsStatic;
     }
+
+    /// <summary>
+    /// 判断属性是否只读扩展方法
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
+    public static bool IsCanWrite(this PropertyInfo p) => p.CanWrite && !p.IsInit();
+
+    /// <summary>
+    /// 判断是否为 Init 扩展方法
+    /// </summary>
+    /// <param name="p"></param>
+    /// <returns></returns>
+    private static bool IsInit(this PropertyInfo p)
+    {
+        var isInit = false;
+        if (p.CanWrite)
+        {
+            var setMethod = p.SetMethod;
+            if (setMethod != null)
+            {
+                var setMethodReturnParameterModifiers = setMethod.ReturnParameter.GetRequiredCustomModifiers();
+                isInit = setMethodReturnParameterModifiers.Contains(typeof(System.Runtime.CompilerServices.IsExternalInit));
+            }
+        }
+        return isInit;
+    }
 }

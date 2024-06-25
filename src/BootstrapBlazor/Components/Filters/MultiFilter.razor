@@ -1,0 +1,27 @@
+﻿@using Microsoft.Extensions.Localization
+@namespace BootstrapBlazor.Components
+@inherits FilterBase
+@inject IStringLocalizer<MultiFilter> Localizer
+
+<div class="bb-multi-filter">
+    @if (ShowSearch)
+    {
+        <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
+                        Value="@_searchText" bind-value:event="oninput" IsAutoFocus="true"
+                        PlaceHolder="@SearchPlaceHolderText" IsSelectAllTextOnFocus="true"
+                        OnValueChanged="OnSearchValueChanged" />
+    }
+    <div class="bb-multi-filter-list">
+        <div class="bb-multi-filter-header">
+            <Checkbox Value="checkAll" ShowAfterLabel="true" ShowLabel="false" DisplayText="@SelectAllText" OnStateChanged="@OnStateChanged" State="GetState()" />
+        </div>
+        <div class="bb-multi-filter-body scroll">
+            @foreach (var item in GetItems())
+            {
+                <div class="bb-multi-filter-body-item">
+                    <Checkbox @bind-Value="@item.Checked" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
+                </div>
+            }
+        </div>
+    </div>
+</div>

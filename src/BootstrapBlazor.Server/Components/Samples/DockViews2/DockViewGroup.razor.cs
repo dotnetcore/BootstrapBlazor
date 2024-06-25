@@ -2,15 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Components;
+namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 
 /// <summary>
-/// IDockComponent 接口定义
+/// DockViewGroup 示例
 /// </summary>
-public interface IDockViewComponent : IDisposable
+public partial class DockViewGroup
 {
-    /// <summary>
-    /// 获得/设置 组件类型
-    /// </summary>
-    DockViewContentType Type { get; }
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewGroup>? Localizer { get; set; }
 }

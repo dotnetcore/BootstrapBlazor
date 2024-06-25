@@ -24,6 +24,6 @@
   "BootstrapBlazor..Server.Data.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
-    "Middel": "Middel"
+    "Middle": "Middle"
   }
 }

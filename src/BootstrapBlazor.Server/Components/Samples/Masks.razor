@@ -1,0 +1,10 @@
+﻿@page "/mask"
+@inject IStringLocalizer<Masks> Localizer
+
+<h3>@Localizer["MaskTitle"]</h3>
+
+<h4>@Localizer["MaskDescription"]</h4>
+
+<DemoBlock Title="@Localizer["MaskNormalTitle"]" Introduction="@Localizer["MaskNormalIntro"]" Name="Normal">
+    <button class="btn btn-primary" @onclick="@ShowMask">@Localizer["ShowMaskButtonText"]</button>
+</DemoBlock>

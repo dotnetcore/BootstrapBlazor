@@ -3,12 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// DockContent 类型
 /// </summary>
+[JsonConverter(typeof(DockViewTypeConverter))]
 public enum DockViewContentType
 {
     /// <summary>

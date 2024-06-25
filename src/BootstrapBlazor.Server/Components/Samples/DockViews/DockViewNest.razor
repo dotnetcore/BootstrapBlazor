@@ -1,7 +1,11 @@
 ﻿@page "/dock-view/nest"
 @inherits BaseDockView
 
-<DockView Name="DockViewNest">
+<h3>@Localizer["DockViewNestTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewNestIntro"].Value)</h4>
+
+<DockView Name="DockViewNest" class="dock-demo">
     <DockContent Type="DockContentType.Row">
         <DockComponent Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"

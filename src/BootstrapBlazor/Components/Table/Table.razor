@@ -170,9 +170,12 @@
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                 }
                             }
-                            <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
+                            @if (ShowSearchButton)
+                            {
+                                <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                </Button>
+                            }
                             @if (ShowResetButton)
                             {
                                 <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
@@ -393,6 +396,51 @@
                     </div>
                 </td>
             </tr>
+                        @RenderEditForm((EditModel, ItemChangedType.Update))
+                    }
+                }
+                @if (IsShowEmpty)
+                {
+                    <tr>
+                        <td colspan="@GetEmptyColumnCount()">
+                            <Empty Text="@EmptyText" Image="@EmptyImage" Template="EmptyTemplate!">
+                            </Empty>
+                        </td>
+                    </tr>
+                }
+            }
+            @if (InsertRowMode == InsertRowMode.Last)
+            {
+                if (!IsExcel && EditMode == EditMode.EditForm && ShowAddForm)
+                {
+                    @RenderEditForm.Invoke((EditModel, ItemChangedType.Add))
+                }
+                if (AddInCell)
+                {
+                    @RenderRow(EditModel)
+                }
+            }
+        </tbody>
+        @if (IsShowFooter)
+        {
+            <tfoot @key="Rows" class="@FooterClassString">
+                <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
+                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint" IsFixed="true">
+                            @if (FooterTemplate != null)
+                            {
+                                @FooterTemplate(Rows)
+                            }
+                            else
+                            {
+                                <tr>
+                                    @TableFooter?.Invoke(Rows)
+                                </tr>
+                            }
+                        </CascadingValue>
+                    </CascadingValue>
+                </CascadingValue>
+            </tfoot>
         }
         if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.LastOrDefault() == item)
         {
@@ -966,6 +1014,17 @@
                 <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
                     <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                 </Button>
+                {
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
+                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
+                    </Button>
+                }
+                @if (ShowSearchButton)
+                {
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
+                }
             </div>
             <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)

@@ -51,8 +51,8 @@ public static class IEditorItemExtensions
         {
             ret = changedType switch
             {
-                ItemChangedType.Add => col.IsVisibleWhenAdd.HasValue ? col.IsVisibleWhenAdd.Value : col.Visible,
-                _ => col.IsVisibleWhenEdit.HasValue ? col.IsVisibleWhenEdit.Value : col.Visible
+                ItemChangedType.Add => col.IsVisibleWhenAdd ?? col.Visible,
+                _ => col.IsVisibleWhenEdit ?? col.Visible
             };
         }
         return ret;
@@ -100,7 +100,7 @@ public static class IEditorItemExtensions
             }
             if (propertyInfo != null)
             {
-                ret = propertyInfo.CanWrite;
+                ret = propertyInfo.IsCanWrite();
             }
             return ret;
         }

@@ -9,6 +9,10 @@ namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 /// </summary>
 public partial class DockViewLock
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DockViewLock>? Localizer { get; set; }
+
     private bool IsLock { get; set; } = true;
 
     private string? LockText { get; set; }

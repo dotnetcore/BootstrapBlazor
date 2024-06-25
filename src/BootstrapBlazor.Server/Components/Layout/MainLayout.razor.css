@@ -26,9 +26,19 @@
     font-weight: bold;
 }
 
+::deep h3 {
+    font-size: var(--bb-title-font-size);
+    font-weight: var(--bb-font-weight);
+}
+
 ::deep h4 {
     margin-top: 1rem;
     font-size: var(--bb-sub-font-size);
+}
+
+::deep h5 {
+    font-size: var(--bb-sub-font-size);
+    font-weight: var(--bb-font-weight);
 }
 
 ::deep .alert:last-child {
@@ -65,19 +75,6 @@
         .sidebar-bar .sidebar-body.drag:hover {
             background-color: var(--bb-sidebar-body-drag-hover-bg);
         }
-
-::deep .wwads-cn {
-    --ad-min-height: 120px;
-    --ad-margin-bottom: 1rem;
-    min-height: var(--ad-min-height);
-    margin-bottom: var(--ad-margin-bottom);
-    overflow: hidden;
-}
-
-    ::deep .wwads-cn.debug {
-        --ad-min-height: 0;
-        --ad-margin-bottom: 0;
-    }
 
 @media (min-width: 768px) {
     .section {

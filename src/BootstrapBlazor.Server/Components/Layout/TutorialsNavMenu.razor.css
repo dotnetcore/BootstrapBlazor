@@ -22,7 +22,6 @@
 
     ::deep .scroll {
         overflow-x: hidden;
-        max-height: calc(100% - 36px);
         padding: 5px 0;
     }
 

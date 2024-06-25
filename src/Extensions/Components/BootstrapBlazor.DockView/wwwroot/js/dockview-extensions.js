@@ -1,16 +1,10 @@
-﻿import {
-    DockviewComponent,
-    DockviewGroupPanel,
-    getGridLocation,
-    getRelativeLocation,
-    DockviewEmitter
-} from "./dockview-core.esm.js"
-import { getLocal } from './dockview-utils.js'
-
+﻿import { DockviewComponent, DockviewGroupPanel, getGridLocation, getRelativeLocation, DockviewEmitter } from "./dockview-core.esm.js"
+import { getConfigFromStorage } from "./dockview-config.js"
 DockviewComponent.prototype.on = function (eventType, callback) {
     this['_' + eventType] = new DockviewEmitter();
     this['_' + eventType].event(callback)
 }
+
 DockviewGroupPanel.prototype.getParams = function () {
     return this.activePanel?.params || {}
 }
@@ -27,10 +21,9 @@ DockviewGroupPanel.prototype.removePropsOfParams = function (keys) {
         : typeof keys == 'string' ? delete panel.params[keys] : false
 }
 
-// 修改removeGroup
 const removeGroup = DockviewComponent.prototype.removeGroup
 DockviewComponent.prototype.removeGroup = function (...argu) {
-    if(this.isClearIng){
+    if (this.isClearing) {
         return removeGroup.apply(this, argu)
     }
 
@@ -40,35 +33,34 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         [...group.panels].forEach(panel => {
             panel.api.close()
         })
-        console.log(group, 'group88888888888888');
         this.setVisible(group, false)
 
         // 在本地存储的已删除的panel上保存Group是否可见, 因为toJson()不保存此信息, 会默认展示隐藏的Group
-        let delPanels = getLocal('dock-view-panels')
+        let delPanels = getConfigFromStorage(this.params.options.localStorageKey + '-panels')
         delPanels = delPanels?.map(panel => {
             if (panel.groupId == group.id) {
                 panel.groupInvisible = true
             }
             return panel
         })
-        delPanels && localStorage.setItem('dock-view-panels', JSON.stringify(delPanels))
+        delPanels && localStorage.setItem(this.params.options.localStorageKey + '-panels', JSON.stringify(delPanels))
     }
     else if (type == 'floating') {
         return removeGroup.apply(this, argu)
     }
 }
-// 修改removePanel
+
 const removePanel = DockviewComponent.prototype.removePanel
 DockviewComponent.prototype.removePanel = function (...argu) {
     const panel = argu[0]
     if (!panel.group.locked) {
         removePanel.apply(this, argu)
-        if(!this.isClearIng){
+        if (!this.isClearing) {
             this._panelClosed?.fire(panel.title)
         }
     }
 }
-// 修改moveGroupOrPanel
+
 DockviewComponent.prototype.moveGroupOrPanel = function moveGroupOrPanel(options) {
     var _a;
     const destinationGroup = options.to.group;
@@ -175,14 +167,14 @@ DockviewComponent.prototype.moveGroupOrPanel = function moveGroupOrPanel(options
         }
     }
 }
-// moveGroupOrPanel源码提供1
+
 const tail = arr => {
     if (arr.length === 0) {
         throw new Error('Invalid tail call');
     }
     return [arr.slice(0, arr.length - 1), arr[arr.length - 1]];
 }
-// moveGroupOrPanel源码提供2
+
 const sequenceEquals = (arr1, arr2) => {
     if (arr1.length !== arr2.length) {
         return false;

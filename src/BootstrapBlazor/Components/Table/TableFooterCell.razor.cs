@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableFooterCell 组件
 /// </summary>
 public partial class TableFooterCell
 {
@@ -62,16 +62,31 @@ public partial class TableFooterCell
     public string? Field { get; set; }
 
     /// <summary>
+    /// 获得/设置 colspan 值 默认 null 自己手动设置值
+    /// </summary>
+    [Parameter]
+    public Func<BreakPoint, int>? ColspanCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为移动端模式
     /// </summary>
     [CascadingParameter(Name = "IsMobileMode")]
     private bool IsMobileMode { get; set; }
+
+    [CascadingParameter(Name = "TableBreakPoint")]
+    private BreakPoint BreakPoint { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为移动端模式
     /// </summary>
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
+
+    /// <summary>
+    /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
+    /// </summary>
+    [Parameter]
+    public BreakPoint ShownWithBreakPoint { get; set; }
 
     private string? _value { get; set; }
 
@@ -83,6 +98,12 @@ public partial class TableFooterCell
     {
         _value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
     }
+
+    /// <summary>
+    /// 检查当前列是否显示方法
+    /// </summary>
+    /// <returns></returns>
+    protected bool CheckShownWithBreakpoint => BreakPoint >= ShownWithBreakPoint;
 
     /// <summary>
     /// 解析 Count Aggregate
@@ -110,6 +131,20 @@ public partial class TableFooterCell
             }
         }
         return v;
+    }
+
+    private int? GetColspanValue()
+    {
+        int? ret = null;
+        if (ColspanCallback != null)
+        {
+            ret = ColspanCallback(BreakPoint);
+        }
+        else if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("colspan", out var colspan) && int.TryParse(colspan.ToString(), out var d))
+        {
+            ret = d;
+        }
+        return ret;
     }
 
     private async Task<string?> GetAggregateValue()

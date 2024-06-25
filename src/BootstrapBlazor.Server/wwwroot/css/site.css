@@ -1,6 +1,7 @@
 ﻿:root {
-    --bb-font-weight: 500;
-    --bb-sub-font-size: 1.2rem;
+    --bb-font-weight: bold;
+    --bb-title-font-size: 1rem;
+    --bb-sub-font-size: .875rem;
     --bb-primary-color: var(--bs-indigo);
     --bb-primary-color-rgb: 112.520718,44.062154,249.437846;
     --bb-bd-download-color: #ffe484;
@@ -194,8 +195,16 @@ h4, h5 {
     border-radius: var(--bs-border-radius);
 }
 
-.dock-layout.main > *:not(.tabs-coms) {
-    display: none !important;
+.main.dock-layout .tabs-body-content:first-child {
+    height: calc(100vh - 156px);
+}
+
+.main.dock-layout:has(.tabs-body-content:first-child:not(.d-none)) .bb-ad {
+    display: none;
+}
+
+.main.dock-layout:has(.tabs-body-content:first-child:not(.d-none)) .tabs-coms-header {
+    display: none;
 }
 
 .dropdown-menu {
@@ -309,52 +318,10 @@ code {
     width: 320px;
 }
 
-.bb-ad {
-    --bb-ad-height: 120px;
-    --bb-ad-margin: 20px 0 0 0;
-    --bb-ad-bg-color: #f4f8fa;
-    --bb-ad-width: 100%;
-    display: block
-}
-
-    .bb-ad.bb-ad-vertical {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .bb-ad .cc-ad {
-        background-color: var(--bb-ad-bg-color);
-        margin: var(--bb-ad-margin);
-        height: var(--bb-ad-height);
-        width: var(--bb-ad-width);
-    }
-
-        .bb-ad .cc-ad img {
-            height: 100%;
-            padding: 10px;
-        }
-
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
     }
-
-    .bb-ad {
-        --bb-ad-width: 50%;
-        display: flex;
-    }
-
-        .bb-ad.bb-ad-vertical {
-            --bb-ad-width: 100%;
-            position: absolute;
-            bottom: 1rem;
-        }
-
-            .bb-ad.bb-ad-vertical .cc-ad {
-                position: absolute;
-                bottom: 200px;
-            }
 
     .header-img span {
         display: none;
@@ -378,14 +345,6 @@ code {
 
     .coms-demo .card {
         cursor: pointer;
-    }
-
-    .header-img span {
-        display: none;
-    }
-
-    .home-section {
-        margin: 2rem;
     }
 }
 

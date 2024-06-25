@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -13,6 +15,7 @@ public abstract class BootstrapComponentBase : ComponentBase, IHandleEvent
     /// 获得/设置 用户自定义属性
     /// </summary>
     [Parameter(CaptureUnmatchedValues = true)]
+    [JsonIgnore]
     public IDictionary<string, object>? AdditionalAttributes { get; set; }
 
     /// <summary>

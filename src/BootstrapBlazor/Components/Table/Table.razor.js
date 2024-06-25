@@ -97,10 +97,20 @@ export function reset(id) {
 
     setBodyHeight(table)
 
+    const observer = new ResizeObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.target === shim) {
+                setTableDefaultWidth(table);
+            }
+            else if (entry.target === table.search) {
+                setBodyHeight(table)
+            }
+        })
+    });
+    if (table.thead) {
+        observer.observe(shim);
+    }
     if (table.search) {
-        const observer = new ResizeObserver(() => {
-            setBodyHeight(table)
-        });
         observer.observe(table.search)
         table.observer = observer
     }
@@ -148,15 +158,25 @@ export function load(id, method) {
     }
 }
 
-export function scroll(id) {
+export function scroll(id, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
         const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
-                row.scrollIntoView({ behavior: 'smooth' });
+                row.scrollIntoView(options);
             }
+        }
+    }
+}
+
+export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
+    const element = document.getElementById(id);
+    if (element) {
+        const scroll = element.querySelector('.scroll');
+        if (scroll) {
+            scroll.scrollTo(x, y, options);
         }
     }
 }
@@ -654,16 +674,22 @@ const saveColumnWidth = table => {
 }
 
 const setTableDefaultWidth = table => {
-    const width = table.tables[0].style.getPropertyValue('width');
-    if (width === "") {
+    if (table.tables[0].checkVisibility()) {
         const { scrollWidth, columnMinWidth } = table.options;
-        const length = table.tables[0].querySelectorAll('th').length;
-        const tableWidth = length * columnMinWidth;
-        if (table.tables[0].checkVisibility()) {
-            if (tableWidth > table.tables[0].offsetWidth) {
-                table.tables[0].style.setProperty('width', `${tableWidth}px`);
-                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
-            }
+        const tableWidth = [...table.tables[0].querySelectorAll('col')]
+            .map(i => {
+                const colWidth = parseFloat(i.style.width);
+                return isNaN(colWidth) ? columnMinWidth : colWidth;
+            })
+            .reduce((accumulator, val) => accumulator + val, 0);
+
+        if (tableWidth > table.el.offsetWidth) {
+            table.tables[0].style.setProperty('width', `${tableWidth}px`);
+            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+        }
+        else {
+            table.tables[0].style.removeProperty('width');
+            table.tables[1].style.removeProperty('width');
         }
     }
 }

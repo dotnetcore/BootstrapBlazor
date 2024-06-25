@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -41,6 +40,30 @@ public partial class DockViewV2
     /// <remarks>锁定后无法拖动</remarks>
     [Parameter]
     public bool IsLock { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示锁定按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowLock { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示最大化按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowMaximize { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否悬浮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFloating { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示可悬浮按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowFloat { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 锁定状态回调此方法
@@ -91,24 +114,19 @@ public partial class DockViewV2
     [Parameter]
     public DockViewTheme Theme { get; set; } = DockViewTheme.Light;
 
+    [CascadingParameter]
+    private DockViewV2? DockView { get; set; }
+
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-dock-view")
+    private string? ClassString => CssBuilder.Default("bb-dockview")
         .AddClass(Theme.ToDescriptionString())
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private readonly List<IDockViewComponent> _root = [];
-
-    private readonly List<DockViewComponent> _components = [];
-
-    private string? _templateId;
-
-    private bool _rendered;
-
-    private bool _init;
+    private readonly List<DockViewComponentBase> _components = [];
 
     [NotNull]
     private DockViewOptions? _options = default!;
@@ -122,7 +140,6 @@ public partial class DockViewV2
 
         var section = Configuration.GetSection(nameof(DockViewOptions));
         _options = section.Exists() ? section.Get<DockViewOptions>() : new();
-        _templateId ??= $"{Id}_template";
     }
 
     /// <summary>
@@ -136,36 +153,34 @@ public partial class DockViewV2
 
         if (firstRender)
         {
-            _rendered = true;
-            StateHasChanged();
-            return;
-        }
-
-        if (_init)
-        {
-            await InvokeVoidAsync("update", Id, GetOptions());
+            await InvokeVoidAsync("init", Id, Interop, GetOptions());
         }
         else
         {
-            _init = true;
-            await InvokeVoidAsync("init", Id, Interop, GetOptions());
+            await InvokeVoidAsync("update", Id, GetOptions());
         }
     }
 
     private DockViewConfig GetOptions() => new()
     {
-        Version = Version ?? _options.Version ?? "v1",
-        Name = Name,
         EnableLocalStorage = EnableLocalStorage ?? _options.EnableLocalStorage ?? false,
+        LocalStorageKey = $"{GetPrefixKey()}-{Name}-{GetVersion()}",
         IsLock = IsLock,
+        ShowLock = ShowLock,
+        IsFloating = IsFloating,
+        ShowFloat = ShowFloat,
+        ShowClose = ShowClose,
+        ShowMaximize = ShowMaximize,
         LayoutConfig = LayoutConfig,
-        LocalStorageKeyPrefix = $"{LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dock"}-{Name}",
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelClosedCallback = nameof(PanelClosedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
-        TemplateId = _templateId,
-        Contents = _root
+        Contents = _components
     };
+
+    private string GetVersion() => Version ?? _options.Version ?? "v1";
+
+    private string GetPrefixKey() => LocalStoragePrefix ?? _options.LocalStoragePrefix ?? "bb-dockview";
 
     /// <summary>
     /// 重置为默认布局

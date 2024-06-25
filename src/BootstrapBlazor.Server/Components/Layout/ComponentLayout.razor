@@ -2,31 +2,33 @@
 @layout MainLayout
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
-<div class="bb-title">
-    <BBLogo />
-    <span>@Title</span>
-</div>
+<div class="tabs-coms-header">
+    <div class="bb-title">
+        <BBLogo />
+        <span>@Title</span>
+    </div>
 
-<div class="text-center">
-    <ImageViewer Alt="gitee" IsAsync="true" Url="@GVPUrl" />
-    <ImageViewer Alt="oscs" IsAsync="true" Url="https://www.oscs1024.com/platform/badge/murphysecurity/murphysec.svg" />
-    <span class="d-none d-sm-inline">
-        <ImageViewer Alt="version" IsAsync="true" Url="https://img.shields.io/nuget/vpre/BootstrapBlazor.svg?logo=nuget&logoColor=green" />
-        <ImageViewer Alt="license" IsAsync="true" Url="https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&logoColor=red" />
-        <ImageViewer Alt="download" IsAsync="true" Url="https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green" />
-        <ImageViewer Alt="repo" IsAsync="true" Url="https://img.shields.io/github/repo-size/dotnetcore/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo" />
-        <ImageViewer Alt="commit" IsAsync="true" Url="https://img.shields.io/github/last-commit/dotnetcore/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit" />
-        <ImageViewer Alt="build" IsAsync="true" Url="https://img.shields.io/github/actions/workflow/status/dotnetcore/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github" />
-    </span>
-    <ImageViewer Alt="coverage" IsAsync="true" Url="https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3" />
-</div>
+    <div class="text-center">
+        <ImageViewer Alt="gitee" IsAsync="true" Url="@GVPUrl" />
+        <ImageViewer Alt="oscs" IsAsync="true" Url="https://www.oscs1024.com/platform/badge/murphysecurity/murphysec.svg" />
+        <span class="d-none d-sm-inline">
+            <ImageViewer Alt="version" IsAsync="true" Url="https://img.shields.io/nuget/vpre/BootstrapBlazor.svg?logo=nuget&logoColor=green" />
+            <ImageViewer Alt="license" IsAsync="true" Url="https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&logoColor=red" />
+            <ImageViewer Alt="download" IsAsync="true" Url="https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green" />
+            <ImageViewer Alt="repo" IsAsync="true" Url="https://img.shields.io/github/repo-size/dotnetcore/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo" />
+            <ImageViewer Alt="commit" IsAsync="true" Url="https://img.shields.io/github/last-commit/dotnetcore/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit" />
+            <ImageViewer Alt="build" IsAsync="true" Url="https://img.shields.io/github/actions/workflow/status/dotnetcore/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github" />
+        </span>
+        <ImageViewer Alt="coverage" IsAsync="true" Url="https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3" />
+    </div>
 
-<div class="d-flex justify-content-center align-items-center">
-    <div class="bb-theme-label">@Localizer["IconTheme"]</div>
-    <div><RadioList TValue="string" Items="IconThemes" Value="@IconThemeKey" OnValueChanged="OnIconThemeChanged"></RadioList></div>
-</div>
+    <div class="d-flex justify-content-center align-items-center">
+        <div class="bb-theme-label">@Localizer["IconTheme"]</div>
+        <div><RadioList TValue="string" Items="IconThemes" Value="@IconThemeKey" OnValueChanged="OnIconThemeChanged"></RadioList></div>
+    </div>
 
-<hr />
+    <hr />
+</div>
 
 <div class="tabs-coms">
     <Tab IsBorderCard="true" IsLazyLoadTabItem="true" ShowFullScreen="true" @ref="Tab">
