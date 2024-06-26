@@ -211,12 +211,26 @@ public class PopConfirmButtonTest : PopoverTestBase
         // ShowButton
         popButton.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.ShowCloseButton, false);
+            pb.Add(a => a.ShowConfirmButton, false);
+        });
+        cut.Contains("<div class=\"popover-confirm-buttons\"></div>");
+
+        // 级联参数
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowCloseButton, true);
+            pb.Add(a => a.ShowConfirmButton, true);
             pb.Add(a => a.BodyTemplate, builder =>
             {
-                builder.OpenComponent<Button>(0);
+                builder.OpenComponent<MockContent>(0);
                 builder.CloseComponent();
             });
         });
+
+        var mockContent = cut.FindComponent<MockContent>();
+        Assert.True(mockContent.Instance.Close());
+        Assert.True(mockContent.Instance.Confirm());
     }
 
     [Fact]
@@ -273,5 +287,18 @@ public class PopConfirmButtonTest : PopoverTestBase
             });
         });
         cut.Contains("data-bs-original-title=\"pop-tooltip\"");
+    }
+
+    public class MockContent : ComponentBase
+    {
+        [CascadingParameter(Name = "PopoverConfirmButtonCloseAsync")]
+        private Func<Task>? OnCloseAsync { get; set; }
+
+        [CascadingParameter(Name = "PopoverConfirmButtonConfirmAsync")]
+        private Func<Task>? OnConfirmAsync { get; set; }
+
+        public bool Close() => OnCloseAsync != null;
+
+        public bool Confirm() => OnConfirmAsync != null;
     }
 }
