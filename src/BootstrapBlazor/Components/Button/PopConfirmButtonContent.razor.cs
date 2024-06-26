@@ -28,6 +28,18 @@ public partial class PopConfirmButtonContent
         .Build();
 
     /// <summary>
+    /// 获得/设置 是否显示确认按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowConfirmButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示关闭按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowCloseButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 显示标题
     /// </summary>
     [Parameter]
