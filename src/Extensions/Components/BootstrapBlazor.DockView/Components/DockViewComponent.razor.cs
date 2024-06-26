@@ -53,7 +53,6 @@ public partial class DockViewComponent
     /// 获得/设置 组件是否可见 默认 true 可见
     /// </summary>
     [Parameter]
-    [JsonIgnore]
     public bool Visible { get; set; } = true;
 
     /// <summary>

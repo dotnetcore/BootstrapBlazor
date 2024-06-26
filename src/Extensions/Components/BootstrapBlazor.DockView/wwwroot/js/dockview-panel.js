@@ -64,14 +64,14 @@ const updateCloseButton = panel => {
 }
 
 const updateTitle = panel => {
-    const contentEle = panel.view.content.element;
     const tabEle = panel.view.tab.element;
-    const titleElement = contentEle.querySelector('.bb-dockview-item-title');
+    const contents = [...panel.view.content.element.children];
+    const titleElement = contents.find(i => i.classList.contains('bb-dockview-item-title'));
     if (titleElement) {
         tabEle.replaceChild(titleElement, panel.view.tab._content);
     }
     else {
-        const titleBarElement = contentEle.querySelector('.bb-dockview-item-title-icon')
+        const titleBarElement = contents.find(i => i.classList.contains('bb-dockview-item-title-icon'));
         if (titleBarElement) {
             titleBarElement.removeAttribute('title');
             tabEle.insertAdjacentElement("afterbegin", titleBarElement);
@@ -80,10 +80,10 @@ const updateTitle = panel => {
 }
 
 const getPanelsFromOptions = options => {
-    return getPanel(options.content[0])
+    return getPanels(options.content[0])
 }
 
-const getPanel = (contentItem, parent = {}, panels = []) => {
+const getPanels = (contentItem, parent = {}, panels = []) => {
     if (contentItem.type === 'component') {
         panels.push({
             id: contentItem.id,
@@ -91,10 +91,11 @@ const getPanel = (contentItem, parent = {}, panels = []) => {
             title: contentItem.title,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
-            params: { ...contentItem, parentId: parent.id }
-        })
-    } else {
-        contentItem.content?.forEach(item => getPanel(item, contentItem, panels))
+            params: { ...contentItem, parentType: parent.type, parentId: parent.id }
+        });
+    }
+    else {
+        contentItem.content?.forEach(item => getPanels(item, contentItem, panels))
     }
     return panels
 }

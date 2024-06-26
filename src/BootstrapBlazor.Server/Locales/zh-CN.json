@@ -6022,7 +6022,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
     "DockViewVisibleTitle": "DockViewV2 可见性设置",
-    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnPanelClosedCallbackAsync</code> 设置面板关闭回调委托方法"
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnVisibleStateChangedAsync</code> 设置面板关闭回调委托方法"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
     "DockViewNestTitle": "DockViewV2 嵌套布局",

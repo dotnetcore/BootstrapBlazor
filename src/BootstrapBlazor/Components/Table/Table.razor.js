@@ -112,7 +112,6 @@ export function reset(id) {
     }
     if (table.search) {
         observer.observe(table.search)
-        table.observer = observer
     }
 }
 

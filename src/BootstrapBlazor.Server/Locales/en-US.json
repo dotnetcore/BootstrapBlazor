@@ -6022,7 +6022,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
     "DockViewVisibleTitle": "DockViewV2 - Visible",
-    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnPanelClosedCallbackAsync</code> to set the panel closing callback delegate method"
+    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
     "DockViewNestTitle": "DockViewV2 - Nested Layouts",

@@ -1,12 +1,11 @@
 ﻿const fixObject = data => {
-    if (!data) return null
     data.floatingGroups?.forEach(item => {
         let { width, height } = item.position
         item.position.width = width - 2
         item.position.height = height - 2
     });
 
-    removeInvisibleBranch(data.grid.root)
+    // removeInvisibleBranch(data.grid.root)
     return data
 }
 

@@ -1,8 +1,8 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
+import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
-import { getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
 import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -43,10 +43,6 @@ const initDockview = (dockview, options, template) => {
         reloadFromConfig(dockview, options)
     }
 
-    dockview.dispose = () => {
-        saveConfig(dockview);
-    }
-
     dockview.onDidRemovePanel(onRemovePanel);
 
     dockview.onDidAddPanel(onAddPanel);
@@ -66,25 +62,27 @@ const initDockview = (dockview, options, template) => {
     })
 
     dockview.onDidLayoutFromJSON(() => {
-        setTimeout(() => {
-            dockview._initialized?.fire()
-        }, 0)
-        dockview.groups.forEach(group => {
-            if (group.panels.length === 0) {
-                dockview.setVisible(group, false)
-            }
+        dockview._initialized?.fire()
+        const panels = dockview.panels
+        const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + panels)
+        const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
+        panels.forEach(panel => {
+            dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
+        })
+        delPanels.forEach(panel => {
+            dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
         })
     })
 }
 
 const toggleComponent = (dockview, options) => {
-    const panels = getPanelsFromOptions(options)
+    const panels = getPanelsFromOptions(options).filter(p => p.params.visible)
     const localPanels = dockview.panels
     panels.forEach(p => {
         const pan = findContentFromPanels(localPanels, p);
         if (pan === void 0) {
             const panel = findContentFromPanels(dockview.params.panels, p);
-            addGroupWithPanel(dockview, panel || p);
+            addGroupWithPanel(dockview, panel || p, panels);
         }
     })
 

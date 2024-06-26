@@ -20,11 +20,11 @@ public partial class DockViewVisible
         Visible = !Visible;
     }
 
-    private Task OnPanelClosedCallbackAsync(string title)
+    private Task OnVisibleStateChangedAsync(string title, bool status)
     {
         if (title == "标签一")
         {
-            Visible = false;
+            Visible = status;
         }
         return Task.CompletedTask;
     }
