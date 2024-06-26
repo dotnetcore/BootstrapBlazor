@@ -76,7 +76,7 @@ public partial class DockViewV2
     /// </summary>
     /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
     [Parameter]
-    public Func<string, bool, Task>? OnPanelVisibleChangedCallbackAsync { get; set; }
+    public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 客户端组件脚本初始化完成后回调此方法
@@ -220,9 +220,9 @@ public partial class DockViewV2
     [JSInvokable]
     public async Task PanelVisibleChangedCallbackAsync(string title, bool status)
     {
-        if (OnPanelVisibleChangedCallbackAsync != null)
+        if (OnVisibleStateChangedAsync != null)
         {
-            await OnPanelVisibleChangedCallbackAsync(title, status);
+            await OnVisibleStateChangedAsync(title, status);
         }
     }
 
