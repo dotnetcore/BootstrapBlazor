@@ -10,8 +10,8 @@
         <p class="popover-confirm-body">
             @if (ChildContent != null)
             {
-                <CascadingValue Value="OnCloseClick" IsFixed="true">
-                    <CascadingValue Value="OnConfirmClick" IsFixed="true">
+                <CascadingValue Value="OnCloseClick" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
+                    <CascadingValue Value="OnConfirmClick" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
                         @ChildContent
                     </CascadingValue>
                 </CascadingValue>
