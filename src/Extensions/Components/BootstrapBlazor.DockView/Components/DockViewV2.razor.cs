@@ -173,7 +173,7 @@ public partial class DockViewV2
         ShowMaximize = ShowMaximize,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
-        PanelClosedCallback = nameof(PanelVisibleChangedCallbackAsync),
+        PanelVisibleChangedCallback = nameof(PanelVisibleChangedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
         Contents = _components
     };

@@ -48,7 +48,7 @@ class DockViewConfig
     /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调
     /// </summary>
-    public string? PanelClosedCallback { get; set; }
+    public string? PanelVisibleChangedCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 组件初始化完成事件回调
