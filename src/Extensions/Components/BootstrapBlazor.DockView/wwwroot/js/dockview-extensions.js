@@ -64,12 +64,12 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
 }
 
 const removePanel = DockviewComponent.prototype.removePanel
-DockviewComponent.prototype.removePanel = function (...argu) {
-    const panel = argu[0]
+DockviewComponent.prototype.removePanel = function (...args) {
+    const panel = args[0]
     if (!panel.group.locked) {
-        removePanel.apply(this, argu)
+        removePanel.apply(this, args)
         if (!this.isClearing) {
-            this._panelClosed?.fire(panel.title)
+            this._panelVisibleChanged?.fire({ title: panel.title, status: false });
         }
     }
 }
