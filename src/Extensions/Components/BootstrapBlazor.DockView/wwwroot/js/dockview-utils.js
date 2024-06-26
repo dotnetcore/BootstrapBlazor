@@ -67,7 +67,7 @@ const initDockview = (dockview, options, template) => {
 }
 
 const toggleComponent = (dockview, options) => {
-    const panels = getPanelsFromOptions(options)
+    const panels = getPanelsFromOptions(options).filter(p => p.params.visible)
     const localPanels = dockview.panels
     panels.forEach(p => {
         const pan = findContentFromPanels(localPanels, p);

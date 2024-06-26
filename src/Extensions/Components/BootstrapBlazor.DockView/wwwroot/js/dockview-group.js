@@ -79,20 +79,25 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
     let brothers = panels.filter(p => p.params.parentId == panel.params.parentId && p.id != panel.id)
     let group, direction
-    if (brothers.length > 0) {
-        group = dockview.groups.find(group => findContentFromPanels(group.panels, brothers[0]))
+    if (brothers.length > 0 && brothers[0].params.parentType == 'group') {
+        group = dockview.groups.find(g => findContentFromPanels(g.panels, brothers[0]))
     }
     else {
-        for (const i = 0, len = panels.length; i < len; i++) {
-            const targetPanel = panels[i]
-            group = dockview.groups.find(group => findContentFromPanels(group.panels, targetPanel))
-            if(panels[i + 1]?.id == panel.id){
-                direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
-                break
-            }
-            else if((i == len - 1) && (i - 1 >= 0) && (panels[i - 1].id == panel.id)){
-                direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'above' : 'left'
-                break
+        let targetPanel
+        for (let i = 0, len = panels.length; i < len; i++) {
+            if(panels[i]?.id == panel.id){
+                if(i == len - 1){
+                    targetPanel = panels[i - 1]
+                    group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
+                    direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
+                    break
+                }
+                else{
+                    targetPanel = panels[i + 1]
+                    group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
+                    direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'above' : 'left'
+                    break
+                }
             }
         }
     }
@@ -264,7 +269,7 @@ const removeActionEvent = group => {
 }
 
 const toggleLock = (group, actionContainer, isLock) => {
-    group.locked = isLock
+    group.locked = isLock ? 'no-drop-target' : isLock
     group.panels.forEach(panel => panel.params.isLock = isLock);
     if (isLock) {
         actionContainer.classList.add('bb-lock')

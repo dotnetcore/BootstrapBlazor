@@ -91,7 +91,7 @@ const getPanels = (contentItem, parent = {}, panels = []) => {
             title: contentItem.title,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
-            params: { ...contentItem, parentId: parent.id }
+            params: { ...contentItem, parentType: parent.type, parentId: parent.id }
         });
     }
     else {
