@@ -10,7 +10,11 @@
         <p class="popover-confirm-body">
             @if (ChildContent != null)
             {
-                @ChildContent
+                <CascadingValue Value="OnCloseClick" IsFixed="true">
+                    <CascadingValue Value="OnConfirmClick" IsFixed="true">
+                        @ChildContent
+                    </CascadingValue>
+                </CascadingValue>
             }
             else
             {
