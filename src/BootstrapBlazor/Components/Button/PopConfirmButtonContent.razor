@@ -19,12 +19,18 @@
             }
         </p>
         <div class="popover-confirm-buttons">
-            <div class="@CloseButtonClass" @onclick="@OnCloseClick">
-                <span>@CloseButtonText</span>
-            </div>
-            <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
-                <span>@ConfirmButtonText</span>
-            </div>
+            @if (ShowCloseButton)
+            {
+                <div class="@CloseButtonClass" @onclick="@OnCloseClick">
+                    <span>@CloseButtonText</span>
+                </div>
+            }
+            @if (ShowConfirmButton)
+            {
+                <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+                    <span>@ConfirmButtonText</span>
+                </div>
+            }
         </div>
     </div>
 </div>
