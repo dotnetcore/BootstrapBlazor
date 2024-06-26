@@ -73,6 +73,7 @@ const addPanelWidthGroupId = (dockview, panel) => {
         position: { referenceGroup: group },
         params: { ...panel.params, isPackup, height, isMaximized, position }
     })
+    dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
 }
 
 const addPanelWidthCreatGroup = (dockview, panel, panels) => {
@@ -110,6 +111,7 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     }
     if(direction) option.position.direction = direction
     dockview.addPanel(option);
+    dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
 }
 
 const getOrientation = function (child, group) {
