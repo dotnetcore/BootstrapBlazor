@@ -49,19 +49,13 @@ const getConfigFromLayoutString = options => {
 const getConfigFromContent = options => {
     const { width, height } = { width: 800, height: 600 };
     const getGroupId = getGroupIdFunc()
-    const panels = {}
-    const orientation = options.content[0].type === 'row' ? 'VERTICAL' : 'HORIZONTAL';
+    const panels = {}, rootType = options.content[0].type
+    const orientation = rootType === 'column' ? 'VERTICAL' : 'HORIZONTAL';
+    const treeNode = getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)
+    const root = (rootType === 'group' || rootType === 'component') ? { type: 'branch', data: [treeNode] } : treeNode
     return fixObject({
         activeGroup: '1',
-        grid: {
-            width,
-            height,
-            orientation,
-            root: {
-                type: 'branch',
-                data: [getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)]
-            },
-        },
+        grid: { width, height, orientation, root },
         panels
     });
 }
