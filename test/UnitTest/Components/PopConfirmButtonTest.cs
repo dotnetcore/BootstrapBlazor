@@ -229,8 +229,8 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         var mockContent = cut.FindComponent<MockContent>();
-        Assert.True(mockContent.Instance.Close());
-        Assert.True(mockContent.Instance.Confirm());
+        await cut.InvokeAsync(mockContent.Instance.Close);
+        await cut.InvokeAsync(mockContent.Instance.Confirm);
     }
 
     [Fact]
@@ -291,14 +291,14 @@ public class PopConfirmButtonTest : PopoverTestBase
 
     public class MockContent : ComponentBase
     {
-        [CascadingParameter(Name = "PopoverConfirmButtonCloseAsync")]
+        [CascadingParameter(Name = "PopoverConfirmButtonCloseAsync"), NotNull]
         private Func<Task>? OnCloseAsync { get; set; }
 
-        [CascadingParameter(Name = "PopoverConfirmButtonConfirmAsync")]
+        [CascadingParameter(Name = "PopoverConfirmButtonConfirmAsync"), NotNull]
         private Func<Task>? OnConfirmAsync { get; set; }
 
-        public bool Close() => OnCloseAsync != null;
+        public Task Close() => OnCloseAsync();
 
-        public bool Confirm() => OnConfirmAsync != null;
+        public Task Confirm() => OnConfirmAsync();
     }
 }
