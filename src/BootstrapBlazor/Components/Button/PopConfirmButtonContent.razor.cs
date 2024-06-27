@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Popover Confirm 组件
 /// </summary>
+[BootstrapModuleAutoLoader("Button/PopConfirmButtonContent.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class PopConfirmButtonContent
 {
     /// <summary>
@@ -134,5 +135,17 @@ public partial class PopConfirmButtonContent
         {
             await OnConfirm();
         }
+    }
+
+    private async Task TriggerCloseAsync()
+    {
+        await InvokeVoidAsync("hide", Id);
+        await OnCloseClick();
+    }
+
+    private async Task TriggerConfirmAsync()
+    {
+        await InvokeVoidAsync("hide", Id);
+        await OnConfirmClick();
     }
 }

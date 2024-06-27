@@ -152,6 +152,7 @@ export function submit(id) {
         }
     }
 }
+
 export function dispose(id) {
     const confirm = Data.get(id)
     Data.remove(id)
