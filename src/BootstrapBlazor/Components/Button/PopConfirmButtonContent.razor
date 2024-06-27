@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div data-bb-toggle="confirm">
+<div @attributes="AdditionalAttributes" data-bb-toggle="confirm" id="@Id">
     @if (!string.IsNullOrEmpty(Title))
     {
         <h3 class="popover-header">@Title</h3>
@@ -10,8 +10,8 @@
         <p class="popover-confirm-body">
             @if (ChildContent != null)
             {
-                <CascadingValue Value="OnCloseClick" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
-                    <CascadingValue Value="OnConfirmClick" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
+                <CascadingValue Value="TriggerCloseAsync" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
+                    <CascadingValue Value="TriggerConfirmAsync" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
                         @ChildContent
                     </CascadingValue>
                 </CascadingValue>
