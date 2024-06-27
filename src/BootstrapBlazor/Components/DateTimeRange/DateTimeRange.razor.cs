@@ -332,9 +332,22 @@ public partial class DateTimeRange
         ];
 
         Value ??= new DateTimeRangeValue();
-
         EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
-        StartValue = EndValue.AddMonths(-1).Date;
+
+        if (ViewMode == DatePickerViewMode.Year)
+        {
+            var d = DateTime.Today.AddYears(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, 1, 1) : Value.Start;
+        }
+        else if (ViewMode == DatePickerViewMode.Month)
+        {
+            var d = DateTime.Today.AddMonths(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
+        }
+        else
+        {
+            StartValue = EndValue.AddMonths(-1).Date;
+        }
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
