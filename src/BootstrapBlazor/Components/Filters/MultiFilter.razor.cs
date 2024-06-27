@@ -29,13 +29,11 @@ public partial class MultiFilter
 
     private string? _searchText;
 
-    private bool checkAll = false;
+    private bool _checkAll = false;
 
-    private readonly List<MultiFilterItem> _source = [];
+    private List<MultiFilterItem> _source = [];
 
     private IEnumerable<MultiFilterItem>? _items;
-
-    private IEnumerable<SelectedItem>? _lastItems;
 
     /// <summary>
     /// OnInitialized 方法
@@ -56,21 +54,12 @@ public partial class MultiFilter
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        InitSource();
+
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
-    }
 
-    /// <summary>
-    /// 初始化数据源方法
-    /// </summary>
-    private void InitSource()
-    {
-        if (Items != null && Items != _lastItems)
-        {
-            _lastItems = Items;
-            _source.AddRange(Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }));
-        }
+        Items ??= [];
+        _source = Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }).ToList();
     }
 
     /// <summary>
@@ -78,7 +67,7 @@ public partial class MultiFilter
     /// </summary>
     public override void Reset()
     {
-        checkAll = false;
+        _checkAll = false;
         _searchText = string.Empty;
         foreach (var item in _source)
         {
@@ -113,20 +102,10 @@ public partial class MultiFilter
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
-        checkAll = val;
-        if (state == CheckboxState.Checked)
+        _checkAll = val;
+        foreach (var item in _source)
         {
-            foreach (var item in _source)
-            {
-                item.Checked = true;
-            }
-        }
-        else
-        {
-            foreach (var item in _source)
-            {
-                item.Checked = false;
-            }
+            item.Checked = state == CheckboxState.Checked;
         }
         StateHasChanged();
         return Task.CompletedTask;
