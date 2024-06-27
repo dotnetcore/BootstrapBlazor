@@ -14,6 +14,10 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue NormalDateTimeRangeValue { get; set; } = new();
 
+    private DateTimeRangeValue YearRangeValue { get; set; } = new() { Start = DateTime.Today.AddYears(-1), End = DateTime.Today };
+
+    private DateTimeRangeValue MonthRangeValue { get; set; } = new() { Start = DateTime.Today.AddMonths(-1), End = DateTime.Today };
+
     private Task OnNormalConfirm(DateTimeRangeValue value)
     {
         NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd HH:mm:ss} - {value.End:yyyy-MM-dd HH:mm:ss}");
