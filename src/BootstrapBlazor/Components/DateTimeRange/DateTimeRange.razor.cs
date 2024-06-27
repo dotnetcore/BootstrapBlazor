@@ -470,7 +470,6 @@ public partial class DateTimeRange
         {
             // 开始时间为空
             SelectedValue.Start = d;
-            StartValue = d;
         }
         else if (SelectedValue.End == DateTime.MinValue)
         {
@@ -478,24 +477,30 @@ public partial class DateTimeRange
             if (d < SelectedValue.Start)
             {
                 SelectedValue.End = SelectedValue.Start;
-                EndValue = SelectedValue.Start;
-
                 SelectedValue.Start = d;
-                StartValue = d;
             }
             else
             {
                 SelectedValue.End = d;
-                EndValue = d;
             }
         }
         else
         {
             // 开始时间、结束时间均不为空
             SelectedValue.Start = d;
-            StartValue = d;
-
             SelectedValue.End = DateTime.MinValue;
+        }
+
+        if (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month)
+        {
+            if (SelectedValue.Start != DateTime.MinValue)
+            {
+                StartValue = SelectedValue.Start;
+            }
+            if (SelectedValue.End != DateTime.MinValue)
+            {
+                EndValue = SelectedValue.End;
+            }
         }
         StateHasChanged();
     }

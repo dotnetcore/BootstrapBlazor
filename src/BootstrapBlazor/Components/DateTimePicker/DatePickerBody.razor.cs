@@ -631,20 +631,9 @@ public partial class DatePickerBody
     {
         CurrentDate = d;
 
-        if (Ranger != null)
+        if (Ranger != null && (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month))
         {
-            if (ViewMode == DatePickerViewMode.Year)
-            {
-                await ClickConfirmButton();
-            }
-            else if (ViewMode == DatePickerViewMode.Month && view == DatePickerViewMode.Month)
-            {
-                await ClickConfirmButton();
-            }
-            else
-            {
-                await SwitchView(view);
-            }
+            await ClickConfirmButton();
             StateHasChanged();
         }
         else
