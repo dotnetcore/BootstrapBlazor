@@ -29,11 +29,9 @@ public partial class MultiFilter
 
     private string? _searchText;
 
-    private bool checkAll = false;
+    private List<MultiFilterItem> _source = [];
 
-    private readonly List<MultiFilterItem> _source = [];
-
-    private IEnumerable<MultiFilterItem>? _items;
+    private List<MultiFilterItem>? _items;
 
     /// <summary>
     /// OnInitialized 方法
@@ -41,11 +39,6 @@ public partial class MultiFilter
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        if (Items != null)
-        {
-            _source.AddRange(Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }));
-        }
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
@@ -61,6 +54,11 @@ public partial class MultiFilter
 
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
+
+        if (Items != null)
+        {
+            _source = Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }).ToList();
+        }
     }
 
     /// <summary>
@@ -68,7 +66,6 @@ public partial class MultiFilter
     /// </summary>
     public override void Reset()
     {
-        checkAll = false;
         _searchText = string.Empty;
         foreach (var item in _source)
         {
@@ -97,26 +94,32 @@ public partial class MultiFilter
         return filter;
     }
 
-    private CheckboxState GetState() => GetItems().All(i => i.Checked)
+    private CheckboxState _selectAllState = CheckboxState.UnChecked;
+
+    private CheckboxState GetState()
+    {
+        var items = GetItems();
+        if (items.Count == 0)
+        {
+            return CheckboxState.UnChecked;
+        }
+
+        return items.All(i => i.Checked)
         ? CheckboxState.Checked
-        : GetItems().All(i => !i.Checked) ? CheckboxState.UnChecked : CheckboxState.Indeterminate;
+        : items.Any(i => i.Checked) ? CheckboxState.Indeterminate : CheckboxState.UnChecked;
+    }
+
+    private bool GetAllState()
+    {
+        _selectAllState = GetState();
+        return _selectAllState == CheckboxState.Checked;
+    }
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
-        checkAll = val;
-        if (state == CheckboxState.Checked)
+        foreach (var item in _source)
         {
-            foreach (var item in _source)
-            {
-                item.Checked = true;
-            }
-        }
-        else
-        {
-            foreach (var item in _source)
-            {
-                item.Checked = false;
-            }
+            item.Checked = state == CheckboxState.Checked;
         }
         StateHasChanged();
         return Task.CompletedTask;
@@ -132,7 +135,7 @@ public partial class MultiFilter
         _searchText = val;
         if (!string.IsNullOrEmpty(_searchText))
         {
-            _items = _source.Where(i => i.Text.Contains(_searchText));
+            _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
         }
         else
         {
@@ -142,7 +145,7 @@ public partial class MultiFilter
         return Task.CompletedTask;
     }
 
-    private IEnumerable<MultiFilterItem> GetItems() => _items ?? _source;
+    private List<MultiFilterItem> GetItems() => _items ?? _source;
 
     class MultiFilterItem
     {
