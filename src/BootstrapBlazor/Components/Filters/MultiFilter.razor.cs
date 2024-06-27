@@ -98,15 +98,17 @@ public partial class MultiFilter
 
     private CheckboxState GetState()
     {
+        var state = CheckboxState.UnChecked;
         var items = GetItems();
-        if (items.Count == 0)
+        if (items.Count > 0)
         {
-            return CheckboxState.UnChecked;
+            state = items.All(i => i.Checked)
+                ? CheckboxState.Checked
+                : items.Any(i => i.Checked)
+                    ? CheckboxState.Indeterminate
+                    : CheckboxState.UnChecked;
         }
-
-        return items.All(i => i.Checked)
-        ? CheckboxState.Checked
-        : items.Any(i => i.Checked) ? CheckboxState.Indeterminate : CheckboxState.UnChecked;
+        return state;
     }
 
     private bool GetAllState()
