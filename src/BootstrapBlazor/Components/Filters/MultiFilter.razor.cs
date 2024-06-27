@@ -35,8 +35,6 @@ public partial class MultiFilter
 
     private IEnumerable<MultiFilterItem>? _items;
 
-    private IEnumerable<SelectedItem>? _lastItems;
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -44,6 +42,10 @@ public partial class MultiFilter
     {
         base.OnInitialized();
 
+        if (Items != null)
+        {
+            _source.AddRange(Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }));
+        }
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
@@ -56,21 +58,9 @@ public partial class MultiFilter
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-        InitSource();
+
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
-    }
-
-    /// <summary>
-    /// 初始化数据源方法
-    /// </summary>
-    private void InitSource()
-    {
-        if (Items != null && Items != _lastItems)
-        {
-            _lastItems = Items;
-            _source.AddRange(Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }));
-        }
     }
 
     /// <summary>
