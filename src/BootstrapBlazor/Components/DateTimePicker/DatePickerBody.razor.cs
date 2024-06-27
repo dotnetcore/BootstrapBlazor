@@ -630,7 +630,27 @@ public partial class DatePickerBody
     private async Task SwitchView(DatePickerViewMode view, DateTime d)
     {
         CurrentDate = d;
-        await SwitchView(view);
+
+        if (Ranger != null)
+        {
+            if (ViewMode == DatePickerViewMode.Year)
+            {
+                await ClickConfirmButton();
+            }
+            else if (ViewMode == DatePickerViewMode.Month && view == DatePickerViewMode.Month)
+            {
+                await ClickConfirmButton();
+            }
+            else
+            {
+                await SwitchView(view);
+            }
+            StateHasChanged();
+        }
+        else
+        {
+            await SwitchView(view);
+        }
     }
 
     /// <summary>
