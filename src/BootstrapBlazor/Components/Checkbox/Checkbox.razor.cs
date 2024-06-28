@@ -75,7 +75,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public CheckboxState State { get; set; }
 
     /// <summary>
-    /// State 状态改变回调方法
+    /// 获得/设置 State 状态改变回调方法
     /// </summary>
     /// <value></value>
     [Parameter]
@@ -94,7 +94,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public bool StopPropagation { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -104,7 +104,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -122,7 +122,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
@@ -133,7 +133,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
