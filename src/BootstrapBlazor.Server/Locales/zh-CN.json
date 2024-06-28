@@ -2362,6 +2362,7 @@
     "NormalTips1": "通过 <code>bind-Value</code> 设置双向绑定数据值",
     "NormalTips2": "通过 <code>Items</code> 设置候选数据源",
     "NormalTips3": "通过 <code>OnSelectedChanged</code> 回调方法获取改变项实例",
+    "NormalTips4": "通过 <code>ShowLabelTooltip=\"true\"</code> 开启标签提示功能",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "内置于 ValidateForm 中使用",
     "ValidateFormTips1": "可以通过改变窗口大小，体验自适应布局",

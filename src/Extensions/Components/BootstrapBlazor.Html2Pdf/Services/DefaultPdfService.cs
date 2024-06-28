@@ -105,7 +105,7 @@ class DefaultPdfService : IHtml2Pdf
 
     private static async Task<IBrowser> LaunchBrowserAsync()
     {
-        using var browserFetcher = new BrowserFetcher();
+        var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
 
         return await Puppeteer.LaunchAsync(CreateOptions());
