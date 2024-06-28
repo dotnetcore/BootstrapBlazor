@@ -1,17 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.0.0</Version>
+    <Version>8.0.0-beta01</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Pdf</PackageTags>
     <Description>Bootstrap UI components extensions of Html2Pdf use iText Lib</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <FrameworkReference Include="Microsoft.AspNetCore.App" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.5.1" />
