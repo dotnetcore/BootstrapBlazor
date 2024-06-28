@@ -13,7 +13,7 @@ namespace BootstrapBlazor.DataAccess.FreeSql;
 public static class FreeSqlExtensions
 {
     /// <summary>
-    /// 
+    /// QueryPageOptions 转化为 FreeSql ORM DynamicFilterInfo 类型扩展方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -51,40 +51,25 @@ public static class FreeSqlExtensions
         return ret;
     }
 
-    private static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter)
+    /// <summary>
+    /// IFilterAction 转化为 DynamicFilterInfo 扩展方法
+    /// </summary>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter)
     {
-        var actions = filter.GetFilterConditions();
-        var item = new DynamicFilterInfo();
-
-        if (actions.Filters != null)
-        {
-            // TableFilter 最多仅两个条件
-            if (actions.Filters.Count == 2)
-            {
-                item.Logic = actions.FilterLogic.ToDynamicFilterLogic();
-                item.Filters = actions.Filters.Select(i => new DynamicFilterInfo()
-                {
-                    Field = i.FieldKey,
-                    Value = i.FieldValue,
-                    Operator = i.FilterAction.ToDynamicFilterOperator()
-                }).ToList();
-            }
-            else
-            {
-                var c = actions.Filters.First();
-                item.Field = c.FieldKey;
-                item.Value = c.FieldValue;
-                item.Operator = c.FilterAction.ToDynamicFilterOperator();
-            }
-        }
-        else
-        {
-            item.Field = actions.FieldKey;
-            item.Value = actions.FieldValue;
-            item.Operator = actions.FilterAction.ToDynamicFilterOperator();
-        }
-        return item;
+        var filterKeyValueAction = filter.GetFilterConditions();
+        return filterKeyValueAction.ParseDynamicFilterInfo();
     }
+
+    private static DynamicFilterInfo ParseDynamicFilterInfo(this FilterKeyValueAction filterKeyValueAction) => new()
+    {
+        Operator = filterKeyValueAction.FilterAction.ToDynamicFilterOperator(),
+        Logic = filterKeyValueAction.FilterLogic.ToDynamicFilterLogic(),
+        Field = filterKeyValueAction.FieldKey,
+        Value = filterKeyValueAction.FieldValue,
+        Filters = filterKeyValueAction.Filters?.Select(i => i.ParseDynamicFilterInfo()).ToList()
+    };
 
     private static DynamicFilterLogic ToDynamicFilterLogic(this FilterLogic logic) => logic switch
     {
