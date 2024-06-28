@@ -66,9 +66,6 @@ internal static class ServicesExtensions
         // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        // 增加 Html2Pdf iText 导出服务
-        services.AddBootstrapBlazorHtml2PdfiTextService();
-
         // 配置 Tab 与 Menu 联动字典
         services.ConfigureTabItemMenuBindOptions(options =>
         {
