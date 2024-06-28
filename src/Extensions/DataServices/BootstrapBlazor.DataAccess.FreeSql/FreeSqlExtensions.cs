@@ -68,7 +68,7 @@ public static class FreeSqlExtensions
         Logic = filterKeyValueAction.FilterLogic.ToDynamicFilterLogic(),
         Field = filterKeyValueAction.FieldKey,
         Value = filterKeyValueAction.FieldValue,
-        Filters = filterKeyValueAction?.Filters?.Select(i => i.ParseDynamicFilterInfo()).ToList()
+        Filters = filterKeyValueAction.Filters?.Select(i => i.ParseDynamicFilterInfo()).ToList()
     };
 
     private static DynamicFilterLogic ToDynamicFilterLogic(this FilterLogic logic) => logic switch
