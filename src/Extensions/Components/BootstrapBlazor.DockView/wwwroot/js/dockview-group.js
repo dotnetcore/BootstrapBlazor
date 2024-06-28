@@ -1,5 +1,5 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
-import { deletePanel } from "./dockview-panel.js"
+import { deletePanel, findContentFromPanels } from "./dockview-panel.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {
@@ -29,74 +29,89 @@ const onAddGroup = group => {
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel) => {
-    let group
-    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+const addGroupWithPanel = (dockview, panel, panels) => {console.log('add233');
     if (panel.groupId) {
-        group = dockview.api.getGroup(panel.groupId)
-        if (!group) {
-            group = dockview.createGroup({ id: panel.groupId })
-            const floatingGroupPosition = isMaximized ? {
-                x: 0, y: 0,
-                width: dockview.width,
-                height: dockview.height
-            } : {
-                x: currentPosition?.left || 0,
-                y: currentPosition?.top || 0,
-                width: currentPosition?.width,
-                height: currentPosition?.height
-            }
-            dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
-            createGroupActions(group);
-        }
-        else {
-            if (group.api.location.type === 'grid') {
-                let isVisible = dockview.isVisible(group)
-                if (isVisible === false) {
-                    dockview.setVisible(group, true)
-                    isMaximized && group.api.maximize();
-                }
-            }
-        }
-        dockview.addPanel({
-            id: panel.id,
-            title: panel.title,
-            component: panel.component,
-            position: { referenceGroup: group },
-            params: { ...panel.params, isPackup, height, isMaximized, position }
-        })
+        addPanelWidthGroupId(dockview, panel)
     }
     else {
-        group = dockview.groups.find(group => group.children?.[panel.id])
-        if (!group) {
-            let curentPanel = dockview.panels.findLast(item => item.params.parentId === panel.params.parentId)
-            let direction = getOrientation(dockview.gridview.root, curentPanel.group) === 'VERTICAL' ? 'below' : 'right'
-            dockview.addPanel({
-                id: panel.id,
-                title: panel.title,
-                component: panel.component,
-                position: { referenceGroup: curentPanel.group, direction },
-                params: { ...panel.params, isPackup, height, isMaximized, position }
-            });
-        }
-        else {
-            if (group.api.location.type === 'grid') {
-                let isVisible = dockview.isVisible(group)
-                if (isVisible === false) {
-                    dockview.setVisible(group, true)
-                    isMaximized && group.api.maximize()
-                }
-            }
-            dockview.addPanel({
-                id: panel.id,
-                title: panel.title,
-                component: panel.component,
-                position: { referenceGroup: group },
-                params: { ...panel.params, isPackup, height, isMaximized, position }
-            })
-        }
+        addPanelWidthCreatGroup(dockview, panel, panels)
     }
     deletePanel(dockview, panel)
+}
+
+const addPanelWidthGroupId = (dockview, panel) => {
+    let group = dockview.api.getGroup(panel.groupId)
+    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    if (!group) {
+        group = dockview.createGroup({ id: panel.groupId })
+        const floatingGroupPosition = isMaximized ? {
+            x: 0, y: 0,
+            width: dockview.width,
+            height: dockview.height
+        } : {
+            x: currentPosition?.left || 0,
+            y: currentPosition?.top || 0,
+            width: currentPosition?.width,
+            height: currentPosition?.height
+        }
+        dockview.addFloatingGroup(group, floatingGroupPosition, { skipRemoveGroup: true })
+        createGroupActions(group);
+    }
+    else {
+        if (group.api.location.type === 'grid') {
+            let isVisible = dockview.isVisible(group)
+            if (isVisible === false) {
+                dockview.setVisible(group, true)
+                isMaximized && group.api.maximize();
+            }
+        }
+    }
+    dockview.addPanel({
+        id: panel.id,
+        title: panel.title,
+        component: panel.component,
+        position: { referenceGroup: group },
+        params: { ...panel.params, isPackup, height, isMaximized, position }
+    })
+    dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
+}
+
+const addPanelWidthCreatGroup = (dockview, panel, panels) => {
+    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    let brothers = panels.filter(p => p.params.parentId == panel.params.parentId && p.id != panel.id)
+    let group, direction
+    if (brothers.length > 0 && brothers[0].params.parentType == 'group') {
+        group = dockview.groups.find(g => findContentFromPanels(g.panels, brothers[0]))
+    }
+    else {
+        let targetPanel
+        for (let i = 0, len = panels.length; i < len; i++) {
+            if(panels[i]?.id == panel.id){
+                if(i == len - 1){
+                    targetPanel = panels[i - 1]
+                    group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
+                    direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
+                    break
+                }
+                else{
+                    targetPanel = panels[i + 1]
+                    group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
+                    direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'above' : 'left'
+                    break
+                }
+            }
+        }
+    }
+    let option = {
+        id: panel.id,
+        title: panel.title,
+        component: panel.component,
+        position: { referenceGroup: group },
+        params: { ...panel.params, isPackup, height, isMaximized, position }
+    }
+    if(direction) option.position.direction = direction
+    dockview.addPanel(option);
+    dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
 }
 
 const getOrientation = function (child, group) {
@@ -108,10 +123,13 @@ const getOrientation = function (child, group) {
         else {
             for (const item of child.children) {
                 let orientation = getOrientation(item, group)
-                if (orientation) return orientation
+                if (orientation) {
+                    return orientation
+                }
             }
         }
-    } else {
+    }
+    else {
         return false
     }
 }
@@ -138,7 +156,9 @@ const createGroupActions = group => {
 
 }
 
-const removeGroupActions = group => {
+const disposeGroup = group => {
+    group.api.accessor.params.observer.unobserve(group.header.element);
+    group.api.accessor.params.observer.unobserve(group.header.tabContainer);
     removeActionEvent(group);
 }
 
@@ -203,10 +223,10 @@ const getFloatState = group => group.model.location.type === 'floating';
 
 const addActionEvent = group => {
     const actionContainer = group.header.element.querySelector('.right-actions-container');
+    const tabsContainer = group.header.tabContainer
 
     EventHandler.on(actionContainer, 'click', '.bb-dockview-control-icon', e => {
         const ele = e.delegateTarget;
-
         if (ele.classList.contains('bb-dockview-control-icon-lock')) {
             toggleLock(group, actionContainer, false);
             group.api.accessor._lockChanged.fire({ title: group.panels.map(panel => panel.title), isLock: false });
@@ -233,6 +253,14 @@ const addActionEvent = group => {
         else if (ele.classList.contains('bb-dockview-control-icon-close') && ele.parentElement.classList.contains('right-actions-container')) {
             close(group, actionContainer, true);
         }
+        else if (e.target.classList.contains('dv-default-tab-content')) {
+            const liEle = e.target.closest('li');
+            const tabEle = tabsContainer.children[0]
+            liEle.tabWidth = tabEle.offsetWidth;
+
+            liEle.children[0].appendChild(tabEle);
+            tabsContainer.append(e.target.closest('.tab'));
+        }
     });
 }
 
@@ -243,7 +271,7 @@ const removeActionEvent = group => {
 }
 
 const toggleLock = (group, actionContainer, isLock) => {
-    group.locked = isLock
+    group.locked = isLock ? 'no-drop-target' : isLock
     group.panels.forEach(panel => panel.params.isLock = isLock);
     if (isLock) {
         actionContainer.classList.add('bb-lock')
@@ -285,7 +313,7 @@ const float = group => {
 
     const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
 
-    group.panels.forEach((panel, index) => {
+    group.panels.slice(0).forEach((panel, index) => {
         dockview.moveGroupOrPanel({
             from: { groupId: group.id, panelId: panel.id },
             to: { group: floatingGroup, position: 'center', index },
@@ -370,12 +398,13 @@ const floatingExitMaximized = group => {
 }
 
 const setWidth = (observerList) => {
-    observerList.forEach(({target}) => {
+    observerList.forEach(({ target }) => {
         let header, tabsContainer
-        if(target.classList.contains('tabs-container')){
+        if (target.classList.contains('tabs-container')) {
             header = target.parentElement
             tabsContainer = target
-        }else{
+        }
+        else {
             header = target
             tabsContainer = header.querySelector('.tabs-container')
         }
@@ -389,20 +418,16 @@ const setWidth = (observerList) => {
             let aEle = document.createElement('a')
             let liEle = document.createElement('li')
             aEle.className = 'dropdown-item'
-            liEle.setAttribute('tabWidth', lastTab.offsetWidth)
-            liEle.addEventListener('click', () => {
-                liEle.setAttribute('tabWidth', tabsContainer.children[0].offsetWidth)
-                liEle.children[0].append(tabsContainer.children[0])
-                tabsContainer.append(liEle.children[0].children[0])
-            })
+            liEle.tabWidth = lastTab.offsetWidth;
             aEle.append(lastTab)
             liEle.append(aEle)
             dropMenu.insertAdjacentElement("afterbegin", liEle)
-        } else {
+        }
+        else {
             let firstLi = dropMenu.querySelector('li:has(.active-tab)') || dropMenu.children[0]
             if (firstLi) {
                 let firstTab = firstLi.querySelector('.tab')
-                if (voidWidth > firstLi.getAttribute('tabWidth') || tabsContainer.children.length == 0) {
+                if (voidWidth > firstLi.tabWidth || tabsContainer.children.length == 0) {
                     firstTab && tabsContainer.append(firstTab)
                     firstLi.remove()
                 }
@@ -411,4 +436,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { onAddGroup, addGroupWithPanel, toggleLock };
+export { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup };

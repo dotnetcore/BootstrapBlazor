@@ -78,6 +78,13 @@ public class Foo
     [AutoGenerateColumn(Order = 70)]
     public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
+    /// <summary>
+    /// 只读列，模拟数据库计算列
+    /// </summary>
+    [Display(Name = "只读列")]
+    [AutoGenerateColumn(Order = 80, Ignore = true)]
+    public int ReadonlyColumn { get; init; }
+
     #region Static methods
     /// <summary>
     /// 随机数 Random 实例
@@ -114,7 +121,8 @@ public class Foo
         Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
         Count = Random.Next(1, 100),
         Complete = Random.Next(1, 100) > 50,
-        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle,
+        ReadonlyColumn = Random.Next(10, 50)
     }).ToList();
 
     /// <summary>

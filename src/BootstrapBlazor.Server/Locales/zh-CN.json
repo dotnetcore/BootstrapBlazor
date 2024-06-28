@@ -4343,6 +4343,7 @@
     "Complete": "是/否",
     "Education": "学历",
     "Hobby": "爱好",
+    "ReadonlyColumn": "只读列",
     "Name.Required": "{0}是必填项",
     "Address.Required": "{0}是必填项",
     "Education.Required": "{0}是必选项",
@@ -4523,6 +4524,7 @@
     "ListView": "列表组件 ListView",
     "ListGroup": "列表框 ListGroup",
     "Locator": "位置定位 IpLocatorFactory",
+    "Icon": "图标 Icon",
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
@@ -5082,7 +5084,12 @@
     "TablesEditInjectDataServiceTips4": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
     "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内",
     "TablesVisibleTitle": "Table 编辑时显示/隐藏",
-    "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>"
+    "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>",
+    "TablesReadonlyColumnTitle": "只读列",
+    "TablesReadonlyColumnIntro": "通过设置 <code>Field</code> 与 <code>FieldName</code> 即可",
+    "TablesReadonlyColumnDescription": "对应数据库计算列，或者模型只读属性",
+    "TablesReadonlyColumnTips1": "不要写 <code>@bind-Field</code> 只读列在 <b>新建</b> 或者 <b>编辑</b> 时均无法录入",
+    "TablesReadonlyColumnTips2": "老版本需要写完整代码如下"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",
@@ -6015,7 +6022,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
     "DockViewVisibleTitle": "DockViewV2 可见性设置",
-    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnPanelClosedCallbackAsync</code> 设置面板关闭回调委托方法"
+    "DockViewVisibleIntro": "通过设置 <code>Visible</code> 控制是否显示组件，使用 <code>OnVisibleStateChangedAsync</code> 设置面板关闭回调委托方法"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
     "DockViewNestTitle": "DockViewV2 嵌套布局",
@@ -6477,5 +6484,15 @@
     "NormalTitle": "图标组件",
     "NormalIntro": "使用 <code>BootstrapBlazorSvgIcon</code> 组件设置其 <code>Name</code> 参数即可",
     "NormalDesc": "更多图标名称请访问字节跳动官网 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons": {
+    "IconsTitle": "Icon 图标",
+    "IconsDescription": "同时支持字体图标、矢量 Svg 图标、以及 Image 图片",
+    "FATitle": "字体图标",
+    "FAIntro": "通过设置 <code>Name</code> 指定图标样式即可",
+    "SvgTitle": "矢量图标",
+    "SvgIntro": "通过设置 <code>IsSvgSprites=\"true\"</code> <code>Url</code> 加载 <code>Svg</code> 雪碧图，通过 <code>Name</code> 指定其 <code>Id</code> 值",
+    "ImageTitle": "图片",
+    "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
   }
 }

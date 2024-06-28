@@ -4343,6 +4343,7 @@
     "Complete": "Complete",
     "Education": "Education",
     "Hobby": "Hobby",
+    "ReadonlyColumn": "Readonly Column",
     "Name.Required": "{0} is required.",
     "Address.Required": "{0} is required.",
     "Education.Required": "{0} is required.",
@@ -4523,6 +4524,7 @@
     "ListView": "ListView",
     "ListGroup": "ListGroup",
     "Locator": "IpLocatorFactory",
+    "Icon": "Icon",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
     "Popover": "Popover",
@@ -5082,7 +5084,12 @@
     "TablesEditInjectDataServiceTips3": "custom data service",
     "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set",
     "TablesVisibleNormalTitle": "Editor Visible/Hidden",
-    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item"
+    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
+    "TablesReadonlyColumnTitle": "Readonly Column",
+    "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>",
+    "TablesReadonlyColumnDescription": "Corresponding database calculated columns, or model read-only attributes",
+    "TablesReadonlyColumnTips1": "Do not write <code>@bind-Field</code>. Read-only columns cannot be entered when <b>Add</b> or <b>Edit</b>",
+    "TablesReadonlyColumnTips2": "The old version needs to write the complete code as follows"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",
@@ -6015,7 +6022,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
     "DockViewVisibleTitle": "DockViewV2 - Visible",
-    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnPanelClosedCallbackAsync</code> to set the panel closing callback delegate method"
+    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
     "DockViewNestTitle": "DockViewV2 - Nested Layouts",
@@ -6477,5 +6484,15 @@
     "NormalTitle": "Icon",
     "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
     "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons": {
+    "IconsTitle": "Icon",
+    "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
+    "FATitle": "Font Icons",
+    "FAIntro": "You can specify the icon style by setting <code>Name</code>",
+    "SvgTitle": "Svg Icons",
+    "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
+    "ImageTitle": "Image",
+    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
   }
 }

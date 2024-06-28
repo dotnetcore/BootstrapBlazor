@@ -13,8 +13,9 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<AutoComplete>(builder =>
         {
-            builder.Add(a => a.Items, new String[] { "test1", "test2" });
+            builder.Add(a => a.Items, new string[] { "test1", "test2" });
             builder.Add(a => a.NoDataTip, "test3");
+            builder.Add(a => a.ShowNoDataTip, true);
             builder.Add(a => a.DisplayCount, 10);
             builder.Add(a => a.IsLikeMatch, true);
             builder.Add(a => a.IgnoreCase, false);

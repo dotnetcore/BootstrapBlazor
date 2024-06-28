@@ -98,6 +98,7 @@
     "live2d-display": "Live2DDisplays",
     "locator": "Locators",
     "logout": "Logouts",
+    "icon": "Icons",
     "icon-park": "IconParks",
     "image-viewer": "ImageViewers",
     "input-number": "InputNumbers",

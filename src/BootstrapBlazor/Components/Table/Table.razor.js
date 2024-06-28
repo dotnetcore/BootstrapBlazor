@@ -112,7 +112,6 @@ export function reset(id) {
     }
     if (table.search) {
         observer.observe(table.search)
-        table.observer = observer
     }
 }
 
@@ -158,15 +157,25 @@ export function load(id, method) {
     }
 }
 
-export function scroll(id) {
+export function scroll(id, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
         const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
-                row.scrollIntoView({ behavior: 'smooth' });
+                row.scrollIntoView(options);
             }
+        }
+    }
+}
+
+export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
+    const element = document.getElementById(id);
+    if (element) {
+        const scroll = element.querySelector('.scroll');
+        if (scroll) {
+            scroll.scrollTo(x, y, options);
         }
     }
 }

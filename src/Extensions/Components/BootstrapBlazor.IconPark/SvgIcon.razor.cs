@@ -28,7 +28,7 @@ public partial class SvgIcon
     /// 获得 样式字符串
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-svg-icon")
-        .AddClass($"bb-svg-icon-{Name}")
+        .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
     /// <summary>

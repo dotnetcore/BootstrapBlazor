@@ -4,7 +4,8 @@ import { getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js
 const loadPanelsFromLocalstorage = dockview => {
     const { options } = dockview.params;
     if (options.enableLocalStorage) {
-        dockview.params.panels = localStorage.getItem(`${options.localStorageKey}-panels`) || [];
+        const panelsStr = localStorage.getItem(`${options.localStorageKey}-panels`)
+        dockview.params.panels = panelsStr ? JSON.parse(panelsStr) : [];
     }
 }
 
@@ -18,10 +19,14 @@ const reloadFromConfig = (dockview, options) => {
     dockview.fromJSON(jsonData);
 }
 
-const getConfig = options => options.enableLocalStorage ? getConfigFromStorage(options.localStorageKey) : getConfigFromOptions(options);
+const getConfig = options => {
+    const config = options.enableLocalStorage ? getConfigFromStorage(options) : null;
+    return config ?? getConfigFromOptions(options);
+}
 
-const getConfigFromStorage = key => {
-    return fixObject(JSON.parse(localStorage.getItem(key)));
+const getConfigFromStorage = options => {
+    const jsonString = localStorage.getItem(options.localStorageKey);
+    return jsonString ? fixObject(JSON.parse(jsonString)) : null;
 }
 
 const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
@@ -67,31 +72,52 @@ const getGroupIdFunc = () => {
 }
 
 const getTree = (contentItem, { width, height, orientation }, parent, panels, getGroupId) => {
-    let length = parent.content.length || 1
-    let obj = {}, boxSize = orientation === 'HORIZONTAL' ? width : height, size
-    let hasSizeList = parent.content.filter(item => item.width || item.height)
-    let hasSizeLen = hasSizeList.length
+    const length = parent.content.length;
+    const boxSize = orientation === 'HORIZONTAL' ? width : height;
+    let size;
+    const hasSizeList = parent.content.filter(item => item.width || item.height)
+    const hasSizeLen = hasSizeList.length
     if (hasSizeLen === 0) {
         size = (1 / length * boxSize).toFixed(2) * 1
-    } else {
-        size = hasSizeList.reduce((pre, cur) => pre + (cur.width || cur.height), 0)
+    }
+    else {
+        size = hasSizeList.reduce((pre, cur) => pre + getSize(boxSize, cur.width || cur.height), 0)
         size = ((boxSize - size) / (length - hasSizeLen)).toFixed(2) * 1
     }
     orientation === 'HORIZONTAL' ? width = size : height = size
     orientation = orientation === 'HORIZONTAL' ? 'VERTICAL' : 'HORIZONTAL'
 
+    let obj = {}
     if (contentItem.type === 'row' || contentItem.type === 'column') {
-        obj.type = 'branch'
-        obj.size = contentItem.width || contentItem.height || size
+        obj.type = 'branch';
+        obj.size = getSize(boxSize, contentItem.width || contentItem.height) || size
         obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId))
     }
     else if (contentItem.type === 'group') {
-        obj.type = 'leaf'
-        obj.size = contentItem.width || contentItem.height || size
-        obj.visible = contentItem.content.some(item => item.visible !== false)
-        obj.data = {
+        obj = getGroupNode(contentItem, size, boxSize, parent, panels, getGroupId);
+    }
+    else if (contentItem.type === 'component') {
+        obj = getLeafNode(contentItem, size, boxSize, parent, panels, getGroupId);
+    }
+    return obj
+}
+
+const getSize = (size, rate) => {
+    return rate ? size * (rate / 100) : false
+}
+
+const getActualSize = (width, height, widthRate, heightRate, defaultSize) => (width ?? height) === null
+    ? defaultSize
+    : width ? width * widthRate / 100 : height * heightRate / 100;
+
+const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
+    return {
+        type: 'leaf',
+        size: getSize(boxSize, contentItem.width || contentItem.height) || size,
+        visible: contentItem.content.length > 0 || contentItem.content.some(item => item.visible !== false),
+        data: {
             id: getGroupId(),
-            activeView: contentItem.content[0].id,
+            activeView: contentItem.content[0]?.id || '',
             hideHeader: contentItem.content.length === 1 && contentItem.content[0].showHeader === false,
             views: contentItem.content.filter(item => item.visible !== false).map(item => {
                 panels[item.id] = {
@@ -105,27 +131,31 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
             })
         }
     }
-    else if (contentItem.type === 'component') {
-        obj.type = 'leaf'
-        obj.visible = contentItem.visible !== false
-        obj.size = contentItem.width || contentItem.height || size
-        obj.data = {
+}
+
+const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
+    const visible = contentItem.visible !== false;
+    const data = {
+        type: 'leaf',
+        visible,
+        size: getSize(boxSize, contentItem.width || contentItem.height) || size,
+        data: {
             id: getGroupId(),
             activeView: contentItem.id,
             hideHeader: contentItem.showHeader === false,
-            views: obj.visible ? [contentItem.id] : []
+            views: visible ? [contentItem.id] : []
         }
-        if (obj.visible) {
-            panels[contentItem.id] = {
-                id: contentItem.id,
-                title: contentItem.title,
-                tabComponent: contentItem.componentName,
-                contentComponent: contentItem.componentName,
-                params: { ...contentItem, parentId: parent.id }
-            }
+    };
+    if (visible) {
+        panels[contentItem.id] = {
+            id: contentItem.id,
+            title: contentItem.title,
+            tabComponent: contentItem.componentName,
+            contentComponent: contentItem.componentName,
+            params: { ...contentItem, parentId: parent.id }
         }
     }
-    return obj
+    return data;
 }
 
 const saveConfig = dockview => {

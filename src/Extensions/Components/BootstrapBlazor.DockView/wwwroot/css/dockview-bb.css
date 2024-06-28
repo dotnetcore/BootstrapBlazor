@@ -111,6 +111,14 @@
         overflow: hidden;
     }
 
+    .bb-dockview .tabs-and-actions-container:has(.bb-lock) .void-container {
+        cursor: default;
+    }
+
+    .bb-dockview .tabs-and-actions-container:has(.bb-lock) .drop-target > .drop-target-dropzone > .drop-target-selection {
+        background-color: var(--dv-tabs-and-actions-container-background-color);
+    }
+
     .bb-dockview .right-actions-container {
         display: flex;
         align-items: center;

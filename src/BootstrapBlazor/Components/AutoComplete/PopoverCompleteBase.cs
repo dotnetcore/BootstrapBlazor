@@ -43,6 +43,13 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? NoDataTip { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public bool ShowNoDataTip { get; set; } = true;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
