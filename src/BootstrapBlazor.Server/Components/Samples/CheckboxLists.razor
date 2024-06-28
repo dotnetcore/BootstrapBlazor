@@ -5,19 +5,23 @@
 <h4>@Localizer["CheckboxListsTip"]</h4>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["NormalTips1"].Value)</li>
-        <li>@((MarkupString)Localizer["NormalTips2"].Value)</li>
-        <li>@((MarkupString)Localizer["NormalTips3"].Value)</li>
-    </ul>
-    <CheckboxList TValue="string" @bind-Value="@Value1" Items="@Items" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" OnSelectedChanged="@OnSelectedChanged" />
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["NormalTips1"].Value)</li>
+            <li>@((MarkupString)Localizer["NormalTips2"].Value)</li>
+            <li>@((MarkupString)Localizer["NormalTips3"].Value)</li>
+        </ul>
+    </section>
+    <CheckboxList TValue="string" @bind-Value="@Value1" Items="@Items" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" OnSelectedChanged="@OnSelectedChanged" ShowLabelTooltip="true"></CheckboxList>
     <ConsoleLogger @ref="NormalLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
-    <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
-    <p>@((MarkupString)Localizer["ValidateFormTips3"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
+        <p>@((MarkupString)Localizer["ValidateFormTips3"].Value)</p>
+    </section>
     <ValidateForm Model="@Dummy">
         <div class="row g-3">
             <div class="col-12">
@@ -32,7 +36,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
-    <p>@((MarkupString)Localizer["ShowLabelTip"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["ShowLabelTip"].Value)</section>
     <div class="row g-3">
         <div class="col-12">
             <CheckboxList TValue="IEnumerable<int>" Items="@Items1" @bind-Value="@ShowLabelValue1" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
@@ -55,7 +59,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EnumTitle"]" Introduction="@Localizer["EnumIntro"]" Name="Enum">
-    <p>@((MarkupString)Localizer["EnumTip"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["EnumTip"].Value)</section>
     <div class="row g-3">
         <div class="col-12">
             <CheckboxList @bind-Value="@SelectedEnumValues" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
@@ -68,7 +72,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NoBorderTitle"]" Introduction="@Localizer["NoBorderIntro"]" Name="NoBorder">
-    <p>@Localizer["NoBorderTip"]</p>
+    <section ignore>@Localizer["NoBorderTip"]</section>
     <ValidateForm Model="@Dummy">
         <CheckboxList @bind-Value="@Dummy.Name" ShowBorder="false" Items="@Items3" />
     </ValidateForm>
