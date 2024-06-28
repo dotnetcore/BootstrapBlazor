@@ -2362,6 +2362,7 @@
     "NormalTips1": "Set bidirectional binding data value through <code>bind-Value</code >",
     "NormalTips2": "Set candidate data sources through <code>Items</code>",
     "NormalTips3": "Get the changed item instance through the <code>onSelectedChanged</code> callback method",
+    "NormalTips4": "Enable label tooltip by <code>ShowLabelTooltip=\"true\"</code>",
     "ValidateFormTitle": "Client Validation",
     "ValidateFormIntro": "Built in validateform",
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
