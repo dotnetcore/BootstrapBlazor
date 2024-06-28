@@ -10,7 +10,7 @@
         <li>@((MarkupString)Localizer["NormalTips2"].Value)</li>
         <li>@((MarkupString)Localizer["NormalTips3"].Value)</li>
     </ul>
-    <CheckboxList TValue="string" @bind-Value="@Value1" Items="@Items" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" OnSelectedChanged="@OnSelectedChanged" />
+    <CheckboxList TValue="string" @bind-Value="@Value1" Items="@Items" ShowLabel="true" ShowLabelTooltip="true" DisplayText="@Localizer[nameof(Foo.Name)]" OnSelectedChanged="@OnSelectedChanged" />
     <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
