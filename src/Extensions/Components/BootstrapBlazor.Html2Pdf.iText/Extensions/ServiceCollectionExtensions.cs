@@ -18,7 +18,9 @@ public static class BootstrapBlazorHtml2PdfiTextServiceExtensions
     public static IServiceCollection AddBootstrapBlazorHtml2PdfiTextService(this IServiceCollection services)
     {
         services.AddSingleton<IHtml2Pdf, DefaultPdfService>();
-
+#if NET8_0_OR_GREATER
+        services.AddKeyedSingleton<IHtml2Pdf, DefaultPdfService>("BootstrapBlazor.Html2Pdf.iText");
+#endif
         return services;
     }
 }
