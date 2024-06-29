@@ -603,4 +603,52 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.Equal("02/15/2024", cut.Instance.Value.Start.ToString("MM/dd/yyyy"));
         Assert.Equal("02/16/2024", cut.Instance.Value.End.ToString("MM/dd/yyyy"));
     }
+
+    [Fact]
+    public async Task ViewMode_Year()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue());
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Year);
+            pb.Add(a => a.DateFormat, "yyyy");
+        });
+
+        var cells = cut.FindAll(".year-table .current > span");
+        await cut.InvokeAsync(() => cells[0].Click());
+        await cut.InvokeAsync(() => cells[1].Click());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue() { Start = new DateTime(2023, 1, 1), End = new DateTime(2024, 1, 1) });
+        });
+        cells = cut.FindAll(".month-table .current > span");
+        await cut.InvokeAsync(() => cells[0].Click());
+        await cut.InvokeAsync(() => cells[1].Click());
+    }
+
+    [Fact]
+    public async Task ViewMode_Month()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue());
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.DateFormat, "yyyy-MM");
+        });
+
+        var cells = cut.FindAll(".month-table .current > span");
+        await cut.InvokeAsync(() => cells[0].Click());
+        await cut.InvokeAsync(() => cells[1].Click());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue() { Start = new DateTime(2023, 1, 1), End = new DateTime(2024, 1, 1) });
+        });
+        cells = cut.FindAll(".month-table .current > span");
+        await cut.InvokeAsync(() => cells[0].Click());
+        await cut.InvokeAsync(() => cells[1].Click());
+    }
 }

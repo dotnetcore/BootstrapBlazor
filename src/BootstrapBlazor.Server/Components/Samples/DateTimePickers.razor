@@ -85,7 +85,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode">
-    <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["ViewModeTip"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <DateTimePicker @bind-Value="YearValue" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
@@ -103,7 +103,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NullValueTitle"]" Introduction="@Localizer["NullValueIntro"]" Name="NullValue">
-    <p>@((MarkupString)Localizer["NullValueTip"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["NullValueTip"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-8">
             <DateTimePicker @bind-Value="@BindNullValue" />
