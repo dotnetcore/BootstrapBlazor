@@ -13,8 +13,12 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
 {
     private readonly Dictionary<string, IIpLocatorProvider> _providers = [];
 
+    private readonly IServiceProvider _serviceProvider;
+
     public DefaultIpLocatorFactory(IServiceProvider provider)
     {
+        _serviceProvider = provider;
+
         foreach (var p in provider.GetServices<IIpLocatorProvider>())
         {
             if (p.Key != null)
