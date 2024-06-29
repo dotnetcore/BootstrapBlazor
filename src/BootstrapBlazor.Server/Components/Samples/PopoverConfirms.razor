@@ -141,6 +141,21 @@
     </PopConfirmButton>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoverConfirmsShowButtonsTitle"]"
+           Introduction="@Localizer["PopoverConfirmsShowButtonsIntro"]"
+           Name="ShowButtons">
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                      Color="Color.Primary"
+                      ConfirmButtonColor="Color.Info"
+                      Text="@Localizer["PopoverConfirmsShowButtonsButtonText"]"
+                      ShowCloseButton="false" ShowConfirmButton="false">
+        <BodyTemplate>
+            <CustomPopConfirmContent></CustomPopConfirmContent>
+        </BodyTemplate>
+    </PopConfirmButton>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

@@ -315,7 +315,14 @@
     "PopoverConfirmsCustomClassCustomButtonContent": "确定删除数据吗？",
     "PopoverConfirmsBodyTemplateTitle": "自定义 PopConfirmButton 内容",
     "PopoverConfirmsBodyTemplateIntro": "通过设置 <code>BodyTemplate</code> 属性，自定义内容",
-    "PopoverConfirmsBodyTemplateButtonText": "自定义内容"
+    "PopoverConfirmsBodyTemplateButtonText": "自定义内容",
+    "PopoverConfirmsShowButtonsTitle": "自定义组件",
+    "PopoverConfirmsShowButtonsIntro": "通过设置 <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code> 不显示内置功能按钮，在自定义组件中自定义一个 <b>审批</b> 按钮",
+    "PopoverConfirmsShowButtonsButtonText": "自定义组件"
+  },
+  "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
+    "CustomPopConfirmContentText": "自定义弹窗内容",
+    "CustomPopConfirmContentButtonText": "审批"
   },
   "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover 弹出窗组件",
