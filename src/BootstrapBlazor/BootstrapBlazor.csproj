@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.6.5-beta03</Version>
+    <Version>8.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -16,8 +16,8 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET6Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
@@ -26,8 +26,8 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET7Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET7Version)" />
@@ -36,8 +36,8 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
