@@ -315,7 +315,15 @@
     "PopoverConfirmsCustomClassCustomButtonContent": "Are you sure you want to delete the data?",
     "PopoverConfirmsBodyTemplateTitle": "Customize the PopConfirmButton content",
     "PopoverConfirmsBodyTemplateIntro": "Customize the content by setting <code>the BodyTemplate</code> property",
-    "PopoverConfirmsBodyTemplateButtonText": "Customize content"
+    "PopoverConfirmsBodyTemplateButtonText": "Customize content",
+    "PopoverConfirmsShowButtonsTitle": "Custom Component",
+    "PopoverConfirmsShowButtonsIntro": "By setting <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code>, you don't display the built-in function buttons, and customize an <b>Approve</b> button in the custom component.",
+    "PopoverConfirmsShowButtonsButtonText": "Custom Component",
+    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters"
+  },
+  "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
+    "CustomPopConfirmContentText": "Custom content",
+    "CustomPopConfirmContentButtonText": "Approval"
   },
   "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover popup component",

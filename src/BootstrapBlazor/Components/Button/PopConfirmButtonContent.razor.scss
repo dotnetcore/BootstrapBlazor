@@ -1,8 +1,9 @@
 .popover {
     --bs-popover-min-width: #{$bb-popover-min-width};
     --bb-popover-buttons-justify-content: #{$bb-popover-buttons-justify-content};
-    --bb-popover-buttons-margin-left: #{$bb-popover-buttons-margin-left};
+    --bb-popover-buttons-margin: #{$bb-popover-buttons-margin};
     --bb-popover-buttons-padding: #{$bb-popover-buttons-padding};
+    --bb-popover-buttons-button-margin-left: #{$bb-popover-buttons-button-margin-left};
     --bb-popover-body-span-margin-left: #{$bb-popover-body-span-margin-left};
     min-width: var(--bs-popover-min-width);
 }
@@ -16,12 +17,13 @@
 .popover-confirm-buttons {
     display: flex;
     justify-content: var(--bb-popover-buttons-justify-content);
+    margin: var(--bb-popover-buttons-margin);
 
     .btn {
         padding: var(--bb-popover-buttons-padding);
 
         &:last-child {
-            margin-left: var(--bb-popover-buttons-margin-left);
+            margin-left: var(--bb-popover-buttons-button-margin-left);
         }
     }
 }

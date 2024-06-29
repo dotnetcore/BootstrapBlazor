@@ -214,7 +214,7 @@ public class PopConfirmButtonTest : PopoverTestBase
             pb.Add(a => a.ShowCloseButton, false);
             pb.Add(a => a.ShowConfirmButton, false);
         });
-        cut.Contains("<div class=\"popover-confirm-buttons\"></div>");
+        cut.DoesNotContain("<div class=\"popover-confirm-buttons\"></div>");
 
         // 级联参数
         popButton.SetParametersAndRender(pb =>
