@@ -378,7 +378,7 @@ public partial class Tab : IHandlerException
     private void Navigator_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
     {
         AddTabByUrl();
-
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -387,7 +387,7 @@ public partial class Tab : IHandlerException
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
         // 判断是否排除
-        var urls = ExcludeUrls ?? Enumerable.Empty<string>();
+        var urls = ExcludeUrls ?? [];
         Excluded = requestUrl == ""
             ? urls.Any(u => u is "" or "/")
             : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
@@ -430,7 +430,7 @@ public partial class Tab : IHandlerException
     /// <summary>
     /// 切换到上一个标签方法
     /// </summary>
-    public Task ClickPrevTab()
+    public void ClickPrevTab()
     {
         var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
@@ -458,17 +458,15 @@ public partial class Tab : IHandlerException
                 {
                     item.SetActive(true);
                     InvokeUpdate = true;
-                    StateHasChanged();
                 }
             }
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
     /// 切换到下一个标签方法
     /// </summary>
-    public Task ClickNextTab()
+    public void ClickNextTab()
     {
         var item = TabItems.Find(i => i.IsActive);
         if (item != null)
@@ -497,11 +495,9 @@ public partial class Tab : IHandlerException
                 {
                     item.SetActive(true);
                     InvokeUpdate = true;
-                    StateHasChanged();
                 }
             }
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
