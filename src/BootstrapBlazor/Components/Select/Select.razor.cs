@@ -435,6 +435,8 @@ public partial class Select<TValue> : ISelect
         CurrentValue = default;
     }
 
+    private string? ReadonlyString => IsEditable ? null : "readonly";
+
     private async Task OnChange(ChangeEventArgs args)
     {
         if (args.Value is string v)
