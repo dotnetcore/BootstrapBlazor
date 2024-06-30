@@ -378,7 +378,7 @@ public partial class Tab : IHandlerException
     private void Navigator_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
     {
         AddTabByUrl();
-
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
