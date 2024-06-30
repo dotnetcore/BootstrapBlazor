@@ -430,7 +430,7 @@ public partial class Tab : IHandlerException
     /// <summary>
     /// 切换到上一个标签方法
     /// </summary>
-    public Task ClickPrevTab()
+    public void ClickPrevTab()
     {
         var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
@@ -458,17 +458,15 @@ public partial class Tab : IHandlerException
                 {
                     item.SetActive(true);
                     InvokeUpdate = true;
-                    StateHasChanged();
                 }
             }
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
     /// 切换到下一个标签方法
     /// </summary>
-    public Task ClickNextTab()
+    public void ClickNextTab()
     {
         var item = TabItems.Find(i => i.IsActive);
         if (item != null)
@@ -497,11 +495,9 @@ public partial class Tab : IHandlerException
                 {
                     item.SetActive(true);
                     InvokeUpdate = true;
-                    StateHasChanged();
                 }
             }
         }
-        return Task.CompletedTask;
     }
 
     /// <summary>
