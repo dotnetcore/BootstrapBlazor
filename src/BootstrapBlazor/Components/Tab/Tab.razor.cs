@@ -387,7 +387,7 @@ public partial class Tab : IHandlerException
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
         // 判断是否排除
-        var urls = ExcludeUrls ?? Enumerable.Empty<string>();
+        var urls = ExcludeUrls ?? [];
         Excluded = requestUrl == ""
             ? urls.Any(u => u is "" or "/")
             : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
