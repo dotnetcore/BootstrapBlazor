@@ -51,8 +51,7 @@ const getConfigFromContent = options => {
     const getGroupId = getGroupIdFunc()
     const panels = {}, rootType = options.content[0].type
     const orientation = rootType === 'column' ? 'VERTICAL' : 'HORIZONTAL';
-    const treeNode = getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)
-    const root = (rootType === 'group' || rootType === 'component') ? { type: 'branch', data: [treeNode] } : treeNode
+    const root = getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)
     return fixObject({
         activeGroup: '1',
         grid: { width, height, orientation, root },
