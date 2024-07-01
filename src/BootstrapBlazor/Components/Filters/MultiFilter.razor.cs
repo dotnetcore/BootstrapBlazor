@@ -71,6 +71,7 @@ public partial class MultiFilter
         {
             item.Checked = false;
         }
+        _items = null;
         StateHasChanged();
     }
 
@@ -119,7 +120,7 @@ public partial class MultiFilter
 
     private Task OnStateChanged(CheckboxState state, bool val)
     {
-        foreach (var item in _source)
+        foreach (var item in GetItems())
         {
             item.Checked = state == CheckboxState.Checked;
         }
