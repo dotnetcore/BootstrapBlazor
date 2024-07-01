@@ -315,7 +315,15 @@
     "PopoverConfirmsCustomClassCustomButtonContent": "确定删除数据吗？",
     "PopoverConfirmsBodyTemplateTitle": "自定义 PopConfirmButton 内容",
     "PopoverConfirmsBodyTemplateIntro": "通过设置 <code>BodyTemplate</code> 属性，自定义内容",
-    "PopoverConfirmsBodyTemplateButtonText": "自定义内容"
+    "PopoverConfirmsBodyTemplateButtonText": "自定义内容",
+    "PopoverConfirmsShowButtonsTitle": "自定义组件",
+    "PopoverConfirmsShowButtonsIntro": "通过设置 <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code> 不显示内置功能按钮，在自定义组件中自定义一个 <b>审批</b> 按钮",
+    "PopoverConfirmsShowButtonsButtonText": "自定义组件",
+    "PopoverConfirmsShowButtonsDesc": "自定义组件内可通过级联参数调用组件内部的 <code>Close</code> 或者 <code>Confirm</code> 方法"
+  },
+  "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
+    "CustomPopConfirmContentText": "自定义弹窗内容",
+    "CustomPopConfirmContentButtonText": "审批"
   },
   "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover 弹出窗组件",
@@ -2362,6 +2370,7 @@
     "NormalTips1": "通过 <code>bind-Value</code> 设置双向绑定数据值",
     "NormalTips2": "通过 <code>Items</code> 设置候选数据源",
     "NormalTips3": "通过 <code>OnSelectedChanged</code> 回调方法获取改变项实例",
+    "NormalTips4": "通过 <code>ShowLabelTooltip=\"true\"</code> 开启标签提示功能",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "内置于 ValidateForm 中使用",
     "ValidateFormTips1": "可以通过改变窗口大小，体验自适应布局",
@@ -3818,7 +3827,9 @@
     "AutoCloseTitle": "自动关闭",
     "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗",
     "Submit": "提交",
-    "Limit": "时间范围"
+    "Limit": "时间范围",
+    "ViewModeTitle": "显示模式",
+    "ViewModeIntro": "通过设置 <code>ViewMode=\"DatePickerViewMode.Year\"</code> 使组件视图为年视图，设置 <code>ViewMode=\"DatePickerViewMode.Month\"</code> 使组件视图为年视图"
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "基础用法",

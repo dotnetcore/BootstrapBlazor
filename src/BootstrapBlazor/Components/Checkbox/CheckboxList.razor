@@ -26,7 +26,10 @@ else
         @foreach (var item in Items)
         {
             <div class="@CheckboxItemClassString">
-                <Checkbox TValue="bool" IsDisabled="GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
+                <Checkbox TValue="bool" IsDisabled="GetDisabledState(item)"
+                          ShowAfterLabel="true" ShowLabel="false" ShowLabelTooltip="ShowLabelTooltip"
+                          DisplayText="@item.Text"
+                          Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
             </div>
         }
     </div>

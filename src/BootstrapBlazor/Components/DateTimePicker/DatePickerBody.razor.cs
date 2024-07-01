@@ -578,10 +578,6 @@ public partial class DatePickerBody
     private async Task OnTimeChanged(TimeSpan time)
     {
         CurrentTime = time;
-        //if(Ranger != null)
-        //{
-
-        //}
         if (ShouldConfirm)
         {
             await ClickConfirmButton();
@@ -630,7 +626,16 @@ public partial class DatePickerBody
     private async Task SwitchView(DatePickerViewMode view, DateTime d)
     {
         CurrentDate = d;
-        await SwitchView(view);
+
+        if (Ranger != null && (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month))
+        {
+            await ClickConfirmButton();
+            StateHasChanged();
+        }
+        else
+        {
+            await SwitchView(view);
+        }
     }
 
     /// <summary>

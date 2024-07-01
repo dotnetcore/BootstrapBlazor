@@ -13,8 +13,15 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
 {
     private readonly Dictionary<string, IIpLocatorProvider> _providers = [];
 
-    public DefaultIpLocatorFactory(IServiceProvider provider)
+    private readonly IServiceProvider _serviceProvider;
+
+    private readonly IOptionsMonitor<BootstrapBlazorOptions> _options;
+
+    public DefaultIpLocatorFactory(IServiceProvider provider, IOptionsMonitor<BootstrapBlazorOptions> options)
     {
+        _serviceProvider = provider;
+        _options = options;
+
         foreach (var p in provider.GetServices<IIpLocatorProvider>())
         {
             if (p.Key != null)
@@ -28,5 +35,13 @@ class DefaultIpLocatorFactory : IIpLocatorFactory
     /// 创建 <see cref="IIpLocatorProvider"/> 实例方法
     /// </summary>
     /// <param name="key"></param>
-    public IIpLocatorProvider Create(string? key = null) => string.IsNullOrEmpty(key) ? _providers.Values.Last() : _providers[key];
+    public IIpLocatorProvider Create(string? key = null)
+    {
+        var providerKey = key;
+        if (string.IsNullOrEmpty(key))
+        {
+            providerKey = _options.CurrentValue.IpLocatorOptions.ProviderName;
+        }
+        return string.IsNullOrEmpty(providerKey) ? _providers.Values.Last() : _providers[providerKey];
+    }
 }

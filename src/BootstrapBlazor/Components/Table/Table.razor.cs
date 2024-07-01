@@ -18,7 +18,7 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
-    /// 获得/设置 Loding模板
+    /// 获得/设置 Loading 模板
     /// </summary>
     [Parameter]
     public RenderFragment? LoadingTemplate { get; set; }

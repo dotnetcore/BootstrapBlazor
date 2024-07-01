@@ -315,7 +315,15 @@
     "PopoverConfirmsCustomClassCustomButtonContent": "Are you sure you want to delete the data?",
     "PopoverConfirmsBodyTemplateTitle": "Customize the PopConfirmButton content",
     "PopoverConfirmsBodyTemplateIntro": "Customize the content by setting <code>the BodyTemplate</code> property",
-    "PopoverConfirmsBodyTemplateButtonText": "Customize content"
+    "PopoverConfirmsBodyTemplateButtonText": "Customize content",
+    "PopoverConfirmsShowButtonsTitle": "Custom Component",
+    "PopoverConfirmsShowButtonsIntro": "By setting <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code>, you don't display the built-in function buttons, and customize an <b>Approve</b> button in the custom component.",
+    "PopoverConfirmsShowButtonsButtonText": "Custom Component",
+    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters"
+  },
+  "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
+    "CustomPopConfirmContentText": "Custom content",
+    "CustomPopConfirmContentButtonText": "Approval"
   },
   "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover popup component",
@@ -2362,6 +2370,7 @@
     "NormalTips1": "Set bidirectional binding data value through <code>bind-Value</code >",
     "NormalTips2": "Set candidate data sources through <code>Items</code>",
     "NormalTips3": "Get the changed item instance through the <code>onSelectedChanged</code> callback method",
+    "NormalTips4": "Enable label tooltip by <code>ShowLabelTooltip=\"true\"</code>",
     "ValidateFormTitle": "Client Validation",
     "ValidateFormIntro": "Built in validateform",
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
@@ -3818,7 +3827,9 @@
     "AutoCloseTitle": "AutoClose",
     "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
     "Submit": "Submit",
-    "Limit": "time limit"
+    "Limit": "time limit",
+    "ViewModeTitle": "ViewMode",
+    "ViewModeIntro": "By setting <code>ViewMode=\"DatePickerViewMode.Year\"</code>, the component view is the year view, and by setting <code>ViewMode=\"DatePickerViewMode.Month\"</code>, the component view is the year view."
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "Basic usage",

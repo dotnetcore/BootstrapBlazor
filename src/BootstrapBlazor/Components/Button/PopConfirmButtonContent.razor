@@ -1,30 +1,43 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div data-bb-toggle="confirm">
+<div @attributes="AdditionalAttributes" data-bb-toggle="confirm" id="@Id">
     @if (!string.IsNullOrEmpty(Title))
     {
         <h3 class="popover-header">@Title</h3>
     }
     <div class="popover-body">
-        <p class="popover-confirm-body">
+        <div class="popover-confirm-body">
             @if (ChildContent != null)
             {
-                @ChildContent
+                <CascadingValue Value="TriggerCloseAsync" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
+                    <CascadingValue Value="TriggerConfirmAsync" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
+                        @ChildContent
+                    </CascadingValue>
+                </CascadingValue>
             }
             else
             {
                 <i class="@IconString"></i>
                 <span>@Content</span>
             }
-        </p>
-        <div class="popover-confirm-buttons">
-            <div class="@CloseButtonClass" @onclick="@OnCloseClick">
-                <span>@CloseButtonText</span>
-            </div>
-            <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
-                <span>@ConfirmButtonText</span>
-            </div>
         </div>
+        @if (ShowCloseButton || ShowConfirmButton)
+        {
+            <div class="popover-confirm-buttons">
+                @if (ShowCloseButton)
+                {
+                    <div class="@CloseButtonClass" @onclick="@OnCloseClick">
+                        <span>@CloseButtonText</span>
+                    </div>
+                }
+                @if (ShowConfirmButton)
+                {
+                    <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+                        <span>@ConfirmButtonText</span>
+                    </div>
+                }
+            </div>
+        }
     </div>
 </div>

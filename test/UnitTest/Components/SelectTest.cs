@@ -80,7 +80,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
-        Assert.Contains("_input\" readonly disabled=\"disabled\"", cut.Markup);
+        Assert.Contains("_input\" disabled=\"disabled\"", cut.Markup);
         Assert.Contains("dropdown-item active disabled", cut.Markup);
     }
 

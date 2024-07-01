@@ -141,6 +141,31 @@
     </PopConfirmButton>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoverConfirmsShowButtonsTitle"]"
+           Introduction="@Localizer["PopoverConfirmsShowButtonsIntro"]"
+           Name="ShowButtons">
+    <section ignore>
+        <p>@((MarkupString)Localizer["PopoverConfirmsShowButtonsDesc"].Value)</p>
+        <Pre>[CascadingParameter(Name = "PopoverConfirmButtonCloseAsync")]
+[NotNull]
+private Func&lt;Task&gt;? OnCloseAsync { get; set; }
+
+[CascadingParameter(Name = "PopoverConfirmButtonConfirmAsync")]
+[NotNull]
+private Func&lt;Task&gt;? OnConfirmAsync { get; set; }</Pre>
+    </section>
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                      Color="Color.Primary"
+                      ConfirmButtonColor="Color.Info"
+                      Text="@Localizer["PopoverConfirmsShowButtonsButtonText"]"
+                      ShowCloseButton="false" ShowConfirmButton="false">
+        <BodyTemplate>
+            <CustomPopConfirmContent></CustomPopConfirmContent>
+        </BodyTemplate>
+    </PopConfirmButton>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />

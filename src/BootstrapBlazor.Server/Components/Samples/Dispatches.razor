@@ -45,10 +45,12 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
 <div>@((MarkupString)Localizer["NormalTips5"].Value)</div>
 
 <DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch">
-    <p>@((MarkupString)Localizer["DispatchTip"].Value)</p>
-    <Pre class="mb-3">public class MessageItem
+    <section ignore>
+        <p>@((MarkupString)Localizer["DispatchTip"].Value)</p>
+        <Pre class="mb-3">public class MessageItem
 {
     public string? Message { get; set; }
 }</Pre>
+    </section>
     <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="@Localizer["DispatchNoticeButtonText"]" OnClickWithoutRender="OnDispatch" />
 </DemoBlock>
