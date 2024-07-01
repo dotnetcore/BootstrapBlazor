@@ -71,6 +71,7 @@ public partial class MultiFilter
         {
             item.Checked = false;
         }
+        _items = null;
         StateHasChanged();
     }
 
