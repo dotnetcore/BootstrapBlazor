@@ -57,7 +57,13 @@ public partial class MultiFilter
 
         if (Items != null)
         {
-            _source = Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }).ToList();
+            var oldSelectedItems = _source.Where(x => x.Checked).ToList();
+            _source = Items.Select(item => new MultiFilterItem()
+            {
+                Checked = oldSelectedItems.Any(x => x.Value == item.Value),
+                Value = item.Value,
+                Text = item.Text
+            }).ToList();
         }
     }
 
