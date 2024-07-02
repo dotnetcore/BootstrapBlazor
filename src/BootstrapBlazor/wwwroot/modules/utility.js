@@ -353,7 +353,9 @@ const drag = (element, start, move, end) => {
         }
 
         if (!notDrag) {
-            e.preventDefault()
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             e.stopPropagation()
 
             document.addEventListener('mousemove', handleDragMove)
