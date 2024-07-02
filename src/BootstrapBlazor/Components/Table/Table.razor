@@ -523,7 +523,7 @@
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ActualScrollWidth)"
-                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
+                                        TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
                                 {
@@ -548,7 +548,7 @@
                                         <span>@displayName</span>
                                     </Tooltip>
                                 }
-                                else if(col.Sortable)
+                                else if(col.GetSortable())
                                 {
                                     <Tooltip class="@GetHeaderCellClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
                                         <span>@displayName</span>
@@ -562,7 +562,7 @@
                                 {
                                     <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
                                 }
-                                @if (col.Sortable)
+                                @if (col.GetSortable())
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }

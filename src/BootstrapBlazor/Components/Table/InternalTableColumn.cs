@@ -14,7 +14,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 {
     private string FieldName { get; } = fieldName;
 
-    public bool Sortable { get; set; }
+    public bool? Sortable { get; set; }
 
     public bool DefaultSort { get; set; }
 

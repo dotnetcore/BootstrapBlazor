@@ -85,7 +85,7 @@ public static class IEditItemExtensions
         if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
         if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
         if (col.ShowTips) dest.ShowTips = col.ShowTips;
-        if (col.Sortable) dest.Sortable = col.Sortable;
+        if (col.Sortable.HasValue) dest.Sortable = col.Sortable;
         if (col.Template != null) dest.Template = col.Template;
         if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
         if (!col.Visible) dest.Visible = col.Visible;
@@ -296,4 +296,6 @@ public static class IEditItemExtensions
     internal static bool GetSearchable(this ITableColumn col) => col.Searchable ?? false;
 
     internal static bool GetFilterable(this ITableColumn col) => col.Filterable ?? false;
+
+    internal static bool GetSortable(this ITableColumn col) => col.Sortable ?? false;
 }

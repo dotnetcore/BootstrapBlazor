@@ -102,7 +102,7 @@ public partial class Table<TItem>
     /// <param name="isFilterHeader"></param>
     /// <returns></returns>
     protected string? GetHeaderClassString(ITableColumn col, bool isFilterHeader = false) => CssBuilder.Default()
-        .AddClass("sortable", col.Sortable && !isFilterHeader)
+        .AddClass("sortable", col.GetSortable() && !isFilterHeader)
         .AddClass("filterable", col.GetFilterable())
         .AddClass(GetFixedCellClassString(col))
         .Build();
@@ -400,7 +400,7 @@ public partial class Table<TItem>
     /// <param name="col"></param>
     /// <returns></returns>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
-        .AddClass("is-sort", col.Sortable)
+        .AddClass("is-sort", col.GetSortable())
         .AddClass("is-filter", col.GetFilterable())
         .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
@@ -492,7 +492,7 @@ public partial class Table<TItem>
             {
                 [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
                 [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<TableSortItem>>(this, v => AdvancedSortItems = v),
-                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
+                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.GetSortable()).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
             }
         });
         if (result == DialogResult.Yes)

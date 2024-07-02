@@ -59,10 +59,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public Expression<Func<TType>>? FieldExpression { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否排序 默认 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool Sortable { get; set; }
+    public bool? Sortable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为默认排序列 默认为 false

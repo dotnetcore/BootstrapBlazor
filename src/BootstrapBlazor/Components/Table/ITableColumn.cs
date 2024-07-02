@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 public interface ITableColumn : IEditorItem
 {
     /// <summary>
-    /// 获得/设置 是否允许排序 默认为 false
+    /// 获得/设置 是否允许排序 默认为 null
     /// </summary>
-    bool Sortable { get; set; }
+    bool? Sortable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为默认排序列 默认为 false
