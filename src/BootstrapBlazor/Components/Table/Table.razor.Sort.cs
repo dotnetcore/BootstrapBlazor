@@ -402,7 +402,7 @@ public partial class Table<TItem>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
         .AddClass("is-sort", col.GetSortable())
         .AddClass("is-filter", col.GetFilterable())
-        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
+        .AddClass(col.GetAlign().ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
 
     /// <summary>
@@ -413,10 +413,10 @@ public partial class Table<TItem>
     /// <param name="inCell"></param>
     /// <returns></returns>
     protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
-        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
+        .AddClass(col.GetAlign().ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .AddClass("is-wrap", col.GetTextWrap())
         .AddClass("is-ellips", col.GetTextEllipsis())
-        .AddClass("is-tips", col.ShowTips)
+        .AddClass("is-tips", col.GetShowTips())
         .AddClass("is-resizable", AllowResizing)
         .AddClass("is-tree", IsTree && hasChildren)
         .AddClass("is-incell", inCell)

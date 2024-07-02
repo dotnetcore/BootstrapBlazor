@@ -68,7 +68,7 @@ public static class IEditItemExtensions
 
     private static void CopyValue(this ITableColumn col, ITableColumn dest)
     {
-        if (col.Align != Alignment.None) dest.Align = col.Align;
+        if (col.Align.HasValue) dest.Align = col.Align;
         if (col.TextWrap.HasValue) dest.TextWrap = col.TextWrap;
         if (!string.IsNullOrEmpty(col.CssClass)) dest.CssClass = col.CssClass;
         if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
@@ -84,12 +84,12 @@ public static class IEditItemExtensions
         if (col.Searchable.HasValue) dest.Searchable = col.Searchable;
         if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
         if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
-        if (col.ShowTips) dest.ShowTips = col.ShowTips;
+        if (col.ShowTips.HasValue) dest.ShowTips = col.ShowTips;
         if (col.Sortable.HasValue) dest.Sortable = col.Sortable;
         if (col.Template != null) dest.Template = col.Template;
         if (col.TextEllipsis.HasValue) dest.TextEllipsis = col.TextEllipsis;
         if (col.Width != null) dest.Width = col.Width;
-        if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
+        if (col.ShowCopyColumn.HasValue) dest.ShowCopyColumn = col.ShowCopyColumn;
         if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
         if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
         if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
@@ -232,7 +232,7 @@ public static class IEditItemExtensions
 
     private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => async pb =>
     {
-        if (col.ShowTips)
+        if (col.GetShowTips())
         {
             var tooltipText = text;
             if (col.GetTooltipTextCallback != null)
@@ -303,4 +303,10 @@ public static class IEditItemExtensions
     internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
 
     internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
+
+    internal static bool GetShowCopyColumn(this ITableColumn col) => col.ShowCopyColumn ?? false;
+
+    internal static bool GetShowTips(this ITableColumn col) => col.ShowTips ?? false;
+
+    internal static Alignment GetAlign(this ITableColumn col) => col.Align ?? Alignment.None;
 }

@@ -525,7 +525,7 @@
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ActualScrollWidth)"
                                         TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
                             <div class="@GetHeaderWrapperClassString(col)">
-                                @if(col.ShowCopyColumn)
+                                @if(col.GetShowCopyColumn())
                                 {
                                     if (ShowCopyColumnTooltip)
                                     {

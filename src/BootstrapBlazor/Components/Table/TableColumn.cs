@@ -232,13 +232,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool ShowCopyColumn { get; set; }
+    public bool? ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 字段鼠标悬停提示
     /// </summary>
     [Parameter]
-    public bool ShowTips { get; set; }
+    public bool? ShowTips { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -253,10 +253,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public string? CssClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 文字对齐方式 默认为 Alignment.None
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public Alignment Align { get; set; }
+    public Alignment? Align { get; set; }
 
     /// <summary>
     /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd

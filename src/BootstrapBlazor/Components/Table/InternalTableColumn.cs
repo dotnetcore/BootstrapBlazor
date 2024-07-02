@@ -103,9 +103,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
-    public Alignment Align { get; set; }
+    public Alignment? Align { get; set; }
 
-    public bool ShowTips { get; set; }
+    public bool? ShowTips { get; set; }
 
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
@@ -196,7 +196,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool ShowCopyColumn { get; set; }
+    public bool? ShowCopyColumn { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

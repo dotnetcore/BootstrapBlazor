@@ -222,6 +222,21 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? ITableColumn.ShowTips { get => ShowTips; set => ShowTips = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.ShowCopyColumn { get => ShowCopyColumn; set => ShowCopyColumn = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    Alignment? ITableColumn.Align { get => Align; set => Align = value ?? Alignment.None; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>

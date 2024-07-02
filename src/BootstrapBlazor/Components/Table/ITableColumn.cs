@@ -85,9 +85,9 @@ public interface ITableColumn : IEditorItem
     BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可以拷贝列 默认 false 不可以
+    /// 获得/设置 是否可以拷贝列 默认 null 不可以
     /// </summary>
-    bool ShowCopyColumn { get; set; }
+    bool? ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
@@ -125,14 +125,14 @@ public interface ITableColumn : IEditorItem
     Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    /// 获得/设置 文字对齐方式 默认为 Alignment.None
+    /// 获得/设置 文字对齐方式 默认为 null 使用 Alignment.None
     /// </summary>
-    Alignment Align { get; set; }
+    Alignment? Align { get; set; }
 
     /// <summary>
-    /// 字段鼠标悬停提示
+    /// 获得/设置 字段鼠标悬停提示 默认为 null 使用 false 值
     /// </summary>
-    bool ShowTips { get; set; }
+    bool? ShowTips { get; set; }
 
     /// <summary>
     /// 获得/设置 鼠标悬停提示自定义内容回调委托 默认 null 使用当前值
