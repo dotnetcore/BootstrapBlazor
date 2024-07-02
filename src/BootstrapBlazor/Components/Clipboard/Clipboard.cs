@@ -39,6 +39,13 @@ public class Clipboard : BootstrapModuleComponentBase
     }
 
     /// <summary>
+    /// GetTextFromClipboard
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    private async ValueTask<T?> GetText<T>() => await InvokeAsync<T>("getTextFromClipboard");
+
+    /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>

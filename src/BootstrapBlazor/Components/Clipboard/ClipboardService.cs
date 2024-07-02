@@ -16,4 +16,5 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// <param name="callback">拷贝后回调方法</param>
     /// <returns></returns>
     public Task Copy(string? text, Func<Task>? callback = null) => Invoke(new ClipboardOption() { Text = text, Callback = callback });
+
 }

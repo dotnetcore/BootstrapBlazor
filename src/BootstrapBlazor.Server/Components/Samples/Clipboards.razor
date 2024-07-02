@@ -14,6 +14,10 @@ private void Copy()
         <BootstrapInput @bind-Value="@content" />
         <Button Text="Copy" OnClick="@Copy" />
     </BootstrapInputGroup>
+    <BootstrapInputGroup>
+        <BootstrapInput @bind-Value="@content" />
+        <Button Text="Get" OnClick="@Get" />
+    </BootstrapInputGroup>
 </DemoBlock>
 
 <MethodTable Items="GetMethods()" />

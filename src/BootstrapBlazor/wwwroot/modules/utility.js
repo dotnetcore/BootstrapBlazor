@@ -56,6 +56,10 @@ const copy = (text = '') => {
     }
 }
 
+const getTextFromClipboard = () => {
+    return navigator.clipboard.readText();
+}
+
 const getUID = (prefix = 'bb') => {
     let id = "";
     do {
@@ -760,6 +764,7 @@ export {
     addLink,
     addScript,
     copy,
+    getTextFromClipboard,
     debounce,
     drag,
     insertBefore,

@@ -26,6 +26,13 @@ public partial class Clipboards
         await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
     }
 
+    private async Task Get()
+    {
+        await ClipboardService.GetText();
+
+        await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
+    }
+
     private MethodItem[] GetMethods() =>
     [
         new()
