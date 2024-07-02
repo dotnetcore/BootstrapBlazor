@@ -470,10 +470,11 @@ const setResizeListener = table => {
                     colWidth = getWidth(col.closest('th'))
                 }
                 tableWidth = getWidth(col.closest('table'))
-                originalX = e.clientX
+                originalX = e.clientX || e.touches[0].clientX
             },
             e => {
-                const marginX = e.clientX - originalX
+                const eventX = e.clientX || e.changedTouches[0].clientX
+                const marginX = eventX - originalX
                 table.tables.forEach(t => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
                     if (group) {
