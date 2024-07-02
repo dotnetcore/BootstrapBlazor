@@ -26,6 +26,7 @@ public class Clipboard : BootstrapModuleComponentBase
 
         // 注册 ClipboardService 弹窗事件
         ClipboardService.Register(this, Copy);
+        ClipboardService.RegisterGetText(GetText);
     }
 
     private async Task Copy(ClipboardOption option)
@@ -39,11 +40,10 @@ public class Clipboard : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// GetTextFromClipboard
+    /// 读取剪切板拷贝文字方法
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    private async ValueTask<T?> GetText<T>() => await InvokeAsync<T>("getTextFromClipboard");
+    private Task<string?> GetText() => InvokeAsync<string?>("getTextFromClipboard");
 
     /// <summary>
     /// Dispose 方法
@@ -54,6 +54,7 @@ public class Clipboard : BootstrapModuleComponentBase
         if (disposing)
         {
             ClipboardService.UnRegister(this);
+            ClipboardService.UnRegisterGetText();
         }
         await base.DisposeAsync(disposing);
     }
