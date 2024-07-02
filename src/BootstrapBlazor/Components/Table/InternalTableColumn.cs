@@ -28,9 +28,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool Fixed { get; set; }
 
-    public bool TextWrap { get; set; }
+    public bool? TextWrap { get; set; }
 
-    public bool TextEllipsis { get; set; }
+    public bool? TextEllipsis { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

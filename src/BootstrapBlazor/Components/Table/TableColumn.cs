@@ -71,16 +71,16 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool DefaultSort { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列是否允许换行 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool TextWrap { get; set; }
+    public bool? TextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列文本超出省略 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool TextEllipsis { get; set; }
+    public bool? TextEllipsis { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null

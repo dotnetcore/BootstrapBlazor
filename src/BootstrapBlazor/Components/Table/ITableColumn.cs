@@ -45,14 +45,14 @@ public interface ITableColumn : IEditorItem
     bool Fixed { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列是否允许换行 默认为 false
+    /// 获得/设置 本列是否允许换行 默认为 null
     /// </summary>
-    bool TextWrap { get; set; }
+    bool? TextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列文本超出省略 默认为 false
+    /// 获得/设置 本列文本超出省略 默认为 null
     /// </summary>
-    bool TextEllipsis { get; set; }
+    bool? TextEllipsis { get; set; }
 
     /// <summary>
     /// 获得/设置 是否表头允许折行 默认 false 不折行

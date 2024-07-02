@@ -197,6 +197,16 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? ITableColumn.TextWrap { get => TextWrap; set => TextWrap = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.TextEllipsis { get => TextEllipsis; set => TextEllipsis = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>

@@ -69,7 +69,7 @@ public static class IEditItemExtensions
     private static void CopyValue(this ITableColumn col, ITableColumn dest)
     {
         if (col.Align != Alignment.None) dest.Align = col.Align;
-        if (col.TextWrap) dest.TextWrap = col.TextWrap;
+        if (col.TextWrap.HasValue) dest.TextWrap = col.TextWrap;
         if (!string.IsNullOrEmpty(col.CssClass)) dest.CssClass = col.CssClass;
         if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
         if (col.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = col.DefaultSortOrder;
@@ -87,7 +87,7 @@ public static class IEditItemExtensions
         if (col.ShowTips) dest.ShowTips = col.ShowTips;
         if (col.Sortable.HasValue) dest.Sortable = col.Sortable;
         if (col.Template != null) dest.Template = col.Template;
-        if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
+        if (col.TextEllipsis.HasValue) dest.TextEllipsis = col.TextEllipsis;
         if (!col.Visible) dest.Visible = col.Visible;
         if (col.Width != null) dest.Width = col.Width;
         if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
@@ -298,4 +298,8 @@ public static class IEditItemExtensions
     internal static bool GetFilterable(this ITableColumn col) => col.Filterable ?? false;
 
     internal static bool GetSortable(this ITableColumn col) => col.Sortable ?? false;
+
+    internal static bool GetTextWrap(this ITableColumn col) => col.TextWrap ?? false;
+
+    internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
 }

@@ -310,7 +310,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetCellStyleString(ITableColumn col)
     {
-        return col.TextEllipsis && !AllowResizing
+        return col.GetTextEllipsis() && !AllowResizing
             ? GetFixedHeaderStyleString()
             : null;
 
@@ -414,8 +414,8 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
         .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
-        .AddClass("is-wrap", col.TextWrap)
-        .AddClass("is-ellips", col.TextEllipsis)
+        .AddClass("is-wrap", col.GetTextWrap())
+        .AddClass("is-ellips", col.GetTextEllipsis())
         .AddClass("is-tips", col.ShowTips)
         .AddClass("is-resizable", AllowResizing)
         .AddClass("is-tree", IsTree && hasChildren)
