@@ -19,6 +19,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 获得 按钮样式集合
     /// </summary>
     private string? ClassString => CssBuilder.Default("tree-view")
+        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
