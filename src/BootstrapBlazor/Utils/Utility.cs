@@ -327,18 +327,12 @@ public static class Utility
             }
             else
             {
-                // 设置 AutoGenerateColumnAttribute 时
+                // 设置 AutoGenerateColumnAttribute 时不使用 AutoGenerateClassAttribute 参数值
                 if (columnAttribute.Ignore) continue;
 
                 columnAttribute.Text = displayName;
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;
-
-                if (classAttribute != null)
-                {
-                    // AutoGenerateClassAttribute 设置时继承类标签
-                    columnAttribute.InheritValue(classAttribute);
-                }
                 tc = columnAttribute;
             }
 
