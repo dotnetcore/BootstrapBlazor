@@ -40,12 +40,12 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Ignore { get; set; }
+    public bool? Ignore { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Readonly { get; set; }
+    public bool? Readonly { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -60,7 +60,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Visible { get; set; } = true;
+    public bool? Visible { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

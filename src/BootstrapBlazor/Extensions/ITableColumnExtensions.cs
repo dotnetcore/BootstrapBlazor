@@ -39,7 +39,7 @@ public static class IEditItemExtensions
     {
         if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
         if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-        if (source.Ignore) dest.Ignore = source.Ignore;
+        if (source.Ignore.HasValue) dest.Ignore = source.Ignore;
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
@@ -48,7 +48,7 @@ public static class IEditItemExtensions
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
-        if (source.Readonly) dest.Readonly = source.Readonly;
+        if (source.Readonly.HasValue) dest.Readonly = source.Readonly;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
@@ -88,7 +88,6 @@ public static class IEditItemExtensions
         if (col.Sortable.HasValue) dest.Sortable = col.Sortable;
         if (col.Template != null) dest.Template = col.Template;
         if (col.TextEllipsis.HasValue) dest.TextEllipsis = col.TextEllipsis;
-        if (!col.Visible) dest.Visible = col.Visible;
         if (col.Width != null) dest.Width = col.Width;
         if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
         if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
@@ -96,7 +95,7 @@ public static class IEditItemExtensions
         if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
         if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
         if (col.IsMarkupString) dest.IsMarkupString = col.IsMarkupString;
-        if (!col.Visible) dest.Visible = col.Visible;
+        if (col.Visible.HasValue) dest.Visible = col.Visible;
         if (col.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = col.IsVisibleWhenAdd;
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
@@ -302,4 +301,6 @@ public static class IEditItemExtensions
     internal static bool GetTextWrap(this ITableColumn col) => col.TextWrap ?? false;
 
     internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
+
+    internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
 }

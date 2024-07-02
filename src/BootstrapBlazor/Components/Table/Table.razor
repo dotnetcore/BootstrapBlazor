@@ -817,7 +817,7 @@
                 else
                 {
                     <ValidateForm Model="@item.Item" OnValidSubmit="context => SaveAsync(context, item.ChangedType)">
-                        <EditorForm TModel="TItem" Items="Columns.Where(c => !c.Ignore)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign" ItemChangedType="item.ChangedType">
+                        <EditorForm TModel="TItem" Items="Columns.Where(c => !c.GetIgnore())" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign" ItemChangedType="item.ChangedType">
                             <Buttons>
                                 <div class="text-end">
                                     @if(!IsTracking)

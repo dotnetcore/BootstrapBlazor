@@ -207,6 +207,21 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? IEditorItem.Ignore { get => Ignore; set => Ignore = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? IEditorItem.Readonly { get => Readonly; set => Readonly = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.Visible { get => Visible; set => Visible = value ?? true; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>

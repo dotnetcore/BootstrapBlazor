@@ -160,9 +160,9 @@ public interface ITableColumn : IEditorItem
     bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// 获得/设置 当前编辑项是否显示 默认为 null 未设置时为 true
     /// </summary>
-    bool Visible { get; set; }
+    bool? Visible { get; set; }
 
     /// <summary>
     /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
