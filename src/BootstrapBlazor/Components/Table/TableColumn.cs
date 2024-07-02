@@ -137,10 +137,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool Filterable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否参与搜索自动生成 默认 false
+    /// 获得/设置 是否参与搜索自动生成 默认 null
     /// </summary>
     [Parameter]
-    public bool Searchable { get; set; }
+    public bool? Searchable { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

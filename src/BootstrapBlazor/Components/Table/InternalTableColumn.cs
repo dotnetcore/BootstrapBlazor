@@ -22,7 +22,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool Filterable { get; set; }
 
-    public bool Searchable { get; set; }
+    public bool? Searchable { get; set; }
 
     public int? Width { get; set; }
 

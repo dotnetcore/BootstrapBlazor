@@ -30,9 +30,9 @@ public interface ITableColumn : IEditorItem
     bool Filterable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否参与搜索 默认为 false
+    /// 获得/设置 是否参与搜索 默认为 null
     /// </summary>
-    bool Searchable { get; set; }
+    bool? Searchable { get; set; }
 
     /// <summary>
     /// 获得/设置 列宽

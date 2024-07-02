@@ -182,10 +182,15 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? ITableColumn.Searchable { get => Searchable; set => Searchable = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 Textarea 行数
+    /// 获得/设置 行数
     /// </summary>
     public int Rows { get; set; }
 

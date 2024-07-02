@@ -201,7 +201,7 @@ public partial class Table<TItem>
             ItemsPerRow = SearchDialogItemsPerRow,
             LabelAlign = SearchDialogLabelAlign,
             Size = SearchDialogSize,
-            Items = Columns.Where(i => i.Searchable),
+            Items = Columns.Where(i => i.GetSearchable()),
             IsDraggable = SearchDialogIsDraggable,
             ShowMaximizeButton = SearchDialogShowMaximizeButton,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop
@@ -259,7 +259,7 @@ public partial class Table<TItem>
                 return ret;
             });
 
-            var searchColumns = Columns.Where(i => i.Searchable);
+            var searchColumns = Columns.Where(i => i.GetSearchable());
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
                 var filters = callback(property, SearchModel);
@@ -276,7 +276,7 @@ public partial class Table<TItem>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.Searchable).ToSearches(SearchText);
+    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.GetSearchable()).ToSearches(SearchText);
 
     private async Task OnSearchKeyUp(KeyboardEventArgs args)
     {
@@ -303,5 +303,5 @@ public partial class Table<TItem>
     /// 
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.Searchable);
+    private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.GetSearchable());
 }

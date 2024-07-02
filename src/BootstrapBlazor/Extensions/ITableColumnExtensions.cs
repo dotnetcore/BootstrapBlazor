@@ -81,7 +81,7 @@ public static class IEditItemExtensions
         if (col.Formatter != null) dest.Formatter = col.Formatter;
         if (col.HeaderTemplate != null) dest.HeaderTemplate = col.HeaderTemplate;
         if (col.OnCellRender != null) dest.OnCellRender = col.OnCellRender;
-        if (col.Searchable) dest.Searchable = col.Searchable;
+        if (col.Searchable.HasValue) dest.Searchable = col.Searchable;
         if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
         if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
         if (col.ShowTips) dest.ShowTips = col.ShowTips;
@@ -292,4 +292,6 @@ public static class IEditItemExtensions
         }
         return ret;
     }
+
+    internal static bool GetSearchable(this ITableColumn col) => col.Searchable ?? false;
 }
