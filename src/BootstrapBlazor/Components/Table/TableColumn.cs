@@ -131,13 +131,13 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public SortOrder DefaultSortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可过滤数据 默认 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public bool Filterable { get; set; }
+    public bool? Filterable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否参与搜索自动生成 默认 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool? Searchable { get; set; }

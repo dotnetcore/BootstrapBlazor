@@ -25,9 +25,9 @@ public interface ITableColumn : IEditorItem
     SortOrder DefaultSortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许过滤数据 默认为 false
+    /// 获得/设置 是否允许过滤数据 默认为 null
     /// </summary>
-    bool Filterable { get; set; }
+    bool? Filterable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否参与搜索 默认为 null

@@ -74,7 +74,7 @@ public static class IEditItemExtensions
         if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
         if (col.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = col.DefaultSortOrder;
         if (col.Filter != null) dest.Filter = col.Filter;
-        if (col.Filterable) dest.Filterable = col.Filterable;
+        if (col.Filterable.HasValue) dest.Filterable = col.Filterable;
         if (col.FilterTemplate != null) dest.FilterTemplate = col.FilterTemplate;
         if (col.Fixed) dest.Fixed = col.Fixed;
         if (col.FormatString != null) dest.FormatString = col.FormatString;
@@ -294,4 +294,6 @@ public static class IEditItemExtensions
     }
 
     internal static bool GetSearchable(this ITableColumn col) => col.Searchable ?? false;
+
+    internal static bool GetFilterable(this ITableColumn col) => col.Filterable ?? false;
 }

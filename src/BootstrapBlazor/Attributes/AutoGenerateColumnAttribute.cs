@@ -187,6 +187,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? ITableColumn.Filterable { get => Filterable; set => Filterable = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>

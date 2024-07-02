@@ -558,7 +558,7 @@
                                 {
                                     <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
                                 }
-                                @if (col.Filterable && !ShowFilterHeader)
+                                @if (col.GetFilterable() && !ShowFilterHeader)
                                 {
                                     <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
                                 }
@@ -617,7 +617,7 @@
                     {
                         <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, ActualScrollWidth)" @key="col">
                             <div class="table-cell">
-                                @if(col.Filterable)
+                                @if(col.GetFilterable())
                                 {
                                     <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true" />
                                 }
