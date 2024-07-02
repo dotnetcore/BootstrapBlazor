@@ -678,6 +678,8 @@
     "TreeViewShowSkeletonButtonText": "异步加载",
     "TreeViewShowSearchTitle": "显示搜索栏",
     "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
+    "TreeViewFixedSearchTitle": "固定搜索栏",
+    "TreeViewFixedSearchIntro": "通过设置 <code>IsFixedSearch=\"true\"</code> 固定搜索栏，可通过样式变量 <code>--bb-tree-search-height</code> 设定搜索栏高度",
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",

@@ -763,6 +763,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("search-template");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFixedSearch, true);
+        });
+        cut.Contains("is-fixed-search");
     }
 
     [Fact]
