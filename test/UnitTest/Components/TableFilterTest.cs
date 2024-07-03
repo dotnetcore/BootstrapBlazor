@@ -117,15 +117,56 @@ public class TableFilterTest : BootstrapBlazorTestBase
         });
         cut.Contains("loading-template-test");
         await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
+    }
 
-        filter.SetParametersAndRender(pb =>
+    [Fact]
+    public void MultiFilter_Exception()
+    {
+        // 测试 Exception
+        Assert.Throws<InvalidOperationException>(() =>
         {
-            pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
-            pb.Add(a => a.OnGetItemsAsync, null);
+            Context.RenderComponent<MultiFilter>(pb =>
+            {
+                pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
+                pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
+            });
+        });
+    }
+
+    [Fact]
+    public async Task MultipleFilter_Items()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Cat>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Cat>
+                {
+                    new()
+                });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.TableColumns, cat => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Cat, string?>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Field), cat.P8);
+                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P8), typeof(string)));
+                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.Filterable), true);
+                    builder.AddAttribute(index++, nameof(TableColumn<Cat, string?>.FilterTemplate), new RenderFragment(b =>
+                    {
+                        b.OpenComponent<MultiFilter>(0);
+                        b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
+                        b.AddAttribute(2, nameof(MultiFilter.Items), new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
+                        b.CloseComponent();
+                    }));
+                    builder.CloseComponent();
+                });
+            });
         });
         cut.DoesNotContain("multi-filter-placeholder");
         cut.DoesNotContain("multi-filter-All");
 
+        var filter = cut.FindComponent<MultiFilter>();
         filter.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.SearchPlaceHolderText, "multi-filter-placeholder");
@@ -171,20 +212,6 @@ public class TableFilterTest : BootstrapBlazorTestBase
         var input = cut.Find(".bb-multi-filter-search");
         await cut.InvokeAsync(() => input.Input("test02"));
         await cut.InvokeAsync(() => input.Input(""));
-    }
-
-    [Fact]
-    public void MultiFilter_Exception()
-    {
-        // 测试 Exception
-        Assert.Throws<InvalidOperationException>(() =>
-        {
-            Context.RenderComponent<MultiFilter>(pb =>
-            {
-                pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
-                pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
-            });
-        });
     }
 
     [Fact]
