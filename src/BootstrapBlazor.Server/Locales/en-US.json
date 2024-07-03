@@ -5471,6 +5471,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "Multiple selection list filtering",
     "MultiFilterIntro": "Use the built-in <code>MultiFilter</code> component to provide multi-select filtering via <code>FilterTemplate</code>",
+    "MultiFilterTips": "The component provides two ways to set the data source: <code>Items</code> and <code>OnGetItemsAsync</code>",
+    "MultiFilterTipsLi1": "<code>Items</code> is suitable for small amounts of data and statically prepared data sets",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> is suitable for large and dynamic data collections. For performance reasons, the component uses a local lazy record method to fill in data, that is, the callback is called to obtain data when the filter window is opened.",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",

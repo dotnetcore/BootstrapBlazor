@@ -2,8 +2,9 @@
 @namespace BootstrapBlazor.Components
 @inherits FilterBase
 @inject IStringLocalizer<MultiFilter> Localizer
+@attribute [BootstrapModuleAutoLoader("Filters/MultiFilter.razor.js", JSObjectReference = true)]
 
-<div class="bb-multi-filter">
+<div class="bb-multi-filter" id="@Id">
     @if (ShowSearch)
     {
         <BootstrapInput UseInputEvent="true" class="bb-multi-filter-search"
@@ -19,9 +20,22 @@
             @foreach (var item in GetItems())
             {
                 <div class="bb-multi-filter-body-item">
-                    <Checkbox @bind-Value="@item.Checked" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
+                    <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
                 </div>
             }
         </div>
     </div>
+    @if (_source == null)
+    {
+        <div class="bb-multi-filter-loading">
+            @if (LoadingTemplate != null)
+            {
+                @LoadingTemplate
+            }
+            else
+            {
+                <Spinner Color="Color.Primary" />
+            }
+        </div>
+    }
 </div>

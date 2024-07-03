@@ -37,10 +37,10 @@ public partial class StringFilter
 
         Items ??= new SelectedItem[]
         {
-            new SelectedItem("Contains", Localizer["Contains"].Value),
-            new SelectedItem("Equal", Localizer["Equal"].Value),
-            new SelectedItem("NotEqual", Localizer["NotEqual"].Value),
-            new SelectedItem("NotContains", Localizer["NotContains"].Value)
+            new("Contains", Localizer["Contains"].Value),
+            new("Equal", Localizer["Equal"].Value),
+            new("NotEqual", Localizer["NotEqual"].Value),
+            new("NotContains", Localizer["NotContains"].Value)
         };
     }
 

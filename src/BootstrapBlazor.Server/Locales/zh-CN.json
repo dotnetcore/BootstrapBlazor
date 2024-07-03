@@ -5471,6 +5471,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "多选列表筛选",
     "MultiFilterIntro": "通过 <code>FilterTemplate</code> 使用内置 <code>MultiFilter</code> 组件提供多选筛选功能",
+    "MultiFilterTips": "组件提供 <code>Items</code> <code>OnGetItemsAsync</code> 两种设置数据源方式",
+    "MultiFilterTipsLi1": "<code>Items</code> 适合数据量小且静态事先准备好的数据集合",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> 适合数据量大且动态的数据集合，出于性能考虑组件内部采用局域懒记载方式填装数据，即点开过滤窗口时才回调获得数据",
     "TablesFilterTitle": "筛选和排序功能",
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
