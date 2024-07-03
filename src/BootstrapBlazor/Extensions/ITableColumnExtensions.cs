@@ -12,23 +12,23 @@ namespace BootstrapBlazor.Components;
 public static class IEditItemExtensions
 {
     /// <summary>
-    /// 集成 class 标签中设置的参数值
+    /// 继承 class 标签中设置的参数值
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
     public static void InheritValue(this ITableColumn dest, AutoGenerateClassAttribute source)
     {
-        if (source.Align != Alignment.None) dest.Align = source.Align;
-        if (source.TextWrap) dest.TextWrap = source.TextWrap;
-        if (source.Ignore) dest.Ignore = source.Ignore;
-        if (source.Filterable) dest.Filterable = source.Filterable;
-        if (source.Readonly) dest.Readonly = source.Readonly;
-        if (source.Searchable) dest.Searchable = source.Searchable;
-        if (source.ShowTips) dest.ShowTips = source.ShowTips;
-        if (source.ShowCopyColumn) dest.ShowCopyColumn = source.ShowCopyColumn;
-        if (source.Sortable) dest.Sortable = source.Sortable;
-        if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-        if (!source.Visible) dest.Visible = source.Visible;
+        if (source.Align != Alignment.None || dest.Align==null) dest.Align = source.Align;
+        if (source.TextWrap || dest.TextWrap == null) dest.TextWrap = source.TextWrap;
+        if (source.Ignore || dest.Ignore == null) dest.Ignore = source.Ignore;
+        if (source.Filterable || dest.Filterable == null) dest.Filterable = source.Filterable;
+        if (source.Readonly || dest.Readonly == null) dest.Readonly = source.Readonly;
+        if (source.Searchable || dest.Searchable == null) dest.Searchable = source.Searchable;
+        if (source.ShowTips || dest.ShowTips == null) dest.ShowTips = source.ShowTips;
+        if (source.ShowCopyColumn || dest.ShowCopyColumn == null) dest.ShowCopyColumn = source.ShowCopyColumn;
+        if (source.Sortable || dest.Sortable == null) dest.Sortable = source.Sortable;
+        if (source.TextEllipsis || dest.TextEllipsis == null) dest.TextEllipsis = source.TextEllipsis;
+        if (!source.Visible || dest.Visible == null) dest.Visible = source.Visible;
     }
 
     /// <summary>
