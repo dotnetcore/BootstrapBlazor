@@ -56,11 +56,6 @@ public partial class MultiFilter
         {
             TableFilter.ShowMoreButton = false;
         }
-
-        if (Items != null)
-        {
-            _source = Items.ToList();
-        }
     }
 
     /// <summary>
@@ -70,8 +65,35 @@ public partial class MultiFilter
     {
         base.OnParametersSet();
 
+        if (Items != null && OnGetItemsAsync != null)
+        {
+            throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnGetItemsAsync)}'.");
+        }
+
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
+
+        if (Items != null)
+        {
+            var selectedItems = _source?.Where(x => x.Active).ToList();
+            _source = Items.ToList();
+            ResetActiveItems(_source, selectedItems);
+        }
+    }
+
+    private static void ResetActiveItems(List<SelectedItem> source, List<SelectedItem>? activeItems)
+    {
+        if (activeItems != null)
+        {
+            foreach (var active in activeItems)
+            {
+                var item = source.Find(i => i.Value == active.Value);
+                if (item != null)
+                {
+                    item.Active = true;
+                }
+            }
+        }
     }
 
     /// <summary>
