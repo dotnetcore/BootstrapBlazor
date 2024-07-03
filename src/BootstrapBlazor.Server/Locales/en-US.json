@@ -6322,7 +6322,10 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
-    "ClipboardMessage": "Text content: {0}, copied to clipboard"
+    "ClipboardMessage": "Text content: {0}, copied to clipboard",
+    "ClipboardGetTextMessage": "Read clipboard text content: {0}",
+    "ClipboardCopyMethod": "Copy text to the clipboard method",
+    "ClipboardGetTextMethod": "Method for reading clipboard text content"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",

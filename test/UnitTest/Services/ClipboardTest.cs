@@ -21,6 +21,7 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
         });
         Assert.True(copied);
 
+        var text = await service.GetText();
         await cut.Instance.DisposeAsync();
     }
 }
