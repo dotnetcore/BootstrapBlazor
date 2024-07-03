@@ -5,6 +5,7 @@
     --bb-multi-filter-body-item-bg: #fff;
     --bb-multi-filter-body-item-hover-bg: #fff;
     --bb-multi-filter-body-item-margin: .5rem;
+    position: relative;
 
     .bb-multi-filter-search {
         margin-bottom: var(--bb-multi-filter-search-margin-bottom);
@@ -50,7 +51,12 @@
     }
 
     .bb-multi-filter-loading {
-        height: var(--bb-multi-filter-height);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: var(--bs-body-bg);
         display: flex;
         align-items: center;
         justify-content: center;

@@ -31,7 +31,7 @@ public partial class MultiFilter
     /// 获得 过滤项集合回调方法 适合动态给定数据源
     /// </summary>
     [Parameter]
-    public Func<Task<IEnumerable<SelectedItem>>>? OnGetItemsAsync { get; set; }
+    public Func<Task<List<SelectedItem>>>? OnGetItemsAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 Loading 模板
@@ -75,14 +75,29 @@ public partial class MultiFilter
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
+    {
+        if (OnGetItemsAsync != null)
+        {
+            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(InitItems) });
+        }
+    }
+
+    /// <summary>
     /// 重置过滤条件方法
     /// </summary>
     public override void Reset()
     {
         _searchText = string.Empty;
-        foreach (var item in _source)
+        if (_source != null)
         {
-            item.Active = false;
+            foreach (var item in _source)
+            {
+                item.Active = false;
+            }
         }
         _items = null;
         StateHasChanged();
@@ -106,6 +121,20 @@ public partial class MultiFilter
             });
         }
         return filter;
+    }
+
+    /// <summary>
+    /// Javascript 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task InitItems()
+    {
+        if (OnGetItemsAsync != null)
+        {
+            _source = await OnGetItemsAsync();
+            StateHasChanged();
+        }
     }
 
     private CheckboxState _selectAllState = CheckboxState.UnChecked;
@@ -149,17 +178,20 @@ public partial class MultiFilter
     private Task OnSearchValueChanged(string? val)
     {
         _searchText = val;
-        if (!string.IsNullOrEmpty(_searchText))
+        if (_source != null)
         {
-            _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
+            if (!string.IsNullOrEmpty(_searchText))
+            {
+                _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
+            }
+            else
+            {
+                _items = null;
+            }
+            StateHasChanged();
         }
-        else
-        {
-            _items = null;
-        }
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private List<SelectedItem> GetItems() => _items ?? _source;
+    private List<SelectedItem> GetItems() => _items ?? _source ?? [];
 }

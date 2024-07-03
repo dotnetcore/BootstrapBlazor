@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 类型过滤器基类
 /// /// </summary>
-public abstract class FilterBase : ComponentBase, IFilterAction
+public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
     /// 
