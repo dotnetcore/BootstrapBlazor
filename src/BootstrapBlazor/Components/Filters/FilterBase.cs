@@ -86,7 +86,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
 
     /// <summary>
-    /// 
+    /// 过滤按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected async Task OnFilterValueChanged()
@@ -99,7 +99,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     }
 
     /// <summary>
-    /// 
+    /// 重置按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected async Task OnClearFilter()
