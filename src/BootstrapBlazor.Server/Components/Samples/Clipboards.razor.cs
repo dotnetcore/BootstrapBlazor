@@ -31,7 +31,7 @@ public partial class Clipboards
         if (!string.IsNullOrEmpty(text))
         {
             content = text;
-            await ToastService.Success("Clipboard", Localizer["ClipboardMessage", text]);
+            await ToastService.Success("Clipboard", Localizer["ClipboardGetTextMessage", text]);
         }
     }
 
@@ -40,9 +40,16 @@ public partial class Clipboards
         new()
         {
             Name = "Copy",
-            Description = Localizer["ClipboardIntro"],
+            Description = Localizer["ClipboardCopyMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
+        },
+        new()
+        {
+            Name = "GetText",
+            Description = Localizer["ClipboardGetTextMethod"],
+            Parameters = " — ",
+            ReturnValue = "Task<string?>"
         }
     ];
 }
