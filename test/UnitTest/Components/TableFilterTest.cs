@@ -144,6 +144,15 @@ public class TableFilterTest : BootstrapBlazorTestBase
         Assert.Equal("P8", action.Filters[0].FieldKey);
         Assert.Equal(CheckboxState.Indeterminate, checkboxs[0].Instance.State);
 
+        // 测试 Items 改变保持选项
+        filter.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[] { new("test3", "test3"), new("test2", "test2") });
+        });
+        checkboxs = cut.FindComponents<Checkbox<bool>>();
+        Assert.Equal(3, checkboxs.Count);
+        checkboxs[2].Markup.Contains("checked=\"checked\"");
+
         // 测试全选
         await cut.InvokeAsync(() => checkboxs[0].Instance.SetState(CheckboxState.Checked));
         await cut.InvokeAsync(() => checkboxs[0].Instance.SetState(CheckboxState.UnChecked));
