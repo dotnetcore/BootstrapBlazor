@@ -59,34 +59,34 @@ public class DrawerTest : BootstrapBlazorTestBase
     [Fact]
     public void IsOpenChanged_Ok()
     {
-        var isopen = true;
+        var isOpen = true;
         var cut = Context.RenderComponent<Drawer>(builder =>
         {
             builder.Add(a => a.IsBackdrop, true);
             builder.Add(a => a.IsOpen, true);
             builder.Add(a => a.IsOpenChanged, EventCallback.Factory.Create<bool>(this, e =>
             {
-                isopen = e;
+                isOpen = e;
             }));
         });
 
         cut.Find(".drawer-backdrop").Click();
-        Assert.False(isopen);
+        Assert.False(isOpen);
     }
 
     [Fact]
     public void OnClickBackdrop_Ok()
     {
-        var isopen = true;
+        var isOpen = true;
         var cut = Context.RenderComponent<Drawer>(builder =>
         {
             builder.Add(a => a.IsBackdrop, true);
             builder.Add(a => a.IsOpen, true);
-            builder.Add(a => a.OnClickBackdrop, () => { isopen = false; return Task.CompletedTask; });
+            builder.Add(a => a.OnClickBackdrop, () => { isOpen = false; return Task.CompletedTask; });
         });
 
         cut.Find(".drawer-backdrop").Click();
-        Assert.False(isopen);
+        Assert.False(isOpen);
     }
 
     [Fact]

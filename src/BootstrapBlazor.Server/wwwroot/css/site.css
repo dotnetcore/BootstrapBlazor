@@ -1,6 +1,7 @@
 ﻿:root {
-    --bb-font-weight: 500;
-    --bb-sub-font-size: 1.2rem;
+    --bb-font-weight: bold;
+    --bb-title-font-size: 1rem;
+    --bb-sub-font-size: .875rem;
     --bb-primary-color: var(--bs-indigo);
     --bb-primary-color-rgb: 112.520718,44.062154,249.437846;
     --bb-bd-download-color: #ffe484;
@@ -194,8 +195,16 @@ h4, h5 {
     border-radius: var(--bs-border-radius);
 }
 
-.dock-layout.main > *:not(.tabs-coms) {
-    display: none !important;
+.main.dock-layout .tabs-body-content:first-child {
+    height: calc(100vh - 156px);
+}
+
+.main.dock-layout:has(.tabs-body-content:first-child:not(.d-none)) .bb-ad {
+    display: none;
+}
+
+.main.dock-layout:has(.tabs-body-content:first-child:not(.d-none)) .tabs-coms-header {
+    display: none;
 }
 
 .dropdown-menu {
@@ -336,14 +345,6 @@ code {
 
     .coms-demo .card {
         cursor: pointer;
-    }
-
-    .header-img span {
-        display: none;
-    }
-
-    .home-section {
-        margin: 2rem;
     }
 }
 

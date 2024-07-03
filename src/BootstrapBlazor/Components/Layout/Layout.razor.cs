@@ -394,7 +394,7 @@ public partial class Layout : IHandlerException
     };
 
     /// <summary>
-    /// 设置侧边栏收缩方法 客户端监控 window.onresize 事件回调此方法
+    /// 设置侧边栏收缩方法 客户端监控 window.onResize 事件回调此方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -416,15 +416,18 @@ public partial class Layout : IHandlerException
         }
     }
 
-    private async void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
+    private void Navigation_LocationChanged(object? sender, LocationChangedEventArgs e)
     {
         if (OnAuthorizing != null)
         {
-            var auth = await OnAuthorizing(e.Location);
-            if (!auth)
+            InvokeAsync(async () =>
             {
-                Navigation.NavigateTo(NotAuthorizeUrl, true);
-            }
+                var auth = await OnAuthorizing(e.Location);
+                if (!auth)
+                {
+                    Navigation.NavigateTo(NotAuthorizeUrl, true);
+                }
+            });
         }
     }
 

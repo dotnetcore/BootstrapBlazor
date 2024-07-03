@@ -19,6 +19,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 获得 按钮样式集合
     /// </summary>
     private string? ClassString => CssBuilder.Default("tree-view")
+        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -45,7 +46,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("node-icon")
-        .AddClass("visible", item.HasChildren || item.Items.Any())
+        .AddClass("visible", item.HasChildren || item.Items.Count > 0)
         .AddClass(NodeIcon, !item.IsExpand)
         .AddClass(ExpandNodeIcon, item.IsExpand)
         .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
@@ -74,7 +75,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Any());
+    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Count > 0);
 
     private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
 
@@ -126,6 +127,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定搜索栏 默认 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
@@ -299,7 +306,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             }
             else
             {
-                if (Items.Any())
+                if (Items.Count > 0)
                 {
                     await CheckExpand(Items);
                 }
@@ -330,7 +337,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
-            if (node.Items.Any())
+            if (node.Items.Count > 0)
             {
                 await CheckExpand(node.Items);
             }
@@ -463,7 +470,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox)
         {
-            if(!AutoCheckChildren&&AutoCheckParent&&node.Items.Any())
+            if (!AutoCheckChildren && AutoCheckParent && node.Items.Count > 0)
             {
                 node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
             }
@@ -490,7 +497,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+            if (item.CheckedState != CheckboxState.Indeterminate)
+            {
+                item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+            }
         }
 
         if (AutoCheckParent)

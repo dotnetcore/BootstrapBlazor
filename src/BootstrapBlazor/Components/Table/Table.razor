@@ -16,7 +16,14 @@
         else if(ShowLoadingInFirstRender)
         {
             <div class="table-loading">
-                <Spinner Color="Color.Primary" />
+                @if (LoadingTemplate is not null)
+                {
+                    @LoadingTemplate
+                }
+                else
+                {
+                    <Spinner Color="Color.Primary" />
+                }
             </div>
         }
     }
@@ -163,9 +170,12 @@
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                 }
                             }
-                            <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
-                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                            </Button>
+                            @if (ShowSearchButton)
+                            {
+                                <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
+                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                                </Button>
+                            }
                             @if (ShowResetButton)
                             {
                                 <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
@@ -230,7 +240,7 @@
                             {
                                 <div class="table-cell">
                                     <label>@LineNoText</label>
-                                    <span>@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</span>
+                                    <span>@(Rows.IndexOf(item) + 1 + (PageIndex - 1) * PageItems)</span>
                                 </div>
                             }
                             @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -259,7 +269,7 @@
                                         {
                                             @valueTemplate
                                         }
-                                        else if(value != null)
+                                        else if (value != null)
                                         {
                                             @value
                                         }
@@ -281,7 +291,14 @@
                         <div class="table-row table-footer">
                             <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
                                 <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                                    @TableFooter?.Invoke(Rows)
+                                    @if (FooterTemplate != null)
+                                    {
+                                        @FooterTemplate(Rows)
+                                    }
+                                    else
+                                    {
+                                        @TableFooter?.Invoke(Rows)
+                                    }
                                 </CascadingValue>
                             </CascadingValue>
                         </div>
@@ -295,7 +312,14 @@
             @RenderPagination
         }
         <div class="table-loader">
-            <Spinner Color="Color.Primary" />
+            @if (LoadingTemplate is not null)
+            {
+                @LoadingTemplate
+            }
+            else
+            {
+                <Spinner Color="Color.Primary" />
+            }
         </div>
 
         <Responsive OnBreakPointChanged="OnBreakPointChanged" />
@@ -344,7 +368,7 @@
             {
                 @foreach (var item in Rows)
                 {
-					OnBeforeRenderRow?.Invoke(item);
+                    OnBeforeRenderRow?.Invoke(item);
                     @RenderRow(item)
                     if (ShowDetails())
                     {
@@ -359,7 +383,14 @@
                                     else
                                     {
                                         <div class="table-loading">
-                                            <Spinner Color="Color.Primary" />
+                                            @if (LoadingTemplate is not null)
+                                            {
+                                                @LoadingTemplate
+                                            }
+                                            else
+                                            {
+                                                <Spinner Color="Color.Primary" />
+                                            }
                                         </div>
                                     }
                                 </div>
@@ -398,16 +429,18 @@
             <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                     <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                        @if (FooterTemplate != null)
-                        {
-                            @FooterTemplate(Rows)
-                        }
-                        else
-                        {
-                            <tr>
-                                @TableFooter?.Invoke(Rows)
-                            </tr>
-                        }
+                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint" IsFixed="true">
+                            @if (FooterTemplate != null)
+                            {
+                                @FooterTemplate(Rows)
+                            }
+                            else
+                            {
+                                <tr>
+                                    @TableFooter?.Invoke(Rows)
+                                </tr>
+                            }
+                        </CascadingValue>
                     </CascadingValue>
                 </CascadingValue>
             </tfoot>
@@ -908,7 +941,7 @@
                     }
                     else
                     {
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" >
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText">
                         </BootstrapInput>
                     }
                 }
@@ -918,9 +951,12 @@
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
-                <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
-                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
-                </Button>
+                @if (ShowSearchButton)
+                {
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                    </Button>
+                }
             </div>
             <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)

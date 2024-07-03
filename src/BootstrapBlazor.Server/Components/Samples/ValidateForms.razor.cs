@@ -43,17 +43,17 @@ public partial class ValidateForms
     {
         CustomerRules.Add(new FormItemValidator(new EmailAddressAttribute()));
 
-        // 切换线程 模拟异步通过 webapi 加载数据
+        // 切换线程 模拟异步通过 WEBAPI 加载数据
         await Task.Yield();
 
-        Model1 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model2 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model3 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model4 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model7 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model8 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model9 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        Model10 = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model1 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model2 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model3 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model4 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model7 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model8 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model9 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model10 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
         // 初始化参数
         Hobbies2 = Foo.GenerateHobbies(LocalizerFoo);

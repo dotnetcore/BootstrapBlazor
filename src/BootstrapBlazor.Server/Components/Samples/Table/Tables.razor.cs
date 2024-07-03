@@ -1308,6 +1308,14 @@ public partial class Tables
             ValueList = "true|false",
             DefaultValue = "false"
         },
+        new()
+        {
+            Name = nameof(Table<Foo>.AutoScrollLastSelectedRowToView),
+            Description = Localizer["AutoScrollLastSelectedRowToViewAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
     ];
 
     private MethodItem[] GetMethods() =>

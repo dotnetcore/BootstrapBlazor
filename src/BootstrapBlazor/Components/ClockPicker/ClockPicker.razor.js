@@ -85,7 +85,6 @@ const initDrag = (picker, pointers) => {
             },
             e => {
                 el.classList.remove('dragging');
-                console.log('drop-end')
                 invoke.invokeMethodAsync('SetTime', picker.val.Hour, picker.val.Minute, picker.val.Second);
             }
         );
@@ -163,9 +162,11 @@ export function dispose(id) {
     Data.remove(id);
 
     if (picker) {
-        EventHandler.off(picker.body, 'click', '.bb-clock-panel > div');
-        picker.pointers.forEach(p => {
-            Drag.dispose(p);
-        });
+        EventHandler.off(picker.el, 'click', '.bb-time-body .bb-clock-panel > div');
+        if (picker.pointers) {
+            picker.pointers.forEach(p => {
+                Drag.dispose(p);
+            });
+        }
     }
 }

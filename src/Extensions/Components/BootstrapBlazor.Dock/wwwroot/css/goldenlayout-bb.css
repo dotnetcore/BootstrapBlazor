@@ -6,6 +6,7 @@
     --bb-gl-header-height: 25px;
     min-height: 400px;
     width: 100%;
+    height: 100%;
 }
 
     .bb-dock .lm_content {

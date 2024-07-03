@@ -21,7 +21,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     protected override string? TriggerString => Trigger == "click" ? null : Trigger;
 
     /// <summary>
-    /// 获得/设置 是否为 A 标签 默认 false 使用 button 渲染 
+    /// 获得/设置 是否为 A 标签 默认 false 使用 button 渲染
     /// </summary>
     [Parameter]
     public bool IsLink { get; set; }
@@ -59,11 +59,23 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示确认按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowConfirmButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 点击关闭时回调方法
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<Task>? OnClose { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示关闭按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null

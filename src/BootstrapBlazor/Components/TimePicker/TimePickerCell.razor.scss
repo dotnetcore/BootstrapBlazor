@@ -1,0 +1,73 @@
+.time-spinner {
+    --bb-time-picker-spinner-arrow-height: 30px;
+    --bb-time-picker-spinner-arrow-color: rgba(var(--bb-primary-color-rgb), 0.6);
+    --bb-time-picker-spinner-arrow-hover-color: var(--bb-primary-color);
+    --bb-time-picker-spinner-body-height: 110px;
+    --bb-time-picker-spinner-body-margin: 40px 0;
+    --bb-time-picker-spinner-item-height: 36.6px;
+    --bb-time-picker-spinner-item-font-size: 0.75rem;
+    --bb-time-picker-spinner-item-active-font-size: 0.875rem;
+    --bb-time-picker-spinner-item-active-color: var(--bb-primary-color);
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 30%;
+
+    .time-spinner-arrow {
+        text-align: center;
+        width: 100%;
+        color: var(--bb-time-picker-spinner-arrow-color);
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        height: var(--bb-time-picker-spinner-arrow-height);
+        line-height: var(--bb-time-picker-spinner-arrow-height);
+        cursor: pointer;
+
+        &:hover {
+            color: var(--bb-time-picker-spinner-arrow-hover-color);
+        }
+
+        &.time-up {
+            top: 10px;
+        }
+
+        &.time-down {
+            bottom: 10px;
+        }
+    }
+
+    .time-spinner-body {
+        overflow: hidden;
+        height: var(--bb-time-picker-spinner-body-height);
+        margin: var(--bb-time-picker-spinner-body-margin);
+        width: 100%;
+
+        .time-spinner-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-align: center;
+            transition: transform .3s linear;
+
+            .time-spinner-item {
+                line-height: var(--bb-time-picker-spinner-item-height);
+                font-size: var(--bb-time-picker-spinner-item-font-size);
+                opacity: 0.6;
+                cursor: pointer;
+
+                &.active:not(.disabled) {
+                    font-weight: bold;
+                    font-size: var(--bb-time-picker-spinner-item-active-font-size);
+                    opacity: 1;
+                    color: var(--bb-time-picker-spinner-item-active-color);
+                }
+
+                &.prev, &.next {
+                    opacity: 0.8;
+                    transform: scale(1, 0.8);
+                }
+            }
+        }
+    }
+}

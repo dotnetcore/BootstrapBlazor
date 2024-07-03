@@ -55,43 +55,36 @@ public class PopConfirmButtonTest : PopoverTestBase
         var close = false;
         var beforeClose = false;
 
-        await cut.InvokeAsync(() =>
+        var popButton = cut.FindComponent<PopConfirmButton>();
+        popButton.SetParametersAndRender(pb =>
         {
-            var popButton = cut.FindComponent<PopConfirmButton>();
-            popButton.SetParametersAndRender(pb =>
+            pb.Add(a => a.Content, "Test_Content");
+            pb.Add(a => a.ConfirmButtonText, "Test_Confirm_Text");
+            pb.Add(a => a.CloseButtonText, "Test_Close_Text");
+            pb.Add(a => a.CustomClass, "test-custom-class");
+            pb.Add(a => a.OnConfirm, () =>
             {
-                pb.Add(a => a.Content, "Test_Content");
-                pb.Add(a => a.ConfirmButtonText, "Test_Confirm_Text");
-                pb.Add(a => a.CloseButtonText, "Test_Close_Text");
-                pb.Add(a => a.CustomClass, "test-custom-class");
-                pb.Add(a => a.OnConfirm, () =>
-                {
-                    confirm = true;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.OnClose, () =>
-                {
-                    close = true;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.OnBeforeClick, () =>
-                {
-                    beforeClose = true;
-                    return Task.FromResult(true);
-                });
+                confirm = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnClose, () =>
+            {
+                close = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnBeforeClick, () =>
+            {
+                beforeClose = true;
+                return Task.FromResult(true);
             });
         });
         // 默认设置增加 shadow 样式
         Assert.Contains("data-bs-custom-class=\"test-custom-class shadow\"", cut.Markup);
 
-        var popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        // 移除 shadow 样式
+        popButton.SetParametersAndRender(pb =>
         {
-            // 移除 shadow 样式
-            popButton.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.ShowShadow, false);
-            });
+            pb.Add(a => a.ShowShadow, false);
         });
         Assert.Contains("data-bs-custom-class=\"test-custom-class\"", cut.Markup);
 
@@ -125,13 +118,9 @@ public class PopConfirmButtonTest : PopoverTestBase
         Assert.True(confirm);
 
         // Submit
-        popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        popButton.SetParametersAndRender(pb =>
         {
-            popButton.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.ButtonType, ButtonType.Submit);
-            });
+            pb.Add(a => a.ButtonType, ButtonType.Submit);
         });
 
         // Show
@@ -150,17 +139,13 @@ public class PopConfirmButtonTest : PopoverTestBase
 
         // IsAsync
         var tcs = new TaskCompletionSource();
-        popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        popButton.SetParametersAndRender(pb =>
         {
-            popButton.SetParametersAndRender(pb =>
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(a => a.OnConfirm, () =>
             {
-                pb.Add(a => a.IsAsync, true);
-                pb.Add(a => a.OnConfirm, () =>
-                {
-                    tcs.TrySetResult();
-                    return Task.CompletedTask;
-                });
+                tcs.TrySetResult();
+                return Task.CompletedTask;
             });
         });
 
@@ -179,13 +164,9 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
         await tcs.Task;
 
-        popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        popButton.SetParametersAndRender(pb =>
         {
-            popButton.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.ButtonType, ButtonType.Button);
-            });
+            pb.Add(a => a.ButtonType, ButtonType.Button);
         });
 
         // Show
@@ -203,39 +184,53 @@ public class PopConfirmButtonTest : PopoverTestBase
         });
 
         // IsLink
-        popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        popButton.SetParametersAndRender(pb =>
         {
-            popButton.SetParametersAndRender(pb =>
-            {
-                pb.Add(a => a.IsLink, true);
-            });
+            pb.Add(a => a.IsLink, true);
         });
 
-        popButton = cut.FindComponent<PopConfirmButton>();
         await cut.InvokeAsync(() =>
         {
             popButton.Contains("<a id=");
         });
 
-        popButton = cut.FindComponent<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
+        popButton.SetParametersAndRender(pb =>
         {
-            popButton.SetParametersAndRender(pb =>
+            pb.Add(a => a.BodyTemplate, builder =>
             {
-                pb.Add(a => a.BodyTemplate, builder =>
-                {
-                    builder.OpenComponent<Button>(0);
-                    builder.CloseComponent();
-                });
+                builder.OpenComponent<Button>(0);
+                builder.CloseComponent();
             });
         });
 
-        popButton = cut.FindComponent<PopConfirmButton>();
         await cut.InvokeAsync(() =>
         {
             Assert.NotNull(popButton.FindComponent<Button>());
         });
+
+        // ShowButton
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowCloseButton, false);
+            pb.Add(a => a.ShowConfirmButton, false);
+        });
+        cut.DoesNotContain("<div class=\"popover-confirm-buttons\"></div>");
+
+        // 级联参数
+        popButton.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowCloseButton, true);
+            pb.Add(a => a.ShowConfirmButton, true);
+            pb.Add(a => a.BodyTemplate, builder =>
+            {
+                builder.OpenComponent<MockContent>(0);
+                builder.CloseComponent();
+            });
+        });
+
+        var mockContent = cut.FindComponent<MockContent>();
+        await cut.InvokeAsync(mockContent.Instance.Close);
+        await cut.InvokeAsync(mockContent.Instance.Confirm);
     }
 
     [Fact]
@@ -292,5 +287,18 @@ public class PopConfirmButtonTest : PopoverTestBase
             });
         });
         cut.Contains("data-bs-original-title=\"pop-tooltip\"");
+    }
+
+    public class MockContent : ComponentBase
+    {
+        [CascadingParameter(Name = "PopoverConfirmButtonCloseAsync"), NotNull]
+        private Func<Task>? OnCloseAsync { get; set; }
+
+        [CascadingParameter(Name = "PopoverConfirmButtonConfirmAsync"), NotNull]
+        private Func<Task>? OnConfirmAsync { get; set; }
+
+        public Task Close() => OnCloseAsync();
+
+        public Task Confirm() => OnConfirmAsync();
     }
 }

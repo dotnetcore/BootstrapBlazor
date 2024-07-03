@@ -96,6 +96,11 @@ public partial class Message
 
     private async Task Show(MessageOption option)
     {
+        if (option.ShowMode == MessageShowMode.Single)
+        {
+            _messages.Clear();
+        }
+
         _messages.Add(option);
         _msgId = GetItemId(option);
         await InvokeAsync(StateHasChanged);

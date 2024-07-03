@@ -73,34 +73,28 @@ public partial class Bluetooth
     /// <summary>
     /// 获取心率
     /// </summary>
-    public async void GetHeartrate()
-    {
-        await heartrate.GetHeartrate();
-    }
+    public Task GetHeartrate() => heartrate.GetHeartrate();
 
     /// <summary>
     /// 停止获取心率
     /// </summary>
-    public async void StopHeartrate()
-    {
-        await heartrate.StopHeartrate();
-    }
+    public Task StopHeartrate() => heartrate.StopHeartrate();
 
     BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
 
     private decimal? value = 0;
 
-    private Task OnUpdateValue(decimal value)
+    private Task OnUpdateValue(decimal v)
     {
-        this.value = value;
-        this.statusMessage = Localizer["DeviceBattery", value];
+        value = v;
+        statusMessage = Localizer["DeviceBattery", value];
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnUpdateStatus(BluetoothDevice device)
     {
-        this.statusMessage = device.Status;
+        statusMessage = device.Status;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -108,10 +102,7 @@ public partial class Bluetooth
     /// <summary>
     /// 获取设备电量
     /// </summary>
-    public async void GetBatteryLevel()
-    {
-        await batteryLevel.GetBatteryLevel();
-    }
+    public Task GetBatteryLevel() => batteryLevel.GetBatteryLevel();
 
     /// <summary>
     /// 获得属性方法

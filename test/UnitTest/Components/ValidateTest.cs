@@ -327,6 +327,23 @@ public class ValidateTest : BootstrapBlazorTestBase
             form.Submit();
         });
         Assert.True(invalid);
+
+        // 自定义验证规则未设置 member name
+        rules =
+        [
+            new FormItemValidator(new MockValidationAttribute())
+        ];
+        input.SetParametersAndRender(pb =>
+        {
+            pb.Add(v => v.ValidateRules, rules);
+        });
+        invalid = false;
+        await cut.InvokeAsync(() =>
+        {
+            c.Change("argo@163.com");
+            form.Submit();
+        });
+        Assert.True(invalid);
     }
 
     [Fact]
@@ -636,5 +653,13 @@ public class ValidateTest : BootstrapBlazorTestBase
     class Dog
     {
         public int? Count { get; set; }
+    }
+
+    class MockValidationAttribute : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object? value, ValidationContext validationContext)
+        {
+            return new ValidationResult($"The {validationContext.DisplayName} field must be a future date.");
+        }
     }
 }

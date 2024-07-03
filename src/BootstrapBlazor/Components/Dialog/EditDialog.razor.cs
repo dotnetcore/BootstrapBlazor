@@ -13,22 +13,6 @@ namespace BootstrapBlazor.Components;
 public partial class EditDialog<TModel>
 {
     /// <summary>
-    /// 获得/设置 保存回调委托
-    /// </summary>
-    [Parameter]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
-    public Func<EditContext, Task>? OnSaveAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 获得/设置 重置按钮文本
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? CloseButtonText { get; set; }
-
-    /// <summary>
     /// 获得/设置 查询时是否显示正在加载中动画 默认为 false
     /// </summary>
     [Parameter]
@@ -47,11 +31,37 @@ public partial class EditDialog<TModel>
     public ItemChangedType ItemChangedType { get; set; }
 
     /// <summary>
-    /// 获得/设置 查询按钮文本
+    /// 获得/设置 保存按钮图标
     /// </summary>
     [Parameter]
-    [NotNull]
+    public string? SaveButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮文本
+    /// </summary>
+    [Parameter]
     public string? SaveButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存回调委托 返回 false 时保持编辑弹窗 返回 true 时关闭编辑弹窗
+    /// </summary>
+    [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    public Func<EditContext, Task<bool>>? OnSaveAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 获得/设置 重置按钮文本
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭弹窗回调方法
@@ -71,11 +81,8 @@ public partial class EditDialog<TModel>
     [Parameter]
     public RenderFragment<TModel>? FooterTemplate { get; set; }
 
-    /// <summary>
-    /// 获得/设置 保存按钮图标
-    /// </summary>
-    [Parameter]
-    public string? SaveButtonIcon { get; set; }
+    [CascadingParameter]
+    private Func<Task>? CloseAsync { get; set; }
 
     [Inject]
     [NotNull]
@@ -92,6 +99,7 @@ public partial class EditDialog<TModel>
     {
         base.OnParametersSet();
 
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
@@ -103,8 +111,13 @@ public partial class EditDialog<TModel>
         if (OnSaveAsync != null)
         {
             await ToggleLoading(true);
-            await OnSaveAsync(context);
+            var save = await OnSaveAsync(context);
             await ToggleLoading(false);
+
+            if (save && CloseAsync != null)
+            {
+                await CloseAsync();
+            }
         }
     }
 
@@ -132,8 +145,9 @@ public partial class EditDialog<TModel>
             if (!IsTracking)
             {
                 builder.OpenComponent<DialogCloseButton>(20);
-                builder.AddAttribute(21, nameof(Button.Text), CloseButtonText);
-                builder.AddAttribute(22, nameof(Button.OnClickWithoutRender), OnCloseAsync);
+                builder.AddAttribute(21, nameof(Button.Icon), CloseButtonIcon);
+                builder.AddAttribute(22, nameof(Button.Text), CloseButtonText);
+                builder.AddAttribute(23, nameof(Button.OnClickWithoutRender), OnCloseAsync);
                 builder.CloseComponent();
             }
             builder.OpenComponent<Button>(30);

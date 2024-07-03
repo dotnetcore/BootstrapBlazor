@@ -25,11 +25,22 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 排序回调方法 默认 null 使用内置
+    /// 获得/设置 获得 <see cref="CollapseItem.Text"/> 值 默认 null 使用分组 Key.ToString() 方法获取
     /// </summary>
     [Parameter]
-    [NotNull]
-    public IOrderedEnumerable<IGrouping<object?, TItem>>? GroupOrderCallback { get; set; }
+    public Func<object?, string?>? GroupHeaderTextCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组排序回调方法 默认 null 使用内置
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<IGrouping<object?, TItem>>, IOrderedEnumerable<IGrouping<object?, TItem>>>? GroupOrderCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组内项目排序回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<IGrouping<object?, TItem>, IOrderedEnumerable<TItem>>? GroupItemOrderCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 BodyTemplate
@@ -125,7 +136,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// 数据集合内部使用
     /// </summary>
-    protected IEnumerable<TItem> Rows => Items ?? Enumerable.Empty<TItem>();
+    protected IEnumerable<TItem> Rows => Items ?? [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -135,10 +146,6 @@ public partial class ListView<TItem> : BootstrapComponentBase
         if (Items == null)
         {
             await QueryData();
-        }
-        if (GroupName != null)
-        {
-            GroupOrderCallback = Rows.GroupBy(GroupName).OrderBy(k => k.Key);
         }
     }
 
@@ -197,13 +204,24 @@ public partial class ListView<TItem> : BootstrapComponentBase
         }
     }
 
-    private RenderFragment RenderCollapsibleItems() => builder =>
+    private RenderFragment RenderCollapsibleItems(Func<TItem, object?> groupFunc) => builder =>
     {
         var index = 0;
-        foreach (var key in GroupOrderCallback)
+        foreach (var key in GetGroupItems(groupFunc))
         {
             var i = index++;
             builder.AddContent(i, RenderItem(key, i));
         }
     };
+
+    private IEnumerable<(object? GroupName, IOrderedEnumerable<TItem> Items)> GetGroupItems(Func<TItem, object?> groupFunc)
+    {
+        var groupItems = Rows.GroupBy(groupFunc);
+        var groupOrderItems = GroupOrderCallback == null ? groupItems.OrderBy(i => i.Key) : GroupOrderCallback(groupItems);
+        return GroupItemOrderCallback == null
+            ? groupOrderItems.Select(i => (i.Key, i.OrderBy(g => i.Key)))
+            : groupOrderItems.Select(i => (i.Key, GroupItemOrderCallback(i)));
+    }
+
+    private string? GetGroupName(object? key) => GroupHeaderTextCallback?.Invoke(key) ?? key?.ToString();
 }

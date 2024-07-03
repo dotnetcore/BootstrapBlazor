@@ -16,6 +16,27 @@
     margin: 0;
     z-index: var(--bb-drawer-zindex);
 
+    &.drawer-table-edit {
+        .drawer-body {
+            padding: 0;
+        }
+
+        .drawer-content {
+            padding: var(--bb-drawer-body-padding);
+        }
+
+        .form-footer {
+            margin: 1rem -1rem -.5rem -1rem;
+            padding: .5rem 1rem 0 1rem;
+            border-top: 1px solid var(--bs-border-color);
+            text-align: right;
+
+            button:not(:last-child) {
+                margin-right: .25rem;
+            }
+        }
+    }
+
     &.no-bd {
         pointer-events: none;
     }

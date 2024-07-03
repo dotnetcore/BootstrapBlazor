@@ -86,6 +86,15 @@ public sealed partial class Messages
         });
     }
 
+    private int lastCount = 0;
+
+    private Task ShowLastOnlyMessage() => MessageService.Show(new MessageOption()
+    {
+        ShowShadow = true,
+        ShowMode = MessageShowMode.Single,
+        Content = lastCount++.ToString()
+    });
+
     private static AttributeItem[] GetAttributes() =>
     [
         new()
@@ -95,6 +104,14 @@ public sealed partial class Messages
             Type = "Placement",
             ValueList = "Top|Bottom",
             DefaultValue = "Top"
+        },
+        new()
+        {
+            Name = "ShowMode",
+            Description = "Display mode",
+            Type = "MessageShowMode",
+            ValueList = "Single|Multiple",
+            DefaultValue = "Multiple"
         }
     ];
 

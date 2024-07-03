@@ -96,6 +96,13 @@ public partial class ImageViewers
             DefaultValue = " — "
         },
         new() {
+            Name = nameof(ImageViewer.IsIntersectionObserver),
+            Description = Localizer["ImageViewersAttrIsIntersectionObserver"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
             Name = nameof(ImageViewer.OnLoadAsync),
             Description = Localizer["ImageViewersAttrOnLoadAsync"],
             Type = "Func<string, Task>",

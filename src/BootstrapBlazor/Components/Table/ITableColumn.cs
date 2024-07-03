@@ -135,6 +135,11 @@ public interface ITableColumn : IEditorItem
     bool ShowTips { get; set; }
 
     /// <summary>
+    /// 获得/设置 鼠标悬停提示自定义内容回调委托 默认 null 使用当前值
+    /// </summary>
+    Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
@@ -168,4 +173,9 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
     /// </summary>
     bool? IsVisibleWhenEdit { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义搜索逻辑
+    /// </summary>
+    Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }

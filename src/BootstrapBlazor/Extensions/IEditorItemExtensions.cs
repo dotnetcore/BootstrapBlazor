@@ -27,8 +27,8 @@ public static class IEditorItemExtensions
         {
             ret = changedType switch
             {
-                ItemChangedType.Add => col.IsReadonlyWhenAdd ?? col.Readonly,
-                _ => col.IsReadonlyWhenEdit ?? col.Readonly
+                ItemChangedType.Add => (col.IsReadonlyWhenAdd ?? false) || col.Readonly,
+                _ => (col.IsReadonlyWhenEdit ?? false) || col.Readonly
             };
         }
         return ret;
@@ -100,7 +100,7 @@ public static class IEditorItemExtensions
             }
             if (propertyInfo != null)
             {
-                ret = propertyInfo.CanWrite;
+                ret = propertyInfo.IsCanWrite();
             }
             return ret;
         }

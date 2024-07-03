@@ -96,6 +96,12 @@ public partial class Drawer
     public bool AllowResize { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭抽屉回调委托 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
@@ -104,7 +110,7 @@ public partial class Drawer
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender)
+        if (!firstRender || IsOpen)
         {
             await InvokeVoidAsync("execute", Id, IsOpen);
         }
@@ -117,8 +123,11 @@ public partial class Drawer
     {
         if (IsBackdrop)
         {
+            if (OnClickBackdrop != null)
+            {
+                await OnClickBackdrop();
+            }
             await Close();
-            if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
         }
     }
 
@@ -129,6 +138,10 @@ public partial class Drawer
     public async Task Close()
     {
         IsOpen = false;
+        if (OnCloseAsync != null)
+        {
+            await OnCloseAsync();
+        }
         if (IsOpenChanged.HasDelegate)
         {
             await IsOpenChanged.InvokeAsync(IsOpen);

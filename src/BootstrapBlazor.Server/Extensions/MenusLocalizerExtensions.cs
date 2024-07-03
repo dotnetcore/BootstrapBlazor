@@ -36,6 +36,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["DockViewComponents2"],
+            Icon = "fa-fw fa-solid fa-table-cells-large"
+        };
+        AddDockView2(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["NavigationComponents"],
             Icon = "fa-fw fa-solid fa-bars"
         };
@@ -624,6 +631,16 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Icon"],
+                    Url = "icon"
+                },
+                new()
+                {
+                    Text = Localizer["IconPark"],
+                    Url = "icon-park"
+                },
+                new()
+                {
                     Text = Localizer["LinkButton"],
                     Url = "link-button"
                 },
@@ -806,6 +823,64 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DockViewLayout"],
                     Url = "dock-view/layout"
+                }
+            };
+            AddBadge(item, count: 1);
+        }
+
+        void AddDockView2(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["DockViewV2Index"],
+                    Url = "dock-view2/index"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Column"],
+                    Url = "dock-view2/col"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Row"],
+                    Url = "dock-view2/row"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Group"],
+                    Url = "dock-view2/group"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Complex"],
+                    Url = "dock-view2/complex"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Nest"],
+                    Url = "dock-view2/nest"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Visible"],
+                    Url = "dock-view2/visible"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Lock"],
+                    Url = "dock-view2/lock"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Title"],
+                    Url = "dock-view2/title"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewV2Layout"],
+                    Url = "dock-view2/layout"
                 }
             };
             AddBadge(item, count: 1);
@@ -1381,6 +1456,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Lookup"],
                     Url = "lookup"
+                },
+                new()
+                {
+                    Text = Localizer["Mask"],
+                    Url = "mask"
                 },
                 new()
                 {

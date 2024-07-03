@@ -18,7 +18,6 @@ export function bb_azure_speech_recognizeOnce(obj, method, token, region, recogn
         recognizer = undefined;
         obj.invokeMethodAsync(method, "Finished", successfulResult.privText);
     }, function (err) {
-        console.log(err);
         recognizer = undefined;
         obj.invokeMethodAsync(method, "Error", err);
     });
@@ -62,8 +61,6 @@ export function bb_azure_speech_synthesizerOnce(obj, method, token, region, synt
             synthesizer = undefined;
         },
         function (err) {
-            console.log(err);
-
             if (synthesizer != undefined) {
                 synthesizer.close();
             }

@@ -15,6 +15,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
 {
     private ILoggerFactory LoggerFactory { get; set; }
 
+    private ILocalizationMissingItemHandler LocalizationMissingItemHandler { get; set; }
+
     [NotNull]
     private string? TypeName { get; set; }
 
@@ -24,12 +26,14 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// 构造函数
     /// </summary>
     /// <param name="cacheManager"></param>
+    /// <param name="localizationMissingItemHandler"></param>
     /// <param name="options"></param>
     /// <param name="jsonLocalizationOptions"></param>
     /// <param name="localizationOptions"></param>
     /// <param name="loggerFactory"></param>
     public JsonStringLocalizerFactory(
         ICacheManager cacheManager,
+        ILocalizationMissingItemHandler localizationMissingItemHandler,
         IOptionsMonitor<BootstrapBlazorOptions> options,
         IOptions<JsonLocalizationOptions> jsonLocalizationOptions,
         IOptions<LocalizationOptions> localizationOptions,
@@ -46,6 +50,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             jsonLocalizationOptions.Value.IgnoreLocalizerMissing = options.CurrentValue.IgnoreLocalizerMissing.Value;
         }
         IgnoreLocalizerMissing = jsonLocalizationOptions.Value.IgnoreLocalizerMissing;
+        LocalizationMissingItemHandler = localizationMissingItemHandler;
         LoggerFactory = loggerFactory;
         options.OnChange(OnChange);
 
@@ -109,5 +114,5 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// <param name="assembly">The assembly to create a <see cref="ResourceManagerStringLocalizer"/> for</param>
     /// <param name="baseName">The base name of the resource to search for</param>
     /// <returns></returns>
-    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, TypeName, baseName, IgnoreLocalizerMissing, LoggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache);
+    protected override ResourceManagerStringLocalizer CreateResourceManagerStringLocalizer(Assembly assembly, string baseName) => new JsonStringLocalizer(assembly, TypeName, baseName, IgnoreLocalizerMissing, LoggerFactory.CreateLogger<JsonStringLocalizer>(), ResourceNamesCache, LocalizationMissingItemHandler);
 }

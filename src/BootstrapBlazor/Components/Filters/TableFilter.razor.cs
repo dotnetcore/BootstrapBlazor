@@ -230,7 +230,7 @@ public partial class TableFilter : IFilter
         if (Table != null)
         {
             var f = FilterAction.GetFilterConditions();
-            if (f.Filters != null && f.Filters.Any())
+            if (f.Filters != null && f.Filters.Count > 0)
             {
                 Table.Filters[FieldKey] = FilterAction;
             }

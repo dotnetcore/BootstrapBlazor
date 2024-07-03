@@ -78,7 +78,7 @@
     <div class="mt-2">@((MarkupString)Localizer["TablesExcelUpdateLogicDescription2"].Value)</div>
 </p>
 
-<Pre>private Task&lt;bool&gt; OnDeleteAsync(Foo item, ItemChangedType changedType)
+<Pre>private Task&lt;bool&gt; OnSaveAsync(Foo item, ItemChangedType changedType)
 {
     // @Localizer["TablesExcelUpdateLogicNote"]
     Logger.Log($"@Localizer["TablesExcelUpdateLogicLog1"] - @Localizer["TablesExcelUpdateLogicLog2"]");

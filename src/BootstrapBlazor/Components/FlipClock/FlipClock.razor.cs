@@ -23,6 +23,12 @@ public partial class FlipClock
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Second 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowSecond { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 计时结束回调方法 默认 null
     /// </summary>
     [Parameter]

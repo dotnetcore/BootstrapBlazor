@@ -59,12 +59,10 @@ export async function init(el, invoker) {
                 b._reader.decodeFromImageUrl(e.target.result).then(result => {
                     if (result) {
                         vibrate()
-                        console.log(result.text);
                         b._invoker.invokeMethodAsync('GetResult', result.text)
                     }
                 }).catch((err) => {
                     if (err) {
-                        console.log(err)
                         b._invoker.invokeMethodAsync('GetError', err.message)
                     }
                 })

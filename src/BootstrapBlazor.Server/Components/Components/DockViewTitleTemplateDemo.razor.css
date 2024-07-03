@@ -1,0 +1,18 @@
+﻿.widget {
+    position: absolute;
+    right: -9px;
+    top: -5px;
+    background-color: var(--bs-info);
+    border-radius: 50%;
+    color: var(--bs-body-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    height: 16px;
+    width: 16px;
+}
+
+span {
+    padding: var(--bb-dock-view-tab-padding);
+}

@@ -239,7 +239,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var labels = cut.FindAll(".picker-panel-header-label");
         cut.InvokeAsync(() => labels[2].Click());
 
-        cut.Contains("picker-pannel-body-main-wrapper is-open");
+        cut.Contains("picker-panel-body-main-wrapper is-open");
     }
 
     [Fact]
@@ -711,34 +711,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void HeightCallback_Ok()
-    {
-        var cut = Context.RenderComponent<TimePickerBody>();
-        var cell = cut.FindComponent<TimePickerCell>();
-        cut.InvokeAsync(() => cell.Instance.OnHeightCallback(16));
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
-        });
-    }
-
-    [Fact]
-    public async Task OnClickClose_Ok()
-    {
-        var cut = Context.RenderComponent<TimePickerBody>();
-        var btn = cut.Find(".time-panel-footer > button");
-        await cut.InvokeAsync(() => btn.Click());
-    }
-
-    [Fact]
-    public async Task OnClickConfirm_Ok()
-    {
-        var cut = Context.RenderComponent<TimePickerBody>();
-        var buttons = cut.FindAll(".time-panel-footer > button");
-        await cut.InvokeAsync(() => buttons[1].Click());
-    }
-
-    [Fact]
     public void Validate_Ok()
     {
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
@@ -791,80 +763,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.MinValue, null);
         });
-    }
-    #endregion
-
-    #region TimePicker
-    [Fact]
-    public void OnClose_Ok()
-    {
-        var res = false;
-        var cut = Context.RenderComponent<TimePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.OnClose, () =>
-            {
-                res = true;
-                return Task.CompletedTask;
-            });
-        });
-
-        cut.Find(".time-panel-footer .cancel").Click();
-
-        Assert.True(res);
-    }
-
-    [Fact]
-    public void OnConfirm_Ok()
-    {
-        var res = false;
-        var value = false;
-        var cut = Context.RenderComponent<TimePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.OnConfirm, val =>
-            {
-                value = true;
-                res = true;
-                return Task.CompletedTask;
-            });
-        });
-
-        cut.Find(".time-panel-footer .confirm").Click();
-
-        Assert.True(res);
-        Assert.True(value);
-    }
-
-    [Fact]
-    public void HasSeconds_Ok()
-    {
-        var cut = Context.RenderComponent<TimePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
-            {
-            }));
-        });
-
-        var ele = cut.Find(".time-panel-content .has-seconds");
-        Assert.NotNull(ele);
-    }
-
-    [Fact]
-    public void HaveNotSeconds_Ok()
-    {
-        var cut = Context.RenderComponent<TimePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
-            {
-            }));
-            builder.Add(a => a.HasSeconds, false);
-        });
-
-        var ele = cut.Find(".time-panel-content .havenot-seconds");
-        Assert.NotNull(ele);
     }
     #endregion
 

@@ -9,7 +9,12 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
     [Fact]
     public void ThemeProvider_Ok()
     {
-        var cut = Context.RenderComponent<ThemeProvider>();
+        var cut = Context.RenderComponent<ThemeProvider>(pb =>
+        {
+            pb.Add(a => a.ShowShadow, false);
+            pb.Add(a => a.Alignment, Alignment.Center);
+        });
         cut.Contains("dropdown bb-theme-mode");
+        cut.DoesNotContain("dropdown-menu-center shadow");
     }
 }

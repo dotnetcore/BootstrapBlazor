@@ -8,7 +8,7 @@
     <RenderTemplate>
         @foreach (var item in Children)
         {
-            <div class="@GetItemClassString(item)">
+            <div @key="item" class="@GetItemClassString(item)">
                 <div class="accordion-header">
                     <Button class="@GetButtonClassString(item)" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="item.TitleColor" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" Icon="@item.Icon" />
                 </div>

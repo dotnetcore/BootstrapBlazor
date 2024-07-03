@@ -80,6 +80,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DialogCloseButton>();
         Assert.Contains("btn-secondary", cut.Markup);
+
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
@@ -194,7 +195,7 @@ public class ButtonTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.Text, null);
+            pb.Add(a => a.Text, null);
             pb.AddChildContent("Button-Test");
         });
         Assert.Contains("Button-Test", cut.Markup);
@@ -417,8 +418,26 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void DialogSaveButton_Ok()
     {
-        var cut = Context.RenderComponent<DialogSaveButton>();
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogSaveButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+            pb.Add(a => a.OnSaveAsync, () => Task.FromResult(true));
+        });
         cut.Contains("button type=\"submit\"");
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+
+        clicked = false;
+        cut.SetParametersAndRender(pb => pb.Add(a => a.OnSaveAsync, () => Task.FromResult(false)));
+        button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.False(clicked);
     }
 
     [Fact]
@@ -435,13 +454,8 @@ public class ButtonTest : BootstrapBlazorTestBase
             button.Click();
         });
 
-        var invocation = Context.JSInterop.VerifyInvoke("share");
-        if (invocation.Arguments[0]?.ToString() == cut.Instance.Id)
-        {
-            var context = invocation.Arguments[1] as ShareButtonContext;
-            Assert.Equal("test-share-text", context?.Text);
-            Assert.Equal("test-share-title", context?.Title);
-            Assert.Equal("www.blazor.zone", context?.Url);
-        }
+        Assert.Equal("test-share-text", cut.Instance.ShareContext?.Text);
+        Assert.Equal("test-share-title", cut.Instance.ShareContext?.Title);
+        Assert.Equal("www.blazor.zone", cut.Instance.ShareContext?.Url);
     }
 }

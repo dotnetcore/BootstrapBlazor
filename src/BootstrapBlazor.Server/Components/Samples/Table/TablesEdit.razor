@@ -164,6 +164,25 @@
             <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
+
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesEditModeDrawer"].Value)</p>
+    </section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+           AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
+           EditMode="EditMode.Drawer" @bind-Items="@BindItems" InsertRowMode="InsertMode">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]" Introduction="@Localizer["TablesEditInjectDataServiceIntro"]" Name="InjectDataService">
@@ -229,6 +248,7 @@
             <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
         </TableColumns>
         <EditTemplate>
+            <!--本处代码未使用联动功能，所以无须封装成组件，如果增加 Hobby 字段使用 MultiSelect 组件必须封装成组件如上例-->
             <div class="row g-3 form-inline">
                 <div class="col-12 col-sm-6">
                     <BootstrapInput @bind-Value="@context.Name" placeholder="@PlaceHolderString" maxlength="50" />
@@ -250,5 +270,24 @@
                 </div>
             </div>
         </EditTemplate>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesReadonlyColumnTitle"]" Introduction="@Localizer["TablesReadonlyColumnIntro"]" Name="ReadonlyColumn">
+    <section ignore>
+        <p>@Localizer["TablesReadonlyColumnDescription"]</p>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips1"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
+        <p>@((MarkupString)Localizer["TablesReadonlyColumnTips2"].Value)</p>
+        <Pre class="no-highlight my-3 mb-3">&lt;TableColumn TItem="Foo1" TType="string" Field="@@context.ReadonlyColumn" FieldName="ReadonlyColumn" /&gt;</Pre>
+    </section>
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
+            <TableColumn Field="@context.ReadonlyColumn" FieldName="@nameof(context.ReadonlyColumn)" Text="@LocalizerFoo[nameof(context.ReadonlyColumn)]" />
+        </TableColumns>
     </Table>
 </DemoBlock>

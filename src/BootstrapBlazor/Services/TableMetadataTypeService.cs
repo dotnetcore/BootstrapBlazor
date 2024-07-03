@@ -16,11 +16,23 @@ public static class TableMetadataTypeService
     private static ConcurrentDictionary<Type, Type> _metadataTypeCache { get; } = new();
 
     /// <summary>
-    /// register medatatype for target model/data type
+    /// register metadata type for target model/data type
     /// </summary>
     /// <param name="metadataType">Table ui metadata type</param>
     /// <param name="targetType">the target model/data type</param>
+    [Obsolete("已弃用，单词拼写错误，Deprecated, typo")]
+    [ExcludeFromCodeCoverage]
     public static void RegisterMatadataType(Type metadataType, Type targetType)
+    {
+        _metadataTypeCache.AddOrUpdate(targetType, metadataType, (to, tn) => tn);
+    }
+
+    /// <summary>
+    /// register metadata type for target model/data type
+    /// </summary>
+    /// <param name="metadataType">Table ui metadata type</param>
+    /// <param name="targetType">the target model/data type</param>
+    public static void RegisterMetadataType(Type metadataType, Type targetType)
     {
         _metadataTypeCache.AddOrUpdate(targetType, metadataType, (to, tn) => tn);
     }
@@ -49,7 +61,7 @@ public static class TableMetadataTypeService
                               });
             foreach (var mt in mapTypes)
             {
-                RegisterMatadataType(mt.MetadataType, mt.DataType);
+                RegisterMetadataType(mt.MetadataType, mt.DataType);
             }
         }
     }

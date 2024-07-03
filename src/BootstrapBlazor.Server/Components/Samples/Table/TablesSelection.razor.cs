@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Table;
 /// <summary>
 /// 选择行示例代码
 /// </summary>
+[JSModuleAutoLoader("Samples/Table/TablesSelection.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class TablesSelection
 {
     /// <summary>
@@ -20,7 +21,12 @@ public partial class TablesSelection
     [NotNull]
     private List<Foo>? SelectedItems { get; set; }
 
+    [NotNull]
+    private List<Foo> _selectedScrollItems = [];
+
     private bool _isKeepSelectedRows;
+
+    private List<Foo> _scrollItems = [];
 
     private static IEnumerable<int> PageItemsSource => new int[]
     {
@@ -37,6 +43,8 @@ public partial class TablesSelection
         base.OnInitialized();
         Items = Foo.GenerateFoo(LocalizerFoo);
         SelectedItems = Items.Take(4).ToList();
+
+        _scrollItems.AddRange(Foo.GenerateFoo(LocalizerFoo, 20));
     }
 
     private void OnClick()
@@ -44,10 +52,31 @@ public partial class TablesSelection
         SelectedItems.Clear();
     }
 
+    private void OnTriggerScroll()
+    {
+        _selectedScrollItems.Clear();
+        _selectedScrollItems.Add(_scrollItems.Last());
+    }
+
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         var total = Items.Count;
         var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true
+        });
+    }
+
+    private async Task OnAfterRenderCallback(Table<Foo> table, bool firstRender)
+    {
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("scroll", table.Id);
+        }
     }
 }

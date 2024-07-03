@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 类型过滤器基类
 /// /// </summary>
-public abstract class FilterBase : ComponentBase, IFilterAction
+public abstract class FilterBase : BootstrapModuleComponentBase, IFilterAction
 {
     /// <summary>
     /// 
@@ -43,7 +43,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     public int Count { get; set; }
 
     /// <summary>
-    /// 获得/设置 条件候选项
+    /// 获得/设置 条件候选项 请尽量使用静态数据 避免组件性能损失
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
@@ -86,7 +86,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
 
     /// <summary>
-    /// 
+    /// 过滤按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected async Task OnFilterValueChanged()
@@ -99,7 +99,7 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     }
 
     /// <summary>
-    /// 
+    /// 重置按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected async Task OnClearFilter()

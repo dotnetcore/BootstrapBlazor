@@ -123,6 +123,17 @@ public class ImageTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsIntersectionObserver_Ok()
+    {
+        var cut = Context.RenderComponent<ImageViewer>(pb =>
+        {
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
+            pb.Add(a => a.IsIntersectionObserver, true);
+        });
+        cut.DoesNotContain("src");
+    }
+
+    [Fact]
     public void ImagerViewer_Show()
     {
         var cut = Context.RenderComponent<ImagePreviewer>(pb =>

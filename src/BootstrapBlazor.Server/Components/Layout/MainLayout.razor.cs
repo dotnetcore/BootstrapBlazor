@@ -2,10 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
-/// 
+/// MainLayout 模板
 /// </summary>
 public partial class MainLayout : IDisposable
 {
@@ -19,41 +21,43 @@ public partial class MainLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private WebClientService? ClientService { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
     [Inject]
     [NotNull]
-    private IIpLocatorFactory? IpLocatorFactory { get; set; }
+    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [NotNull]
+    private string? Title { get; set; }
+
+    [NotNull]
+    private string? ChatTooltip { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         DispatchService.Subscribe(Dispatch);
+
+        Title ??= Localizer[nameof(Title)];
+        ChatTooltip ??= Localizer[nameof(ChatTooltip)];
     }
 
     private async Task Dispatch(DispatchEntry<MessageItem> entry)
     {
         if (entry.Entry != null)
         {
-            // 获得当前用户 IP 地址
-            var clientInfo = await ClientService.GetClientInfo();
-            if (clientInfo.Ip != null)
+            await Toast.Show(new ToastOption()
             {
-                var provider = IpLocatorFactory.Create();
-                var location = await provider.Locate(clientInfo.Ip);
-                await Toast.Show(new ToastOption()
-                {
-                    Title = "Dispatch 服务测试",
-                    Content = $"{entry.Entry.Message} 来自 {location}",
-                    Category = ToastCategory.Information,
-                    Delay = 30 * 1000,
-                    ForceDelay = true
-                });
-            }
+                Title = "Dispatch 服务测试",
+                Content = entry.Entry.Message,
+                Category = ToastCategory.Information,
+                Delay = 30 * 1000,
+                ForceDelay = true
+            });
         }
     }
 
@@ -66,7 +70,7 @@ public partial class MainLayout : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

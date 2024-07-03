@@ -35,15 +35,6 @@ public partial class Select<TValue> : ISelect
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
-    private string? AppendClassString => CssBuilder.Default("form-select-append")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
-        .Build();
-
     private string? ClearClassString => CssBuilder.Default("clear-icon")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
@@ -73,13 +64,6 @@ public partial class Select<TValue> : ISelect
 
     [NotNull]
     private List<SelectedItem> DataSource { get; } = [];
-
-    /// <summary>
-    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? DropdownIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -203,7 +187,7 @@ public partial class Select<TValue> : ISelect
 
     private string _lastSelectedValueString = string.Empty;
 
-    private bool _init;
+    private bool _init = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -228,27 +212,13 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        if (firstRender)
-        {
-            _init = true;
-        }
-    }
-
-    /// <summary>
     /// 获得/设置 数据总条目
     /// </summary>
     private int TotalCount { get; set; }
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
-    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+    private List<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -336,9 +306,17 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
 
-            if (SelectedItem != null && ((_init || !DisableItemChangedWhenFirstRender)))
+            if (SelectedItem != null)
             {
-                _ = SelectedItemChanged(SelectedItem);
+                if (_init && DisableItemChangedWhenFirstRender)
+                {
+
+                }
+                else
+                {
+                    _ = SelectedItemChanged(SelectedItem);
+                    _init = false;
+                }
             }
         }
         else if (IsVirtualize)
@@ -456,6 +434,8 @@ public partial class Select<TValue> : ISelect
         }
         CurrentValue = default;
     }
+
+    private string? ReadonlyString => IsEditable ? null : "readonly";
 
     private async Task OnChange(ChangeEventArgs args)
     {

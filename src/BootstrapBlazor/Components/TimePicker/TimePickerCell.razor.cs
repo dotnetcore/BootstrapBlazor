@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class TimePickerCell
 {
-    private string? ClassString => CssBuilder.Default("time-spinner-wrapper is-arrow")
+    private string? ClassString => CssBuilder.Default("time-spinner")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

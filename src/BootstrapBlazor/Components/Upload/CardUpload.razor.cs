@@ -36,6 +36,12 @@ public partial class CardUpload<TValue>
     private string PreviewerId => $"prev_{Id}";
 
     /// <summary>
+    /// 获得/设置 是否允许预览回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, bool>? CanPreviewCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 图标模板
     /// </summary>
     [Parameter]
@@ -108,12 +114,16 @@ public partial class CardUpload<TValue>
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
     }
 
-    private static bool IsImage(UploadFile item)
+    private bool IsImage(UploadFile item)
     {
         bool ret;
         if (item.File != null)
         {
             ret = item.File.ContentType.Contains("image", StringComparison.OrdinalIgnoreCase) || CheckExtensions(item.File.Name);
+        }
+        else if (CanPreviewCallback != null)
+        {
+            ret = CanPreviewCallback(item);
         }
         else
         {
@@ -124,7 +134,7 @@ public partial class CardUpload<TValue>
 
         bool CheckExtensions(string fileName) => Path.GetExtension(fileName).ToLowerInvariant() switch
         {
-            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => true,
+            ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" or ".webp" => true,
             _ => false
         };
         return ret;

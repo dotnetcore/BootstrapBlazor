@@ -55,17 +55,16 @@ class TreeFoo
         var items = GetItems();
 
         // 算法获取属性结构数据
-        return CascadingTree(items).ToList();
+        return CascadingTree(items);
     }
 
     /// <summary>
     /// TreeFoo 带选择框树状数据集
     /// </summary>
     /// <returns></returns>
-    public static List<TreeViewItem<TreeFoo>> GetCheckedTreeItems(string? parentId=null)
+    public static List<TreeViewItem<TreeFoo>> GetCheckedTreeItems(string? parentId = null)
     {
-        return new List<TreeViewItem<TreeFoo>>
-            {
+        return [
             new(new TreeFoo()
             {
                 Id = $"{parentId}-101",
@@ -84,19 +83,19 @@ class TreeFoo
                 Text = "navigation two",
                 CheckedState = CheckboxState.Checked
             }
-        };
+        ];
     }
 
     /// <summary>
     /// 树状数据层次化方法
     /// </summary>
     /// <param name="items">数据集合</param>
-    public static IEnumerable<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items) => items.CascadingTree(null,
+    public static List<TreeViewItem<TreeFoo>> CascadingTree(IEnumerable<TreeFoo> items) => items.CascadingTree(null,
         (foo, parent) => foo.ParentId == parent?.Value.Id,
         foo => new TreeViewItem<TreeFoo>(foo)
         {
             Text = foo.Text,
             Icon = foo.Icon,
             IsActive = foo.IsActive
-        }).ToList();
+        });
 }

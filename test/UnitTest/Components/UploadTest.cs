@@ -536,7 +536,7 @@ public class UploadTest : BootstrapBlazorTestBase
         // 增加代码覆盖率
         var ins = cut.Instance;
         var pi = ins.GetType().GetMethod("OnFileDelete", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        pi.Invoke(ins, new object[] { new UploadFile() });
+        pi.Invoke(ins, [new UploadFile()]);
 
         deleteFile = null;
         // 上传失败测试
@@ -731,6 +731,16 @@ public class UploadTest : BootstrapBlazorTestBase
         // OnDelete
         await cut.InvokeAsync(() => cut.Find(".btn-outline-danger").Click());
         Assert.True(deleted);
+
+        // CanPreviewCallback
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.CanPreviewCallback, p =>
+            {
+                return false;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Find(".btn-zoom").Click());
 
         // ShowProgress
         cut.SetParametersAndRender(pb =>

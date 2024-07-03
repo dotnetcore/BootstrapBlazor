@@ -1,7 +1,11 @@
 ﻿@page "/dock-view/complex"
 @inherits BaseDockView
 
-<DockView Name="DockViewComplex">
+<h3>@Localizer["DockViewComplexTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["DockViewComplexIntro"].Value)</h4>
+
+<DockView Name="DockViewComplex" class="dock-demo">
     <DockContent Type="DockContentType.Row">
         <DockComponent Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"

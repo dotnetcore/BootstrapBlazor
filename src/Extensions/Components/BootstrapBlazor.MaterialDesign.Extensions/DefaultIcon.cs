@@ -102,8 +102,9 @@ internal class DefaultIcon
 
         { ComponentIcons.RibbonTabArrowUpIcon, "mdi mdi-chevron-up" },
         { ComponentIcons.RibbonTabArrowDownIcon, "mdi mdi-chevron-down" },
-        { ComponentIcons.RibbonTabArrowPinIcon, "mdi mdi-pin mdi-rotate-90" },
+        { ComponentIcons.RibbonTabArrowPinIcon, "mdi mdi-pin mdi-pin-off" },
 
+        { ComponentIcons.MultiSelectDropdownIcon, "mdi mdi-chevron-up" },
         { ComponentIcons.MultiSelectClearIcon, "mdi mdi-close" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "mdi mdi-chevron-up" },

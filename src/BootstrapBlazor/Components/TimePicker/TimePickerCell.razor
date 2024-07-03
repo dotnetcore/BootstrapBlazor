@@ -4,8 +4,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <i class="@UpIconString" @onclick="OnClickUp"></i>
-    <i class="@DownIconString" @onclick="OnClickDown"></i>
-    <div class="time-spinner-list-wrapper">
+    <div class="time-spinner-body">
         <ul class="time-spinner-list" style="@StyleName">
             <li class="time-spinner-item">&nbsp;</li>
             @foreach (var index in Range)
@@ -14,4 +13,5 @@
             }
         </ul>
     </div>
+    <i class="@DownIconString" @onclick="OnClickDown"></i>
 </div>

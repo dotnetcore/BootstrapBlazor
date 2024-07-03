@@ -15,6 +15,7 @@ public class ResultDialogOption : DialogOption
     public ResultDialogOption()
     {
         ShowCloseButton = false;
+        ResultTask = new();
     }
 
     /// <summary>
@@ -60,16 +61,22 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 关闭按钮文本
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮图标
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭按钮颜色
     /// </summary>
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it.")]
+    [ExcludeFromCodeCoverage]
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
     /// <summary>
@@ -91,5 +98,10 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
-    internal TaskCompletionSource<DialogResult> ReturnTask { get; } = new TaskCompletionSource<DialogResult>();
+    internal TaskCompletionSource<DialogResult> ResultTask { get; set; }
+
+    /// <summary>
+    /// 获得 模态框接口方法
+    /// </summary>
+    internal Func<IResultDialog?>? GetDialog { get; set; }
 }

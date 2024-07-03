@@ -32,7 +32,7 @@ public partial class BootstrapBlazorRoot
     public Message? MessageContainer { get; private set; }
 
     /// <summary>
-    /// 获得 Toast 组件实例
+    /// 获得 ToastContainer 组件实例
     /// </summary>
     [NotNull]
     public ToastContainer? ToastContainer { get; private set; }

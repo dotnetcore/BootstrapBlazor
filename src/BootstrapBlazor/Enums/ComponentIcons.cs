@@ -210,7 +210,7 @@ public enum ComponentIcons
     DialogCloseButtonIcon,
 
     /// <summary>
-    /// Dialog 组件 CloseButtonIcon 属性图标
+    /// Dialog 组件 SaveButtonIcon 属性图标
     /// </summary>
     DialogSaveButtonIcon,
 
@@ -428,6 +428,11 @@ public enum ComponentIcons
     /// RibbonTab 组件 ArrowPinIcon 图标
     /// </summary>
     RibbonTabArrowPinIcon,
+
+    /// <summary>
+    /// MultiSelect 组件 DropdownIcon 图标
+    /// </summary>
+    MultiSelectDropdownIcon,
 
     /// <summary>
     /// MultiSelect 组件 ClearIcon 图标

@@ -340,6 +340,25 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void DisplayTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "1");
+            pb.Add(a => a.DisplayTemplate, v => builder =>
+            {
+                builder.AddContent(0, new MarkupString($"<h1>{string.Join("", v.Select(i => i.Value))}</h1>"));
+            });
+        });
+        cut.Contains("<h1>1</h1>");
+    }
+
+    [Fact]
     public void Validate_Ok()
     {
         var model = new Foo();

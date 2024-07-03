@@ -11,24 +11,35 @@
     <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" data-bs-custom-class="@CustomClassString" tabindex="0">
         <div class="@PlaceHolderClassString">@PlaceHolder</div>
         <div class="multi-select-items">
-            @foreach (var item in SelectedItems)
+            @if (DisplayTemplate != null)
             {
-                @if (ShowCloseButton)
+                @DisplayTemplate(SelectedItems)
+            }
+            else
+            {
+                foreach (var item in SelectedItems)
                 {
-                    <div class="multi-select-item-group">
-                        <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
-                                        TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
-                            <i class="@ClearIcon"></i>
-                        </DynamicElement>
+                    if (ShowCloseButton)
+                    {
+                        <div class="multi-select-item-group">
+                            <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
+                                            TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
+                                <i class="@ClearIcon"></i>
+                            </DynamicElement>
+                            <span class="multi-select-item">@item.Text</span>
+                        </div>
+                    }
+                    else
+                    {
                         <span class="multi-select-item">@item.Text</span>
-                    </div>
-                }
-                else
-                {
-                    <span class="multi-select-item">@item.Text</span>
+                    }
                 }
             }
         </div>
+        @if (!IsSingleLine)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
     </div>
     <div class="dropdown-menu">
         @if (ShowSearch)

@@ -32,6 +32,7 @@ public class MessageTest : MessageTestBase
                         ShowBorder = true,
                         ShowShadow = true,
                         ShowDismiss = true,
+                        ShowMode = MessageShowMode.Multiple,
                         OnDismiss = () =>
                         {
                             dismiss = true;
@@ -116,5 +117,20 @@ public class MessageTest : MessageTestBase
             ChildContent = builder => builder.AddContent(0, new MarkupString("<div class=\"custom-message-template\">Custom Message</div>"))
         }, cut.Instance));
         Assert.Contains("<div class=\"custom-message-template\">Custom Message</div>", cut.Markup);
+    }
+
+    [Fact]
+    public async Task ShowMode_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.RenderComponent<Message>();
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            Content = "Test Content",
+            IsAutoHide = false,
+            ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
+            ShowMode = MessageShowMode.Single
+        }, cut.Instance));
     }
 }

@@ -33,21 +33,23 @@
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="0.1.1" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="8.0.2" />
-    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.3" />
+    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.5" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="8.1.5" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.2" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.3" />
-    <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.7" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="8.0.1-beta05" />
+    <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.3" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.0" />
-    <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.1" />
+    <PackageReference Include="BootstrapBlazor.IconPark" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.ImageCropper" Version="0.0.4" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.3" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.6" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.8" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.7" />
@@ -56,11 +58,11 @@
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.SvgEditor" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.SvgEditor" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.3" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.TagHelper" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.6" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.7" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.7-beta1" />
     <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.5" />
     <PackageReference Include="Longbow.Logging" Version="8.0.0" />

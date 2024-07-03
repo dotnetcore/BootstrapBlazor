@@ -163,11 +163,17 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputGroupsRadioTitle"]" Introduction="@Localizer["InputGroupsRadioIntro"]" Name="Radio">
-    <div class="row">
+    <div class="row g-2">
         <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="RadioList" />
                 <RadioList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)"></RadioList>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="RadioList" />
+                <RadioList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" IsButton="true"></RadioList>
             </BootstrapInputGroup>
         </div>
     </div>

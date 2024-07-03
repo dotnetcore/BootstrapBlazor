@@ -173,6 +173,10 @@
     "CloseAllTabsText": "关闭所有标签",
     "NotFoundTabText": "未找到"
   },
+  "BootstrapBlazor.Components.MultiFilter": {
+    "MultiFilterSearchPlaceHolderText": "请输入 ...",
+    "MultiFilterSelectAllText": "全选"
+  },
   "BootstrapBlazor.Components.Table": {
     "AddButtonText": "新建",
     "EditButtonText": "编辑",

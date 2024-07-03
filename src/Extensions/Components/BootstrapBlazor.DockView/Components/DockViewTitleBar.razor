@@ -1,0 +1,14 @@
+﻿<div class="dv-default-tab-action bb-dockview-item-title-icon" @onclick="@OnClickBar">
+    @if (!string.IsNullOrEmpty(BarIconUrl))
+    {
+        <img alt="bar-icon" src="@BarIconUrl" />
+    }
+    else if (!string.IsNullOrEmpty(BarIcon))
+    {
+        <i class="@BarIcon"></i>
+    }
+    else
+    {
+        <DockViewIcon IconName="bar"></DockViewIcon>
+    }
+</div>

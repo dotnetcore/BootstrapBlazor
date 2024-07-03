@@ -39,9 +39,9 @@ public partial class BoolFilter
 
         Items ??= new SelectedItem[]
         {
-            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
-            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
-            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
+            new("", Localizer["BoolFilter.AllText"].Value),
+            new("true", Localizer["BoolFilter.TrueText"].Value),
+            new("false", Localizer["BoolFilter.FalseText"].Value)
         };
     }
 

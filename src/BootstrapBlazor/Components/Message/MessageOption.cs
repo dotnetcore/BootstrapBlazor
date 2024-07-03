@@ -48,4 +48,9 @@ public class MessageOption : PopupOptionBase
     /// 获得/设置 内容模板 默认 null 设置此参数后 <see cref="PopupOptionBase.Content"/> 将失效
     /// </summary>
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 消息显示模式，默认为 <see cref="MessageShowMode.Multiple"/>
+    /// </summary>
+    public MessageShowMode ShowMode { get; set; } = MessageShowMode.Multiple;
 }

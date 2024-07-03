@@ -22,5 +22,10 @@ public enum EditMode
     /// <summary>
     /// 单元格内编辑模式
     /// </summary>
-    InCell
+    InCell,
+
+    /// <summary>
+    /// 抽屉编辑模式
+    /// </summary>
+    Drawer
 }

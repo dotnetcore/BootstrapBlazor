@@ -42,7 +42,7 @@ public partial class DateTimeRange
     {
         set
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var startDateValue);
             if (ret)
             {
@@ -53,7 +53,7 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.Start != DateTime.MinValue ? Value.Start.ToString(format) : null;
         }
     }
@@ -64,7 +64,7 @@ public partial class DateTimeRange
     {
         set
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var endDateValue);
             if (ret)
             {
@@ -75,7 +75,7 @@ public partial class DateTimeRange
         }
         get
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var format = DateFormat; // ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             return Value.End != DateTime.MinValue ? Value.End.ToString(format) : null;
         }
     }
@@ -100,12 +100,6 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public bool AutoCloseClickSideBar { get; set; }
-
-    /// <summary>
-    /// 获得/设置 子组件模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 清空按钮文字
@@ -338,9 +332,22 @@ public partial class DateTimeRange
         ];
 
         Value ??= new DateTimeRangeValue();
-
         EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
-        StartValue = EndValue.AddMonths(-1).Date;
+
+        if (ViewMode == DatePickerViewMode.Year)
+        {
+            var d = DateTime.Today.AddYears(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, 1, 1) : Value.Start;
+        }
+        else if (ViewMode == DatePickerViewMode.Month)
+        {
+            var d = DateTime.Today.AddMonths(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
+        }
+        else
+        {
+            StartValue = EndValue.AddMonths(-1).Date;
+        }
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
@@ -432,7 +439,6 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        // SelectedValue 
         if (SelectedValue.End == DateTime.MinValue)
         {
             if (SelectedValue.Start < DateTime.Today)
@@ -496,8 +502,18 @@ public partial class DateTimeRange
             SelectedValue.Start = d;
             SelectedValue.End = DateTime.MinValue;
         }
-        //StartValue = SelectedValue.Start;
-        //EndValue = SelectedValue.End;
+
+        if (ViewMode == DatePickerViewMode.Year || ViewMode == DatePickerViewMode.Month)
+        {
+            if (SelectedValue.Start != DateTime.MinValue)
+            {
+                StartValue = SelectedValue.Start;
+            }
+            if (SelectedValue.End != DateTime.MinValue)
+            {
+                EndValue = SelectedValue.End;
+            }
+        }
         StateHasChanged();
     }
 
@@ -509,6 +525,4 @@ public partial class DateTimeRange
     public override bool IsComplexValue(object? propertyValue) => false;
 
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
-
-    private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
 }

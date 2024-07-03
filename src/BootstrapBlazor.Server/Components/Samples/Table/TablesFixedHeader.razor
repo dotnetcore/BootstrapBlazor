@@ -71,20 +71,24 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DialogTitle"]" Introduction="@Localizer["DialogIntro"]" Name="Dialog" ShowCode="false">
-    <p>@((MarkupString)Localizer["DialogDesc"].Value)</p>
-    <Pre>&lt;style&gt;
+    <section ignore>
+        <p>@((MarkupString)Localizer["DialogDesc"].Value)</p>
+        <Pre>&lt;style&gt;
     .dialog-table .modal-body {
         height: calc(100vh - 400px);
         overflow: hidden;
     }
 &lt;/style&gt;</Pre>
-    <style>
-        .dialog-table .modal-body {
-            height: calc(100vh - 400px);
-            overflow: hidden;
-        }
-    </style>
 
+        <HeadContent>
+            <style>
+                .dialog-table .modal-body {
+                    height: calc(100vh - 400px);
+                    overflow: hidden;
+                }
+            </style>
+        </HeadContent>
+    </section>
     <Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog"></Button>
 </DemoBlock>
 

@@ -35,6 +35,13 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? SearchIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 MarkupString 默认 false
     /// </summary>
     [Parameter]
@@ -84,6 +91,15 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     protected override string? CustomClassString => CssBuilder.Default()
         .AddClass("select", IsPopover)
         .AddClass(base.CustomClassString)
+        .Build();
+
+    /// <summary>
+    /// 获得 样式集合
+    /// </summary>
+    protected string? AppendClassString => CssBuilder.Default("form-select-append")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
     /// <summary>

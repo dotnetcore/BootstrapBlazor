@@ -10,8 +10,10 @@
     --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
     --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
     --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
-    --bb-tree-disabled-opacity: .5;
+    --bb-tree-disabled-opacity: #{$bb-tree-disabled-opacity};
+    --bb-tree-search-height: #{$bb-tree-search-height};
     position: relative;
+    height: 100%;
 
     .tree-search {
         margin-bottom: .5rem;
@@ -21,6 +23,10 @@
 .tree-view .tree-root {
     padding: var(--bb-tree-padding);
     margin: var(--bb-tree-margin);
+}
+
+.tree-view.is-fixed-search .tree-root {
+    height: calc(100% - var(--bb-tree-search-height));
 }
 
 .tree-view .tree-ul {

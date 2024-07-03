@@ -6,6 +6,18 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div class="input-group color-picker">
-    <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
-    <input type="text" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
+    <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled="@Disabled" value="@CurrentValueAsString" @onchange="EventCallback.Factory.CreateBinder<string>(this, async v => await Setter(v), CurrentValueAsString)" />
+
+    @if (Template != null)
+    {
+        @Template(CurrentValueAsString)
+    }
+    else if(Formatter != null)
+    {
+        <input type="text" readonly class="@ClassName" value="@_formattedValueString" />
+    }
+    else
+    {
+        <input type="text" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" />
+    }
 </div>

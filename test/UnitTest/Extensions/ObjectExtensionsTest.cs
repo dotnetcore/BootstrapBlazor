@@ -166,32 +166,36 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Add, true, false, true)]
+    [InlineData(ItemChangedType.Add, true, null, false)]
+    [InlineData(ItemChangedType.Add, true, false, false)]
     [InlineData(ItemChangedType.Add, true, true, false)]
+    [InlineData(ItemChangedType.Add, false, null, true)]
     [InlineData(ItemChangedType.Add, false, false, true)]
     [InlineData(ItemChangedType.Add, false, true, false)]
-    public void ReadonlyWhenAdd_Ok(ItemChangedType itemChangedType, bool @readonly, bool readonlyWhenAdd, bool expected)
+    public void ReadonlyWhenAdd_Ok(ItemChangedType itemChangedType, bool @readonly, bool? readonlyWhenAdd, bool expected)
     {
         var column = new TableColumn<Foo, string>();
         column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["Readonly"] = @readonly,
+            [nameof(ITableColumn.Readonly)] = @readonly,
             [nameof(ITableColumn.IsReadonlyWhenAdd)] = readonlyWhenAdd,
         }));
         Assert.Equal(expected, column.IsEditable(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Update, true, false, true)]
+    [InlineData(ItemChangedType.Update, true, null, false)]
+    [InlineData(ItemChangedType.Update, true, false, false)]
     [InlineData(ItemChangedType.Update, true, true, false)]
+    [InlineData(ItemChangedType.Update, false, null, true)]
     [InlineData(ItemChangedType.Update, false, false, true)]
     [InlineData(ItemChangedType.Update, false, true, false)]
-    public void ReadonlyWhenUpdate_Ok(ItemChangedType itemChangedType, bool @readonly, bool readonlyWhenUpdate, bool expected)
+    public void ReadonlyWhenUpdate_Ok(ItemChangedType itemChangedType, bool @readonly, bool? readonlyWhenUpdate, bool expected)
     {
         var column = new TableColumn<Foo, string>();
         column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            ["Readonly"] = @readonly,
+            [nameof(ITableColumn.Readonly)] = @readonly,
             [nameof(ITableColumn.IsReadonlyWhenEdit)] = readonlyWhenUpdate,
         }));
         Assert.Equal(expected, column.IsEditable(itemChangedType));
@@ -213,11 +217,13 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
+    [InlineData(ItemChangedType.Add, true, null, true)]
     [InlineData(ItemChangedType.Add, true, false, false)]
     [InlineData(ItemChangedType.Add, true, true, true)]
+    [InlineData(ItemChangedType.Add, false, null, false)]
     [InlineData(ItemChangedType.Add, false, false, false)]
     [InlineData(ItemChangedType.Add, false, true, true)]
-    public void VisibleWhenAdd_Ok(ItemChangedType itemChangedType, bool visible, bool visibleWhenAdd, bool expected)
+    public void VisibleWhenAdd_Ok(ItemChangedType itemChangedType, bool visible, bool? visibleWhenAdd, bool expected)
     {
         var column = new TableColumn<Foo, string>();
         column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
@@ -229,11 +235,13 @@ public class ObjectExtensionsTest
     }
 
     [Theory]
+    [InlineData(ItemChangedType.Update, true, null, true)]
     [InlineData(ItemChangedType.Update, true, false, false)]
     [InlineData(ItemChangedType.Update, true, true, true)]
+    [InlineData(ItemChangedType.Update, false, null, false)]
     [InlineData(ItemChangedType.Update, false, false, false)]
     [InlineData(ItemChangedType.Update, false, true, true)]
-    public void VisibleWhenUpdate_Ok(ItemChangedType itemChangedType, bool visible, bool visibleWhenUpdate, bool expected)
+    public void VisibleWhenUpdate_Ok(ItemChangedType itemChangedType, bool visible, bool? visibleWhenUpdate, bool expected)
     {
         var column = new TableColumn<Foo, string>();
         column.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>

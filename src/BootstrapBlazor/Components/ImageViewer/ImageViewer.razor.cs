@@ -85,7 +85,7 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
-    
+
     /// <summary>
     /// 获得/设置 预览大图当前链接集合点开的索引 默认为 0
     /// </summary>
@@ -110,6 +110,13 @@ public partial class ImageViewer
     [Parameter]
     public string? FileIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否交叉监听 默认 false
+    /// </summary>
+    /// <remarks>不可见时不加载图片，当图片即将可见时才开始加载图片</remarks>
+    [Parameter]
+    public bool IsIntersectionObserver { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -119,8 +126,6 @@ public partial class ImageViewer
     private bool IsLoaded { get; set; }
 
     private bool IsError { get; set; }
-
-    private string? IsAsyncString => IsAsync ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -152,7 +157,7 @@ public partial class ImageViewer
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList, PreviewIndex);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Url, PreviewList, PreviewIndex, Async = IsAsync, PreviewerId, Intersection = IsIntersectionObserver });
 
     private RenderFragment RenderChildContent() => builder =>
     {
@@ -160,7 +165,7 @@ public partial class ImageViewer
         {
             builder.OpenElement(0, "img");
             builder.AddAttribute(1, "class", ImageClassString);
-            if (!IsAsync)
+            if (!IsAsync && !IsIntersectionObserver)
             {
                 builder.AddAttribute(2, "src", Url);
             }
@@ -207,7 +212,7 @@ public partial class ImageViewer
 
     private bool ShouldHandleError => HandleError || ErrorTemplate != null;
 
-    private bool ShowPreviewList => PreviewList?.Any() ?? false;
+    private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
 
-    private string PreviewerId => $"prev_{Id}";
+    private string? PreviewerId => ShowPreviewList ? $"prev_{Id}" : null;
 }

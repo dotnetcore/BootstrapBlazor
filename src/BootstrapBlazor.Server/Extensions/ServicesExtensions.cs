@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.MeiliSearch.Options;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 
@@ -154,8 +155,8 @@ internal static class ServicesExtensions
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
-        // 增加搜索服务
-        services.AddBootstrapBlazorMeiliSearch();
+        // 增加文档搜索配置项
+        services.AddOptionsMonitor<MeiliSearchOptions>();
 
         return services;
     }

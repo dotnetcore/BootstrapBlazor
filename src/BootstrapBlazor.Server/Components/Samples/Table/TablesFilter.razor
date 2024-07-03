@@ -46,7 +46,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FilterTemplateTitle"]"
-            Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
+           Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
     <section ignore>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
 
     <Table TItem="Foo"
@@ -113,7 +113,6 @@
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
         </TableColumns>
     </Table>
-
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SortListTitle"]"
@@ -188,6 +187,48 @@
             <TableColumn @bind-Field="@context.Address" Sortable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiFilterTitle"]"
+           Introduction="@Localizer["MultiFilterIntro"]"
+           Name="MultiFilter">
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiFilterTips"].Value)</p>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["MultiFilterTipsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["MultiFilterTipsLi2"].Value)</li>
+        </ul>
+    </section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <MultiFilter Items="_nameMultiFilterItems"></MultiFilter>
+                </FilterTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <MultiFilter OnGetItemsAsync="OnGetAddressItemsAsync"></MultiFilter>
+                </FilterTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Complete.ToString()!, i.Complete.ToString()!)).DistinctBy(i => i.Value)"></MultiFilter>
+                </FilterTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value)"></MultiFilter>
+                </FilterTemplate>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
         </TableColumns>
     </Table>

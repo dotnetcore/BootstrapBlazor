@@ -16,7 +16,7 @@ namespace BootstrapBlazor.Components;
 /// <param name="navigation"></param>
 /// <param name="logger"></param>
 public class WebClientService(IIpLocatorFactory ipLocatorFactory,
-    IOptions<BootstrapBlazorOptions> options,
+    IOptionsMonitor<BootstrapBlazorOptions> options,
     IJSRuntime runtime,
     NavigationManager navigation,
     ILogger<WebClientService> logger) : IAsyncDisposable
@@ -53,9 +53,9 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
         }
 
         // 补充 IP 地址信息
-        if (string.IsNullOrEmpty(_client.City))
+        if (options.CurrentValue.WebClientOptions.EnableIpLocator && string.IsNullOrEmpty(_client.City))
         {
-            _provider ??= ipLocatorFactory.Create(options.Value.IpLocatorOptions.ProviderName);
+            _provider ??= ipLocatorFactory.Create(options.CurrentValue.IpLocatorOptions.ProviderName);
             _client.City = await _provider.Locate(_client.Ip);
         }
         return _client;

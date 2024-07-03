@@ -16,7 +16,6 @@ export function bb_baidu_speech_recognizeOnce(obj, recognizeCallback, interval) 
             bb_baidu_speech_close(obj, recognizeCallback, interval);
         }, interval);
     }, function (msg, isUserNotAllow) {
-        console.log((isUserNotAllow ? "UserNotAllow，" : "") + "无法录音:" + msg);
         obj.invokeMethodAsync(recognizeCallback, "Error", "UserNotAllow");
     });
 };

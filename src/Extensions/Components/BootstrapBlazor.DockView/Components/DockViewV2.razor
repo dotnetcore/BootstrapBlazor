@@ -1,0 +1,26 @@
+﻿@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DockView/Components/DockViewV2.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
+
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString">
+    <template>
+        @if (DockView == null)
+        {
+            <DockViewIcon IconName="bar"></DockViewIcon>
+            <DockViewIcon IconName="close"></DockViewIcon>
+            <DockViewIcon IconName="lock"></DockViewIcon>
+            <DockViewIcon IconName="unlock"></DockViewIcon>
+            <DockViewIcon IconName="full"></DockViewIcon>
+            <DockViewIcon IconName="restore"></DockViewIcon>
+            <DockViewIcon IconName="float"></DockViewIcon>
+            <DockViewIcon IconName="dock"></DockViewIcon>
+            <DockViewIcon IconName="down"></DockViewIcon>
+            <DockViewDropdownIcon IconName="dropdown"></DockViewDropdownIcon>
+        }
+
+        <CascadingValue Value="this" IsFixed="true">
+            <CascadingValue Value="_components" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
+        </CascadingValue>
+    </template>
+</div>

@@ -16,6 +16,15 @@ public partial class DialogSaveButton : Button
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得/设置 保存回调方法 返回 true 时自动关闭弹窗
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnSaveAsync { get; set; }
+
+    [CascadingParameter]
+    private Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -25,5 +34,24 @@ public partial class DialogSaveButton : Button
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
         ButtonType = ButtonType.Submit;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task HandlerClick()
+    {
+        await base.HandlerClick();
+
+        if (OnSaveAsync != null)
+        {
+            var ret = await OnSaveAsync();
+
+            if (ret && OnCloseAsync != null)
+            {
+                await OnCloseAsync();
+            }
+        }
     }
 }

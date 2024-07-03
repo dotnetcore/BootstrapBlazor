@@ -18,6 +18,12 @@ namespace BootstrapBlazor.Components;
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
 {
     /// <summary>
+    /// 获得/设置 Loading 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadingTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
@@ -62,7 +68,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
-    private string? FooterClassString => CssBuilder.Default()
+    private string? FooterClassString => CssBuilder.Default("table-footer")
         .AddClass("table-footer-fixed", IsFixedFooter)
         .Build();
 
@@ -292,7 +298,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 Table 组件渲染完毕回调
     /// </summary>
     [Parameter]
-    public Func<Table<TItem>, Task>? OnAfterRenderCallback { get; set; }
+    public Func<Table<TItem>, bool, Task>? OnAfterRenderCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动将选中行滚动到可视区域 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoScrollLastSelectedRowToView { get; set; }
 
     /// <summary>
     /// 获得/设置 双击单元格回调委托
@@ -845,6 +857,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("sort", Id);
         }
 
+        if (AutoScrollLastSelectedRowToView)
+        {
+            await InvokeVoidAsync("scroll", Id);
+        }
+
+        if (ScrollMode == ScrollMode.Virtual)
+        {
+            await InvokeVoidAsync("scrollTo", Id);
+        }
+
         // 增加去重保护 _loop 为 false 时执行
         if (!_loop && IsAutoRefresh && AutoRefreshInterval > 500)
         {
@@ -858,11 +880,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (firstRender)
         {
-            if (OnAfterRenderCallback != null)
-            {
-                await OnAfterRenderCallback(this);
-            }
-
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
@@ -870,6 +887,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth
             });
+        }
+
+        if (OnAfterRenderCallback != null)
+        {
+            await OnAfterRenderCallback(this, firstRender);
         }
     }
 
@@ -918,15 +940,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task ReloadColumnOrdersFromBrowserAsync(List<ITableColumn> columns)
     {
-        var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
-        if (orders != null && orders.Count > 0)
+        if (!string.IsNullOrEmpty(ClientTableName))
         {
-            for (int i = 0; i < orders.Count; i++)
+            var orders = await InvokeAsync<List<string>?>("reloadColumnOrder", ClientTableName);
+            if (orders != null)
             {
-                var col = columns.Find(c => c.GetFieldName() == orders[i]);
-                if (col != null)
+                for (int i = 0; i < orders.Count; i++)
                 {
-                    col.Order = i + 1;
+                    var col = columns.Find(c => c.GetFieldName() == orders[i]);
+                    if (col != null)
+                    {
+                        col.Order = i + 1;
+                    }
                 }
             }
         }
@@ -958,15 +983,21 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             cols = ColumnOrderCallback(cols).ToList();
         }
+
         await ReloadColumnOrdersFromBrowserAsync(cols);
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
-        InternalResetVisibleColumns();
-
         // 查看是否开启列宽序列化
         _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
         ResetColumnWidth();
+
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(Columns);
+        }
+
+        InternalResetVisibleColumns();
 
         // set default sortName
         var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
@@ -974,11 +1005,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             SortName = col.GetFieldName();
             SortOrder = col.DefaultSortOrder;
-        }
-
-        if (OnColumnCreating != null)
-        {
-            await OnColumnCreating(Columns);
         }
 
         // 获取是否自动查询参数值
@@ -1243,7 +1269,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count(col => col.Visible);
+        var colSpan = GetVisibleColumns().Count(col => ScreenSize >= col.ShownWithBreakPoint);
         if (IsMultipleSelect)
         {
             colSpan++;

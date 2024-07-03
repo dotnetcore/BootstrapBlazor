@@ -313,17 +313,17 @@ public partial class ValidateForm
             var result = rule.GetValidationResult(value, context);
             if (result != null && result != ValidationResult.Success)
             {
-                // 查找 resx 资源文件中的 ErrorMessage
+                // 查找 resource 资源文件中的 ErrorMessage
                 var ruleNameSpan = rule.GetType().Name.AsSpan();
                 var index = ruleNameSpan.IndexOf(attributeSpan, StringComparison.OrdinalIgnoreCase);
                 var ruleName = ruleNameSpan[..index];
                 var find = false;
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
-                    var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                    if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
+                    var resourceType = Options.Value.ResourceManagerStringLocalizerType;
+                    if (resourceType != null && LocalizerFactory.Create(resourceType).TryGetLocalizerString(rule.ErrorMessage, out var text))
                     {
-                        rule.ErrorMessage = resx;
+                        rule.ErrorMessage = text;
                         find = true;
                     }
                 }
@@ -373,7 +373,7 @@ public partial class ValidateForm
     private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
         // 获得所有可写属性
-        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && p.GetIndexParameters().Length == 0);
+        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.IsCanWrite() && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
         {
             // 设置其关联属性字段

@@ -16,8 +16,7 @@
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <section ignore>
-        <p>@((MarkupString)Localizer["NormalDescription"].Value)</p>
-        <Button OnClick="OnClickIgnoreColumn" Text="@Localizer["ColumnIgnoreButtonText"]"></Button>
+        @((MarkupString)Localizer["NormalDescription"].Value)
     </section>
     <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">

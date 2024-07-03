@@ -21,10 +21,6 @@ public partial class BaseLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
-
-    [Inject]
-    [NotNull]
     private IDispatchService<GiteePostBody>? CommitDispatchService { get; set; }
 
     [Inject]
@@ -44,12 +40,6 @@ public partial class BaseLayout : IDisposable
     private string? CancelText { get; set; }
 
     [NotNull]
-    private string? Title { get; set; }
-
-    [NotNull]
-    private string? ChatTooltip { get; set; }
-
-    [NotNull]
     private string? ThemeTooltip { get; set; }
 
     /// <summary>
@@ -63,8 +53,6 @@ public partial class BaseLayout : IDisposable
         InstallAppText ??= Localizer[nameof(InstallAppText)];
         InstallText ??= Localizer[nameof(InstallText)];
         CancelText ??= Localizer[nameof(CancelText)];
-        Title ??= Localizer[nameof(Title)];
-        ChatTooltip ??= Localizer[nameof(ChatTooltip)];
         ThemeTooltip ??= Localizer[nameof(ThemeTooltip)];
 
         CommitDispatchService.Subscribe(NotifyCommit);

@@ -56,6 +56,10 @@ const copy = (text = '') => {
     }
 }
 
+const getTextFromClipboard = () => {
+    return navigator.clipboard.readText();
+}
+
 const getUID = (prefix = 'bb') => {
     let id = "";
     do {
@@ -353,7 +357,9 @@ const drag = (element, start, move, end) => {
         }
 
         if (!notDrag) {
-            e.preventDefault()
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             e.stopPropagation()
 
             document.addEventListener('mousemove', handleDragMove)
@@ -758,6 +764,7 @@ export {
     addLink,
     addScript,
     copy,
+    getTextFromClipboard,
     debounce,
     drag,
     insertBefore,

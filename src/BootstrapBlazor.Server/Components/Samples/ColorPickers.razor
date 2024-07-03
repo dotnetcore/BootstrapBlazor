@@ -24,6 +24,18 @@
     <ColorPicker Value="@Value" IsDisabled="true" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="Template">
+    <ColorPicker Value="@Value">
+        <Template>
+            <input type="text" class="form-control" readonly value="@FormatValue(context)" />
+        </Template>
+    </ColorPicker>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FormatterTitle"]" Introduction="@Localizer["FormatterIntro"]" Name="Formatter">
+    <ColorPicker Value="@Value" Formatter="FormatValueAsync"></ColorPicker>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
     <ValidateForm Model="Dummy">
         <div class="row g-3 form-inline">

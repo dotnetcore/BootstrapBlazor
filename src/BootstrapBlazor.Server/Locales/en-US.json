@@ -35,43 +35,10 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "BodyClassString": "welcome-body-en",
-    "HeaderTitle": "Bootstrap style Blazor UI component library",
-    "HeaderDesc": "Based on the <code>Bootstrap</code> style library, it is carefully built, and {0} a variety of commonly used components have been added to bring you an extraordinary feeling for rapid development projects",
-    "HeaderBody": "The ",
-    "HeaderBody1": "native Blazor components library on the market",
-    "DynamicText": "better to use",
-    "DynamicText1": "good looking",
-    "DynamicText2": "most simple and practical",
-    "TagTitle": "Component",
-    "Span1": "Tree",
-    "Span2": "Menu",
-    "Span3": "Tag",
-    "Span4": "Table",
-    "Span5": "Layout",
-    "Span6": "Notification",
-    "Span7": "Upload",
-    "Span8": "Switch",
-    "CarouselH1": "Chart Component",
-    "CarouselP1": "Provide a variety of commonly used chart components",
-    "CarouselH2": "Chart IconComponent",
-    "CarouselP2": "Multi-dimensional data comparison",
-    "CarouselH3": "Full-featured table component",
-    "CarouselP3": "With all functions of adding, deleting, modifying, searching, paging, and sorting",
-    "CarouselH4": "Super timeline function",
-    "CarouselP4": "Custom nodes display arbitrary components",
-    "ContainerH1": "Rich Components",
-    "ContainerD1": "This set of components library contains more than {0} multiple components, from simple buttons to complex page-level components",
-    "ContainerH2": "Performance",
-    "ContainerD2": "Each control has been fine-tuned to optimize the refresh logic between parent and child components to avoid multiple loop updates",
-    "ContainerH3": "Easy to use",
-    "ContainerD3": "Easily grasp how to use components and quickly incorporate BootstrapBlazor controls into the project",
-    "ContainerH4": "Free and open source",
-    "ContainerD4": "Simple, direct, free to use, no dependent components, dependent on Bootstrap are all built-in",
-    "ContainerH5": "Demos and examples",
-    "ContainerD5": "Detailed documentation and online demonstration, simple function setting, direct copy code out of the box",
-    "ContainerH6": "Continually updated",
-    "ContainerD6": "Gitee platform hosting open source, never closed source, continuous update, timely response to questions and feedback",
+    "Support": "Support NET6.0 & NET7.0 & NET8.0",
+    "Title": "Bootstrap Blazor UI",
+    "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
+    "Docs": "Read the docs",
     "DonateH1": "Donate",
     "DonateH2": "Scan the code to donate and invite the author to have a cup of coffee"
   },
@@ -348,7 +315,15 @@
     "PopoverConfirmsCustomClassCustomButtonContent": "Are you sure you want to delete the data?",
     "PopoverConfirmsBodyTemplateTitle": "Customize the PopConfirmButton content",
     "PopoverConfirmsBodyTemplateIntro": "Customize the content by setting <code>the BodyTemplate</code> property",
-    "PopoverConfirmsBodyTemplateButtonText": "Customize content"
+    "PopoverConfirmsBodyTemplateButtonText": "Customize content",
+    "PopoverConfirmsShowButtonsTitle": "Custom Component",
+    "PopoverConfirmsShowButtonsIntro": "By setting <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code>, you don't display the built-in function buttons, and customize an <b>Approve</b> button in the custom component.",
+    "PopoverConfirmsShowButtonsButtonText": "Custom Component",
+    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters"
+  },
+  "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
+    "CustomPopConfirmContentText": "Custom content",
+    "CustomPopConfirmContentButtonText": "Approval"
   },
   "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover popup component",
@@ -456,6 +431,13 @@
     "ModalsAttributeShowMaximizeButton": "Whether to show the popup maximize button",
     "ModalsAttributeShownCallbackAsync": "Popup shows callback method"
   },
+  "BootstrapBlazor.Server.Components.Samples.Masks": {
+    "MaskTitle": "Mask",
+    "MaskDescription": "By calling the service display and hide methods, a mask layer is displayed to mask the data.",
+    "MaskNormalTitle": "Basic usage",
+    "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
+    "ShowMaskButtonText": "Show"
+  },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
     "MessagesDescription": "Often used for feedback prompts after active operations. The difference from Toast is that the latter is more passive reminder for system-level notifications",
@@ -485,7 +467,10 @@
     "MessagesItem": "MessageOption property",
     "MessagesTemplateTitle": "Custom template",
     "MessagesTemplateIntro": "By setting the <code>ChildContent</code> template, rich custom styles and content prompt information can be achieved",
-    "MessagesTemplatePrompt": "Custom message"
+    "MessagesTemplatePrompt": "Custom message",
+    "MessagesShowModeTitle": "Show mode",
+    "MessagesShowModeIntro": "Specify the display mode by setting the <code>ShowMode</code> parameter",
+    "MessagesShowModePrompt": "Show only last message"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",
@@ -693,6 +678,8 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
+    "TreeViewFixedSearchTitle": "Fixed search",
+    "TreeViewFixedSearchIntro": "The search bar can be fixed by setting <code>IsFixedSearch=\"true\"</code>, and the search bar height can be set by the css variable <code>--bb-tree-search-height</code>",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
@@ -920,6 +907,8 @@
     "PlacementIntro": "By setting the <code>IsBackdrop</code> property to <code>true</code>, the drawer is automatically closed when the mask part is clicked",
     "NoBackdropTitle": "No backdrop",
     "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop",
+    "DrawerServiceTitle": "Drawer Service",
+    "DrawerServiceIntro": "Open the drawer pop-up window by calling the <code>DrawerService</code> service",
     "Open": "click me to open",
     "Content": "The layout, components, etc. in the drawer are fully customizable",
     "Close": "close the drawer",
@@ -2383,6 +2372,7 @@
     "NormalTips1": "Set bidirectional binding data value through <code>bind-Value</code >",
     "NormalTips2": "Set candidate data sources through <code>Items</code>",
     "NormalTips3": "Get the changed item instance through the <code>onSelectedChanged</code> callback method",
+    "NormalTips4": "Enable label tooltip by <code>ShowLabelTooltip=\"true\"</code>",
     "ValidateFormTitle": "Client Validation",
     "ValidateFormIntro": "Built in validateform",
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
@@ -2424,6 +2414,8 @@
     "NormalIntro": "Set the color value by setting the <code>Value</code> property",
     "ValueTitle": "Set Initial Value",
     "ValueIntro": "Set the color value by setting the <code>Value</code> property",
+    "TemplateTitle": "Display Template",
+    "TemplateIntro": "Customize the display template by setting <code>Template</code>",
     "ValueDescription": "Set <code>Value='@Value'</code> to initialize the default value",
     "BindValueTitle": "Two-way binding",
     "BindValueIntro": "Set the color value by setting the <code>Value</code> property",
@@ -2472,7 +2464,6 @@
     "Att2": "Whether to display the shortcut sidebar",
     "Att3": "The front label displays text",
     "Att4": "Date format string The default is yyyyy-MM-dd",
-    "Att5": "Whether to display this component",
     "Att6": "Whether to disable Fasle by default",
     "Att8": "The value of the component is a two-way binding with ValueChanged",
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
@@ -2915,6 +2906,8 @@
     "MultiSelectCascadingDescription": "In this example, clicking on the first drop-down box allows you to get the data source for the second multi-box by asynchronous means, and after assigning, call <code>StateHasChanged</code> to re-render the <b>multi-box </b>",
     "MultiSelectItemTemplateTitle": "Item Template",
     "MultiSelectItemTemplateIntro": "customer item template by set <code>ItemTemplate</code>",
+    "MultiSelectDisplayTemplateTitle": "Display Template",
+    "MultiSelectDisplayTemplateIntro": "customize display template by set <code>DisplayTemplate</code>",
     "MultiSelectPopoverTitle": "Popover dropdown menu",
     "MultiSelectPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "MultiSelectsAttribute_ShowLabel": "Whether to display the front label",
@@ -3836,7 +3829,9 @@
     "AutoCloseTitle": "AutoClose",
     "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
     "Submit": "Submit",
-    "Limit": "time limit"
+    "Limit": "time limit",
+    "ViewModeTitle": "ViewMode",
+    "ViewModeIntro": "By setting <code>ViewMode=\"DatePickerViewMode.Year\"</code>, the component view is the year view, and by setting <code>ViewMode=\"DatePickerViewMode.Month\"</code>, the component view is the year view."
   },
   "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "Basic usage",
@@ -3997,7 +3992,9 @@
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
-    "GroupOrderCallback": "Callback for set the order of group"
+    "GroupOrderCallback": "Callback for set the order of group",
+    "GroupItemOrderCallback": "Callback for set the order of items on group",
+    "GroupHeaderTextCallback": "Callback for set the header text of group"
   },
   "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",
@@ -4154,7 +4151,6 @@
   },
   "BootstrapBlazor.Server.Components.Components.DemoBlock": {
     "Title": "",
-    "SubTitle": "Demo",
     "TooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Components.Tips": {
@@ -4360,6 +4356,7 @@
     "Complete": "Complete",
     "Education": "Education",
     "Hobby": "Hobby",
+    "ReadonlyColumn": "Readonly Column",
     "Name.Required": "{0} is required.",
     "Address.Required": "{0} is required.",
     "Education.Required": "{0} is required.",
@@ -4382,10 +4379,10 @@
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
   },
-  "BootstrapBlazor.Server.Components.EnumEducation": {
+  "BootstrapBlazor.Server.Data.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
-    "Middel": "Middel"
+    "Middle": "Middle"
   },
   "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
     "Title": "Click to choose theme",
@@ -4540,6 +4537,7 @@
     "ListView": "ListView",
     "ListGroup": "ListGroup",
     "Locator": "IpLocatorFactory",
+    "Icon": "Icon",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
     "Popover": "Popover",
@@ -4624,19 +4622,32 @@
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
     "Html2Pdf": "IHtml2Pdf",
+    "Mask": "MaskService",
     "ContextMenu": "ContextMenu",
     "ClockPicker": "ClockPicker",
     "TimePicker": "TimePicker",
     "DockViewComponents": "DockView",
-    "DockViewIndex": "Overview",
-    "DockViewColumn": "Column",
-    "DockViewRow": "Row",
-    "DockViewStack": "Stack",
-    "DockViewNest": "Nest",
-    "DockViewComplex": "Complex",
-    "DockViewVisible": "Visible",
-    "DockViewLock": "Lock",
-    "DockViewLayout": "Custom",
+    "DockViewComponents2": "DockViewV2",
+    "DockViewIndex": "DockView Overview",
+    "DockViewColumn": "DockView Column",
+    "DockViewRow": "DockView Row",
+    "DockViewStack": "DockView Stack",
+    "DockViewNest": "DockView Nest",
+    "DockViewComplex": "DockView Complex",
+    "DockViewVisible": "DockView Visible",
+    "DockViewLock": "DockView Lock",
+    "DockViewLayout": "DockView Custom",
+    "DockViewTitle": "DockView Title",
+    "DockViewV2Index": "DockViewV2 Overview",
+    "DockViewV2Column": "DockViewV2 Column",
+    "DockViewV2Row": "DockViewV2 Row",
+    "DockViewV2Group": "DockViewV2 Group",
+    "DockViewV2Nest": "DockViewV2 Nest",
+    "DockViewV2Complex": "DockViewV2 Complex",
+    "DockViewV2Visible": "DockViewV2 Visible",
+    "DockViewV2Lock": "DockViewV2 Lock",
+    "DockViewV2Layout": "DockViewV2 Custom",
+    "DockViewV2Title": "DockViewV2 Title",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
     "Live2DDisplayIntro": "Live2D Widget",
@@ -4672,7 +4683,8 @@
     "PrintService": "PrintService",
     "ConnectionService": "ConnectionService",
     "ExportPdfButton": "ExportPdfButton",
-    "ThemeProvider": "IThemeProvider"
+    "ThemeProvider": "IThemeProvider",
+    "IconPark": "ByteDance IconPark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4918,6 +4930,7 @@
     "PageInfoTemplateAttr": "The template for custom page info",
     "PageInfoTextAttr": "Pagination label text",
     "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order",
+    "AutoScrollLastSelectedRowToViewAttr": "whether the last selected row will automatically scroll to the view",
     "TableBaseNormalRefreshText": "Refresh",
     "TableBaseHeaderStyleMode": "The style of table header",
     "IsPopoverToolbarDropdownButtonAttr": "Whether float the popup window for dropdown button in the toolbar"
@@ -5076,6 +5089,7 @@
     "TablesEditModeAddModalTitle": "Add test data window",
     "TablesEditModeEditModalTitle": "Edit Test Data Window",
     "TablesEditModeInCell": "<code>InCell</code> Pattern example",
+    "TablesEditModeDrawer": "<code>Drawer</code> Pattern example",
     "TablesEditShowSearchPlaceHolderString": "Cannot be empty, within 50 characters",
     "TablesEditInjectDataServiceDescription": "The database operations of adding, deleting, modifying and checking are performed by registering the data service without assigning the following callback delegates. The priority level is that the callback method is called first if there is a callback method.",
     "TablesEditInjectDataServiceTips1": "Startup file injects data service",
@@ -5083,7 +5097,12 @@
     "TablesEditInjectDataServiceTips3": "custom data service",
     "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set",
     "TablesVisibleNormalTitle": "Editor Visible/Hidden",
-    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item"
+    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
+    "TablesReadonlyColumnTitle": "Readonly Column",
+    "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>",
+    "TablesReadonlyColumnDescription": "Corresponding database calculated columns, or model read-only attributes",
+    "TablesReadonlyColumnTips1": "Do not write <code>@bind-Field</code>. Read-only columns cannot be entered when <b>Add</b> or <b>Edit</b>",
+    "TablesReadonlyColumnTips2": "The old version needs to write the complete code as follows"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",
@@ -5154,7 +5173,7 @@
     "TablesWrapDataResizingTips1": "You can drag the window size, and the <b>address</b> column will be automatically omitted if the window is too small",
     "TablesWrapDataResizingTips2": "Enable text ellipsis by setting <code>TextEllipsis</code>",
     "TablesWrapDataResizingTips3": "<b>Note:</b> It is recommended to use <code>Width</code> to set the column width. If the column width is not set, it will automatically use 200px width inside",
-    "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>",
+    "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>, You can customize the display content of <code>Tooltip</code> by setting the <code>GetTooltipTextCallback</code> callback method",
     "TablesWrapDataResizingTips5": "Drag the address column, the cell display content will automatically increase and decrease",
     "TablesWrapCustomCellTitle": "Custom in-cell typography",
     "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data",
@@ -5223,7 +5242,11 @@
     "TablesSelectionKeepInfo": "Keep State:",
     "TablesSelectionKeepOnText": "Keep",
     "TablesSelectionKeepOffText": "No keep",
-    "TablesSelectionCountText": "Count：{0}"
+    "TablesSelectionCountText": "Count：{0}",
+    "TablesSelectionScrollTitle": "Callback method after rendering",
+    "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>",
+    "TablesSelectionScrollButtonText": "Select Last Row"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
@@ -5446,6 +5469,11 @@
     "AutoHeightIntro": "<p><b>Highly Adaptive</b></p><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
+    "MultiFilterTitle": "Multiple selection list filtering",
+    "MultiFilterIntro": "Use the built-in <code>MultiFilter</code> component to provide multi-select filtering via <code>FilterTemplate</code>",
+    "MultiFilterTips": "The component provides two ways to set the data source: <code>Items</code> and <code>OnGetItemsAsync</code>",
+    "MultiFilterTipsLi1": "<code>Items</code> is suitable for small amounts of data and statically prepared data sets",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> is suitable for large and dynamic data collections. For performance reasons, the component uses a local lazy record method to fill in data, that is, the callback is called to obtain data when the filter window is opened.",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
@@ -5583,6 +5611,7 @@
     "ImageViewersAttrPreviewList": "A larger preview link set",
     "ImageViewersAttrOnLoadAsync": "The callback method picture when it is loaded successfully",
     "ImageViewersAttrOnErrorAsync": "Images load failed callback methods",
+    "ImageViewersAttrIsIntersectionObserver": "Images lazy loading by view window",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
@@ -5601,7 +5630,9 @@
     "ImageViewerErrorTemplateLoadFailed": "Load failed",
     "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
     "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
-    "ImagePreviewerButton": "Show Previewer"
+    "ImagePreviewerButton": "Show Previewer",
+    "IntersectionObserverTitle": "Intersection Observer",
+    "IntersectionObserverIntro": "By setting <code>IsIntersectionObserver=\"true\"</code> to enable lazy loading, the image will not be loaded when it is in the invisible area, and will be loaded only when it is about to be visible."
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",
@@ -5938,7 +5969,80 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView",
     "DockViewDescription": "A multi window layout manager for webapps",
-    "DockViewIntro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
+    "DockViewIntro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
+    "DockViewColTitle": "DockView - Column",
+    "DockViewColIntro": "Make the <code>DockView</code> vertical by setting <code>Type=\"DockContentType.Column\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewRow": {
+    "DockViewRowTitle": "DockView - Row",
+    "DockViewRowIntro": "Make the <code>DockView</code> horizontal by setting <code>Type=\"DockContentType.Row\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewStack": {
+    "DockViewStackTitle": "DockView - Stack",
+    "DockViewStackIntro": "Make the <code>DockView</code> group layout by setting <code>Type=\"DockContentType.Stack\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewComplex": {
+    "DockViewComplexTitle": "DockView - Complex",
+    "DockViewComplexIntro": "Complex layouts can be achieved by combining and nesting <code>DockContentType</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLayout": {
+    "DockViewLayoutTitle": "DockView - Custom Layout",
+    "DockViewLayoutIntro": "Initialize the display layout of the control panel by setting the <code>LayoutConfig</code> property of <code>DockView</code>, and get the display layout of the panel by using the <code>GetLayoutConfig</code> method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewLock": {
+    "DockViewLockTitle": "DockView - Lock",
+    "DockViewLockIntro": "By setting the <code>IsLock</code> property of <code>DockView</code>, you can control whether all panels can be dragged."
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewVisible": {
+    "DockViewVisibleTitle": "DockView - Visible",
+    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewNest": {
+    "DockViewNestTitle": "DockView - Nested Layouts",
+    "DockViewNestIntro": "<code>DockView</code> can be nested inside <code>DockComponent</code> and its label can be made invisible by setting <code>ShowHeader=\"false\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
+    "DockView2Title": "DockViewV2",
+    "DockView2Description": "A multi window layout manager for webapps",
+    "DockView2Intro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
+    "DockViewColTitle": "DockViewV2 - Column",
+    "DockViewColIntro": "Make the <code>DockViewV2</code> layout vertically by setting <code>Type=\"DockContentType.Column\"</code> and initialize its panel height by setting <code>Height=\"240\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewRow": {
+    "DockViewRowTitle": "DockViewV2 - Row",
+    "DockViewRowIntro": "Make the <code>DockViewV2</code> layout horizontally by setting <code>Type=\"DockContentType.Row\"</code> and initialize its panel width by setting <code>Width=\"240\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewGroup": {
+    "DockViewGroupTitle": "DockViewV2 - Group",
+    "DockViewGroupIntro": "Make the <code>DockViewV2</code> group layout by setting <code>Type=\"DockContentType.Group\"</code>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewComplex": {
+    "DockViewComplexTitle": "DockViewV2 - Complex",
+    "DockViewComplexIntro": "Complex layouts can be achieved by combining and nesting <code>DockContentType</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLayout": {
+    "DockViewLayoutTitle": "DockViewV2 - Custom Layout",
+    "DockViewLayoutIntro": "Initialize the display layout of the control panel by setting the <code>LayoutConfig</code> property of <code>DockView</code>, and get the display layout of the panel by using the <code>GetLayoutConfig</code> method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewLock": {
+    "DockViewLockTitle": "DockViewV2 - Lock",
+    "DockViewLockIntro": "By setting the <code>IsLock</code> property of <code>DockViewV2</code>, you can control whether all panels can be dragged, and by setting <code>ShowLock</code>, you can control whether the lock button is displayed."
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewTitle": {
+    "DockViewTitleTitle": "DockViewV2 - Title",
+    "DockViewTitleIntro": "By setting <code>ShowTitleBar</code> to control whether to display the function button before the title, use <code>OnClickTitleBarCallback</code> to set the callback delegate method, and use <code>TitleTemplate</code> to customize complex functions"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewVisible": {
+    "DockViewVisibleTitle": "DockViewV2 - Visible",
+    "DockViewVisibleIntro": "Control whether to display the component by setting <code>Visible</code>, and use <code>OnVisibleStateChangedAsync</code> to set the panel closing callback delegate method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewNest": {
+    "DockViewNestTitle": "DockViewV2 - Nested Layouts",
+    "DockViewNestIntro": "<code>DockViewV2</code> can be nested inside the <code>DockViewComponent</code> component. Its label can be made invisible by setting <code>ShowHeader=\"false\"</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "Mouse Follower",
@@ -6138,9 +6242,10 @@
     "GetItemDisplayText": "the callback on get item display text"
   },
   "BootstrapBlazor.Server.Components.Samples.Marquees": {
-    "MarqueeTitle": "Usage",
-    "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
-    "MarqueeDescription": "Marquee component"
+    "MarqueeTitle": "Marquee component",
+    "MarqueeDescription": "The component is mostly used to create scrolling text, usually for news scrolling, advertising scrolling, etc.",
+    "MarqueeBase": "Usage",
+    "MarqueeBaseIntro": "Adjusting the text scrolling effect through parameters"
   },
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",
@@ -6220,7 +6325,10 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
-    "ClipboardMessage": "Text content: {0}, copied to clipboard"
+    "ClipboardMessage": "Text content: {0}, copied to clipboard",
+    "ClipboardGetTextMessage": "Read clipboard text content: {0}",
+    "ClipboardCopyMethod": "Copy text to the clipboard method",
+    "ClipboardGetTextMethod": "Method for reading clipboard text content"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",
@@ -6373,6 +6481,8 @@
     "BaseUsageIntro": "Synchronize display of current time",
     "ShowMinuteText": "not display hours and minutes",
     "ShowMinuteIntro": "By setting <code>ShowHour=\"false\"</code> <code>ShowMinute=\"false\"</code> to not display hour and minute information",
+    "ShowSecondText": "not display seconds",
+    "ShowSecondIntro": "By setting <code>ShowSecond=\"false\"</code> to display hour and minute information",
     "CountText": "Counter",
     "CountIntro": "By setting <code>ViewMode=\"FlipClockViewMode.Count\"</code> to enable the timer function, the start time can be set using <code>StartValue</code>",
     "IsCountDownText": "CountDown",
@@ -6386,5 +6496,22 @@
     "CardWidth": "Card Width",
     "CardMargin": "Card Margin",
     "CardGroupMargin": "Card Group Margin"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+    "IconParkTitle": "ByteDance Svg Icon Lib",
+    "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
+    "NormalTitle": "Icon",
+    "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
+    "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons": {
+    "IconsTitle": "Icon",
+    "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
+    "FATitle": "Font Icons",
+    "FAIntro": "You can specify the icon style by setting <code>Name</code>",
+    "SvgTitle": "Svg Icons",
+    "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
+    "ImageTitle": "Image",
+    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
   }
 }

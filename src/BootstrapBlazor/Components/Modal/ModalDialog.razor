@@ -42,41 +42,43 @@
             </div>
         }
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
-            <CascadingValue Value="OnClickCloseAsync" IsFixed="true">
-                <div class="modal-body">
-                    @RenderBodyTemplate()
-                </div>
-                @if (ShowFooter)
-                {
-                    <div class="modal-footer">
-                        @if (ShowCloseButton)
-                        {
-                            <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon"></DialogCloseButton>
-                        }
-                        @if (ShowPrintButton)
-                        {
-                            <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
-                        }
-                        @if (ShowExportPdfButton)
-                        {
-                            <ExportPdfButton class="btn-export-pdf">
-                                <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
-                            </ExportPdfButton>
-                        }
-                        @if (ShowSaveButton)
-                        {
-                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" IsAsync="true" OnClickWithoutRender="OnClickSave"></Button>
-                        }
-                        @if (FooterTemplate != null)
-                        {
-                            @FooterTemplate
-                        }
+            <CascadingValue Value="CloseAsync" IsFixed="true">
+                <CascadingValue Name="ResultDialogContext" Value="SetResultAsync" IsFixed="true">
+                    <div class="modal-body">
+                        @RenderBodyTemplate()
                     </div>
-                }
-                @if (ShowResize)
-                {
-                    <svg class="modal-resizer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M319.20128 974.56128L348.16 1003.52l655.36-655.36-28.95872-28.95872-655.36 655.36zM675.84 1003.52l327.68-327.68-28.95872-28.95872-327.68 327.68L675.84 1003.52z"></path></svg>
-                }
+                    @if (ShowFooter)
+                    {
+                        <div class="modal-footer">
+                            @if (ShowCloseButton)
+                            {
+                                <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="@CloseButtonIcon" OnClickWithoutRender="OnClickCloseAsync"></Button>
+                            }
+                            @if (ShowPrintButton)
+                            {
+                                <PrintButton Color="PrintButtonColor" class="btn-print" Text="@PrintButtonText" Icon="@PrintButtonIcon"></PrintButton>
+                            }
+                            @if (ShowExportPdfButton)
+                            {
+                                <ExportPdfButton class="btn-export-pdf">
+                                    <ExportPdfButtonSettings Options="@ExportPdfButtonOptions"></ExportPdfButtonSettings>
+                                </ExportPdfButton>
+                            }
+                            @if (ShowSaveButton)
+                            {
+                                <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveButtonIcon" IsAsync="true" OnClickWithoutRender="OnClickSave"></Button>
+                            }
+                            @if (FooterTemplate != null)
+                            {
+                                @FooterTemplate
+                            }
+                        </div>
+                    }
+                    @if (ShowResize)
+                    {
+                        <svg class="modal-resizer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M319.20128 974.56128L348.16 1003.52l655.36-655.36-28.95872-28.95872-655.36 655.36zM675.84 1003.52l327.68-327.68-28.95872-28.95872-327.68 327.68L675.84 1003.52z"></path></svg>
+                    }
+                </CascadingValue>
             </CascadingValue>
         </CascadingValue>
     </div>

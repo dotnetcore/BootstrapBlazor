@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <Version>8.0.1</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
+    <Description>Bootstrap UI components extensions of ByteDance IconPark</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

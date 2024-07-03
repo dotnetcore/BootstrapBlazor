@@ -29,11 +29,21 @@ public abstract class IdComponentBase : BootstrapComponentBase
     protected virtual string? RetrieveId() => Id;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        Id ??= ComponentIdGenerator.Generate(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
 
         Id ??= ComponentIdGenerator.Generate(this);
     }

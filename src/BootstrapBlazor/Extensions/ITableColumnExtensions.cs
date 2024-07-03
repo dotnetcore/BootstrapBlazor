@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IEditItem 扩展方法
 /// </summary>
 public static class IEditItemExtensions
 {
@@ -101,6 +101,8 @@ public static class IEditItemExtensions
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
+        if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
+        if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
     }
 
     /// <summary>
@@ -116,6 +118,11 @@ public static class IEditItemExtensions
         {
             foreach (var col in columns)
             {
+                if (col.CustomSearch != null)
+                {
+                    searches.Add(col.CustomSearch(col, searchText));
+                    continue;
+                }
                 var type = Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType;
                 if (type == typeof(bool) && bool.TryParse(searchText, out var @bool))
                 {
@@ -167,7 +174,7 @@ public static class IEditItemExtensions
             var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
             if (lookupVal != null)
             {
-                builder.AddContent(10, col.RenderTooltip(lookupVal.Text));
+                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
             }
         }
         else if (val is bool v1)
@@ -199,7 +206,8 @@ public static class IEditItemExtensions
             {
                 content = val?.ToString();
             }
-            builder.AddContent(30, col.RenderTooltip(content));
+
+            builder.AddContent(30, col.RenderTooltip(content, item));
         }
     };
 
@@ -223,12 +231,17 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => async pb =>
     {
         if (col.ShowTips)
         {
+            var tooltipText = text;
+            if (col.GetTooltipTextCallback != null)
+            {
+                tooltipText = await col.GetTooltipTextCallback(item);
+            }
             pb.OpenComponent<Tooltip>(0);
-            pb.AddAttribute(1, nameof(Tooltip.Title), text);
+            pb.AddAttribute(1, nameof(Tooltip.Title), tooltipText);
             pb.AddAttribute(2, "class", "text-truncate d-block");
             if (col.IsMarkupString)
             {
