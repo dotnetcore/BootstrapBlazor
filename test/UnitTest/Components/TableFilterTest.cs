@@ -152,6 +152,26 @@ public class TableFilterTest : BootstrapBlazorTestBase
         var input = cut.Find(".bb-multi-filter-search");
         await cut.InvokeAsync(() => input.Input("test02"));
         await cut.InvokeAsync(() => input.Input(""));
+
+        filter.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+            pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
+        });
+    }
+
+    [Fact]
+    public void MultiFilter_Exception()
+    {
+        // 测试 Exception
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            Context.RenderComponent<MultiFilter>(pb =>
+            {
+                pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
+                pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
+            });
+        });
     }
 
     [Fact]
