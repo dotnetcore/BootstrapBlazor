@@ -101,21 +101,28 @@ public class TableFilterTest : BootstrapBlazorTestBase
                     {
                         b.OpenComponent<MultiFilter>(0);
                         b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
-                        b.AddAttribute(2, nameof(MultiFilter.Items), new SelectedItem[] {
-                            new("test1", "test1"),
-                            new("test2", "test2")
-                        });
                         b.CloseComponent();
                     }));
                     builder.CloseComponent();
                 });
             });
         });
+        cut.Contains("bb-multi-filter-loading");
 
+        var filter = cut.FindComponent<MultiFilter>();
+        filter.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.LoadingTemplate, "loading-template-test");
+        });
+        cut.Contains("loading-template-test");
+
+        filter.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[] { new("test1", "test1"), new("test2", "test2") });
+        });
         cut.DoesNotContain("multi-filter-placeholder");
         cut.DoesNotContain("multi-filter-All");
 
-        var filter = cut.FindComponent<MultiFilter>();
         filter.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.SearchPlaceHolderText, "multi-filter-placeholder");
@@ -167,6 +174,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, null);
             pb.Add(a => a.OnGetItemsAsync, () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
         });
+        await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
     }
 
     [Fact]
