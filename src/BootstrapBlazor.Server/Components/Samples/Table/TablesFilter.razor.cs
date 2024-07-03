@@ -28,6 +28,8 @@ public partial class TablesFilter
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
 
+    private readonly List<SelectedItem> _addressFilterItems = [];
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -36,6 +38,7 @@ public partial class TablesFilter
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
+        _addressFilterItems.AddRange(Items.Select(i => new SelectedItem(i.Address!, i.Address!)).DistinctBy(i => i.Value));
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

@@ -14,7 +14,7 @@
     <li>@((MarkupString)Localizer["TablesFilterDescLi2"].Value)</li>
 </ul>
 
-<DemoBlock Title="@Localizer["FilterableTitle"]"
+@* <DemoBlock Title="@Localizer["FilterableTitle"]"
            Introduction="@Localizer["FilterableIntro"]"
            Name="Filterable">
     <section ignore>
@@ -113,7 +113,6 @@
             <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
         </TableColumns>
     </Table>
-
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SortListTitle"]"
@@ -191,7 +190,7 @@
             <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
         </TableColumns>
     </Table>
-</DemoBlock>
+</DemoBlock> *@
 
 <DemoBlock Title="@Localizer["MultiFilterTitle"]"
            Introduction="@Localizer["MultiFilterIntro"]"
@@ -203,22 +202,22 @@
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true">
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="false">
                 <FilterTemplate>
                     <MultiFilter Items="Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
                 </FilterTemplate>
             </TableColumn>
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true">
                 <FilterTemplate>
-                    <MultiFilter Items="Items.Select(i => new SelectedItem(i.Address!, i.Address!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
+                    <MultiFilter Items="_addressFilterItems"></MultiFilter>
                 </FilterTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="false">
                 <FilterTemplate>
                     <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Complete.ToString()!, i.Complete.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
                 </FilterTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true">
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="false">
                 <FilterTemplate>
                     <MultiFilter ShowSearch="false" Items="Items.Select(i => new SelectedItem(i.Education.ToString()!, i.Education.ToString()!)).DistinctBy(i => i.Value).ToList()"></MultiFilter>
                 </FilterTemplate>
