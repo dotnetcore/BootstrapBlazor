@@ -28,7 +28,7 @@ public partial class TablesFilter
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
 
-    private readonly List<SelectedItem> _addressFilterItems = [];
+    private IEnumerable<SelectedItem> _nameMultiFilterItems = default!;
 
     /// <summary>
     /// OnInitialized 方法
@@ -38,7 +38,14 @@ public partial class TablesFilter
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
-        _addressFilterItems.AddRange(Items.Select(i => new SelectedItem(i.Address!, i.Address!)).DistinctBy(i => i.Value));
+        _nameMultiFilterItems = Items.Select(i => new SelectedItem(i.Name!, i.Name!)).DistinctBy(i => i.Value);
+    }
+
+    private async Task<List<SelectedItem>> OnGetAddressItemsAsync()
+    {
+        // 模拟数据库延时
+        await Task.Delay(500);
+        return Items.Select(i => new SelectedItem(i.Address!, i.Address!)).DistinctBy(i => i.Value).ToList();
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
