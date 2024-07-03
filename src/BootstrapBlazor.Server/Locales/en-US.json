@@ -678,6 +678,8 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
+    "TreeViewFixedSearchTitle": "Fixed search",
+    "TreeViewFixedSearchIntro": "The search bar can be fixed by setting <code>IsFixedSearch=\"true\"</code>, and the search bar height can be set by the css variable <code>--bb-tree-search-height</code>",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
