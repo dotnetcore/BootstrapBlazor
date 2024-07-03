@@ -67,6 +67,15 @@ a, a:hover, a:focus {
     @include direction(left,first)
 }
 
+.table-resizer-popover {
+    --bs-popover-min-width: 80px;
+    --bs-popover-header-font-size: 12px;
+    --bs-popover-header-padding-x: 0.5rem;
+    --bs-popover-header-padding-y: 0.5rem;
+    --bs-popover-body-padding-x: 0.5rem;
+    --bs-popover-body-padding-y: 0.5rem;
+}
+
 ::view-transition-old(root) {
     animation: none;
 }

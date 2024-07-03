@@ -457,12 +457,19 @@ const setResizeListener = table => {
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
-        EventHandler.on(col, 'click', e => e.stopPropagation())
-
-        const bar = col.querySelector('.col-resizer-bar');
-        EventHandler.on(bar, 'dbclick', e => {
-            e.
-                console.log(e);
+        EventHandler.on(col, 'click', e => e.stopPropagation());
+        EventHandler.on(col, 'mouseenter', e => {
+            closeAllPopovers(columns);
+            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
+                title: '操作',
+                content: '<button type="button" class="btn btn-sm"><i class="fa-solid fa-align-justify"></i><span class="ms-2">列宽自动</span></button>',
+                html: true,
+                sanitize: false,
+                trigger: 'manual',
+                placement: 'top',
+                customClass: 'table-resizer-popover shadow'
+            });
+            popover.show();
         });
         drag(col,
             e => {
@@ -508,6 +515,15 @@ const setResizeListener = table => {
                 saveColumnWidth(table)
             }
         )
+    })
+}
+
+const closeAllPopovers = columns => {
+    columns.forEach(col => {
+        const popover = bootstrap.Popover.getInstance(col);
+        if (popover) {
+            popover.hide();
+        }
     })
 }
 
