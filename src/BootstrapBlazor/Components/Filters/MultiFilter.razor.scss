@@ -48,4 +48,11 @@
             }
         }
     }
+
+    .bb-multi-filter-loading {
+        height: var(--bb-multi-filter-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 }

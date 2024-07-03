@@ -27,21 +27,39 @@ public partial class MultiFilter
     [Parameter]
     public bool ShowSearch { get; set; } = true;
 
+    /// <summary>
+    /// 获得 过滤项集合回调方法 适合动态给定数据源
+    /// </summary>
+    [Parameter]
+    public Func<Task<IEnumerable<SelectedItem>>>? OnGetItemsAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Loading 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadingTemplate { get; set; }
+
     private string? _searchText;
 
-    private List<SelectedItem> _source = [];
+    private List<SelectedItem>? _source;
 
     private List<SelectedItem>? _items;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
+        }
+
+        if (Items != null)
+        {
+            _source = Items.ToList();
         }
     }
 
@@ -54,12 +72,6 @@ public partial class MultiFilter
 
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
-
-        if (Items != null)
-        {
-            _source = Items.ToList();
-        }
-        _source ??= [];
     }
 
     /// <summary>
