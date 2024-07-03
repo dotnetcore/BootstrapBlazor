@@ -30,6 +30,7 @@ public partial class Clipboards
         var text = await ClipboardService.GetText();
         if (!string.IsNullOrEmpty(text))
         {
+            content = text;
             await ToastService.Success("Clipboard", Localizer["ClipboardMessage", text]);
         }
     }

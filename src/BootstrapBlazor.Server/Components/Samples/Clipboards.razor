@@ -5,15 +5,18 @@
     <Pre>[Inject]
 [NotNull]
 private ClipboardService? ClipboardService { get; set; }
-
 private void Copy()
 {
     ClipboardService.Copy(content);
+}
+private void Copy()
+{
+    ClipboardService.GetText();
 }</Pre>
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@content" />
         <Button Text="Copy" OnClick="@Copy" />
-        <Button Text="Get" OnClick="@Get" />
+        <Button Color="Color.Warning" Text="Get" OnClick="@Get" />
     </BootstrapInputGroup>
 </DemoBlock>
 
