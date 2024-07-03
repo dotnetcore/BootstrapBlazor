@@ -29,9 +29,9 @@ public partial class MultiFilter
 
     private string? _searchText;
 
-    private List<MultiFilterItem> _source = [];
+    private List<SelectedItem> _source = [];
 
-    private List<MultiFilterItem>? _items;
+    private List<SelectedItem>? _items;
 
     /// <summary>
     /// OnInitialized 方法
@@ -57,8 +57,9 @@ public partial class MultiFilter
 
         if (Items != null)
         {
-            _source = Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }).ToList();
+            _source = Items.ToList();
         }
+        _source ??= [];
     }
 
     /// <summary>
@@ -69,7 +70,7 @@ public partial class MultiFilter
         _searchText = string.Empty;
         foreach (var item in _source)
         {
-            item.Checked = false;
+            item.Active = false;
         }
         _items = null;
         StateHasChanged();
@@ -83,7 +84,7 @@ public partial class MultiFilter
     {
         var filter = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
 
-        foreach (var item in GetItems().Where(i => i.Checked))
+        foreach (var item in GetItems().Where(i => i.Active))
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
@@ -103,9 +104,9 @@ public partial class MultiFilter
         var items = GetItems();
         if (items.Count > 0)
         {
-            state = items.All(i => i.Checked)
+            state = items.All(i => i.Active)
                 ? CheckboxState.Checked
-                : items.Any(i => i.Checked)
+                : items.Any(i => i.Active)
                     ? CheckboxState.Indeterminate
                     : CheckboxState.UnChecked;
         }
@@ -122,7 +123,7 @@ public partial class MultiFilter
     {
         foreach (var item in GetItems())
         {
-            item.Checked = state == CheckboxState.Checked;
+            item.Active = state == CheckboxState.Checked;
         }
         StateHasChanged();
         return Task.CompletedTask;
@@ -148,16 +149,5 @@ public partial class MultiFilter
         return Task.CompletedTask;
     }
 
-    private List<MultiFilterItem> GetItems() => _items ?? _source;
-
-    class MultiFilterItem
-    {
-        public bool Checked { get; set; }
-
-        [NotNull]
-        public string? Value { get; init; }
-
-        [NotNull]
-        public string? Text { get; init; }
-    }
+    private List<SelectedItem> GetItems() => _items ?? _source;
 }

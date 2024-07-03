@@ -19,7 +19,7 @@
             @foreach (var item in GetItems())
             {
                 <div class="bb-multi-filter-body-item">
-                    <Checkbox @bind-Value="@item.Checked" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
+                    <Checkbox @bind-Value="@item.Active" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" />
                 </div>
             }
         </div>
