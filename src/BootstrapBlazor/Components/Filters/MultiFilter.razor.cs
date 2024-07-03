@@ -82,7 +82,7 @@ public partial class MultiFilter
     {
         if (OnGetItemsAsync != null)
         {
-            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(InitItems) });
+            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(TriggerGetItemsCallback) });
         }
     }
 
@@ -128,7 +128,7 @@ public partial class MultiFilter
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitItems()
+    public async Task TriggerGetItemsCallback()
     {
         if (OnGetItemsAsync != null)
         {
