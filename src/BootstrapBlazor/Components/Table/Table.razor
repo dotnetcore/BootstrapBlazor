@@ -566,6 +566,10 @@
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
+                                @if (ShowColumnToolbox)
+                                {
+                                    <i class="@GetColumnToolboxIconClassString()"></i>
+                                }
                             </div>
                             @if (!col.Fixed && AllowResizing)
                             {

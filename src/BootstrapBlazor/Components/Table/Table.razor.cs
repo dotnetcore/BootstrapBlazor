@@ -24,6 +24,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 列工具栏图标 fa-solid fa-gear
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ColumnToolboxIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
@@ -750,6 +757,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
         FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
         ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
+        ColumnToolboxIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnToolboxIcon);
 
         AddButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAddButtonIcon);
         EditButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableEditButtonIcon);
@@ -897,7 +905,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnToolboxTitle = Localizer["ColumnToolboxTitle"].Value,
                 ColumnToolboxContent = new List<object>()
                 {
-                    new { Key = "auto-fit-content", Icon = "fa-solid fa-align-justify", Text = Localizer["AutoFitContent"].Value, Tooltip = Localizer["AutoFitContentTooltip"].Value }
+                    new
+                    {
+                        Key = "align-left",
+                        Icon = "fa-solid fa-align-justify",
+                        Text = Localizer["AlignLeft"].Value,
+                        Tooltip = Localizer["AlignLeftTooltip"].Value
+                    }
                 }
             });
         }
