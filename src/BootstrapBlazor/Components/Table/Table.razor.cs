@@ -160,11 +160,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public int? ScrollHoverWidth { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否显示列工具栏 默认 false
-    /// </summary>
-    [Parameter]
-    public bool ShowColumnToolbox { get; set; }
+    ///// <summary>
+    ///// 获得/设置 是否显示列工具栏 默认 false
+    ///// </summary>
+    //[Parameter]
+    //public bool ShowColumnToolbox { get; set; }
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
@@ -893,12 +893,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
-                ShowColumnToolbox,
-                ColumnToolboxTitle = Localizer["ColumnToolboxTitle"].Value,
-                ColumnToolboxContent = new List<object>()
-                {
-                    new { Key = "auto-fit-content", Icon = "fa-solid fa-align-justify", Text = Localizer["AutoFitContent"].Value, Tooltip = Localizer["AutoFitContentTooltip"].Value }
-                }
+                //ShowColumnToolbox,
+                //ColumnToolboxTitle = Localizer["ColumnToolboxTitle"].Value,
+                //ColumnToolboxContent = new List<object>()
+                //{
+                //    new { Key = "auto-fit-content", Icon = "fa-solid fa-align-justify", Text = Localizer["AutoFitContent"].Value, Tooltip = Localizer["AutoFitContentTooltip"].Value }
+                //}
             });
         }
 
