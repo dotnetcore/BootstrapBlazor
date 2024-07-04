@@ -55,7 +55,7 @@ public partial class TablesSelection
     private void OnTriggerScroll()
     {
         _selectedScrollItems.Clear();
-        _selectedScrollItems.Add(_scrollItems.Last());
+        _selectedScrollItems.Add(_scrollItems[10]);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
