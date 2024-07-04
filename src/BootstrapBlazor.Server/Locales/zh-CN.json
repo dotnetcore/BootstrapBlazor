@@ -678,6 +678,8 @@
     "TreeViewShowSkeletonButtonText": "异步加载",
     "TreeViewShowSearchTitle": "显示搜索栏",
     "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
+    "TreeViewFixedSearchTitle": "固定搜索栏",
+    "TreeViewFixedSearchIntro": "通过设置 <code>IsFixedSearch=\"true\"</code> 固定搜索栏，可通过样式变量 <code>--bb-tree-search-height</code> 设定搜索栏高度",
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",
@@ -5469,6 +5471,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "多选列表筛选",
     "MultiFilterIntro": "通过 <code>FilterTemplate</code> 使用内置 <code>MultiFilter</code> 组件提供多选筛选功能",
+    "MultiFilterTips": "组件提供 <code>Items</code> <code>OnGetItemsAsync</code> 两种设置数据源方式",
+    "MultiFilterTipsLi1": "<code>Items</code> 适合数据量小且静态事先准备好的数据集合",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> 适合数据量大且动态的数据集合，出于性能考虑组件内部采用局域懒记载方式填装数据，即点开过滤窗口时才回调获得数据",
     "TablesFilterTitle": "筛选和排序功能",
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
@@ -6320,7 +6325,10 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
-    "ClipboardMessage": "文本内容：{0}, 已复制到剪切板"
+    "ClipboardMessage": "文本内容：{0}, 已复制到剪切板",
+    "ClipboardGetTextMessage": "读取剪切板文本内容: {0}",
+    "ClipboardCopyMethod": "拷贝文本到剪切板方法",
+    "ClipboardGetTextMethod": "读取剪切板文本内容方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "一个简单、交互式、现代的 Web 甘特图库，具有拖动、调整大小、依赖关系和时间刻度",

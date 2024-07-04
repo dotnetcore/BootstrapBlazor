@@ -27,18 +27,31 @@ public partial class MultiFilter
     [Parameter]
     public bool ShowSearch { get; set; } = true;
 
-    private string? _searchText;
-
-    private List<MultiFilterItem> _source = [];
-
-    private List<MultiFilterItem>? _items;
+    /// <summary>
+    /// 获得 过滤项集合回调方法 适合动态给定数据源
+    /// </summary>
+    [Parameter]
+    public Func<Task<List<SelectedItem>>>? OnGetItemsAsync { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// 获得/设置 Loading 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? LoadingTemplate { get; set; }
+
+    private string? _searchText;
+
+    private List<SelectedItem>? _source;
+
+    private List<SelectedItem>? _items;
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         if (TableFilter != null)
         {
             TableFilter.ShowMoreButton = false;
@@ -52,12 +65,46 @@ public partial class MultiFilter
     {
         base.OnParametersSet();
 
+        if (Items != null && OnGetItemsAsync != null)
+        {
+            throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnGetItemsAsync)}'.");
+        }
+
         SearchPlaceHolderText ??= Localizer["MultiFilterSearchPlaceHolderText"];
         SelectAllText ??= Localizer["MultiFilterSelectAllText"];
 
         if (Items != null)
         {
-            _source = Items.Select(item => new MultiFilterItem() { Value = item.Value, Text = item.Text }).ToList();
+            var selectedItems = _source?.Where(x => x.Active).ToList();
+            _source = Items.ToList();
+            ResetActiveItems(_source, selectedItems);
+        }
+    }
+
+    private static void ResetActiveItems(List<SelectedItem> source, List<SelectedItem>? activeItems)
+    {
+        if (activeItems != null)
+        {
+            foreach (var active in activeItems)
+            {
+                var item = source.Find(i => i.Value == active.Value);
+                if (item != null)
+                {
+                    item.Active = true;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
+    {
+        if (OnGetItemsAsync != null)
+        {
+            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(TriggerGetItemsCallback) });
         }
     }
 
@@ -67,9 +114,12 @@ public partial class MultiFilter
     public override void Reset()
     {
         _searchText = string.Empty;
-        foreach (var item in _source)
+        if (_source != null)
         {
-            item.Checked = false;
+            foreach (var item in _source)
+            {
+                item.Active = false;
+            }
         }
         _items = null;
         StateHasChanged();
@@ -83,7 +133,7 @@ public partial class MultiFilter
     {
         var filter = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
 
-        foreach (var item in GetItems().Where(i => i.Checked))
+        foreach (var item in GetItems().Where(i => i.Active))
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
@@ -95,6 +145,20 @@ public partial class MultiFilter
         return filter;
     }
 
+    /// <summary>
+    /// Javascript 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerGetItemsCallback()
+    {
+        if (OnGetItemsAsync != null)
+        {
+            _source = await OnGetItemsAsync();
+            StateHasChanged();
+        }
+    }
+
     private CheckboxState _selectAllState = CheckboxState.UnChecked;
 
     private CheckboxState GetState()
@@ -103,9 +167,9 @@ public partial class MultiFilter
         var items = GetItems();
         if (items.Count > 0)
         {
-            state = items.All(i => i.Checked)
+            state = items.All(i => i.Active)
                 ? CheckboxState.Checked
-                : items.Any(i => i.Checked)
+                : items.Any(i => i.Active)
                     ? CheckboxState.Indeterminate
                     : CheckboxState.UnChecked;
         }
@@ -122,7 +186,7 @@ public partial class MultiFilter
     {
         foreach (var item in GetItems())
         {
-            item.Checked = state == CheckboxState.Checked;
+            item.Active = state == CheckboxState.Checked;
         }
         StateHasChanged();
         return Task.CompletedTask;
@@ -136,28 +200,20 @@ public partial class MultiFilter
     private Task OnSearchValueChanged(string? val)
     {
         _searchText = val;
-        if (!string.IsNullOrEmpty(_searchText))
+        if (_source != null)
         {
-            _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
+            if (!string.IsNullOrEmpty(_searchText))
+            {
+                _items = _source.Where(i => i.Text.Contains(_searchText)).ToList();
+            }
+            else
+            {
+                _items = null;
+            }
+            StateHasChanged();
         }
-        else
-        {
-            _items = null;
-        }
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private List<MultiFilterItem> GetItems() => _items ?? _source;
-
-    class MultiFilterItem
-    {
-        public bool Checked { get; set; }
-
-        [NotNull]
-        public string? Value { get; init; }
-
-        [NotNull]
-        public string? Text { get; init; }
-    }
+    private List<SelectedItem> GetItems() => _items ?? _source ?? [];
 }

@@ -22,8 +22,17 @@ public partial class Clipboards
     private async Task Copy()
     {
         await ClipboardService.Copy(content);
-
         await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
+    }
+
+    private async Task Get()
+    {
+        var text = await ClipboardService.GetText();
+        if (!string.IsNullOrEmpty(text))
+        {
+            content = text;
+            await ToastService.Success("Clipboard", Localizer["ClipboardGetTextMessage", text]);
+        }
     }
 
     private MethodItem[] GetMethods() =>
@@ -31,9 +40,16 @@ public partial class Clipboards
         new()
         {
             Name = "Copy",
-            Description = Localizer["ClipboardIntro"],
+            Description = Localizer["ClipboardCopyMethod"],
             Parameters = " — ",
             ReturnValue = "Task"
+        },
+        new()
+        {
+            Name = "GetText",
+            Description = Localizer["ClipboardGetTextMethod"],
+            Parameters = " — ",
+            ReturnValue = "Task<string?>"
         }
     ];
 }

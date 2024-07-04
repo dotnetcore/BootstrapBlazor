@@ -678,6 +678,8 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
+    "TreeViewFixedSearchTitle": "Fixed search",
+    "TreeViewFixedSearchIntro": "The search bar can be fixed by setting <code>IsFixedSearch=\"true\"</code>, and the search bar height can be set by the css variable <code>--bb-tree-search-height</code>",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
@@ -5469,6 +5471,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "Multiple selection list filtering",
     "MultiFilterIntro": "Use the built-in <code>MultiFilter</code> component to provide multi-select filtering via <code>FilterTemplate</code>",
+    "MultiFilterTips": "The component provides two ways to set the data source: <code>Items</code> and <code>OnGetItemsAsync</code>",
+    "MultiFilterTipsLi1": "<code>Items</code> is suitable for small amounts of data and statically prepared data sets",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> is suitable for large and dynamic data collections. For performance reasons, the component uses a local lazy record method to fill in data, that is, the callback is called to obtain data when the filter window is opened.",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
@@ -6320,7 +6325,10 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
-    "ClipboardMessage": "Text content: {0}, copied to clipboard"
+    "ClipboardMessage": "Text content: {0}, copied to clipboard",
+    "ClipboardGetTextMessage": "Read clipboard text content: {0}",
+    "ClipboardCopyMethod": "Copy text to the clipboard method",
+    "ClipboardGetTextMethod": "Method for reading clipboard text content"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",

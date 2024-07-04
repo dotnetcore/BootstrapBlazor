@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapServiceBase 基类
 /// </summary>
 public abstract class BootstrapServiceBase<TOption>
 {
