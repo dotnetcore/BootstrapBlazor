@@ -158,13 +158,14 @@ export function load(id, method) {
     }
 }
 
-export function scroll(id, options = { behavior: 'smooth' }) {
+export function scroll(id, align, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
         const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
+                options.block = align;
                 row.scrollIntoView(options);
             }
         }
