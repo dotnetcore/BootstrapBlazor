@@ -889,6 +889,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
+                AutoFitContentCallback = nameof(AutoFitContentCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
@@ -1379,6 +1380,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 自动调整列宽回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="originIndex"></param>
@@ -1422,6 +1429,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await OnResizeColumnAsync(column.GetFieldName(), width);
         }
+    }
+
+    /// <summary>
+    /// 列宽自适应回调方法 由 JavaScript 脚本调用
+    /// </summary>
+    /// <param name="fieldName">当前列名称</param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async ValueTask<float> AutoFitContentCallback(string fieldName)
+    {
+        float ret = 0;
+        if (OnAutoFitContentAsync != null)
+        {
+            ret = await OnAutoFitContentAsync(fieldName);
+        }
+        return ret;
     }
 
     /// <summary>
