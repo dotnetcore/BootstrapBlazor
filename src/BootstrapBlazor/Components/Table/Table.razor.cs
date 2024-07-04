@@ -320,6 +320,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool AutoScrollLastSelectedRowToView { get; set; }
 
     /// <summary>
+    /// 获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center
+    /// </summary>
+    [Parameter]
+    public ScrollToViewAlign AutoScrollVerticalAlign { get; set; } = ScrollToViewAlign.Center;
+
+    /// <summary>
     /// 获得/设置 双击单元格回调委托
     /// </summary>
     [Parameter]
@@ -873,7 +879,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (AutoScrollLastSelectedRowToView)
         {
-            await InvokeVoidAsync("scroll", Id);
+            await InvokeVoidAsync("scroll", Id, AutoScrollVerticalAlign.ToDescriptionString());
         }
 
         if (ScrollMode == ScrollMode.Virtual)

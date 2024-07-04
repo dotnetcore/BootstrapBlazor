@@ -5245,7 +5245,7 @@
     "TablesSelectionCountText": "选中的行数：{0}",
     "TablesSelectionScrollTitle": "渲染结束后回调方法",
     "TablesSelectionScrollIntro": "通过设置 <code>OnAfterRenderCallback</code> 回调方法，执行一些特殊操作",
-    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启",
+    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启，通过 <code>AutoScrollVerticalAlign</code> 参数设置对齐方式",
     "TablesSelectionScrollButtonText": "选中最后一行"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
