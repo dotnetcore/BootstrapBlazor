@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public static class IEditItemExtensions
 {
     /// <summary>
-    /// 集成 class 标签中设置的参数值
+    /// 继承 class 标签中设置的参数值
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
