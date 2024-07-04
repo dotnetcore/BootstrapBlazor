@@ -5,7 +5,7 @@
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
-                row.scrollIntoView({ behavior: 'smooth' });
+                row.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     }
