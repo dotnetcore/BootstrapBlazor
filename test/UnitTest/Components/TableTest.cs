@@ -260,6 +260,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
+                pb.Add(a => a.AutoScrollVerticalAlign, ScrollToViewAlign.Center);
                 pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
                     if (firstRender)
