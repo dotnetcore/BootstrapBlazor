@@ -21,7 +21,7 @@ public class AutoGenerateClassTest
             ShowTips = true,
             Align = Alignment.Center
         };
-        Assert.True(!attr.Ignore);
+        Assert.False(attr.Ignore);
         Assert.True(attr.Readonly);
         Assert.True(attr.Sortable);
         Assert.True(attr.Filterable);
