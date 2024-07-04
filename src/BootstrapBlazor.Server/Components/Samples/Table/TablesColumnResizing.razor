@@ -19,7 +19,7 @@
     </section>
     <Table TItem="Foo" @ref="TableRows"
            IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true" AllowResizing="true"
+           IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
            ShowExtendButtons="true" ExtendButtonColumnWidth="240"
            OnQueryAsync="@OnQueryAsync">
@@ -58,7 +58,7 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowResizing="true" ClientTableName="table-test"
            IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
-           ShowToolbar="false" IsMultipleSelect="true" ShowColumnToolbox="false"
+           ShowToolbar="false" IsMultipleSelect="true" ShowColumnToolbox="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
