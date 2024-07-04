@@ -1437,7 +1437,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="fieldName">当前列名称</param>
     /// <returns></returns>
     [JSInvokable]
-    public async ValueTask<float> AutoFitContentCallback(string fieldName)
+    public async Task<float> AutoFitContentCallback(string fieldName)
     {
         float ret = 0;
         if (OnAutoFitContentAsync != null)
