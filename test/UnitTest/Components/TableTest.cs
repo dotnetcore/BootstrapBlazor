@@ -7722,6 +7722,45 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task AutoFitContentCallback_Ok()
+    {
+        var name = "";
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.ClientTableName, "table-unit-test");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnAutoFitContentAsync, fieldName =>
+                {
+                    name = fieldName;
+                    return Task.FromResult(100.65f);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        float v = 0f;
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime"));
+        Assert.Equal(100.65f, v);
+    }
+
+    [Fact]
     public async Task AllowDragColumn_Ok()
     {
         Context.JSInterop.Setup<List<string>>("reloadColumnOrder", "table-unit-test").SetResult(["Name", "Address"]);

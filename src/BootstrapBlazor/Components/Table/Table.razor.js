@@ -147,13 +147,14 @@ export function sort(id) {
 
 export function load(id, method) {
     const table = Data.get(id)
-
-    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
-    if (method === 'show') {
-        loader.classList.add('show')
-    }
-    else {
-        loader.classList.remove('show')
+    if (table) {
+        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
+        if (method === 'show') {
+            loader.classList.add('show')
+        }
+        else {
+            loader.classList.remove('show')
+        }
     }
 }
 
@@ -453,10 +454,18 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
+    setColumnToolboxListener(table);
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
-        EventHandler.on(col, 'click', e => e.stopPropagation())
+        EventHandler.on(col, 'click', e => e.stopPropagation());
+        EventHandler.on(col, 'dblclick', async e => {
+            e.preventDefault();
+            e.stopPropagation();
+            await autoFitColumnWidth(table, col);
+        });
+
+        setColumnToolbox(table, col);
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -486,6 +495,13 @@ const setResizeListener = table => {
                             width = width - table.scrollWidth;
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
+
+                        const popover = bootstrap.Popover.getInstance(col);
+                        if (popover && popover._isShown()) {
+                            const widthEl = popover.tip.querySelector('.col-width-tip');
+                            widthEl.innerHTML = `width: ${curCol.style.width}`;
+                            popover.update();
+                        }
                     }
                 })
             },
@@ -501,6 +517,155 @@ const setResizeListener = table => {
                 saveColumnWidth(table)
             }
         )
+    })
+}
+
+const setColumnToolboxListener = table => {
+    if (table.options.showColumnToolbox) {
+        EventHandler.on(document, 'click', e => {
+            const element = e.target;
+            const popover = element.closest('.table-resizer-popover');
+            if (popover) {
+                return;
+            }
+
+            closeAllPopovers(table.columns, null);
+        });
+
+        EventHandler.on(document, 'click', '.table-resizer-popover [data-bb-key]', async e => {
+            e.preventDefault();
+            e.stopPropagation();
+            const button = e.delegateTarget;
+            const field = button.getAttribute('data-bb-field');
+            const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
+
+            let rows = null;
+            if (table.thead) {
+                rows = table.body.querySelectorAll('table > tbody > tr');
+            }
+            else {
+                rows = table.tables[0].querySelectorAll('table > tbody > tr');
+            }
+            console.log(rows);
+        })
+    }
+}
+
+const setColumnToolbox = (table, col) => {
+    if (table.options.showColumnToolbox) {
+        const { columnToolboxTitle, columnToolboxContent } = table.options;
+        EventHandler.on(col, 'mouseenter', e => {
+            closeAllPopovers(table.columns, e.target);
+            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
+                title: columnToolboxTitle,
+                content: getContent(columnToolboxContent, col),
+                html: true,
+                sanitize: false,
+                trigger: 'manual',
+                placement: 'top',
+                customClass: 'table-resizer-popover shadow'
+            });
+            if (!popover._isShown()) {
+                popover.show();
+            }
+        });
+    }
+}
+
+const indexOfCol = col => {
+    const th = col.closest('th');
+    const row = th.parentElement;
+    return [...row.children].indexOf(th);
+}
+
+const autoFitColumnWidth = async (table, col) => {
+    const field = col.getAttribute('data-bb-field');
+    const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
+
+    const index = indexOfCol(col);
+    let rows = null;
+    if (table.thead) {
+        rows = table.body.querySelectorAll('table > tbody > tr');
+    }
+    else {
+        rows = table.tables[0].querySelectorAll('table > tbody > tr');
+    }
+
+    let maxWidth = 0;
+    [...rows].forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    if (maxWidth > 0) {
+        table.tables.forEach(table => {
+            const colEl = table.querySelectorAll('colgroup col')[index];
+            if (colEl) {
+                colEl.style.setProperty('width', `${maxWidth}px`);
+            }
+
+            const th = table.querySelectorAll('thead > tr > th')[index];
+            if (th) {
+                const span = th.querySelector('.table-text');
+                span.style.removeProperty('width');
+            }
+        });
+
+        setTableDefaultWidth(table);
+    }
+}
+
+const calcCellWidth = cell => {
+    const div = document.createElement('div');
+    [...cell.children].forEach(c => {
+        div.appendChild(c.cloneNode(true));
+    })
+    div.style.setProperty('visibility', 'hidden');
+    div.style.setProperty('white-space', 'nowrap');
+    div.style.setProperty('display', 'inline-block');
+    div.style.setProperty('position', 'absolute');
+    div.style.setProperty('top', '0');
+    document.body.appendChild(div);
+
+    const cellStyle = getComputedStyle(cell);
+    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'));
+    div.remove();
+    return width;
+}
+
+const getContent = (items, col) => {
+    const content = items.map(i => {
+        let ret = '';
+        const field = col.getAttribute('data-bb-field');
+        if (i.tooltip) {
+            ret = `<button type="button" data-bb-key="${i.key}" data-bb-field="${field}" data-bs-toggle="tooltip" data-bs-title="${i.tooltip}" data-bs-tigger="hover" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
+        }
+        else {
+            ret = `<button type="button" data-bb-key="${i.key}" data-bb-field="${field}" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
+        }
+        return ret;
+    }).join();
+
+    const el = document.createElement('div');
+    el.className = 'd-flex align-items-center';
+    el.innerHTML = content;
+    const tooltips = [...el.querySelectorAll('[data-bs-toggle="tooltip"]')];
+    tooltips.forEach(tip => {
+        bootstrap.Tooltip.getOrCreateInstance(tip);
+    });
+
+    const append = document.createElement('div');
+    append.classList.add('col-width-tip');
+    el.appendChild(append);
+    return el;
+}
+
+const closeAllPopovers = (columns, self) => {
+    columns.forEach(col => {
+        const popover = bootstrap.Popover.getInstance(col);
+        if (popover && col != self) {
+            popover.hide();
+        }
     })
 }
 
@@ -578,9 +743,16 @@ const setCopyColumn = table => {
 const disposeColumnDrag = columns => {
     columns = columns || []
     columns.forEach(col => {
-        EventHandler.off(col, 'click')
-        EventHandler.off(col, 'mousedown')
-        EventHandler.off(col, 'touchstart')
+        EventHandler.off(col, 'click');
+        EventHandler.off(col, 'dblclick');
+        EventHandler.off(col, 'mousedown');
+        EventHandler.off(col, 'touchstart');
+        EventHandler.off(col, 'mouseenter');
+
+        const popover = bootstrap.Popover.getInstance(col);
+        if (popover) {
+            popover.dispose();
+        }
     })
 }
 
@@ -685,11 +857,15 @@ const setTableDefaultWidth = table => {
 
         if (tableWidth > table.el.offsetWidth) {
             table.tables[0].style.setProperty('width', `${tableWidth}px`);
-            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+            if (table.thead) {
+                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+            }
         }
         else {
             table.tables[0].style.removeProperty('width');
-            table.tables[1].style.removeProperty('width');
+            if (table.thead) {
+                table.tables[1].style.setProperty('width', `${table.tables[0].offsetWidth - scrollWidth}px`);
+            }
         }
     }
 }
