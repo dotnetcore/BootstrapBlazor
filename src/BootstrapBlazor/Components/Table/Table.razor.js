@@ -458,19 +458,8 @@ const setResizeListener = table => {
     columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation());
-        EventHandler.on(col, 'mouseenter', e => {
-            closeAllPopovers(columns);
-            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
-                title: '操作',
-                content: '<button type="button" class="btn btn-sm"><i class="fa-solid fa-align-justify"></i><span class="ms-2">列宽自动</span></button>',
-                html: true,
-                sanitize: false,
-                trigger: 'manual',
-                placement: 'top',
-                customClass: 'table-resizer-popover shadow'
-            });
-            popover.show();
-        });
+
+        setColumnToolbox(table, col);
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -500,6 +489,13 @@ const setResizeListener = table => {
                             width = width - table.scrollWidth;
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
+
+                        const popover = bootstrap.Popover.getInstance(col);
+                        if (popover && popover._isShown()) {
+                            const widthEl = popover.tip.querySelector('.col-width-tip');
+                            widthEl.innerHTML = `width: ${curCol.style.width}`;
+                            popover.update();
+                        }
                     }
                 })
             },
@@ -518,10 +514,57 @@ const setResizeListener = table => {
     })
 }
 
-const closeAllPopovers = columns => {
+const setColumnToolbox = (table, col) => {
+    if (table.options.showColumnToolbox) {
+        const { columnToolboxTitle, columnToolboxContent } = table.options;
+        EventHandler.on(col, 'mouseenter', e => {
+            closeAllPopovers(table.columns, e.target);
+            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
+                title: columnToolboxTitle,
+                content: getContent(columnToolboxContent, col),
+                html: true,
+                sanitize: false,
+                trigger: 'manual',
+                placement: 'top',
+                customClass: 'table-resizer-popover shadow'
+            });
+            if (!popover._isShown()) {
+                popover.show();
+            }
+        });
+    }
+}
+
+const getContent = (items, col) => {
+    const content = items.map(i => {
+        let ret = '';
+        if (i.tooltip) {
+            ret = `<button type="button" data-bb-key="${i.key}" data-bs-toggle="tooltip" data-bs-title="${i.tooltip}" data-bs-tigger="hover" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
+        }
+        else {
+            ret = `<button type="button" data-bb-key="${i.key}" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
+        }
+        return ret;
+    }).join();
+
+    const el = document.createElement('div');
+    el.className = 'd-flex align-items-center';
+    el.innerHTML = content;
+    const tooltips = [...el.querySelectorAll('[data-bs-toggle="tooltip"]')];
+    tooltips.forEach(tip => {
+        bootstrap.Tooltip.getOrCreateInstance(tip);
+    });
+
+    const append = document.createElement('div');
+    append.classList.add('col-width-tip');
+    el.appendChild(append);
+    return el;
+}
+
+const closeAllPopovers = (columns, self) => {
     columns.forEach(col => {
         const popover = bootstrap.Popover.getInstance(col);
-        if (popover) {
+        if (popover && col != self) {
             popover.hide();
         }
     })
@@ -668,6 +711,11 @@ const disposeDragColumns = columns => {
         EventHandler.off(col, 'dragenter')
         EventHandler.off(col, 'dragover')
         EventHandler.off(col, 'dragleave')
+
+        const popover = bootstrap.Popover.getInstance(col);
+        if (popover) {
+            popover.dispose();
+        }
     })
 }
 

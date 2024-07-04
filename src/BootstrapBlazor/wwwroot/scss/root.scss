@@ -76,6 +76,10 @@ a, a:hover, a:focus {
     --bs-popover-body-padding-y: 0.5rem;
 }
 
+.table-resizer-popover .col-width-tip {
+    margin-left: 0.5rem;
+}
+
 ::view-transition-old(root) {
     animation: none;
 }
