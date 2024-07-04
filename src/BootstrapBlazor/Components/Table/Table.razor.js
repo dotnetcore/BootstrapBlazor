@@ -454,6 +454,7 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
+    setColumnToolboxListener(table);
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
@@ -512,6 +513,20 @@ const setResizeListener = table => {
             }
         )
     })
+}
+
+const setColumnToolboxListener = table => {
+    if (table.options.showColumnToolbox) {
+        EventHandler.on(document, 'click', e => {
+            const element = e.target;
+            const popover = element.closest('.table-resizer-popover');
+            if (popover) {
+                return;
+            }
+
+            closeAllPopovers(table.columns, null);
+        });
+    }
 }
 
 const setColumnToolbox = (table, col) => {
@@ -647,6 +662,12 @@ const disposeColumnDrag = columns => {
         EventHandler.off(col, 'click')
         EventHandler.off(col, 'mousedown')
         EventHandler.off(col, 'touchstart')
+        EventHandler.off(col, 'mouseenter')
+
+        const popover = bootstrap.Popover.getInstance(col);
+        if (popover) {
+            popover.dispose();
+        }
     })
 }
 
@@ -711,11 +732,6 @@ const disposeDragColumns = columns => {
         EventHandler.off(col, 'dragenter')
         EventHandler.off(col, 'dragover')
         EventHandler.off(col, 'dragleave')
-
-        const popover = bootstrap.Popover.getInstance(col);
-        if (popover) {
-            popover.dispose();
-        }
     })
 }
 
