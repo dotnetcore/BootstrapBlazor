@@ -24,7 +24,7 @@ public class Clipboard : BootstrapModuleComponentBase
     {
         base.OnInitialized();
 
-        // 注册 ClipboardService 弹窗事件
+        // 注册 ClipboardService 回调方法
         ClipboardService.Register(this, Copy);
         ClipboardService.RegisterGetText(GetText);
         ClipboardService.RegisterGetAllContents(GetAllClipboardContentsAsync);
