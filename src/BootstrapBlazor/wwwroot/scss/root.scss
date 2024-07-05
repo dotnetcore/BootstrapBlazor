@@ -68,7 +68,6 @@ a, a:hover, a:focus {
 }
 
 .table-resizer-popover {
-    --bs-popover-min-width: 80px;
     --bs-popover-header-font-size: 12px;
     --bs-popover-header-padding-x: 0.5rem;
     --bs-popover-header-padding-y: 0.5rem;
@@ -76,8 +75,13 @@ a, a:hover, a:focus {
     --bs-popover-body-padding-y: 0.5rem;
 }
 
-.table-resizer-popover .col-width-tip {
-    margin-left: 0.5rem;
+
+.table-resizer-popover i + span {
+    display: none;
+}
+
+.popover.table-resizer-popover {
+    --bs-popover-min-width: unset;
 }
 
 ::view-transition-old(root) {
