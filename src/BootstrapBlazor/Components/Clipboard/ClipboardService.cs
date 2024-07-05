@@ -34,7 +34,7 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// </summary>
     internal void UnRegisterGetText()
     {
-        var item = _callbackCache.FirstOrDefault(i => i.Key == GetTextKey);
+        var item = _getTextCallbackCache.FirstOrDefault(i => i.Key == GetTextKey);
         if (item.Key != null) _callbackCache.Remove(item);
     }
 
