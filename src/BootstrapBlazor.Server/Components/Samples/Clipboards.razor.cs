@@ -56,6 +56,13 @@ public partial class Clipboards
             Description = Localizer["ClipboardGetMethod"],
             Parameters = " — ",
             ReturnValue = "Task<List<ClipboardItem>?>"
+        },
+        new()
+        {
+            Name = "GetText",
+            Description = Localizer["ClipboardGetTextMethod"],
+            Parameters = " — ",
+            ReturnValue = "Task<string?>"
         }
     ];
 }
