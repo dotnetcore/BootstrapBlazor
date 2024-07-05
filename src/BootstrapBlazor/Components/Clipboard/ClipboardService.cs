@@ -86,7 +86,7 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     }
 
     /// <summary>
-    /// 拷贝方法
+    /// 将指定文本设置到剪切板方法
     /// </summary>
     /// <param name="text">要拷贝的文字</param>
     /// <param name="callback">拷贝后回调方法</param>
