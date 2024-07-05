@@ -5,6 +5,7 @@
     <Pre>[Inject]
 [NotNull]
 private ClipboardService? ClipboardService { get; set; }
+
 private async Task Copy()
 {
     await ClipboardService.Copy(content);
