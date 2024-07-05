@@ -238,6 +238,7 @@
     "PageItemsText": "{0} 条/页",
     "CopyColumnTooltipText": "拷贝列内容到剪切板",
     "CopyColumnCopiedTooltipText": "已拷贝",
+    "ColumnWidthTooltipPrefix": "宽度："    
     "ColumnToolboxTitle": "操作",
     "AlignLeft": "左对齐",
     "AlignLeftTooltip": "点击后本列文本左对齐",

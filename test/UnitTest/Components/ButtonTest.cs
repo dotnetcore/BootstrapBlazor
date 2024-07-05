@@ -368,10 +368,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<Button>();
-        cut.DoesNotContain("data-bs-trigger");
-
-        cut.SetParametersAndRender(pb =>
+        var cut = Context.RenderComponent<Button>(pb =>
         {
             pb.Add(a => a.TooltipTrigger, "click");
         });

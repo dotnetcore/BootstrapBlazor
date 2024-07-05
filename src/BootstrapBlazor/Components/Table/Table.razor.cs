@@ -168,6 +168,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public int? ScrollHoverWidth { get; set; }
 
     /// <summary>
+    /// 获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字
+    /// </summary>
+    [Parameter]
+    public string? ColumnWidthTooltipPrefix { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示列宽提示信息，默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowColumnWidthTooltip { get; set; } = true;
+    
+    /// <summary>
     /// 获得/设置 是否显示列工具栏 默认 false
     /// </summary>
     [Parameter]
@@ -907,6 +919,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
+             	ShowColumnWidthTooltip,
+                ColumnWidthTooltipPrefix
                 ShowColumnToolbox,
                 ColumnToolboxContent = new List<object>()
                 {
