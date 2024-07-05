@@ -62,12 +62,8 @@ async function getClipboardContentByMimeType(mimeType) {
         for (const clipboardItem of clipboardItems) {
             if (clipboardItem.types.includes(mimeType)) {
                 const blob = await clipboardItem.getType(mimeType);
-                if (mimeType.startsWith('text/')) {
-                    return blob.text();
-                } else {
-                    const arrayBuffer = await blob.arrayBuffer();
-                    return new Uint8Array(arrayBuffer);
-                }
+                const arrayBuffer = await blob.arrayBuffer();
+                return new Uint8Array(arrayBuffer);
             }
         }
     } catch (error) {
