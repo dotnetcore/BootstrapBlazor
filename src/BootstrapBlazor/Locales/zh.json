@@ -240,6 +240,7 @@
     "CopyColumnCopiedTooltipText": "已拷贝",
     "ColumnToolboxTitle": "操作",
     "AlignLeft": "左对齐",
+    "AlignLeftTooltip": "点击后本列文本左对齐",
     "AlignCenter": "居中",
     "AlignRight": "右对齐"
   },

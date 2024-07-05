@@ -568,7 +568,7 @@
                                 }
                                 @if (ShowColumnToolbox)
                                 {
-                                    <i class="@GetColumnToolboxIconClassString()"></i>
+                                    <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()" data-bs-title="@Localizer["ColumnToolboxTitle"]" @onclick:stopPropagation></i>
                                 }
                             </div>
                             @if (!col.Fixed && AllowResizing)

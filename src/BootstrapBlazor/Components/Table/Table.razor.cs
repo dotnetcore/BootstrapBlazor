@@ -908,15 +908,28 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnToolbox,
-                ColumnToolboxTitle = Localizer["ColumnToolboxTitle"].Value,
                 ColumnToolboxContent = new List<object>()
                 {
                     new
                     {
                         Key = "align-left",
-                        Icon = "fa-solid fa-align-justify",
+                        Icon = "fa-solid fa-align-left",
                         Text = Localizer["AlignLeft"].Value,
                         Tooltip = Localizer["AlignLeftTooltip"].Value
+                    },
+                    new
+                    {
+                        Key = "align-center",
+                        Icon = "fa-solid fa-align-center",
+                        Text = Localizer["AlignCenter"].Value,
+                        Tooltip = Localizer["AlignCenterTooltip"].Value
+                    },
+                    new
+                    {
+                        Key = "align-left",
+                        Icon = "fa-solid fa-align-right",
+                        Text = Localizer["AlignRight"].Value,
+                        Tooltip = Localizer["AlignRightTooltip"].Value
                     }
                 }
             });

@@ -97,6 +97,8 @@ export function reset(id) {
 
     setBodyHeight(table)
 
+    setColumnToolbox(table);
+
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
             if (entry.target === shim) {
@@ -455,7 +457,6 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    setColumnToolboxListener(table);
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
@@ -466,7 +467,6 @@ const setResizeListener = table => {
             await autoFitColumnWidth(table, col);
         });
 
-        setColumnToolbox(table, col);
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -554,22 +554,32 @@ const setColumnToolboxListener = table => {
 
 const setColumnToolbox = (table, col) => {
     if (table.options.showColumnToolbox) {
-        const { columnToolboxTitle, columnToolboxContent } = table.options;
-        EventHandler.on(col, 'mouseenter', e => {
-            closeAllPopovers(table.columns, e.target);
-            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
-                title: columnToolboxTitle,
-                content: getContent(columnToolboxContent, col),
+        const { columnToolboxContent } = table.options;
+        [...table.tables[0].querySelectorAll('thead .toolbox-icon')].forEach(i => {
+            bootstrap.Popover.getOrCreateInstance(i, {
+                content: getContent(columnToolboxContent, i),
                 html: true,
                 sanitize: false,
-                trigger: 'manual',
+                trigger: 'click',
                 placement: 'top',
                 customClass: 'table-resizer-popover shadow'
             });
-            if (!popover._isShown()) {
-                popover.show();
-            }
         });
+        //EventHandler.on(col, 'mouseenter', e => {
+        //    closeAllPopovers(table.columns, e.target);
+        //    const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
+        //        title: columnToolboxTitle,
+        //        content: getContent(columnToolboxContent, col),
+        //        html: true,
+        //        sanitize: false,
+        //        trigger: 'manual',
+        //        placement: 'top',
+        //        customClass: 'table-resizer-popover shadow'
+        //    });
+        //    if (!popover._isShown()) {
+        //        popover.show();
+        //    }
+        //});
     }
 }
 
@@ -645,7 +655,7 @@ const getContent = (items, col) => {
             ret = `<button type="button" data-bb-key="${i.key}" data-bb-field="${field}" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
         }
         return ret;
-    }).join();
+    }).join('');
 
     const el = document.createElement('div');
     el.className = 'd-flex align-items-center';
@@ -654,10 +664,6 @@ const getContent = (items, col) => {
     tooltips.forEach(tip => {
         bootstrap.Tooltip.getOrCreateInstance(tip);
     });
-
-    const append = document.createElement('div');
-    append.classList.add('col-width-tip');
-    el.appendChild(append);
     return el;
 }
 
@@ -749,11 +755,6 @@ const disposeColumnDrag = columns => {
         EventHandler.off(col, 'mousedown');
         EventHandler.off(col, 'touchstart');
         EventHandler.off(col, 'mouseenter');
-
-        const popover = bootstrap.Popover.getInstance(col);
-        if (popover) {
-            popover.dispose();
-        }
     })
 }
 
