@@ -52,10 +52,10 @@ public partial class Clipboards
         },
         new()
         {
-            Name = "GetText",
-            Description = Localizer["ClipboardGetTextMethod"],
+            Name = "Get",
+            Description = Localizer["ClipboardGetMethod"],
             Parameters = " — ",
-            ReturnValue = "Task<string?>"
+            ReturnValue = "Task<List<ClipboardItem>?>"
         }
     ];
 }
