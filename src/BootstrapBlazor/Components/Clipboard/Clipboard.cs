@@ -27,6 +27,7 @@ public class Clipboard : BootstrapModuleComponentBase
         // 注册 ClipboardService 弹窗事件
         ClipboardService.Register(this, Copy);
         ClipboardService.RegisterGetText(GetText);
+        ClipboardService.RegisterGetClipboardContentAsByteArray(GetClipboardContentByMimeTypeAsync);
     }
 
     private async Task Copy(ClipboardOption option)
@@ -43,7 +44,14 @@ public class Clipboard : BootstrapModuleComponentBase
     /// 读取剪切板拷贝文字方法
     /// </summary>
     /// <returns></returns>
-    private Task<string?> GetText() => InvokeAsync<string?>("getTextFromClipboard");
+    private Task<string?> GetText() => InvokeAsync<string?>("getClipboardContentAsByteArray", "text/");
+
+    /// <summary>
+    /// 根据 MimeType 读取剪切板内容方法
+    /// </summary>
+    /// <param name="mimeType"></param>
+    /// <returns></returns>
+    private Task<byte[]?> GetClipboardContentByMimeTypeAsync(string mimeType) => InvokeAsync<byte[]?>("getClipboardContentAsByteArray", mimeType);
 
     /// <summary>
     /// Dispose 方法
@@ -55,6 +63,7 @@ public class Clipboard : BootstrapModuleComponentBase
         {
             ClipboardService.UnRegister(this);
             ClipboardService.UnRegisterGetText();
+            ClipboardService.UnRegisterGetClipboardContentAsByteArray();
         }
         await base.DisposeAsync(disposing);
     }

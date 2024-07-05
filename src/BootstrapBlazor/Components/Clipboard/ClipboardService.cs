@@ -14,16 +14,34 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// </summary>
     private readonly List<(string Key, Func<Task<string?>> Callback)> _callbackCache = [];
 
+    /// <summary>
+    /// 获得 回调委托缓存集合
+    /// </summary>
+    private readonly List<(string Key, Func<string, Task<byte[]?>> Callback)> _callbackCache2 = [];
+
     private const string GetTextKey = "getText";
+    private const string GetClipboardContentAsByteArray = "getClipboardContentAsByteArray";
 
     /// <summary>
     /// 注册回调方法
     /// </summary>
     /// <param name="callback"></param>
-    internal void RegisterGetText(Func<Task<string?>> callback)
+    internal void RegisterGetClipboardContentAsByteArray(Func<string, Task<byte[]?>> callback) => _callbackCache2.Add((GetClipboardContentAsByteArray, callback));
+
+    /// <summary>
+    /// 注销回调方法
+    /// </summary>
+    internal void UnRegisterGetClipboardContentAsByteArray()
     {
-        _callbackCache.Add((GetTextKey, callback));
+        var item = _callbackCache2.FirstOrDefault(i => i.Key == GetClipboardContentAsByteArray);
+        if (item.Key != null) _callbackCache2.Remove(item);
     }
+
+    /// <summary>
+    /// 注册回调方法
+    /// </summary>
+    /// <param name="callback"></param>
+    internal void RegisterGetText(Func<Task<string?>> callback) => _callbackCache.Add((GetTextKey, callback));
 
     /// <summary>
     /// 注销回调方法
@@ -56,4 +74,5 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// <param name="callback">拷贝后回调方法</param>
     /// <returns></returns>
     public Task Copy(string? text, Func<Task>? callback = null) => Invoke(new ClipboardOption() { Text = text, Callback = callback });
+
 }

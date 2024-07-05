@@ -56,8 +56,24 @@ const copy = (text = '') => {
     }
 }
 
-const getTextFromClipboard = () => {
-    return navigator.clipboard.readText();
+async function getClipboardContentByMimeType(mimeType) {
+    try {
+        const clipboardItems = await navigator.clipboard.read();
+        for (const clipboardItem of clipboardItems) {
+            if (clipboardItem.types.includes(mimeType)) {
+                const blob = await clipboardItem.getType(mimeType);
+                if (mimeType.startsWith('text/')) {
+                    return blob.text(); // 如果是文本类型，返回字符串
+                } else {
+                    const arrayBuffer = await blob.arrayBuffer();
+                    return new Uint8Array(arrayBuffer); // 如果是其他类型，返回字节数组
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Failed to read from clipboard:', error);
+    }
+    return null;
 }
 
 const getUID = (prefix = 'bb') => {
@@ -764,7 +780,7 @@ export {
     addLink,
     addScript,
     copy,
-    getTextFromClipboard,
+    getClipboardContentByMimeType,
     debounce,
     drag,
     insertBefore,
