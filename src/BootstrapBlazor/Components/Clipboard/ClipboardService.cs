@@ -14,7 +14,44 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// </summary>
     private readonly List<(string Key, Func<Task<List<ClipboardItem>?>> Callback)> _callbackCache = [];
 
+    private readonly List<(string Key, Func<Task<string?>> Callback)> _getTextCallbackCache = [];
+
     private const string GetAllContentsKey = "getAllClipboardContents";
+
+    private const string GetTextKey = "getText";
+
+    /// <summary>
+    /// 注册回调方法
+    /// </summary>
+    /// <param name="callback"></param>
+    internal void RegisterGetText(Func<Task<string?>> callback)
+    {
+        _getTextCallbackCache.Add((GetTextKey, callback));
+    }
+
+    /// <summary>
+    /// 注销回调方法
+    /// </summary>
+    internal void UnRegisterGetText()
+    {
+        var item = _callbackCache.FirstOrDefault(i => i.Key == GetTextKey);
+        if (item.Key != null) _callbackCache.Remove(item);
+    }
+
+    /// <summary>
+    /// 获得剪切板拷贝文字方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string?> GetText()
+    {
+        string? ret = null;
+        var (Key, Callback) = _getTextCallbackCache.FirstOrDefault(i => i.Key == GetTextKey);
+        if (Key != null)
+        {
+            ret = await Callback();
+        }
+        return ret;
+    }
 
     /// <summary>
     /// 注册回调方法

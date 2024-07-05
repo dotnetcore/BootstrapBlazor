@@ -56,6 +56,10 @@ const copy = (text = '') => {
     }
 }
 
+const getTextFromClipboard = () => {
+    return navigator.clipboard.readText();
+}
+
 async function getAllClipboardContents() {
     try {
         const clipboardItems = await navigator.clipboard.read();
@@ -781,6 +785,7 @@ export {
     addLink,
     addScript,
     copy,
+    getTextFromClipboard,
     getAllClipboardContents,
     debounce,
     drag,
