@@ -56,20 +56,25 @@ const copy = (text = '') => {
     }
 }
 
-async function getClipboardContentByMimeType(mimeType) {
+async function getAllClipboardContents() {
     try {
         const clipboardItems = await navigator.clipboard.read();
+        let items = [];
         for (const clipboardItem of clipboardItems) {
-            if (clipboardItem.types.includes(mimeType)) {
+            for (const mimeType of clipboardItem.types) {
                 const blob = await clipboardItem.getType(mimeType);
                 const arrayBuffer = await blob.arrayBuffer();
-                return new Uint8Array(arrayBuffer);
+                items.push({
+                    mimeType: mimeType,
+                    data: new Uint8Array(arrayBuffer)
+                });
             }
         }
+        return items;
     } catch (error) {
         console.error('Failed to read from clipboard:', error);
     }
-    return null;
+    return [];
 }
 
 const getUID = (prefix = 'bb') => {
@@ -776,7 +781,7 @@ export {
     addLink,
     addScript,
     copy,
-    getClipboardContentByMimeType,
+    getAllClipboardContents,
     debounce,
     drag,
     insertBefore,

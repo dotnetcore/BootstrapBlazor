@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -27,11 +29,15 @@ public partial class Clipboards
 
     private async Task Get()
     {
-        var text = await ClipboardService.GetText();
-        if (!string.IsNullOrEmpty(text))
+        var res = await ClipboardService.Get();
+        if (res is not null)
         {
-            content = text;
-            await ToastService.Success("Clipboard", Localizer["ClipboardGetTextMessage", text]);
+            var first = res.FirstOrDefault();
+            if (first is not null && first.Data is not null)
+            {
+                content = first.GetText();
+                await ToastService.Success("Clipboard", Localizer["ClipboardGetTextMessage", content]);
+            }
         }
     }
 

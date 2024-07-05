@@ -9,9 +9,9 @@ private async Task Copy()
 {
     await ClipboardService.Copy(content);
 }
-private async Task GetText()
+private async Task Get()
 {
-    var txt = await ClipboardService.GetText();
+    var txt = await ClipboardService.Get("image/jpeg");
 }</Pre>
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@content" />
