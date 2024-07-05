@@ -238,7 +238,7 @@
     "PageItemsText": "{0} 条/页",
     "CopyColumnTooltipText": "拷贝列内容到剪切板",
     "CopyColumnCopiedTooltipText": "已拷贝",
-    "ColumnTooltipWidthPrefix": "宽度："
+    "ColumnWidthTooltipPrefix": "宽度："
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

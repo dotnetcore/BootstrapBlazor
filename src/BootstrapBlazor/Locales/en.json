@@ -238,7 +238,7 @@
     "PageItemsText": "{0}/page",
     "CopyColumnTooltipText": "Copy entire column data to clipboard",
     "CopyColumnCopiedTooltipText": "Copied!",
-    "ColumnTooltipWidthPrefix": "width: "
+    "ColumnWidthTooltipPrefix": "width: "
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

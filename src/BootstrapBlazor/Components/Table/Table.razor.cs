@@ -905,6 +905,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
+                ShowColumnWidthTooltip,
                 ColumnWidthTooltipPrefix
             });
         }

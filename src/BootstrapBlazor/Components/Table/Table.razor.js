@@ -401,15 +401,17 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
-    EventHandler.on(document, 'click', e => {
-        const element = e.target;
-        const tips = element.closest('.table-resizer-tips');
-        if (tips) {
-            return;
-        }
+    if (table.options.showColumnWidthTooltip) {
+        EventHandler.on(document, 'click', e => {
+            const element = e.target;
+            const tips = element.closest('.table-resizer-tips');
+            if (tips) {
+                return;
+            }
 
-        closeAllTips(table.columns, null);
-    });
+            closeAllTips(table.columns, null);
+        });
+    }
 
     disposeColumnDrag(table.columns)
     table.columns = []
@@ -506,11 +508,13 @@ const setResizeListener = table => {
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
 
-                        const tip = bootstrap.Tooltip.getInstance(col);
-                        if (tip && tip._isShown()) {
-                            const inner = tip.tip.querySelector('.tooltip-inner');
-                            inner.innerHTML = getColumnTolltipTitle(table.options, colWidth + marginX);
-                            tip.update();
+                        if (table.options.showColumnWidthTooltip) {
+                            const tip = bootstrap.Tooltip.getInstance(col);
+                            if (tip && tip._isShown()) {
+                                const inner = tip.tip.querySelector('.tooltip-inner');
+                                inner.innerHTML = getColumnTolltipTitle(table.options, colWidth + marginX);
+                                tip.update();
+                            }
                         }
                     }
                 })
@@ -531,19 +535,21 @@ const setResizeListener = table => {
 }
 
 const setColumnResizingListen = (table, col) => {
-    EventHandler.on(col, 'mouseenter', e => {
-        closeAllTips(table.columns, e.target);
-        const th = col.closest('th');
-        const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
-            title: getColumnTolltipTitle(table.options, th.offsetWidth),
-            trigger: 'manual',
-            placement: 'top',
-            customClass: 'table-resizer-tips'
+    if (table.options.showColumnWidthTooltip) {
+        EventHandler.on(col, 'mouseenter', e => {
+            closeAllTips(table.columns, e.target);
+            const th = col.closest('th');
+            const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
+                title: getColumnTolltipTitle(table.options, th.offsetWidth),
+                trigger: 'manual',
+                placement: 'top',
+                customClass: 'table-resizer-tips'
+            });
+            if (!tip._isShown()) {
+                tip.show();
+            }
         });
-        if (!tip._isShown()) {
-            tip.show();
-        }
-    });
+    }
 }
 
 const getColumnTolltipTitle = (options, width) => {
