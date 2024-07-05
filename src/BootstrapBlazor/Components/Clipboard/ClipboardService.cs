@@ -34,10 +34,11 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     }
 
     /// <summary>
-    /// 获得剪切板拷贝文字方法
+    /// 获取剪切板内容方法
     /// </summary>
+    /// <param name="mimeType">MIME类型</param>
     /// <returns></returns>
-    public async Task<byte[]?> GetClipboardContentByMimeType(string mimeType)
+    public async Task<byte[]?> Get(string mimeType)
     {
         byte[]? ret = null;
         var (Key, Callback) = _callbackCache.FirstOrDefault(i => i.Key == GetClipboardContentByMimeTypeKey);
@@ -55,7 +56,7 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     public async Task<string?> GetText()
     {
         string? ret = null;
-        var bytes = await GetClipboardContentByMimeType("text/plain");
+        var bytes = await Get("text/plain");
 
         if (bytes is not null)
         {
