@@ -238,9 +238,7 @@
     "PageItemsText": "{0} 条/页",
     "CopyColumnTooltipText": "拷贝列内容到剪切板",
     "CopyColumnCopiedTooltipText": "已拷贝",
-    "ColumnToolboxTitle": "操作",
-    "AutoFitContent": "自动调整列宽",
-    "AutoFitContentTooltip": "根据单元格内容自动调整列宽"
+    "ColumnWidthTooltipPrefix": "宽度："
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

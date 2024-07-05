@@ -238,9 +238,7 @@
     "PageItemsText": "{0}/page",
     "CopyColumnTooltipText": "Copy entire column data to clipboard",
     "CopyColumnCopiedTooltipText": "Copied!",
-    "ColumnToolboxTitle": "Tools",
-    "AutoFitContent": "Auto Fit",
-    "AutoFitContentTooltip": "auto adjust column width based on cell contents"
+    "ColumnWidthTooltipPrefix": "width: "
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",

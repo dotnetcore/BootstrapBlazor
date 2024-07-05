@@ -422,5 +422,7 @@ public partial class Table<TItem>
 
         AdvancedSortButtonText ??= Localizer[nameof(AdvancedSortButtonText)];
         AdvancedSortModalTitle ??= Localizer[nameof(AdvancedSortModalTitle)];
+
+        ColumnWidthTooltipPrefix ??= Localizer[nameof(ColumnWidthTooltipPrefix)];
     }
 }
