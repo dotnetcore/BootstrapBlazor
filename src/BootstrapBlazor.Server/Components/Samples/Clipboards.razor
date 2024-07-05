@@ -11,7 +11,7 @@ private async Task Copy()
 }
 private async Task Get()
 {
-    var txt = await ClipboardService.Get();
+    var clipboardItems = await ClipboardService.Get();
 }</Pre>
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@content" />
