@@ -44,14 +44,14 @@ public class Clipboard : BootstrapModuleComponentBase
     /// 读取剪切板拷贝文字方法
     /// </summary>
     /// <returns></returns>
-    private Task<string?> GetText() => InvokeAsync<string?>("getClipboardContentAsByteArray", "text/");
+    private Task<string?> GetText() => InvokeAsync<string?>("getClipboardContentByMimeType", "text/plain");
 
     /// <summary>
     /// 根据 MimeType 读取剪切板内容方法
     /// </summary>
     /// <param name="mimeType"></param>
     /// <returns></returns>
-    private Task<byte[]?> GetClipboardContentByMimeTypeAsync(string mimeType) => InvokeAsync<byte[]?>("getClipboardContentAsByteArray", mimeType);
+    private Task<byte[]?> GetClipboardContentByMimeTypeAsync(string mimeType) => InvokeAsync<byte[]?>("getClipboardContentByMimeType", mimeType);
 
     /// <summary>
     /// Dispose 方法

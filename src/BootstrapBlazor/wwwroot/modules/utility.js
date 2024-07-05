@@ -63,10 +63,10 @@ async function getClipboardContentByMimeType(mimeType) {
             if (clipboardItem.types.includes(mimeType)) {
                 const blob = await clipboardItem.getType(mimeType);
                 if (mimeType.startsWith('text/')) {
-                    return blob.text(); // 如果是文本类型，返回字符串
+                    return blob.text();
                 } else {
                     const arrayBuffer = await blob.arrayBuffer();
-                    return new Uint8Array(arrayBuffer); // 如果是其他类型，返回字节数组
+                    return new Uint8Array(arrayBuffer);
                 }
             }
         }
