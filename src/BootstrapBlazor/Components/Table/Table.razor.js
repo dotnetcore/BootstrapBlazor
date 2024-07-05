@@ -401,6 +401,16 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
+    EventHandler.on(document, 'click', e => {
+        const element = e.target;
+        const tips = element.closest('.table-resizer-tips');
+        if (tips) {
+            return;
+        }
+
+        closeAllTips(table.columns, null);
+    });
+
     disposeColumnDrag(table.columns)
     table.columns = []
 
@@ -455,7 +465,6 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    setColumnToolboxListener(table);
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
@@ -466,7 +475,7 @@ const setResizeListener = table => {
             await autoFitColumnWidth(table, col);
         });
 
-        setColumnToolbox(table, col);
+        setColumnResizingListen(table, col);
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -497,11 +506,11 @@ const setResizeListener = table => {
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
 
-                        const popover = bootstrap.Popover.getInstance(col);
-                        if (popover && popover._isShown()) {
-                            const widthEl = popover.tip.querySelector('.col-width-tip');
-                            widthEl.innerHTML = `width: ${curCol.style.width}`;
-                            popover.update();
+                        const tip = bootstrap.Tooltip.getInstance(col);
+                        if (tip && tip._isShown()) {
+                            const inner = tip.tip.querySelector('.tooltip-inner');
+                            inner.innerHTML = `${table.options.columnTooltipWidthPrefix}${colWidth + marginX}px`;
+                            tip.update();
                         }
                     }
                 })
@@ -521,56 +530,24 @@ const setResizeListener = table => {
     })
 }
 
-const setColumnToolboxListener = table => {
-    if (table.options.showColumnToolbox) {
-        EventHandler.on(document, 'click', e => {
-            const element = e.target;
-            const popover = element.closest('.table-resizer-popover');
-            if (popover) {
-                return;
-            }
-
-            closeAllPopovers(table.columns, null);
+const setColumnResizingListen = (table, col) => {
+    EventHandler.on(col, 'mouseenter', e => {
+        closeAllTips(table.columns, e.target);
+        const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
+            title: getColumnTitle(table.options.columnTooltipWidthPrefix, col),
+            trigger: 'manual',
+            placement: 'top',
+            customClass: 'table-resizer-tips'
         });
-
-        EventHandler.on(document, 'click', '.table-resizer-popover [data-bb-key]', async e => {
-            e.preventDefault();
-            e.stopPropagation();
-            const button = e.delegateTarget;
-            const field = button.getAttribute('data-bb-field');
-            const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
-
-            let rows = null;
-            if (table.thead) {
-                rows = table.body.querySelectorAll('table > tbody > tr');
-            }
-            else {
-                rows = table.tables[0].querySelectorAll('table > tbody > tr');
-            }
-            console.log(rows);
-        })
-    }
+        if (!tip._isShown()) {
+            tip.show();
+        }
+    });
 }
 
-const setColumnToolbox = (table, col) => {
-    if (table.options.showColumnToolbox) {
-        const { columnToolboxTitle, columnToolboxContent } = table.options;
-        EventHandler.on(col, 'mouseenter', e => {
-            closeAllPopovers(table.columns, e.target);
-            const popover = bootstrap.Popover.getOrCreateInstance(e.target, {
-                title: columnToolboxTitle,
-                content: getContent(columnToolboxContent, col),
-                html: true,
-                sanitize: false,
-                trigger: 'manual',
-                placement: 'top',
-                customClass: 'table-resizer-popover shadow'
-            });
-            if (!popover._isShown()) {
-                popover.show();
-            }
-        });
-    }
+const getColumnTitle = (prefix, col) => {
+    const th = col.closest('th');
+    return `${prefix}${th.offsetWidth}px`;
 }
 
 const indexOfCol = col => {
@@ -634,38 +611,13 @@ const calcCellWidth = cell => {
     return width;
 }
 
-const getContent = (items, col) => {
-    const content = items.map(i => {
-        let ret = '';
-        const field = col.getAttribute('data-bb-field');
-        if (i.tooltip) {
-            ret = `<button type="button" data-bb-key="${i.key}" data-bb-field="${field}" data-bs-toggle="tooltip" data-bs-title="${i.tooltip}" data-bs-tigger="hover" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
-        }
-        else {
-            ret = `<button type="button" data-bb-key="${i.key}" data-bb-field="${field}" class="btn btn-primary btn-sm"><i class="${i.icon}"></i><span class="ms-2">${i.text}</span></button>`;
-        }
-        return ret;
-    }).join();
-
-    const el = document.createElement('div');
-    el.className = 'd-flex align-items-center';
-    el.innerHTML = content;
-    const tooltips = [...el.querySelectorAll('[data-bs-toggle="tooltip"]')];
-    tooltips.forEach(tip => {
-        bootstrap.Tooltip.getOrCreateInstance(tip);
-    });
-
-    const append = document.createElement('div');
-    append.classList.add('col-width-tip');
-    el.appendChild(append);
-    return el;
-}
-
-const closeAllPopovers = (columns, self) => {
+const closeAllTips = (columns, self) => {
     columns.forEach(col => {
-        const popover = bootstrap.Popover.getInstance(col);
-        if (popover && col != self) {
-            popover.hide();
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip && col !== self) {
+            if (tip._isShown()) {
+                tip.hide();
+            }
         }
     })
 }
@@ -750,9 +702,9 @@ const disposeColumnDrag = columns => {
         EventHandler.off(col, 'touchstart');
         EventHandler.off(col, 'mouseenter');
 
-        const popover = bootstrap.Popover.getInstance(col);
-        if (popover) {
-            popover.dispose();
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip) {
+            tip.dispose();
         }
     })
 }
