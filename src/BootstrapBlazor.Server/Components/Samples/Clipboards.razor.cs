@@ -33,9 +33,9 @@ public partial class Clipboards
         if (res is not null)
         {
             var first = res.FirstOrDefault();
-            if (first is not null && first.Data is not null)
+            if (first is not null)
             {
-                content = first.GetText();
+                content = first.Text;
                 await ToastService.Success("Clipboard", Localizer["ClipboardGetTextMessage", content]);
             }
         }

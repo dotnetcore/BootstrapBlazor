@@ -15,9 +15,22 @@ public class ClipboardItem
     /// </summary>
     public byte[]? Data { get; set; }
 
+
     /// <summary>
-    /// Gets the text of the clipboard item.
+    /// Gets the text representation of the clipboard item.
     /// </summary>
-    /// <returns></returns>
-    public string GetText() => Data is not null ? System.Text.Encoding.UTF8.GetString(Data) : string.Empty;
+    public string Text
+    {
+        get
+        {
+            if (Data is not null && !string.IsNullOrEmpty(MimeType) && MimeType.StartsWith("text"))
+            {
+                return System.Text.Encoding.UTF8.GetString(Data);
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+    }
 }
