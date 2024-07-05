@@ -5245,7 +5245,7 @@
     "TablesSelectionCountText": "Count：{0}",
     "TablesSelectionScrollTitle": "Callback method after rendering",
     "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
-    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>, Set the alignment via the <code>AutoScrollVerticalAlign</code> parameter",
     "TablesSelectionScrollButtonText": "Select Last Row"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {

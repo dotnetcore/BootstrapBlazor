@@ -160,6 +160,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public int? ScrollHoverWidth { get; set; }
 
+    /// <summary>
+    /// 获得/设置 列调整提示前缀文字 默认 null 未设置使用资源文件中文字
+    /// </summary>
+    [Parameter]
+    public string? ColumnWidthTooltipPrefix { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示列宽提示信息，默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowColumnWidthTooltip { get; set; } = true;
+
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
     private string ScrollStyleString => $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;";
@@ -305,6 +317,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public bool AutoScrollLastSelectedRowToView { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选中行滚动到可视区域对齐方式 默认 ScrollToViewAlign.Center
+    /// </summary>
+    [Parameter]
+    public ScrollToViewAlign AutoScrollVerticalAlign { get; set; } = ScrollToViewAlign.Center;
 
     /// <summary>
     /// 获得/设置 双击单元格回调委托
@@ -859,7 +877,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (AutoScrollLastSelectedRowToView)
         {
-            await InvokeVoidAsync("scroll", Id);
+            await InvokeVoidAsync("scroll", Id, AutoScrollVerticalAlign.ToDescriptionString());
         }
 
         if (ScrollMode == ScrollMode.Virtual)
@@ -883,9 +901,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id, Interop, new
             {
                 DragColumnCallback = nameof(DragColumnCallback),
+                AutoFitContentCallback = nameof(AutoFitContentCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
-                ScrollWidth = ActualScrollWidth
+                ScrollWidth = ActualScrollWidth,
+                ShowColumnWidthTooltip,
+                ColumnWidthTooltipPrefix
             });
         }
 
@@ -1367,6 +1388,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 自动调整列宽回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<float>>? OnAutoFitContentAsync { get; set; }
+
+    /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="originIndex"></param>
@@ -1410,6 +1437,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             await OnResizeColumnAsync(column.GetFieldName(), width);
         }
+    }
+
+    /// <summary>
+    /// 列宽自适应回调方法 由 JavaScript 脚本调用
+    /// </summary>
+    /// <param name="fieldName">当前列名称</param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task<float> AutoFitContentCallback(string fieldName)
+    {
+        float ret = 0;
+        if (OnAutoFitContentAsync != null)
+        {
+            ret = await OnAutoFitContentAsync(fieldName);
+        }
+        return ret;
     }
 
     /// <summary>
