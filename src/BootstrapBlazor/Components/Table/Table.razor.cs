@@ -178,7 +178,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public bool ShowColumnWidthTooltip { get; set; } = true;
-    
+
     /// <summary>
     /// 获得/设置 是否显示列工具栏 默认 false
     /// </summary>
@@ -919,8 +919,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null,
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
-             	ShowColumnWidthTooltip,
-                ColumnWidthTooltipPrefix
+                ShowColumnWidthTooltip,
+                ColumnWidthTooltipPrefix,
                 ShowColumnToolbox,
                 ColumnToolboxContent = new List<object>()
                 {
