@@ -14,32 +14,33 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// </summary>
     private readonly List<(string Key, Func<Task<List<ClipboardItem>?>> Callback)> _callbackCache = [];
 
-    private const string GetAllClipboardContentsKey = "getAllClipboardContents";
+    private const string GetAllContentsKey = "getAllClipboardContents";
 
     /// <summary>
     /// 注册回调方法
     /// </summary>
     /// <param name="callback"></param>
-    internal void RegisterGetAllClipboardContents(Func<Task<List<ClipboardItem>?>> callback) => _callbackCache.Add((GetAllClipboardContentsKey, callback));
+    internal void RegisterGetAllContents(Func<Task<List<ClipboardItem>?>> callback) => _callbackCache.Add((GetAllContentsKey, callback));
 
     /// <summary>
     /// 注销回调方法
     /// </summary>
-    internal void UnRegisterGetAllClipboardContents()
+    internal void UnRegisterGetAllContents()
     {
-        var item = _callbackCache.FirstOrDefault(i => i.Key == GetAllClipboardContentsKey);
-        if (item.Key != null) _callbackCache.Remove(item);
+        var item = _callbackCache.FirstOrDefault(i => i.Key == GetAllContentsKey);
+        if (item.Key != null)
+        {
+            _callbackCache.Remove(item);
+        }
     }
 
     /// <summary>
-    /// 获取剪切板内容方法
+    /// 获取剪切板数据方法
     /// </summary>
-    /// <param name="mimeType">MIME类型</param>
-    /// <returns></returns>
     public async Task<List<ClipboardItem>?> Get()
     {
         List<ClipboardItem>? ret = null;
-        var (Key, Callback) = _callbackCache.FirstOrDefault(i => i.Key == GetAllClipboardContentsKey);
+        var (Key, Callback) = _callbackCache.FirstOrDefault(i => i.Key == GetAllContentsKey);
         if (Key != null)
         {
             ret = await Callback();
@@ -54,5 +55,4 @@ public class ClipboardService : BootstrapServiceBase<ClipboardOption>
     /// <param name="callback">拷贝后回调方法</param>
     /// <returns></returns>
     public Task Copy(string? text, Func<Task>? callback = null) => Invoke(new ClipboardOption() { Text = text, Callback = callback });
-
 }

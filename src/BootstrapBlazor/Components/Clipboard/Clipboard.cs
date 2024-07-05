@@ -26,7 +26,7 @@ public class Clipboard : BootstrapModuleComponentBase
 
         // 注册 ClipboardService 弹窗事件
         ClipboardService.Register(this, Copy);
-        ClipboardService.RegisterGetAllClipboardContents(GetAllClipboardContentsAsync);
+        ClipboardService.RegisterGetAllContents(GetAllClipboardContentsAsync);
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public class Clipboard : BootstrapModuleComponentBase
         if (disposing)
         {
             ClipboardService.UnRegister(this);
-            ClipboardService.UnRegisterGetAllClipboardContents();
+            ClipboardService.UnRegisterGetAllContents();
         }
         await base.DisposeAsync(disposing);
     }
