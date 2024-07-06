@@ -37,6 +37,19 @@
     </Popover>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoversTemplateTitle"]"
+           Introduction="@Localizer["PopoversTemplateIntro"]"
+           Name="Button">
+    <Popover Placement="Placement.Auto" Title="@Title" Trigger="click">
+        <ChildContent>
+            <Button Text="@Localizer["PopoversButtonButtonText"]" />
+        </ChildContent>
+        <Template>
+            <BootstrapInput TValue="string" />
+        </Template>
+    </Popover>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["PopoversCssClassTitle"]"
            Introduction="@Localizer["PopoversCssClassIntro"]"
            Name="CssClass">
