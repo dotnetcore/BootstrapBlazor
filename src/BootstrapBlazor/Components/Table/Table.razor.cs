@@ -665,6 +665,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool UpdateSortTooltip { get; set; }
 
+    private bool _isFilterTrigger;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -695,6 +697,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             PageIndex = 1;
             TotalCount = 0;
+            if (ScrollMode == ScrollMode.Virtual)
+            {
+                _isFilterTrigger = true;
+            }
             return QueryAsync();
         };
     }
@@ -880,8 +886,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("scroll", Id, AutoScrollVerticalAlign.ToDescriptionString());
         }
 
-        if (ScrollMode == ScrollMode.Virtual)
+        if (_isFilterTrigger)
         {
+            _isFilterTrigger = false;
             await InvokeVoidAsync("scrollTo", Id);
         }
 
@@ -1267,7 +1274,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
-        StartIndex = request.StartIndex;
+        StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
         PageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
