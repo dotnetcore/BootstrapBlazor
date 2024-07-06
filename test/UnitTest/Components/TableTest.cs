@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -2314,6 +2315,44 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task Filterable_Virtualize()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.ShowFilterHeader, false);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    var items = Foo.GenerateFoo(localizer, 5);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = 5
+                    };
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Filterable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.False(table.Instance.IsPagination);
+
+        Assert.NotNull(table.Instance.OnFilterAsync);
+        await cut.InvokeAsync(() => table.Instance.OnFilterAsync());
+    }
+
+    [Fact]
     public async Task CustomerToolbarPopConfirmButton_Ok()
     {
         var clicked = false;
@@ -2660,6 +2699,8 @@ public class TableTest : TableTestBase
                 });
             });
         });
+        var virtualComponent = cut.FindComponent<Virtualize<Foo>>();
+        Assert.NotNull(virtualComponent);
     }
 
     [Fact]
