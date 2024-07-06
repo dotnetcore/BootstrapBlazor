@@ -118,6 +118,11 @@ public class TableFilterTest : BootstrapBlazorTestBase
         });
         cut.Contains("loading-template-test");
         await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
+
+        // 选中数据
+        var checkItems = cut.FindComponents<Checkbox<bool>>();
+        await cut.InvokeAsync(() => checkItems[1].Instance.SetValue(true));
+        await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
     }
 
     [Fact]
