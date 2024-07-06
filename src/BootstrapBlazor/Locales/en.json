@@ -238,7 +238,7 @@
     "PageItemsText": "{0}/page",
     "CopyColumnTooltipText": "Copy entire column data to clipboard",
     "CopyColumnCopiedTooltipText": "Copied!",
- 	"ColumnWidthTooltipPrefix": "width: "
+    "ColumnWidthTooltipPrefix": "width: ",
     "ColumnToolboxTitle": "Tools",
     "AlignLeft": "Left",
     "AlignCenter": "Center",
