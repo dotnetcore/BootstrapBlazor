@@ -58,12 +58,12 @@
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowResizing="true" ClientTableName="table-test"
            IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
-           ShowToolbar="false" IsMultipleSelect="true" ShowColumnWidthTooltip="true"
+           ShowToolbar="false" IsMultipleSelect="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Sortable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
     </Table>
