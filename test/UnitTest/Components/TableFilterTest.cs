@@ -102,6 +102,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
                         b.OpenComponent<MultiFilter>(0);
                         b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
                         b.AddAttribute(2, nameof(MultiFilter.OnGetItemsAsync), () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
+                        b.AddAttribute(1, nameof(MultiFilter.AlwaysTriggerGetItems), true);
                         b.CloseComponent();
                     }));
                     builder.CloseComponent();

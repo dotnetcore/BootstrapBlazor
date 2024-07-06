@@ -118,7 +118,7 @@ public partial class TableFilter : IFilter
     public string? FilterButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Table Header 实例
+    /// 获得/设置 ITable 实例
     /// </summary>
     [Parameter]
     public ITable? Table { get; set; }

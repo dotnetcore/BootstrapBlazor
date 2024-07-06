@@ -60,6 +60,27 @@ const getTextFromClipboard = () => {
     return navigator.clipboard.readText();
 }
 
+async function getAllClipboardContents() {
+    try {
+        const clipboardItems = await navigator.clipboard.read();
+        let items = [];
+        for (const clipboardItem of clipboardItems) {
+            for (const mimeType of clipboardItem.types) {
+                const blob = await clipboardItem.getType(mimeType);
+                const arrayBuffer = await blob.arrayBuffer();
+                items.push({
+                    mimeType: mimeType,
+                    data: new Uint8Array(arrayBuffer)
+                });
+            }
+        }
+        return items;
+    } catch (error) {
+        console.error('Failed to read from clipboard:', error);
+    }
+    return [];
+}
+
 const getUID = (prefix = 'bb') => {
     let id = "";
     do {
@@ -765,6 +786,7 @@ export {
     addScript,
     copy,
     getTextFromClipboard,
+    getAllClipboardContents,
     debounce,
     drag,
     insertBefore,

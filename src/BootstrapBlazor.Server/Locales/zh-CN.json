@@ -6328,6 +6328,7 @@
     "ClipboardMessage": "文本内容：{0}, 已复制到剪切板",
     "ClipboardGetTextMessage": "读取剪切板文本内容: {0}",
     "ClipboardCopyMethod": "拷贝文本到剪切板方法",
+    "ClipboardGetMethod": "读取剪切板内容方法",
     "ClipboardGetTextMethod": "读取剪切板文本内容方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
