@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 public class Popover : Tooltip
 {
     /// <summary>
-    /// 获得/设置 显示文字
+    /// 获得/设置 显示文字，复杂内容可通过 <see cref="Template"/> 自定义
     /// </summary>
     [Parameter]
     public string? Content { get; set; }
@@ -21,6 +21,12 @@ public class Popover : Tooltip
     /// </summary>
     [Parameter]
     public bool ShowShadow { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 内容模板 默认 null 设置值后 <see cref="Content"/> 参数失效
+    /// </summary>
+    [Parameter]
+    public RenderFragment? Template { get; set; }
 
     private string? _lastContent;
 
