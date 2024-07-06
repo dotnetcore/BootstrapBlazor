@@ -13,7 +13,7 @@ export function init(id, options) {
         const popoverEl = filterEl.querySelector('i[data-bs-toggle="bb.dropdown"]');
         if (popoverEl) {
             EventHandler.on(popoverEl, 'show.bs.popover', () => {
-                if (alwaysTrigger === true) {
+                if (alwaysTrigger === false) {
                     EventHandler.off(popoverEl, 'show.bs.popover');
                 }
                 invoker.invokeMethodAsync(callback);
