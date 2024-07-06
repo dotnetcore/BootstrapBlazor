@@ -152,7 +152,7 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// Javascript 回调方法
+    /// JavaScript 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -160,7 +160,22 @@ public partial class MultiFilter
     {
         if (OnGetItemsAsync != null)
         {
-            _source = await OnGetItemsAsync();
+            var items = await OnGetItemsAsync();
+            if (_source != null)
+            {
+                var selectedItems = _source.Where(i => i.Active).ToList();
+                if (selectedItems.Count > 0)
+                {
+                    foreach (var item in items)
+                    {
+                        if (selectedItems.Find(i => item.Value == i.Value) != null)
+                        {
+                            item.Active = true;
+                        }
+                    }
+                }
+            }
+            _source = items;
             StateHasChanged();
         }
     }
