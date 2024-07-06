@@ -823,6 +823,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             IsFixedHeader = true;
             RenderMode = TableRenderMode.Table;
+            IsPagination = false;
         }
 
         RowsCache = null;
