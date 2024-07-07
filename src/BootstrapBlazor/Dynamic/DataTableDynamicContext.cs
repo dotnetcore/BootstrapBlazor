@@ -146,9 +146,9 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// 获得列信息方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<ITableColumn> InternalGetColumns()
+    private List<ITableColumn> InternalGetColumns()
     {
-        var ret = new List<InternalTableColumn>();
+        var ret = new List<ITableColumn>();
         foreach (DataColumn col in DataTable.Columns)
         {
             ret.Add(new InternalTableColumn(col.ColumnName, col.DataType, col.Caption));
