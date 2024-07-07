@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 public interface ITableColumn : IEditorItem
 {
     /// <summary>
-    /// 获得/设置 是否允许排序 默认为 false
+    /// 获得/设置 是否允许排序 默认为 null
     /// </summary>
-    bool Sortable { get; set; }
+    bool? Sortable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为默认排序列 默认为 false
@@ -25,14 +25,14 @@ public interface ITableColumn : IEditorItem
     SortOrder DefaultSortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许过滤数据 默认为 false
+    /// 获得/设置 是否允许过滤数据 默认为 null
     /// </summary>
-    bool Filterable { get; set; }
+    bool? Filterable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否参与搜索 默认为 false
+    /// 获得/设置 是否参与搜索 默认为 null
     /// </summary>
-    bool Searchable { get; set; }
+    bool? Searchable { get; set; }
 
     /// <summary>
     /// 获得/设置 列宽
@@ -45,14 +45,14 @@ public interface ITableColumn : IEditorItem
     bool Fixed { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列是否允许换行 默认为 false
+    /// 获得/设置 本列是否允许换行 默认为 null
     /// </summary>
-    bool TextWrap { get; set; }
+    bool? TextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列文本超出省略 默认为 false
+    /// 获得/设置 本列文本超出省略 默认为 null
     /// </summary>
-    bool TextEllipsis { get; set; }
+    bool? TextEllipsis { get; set; }
 
     /// <summary>
     /// 获得/设置 是否表头允许折行 默认 false 不折行
@@ -85,9 +85,9 @@ public interface ITableColumn : IEditorItem
     BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可以拷贝列 默认 false 不可以
+    /// 获得/设置 是否可以拷贝列 默认 null 不可以
     /// </summary>
-    bool ShowCopyColumn { get; set; }
+    bool? ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
@@ -125,14 +125,14 @@ public interface ITableColumn : IEditorItem
     Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    /// 获得/设置 文字对齐方式 默认为 Alignment.None
+    /// 获得/设置 文字对齐方式 默认为 null 使用 Alignment.None
     /// </summary>
-    Alignment Align { get; set; }
+    Alignment? Align { get; set; }
 
     /// <summary>
-    /// 字段鼠标悬停提示
+    /// 获得/设置 字段鼠标悬停提示 默认为 null 使用 false 值
     /// </summary>
-    bool ShowTips { get; set; }
+    bool? ShowTips { get; set; }
 
     /// <summary>
     /// 获得/设置 鼠标悬停提示自定义内容回调委托 默认 null 使用当前值
@@ -160,9 +160,9 @@ public interface ITableColumn : IEditorItem
     bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// 获得/设置 当前编辑项是否显示 默认为 null 未设置时为 true
     /// </summary>
-    bool Visible { get; set; }
+    bool? Visible { get; set; }
 
     /// <summary>
     /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值

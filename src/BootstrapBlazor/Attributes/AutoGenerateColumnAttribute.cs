@@ -182,10 +182,65 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    bool? ITableColumn.Searchable { get => Searchable; set => Searchable = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.Filterable { get => Filterable; set => Filterable = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.Sortable { get => Sortable; set => Sortable = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.TextWrap { get => TextWrap; set => TextWrap = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.TextEllipsis { get => TextEllipsis; set => TextEllipsis = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? IEditorItem.Ignore { get => Ignore; set => Ignore = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? IEditorItem.Readonly { get => Readonly; set => Readonly = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.Visible { get => Visible; set => Visible = value ?? true; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.ShowTips { get => ShowTips; set => ShowTips = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    bool? ITableColumn.ShowCopyColumn { get => ShowCopyColumn; set => ShowCopyColumn = value ?? false; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    Alignment? ITableColumn.Align { get => Align; set => Align = value ?? Alignment.None; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 Textarea 行数
+    /// 获得/设置 行数
     /// </summary>
     public int Rows { get; set; }
 

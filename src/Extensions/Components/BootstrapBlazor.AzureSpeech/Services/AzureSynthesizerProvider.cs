@@ -107,7 +107,7 @@ public class AzureSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     })!;
 
     /// <summary>
-    /// Callback 回调方法 由 Javascript 调用
+    /// Callback 回调方法 由 JavaScript 调用
     /// </summary>
     /// <param name="status"></param>
     /// <returns></returns>

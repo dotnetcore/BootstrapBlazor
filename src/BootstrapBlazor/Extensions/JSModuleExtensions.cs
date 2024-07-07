@@ -68,7 +68,7 @@ public static class JSModuleExtensions
     public static async ValueTask Eval(this JSModule module, string script) => await module.InvokeVoidAsync("runEval", script);
 
     /// <summary>
-    /// 通过 Eval 动态运行 javascript 代码
+    /// 通过 Eval 动态运行 JavaScript 代码
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
@@ -76,7 +76,7 @@ public static class JSModuleExtensions
     public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
 
     /// <summary>
-    /// 通过 Function 动态运行 javascript 代码
+    /// 通过 Function 动态运行 JavaScript 代码
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>

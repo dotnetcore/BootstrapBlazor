@@ -21,7 +21,7 @@ public class AutoGenerateClassTest
             ShowTips = true,
             Align = Alignment.Center
         };
-        Assert.True(!attr.Ignore);
+        Assert.False(attr.Ignore);
         Assert.True(attr.Readonly);
         Assert.True(attr.Sortable);
         Assert.True(attr.Filterable);
@@ -154,6 +154,42 @@ public class AutoGenerateClassTest
 
         attrInterface.CustomSearch = new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test"));
         Assert.NotNull(attrInterface.CustomSearch);
+
+        attrInterface.Searchable = null;
+        Assert.False(attrInterface.Searchable);
+
+        attrInterface.Filterable = null;
+        Assert.False(attrInterface.Filterable);
+
+        attrInterface.Searchable = null;
+        Assert.False(attrInterface.Searchable);
+
+        attrInterface.Sortable = null;
+        Assert.False(attrInterface.Sortable);
+
+        attrInterface.TextWrap = null;
+        Assert.False(attrInterface.TextWrap);
+
+        attrInterface.TextEllipsis = null;
+        Assert.False(attrInterface.TextEllipsis);
+
+        attrInterface.Ignore = null;
+        Assert.False(attrInterface.Ignore);
+
+        attrInterface.Readonly = null;
+        Assert.False(attrInterface.Readonly);
+
+        attrInterface.ShowTips = null;
+        Assert.False(attrInterface.ShowTips);
+
+        attrInterface.ShowCopyColumn = null;
+        Assert.False(attrInterface.ShowCopyColumn);
+
+        attrInterface.Visible = null;
+        Assert.True(attrInterface.Visible);
+
+        attrInterface.Align = null;
+        Assert.Equal(Alignment.None, attrInterface.Align);
 
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;

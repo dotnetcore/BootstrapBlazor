@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public static class IEditItemExtensions
 {
     /// <summary>
-    /// 集成 class 标签中设置的参数值
+    /// 继承 class 标签中设置的参数值
     /// </summary>
     /// <param name="dest"></param>
     /// <param name="source"></param>
@@ -28,6 +28,7 @@ public static class IEditItemExtensions
         if (source.ShowCopyColumn) dest.ShowCopyColumn = source.ShowCopyColumn;
         if (source.Sortable) dest.Sortable = source.Sortable;
         if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
+        if (!source.Visible) dest.Visible = source.Visible;
     }
 
     /// <summary>
@@ -39,7 +40,7 @@ public static class IEditItemExtensions
     {
         if (source.ComponentType != null) dest.ComponentType = source.ComponentType;
         if (source.ComponentParameters != null) dest.ComponentParameters = source.ComponentParameters;
-        if (source.Ignore) dest.Ignore = source.Ignore;
+        if (source.Ignore.HasValue) dest.Ignore = source.Ignore;
         if (source.EditTemplate != null) dest.EditTemplate = source.EditTemplate;
         if (source.Items != null) dest.Items = source.Items;
         if (source.Lookup != null) dest.Lookup = source.Lookup;
@@ -48,7 +49,7 @@ public static class IEditItemExtensions
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
-        if (source.Readonly) dest.Readonly = source.Readonly;
+        if (source.Readonly.HasValue) dest.Readonly = source.Readonly;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
@@ -68,35 +69,34 @@ public static class IEditItemExtensions
 
     private static void CopyValue(this ITableColumn col, ITableColumn dest)
     {
-        if (col.Align != Alignment.None) dest.Align = col.Align;
-        if (col.TextWrap) dest.TextWrap = col.TextWrap;
+        if (col.Align.HasValue) dest.Align = col.Align;
+        if (col.TextWrap.HasValue) dest.TextWrap = col.TextWrap;
         if (!string.IsNullOrEmpty(col.CssClass)) dest.CssClass = col.CssClass;
         if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
         if (col.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = col.DefaultSortOrder;
         if (col.Filter != null) dest.Filter = col.Filter;
-        if (col.Filterable) dest.Filterable = col.Filterable;
+        if (col.Filterable.HasValue) dest.Filterable = col.Filterable;
         if (col.FilterTemplate != null) dest.FilterTemplate = col.FilterTemplate;
         if (col.Fixed) dest.Fixed = col.Fixed;
         if (col.FormatString != null) dest.FormatString = col.FormatString;
         if (col.Formatter != null) dest.Formatter = col.Formatter;
         if (col.HeaderTemplate != null) dest.HeaderTemplate = col.HeaderTemplate;
         if (col.OnCellRender != null) dest.OnCellRender = col.OnCellRender;
-        if (col.Searchable) dest.Searchable = col.Searchable;
+        if (col.Searchable.HasValue) dest.Searchable = col.Searchable;
         if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
         if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
-        if (col.ShowTips) dest.ShowTips = col.ShowTips;
-        if (col.Sortable) dest.Sortable = col.Sortable;
+        if (col.ShowTips.HasValue) dest.ShowTips = col.ShowTips;
+        if (col.Sortable.HasValue) dest.Sortable = col.Sortable;
         if (col.Template != null) dest.Template = col.Template;
-        if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
-        if (!col.Visible) dest.Visible = col.Visible;
+        if (col.TextEllipsis.HasValue) dest.TextEllipsis = col.TextEllipsis;
         if (col.Width != null) dest.Width = col.Width;
-        if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
+        if (col.ShowCopyColumn.HasValue) dest.ShowCopyColumn = col.ShowCopyColumn;
         if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
         if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
         if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
         if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
         if (col.IsMarkupString) dest.IsMarkupString = col.IsMarkupString;
-        if (!col.Visible) dest.Visible = col.Visible;
+        if (col.Visible.HasValue) dest.Visible = col.Visible;
         if (col.IsVisibleWhenAdd.HasValue) dest.IsVisibleWhenAdd = col.IsVisibleWhenAdd;
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
@@ -233,7 +233,7 @@ public static class IEditItemExtensions
 
     private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => async pb =>
     {
-        if (col.ShowTips)
+        if (col.GetShowTips())
         {
             var tooltipText = text;
             if (col.GetTooltipTextCallback != null)
@@ -292,4 +292,22 @@ public static class IEditItemExtensions
         }
         return ret;
     }
+
+    internal static bool GetSearchable(this ITableColumn col) => col.Searchable ?? false;
+
+    internal static bool GetFilterable(this ITableColumn col) => col.Filterable ?? false;
+
+    internal static bool GetSortable(this ITableColumn col) => col.Sortable ?? false;
+
+    internal static bool GetTextWrap(this ITableColumn col) => col.TextWrap ?? false;
+
+    internal static bool GetTextEllipsis(this ITableColumn col) => col.TextEllipsis ?? false;
+
+    internal static bool GetVisible(this ITableColumn col) => col.Visible ?? true;
+
+    internal static bool GetShowCopyColumn(this ITableColumn col) => col.ShowCopyColumn ?? false;
+
+    internal static bool GetShowTips(this ITableColumn col) => col.ShowTips ?? false;
+
+    internal static Alignment GetAlign(this ITableColumn col) => col.Align ?? Alignment.None;
 }
