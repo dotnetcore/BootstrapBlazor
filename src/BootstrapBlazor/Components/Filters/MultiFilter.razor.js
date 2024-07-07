@@ -7,13 +7,15 @@ export function init(id, options) {
         return;
     }
 
-    const { invoker, callback } = options;
+    const { invoker, callback, alwaysTrigger } = options;
     const filterEl = el.closest('.filter-icon');
     if (filterEl) {
         const popoverEl = filterEl.querySelector('i[data-bs-toggle="bb.dropdown"]');
         if (popoverEl) {
             EventHandler.on(popoverEl, 'show.bs.popover', () => {
-                EventHandler.off(popoverEl, 'show.bs.popover');
+                if (alwaysTrigger === false) {
+                    EventHandler.off(popoverEl, 'show.bs.popover');
+                }
                 invoker.invokeMethodAsync(callback);
             });
             Data.set(id, popoverEl);

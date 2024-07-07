@@ -106,6 +106,8 @@ const Popover = {
                 if (popover.hasDisplayNone) {
                     popover.toggleMenu.classList.add("d-none");
                 }
+
+                popover.popover.tip.classList.remove('show');
                 el.classList.remove('show');
                 el.append(popover.toggleMenu);
             }

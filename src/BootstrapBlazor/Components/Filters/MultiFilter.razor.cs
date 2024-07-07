@@ -34,6 +34,12 @@ public partial class MultiFilter
     public Func<Task<List<SelectedItem>>>? OnGetItemsAsync { get; set; }
 
     /// <summary>
+    /// 获得 是否每次弹窗时均调用 <see cref="OnGetItemsAsync"/> 回调方法，多用于动态填装过滤条件
+    /// </summary>
+    [Parameter]
+    public bool AlwaysTriggerGetItems { get; set; }
+
+    /// <summary>
     /// 获得/设置 Loading 模板
     /// </summary>
     [Parameter]
@@ -104,7 +110,7 @@ public partial class MultiFilter
     {
         if (OnGetItemsAsync != null)
         {
-            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(TriggerGetItemsCallback) });
+            await InvokeVoidAsync("init", Id, new { Invoker = Interop, Callback = nameof(TriggerGetItemsCallback), AlwaysTrigger = AlwaysTriggerGetItems });
         }
     }
 
@@ -146,7 +152,7 @@ public partial class MultiFilter
     }
 
     /// <summary>
-    /// Javascript 回调方法
+    /// JavaScript 回调方法
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -154,7 +160,22 @@ public partial class MultiFilter
     {
         if (OnGetItemsAsync != null)
         {
-            _source = await OnGetItemsAsync();
+            var items = await OnGetItemsAsync();
+            if (_source != null)
+            {
+                var selectedItems = _source.Where(i => i.Active).ToList();
+                if (selectedItems.Count > 0)
+                {
+                    foreach (var item in items)
+                    {
+                        if (selectedItems.Find(i => item.Value == i.Value) != null)
+                        {
+                            item.Active = true;
+                        }
+                    }
+                }
+            }
+            _source = items;
             StateHasChanged();
         }
     }

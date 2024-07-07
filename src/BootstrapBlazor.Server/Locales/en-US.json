@@ -6328,6 +6328,7 @@
     "ClipboardMessage": "Text content: {0}, copied to clipboard",
     "ClipboardGetTextMessage": "Read clipboard text content: {0}",
     "ClipboardCopyMethod": "Copy text to the clipboard method",
+    "ClipboardGetMethod": "Method for reading clipboard content",
     "ClipboardGetTextMethod": "Method for reading clipboard text content"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {

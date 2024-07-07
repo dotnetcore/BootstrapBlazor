@@ -102,6 +102,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
                         b.OpenComponent<MultiFilter>(0);
                         b.AddAttribute(1, nameof(MultiFilter.ShowSearch), true);
                         b.AddAttribute(2, nameof(MultiFilter.OnGetItemsAsync), () => Task.FromResult(new List<SelectedItem>() { new("test1", "test1") }));
+                        b.AddAttribute(1, nameof(MultiFilter.AlwaysTriggerGetItems), true);
                         b.CloseComponent();
                     }));
                     builder.CloseComponent();
@@ -116,6 +117,11 @@ public class TableFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.LoadingTemplate, "loading-template-test");
         });
         cut.Contains("loading-template-test");
+        await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
+
+        // 选中数据
+        var checkItems = cut.FindComponents<Checkbox<bool>>();
+        await cut.InvokeAsync(() => checkItems[1].Instance.SetValue(true));
         await cut.InvokeAsync(() => filter.Instance.TriggerGetItemsCallback());
     }
 
