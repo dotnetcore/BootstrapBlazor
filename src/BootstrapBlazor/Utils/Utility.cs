@@ -328,8 +328,6 @@ public static class Utility
             else
             {
                 // 设置 AutoGenerateColumnAttribute 时合并 AutoGenerateClassAttribute 参数值
-                if (columnAttribute.Ignore) continue;
-
                 columnAttribute.Text = displayName;
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;
@@ -349,7 +347,11 @@ public static class Utility
                 tc.CopyValue(col);
                 columns.Remove(col);
             }
-            cols.Add(tc);
+
+            if (!tc.GetIgnore())
+            {
+                cols.Add(tc);
+            }
         }
 
         if (columns.Count > 0)
