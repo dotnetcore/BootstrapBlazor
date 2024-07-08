@@ -1,5 +1,6 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
 import { deletePanel, findContentFromPanels } from "./dockview-panel.js"
+import { saveConfig } from "./dockview-config.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {
@@ -25,11 +26,16 @@ const onAddGroup = group => {
             style.left = left + 'px'
         }, 0)
     }
-
+    group.header.onDrop(() => {
+        saveConfig(dockview)
+    })
+    group.model.contentContainer.dropTarget.onDrop(() => {
+        saveConfig(dockview)
+    })
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel, panels) => {console.log('add233');
+const addGroupWithPanel = (dockview, panel, panels) => {
     if (panel.groupId) {
         addPanelWidthGroupId(dockview, panel)
     }
@@ -279,6 +285,7 @@ const toggleLock = (group, actionContainer, isLock) => {
     else {
         actionContainer.classList.remove('bb-lock')
     }
+    saveConfig(group.api.accessor)
 }
 
 const toggleFull = (group, actionContainer, isMaximized) => {
@@ -323,6 +330,7 @@ const float = group => {
     dockview.setVisible(group, false)
     dockview.addFloatingGroup(floatingGroup, floatingGroupPosition, { skipRemoveGroup: true })
     createGroupActions(floatingGroup);
+    saveConfig(dockview)
 }
 
 const dock = group => {

@@ -2,7 +2,7 @@
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
-import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage, saveConfig } from './dockview-config.js'
 import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -74,6 +74,15 @@ const initDockview = (dockview, options, template) => {
                 dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
             })
         }, 0);
+    })
+    // 拖拽分割线后触发
+    dockview.gridview.onDidChange(event => {
+        dockview._groupSizeChanged.fire()
+        saveConfig(dockview)
+    })
+
+    dockview._rootDropTarget.onDrop(() => {
+        saveConfig(dockview)
     })
 }
 
