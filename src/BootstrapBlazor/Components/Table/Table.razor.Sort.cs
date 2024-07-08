@@ -439,8 +439,7 @@ public partial class Table<TItem>
     /// 获取指定列头样式字符串
     /// </summary>
     /// <returns></returns>
-    protected string? GetColumnToolboxIconClassString() => CssBuilder.Default("toolbox-icon")
-        .AddClass(ColumnToolboxIcon)
+    protected string? GetColumnToolboxIconClassString() => CssBuilder.Default(ColumnToolboxIcon)
         .Build();
 
     #region Advanced Sort

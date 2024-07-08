@@ -568,7 +568,14 @@
                                 }
                                 @if (ShowColumnToolbox)
                                 {
-                                    <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()" data-bs-title="@Localizer["ColumnToolboxTitle"]" @onclick:stopPropagation></i>
+                                    <Popover Trigger="click" Placement="Placement.Top" class="toolbox-icon">
+                                        <ChildContent>
+                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()" data-bs-title="@Localizer["ColumnToolboxTitle"]"></i>
+                                        </ChildContent>
+                                        <Template>
+                                            @GetColumnToolboxTemplate(col)
+                                        </Template>
+                                    </Popover>
                                 }
                             </div>
                             @if (!col.Fixed && AllowResizing)

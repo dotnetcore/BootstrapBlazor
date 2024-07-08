@@ -97,8 +97,6 @@ export function reset(id) {
 
     setBodyHeight(table)
 
-    //setColumnToolbox(table);
-
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
             if (entry.target === shim) {

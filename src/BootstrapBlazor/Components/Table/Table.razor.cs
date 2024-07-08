@@ -1502,6 +1502,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret;
     }
 
+    private RenderFragment? GetColumnToolboxTemplate(ITableColumn column)
+    {
+        return column.ToolboxTemplate?.Invoke(column);
+    }
+
     /// <summary>
     /// 是否触摸
     /// </summary>
