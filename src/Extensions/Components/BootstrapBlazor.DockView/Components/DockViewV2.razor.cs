@@ -79,6 +79,12 @@ public partial class DockViewV2
     public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 标签页调整大小完成时回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnSplitterCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 客户端组件脚本初始化完成后回调此方法
     /// </summary>
     [Parameter]
@@ -175,6 +181,7 @@ public partial class DockViewV2
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelVisibleChangedCallback = nameof(PanelVisibleChangedCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
+        SplitterCallback = nameof(SplitterCallbackAsync),
         Contents = _components
     };
 
@@ -235,6 +242,18 @@ public partial class DockViewV2
         if (OnLockChangedCallbackAsync != null)
         {
             await OnLockChangedCallbackAsync(panels, state);
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task SplitterCallbackAsync()
+    {
+        if (OnSplitterCallbackAsync != null)
+        {
+            await OnSplitterCallbackAsync();
         }
     }
 }
