@@ -150,6 +150,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     RenderFragment<ITableColumn>? ITableColumn.HeaderTemplate { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    RenderFragment<ITableColumn>? ITableColumn.ToolboxTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件类型 默认为 null
     /// </summary>
     public Type? ComponentType { get; set; }
