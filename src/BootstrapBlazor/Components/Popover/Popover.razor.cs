@@ -39,24 +39,8 @@ public partial class Popover
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ToggleString = "popover";
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync()
-    {
-        if (!string.IsNullOrEmpty(Content))
-        {
-            await InvokeVoidAsync("init", Id, Content);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Content, Template = Template != null });
 
     /// <summary>
     /// <inheritdoc/>
@@ -71,8 +55,7 @@ public partial class Popover
         {
             _lastContent = Content;
         }
-
-        if (_lastContent != Content)
+        else if (_lastContent != Content)
         {
             _lastContent = Content;
             await InvokeInitAsync();
