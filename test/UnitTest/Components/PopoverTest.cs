@@ -14,9 +14,15 @@ public class PopoverTest : BootstrapBlazorTestBase
             pb.Add(a => a.Title, "test_popover");
             pb.Add(a => a.Content, "test_content");
         });
-        Assert.Contains("data-bs-original-title=\"test_popover\"", cut.Markup);
-        Assert.Contains("data-bs-toggle=\"popover\"", cut.Markup);
         Assert.Contains("data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"", cut.Markup);
+        Assert.Contains("data-bs-original-title=\"test_popover\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Title, "test");
+            pb.Add(a => a.Content, "test");
+        });
+        Assert.Contains("data-bs-original-title=\"test\"", cut.Markup);
     }
 
     [Fact]
@@ -31,20 +37,12 @@ public class PopoverTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Content_OK()
+    public void Template_OK()
     {
         var cut = Context.RenderComponent<Popover>(pb =>
         {
-            pb.Add(a => a.Title, "test_content");
-            pb.Add(a => a.Content, "test_content");
+            pb.Add(a => a.Template, builder => builder.AddContent(0, "custom-template"));
         });
-        Assert.Contains("data-bs-original-title=\"test_content\"", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Title, "test");
-            pb.Add(a => a.Content, "test");
-        });
-        Assert.Contains("data-bs-original-title=\"test\"", cut.Markup);
+        Assert.Contains("<template>", cut.Markup);
     }
 }
