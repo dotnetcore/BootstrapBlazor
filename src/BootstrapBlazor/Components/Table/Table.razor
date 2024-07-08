@@ -566,6 +566,17 @@
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
+                                @if (col.ToolboxTemplate != null)
+                                {
+                                    <Popover Title="@Localizer["ColumnToolboxTitle"]" Trigger="click" Placement="Placement.Top" FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox" class="toolbox-icon">
+                                        <ChildContent>
+                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()" @onclick:stopPropagation></i>
+                                        </ChildContent>
+                                        <Template>
+                                            @col.ToolboxTemplate(col)
+                                        </Template>
+                                    </Popover>
+                                }
                             </div>
                             @if (!col.Fixed && AllowResizing)
                             {

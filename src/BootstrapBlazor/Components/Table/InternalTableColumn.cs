@@ -92,6 +92,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// </summary>
     public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public RenderFragment<ITableColumn>? ToolboxTemplate { get; set; }
+
     public IFilter? Filter { get; set; }
 
     public string? FormatString { get; set; }

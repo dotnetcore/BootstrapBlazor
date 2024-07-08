@@ -455,6 +455,11 @@ public enum ComponentIcons
     StepErrorIcon,
 
     /// <summary>
+    /// Table 组件 ColumnToolboxIcon 属性图标
+    /// </summary>
+    TableColumnToolboxIcon,
+
+    /// <summary>
     /// Table 组件 SortIconAsc 属性图标
     /// </summary>
     TableSortIconAsc,

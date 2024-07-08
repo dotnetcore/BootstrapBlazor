@@ -24,6 +24,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public RenderFragment? LoadingTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 列工具栏图标 fa-solid fa-gear
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ColumnToolboxIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
@@ -768,6 +775,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         SortIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSortIcon);
         FilterIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterIcon);
         ExportButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportButtonIcon);
+        ColumnToolboxIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnToolboxIcon);
 
         AddButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAddButtonIcon);
         EditButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableEditButtonIcon);
@@ -914,7 +922,31 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 ColumnMinWidth = ColumnMinWidth ?? Options.CurrentValue.TableSettings.ColumnMinWidth,
                 ScrollWidth = ActualScrollWidth,
                 ShowColumnWidthTooltip,
-                ColumnWidthTooltipPrefix
+                ColumnWidthTooltipPrefix,
+                ColumnToolboxContent = new List<object>()
+                {
+                    new
+                    {
+                        Key = "align-left",
+                        Icon = "fa-solid fa-align-left",
+                        Text = Localizer["AlignLeft"].Value,
+                        Tooltip = Localizer["AlignLeftTooltip"].Value
+                    },
+                    new
+                    {
+                        Key = "align-center",
+                        Icon = "fa-solid fa-align-center",
+                        Text = Localizer["AlignCenter"].Value,
+                        Tooltip = Localizer["AlignCenterTooltip"].Value
+                    },
+                    new
+                    {
+                        Key = "align-left",
+                        Icon = "fa-solid fa-align-right",
+                        Text = Localizer["AlignRight"].Value,
+                        Tooltip = Localizer["AlignRightTooltip"].Value
+                    }
+                }
             });
         }
 

@@ -104,6 +104,7 @@ public class AutoGenerateClassTest
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;
         Assert.True(attrInterface.ShowLabelTooltip);
+
         attrInterface.ShowLabelTooltip = null;
         Assert.False(attrInterface.ShowLabelTooltip);
 
@@ -190,6 +191,9 @@ public class AutoGenerateClassTest
 
         attrInterface.Align = null;
         Assert.Equal(Alignment.None, attrInterface.Align);
+
+        attrInterface.ToolboxTemplate = col => builder => builder.AddContent(0, "test");
+        Assert.NotNull(attrInterface.ToolboxTemplate);
 
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;

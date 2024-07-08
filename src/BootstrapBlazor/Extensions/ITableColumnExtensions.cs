@@ -103,6 +103,7 @@ public static class IEditItemExtensions
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
         if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
         if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
+        if (col.ToolboxTemplate != null) dest.ToolboxTemplate = col.ToolboxTemplate;
     }
 
     /// <summary>

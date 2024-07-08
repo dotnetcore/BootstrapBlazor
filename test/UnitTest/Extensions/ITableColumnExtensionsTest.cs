@@ -81,6 +81,7 @@ public class ITableColumnExtensionsTest
                 return Task.FromResult<string?>(ret);
             },
             HeaderTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-header")),
+            ToolboxTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-toolbox")),
             OnCellRender = args => { },
             Searchable = true,
             SearchTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-search")),
@@ -141,6 +142,7 @@ public class ITableColumnExtensionsTest
         Assert.Equal("test-format", col.FormatString);
         Assert.NotNull(col.Formatter);
         Assert.NotNull(col.HeaderTemplate);
+        Assert.NotNull(attr.ToolboxTemplate);
         Assert.NotNull(col.OnCellRender);
         Assert.True(col.Searchable);
         Assert.NotNull(col.SearchTemplate);

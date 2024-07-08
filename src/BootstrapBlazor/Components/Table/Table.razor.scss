@@ -154,7 +154,8 @@
 }
 
 .table thead th .filter-icon,
-.table thead th .sort-icon {
+.table thead th .sort-icon,
+.table thead th .toolbox-icon {
     position: absolute;
     right: calc(0px - var(--bb-table-td-padding-x));
     top: calc(0px - var(--bb-table-td-padding-y));
@@ -162,7 +163,8 @@
 }
 
 .table thead th .filter-icon > i,
-.table thead th .sort-icon {
+.table thead th .sort-icon,
+.table thead th .toolbox-icon {
     width: 1.5rem;
     display: flex;
     align-items: center;
@@ -176,7 +178,8 @@
 }
 
 .table thead th .filter-icon > i:hover,
-.table thead th .sort-icon:hover {
+.table thead th .sort-icon:hover,
+.table thead th .toolbox-icon:hover {
     background-color: var(--bb-table-header-icon-hover-bg);
     color: var(--bb-table-header-icon-hover-color);
 }
@@ -185,8 +188,14 @@
     color: var(--bb-table-header-icon-active-color);
 }
 
-.table thead th.sortable.filterable .filter-icon {
+.table thead th.sortable.filterable .filter-icon,
+.table thead th.sortable .toolbox-icon,
+.table thead th.filterable .toolbox-icon {
     right: calc(1.5rem - var(--bb-table-td-padding-x));
+}
+
+.table thead th.sortable.filterable.toolbox .toolbox-icon {
+    right: calc(3rem - var(--bb-table-td-padding-x));
 }
 
 .table thead th.sortable.filterable .table-text {

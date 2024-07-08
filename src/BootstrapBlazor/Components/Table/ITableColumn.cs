@@ -110,6 +110,11 @@ public interface ITableColumn : IEditorItem
     RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 工具栏模板 默认 null
+    /// </summary>
+    RenderFragment<ITableColumn>? ToolboxTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 列过滤器
     /// </summary>
     IFilter? Filter { get; set; }

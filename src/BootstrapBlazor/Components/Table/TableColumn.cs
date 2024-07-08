@@ -378,6 +378,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 列工具栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ITableColumn>? ToolboxTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 显示节点阈值 默认值 BreakPoint.None 未设置
     /// </summary>
     [Parameter]

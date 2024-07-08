@@ -155,6 +155,8 @@ public class IconThemeOptions
         { ComponentIcons.TabDropdownIcon, "fa-solid fa-chevron-down" },
         { ComponentIcons.TabCloseIcon, "fa-solid fa-xmark" },
 
+        { ComponentIcons.TableColumnToolboxIcon, "fa-solid fa-gear" },
+
         { ComponentIcons.TableSortIconAsc, "fa-solid fa-sort-up" },
         { ComponentIcons.TableSortDesc, "fa-solid fa-sort-down" },
         { ComponentIcons.TableSortIcon, "fa-solid fa-sort" },
