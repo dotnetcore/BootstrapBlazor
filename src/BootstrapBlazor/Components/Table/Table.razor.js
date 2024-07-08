@@ -547,6 +547,10 @@ const setColumnResizingListen = (table, col) => {
             });
             if (!tip._isShown()) {
                 tip.show();
+                const handler = setTimeout(() => {
+                    clearTimeout(handler);
+                    tip.hide();
+                }, 3000);
             }
         });
     }
