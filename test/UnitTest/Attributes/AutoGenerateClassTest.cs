@@ -104,6 +104,7 @@ public class AutoGenerateClassTest
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;
         Assert.True(attrInterface.ShowLabelTooltip);
+
         attrInterface.ShowLabelTooltip = null;
         Assert.False(attrInterface.ShowLabelTooltip);
 
