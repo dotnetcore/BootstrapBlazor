@@ -6,12 +6,12 @@
       data-bs-selector="@Selector" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString"
       data-bs-trigger="@Trigger" data-bs-html="@HtmlString" data-bs-delay="@Delay" data-bs-sanitize="@SanitizeString">
     <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
         @if (Template != null)
         {
             <template>
                 @Template
             </template>
         }
-        @ChildContent
     </CascadingValue>
 </span>
