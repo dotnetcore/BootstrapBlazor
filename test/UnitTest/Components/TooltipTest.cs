@@ -36,7 +36,7 @@ public class TooltipTest : BootstrapBlazorTestBase
             pb.Add(a => a.Title, "test_tooltip");
         });
         var tooltip = cut.Instance;
-        await cut.InvokeAsync(() => tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector"));
+        await cut.InvokeAsync(() => tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector", "10,20"));
         Assert.Equal("title", tooltip.Title);
         Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
         Assert.Contains("data-bs-trigger=\"trigger\"", cut.Markup);
@@ -45,6 +45,7 @@ public class TooltipTest : BootstrapBlazorTestBase
         Assert.Contains("data-bs-sanitize=\"false\"", cut.Markup);
         Assert.Contains("data-bs-delay=\"10\"", cut.Markup);
         Assert.Contains("data-bs-selector=\".selector\"", cut.Markup);
+        Assert.Contains("data-bs-offset=\"10,20\"", cut.Markup);
     }
 
     [Fact]
