@@ -1115,7 +1115,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem>? items = null)
     {
-        var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible) { DisplayName = i.GetDisplayName() }).ToList();
+        var cols = Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.GetVisible()) { DisplayName = i.GetDisplayName() }).ToList();
         if (items != null)
         {
             foreach (var column in cols)

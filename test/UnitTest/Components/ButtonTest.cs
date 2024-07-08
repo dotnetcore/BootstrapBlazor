@@ -295,7 +295,7 @@ public class ButtonTest : BootstrapBlazorTestBase
                 pb.Add(t => t.Title, "popover-title");
             });
         });
-        cut.Contains("data-bs-original-title=\"popover-title\" data-bs-toggle=\"popover\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
+        cut.Contains("data-bs-toggle=\"popover\" data-bs-original-title=\"popover-title\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
 
         // 切换 Disabled 状态移除 Popover
         cut.SetParametersAndRender(pb =>

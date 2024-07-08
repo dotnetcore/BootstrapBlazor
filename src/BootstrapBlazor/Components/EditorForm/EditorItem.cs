@@ -53,13 +53,13 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// <inheritdoc/>>
     /// </summary>
     [Parameter]
-    public bool Ignore { get; set; }
+    public bool? Ignore { get; set; }
 
     /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     [Parameter]
-    public bool Readonly { get; set; }
+    public bool? Readonly { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

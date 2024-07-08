@@ -23,12 +23,12 @@ public interface IEditorItem
     /// <summary>
     /// 获得/设置 当前编辑项是否只读 默认为 false
     /// </summary>
-    bool Readonly { get; set; }
+    bool? Readonly { get; set; }
 
     /// <summary>
     /// 获得/设置 当前编辑项是否忽略 默认为 false 当设置为 true 时 UI 不生成此列
     /// </summary>
-    bool Ignore { get; set; }
+    bool? Ignore { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false

@@ -321,22 +321,20 @@ public static class Utility
 
                 if (classAttribute != null)
                 {
-                    // AutoGenerateClassAttribute 设置时继承类标签
+                    // AutoGenerateClassAttribute 设置时继承类标签值
                     tc.InheritValue(classAttribute);
                 }
             }
             else
             {
-                // 设置 AutoGenerateColumnAttribute 时
-                if (columnAttribute.Ignore) continue;
-
+                // 设置 AutoGenerateColumnAttribute 时合并 AutoGenerateClassAttribute 参数值
                 columnAttribute.Text = displayName;
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;
 
                 if (classAttribute != null)
                 {
-                    // AutoGenerateClassAttribute 设置时继承类标签
+                    // AutoGenerateClassAttribute 设置时继承类标签值
                     columnAttribute.InheritValue(classAttribute);
                 }
                 tc = columnAttribute;
@@ -349,7 +347,11 @@ public static class Utility
                 tc.CopyValue(col);
                 columns.Remove(col);
             }
-            cols.Add(tc);
+
+            if (!tc.GetIgnore())
+            {
+                cols.Add(tc);
+            }
         }
 
         if (columns.Count > 0)

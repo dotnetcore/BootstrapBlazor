@@ -21,7 +21,7 @@ public static class TableEditDialogOptionExtensions
         [nameof(EditDialog<TModel>.ShowUnsetGroupItemsOnTop)] = option.ShowUnsetGroupItemsOnTop,
         [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
         [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
-        [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.Ignore),
+        [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => !item.GetIgnore()),
         [nameof(EditDialog<TModel>.RowType)] = option.RowType,
         [nameof(EditDialog<TModel>.LabelAlign)] = option.LabelAlign,
         [nameof(EditDialog<TModel>.ItemChangedType)] = option.ItemChangedType,
