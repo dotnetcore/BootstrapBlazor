@@ -97,6 +97,8 @@ export function reset(id) {
 
     setBodyHeight(table)
 
+    setColumnToolboxListener(table);
+
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
             if (entry.target === shim) {
@@ -197,8 +199,8 @@ export function dispose(id) {
 
         disposeColumnDrag(table.columns)
         disposeDragColumns(table.dragColumns)
-        EventHandler.off(table.element, 'click', '.col-copy')
-
+        EventHandler.off(table.element, 'click', '.col-copy');
+        EventHandler.off(document, 'click');
         if (table.observer) {
             table.observer.disconnect()
         }
@@ -208,6 +210,24 @@ export function dispose(id) {
                 Popover.dispose(p)
             })
         }
+    }
+}
+
+const setColumnToolboxListener = table => {
+    if (table.tables[0].querySelector('.toolbox-icon')) {
+        EventHandler.on(document, 'click', e => {
+            const target = e.target;
+            if (target.closest('.popover-table-column-toolbox')) {
+                return;
+            }
+
+            [...table.tables[0].querySelectorAll('.toolbox-icon')].forEach(toolbox => {
+                const popover = bootstrap.Popover.getInstance(toolbox);
+                if (popover && popover._isShown()) {
+                    popover.hide();
+                }
+            })
+        });
     }
 }
 
@@ -512,7 +532,9 @@ const setResizeListener = table => {
                             const tip = bootstrap.Tooltip.getInstance(col);
                             if (tip && tip._isShown()) {
                                 const inner = tip.tip.querySelector('.tooltip-inner');
-                                inner.innerHTML = getColumnTooltipTitle(table.options, colWidth + marginX);
+                                const tipText = getColumnTooltipTitle(table.options, colWidth + marginX);
+                                inner.innerHTML = tipText;
+                                tip._config.title = tipText;
                                 tip.update();
                             }
                         }

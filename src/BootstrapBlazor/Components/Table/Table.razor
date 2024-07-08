@@ -568,9 +568,11 @@
                                 }
                                 @if (col.ToolboxTemplate != null)
                                 {
-                                    <Popover Title="@Localizer["ColumnToolboxTitle"]" Trigger="click" Placement="Placement.Top" FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox" class="toolbox-icon">
+                                    <Popover Title="@Localizer["ColumnToolboxTitle"]" Trigger="click" Placement="Placement.Top"
+                                             FallbackPlacements="@(["bottom", "auto"])" CustomClass="popover-table-column-toolbox"
+                                             class="toolbox-icon" @onclick:stopPropagation>
                                         <ChildContent>
-                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()" @onclick:stopPropagation></i>
+                                            <i class="@GetColumnToolboxIconClassString()" data-bb-field="@col.GetFieldName()"></i>
                                         </ChildContent>
                                         <Template>
                                             @col.ToolboxTemplate(col)

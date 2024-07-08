@@ -25,12 +25,6 @@ public partial class Tooltip : ITooltip
     protected string? HtmlString => IsHtml ? "true" : null;
 
     /// <summary>
-    /// data-bs-toggle value default value is tooltip/popover
-    /// </summary>
-    [NotNull]
-    protected string? ToggleString { get; set; }
-
-    /// <summary>
     /// component class
     /// </summary>
     protected string? ClassString => CssBuilder.Default()
@@ -113,16 +107,6 @@ public partial class Tooltip : ITooltip
     /// 获得 CustomClass 字符串
     /// </summary>
     protected virtual string? CustomClassString => CustomClass;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ToggleString = "tooltip";
-    }
 
     /// <summary>
     /// <inheritdoc/>

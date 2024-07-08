@@ -98,4 +98,20 @@ public partial class TablesColumn
         }
         return Task.CompletedTask;
     }
+
+    private Alignment _dateTimeAlign = Alignment.Left;
+    private Alignment _nameAlign = Alignment.Left;
+
+    private void SetAlign(ITableColumn column, Alignment alignment)
+    {
+        var name = column.GetFieldName();
+        if (name == "Name")
+        {
+            _nameAlign = alignment;
+        }
+        else if (name == "DateTime")
+        {
+            _dateTimeAlign = alignment;
+        }
+    }
 }
