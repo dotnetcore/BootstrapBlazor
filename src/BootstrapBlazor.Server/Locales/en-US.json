@@ -332,6 +332,10 @@
     "PopoversNormalIntro": "Click the text input box to pop up the <code>Popover</code> pop-up box, <code>Placement</code> set the position of the pop-up box, close the pop-up box when clicking the second time",
     "PopoversButtonTitle": "button activates popup",
     "PopoversButtonIntro": "<code>Popover</code> pop-up box pops up after clicking the button",
+    "PopoversTemplateTitle": "Custom Template",
+    "PopoversTemplateIntro": "Customize the pop-up content by setting the <code>Template</code> template",
+    "PopoversTemplateButtonText": "Template",
+    "PopoversTemplateTitleText": "Custom Template",
     "PopoversButtonButtonText": "Click to activate/deactivate",
     "PopoversCssClassTitle": "custom style",
     "PopoversCssClassIntro": "Customize the pop-up window by setting the <code>Popover</code> parameter <code>CssClass</code>",
@@ -678,6 +682,8 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
+    "TreeViewFixedSearchTitle": "Fixed search",
+    "TreeViewFixedSearchIntro": "The search bar can be fixed by setting <code>IsFixedSearch=\"true\"</code>, and the search bar height can be set by the css variable <code>--bb-tree-search-height</code>",
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
@@ -1268,7 +1274,7 @@
     "P17": "3. Add stylesheet file",
     "P18": "Add a theme style sheet to the host file",
     "P19": "Need to reference BootstrapBlazor.FontAwesome package",
-    "P20": "4. Add the Javascript file",
+    "P20": "4. Add the JavaScript file",
     "P21": "add code",
     "P22": "5. Register the BootstrapBlazor service",
     "P23": "6. Add namespace reference",
@@ -2524,7 +2530,7 @@
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
     "EditorsDescription": "Convert the entered text into <code>html</code> code snippets",
-    "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
+    "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in the required <code>css</code> <code>JavaScript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "EditorNormalTitle": "Basic usage",
     "EditorNormalIntro": "The default rendering is <code>div</code> and it becomes a rich text edit box when clicked",
     "EditorNormalDescription": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",
@@ -2815,7 +2821,7 @@
     "MarkdownsCss": "CSS file",
     "MarkdownsCssText": "dynamic import css",
     "MarkdownsJs": "JS file",
-    "MarkdownsJsText": "dynamic import javascript",
+    "MarkdownsJsText": "dynamic import JavaScript",
     "MarkdownsLocalizationTipsTitle": "Localization",
     "MarkdownsLocalizationTips": "The component has a built-in Chinese to switch between current cultural information for Chinese",
     "MarkdownsNormalTitle": "Common usage",
@@ -5243,7 +5249,7 @@
     "TablesSelectionCountText": "Count：{0}",
     "TablesSelectionScrollTitle": "Callback method after rendering",
     "TablesSelectionScrollIntro": "Perform some special operations by setting the <code>OnAfterRenderCallback</code> callback method",
-    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>",
+    "TablesSelectionScrollDescription": "After clicking the button, select the last row and automatically scroll the selected row to the visible area of the window. This code is an example, and this function can be enabled by setting <code>AutoScrollLastSelectedRowToView=\"true\"</code>, Set the alignment via the <code>AutoScrollVerticalAlign</code> parameter",
     "TablesSelectionScrollButtonText": "Select Last Row"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
@@ -5469,6 +5475,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "Multiple selection list filtering",
     "MultiFilterIntro": "Use the built-in <code>MultiFilter</code> component to provide multi-select filtering via <code>FilterTemplate</code>",
+    "MultiFilterTips": "The component provides two ways to set the data source: <code>Items</code> and <code>OnGetItemsAsync</code>",
+    "MultiFilterTipsLi1": "<code>Items</code> is suitable for small amounts of data and statically prepared data sets",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> is suitable for large and dynamic data collections. For performance reasons, the component uses a local lazy record method to fill in data, that is, the callback is called to obtain data when the filter window is opened.",
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
@@ -5553,7 +5562,7 @@
     "Features": "Features of Components",
     "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
     "Advantage": "Advantage",
-    "AdvantageLi1": "No need to write <code>Javascript</code> to use components",
+    "AdvantageLi1": "No need to write <code>JavaScript</code> to use components",
     "AdvantageLi2": "The component supports all <code>html</code> features",
     "AdvantageLi3": "The component supports two-way data binding",
     "AdvantageLi4": "Components support automatic client verification",
@@ -5964,7 +5973,7 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView",
     "DockViewDescription": "A multi window layout manager for webapps",
-    "DockViewIntro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
+    "DockViewIntro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>JavaScript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
     "DockViewColTitle": "DockView - Column",
@@ -6001,7 +6010,7 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
     "DockView2Title": "DockViewV2",
     "DockView2Description": "A multi window layout manager for webapps",
-    "DockView2Intro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
+    "DockView2Intro": "<p><code>DockView</code> component is wrapped <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> lib，it is a <code>JavaScript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
     "DockViewColTitle": "DockViewV2 - Column",
@@ -6298,7 +6307,7 @@
     "BasicIntro": "Basic Use",
     "Value": "Gets or sets the value of the input",
     "Theme": "Theme of the editor",
-    "Language": "Language used by the editor: csharp, javascript, ...",
+    "Language": "Language used by the editor: csharp, JavaScript, ...",
     "ValueChanged": "Gets or sets a callback that updates the bound value"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
@@ -6320,7 +6329,11 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under <code>HTTPS</code> secure connections or used in the localhost development environment.",
-    "ClipboardMessage": "Text content: {0}, copied to clipboard"
+    "ClipboardMessage": "Text content: {0}, copied to clipboard",
+    "ClipboardGetTextMessage": "Read clipboard text content: {0}",
+    "ClipboardCopyMethod": "Copy text to the clipboard method",
+    "ClipboardGetMethod": "Method for reading clipboard content",
+    "ClipboardGetTextMethod": "Method for reading clipboard text content"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",

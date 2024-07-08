@@ -3,12 +3,14 @@
 export function init(id) {
     const el = document.getElementById(id)
     if (el) {
+        const fallbackPlacements = (el.getAttribute('data-bs-fallbackPlacements') || 'top,right,bottom,left').split(',');
         const tip = {
             tooltip: new bootstrap.Tooltip(el, {
                 sanitize: el.getAttribute('data-bs-sanitize') !== 'false',
                 title: () => {
                     return el.getAttribute('data-bs-original-title')
-                }
+                },
+                fallbackPlacements: fallbackPlacements
             })
         }
         Data.set(id, tip)

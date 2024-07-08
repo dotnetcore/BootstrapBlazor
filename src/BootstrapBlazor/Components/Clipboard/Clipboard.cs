@@ -24,10 +24,17 @@ public class Clipboard : BootstrapModuleComponentBase
     {
         base.OnInitialized();
 
-        // 注册 ClipboardService 弹窗事件
+        // 注册 ClipboardService 回调方法
         ClipboardService.Register(this, Copy);
+        ClipboardService.RegisterGetText(GetText);
+        ClipboardService.RegisterGetAllContents(GetAllClipboardContentsAsync);
     }
 
+    /// <summary>
+    /// 复制方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
     private async Task Copy(ClipboardOption option)
     {
         await InvokeVoidAsync("copy", option.Text);
@@ -39,15 +46,30 @@ public class Clipboard : BootstrapModuleComponentBase
     }
 
     /// <summary>
+    /// 读取剪切板拷贝文字方法
+    /// </summary>
+    /// <returns></returns>
+    private Task<string?> GetText() => InvokeAsync<string?>("getTextFromClipboard");
+
+    /// <summary>
+    /// 读取剪切板内容方法
+    /// </summary>
+    /// <returns></returns>
+    private Task<List<ClipboardItem>?> GetAllClipboardContentsAsync() => InvokeAsync<List<ClipboardItem>?>("getAllClipboardContents");
+
+    /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             ClipboardService.UnRegister(this);
+            ClipboardService.UnRegisterGetText();
+            ClipboardService.UnRegisterGetAllContents();
         }
-        await base.DisposeAsync(disposing);
     }
 }

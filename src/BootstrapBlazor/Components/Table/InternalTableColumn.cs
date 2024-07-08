@@ -14,23 +14,23 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 {
     private string FieldName { get; } = fieldName;
 
-    public bool Sortable { get; set; }
+    public bool? Sortable { get; set; }
 
     public bool DefaultSort { get; set; }
 
     public SortOrder DefaultSortOrder { get; set; }
 
-    public bool Filterable { get; set; }
+    public bool? Filterable { get; set; }
 
-    public bool Searchable { get; set; }
+    public bool? Searchable { get; set; }
 
     public int? Width { get; set; }
 
     public bool Fixed { get; set; }
 
-    public bool TextWrap { get; set; }
+    public bool? TextWrap { get; set; }
 
-    public bool TextEllipsis { get; set; }
+    public bool? TextEllipsis { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
@@ -40,12 +40,12 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Ignore { get; set; }
+    public bool? Ignore { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Readonly { get; set; }
+    public bool? Readonly { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -60,7 +60,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Visible { get; set; } = true;
+    public bool? Visible { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -103,9 +103,9 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
-    public Alignment Align { get; set; }
+    public Alignment? Align { get; set; }
 
-    public bool ShowTips { get; set; }
+    public bool? ShowTips { get; set; }
 
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
@@ -196,7 +196,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool ShowCopyColumn { get; set; }
+    public bool? ShowCopyColumn { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

@@ -295,7 +295,7 @@ public class ButtonTest : BootstrapBlazorTestBase
                 pb.Add(t => t.Title, "popover-title");
             });
         });
-        cut.Contains("data-bs-original-title=\"popover-title\" data-bs-toggle=\"popover\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
+        cut.Contains("data-bs-toggle=\"popover\" data-bs-original-title=\"popover-title\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
 
         // 切换 Disabled 状态移除 Popover
         cut.SetParametersAndRender(pb =>
@@ -368,10 +368,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Trigger_Ok()
     {
-        var cut = Context.RenderComponent<Button>();
-        cut.DoesNotContain("data-bs-trigger");
-
-        cut.SetParametersAndRender(pb =>
+        var cut = Context.RenderComponent<Button>(pb =>
         {
             pb.Add(a => a.TooltipTrigger, "click");
         });

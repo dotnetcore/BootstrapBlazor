@@ -6,13 +6,24 @@
 [NotNull]
 private ClipboardService? ClipboardService { get; set; }
 
-private void Copy()
+private async Task Copy()
 {
-    ClipboardService.Copy(content);
+    await ClipboardService.Copy(content);
+}
+
+private async Task Get()
+{
+    var clipboardItems = await ClipboardService.Get();
+}
+
+private async Task GetText()
+{
+    var text = await ClipboardService.GetText();
 }</Pre>
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@content" />
         <Button Text="Copy" OnClick="@Copy" />
+        <Button Color="Color.Warning" Text="Get" OnClick="@Get" />
     </BootstrapInputGroup>
 </DemoBlock>
 

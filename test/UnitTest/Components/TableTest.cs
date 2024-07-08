@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
@@ -260,6 +261,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.AutoScrollLastSelectedRowToView, true);
+                pb.Add(a => a.AutoScrollVerticalAlign, ScrollToViewAlign.Center);
                 pb.Add(a => a.OnAfterRenderCallback, (table, firstRender) =>
                 {
                     if (firstRender)
@@ -730,6 +732,8 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.IsPopoverToolbarDropdownButton, true);
                 pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.ShowColumnWidthTooltip, true);
+                pb.Add(a => a.ColumnWidthTooltipPrefix, "test");
                 pb.Add(a => a.ColumnButtonText, "Test_Column_List");
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.OnColumnVisibleChanged, (colName, visible) =>
@@ -2311,6 +2315,44 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task Filterable_Virtualize()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.ShowFilterHeader, false);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    var items = Foo.GenerateFoo(localizer, 5);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = 5
+                    };
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Filterable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.False(table.Instance.IsPagination);
+
+        Assert.NotNull(table.Instance.OnFilterAsync);
+        await cut.InvokeAsync(() => table.Instance.OnFilterAsync());
+    }
+
+    [Fact]
     public async Task CustomerToolbarPopConfirmButton_Ok()
     {
         var clicked = false;
@@ -2657,6 +2699,8 @@ public class TableTest : TableTestBase
                 });
             });
         });
+        var virtualComponent = cut.FindComponent<Virtualize<Foo>>();
+        Assert.NotNull(virtualComponent);
     }
 
     [Fact]
@@ -7719,6 +7763,45 @@ public class TableTest : TableTestBase
         var header = table.Find("thead tr th input");
         table.InvokeAsync(() => header.Click());
         Assert.Single(table.Instance.SelectedRows);
+    }
+
+    [Fact]
+    public async Task AutoFitContentCallback_Ok()
+    {
+        var name = "";
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.ClientTableName, "table-unit-test");
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnAutoFitContentAsync, fieldName =>
+                {
+                    name = fieldName;
+                    return Task.FromResult(100.65f);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        float v = 0f;
+        await cut.InvokeAsync(async () => v = await table.Instance.AutoFitContentCallback("DateTime"));
+        Assert.Equal(100.65f, v);
     }
 
     [Fact]

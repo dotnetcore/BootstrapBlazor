@@ -147,23 +147,25 @@ export function sort(id) {
 
 export function load(id, method) {
     const table = Data.get(id)
-
-    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
-    if (method === 'show') {
-        loader.classList.add('show')
-    }
-    else {
-        loader.classList.remove('show')
+    if (table) {
+        const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
+        if (method === 'show') {
+            loader.classList.add('show')
+        }
+        else {
+            loader.classList.remove('show')
+        }
     }
 }
 
-export function scroll(id, options = { behavior: 'smooth' }) {
+export function scroll(id, align, options = { behavior: 'smooth' }) {
     const element = document.getElementById(id);
     if (element) {
         const selectedRow = [...element.querySelectorAll('.form-check.is-checked')].pop();
         if (selectedRow) {
             const row = selectedRow.closest('tr');
             if (row) {
+                options.block = align;
                 row.scrollIntoView(options);
             }
         }
@@ -399,6 +401,18 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
+    if (table.options.showColumnWidthTooltip) {
+        EventHandler.on(document, 'click', e => {
+            const element = e.target;
+            const tips = element.closest('.table-resizer-tips');
+            if (tips) {
+                return;
+            }
+
+            closeAllTips(table.columns, null);
+        });
+    }
+
     disposeColumnDrag(table.columns)
     table.columns = []
 
@@ -456,7 +470,14 @@ const setResizeListener = table => {
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
-        EventHandler.on(col, 'click', e => e.stopPropagation())
+        EventHandler.on(col, 'click', e => e.stopPropagation());
+        EventHandler.on(col, 'dblclick', async e => {
+            e.preventDefault();
+            e.stopPropagation();
+            await autoFitColumnWidth(table, col);
+        });
+
+        setColumnResizingListen(table, col);
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -470,10 +491,11 @@ const setResizeListener = table => {
                     colWidth = getWidth(col.closest('th'))
                 }
                 tableWidth = getWidth(col.closest('table'))
-                originalX = e.clientX
+                originalX = e.clientX || e.touches[0].clientX
             },
             e => {
-                const marginX = e.clientX - originalX
+                const eventX = e.clientX || e.changedTouches[0].clientX
+                const marginX = eventX - originalX
                 table.tables.forEach(t => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
                     if (group) {
@@ -485,6 +507,15 @@ const setResizeListener = table => {
                             width = width - table.scrollWidth;
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
+
+                        if (table.options.showColumnWidthTooltip) {
+                            const tip = bootstrap.Tooltip.getInstance(col);
+                            if (tip && tip._isShown()) {
+                                const inner = tip.tip.querySelector('.tooltip-inner');
+                                inner.innerHTML = getColumnTolltipTitle(table.options, colWidth + marginX);
+                                tip.update();
+                            }
+                        }
                     }
                 })
             },
@@ -500,6 +531,100 @@ const setResizeListener = table => {
                 saveColumnWidth(table)
             }
         )
+    })
+}
+
+const setColumnResizingListen = (table, col) => {
+    if (table.options.showColumnWidthTooltip) {
+        EventHandler.on(col, 'mouseenter', e => {
+            closeAllTips(table.columns, e.target);
+            const th = col.closest('th');
+            const tip = bootstrap.Tooltip.getOrCreateInstance(e.target, {
+                title: getColumnTolltipTitle(table.options, th.offsetWidth),
+                trigger: 'manual',
+                placement: 'top',
+                customClass: 'table-resizer-tips'
+            });
+            if (!tip._isShown()) {
+                tip.show();
+            }
+        });
+    }
+}
+
+const getColumnTolltipTitle = (options, width) => {
+    return `${options.columnWidthTooltipPrefix}${width}px`;
+}
+
+const indexOfCol = col => {
+    const th = col.closest('th');
+    const row = th.parentElement;
+    return [...row.children].indexOf(th);
+}
+
+const autoFitColumnWidth = async (table, col) => {
+    const field = col.getAttribute('data-bb-field');
+    const widthValue = await table.invoke.invokeMethodAsync(table.options.autoFitContentCallback, field);
+
+    const index = indexOfCol(col);
+    let rows = null;
+    if (table.thead) {
+        rows = table.body.querySelectorAll('table > tbody > tr');
+    }
+    else {
+        rows = table.tables[0].querySelectorAll('table > tbody > tr');
+    }
+
+    let maxWidth = 0;
+    [...rows].forEach(row => {
+        const cell = row.cells[index];
+        maxWidth = Math.max(maxWidth, calcCellWidth(cell));
+    });
+
+    if (maxWidth > 0) {
+        table.tables.forEach(table => {
+            const colEl = table.querySelectorAll('colgroup col')[index];
+            if (colEl) {
+                colEl.style.setProperty('width', `${maxWidth}px`);
+            }
+
+            const th = table.querySelectorAll('thead > tr > th')[index];
+            if (th) {
+                const span = th.querySelector('.table-text');
+                span.style.removeProperty('width');
+            }
+        });
+
+        setTableDefaultWidth(table);
+    }
+}
+
+const calcCellWidth = cell => {
+    const div = document.createElement('div');
+    [...cell.children].forEach(c => {
+        div.appendChild(c.cloneNode(true));
+    })
+    div.style.setProperty('visibility', 'hidden');
+    div.style.setProperty('white-space', 'nowrap');
+    div.style.setProperty('display', 'inline-block');
+    div.style.setProperty('position', 'absolute');
+    div.style.setProperty('top', '0');
+    document.body.appendChild(div);
+
+    const cellStyle = getComputedStyle(cell);
+    const width = div.offsetWidth + parseFloat(cellStyle.getPropertyValue('padding-left')) + parseFloat(cellStyle.getPropertyValue('padding-right'));
+    div.remove();
+    return width;
+}
+
+const closeAllTips = (columns, self) => {
+    columns.forEach(col => {
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip && col !== self) {
+            if (tip._isShown()) {
+                tip.hide();
+            }
+        }
     })
 }
 
@@ -577,9 +702,16 @@ const setCopyColumn = table => {
 const disposeColumnDrag = columns => {
     columns = columns || []
     columns.forEach(col => {
-        EventHandler.off(col, 'click')
-        EventHandler.off(col, 'mousedown')
-        EventHandler.off(col, 'touchstart')
+        EventHandler.off(col, 'click');
+        EventHandler.off(col, 'dblclick');
+        EventHandler.off(col, 'mousedown');
+        EventHandler.off(col, 'touchstart');
+        EventHandler.off(col, 'mouseenter');
+
+        const tip = bootstrap.Tooltip.getInstance(col);
+        if (tip) {
+            tip.dispose();
+        }
     })
 }
 
@@ -684,11 +816,15 @@ const setTableDefaultWidth = table => {
 
         if (tableWidth > table.el.offsetWidth) {
             table.tables[0].style.setProperty('width', `${tableWidth}px`);
-            table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+            if (table.thead) {
+                table.tables[1].style.setProperty('width', `${tableWidth - scrollWidth}px`);
+            }
         }
         else {
             table.tables[0].style.removeProperty('width');
-            table.tables[1].style.removeProperty('width');
+            if (table.thead) {
+                table.tables[1].style.setProperty('width', `${table.tables[0].offsetWidth - scrollWidth}px`);
+            }
         }
     }
 }

@@ -333,6 +333,10 @@
     "PopoversButtonTitle": "按钮激活弹出框",
     "PopoversButtonIntro": "点击按钮后弹出 <code>Popover</code> 弹出框",
     "PopoversButtonButtonText": "Click 激活/关闭",
+    "PopoversTemplateTitle": "自定义模板",
+    "PopoversTemplateIntro": "通过设置 <code>Template</code> 模板，自定义弹窗内容",
+    "PopoversTemplateButtonText": "自定义模板",
+    "PopoversTemplateTitleText": "自定义模板",
     "PopoversCssClassTitle": "自定义样式",
     "PopoversCssClassIntro": "通过设置 <code>Popover</code> 参数 <code>CssClass</code> 对弹窗进行自定义样式",
     "PopoversCssClassDescription": "设置 <code>Popover</code> 参数 <code>CssClass=\"custom-popover\"</code> 进行自定义样式",
@@ -678,6 +682,8 @@
     "TreeViewShowSkeletonButtonText": "异步加载",
     "TreeViewShowSearchTitle": "显示搜索栏",
     "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
+    "TreeViewFixedSearchTitle": "固定搜索栏",
+    "TreeViewFixedSearchIntro": "通过设置 <code>IsFixedSearch=\"true\"</code> 固定搜索栏，可通过样式变量 <code>--bb-tree-search-height</code> 设定搜索栏高度",
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",
@@ -1204,7 +1210,7 @@
     "P22": "添加样式表文件",
     "P23": "在宿主文件中增加主题样式表",
     "P24": "需引用 BootstrapBlazor.FontAwesome 包",
-    "P25": "添加 Javascript 文件",
+    "P25": "添加 JavaScript 文件",
     "P26": "增加代码",
     "P27": "注册 BootstrapBlazor 服务",
     "P28": "增加命名空间引用",
@@ -1268,7 +1274,7 @@
     "P17": "3. 添加样式表文件",
     "P18": "在宿主文件中增加主题样式表",
     "P19": "需引用 BootstrapBlazor.FontAwesome 包",
-    "P20": "4. 添加 Javascript 文件",
+    "P20": "4. 添加 JavaScript 文件",
     "P21": "增加代码",
     "P22": "5. 注册 BootstrapBlazor 服务",
     "P23": "6. 增加命名空间引用",
@@ -2524,7 +2530,7 @@
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",
     "EditorsDescription": "将输入的文字转化为 <code>html</code> 代码片段",
-    "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>javascript</code> 均按需动态加载，使用者无需设置。由于 <code>summernote</code> 组件依赖 <b>jQuery</b>，所以需要自行引用 <code>jQuery</code> 脚本包。如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
+    "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>JavaScript</code> 均按需动态加载，使用者无需设置。由于 <code>summernote</code> 组件依赖 <b>jQuery</b>，所以需要自行引用 <code>jQuery</code> 脚本包。如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "EditorNormalTitle": "基础用法",
     "EditorNormalIntro": "默认呈现为 <code>div</code> 点击后变为富文本编辑框",
     "EditorNormalDescription": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",
@@ -5243,7 +5249,7 @@
     "TablesSelectionCountText": "选中的行数：{0}",
     "TablesSelectionScrollTitle": "渲染结束后回调方法",
     "TablesSelectionScrollIntro": "通过设置 <code>OnAfterRenderCallback</code> 回调方法，执行一些特殊操作",
-    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启",
+    "TablesSelectionScrollDescription": "点击按钮后选中最后一行，并且将选中行自动滚动到视窗可见区域内，本代码为示例，本功能可通过设置 <code>AutoScrollLastSelectedRowToView=\"true\"</code> 开启，通过 <code>AutoScrollVerticalAlign</code> 参数设置对齐方式",
     "TablesSelectionScrollButtonText": "选中最后一行"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
@@ -5469,6 +5475,9 @@
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "MultiFilterTitle": "多选列表筛选",
     "MultiFilterIntro": "通过 <code>FilterTemplate</code> 使用内置 <code>MultiFilter</code> 组件提供多选筛选功能",
+    "MultiFilterTips": "组件提供 <code>Items</code> <code>OnGetItemsAsync</code> 两种设置数据源方式",
+    "MultiFilterTipsLi1": "<code>Items</code> 适合数据量小且静态事先准备好的数据集合",
+    "MultiFilterTipsLi2": "<code>OnGetItemsAsync</code> 适合数据量大且动态的数据集合，出于性能考虑组件内部采用局域懒记载方式填装数据，即点开过滤窗口时才回调获得数据",
     "TablesFilterTitle": "筛选和排序功能",
     "TablesFilterDesc": "筛选可快速查找到自己想看的数据；排序可快速查找或对比数据。",
     "TablesFilterDescLi1": "对某一列数据进行筛选，通过指定列的 <code>Filterable</code> 属性来指定需要筛选的列",
@@ -5553,7 +5562,7 @@
     "Features": "组件特色",
     "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
     "Advantage": "优势",
-    "AdvantageLi1": "使用组件无需编写 <code>Javascript</code>",
+    "AdvantageLi1": "使用组件无需编写 <code>JavaScript</code>",
     "AdvantageLi2": "组件支持所有 <code>html</code> 特性",
     "AdvantageLi3": "组件支持数据双向绑定",
     "AdvantageLi4": "组件支持自动客户端验证",
@@ -5964,7 +5973,7 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
     "DockViewDescription": "多标签停靠布局管理器",
-    "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+    "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>JavaScript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.DockViewCol": {
     "DockViewColTitle": "DockView 列布局",
@@ -6001,7 +6010,7 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews2.Index": {
     "DockView2Title": "DockViewV2 可停靠视图",
     "DockView2Description": "多标签停靠布局管理器",
-    "DockView2Intro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">DockView</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+    "DockView2Intro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/mathuo/dockview?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">DockView</a> 库，它是一个 <code>JavaScript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews2.DockViewCol": {
     "DockViewColTitle": "DockViewV2 列布局",
@@ -6298,7 +6307,7 @@
     "BasicIntro": "基础用法",
     "Value": "获得或设置 Value",
     "Theme": "编辑器的主题",
-    "Language": "编辑器使用的语言：csharp，javascript，...",
+    "Language": "编辑器使用的语言：csharp，JavaScript，...",
     "ValueChanged": "获取或设置更新绑定值的回调"
   },
   "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
@@ -6320,7 +6329,11 @@
   "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "剪切板服务！请注意，只能在 <code>HTTPS</code> 安全连接下运行，或者在本地 <code>localhost</code> 开发环境中使用",
-    "ClipboardMessage": "文本内容：{0}, 已复制到剪切板"
+    "ClipboardMessage": "文本内容：{0}, 已复制到剪切板",
+    "ClipboardGetTextMessage": "读取剪切板文本内容: {0}",
+    "ClipboardCopyMethod": "拷贝文本到剪切板方法",
+    "ClipboardGetMethod": "读取剪切板内容方法",
+    "ClipboardGetTextMethod": "读取剪切板文本内容方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "一个简单、交互式、现代的 Web 甘特图库，具有拖动、调整大小、依赖关系和时间刻度",
