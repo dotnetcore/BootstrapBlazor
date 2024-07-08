@@ -163,4 +163,15 @@ public class TooltipTest : BootstrapBlazorTestBase
         });
         cut.WaitForAssertion(() => Assert.Contains("data-bs-placement=\"top\"", cut.Markup));
     }
+
+    [Fact]
+    public void FallbackPlacements_Ok()
+    {
+        var cut = Context.RenderComponent<Tooltip>(pb =>
+        {
+            pb.Add(a => a.Title, "test_tooltip");
+            pb.Add(a => a.FallbackPlacements, ["top", "left"]);
+        });
+        cut.Contains("data-bs-fallbackPlacements=\"top,left\"");
+    }
 }
