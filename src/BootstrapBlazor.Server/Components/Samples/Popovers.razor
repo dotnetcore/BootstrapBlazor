@@ -40,9 +40,9 @@
 <DemoBlock Title="@Localizer["PopoversTemplateTitle"]"
            Introduction="@Localizer["PopoversTemplateIntro"]"
            Name="Template">
-    <Popover Placement="Placement.Top" Title="@Title" Trigger="click">
+    <Popover Placement="Placement.Top" Title="@_templateTitle" Trigger="click">
         <ChildContent>
-            <Button Text="@Localizer["PopoversButtonButtonText"]" />
+            <Button Text="@Localizer["PopoversTemplateButtonText"]" />
         </ChildContent>
         <Template>
             <BootstrapInput TValue="string" />
