@@ -29,14 +29,14 @@ public class TooltipTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetParameters_Ok()
+    public async Task SetParameters_Ok()
     {
         var cut = Context.RenderComponent<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         var tooltip = cut.Instance;
-        tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector", fallbackPlacements: ["top", "left"]);
+        await cut.InvokeAsync(() => tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector", fallbackPlacements: ["top", "left"]));
         Assert.Equal("title", tooltip.Title);
         Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
         Assert.Contains("data-bs-trigger=\"trigger\"", cut.Markup);
