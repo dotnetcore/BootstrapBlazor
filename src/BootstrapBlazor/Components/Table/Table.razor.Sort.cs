@@ -104,7 +104,7 @@ public partial class Table<TItem>
     protected string? GetHeaderClassString(ITableColumn col, bool isFilterHeader = false) => CssBuilder.Default()
         .AddClass("sortable", col.GetSortable() && !isFilterHeader)
         .AddClass("filterable", col.GetFilterable())
-        .AddClass(("toolbox"), ShowColumnToolbox)
+        .AddClass(("toolbox"), col.ToolboxTemplate != null)
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
@@ -403,7 +403,7 @@ public partial class Table<TItem>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
         .AddClass("is-sort", col.GetSortable())
         .AddClass("is-filter", col.GetFilterable())
-        .AddClass("is-toolbox", ShowColumnToolbox)
+        .AddClass("is-toolbox", col.ToolboxTemplate != null)
         .AddClass(col.GetAlign().ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
 

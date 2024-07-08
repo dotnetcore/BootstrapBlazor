@@ -190,12 +190,12 @@
 
 .table thead th.sortable.filterable .filter-icon,
 .table thead th.sortable .toolbox-icon,
-.table thead th.filterable .toolbox-icon,{
+.table thead th.filterable .toolbox-icon {
     right: calc(1.5rem - var(--bb-table-td-padding-x));
 }
 
 .table thead th.sortable.filterable.toolbox .toolbox-icon {
-  right: calc(3rem - var(--bb-table-td-padding-x));
+    right: calc(3rem - var(--bb-table-td-padding-x));
 }
 
 .table thead th.sortable.filterable .table-text {
