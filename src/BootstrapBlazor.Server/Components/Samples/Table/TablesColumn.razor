@@ -106,21 +106,21 @@
            ShowToolbar="false" ShowExtendButtons="false"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true">
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" Align="@_dateTimeAlign">
                 <ToolboxTemplate Context="v">
                     <div class="custom-column-toolbox">
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-left"></Button>
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-center"></Button>
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-right"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-left" OnClick="() => SetAlign(v, Alignment.Left)"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-center" OnClick="() => SetAlign(v, Alignment.Center)"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-right" OnClick="() => SetAlign(v, Alignment.Right)"></Button>
                     </div>
                 </ToolboxTemplate>
             </TableColumn>
-            <TableColumn @bind-Field="@context.Name" Width="150" Sortable="true" Filterable="true">
+            <TableColumn @bind-Field="@context.Name" Width="150" Sortable="true" Filterable="true" Align="@_nameAlign">
                 <ToolboxTemplate Context="v">
                     <div class="custom-column-toolbox">
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-left"></Button>
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-center"></Button>
-                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-right"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-left" OnClick="() => SetAlign(v, Alignment.Left)"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-center" OnClick="() => SetAlign(v, Alignment.Center)"></Button>
+                        <Button Size="Size.ExtraSmall" Icon="fa-solid fa-align-right" OnClick="() => SetAlign(v, Alignment.Right)"></Button>
                     </div>
                 </ToolboxTemplate>
             </TableColumn>
