@@ -107,9 +107,33 @@
            ShowToolbar="false" ShowExtendButtons="false" ShowColumnToolbox="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true" />
-            <TableColumn @bind-Field="@context.Name" Width="150" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" ShowCopyColumn="true">
+                <ToolboxTemplate Context="v">
+                    <div class="d-flex justify-content-around">
+                        <i class="fa-solid fa-align-left"></i>
+                        <i class="fa-solid fa-align-center"></i>
+                        <i class="fa-solid fa-align-right"></i>
+                    </div>
+                </ToolboxTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Name" Width="150" Sortable="true" Filterable="true">
+                <ToolboxTemplate Context="v">
+                    <div class="d-flex justify-content-around">
+                        <i class="fa-solid fa-align-left"></i>
+                        <i class="fa-solid fa-align-center"></i>
+                        <i class="fa-solid fa-align-right"></i>
+                    </div>
+                </ToolboxTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Sortable="true">
+                <ToolboxTemplate Context="v">
+                    <div class="d-flex justify-content-around">
+                        <i class="fa-solid fa-align-left"></i>
+                        <i class="fa-solid fa-align-center"></i>
+                        <i class="fa-solid fa-align-right"></i>
+                    </div>
+                </ToolboxTemplate>
+            </TableColumn>
             <TableColumn @bind-Field="@context.Count" Width="100" />
             <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" />
