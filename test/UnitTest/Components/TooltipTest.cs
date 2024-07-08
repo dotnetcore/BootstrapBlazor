@@ -23,9 +23,9 @@ public class TooltipTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
-            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-childcontent"));
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
         });
-        Assert.Contains("test-childcontent", cut.Markup);
+        Assert.Contains("test-child-content", cut.Markup);
     }
 
     [Fact]
