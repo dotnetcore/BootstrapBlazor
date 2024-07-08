@@ -131,7 +131,7 @@ public partial class Tooltip : ITooltip
     /// <summary>
     /// 设置参数方法
     /// </summary>
-    public void SetParameters(string title, Placement placement = Placement.Auto, string? trigger = null, string? customClass = null, bool? isHtml = null, bool? sanitize = null, string? delay = null, string? selector = null, string[]? fallbackPlacements = null)
+    public void SetParameters(string title, Placement placement = Placement.Auto, string? trigger = null, string? customClass = null, bool? isHtml = null, bool? sanitize = null, string? delay = null, string? selector = null)
     {
         Title = title;
         if (placement != Placement.Auto) Placement = placement;
@@ -141,7 +141,6 @@ public partial class Tooltip : ITooltip
         if (sanitize.HasValue) Sanitize = sanitize.Value;
         if (!string.IsNullOrEmpty(delay)) Delay = delay;
         if (!string.IsNullOrEmpty(selector)) Selector = selector;
-        if (fallbackPlacements != null) FallbackPlacements = fallbackPlacements;
         StateHasChanged();
     }
 }
