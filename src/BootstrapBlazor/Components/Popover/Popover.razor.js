@@ -11,6 +11,9 @@ export function init(id, options) {
 export function dispose(id) {
     const el = document.getElementById(id)
     if (el) {
+        EventHandler.off(el, 'inserted.bs.popover');
+        EventHandler.off(el, 'hide.bs.popover');
+
         const pop = bootstrap.Popover.getInstance(el)
         if (pop) {
             pop.dispose();
