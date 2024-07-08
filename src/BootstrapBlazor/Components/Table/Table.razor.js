@@ -512,7 +512,9 @@ const setResizeListener = table => {
                             const tip = bootstrap.Tooltip.getInstance(col);
                             if (tip && tip._isShown()) {
                                 const inner = tip.tip.querySelector('.tooltip-inner');
-                                inner.innerHTML = getColumnTooltipTitle(table.options, colWidth + marginX);
+                                const tipText = getColumnTooltipTitle(table.options, colWidth + marginX);
+                                inner.innerHTML = tipText;
+                                tip._config.title = tipText;
                                 tip.update();
                             }
                         }
@@ -547,10 +549,6 @@ const setColumnResizingListen = (table, col) => {
             });
             if (!tip._isShown()) {
                 tip.show();
-                const handler = setTimeout(() => {
-                    clearTimeout(handler);
-                    tip.hide();
-                }, 3000);
             }
         });
     }
