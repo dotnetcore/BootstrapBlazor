@@ -191,6 +191,9 @@ public class AutoGenerateClassTest
         attrInterface.Align = null;
         Assert.Equal(Alignment.None, attrInterface.Align);
 
+        attrInterface.ToolboxTemplate = col => builder => builder.AddContent(0, "test");
+        Assert.NotNull(attrInterface.ToolboxTemplate);
+
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;
         Assert.Null(attrEditor.Items);
