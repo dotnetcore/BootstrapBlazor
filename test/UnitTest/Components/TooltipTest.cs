@@ -23,20 +23,20 @@ public class TooltipTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
-            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-childcontent"));
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "test-child-content"));
         });
-        Assert.Contains("test-childcontent", cut.Markup);
+        Assert.Contains("test-child-content", cut.Markup);
     }
 
     [Fact]
-    public void SetParameters_Ok()
+    public async Task SetParameters_Ok()
     {
         var cut = Context.RenderComponent<Tooltip>(pb =>
         {
             pb.Add(a => a.Title, "test_tooltip");
         });
         var tooltip = cut.Instance;
-        cut.InvokeAsync(() => tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector"));
+        await cut.InvokeAsync(() => tooltip.SetParameters("title", Placement.Top, "trigger", "custom-class", true, false, "10", ".selector", "10,20"));
         Assert.Equal("title", tooltip.Title);
         Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
         Assert.Contains("data-bs-trigger=\"trigger\"", cut.Markup);
@@ -45,6 +45,7 @@ public class TooltipTest : BootstrapBlazorTestBase
         Assert.Contains("data-bs-sanitize=\"false\"", cut.Markup);
         Assert.Contains("data-bs-delay=\"10\"", cut.Markup);
         Assert.Contains("data-bs-selector=\".selector\"", cut.Markup);
+        Assert.Contains("data-bs-offset=\"10,20\"", cut.Markup);
     }
 
     [Fact]
@@ -162,5 +163,16 @@ public class TooltipTest : BootstrapBlazorTestBase
             pb.Add(a => a.Placement, Placement.Top);
         });
         cut.WaitForAssertion(() => Assert.Contains("data-bs-placement=\"top\"", cut.Markup));
+    }
+
+    [Fact]
+    public void FallbackPlacements_Ok()
+    {
+        var cut = Context.RenderComponent<Tooltip>(pb =>
+        {
+            pb.Add(a => a.Title, "test_tooltip");
+            pb.Add(a => a.FallbackPlacements, ["top", "left"]);
+        });
+        cut.Contains("data-bs-fallbackPlacements=\"top,left\"");
     }
 }

@@ -38,6 +38,11 @@ public partial class Tooltip : ITooltip
         .Build();
 
     /// <summary>
+    /// fallbackPlacements 参数
+    /// </summary>
+    protected string? FallbackPlacementsString => FallbackPlacements != null ? string.Join(",", FallbackPlacements) : null;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
@@ -72,6 +77,18 @@ public partial class Tooltip : ITooltip
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Top;
+
+    /// <summary>
+    /// 获得/设置 位置 默认为 null
+    /// </summary>
+    [Parameter]
+    public string[]? FallbackPlacements { get; set; }
+
+    /// <summary>
+    /// 获得/设置 偏移量 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? Offset { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义样式 默认 null
@@ -120,7 +137,7 @@ public partial class Tooltip : ITooltip
     /// <summary>
     /// 设置参数方法
     /// </summary>
-    public void SetParameters(string title, Placement placement = Placement.Auto, string? trigger = null, string? customClass = null, bool? isHtml = null, bool? sanitize = null, string? delay = null, string? selector = null)
+    public void SetParameters(string title, Placement placement = Placement.Auto, string? trigger = null, string? customClass = null, bool? isHtml = null, bool? sanitize = null, string? delay = null, string? selector = null, string? offset = null)
     {
         Title = title;
         if (placement != Placement.Auto) Placement = placement;
@@ -130,6 +147,8 @@ public partial class Tooltip : ITooltip
         if (sanitize.HasValue) Sanitize = sanitize.Value;
         if (!string.IsNullOrEmpty(delay)) Delay = delay;
         if (!string.IsNullOrEmpty(selector)) Selector = selector;
+        if (!string.IsNullOrEmpty(selector)) Selector = selector;
+        if (!string.IsNullOrEmpty(offset)) Offset = offset;
         StateHasChanged();
     }
 }
