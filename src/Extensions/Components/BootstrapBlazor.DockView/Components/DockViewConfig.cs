@@ -61,6 +61,11 @@ class DockViewConfig
     public string? LockChangedCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 分割栏调整事件回调
+    /// </summary>
+    public string? SplitterCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 客户端缓存键值
     /// </summary>
     public string? LocalStorageKey { get; set; }

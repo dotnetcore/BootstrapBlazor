@@ -21,6 +21,9 @@ export async function init(id, invoke, options) {
     dockview.on('panelVisibleChanged', ({ title, status }) => {
         invoke.invokeMethodAsync(options.panelVisibleChangedCallback, title, status);
     });
+    dockview.on('groupSizeChanged', () => {
+        invoke.invokeMethodAsync(options.splitterCallback);
+    });
 }
 
 export function update(id, options) {

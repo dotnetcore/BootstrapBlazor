@@ -2,7 +2,7 @@
 import { DockviewPanelContent } from "./dockview-content.js"
 import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
-import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage } from './dockview-config.js'
+import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage, saveConfig } from './dockview-config.js'
 import './dockview-extensions.js'
 
 const cerateDockview = (el, options) => {
@@ -62,16 +62,27 @@ const initDockview = (dockview, options, template) => {
     })
 
     dockview.onDidLayoutFromJSON(() => {
-        dockview._initialized?.fire()
-        const panels = dockview.panels
-        const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + panels)
-        const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
-        panels.forEach(panel => {
-            dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
-        })
-        delPanels.forEach(panel => {
-            dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
-        })
+        setTimeout(() => {
+            dockview._initialized?.fire()
+            const panels = dockview.panels
+            const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + '-panels')
+            const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
+            panels.forEach(panel => {
+                dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
+            })
+            delPanels.forEach(panel => {
+                dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
+            })
+        }, 0);
+    })
+    // 拖拽分割线后触发
+    dockview.gridview.onDidChange(event => {
+        dockview._groupSizeChanged.fire()
+        saveConfig(dockview)
+    })
+
+    dockview._rootDropTarget.onDrop(() => {
+        saveConfig(dockview)
     })
 }
 
