@@ -142,7 +142,7 @@ public class ITableColumnExtensionsTest
         Assert.Equal("test-format", col.FormatString);
         Assert.NotNull(col.Formatter);
         Assert.NotNull(col.HeaderTemplate);
-        Assert.NotNull(col.ToolboxTemplate);
+        Assert.NotNull(attr.ToolboxTemplate);
         Assert.NotNull(col.OnCellRender);
         Assert.True(col.Searchable);
         Assert.NotNull(col.SearchTemplate);

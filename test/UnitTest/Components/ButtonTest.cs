@@ -260,7 +260,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Tooltip_Ok()
+    public async Task Tooltip_Ok()
     {
         var cut = Context.RenderComponent<Tooltip>(pb =>
         {
@@ -270,7 +270,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         });
 
         var button = cut.FindComponent<Button>();
-        cut.InvokeAsync(() => button.Instance.ShowTooltip());
+        await cut.InvokeAsync(() => button.Instance.ShowTooltip());
 
         button.SetParametersAndRender(pb =>
         {
@@ -282,7 +282,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.TooltipText, "tooltip");
         });
-        cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
+        await cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
     }
 
     [Fact]
