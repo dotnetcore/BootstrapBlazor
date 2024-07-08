@@ -523,9 +523,9 @@
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ActualScrollWidth)"
-                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
+                                        TriggerClick="col.GetSortable()" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
                             <div class="@GetHeaderWrapperClassString(col)">
-                                @if(col.ShowCopyColumn)
+                                @if(col.GetShowCopyColumn())
                                 {
                                     if (ShowCopyColumnTooltip)
                                     {
@@ -548,7 +548,7 @@
                                         <span>@displayName</span>
                                     </Tooltip>
                                 }
-                                else if(col.Sortable)
+                                else if(col.GetSortable())
                                 {
                                     <Tooltip class="@GetHeaderCellClassString(col)" Title="@GetSortTooltip(col)" Trigger="hover">
                                         <span>@displayName</span>
@@ -558,11 +558,11 @@
                                 {
                                     <span class="@GetHeaderCellClassString(col)" style="@GetColWidthString(col.Width)">@displayName</span>
                                 }
-                                @if (col.Filterable && !ShowFilterHeader)
+                                @if (col.GetFilterable() && !ShowFilterHeader)
                                 {
                                     <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsActive="@Filters.ContainsKey(fieldName)" @onclick:stopPropagation />
                                 }
-                                @if (col.Sortable)
+                                @if (col.GetSortable())
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
@@ -617,7 +617,7 @@
                     {
                         <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, ActualScrollWidth)" @key="col">
                             <div class="table-cell">
-                                @if(col.Filterable)
+                                @if(col.GetFilterable())
                                 {
                                     <TableFilter Icon="@FilterIcon" Column="col" Table="this" IsHeaderRow="true" />
                                 }
@@ -817,7 +817,7 @@
                 else
                 {
                     <ValidateForm Model="@item.Item" OnValidSubmit="context => SaveAsync(context, item.ChangedType)">
-                        <EditorForm TModel="TItem" Items="Columns.Where(c => !c.Ignore)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign" ItemChangedType="item.ChangedType">
+                        <EditorForm TModel="TItem" Items="Columns.Where(c => !c.GetIgnore())" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign" ItemChangedType="item.ChangedType">
                             <Buttons>
                                 <div class="text-end">
                                     @if(!IsTracking)

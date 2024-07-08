@@ -102,8 +102,8 @@ public partial class Table<TItem>
     /// <param name="isFilterHeader"></param>
     /// <returns></returns>
     protected string? GetHeaderClassString(ITableColumn col, bool isFilterHeader = false) => CssBuilder.Default()
-        .AddClass("sortable", col.Sortable && !isFilterHeader)
-        .AddClass("filterable", col.Filterable)
+        .AddClass("sortable", col.GetSortable() && !isFilterHeader)
+        .AddClass("filterable", col.GetFilterable())
         .AddClass(GetFixedCellClassString(col))
         .Build();
 
@@ -310,7 +310,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetCellStyleString(ITableColumn col)
     {
-        return col.TextEllipsis && !AllowResizing
+        return col.GetTextEllipsis() && !AllowResizing
             ? GetFixedHeaderStyleString()
             : null;
 
@@ -400,9 +400,9 @@ public partial class Table<TItem>
     /// <param name="col"></param>
     /// <returns></returns>
     protected string? GetHeaderWrapperClassString(ITableColumn col) => CssBuilder.Default("table-cell")
-        .AddClass("is-sort", col.Sortable)
-        .AddClass("is-filter", col.Filterable)
-        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
+        .AddClass("is-sort", col.GetSortable())
+        .AddClass("is-filter", col.GetFilterable())
+        .AddClass(col.GetAlign().ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
         .Build();
 
     /// <summary>
@@ -413,10 +413,10 @@ public partial class Table<TItem>
     /// <param name="inCell"></param>
     /// <returns></returns>
     protected string? GetCellClassString(ITableColumn col, bool hasChildren, bool inCell) => CssBuilder.Default("table-cell")
-        .AddClass(col.Align.ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
-        .AddClass("is-wrap", col.TextWrap)
-        .AddClass("is-ellips", col.TextEllipsis)
-        .AddClass("is-tips", col.ShowTips)
+        .AddClass(col.GetAlign().ToDescriptionString(), col.Align == Alignment.Center || col.Align == Alignment.Right)
+        .AddClass("is-wrap", col.GetTextWrap())
+        .AddClass("is-ellips", col.GetTextEllipsis())
+        .AddClass("is-tips", col.GetShowTips())
         .AddClass("is-resizable", AllowResizing)
         .AddClass("is-tree", IsTree && hasChildren)
         .AddClass("is-incell", inCell)
@@ -492,7 +492,7 @@ public partial class Table<TItem>
             {
                 [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
                 [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<TableSortItem>>(this, v => AdvancedSortItems = v),
-                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
+                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.GetSortable()).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
             }
         });
         if (result == DialogResult.Yes)
