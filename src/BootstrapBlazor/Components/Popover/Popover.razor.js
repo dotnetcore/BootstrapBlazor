@@ -14,7 +14,7 @@ export function dispose(id) {
         EventHandler.off(el, 'inserted.bs.popover');
         EventHandler.off(el, 'hide.bs.popover');
 
-        const pop = bootstrap.Popover.getInstance(el)
+        const pop = bootstrap.Popover.getInstance(el);
         if (pop) {
             pop.dispose();
         }
@@ -23,7 +23,11 @@ export function dispose(id) {
 
 const createPopover = (el, options) => {
     const { content, template } = options;
-    const pop = bootstrap.Popover.getOrCreateInstance(el);
+    const pop = bootstrap.Popover.getOrCreateInstance(el, {
+        title: () => {
+            return el.getAttribute('data-bs-original-title')
+        }
+    });
     if (template) {
         EventHandler.on(el, 'inserted.bs.popover', () => insertedPopover(el));
         EventHandler.on(el, 'hide.bs.popover', () => hidePopover(el));
