@@ -39,8 +39,8 @@
 
 <DemoBlock Title="@Localizer["PopoversTemplateTitle"]"
            Introduction="@Localizer["PopoversTemplateIntro"]"
-           Name="Button">
-    <Popover Placement="Placement.Auto" Title="@Title" Trigger="click">
+           Name="Template">
+    <Popover Placement="Placement.Top" Title="@Title" Trigger="click">
         <ChildContent>
             <Button Text="@Localizer["PopoversButtonButtonText"]" />
         </ChildContent>
@@ -67,12 +67,3 @@
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
-
-@code {
-
-    private static readonly string ValueString = "Pop-up box";
-
-    private static readonly string Title = "popup title";
-
-    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
-}
