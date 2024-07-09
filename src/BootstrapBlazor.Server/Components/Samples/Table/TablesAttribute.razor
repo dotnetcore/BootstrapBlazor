@@ -9,14 +9,14 @@
 
 <p class="code-label">@((MarkupString)Localizer["AutoGenerateClassAttribute"].Value)</p>
 
-<p class="code-label">1. 使用用法</p>
-<p>本例中通过设置 <code>Filterable=true</code> 使表格所有列均开启可搜索功能</p>
+<p class="code-label">@Localizer["AutoGenerateClassP1"]</p>
+<p>@((MarkupString)Localizer["AutoGenerateClassP1Content"].Value)</p>
 <Pre>[AutoGenerateClass(Filterable = true)]
 public class Foo
 {
 }</Pre>
 
-<p>等效代码如下：</p>
+<p>@Localizer["AutoGenerateCode"]</p>
 
 <Pre>&lt;Table&gt;
     &lt;TableColumn @@bind-Field="@@context.Name" Filterable="true" /&gt;
@@ -25,33 +25,33 @@ public class Foo
 
 <p class="code-label">@((MarkupString)Localizer["AutoGenerateColumnAttribute"].Value)</p>
 
-<p class="code-label">1. 使用用法</p>
-<p>本例中通过设置 <code>Filterable=true</code> 使表格 <code>Name</code> 列开启可搜索功能</p>
+<p class="code-label">@Localizer["AutoGenerateClassP2"]</p>
+<p>@((MarkupString)Localizer["AutoGenerateClassP2Content"].Value)</p>
 <Pre>public class Foo
 {
     [AutoGenerateColumn(Filterable = true)]
     public string? Name { get; set; }
 }</Pre>
 
-<p>等效代码如下：</p>
+<p>@Localizer["AutoGenerateCode"]</p>
 
 <Pre>&lt;Table&gt;
     &lt;TableColumn @@bind-Field="@@context.Name" Filterable="true" /&gt;
 &lt;/Table&gt;
 </Pre>
 
-<p class="code-label">权重说明</p>
+<p class="code-label">@Localizer["TableAttributeIntro"]</p>
 
 <ul class="ul-demo">
-    <li>只写了 <code>AutoGenerateClassAttribute</code> 以其参数值为准</li>
-    <li>只写了 <code>AutoGenerateColumnAttribute</code> 以其参数值为准</li>
-    <li>写了 <code>AutoGenerateClassAttribute</code> 并且写了 <code>AutoGenerateColumnAttribute</code> 合并两者参数值取其默认值的相反值</li>
-    <li>写了 <code>TableColumn</code> <code>参数值时以 TableColumn</code> 参数值为最终值</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI1"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI2"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI3"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI4"].Value)</li>
 </ul>
 
 <p class="code-label">Q&A</p>
 
-<p>写了 <code>AutoGenerateClassAttribute</code> 并且写了 <code>AutoGenerateColumnAttribute</code> 合并两者参数值取其默认值的相反值举例说明</p>
+<p>@((MarkupString)Localizer["TableAttributeQA1"].Value)</p>
 
 <Pre>[AutoGenerateClass(Filterable = true)]
 public class Foo
@@ -60,10 +60,8 @@ public class Foo
     public string? Name { get; set; }
 }</Pre>
 
-<p>由于 <code>AutoGenerateClassAttribute</code> 设置 <code>Filterable</code> 值为 <code>true</code>，而 <code>AutoGenerateColumn</code> 保持 <code>Filterable</code> 默认值 <code>false</code> 最终 <code>UI</code> 使用 <code>true</code></p>
-<p>由于 <code>AutoGenerateClassAttribute</code> 未设置 <code>Sortable</code> 保持默认值 <code>false</code>，而 <code>AutoGenerateColumn</code> 设置 <code>Sortable</code> 值为 <code>true</code> 最终 <code>UI</code> 使用 <code>true</code></p>
+<p>@((MarkupString)Localizer["TableAttributeQA1"].Value)</p>
+<p>@((MarkupString)Localizer["TableAttributeQAP2"].Value)</p>
 
-<p class="code-label">TableColumn 显示设置值</p>
-<p>
-    最新版本 <code>TableColumn</code> 的 <code>Filterable</code> 等一些参数值均更改为 <b>可为空数据类型</b>，其默认值由原来的 <code>false</code> 更改为 <code>null</code>，可由此判断，只要 <code>TableColumn</code> 的参数 <code>Filterable</code> 值不为空，即以 <code>TableColumn</code> 值为最终 <code>UI</code> 值
-</p>
+<p class="code-label">@Localizer["TableAttributeColumn"]</p>
+<p>@((MarkupString)Localizer["TableAttributeQAP3"].Value)</p>
