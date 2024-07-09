@@ -8152,7 +8152,7 @@ class DockviewComponent extends BaseGrid {
                 const destinationGroupSize = this.getGroupShape(destinationGroup, destinationTarget)
                 // const size = (sourceGroupSize < destinationGroupSize / 2) ? sourceGroupSize : (destinationGroupSize / 2)
                 const size = destinationGroupSize / 2
-                this.movingLock(() => this.doAddGroup(targetGroup, location, size));
+                this.movingLock(() => this.doAddGroup(targetGroup, location, size, referenceLocation.slice(-1)[0]));
                 this.doSetGroupAndPanelActive(targetGroup);
             }
             else {
