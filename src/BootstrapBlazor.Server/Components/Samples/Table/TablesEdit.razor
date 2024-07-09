@@ -196,7 +196,7 @@
         </ul>
         <div class="mb-3">@Localizer["TablesEditInjectDataServiceTips1"] <a href="@DataServiceUrl" target="_blank">@Localizer["TablesEditInjectDataServiceTips2"]</a></div>
         <b>@Localizer["TablesEditInjectDataServiceTips3"]</b>
-        <div class="mt-1">@Localizer["TablesEditInjectDataServiceTips4"]</div>
+        <div class="mt-1">@((MarkupString)Localizer["TablesEditInjectDataServiceTips4"].Value)</div>
         <Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
     </section>
     <Table TItem="Foo"
