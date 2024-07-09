@@ -9,13 +9,8 @@ export function init(id, invoke, shownCallback, closeCallback) {
         shownCallback,
         closeCallback,
         pop: () => {
-            if (modal.modal) {
-                modal.modal._dialog.remove()
-                modal.modal.dispose()
-                modal.modal = null
-                document.body.classList.remove('modal-open');
-                document.body.style.paddingRight = '';
-                document.body.style.overflow = '';
+            if (modal) {
+                modal.hide();
             }
         }
     }
