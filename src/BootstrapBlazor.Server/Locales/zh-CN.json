@@ -5541,7 +5541,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesAttribute": {
     "TableAttributeTitle": "特性标签 AutoGenerateClassAttribute/AutoGenerateColumnAttribute",
-    "TableAttributeDescription": "通过使用特性标签可以大大节约代码"
+    "TableAttributeDescription": "通过使用特性标签可以大大节约代码",
+    "AutoGenerateClassAttribute": "类标签 AutoGenerateClassAttribute",
+    "AutoGenerateColumnAttribute": "列标签 AutoGenerateColumnAttribute"
   },
   "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "简介",

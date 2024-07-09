@@ -5541,7 +5541,9 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesAttribute": {
     "TablesFixedHeaderTitle": "AutoGenerateClassAttribute/AutoGenerateColumnAttribute",
-    "TablesFixedHeaderDesc": "You can save a lot of code by using AutoGenerateClassAttribute or AutoGenerateColumnAttribute"
+    "TablesFixedHeaderDesc": "You can save a lot of code by using AutoGenerateClassAttribute or AutoGenerateColumnAttribute",
+    "AutoGenerateClassAttribute": "AutoGenerateClassAttribute",
+    "AutoGenerateColumnAttribute": "AutoGenerateColumnAttribute"
   },
   "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "Introduction",
