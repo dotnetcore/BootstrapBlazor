@@ -1052,6 +1052,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["TableVirtualization"],
                     Url = "table/virtualization"
+                },
+                new()
+                {
+                    Text = Localizer["TableAttribute"],
+                    Url = "table/attribute"
                 }
             };
             item.CssClass = "nav-table";

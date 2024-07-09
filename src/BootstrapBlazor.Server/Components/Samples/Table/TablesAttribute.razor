@@ -1,0 +1,11 @@
+﻿@page "/table/attribute"
+@inject IStringLocalizer<TablesAttribute> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@layout MainLayout
+
+<h3>@Localizer["TableAttributeTitle"]</h3>
+
+<h4>@Localizer["TableAttributeDescription"]</h4>
+
+<p>@((MarkupString)Localizer["DockViewIntro"].Value)</p>
+

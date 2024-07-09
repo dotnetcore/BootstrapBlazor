@@ -4593,6 +4593,7 @@
     "TableLoading": "Table-Loading",
     "TableLookup": "Lookup",
     "TableVirtualization": "Row Virtualization",
+    "TableAttribute": "Attribute",
     "Topology": "Topology HMI",
     "MenuAccordion": "Accordion",
     "MenuExpandAll": "Expand",
@@ -5537,6 +5538,10 @@
     "DialogDesc": "<p>Tips for using the<code>Table</code> with a fixed header in the <code>Dialog</code>:</p><div>The <code>Dialog</code> should assign values to the<code>Class</code> parameter of <code>DialogOption</code>. In this example, it is set to<code>dialog-table</code>. This operation is to enable us to customize the style to locate the<code>Table</code> component's parent container in the <code>Dialog</code> and set its height, Here you can use the writing method of adaptive height <code>height: calc (100vh - 400px);</code>; When the parent container of a <code>Table</code>component has a height, the component itself will perform adaptive height adaptation through calculation</div>",
     "DialogTitle": "In Dialog",
     "DialogButtonText": "Dialog"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesAttribute": {
+    "TablesFixedHeaderTitle": "AutoGenerateClassAttribute/AutoGenerateColumnAttribute",
+    "TablesFixedHeaderDesc": "You can save a lot of code by using AutoGenerateClassAttribute or AutoGenerateColumnAttribute"
   },
   "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "Introduction",
