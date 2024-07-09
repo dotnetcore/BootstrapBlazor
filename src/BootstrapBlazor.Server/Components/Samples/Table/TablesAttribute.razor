@@ -1,0 +1,67 @@
+﻿@page "/table/attribute"
+@inject IStringLocalizer<TablesAttribute> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@layout MainLayout
+
+<h3>@Localizer["TableAttributeTitle"]</h3>
+
+<h4>@Localizer["TableAttributeDescription"]</h4>
+
+<p class="code-label">@((MarkupString)Localizer["AutoGenerateClassAttribute"].Value)</p>
+
+<p class="code-label">@Localizer["AutoGenerateClassP1"]</p>
+<p>@((MarkupString)Localizer["AutoGenerateClassP1Content"].Value)</p>
+<Pre>[AutoGenerateClass(Filterable = true)]
+public class Foo
+{
+}</Pre>
+
+<p>@Localizer["AutoGenerateCode"]</p>
+
+<Pre>&lt;Table&gt;
+    &lt;TableColumn @@bind-Field="@@context.Name" Filterable="true" /&gt;
+&lt;/Table&gt;
+</Pre>
+
+<p class="code-label">@((MarkupString)Localizer["AutoGenerateColumnAttribute"].Value)</p>
+
+<p class="code-label">@Localizer["AutoGenerateClassP2"]</p>
+<p>@((MarkupString)Localizer["AutoGenerateClassP2Content"].Value)</p>
+<Pre>public class Foo
+{
+    [AutoGenerateColumn(Filterable = true)]
+    public string? Name { get; set; }
+}</Pre>
+
+<p>@Localizer["AutoGenerateCode"]</p>
+
+<Pre>&lt;Table&gt;
+    &lt;TableColumn @@bind-Field="@@context.Name" Filterable="true" /&gt;
+&lt;/Table&gt;
+</Pre>
+
+<p class="code-label">@Localizer["TableAttributeIntro"]</p>
+
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI1"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI2"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI3"].Value)</li>
+    <li>@((MarkupString)Localizer["TableAttributeIntroLI4"].Value)</li>
+</ul>
+
+<p class="code-label">Q&A</p>
+
+<p>@((MarkupString)Localizer["TableAttributeQA1"].Value)</p>
+
+<Pre>[AutoGenerateClass(Filterable = true)]
+public class Foo
+{
+    [AutoGenerateColumn(Sortable = true)]
+    public string? Name { get; set; }
+}</Pre>
+
+<p>@((MarkupString)Localizer["TableAttributeQA1"].Value)</p>
+<p>@((MarkupString)Localizer["TableAttributeQAP2"].Value)</p>
+
+<p class="code-label">@Localizer["TableAttributeColumn"]</p>
+<p>@((MarkupString)Localizer["TableAttributeQAP3"].Value)</p>
