@@ -8251,7 +8251,9 @@ class DockviewComponent extends BaseGrid {
             }
             const referenceLocation = getGridLocation(to.element);
             const dropLocation = getRelativeLocation(this.gridview.orientation, referenceLocation, target);
-            this.gridview.addView(from, Sizing.Distribute, dropLocation);
+            let size = this.getGroupShape(to, target)
+            size = size ? size / 2 : size
+            this.gridview.addView(from, size || Sizing.Distribute, dropLocation);
             from.panels.forEach((panel) => {
                 this._onDidMovePanel.fire({ panel });
             });
