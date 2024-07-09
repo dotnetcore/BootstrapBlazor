@@ -1,6 +1,6 @@
 ﻿/**
  * dockview-core
- * @version 1.14.1
+ * @version 1.14.2
  * @link https://github.com/mathuo/dockview
  * @license MIT
  */
@@ -998,7 +998,7 @@ class Splitview {
          */
         this.relayout([...lowPriorityIndexes, index], highPriorityIndexes);
     }
-    addView(view, size = { type: 'distribute' }, index = this.viewItems.length, skipLayout) {
+    addView(view, size = { type: 'distribute' }, index = this.viewItems.length, skipLayout, targetIndex) {
         const container = document.createElement('div');
         container.className = 'view';
         container.appendChild(view.element);
@@ -1130,16 +1130,16 @@ class Splitview {
             this.sashes.push(sashItem);
         }
         if (!skipLayout) {
-            this.relayout([index]);
+            this.relayout([index], undefined, targetIndex);
         }
         if (!skipLayout &&
             typeof size !== 'number' &&
             size.type === 'distribute') {
-            this.distributeViewSizes();
+            this.distributeViewSizes(index, size, 'addView');
         }
         this._onDidAddView.fire(view);
     }
-    distributeViewSizes() {
+    distributeViewSizes(index, size0, type) {
         const flexibleViewItems = [];
         let flexibleSize = 0;
         for (const item of this.viewItems) {
@@ -1150,7 +1150,7 @@ class Splitview {
         }
         const size = Math.floor(flexibleSize / flexibleViewItems.length);
         for (const item of flexibleViewItems) {
-            item.size = clamp(size, item.minimumSize, item.maximumSize);
+            // item.size = clamp(size, item.minimumSize, item.maximumSize);
         }
         const indexes = range(this.viewItems.length);
         const lowPriorityIndexes = indexes.filter((i) => this.viewItems[i].priority === LayoutPriority.Low);
@@ -1171,7 +1171,7 @@ class Splitview {
             this.relayout();
         }
         if (sizing && sizing.type === 'distribute') {
-            this.distributeViewSizes();
+            this.distributeViewSizes(index, sizing, 'removeView');
         }
         this._onDidRemoveView.fire(viewItem.view);
         return viewItem.view;
@@ -1224,9 +1224,11 @@ class Splitview {
         this.distributeEmptySpace();
         this.layoutViews();
     }
-    relayout(lowPriorityIndexes, highPriorityIndexes) {
+    relayout(lowPriorityIndexes, highPriorityIndexes, targetIndex) {
         const contentSize = this.viewItems.reduce((r, i) => r + i.size, 0);
-        this.resize(this.viewItems.length - 1, this._size - contentSize, undefined, lowPriorityIndexes, highPriorityIndexes);
+        targetIndex = targetIndex !== undefined ? targetIndex + 1 : (this.viewItems.length - 1)
+
+        this.resize(targetIndex, this._size - contentSize, undefined, lowPriorityIndexes, highPriorityIndexes);
         this.distributeEmptySpace();
         this.layoutViews();
         this.saveProportions();
@@ -1849,11 +1851,11 @@ class BranchNode extends CompositeDisposable {
         this._orthogonalSize = size;
         this.splitview.layout(orthogonalSize, size);
     }
-    addChild(node, size, index, skipLayout) {
+    addChild(node, size, index, skipLayout, targetIndex) {
         if (index < 0 || index > this.children.length) {
             throw new Error('Invalid index');
         }
-        this.splitview.addView(node, size, index, skipLayout);
+        this.splitview.addView(node, size, index, skipLayout, targetIndex);
         this._addChild(node, index);
     }
     getChildCachedVisibleSize(index) {
@@ -2327,7 +2329,7 @@ class Gridview {
         }
         parent.moveChild(from, to);
     }
-    addView(view, size, location) {
+    addView(view, size, location, targetIndex) {
         if (this.hasMaximizedView()) {
             this.exitMaximizedView();
         }
@@ -2335,7 +2337,7 @@ class Gridview {
         const [pathToParent, parent] = this.getNode(rest);
         if (parent instanceof BranchNode) {
             const node = new LeafNode(view, orthogonal(parent.orientation), parent.orthogonalSize);
-            parent.addChild(node, size, index);
+            parent.addChild(node, size, index, undefined, targetIndex);
         }
         else {
             const [grandParent, ..._] = [...pathToParent].reverse();
@@ -2625,8 +2627,8 @@ class BaseGrid extends Resizable {
     get onDidMaximizedGroupChange() {
         return this.gridview.onDidMaximizedNodeChange;
     }
-    doAddGroup(group, location = [0], size) {
-        this.gridview.addView(group, size !== null && size !== void 0 ? size : Sizing.Distribute, location);
+    doAddGroup(group, location = [0], size, targetIndex) {
+        this.gridview.addView(group, size !== null && size !== void 0 ? size : Sizing.Distribute, location, targetIndex);
         this._onDidAdd.fire(group);
     }
     doRemoveGroup(group, options) {
@@ -6175,52 +6177,40 @@ class DefaultTab extends CompositeDisposable {
     }
     constructor() {
         super();
-        //
-        this.params = {};
         this._element = document.createElement('div');
         this._element.className = 'dv-default-tab';
-        //
         this._content = document.createElement('div');
         this._content.className = 'dv-default-tab-content';
         this.action = document.createElement('div');
         this.action.className = 'dv-default-tab-action';
         this.action.appendChild(createCloseButton());
-        //
         this._element.appendChild(this._content);
         this._element.appendChild(this.action);
-        //
         this.addDisposables(addDisposableListener(this.action, 'mousedown', (ev) => {
             ev.preventDefault();
         }));
         this.render();
     }
-    update(event) {
-        this.params = Object.assign(Object.assign({}, this.params), event.params);
-        this.render();
-    }
-    focus() {
-        //noop
-    }
     init(params) {
-        this.params = params;
-        this._content.textContent = params.title;
-        addDisposableListener(this.action, 'click', (ev) => {
-            ev.preventDefault(); //
-            this.params.api.close();
-        });
-    }
-    onGroupChange(_group) {
+        this._title = params.title;
+        this.addDisposables(params.api.onDidTitleChange((event) => {
+            this._title = event.title;
+            this.render();
+        }), addDisposableListener(this.action, 'mousedown', (ev) => {
+            ev.preventDefault();
+        }), addDisposableListener(this.action, 'click', (ev) => {
+            if (ev.defaultPrevented) {
+                return;
+            }
+            ev.preventDefault();
+            params.api.close();
+        }));
         this.render();
-    }
-    onPanelVisibleChange(_isPanelVisible) {
-        this.render();
-    }
-    layout(_width, _height) {
-        // noop
     }
     render() {
-        if (this._content.textContent !== this.params.title) {
-            this._content.textContent = this.params.title;
+        var _a;
+        if (this._content.textContent !== this._title) {
+            this._content.textContent = (_a = this._title) !== null && _a !== void 0 ? _a : '';
         }
     }
 }
@@ -7180,13 +7170,17 @@ class DockviewComponent extends BaseGrid {
             }
             const data = getPanelData();
             if (data) {
+                let size = this.width / 2
+                if (event.position == 'top' || event.position == 'bottom') {
+                    size = this.height / 2
+                }
                 this.moveGroupOrPanel({
                     from: {
                         groupId: data.groupId,
                         panelId: (_a = data.panelId) !== null && _a !== void 0 ? _a : undefined,
                     },
                     to: {
-                        group: this.orthogonalize(event.position),
+                        group: this.orthogonalize(event.position, size),
                         position: 'center',
                     },
                 });
@@ -7466,7 +7460,7 @@ class DockviewComponent extends BaseGrid {
         }
         this.updateWatermark();
     }
-    orthogonalize(position) {
+    orthogonalize(position, size) {
         switch (position) {
             case 'top':
             case 'bottom':
@@ -7489,10 +7483,10 @@ class DockviewComponent extends BaseGrid {
             case 'top':
             case 'left':
             case 'center':
-                return this.createGroupAtLocation([0]); // insert into first position
+                return this.createGroupAtLocation([0], size); // insert into first position
             case 'bottom':
             case 'right':
-                return this.createGroupAtLocation([this.gridview.length]); // insert into last position
+                return this.createGroupAtLocation([this.gridview.length], size); // insert into last position
             default:
                 throw new Error(`unsupported position ${position}`);
         }
@@ -8153,7 +8147,12 @@ class DockviewComponent extends BaseGrid {
                 // after deleting the group we need to re-evaulate the ref location
                 const updatedReferenceLocation = getGridLocation(destinationGroup.element);
                 const location = getRelativeLocation(this.gridview.orientation, updatedReferenceLocation, destinationTarget);
-                this.movingLock(() => this.doAddGroup(targetGroup, location));
+
+                const sourceGroupSize = this.getGroupShape(sourceGroup, destinationTarget)
+                const destinationGroupSize = this.getGroupShape(destinationGroup, destinationTarget)
+                // const size = (sourceGroupSize < destinationGroupSize / 2) ? sourceGroupSize : (destinationGroupSize / 2)
+                const size = destinationGroupSize / 2
+                this.movingLock(() => this.doAddGroup(targetGroup, location, size));
                 this.doSetGroupAndPanelActive(targetGroup);
             }
             else {
@@ -8169,11 +8168,38 @@ class DockviewComponent extends BaseGrid {
                     throw new Error(`No panel with id ${sourceItemId}`);
                 }
                 const dropLocation = getRelativeLocation(this.gridview.orientation, referenceLocation, destinationTarget);
-                const group = this.createGroupAtLocation(dropLocation);
+
+                const sourceGroupSize = this.getGroupShape(sourceGroup, destinationTarget)
+                const destinationGroupSize = this.getGroupShape(destinationGroup, destinationTarget)
+                // const size = (sourceGroupSize < destinationGroupSize / 2) ? sourceGroupSize : (destinationGroupSize / 2)
+                const size = destinationGroupSize / 2
+                const group = this.createGroupAtLocation(dropLocation, size, referenceLocation.slice(-1)[0]);
                 this.movingLock(() => group.model.openPanel(removedPanel, {
                     skipSetGroupActive: true,
                 }));
                 this.doSetGroupAndPanelActive(group);
+            }
+        }
+    }
+    getGroupShape(group, position) {
+        if (position == 'top' || position == 'bottom') {
+            return group.height
+        }
+        else if (position == 'left' || position == 'right') {
+            return group.width
+        }
+    }
+    getGroupSize(group, branch) {
+        branch = branch || this.gridview.root
+        if (branch.children) {
+            for (const item of branch.children) {
+                let size = this.getGroupSize(group, item)
+                if (size) return size
+            }
+        }
+        else {
+            if (branch.element === group.element) {
+                return branch.size
             }
         }
     }
@@ -8344,9 +8370,9 @@ class DockviewComponent extends BaseGrid {
         });
         return panel;
     }
-    createGroupAtLocation(location = [0]) {
+    createGroupAtLocation(location = [0], size, targetIndex) {
         const group = this.createGroup();
-        this.doAddGroup(group, location);
+        this.doAddGroup(group, location, size, targetIndex);
         return group;
     }
     findGroup(panel) {
