@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -22,6 +24,7 @@ public class TopologyItem
     /// <summary>
     /// 获得/设置 显示文字
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Text { get; set; }
 
     /// <summary>
@@ -32,11 +35,13 @@ public class TopologyItem
     /// <summary>
     /// 获得/设置 显示文字颜色
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? TextColor { get; set; }
 
     /// <summary>
     /// 获得/设置 背景颜色
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Background { get; set; }
 
     /// <summary>
