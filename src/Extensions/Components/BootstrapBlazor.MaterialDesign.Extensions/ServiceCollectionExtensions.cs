@@ -12,7 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class IconMapperOptionsExtensions
 {
     /// <summary>
-    /// 添加 Meterial 图标主题服务
+    /// 添加 Material 图标主题服务
     /// </summary>
     /// <param name="services"></param>
     public static IServiceCollection ConfigureMaterialDesignIconTheme(this IServiceCollection services)

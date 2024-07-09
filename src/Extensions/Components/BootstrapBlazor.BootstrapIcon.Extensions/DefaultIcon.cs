@@ -132,6 +132,8 @@ internal class DefaultIcon
         { ComponentIcons.TabDropdownIcon, "bi bi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "bi bi-x" },
 
+        { ComponentIcons.TableColumnToolboxIcon, "bi bi-gear" },
+
         { ComponentIcons.TableSortIconAsc, "bi bi-sort-up-alt" },
         { ComponentIcons.TableSortDesc, "bi bi-sort-down" },
         { ComponentIcons.TableSortIcon, "bi bi-filter" },
