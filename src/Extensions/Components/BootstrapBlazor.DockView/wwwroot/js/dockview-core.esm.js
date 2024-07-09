@@ -8102,7 +8102,7 @@ class DockviewComponent extends BaseGrid {
             if (!removedPanel) {
                 throw new Error(`No panel with id ${sourceItemId}`);
             }
-            if (sourceGroup.model.size === 0) {
+            if (sourceGroup.model.size === 0  && !options.skipRemoveGroup) {
                 // remove the group and do not set a new group as active
                 this.doRemoveGroup(sourceGroup, { skipActive: true });
             }
