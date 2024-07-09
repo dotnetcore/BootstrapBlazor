@@ -61,6 +61,12 @@ public partial class Topology : IAsyncDisposable
     [Parameter]
     public bool IsCenterView { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否禁用鼠标悬浮效果 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisableHover { get; set; }
+
     private string? StyleString => CssBuilder.Default()
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
@@ -75,7 +81,7 @@ public partial class Topology : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoker = Interop, Data = Content, Callback = nameof(PushData), IsFitView, IsCenterView });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoker = Interop, Data = Content, Callback = nameof(PushData), IsFitView, IsCenterView, IsDisableHover });
 
     /// <summary>
     /// 开始推送数据方法

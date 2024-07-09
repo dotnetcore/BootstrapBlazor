@@ -15,7 +15,11 @@ export function init(id, options) {
             option
         })
 
-        invoker.invokeMethodAsync(callback)
+        invoker.invokeMethodAsync(callback);
+
+        if (options.isDisableHover) {
+            meta2d.setOptions({ hoverColor: '', hoverCursor: '', activeColor: '' });
+        }
     }
 
     // make sure el has height
