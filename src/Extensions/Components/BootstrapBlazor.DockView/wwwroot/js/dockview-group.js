@@ -285,7 +285,7 @@ const toggleLock = (group, actionContainer, isLock) => {
     else {
         actionContainer.classList.remove('bb-lock')
     }
-    saveConfig(group.api.accessor)
+    // saveConfig(group.api.accessor)
 }
 
 const toggleFull = (group, actionContainer, isMaximized) => {

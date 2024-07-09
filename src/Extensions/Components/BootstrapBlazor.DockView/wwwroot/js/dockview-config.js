@@ -153,8 +153,10 @@ const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => 
 
 const saveConfig = dockview => {
     if (dockview.params.options.enableLocalStorage) {
-        const json = dockview.toJSON()
-        localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
+        setTimeout(() => {
+            const json = dockview.toJSON()
+            localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
+        }, 0);
     }
 }
 
