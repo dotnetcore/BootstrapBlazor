@@ -14,18 +14,7 @@ const onAddGroup = group => {
     })
 
     const dockview = group.api.accessor;
-    const { floatingGroups = [] } = dockview;
-    let floatingGroup = floatingGroups.find(item => item.data.id === group.id)
-    if (floatingGroup) {
-        let { width, height, top, left } = floatingGroup.position
-        setTimeout(() => {
-            let style = group.element.parentElement.style
-            style.width = width + 'px'
-            style.height = height + 'px'
-            style.top = top + 'px'
-            style.left = left + 'px'
-        }, 0)
-    }
+
     group.header.onDrop(() => {
         saveConfig(dockview)
     })

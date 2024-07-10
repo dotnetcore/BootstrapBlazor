@@ -23,6 +23,7 @@ const initDockview = (dockview, options, template) => {
 
     dockview.init = () => {
         const config = getConfig(options);
+        dockview.params.floatingGroups = config.floatingGroups || []
         dockview.fromJSON(config);
     }
 
@@ -75,6 +76,17 @@ const initDockview = (dockview, options, template) => {
             })
             dockview._inited = true;
             dockview._initialized?.fire()
+            const { floatingGroups } = dockview.params
+            floatingGroups.forEach(floatingGroup => {
+                const group = dockview.groups.find(g => g.id == floatingGroup.data.id)
+                if( !group ) return
+                const { width, height, top, left } = floatingGroup.position
+                const style = group.element.parentElement.style
+                style.width = width + 'px'
+                style.height = height + 'px'
+                style.top = top + 'px'
+                style.left = left + 'px'
+            })
         }, 0);
     })
     // 拖拽分割线后触发

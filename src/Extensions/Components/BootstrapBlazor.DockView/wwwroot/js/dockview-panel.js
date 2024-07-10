@@ -110,7 +110,10 @@ const savePanel = (dockview, panel) => {
     panels.push(panel)
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
-        saveConfig(dockview)
+        const timer = setTimeout(() => {
+            clearTimeout(timer)
+            saveConfig(dockview)
+        }, 0)
     }
 }
 
