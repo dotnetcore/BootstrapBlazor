@@ -64,7 +64,6 @@ const initDockview = (dockview, options, template) => {
     dockview.onDidLayoutFromJSON(() => {
         const handler = setTimeout(() => {
             clearTimeout(handler);
-            dockview._initialized?.fire()
             const panels = dockview.panels
             const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + '-panels')
             const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
@@ -74,6 +73,8 @@ const initDockview = (dockview, options, template) => {
             delPanels.forEach(panel => {
                 dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
             })
+            dockview._inited = true;
+            dockview._initialized?.fire()
         }, 0);
     })
     // 拖拽分割线后触发
