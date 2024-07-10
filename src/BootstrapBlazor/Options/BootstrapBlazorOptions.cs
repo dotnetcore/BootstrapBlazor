@@ -95,12 +95,12 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public WebClientOptions WebClientOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 IpLocatorOptions 配置 默认为不为空
+    /// 获得/设置 IpLocatorOptions 配置 默认不为空
     /// </summary>
     public IpLocatorOptions IpLocatorOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 ScrollOptions 配置 默认为不为空
+    /// 获得/设置 ScrollOptions 配置 默认不为空
     /// </summary>
     public ScrollOptions ScrollOptions { get; set; } = new();
 
