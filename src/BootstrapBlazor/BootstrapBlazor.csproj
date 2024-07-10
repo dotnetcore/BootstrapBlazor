@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.7.2-beta03</Version>
+    <Version>9.0.0-preview01</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -41,6 +41,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET9Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET9Version)" />
   </ItemGroup>
 
   <ItemGroup>
