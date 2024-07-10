@@ -62,7 +62,8 @@ const initDockview = (dockview, options, template) => {
     })
 
     dockview.onDidLayoutFromJSON(() => {
-        setTimeout(() => {
+        const handler = setTimeout(() => {
+            clearTimeout(handler);
             dockview._initialized?.fire()
             const panels = dockview.panels
             const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + '-panels')
