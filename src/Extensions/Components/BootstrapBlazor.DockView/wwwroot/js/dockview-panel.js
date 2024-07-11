@@ -1,4 +1,5 @@
-﻿import { getIcon } from "./dockview-icon.js"
+﻿import { saveConfig } from "./dockview-config.js";
+import { getIcon } from "./dockview-icon.js"
 
 const onAddPanel = panel => {
     updateCloseButton(panel);
@@ -109,6 +110,10 @@ const savePanel = (dockview, panel) => {
     panels.push(panel)
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+        const timer = setTimeout(() => {
+            clearTimeout(timer)
+            saveConfig(dockview)
+        }, 0)
     }
 }
 
@@ -120,6 +125,7 @@ const deletePanel = (dockview, panel) => {
     }
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+        saveConfig(dockview)
     }
 }
 
