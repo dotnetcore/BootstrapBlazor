@@ -109,7 +109,9 @@ const toggleComponent = (dockview, options) => {
         const pan = findContentFromPanels(localPanels, p);
         if (pan === void 0) {
             const panel = findContentFromPanels(dockview.params.panels, p);
-            addGroupWithPanel(dockview, panel || p, panels);
+            const groupPanels = panels.filter(p1 => p1.params.parentId == p.params.parentId)
+            const index = panel && groupPanels.findIndex(p => p.id == panel.id)
+            addGroupWithPanel(dockview, panel || p, panels, index);
         }
     })
 
