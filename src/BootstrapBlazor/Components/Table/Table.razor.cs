@@ -1380,6 +1380,17 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
+    /// Reset all Columns Sort
+    /// </summary>
+    public async Task ResetSortAsync()
+    {
+        SortName = null;
+        SortOrder = SortOrder.Unset;
+
+        await QueryData();
+    }
+
+    /// <summary>
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>

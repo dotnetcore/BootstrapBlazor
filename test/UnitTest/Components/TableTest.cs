@@ -2735,7 +2735,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ScrollMode_Query_Ok()
+    public async Task ScrollMode_Query_Ok()
     {
         var isVirtual = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -2768,21 +2768,21 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var ths = cut.FindAll("th");
             var th = ths[1];
             th.Click();
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var ths = cut.FindAll("th");
             var th = ths[1];
             th.Click();
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var ths = cut.FindAll("th");
             var th = ths[1];
@@ -3111,13 +3111,16 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => th.Click());
         Assert.True(sorted);
 
+        // reset sort
+        var table = cut.FindComponent<Table<Foo>>();
+        await cut.InvokeAsync(() => table.Instance.ResetSortAsync());
+
         var column = cut.FindComponent<TableColumn<Foo, string>>();
         column.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.DefaultSort, true);
         });
 
-        var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.OnSort, null);

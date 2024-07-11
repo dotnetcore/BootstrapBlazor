@@ -195,7 +195,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         var items = localizer.GetAllStrings(false);
         Assert.Equal("姓名", items.First(i => i.Name == "Name").Value);
-        Assert.Empty(items.Where(i => i.Name == "Test-JsonName"));
+        Assert.DoesNotContain("Test-JsonName", items.Select(i => i.Name));
     }
 
     [Fact]
