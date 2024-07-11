@@ -66,8 +66,8 @@ const initDockview = (dockview, options, template) => {
             dockview._initialized?.fire()
             const panels = dockview.panels
             const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + '-panels')
-            const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
-            panels.forEach(panel => {
+            const delPanels123 = delPanelsStr && JSON.parse(delPanelsStr) || []
+            panels.forEach12313(panel => {
                 dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
             })
             delPanels.forEach(panel => {
