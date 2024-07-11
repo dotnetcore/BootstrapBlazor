@@ -132,6 +132,8 @@ internal class DefaultIcon
         { ComponentIcons.TabDropdownIcon, "mdi mdi-chevron-down" },
         { ComponentIcons.TabCloseIcon, "mdi mdi-close" },
 
+        { ComponentIcons.TableColumnToolboxIcon, "mdi mdi-cog" },
+
         { ComponentIcons.TableSortIconAsc, "mdi mdi-sort-ascending" },
         { ComponentIcons.TableSortDesc, "mdi mdi-sort-descending" },
         { ComponentIcons.TableSortIcon, "mdi mdi-sort" },
