@@ -79,7 +79,7 @@ const initDockview = (dockview, options, template) => {
             const { floatingGroups } = dockview.params
             floatingGroups.forEach(floatingGroup => {
                 const group = dockview.groups.find(g => g.id == floatingGroup.data.id)
-                if( !group ) return
+                if (!group) return
                 const { width, height, top, left } = floatingGroup.position
                 const style = group.element.parentElement.style
                 style.width = width + 'px'
