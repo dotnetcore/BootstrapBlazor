@@ -65,6 +65,7 @@ const initDockview = (dockview, options, template) => {
     dockview.onDidLayoutFromJSON(() => {
         const handler = setTimeout(() => {
             clearTimeout(handler);
+
             const panels = dockview.panels
             const delPanelsStr = localStorage.getItem(dockview.params.options.localStorageKey + '-panels')
             const delPanels = delPanelsStr && JSON.parse(delPanelsStr) || []
@@ -74,8 +75,6 @@ const initDockview = (dockview, options, template) => {
             delPanels.forEach(panel => {
                 dockview._panelVisibleChanged?.fire({ title: panel.title, status: false });
             })
-            dockview._inited = true;
-            dockview._initialized?.fire()
             const { floatingGroups } = dockview.params
             floatingGroups.forEach(floatingGroup => {
                 const group = dockview.groups.find(g => g.id == floatingGroup.data.id)
@@ -87,6 +86,9 @@ const initDockview = (dockview, options, template) => {
                 style.top = top + 'px'
                 style.left = left + 'px'
             })
+
+            dockview._inited = true;
+            dockview._initialized?.fire()
         }, 0);
     })
     // 拖拽分割线后触发
