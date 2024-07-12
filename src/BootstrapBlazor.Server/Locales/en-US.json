@@ -5362,7 +5362,10 @@
     "TableToolbarPopConfirmButton1": "Confirm",
     "TablesToolbarCustomComponentTitle": "Custom Component",
     "TablesToolbarCustomComponentIntro": "Use the <code>TableToolbarComponent</code> component to implement placing the components you need on the toolbar",
-    "TablesToolbarCustomComponentDescription": "The custom component currently does not render when shrunk into a small icon, and will be resolved later when a better solution is available, If you want to place components behind built-in buttons, please use the <code>TableToolbarTemplate</code> template"
+    "TablesToolbarCustomComponentDescription": "The custom component currently does not render when shrunk into a small icon, and will be resolved later when a better solution is available, If you want to place components behind built-in buttons, please use the <code>TableToolbarTemplate</code> template",
+    "TablesToolbarShowRefreshTitle": "Do not display the refresh button",
+    "TablesToolbarShowRefreshIntro": "Set <code>ShowToolbar=\"true\"</code> <code>ShowRefresh=\"false\"</code> to display the toolbar and not the refresh button.",
+    "TablesToolbarShowRefreshDesc": "Click the <code>Refresh</code> button. The component instance method <code>QueryAsync</code> is called internally. If the <b>virtual scrolling</b> mode is used, different request data modes are triggered according to different data sources. If the <code>OnQueryAsync</code> callback method is used as the data source, it is automatically called."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
