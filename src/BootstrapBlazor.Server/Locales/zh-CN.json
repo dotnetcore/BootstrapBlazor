@@ -5362,7 +5362,10 @@
     "TableToolbarPopConfirmButton1": "确认下载",
     "TablesToolbarCustomComponentTitle": "自定义组件",
     "TablesToolbarCustomComponentIntro": "使用 <code>TableToolbarComponent</code> 组件实现将自己需要的组件放到工具栏上",
-    "TablesToolbarCustomComponentDescription": "自定义组件在收缩成一个小图标时目前不渲染，稍后有更好的方案时再解决，如果想将组件放到内置按钮后面时，请使用 <code>TableToolbarTemplate</code> 模板"
+    "TablesToolbarCustomComponentDescription": "自定义组件在收缩成一个小图标时目前不渲染，稍后有更好的方案时再解决，如果想将组件放到内置按钮后面时，请使用 <code>TableToolbarTemplate</code> 模板",
+    "TablesToolbarShowRefreshTitle": "不显示刷新按钮",
+    "TablesToolbarShowRefreshIntro": "设置 <code>ShowToolbar=\"true\"</code> <code>ShowRefresh=\"false\"</code> 组合条件显示工具栏并且不显示刷新按钮",
+    "TablesToolbarShowRefreshDesc": "点击 <code>刷新</code> 按钮组件内部调用组件实例方法 <code>QueryAsync</code> 如果是 <b>虚拟滚动</b> 模式根据数据源不同触发不同请求数据模式；如果是使用 <code>OnQueryAsync</code> 回调方法作为数据源时，会自动调用"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",

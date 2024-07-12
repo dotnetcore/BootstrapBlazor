@@ -20,7 +20,8 @@ const onRemovePanel = event => {
                 height: event.group.element.parentElement.offsetHeight,
                 top: parseFloat(event.group.element.parentElement.style.top || 0),
                 left: parseFloat(event.group.element.parentElement.style.left || 0)
-            }
+            },
+            index: event.group.delPanelIndex
         }
     }
     if (event.params.groupInvisible) {
