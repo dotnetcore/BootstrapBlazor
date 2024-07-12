@@ -99,7 +99,7 @@ const addPanel = (branch, panel, brotherPanel, brotherId, brotherType) => {
         }
         else if(branch.type == 'branch') {
             branch.data.forEach(item => {
-                addPanel(item, panel, brotherPanel)
+                addPanel(item, panel, brotherPanel, brotherId)
             })
         }
     }
@@ -119,7 +119,7 @@ const addPanel = (branch, panel, brotherPanel, brotherId, brotherType) => {
         }
         else {
             branch.data.forEach(item => {
-                addPanel(item, panel, brotherPanel)
+                addPanel(item, panel, brotherPanel, brotherId)
             })
         }
     }
