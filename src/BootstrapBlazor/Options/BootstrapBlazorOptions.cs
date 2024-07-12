@@ -104,6 +104,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public ScrollOptions ScrollOptions { get; set; } = new();
 
+    /// <summary>
+    /// 获得/设置 ContextMenuOptions 配置 默认不为空
+    /// </summary>
+    public ContextMenuOptions ContextMenuOptions { get; set; } = new();
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>

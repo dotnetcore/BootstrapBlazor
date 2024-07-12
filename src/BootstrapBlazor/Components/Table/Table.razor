@@ -224,7 +224,9 @@
                     {
 				        OnBeforeRenderRow?.Invoke(item);
 				        <DynamicElement class="@GetRowClassString(item, "table-row")"
-                                        TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
+                                        TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
+                                        @ontouchstart="e => OnTouchStart(e, item)"
+                                        @ontouchend="OnTouchEnd"
                                         TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                             @if (IsMultipleSelect)
                             {
