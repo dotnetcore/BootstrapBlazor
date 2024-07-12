@@ -110,14 +110,17 @@ const toggleComponent = (dockview, options) => {
         if (pan === void 0) {
             const panel = findContentFromPanels(dockview.params.panels, p);
             const groupPanels = panels.filter(p1 => p1.params.parentId == p.params.parentId)
-            const index = panel && groupPanels.findIndex(p => p.id == panel.id)
-            addGroupWithPanel(dockview, panel || p, panels, index);
+            const indexOfOptions = groupPanels.findIndex(p => p.id == panel.id)
+            const index = panel && panel.params.index
+            console.log(index, 'index');
+            addGroupWithPanel(dockview, panel || p, panels, index ?? indexOfOptions);
         }
     })
 
     localPanels.forEach(item => {
         let pan = findContentFromPanels(panels, item);
         if (pan === void 0) {
+            item.group.delPanelIndex = item.group.panels.findIndex(p => p.id == item.id)
             dockview.removePanel(item)
         }
     })
