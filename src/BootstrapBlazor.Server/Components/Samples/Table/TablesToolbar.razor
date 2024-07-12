@@ -119,3 +119,24 @@
         </TableExtensionToolbarTemplate>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesToolbarShowRefreshTitle"]"
+           Introduction="@Localizer["TablesToolbarShowRefreshIntro"]"
+           Name="ShowRefresh">
+    <section ignore>@((MarkupString)Localizer["TablesToolbarShowRefreshDesc"].Value)</section>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowRefresh="false" ShowAddButton="false" ShowDeleteButton="false" ShowEditButton="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <TableExtensionToolbarTemplate>
+            <ButtonUpload TValue="string" ShowUploadFileList="false" BrowserButtonClass="btn-secondary" />
+        </TableExtensionToolbarTemplate>
+    </Table>
+</DemoBlock>
