@@ -4999,7 +4999,7 @@
     "WidthP3": "通过设置按钮 <code>IsShow</code> 参数来控制是否显示按钮",
     "AllowResizingTitle": "允许列调整",
     "AllowResizingIntro": "通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度",
-    "AllowResizingDesc": "<b>注意：</b> <code>Table</code> 父容器有有效宽度值时 <code>Table</code> 才会出现滚动条，可通过设置 <code>ClientTableName</code> 参数开启本地化存储列宽功能，即通过拖拽后列宽下次打开时会保持，通过设置 <code>ShowColumnWidthTooltip</code> 参数控制是否显示列宽提示栏，默认 <code>true</code>",
+    "AllowResizingDesc": "<b>注意：</b> <code>Table</code> 父容器有有效宽度值时 <code>Table</code> 才会出现滚动条，可通过设置 <code>ClientTableName</code> 参数开启本地化存储列宽功能，即通过拖拽后列宽下次打开时会保持，通过设置 <code>ShowColumnWidthTooltip</code> 参数控制是否显示列宽提示栏，默认 <code>false</code>",
     "WidthButtonText1": "明细",
     "WidthButtonText2": "编辑",
     "WidthButtonText3": "权限",

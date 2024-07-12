@@ -174,10 +174,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? ColumnWidthTooltipPrefix { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示列宽提示信息，默认 true 显示
+    /// 获得/设置 是否显示列宽提示信息，默认 false 显示
     /// </summary>
     [Parameter]
-    public bool ShowColumnWidthTooltip { get; set; } = true;
+    public bool ShowColumnWidthTooltip { get; set; }
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
