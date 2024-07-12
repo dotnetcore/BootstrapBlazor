@@ -30,6 +30,17 @@ public class BootstrapBlazorOptionsTest
     }
 
     [Fact]
+    public void ContextMenuOptions_Ok()
+    {
+        var options = new BootstrapBlazorOptions
+        {
+            ContextMenuOptions = new ContextMenuOptions() { OnTouchDelay = 500 }
+        };
+        Assert.NotNull(options.ContextMenuOptions);
+        Assert.Equal(500, options.ContextMenuOptions.OnTouchDelay);
+    }
+
+    [Fact]
     public void Options_IgnoreLocalizerMissing_Null()
     {
         var options = new BootstrapBlazorOptions();
