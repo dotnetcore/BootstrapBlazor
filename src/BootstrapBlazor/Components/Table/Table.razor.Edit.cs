@@ -332,7 +332,7 @@ public partial class Table<TItem>
     protected virtual bool CheckActive(TItem val) => SelectedRows.Any(row => Equals(val, row));
 
     /// <summary>
-    /// 
+    /// 刷新按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected Task OnClickRefreshAsync() => QueryAsync();
