@@ -7840,6 +7840,7 @@ class DockviewComponent extends BaseGrid {
                 referenceGroup.model.openPanel(panel, {
                     skipSetActive: options.inactive,
                     skipSetGroupActive: options.inactive,
+                    index: options.position.index
                 });
                 if (!options.inactive) {
                     this.doSetGroupAndPanelActive(referenceGroup);

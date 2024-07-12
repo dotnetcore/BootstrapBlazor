@@ -24,9 +24,9 @@ const onAddGroup = group => {
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel, panels) => {
+const addGroupWithPanel = (dockview, panel, panels, index) => {
     if (panel.groupId) {
-        addPanelWidthGroupId(dockview, panel)
+        addPanelWidthGroupId(dockview, panel, index)
     }
     else {
         addPanelWidthCreatGroup(dockview, panel, panels)
@@ -34,7 +34,7 @@ const addGroupWithPanel = (dockview, panel, panels) => {
     deletePanel(dockview, panel)
 }
 
-const addPanelWidthGroupId = (dockview, panel) => {
+const addPanelWidthGroupId = (dockview, panel, index) => {
     let group = dockview.api.getGroup(panel.groupId)
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
     if (!group) {
@@ -65,7 +65,7 @@ const addPanelWidthGroupId = (dockview, panel) => {
         id: panel.id,
         title: panel.title,
         component: panel.component,
-        position: { referenceGroup: group },
+        position: { referenceGroup: group, index: index || 0 },
         params: { ...panel.params, isPackup, height, isMaximized, position }
     })
     dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
@@ -411,9 +411,10 @@ const setWidth = (observerList) => {
         let dropMenu = dropdown.querySelector('.dropdown-menu')
         if (voidWidth === 0) {
             if (tabsContainer.children.length <= 1) return
-            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
-            let aEle = document.createElement('a')
-            let liEle = document.createElement('li')
+            const inactiveTabs = header.querySelectorAll('.tabs-container>.inactive-tab')
+            const lastTab = inactiveTabs[inactiveTabs.length - 1]
+            const aEle = document.createElement('a')
+            const liEle = document.createElement('li')
             aEle.className = 'dropdown-item'
             liEle.tabWidth = lastTab.offsetWidth;
             aEle.append(lastTab)
