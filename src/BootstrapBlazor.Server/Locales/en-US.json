@@ -4999,7 +4999,7 @@
     "WidthP3": "Control whether the button is displayed by setting the button <code>IsShow</code> parameter",
     "AllowResizingTitle": "Allow column resizing",
     "AllowResizingIntro": "Set table columns to allow resizing by specifying <code>AllowResizing</code>",
-    "AllowResizingDesc": "<b>Note:</b> <code>Table</code> scrollbar only appears when the parent container has valid width values, By setting the <code>ShowColumnWidthTooltip</code> parameter, you can control whether to display the column width tooltip. The default value is <code>true</code>",
+    "AllowResizingDesc": "<b>Note:</b> <code>Table</code> scrollbar only appears when the parent container has valid width values, By setting the <code>ShowColumnWidthTooltip</code> parameter, you can control whether to display the column width tooltip. The default value is <code>false</code>",
     "WidthButtonText1": "Details",
     "WidthButtonText2": "Edit",
     "WidthButtonText3": "Permissions",
