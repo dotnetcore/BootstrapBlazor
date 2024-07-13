@@ -235,6 +235,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["GlobalOption"],
+                    Url = "global-option"
+                },
+                new()
+                {
                     Text = Localizer["WebAppBlazor"],
                     Url = "install-webapp",
                 },
