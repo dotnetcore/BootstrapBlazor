@@ -1721,6 +1721,10 @@
     "Block2Title": "OnErrorHandleAsync",
     "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
   },
+  "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
+    "Title": "Global exception",
+    "SubTitle": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution"
+  },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsTitle": "Split",
     "SplitsNormalTitle": "Basic usage",
@@ -4439,6 +4443,7 @@
     "Breakpoints": "Breakpoints",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
+    "GlobalOption": "Global Option",
     "LayoutPage": "Admin Template",
     "FAIcon": "FontAwesome Icons",
     "Components": "Components",

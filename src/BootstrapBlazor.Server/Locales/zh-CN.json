@@ -1721,6 +1721,10 @@
     "Block2Title": "自定义错误处理",
     "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑"
   },
+  "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
+    "Title": "全局异常",
+    "SubTitle": "<p>增加组件 <code>ErrorLogger</code> 通过本组件可以对全局的日志、异常进行统一输出；目前由于 <code>Blazor</code> 框架并未提供一个类似 <code>MVC</code> 的 <b>全局异常</b> 整体解决方案；通过使用 <code>ErrorLogger</code> 组件 <b>无需任何额外代码</b> 即可进行全局异常捕获与处理</p>"
+  },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsTitle": "Split 面板分割",
     "SplitsNormalTitle": "基础用法",
@@ -4439,6 +4443,7 @@
     "Theme": "组件主题",
     "Labels": "表单标签",
     "GlobalException": "全局异常",
+    "GlobalOption": "全局配置",
     "LayoutPage": "后台模拟器",
     "FAIcon": "FontAwesome 图标集合",
     "Components": "组件总览",
