@@ -3,8 +3,87 @@
 
 <h3>@Localizer["Title"]</h3>
 
-<h4>@Localizer["SubTitle"]</h4>
+<h4>@((MarkupString)Localizer["SubTitle"].Value)</h4>
 
-@code {
+<p class="code-label">1. <code>ToastDelay</code></p>
 
-}
+<p>通过此配置统一设置 <code>ToastService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
+
+<p class="code-label">2. <code>ToastPlacement</code></p>
+
+<p>通过此配置统一设置 <code>ToastService</code> 服务弹窗出现位置，默认值为 <code>null</code> 未设置，使用服务内部设置</p>
+
+<p class="code-label">3. <code>MessageDelay</code></p>
+
+<p>通过此配置统一设置 <code>MessageService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
+
+<p class="code-label">4. <code>SwalDelay</code></p>
+
+<p>通过此配置统一设置 <code>SwalService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
+
+<p class="code-label">5. <code>DefaultCultureInfo</code></p>
+
+<p>默认文化信息，本组件开启多语言功能后，会自动根据浏览器请求语言设置相对应的文化信息，有时候我们设置一个默认文化信息，比如即使是英文浏览器，首次打开时也需要显示中文，此时可设置 <code>zh-CN</code> 默认为 null 未设置</p>
+
+<p class="code-label">6. <code>FallbackCulture</code> 回落文化</p>
+
+<p>通过此配置解决某些操作系统如 <code>CentOS</code> 等 <code>netcore</code> 程序默认无法读取当前进程/线程文化问题。默认值为 <code>en</code> 读取不到当前应用文化信息时使用此参数值</p>
+
+<p class="code-label">7. <code>EnableFallbackCulture</code> 是否启用回落文化</p>
+
+<p>通过此配置设置是否启用回落到父文化，如当前文化信息为 <code>zh-CN</code> 如果未找到其资源文件时，会自动寻找 <code>zh-hans</code> <code>zh</code>；如当前文化信息为 <code>en-US</code> 可回落到 <code>en</code></p>
+
+<p class="code-label">8. <code>IgnoreLocalizerMissing</code> 忽略本地化丢失信息</p>
+
+<p>启用本地化功能后，如果设置的本地化资源键值未找到时，客户端或者终端会显示提示信息，如果需要关闭这些信息，可设置 <code>IgnoreLocalizerMissing=\"true\"</code> 其默认值为 <code>false</code></p>
+
+<p class="code-label">9. <code>EnableErrorLogger</code> 是否启用错误日志</p>
+
+<p>通过此参数设置组件库内置 <code>ErrorLogger</code> 是否启用，默认值 <code>true</code></p>
+
+<Pre>{
+  "BootstrapBlazorOptions": {
+    "ToastDelay": 4000,
+    "MessageDelay": 4000,
+    "SwalDelay": 4000,
+    "EnableErrorLogger": true,
+    "FallbackCulture": "en",
+    "SupportedCultures": [
+      "zh-CN",
+      "en-US"
+    ],
+    "TableSettings": {
+      "CheckboxColumnWidth": 36,
+      "TableExportOptions": {
+        "EnableFormat": true,
+        "EnableLookup": true,
+        "AutoMergeArray": true,
+        "ArrayDelimiter": ","
+      }
+    },
+    "IgnoreLocalizerMissing": true,
+    "StepSettings": {
+      "Short": "1",
+      "Int": "1",
+      "Long": "1",
+      "Float": "0.1",
+      "Double": "0.01",
+      "Decimal": "0.01"
+    },
+    "ConnectionHubOptions": {
+      "Enable": true,
+      "EnableIpLocator": true,
+      "ExpirationScanFrequency": "00:05:00",
+      "TimeoutInterval": "00:03:00",
+      "BeatInterval": "00:00:30"
+    },
+    "IpLocatorOptions": {
+      "EnableCache": true,
+      "SlidingExpiration": "24:00:00",
+      "ProviderName": "BaiduIpLocatorProvider"
+    },
+    "WebClientOptions": {
+      "EnableIpLocator": true
+    }
+  }
+}</Pre>
