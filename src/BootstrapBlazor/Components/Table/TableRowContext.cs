@@ -15,7 +15,7 @@ public class TableRowContext<TItem>(TItem model, IEnumerable<ITableColumn> colum
     /// 获得/设置 行数据实例
     /// </summary>
     [NotNull]
-    public TItem Row => model ?? throw new ArgumentNullException(nameof(model));
+    public TItem Row { get; } = model ?? throw new ArgumentNullException(nameof(model));
 
     /// <summary>
     /// 获得/设置 当前绑定字段数据实例
