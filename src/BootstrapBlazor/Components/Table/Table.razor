@@ -252,7 +252,7 @@
                             @if (RowTemplate != null)
                             {
                                 var columns = GetVisibleColumns();
-                                RowTemplate(new (item, columns));
+                                @RowTemplate(new (item, columns));
                             }
                             else
                             {
@@ -708,7 +708,7 @@
         @if (RowTemplate != null)
         {
             var columns = GetVisibleColumns();
-            RowTemplate(new (item, columns));
+            @RowTemplate(new (item, columns));
         }
         else
         {
