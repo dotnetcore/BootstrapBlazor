@@ -7493,6 +7493,12 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableRowContext_Exception()
+    {
+        Assert.Throws<ArgumentNullException>(() => new TableRowContext<Foo?>(null, [new InternalTableColumn("Name", typeof(string))]));
+    }
+
+    [Fact]
     public void PlaceHolder_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
