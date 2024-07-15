@@ -7997,7 +7997,7 @@ public class TableTest : TableTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        IEnumerable<ITableColumn> columns = null;
+        IEnumerable<ITableColumn>? columns = null;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
