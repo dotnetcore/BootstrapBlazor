@@ -6,6 +6,7 @@ using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 namespace UnitTest.Components;
 
@@ -132,7 +133,8 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             TriggerTouchStart(row);
             TriggerTouchStart(row);
 
-            await Task.Delay(600);
+            var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+            await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
             row.TouchEnd();
         });
     }
@@ -197,7 +199,8 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             TriggerTouchStart(row);
             TriggerTouchStart(row);
 
-            await Task.Delay(600);
+            var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+            await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
             row.TouchEnd();
         });
     }
