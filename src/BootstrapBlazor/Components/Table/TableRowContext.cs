@@ -5,11 +5,11 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableColumn 上下文类
+/// TableRow 上下文类
 /// </summary>
 /// <param name="model"></param>
-/// <param name="value"></param>
-public class TableColumnContext<TItem, TValue>(TItem model, TValue value)
+/// <param name="columns"></param>
+public class TableRowContext<TItem>(TItem model, IEnumerable<ITableColumn> columns)
 {
     /// <summary>
     /// 获得/设置 行数据实例
@@ -20,5 +20,5 @@ public class TableColumnContext<TItem, TValue>(TItem model, TValue value)
     /// <summary>
     /// 获得/设置 当前绑定字段数据实例
     /// </summary>
-    public TValue Value => value;
+    public IEnumerable<ITableColumn> Columns => columns;
 }
