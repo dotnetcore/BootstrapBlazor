@@ -24,9 +24,10 @@ const onRemovePanel = event => {
             index: event.group.delPanelIndex
         }
     }
-    if (event.params.groupInvisible) {
-        panel.groupInvisible = event.params.groupInvisible
-    }
+
+    // if (event.params.groupInvisible) {
+    //     panel.groupInvisible = event.params.groupInvisible
+    // }
     savePanel(dockview, panel)
 
     if (event.group.children) {

@@ -49,14 +49,15 @@ DockviewComponent.prototype.removeGroup = function (...argu) {
         })
         this.setVisible(group, false)
 
-        let delPanels = getConfigFromStorage(this.params.options.localStorageKey + '-panels')
-        delPanels = delPanels?.map(panel => {
-            if (panel.groupId == group.id) {
-                panel.groupInvisible = true
-            }
-            return panel
-        })
-        delPanels && localStorage.setItem(this.params.options.localStorageKey + '-panels', JSON.stringify(delPanels))
+        // let delPanelsStr = localStorage.getItem(this.params.options.localStorageKey + '-panels')
+        // let delPanels = delPanelsStr ? JSON.parse(delPanelsStr) : delPanelsStr
+        // delPanels = delPanels?.map(panel => {
+        //     if (panel.groupId == group.id) {
+        //         panel.groupInvisible = true
+        //     }
+        //     return panel
+        // })
+        // delPanels && localStorage.setItem(this.params.options.localStorageKey + '-panels', JSON.stringify(delPanels))
     }
     else if (type == 'floating') {
         return removeGroup.apply(this, argu)

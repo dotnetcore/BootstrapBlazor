@@ -142,12 +142,12 @@ const createGroupActions = group => {
     }, 0)
     addActionEvent(group, actionContainer);
 
-    const dockview = group.api.accessor;
-    if (dockview.params.observer === null) {
-        dockview.params.observer = new ResizeObserver(setWidth);
-    }
-    dockview.params.observer.observe(group.header.element)
-    dockview.params.observer.observe(group.header.tabContainer)
+    // const dockview = group.api.accessor;
+    // if (dockview.params.observer === null) {
+    //     dockview.params.observer = new ResizeObserver(setWidth);
+    // }
+    // dockview.params.observer.observe(group.header.element)
+    // dockview.params.observer.observe(group.header.tabContainer)
 
 }
 

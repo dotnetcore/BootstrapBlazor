@@ -244,9 +244,13 @@ const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => 
 
 const saveConfig = dockview => {
     if (dockview.params.options.enableLocalStorage && dockview._inited === true) {
+        saveParamsIsActive(dockview)
         const json = dockview.toJSON()
         localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
     }
+}
+const saveParamsIsActive = dockview => {
+    dockview.panels.forEach(panel => panel.params.isActive = panel.api.isActive)
 }
 
 export { getConfigFromStorage, getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage };

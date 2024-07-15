@@ -89,6 +89,19 @@ const initDockview = (dockview, options, template) => {
 
             dockview._inited = true;
             dockview._initialized?.fire()
+            dockview.groups.forEach(group => {
+                if (dockview.params.observer === null) {
+                    dockview.params.observer = new ResizeObserver(observerList => setWidth(observerList, dockview));
+                }
+                dockview.params.observer.observe(group.header.element)
+                dockview.params.observer.observe(group.header.tabContainer)
+                for (let panel of group.panels) {
+                    if(panel.params.isActive){
+                        panel.api.setActive()
+                        break
+                    }
+                }
+            })
         }, 0);
     })
     // 拖拽分割线后触发
@@ -101,6 +114,52 @@ const initDockview = (dockview, options, template) => {
         saveConfig(dockview)
     })
 }
+const setWidth = (observerList, dockview) => {
+    setTimeout(() => {
+        observerList.forEach(({ target }) => {
+            let header, tabsContainer
+            if (target.classList.contains('tabs-container')) {
+                header = target.parentElement
+                tabsContainer = target
+            }
+            else {
+                header = target
+                tabsContainer = header.querySelector('.tabs-container')
+            }
+            if(header.offsetWidth == 0) return
+            let voidWidth = header.querySelector('.void-container').offsetWidth
+            let dropdown = header.querySelector('.right-actions-container>.dropdown')
+            if (!dropdown) return
+            let dropMenu = dropdown.querySelector('.dropdown-menu')
+            if (voidWidth === 0) {
+                if (tabsContainer.children.length <= 1) return
+                const inactiveTabs = header.querySelectorAll('.tabs-container>.tab')
+                const lastTab = inactiveTabs[inactiveTabs.length - 1]
+                const aEle = document.createElement('a')
+                const liEle = document.createElement('li')
+                aEle.className = 'dropdown-item'
+                liEle.tabWidth = lastTab.offsetWidth;
+                aEle.append(lastTab)
+                liEle.append(aEle)
+                dropMenu.insertAdjacentElement("afterbegin", liEle)
+                if(lastTab.classList.contains('active-tab')){
+                    const group = dockview.groups.find(g => g.element === header.parentElement)
+                    group.panels[0].api.setActive()
+                }
+            }
+            else {
+                let firstLi = dropMenu.querySelector('li:has(.tab)') || dropMenu.children[0]
+                if (firstLi) {
+                    let firstTab = firstLi.querySelector('.tab')
+                    if (voidWidth > firstLi.tabWidth || tabsContainer.children.length == 0) {
+                        firstTab && tabsContainer.append(firstTab)
+                        firstLi.remove()
+                    }
+                }
+            }
+        })
+    }, 0);
+}
 
 const toggleComponent = (dockview, options) => {
     const panels = getPanelsFromOptions(options).filter(p => p.params.visible)
@@ -112,7 +171,6 @@ const toggleComponent = (dockview, options) => {
             const groupPanels = panels.filter(p1 => p1.params.parentId == p.params.parentId)
             const indexOfOptions = groupPanels.findIndex(p => p.id == panel.id)
             const index = panel && panel.params.index
-            console.log(index, 'index');
             addGroupWithPanel(dockview, panel || p, panels, index ?? indexOfOptions);
         }
     })
@@ -120,7 +178,7 @@ const toggleComponent = (dockview, options) => {
     localPanels.forEach(item => {
         let pan = findContentFromPanels(panels, item);
         if (pan === void 0) {
-            item.group.delPanelIndex = item.group.panels.findIndex(p => p.id == item.id)
+            item.group.delPanelIndex = item.group.panels.findIndex(p => p.params.key == item.params.key)
             dockview.removePanel(item)
         }
     })
