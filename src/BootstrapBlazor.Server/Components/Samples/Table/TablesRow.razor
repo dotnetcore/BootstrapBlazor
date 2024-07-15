@@ -146,7 +146,7 @@
 <DemoBlock Title="@Localizer["RowTemplateTitle"]"
            Introduction="@Localizer["RowTemplateIntro"]"
            Name="RowTemplate">
-    <section ignore></section>
+    <section ignore>@((MarkupString)Localizer["RowTemplateDesc"].Value)</section>
 
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
