@@ -5424,7 +5424,7 @@
     "ClickToSelectNoneText": "无",
     "PlaceHolder": "不可为空，50字以内",
     "RowTemplateTitle": "行模板",
-    "RowTemplateIntro": "通过设置 <code>RowTemplate</code> 模板，可通过分装组件的方式实现自定义行内单元格联动逻辑，达到性能最优化，避免单元格数据刷新导致联动后需要刷新整个表格组件的问题",
+    "RowTemplateIntro": "通过设置 <code>RowTemplate</code> 模板，可通过分装组件的方式实现自定义行内单元格联动逻辑，达到性能最优化，避免单元格数据刷新导致联动后需要刷新整个表格组件的问题，可用于销售类软件，调整单价时总价列变化需求",
     "RowTemplateDesc": "本例中通过自定义组件，实现选择日期后，联动数量列，随机生成一个随机数字，并且保存到原始数据中，从而不需要刷新整个 <code>Table</code> 组件"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
