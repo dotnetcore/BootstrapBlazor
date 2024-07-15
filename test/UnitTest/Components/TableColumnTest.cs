@@ -44,6 +44,10 @@ public class TableColumnTest
         {
             builder.AddContent(0, col.GetFieldName());
         }));
+        SetValue("ToolboxTemplate", new RenderFragment<ITableColumn>(col => builder =>
+        {
+            builder.AddContent(0, "test");
+        }));
         SetValue("Filter", new TableFilter());
         SetValue("FormatString", "test");
         SetValue("Formatter", new Func<object?, Task<string>>(val =>
