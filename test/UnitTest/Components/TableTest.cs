@@ -7493,6 +7493,12 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void TableRowContext_Exception()
+    {
+        Assert.Throws<ArgumentNullException>(() => new TableRowContext<Foo?>(null, [new InternalTableColumn("Name", typeof(string))]));
+    }
+
+    [Fact]
     public void PlaceHolder_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7982,6 +7988,43 @@ public class TableTest : TableTestBase
                 });
             });
         });
+    }
+
+    [Theory]
+    [InlineData(TableRenderMode.Table)]
+    [InlineData(TableRenderMode.CardView)]
+    public void RowTemplate_Ok(TableRenderMode mode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        IEnumerable<ITableColumn>? columns = null;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, mode);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.RowTemplate, context => builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddContent(1, $"template-{context.Row.Name}");
+                    builder.CloseElement();
+
+                    columns = context.Columns;
+                });
+            });
+        });
+
+        Assert.Contains($"template-{items[0].Name}", cut.Markup);
+        Assert.NotNull(columns);
+        Assert.Single(columns);
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)

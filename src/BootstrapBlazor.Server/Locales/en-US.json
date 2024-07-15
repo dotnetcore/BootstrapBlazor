@@ -1179,7 +1179,7 @@
     "P17": "Install Project template",
     "P18": "Create Project"
   },
-  "BootstrapBlazor.Server.Components.Pages.Golbalization": {
+  "BootstrapBlazor.Server.Components.Pages.Globalization": {
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
     "P1": "Please check <a href='https://learn.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?WT.mc_id=DT-MVP-5004174' target='_blank'> before reading the following knowledge points Official document</a>"
@@ -1720,6 +1720,10 @@
     "ButtonText": "test",
     "Block2Title": "OnErrorHandleAsync",
     "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
+  },
+  "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
+    "Title": "Global exception",
+    "SubTitle": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution"
   },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsTitle": "Split",
@@ -4439,6 +4443,7 @@
     "Breakpoints": "Breakpoints",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
+    "GlobalOption": "Global Option",
     "LayoutPage": "Admin Template",
     "FAIcon": "FontAwesome Icons",
     "Components": "Components",
@@ -5417,7 +5422,10 @@
     "RowNumberText": "Number",
     "ClickToSelectP3": "Currently selected row:",
     "ClickToSelectNoneText": "None",
-    "PlaceHolder": "Cannot be empty, within 50 characters"
+    "PlaceHolder": "Cannot be empty, within 50 characters",
+    "RowTemplateTitle": "Row Template",
+    "RowTemplateIntro": "By setting the <code>RowTemplate</code> template, you can implement custom row cell linkage logic by sub-packaging components to achieve performance optimization and avoid the problem of refreshing the entire table component after linkage due to cell data refresh.",
+    "RowTemplateDesc": "In this example, a custom component is used to select a date, link the quantity column, randomly generate a random number, and save it to the original data, so there is no need to refresh the entire <code>Table</code> component."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",

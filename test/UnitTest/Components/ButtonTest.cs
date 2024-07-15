@@ -274,6 +274,7 @@ public class ButtonTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() =>
         {
+            var button = cut.FindComponent<Button>();
             button.SetParametersAndRender(pb =>
             {
                 pb.Add(a => a.TooltipText, "Tooltip-Button");

@@ -451,6 +451,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public RenderFragment<TItem>? DetailRowTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 行模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TableRowContext<TItem>>? RowTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 TableHeader 实例
     /// </summary>
     [Parameter]
@@ -1524,7 +1530,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             TouchStart = true;
 
             // 延时保持 TouchStart 状态
-            await Task.Delay(200);
+            var delay = Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
+            await Task.Delay(delay);
             if (TouchStart)
             {
                 var args = new MouseEventArgs()
@@ -1538,7 +1545,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnContextMenu(args, item);
 
                 //延时防止重复激活菜单功能
-                await Task.Delay(200);
+                await Task.Delay(delay);
             }
             IsBusy = false;
         }

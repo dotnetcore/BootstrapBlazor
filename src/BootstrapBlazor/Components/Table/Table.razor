@@ -224,7 +224,9 @@
                     {
 				        OnBeforeRenderRow?.Invoke(item);
 				        <DynamicElement class="@GetRowClassString(item, "table-row")"
-                                        TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
+                                        TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
+                                        @ontouchstart="e => OnTouchStart(e, item)"
+                                        @ontouchend="OnTouchEnd"
                                         TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                             @if (IsMultipleSelect)
                             {
@@ -247,38 +249,46 @@
                             {
                                 @RenderExtendButtons(item)
                             }
-                            @foreach (var col in GetVisibleColumns())
+                            @if (RowTemplate != null)
                             {
-                                var cellClass = "";
-                                string? value = null;
-                                RenderFragment? valueTemplate = null;
-                                <div class="table-cell">
-                                    <label>
-                                        @col.GetDisplayName()
-                                    </label>
-                                    @if (col.OnCellRender != null)
-                                    {
-                                        var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                                        col.OnCellRender(cell);
-                                        cellClass = cell.Class;
-                                        value = cell.Value;
-                                        valueTemplate = cell.ValueTemplate;
-                                    }
-                                    <span class="@cellClass">
-                                        @if (valueTemplate != null)
+                                var columns = GetVisibleColumns();
+                                @RowTemplate(new (item, columns));
+                            }
+                            else
+                            {
+                                @foreach (var col in GetVisibleColumns())
+                                {
+                                    var cellClass = "";
+                                    string? value = null;
+                                    RenderFragment? valueTemplate = null;
+                                    <div class="table-cell">
+                                        <label>
+                                            @col.GetDisplayName()
+                                        </label>
+                                        @if (col.OnCellRender != null)
                                         {
-                                            @valueTemplate
+                                            var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                            col.OnCellRender(cell);
+                                            cellClass = cell.Class;
+                                            value = cell.Value;
+                                            valueTemplate = cell.ValueTemplate;
                                         }
-                                        else if (value != null)
-                                        {
-                                            @value
-                                        }
-                                        else
-                                        {
-                                            @GetValue(col, item)
-                                        }
-                                    </span>
-                                </div>
+                                        <span class="@cellClass">
+                                            @if (valueTemplate != null)
+                                            {
+                                                @valueTemplate
+                                            }
+                                            else if (value != null)
+                                            {
+                                                @value
+                                            }
+                                            else
+                                            {
+                                                @GetValue(col, item)
+                                            }
+                                        </span>
+                                    </div>
+                                }
                             }
                             @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                             {
@@ -654,14 +664,15 @@
 
     RenderFragment<TItem> RenderRow => item =>
     @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
-                     TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
+                     TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
+                     @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                      TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
         @if (ShowDetails())
         {
             <td class="@DetailColumnClassString" style="@DetailColumnStyleString">
                 <div class="@GetDetailBarClassString(item)">
-                    @if (ShowDetailRow == null || ShowDetailRow.Invoke(item))
+                    @if (ShowDetailRow == null || ShowDetailRow(item))
                     {
                         <i class="@GetDetailCaretClassString(item)" @onclick:stopPropagation @onclick="() => ExpandDetailRow(item)"></i>
                     }
@@ -694,88 +705,96 @@
         {
             @RenderRowExtendButtons(item)
         }
-        @foreach (var col in GetVisibleColumns())
+        @if (RowTemplate != null)
         {
-            if (CheckShownWithBreakpoint(col))
+            var columns = GetVisibleColumns();
+            @RowTemplate(new (item, columns));
+        }
+        else
+        {
+            @foreach (var col in GetVisibleColumns())
             {
-                if (colIndex > 1)
+                if (CheckShownWithBreakpoint(col))
                 {
-                    colIndex--;
-                    continue;
-                }
-                var cellClass = "";
-                var colspan = 0;
-                string? value = null;
-                RenderFragment? valueTemplate = null;
-                if (col.OnCellRender != null)
-                {
-                    var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                    col.OnCellRender(cell);
-                    cellClass = cell.Class;
-                    colspan = cell.Colspan;
-                    valueTemplate = cell.ValueTemplate;
-                    value = cell.Value;
-                    colIndex = colspan;
-                }
-                <td colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
-                    @{
-                        var isFirstColOfTree = IsTree && index++ == 0;
-                        var degree = 0;
-                        var isExpend = false;
-                        var hasChildren = false;
-                        if (isFirstColOfTree)
-                        {
-                            var treeItem = TreeNodeCache.Find(TreeRows, item, out degree);
-                            if(treeItem != null)
-                            {
-                                isExpend = treeItem.IsExpand;
-                                hasChildren = treeItem.HasChildren;
-                            }
-                        }
-                        var hesTreeChildren = isFirstColOfTree && hasChildren;
+                    if (colIndex > 1)
+                    {
+                        colIndex--;
+                        continue;
                     }
-                    <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
-                                    OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"
-                                    class="@GetCellClassString(col, hesTreeChildren, isInCell)" style="@GetCellStyleString(col)">
-                        @if (isFirstColOfTree)
-                        {
-                            <div class="is-node" style="@GetTreeStyleString(degree)">
-                            @if (hesTreeChildren)
+                    var cellClass = "";
+                    var colspan = 0;
+                    string? value = null;
+                    RenderFragment? valueTemplate = null;
+                    if (col.OnCellRender != null)
+                    {
+                        var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                        col.OnCellRender(cell);
+                        cellClass = cell.Class;
+                        colspan = cell.Colspan;
+                        valueTemplate = cell.ValueTemplate;
+                        value = cell.Value;
+                        colIndex = colspan;
+                    }
+                    <td colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
+                        @{
+                            var isFirstColOfTree = IsTree && index++ == 0;
+                            var degree = 0;
+                            var isExpend = false;
+                            var hasChildren = false;
+                            if (isFirstColOfTree)
                             {
-                                <i class="@GetTreeClassString(isExpend)"></i>
+                                var treeItem = TreeNodeCache.Find(TreeRows, item, out degree);
+                                if(treeItem != null)
+                                {
+                                    isExpend = treeItem.IsExpand;
+                                    hasChildren = treeItem.HasChildren;
+                                }
                             }
-                            </div>
+                            var hesTreeChildren = isFirstColOfTree && hasChildren;
                         }
-                        @if (IsExcel)
-                        {
-                            @RenderExcelCell(col, item, ItemChangedType.Update)
-                        }
-                        else if(isInCell)
-                        {
-                            @RenderCell(col, EditModel, AddInCell ? ItemChangedType.Add : ItemChangedType.Update)
-                        }
-                        else
-                        {
-                            var triggerDoubleClick = OnDoubleClickCellCallback != null;
-                            <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick" GenerateElement="false"
-                                            OnDoubleClick="TriggerDoubleClickCell(col, item)" StopPropagation="true"
-                                            class="@GetDoubleClickCellClassString(triggerDoubleClick)">
-                                @if (valueTemplate != null)
+                        <DynamicElement TagName="div" TriggerClick="@hesTreeChildren"
+                                        OnClick="@ToggleTreeRow(item)" StopPropagation="hesTreeChildren"
+                                        class="@GetCellClassString(col, hesTreeChildren, isInCell)" style="@GetCellStyleString(col)">
+                            @if (isFirstColOfTree)
+                            {
+                                <div class="is-node" style="@GetTreeStyleString(degree)">
+                                @if (hesTreeChildren)
                                 {
-                                    @valueTemplate
+                                    <i class="@GetTreeClassString(isExpend)"></i>
                                 }
-                                else if (value != null)
-                                {
-                                    @value
-                                }
-                                else
-                                {
-                                    @GetValue(col, item)
-                                }
-                            </DynamicElement>
-                        }
-                    </DynamicElement>
-                </td>
+                                </div>
+                            }
+                            @if (IsExcel)
+                            {
+                                @RenderExcelCell(col, item, ItemChangedType.Update)
+                            }
+                            else if(isInCell)
+                            {
+                                @RenderCell(col, EditModel, AddInCell ? ItemChangedType.Add : ItemChangedType.Update)
+                            }
+                            else
+                            {
+                                var triggerDoubleClick = OnDoubleClickCellCallback != null;
+                                <DynamicElement TagName="div" TriggerDoubleClick="triggerDoubleClick" GenerateElement="false"
+                                                OnDoubleClick="TriggerDoubleClickCell(col, item)" StopPropagation="true"
+                                                class="@GetDoubleClickCellClassString(triggerDoubleClick)">
+                                    @if (valueTemplate != null)
+                                    {
+                                        @valueTemplate
+                                    }
+                                    else if (value != null)
+                                    {
+                                        @value
+                                    }
+                                    else
+                                    {
+                                        @GetValue(col, item)
+                                    }
+                                </DynamicElement>
+                            }
+                        </DynamicElement>
+                    </td>
+                }
             }
         }
         @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)

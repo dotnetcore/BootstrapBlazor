@@ -142,3 +142,23 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["RowTemplateTitle"]"
+           Introduction="@Localizer["RowTemplateIntro"]"
+           Name="RowTemplate">
+    <section ignore>@((MarkupString)Localizer["RowTemplateDesc"].Value)</section>
+
+    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <RowTemplate>
+            <CustomTableRow Context="@context" OnValueChanged="UpdateRowValue"></CustomTableRow>
+        </RowTemplate>
+    </Table>
+</DemoBlock>

@@ -47,7 +47,7 @@ public class ITableColumnExtensionsTest
             ComponentType = typeof(NullSwitch),
             ComponentParameters = [],
             Ignore = true,
-            EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
+            EditTemplate = obj => builder => builder.AddContent(0, "test"),
             Items = new List<SelectedItem>(),
             Lookup = new List<SelectedItem>(),
             LookupStringComparison = StringComparison.Ordinal,
@@ -72,7 +72,7 @@ public class ITableColumnExtensionsTest
             DefaultSortOrder = SortOrder.Desc,
             Filter = new TableFilter(),
             Filterable = true,
-            FilterTemplate = new RenderFragment(builder => builder.AddContent(0, "test-filter")),
+            FilterTemplate = builder => builder.AddContent(0, "test-filter"),
             Fixed = true,
             FormatString = "test-format",
             Formatter = obj =>
@@ -80,15 +80,15 @@ public class ITableColumnExtensionsTest
                 var ret = "test-formatter";
                 return Task.FromResult<string?>(ret);
             },
-            HeaderTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-header")),
-            ToolboxTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-toolbox")),
+            HeaderTemplate = col => builder => builder.AddContent(0, "test-header"),
+            ToolboxTemplate = col => builder => builder.AddContent(0, "test-toolbox"),
             OnCellRender = args => { },
             Searchable = true,
-            SearchTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-search")),
+            SearchTemplate = obj => builder => builder.AddContent(0, "test-search"),
             ShownWithBreakPoint = BreakPoint.Large,
             ShowTips = true,
             Sortable = true,
-            Template = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-template")),
+            Template = obj => builder => builder.AddContent(0, "test-template"),
             TextEllipsis = true,
             Visible = false,
             IsVisibleWhenAdd = false,
@@ -105,7 +105,7 @@ public class ITableColumnExtensionsTest
             Order = -1,
             IsMarkupString = true,
             GetTooltipTextCallback = _ => Task.FromResult<string?>(null),
-            CustomSearch = new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test"))
+            CustomSearch = (_, _) => new SearchFilterAction("test", "test")
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
