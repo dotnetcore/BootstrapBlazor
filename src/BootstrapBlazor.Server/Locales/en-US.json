@@ -5422,7 +5422,10 @@
     "RowNumberText": "Number",
     "ClickToSelectP3": "Currently selected row:",
     "ClickToSelectNoneText": "None",
-    "PlaceHolder": "Cannot be empty, within 50 characters"
+    "PlaceHolder": "Cannot be empty, within 50 characters",
+    "RowTemplateTitle": "Row Template",
+    "RowTemplateIntro": "By setting the <code>RowTemplate</code> template, you can implement custom row cell linkage logic by sub-packaging components to achieve performance optimization and avoid the problem of refreshing the entire table component after linkage due to cell data refresh.",
+    "RowTemplateDesc": "In this example, a custom component is used to select a date, link the quantity column, randomly generate a random number, and save it to the original data, so there is no need to refresh the entire <code>Table</code> component."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",

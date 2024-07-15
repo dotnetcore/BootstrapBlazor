@@ -98,4 +98,14 @@ public partial class TablesRow
     }
 
     private static string? SetRowClassFormatter(Foo item) => item.Count > 60 ? "row-highlight" : null;
+
+    private Task UpdateRowValue(TableRowContext<Foo> context)
+    {
+        // 触发内部数据变化通知
+        // 本例中 context.Row 就是数据源内数据，此处不需要进行数据处理
+        // 如果使用数据库此处可以根据数据变化项进行数据库更新即可
+        // 此处不需要 StateHasChanged 更新 UI
+
+        return Task.CompletedTask;
+    }
 }
