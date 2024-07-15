@@ -132,7 +132,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             TriggerTouchStart(row);
             TriggerTouchStart(row);
 
-            await Task.Delay(500);
+            await Task.Delay(600);
             row.TouchEnd();
         });
     }
@@ -197,7 +197,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             TriggerTouchStart(row);
             TriggerTouchStart(row);
 
-            await Task.Delay(500);
+            await Task.Delay(600);
             row.TouchEnd();
         });
     }
