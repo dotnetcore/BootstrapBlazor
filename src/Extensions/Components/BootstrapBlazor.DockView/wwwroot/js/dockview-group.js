@@ -204,7 +204,7 @@ const getMaximizeState = (group) => {
     const type = group.model.location.type
     return type === 'grid'
         ? group.api.isMaximized()
-        : (type === 'floating' ? group.activePanel.params.isMaximized : false)
+        : (type === 'floating' ? group.activePanel?.params.isMaximized : false)
 }
 
 const showFloat = (dockview, group) => {
