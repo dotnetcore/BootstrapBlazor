@@ -10,6 +10,16 @@ namespace BootstrapBlazor.Components;
 public class ConnectionHubOptions
 {
     /// <summary>
+    /// 获得/设置 是否开启 CollectionHub 功能 默认 false 未开启
+    /// </summary>
+    public bool Enable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启 IP 定位功能 默认 false 未开启
+    /// </summary>
+    public bool EnableIpLocator { get; set; }
+
+    /// <summary>
     /// 获得/设置 过期扫描周期 默认 1 分钟
     /// </summary>
     /// <remarks>自动清理超时 5 倍心跳时间的客户端信息</remarks>
@@ -25,14 +35,4 @@ public class ConnectionHubOptions
     /// 获得/设置 ConnectionHub 组件心跳间隔 默认 5000 单位毫秒
     /// </summary>
     public TimeSpan BeatInterval { get; set; } = TimeSpan.FromSeconds(5);
-
-    /// <summary>
-    /// 获得/设置 是否开启 CollectionHub 功能 默认 false 未开启
-    /// </summary>
-    public bool Enable { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否开启 IP 定位功能 默认 false 未开启
-    /// </summary>
-    public bool EnableIpLocator { get; set; }
 }
