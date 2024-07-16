@@ -2,3 +2,7 @@
     background-color: #409eff;
     color: #fff;
 }
+
+::deep + .table-row-template td:has(.datetime-picker) {
+    padding: 1px;
+}
