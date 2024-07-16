@@ -18,4 +18,8 @@
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>NU1902;NU1903</NoWarn>
+  </PropertyGroup>
+
 </Project>
