@@ -5,41 +5,99 @@
 
 <h4>@((MarkupString)Localizer["SubTitle"].Value)</h4>
 
-<p class="code-label">1. <code>ToastDelay</code></p>
+<p class="code-label"><code>ToastDelay</code></p>
 
 <p>通过此配置统一设置 <code>ToastService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
 
-<p class="code-label">2. <code>ToastPlacement</code></p>
+<p class="code-label"><code>ToastPlacement</code></p>
 
 <p>通过此配置统一设置 <code>ToastService</code> 服务弹窗出现位置，默认值为 <code>null</code> 未设置，使用服务内部设置</p>
 
-<p class="code-label">3. <code>MessageDelay</code></p>
+<p class="code-label"><code>MessageDelay</code></p>
 
 <p>通过此配置统一设置 <code>MessageService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
 
-<p class="code-label">4. <code>SwalDelay</code></p>
+<p class="code-label"><code>SwalDelay</code></p>
 
 <p>通过此配置统一设置 <code>SwalService</code> 服务弹窗自动关闭延时时长，默认值为 <code>0</code> 未设置，使用服务内部设置</p>
 
-<p class="code-label">5. <code>DefaultCultureInfo</code></p>
+<p class="code-label"><code>DefaultCultureInfo</code></p>
 
 <p>默认文化信息，本组件开启多语言功能后，会自动根据浏览器请求语言设置相对应的文化信息，有时候我们设置一个默认文化信息，比如即使是英文浏览器，首次打开时也需要显示中文，此时可设置 <code>zh-CN</code> 默认为 null 未设置</p>
 
-<p class="code-label">6. <code>FallbackCulture</code> 回落文化</p>
+<p class="code-label"><code>FallbackCulture</code> 回落文化</p>
 
 <p>通过此配置解决某些操作系统如 <code>CentOS</code> 等 <code>netcore</code> 程序默认无法读取当前进程/线程文化问题。默认值为 <code>en</code> 读取不到当前应用文化信息时使用此参数值</p>
 
-<p class="code-label">7. <code>EnableFallbackCulture</code> 是否启用回落文化</p>
+<p class="code-label"><code>EnableFallbackCulture</code> 是否启用回落文化</p>
 
 <p>通过此配置设置是否启用回落到父文化，如当前文化信息为 <code>zh-CN</code> 如果未找到其资源文件时，会自动寻找 <code>zh-hans</code> <code>zh</code>；如当前文化信息为 <code>en-US</code> 可回落到 <code>en</code></p>
 
-<p class="code-label">8. <code>IgnoreLocalizerMissing</code> 忽略本地化丢失信息</p>
+<p class="code-label"><code>IgnoreLocalizerMissing</code> 忽略本地化丢失信息</p>
 
 <p>启用本地化功能后，如果设置的本地化资源键值未找到时，客户端或者终端会显示提示信息，如果需要关闭这些信息，可设置 <code>IgnoreLocalizerMissing=\"true\"</code> 其默认值为 <code>false</code></p>
 
-<p class="code-label">9. <code>EnableErrorLogger</code> 是否启用错误日志</p>
+<p class="code-label"><code>EnableErrorLogger</code> 是否启用错误日志</p>
 
 <p>通过此参数设置组件库内置 <code>ErrorLogger</code> 是否启用，默认值 <code>true</code></p>
+
+<p class="code-label"><code>DisableAutoSubmitFormByEnter</code> 是否禁用表单内回车按键自动提交功能</p>
+
+<p>表单 <code>ValidateForm</code> 组件中如果有类型为 <code>submit</code> 的按钮时，按回车后将会自动触发提交表单动作，可通过设置 <code>DisableAutoSubmitFormByEnter="false"</code> 禁用此功能</p>
+
+<p class="code-label"><code>JSModuleVersion</code> 脚本版本号全局统一配置</p>
+
+<p>组件内置了一个版本服务 <code>IVersionService</code> 其实例方法 <code>GetVersion</code> 内将使用此参数，如果未配置时使用当前组件包版本号</p>
+
+<p class="code-label"><code>TableSettings</code> 表格全局统一配置</p>
+
+<ul class="demo-ul">
+    <li><code>CheckboxColumnWidth</code> 复选框列宽度</li>
+    <li><code>DetailColumnWidth</code> 明细行 Row Header 宽度</li>
+    <li><code>ShowCheckboxTextColumnWidth</code> 显示文字的复选框列宽度</li>
+    <li><code>LineNoColumnWidth</code> 行号列宽度</li>
+    <li><code>ColumnMinWidth</code> 是否自动合并数组</li>
+    <li><code>TableRenderMode</code> 数组分隔符</li>
+    <li><code>TableExportOptions.EnableFormat</code> 是否使用格式化</li>
+    <li><code>TableExportOptions.EnableLookup</code> 是否使用 Lookup 值</li>
+    <li><code>TableExportOptions.AutoMergeArray</code> 是否将数组类型值进行合并操作</li>
+    <li><code>TableExportOptions.UseEnumDescription</code> 是否使用枚举类型的标签值</li>
+    <li><code>TableExportOptions.ArrayDelimiter</code> 数组类型合并操作时使用的分隔符</li>
+</ul>
+
+<p class="code-label"><code>StepSettings</code> 步长全局统一配置各种数据类型的步长值</p>
+
+<p class="code-label"><code>ConnectionHubOptions</code> 步长全局统一配置各种数据类型的步长值</p>
+<ul class="demo-ul">
+    <li><code>Enable</code> 是否开启</li>
+    <li><code>EnableIpLocator</code> 是否开启 IP 定位功能</li>
+    <li><code>ExpirationScanFrequency</code> 过期扫描周期</li>
+    <li><code>TimeoutInterval</code> 超时间隔</li>
+    <li><code>BeatInterval</code> 组件心跳间隔</li>
+</ul>
+
+<p class="code-label"><code>WebClientOptions</code> <code>WebClientService</code> 配置项</p>
+<ul class="demo-ul">
+    <li><code>EnableIpLocator</code> 是否开启 IP 定位功能</li>
+</ul>
+
+<p class="code-label"><code>IIpLocatorProvider</code> 服务内部使用</p>
+<ul class="demo-ul">
+    <li><code>ProviderName</code> 定位器名称</li>
+    <li><code>EnableCache</code> 是否开启缓存降低请求频率</li>
+    <li><code>SlidingExpiration</code> 是否开启缓存降低请求频率</li>
+</ul>
+
+<p class="code-label"><code>ScrollOptions</code> 滚动条配置</p>
+<ul class="demo-ul">
+    <li><code>ScrollWidth</code> 滚动条宽度</li>
+    <li><code>ScrollHoverWidth</code> 滚动条鼠标悬浮宽度</li>
+</ul>
+
+<p class="code-label"><code>ContextMenuOptions</code> 右键菜单配置</p>
+<ul class="demo-ul">
+    <li><code>OnTouchDelay</code> 移动端触控延时</li>
+</ul>
 
 <Pre>{
   "BootstrapBlazorOptions": {
