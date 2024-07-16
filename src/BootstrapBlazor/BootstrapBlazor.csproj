@@ -56,6 +56,7 @@
     <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\scss\**\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
+    <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="bundleconfig.json" />
     <None Include="sasscompiler.json" />
     <None Include="versionconfig.json" />
@@ -63,10 +64,6 @@
     <None Include="wwwroot\lib\**\*.css" />
     <None Include="wwwroot\scss\**\*.*" />
     <None Include="wwwroot\src\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
   </ItemGroup>
 
