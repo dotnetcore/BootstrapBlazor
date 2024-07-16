@@ -174,10 +174,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? ColumnWidthTooltipPrefix { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示列宽提示信息，默认 true 显示
+    /// 获得/设置 是否显示列宽提示信息，默认 false 显示
     /// </summary>
     [Parameter]
-    public bool ShowColumnWidthTooltip { get; set; } = true;
+    public bool ShowColumnWidthTooltip { get; set; }
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
@@ -449,6 +449,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? DetailRowTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 行模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TableRowContext<TItem>>? RowTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 TableHeader 实例
@@ -1380,6 +1386,17 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     }
 
     /// <summary>
+    /// Reset all Columns Sort
+    /// </summary>
+    public async Task ResetSortAsync()
+    {
+        SortName = null;
+        SortOrder = SortOrder.Unset;
+
+        await QueryData();
+    }
+
+    /// <summary>
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>
@@ -1513,7 +1530,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             TouchStart = true;
 
             // 延时保持 TouchStart 状态
-            await Task.Delay(200);
+            var delay = Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
+            await Task.Delay(delay);
             if (TouchStart)
             {
                 var args = new MouseEventArgs()
@@ -1527,7 +1545,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnContextMenu(args, item);
 
                 //延时防止重复激活菜单功能
-                await Task.Delay(200);
+                await Task.Delay(delay);
             }
             IsBusy = false;
         }

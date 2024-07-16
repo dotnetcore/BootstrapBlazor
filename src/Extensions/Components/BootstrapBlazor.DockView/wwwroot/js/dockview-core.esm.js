@@ -7840,6 +7840,7 @@ class DockviewComponent extends BaseGrid {
                 referenceGroup.model.openPanel(panel, {
                     skipSetActive: options.inactive,
                     skipSetGroupActive: options.inactive,
+                    index: options.position.index
                 });
                 if (!options.inactive) {
                     this.doSetGroupAndPanelActive(referenceGroup);
@@ -8102,7 +8103,7 @@ class DockviewComponent extends BaseGrid {
             if (!removedPanel) {
                 throw new Error(`No panel with id ${sourceItemId}`);
             }
-            if (sourceGroup.model.size === 0) {
+            if (sourceGroup.model.size === 0  && !options.skipRemoveGroup) {
                 // remove the group and do not set a new group as active
                 this.doRemoveGroup(sourceGroup, { skipActive: true });
             }
@@ -8152,7 +8153,7 @@ class DockviewComponent extends BaseGrid {
                 const destinationGroupSize = this.getGroupShape(destinationGroup, destinationTarget)
                 // const size = (sourceGroupSize < destinationGroupSize / 2) ? sourceGroupSize : (destinationGroupSize / 2)
                 const size = destinationGroupSize / 2
-                this.movingLock(() => this.doAddGroup(targetGroup, location, size));
+                this.movingLock(() => this.doAddGroup(targetGroup, location, size, referenceLocation.slice(-1)[0]));
                 this.doSetGroupAndPanelActive(targetGroup);
             }
             else {
@@ -8251,7 +8252,9 @@ class DockviewComponent extends BaseGrid {
             }
             const referenceLocation = getGridLocation(to.element);
             const dropLocation = getRelativeLocation(this.gridview.orientation, referenceLocation, target);
-            this.gridview.addView(from, Sizing.Distribute, dropLocation);
+            let size = this.getGroupShape(to, target)
+            size = size ? size / 2 : size
+            this.gridview.addView(from, size || Sizing.Distribute, dropLocation);
             from.panels.forEach((panel) => {
                 this._onDidMovePanel.fire({ panel });
             });

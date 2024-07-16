@@ -1179,7 +1179,7 @@
     "P17": "Install Project template",
     "P18": "Create Project"
   },
-  "BootstrapBlazor.Server.Components.Pages.Golbalization": {
+  "BootstrapBlazor.Server.Components.Pages.Globalization": {
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
     "P1": "Please check <a href='https://learn.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?WT.mc_id=DT-MVP-5004174' target='_blank'> before reading the following knowledge points Official document</a>"
@@ -1720,6 +1720,10 @@
     "ButtonText": "test",
     "Block2Title": "OnErrorHandleAsync",
     "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
+  },
+  "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
+    "Title": "Global exception",
+    "SubTitle": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution"
   },
   "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsTitle": "Split",
@@ -4439,6 +4443,7 @@
     "Breakpoints": "Breakpoints",
     "Theme": "Theme",
     "GlobalException": "Global Exception",
+    "GlobalOption": "Global Option",
     "LayoutPage": "Admin Template",
     "FAIcon": "FontAwesome Icons",
     "Components": "Components",
@@ -4999,7 +5004,7 @@
     "WidthP3": "Control whether the button is displayed by setting the button <code>IsShow</code> parameter",
     "AllowResizingTitle": "Allow column resizing",
     "AllowResizingIntro": "Set table columns to allow resizing by specifying <code>AllowResizing</code>",
-    "AllowResizingDesc": "<b>Note:</b> <code>Table</code> scrollbar only appears when the parent container has valid width values, By setting the <code>ShowColumnWidthTooltip</code> parameter, you can control whether to display the column width tooltip. The default value is <code>true</code>",
+    "AllowResizingDesc": "<b>Note:</b> <code>Table</code> scrollbar only appears when the parent container has valid width values, By setting the <code>ShowColumnWidthTooltip</code> parameter, you can control whether to display the column width tooltip. The default value is <code>false</code>",
     "WidthButtonText1": "Details",
     "WidthButtonText2": "Edit",
     "WidthButtonText3": "Permissions",
@@ -5362,7 +5367,10 @@
     "TableToolbarPopConfirmButton1": "Confirm",
     "TablesToolbarCustomComponentTitle": "Custom Component",
     "TablesToolbarCustomComponentIntro": "Use the <code>TableToolbarComponent</code> component to implement placing the components you need on the toolbar",
-    "TablesToolbarCustomComponentDescription": "The custom component currently does not render when shrunk into a small icon, and will be resolved later when a better solution is available, If you want to place components behind built-in buttons, please use the <code>TableToolbarTemplate</code> template"
+    "TablesToolbarCustomComponentDescription": "The custom component currently does not render when shrunk into a small icon, and will be resolved later when a better solution is available, If you want to place components behind built-in buttons, please use the <code>TableToolbarTemplate</code> template",
+    "TablesToolbarShowRefreshTitle": "Do not display the refresh button",
+    "TablesToolbarShowRefreshIntro": "Set <code>ShowToolbar=\"true\"</code> <code>ShowRefresh=\"false\"</code> to display the toolbar and not the refresh button.",
+    "TablesToolbarShowRefreshDesc": "Click the <code>Refresh</code> button. The component instance method <code>QueryAsync</code> is called internally. If the <b>virtual scrolling</b> mode is used, different request data modes are triggered according to different data sources. If the <code>OnQueryAsync</code> callback method is used as the data source, it is automatically called."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
@@ -5414,7 +5422,10 @@
     "RowNumberText": "Number",
     "ClickToSelectP3": "Currently selected row:",
     "ClickToSelectNoneText": "None",
-    "PlaceHolder": "Cannot be empty, within 50 characters"
+    "PlaceHolder": "Cannot be empty, within 50 characters",
+    "RowTemplateTitle": "Row Template",
+    "RowTemplateIntro": "By setting the <code>RowTemplate</code> template, you can implement custom row cell linkage logic by sub-packaging components to achieve performance optimization and avoid the problem of refreshing the entire table component after linkage due to cell data refresh.",
+    "RowTemplateDesc": "In this example, a custom component is used to select a date, link the quantity column, randomly generate a random number, and save it to the original data, so there is no need to refresh the entire <code>Table</code> component."
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",

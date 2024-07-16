@@ -14,18 +14,7 @@ const onAddGroup = group => {
     })
 
     const dockview = group.api.accessor;
-    const { floatingGroups = [] } = dockview;
-    let floatingGroup = floatingGroups.find(item => item.data.id === group.id)
-    if (floatingGroup) {
-        let { width, height, top, left } = floatingGroup.position
-        setTimeout(() => {
-            let style = group.element.parentElement.style
-            style.width = width + 'px'
-            style.height = height + 'px'
-            style.top = top + 'px'
-            style.left = left + 'px'
-        }, 0)
-    }
+
     group.header.onDrop(() => {
         saveConfig(dockview)
     })
@@ -35,9 +24,9 @@ const onAddGroup = group => {
     createGroupActions(group);
 }
 
-const addGroupWithPanel = (dockview, panel, panels) => {
+const addGroupWithPanel = (dockview, panel, panels, index) => {
     if (panel.groupId) {
-        addPanelWidthGroupId(dockview, panel)
+        addPanelWidthGroupId(dockview, panel, index)
     }
     else {
         addPanelWidthCreatGroup(dockview, panel, panels)
@@ -45,7 +34,7 @@ const addGroupWithPanel = (dockview, panel, panels) => {
     deletePanel(dockview, panel)
 }
 
-const addPanelWidthGroupId = (dockview, panel) => {
+const addPanelWidthGroupId = (dockview, panel, index) => {
     let group = dockview.api.getGroup(panel.groupId)
     let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
     if (!group) {
@@ -76,7 +65,7 @@ const addPanelWidthGroupId = (dockview, panel) => {
         id: panel.id,
         title: panel.title,
         component: panel.component,
-        position: { referenceGroup: group },
+        position: { referenceGroup: group, index: index || 0 },
         params: { ...panel.params, isPackup, height, isMaximized, position }
     })
     dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
@@ -92,14 +81,14 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     else {
         let targetPanel
         for (let i = 0, len = panels.length; i < len; i++) {
-            if(panels[i]?.id == panel.id){
-                if(i == len - 1){
+            if (panels[i]?.id === panel.id) {
+                if (i == len - 1) {
                     targetPanel = panels[i - 1]
                     group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
                     direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'below' : 'right'
                     break
                 }
-                else{
+                else {
                     targetPanel = panels[i + 1]
                     group = dockview.groups.find(g => findContentFromPanels(g.panels, targetPanel))
                     direction = getOrientation(dockview.gridview.root, group) === 'VERTICAL' ? 'above' : 'left'
@@ -115,7 +104,7 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
         position: { referenceGroup: group },
         params: { ...panel.params, isPackup, height, isMaximized, position }
     }
-    if(direction) option.position.direction = direction
+    if (direction) option.position.direction = direction
     dockview.addPanel(option);
     dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
 }
@@ -153,12 +142,12 @@ const createGroupActions = group => {
     }, 0)
     addActionEvent(group, actionContainer);
 
-    const dockview = group.api.accessor;
-    if (dockview.params.observer === null) {
-        dockview.params.observer = new ResizeObserver(setWidth);
-    }
-    dockview.params.observer.observe(group.header.element)
-    dockview.params.observer.observe(group.header.tabContainer)
+    // const dockview = group.api.accessor;
+    // if (dockview.params.observer === null) {
+    //     dockview.params.observer = new ResizeObserver(setWidth);
+    // }
+    // dockview.params.observer.observe(group.header.element)
+    // dockview.params.observer.observe(group.header.tabContainer)
 
 }
 
@@ -422,9 +411,10 @@ const setWidth = (observerList) => {
         let dropMenu = dropdown.querySelector('.dropdown-menu')
         if (voidWidth === 0) {
             if (tabsContainer.children.length <= 1) return
-            let lastTab = header.querySelector('.tabs-container>.inactive-tab:not(:has(+ .inactive-tab))')
-            let aEle = document.createElement('a')
-            let liEle = document.createElement('li')
+            const inactiveTabs = header.querySelectorAll('.tabs-container>.inactive-tab')
+            const lastTab = inactiveTabs[inactiveTabs.length - 1]
+            const aEle = document.createElement('a')
+            const liEle = document.createElement('li')
             aEle.className = 'dropdown-item'
             liEle.tabWidth = lastTab.offsetWidth;
             aEle.append(lastTab)

@@ -26,7 +26,7 @@ const getConfig = options => {
 
 const getConfigFromStorage = options => {
     const jsonString = localStorage.getItem(options.localStorageKey);
-    return jsonString ? fixObject(JSON.parse(jsonString)) : null;
+    return jsonString ? fixObject(renewConfigFromOptions(JSON.parse(jsonString), options)) : null;
 }
 
 const getConfigFromOptions = options => options.layoutConfig ? getConfigFromLayoutString(options) : getConfigFromContent(options);
@@ -44,6 +44,97 @@ const getConfigFromLayoutString = options => {
         }
     });
     return fixObject(config);
+}
+
+const renewConfigFromOptions = (config, options) => {
+    const optionPanels = getPanelsFromOptions(options)
+    const localPanels = Object.values(config.panels)
+    optionPanels.forEach(optionPanel => {// 在结构中添加
+        const panel = localPanels.find(localPanel => localPanel.params.key == optionPanel.params.key)
+        if(panel){//找到了就替换数据
+            optionPanel.params = {
+                ...panel.params,
+                ...optionPanel.params
+            }
+            config.panels[panel.id] = optionPanel
+        }
+        else {// 本地没有Panel就需要添加
+            const delPanels = JSON.parse(localStorage.getItem(options.localStorageKey + '-panels'))
+            if(delPanels?.find(delPanel => delPanel.params.key == optionPanel.params.key)) return
+            let index = optionPanels.findIndex(item => item.id == optionPanel.id)
+            let brotherPanel, brotherType
+            if(index == 0){
+                brotherPanel = optionPanels[1]
+                brotherType = 'after'
+            }
+            else {
+                brotherPanel = optionPanels[index - 1]
+                brotherType = 'front'
+            }
+            config.panels[optionPanel.id] = optionPanel
+            const brotherId = Object.keys(config.panels).find(key => config.panels[key].params.key == brotherPanel.params.key)
+            addPanel(config.grid.root, optionPanel, brotherPanel, brotherId, brotherType)
+
+        }
+    })
+    localPanels.forEach(localPanel => {
+        const panel = optionPanels.find(optionPanel => optionPanel.params.key == localPanel.params.key)
+        if(panel){
+
+        }
+        else {// 在options里没有, 就需要在localPanels删除
+            delete  config.panels[localPanel.id] && config.panels[localPanel.id]
+            removePanel(config.grid.root, localPanel)
+        }
+    })
+    return config
+}
+
+const addPanel = (branch, panel, brotherPanel, brotherId, brotherType) => {
+    if(brotherPanel.params.parentType == 'group'){
+        if(branch.type == 'leaf'){
+            if(branch.data.views.includes(brotherId)){
+                branch.data.views.push(panel.id)
+            }
+        }
+        else if(branch.type == 'branch') {
+            branch.data.forEach(item => {
+                addPanel(item, panel, brotherPanel, brotherId)
+            })
+        }
+    }
+    else {
+        if(branch.type == 'branch' && branch.data[0].type == 'leaf'){
+            if(branch.data.find(leaf => leaf.data.views.includes(brotherId))){
+                branch.data.push({
+                    data: {
+                        activeView: panel.id,
+                        id: Date.now() + '',
+                        views: [panel.id]
+                    },
+                    size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
+                    type: 'leaf'
+                })
+            }
+        }
+        else {
+            branch.data.forEach(item => {
+                addPanel(item, panel, brotherPanel, brotherId)
+            })
+        }
+    }
+}
+
+const removePanel = (branch, panel, parent) => {
+    if(branch.type == 'leaf'){
+        branch.data.views = branch.data.views.filter(id => id != panel.id)
+        parent && (parent.data = parent.data.filter(child => child.data.views.length > 0))
+    }
+    else if(branch.type == 'branch') {
+        branch.data.forEach(item => {
+            removePanel(item, panel, branch)
+        })
+    }
 }
 
 const getConfigFromContent = options => {
@@ -152,10 +243,14 @@ const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => 
 }
 
 const saveConfig = dockview => {
-    if (dockview.params.options.enableLocalStorage) {
+    if (dockview.params.options.enableLocalStorage && dockview._inited === true) {
+        saveParamsIsActive(dockview)
         const json = dockview.toJSON()
         localStorage.setItem(dockview.params.options.localStorageKey, JSON.stringify(json));
     }
+}
+const saveParamsIsActive = dockview => {
+    dockview.panels.forEach(panel => panel.params.isActive = panel.api.isActive)
 }
 
 export { getConfigFromStorage, getConfig, reloadFromConfig, saveConfig, loadPanelsFromLocalstorage };

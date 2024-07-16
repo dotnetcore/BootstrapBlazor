@@ -1,4 +1,5 @@
-﻿import { getIcon } from "./dockview-icon.js"
+﻿import { saveConfig } from "./dockview-config.js";
+import { getIcon } from "./dockview-icon.js"
 
 const onAddPanel = panel => {
     updateCloseButton(panel);
@@ -19,12 +20,14 @@ const onRemovePanel = event => {
                 height: event.group.element.parentElement.offsetHeight,
                 top: parseFloat(event.group.element.parentElement.style.top || 0),
                 left: parseFloat(event.group.element.parentElement.style.left || 0)
-            }
+            },
+            index: event.group.delPanelIndex
         }
     }
-    if (event.params.groupInvisible) {
-        panel.groupInvisible = event.params.groupInvisible
-    }
+
+    // if (event.params.groupInvisible) {
+    //     panel.groupInvisible = event.params.groupInvisible
+    // }
     savePanel(dockview, panel)
 
     if (event.group.children) {
@@ -109,6 +112,10 @@ const savePanel = (dockview, panel) => {
     panels.push(panel)
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+        const timer = setTimeout(() => {
+            clearTimeout(timer)
+            saveConfig(dockview)
+        }, 0)
     }
 }
 
@@ -120,6 +127,7 @@ const deletePanel = (dockview, panel) => {
     }
     if (options.enableLocalStorage) {
         localStorage.setItem(`${options.localStorageKey}-panels`, JSON.stringify(panels))
+        saveConfig(dockview)
     }
 }
 
