@@ -9,7 +9,7 @@ DockviewComponent.prototype.on = function (eventType, callback) {
 
 const dispose = DockviewComponent.prototype.dispose;
 DockviewComponent.prototype.dispose = function () {
-    this.params.observer.disconnect();
+    this.params.observer?.disconnect();
     saveConfig(this);
     dispose.call(this);
 }
