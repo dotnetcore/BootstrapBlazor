@@ -373,10 +373,3 @@ code {
     --bd-callout-code-color: #e685b5;
     --bd-pre-bg: #1b1f22;
 }
-
-@supports not selector(::-webkit-scrollbar) {
-    .scroll {
-        scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
-        scrollbar-width: thin;
-    }
-}
