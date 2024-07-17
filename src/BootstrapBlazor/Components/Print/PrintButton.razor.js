@@ -40,21 +40,25 @@ const print = el => {
             body.appendChild(dialog)
 
             // assign value
-            dialog.querySelectorAll("input").forEach(ele => {
-                const id = ele.getAttribute('id')
-                const vEl = document.getElementById(id)
-                if (vEl) {
-                    if (ele.getAttribute('type') === 'checkbox') {
-                        const v1 = vEl.checked
-                        if (v1 === true) {
-                            ele.setAttribute('checked', 'checked')
+            const elements = ["input", "textarea"];
+            elements.forEach(tag => {
+                console.log(tag);
+                dialog.querySelectorAll(tag).forEach(ele => {
+                    const id = ele.getAttribute('id')
+                    const vEl = document.getElementById(id)
+                    if (vEl) {
+                        if (ele.getAttribute('type') === 'checkbox') {
+                            const v1 = vEl.checked
+                            if (v1 === true) {
+                                ele.setAttribute('checked', 'checked')
+                            }
+                        }
+                        else {
+                            ele.value = vEl.value
                         }
                     }
-                    else {
-                        ele.value = vEl.value
-                    }
-                }
-            })
+                });
+            });
 
             const handler = setTimeout(() => {
                 clearTimeout(handler)
