@@ -21,7 +21,9 @@
             tab._content.style.width = `${titleWidth}px`;
         }
         if (panelClass) {
-            content.element.classList.add(panelClass);
+            panelClass.split(' ').forEach(className => {
+                content.element.classList.add(className);
+            });
         }
     }
 
