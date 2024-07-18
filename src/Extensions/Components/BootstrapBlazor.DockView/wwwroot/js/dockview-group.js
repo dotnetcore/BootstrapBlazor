@@ -204,7 +204,7 @@ const getMaximizeState = (group) => {
     const type = group.model.location.type
     return type === 'grid'
         ? group.api.isMaximized()
-        : (type === 'floating' ? group.activePanel.params.isMaximized : false)
+        : (type === 'floating' ? group.activePanel?.params.isMaximized : false)
 }
 
 const showFloat = (dockview, group) => {
@@ -249,12 +249,21 @@ const addActionEvent = group => {
             close(group, actionContainer, true);
         }
         else if (e.target.classList.contains('dv-default-tab-content')) {
-            const liEle = e.target.closest('li');
-            const tabEle = tabsContainer.children[0]
-            liEle.tabWidth = tabEle.offsetWidth;
+            // const liEle = e.target.closest('li');
+            // const tabEle = tabsContainer.children[0]
+            // liEle.tabWidth = tabEle.offsetWidth;
 
-            liEle.children[0].appendChild(tabEle);
-            tabsContainer.append(e.target.closest('.tab'));
+            // liEle.children[0].appendChild(tabEle);
+            const targetTabEle = e.target.closest('.tab')
+            // tabsContainer.append(targetTabEle);
+            group.api.accessor.moveGroupOrPanel({
+                from: { groupId: group.id, panelId: group.panels.find(p => p.view.tab.element.parentElement == targetTabEle).id },
+                to: {
+                    group,
+                    position: 'center',
+                    index: 0,
+                },
+            });
         }
     });
 }
