@@ -23,7 +23,6 @@ builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 
 #if DEBUG
-builder.Services.AddSassCompiler();
 #else
 builder.Services.AddResponseCompression(options =>
 {
