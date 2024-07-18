@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.7.3-beta02</Version>
+    <Version>8.7.3-beta03</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -54,20 +54,15 @@
     <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
-    <Content Remove="wwwroot\scss\*.*" />
+    <Content Remove="wwwroot\scss\**\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
     <None Include="sasscompiler.json" />
     <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.css" />
-    <None Include="wwwroot\scss\*" />
+    <None Include="wwwroot\scss\**\*.*" />
     <None Include="wwwroot\src\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
-    <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
   </ItemGroup>
 
   <ItemGroup>

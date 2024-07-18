@@ -148,7 +148,7 @@
            Name="RowTemplate">
     <section ignore>@((MarkupString)Localizer["RowTemplateDesc"].Value)</section>
 
-    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
+    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" class="table-row-template"
            IsStriped="true" IsBordered="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>

@@ -24,10 +24,10 @@ builder.Services.AddCors();
 
 #if DEBUG
 #else
-    builder.Services.AddResponseCompression(options =>
-    {
-        options.EnableForHttps = true;
-    });
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 #endif
 
 builder.Services.AddControllers();

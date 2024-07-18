@@ -1,8 +1,7 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifierPlus" Version="5.3.0" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.77.5" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.77.8" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
 </Project>

@@ -38,14 +38,7 @@
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
-    @if (Env.IsDevelopment())
-    {
-        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></Script>
-    }
-    @if (Env.IsProduction())
-    {
-        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
-    }
+    <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
     <script src="_framework/blazor.web.js"></script>
     @if (Env.IsProduction())
     {
