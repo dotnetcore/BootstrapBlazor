@@ -1,9 +1,7 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.77.8" Condition="'$(TargetFramework)' == 'net8.0'">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.77.8" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
 </Project>
