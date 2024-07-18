@@ -23,11 +23,12 @@ builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 
 #if DEBUG
+builder.Services.AddSassCompiler();
 #else
-    builder.Services.AddResponseCompression(options =>
-    {
-        options.EnableForHttps = true;
-    });
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 #endif
 
 builder.Services.AddControllers();

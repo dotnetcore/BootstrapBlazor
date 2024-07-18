@@ -376,4 +376,8 @@ src/**/wwwroot/**/uploader
 # sass
 **/BootstrapBlazor/wwwroot/scss/theme/*.css
 **/BootstrapBlazor/wwwroot/scss/theme/*.css.map
-**/BootstrapBlazor/wwwroot/css/*.css
+**/BootstrapBlazor/wwwroot/css/animate.min.css
+**/BootstrapBlazor/wwwroot/css/bootstrapblazor.min.css
+**/BootstrapBlazor/wwwroot/css/bootstrap.min.css
+**/BootstrapBlazor/wwwroot/css/sweetalert2.css
+**/BootstrapBlazor/wwwroot/css/motronic.min.css
