@@ -7,4 +7,8 @@
     <SupportedPlatform Remove="browser" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>NU1904;CS8002</NoWarn>
+  </PropertyGroup>
+
 </Project>
