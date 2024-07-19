@@ -28,13 +28,6 @@ const stopDevice = camera => {
 }
 
 const play = (camera, option = {}) => {
-    camera.video = {
-        ...camera.video,
-        ...{
-            videoWidth: 320,
-            videoHeight: 240
-        }
-    }
     const constrains = {
         ...{
             video: {

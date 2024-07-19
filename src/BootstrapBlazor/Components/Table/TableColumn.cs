@@ -295,7 +295,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         }
     }
 #elif NET6_0_OR_GREATER
-    public RenderFragment<TableColumnContext<TItem, TType>>? Template { get; set; }
+    public RenderFragment<TableColumnContext<TItem, TType?>>? Template { get; set; }
 
     /// <summary>
     /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
@@ -305,9 +305,16 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
             // 此处 context 为行数据
-            var fieldName = GetFieldName();
-            var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-            builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType>((TItem)context, value)));
+            if (this is TableTemplateColumn<TItem> col)
+            {
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, default)));
+            }
+            else
+            {
+                var fieldName = GetFieldName();
+                var value = Utility.GetPropertyValue<object, TType?>(context, fieldName);
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, value)));
+            }
         });
         set
         {
