@@ -82,7 +82,7 @@ public static class IEditorItemExtensions
         {
             var ret = false;
             var fieldName = item.GetFieldName();
-            var propertyNames = fieldName.Split('.');
+            var propertyNames = fieldName.Split('.', StringSplitOptions.RemoveEmptyEntries);
             PropertyInfo? propertyInfo = null;
             Type? propertyType = null;
             foreach (var name in propertyNames)

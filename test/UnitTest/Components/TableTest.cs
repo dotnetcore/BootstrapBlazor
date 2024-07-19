@@ -2976,6 +2976,13 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableTemplateColumn<Foo>>(10);
+                    builder.AddAttribute(11, "Template", new RenderFragment<TableColumnContext<Foo, object?>>(context => builder =>
+                    {
+                        builder.AddContent(0, $"template-{context.Row.Name}");
+                    }));
+                    builder.CloseComponent();
                 });
                 pb.Add(a => a.EditTemplate, foo => builder =>
                 {
@@ -3779,6 +3786,13 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableTemplateColumn<Foo>>(10);
+                    builder.AddAttribute(11, "Template", new RenderFragment<TableColumnContext<Foo, object?>>(context => builder =>
+                    {
+                        builder.AddContent(0, $"template-{context.Row.Name}");
+                    }));
                     builder.CloseComponent();
                 });
             });

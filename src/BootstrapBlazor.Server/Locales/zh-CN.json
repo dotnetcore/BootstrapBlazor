@@ -5115,7 +5115,11 @@
     "TablesReadonlyColumnIntro": "通过设置 <code>Field</code> 与 <code>FieldName</code> 即可",
     "TablesReadonlyColumnDescription": "对应数据库计算列，或者模型只读属性",
     "TablesReadonlyColumnTips1": "不要写 <code>@bind-Field</code> 只读列在 <b>新建</b> 或者 <b>编辑</b> 时均无法录入",
-    "TablesReadonlyColumnTips2": "老版本需要写完整代码如下"
+    "TablesReadonlyColumnTips2": "老版本需要写完整代码如下",
+    "TablesTemplateColumnTitle": "模板列",
+    "TablesTemplateColumnIntro": "通过使用 <code>TableTemplateColumn</code> 代替 <code>TableColumn</code> 组件，即可不绑定模型属性",
+    "TablesTemplateColumnDescription": "通过设置 <code>Text</code> 属性设置标题显示文字，通过 <code>Template</code> 设置单元格显示内容，模板上下文为 <code>TableColumnContext</code> 实例，可通过 <code>@v.Row</code> 获得当前行模型实例，模板列不参与数据编辑功能如 <b>新建</b> <b>编辑</b>",
+    "TableTemplateColumnText": "模板列"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",

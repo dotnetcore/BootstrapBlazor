@@ -251,7 +251,7 @@ public partial class EditorForm<TModel> : IShowLabel
             _formItems = [];
             if (Items != null)
             {
-                _formItems.AddRange(Items.Where(i => !i.GetIgnore()));
+                _formItems.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
             }
             else
             {
@@ -279,11 +279,13 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(items);
+                    _formItems.AddRange(items.Where(i => !string.IsNullOrEmpty(i.GetFieldName())));
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore() && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore()
+                        && !string.IsNullOrEmpty(i.GetFieldName())
+                        && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
         }

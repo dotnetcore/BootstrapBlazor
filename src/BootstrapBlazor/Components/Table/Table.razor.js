@@ -214,20 +214,24 @@ export function dispose(id) {
 }
 
 const setColumnToolboxListener = table => {
-    if (table.tables[0].querySelector('.toolbox-icon')) {
-        EventHandler.on(document, 'click', e => {
-            const target = e.target;
-            if (target.closest('.popover-table-column-toolbox')) {
-                return;
-            }
-
-            [...table.tables[0].querySelectorAll('.toolbox-icon')].forEach(toolbox => {
-                const popover = bootstrap.Popover.getInstance(toolbox);
-                if (popover && popover._isShown()) {
-                    popover.hide();
+    const header = table.tables[0];
+    if (header) {
+        const toolbox = header.querySelector('.toolbox-icon')
+        if (toolbox) {
+            EventHandler.on(document, 'click', e => {
+                const target = e.target;
+                if (target.closest('.popover-table-column-toolbox')) {
+                    return;
                 }
-            })
-        });
+
+                [...header.querySelectorAll('.toolbox-icon')].forEach(toolbox => {
+                    const popover = bootstrap.Popover.getInstance(toolbox);
+                    if (popover && popover._isShown()) {
+                        popover.hide();
+                    }
+                })
+            });
+        }
     }
 }
 

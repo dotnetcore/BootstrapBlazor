@@ -67,10 +67,10 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.Add(a => a.Items, new List<InternalTableColumn>
+            pb.Add(a => a.Items, new List<IEditorItem>
             {
-                new("Id", typeof(int)),
-                new("Name", typeof(string))
+                new InternalTableColumn("Id", typeof(int)) { Ignore = true },
+                new TableTemplateColumn<Foo>()
             });
         });
     }

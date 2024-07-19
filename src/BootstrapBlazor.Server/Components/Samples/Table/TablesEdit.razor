@@ -291,3 +291,22 @@
         </TableColumns>
     </Table>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesTemplateColumnTitle"]" Introduction="@Localizer["TablesTemplateColumnIntro"]" Name="TableTemplateColumn">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesTemplateColumnDescription"].Value)</p>
+    </section>
+    <Table TItem="Foo" EditDialogShowMaximizeButton="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" Ignore="true" />
+            <TableTemplateColumn Text="@Localizer["TableTemplateColumnText"]">
+                <Template Context="v">
+                    Test
+                </Template>
+            </TableTemplateColumn>
+        </TableColumns>
+    </Table>
+</DemoBlock>
