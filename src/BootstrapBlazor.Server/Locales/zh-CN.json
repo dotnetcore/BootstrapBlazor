@@ -5117,7 +5117,7 @@
     "TablesReadonlyColumnTips2": "老版本需要写完整代码如下",
     "TablesTemplateColumnTitle": "模板列",
     "TablesTemplateColumnIntro": "通过使用 <code>TableTemplateColumn</code> 代替 <code>TableColumn</code> 组件，即可不绑定模型属性",
-    "TablesTemplateColumnDescription": "通过设置 <code>Text</code> 属性设置标题显示文字，通过 <code>Template</code> 设置单元格显示内容，模板上下文为 <code>TableRowContext</code> 实例，可通过 <code>@v.Row</code> 获得当前行模型实例，模板列不参与数据编辑功能如 <b>新建</b> <b>编辑</b>",
+    "TablesTemplateColumnDescription": "通过设置 <code>Text</code> 属性设置标题显示文字，通过 <code>Template</code> 设置单元格显示内容，模板上下文为 <code>TableColumnContext</code> 实例，可通过 <code>@v.Row</code> 获得当前行模型实例，模板列不参与数据编辑功能如 <b>新建</b> <b>编辑</b>",
     "TableTemplateColumnText": "模板列"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
