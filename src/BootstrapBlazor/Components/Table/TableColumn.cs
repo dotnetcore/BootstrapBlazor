@@ -306,8 +306,15 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         {
             // 此处 context 为行数据
             var fieldName = GetFieldName();
-            var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-            builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType>((TItem)context, value)));
+            if (this is TableTemplateColumn<TItem> col)
+            {
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, default)));
+            }
+            else
+            {
+                var value = Utility.GetPropertyValue<object, TType?>(context, fieldName);
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, value)));
+            }
         });
         set
         {
