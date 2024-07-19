@@ -81,8 +81,8 @@ const initDockview = (dockview, options, template) => {
                 if (!group) return
                 const { width, height, top, left } = floatingGroup.position
                 const style = group.element.parentElement.style
-                style.width = width + 'px'
-                style.height = height + 'px'
+                // style.width = width + 'px'
+                // style.height = height + 'px'
                 style.top = top + 'px'
                 style.left = left + 'px'
             })
@@ -103,7 +103,7 @@ const initDockview = (dockview, options, template) => {
                     }
                 }
             })
-        }, 0);
+        }, 100);
     })
     // 拖拽分割线后触发
     dockview.gridview.onDidChange(event => {

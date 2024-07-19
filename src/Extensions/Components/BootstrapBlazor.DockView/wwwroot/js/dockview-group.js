@@ -36,7 +36,7 @@ const addGroupWithPanel = (dockview, panel, panels, index) => {
 
 const addPanelWidthGroupId = (dockview, panel, index) => {
     let group = dockview.api.getGroup(panel.groupId)
-    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    let { position = {}, currentPosition, packupHeight, isPackup, isMaximized } = panel.params || {}
     if (!group) {
         group = dockview.createGroup({ id: panel.groupId })
         const floatingGroupPosition = isMaximized ? {
@@ -66,13 +66,13 @@ const addPanelWidthGroupId = (dockview, panel, index) => {
         title: panel.title,
         component: panel.component,
         position: { referenceGroup: group, index: index || 0 },
-        params: { ...panel.params, isPackup, height, isMaximized, position }
+        params: { ...panel.params, isPackup, packupHeight, isMaximized, position }
     })
     dockview._panelVisibleChanged?.fire({ title: panel.title, status: true });
 }
 
 const addPanelWidthCreatGroup = (dockview, panel, panels) => {
-    let { position = {}, currentPosition, height, isPackup, isMaximized } = panel.params || {}
+    let { position = {}, currentPosition, packupHeight, isPackup, isMaximized } = panel.params || {}
     let brothers = panels.filter(p => p.params.parentId == panel.params.parentId && p.id != panel.id)
     let group, direction
     if (brothers.length > 0 && brothers[0].params.parentType == 'group') {
@@ -102,7 +102,7 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
         title: panel.title,
         component: panel.component,
         position: { referenceGroup: group },
-        params: { ...panel.params, isPackup, height, isMaximized, position }
+        params: { ...panel.params, isPackup, packupHeight, isMaximized, position }
     }
     if (direction) option.position.direction = direction
     dockview.addPanel(option);
@@ -177,6 +177,9 @@ const resetActionStates = (group, actionContainer) => {
             actionContainer.classList.add('bb-float');
         }
     }
+    if(showUp(group) && getUpState(group)){
+        actionContainer.classList.add('bb-up')
+    }
 }
 
 const showLock = (dockview, group) => {
@@ -192,7 +195,12 @@ const getLockState = (dockview, group) => {
         ? options.isLock
         : group.panels.some(p => p.params.isLock === true);
 }
-
+const showUp = (group) => {
+    return group.model.location.type == 'floating'
+}
+const getUpState = (group) => {
+    return group.panels.some(p => p.params.isPackup)
+}
 const showMaximize = (dockview, group) => {
     const { options } = dockview.params;
     return group.panels.every(p => p.params.showMaximize === null)
@@ -308,7 +316,7 @@ const float = group => {
     const gridGroups = dockview.groups.filter(group => group.panels.length > 0 && group.type === 'grid')
     if (gridGroups.length <= 1) return;
 
-    const { position = {}, isPackup, height, isMaximized } = group.getParams()
+    const { position = {}, isPackup, packupHeight, isMaximized } = group.getParams()
     const floatingGroupPosition = {
         x: position.left || (x < 35 ? 35 : x),
         y: position.top || (y < 35 ? 35 : y),
@@ -333,16 +341,15 @@ const float = group => {
 
 const dock = group => {
     if (group.locked) return;
-
     const dockview = group.api.accessor
     const originGroup = dockview.groups.find(item => `${item.id}_floating` === group.id)
     dockview.setVisible(originGroup, true)
 
-    let { isPackup, height, isMaximized, position } = group.getParams()
+    let { isPackup, packupHeight, isMaximized, position } = group.getParams()
     if (!isMaximized) {
         position = {
-            width: group.width,
-            height: group.height,
+            width: group.element.parentElement.offsetWidth,
+            height: group.element.parentElement.offsetHeight,
             top: parseFloat(group.element.parentElement.style.top || 0),
             left: parseFloat(group.element.parentElement.style.left || 0)
         }
@@ -352,22 +359,24 @@ const dock = group => {
         to: { group: originGroup, position: 'center' }
     })
 
-    originGroup.setParams({ position, isPackup, height, isMaximized })
+    originGroup.setParams({ position, isPackup, packupHeight, isMaximized })
+    saveConfig(dockview)
 }
 
 const down = (group, actionContainer) => {
     const parentEle = group.element.parentElement
-    const { isPackup, height } = group.getParams();
+    const { isPackup, packupHeight } = group.getParams();
     if (isPackup) {
         group.setParams({ 'isPackup': false })
-        parentEle.style.height = `${height}px`;
+        parentEle.style.height = `${packupHeight}px`;
         actionContainer.classList.remove('bb-up')
     }
     else {
-        group.setParams({ 'isPackup': true, 'height': parseFloat(parentEle.style.height) });
-        parentEle.style.height = `${group.activePanel.view._tab._element.offsetHeight}px`;
+        group.setParams({ 'isPackup': true, 'packupHeight': parseFloat(parentEle.style.height) });
+        parentEle.style.height = `${group.activePanel.view.tab.element.offsetHeight + 2}px`;
         actionContainer.classList.add('bb-up');
     }
+    saveConfig(group.api.accessor)
 }
 
 close = group => {

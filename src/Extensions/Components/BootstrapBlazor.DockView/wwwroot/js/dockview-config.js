@@ -73,8 +73,8 @@ const renewConfigFromOptions = (config, options) => {
             }
             config.panels[optionPanel.id] = optionPanel
             const brotherId = Object.keys(config.panels).find(key => config.panels[key].params.key == brotherPanel.params.key)
-            addPanel(config.grid.root, optionPanel, brotherPanel, brotherId, brotherType)
-
+            const originFloatingGroupId = config.floatingGroups?.find(fg => fg.data.views.includes(brotherId))?.data.id.split('_')[0]
+            addPanel(config.grid.root, optionPanel, brotherPanel, brotherId, originFloatingGroupId)
         }
     })
     localPanels.forEach(localPanel => {
@@ -84,13 +84,29 @@ const renewConfigFromOptions = (config, options) => {
         }
         else {// 在options里没有, 就需要在localPanels删除
             delete  config.panels[localPanel.id] && config.panels[localPanel.id]
-            removePanel(config.grid.root, localPanel)
+            // removePanel(config.grid.root, localPanel)
+            if(config.floatingGroups
+                && config.floatingGroups.length > 0
+                && config.floatingGroups.find(fg => fg.data.views.includes(localPanel.id))
+            ){
+                removeFloatingPanel(config, localPanel)
+            }
+            else {
+                removePanel(config.grid.root, localPanel)
+            }
         }
     })
     return config
 }
 
-const addPanel = (branch, panel, brotherPanel, brotherId, brotherType) => {
+const removeFloatingPanel = (config, localPanel) => {
+    config.floatingGroups.forEach((fg, index) => {
+        fg.data.views = fg.data.views.filter(p => p.id !== localPanel.id)
+    })
+    config.floatingGroups = config.floatingGroups.filter(fg => fg.data.views.lengt > 0)
+}
+
+const addPanel = (branch, panel, brotherPanel, brotherId, originFloatingGroupId) => {
     if(brotherPanel.params.parentType == 'group'){
         if(branch.type == 'leaf'){
             if(branch.data.views.includes(brotherId)){
@@ -99,41 +115,95 @@ const addPanel = (branch, panel, brotherPanel, brotherId, brotherType) => {
         }
         else if(branch.type == 'branch') {
             branch.data.forEach(item => {
-                addPanel(item, panel, brotherPanel, brotherId)
+                addPanel(item, panel, brotherPanel, brotherId, originFloatingGroupId)
             })
         }
     }
-    else {
-        if(branch.type == 'branch' && branch.data[0].type == 'leaf'){
-            if(branch.data.find(leaf => leaf.data.views.includes(brotherId))){
-                branch.data.push({
-                    data: {
-                        activeView: panel.id,
-                        id: Date.now() + '',
-                        views: [panel.id]
-                    },
-                    size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
-                    type: 'leaf'
-                })
-            }
-        }
-        else {
-            branch.data.forEach(item => {
-                addPanel(item, panel, brotherPanel, brotherId)
+    else if(branch.type == 'branch') {
+
+        if(branch.data.length == 0){
+            branch.data.push({
+                data: {
+                    activeView: panel.id,
+                    id: Date.now() + Math.floor(Math.random() * 100) + '',
+                    views: [panel.id]
+                },
+                // size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
+                type: 'leaf'
             })
         }
+        else {
+            [...branch.data].forEach(item => {
+                if(item.type == 'leaf'){
+                    if(item.data.views.includes(brotherId) || item.data.id == originFloatingGroupId){
+                        branch.data.push({
+                            data: {
+                                activeView: panel.id,
+                                id: Date.now() + Math.floor(Math.random() * 100) + '',
+                                views: [panel.id]
+                            },
+                            size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
+                            type: 'leaf'
+                        })
+                    }
+                }
+                else {
+                    addPanel(item, panel, brotherPanel, brotherId, originFloatingGroupId)
+                }
+            })
+        }
+
+        // if(branch.type == 'branch' && (branch.data.length == 0 || branch.data[0]?.type == 'leaf')){
+        //     if(branch.data.length == 0){
+        //         branch.data.push({
+        //             data: {
+        //                 activeView: panel.id,
+        //                 id: Date.now() + '',
+        //                 views: [panel.id]
+        //             },
+        //             // size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
+        //             type: 'leaf'
+        //         })
+        //     }
+        //     else {
+
+        //         if(branch.data.find(leaf => leaf.data.views.includes(brotherId))){
+        //             branch.data.push({
+        //                 data: {
+        //                     activeView: panel.id,
+        //                     id: Date.now() + '',
+        //                     views: [panel.id]
+        //                 },
+        //                 size: branch.data.reduce((pre, cur) => pre + cur.size, 0)/branch.data.length,
+        //                 type: 'leaf'
+        //             })
+        //         }
+        //     }
+        // }
+        // else {
+        //     branch.data.forEach(item => {
+        //         addPanel(item, panel, brotherPanel, brotherId)
+        //     })
+        // }
     }
 }
 
 const removePanel = (branch, panel, parent) => {
     if(branch.type == 'leaf'){
-        branch.data.views = branch.data.views.filter(id => id != panel.id)
-        parent && (parent.data = parent.data.filter(child => child.data.views.length > 0))
+        if(branch.data.views.length > 0){
+            branch.data.views = branch.data.views.filter(id => id != panel.id)
+            if(branch.data.views.length == 0){
+                parent && (parent.data = parent.data.filter(child => child.data.id != branch.data.id))
+            }
+        }
     }
     else if(branch.type == 'branch') {
         branch.data.forEach(item => {
             removePanel(item, panel, branch)
         })
+        if(branch.data.length == 0){
+            parent.data = parent.data.filter(b => !(b.type == 'branch' && b.data.length == 0))
+        }
     }
 }
 
