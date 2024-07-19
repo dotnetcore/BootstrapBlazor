@@ -20,6 +20,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
             pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<SelectTable<Foo>>(pb =>
             {
+                pb.Add(a => a.AutoGenerateColumns, false);
                 pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
                 pb.Add(a => a.GetTextCallback, foo => foo.Name);
             });
