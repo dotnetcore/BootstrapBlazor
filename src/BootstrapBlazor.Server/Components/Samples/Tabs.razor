@@ -29,6 +29,17 @@
     <li>@((MarkupString)Localizer["TabsInfoItem4"].Value)</li>
 </ul>
 
+<p>
+    <b>@Localizer["TabsItemMenuTitle"]</b>
+</p>
+
+<Pre class="mt-3">services.ConfigureTabItemMenuBindOptions(op =>
+{
+    op.Binders.Add("/settings/menus", new TabItemOptionAttribute() { Text = "Menus", Icon = "fas fa-book-atlas" });
+    op.Binders.Add("/settings/roles", new TabItemOptionAttribute() { Text = "Roles", Icon = "fas fa-user-group" });
+    op.Binders.Add("/settings/users", new TabItemOptionAttribute() { Text = "Users", Icon = "fas fa-users" });
+})</Pre>
+
 <p class="mt-3">
     <b>@Localizer["TabsQATitle"]</b>
 </p>
