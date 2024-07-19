@@ -291,14 +291,18 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
     {
-        if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
+        var fieldName = item.GetFieldName();
+        if (!string.IsNullOrEmpty(fieldName))
         {
-            builder.CreateDisplayByFieldType(item, Model);
-        }
-        else
-        {
-            item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
+            if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
+            {
+                builder.CreateDisplayByFieldType(item, Model);
+            }
+            else
+            {
+                item.PlaceHolder ??= PlaceHolderText;
+                builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
+            }
         }
     };
 
