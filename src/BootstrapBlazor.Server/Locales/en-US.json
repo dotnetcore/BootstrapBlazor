@@ -5114,7 +5114,11 @@
     "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>",
     "TablesReadonlyColumnDescription": "Corresponding database calculated columns, or model read-only attributes",
     "TablesReadonlyColumnTips1": "Do not write <code>@bind-Field</code>. Read-only columns cannot be entered when <b>Add</b> or <b>Edit</b>",
-    "TablesReadonlyColumnTips2": "The old version needs to write the complete code as follows"
+    "TablesReadonlyColumnTips2": "The old version needs to write the complete code as follows",
+    "TablesTemplateColumnTitle": "TemplateColumn",
+    "TablesTemplateColumnIntro": "By using <code>TableTemplateColumn</code> instead of <code>TableColumn</code> component, you can avoid binding model.",
+    "TablesTemplateColumnDescription": "The title display text is set by setting the <code>Text</code> property, and the cell display content is set by <code>Template</code>. The template context is a <code>TableRowContext</code> instance. The current row model instance can be obtained through <code>@v.Row</code>. Template columns do not participate in data editing functions such as <b>New</b> and <b>Edit</b>.",
+    "TableTemplateColumnText": "Template"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",
