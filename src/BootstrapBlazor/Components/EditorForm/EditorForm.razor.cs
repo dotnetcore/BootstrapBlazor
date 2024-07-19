@@ -251,7 +251,7 @@ public partial class EditorForm<TModel> : IShowLabel
             _formItems = [];
             if (Items != null)
             {
-                _formItems.AddRange(Items.Where(i => !i.GetIgnore()));
+                _formItems.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
             }
             else
             {
@@ -279,11 +279,13 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(items);
+                    _formItems.AddRange(items.Where(i => !string.IsNullOrEmpty(i.GetFieldName())));
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore() && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore()
+                        && !string.IsNullOrEmpty(i.GetFieldName())
+                        && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
         }
@@ -291,18 +293,14 @@ public partial class EditorForm<TModel> : IShowLabel
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
     {
-        var fieldName = item.GetFieldName();
-        if (!string.IsNullOrEmpty(fieldName))
+        if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
         {
-            if (IsDisplay || !item.CanWrite(typeof(TModel), ItemChangedType, IsSearch.Value))
-            {
-                builder.CreateDisplayByFieldType(item, Model);
-            }
-            else
-            {
-                item.PlaceHolder ??= PlaceHolderText;
-                builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
-            }
+            builder.CreateDisplayByFieldType(item, Model);
+        }
+        else
+        {
+            item.PlaceHolder ??= PlaceHolderText;
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
         }
     };
 
