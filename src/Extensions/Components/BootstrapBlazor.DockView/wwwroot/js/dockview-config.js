@@ -47,6 +47,7 @@ const getConfigFromLayoutString = options => {
 }
 
 const renewConfigFromOptions = (config, options) => {
+    removeEmptyGridViews(config)
     const optionPanels = getPanelsFromOptions(options)
     const localPanels = Object.values(config.panels)
     optionPanels.forEach(optionPanel => {// 在结构中添加
@@ -104,6 +105,20 @@ const removeFloatingPanel = (config, localPanel) => {
         fg.data.views = fg.data.views.filter(p => p.id !== localPanel.id)
     })
     config.floatingGroups = config.floatingGroups.filter(fg => fg.data.views.lengt > 0)
+}
+
+const removeEmptyGridViews = config => {
+    removeEmptyLeafViews(config.grid.root, config.floatingGroups || [])
+}
+const removeEmptyLeafViews = (branch, floatingGroups, parent) => {
+    if(branch.type == 'branch'){
+        branch.data.forEach(item => removeEmptyLeafViews(item, floatingGroups, branch))
+    }
+    else if(branch.type == 'leaf'){
+        if(branch.data.views.length == 0 && !floatingGroups.find(fg => fg.data.id.split('_')[0] == branch.data.id)){
+            parent && (parent.data = parent.data.filter(item => item.data.id != branch.data.id))
+        }
+    }
 }
 
 const addPanel = (branch, panel, brotherPanel, brotherId, originFloatingGroupId) => {

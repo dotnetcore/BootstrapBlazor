@@ -168,7 +168,7 @@ const setWidth = (target, dockview) => {
             const group = dockview.groups.find(g => g.element === header.parentElement)
             group.panels[0].api.setActive()
         }
-    }, 100);
+    }, 0);
 }
 
 const toggleComponent = (dockview, options) => {
