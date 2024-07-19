@@ -251,7 +251,7 @@ public partial class EditorForm<TModel> : IShowLabel
             _formItems = [];
             if (Items != null)
             {
-                _formItems.AddRange(Items.Where(i => !i.GetIgnore()));
+                _formItems.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
             }
             else
             {
