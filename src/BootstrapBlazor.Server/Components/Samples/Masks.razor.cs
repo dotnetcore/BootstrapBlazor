@@ -21,4 +21,15 @@ public partial class Masks
         await Task.Delay(3000);
         await MaskService.Close();
     }
+
+    private async Task ShowDivMask()
+    {
+        await MaskService.Show(new MaskOption()
+        {
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<i class=\"text-white fa-solid fa-3x fa-spinner fa-spin-pulse\"></i><span class=\"ms-3 fs-2 text-white\">loading ....</span>")),
+            ContainerId = "div-mask-9527"
+        });
+        await Task.Delay(3000);
+        await MaskService.Close();
+    }
 }
