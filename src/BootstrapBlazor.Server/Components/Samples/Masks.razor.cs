@@ -12,6 +12,12 @@ public partial class Masks
     [Inject, NotNull]
     private MaskService? MaskService { get; set; }
 
+    [NotNull]
+    private Mask? CustomMask1 { get; set; }
+
+    [NotNull]
+    private Mask? CustomMask2 { get; set; }
+
     private async Task ShowMask()
     {
         await MaskService.Show(new MaskOption()
@@ -31,5 +37,22 @@ public partial class Masks
         });
         await Task.Delay(3000);
         await MaskService.Close();
+    }
+
+    private async Task ShowMultipleMask()
+    {
+        await MaskService.Show(new MaskOption()
+        {
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<i class=\"text-white fa-solid fa-3x fa-spinner fa-spin-pulse\"></i><span class=\"ms-3 fs-2 text-white\">loading ....</span>")),
+            ContainerId = "div-mask-9528"
+        }, CustomMask1);
+        await MaskService.Show(new MaskOption()
+        {
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<i class=\"text-white fa-solid fa-3x fa-spinner fa-spin-pulse\"></i><span class=\"ms-3 fs-2 text-white\">loading ....</span>")),
+            ContainerId = "div-mask-9529"
+        }, CustomMask2);
+        await Task.Delay(3000);
+        await MaskService.Close(CustomMask1);
+        await MaskService.Close(CustomMask2);
     }
 }
