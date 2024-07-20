@@ -28,4 +28,9 @@ public class MaskOption
     /// 获得/设置 子组件
     /// </summary>
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 遮罩父容器 id 默认 null 未设置
+    /// </summary>
+    public string? ContainerId { get; set; }
 }
