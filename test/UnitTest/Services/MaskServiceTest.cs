@@ -80,7 +80,7 @@ public class MaskServiceTest : TestBase
         cut.Contains("bb-mask-content");
 
         // 关闭遮罩
-        await cut.InvokeAsync(() => maskService.Close());
+        await cut.InvokeAsync(() => maskService.Close(all: true));
         cut.DoesNotContain("bb-mask-content");
     }
 }
