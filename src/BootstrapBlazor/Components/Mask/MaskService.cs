@@ -29,7 +29,7 @@ public class MaskService : BootstrapServiceBase<MaskOption?>
         {
             foreach (var (key, callback) in Cache)
             {
-                await Invoke(null, key);
+                await callback(null);
             }
         }
         else
