@@ -8,3 +8,22 @@
 <DemoBlock Title="@Localizer["MaskNormalTitle"]" Introduction="@Localizer["MaskNormalIntro"]" Name="Normal">
     <button class="btn btn-primary" @onclick="@ShowMask">@Localizer["ShowMaskButtonText"]</button>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["MaskContainerTitle"]" Introduction="@Localizer["MaskContainerIntro"]" Name="Container">
+    <button class="btn btn-primary" @onclick="@ShowDivMask">@Localizer["ShowMaskButtonText"]</button>
+
+    <div id="div-mask-9527" class="mt-3" style="height: 160px; padding: 1rem; border: 1px solid var(--bs-border-color); border-radius: var(--bs-border-radius);">Test</div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MultipleMaskContainerTitle"]" Introduction="@Localizer["MultipleMaskContainerIntro"]" Name="MultipleContainer">
+    <button class="btn btn-primary mb-3" @onclick="@ShowMultipleMask">@Localizer["ShowMaskButtonText"]</button>
+
+    <p>@((MarkupString)Localizer["MultipleMaskContainerDesc"].Value)</p>
+
+    <div id="div-mask-9528" class="mb-3" style="height: 160px; padding: 1rem; border: 1px solid var(--bs-border-color); border-radius: var(--bs-border-radius);">Test</div>
+
+    <div id="div-mask-9529" style="height: 160px; padding: 1rem; border: 1px solid var(--bs-border-color); border-radius: var(--bs-border-radius);">Test</div>
+
+    <Mask @ref="CustomMask1"></Mask>
+    <Mask @ref="CustomMask2"></Mask>
+</DemoBlock>
