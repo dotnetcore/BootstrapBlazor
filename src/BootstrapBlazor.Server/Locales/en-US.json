@@ -442,7 +442,10 @@
     "MaskNormalIntro": "Call the <code>MaskService</code> mask service example method <code>Show</code> to display a mask, and call the instance method <code>Close</code> to close the mask after 3 seconds",
     "ShowMaskButtonText": "Show",
     "MaskContainerTitle": "Container",
-    "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>"
+    "MaskContainerIntro": "Specify the mask position by setting the <code>MaskOption</code> parameter <code>ContainerId</code>",
+    "MultipleMaskContainerTitle": "Multiple Mask",
+    "MultipleMaskContainerIntro": "By customizing the <code>Mask</code> component, you can mask multiple parts of a web page.",
+    "MultipleMaskContainerDesc": "Set the <code>Mask</code> component in the component. When calling the <code>Show</code> instance method of <code>MaskService</code>, specify the <code>Mask</code> instance as the second parameter."
   },
   "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
