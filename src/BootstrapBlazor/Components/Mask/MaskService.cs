@@ -21,6 +21,20 @@ public class MaskService : BootstrapServiceBase<MaskOption?>
     /// 关闭 Mask 方法
     /// </summary>
     /// <param name="mask"><see cref="Mask"/> 组件实例</param>
+    /// <param name="all">是否关闭所有遮罩 默认 false 仅关闭当前或者指定遮罩</param>
     /// <returns></returns>
-    public Task Close(Mask? mask = null) => Invoke(null, mask);
+    public async Task Close(Mask? mask = null, bool all = false)
+    {
+        if (all)
+        {
+            foreach (var (key, callback) in Cache)
+            {
+                await Invoke(null, key);
+            }
+        }
+        else
+        {
+            await Invoke(null, mask);
+        }
+    }
 }

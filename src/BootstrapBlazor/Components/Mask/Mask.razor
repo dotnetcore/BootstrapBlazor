@@ -2,13 +2,15 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(AutoInvokeInit = false, AutoInvokeDispose = false)]
 
-<div class="bb-mask" id="@Id" style="@StyleString">
-    <div class="bb-mask-backdrop"></div>
+<template id="@Id">
+    <div class="bb-mask" data-bb-mask="@Id" style="@StyleString">
+        <div class="bb-mask-backdrop"></div>
 
-    @if (_options is { ChildContent: not null })
-    {
-        <div class="bb-mask-content">
-            @_options.ChildContent
-        </div>
-    }
-</div>
+        @if (_options is { ChildContent: not null })
+        {
+            <div class="bb-mask-content">
+                @_options.ChildContent
+            </div>
+        }
+    </div>
+</template>
