@@ -13,12 +13,14 @@ public class MaskService : BootstrapServiceBase<MaskOption?>
     /// 显示 Mask 方法
     /// </summary>
     /// <param name="option">遮罩配置信息实体类</param>
+    /// <param name="mask"><see cref="Mask"/> 组件实例</param>
     /// <returns></returns>
-    public Task Show(MaskOption option) => Invoke(option);
+    public Task Show(MaskOption option, Mask? mask = null) => Invoke(option, mask);
 
     /// <summary>
     /// 关闭 Mask 方法
     /// </summary>
+    /// <param name="mask"><see cref="Mask"/> 组件实例</param>
     /// <returns></returns>
-    public Task Close() => Invoke(null);
+    public Task Close(Mask? mask = null) => Invoke(null, mask);
 }
