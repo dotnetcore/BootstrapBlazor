@@ -83,4 +83,53 @@ public class MaskServiceTest : TestBase
         await cut.InvokeAsync(() => maskService.Close(all: true));
         cut.DoesNotContain("bb-mask-content");
     }
+
+    [Fact]
+    public async Task Show_Component()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+
+        var maskService = context.Services.GetRequiredService<MaskService>();
+        var cut = context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClickWithoutRender, async () =>
+                {
+                    await maskService.Show<MockComponent>();
+                });
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+    }
+
+    [Fact]
+    public async Task Show_Type()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+
+        var maskService = context.Services.GetRequiredService<MaskService>();
+        var cut = context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(a => a.OnClickWithoutRender, async () =>
+                {
+                    await maskService.Show(typeof(MockComponent));
+                });
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+    }
+
+    class MockComponent : ComponentBase
+    {
+
+    }
 }
