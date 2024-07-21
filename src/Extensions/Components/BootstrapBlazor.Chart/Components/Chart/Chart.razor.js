@@ -132,6 +132,22 @@ const getChartOption = function (option) {
         }
     }
 
+    if (option.options.yScalesSuggestedMin) {
+        scale.y.suggestedMin = option.options.yScalesSuggestedMin;
+    }
+
+    if (option.options.yScalesSuggestedMax) {
+        scale.y.suggestedMax = option.options.yScalesSuggestedMax;
+    }
+
+    if (option.options.yScalesMin) {
+        scale.y.min = option.options.yScalesMin;
+    }
+
+    if (option.options.yScalesMax) {
+        scale.y.max = option.options.yScalesMax;
+    }
+
     let legend = {
         display: option.options.showLegend,
         position: option.options.legendPosition

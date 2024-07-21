@@ -135,6 +135,30 @@ public class ChartOptions
     public string? YScalesBorderColor { get; set; }
 
     /// <summary>
+    /// 获得/设置 Y轴边界建议最小值
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? YScalesSuggestedMin { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴边界建议最大值
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? YScalesSuggestedMax { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴边界最小值
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? YScalesMin { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴边界最大值
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? YScalesMax { get; set; }
+
+    /// <summary>
     /// 获得/设置 X轴网格线颜色
     /// </summary>
     public string? XScalesGridColor { get; set; }
