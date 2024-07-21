@@ -5740,8 +5740,6 @@
     "SwitchButtonTextOn": "Show Copy Dialog",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
-    "P3": "Known Issues",
-    "P4": "There is a probability that the icon will be garbled when it is loaded for the first time, because the font library has not been downloaded.",
     "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
