@@ -5740,8 +5740,6 @@
     "SwitchButtonTextOn": "显示高级拷贝",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
-    "P3": "已知问题",
-    "P4": "首次加载有概率图标为乱码，原因是字库还未下载导致",
     "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
