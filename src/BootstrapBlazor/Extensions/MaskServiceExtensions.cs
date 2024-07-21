@@ -25,6 +25,7 @@ public static class MaskServiceExtensions
         BackgroundColor = backgroundColor,
         Opacity = opacity,
         ZIndex = zIndex,
+        ContainerId = containerId,
         ChildContent = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters).Render()
     }, mask);
 
@@ -45,6 +46,7 @@ public static class MaskServiceExtensions
         BackgroundColor = backgroundColor,
         Opacity = opacity,
         ZIndex = zIndex,
+        ContainerId = containerId,
         ChildContent = BootstrapDynamicComponent.CreateComponent(type, parameters).Render()
     }, mask);
 }
