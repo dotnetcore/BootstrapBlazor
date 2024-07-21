@@ -29,13 +29,11 @@ public class ChartOptions
     /// <summary>
     /// 获得 Y 坐标轴实例集合
     /// </summary>
-
     public ChartAxes Y { get; } = new ChartAxes();
 
     /// <summary>
     /// 获得 Y2 坐标轴实例集合
     /// </summary>
-
     public ChartAxes Y2 { get; } = new ChartAxes();
 
     /// <summary>
