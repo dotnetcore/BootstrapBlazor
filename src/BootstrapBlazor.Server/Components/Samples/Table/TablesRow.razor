@@ -157,8 +157,8 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
-        <RowTemplate>
+        <RowContentTemplate>
             <CustomTableRow Context="@context" OnValueChanged="UpdateRowValue"></CustomTableRow>
-        </RowTemplate>
+        </RowContentTemplate>
     </Table>
 </DemoBlock>

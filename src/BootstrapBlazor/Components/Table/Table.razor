@@ -223,78 +223,86 @@
                     foreach (var item in Rows)
                     {
 				        OnBeforeRenderRow?.Invoke(item);
-				        <DynamicElement class="@GetRowClassString(item, "table-row")"
-                                        TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
-                                        @ontouchstart="e => OnTouchStart(e, item)"
-                                        @ontouchend="OnTouchEnd"
-                                        TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
-                            @if (IsMultipleSelect)
-                            {
-                                <div class="table-cell">
-                                    <label>@CheckboxDisplayText</label>
-                                    @if (GetShowRowCheckbox(item))
-                                    {
-                                        <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
-                                    }
-                                </div>
-                            }
-                            @if (ShowLineNo)
-                            {
-                                <div class="table-cell">
-                                    <label>@LineNoText</label>
-                                    <span>@(Rows.IndexOf(item) + 1 + (PageIndex - 1) * PageItems)</span>
-                                </div>
-                            }
-                            @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
-                            {
-                                @RenderExtendButtons(item)
-                            }
-                            @if (RowTemplate != null)
-                            {
-                                var columns = GetVisibleColumns();
-                                @RowTemplate(new (item, columns));
-                            }
-                            else
-                            {
-                                @foreach (var col in GetVisibleColumns())
+                        if (RowTemplate != null)
+                        {
+                            var columns = GetVisibleColumns();
+                            @RowTemplate(new(item, columns))
+                        }
+                        else
+                        {
+                            <DynamicElement class="@GetRowClassString(item, "table-row")"
+                                            TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
+                                            @ontouchstart="e => OnTouchStart(e, item)"
+                                            @ontouchend="OnTouchEnd"
+                                            TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
+                                @if (IsMultipleSelect)
                                 {
-                                    var cellClass = "";
-                                    string? value = null;
-                                    RenderFragment? valueTemplate = null;
                                     <div class="table-cell">
-                                        <label>
-                                            @col.GetDisplayName()
-                                        </label>
-                                        @if (col.OnCellRender != null)
+                                        <label>@CheckboxDisplayText</label>
+                                        @if (GetShowRowCheckbox(item))
                                         {
-                                            var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                                            col.OnCellRender(cell);
-                                            cellClass = cell.Class;
-                                            value = cell.Value;
-                                            valueTemplate = cell.ValueTemplate;
+                                            <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
                                         }
-                                        <span class="@cellClass">
-                                            @if (valueTemplate != null)
-                                            {
-                                                @valueTemplate
-                                            }
-                                            else if (value != null)
-                                            {
-                                                @value
-                                            }
-                                            else
-                                            {
-                                                @GetValue(col, item)
-                                            }
-                                        </span>
                                     </div>
                                 }
-                            }
-                            @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
-                            {
-                                @RenderExtendButtons(item)
-                            }
-                        </DynamicElement>
+                                @if (ShowLineNo)
+                                {
+                                    <div class="table-cell">
+                                        <label>@LineNoText</label>
+                                        <span>@(Rows.IndexOf(item) + 1 + (PageIndex - 1) * PageItems)</span>
+                                    </div>
+                                }
+                                @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
+                                {
+                                    @RenderExtendButtons(item)
+                                }
+                                @if (RowContentTemplate != null)
+                                {
+                                    var columns = GetVisibleColumns();
+                                    @RowContentTemplate(new(item, columns))
+                                }
+                                else
+                                {
+                                    @foreach (var col in GetVisibleColumns())
+                                    {
+                                        var cellClass = "";
+                                        string? value = null;
+                                        RenderFragment? valueTemplate = null;
+                                        <div class="table-cell">
+                                            <label>
+                                                @col.GetDisplayName()
+                                            </label>
+                                            @if (col.OnCellRender != null)
+                                            {
+                                                var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                                col.OnCellRender(cell);
+                                                cellClass = cell.Class;
+                                                value = cell.Value;
+                                                valueTemplate = cell.ValueTemplate;
+                                            }
+                                            <span class="@cellClass">
+                                                @if (valueTemplate != null)
+                                                {
+                                                    @valueTemplate
+                                                }
+                                                else if (value != null)
+                                                {
+                                                    @value
+                                                }
+                                                else
+                                                {
+                                                    @GetValue(col, item)
+                                                }
+                                            </span>
+                                        </div>
+                                    }
+                                }
+                                @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
+                                {
+                                    @RenderExtendButtons(item)
+                                }
+                            </DynamicElement>
+                        }
                     }
                     @if (IsShowFooter)
                     {
@@ -379,34 +387,43 @@
                 @foreach (var item in Rows)
                 {
                     OnBeforeRenderRow?.Invoke(item);
-                    @RenderRow(item)
-                    if (ShowDetails())
+                    if (RowTemplate != null)
                     {
-                        <tr class="@GetDetailRowClassString(item)">
-                            <td>&nbsp;</td>
-                            <td colspan="@GetColumnCount()">
-                                <div class="table-cell is-wrap">
-                                    @if (DetailRows.Contains(item))
-                                    {
-                                        @DetailRowTemplate!(item)
-                                    }
-                                    else
-                                    {
-                                        <div class="table-loading">
-                                            @if (LoadingTemplate is not null)
-                                            {
-                                                @LoadingTemplate
-                                            }
-                                            else
-                                            {
-                                                <Spinner Color="Color.Primary" />
-                                            }
-                                        </div>
-                                    }
-                                </div>
-                            </td>
-                        </tr>
+                        var columns = GetVisibleColumns();
+                        @RowTemplate(new(item, columns))
                     }
+                    else
+                    {
+                        @RenderRow(item)
+                        if (ShowDetails())
+                        {
+                            <tr class="@GetDetailRowClassString(item)">
+                                <td>&nbsp;</td>
+                                <td colspan="@GetColumnCount()">
+                                    <div class="table-cell is-wrap">
+                                        @if (DetailRows.Contains(item))
+                                        {
+                                            @DetailRowTemplate!(item)
+                                        }
+                                        else
+                                        {
+                                            <div class="table-loading">
+                                                @if (LoadingTemplate is not null)
+                                                {
+                                                    @LoadingTemplate
+                                                }
+                                                else
+                                                {
+                                                    <Spinner Color="Color.Primary"/>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+
                     if (!IsExcel && EditMode == EditMode.EditForm && ShowEditForm && SelectedRows.LastOrDefault() == item)
                     {
                         @RenderEditForm((EditModel, ItemChangedType.Update))
@@ -705,10 +722,10 @@
         {
             @RenderRowExtendButtons(item)
         }
-        @if (RowTemplate != null)
+        @if (RowContentTemplate != null)
         {
             var columns = GetVisibleColumns();
-            @RowTemplate(new (item, columns));
+            @RowContentTemplate(new (item, columns));
         }
         else
         {
