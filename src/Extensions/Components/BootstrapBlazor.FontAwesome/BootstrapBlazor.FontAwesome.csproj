@@ -10,14 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\fa\*.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="wwwroot\fa\*.css" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
   </ItemGroup>
 
