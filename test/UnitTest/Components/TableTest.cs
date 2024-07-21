@@ -8025,7 +8025,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.RowTemplate, context => builder =>
+                pb.Add(a => a.RowContentTemplate, context => builder =>
                 {
                     builder.OpenElement(0, "div");
                     builder.AddContent(1, $"template-{context.Row.Name}");

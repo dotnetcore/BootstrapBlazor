@@ -249,10 +249,10 @@
                             {
                                 @RenderExtendButtons(item)
                             }
-                            @if (RowTemplate != null)
+                            @if (RowContentTemplate != null)
                             {
                                 var columns = GetVisibleColumns();
-                                @RowTemplate(new (item, columns));
+                                @RowContentTemplate(new (item, columns));
                             }
                             else
                             {
@@ -705,10 +705,10 @@
         {
             @RenderRowExtendButtons(item)
         }
-        @if (RowTemplate != null)
+        @if (RowContentTemplate != null)
         {
             var columns = GetVisibleColumns();
-            @RowTemplate(new (item, columns));
+            @RowContentTemplate(new (item, columns));
         }
         else
         {

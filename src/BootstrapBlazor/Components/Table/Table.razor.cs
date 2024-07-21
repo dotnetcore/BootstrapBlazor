@@ -451,10 +451,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public RenderFragment<TItem>? DetailRowTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 行模板
+    /// 获得/设置 行内容模板
     /// </summary>
     [Parameter]
-    public RenderFragment<TableRowContext<TItem>>? RowTemplate { get; set; }
+    public RenderFragment<TableRowContext<TItem>>? RowContentTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 TableHeader 实例
