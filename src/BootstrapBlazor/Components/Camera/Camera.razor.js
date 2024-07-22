@@ -22,7 +22,6 @@ const openDevice = camera => {
 const stopDevice = camera => {
     if (camera.video) {
         camera.video.element.pause()
-        camera.video.element.srcObject = null
         if (camera.video.track) {
             camera.video.track.stop()
         }
@@ -41,6 +40,7 @@ const play = (camera, option = {}) => {
         ...option
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+        camera.video = {}
         camera.video.element = camera.el.querySelector('video')
         camera.video.element.srcObject = stream
         camera.video.element.play()
@@ -144,6 +144,7 @@ export function resize(id, width, height) {
 
     const constrains = {
         video: {
+            deviceId: camera.video.deviceId,
             width: { ideal: width },
             height: { ideal: height }
         }
