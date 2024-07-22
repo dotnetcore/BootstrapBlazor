@@ -113,13 +113,13 @@ export function close(id) {
     }
 }
 
-export function capture(id, width, height) {
+export function capture(id) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
-        return
+        return null;
     }
 
-    const url = drawImage(camera, width, height);
+    const url = drawImage(camera);
     return new Blob([url])
 }
 

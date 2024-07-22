@@ -124,13 +124,13 @@ public partial class Camera
     /// 拍照方法
     /// </summary>
     /// <returns></returns>
-    public async Task<Stream?> Capture(int width = 320, int height = 240)
+    public async Task<Stream?> Capture()
     {
         Stream? ret = null;
 #if NET5_0
         await Task.Delay(10);
 #elif NET6_0_OR_GREATER
-        var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id, width, height);
+        var streamRef = await InvokeAsync<IJSStreamReference?>("capture", Id);
         if (streamRef != null)
         {
             ret = await streamRef.OpenReadStreamAsync(streamRef.Length);
