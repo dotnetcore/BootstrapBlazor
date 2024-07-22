@@ -83,6 +83,10 @@ public partial class Camera
 
     private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
 
+    private string? ClassString => CssBuilder.Default("bb-camera")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
