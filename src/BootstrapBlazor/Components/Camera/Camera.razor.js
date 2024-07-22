@@ -40,7 +40,7 @@ const play = (camera, option = {}) => {
         ...option
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
-        camera.video = {}
+        camera.video = { deviceId: option.video.deviceId };
         camera.video.element = camera.el.querySelector('video')
         camera.video.element.srcObject = stream
         camera.video.element.play()
