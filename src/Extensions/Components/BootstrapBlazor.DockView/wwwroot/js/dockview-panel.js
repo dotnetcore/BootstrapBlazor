@@ -4,8 +4,8 @@ import { getIcon } from "./dockview-icon.js"
 const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
-    panel.api.onDidActiveChange(({isActive}) => {
-        if(isActive && panel.group.panels.length > 1) {
+    panel.api.onDidActiveChange(({ isActive }) => {
+        if (isActive && panel.group.panels.length > 1) {
             saveConfig(panel.accessor)
         }
     })
@@ -29,10 +29,6 @@ const onRemovePanel = event => {
             index: event.group.delPanelIndex
         }
     }
-
-    // if (event.params.groupInvisible) {
-    //     panel.groupInvisible = event.params.groupInvisible
-    // }
     savePanel(dockview, panel)
 
     if (event.group.children) {

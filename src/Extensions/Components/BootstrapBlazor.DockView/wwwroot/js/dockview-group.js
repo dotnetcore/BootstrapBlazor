@@ -141,14 +141,6 @@ const createGroupActions = group => {
         resetActionStates(group, actionContainer);
     }, 0)
     addActionEvent(group, actionContainer);
-
-    // const dockview = group.api.accessor;
-    // if (dockview.params.observer === null) {
-    //     dockview.params.observer = new ResizeObserver(setWidth);
-    // }
-    // dockview.params.observer.observe(group.header.element)
-    // dockview.params.observer.observe(group.header.tabContainer)
-
 }
 
 const disposeGroup = group => {
@@ -177,7 +169,7 @@ const resetActionStates = (group, actionContainer) => {
             actionContainer.classList.add('bb-float');
         }
     }
-    if(showUp(group) && getUpState(group)){
+    if (showUp(group) && getUpState(group)) {
         actionContainer.classList.add('bb-up')
     }
 }
@@ -257,13 +249,7 @@ const addActionEvent = group => {
             close(group, actionContainer, true);
         }
         else if (e.target.classList.contains('dv-default-tab-content')) {
-            // const liEle = e.target.closest('li');
-            // const tabEle = tabsContainer.children[0]
-            // liEle.tabWidth = tabEle.offsetWidth;
-
-            // liEle.children[0].appendChild(tabEle);
             const targetTabEle = e.target.closest('.tab')
-            // tabsContainer.append(targetTabEle);
             group.api.accessor.moveGroupOrPanel({
                 from: { groupId: group.id, panelId: group.panels.find(p => p.view.tab.element.parentElement == targetTabEle).id },
                 to: {
@@ -316,7 +302,7 @@ const float = group => {
     const gridGroups = dockview.groups.filter(group => group.panels.length > 0 && group.type === 'grid')
     if (gridGroups.length <= 1) return;
 
-    const { position = {}, isPackup, packupHeight, isMaximized } = group.getParams()
+    const { position = {} } = group.getParams()
     const floatingGroupPosition = {
         x: position.left || (x < 35 ? 35 : x),
         y: position.top || (y < 35 ? 35 : y),
