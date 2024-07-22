@@ -165,15 +165,18 @@ export function dispose(id) {
     }
 }
 
-const drawImage = (camera, width = 320, height = 240) => {
+const drawImage = camera => {
     const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
-    const canvas = camera.el.querySelector('canvas')
-    canvas.width = width * devicePixelRatio;
-    canvas.height = height * devicePixelRatio;
+    const canvas = camera.el.querySelector('canvas');
+    const { videoWidth, videoHeight } = camera.video.element;
+    canvas.width = videoWidth * devicePixelRatio;
+    canvas.height = videoHeight * devicePixelRatio;
+    canvas.style.width = `${videoWidth}px`;
+    canvas.style.height = `${videoHeight}px`;
     const context = canvas.getContext('2d')
     context.scale(devicePixelRatio, devicePixelRatio)
-    context.drawImage(camera.video.element, 0, 0, canvas.width, canvas.height)
+    context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight);
     let url = "";
     if (captureJpeg) {
         url = canvas.toDataURL("image/jpeg", quality);
