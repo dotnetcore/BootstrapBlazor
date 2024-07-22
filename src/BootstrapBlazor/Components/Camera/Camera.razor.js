@@ -1,7 +1,7 @@
 ﻿import Data from "../../modules/data.js"
 
 const openDevice = camera => {
-    if(camera.video) {
+    if (camera.video) {
         return
     }
 
@@ -9,10 +9,13 @@ const openDevice = camera => {
     if (deviceId) {
         const videoWidth = parseInt(camera.el.getAttribute("data-video-width"))
         const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
-        camera.video = {
-            deviceId, videoWidth, videoHeight
-        }
-        play(camera)
+        play(camera, {
+            video: {
+                deviceId,
+                width: { ideal: videoWidth },
+                height: { ideal: videoHeight }
+            }
+        });
     }
 }
 
@@ -31,16 +34,11 @@ const play = (camera, option = {}) => {
     const constrains = {
         ...{
             video: {
-                width: { ideal: camera.video.videoWidth },
-                height: { ideal: camera.video.videoHeight },
                 facingMode: "environment"
             },
             audio: false
         },
         ...option
-    }
-    if (camera.video.deviceId) {
-        constrains.video.deviceId = { exact: camera.video.deviceId }
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
         camera.video.element = camera.el.querySelector('video')
@@ -83,7 +81,7 @@ export function update(id) {
     // handler switch device
     if (camera.video) {
         const deviceId = camera.el.getAttribute("data-device-id")
-        if (camera.video.deviceId !== deviceId){
+        if (camera.video.deviceId !== deviceId) {
             stopDevice(camera)
             openDevice(camera)
         }
@@ -146,8 +144,8 @@ export function resize(id, width, height) {
 
     const constrains = {
         video: {
-            width: { exact: width },
-            height: { exact: height }
+            width: { ideal: width },
+            height: { ideal: height }
         }
     }
 
@@ -171,9 +169,10 @@ const drawImage = camera => {
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
     const { videoWidth, videoHeight } = camera.video
     const canvas = camera.el.querySelector('canvas')
-    canvas.width = videoWidth
-    canvas.height = videoHeight
+    canvas.width = videoWidth * devicePixelRatio;
+    canvas.height = videoHeight * devicePixelRatio;
     const context = canvas.getContext('2d')
+    context.scale(devicePixelRatio, devicePixelRatio)
     context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight)
     let url = "";
     if (captureJpeg) {
