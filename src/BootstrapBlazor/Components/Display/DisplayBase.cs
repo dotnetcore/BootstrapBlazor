@@ -151,7 +151,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
         }
         else
         {
-            IsShowLabel = false;
+            IsShowLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? false;
 
             if (DisplayText == null && FieldIdentifier.HasValue)
             {
