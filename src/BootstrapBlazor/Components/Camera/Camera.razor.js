@@ -113,13 +113,13 @@ export function close(id) {
     }
 }
 
-export function capture(id) {
+export function capture(id, width, height) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
         return
     }
 
-    const url = drawImage(camera)
+    const url = drawImage(camera, width, height);
     return new Blob([url])
 }
 
@@ -165,16 +165,15 @@ export function dispose(id) {
     }
 }
 
-const drawImage = camera => {
+const drawImage = (camera, width = 320, height = 240) => {
     const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
-    const { videoWidth, videoHeight } = camera.video
     const canvas = camera.el.querySelector('canvas')
-    canvas.width = videoWidth * devicePixelRatio;
-    canvas.height = videoHeight * devicePixelRatio;
+    canvas.width = width * devicePixelRatio;
+    canvas.height = height * devicePixelRatio;
     const context = canvas.getContext('2d')
     context.scale(devicePixelRatio, devicePixelRatio)
-    context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight)
+    context.drawImage(camera.video.element, 0, 0, canvas.width, canvas.height)
     let url = "";
     if (captureJpeg) {
         url = canvas.toDataURL("image/jpeg", quality);
