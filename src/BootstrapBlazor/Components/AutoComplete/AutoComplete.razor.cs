@@ -178,7 +178,7 @@ public partial class AutoComplete
             }
             else
             {
-                FilterItems = Items.ToList();
+                FilterItems = DisplayCount == null ? Items.ToList() : Items.Take(DisplayCount.Value).ToList();
                 IsShown = true;
             }
         }
