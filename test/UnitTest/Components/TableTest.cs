@@ -2403,6 +2403,7 @@ public class TableTest : TableTestBase
     {
         var clicked = false;
         var clickCallback = false;
+        var clickWithoutRender = false;
         var selected = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -2427,6 +2428,11 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(_ =>
                     {
                         clickCallback = true;
+                        return Task.CompletedTask;
+                    }));
+                    builder.AddAttribute(15, nameof(TableToolbarButton<Foo>.OnClickWithoutRender), new Func<Task>(() =>
+                    {
+                        clickWithoutRender = true;
                         return Task.CompletedTask;
                     }));
                     builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
@@ -2474,6 +2480,7 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(clicked);
         Assert.True(clickCallback);
+        Assert.True(clickWithoutRender);
 
         // 选中一行
         var input = cut.Find("tbody tr input");
