@@ -214,7 +214,7 @@ public partial class AutoComplete
         IsShown = true;
 
         var source = FilterItems;
-        if (source.Any())
+        if (source.Count > 0)
         {
             // 键盘向上选择
             if (key == "ArrowUp")
