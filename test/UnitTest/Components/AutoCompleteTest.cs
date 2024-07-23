@@ -230,6 +230,27 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnFocus_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.DisplayCount, 1);
+        });
+
+        // trigger focus
+        await cut.InvokeAsync(async () =>
+        {
+            var input = cut.Find("input");
+            await input.FocusAsync(new FocusEventArgs());
+        });
+
+        var filters = cut.FindAll(".dropdown-item");
+        Assert.Single(filters);
+    }
+
+    [Fact]
     public async Task ItemTemplate_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };

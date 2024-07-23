@@ -125,7 +125,7 @@ public partial class AutoComplete
 
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        Items ??= Enumerable.Empty<string>();
+        Items ??= [];
         FilterItems ??= [];
 
         SkipRegisterEnterEscJSInvoke = true;
@@ -137,6 +137,7 @@ public partial class AutoComplete
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
@@ -177,7 +178,7 @@ public partial class AutoComplete
             }
             else
             {
-                FilterItems = Items.ToList();
+                FilterItems = DisplayCount == null ? Items.ToList() : Items.Take(DisplayCount.Value).ToList();
                 IsShown = true;
             }
         }
@@ -213,7 +214,7 @@ public partial class AutoComplete
         IsShown = true;
 
         var source = FilterItems;
-        if (source.Any())
+        if (source.Count > 0)
         {
             // 键盘向上选择
             if (key == "ArrowUp")
