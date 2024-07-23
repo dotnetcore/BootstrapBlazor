@@ -137,6 +137,7 @@ public partial class AutoComplete
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
