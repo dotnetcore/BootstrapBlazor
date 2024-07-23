@@ -231,14 +231,6 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = "OnCapture",
-            Description = Localizer["OnCapture"],
-            Type = "Func<string, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
             Name = nameof(BootstrapBlazor.Components.Camera.CaptureJpeg),
             Description = Localizer["CaptureJpeg"],
             Type = "bool",
