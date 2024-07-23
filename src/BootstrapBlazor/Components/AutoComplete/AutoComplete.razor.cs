@@ -125,7 +125,7 @@ public partial class AutoComplete
 
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        Items ??= Enumerable.Empty<string>();
+        Items ??= [];
         FilterItems ??= [];
 
         SkipRegisterEnterEscJSInvoke = true;
