@@ -18,10 +18,10 @@ public partial class Drawer
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"--bb-drawer-position: {Position}", !string.IsNullOrEmpty(Position))
+        .AddClass($"--bb-drawer-position: {Position};", !string.IsNullOrEmpty(Position))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
-    
+
     /// <summary>
     /// 获得 抽屉 Style 字符串
     /// </summary>
