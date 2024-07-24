@@ -329,6 +329,7 @@ const dock = group => {
     if (group.locked) return;
     const dockview = group.api.accessor
     const originGroup = dockview.groups.find(item => `${item.id}_floating` === group.id)
+    if(!originGroup) return
     dockview.setVisible(originGroup, true)
 
     let { isPackup, packupHeight, isMaximized, position } = group.getParams()

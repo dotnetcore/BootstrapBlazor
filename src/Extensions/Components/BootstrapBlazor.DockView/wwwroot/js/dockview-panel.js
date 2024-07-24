@@ -5,8 +5,9 @@ const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
     panel.api.onDidActiveChange(({ isActive }) => {
-        if (isActive && panel.group.panels.length > 1) {
+        if (!isActive && panel.group.panels.length > 1) {
             saveConfig(panel.accessor)
+            appendTemplatePanelEle(panel)
         }
     })
 }
@@ -46,6 +47,18 @@ const onRemovePanel = event => {
         }
         if (dockview.params.template) {
             dockview.params.template.append(event.view.content.element)
+        }
+    }
+}
+
+const appendTemplatePanelEle = (panel) => {
+    const dockview = panel.accessor
+    if (panel.view.content.element) {
+        if (panel.titleMenuEle) {
+            panel.view.content.element.append(panel.titleMenuEle)
+        }
+        if (dockview.params.template) {
+            dockview.params.template.append(panel.view.content.element)
         }
     }
 }
