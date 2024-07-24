@@ -18,18 +18,31 @@ else
 }
 
 @code {
+    [Inject]
     [NotNull]
-    private List<string> VideoUrl { get; } = new List<string>();
+    private NavigationManager? Navigator { get; set; }
 
+    private List<string> VideoUrl { get; } = [];
+
+    /// <summary>
+    /// 获得/设置 视频键值
+    /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
     /// <summary>
-    ///
+    /// <inheritdoc />
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        if (string.IsNullOrEmpty(Name))
+        {
+            var path = Navigator.ToBaseRelativePath(Navigator.Uri);
+            var comNameWithHash = path.Split('#').First();
+            Name = comNameWithHash.Split('?').First();
+        }
 
         if (!string.IsNullOrEmpty(Name) && Options.CurrentValue.Videos.TryGetValue(Name, out var url))
         {
