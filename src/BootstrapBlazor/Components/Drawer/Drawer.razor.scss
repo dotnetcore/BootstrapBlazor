@@ -7,7 +7,8 @@
     --bb-drawer-bar-hover-color: #{$bb-drawer-bar-hover-color};
     --bb-drawer-bar-drag-color: #{$bb-drawer-bar-drag-color};
     --bb-drawer-backdrop-bg: #{$bb-drawer-backdrop-bg};
-    position: fixed;
+    --bb-drawer-position: fixed;
+    position: var(--bb-drawer-position);
     top: 0;
     right: 0;
     bottom: 0;
