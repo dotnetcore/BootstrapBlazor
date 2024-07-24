@@ -119,7 +119,7 @@ const removeEmptyLeafViews = (branch, floatingGroups, delPanels, parent) => {
         if (
             branch.data.views.length == 0
             && !floatingGroups.find(fg => fg.data.id.split('_')[0] == branch.data.id)
-            && !delPanels.find(p => p.groupId == branch.data.id + '_floating')
+            && !delPanels.find(p => p.groupId == branch.data.id)
         ) {
             parent && (parent.data = parent.data.filter(item => item.data.id != branch.data.id))
         }
