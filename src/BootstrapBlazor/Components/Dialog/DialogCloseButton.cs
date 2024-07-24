@@ -27,9 +27,9 @@ public partial class DialogCloseButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.CloseButtonText)];
