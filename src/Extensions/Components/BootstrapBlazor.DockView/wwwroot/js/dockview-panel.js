@@ -5,8 +5,11 @@ const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
     panel.api.onDidActiveChange(({ isActive }) => {
-        if (!isActive && panel.group.panels.length > 1) {
+        if(panel.group.panels.length < 2) return
+        if(isActive){
             saveConfig(panel.accessor)
+        }
+        if (!isActive && panel.group.activePanel != panel) {
             appendTemplatePanelEle(panel)
         }
     })
