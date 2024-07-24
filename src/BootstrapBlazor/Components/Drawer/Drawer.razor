@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
-<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" tabindex="-1" class="@ClassString" style="@StyleString" id="@Id">
     @if (ShowBackdrop)
     {
         <div tabindex="-1" class="drawer-backdrop" @onclick="@OnContainerClick">
