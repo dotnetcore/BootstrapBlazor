@@ -8,9 +8,9 @@ const onAddPanel = panel => {
         if(panel.group.panels.length < 2) return
         if(isActive){
             saveConfig(panel.accessor)
-        }
-        if (!isActive && panel.group.activePanel != panel) {
-            appendTemplatePanelEle(panel)
+            panel.group.panels.filter(p => p != panel.group.activePanel).forEach(p => {
+                appendTemplatePanelEle(p)
+            })
         }
     })
 }
