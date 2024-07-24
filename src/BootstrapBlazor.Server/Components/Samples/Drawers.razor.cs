@@ -125,6 +125,14 @@ public sealed partial class Drawers
         },
         new()
         {
+            Name = "Position",
+            Description = "Where the component position",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "ChildContent",
             Description = "Subassembly",
             Type = "RenderFragment",

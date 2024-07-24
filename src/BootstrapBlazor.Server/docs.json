@@ -222,7 +222,7 @@
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
     "table/auto-refresh": "BV1ap4y1x7Qn?p=8",
-    "table/column": "BV1ap4y1x7Qn?p=2",
+    "table/column": "BV1ap4y1x7Qn?p=2;BV1ZH4y1w7S2",
     "table/edit": "BV1ap4y1x7Qn?p=9;BV1ap4y1x7Qn?p=10;BV1ap4y1x7Qn?p=11;BV1ap4y1x7Qn?p=12;BV12P4y137Ar",
     "table/detail": "BV1ap4y1x7Qn?p=3",
     "table/dialog": "BV1bT4y1N78e?p=1",
@@ -232,7 +232,7 @@
     "table/fix-column": "BV1ap4y1x7Qn?p=5",
     "table/multi-header": "BV15o4y1f7eN",
     "table/footer": "BV15o4y1f7eN",
-    "table/row": "BV1ap4y1x7Qn?p=3",
+    "table/row": "BV1ap4y1x7Qn?p=3;BV1sE421P7BG",
     "table/search": "BV1ap4y1x7Qn?p=4;BV1E34y1R7ia",
     "table/selection": "BV1jh41127U6;BV1Y4421U7u6",
     "table/toolbar": "BV1ap4y1x7Qn?p=6",
@@ -240,6 +240,7 @@
     "table/dynamic": "BV1Eb4y1z7cY",
     "table/excel": "BV1QL411x7v4",
     "tale/dynamic-excel": "BV1p3411278A",
+    "table/attribute": "BV1CS421X75U",
     "editor": "BV13B4y1y7cS",
     "edit-dialog": "BV1bT4y1N78e?p=10",
     "datetime-picker": "BV1W1421b7du",
@@ -255,7 +256,7 @@
     "toast": "BV1bT4y1N78e?p=6",
     "tree-view": "BV1ap4y1x7Qn?p=14;BV1ZW4y1z7bB;BV15c411v7w7",
     "upload": "BV1hK4y157Rj",
-    "validate-form": "BV1TU4y1Y7CM",
+    "validate-form": "BV1TU4y1Y7CM;BV19E421c7tH",
     "speech/speechwave": "BV1Dr4y1J7Z5",
     "speech/recognizer": "BV1aR4y1N7UP",
     "speech/synthesizer": "BV1aR4y1N7UP",
@@ -277,7 +278,10 @@
     "dockview2/visible": "BV1sW421d74o",
     "dockview2/lock": "BV1sW421d74o",
     "dockview2/title": "BV1sW421d74o",
-    "dockview2/layout": "BV1sW421d74o"
+    "dockview2/layout": "BV1sW421d74o",
+    "icon": "BV1jx4y1s73i",
+    "mask": "BV16E421w7vD",
+    "global-option": "BV17T421k7U1"
   },
   "link": {
     "AntDesign": "http://www.antblazor.com/",

@@ -910,6 +910,7 @@
   "BootstrapBlazor.Server.Components.Samples.Drawers": {
     "Title": "Drawer",
     "Description": "Sometimes, the Dialog component does not meet our needs. For example, your form is very long, or you need to temporarily display some documents. Drawer has almost the same API as Dialog, which brings a different experience to the UI.",
+    "DrawerTips": "Sometimes we want to expand a pop-up window in a certain container. We can do this by embedding a <code>&lt;Drawer/&gt;</code> drawer component in a specific container and then setting the parameter <code>Position=\"absolute\"</code> for relative positioning. Note: The parent container style needs to be set to <code>position: relative;</code>",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Call out a temporary sidebar that can be called out from multiple directions",
     "PlacementTitle": "Click to close the mask",
