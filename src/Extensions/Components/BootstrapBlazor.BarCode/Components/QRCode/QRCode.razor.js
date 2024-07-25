@@ -20,8 +20,11 @@ const clear = b => {
     }
 }
 
-export async function init(el, invoke, content, callback) {
+export async function init(id, invoke, content, callback) {
     await addScript('./_content/BootstrapBlazor.BarCode/qrcode.min.js')
+
+    const el = document.getElementById(id);
+    if (el === null) { return }
 
     const b = {
         el, invoke, callback,
@@ -30,7 +33,7 @@ export async function init(el, invoke, content, callback) {
         colorLight: el.getAttribute('data-bb-color-light'),
         colorDark: el.getAttribute('data-bb-color-dark')
     }
-    Data.set(el, b)
+    Data.set(id, b)
 
     b.config = {
         ...{
@@ -53,8 +56,8 @@ export async function init(el, invoke, content, callback) {
     }
 }
 
-export function update(el, content) {
-    const b = Data.get(el)
+export function update(id, content) {
+    const b = Data.get(id)
 
     if (content && content.length > 0) {
         generate(b, content)
@@ -64,6 +67,6 @@ export function update(el, content) {
     }
 }
 
-export function dispose(el) {
-    Data.remove(el)
+export function dispose(id) {
+    Data.remove(id)
 }
