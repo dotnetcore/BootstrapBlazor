@@ -3,9 +3,12 @@ import { vibrate } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
-export async function init(el, invoker) {
+export async function init(id, invoker) {
+    const el = document.getElementById(id);
+    if (el === null) { return }
+
     const b = {}
-    Data.set(el, b)
+    Data.set(id, b)
 
     b._reader = new ZXing.BrowserMultiFormatReader()
     b._element = el
@@ -104,9 +107,9 @@ export async function init(el, invoker) {
     EventHandler.on(b._element, 'click', '[data-bb-method]', eventHandler)
 }
 
-export function dispose(el) {
-    const b = Data.get(el)
-    Data.remove(el)
+export function dispose(id) {
+    const b = Data.get(id)
+    Data.remove(id)
 
     if (b) {
         EventHandler.off(b._element, 'click', '[data-bb-method]')
