@@ -3,56 +3,11 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
-    <div class="ribbon-header">
-        <Tab OnClickTabItemAsync="OnClickTabItemAsync">
-            @foreach (var item in Items)
-            {
-                <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
-                    <div class="tab-commands">
-                        @foreach (var groups in item.Items.OfType<RibbonTabItem>().GroupBy(s => s.GroupName))
-                        {
-                            <div class="link-group">
-                                <div class="d-flex">
-                                    @foreach (var group in groups)
-                                    {
-                                        if (group.Component != null || group.Template != null)
-                                        {
-                                            @RenderTemplate(group)
-                                        }
-                                        else
-                                        {
-                                            <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
-                                                        Url="@group.Url" Target="@group.Target"
-                                                        Text="@group.Text" IsVertical="true" Color="Color.None"
-                                                        class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
-                                        }
-                                    }
-                                </div>
-                                <div class="link-group-name">
-                                    @groups.Key
-                                </div>
-                            </div>
-                            <Divider IsVertical="true" />
-                        }
-                    </div>
-                </TabItem>
-            }
-        </Tab>
-        <div class="ribbon-buttons">
-            @if (RightButtonsTemplate != null)
-            {
-                <div class="ribbon-customer-buttons">
-                    @RightButtonsTemplate
-                </div>
-            }
-            @if (ShowFloatButton)
-            {
-                <div class="ribbon-arrow">
-                    <i class="@ArrowIconClassString" @onclick="OnToggleFloat"></i>
-                </div>
-            }
-        </div>
-    </div>
+    <RibbonTabHeader Items="Items" IsSupportAnchor="IsSupportAnchor" ShowFloatButton="ShowFloatButton" @ref="_header"
+                     OnItemClickAsync="OnItemClickAsync!" OnMenuClickAsync="OnMenuClickAsync!" OnFloatChanged="OnFloatChanged!"
+                     EncodeAnchorCallback="EncodeAnchorCallback!" DecodeAnchorCallback="DecodeAnchorCallback!"
+                     RightButtonsTemplate="RightButtonsTemplate!"
+                     RibbonArrowUpIcon="@RibbonArrowUpIcon" RibbonArrowDownIcon="@RibbonArrowDownIcon" RibbonArrowPinIcon="@RibbonArrowPinIcon"></RibbonTabHeader>
     @if (ChildContent != null)
     {
         <div class="ribbon-body">
