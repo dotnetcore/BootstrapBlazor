@@ -26,16 +26,16 @@
     --bb-ribbon-menu-header-height: calc(var(--bb-ribbon-menu-height) + var(--bb-ribbon-menu-margin-top) + var(--bb-ribbon-menu-body-height));
     position: relative;
 
-    &.is-float:not(.is-expand) {
-        --bb-ribbon-menu-body-height: 0px;
-
-        .tabs-body-content {
-            height: 0;
-        }
-    }
-
     .ribbon-header {
         position: relative;
+
+        &.is-float:not(.is-expand) {
+            --bb-ribbon-menu-body-height: 0px;
+
+            .tabs-body-content {
+                height: 0;
+            }
+        }
 
         .tabs-header {
             background-color: var(--bb-ribbon-menu-bg);
