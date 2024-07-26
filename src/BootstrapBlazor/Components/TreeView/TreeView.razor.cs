@@ -541,8 +541,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 s.CheckedState = CheckboxState.UnChecked;
                 TreeNodeStateCache.ToggleCheck(s);
             });
-            StateHasChanged();
         });
+        StateHasChanged();
     }
 
     /// <summary>
