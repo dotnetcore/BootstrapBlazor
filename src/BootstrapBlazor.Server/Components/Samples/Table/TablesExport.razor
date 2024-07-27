@@ -2,7 +2,6 @@
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesExport> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
-@inject ToastService ToastService
 
 <h3>@Localizer["TablesExportTitle"] - @NavMenuLocalizer["TableExport"]</h3>
 <h4>@((MarkupString)Localizer["TablesExportDescription1"].Value)</h4>
