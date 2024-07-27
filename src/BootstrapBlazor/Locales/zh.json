@@ -240,10 +240,12 @@
     "CopyColumnCopiedTooltipText": "已拷贝",
     "ColumnWidthTooltipPrefix": "宽度：",
     "ColumnToolboxTitle": "操作",
-    "AlignLeft": "左对齐",
-    "AlignLeftTooltip": "点击后本列文本左对齐",
-    "AlignCenter": "居中",
-    "AlignRight": "右对齐"
+    "AlignLeftText": "左对齐",
+    "AlignLeftTooltipText": "点击后本列文本左对齐",
+    "AlignCenterText": "居中",
+    "AlignCenterTooltipText": "点击后本列文本居中对齐",
+    "AlignRightText": "右对齐",
+    "AlignRightTooltipText": "点击后本列文本右对齐"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "关闭",

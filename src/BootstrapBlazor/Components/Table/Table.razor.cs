@@ -675,6 +675,48 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public string? ClientTableName { get; set; }
 
+    /// <summary>
+    /// 获得/设置 左对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignLeftText { get; set; }
+
+    /// <summary>
+    /// 获得/设置左对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignLeftTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 居中对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignCenterText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 居中对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignCenterTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignRightText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignRightTooltipText { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -941,22 +983,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         Key = "align-left",
                         Icon = "fa-solid fa-align-left",
-                        Text = Localizer["AlignLeft"].Value,
-                        Tooltip = Localizer["AlignLeftTooltip"].Value
+                        Text = Localizer["AlignLeftText"].Value,
+                        Tooltip = Localizer["AlignLeftTooltipText"].Value
                     },
                     new
                     {
                         Key = "align-center",
                         Icon = "fa-solid fa-align-center",
-                        Text = Localizer["AlignCenter"].Value,
-                        Tooltip = Localizer["AlignCenterTooltip"].Value
+                        Text = Localizer["AlignCenterText"].Value,
+                        Tooltip = Localizer["AlignCenterTooltipText"].Value
                     },
                     new
                     {
                         Key = "align-left",
                         Icon = "fa-solid fa-align-right",
-                        Text = Localizer["AlignRight"].Value,
-                        Tooltip = Localizer["AlignRightTooltip"].Value
+                        Text = Localizer["AlignRightText"].Value,
+                        Tooltip = Localizer["AlignRightTooltipText"].Value
                     }
                 }
             });
