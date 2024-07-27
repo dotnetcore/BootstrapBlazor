@@ -5354,7 +5354,10 @@
     "TablesExportButtonCliBoardAllText": "Export All data - ClipBoard",
     "TablesExportToastTitle": "Export Data",
     "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
-    "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
+    "TablesExportToastFailedContent": "Export failed，auto close after 4 second",
+    "TablesExportPdfDesc": "Export Pdf function dependencies on additional packages",
+    "TablesExportPdfNote1": "Injecting the <code>Html2Pdf</code> service",
+    "TablesExportPdfNote2": "Added Html2Pdf export service"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesToolbar": {
     "TablesToolbarTitle": "Table",
