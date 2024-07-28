@@ -5335,7 +5335,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExport": {
     "TablesExportTitle": "Table 表格",
-    "TablesExportDescription1": "通过设置 <code>ShowExportButton</code> 参数显示导出按钮，组件内置导出 Excel 功能",
+    "TablesExportDescription1": "通过设置 <code>ShowExportButton</code> 参数显示导出按钮，组件内置导出 Excel/Csv/Pdf 功能",
     "TablesExportDescription2": "导出功能提供了导出回调方法 <code>OnExportAsync</code> 使用时可以通过提供自定义的导出方法进行数据导出，如果未提供数据导出方法，组件会根据注入的导出服务进行数据导出",
     "TablesExportTips": "注入服务",
     "TablesExportNote1": "增加 BootstrapBlazor 组件",
@@ -5354,7 +5354,10 @@
     "TablesExportButtonCliBoardAllText": "导出全部页到剪切板",
     "TablesExportToastTitle": "数据导出",
     "TablesExportToastSuccessContent": "导出数据成功，4 秒后自动关闭",
-    "TablesExportToastFailedContent": "导出数据失败，4 秒后自动关闭"
+    "TablesExportToastFailedContent": "导出数据失败，4 秒后自动关闭",
+    "TablesExportPdfDesc": "导出 Pdf 功能依赖额外组件包",
+    "TablesExportPdfNote1": "注入 <code>Html2Pdf</code> 服务",
+    "TablesExportPdfNote2": "增加 Html2Pdf 导出服务"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesToolbar": {
     "TablesToolbarTitle": "Table 表格",

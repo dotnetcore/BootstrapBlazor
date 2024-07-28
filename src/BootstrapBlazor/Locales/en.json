@@ -240,9 +240,12 @@
     "CopyColumnCopiedTooltipText": "Copied!",
     "ColumnWidthTooltipPrefix": "width: ",
     "ColumnToolboxTitle": "Tools",
-    "AlignLeft": "Left",
-    "AlignCenter": "Center",
-    "AlignRight": "Right"
+    "AlignLeftText": "Left",
+    "AlignLeftTooltipText": "Click to align text in this column to the left",
+    "AlignCenterText": "Center",
+    "AlignCenterTooltipText": "Click to align text in this column to the center",
+    "AlignRightText": "Right",
+    "AlignRightTooltipText": "Click to align text in this column to the right"
   },
   "BootstrapBlazor.Components.EditDialog": {
     "CloseButtonText": "Close",
