@@ -7,12 +7,15 @@
     {
         @if (IsAuthenticated)
         {
-            <section @attributes="AdditionalAttributes" class="@ClassString">
+            <section @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
                 @if (Side == null)
                 {
-                    @RenderHeader(false)
+                    if(Header != null)
+                    {
+                        @RenderHeader(false)
+                    }
                     @RenderMain
-                    @if (ShowFooter)
+                    @if (ShowFooter && Footer != null)
                     {
                         @RenderFooter
                     }
@@ -20,16 +23,22 @@
                 else if (IsFullSide)
                 {
                     <aside class="@SideClassString" style="@SideStyleString">
-                        @Side
+                        @if(Side != null)
+                        {
+                            @Side
+                        }
                         @if (Menus != null)
                         {
                             @RenderMenu(IsFullSide)
                         }
                     </aside>
                     <section class="layout-right">
-                        @RenderHeader(ShowCollapseBar)
+                        @if(Header != null)
+                        {
+                            @RenderHeader(ShowCollapseBar)
+                        }
                         @RenderMain
-                        @if (ShowFooter)
+                        @if (ShowFooter && Footer != null)
                         {
                             @RenderFooter
                         }
@@ -37,10 +46,16 @@
                 }
                 else
                 {
-                    @RenderHeader(ShowCollapseBar)
+                    @if (Header != null)
+                    {
+                        @RenderHeader(ShowCollapseBar)
+                    }
                     <section class="has-sidebar">
                         <aside class="@SideClassString" style="@SideStyleString">
-                            @Side
+                            @if (Side != null)
+                            {
+                                @Side
+                            }
                             @if (Menus != null)
                             {
                                 @RenderMenu(IsFullSide)
@@ -48,7 +63,7 @@
                         </aside>
                         @RenderMain
                     </section>
-                    @if (ShowFooter)
+                    @if (ShowFooter && Footer != null)
                     {
                         @RenderFooter
                     }
