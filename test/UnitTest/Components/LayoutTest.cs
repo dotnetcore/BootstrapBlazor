@@ -25,6 +25,13 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFooter, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("Footer", cut.Markup));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.Footer, (RenderFragment?)null);
+        });
+        cut.Contains("--bb-layout-footer-height: 0px;");
     }
 
     [Fact]
