@@ -200,7 +200,8 @@ export function dispose(id) {
         disposeColumnDrag(table.columns)
         disposeDragColumns(table.dragColumns)
         EventHandler.off(table.element, 'click', '.col-copy');
-        EventHandler.off(document, 'click');
+        EventHandler.off(document, 'click.bb.table.setResizeListener');
+        EventHandler.off(document, 'click.bb.table.setColumnToolboxListener');
         if (table.observer) {
             table.observer.disconnect()
         }
@@ -218,7 +219,7 @@ const setColumnToolboxListener = table => {
     if (header) {
         const toolbox = header.querySelector('.toolbox-icon')
         if (toolbox) {
-            EventHandler.on(document, 'click', e => {
+            EventHandler.on(document, 'click.bb.table.setColumnToolboxListener', e => {
                 const target = e.target;
                 if (target.closest('.popover-table-column-toolbox')) {
                     return;
@@ -426,7 +427,7 @@ const resetTableWidth = table => {
 
 const setResizeListener = table => {
     if (table.options.showColumnWidthTooltip) {
-        EventHandler.on(document, 'click', e => {
+        EventHandler.on(document, 'click.bb.table.setResizeListener', e => {
             const element = e.target;
             const tips = element.closest('.table-resizer-tips');
             if (tips) {
