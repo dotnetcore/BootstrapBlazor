@@ -120,6 +120,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsFullSide, true);
             pb.Add(a => a.Side, CreateSide());
             pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.Footer, CreateFooter());
             pb.Add(a => a.ShowGotoTop, true);
             pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
         });
@@ -365,6 +366,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.Side, CreateSide());
+            pb.Add(a => a.Header, CreateHeader());
             pb.Add(a => a.IsFullSide, true);
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.CollapseBarTemplate, builder =>
