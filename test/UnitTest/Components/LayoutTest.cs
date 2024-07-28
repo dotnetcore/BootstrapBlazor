@@ -63,12 +63,18 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowCollapseBar_OK()
+    public async Task ShowCollapseBar_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.Side, CreateSide());
+        });
+        cut.DoesNotContain("<i class=\"fa-solid fa-bars\"></i>");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Header, CreateHeader());
         });
         Assert.Contains("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
 
@@ -83,7 +89,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             cut.Find("header > a").Click();
         });
