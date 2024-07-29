@@ -13,7 +13,8 @@ export function init(id, invoke, options) {
     const table = {
         el,
         invoke,
-        options
+        options,
+        handlers: {}
     }
     Data.set(id, table)
 
@@ -200,8 +201,13 @@ export function dispose(id) {
         disposeColumnDrag(table.columns)
         disposeDragColumns(table.dragColumns)
         EventHandler.off(table.element, 'click', '.col-copy');
-        EventHandler.off(document, 'click.bb.table.setResizeListener');
-        EventHandler.off(document, 'click.bb.table.setColumnToolboxListener');
+
+        if (table.handlers.setResizeHandler) {
+            EventHandler.off(document, 'click', table.handlers.setResizeHandler);
+        }
+        if (table.handlers.setColumnToolboxHandler) {
+            EventHandler.off(document, 'click', table.handlers.setColumnToolboxHandler);
+        }
         if (table.observer) {
             table.observer.disconnect()
         }
@@ -219,7 +225,7 @@ const setColumnToolboxListener = table => {
     if (header) {
         const toolbox = header.querySelector('.toolbox-icon')
         if (toolbox) {
-            EventHandler.on(document, 'click.bb.table.setColumnToolboxListener', e => {
+            table.handlers.setColumnToolboxHandler = e => {
                 const target = e.target;
                 if (target.closest('.popover-table-column-toolbox')) {
                     return;
@@ -230,8 +236,9 @@ const setColumnToolboxListener = table => {
                     if (popover && popover._isShown()) {
                         popover.hide();
                     }
-                })
-            });
+                });
+            }
+            EventHandler.on(document, 'click', table.handlers.setColumnToolboxHandler);
         }
     }
 }
@@ -427,7 +434,7 @@ const resetTableWidth = table => {
 
 const setResizeListener = table => {
     if (table.options.showColumnWidthTooltip) {
-        EventHandler.on(document, 'click.bb.table.setResizeListener', e => {
+        table.handlers.setResizeHandler = e => {
             const element = e.target;
             const tips = element.closest('.table-resizer-tips');
             if (tips) {
@@ -435,7 +442,8 @@ const setResizeListener = table => {
             }
 
             closeAllTips(table.columns, null);
-        });
+        }
+        EventHandler.on(document, 'click', table.handlers.setResizeHandler);
     }
 
     disposeColumnDrag(table.columns)
