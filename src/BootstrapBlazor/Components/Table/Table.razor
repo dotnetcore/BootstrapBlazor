@@ -907,12 +907,12 @@
             }
             @if (GetShowExtendEditButton(item))
             {
-                <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
+                <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" IsDisabled="GetEditButtonDisabledState(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
             }
             @if (GetShowExtendDeleteButton(item))
             {
                 <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                  Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText"
+                                  Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonDisabledState(item)"
                                   CloseButtonText="@CancelDeleteButtonText"
                                   Content="@ConfirmDeleteContentText"
                                   ConfirmButtonColor="Color.Danger"
