@@ -38,7 +38,7 @@ public partial class EditorForm<TModel> : IShowLabel
         }
         return CssBuilder.Default("col-12")
             .AddClass($"col-sm-{cols}", cols > 0) // 指定 Cols
-            .AddClass($"col-sm-6 col-md-{mdCols}", cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
+            .AddClass($"col-sm-6 col-md-{mdCols}", mdCols < 12 && cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
             .Build();
     }
 
