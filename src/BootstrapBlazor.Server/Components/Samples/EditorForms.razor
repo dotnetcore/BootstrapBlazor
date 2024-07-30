@@ -21,9 +21,9 @@
     <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
         <EditorForm Model="@Model">
             <FieldItems>
-                <EditorItem @bind-Field="@context.Education" Editable="false" />
-                <EditorItem @bind-Field="@context.Complete" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" Editable="IgnoreItem"/>
+                <EditorItem @bind-Field="@context.Education" Readonly="true" />
+                <EditorItem @bind-Field="@context.Complete" Readonly="true" />
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" Readonly="true" />
             </FieldItems>
             <Buttons>
                 <Button Icon="fa-solid fa-floppy-disk" Text="@Localizer["SubButtonText"]" />
@@ -33,8 +33,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
-    <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
+    </section>
     <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
         <ValidateForm Model="@ValidateModel">
             <EditorForm TModel="Foo">
@@ -63,7 +65,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SkipValidateTitle"]" Introduction="@Localizer["SkipValidateIntro"]" Name="SkipValidate">
-    <GroupBox Title="@Localizer["GroupBoxTitle"]">
+    <GroupBox Title="@Localizer["GroupBoxTitle"]" style="margin-top: 1.5rem;">
         <p>@((MarkupString)Localizer["SkipValidateDescription"].Value)</p>
         <ValidateForm Model="Model">
             <EditorForm Model="Model" AutoGenerateAllItem="false">
