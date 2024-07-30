@@ -83,12 +83,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool IsTrim { get; set; }
 
-    /// <summary>
-    /// 获得/设置 用户删除后是否自动更改为默认值 0 默认 false
-    /// </summary>
-    [Parameter]
-    public bool AutoSetDefaultWhenNull { get; set; }
-
     [CascadingParameter]
     private Modal? Modal { get; set; }
 
@@ -193,22 +187,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <param name="result"></param>
     /// <param name="validationErrorMessage"></param>
     /// <returns></returns>
-    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
-    {
-        bool ret;
-        var v = IsTrim ? value.Trim() : value;
-        if (AutoSetDefaultWhenNull && string.IsNullOrEmpty(v))
-        {
-            result = default!;
-            validationErrorMessage = null;
-            ret = true;
-        }
-        else
-        {
-            ret = base.TryParseValueFromString(v, out result, out validationErrorMessage);
-        }
-        return ret;
-    }
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
     /// <summary>
     /// 客户端 EnterCallback 回调方法
