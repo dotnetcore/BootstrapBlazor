@@ -25,13 +25,6 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFooter, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("Footer", cut.Markup));
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowFooter, true);
-            pb.Add(a => a.Footer, (RenderFragment?)null);
-        });
-        cut.Contains("--bb-layout-footer-height: 0px;");
     }
 
     [Fact]
@@ -63,18 +56,12 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowCollapseBar_OK()
+    public void ShowCollapseBar_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.Side, CreateSide());
-        });
-        cut.DoesNotContain("<i class=\"fa-solid fa-bars\"></i>");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Header, CreateHeader());
         });
         Assert.Contains("<i class=\"fa-solid fa-bars\"></i>", cut.Markup);
 
@@ -89,7 +76,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
         });
 
-        await cut.InvokeAsync(() =>
+        cut.InvokeAsync(() =>
         {
             cut.Find("header > a").Click();
         });
@@ -120,7 +107,6 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsFullSide, true);
             pb.Add(a => a.Side, CreateSide());
             pb.Add(a => a.ShowFooter, true);
-            pb.Add(a => a.Footer, CreateFooter());
             pb.Add(a => a.ShowGotoTop, true);
             pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
         });
@@ -366,7 +352,6 @@ public class LayoutTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.Side, CreateSide());
-            pb.Add(a => a.Header, CreateHeader());
             pb.Add(a => a.IsFullSide, true);
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.CollapseBarTemplate, builder =>
@@ -401,7 +386,7 @@ public class LayoutAuthorizationTest : AuthorizateViewTestBase
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.OnAuthorizing, url => Task.FromResult(true));
         });
-        cut.Contains("<section class=\"layout\" style=\"--bb-layout-header-height: 0px; --bb-layout-footer-height: 0px;\"><main class=\"layout-main\"></main></section>");
+        cut.Contains("<section class=\"layout\"><header class=\"layout-header\"></header><main class=\"layout-main\"></main></section>");
         Context.DisposeComponents();
     }
 }

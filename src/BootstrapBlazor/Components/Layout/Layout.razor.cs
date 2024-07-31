@@ -214,14 +214,8 @@ public partial class Layout : IHandlerException
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("is-page", IsPage)
-        .AddClass("has-footer", ShowFooter && Footer != null)
+        .AddClass("has-footer", ShowFooter)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    private string? StyleString => CssBuilder.Default()
-        .AddClass("--bb-layout-header-height: 0px;", Header == null)
-        .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
-        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>

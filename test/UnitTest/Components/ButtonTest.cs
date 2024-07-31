@@ -272,10 +272,13 @@ public class ButtonTest : BootstrapBlazorTestBase
         var button = cut.FindComponent<Button>();
         await cut.InvokeAsync(() => button.Instance.ShowTooltip());
 
-        button = cut.FindComponent<Button>();
-        button.SetParametersAndRender(pb =>
+        await cut.InvokeAsync(() =>
         {
-            pb.Add(a => a.TooltipText, "Tooltip-Button");
+            var button = cut.FindComponent<Button>();
+            button.SetParametersAndRender(pb =>
+            {
+                pb.Add(a => a.TooltipText, "Tooltip-Button");
+            });
         });
         Assert.Equal("Tooltip-Button", cut.Instance.Title);
 
