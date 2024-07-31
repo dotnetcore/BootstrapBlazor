@@ -44,7 +44,7 @@ public class SliderTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("GroupLabel", cut.Markup);
-        Assert.DoesNotContain("label-slider-text", cut.Markup);
+        Assert.Contains("label-slider-text", cut.Markup);
     }
 
     [Fact]
