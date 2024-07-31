@@ -125,21 +125,49 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     {
         base.OnParametersSet();
 
-        if (Filter != null || InputGroup != null)
+        // 显式设置显示标签时一定显示
+        var showLabel = ShowLabel;
+
+        if (Filter != null)
         {
             IsShowLabel = false;
         }
+        else if (InputGroup == null)
+        {
+            // 如果被 InputGroup 包裹不显示 Label
+            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
+            if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
+            {
+                showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
+            }
+
+            IsShowLabel = showLabel ?? false;
+
+            // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
+            if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
+            {
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
+            }
+        }
         else
         {
-            IsShowLabel = ShowLabel ?? EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? false;
+            IsShowLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? false;
 
-            if (FieldIdentifier.HasValue)
+            if (DisplayText == null && FieldIdentifier.HasValue)
             {
-                DisplayText ??= FieldIdentifier.Value.GetDisplayName();
+                DisplayText = FieldIdentifier.Value.GetDisplayName();
             }
         }
 
-        ShowLabelTooltip ??= EditorForm?.ShowLabelTooltip ?? ValidateForm?.ShowLabelTooltip ?? false;
+        if (ShowLabelTooltip == null && EditorForm != null)
+        {
+            ShowLabelTooltip = EditorForm.ShowLabelTooltip;
+        }
+
+        if (ShowLabelTooltip == null && ValidateForm != null)
+        {
+            ShowLabelTooltip = ValidateForm.ShowLabelTooltip;
+        }
     }
 
     /// <summary>
