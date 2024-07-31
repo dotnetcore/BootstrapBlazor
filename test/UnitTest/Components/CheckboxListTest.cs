@@ -79,7 +79,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
                 pb.Add(a => a.DisplayText, "TestLabel");
             });
         });
-        Assert.DoesNotContain("TestLabel", cut.Markup);
+        Assert.Contains("TestLabel", cut.Markup);
         Assert.Contains("GroupLabel", cut.Markup);
     }
 
