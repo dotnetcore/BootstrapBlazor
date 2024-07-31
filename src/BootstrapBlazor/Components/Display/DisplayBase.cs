@@ -135,7 +135,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
         else if (InputGroup == null)
         {
             // 如果被 InputGroup 包裹不显示 Label
-            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
+            // 组件自身未设置 ShowLabel 取 EditorForm/ValidateForm 级联值
             if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
             {
                 showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
