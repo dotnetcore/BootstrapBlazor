@@ -312,6 +312,22 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task AutoSetDefaultWhenNull_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInput<int>>(builder =>
+        {
+            builder.Add(a => a.Value, 123);
+            builder.Add(a => a.AutoSetDefaultWhenNull, true);
+        });
+        await cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.Change("");
+        });
+        Assert.Equal(0, cut.Instance.Value);
+    }
+
+    [Fact]
     public void OnValueChanged_Ok()
     {
         var val = "";
