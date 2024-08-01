@@ -23,7 +23,7 @@ public partial class Modal
     /// </summary>
     protected List<ModalDialog> Dialogs { get; } = new(8);
 
-    private ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
+    private readonly ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
 
     /// <summary>
     /// 获得/设置 是否后台关闭弹窗 默认 false
