@@ -128,6 +128,11 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
                 Type = type;
             }
         }
+
+        if (IsAutoFocus)
+        {
+            Modal?.RegisterShownCallback(async () => await FocusAsync());
+        }
     }
 
     /// <summary>
@@ -152,14 +157,6 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             if (IsSelectAllTextOnEnter)
             {
                 await InvokeVoidAsync("selectAllByEnter", GetInputId());
-            }
-            if (IsAutoFocus)
-            {
-                if (Modal != null)
-                {
-                    await Task.Delay(100);
-                }
-                await FocusAsync();
             }
         }
     }
