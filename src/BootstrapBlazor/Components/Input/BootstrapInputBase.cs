@@ -95,7 +95,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 自动获得焦点方法
     /// </summary>
     /// <returns></returns>
-    public ValueTask FocusAsync() => FocusElement.FocusAsync();
+    public async Task FocusAsync() => await FocusElement.FocusAsync();
 
     /// <summary>
     /// 全选文字
@@ -131,7 +131,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 
         if (IsAutoFocus)
         {
-            Modal?.RegisterShownCallback(async () => await FocusAsync());
+            Modal?.RegisterShownCallback(this, FocusAsync);
         }
     }
 
@@ -211,5 +211,17 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             await OnEscAsync(Value);
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(disposing);
+
+        Modal?.UnRegisterShownCallback(this);
     }
 }
