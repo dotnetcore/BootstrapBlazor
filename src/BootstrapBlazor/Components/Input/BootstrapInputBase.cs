@@ -19,7 +19,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// 
+    /// 元素实例引用
     /// </summary>
     protected ElementReference FocusElement { get; set; }
 
