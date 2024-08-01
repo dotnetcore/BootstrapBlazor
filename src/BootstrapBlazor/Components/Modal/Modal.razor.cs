@@ -23,7 +23,7 @@ public partial class Modal
     /// </summary>
     protected List<ModalDialog> Dialogs { get; } = new(8);
 
-    private ConcurrentDictionary<IComponent, Func<Task>> _focusCache = [];
+    private ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
 
     /// <summary>
     /// 获得/设置 是否后台关闭弹窗 默认 false
@@ -141,7 +141,7 @@ public partial class Modal
             await OnShownAsync();
         }
 
-        foreach (var callback in _focusCache.Values)
+        foreach (var callback in _shownCallbackCache.Values)
         {
             await callback();
         }
@@ -207,7 +207,7 @@ public partial class Modal
     /// <param name="value">回调方法</param>
     public void RegisterShownCallback(IComponent component, Func<Task> value)
     {
-        _focusCache.AddOrUpdate(component, _ => value, (_, _) => value);
+        _shownCallbackCache.AddOrUpdate(component, _ => value, (_, _) => value);
     }
 
     /// <summary>
@@ -216,6 +216,6 @@ public partial class Modal
     /// <param name="component">组件</param>
     public void UnRegisterShownCallback(IComponent component)
     {
-        _focusCache.TryRemove(component, out _);
+        _shownCallbackCache.TryRemove(component, out _);
     }
 }
