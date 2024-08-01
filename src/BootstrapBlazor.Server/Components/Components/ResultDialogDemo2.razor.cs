@@ -48,7 +48,7 @@ public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
         };
 
         // 处理选中行
-        Emails = context?.Emails?.Split(";") ?? Array.Empty<string>();
+        Emails = context?.Emails?.Split(";") ?? [];
         SelectedRows.AddRange(Items.Where(i => Emails.Any(mail => mail == i.Email)));
         return Task.FromResult(data);
     }
