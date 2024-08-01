@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections.Concurrent;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -20,6 +22,8 @@ public partial class Modal
     /// 获得 ModalDialog 集合
     /// </summary>
     protected List<ModalDialog> Dialogs { get; } = new(8);
+
+    private ConcurrentDictionary<IComponent, Func<Task>> _focusCache = [];
 
     /// <summary>
     /// 获得/设置 是否后台关闭弹窗 默认 false
@@ -136,6 +140,11 @@ public partial class Modal
         {
             await OnShownAsync();
         }
+
+        foreach (var callback in _focusCache.Values)
+        {
+            await callback();
+        }
     }
 
     /// <summary>
@@ -191,14 +200,22 @@ public partial class Modal
         dialog?.SetHeaderText(text);
     }
 
-
-
     /// <summary>
     /// 注册弹窗显示后回调方法，供代码调用等效 OnShownAsync 参数赋值
     /// </summary>
-    /// <param name="value"></param>
-    public void RegisterShownCallback(Func<Task> value)
+    /// <param name="component">组件</param>
+    /// <param name="value">回调方法</param>
+    public void RegisterShownCallback(IComponent component, Func<Task> value)
     {
-        OnShownAsync = value;
+        _focusCache.AddOrUpdate(component, _ => value, (_, _) => value);
+    }
+
+    /// <summary>
+    /// 取消注册窗口显示后回调方法
+    /// </summary>
+    /// <param name="component">组件</param>
+    public void UnRegisterShownCallback(IComponent component)
+    {
+        _focusCache.TryRemove(component, out _);
     }
 }
