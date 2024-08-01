@@ -72,7 +72,7 @@ public partial class Modal
     /// </summary>
     private string? Backdrop => IsBackdrop ? null : "static";
 
-    private string? KeyboardString => IsKeyboard ? "true" : "false";
+    private string KeyboardString => IsKeyboard ? "true" : "false";
 
     /// <summary>
     /// <inheritdoc/>
