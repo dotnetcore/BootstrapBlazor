@@ -158,6 +158,10 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             {
                 await InvokeVoidAsync("selectAllByEnter", GetInputId());
             }
+            if (IsAutoFocus && Modal == null)
+            {
+                await FocusAsync();
+            }
         }
     }
 
