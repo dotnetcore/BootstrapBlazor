@@ -190,4 +190,15 @@ public partial class Modal
         var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
         dialog?.SetHeaderText(text);
     }
+
+
+
+    /// <summary>
+    /// 注册弹窗显示后回调方法，供代码调用等效 OnShownAsync 参数赋值
+    /// </summary>
+    /// <param name="value"></param>
+    public void RegisterShownCallback(Func<Task> value)
+    {
+        OnShownAsync = value;
+    }
 }
