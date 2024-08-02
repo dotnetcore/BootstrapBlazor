@@ -6566,5 +6566,11 @@
     "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
     "ImageTitle": "Image",
     "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
+  },
+  "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
+    "FocusGuideTitle": "drive the user's focus across the page",
+    "FocusGuideSubtitle": "Supports font icons, vector SVG icons, and Image pictures",
+    "FocusGuideNormalTitle": "Font Icons",
+    "FocusGuideNormalIntro": "You can specify the icon style by setting <code>Name</code>"
   }
 }

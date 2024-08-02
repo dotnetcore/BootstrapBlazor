@@ -6566,5 +6566,11 @@
     "SvgIntro": "通过设置 <code>IsSvgSprites=\"true\"</code> <code>Url</code> 加载 <code>Svg</code> 雪碧图，通过 <code>Name</code> 指定其 <code>Id</code> 值",
     "ImageTitle": "图片",
     "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
+  },
+  "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
+    "FocusGuideTitle": "FocusGuide 高亮引导",
+    "FocusGuideSubtitle": "引导用户的注意力穿过整个页面",
+    "FocusGuideNormalTitle": "基础用法",
+    "FocusGuideNormalIntro": "通过简单配置点击按钮开始用户步骤指导"
   }
 }
