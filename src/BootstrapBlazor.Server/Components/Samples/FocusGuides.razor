@@ -1,0 +1,23 @@
+﻿@page "/focus-guide"
+@inject IStringLocalizer<FocusGuides> Localizer
+
+<h3>@Localizer["FocusGuideTitle"]</h3>
+
+<h4>@Localizer["FocusGuideSubtitle"]</h4>
+
+<DemoBlock Title="@Localizer["FocusGuideNormalTitle"]"
+           Introduction="@Localizer["FocusGuideNormalIntro"]"
+           Name="Normal">
+    <div class="row g-2 bb-guid1">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInput TValue="string"></BootstrapInput>
+                <Button Icon="fa-solid fa-magnifying-glass"></Button>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            <Button OnClickWithoutRender="OnStart" Text="Start"></Button>
+        </div>
+    </div>
+    <FocusGuide @ref="_guide1"></FocusGuide>
+</DemoBlock>
