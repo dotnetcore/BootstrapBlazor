@@ -5,9 +5,16 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// FocusGuide 组件
 /// </summary>
 public partial class FocusGuide
 {
-
+    /// <summary>
+    /// 开始方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Start()
+    {
+        await InvokeVoidAsync("start", Id);
+    }
 }
