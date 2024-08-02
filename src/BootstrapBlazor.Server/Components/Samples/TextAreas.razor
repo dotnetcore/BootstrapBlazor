@@ -10,21 +10,21 @@
            Introduction="@Localizer["TextAreaNormalIntro"]"
            Name="Normal">
     <label class="form-label mb-3">@Localizer["TextAreaLabel"]</label>
-    <Textarea placeholder="@Localizer["TextAreaPlaceHolder"]" rows="4" />
+    <Textarea PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="4" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextAreaDisableTitle"]"
            Introduction="@Localizer["TextAreaDisableIntro"]"
            Name="IsDisabled">
     <label class="form-label mb-3">@Localizer["TextAreaLabel"]</label>
-    <Textarea placeholder="@Localizer["TextAreaPlaceHolder"]" rows="4" IsDisabled="true" />
+    <Textarea PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="4" IsDisabled="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextAreaReadOnlyTitle"]"
            Introduction="@Localizer["TextAreaReadOnlyIntro"]"
            Name="ReadOnly">
     <label class="form-label mb-3">@Localizer["TextAreaLabel"]</label>
-<Textarea placeholder="@Localizer["TextAreaPlaceHolder"]" rows="4" readonly />
+<Textarea PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="4" readonly />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextAreaHeightTitle"]"
@@ -32,7 +32,7 @@
            Name="Rows">
     <label class="form-label mb-3">@Localizer["TextAreaLabel"]</label>
 
-<Textarea placeholder="@Localizer["TextAreaPlaceHolder"]" rows="4" />
+<Textarea PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="4" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextAreaBindWayTitle"]"
@@ -41,7 +41,7 @@
     <div class="row g-3">
         <div class="col-12">
             <label class="form-label">@Localizer["TextAreaLabel"]</label>
-            <Textarea placeholder="@Localizer["TextAreaPlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
+            <Textarea PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
         </div>
         <div class="col-12">
             <label class="form-label">@Localizer["TextAreaBindWayBindValue"]</label>
@@ -53,7 +53,7 @@
 <DemoBlock Title="@Localizer["TextAreaScrollTitle"]"
            Introduction="@Localizer["TextAreaScrollIntro"]"
            Name="IsAutoScroll">
-    <Textarea class="mb-3" placeholder="@Localizer["TextAreaPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@ChatText" IsAutoScroll="IsAutoScroll" />
+    <Textarea class="mb-3" PlaceHolder="@Localizer["TextAreaPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@ChatText" IsAutoScroll="IsAutoScroll" />
 
     <BootstrapInputGroup>
         <Button Text="@Localizer[ChatLocalizerName]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
