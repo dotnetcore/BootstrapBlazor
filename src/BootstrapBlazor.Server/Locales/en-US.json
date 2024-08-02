@@ -4635,6 +4635,7 @@
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "FlipClock": "FlipClock",
+    "FocusGuide": "FocusGuide",
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",

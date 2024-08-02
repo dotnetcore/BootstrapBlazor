@@ -4635,6 +4635,7 @@
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
     "FlipClock": "卡片翻转时钟 FlipClock",
+    "FocusGuide": "高亮引导组件 FocusGuide",
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
