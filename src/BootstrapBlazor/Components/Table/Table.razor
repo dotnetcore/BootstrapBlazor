@@ -265,36 +265,39 @@
                                 {
                                     @foreach (var col in GetVisibleColumns())
                                     {
-                                        var cellClass = "";
-                                        string? value = null;
-                                        RenderFragment? valueTemplate = null;
-                                        <div class="table-cell">
-                                            <label>
-                                                @col.GetDisplayName()
-                                            </label>
-                                            @if (col.OnCellRender != null)
-                                            {
-                                                var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                                                col.OnCellRender(cell);
-                                                cellClass = cell.Class;
-                                                value = cell.Value;
-                                                valueTemplate = cell.ValueTemplate;
-                                            }
-                                            <span class="@cellClass">
-                                                @if (valueTemplate != null)
+                                        if (CheckShownWithBreakpoint(col))
+                                        {
+                                            var cellClass = "";
+                                            string? value = null;
+                                            RenderFragment? valueTemplate = null;
+                                            <div class="table-cell">
+                                                <label>
+                                                    @col.GetDisplayName()
+                                                </label>
+                                                @if (col.OnCellRender != null)
                                                 {
-                                                    @valueTemplate
+                                                    var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                                    col.OnCellRender(cell);
+                                                    cellClass = cell.Class;
+                                                    value = cell.Value;
+                                                    valueTemplate = cell.ValueTemplate;
                                                 }
-                                                else if (value != null)
-                                                {
-                                                    @value
-                                                }
-                                                else
-                                                {
-                                                    @GetValue(col, item)
-                                                }
-                                            </span>
-                                        </div>
+                                                <span class="@cellClass">
+                                                    @if (valueTemplate != null)
+                                                    {
+                                                        @valueTemplate
+                                                    }
+                                                    else if (value != null)
+                                                    {
+                                                        @value
+                                                    }
+                                                    else
+                                                    {
+                                                        @GetValue(col, item)
+                                                    }
+                                                </span>
+                                            </div>
+                                        }
                                     }
                                 }
                                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
