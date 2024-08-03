@@ -19,6 +19,72 @@ public class FocusGuideConfig
     internal List<FocusGuideStep>? Steps { get; set; }
 
     /// <summary>
+    /// Whether to animate the product tour
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Animate { get; set; }
+
+    /// <summary>
+    /// Overlay color. (default: black)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? OverlayColor { get; set; }
+
+    /// <summary>
+    /// Whether to smooth scroll to the highlighted element. (default: false)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? SmoothScroll { get; set; }
+
+    /// <summary>
+    /// Whether to allow closing the popover by clicking on the backdrop. (default: true)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? AllowClose { get; set; }
+
+    /// <summary>
+    /// Opacity of the backdrop. (default: 0.5)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? OverlayOpacity { get; set; }
+
+    /// <summary>
+    /// Distance between the highlighted element and the cutout. (default: 10)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? StagePadding { get; set; }
+
+    /// <summary>
+    /// Radius of the cutout around the highlighted element. (default: 5)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? StageRadius { get; set; }
+
+    /// <summary>
+    /// Whether to allow keyboard navigation. (default: true)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? AllowKeyboardControl { get; set; }
+
+    /// <summary>
+    /// Whether to disable interaction with the highlighted element. (default: false)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? DisableActiveInteraction { get; set; }
+
+    /// <summary>
+    /// If you want to add custom class to the popover
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? PopoverClass { get; set; }
+
+    /// <summary>
+    /// Distance between the popover and the highlighted element. (default: 10)
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public float? PopoverOffset { get; set; }
+
+    /// <summary>
     /// Array of buttons to show in the popover. Defaults to ["next", "previous", "close"]
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -63,7 +129,7 @@ public class FocusGuideConfig
     public string? DoneBtnText { get; set; }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="step"></param>
     /// <param name="config"></param>
@@ -75,7 +141,7 @@ public class FocusGuideConfig
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="step"></param>
     /// <param name="config"></param>
@@ -99,7 +165,7 @@ public class FocusGuideConfig
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="step"></param>
     /// <param name="config"></param>
@@ -111,7 +177,7 @@ public class FocusGuideConfig
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="step"></param>
     /// <param name="config"></param>
