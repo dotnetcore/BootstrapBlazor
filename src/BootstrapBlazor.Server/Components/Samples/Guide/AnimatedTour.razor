@@ -4,27 +4,29 @@
 <DemoBlock Title="@Localizer["FocusGuideNormalTitle"]"
            Introduction="@Localizer["FocusGuideNormalIntro"]"
            Name="Normal">
-    <div class="row g-2 bb-guid1">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInput TValue="string"></BootstrapInput>
-                <Button Icon="fa-solid fa-magnifying-glass"></Button>
-            </BootstrapInputGroup>
+    <section ignore class="bb-guid1">
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStart" Text="Start"></Button>
+            </div>
         </div>
-        <div class="col-12">
-            <Button OnClickWithoutRender="OnStart" Text="Start"></Button>
-        </div>
-    </div>
-    <FocusGuide @ref="_guide1" Config="_config1">
-        <FocusGuideStep Selector=".demo-block">
-            <FocusGuidePopover Title="第一个提示信息" Description="这是一个测试 <b>粗体</b>" ShowProgress="true">
+    </section>
 
-            </FocusGuidePopover>
+    <FocusGuide @ref="_guide1" Config="_config1">
+        <FocusGuideStep Selector="a:has(.fa-person-chalkboard)">
+            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是菜单，点击后右侧面板出现详细示例" ShowProgress="true"></FocusGuidePopover>
+        </FocusGuideStep>
+        <FocusGuideStep Selector=".demo-block">
+            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是示例区域，此区域内展示具体例子" ShowProgress="true"></FocusGuidePopover>
         </FocusGuideStep>
         <FocusGuideStep Selector=".bb-guid1">
-            <FocusGuidePopover Title="第二个提示信息" Description="这是第二个测试 <b>粗体</b>" ShowProgress="true">
-
-            </FocusGuidePopover>
+            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是示例区域" ShowProgress="true"></FocusGuidePopover>
         </FocusGuideStep>
     </FocusGuide>
 </DemoBlock>
