@@ -11,8 +11,10 @@ public partial class DriverDotnetJs
 {
     private DriverJs _guide = default!;
     private DriverJs _guidePopover = default!;
+    private DriverJs _guidePopoverStyle = default!;
     private DriverJsConfig _config = default!;
     private DriverJsConfig _configPopover = default!;
+    private DriverJsConfig _configPopoverStyle = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -29,6 +31,10 @@ public partial class DriverDotnetJs
         {
             ShowProgress = true
         };
+        _configPopoverStyle = new()
+        {
+            PopoverClass = "driverjs-theme"
+        };
     }
 
     private async Task OnStart()
@@ -39,5 +45,10 @@ public partial class DriverDotnetJs
     private async Task OnStartPopover()
     {
         await _guidePopover.Start();
+    }
+
+    private async Task OnStartPopoverStyle()
+    {
+        await _guidePopoverStyle.Start();
     }
 }
