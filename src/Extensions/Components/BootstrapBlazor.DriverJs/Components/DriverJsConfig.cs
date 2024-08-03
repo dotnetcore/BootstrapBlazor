@@ -2,21 +2,19 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FocusGuide 配置类
 /// </summary>
-public class FocusGuideConfig
+public class DriverJsConfig
 {
     /// <summary>
     /// Array of steps to highlight.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     [JsonInclude]
-    internal List<FocusGuideStep>? Steps { get; set; }
+    internal List<DriverJsStep>? Steps { get; set; }
 
     /// <summary>
     /// Whether to animate the product tour. (default: true)
@@ -135,7 +133,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnHighlightStarted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnHighlightStarted(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -147,7 +145,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnHighlighted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnHighlighted(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -159,7 +157,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnDeselected(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnDeselected(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -171,7 +169,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnDestroyStarted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnDestroyStarted(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -183,7 +181,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnDestroyed(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnDestroyed(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -195,7 +193,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnNextClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnNextClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -207,7 +205,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnPrevClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnPrevClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -219,7 +217,7 @@ public class FocusGuideConfig
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnCloseClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnCloseClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }

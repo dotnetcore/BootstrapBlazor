@@ -2,14 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// IGuidePopover 接口定义
 /// </summary>
-public interface IFocusGuidePopover
+public interface IDriverJsPopover
 {
     /// <summary>
     /// Title shown in the popover.

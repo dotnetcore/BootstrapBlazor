@@ -4,8 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-[ExcludeFromCodeCoverage]
-internal class InternalFocusPopover : IFocusGuidePopover
+internal class InternalDriverJsPopover : IDriverJsPopover
 {
     public string? Title { get; set; }
     public string? Description { get; set; }

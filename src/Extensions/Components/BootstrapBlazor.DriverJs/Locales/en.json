@@ -1,0 +1,8 @@
+﻿{
+  "BootstrapBlazor.Components.DriverJs": {
+    "PrevBtnText": "&larr; Previous",
+    "NextBtnText": "Next &rarr;",
+    "DoneBtnText": "Done",
+    "ProgressText": "{{current}} of {{total}}"
+  }
+}

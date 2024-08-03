@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// the current state of the driver
 /// </summary>
-public class FocusGuideState
+public class DriverJsState
 {
     /// <summary>
     /// Whether the driver is currently active or not
@@ -22,10 +22,10 @@ public class FocusGuideState
     /// <summary>
     /// Step object of the currently active step
     /// </summary>
-    public FocusGuideStep? ActiveStep { get; set; }
+    public DriverJsStep? ActiveStep { get; set; }
 
     /// <summary>
     /// Step object of the previously active step
     /// </summary>
-    public FocusGuideStep? PreviousStep { get; set; }
+    public DriverJsStep? PreviousStep { get; set; }
 }

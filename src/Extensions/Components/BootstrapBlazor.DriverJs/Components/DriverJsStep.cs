@@ -3,15 +3,13 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.Localization;
-using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FocusGuide 组件步骤组件
 /// </summary>
-public class FocusGuideStep : ComponentBase, IDisposable
+public class DriverJsStep : ComponentBase, IDisposable
 {
     /// <summary>
     /// 获得/设置 当前步骤目标元素选择器 默认 null 必须设置
@@ -43,14 +41,14 @@ public class FocusGuideStep : ComponentBase, IDisposable
 
     [CascadingParameter]
     [JsonIgnore]
-    private FocusGuide? Guide { get; set; }
+    private DriverJs? Driver { get; set; }
 
     [Inject, NotNull]
-    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+    private IStringLocalizer<DriverJs>? Localizer { get; set; }
 
     [JsonInclude]
     [JsonPropertyName("popover")]
-    private IFocusGuidePopover? _popover;
+    private IDriverJsPopover? _popover;
 
     /// <summary>
     /// <inheritdoc/>
@@ -59,7 +57,7 @@ public class FocusGuideStep : ComponentBase, IDisposable
     {
         base.OnInitialized();
 
-        Guide?.AddStep(this);
+        Driver?.AddStep(this);
     }
 
     /// <summary>
@@ -68,18 +66,18 @@ public class FocusGuideStep : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        _popover ??= new InternalFocusPopover()
+        _popover ??= new InternalDriverJsPopover()
         {
             Title = Title,
             Description = Description,
-            PrevBtnText = Localizer[nameof(InternalFocusPopover.PrevBtnText)],
-            NextBtnText = Localizer[nameof(InternalFocusPopover.NextBtnText)],
-            DoneBtnText = Localizer[nameof(InternalFocusPopover.DoneBtnText)]
+            PrevBtnText = Localizer[nameof(InternalDriverJsPopover.PrevBtnText)],
+            NextBtnText = Localizer[nameof(InternalDriverJsPopover.NextBtnText)],
+            DoneBtnText = Localizer[nameof(InternalDriverJsPopover.DoneBtnText)]
         };
-        builder.OpenComponent<CascadingValue<FocusGuideStep>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<FocusGuideStep>.Value), this);
-        builder.AddAttribute(2, nameof(CascadingValue<FocusGuideStep>.IsFixed), true);
-        builder.AddAttribute(3, nameof(CascadingValue<FocusGuideStep>.ChildContent), ChildContent);
+        builder.OpenComponent<CascadingValue<DriverJsStep>>(0);
+        builder.AddAttribute(1, nameof(CascadingValue<DriverJsStep>.Value), this);
+        builder.AddAttribute(2, nameof(CascadingValue<DriverJsStep>.IsFixed), true);
+        builder.AddAttribute(3, nameof(CascadingValue<DriverJsStep>.ChildContent), ChildContent);
         builder.CloseComponent();
     }
 
@@ -87,7 +85,7 @@ public class FocusGuideStep : ComponentBase, IDisposable
     /// 更新 FocusGuidePopover 实例方法
     /// </summary>
     /// <param name="popover"></param>
-    public void UpdatePopover(IFocusGuidePopover? popover)
+    public void UpdatePopover(IDriverJsPopover? popover)
     {
         _popover = popover;
     }
@@ -96,7 +94,7 @@ public class FocusGuideStep : ComponentBase, IDisposable
     {
         if (disposing)
         {
-            Guide?.RemoveStep(this);
+            Driver?.RemoveStep(this);
         }
     }
 

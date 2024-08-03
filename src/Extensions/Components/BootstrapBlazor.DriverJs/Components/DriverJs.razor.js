@@ -1,9 +1,9 @@
-﻿import { driver } from "../../lib/driver/driver.js"
-import { addLink } from '../../modules/utility.js'
-import Data from "../../modules/data.js"
+﻿import { driver } from "../driver.js"
+import { addLink } from '../../BootstrapBlazor/modules/utility.js'
+import Data from "../../BootstrapBlazor/modules/data.js"
 
 export async function init(id, invoke) {
-    await addLink('./_content/BootstrapBlazor/lib/driver/driver.css')
+    await addLink('./_content/BootstrapBlazor.DriverJs/driver.css')
 
     Data.set(id, { invoke });
 }

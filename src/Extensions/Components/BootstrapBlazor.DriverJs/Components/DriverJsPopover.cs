@@ -2,15 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FocusGuide Popover 配置类
 /// </summary>
-public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
+public class DriverJsPopover : ComponentBase, IDriverJsPopover, IDisposable
 {
     /// <summary>
     /// Title shown in the popover.
@@ -88,10 +85,10 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
 
     [CascadingParameter]
     [JsonIgnore]
-    private FocusGuideStep? Step { get; set; }
+    private DriverJsStep? Step { get; set; }
 
     [Inject, NotNull]
-    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+    private IStringLocalizer<DriverJs>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -122,7 +119,7 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnPopoverRender(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnPopoverRender(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -134,7 +131,7 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnNextClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnNextClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -146,7 +143,7 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnPrevClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnPrevClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
@@ -158,7 +155,7 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
     /// <param name="config"></param>
     /// <param name="state"></param>
     /// <returns></returns>
-    public Task OnCloseClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
+    public Task OnCloseClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }
