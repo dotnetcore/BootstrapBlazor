@@ -10,11 +10,54 @@ namespace BootstrapBlazor.Components;
 public partial class FocusGuide
 {
     /// <summary>
+    /// 获得/设置 组件配置 <see cref="FocusGuideConfig"/> 实例 默认 null
+    /// </summary>
+    [Parameter]
+    public FocusGuideConfig? Config { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private readonly List<FocusGuideStep> _steps = [];
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync()
+    {
+        Config ??= new();
+        Config.Steps = _steps;
+        return InvokeVoidAsync("init", Id, Interop, Config);
+    }
+
+    /// <summary>
     /// 开始方法
     /// </summary>
     /// <returns></returns>
     public async Task Start()
     {
         await InvokeVoidAsync("start", Id);
+    }
+
+    /// <summary>
+    /// 添加步骤方法
+    /// </summary>
+    /// <param name="step"></param>
+    public void AddStep(FocusGuideStep step)
+    {
+        _steps.Add(step);
+    }
+
+    /// <summary>
+    /// 移除步骤方法
+    /// </summary>
+    /// <param name="step"></param>
+    public void RemoveStep(FocusGuideStep step)
+    {
+        _steps.Remove(step);
     }
 }
