@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FocusGuide Popover 配置类
 /// </summary>
-public class FocusGuidePopover : ComponentBase, IDisposable
+public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
 {
     /// <summary>
     /// Title shown in the popover.
@@ -30,70 +30,60 @@ public class FocusGuidePopover : ComponentBase, IDisposable
     /// The position of the popover. "top" | "right" | "bottom" | "left"
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Side { get; set; }
 
     /// <summary>
     /// The alignment of the popover. "start" | "center" | "end"
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Align { get; set; }
 
     /// <summary>
     /// Array of buttons to show in the popover. "next" | "previous" | "close"
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<string>? ShowButtons { get; set; }
 
     /// <summary>
     /// An array of buttons to disable. "next" | "previous" | "close"
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<string>? DisableButtons { get; set; }
 
     /// <summary>
     /// Text to show in the next buttons.
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? NextBtnText { get; set; }
 
     /// <summary>
     /// Text to show in the prev buttons.
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? PrevBtnText { get; set; }
 
     /// <summary>
     /// Text to show in the done buttons.
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? DoneBtnText { get; set; }
 
     /// <summary>
     /// Whether to show the progress text in popover. (default true)
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ShowProgress { get; set; }
 
     /// <summary>
     /// Template for the progress text. Defaults "{{current}} of {{total}}"
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ProgressText { get; set; }
 
     /// <summary>
     /// Custom class to add to the popover element.
     /// </summary>
     [Parameter]
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? PopoverClass { get; set; }
 
     [CascadingParameter]

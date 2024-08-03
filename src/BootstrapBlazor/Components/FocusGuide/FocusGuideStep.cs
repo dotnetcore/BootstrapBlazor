@@ -20,6 +20,20 @@ public class FocusGuideStep : ComponentBase, IDisposable
     public string? Selector { get; set; }
 
     /// <summary>
+    /// Title shown in the popover.
+    /// </summary>
+    [Parameter]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Title { get; set; }
+
+    /// <summary>
+    /// Descriptions shown in the popover.
+    /// </summary>
+    [Parameter]
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Description { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件内容
     /// </summary>
     [Parameter]
@@ -32,7 +46,7 @@ public class FocusGuideStep : ComponentBase, IDisposable
 
     [JsonInclude]
     [JsonPropertyName("popover")]
-    private FocusGuidePopover? _popover;
+    private IFocusGuidePopover? _popover;
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,6 +64,11 @@ public class FocusGuideStep : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
+        _popover ??= new InternalFocusPopover()
+        {
+            Title = Title,
+            Description = Description
+        };
         builder.OpenComponent<CascadingValue<FocusGuideStep>>(0);
         builder.AddAttribute(1, nameof(CascadingValue<FocusGuideStep>.Value), this);
         builder.AddAttribute(2, nameof(CascadingValue<FocusGuideStep>.IsFixed), true);
@@ -58,10 +77,10 @@ public class FocusGuideStep : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 
+    /// 更新 FocusGuidePopover 实例方法
     /// </summary>
     /// <param name="popover"></param>
-    public void UpdatePopover(FocusGuidePopover? popover)
+    public void UpdatePopover(IFocusGuidePopover? popover)
     {
         _popover = popover;
     }
