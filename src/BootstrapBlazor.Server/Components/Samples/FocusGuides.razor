@@ -19,5 +19,9 @@
             <Button OnClickWithoutRender="OnStart" Text="Start"></Button>
         </div>
     </div>
-    <FocusGuide @ref="_guide1"></FocusGuide>
+    <FocusGuide @ref="_guide1" Config="_config1">
+        <FocusGuideStep Selector=".demo-block">
+            <FocusGuidePopover Title="第一个提示信息" Description="这是一个测试 <b>粗体</b>" ShowProgress="true"></FocusGuidePopover>
+        </FocusGuideStep>
+    </FocusGuide>
 </DemoBlock>

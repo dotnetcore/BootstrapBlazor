@@ -11,6 +11,21 @@ public partial class FocusGuides
 {
     private FocusGuide _guide1 = default!;
 
+    private FocusGuideConfig _config1 = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _config1 = new FocusGuideConfig()
+        {
+            ShowProgress = true
+        };
+    }
+
     private async Task OnStart()
     {
         await _guide1.Start();
