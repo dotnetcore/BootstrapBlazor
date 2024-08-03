@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -21,6 +23,9 @@ public partial class FocusGuide
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    [Inject, NotNull]
+    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+
     private readonly List<FocusGuideStep> _steps = [];
 
     /// <summary>
@@ -31,6 +36,7 @@ public partial class FocusGuide
     {
         Config ??= new();
         Config.Steps = _steps;
+        Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
         return InvokeVoidAsync("init", Id, Interop);
     }
 
