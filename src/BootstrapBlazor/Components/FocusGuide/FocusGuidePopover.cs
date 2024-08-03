@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Localization;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -99,6 +100,9 @@ public class FocusGuidePopover : ComponentBase, IDisposable
     [JsonIgnore]
     private FocusGuideStep? Step { get; set; }
 
+    [Inject, NotNull]
+    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -107,6 +111,18 @@ public class FocusGuidePopover : ComponentBase, IDisposable
         base.OnInitialized();
 
         Step?.UpdatePopover(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        PrevBtnText ??= Localizer[nameof(PrevBtnText)];
+        NextBtnText ??= Localizer[nameof(NextBtnText)];
+        DoneBtnText ??= Localizer[nameof(DoneBtnText)];
     }
 
     /// <summary>
