@@ -1,0 +1,69 @@
+﻿@page "/focus-guide"
+@inject IStringLocalizer<FocusGuides> Localizer
+
+<h3>@Localizer["FocusGuideTitle"]</h3>
+
+<h4>@Localizer["FocusGuideSubtitle"]</h4>
+
+<DemoBlock Title="@Localizer["FocusGuideNormalTitle"]"
+           Introduction="@Localizer["FocusGuideNormalIntro"]"
+           Name="Normal">
+    <section ignore class="bb-guid1">
+        <p>@((MarkupString)Localizer["FocusGuideNormalDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStart" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+
+    <FocusGuide @ref="_guide" Config="_config">
+        <FocusGuideStep Selector=".sidebar-switch + div" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText1"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-title" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText2"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".demo-block:has(.bb-guid1)" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText3"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid1" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText4"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid1 .btn-guide" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText5"]"></FocusGuideStep>
+    </FocusGuide>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FocusGuidePopoverTitle"]"
+           Introduction="@Localizer["FocusGuidePopoverIntro"]"
+           Name="Popover">
+    <section ignore class="bb-guid2">
+        <p>@((MarkupString)Localizer["FocusGuidePopoverDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartPopover" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <FocusGuide @ref="_guidePopover" Config="_configPopover">
+        <FocusGuideStep Selector=".sidebar-switch + div">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText1"]" Side="right" Align="center"></FocusGuidePopover>
+        </FocusGuideStep>
+        <FocusGuideStep Selector=".bb-title">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText2"]" Side="bottom" Align="center"></FocusGuidePopover>
+        </FocusGuideStep>
+        <FocusGuideStep Selector=".demo-block:has(.bb-guid2)">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText3"]" Side="left" Align="center"></FocusGuidePopover>
+        </FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid2">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText4"]" Side="top" Align="center"></FocusGuidePopover>
+        </FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid2 .btn-guide">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText5"]" Side="top" Align="center"></FocusGuidePopover>
+        </FocusGuideStep>
+    </FocusGuide>
+</DemoBlock>

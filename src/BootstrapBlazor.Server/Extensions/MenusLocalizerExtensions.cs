@@ -1161,6 +1161,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["FocusGuide"],
+                    Url = "focus-guide"
+                },
+                new()
+                {
                     Text = Localizer["Light"],
                     Url = "light"
                 },

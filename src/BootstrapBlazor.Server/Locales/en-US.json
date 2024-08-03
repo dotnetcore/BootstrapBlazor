@@ -4635,6 +4635,7 @@
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "FlipClock": "FlipClock",
+    "FocusGuide": "FocusGuide",
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
@@ -6565,5 +6566,21 @@
     "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
     "ImageTitle": "Image",
     "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
+  },
+  "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
+    "FocusGuidePopoverTitleText": "Animated Tour Example",
+    "FocusGuidePopoverContentText1": "Here is the menu. Click it and a detailed example will appear on the right panel.",
+    "FocusGuidePopoverContentText2": "Here is the component introduction. You can switch the icon theme by clicking the radio button below",
+    "FocusGuidePopoverContentText3": "This is the sample area, where specific examples are shown",
+    "FocusGuidePopoverContentText4": "Here is the example area",
+    "FocusGuidePopoverContentText5": "Click here to get started",
+    "FocusGuideTitle": "drive the user's focus across the page",
+    "FocusGuideSubtitle": "built to be highly configurable. You can configure the driver globally, or per step. You can also configure the driver on the fly, while it’s running",
+    "FocusGuideNormalTitle": "Basic usage",
+    "FocusGuideNormalIntro": "Simple configuration with a click of a button to start user step-by-step guidance",
+    "FocusGuideNormalDesc": "Disable the animation effect by setting the <code>FocusGuideConfig</code> parameter <code>Animate=\"false\"</code>",
+    "FocusGuidePopoverTitle": "Popover",
+    "FocusGuidePopoverIntro": "By setting the <code>FocusGuidePopover</code> component to configure <code>Popover</code> related configuration information",
+    "FocusGuidePopoverDesc": "For detailed parameter information, please see <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[Portal]</a>"
   }
 }
