@@ -31,7 +31,7 @@ public partial class FocusGuide
     {
         Config ??= new();
         Config.Steps = _steps;
-        return InvokeVoidAsync("init", Id, Interop, Config);
+        return InvokeVoidAsync("init", Id, Interop);
     }
 
     /// <summary>
@@ -40,7 +40,7 @@ public partial class FocusGuide
     /// <returns></returns>
     public async Task Start()
     {
-        await InvokeVoidAsync("start", Id);
+        await InvokeVoidAsync("start", Id, Config);
     }
 
     /// <summary>
