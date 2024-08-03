@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.Localization;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -44,6 +45,9 @@ public class FocusGuideStep : ComponentBase, IDisposable
     [JsonIgnore]
     private FocusGuide? Guide { get; set; }
 
+    [Inject, NotNull]
+    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+
     [JsonInclude]
     [JsonPropertyName("popover")]
     private IFocusGuidePopover? _popover;
@@ -67,7 +71,10 @@ public class FocusGuideStep : ComponentBase, IDisposable
         _popover ??= new InternalFocusPopover()
         {
             Title = Title,
-            Description = Description
+            Description = Description,
+            PrevBtnText = Localizer[nameof(InternalFocusPopover.PrevBtnText)],
+            NextBtnText = Localizer[nameof(InternalFocusPopover.NextBtnText)],
+            DoneBtnText = Localizer[nameof(InternalFocusPopover.DoneBtnText)]
         };
         builder.OpenComponent<CascadingValue<FocusGuideStep>>(0);
         builder.AddAttribute(1, nameof(CascadingValue<FocusGuideStep>.Value), this);
