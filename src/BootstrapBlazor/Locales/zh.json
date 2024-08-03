@@ -373,5 +373,11 @@
     "AutoModeText": "自动",
     "DarkModeText": "暗黑",
     "LightModeText": "明亮"
+  },
+  "BootstrapBlazor.Components.FocusGuide": {
+    "PrevBtnText": "上一步",
+    "NextBtnText": "下一步",
+    "DoneBtnText": "完成",
+    "ProgressText": "{{current}} / {{total}}"
   }
 }

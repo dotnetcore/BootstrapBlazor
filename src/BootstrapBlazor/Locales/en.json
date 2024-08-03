@@ -373,5 +373,11 @@
     "AutoModeText": "Auto",
     "DarkModeText": "Dark",
     "LightModeText": "Light"
+  },
+  "BootstrapBlazor.Components.FocusGuide": {
+    "PrevBtnText": "&larr; Previous",
+    "NextBtnText": "Next &rarr;",
+    "DoneBtnText": "Done",
+    "ProgressText": "{{current}} of {{total}}"
   }
 }
