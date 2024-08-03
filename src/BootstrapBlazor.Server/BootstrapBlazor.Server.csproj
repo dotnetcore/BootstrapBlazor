@@ -71,6 +71,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.DriverJs\BootstrapBlazor.DriverJs.csproj" />
   </ItemGroup>
 
   <ItemGroup>

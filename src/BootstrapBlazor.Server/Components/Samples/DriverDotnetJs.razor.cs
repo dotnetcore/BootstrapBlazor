@@ -7,12 +7,12 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// FocusGuide 组件示例代码
 /// </summary>
-public partial class FocusGuides
+public partial class DriverDotnetJs
 {
-    private FocusGuide _guide = default!;
-    private FocusGuide _guidePopover = default!;
-    private FocusGuideConfig _config = default!;
-    private FocusGuideConfig _configPopover = default!;
+    private DriverJs _guide = default!;
+    private DriverJs _guidePopover = default!;
+    private DriverJsConfig _config = default!;
+    private DriverJsConfig _configPopover = default!;
 
     /// <summary>
     /// <inheritdoc/>
