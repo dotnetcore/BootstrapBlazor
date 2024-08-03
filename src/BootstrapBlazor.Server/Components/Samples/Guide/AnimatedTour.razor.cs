@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Server.Components.Samples;
+namespace BootstrapBlazor.Server.Components.Samples.Guide;
 
-/// <summary>
-/// FocusGuide 组件示例代码
-/// </summary>
-public partial class FocusGuides
+public partial class AnimatedTour : ComponentBase
 {
     private FocusGuide _guide1 = default!;
 
@@ -31,3 +28,4 @@ public partial class FocusGuides
         await _guide1.Start();
     }
 }
+
