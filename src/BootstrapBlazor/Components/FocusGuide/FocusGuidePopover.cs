@@ -75,7 +75,7 @@ public class FocusGuidePopover : ComponentBase, IDisposable
     public string? DoneBtnText { get; set; }
 
     /// <summary>
-    /// Whether to show the progress text in popover.
+    /// Whether to show the progress text in popover. (default true)
     /// </summary>
     [Parameter]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

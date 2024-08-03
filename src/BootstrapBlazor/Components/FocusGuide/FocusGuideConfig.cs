@@ -19,7 +19,7 @@ public class FocusGuideConfig
     internal List<FocusGuideStep>? Steps { get; set; }
 
     /// <summary>
-    /// Whether to animate the product tour
+    /// Whether to animate the product tour. (default: true)
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? Animate { get; set; }
