@@ -9,9 +9,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class FocusGuides
 {
-    private FocusGuide _guide1 = default!;
-
-    private FocusGuideConfig _config1 = default!;
+    private FocusGuide _guide = default!;
+    private FocusGuide _guidePopover = default!;
+    private FocusGuideConfig _config = default!;
+    private FocusGuideConfig _configPopover = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -20,7 +21,11 @@ public partial class FocusGuides
     {
         base.OnInitialized();
 
-        _config1 = new FocusGuideConfig()
+        _config = new()
+        {
+            ShowProgress = true
+        };
+        _configPopover = new()
         {
             ShowProgress = true
         };
@@ -28,6 +33,11 @@ public partial class FocusGuides
 
     private async Task OnStart()
     {
-        await _guide1.Start();
+        await _guide.Start();
+    }
+
+    private async Task OnStartPopover()
+    {
+        await _guidePopover.Start();
     }
 }

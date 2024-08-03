@@ -9,7 +9,7 @@
            Introduction="@Localizer["FocusGuideNormalIntro"]"
            Name="Normal">
     <section ignore class="bb-guid1">
-        <p>通过设置 <code>FocusGuideConfig</code> 参数 <code>Animate="false"</code> 关闭动画效果</p>
+        <p>@((MarkupString)Localizer["FocusGuideNormalDesc"].Value)</p>
         <div class="row g-2">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
@@ -23,21 +23,47 @@
         </div>
     </section>
 
-    <FocusGuide @ref="_guide1" Config="_config1">
+    <FocusGuide @ref="_guide" Config="_config">
+        <FocusGuideStep Selector=".sidebar-switch + div" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText1"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-title" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText2"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".demo-block:has(.bb-guid1)" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText3"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid1" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText4"]"></FocusGuideStep>
+        <FocusGuideStep Selector=".bb-guid1 .btn-guide" Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText5"]"></FocusGuideStep>
+    </FocusGuide>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FocusGuidePopoverTitle"]"
+           Introduction="@Localizer["FocusGuidePopoverIntro"]"
+           Name="Popover">
+    <section ignore class="bb-guid2">
+        <p>@((MarkupString)Localizer["FocusGuidePopoverDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartPopover" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <FocusGuide @ref="_guidePopover" Config="_configPopover">
         <FocusGuideStep Selector=".sidebar-switch + div">
-            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是菜单，点击后右侧面板出现详细示例"></FocusGuidePopover>
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText1"]" Side="right" Align="center"></FocusGuidePopover>
         </FocusGuideStep>
         <FocusGuideStep Selector=".bb-title">
-            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是组件介绍，通过点击下方单选框可切换图标主题"></FocusGuidePopover>
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText2"]" Side="bottom" Align="center"></FocusGuidePopover>
         </FocusGuideStep>
-        <FocusGuideStep Selector=".demo-block">
-            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是示例区域，此区域内展示具体例子"></FocusGuidePopover>
+        <FocusGuideStep Selector=".demo-block:has(.bb-guid2)">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText3"]" Side="left" Align="center"></FocusGuidePopover>
         </FocusGuideStep>
-        <FocusGuideStep Selector=".bb-guid1">
-            <FocusGuidePopover Title="高亮向导组件演示" Description="这里是示例区域"></FocusGuidePopover>
+        <FocusGuideStep Selector=".bb-guid2">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText4"]" Side="top" Align="center"></FocusGuidePopover>
         </FocusGuideStep>
-        <FocusGuideStep Selector=".bb-guid1 .btn-guide">
-            <FocusGuidePopover Title="高亮向导组件演示" Description=" 点击这里开始"></FocusGuidePopover>
+        <FocusGuideStep Selector=".bb-guid2 .btn-guide">
+            <FocusGuidePopover Title="@Localizer["FocusGuidePopoverTitleText"]" Description="@Localizer["FocusGuidePopoverContentText5"]" Side="top" Align="center"></FocusGuidePopover>
         </FocusGuideStep>
     </FocusGuide>
 </DemoBlock>

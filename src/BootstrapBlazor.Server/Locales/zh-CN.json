@@ -6568,9 +6568,19 @@
     "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
   },
   "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
+    "FocusGuidePopoverTitleText": "高亮向导组件演示",
+    "FocusGuidePopoverContentText1": "这里是菜单，点击后右侧面板出现详细示例",
+    "FocusGuidePopoverContentText2": "这里是组件介绍，通过点击下方单选框可切换图标主题",
+    "FocusGuidePopoverContentText3": "这里是示例区域，此区域内展示具体例子",
+    "FocusGuidePopoverContentText4": "这里是示例区域",
+    "FocusGuidePopoverContentText5": "点击这里开始",
     "FocusGuideTitle": "FocusGuide 高亮向导组件",
     "FocusGuideSubtitle": "引导用户的注意力穿过整个页面",
     "FocusGuideNormalTitle": "基础用法",
-    "FocusGuideNormalIntro": "通过简单配置点击按钮开始用户步骤指导"
+    "FocusGuideNormalIntro": "通过简单配置点击按钮开始用户步骤指导",
+    "FocusGuideNormalDesc": "通过设置 <code>FocusGuideConfig</code> 参数 <code>Animate=\"false\"</code> 关闭动画效果",
+    "FocusGuidePopoverTitle": "弹窗配置",
+    "FocusGuidePopoverIntro": "通过设置 <code>FocusGuidePopover</code> 组件配置 <code>Popover</code> 相关配置信息",
+    "FocusGuidePopoverDesc": "详细参数信息请查看 <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[传送门]</a>"
   }
 }
