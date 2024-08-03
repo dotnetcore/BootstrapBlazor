@@ -4635,7 +4635,9 @@
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
     "FlipClock": "卡片翻转时钟 FlipClock",
-    "FocusGuide": "高亮引导组件 FocusGuide",
+    "GuideComponents": "高亮向导组件 FocusGuide",
+    "GuideIndex": "简介",
+    "GuideAnimatedTour": "动画展示",
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
@@ -6567,8 +6569,8 @@
     "ImageTitle": "图片",
     "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
   },
-  "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
-    "FocusGuideTitle": "FocusGuide 高亮引导",
+  "BootstrapBlazor.Server.Components.Samples.Guide.Index": {
+    "FocusGuideTitle": "FocusGuide 高亮向导组件",
     "FocusGuideSubtitle": "引导用户的注意力穿过整个页面",
     "FocusGuideNormalTitle": "基础用法",
     "FocusGuideNormalIntro": "通过简单配置点击按钮开始用户步骤指导"

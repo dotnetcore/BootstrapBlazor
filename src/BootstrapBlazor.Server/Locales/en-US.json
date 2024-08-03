@@ -4635,7 +4635,9 @@
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "FlipClock": "FlipClock",
-    "FocusGuide": "FocusGuide",
+    "GuideComponents": "FocusGuide",
+    "GuideIndex": "Summary",
+    "GuideAnimatedTour": "Animated Tour",
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
@@ -6567,7 +6569,7 @@
     "ImageTitle": "Image",
     "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
   },
-  "BootstrapBlazor.Server.Components.Samples.FocusGuides": {
+  "BootstrapBlazor.Server.Components.Samples.Guide.Index": {
     "FocusGuideTitle": "drive the user's focus across the page",
     "FocusGuideSubtitle": "Supports font icons, vector SVG icons, and Image pictures",
     "FocusGuideNormalTitle": "Font Icons",
