@@ -64,6 +64,14 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            IsNew = true,
+            Text = Localizer["GuideComponents"],
+            Icon = "fa-fw fa-solid fa-person-chalkboard"
+        };
+        AddGuide(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["DataComponents"],
             Icon = "fa-fw fa-solid fa-database"
         };
@@ -1068,6 +1076,24 @@ internal static class MenusLocalizerExtensions
             AddBadge(item, count: 1);
         }
 
+        void AddGuide(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["GuideIndex"],
+                    Url = "guide/index"
+                },
+                new()
+                {
+                    Text = Localizer["GuideAnimatedTour"],
+                    Url = "guide/animated-tour"
+                }
+            };
+            AddBadge(item, count: 1);
+        }
+
         void AddChart(DemoMenuItem item)
         {
             item.Items = new List<DemoMenuItem>
@@ -1158,12 +1184,6 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["FlipClock"],
                     Url = "flip-clock"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["FocusGuide"],
-                    Url = "focus-guide"
                 },
                 new()
                 {
