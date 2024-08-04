@@ -1,0 +1,9 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.DriverJs/Components/DriverJs.razor.js", JSObjectReference = true)]
+
+<div class="bb-guide" id="@Id" hidden>
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</div>

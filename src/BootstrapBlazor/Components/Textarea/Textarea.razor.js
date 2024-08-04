@@ -1,4 +1,5 @@
-﻿import Data from "../../modules/data.js"
+﻿import { select, handleKeyUp, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
+import Data from "../../modules/data.js"
 
 export function init(id) {
     const text = {
@@ -37,3 +38,5 @@ export function execute(id, method, position) {
 export function dispose(id) {
     Data.remove(id)
 }
+
+export { select, handleKeyUp, selectAllByFocus, selectAllByEnter }

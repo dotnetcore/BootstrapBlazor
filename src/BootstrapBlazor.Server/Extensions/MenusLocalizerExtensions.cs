@@ -1161,6 +1161,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["DriverJs"],
+                    Url = "driver-js"
+                },
+                new()
+                {
                     Text = Localizer["Light"],
                     Url = "light"
                 },

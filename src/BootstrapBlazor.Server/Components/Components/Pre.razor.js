@@ -1,4 +1,4 @@
-﻿import { copy, getDescribedElement, addLink, addScript, getHeight } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title) {
@@ -9,7 +9,7 @@ export async function init(id, title) {
 
     await addScript('./lib/highlight/highlight.min.js')
     await addScript('./lib/highlight/cshtml-razor.min.js')
-    await addLink('./lib/highlight/vs.min.css')
+    await switchTheme(getPreferredTheme());
 
     const preElement = el.querySelector('pre')
     const code = el.querySelector('pre > code')
@@ -72,6 +72,17 @@ export async function highlight(id) {
 
         await check();
         invoke();
+    }
+}
+
+export async function switchTheme(theme) {
+    if (theme === 'dark') {
+        removeLink('./lib/highlight/vs.min.css')
+        await addLink('./lib/highlight/vs2015.min.css')
+    }
+    else {
+        removeLink('./lib/highlight/vs2015.min.css');
+        await addLink('./lib/highlight/vs.min.css')
     }
 }
 
