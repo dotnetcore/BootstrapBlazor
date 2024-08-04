@@ -17,4 +17,21 @@ public class ThemeProviderTest : BootstrapBlazorTestBase
         cut.Contains("dropdown bb-theme-mode");
         cut.DoesNotContain("dropdown-menu-center shadow");
     }
+
+    [Fact]
+    public async Task OnThemeChanged_Ok()
+    {
+        var name = "";
+        var cut = Context.RenderComponent<ThemeProvider>(pb =>
+        {
+            pb.Add(a => a.OnThemeChangedAsync, t =>
+            {
+                name = t;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.Alignment, Alignment.Center);
+        });
+        await cut.Instance.OnThemeChanged("dark");
+        Assert.Equal("dark", name);
+    }
 }
