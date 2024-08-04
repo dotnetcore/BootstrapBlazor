@@ -12,9 +12,11 @@ public partial class DriverDotnetJs
     private DriverJs _guide = default!;
     private DriverJs _guidePopover = default!;
     private DriverJs _guidePopoverStyle = default!;
+    private DriverJs _guideDestroy = default!;
     private DriverJsConfig _config = default!;
     private DriverJsConfig _configPopover = default!;
     private DriverJsConfig _configPopoverStyle = default!;
+    private ConsoleLogger _logger = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,5 +52,22 @@ public partial class DriverDotnetJs
     private async Task OnStartPopoverStyle()
     {
         await _guidePopoverStyle.Start();
+    }
+
+    private async Task OnStartDestroy()
+    {
+        await _guideDestroy.Start();
+    }
+
+    private Task<bool> OnBeforeDestroyAsync()
+    {
+        _logger.Log("Trigger OnBeforeDestroyAsync");
+        return Task.FromResult(false);
+    }
+
+    private Task OnDestroyedAsync()
+    {
+        _logger.Log("Trigger OnDestroyedAsync");
+        return Task.CompletedTask;
     }
 }

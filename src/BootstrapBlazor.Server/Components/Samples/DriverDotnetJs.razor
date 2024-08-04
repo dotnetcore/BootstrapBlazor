@@ -164,3 +164,37 @@
         </DriverJsStep>
     </DriverJs>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsDestroyTitle"]"
+           Introduction="@Localizer["DriverJsDestroyIntro"]"
+           Name="Popover">
+    <section ignore class="bb-guid4">
+        <p>@((MarkupString)Localizer["DriverJsDestroyDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartDestroy" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guideDestroy" Config="_config" OnBeforeDestroyAsync="OnBeforeDestroyAsync" OnDestroyedAsync="OnDestroyedAsync">
+        <DriverJsStep Selector=".bb-title">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]" Side="bottom" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".demo-block:has(.bb-guid4)">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText3"]" Side="left" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid4">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText4"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid4 .btn-guide">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText5"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+    </DriverJs>
+    <ConsoleLogger @ref="_logger"></ConsoleLogger>
+</DemoBlock>
