@@ -13,8 +13,8 @@ export function start(id, options) {
     if (d) {
         const { onDestroyStartedAsync, onDestroyedAsync } = options;
         if (onDestroyStartedAsync) {
-            options.onDestroyStarted = async (el, step, op) => {
-                const result = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, step, op.state);
+            options.onDestroyStarted = async (el, step, { state }) => {
+                const result = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, state.activeIndex);
                 if (result === true) {
                     dispose(id);
                 }
@@ -22,7 +22,7 @@ export function start(id, options) {
         }
         if (onDestroyedAsync) {
             options.onDestroyed = () => {
-                invoke.invokeMethodAsync(onDestroyedAsync);
+                d.invoke.invokeMethodAsync(onDestroyedAsync);
             };
         }
         const driverObj = driver(options);

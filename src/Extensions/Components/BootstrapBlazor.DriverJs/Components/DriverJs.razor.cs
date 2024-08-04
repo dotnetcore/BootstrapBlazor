@@ -19,7 +19,7 @@ public partial class DriverJs
     /// 获得/设置 组件销毁前回调方法
     /// </summary>
     [Parameter]
-    public Func<Task<bool>>? OnBeforeDestroyAsync { get; set; }
+    public Func<DriverJsConfig, int, Task<bool>>? OnBeforeDestroyAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 组件销毁回调方法
@@ -68,12 +68,13 @@ public partial class DriverJs
     /// 组件销毁前回调方法由 JavaScript 调用 返回 false 阻止销毁
     /// </summary>
     [JSInvokable]
-    public async Task<bool> OnBeforeDestroy(DriverJsStep step, DriverJsState state)
+    public async Task<bool> OnBeforeDestroy(int index)
     {
         var ret = true;
         if (OnBeforeDestroyAsync != null)
         {
-            ret = await OnBeforeDestroyAsync();
+            // Config 不为空
+            ret = await OnBeforeDestroyAsync(Config!, index);
         }
         return ret;
     }

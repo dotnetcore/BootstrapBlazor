@@ -112,54 +112,6 @@ public class DriverJsPopover : ComponentBase, IDriverJsPopover, IDisposable
         DoneBtnText ??= Localizer[nameof(DoneBtnText)];
     }
 
-    /// <summary>
-    /// Hook to run after the popover is rendered
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnPopoverRender(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for next button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnNextClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for prev button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnPrevClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for close button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnCloseClick(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
     private void Dispose(bool disposing)
     {
         if (disposing)
