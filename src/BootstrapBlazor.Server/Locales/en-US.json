@@ -6586,6 +6586,6 @@
     "DriverJsPopoverStyleIntro": "By setting <code>PopoverClass=\"driverjs-theme\"</code> custome the popover UI",
     "DriverJsDestroyTitle": "Destroy callback",
     "DriverJsDestroyIntro": "Callback method before destruction <code>OnBeforeDestroyAsync</code> or callback method for destruction <code>OnDestroyedAsync</code>",
-    "DriverJsDestroyDesc": "You can use the <code>OnBeforeDestroyAsync</code> callback to add some logic when the user tries to exit the tour. Prevent destruction when the callback method <code>OnBeforeDestroyAsync</code> returns not <code>NULL</code> string"
+    "DriverJsDestroyDesc": "You can use the <code>OnBeforeDestroyAsync</code> callback to add some logic when the user tries to exit the tour. Prevent destruction when the callback method <code>OnBeforeDestroyAsync</code> returns not <code>NULL</code> string. You can also prevent the user from exiting the tour using <code>AllowClose</code> option. This option is useful when you want to force the user to complete the tour before they can exit."
   }
 }
