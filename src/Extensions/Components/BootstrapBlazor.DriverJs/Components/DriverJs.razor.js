@@ -14,8 +14,8 @@ export function start(id, options) {
         const { onDestroyStartedAsync, onDestroyedAsync } = options;
         if (onDestroyStartedAsync) {
             options.onDestroyStarted = async (el, step, { state }) => {
-                const result = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, state.activeIndex);
-                if (result === true) {
+                const content = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, state.activeIndex);
+                if (content === null || confirm(content)) {
                     dispose(id);
                 }
             }
