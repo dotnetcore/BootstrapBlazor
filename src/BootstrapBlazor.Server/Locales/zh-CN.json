@@ -6581,6 +6581,8 @@
     "DriverJsNormalDesc": "通过设置 <code>DriverJsConfig</code> 参数 <code>Animate=\"false\"</code> 关闭动画效果",
     "DriverJsPopoverTitle": "弹窗配置",
     "DriverJsPopoverIntro": "通过设置 <code>DriverJsPopover</code> 组件配置 <code>Popover</code> 相关配置信息",
-    "DriverJsPopoverDesc": "详细参数信息请查看 <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[传送门]</a>"
+    "DriverJsPopoverDesc": "详细参数信息请查看 <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[传送门]</a>",
+    "DriverJsPopoverStyleTitle": "弹窗样式",
+    "DriverJsPopoverStyleIntro": "通过设置 <code>PopoverClass=\"driverjs-theme\"</code> 通过自定义样式 <code>driverjs-theme</code> 设置弹窗 UI"
   }
 }

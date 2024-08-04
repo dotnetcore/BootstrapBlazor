@@ -6581,6 +6581,8 @@
     "DriverJsNormalDesc": "Disable the animation effect by setting the <code>DriverJsConfig</code> parameter <code>Animate=\"false\"</code>",
     "DriverJsPopoverTitle": "Popover",
     "DriverJsPopoverIntro": "By setting the <code>DriverJsPopover</code> component to configure <code>Popover</code> related configuration information",
-    "DriverJsPopoverDesc": "For detailed parameter information, please see <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[Portal]</a>"
+    "DriverJsPopoverDesc": "For detailed parameter information, please see <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[Portal]</a>",
+    "DriverJsPopoverStyleTitle": "Custom Popover",
+    "DriverJsPopoverStyleIntro": "By setting <code>PopoverClass=\"driverjs-theme\"</code> custome the popover UI"
   }
 }
