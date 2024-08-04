@@ -1162,8 +1162,8 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["FocusGuide"],
-                    Url = "focus-guide"
+                    Text = Localizer["DriverJs"],
+                    Url = "driver-js"
                 },
                 new()
                 {

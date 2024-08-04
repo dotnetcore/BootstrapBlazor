@@ -2,21 +2,18 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FocusGuide 配置类
 /// </summary>
-public class FocusGuideConfig
+public class DriverJsConfig
 {
     /// <summary>
     /// Array of steps to highlight.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonInclude]
-    internal List<FocusGuideStep>? Steps { get; set; }
+    public List<DriverJsStep> Steps { get; set; } = [];
 
     /// <summary>
     /// Whether to animate the product tour. (default: true)
@@ -129,98 +126,14 @@ public class FocusGuideConfig
     public string? DoneBtnText { get; set; }
 
     /// <summary>
-    ///
+    /// 获得/设置 组件销毁前回调方法名称
     /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnHighlightStarted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
+    internal string? OnDestroyStartedAsync { get; set; }
 
     /// <summary>
-    ///
+    /// 获得/设置 组件销毁前回调方法名称
     /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnHighlighted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callback when the current step is deselected
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnDeselected(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnDestroyStarted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnDestroyed(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for next button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnNextClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for prev button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnPrevClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for close button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnCloseClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
+    internal string? OnDestroyedAsync { get; set; }
 }

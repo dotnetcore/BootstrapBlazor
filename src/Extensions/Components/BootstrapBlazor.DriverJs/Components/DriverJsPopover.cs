@@ -2,15 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// FocusGuide Popover 配置类
 /// </summary>
-public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
+public class DriverJsPopover : ComponentBase, IDriverJsPopover, IDisposable
 {
     /// <summary>
     /// Title shown in the popover.
@@ -88,10 +85,10 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
 
     [CascadingParameter]
     [JsonIgnore]
-    private FocusGuideStep? Step { get; set; }
+    private DriverJsStep? Step { get; set; }
 
     [Inject, NotNull]
-    private IStringLocalizer<FocusGuide>? Localizer { get; set; }
+    private IStringLocalizer<DriverJs>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -113,54 +110,6 @@ public class FocusGuidePopover : ComponentBase, IFocusGuidePopover, IDisposable
         PrevBtnText ??= Localizer[nameof(PrevBtnText)];
         NextBtnText ??= Localizer[nameof(NextBtnText)];
         DoneBtnText ??= Localizer[nameof(DoneBtnText)];
-    }
-
-    /// <summary>
-    /// Hook to run after the popover is rendered
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnPopoverRender(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for next button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnNextClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for prev button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnPrevClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// Callbacks for close button clicks
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnCloseClick(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    {
-        return Task.CompletedTask;
     }
 
     private void Dispose(bool disposing)
