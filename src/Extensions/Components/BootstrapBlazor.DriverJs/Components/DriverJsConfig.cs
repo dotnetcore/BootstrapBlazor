@@ -13,8 +13,7 @@ public class DriverJsConfig
     /// Array of steps to highlight.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    [JsonInclude]
-    internal List<DriverJsStep>? Steps { get; set; }
+    public List<DriverJsStep> Steps { get; set; } = [];
 
     /// <summary>
     /// Whether to animate the product tour. (default: true)
