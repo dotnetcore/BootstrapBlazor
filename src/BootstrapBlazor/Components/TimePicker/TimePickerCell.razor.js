@@ -11,12 +11,10 @@ export function init(id, invoke) {
         spinnerSelector: '.time-spinner-list',
         spinnerItemSelector: '.time-spinner-item'
     }
-    Data.set(id, picker)
+    Data.set(id, picker);
 
     const item = el.querySelector(picker.spinnerItemSelector)
-    const styles = getComputedStyle(item)
-    const height = parseFloat(styles.getPropertyValue('height')) || 0
-    invoke.invokeMethodAsync(picker.heightCallback, height)
+    loopCheckHeight(picker, item);
 
     EventHandler.on(el, 'mousewheel', picker.spinnerSelector, e => {
         e.preventDefault()
@@ -35,5 +33,22 @@ export function dispose(id) {
     const picker = Data.get(id)
     Data.remove(id)
 
+    if(picker.loopHandler) {
+        clearTimeout(picker.loopHandler);
+    }
     EventHandler.off(picker.el, 'mousewheel', picker.spinnerSelector)
+}
+
+const loopCheckHeight = (picker, item) => {
+    const handler = setTimeout(() => {
+        const styles = getComputedStyle(item)
+        const height = parseFloat(styles.getPropertyValue('height')) || 0;
+
+        if(height > 0) {
+            clearTimeout(handler);
+            delete picker.loopHandler;
+            picker.invoke.invokeMethodAsync(picker.heightCallback, height);
+        }
+    }, 200);
+    picker.loopHandler = handler;
 }
