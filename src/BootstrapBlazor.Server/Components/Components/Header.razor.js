@@ -1,4 +1,5 @@
 ﻿import { getTheme, switchTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+import { switchTheme as syncTheme } from "./Pre.razor.js"
 import Data from "../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
@@ -19,7 +20,7 @@ export function init(id) {
 
     const themeElement = document.querySelector('.icon-theme');
     if (themeElement) {
-        EventHandler.on(themeElement, 'click', e => {
+        EventHandler.on(themeElement, 'click', async e => {
             let theme = getTheme();
             if (theme === 'dark') {
                 theme = 'light';
@@ -28,10 +29,15 @@ export function init(id) {
                 theme = 'dark';
             }
             switchTheme(theme, window.innerWidth, window.innerHeight);
+            await updateTheme(theme);
         });
     }
 
     Data.set(id, themeElement);
+}
+
+export async function updateTheme(theme) {
+    await syncTheme(theme);
 }
 
 export function dispose(id) {

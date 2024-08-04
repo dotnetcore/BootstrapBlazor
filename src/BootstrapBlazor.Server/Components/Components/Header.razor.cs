@@ -56,4 +56,6 @@ public partial class Header
         TutorialsText ??= Localizer[nameof(TutorialsText)];
         _versionString = $"v{PackageVersionService.Version}";
     }
+
+    private Task OnThemeChangedAsync(string themeName) => InvokeVoidAsync("updateTheme", themeName);
 }
