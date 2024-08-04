@@ -6583,6 +6583,9 @@
     "DriverJsPopoverIntro": "通过设置 <code>DriverJsPopover</code> 组件配置 <code>Popover</code> 相关配置信息",
     "DriverJsPopoverDesc": "详细参数信息请查看 <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[传送门]</a>",
     "DriverJsPopoverStyleTitle": "弹窗样式",
-    "DriverJsPopoverStyleIntro": "通过设置 <code>PopoverClass=\"driverjs-theme\"</code> 通过自定义样式 <code>driverjs-theme</code> 设置弹窗 UI"
+    "DriverJsPopoverStyleIntro": "通过设置 <code>PopoverClass=\"driverjs-theme\"</code> 通过自定义样式 <code>driverjs-theme</code> 设置弹窗 UI",
+    "DriverJsDestroyTitle": "销毁回调方法",
+    "DriverJsDestroyIntro": "销毁前回调方法 <code>OnBeforeDestroyAsync</code> 或者销毁回调方法 <code>OnDestroyedAsync</code>",
+    "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加确认对话框或其他逻辑销毁前回调方法，返回 <code>false</code> 时阻止销毁"
   }
 }

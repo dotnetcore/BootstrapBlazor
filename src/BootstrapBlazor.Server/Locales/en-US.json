@@ -6583,6 +6583,9 @@
     "DriverJsPopoverIntro": "By setting the <code>DriverJsPopover</code> component to configure <code>Popover</code> related configuration information",
     "DriverJsPopoverDesc": "For detailed parameter information, please see <a href=\"https://driverjs.com/docs/configuration\" target=\"_blank\">[Portal]</a>",
     "DriverJsPopoverStyleTitle": "Custom Popover",
-    "DriverJsPopoverStyleIntro": "By setting <code>PopoverClass=\"driverjs-theme\"</code> custome the popover UI"
+    "DriverJsPopoverStyleIntro": "By setting <code>PopoverClass=\"driverjs-theme\"</code> custome the popover UI",
+    "DriverJsDestroyTitle": "Destroy callback",
+    "DriverJsDestroyIntro": "Callback method before destruction <code>OnBeforeDestroyAsync</code> or callback method for destruction <code>OnDestroyedAsync</code>",
+    "DriverJsDestroyDesc": "You can use the OnBeforeDestroyAsync callback to add a confirmation dialog or some other logic when the user tries to exit the tour. Prevent destruction when the callback method <code>OnBeforeDestroyAsync</code> returns <code>false</code>"
   }
 }
