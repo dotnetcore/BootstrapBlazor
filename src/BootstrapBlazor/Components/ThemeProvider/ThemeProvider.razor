@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">

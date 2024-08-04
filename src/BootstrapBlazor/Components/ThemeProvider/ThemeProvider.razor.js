@@ -1,7 +1,7 @@
 ﻿import { getAutoThemeValue, getPreferredTheme, setActiveTheme, switchTheme } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id) {
+export function init(id, invoke, callback) {
     const el = document.getElementById(id);
     if (el) {
         const currentTheme = getPreferredTheme();
@@ -20,6 +20,9 @@ export function init(id) {
                     theme = getAutoThemeValue();
                 }
                 switchTheme(theme, window.innerWidth, 0);
+                if (callback) {
+                    invoke.invokeMethodAsync(callback, theme);
+                }
             });
         });
     }
