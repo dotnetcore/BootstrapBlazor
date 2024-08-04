@@ -24,13 +24,13 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Circle);
         });
-        cut.WaitForAssertion(() => Assert.Contains("btn-circle", cut.Markup));
+        Assert.Contains("btn-circle", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.ButtonStyle, ButtonStyle.Round);
         });
-        cut.WaitForAssertion(() => Assert.Contains("btn-round", cut.Markup));
+        Assert.Contains("btn-round", cut.Markup);
     }
 
     [Fact]
