@@ -29,11 +29,15 @@ export function init(id) {
                 theme = 'dark';
             }
             switchTheme(theme, window.innerWidth, window.innerHeight);
-            syncTheme(theme);
+            await updateTheme(theme);
         });
     }
 
     Data.set(id, themeElement);
+}
+
+export async function updateTheme(theme) {
+    await syncTheme(theme);
 }
 
 export function dispose(id) {
