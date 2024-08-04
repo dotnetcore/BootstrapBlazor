@@ -11,6 +11,20 @@ export async function init(id, invoke) {
 export function start(id, options) {
     const d = Data.get(id);
     if (d) {
+        const { onDestroyStartedAsync, onDestroyedAsync } = options;
+        if (onDestroyStartedAsync) {
+            options.onDestroyStarted = async (el, step, op) => {
+                const result = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, step, op.state);
+                if (result === true) {
+                    dispose(id);
+                }
+            }
+        }
+        if (onDestroyedAsync) {
+            options.onDestroyed = () => {
+                invoke.invokeMethodAsync(onDestroyedAsync);
+            };
+        }
         const driverObj = driver(options);
         d.driver = driverObj;
         driverObj.drive();

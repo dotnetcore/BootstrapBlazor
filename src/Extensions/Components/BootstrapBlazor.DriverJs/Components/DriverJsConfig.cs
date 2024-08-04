@@ -127,6 +127,18 @@ public class DriverJsConfig
     public string? DoneBtnText { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件销毁前回调方法名称
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
+    internal string? OnDestroyStartedAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件销毁前回调方法名称
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
+    internal string? OnDestroyedAsync { get; set; }
+
+    /// <summary>
     ///
     /// </summary>
     /// <param name="step"></param>
@@ -158,30 +170,6 @@ public class DriverJsConfig
     /// <param name="state"></param>
     /// <returns></returns>
     public Task OnDeselected(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnDestroyStarted(DriverJsStep step, DriverJsConfig config, DriverJsState state)
-    {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    ///
-    /// </summary>
-    /// <param name="step"></param>
-    /// <param name="config"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Task OnDestroyed(DriverJsStep step, DriverJsConfig config, DriverJsState state)
     {
         return Task.CompletedTask;
     }

@@ -16,6 +16,18 @@ public partial class DriverJs
     public DriverJsConfig? Config { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件销毁前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task<bool>>? OnBeforeDestroyAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件销毁回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnDestroyedAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件内容
     /// </summary>
     [Parameter]
@@ -30,13 +42,7 @@ public partial class DriverJs
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync()
-    {
-        Config ??= new();
-        Config.Steps = _steps;
-        Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
-        return InvokeVoidAsync("init", Id, Interop);
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// 开始方法
@@ -44,7 +50,45 @@ public partial class DriverJs
     /// <returns></returns>
     public async Task Start()
     {
+        Config ??= new();
+        Config.Steps = _steps;
+        Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
+        if (OnBeforeDestroyAsync != null)
+        {
+            Config.OnDestroyStartedAsync = nameof(OnBeforeDestroy);
+        }
+        if (OnBeforeDestroyAsync != null)
+        {
+            Config.OnDestroyedAsync = nameof(OnDestroyed);
+        }
         await InvokeVoidAsync("start", Id, Config);
+    }
+
+    /// <summary>
+    /// 组件销毁前回调方法由 JavaScript 调用 返回 false 阻止销毁
+    /// </summary>
+    [JSInvokable]
+    public async Task<bool> OnBeforeDestroy(DriverJsStep step, DriverJsState state)
+    {
+        var ret = true;
+        if (OnBeforeDestroyAsync != null)
+        {
+            ret = await OnBeforeDestroyAsync();
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 组件销毁后回调方法由 JavaScript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnDestroyed()
+    {
+        if (OnDestroyedAsync != null)
+        {
+            await OnDestroyedAsync();
+        }
     }
 
     /// <summary>
