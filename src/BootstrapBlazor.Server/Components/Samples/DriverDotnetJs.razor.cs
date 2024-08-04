@@ -59,10 +59,10 @@ public partial class DriverDotnetJs
         await _guideDestroy.Start();
     }
 
-    private Task<bool> OnBeforeDestroyAsync()
+    private Task<bool> OnBeforeDestroyAsync(DriverJsConfig config, int index)
     {
-        _logger.Log("Trigger OnBeforeDestroyAsync");
-        return Task.FromResult(false);
+        _logger.Log($"Trigger OnBeforeDestroyAsync step index {index}");
+        return Task.FromResult(config.Steps.Count == index + 1);
     }
 
     private Task OnDestroyedAsync()
