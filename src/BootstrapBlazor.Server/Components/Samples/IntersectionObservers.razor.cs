@@ -11,6 +11,8 @@ public partial class IntersectionObservers
 {
     private List<string> _images = default!;
 
+    private List<string> _items = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -19,11 +21,19 @@ public partial class IntersectionObservers
         base.OnInitialized();
 
         _images = Enumerable.Range(1, 100).Select(i => "../../images/default.jpeg").ToList();
+        _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
     private Task OnIntersectingAsync(int index)
     {
         _images[index] = GetImageUrl(index);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnLoadMoreAsync(int index)
+    {
+        _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
         StateHasChanged();
         return Task.CompletedTask;
     }

@@ -9,12 +9,37 @@
            Introduction="@Localizer["IntersectionObserverNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
-    <IntersectionObserver class="bb-list-main scroll" OnIntersectingAsync="OnIntersectingAsync">
-        @foreach (var image in _images)
-        {
-            <IntersectionObserverItem class="bb-list-item">
-                <img src="@image" />
-            </IntersectionObserverItem>
-        })
+    <IntersectionObserver OnIntersectingAsync="OnIntersectingAsync">
+        <div class="bb-list-main scroll">
+            @foreach (var image in _images)
+            {
+                <IntersectionObserverItem>
+                    <div  class="bb-list-item">
+                        <img src="@image" />
+                    </div>
+                </IntersectionObserverItem>
+            }
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntersectionObserverLoadBaseUsage"]"
+           Introduction="@Localizer["IntersectionObserverLoadIntro"]"
+           Name="Normal">
+    <section ignore>@((MarkupString)Localizer["IntersectionObserverLoadDescription"].Value)</section>
+    <IntersectionObserver class="bb-list-load scroll" OnIntersectingAsync="OnLoadMoreAsync" Threshold="1" AutoUnobserve="false">
+        <div class="bb-list-demo">
+            @foreach (var image in _items)
+            {
+                <div class="bb-list-item">
+                    <img src="@image" />
+                </div>
+            }
+        </div>
+        <IntersectionObserverItem>
+            <div class="bb-list-item-loading">
+                <Spinner></Spinner>
+            </div>
+        </IntersectionObserverItem>
     </IntersectionObserver>
 </DemoBlock>
