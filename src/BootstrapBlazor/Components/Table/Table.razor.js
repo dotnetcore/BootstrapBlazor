@@ -191,7 +191,7 @@ export function dispose(id) {
 
     if (table) {
         if (table.loopCheckHeightHandler) {
-            clearTimeout(table.loopCheckHeightHandler);
+            cancelAnimationFrame(table.loopCheckHeightHandler);
         }
         if (table.thead) {
             EventHandler.off(table.body, 'scroll')
@@ -246,17 +246,16 @@ const setColumnToolboxListener = table => {
     }
 }
 
-const loopCheckHeight = table => {
-    const handler = setTimeout(() => {
-        const el = table.el;
-        if(isVisible(el) === true) {
-            clearTimeout(handler);
-            delete table.loopCheckHeightHandler;
-            setBodyHeight(table);
-        }
-    }, 200);
-    table.loopCheckHeightHandler = handler;
-}
+const check = table => {
+    const el = table.el;
+    if (isVisible(el) === false) {
+        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
+    }
+    else {
+        delete table.loopCheckHeightHandler;
+        setBodyHeight(table);
+    }
+};
 
 const setBodyHeight = table => {
     const el = table.el
@@ -265,7 +264,7 @@ const setBodyHeight = table => {
     table.search = search;
 
     if (isVisible(el) === false) {
-        loopCheckHeight(table);
+        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
         return;
     }
 
