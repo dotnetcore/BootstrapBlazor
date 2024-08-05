@@ -29,7 +29,7 @@ public partial class IntersectionObserver
     public float Threshold { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动取消观察
+    /// 获得/设置 是否自动取消观察 默认 true 可见后自动取消观察提高性能
     /// </summary>
     [Parameter]
     public bool AutoUnobserve { get; set; } = true;
