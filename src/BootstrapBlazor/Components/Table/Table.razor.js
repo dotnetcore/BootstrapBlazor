@@ -190,6 +190,9 @@ export function dispose(id) {
     Data.remove(id)
 
     if (table) {
+        if (table.loopCheckHeightHandler) {
+            cancelAnimationFrame(table.loopCheckHeightHandler);
+        }
         if (table.thead) {
             EventHandler.off(table.body, 'scroll')
         }
@@ -243,6 +246,17 @@ const setColumnToolboxListener = table => {
     }
 }
 
+const check = table => {
+    const el = table.el;
+    if (isVisible(el) === false) {
+        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
+    }
+    else {
+        delete table.loopCheckHeightHandler;
+        setBodyHeight(table);
+    }
+};
+
 const setBodyHeight = table => {
     const el = table.el
     const children = [...el.children]
@@ -250,6 +264,7 @@ const setBodyHeight = table => {
     table.search = search;
 
     if (isVisible(el) === false) {
+        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
         return;
     }
 
