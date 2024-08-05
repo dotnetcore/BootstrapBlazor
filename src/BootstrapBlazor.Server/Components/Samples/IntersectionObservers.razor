@@ -1,0 +1,29 @@
+﻿@page "/intersection-observer"
+@inject IStringLocalizer<IntersectionObservers> Localizer
+
+<h3>@Localizer["InputsTitle"]</h3>
+
+<h4>@Localizer["InputsDescription"]</h4>
+
+<DemoBlock Title="@Localizer["InputsBaseUsage"]"
+           Introduction="@Localizer["InputsNormalIntro"]"
+           Name="Normal">
+    <section ignore>@((MarkupString)Localizer["InputsNormalDescription"].Value)</section>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput PlaceHolder="@Localizer["NormalPlaceHolder"]"
+                            TValue="string"
+                            IsAutoFocus="true"
+                            IsSelectAllTextOnFocus="true"
+                            ShowLabel="true"
+                            DisplayText="@Localizer["IsSelectAllTextOnFocusLabel"]" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInput PlaceHolder="@Localizer["PlaceHolder"]"
+                            TValue="string"
+                            IsSelectAllTextOnEnter="true"
+                            ShowLabel="true"
+                            DisplayText="@Localizer["IsSelectAllTextOnEnterLabel"]" />
+        </div>
+    </div>
+</DemoBlock>
