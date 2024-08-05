@@ -31,11 +31,11 @@ public partial class IntersectionObservers
         return Task.CompletedTask;
     }
 
-    private Task OnLoadMoreAsync(int index)
+    private async Task OnLoadMoreAsync(int index)
     {
+        await Task.Delay(1000);
         _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
         StateHasChanged();
-        return Task.CompletedTask;
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
