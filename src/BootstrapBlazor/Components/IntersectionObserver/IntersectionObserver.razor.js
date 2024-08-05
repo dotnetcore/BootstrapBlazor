@@ -1,19 +1,25 @@
 ﻿import Data from "../../modules/data.js"
 
 export function init(id, invoke, options) {
-    console.log(options);
-
     const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
+
+    const { root, rootMargin, threshold, autoUnobserver } = options;
     const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
+
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                observer.unobserve(entry.target);
+                if (autoUnobserver) {
+                    observer.unobserve(entry.target);
+                }
                 const index = items.indexOf(entry.target);
                 invoke.invokeMethodAsync('OnIntersecting', index);
             };
         });
-    }, options);
+    }, { root, rootMargin, threshold });
 
     items.forEach(item => observer.observe(item));
     Data.set(id, observer);

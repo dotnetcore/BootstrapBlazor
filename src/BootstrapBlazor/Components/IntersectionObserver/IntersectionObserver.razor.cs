@@ -29,6 +29,12 @@ public partial class IntersectionObserver
     public float Threshold { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否自动取消观察
+    /// </summary>
+    [Parameter]
+    public bool AutoUnobserve { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 已经交叉回调方法
     /// </summary>
     [Parameter]
@@ -66,7 +72,7 @@ public partial class IntersectionObserver
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Root = RootSelector, RootMargin, Threshold });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Root = RootSelector, RootMargin, Threshold, AutoUnobserve });
 
     /// <summary>
     /// 交叉检测回调方法 由 JavaScript 调用
