@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 交叉检测组件
+/// 可见检测组件
 /// </summary>
 public partial class IntersectionObserver
 {
