@@ -1,4 +1,12 @@
-﻿.bb-list-main,
+﻿.bb-list-main {
+    display: flex;
+    flex-wrap: wrap;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: .25rem;
+    height: 500px;
+}
+
 .bb-list-load {
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
@@ -6,7 +14,6 @@
     height: 500px;
 }
 
-.bb-list-main,
 .bb-list-demo {
     display: flex;
     flex-wrap: wrap;
