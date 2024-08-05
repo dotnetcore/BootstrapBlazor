@@ -9,5 +9,24 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class IntersectionObservers
 {
+    private List<string> _images = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _images = Enumerable.Range(1, 100).Select(i => "../../images/default.jpeg").ToList();
+    }
+
+    private Task OnIntersectingAsync(int index)
+    {
+        _images[index] = GetImageUrl(index);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
 }

@@ -9,12 +9,12 @@
            Introduction="@Localizer["IntersectionObserverNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
-    <div class="bb-list-main scroll">
-        @foreach(var index in Enumerable.Range(1, 100))
+    <IntersectionObserver class="bb-list-main scroll" OnIntersectingAsync="OnIntersectingAsync">
+        @foreach (var image in _images)
         {
-            <div class="bb-list-item">
-                <img src="../../images/default.jpeg" data-src="@GetImageUrl(index)" />
-            </div>
+            <IntersectionObserverItem class="bb-list-item">
+                <img src="@image" />
+            </IntersectionObserverItem>
         })
-    </div>
+    </IntersectionObserver>
 </DemoBlock>
