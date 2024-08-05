@@ -3,10 +3,19 @@
 export function init(id, invoke, options) {
     console.log(options);
 
+    const el = document.getElementById(id);
+    const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
     const observer = new IntersectionObserver(entries => {
-
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                observer.unobserve(entry.target);
+                const index = items.indexOf(entry.target);
+                invoke.invokeMethodAsync('OnIntersecting', index);
+            };
+        });
     }, options);
 
+    items.forEach(item => observer.observe(item));
     Data.set(id, observer);
 }
 

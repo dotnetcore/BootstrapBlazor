@@ -29,6 +29,12 @@ public partial class IntersectionObserver
     public float Threshold { get; set; }
 
     /// <summary>
+    /// 获得/设置 已经交叉回调方法
+    /// </summary>
+    [Parameter]
+    public Func<int, Task>? OnIntersectingAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件
     /// </summary>
     [Parameter]
@@ -49,6 +55,11 @@ public partial class IntersectionObserver
         {
             throw new ArgumentOutOfRangeException(nameof(Threshold), $"{nameof(Threshold)} must be between 0 and 1");
         }
+
+        if (string.IsNullOrEmpty(RootMargin))
+        {
+            RootMargin = "0px 0px 0px 0px";
+        }
     }
 
     /// <summary>
@@ -56,4 +67,18 @@ public partial class IntersectionObserver
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Root = RootSelector, RootMargin, Threshold });
+
+    /// <summary>
+    /// 交叉检测回调方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnIntersecting(int index)
+    {
+        if (OnIntersectingAsync != null)
+        {
+            await OnIntersectingAsync(index);
+        }
+    }
 }
