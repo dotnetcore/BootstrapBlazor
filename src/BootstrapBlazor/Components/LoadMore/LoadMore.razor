@@ -1,0 +1,18 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
+    @if (IsSuccess)
+    {
+        <i class="@ClassLoadingIcon"></i>
+        <span>@LoadingText</span>
+    }
+    else
+    {
+        <div class="d-flex flex-column gap-2">
+            <span class="@FailClassString">@FailText</span>
+            <div class="@FailButtonClassString" type="button" @onclick="@OnRetryAsync">重新获取</div>
+       </div>
+    }
+</div>
