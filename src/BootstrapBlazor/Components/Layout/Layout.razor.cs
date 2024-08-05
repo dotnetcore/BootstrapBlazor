@@ -252,7 +252,7 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏 Style 字符串
     /// </summary>
     private string? SideStyleString => CssBuilder.Default()
-        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
+        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !IsCollapsed && !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
         .Build();
 
     /// <summary>
