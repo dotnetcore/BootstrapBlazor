@@ -26,6 +26,13 @@
 <DemoBlock Title="@Localizer["IntersectionObserverLoadTitle"]"
            Introduction="@Localizer["IntersectionObserverLoadIntro"]"
            Name="LoadMore">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc1"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc2"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc3"].Value)</li>
+        </ul>
+    </section>
     <IntersectionObserver OnIntersectingAsync="OnLoadMoreAsync" Threshold="1f" AutoUnobserve="false">
         <div class="bb-list-load scroll">
             <div class="bb-list-demo">
@@ -44,3 +51,5 @@
         </div>
     </IntersectionObserver>
 </DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"/>

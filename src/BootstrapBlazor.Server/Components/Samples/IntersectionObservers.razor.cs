@@ -39,4 +39,56 @@ public partial class IntersectionObservers
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
+
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "UseElementViewport",
+            Description = Localizer["AttributeUseElementViewport"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "RootMargin",
+            Description = Localizer["AttributeRootMargin"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "0px 0px 0px 0px"
+        },
+        new()
+        {
+            Name = "Threshold",
+            Description = Localizer["AttributeThreshold"],
+            Type = "float",
+            ValueList = "0.0 — 1.0",
+            DefaultValue = "0.0"
+        },
+        new()
+        {
+            Name = "AutoUnobserve",
+            Description = Localizer["AttributeAutoUnobserve"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "OnIntersectingAsync",
+            Description = Localizer["AttributeOnIntersectingAsync"],
+            Type = "Func<int, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["AttributeChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    ];
 }
