@@ -4702,7 +4702,8 @@
     "ConnectionService": "在线连接服务 ConnectionService",
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
     "ThemeProvider": "主题服务 IThemeProvider",
-    "IconPark": "字节跳动图标 IconPark"
+    "IconPark": "字节跳动图标 IconPark",
+    "IntersectionObserver": "交叉观察者 IntersectionObserver"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6587,5 +6588,12 @@
     "DriverJsDestroyTitle": "销毁回调方法",
     "DriverJsDestroyIntro": "销毁前回调方法 <code>OnBeforeDestroyAsync</code> 或者销毁回调方法 <code>OnDestroyedAsync</code>",
     "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加销毁前逻辑，返回 <b>非空字符串</b> 时客户端弹窗二次确认是否阻止销毁；可通过设置 <code>AllowClose</code> 阻止用户退出向导"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IntersectionObservers": {
+    "IntersectionObserverTitle": "IntersectionObserver 可见性观察器",
+    "IntersectionObserverDescription": "通过滚动使元素可见使触发组件回调，多用于数据懒加载功能",
+    "IntersectionObserverBaseUsage": "基础用法",
+    "IntersectionObserverNormalIntro": "通过设置 <code>Root</code> <code>RootMargin</code> <code>Threshold</code> 参数值，监听元素可见性变化",
+    "IntersectionObserverNormalDescription": "本例加载 100 张图片，不可见图片加载默认图片（已缓存），当滚动到可见区域时，加载真实图片"
   }
 }

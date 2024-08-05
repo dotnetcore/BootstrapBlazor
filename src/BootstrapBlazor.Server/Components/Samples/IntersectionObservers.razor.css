@@ -1,0 +1,21 @@
+﻿::deep + .bb-list-main {
+    display: flex;
+    flex-wrap: wrap;
+    height: 500px;
+    padding: .25rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+}
+
+    ::deep + .bb-list-main .bb-list-item {
+        width: 160px;
+        height: 160px;
+        display: flex;
+        align-items: center;
+        margin: .25rem;
+    }
+
+        ::deep + .bb-list-main .bb-list-item img {
+            width: 160px;
+            object-fit: cover;
+        }

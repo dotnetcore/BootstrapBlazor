@@ -1,0 +1,20 @@
+﻿@page "/intersection-observer"
+@inject IStringLocalizer<IntersectionObservers> Localizer
+
+<h3>@Localizer["IntersectionObserverTitle"]</h3>
+
+<h4>@Localizer["IntersectionObserverDescription"]</h4>
+
+<DemoBlock Title="@Localizer["IntersectionObserverBaseUsage"]"
+           Introduction="@Localizer["IntersectionObserverNormalIntro"]"
+           Name="Normal">
+    <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
+    <IntersectionObserver class="bb-list-main scroll" OnIntersectingAsync="OnIntersectingAsync">
+        @foreach (var image in _images)
+        {
+            <IntersectionObserverItem class="bb-list-item">
+                <img src="@image" />
+            </IntersectionObserverItem>
+        })
+    </IntersectionObserver>
+</DemoBlock>
