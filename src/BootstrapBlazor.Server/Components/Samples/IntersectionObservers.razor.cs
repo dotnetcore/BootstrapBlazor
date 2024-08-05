@@ -9,5 +9,5 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class IntersectionObservers
 {
-
+    private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
 }
