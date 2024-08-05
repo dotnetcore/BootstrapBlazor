@@ -1173,6 +1173,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["IntersectionObserver"],
+                    Url = "intersection-observer"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["Marquee"],
                     Url = "marquee"
                 },
