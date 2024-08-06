@@ -13,6 +13,8 @@ public partial class IntersectionObservers
 
     private List<string> _items = default!;
 
+    private VideoDemo _video = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -91,9 +93,9 @@ public partial class IntersectionObservers
         },
         new()
         {
-            Name = "OnIntersectingAsync",
+            Name = "OnIntersecting",
             Description = Localizer["AttributeOnIntersectingAsync"],
-            Type = "Func<int, Task>",
+            Type = "Func<bool, int, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
