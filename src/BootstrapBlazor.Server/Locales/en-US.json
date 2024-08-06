@@ -6597,7 +6597,7 @@
     "IntersectionObserverNormalDescription": "This example loads 100 pictures. The invisible pictures load the default pictures (cached). When you scroll to the visible area, you load the real pictures.",
     "IntersectionObserverLoadTitle": "Load",
     "IntersectionObserverLoadIntro": "After scrolling to the bottom, a loading more indicator appears, notifying the background to load data",
-    "IntersectionObserverLoadDesc1": "By setting <code>Threshold=\"1.0f\"</code> to constrain the loading indicator to be fully visible, perform the load more action",
+    "IntersectionObserverLoadDesc1": "By setting <code>Threshold=\"1.0\"</code> to constrain the loading indicator to be fully visible, perform the load more action",
     "IntersectionObserverLoadDesc2": "Ensure that the loading indicator visibility is always checked by setting <code>AutoUnobserve=\"false\"</code> to prevent automatic removal of the check once it becomes visible",
     "IntersectionObserverLoadDesc3": "Simulate network delay of 1s by setting the <code>OnLoadMoreAsync</code> method",
     "AttributeUseElementViewport": "The element that is used as the viewport for checking visibility of the target",
