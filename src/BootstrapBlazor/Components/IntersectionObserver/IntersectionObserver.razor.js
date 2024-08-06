@@ -6,10 +6,10 @@ export function init(id, invoke, options) {
         return;
     }
 
-    if(options.useElementViewport === false) {
+    if (options.useElementViewport === false) {
         options.root = el;
     }
-    const { root = null, rootMargin, threshold, autoUnobserve } = options;
+    const { root = null, rootMargin, threshold, autoUnobserve, callback } = options;
     const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
 
     const observer = new IntersectionObserver(entries => {
@@ -19,7 +19,7 @@ export function init(id, invoke, options) {
                     observer.unobserve(entry.target);
                 }
                 const index = items.indexOf(entry.target);
-                invoke.invokeMethodAsync('OnIntersecting', index);
+                invoke.invokeMethodAsync(callback, index);
             }
         });
     }, { root, rootMargin, threshold });
