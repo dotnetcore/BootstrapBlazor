@@ -44,12 +44,21 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.OnIntersecting, entry =>
             {
-                count = entry.Index;
+                if (entry.IsIntersecting && entry.Time == 100 && entry.IntersectionRatio == 0.5f)
+                {
+                    count = entry.Index;
+                }
                 return Task.CompletedTask;
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(new IntersectionObserverEntry() { IsIntersecting = true, Index = 10 }));
+        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(new IntersectionObserverEntry()
+        {
+            IsIntersecting = true,
+            Index = 10,
+            Time = 100.00,
+            IntersectionRatio = 0.5f
+        }));
         Assert.Equal(10, count);
     }
 }
