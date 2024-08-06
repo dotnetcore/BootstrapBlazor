@@ -39,6 +39,7 @@ public partial class IntersectionObserver
     /// </summary>
     [Parameter]
     public bool AutoUnobserveWhenNotIntersection { get; set; }
+
     /// <summary>
     /// 获得/设置 已经交叉回调方法
     /// </summary>
