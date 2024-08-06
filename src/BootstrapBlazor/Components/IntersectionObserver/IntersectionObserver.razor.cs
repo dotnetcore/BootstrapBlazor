@@ -38,7 +38,7 @@ public partial class IntersectionObserver
     /// 获得/设置 已经交叉回调方法
     /// </summary>
     [Parameter]
-    public Func<int, Task>? OnIntersecting { get; set; }
+    public Func<bool, int, Task>? OnIntersecting { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件
@@ -59,14 +59,15 @@ public partial class IntersectionObserver
     /// <summary>
     /// 交叉检测回调方法 由 JavaScript 调用
     /// </summary>
+    /// <param name="intersectioning"></param>
     /// <param name="index"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerIntersecting(int index)
+    public async Task TriggerIntersecting(bool intersectioning, int index)
     {
         if (OnIntersecting != null)
         {
-            await OnIntersecting(index);
+            await OnIntersecting(intersectioning, index);
         }
     }
 }

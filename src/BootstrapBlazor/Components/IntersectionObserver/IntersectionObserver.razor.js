@@ -16,13 +16,11 @@ export function init(id, invoke, options) {
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (autoUnobserve) {
-                    observer.unobserve(entry.target);
-                }
-                const index = items.indexOf(entry.target);
-                invoke.invokeMethodAsync(callback, index);
+            if (autoUnobserve) {
+                observer.unobserve(entry.target);
             }
+            const index = items.indexOf(entry.target);
+            invoke.invokeMethodAsync(callback, entry.isIntersecting, index);
         });
     }, option);
 
