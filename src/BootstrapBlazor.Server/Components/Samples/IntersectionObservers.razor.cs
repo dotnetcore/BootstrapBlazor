@@ -46,16 +46,24 @@ public partial class IntersectionObservers
         }
     }
 
+    private string? _videoStateString;
+    private string? _textColorString = "text-muted";
+
     private async Task OnVisibleChanged(bool intersectioning, int index)
     {
         if (intersectioning)
         {
+            _videoStateString = Localizer["IntersectionObserverVisiblePlayLabel"];
+            _textColorString = "text-success";
             await _video.Play();
         }
         else
         {
+            _videoStateString = Localizer["IntersectionObserverVisiblePauseLabel"];
+            _textColorString = "text-danger";
             await _video.Pause();
         }
+        StateHasChanged();
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
