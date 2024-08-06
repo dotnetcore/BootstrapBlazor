@@ -17,7 +17,8 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
             pb.Add(a => a.UseElementViewport, false);
             pb.Add(a => a.RootMargin, "10px 20px 30px 40px");
             pb.Add(a => a.Threshold, "0.5");
-            pb.Add(a => a.AutoUnobserve, true);
+            pb.Add(a => a.AutoUnobserveWhenIntersection, false);
+            pb.Add(a => a.AutoUnobserveWhenNotIntersection, false);
             pb.Add(a => a.ChildContent, builder =>
             {
                 builder.OpenComponent<IntersectionObserverItem>(0);
@@ -41,14 +42,23 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
                 builder.AddAttribute(1, "ChildContent", new RenderFragment(builder => builder.AddContent(0, "observer-item")));
                 builder.CloseComponent();
             });
-            pb.Add(a => a.OnIntersecting, index =>
+            pb.Add(a => a.OnIntersecting, entry =>
             {
-                count = index;
+                if (entry.IsIntersecting && entry.Time == 100 && entry.IntersectionRatio == 0.5f)
+                {
+                    count = entry.Index;
+                }
                 return Task.CompletedTask;
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(10));
+        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(new IntersectionObserverEntry()
+        {
+            IsIntersecting = true,
+            Index = 10,
+            Time = 100.00,
+            IntersectionRatio = 0.5f
+        }));
         Assert.Equal(10, count);
     }
 }

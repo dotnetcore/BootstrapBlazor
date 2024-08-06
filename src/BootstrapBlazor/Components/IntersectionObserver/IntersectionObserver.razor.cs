@@ -29,16 +29,22 @@ public partial class IntersectionObserver
     public string? Threshold { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动取消观察 默认 true 可见后自动取消观察提高性能
+    /// 获得/设置 可见后是否自动取消观察 默认 true 可见后自动取消观察提高性能
     /// </summary>
     [Parameter]
-    public bool AutoUnobserve { get; set; } = true;
+    public bool AutoUnobserveWhenIntersection { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 不可见后是否自动取消观察 默认 false 不可见后自动取消观察提高性能
+    /// </summary>
+    [Parameter]
+    public bool AutoUnobserveWhenNotIntersection { get; set; }
 
     /// <summary>
     /// 获得/设置 已经交叉回调方法
     /// </summary>
     [Parameter]
-    public Func<int, Task>? OnIntersecting { get; set; }
+    public Func<IntersectionObserverEntry, Task>? OnIntersecting { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件
@@ -54,19 +60,19 @@ public partial class IntersectionObserver
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserve, Callback = nameof(TriggerIntersecting) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserveWhenIntersection, AutoUnobserveWhenNotIntersection, Callback = nameof(TriggerIntersecting) });
 
     /// <summary>
     /// 交叉检测回调方法 由 JavaScript 调用
     /// </summary>
-    /// <param name="index"></param>
+    /// <param name="entry"><see cref="IntersectionObserverEntry"/> 实例</param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerIntersecting(int index)
+    public async Task TriggerIntersecting(IntersectionObserverEntry entry)
     {
         if (OnIntersecting != null)
         {
-            await OnIntersecting(index);
+            await OnIntersecting(entry);
         }
     }
 }

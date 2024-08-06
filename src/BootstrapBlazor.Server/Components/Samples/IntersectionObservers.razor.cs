@@ -13,6 +13,8 @@ public partial class IntersectionObservers
 
     private List<string> _items = default!;
 
+    private VideoDemo _video = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -24,18 +26,56 @@ public partial class IntersectionObservers
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
-    private Task OnIntersectingAsync(int index)
+    private Task OnIntersectingAsync(IntersectionObserverEntry entry)
     {
-        _images[index] = GetImageUrl(index);
-        StateHasChanged();
+        if (entry.IsIntersecting)
+        {
+            _images[entry.Index] = GetImageUrl(entry.Index);
+            StateHasChanged();
+        }
+
         return Task.CompletedTask;
     }
 
-    private async Task OnLoadMoreAsync(int index)
+    private async Task OnLoadMoreAsync(IntersectionObserverEntry entry)
     {
-        await Task.Delay(1000);
-        _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
+        if (entry.IsIntersecting)
+        {
+            await Task.Delay(1000);
+            _items.AddRange(Enumerable.Range(_items.Count + 1, 20)
+                .Select(i => $"https://picsum.photos/160/160?random={i}"));
+            StateHasChanged();
+        }
+    }
+
+    private string? _videoStateString;
+    private string? _textColorString = "text-muted";
+
+    private async Task OnVisibleChanged(IntersectionObserverEntry entry)
+    {
+        if (entry.IsIntersecting)
+        {
+            _videoStateString = Localizer["IntersectionObserverVisiblePlayLabel"];
+            _textColorString = "text-success";
+            await _video.Play();
+        }
+        else
+        {
+            _videoStateString = Localizer["IntersectionObserverVisiblePauseLabel"];
+            _textColorString = "text-danger";
+            await _video.Pause();
+        }
+
         StateHasChanged();
+    }
+
+    private string? _thresholdValueString;
+
+    private Task OnThresholdChanged(IntersectionObserverEntry entry)
+    {
+        _thresholdValueString = entry.IntersectionRatio.ToString("P");
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
@@ -68,17 +108,25 @@ public partial class IntersectionObservers
         },
         new()
         {
-            Name = "AutoUnobserve",
-            Description = Localizer["AttributeAutoUnobserve"],
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenIntersection"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new()
         {
-            Name = "OnIntersectingAsync",
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenNotIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenNotIntersection"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "OnIntersecting",
             Description = Localizer["AttributeOnIntersectingAsync"],
-            Type = "Func<int, Task>",
+            Type = "Func<IntersectionObserverEntry, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },

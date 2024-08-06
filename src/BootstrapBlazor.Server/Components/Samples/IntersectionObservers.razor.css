@@ -4,14 +4,14 @@
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: .25rem;
-    height: 500px;
+    height: 400px;
 }
 
 .bb-list-load {
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: .25rem;
-    height: 500px;
+    height: 400px;
 }
 
 .bb-list-demo {
@@ -39,4 +39,14 @@
     color: #fff;
     opacity: 0.3;
     padding: .5rem 0;
+}
+
+.bb-video-demo {
+    height: 260px;
+}
+
+.bb-video {
+    height: 600px;
+    text-align: center;
+    margin-top: 160px;
 }

@@ -11,18 +11,27 @@ export function init(id, invoke, options) {
     if (options.useElementViewport === false) {
         options.root = el;
     }
-    const { root, rootMargin, threshold, autoUnobserve, callback } = options;
+    if (options.threshold && options.threshold.indexOf(' ') > 0) {
+        options.threshold = options.threshold.split(' ');
+    }
+    const { root, rootMargin, threshold, autoUnobserveWhenIntersection, autoUnobserveWhenNotIntersection, callback } = options;
     const option = { root, rootMargin: rootMargin ?? '0px 0px 0px 0px', threshold: threshold ?? 0 };
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                if (autoUnobserve) {
-                    observer.unobserve(entry.target);
-                }
-                const index = items.indexOf(entry.target);
-                invoke.invokeMethodAsync(callback, index);
+            if(entry.isIntersecting && autoUnobserveWhenIntersection) {
+                observer.unobserve(entry.target);
             }
+            else if(!entry.isIntersecting && autoUnobserveWhenNotIntersection) {
+                observer.unobserve(entry.target);
+            }
+            const index = items.indexOf(entry.target);
+            invoke.invokeMethodAsync(callback, {
+                isIntersecting: entry.isIntersecting,
+                index,
+                time: entry.time,
+                intersectionRatio: entry.intersectionRatio
+            });
         });
     }, option);
 
