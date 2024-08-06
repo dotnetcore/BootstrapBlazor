@@ -49,8 +49,7 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(() =>
-            cut.Instance.TriggerIntersecting(new IntersectionObserverEntry() { IsIntersecting = true, Index = 10 }));
+        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(new IntersectionObserverEntry() { IsIntersecting = true, Index = 10 }));
         Assert.Equal(10, count);
     }
 }
