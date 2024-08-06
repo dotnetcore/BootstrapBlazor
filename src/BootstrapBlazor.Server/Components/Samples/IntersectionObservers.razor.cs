@@ -26,19 +26,19 @@ public partial class IntersectionObservers
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
-    private Task OnIntersectingAsync(bool intersectioning, int index)
+    private Task OnIntersectingAsync(IntersectionObserverEntry entry)
     {
-        if (intersectioning)
+        if (entry.IsIntersecting)
         {
-            _images[index] = GetImageUrl(index);
+            _images[entry.Index] = GetImageUrl(entry.Index);
             StateHasChanged();
         }
         return Task.CompletedTask;
     }
 
-    private async Task OnLoadMoreAsync(bool intersectioning, int index)
+    private async Task OnLoadMoreAsync(IntersectionObserverEntry entry)
     {
-        if (intersectioning)
+        if (entry.IsIntersecting)
         {
             await Task.Delay(1000);
             _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
@@ -49,9 +49,9 @@ public partial class IntersectionObservers
     private string? _videoStateString;
     private string? _textColorString = "text-muted";
 
-    private async Task OnVisibleChanged(bool intersectioning, int index)
+    private async Task OnVisibleChanged(IntersectionObserverEntry entry)
     {
-        if (intersectioning)
+        if (entry.IsIntersecting)
         {
             _videoStateString = Localizer["IntersectionObserverVisiblePlayLabel"];
             _textColorString = "text-success";

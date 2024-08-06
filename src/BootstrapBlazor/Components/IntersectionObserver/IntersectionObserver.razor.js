@@ -11,6 +11,9 @@ export function init(id, invoke, options) {
     if (options.useElementViewport === false) {
         options.root = el;
     }
+    if (options.threshold && options.threshold.indexOf(' ') > 0) {
+        options.threshold = options.threshold.split(' ');
+    }
     const { root, rootMargin, threshold, autoUnobserveWhenIntersection, autoUnobserveWhenNotIntersection, callback } = options;
     const option = { root, rootMargin: rootMargin ?? '0px 0px 0px 0px', threshold: threshold ?? 0 };
 
@@ -23,7 +26,12 @@ export function init(id, invoke, options) {
                 observer.unobserve(entry.target);
             }
             const index = items.indexOf(entry.target);
-            invoke.invokeMethodAsync(callback, entry.isIntersecting, index);
+            invoke.invokeMethodAsync(callback, {
+                isIntersecting: entry.isIntersecting,
+                index,
+                time: entry.time,
+                intersectionRatio: entry.intersectionRatio
+            });
         });
     }, option);
 
