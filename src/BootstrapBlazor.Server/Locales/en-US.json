@@ -6605,12 +6605,15 @@
     "IntersectionObserverVisibleDesc": "In this example, <code>Threshold=\"1\"</code> is set, which means that the trigger condition is to play when the video is fully visible, otherwise it will automatically pause",
     "IntersectionObserverVisiblePauseLabel": "Video Paused",
     "IntersectionObserverVisiblePlayLabel": "Video Playing",
+    "IntersectionObserverThresholdTitle": "IntersectionRatio",
+    "IntersectionObserverThresholdIntro": "After setting <code>Threshold</code>, the intersection ratio between the observed element and the root element is obtained through the callback parameter <code>IntersectionObserveEntry</code> attribute <code>IntersectionRatio</code>",
+    "IntersectionObserverThresholdDesc": "Drag the scroll bar of the <code>div</code> below to observe data changes",
     "AttributeUseElementViewport": "The element that is used as the viewport for checking visibility of the target",
     "AttributeRootMargin": "Margin around the root. Can have values similar to the CSS margin property",
     "AttributeThreshold": "Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed",
     "AttributeAutoUnobserveWhenIntersection": "Whether to automatically cancel the observation when element visible",
     "AttributeAutoUnobserveWhenNotIntersection": "Whether to automatically cancel the observation when element invisible",
     "AttributeOnIntersectingAsync": "The callback when intersecting",
-    "AttributeChildContent": "Child componenet"
+    "AttributeChildContent": "Child component"
   }
 }

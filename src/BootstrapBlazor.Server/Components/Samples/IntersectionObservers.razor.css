@@ -45,8 +45,8 @@
     height: 260px;
 }
 
-    .bb-video-demo .bb-video {
-        height: 600px;
-        text-align: center;
-        margin-top: 160px;
-    }
+.bb-video {
+    height: 600px;
+    text-align: center;
+    margin-top: 160px;
+}

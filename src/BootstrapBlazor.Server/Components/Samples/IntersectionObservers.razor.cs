@@ -33,6 +33,7 @@ public partial class IntersectionObservers
             _images[entry.Index] = GetImageUrl(entry.Index);
             StateHasChanged();
         }
+
         return Task.CompletedTask;
     }
 
@@ -41,7 +42,8 @@ public partial class IntersectionObservers
         if (entry.IsIntersecting)
         {
             await Task.Delay(1000);
-            _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
+            _items.AddRange(Enumerable.Range(_items.Count + 1, 20)
+                .Select(i => $"https://picsum.photos/160/160?random={i}"));
             StateHasChanged();
         }
     }
@@ -63,7 +65,17 @@ public partial class IntersectionObservers
             _textColorString = "text-danger";
             await _video.Pause();
         }
+
         StateHasChanged();
+    }
+
+    private string? _thresholdValueString;
+
+    private Task OnThresholdChanged(IntersectionObserverEntry entry)
+    {
+        _thresholdValueString = entry.IntersectionRatio.ToString("P");
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
@@ -114,7 +126,7 @@ public partial class IntersectionObservers
         {
             Name = "OnIntersecting",
             Description = Localizer["AttributeOnIntersectingAsync"],
-            Type = "Func<bool, int, Task>",
+            Type = "Func<IntersectionObserverEntry, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
