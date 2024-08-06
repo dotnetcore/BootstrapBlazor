@@ -47,7 +47,7 @@ public partial class IntersectionObservers
             Name = "UseElementViewport",
             Description = Localizer["AttributeUseElementViewport"],
             Type = "bool",
-            ValueList = "true/false",
+            ValueList = "true|false",
             DefaultValue = "false"
         },
         new()
@@ -56,15 +56,15 @@ public partial class IntersectionObservers
             Description = Localizer["AttributeRootMargin"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "0px 0px 0px 0px"
+            DefaultValue = " — "
         },
         new()
         {
             Name = "Threshold",
             Description = Localizer["AttributeThreshold"],
-            Type = "float",
-            ValueList = "0.0 — 1.0",
-            DefaultValue = "0.0"
+            Type = "string?",
+            ValueList = "0.0 — 1.0|[]",
+            DefaultValue = " — "
         },
         new()
         {

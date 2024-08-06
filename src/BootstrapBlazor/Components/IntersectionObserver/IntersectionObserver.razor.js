@@ -6,11 +6,13 @@ export function init(id, invoke, options) {
         return;
     }
 
-    if(options.useElementViewport === false) {
+    const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
+
+    if (options.useElementViewport === false) {
         options.root = el;
     }
-    const { root = null, rootMargin, threshold, autoUnobserve } = options;
-    const items = [...el.querySelectorAll(".bb-intersection-observer-item")];
+    const { root, rootMargin, threshold, autoUnobserve, callback } = options;
+    const option = { root, rootMargin: rootMargin ?? '0px 0px 0px 0px', threshold: threshold ?? 0 };
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -19,10 +21,10 @@ export function init(id, invoke, options) {
                     observer.unobserve(entry.target);
                 }
                 const index = items.indexOf(entry.target);
-                invoke.invokeMethodAsync('OnIntersecting', index);
+                invoke.invokeMethodAsync(callback, index);
             }
         });
-    }, { root, rootMargin, threshold });
+    }, option);
 
     items.forEach(item => observer.observe(item));
     Data.set(id, observer);
