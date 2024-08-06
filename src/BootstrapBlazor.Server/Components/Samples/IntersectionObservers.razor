@@ -1,5 +1,7 @@
 ﻿@page "/intersection-observer"
+@inherits BootstrapModuleComponentBase
 @inject IStringLocalizer<IntersectionObservers> Localizer
+@attribute [JSModuleAutoLoader("./Components/Samples/IntersectionObservers.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <h3>@Localizer["IntersectionObserverTitle"]</h3>
 
@@ -15,7 +17,7 @@
             {
                 <IntersectionObserverItem>
                     <div class="bb-list-item">
-                        <img src="@image"/>
+                        <img src="@image" />
                     </div>
                 </IntersectionObserverItem>
             }
@@ -39,7 +41,7 @@
                 @foreach (var image in _items)
                 {
                     <div class="bb-list-item">
-                        <img src="@image"/>
+                        <img src="@image" />
                     </div>
                 }
             </div>
@@ -52,4 +54,19 @@
     </IntersectionObserver>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()"/>
+<DemoBlock Title="@Localizer["IntersectionObserverVisibleTitle"]"
+           Introduction="@Localizer["IntersectionObserverVisibleIntro"]"
+           Name="Threshold">
+    <section ignore><p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p></section>
+    <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserve="false">
+        <div class="bb-video-demo scroll">
+            <div class="bb-video">
+                <IntersectionObserverItem>
+                    <video controls width="350" src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"></video>
+                </IntersectionObserverItem>
+            </div>
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

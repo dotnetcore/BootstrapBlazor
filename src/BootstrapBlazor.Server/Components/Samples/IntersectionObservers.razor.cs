@@ -24,18 +24,33 @@ public partial class IntersectionObservers
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
-    private Task OnIntersectingAsync(int index)
+    private Task OnIntersectingAsync(bool intersectioning, int index)
     {
         _images[index] = GetImageUrl(index);
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private async Task OnLoadMoreAsync(int index)
+    private async Task OnLoadMoreAsync(bool intersectioning, int index)
     {
-        await Task.Delay(1000);
-        _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
-        StateHasChanged();
+        if (intersectioning)
+        {
+            await Task.Delay(1000);
+            _items.AddRange(Enumerable.Range(_items.Count + 1, 20).Select(i => $"https://picsum.photos/160/160?random={i}"));
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnVisibleChanged(bool intersectioning, int index)
+    {
+        if (intersectioning)
+        {
+            await InvokeVoidAsync("play");
+        }
+        else
+        {
+            await InvokeVoidAsync("pause");
+        }
     }
 
     private static string GetImageUrl(int index) => $"https://picsum.photos/160/160?random={index}";
