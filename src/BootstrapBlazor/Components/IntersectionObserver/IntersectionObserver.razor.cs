@@ -53,19 +53,6 @@ public partial class IntersectionObserver
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (string.IsNullOrEmpty(RootMargin))
-        {
-            RootMargin = "0px 0px 0px 0px";
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserve, Callback = nameof(TriggerIntersecting) });
 
