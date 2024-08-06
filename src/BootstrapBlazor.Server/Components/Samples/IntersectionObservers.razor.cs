@@ -28,8 +28,11 @@ public partial class IntersectionObservers
 
     private Task OnIntersectingAsync(bool intersectioning, int index)
     {
-        _images[index] = GetImageUrl(index);
-        StateHasChanged();
+        if (intersectioning)
+        {
+            _images[index] = GetImageUrl(index);
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 
