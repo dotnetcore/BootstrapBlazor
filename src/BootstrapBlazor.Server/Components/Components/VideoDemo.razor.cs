@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Server.Components.Components;
 
+/// <summary>
+/// VideoDemo 组件
+/// </summary>
 public partial class VideoDemo
 {
     /// <summary>

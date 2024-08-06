@@ -47,11 +47,11 @@ public partial class IntersectionObservers
     {
         if (intersectioning)
         {
-            await InvokeVoidAsync("play");
+            await _video.Play();
         }
         else
         {
-            await InvokeVoidAsync("pause");
+            await _video.Pause();
         }
     }
 
