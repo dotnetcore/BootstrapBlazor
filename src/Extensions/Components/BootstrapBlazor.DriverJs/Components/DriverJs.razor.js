@@ -9,6 +9,11 @@ export async function init(id, invoke) {
 }
 
 export function start(id, options) {
+    const el = document.getElementById(id);
+    if(el === null) {
+        return;
+    }
+
     const d = Data.get(id);
     if (d) {
         const { onDestroyStartedAsync, onDestroyedAsync } = options;
