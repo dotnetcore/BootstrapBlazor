@@ -17,7 +17,8 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
             pb.Add(a => a.UseElementViewport, false);
             pb.Add(a => a.RootMargin, "10px 20px 30px 40px");
             pb.Add(a => a.Threshold, "0.5");
-            pb.Add(a => a.AutoUnobserve, true);
+            pb.Add(a => a.AutoUnobserveWhenIntersection, false);
+            pb.Add(a => a.AutoUnobserveWhenNotIntersection, false);
             pb.Add(a => a.ChildContent, builder =>
             {
                 builder.OpenComponent<IntersectionObserverItem>(0);
