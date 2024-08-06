@@ -19,5 +19,5 @@ public partial class VideoDemo
     /// 暂停方法
     /// </summary>
     /// <returns></returns>
-    public Task Pause() => InvokeVoidAsync("Pause", Id);
+    public Task Pause() => InvokeVoidAsync("pause", Id);
 }
