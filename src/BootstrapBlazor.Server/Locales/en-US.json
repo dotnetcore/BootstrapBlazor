@@ -6603,6 +6603,8 @@
     "IntersectionObserverVisibleTitle": "Threshold",
     "IntersectionObserverVisibleIntro": "By setting <code>Threshold</code> specifying a ratio of intersection area to total bounding box area for the observed target",
     "IntersectionObserverVisibleDesc": "In this example, <code>Threshold=\"1\"</code> is set, which means that the trigger condition is to play when the video is fully visible, otherwise it will automatically pause",
+    "IntersectionObserverVisiblePauseLabel": "Video Paused",
+    "IntersectionObserverVisiblePlayLabel": "Video Playing",
     "AttributeUseElementViewport": "The element that is used as the viewport for checking visibility of the target",
     "AttributeRootMargin": "Margin around the root. Can have values similar to the CSS margin property",
     "AttributeThreshold": "Either a single number or an array of numbers which indicate at what percentage of the target's visibility the observer's callback should be executed",

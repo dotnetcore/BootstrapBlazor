@@ -6603,6 +6603,8 @@
     "IntersectionObserverVisibleTitle": "触发阈值",
     "IntersectionObserverVisibleIntro": "通过设置 <code>Threshold</code> 调整触发条件",
     "IntersectionObserverVisibleDesc": "本例中设置 <code>Threshold=\"1\"</code> 即触发条件为视频完全可见时播放，否则自动暂停",
+    "IntersectionObserverVisiblePauseLabel": "视频已暂停",
+    "IntersectionObserverVisiblePlayLabel": "视频已开始播放",
     "AttributeUseElementViewport": "是否使用当前元素作为视窗",
     "AttributeRootMargin": "根元素边距",
     "AttributeThreshold": "可见性阈值",
