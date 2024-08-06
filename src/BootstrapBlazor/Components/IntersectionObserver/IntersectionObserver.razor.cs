@@ -38,7 +38,7 @@ public partial class IntersectionObserver
     /// 获得/设置 已经交叉回调方法
     /// </summary>
     [Parameter]
-    public Func<int, Task>? OnIntersectingAsync { get; set; }
+    public Func<int, Task>? OnIntersecting { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件
@@ -67,7 +67,7 @@ public partial class IntersectionObserver
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserve });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserve, Callback = nameof(TriggerIntersecting) });
 
     /// <summary>
     /// 交叉检测回调方法 由 JavaScript 调用
@@ -75,11 +75,11 @@ public partial class IntersectionObserver
     /// <param name="index"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnIntersecting(int index)
+    public async Task TriggerIntersecting(int index)
     {
-        if (OnIntersectingAsync != null)
+        if (OnIntersecting != null)
         {
-            await OnIntersectingAsync(index);
+            await OnIntersecting(index);
         }
     }
 }
