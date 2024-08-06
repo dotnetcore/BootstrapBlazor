@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 交叉检测组件
+/// 可见检测组件
 /// </summary>
 public partial class IntersectionObserver
 {
@@ -14,7 +14,7 @@ public partial class IntersectionObserver
     /// The element that is used as the viewport for checking visibility of the target. Must be the ancestor of the target. Defaults to the browser viewport if not specified or if null
     /// </summary>
     [Parameter]
-    public string? RootSelector { get; set; }
+    public bool UseElementViewport { get; set; }
 
     /// <summary>
     /// Margin around the root. Can have values similar to the CSS margin property, e.g. "10px 20px 30px 40px" (top, right, bottom, left). The values can be percentages. This set of values serves to grow or shrink each side of the root element's bounding box before computing intersections. Defaults to all zeros.
@@ -27,6 +27,12 @@ public partial class IntersectionObserver
     /// </summary>
     [Parameter]
     public float Threshold { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动取消观察 默认 true 可见后自动取消观察提高性能
+    /// </summary>
+    [Parameter]
+    public bool AutoUnobserve { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 已经交叉回调方法
@@ -66,7 +72,7 @@ public partial class IntersectionObserver
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Root = RootSelector, RootMargin, Threshold });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { UseElementViewport, RootMargin, Threshold, AutoUnobserve });
 
     /// <summary>
     /// 交叉检测回调方法 由 JavaScript 调用

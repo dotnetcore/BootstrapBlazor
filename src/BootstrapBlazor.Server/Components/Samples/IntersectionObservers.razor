@@ -9,12 +9,47 @@
            Introduction="@Localizer["IntersectionObserverNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
-    <IntersectionObserver class="bb-list-main scroll" OnIntersectingAsync="OnIntersectingAsync">
-        @foreach (var image in _images)
-        {
-            <IntersectionObserverItem class="bb-list-item">
-                <img src="@image" />
-            </IntersectionObserverItem>
-        })
+    <IntersectionObserver OnIntersectingAsync="OnIntersectingAsync">
+        <div class="bb-list-main scroll">
+            @foreach (var image in _images)
+            {
+                <IntersectionObserverItem>
+                    <div class="bb-list-item">
+                        <img src="@image"/>
+                    </div>
+                </IntersectionObserverItem>
+            }
+        </div>
     </IntersectionObserver>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["IntersectionObserverLoadTitle"]"
+           Introduction="@Localizer["IntersectionObserverLoadIntro"]"
+           Name="LoadMore">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc1"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc2"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc3"].Value)</li>
+        </ul>
+    </section>
+    <IntersectionObserver OnIntersectingAsync="OnLoadMoreAsync" Threshold="1f" AutoUnobserve="false">
+        <div class="bb-list-load scroll">
+            <div class="bb-list-demo">
+                @foreach (var image in _items)
+                {
+                    <div class="bb-list-item">
+                        <img src="@image"/>
+                    </div>
+                }
+            </div>
+            <IntersectionObserverItem>
+                <div class="bb-list-item-loading">
+                    <Spinner></Spinner>
+                </div>
+            </IntersectionObserverItem>
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"/>

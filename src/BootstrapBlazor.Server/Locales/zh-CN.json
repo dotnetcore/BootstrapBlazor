@@ -6590,10 +6590,21 @@
     "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加销毁前逻辑，返回 <b>非空字符串</b> 时客户端弹窗二次确认是否阻止销毁；可通过设置 <code>AllowClose</code> 阻止用户退出向导"
   },
   "BootstrapBlazor.Server.Components.Samples.IntersectionObservers": {
-    "IntersectionObserverTitle": "IntersectionObserver 可见性观察器",
+    "IntersectionObserverTitle": "IntersectionObserver 交叉观察器",
     "IntersectionObserverDescription": "通过滚动使元素可见使触发组件回调，多用于数据懒加载功能",
     "IntersectionObserverBaseUsage": "基础用法",
-    "IntersectionObserverNormalIntro": "通过设置 <code>Root</code> <code>RootMargin</code> <code>Threshold</code> 参数值，监听元素可见性变化",
-    "IntersectionObserverNormalDescription": "本例加载 100 张图片，不可见图片加载默认图片（已缓存），当滚动到可见区域时，加载真实图片"
+    "IntersectionObserverNormalIntro": "通过设置 <code>Root</code> <code>RootMargin</code> <code>Threshold</code> 参数值，监听元素与根元素交叉变化",
+    "IntersectionObserverNormalDescription": "本例加载 100 张图片，不可见图片加载默认图片（已缓存），当滚动到可见区域时，加载真实图片",
+    "IntersectionObserverLoadTitle": "触底加载",
+    "IntersectionObserverLoadIntro": "滚动到底后，出现加载更多指示，通知后台加载数据",
+    "IntersectionObserverLoadDesc1": "通过设置 <code>Threshold=\"1.0f\"</code> 约束正在加载指示符完全可见时，执行加载更多操作",
+    "IntersectionObserverLoadDesc2": "通过设置 <code>AutoUnobserve=\"false\"</code> 保证始终检测正在加载指示符可见性，防止可见后自动移除检测",
+    "IntersectionObserverLoadDesc3": "通过设置 <code>OnLoadMoreAsync</code> 方法模拟网络延时 1s",
+    "AttributeUseElementViewport": "是否使用当前元素作为视窗",
+    "AttributeRootMargin": "根元素边距",
+    "AttributeThreshold": "可见性阈值",
+    "AttributeAutoUnobserve": "是否自动取消观察",
+    "AttributeOnIntersectingAsync": "可见回调方法",
+    "AttributeChildContent": "子组件"
   }
 }
