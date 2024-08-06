@@ -88,11 +88,19 @@ public partial class IntersectionObservers
         },
         new()
         {
-            Name = "AutoUnobserve",
-            Description = Localizer["AttributeAutoUnobserve"],
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenIntersection"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(IntersectionObserver.AutoUnobserveWhenNotIntersection),
+            Description = Localizer["AttributeAutoUnobserveWhenNotIntersection"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         },
         new()
         {

@@ -33,7 +33,7 @@
             <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc3"].Value)</li>
         </ul>
     </section>
-    <IntersectionObserver OnIntersecting="OnLoadMoreAsync" Threshold="1" AutoUnobserve="false">
+    <IntersectionObserver OnIntersecting="OnLoadMoreAsync" Threshold="1" AutoUnobserveWhenIntersection="false">
         <div class="bb-list-load scroll">
             <div class="bb-list-demo">
                 @foreach (var image in _items)
@@ -56,7 +56,7 @@
            Introduction="@Localizer["IntersectionObserverVisibleIntro"]"
            Name="Threshold">
     <section ignore><p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p></section>
-    <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserve="false">
+    <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserveWhenIntersection="false">
         <div class="bb-video-demo scroll">
             <div class="bb-video">
                 <IntersectionObserverItem>
