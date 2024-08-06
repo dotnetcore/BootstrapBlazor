@@ -9,7 +9,7 @@
            Introduction="@Localizer["IntersectionObserverNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
-    <IntersectionObserver OnIntersectingAsync="OnIntersectingAsync">
+    <IntersectionObserver OnIntersecting="OnIntersectingAsync">
         <div class="bb-list-main scroll">
             @foreach (var image in _images)
             {
