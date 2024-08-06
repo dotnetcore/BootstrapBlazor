@@ -41,14 +41,14 @@ public class IntersectionObserverTest : BootstrapBlazorTestBase
                 builder.AddAttribute(1, "ChildContent", new RenderFragment(builder => builder.AddContent(0, "observer-item")));
                 builder.CloseComponent();
             });
-            pb.Add(a => a.OnIntersecting, index =>
+            pb.Add(a => a.OnIntersecting, (isIntersectioning, index) =>
             {
                 count = index;
                 return Task.CompletedTask;
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(10));
+        await cut.InvokeAsync(() => cut.Instance.TriggerIntersecting(true, 10));
         Assert.Equal(10, count);
     }
 }
