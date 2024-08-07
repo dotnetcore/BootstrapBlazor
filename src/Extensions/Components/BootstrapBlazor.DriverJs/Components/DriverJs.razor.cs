@@ -10,6 +10,12 @@ namespace BootstrapBlazor.Components;
 public partial class DriverJs
 {
     /// <summary>
+    /// 获得/设置 是否自动开始向导 默认 true
+    /// </summary>
+    [Parameter]
+    public bool AutoDrive { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件配置 <see cref="DriverJsConfig"/> 实例 默认 null
     /// </summary>
     [Parameter]
@@ -48,11 +54,12 @@ public partial class DriverJs
     /// 开始方法
     /// </summary>
     /// <returns></returns>
-    public async Task Start()
+    public async Task Start(int? index = 0)
     {
         Config ??= new();
         Config.Steps = _steps;
         Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
+
         if (OnBeforeDestroyAsync != null)
         {
             Config.OnDestroyStartedAsync = nameof(OnBeforeDestroy);
@@ -61,7 +68,12 @@ public partial class DriverJs
         {
             Config.OnDestroyedAsync = nameof(OnDestroyed);
         }
-        await InvokeVoidAsync("start", Id, Config);
+
+        await InvokeVoidAsync("start", Id, Config, new
+        {
+            AutoDrive,
+            Index = index
+        });
     }
 
     /// <summary>
@@ -76,6 +88,7 @@ public partial class DriverJs
             // Config 不为空
             ret = await OnBeforeDestroyAsync(Config!, index);
         }
+
         return ret;
     }
 
@@ -91,6 +104,111 @@ public partial class DriverJs
             await OnDestroyedAsync();
         }
     }
+
+    /// <summary>
+    /// Starts at step 0
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    public Task Drive(int? index) => InvokeVoidAsync("drive", Id, index);
+
+    /// <summary>
+    /// Move to the next step
+    /// </summary>
+    /// <returns></returns>
+    public Task MoveNext() => InvokeVoidAsync("moveNext", Id);
+
+    /// <summary>
+    /// Move to the previous step
+    /// </summary>
+    /// <returns></returns>
+    public Task MovePrevious() => InvokeVoidAsync("movePrevious", Id);
+
+    /// <summary>
+    /// Move to the step
+    /// </summary>
+    /// <returns></returns>
+    public Task MoveTo(int index) => InvokeVoidAsync("moveTo", Id, index);
+
+    /// <summary>
+    /// Is there a next step
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> HasNextStep() => InvokeAsync<bool>("hasNextStep", Id);
+
+    /// <summary>
+    /// Is there a previous step
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> HasPreviousStep() => InvokeAsync<bool>("hasPreviousStep", Id);
+
+    /// <summary>
+    /// Is the current step the first step
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> IsFirstStep() => InvokeAsync<bool>("isFirstStep", Id);
+
+    /// <summary>
+    /// Is the current step the last step
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> IsLastStep() => InvokeAsync<bool>("isLastStep", Id);
+
+    /// <summary>
+    /// Gets the active step index
+    /// </summary>
+    /// <returns></returns>
+    public Task<int> GetActiveIndex() => InvokeAsync<int>("getActiveIndex", Id);
+
+    /// <summary>
+    /// Gets the active step configuration
+    /// </summary>
+    /// <returns></returns>
+    public async Task<DriverJsStep?> GetActiveStep()
+    {
+        DriverJsStep? step = null;
+        if (Config != null)
+        {
+            var index = await GetActiveIndex();
+            step = Config.Steps.ElementAtOrDefault(index + 1);
+        }
+
+        return step;
+    }
+
+    /// <summary>
+    /// Gets the previous step configuration
+    /// </summary>
+    /// <returns></returns>
+    public async Task<DriverJsStep?> GetPreviousStep()
+    {
+        DriverJsStep? step = null;
+        if (Config != null)
+        {
+            var index = await GetActiveIndex();
+            step = Config.Steps.ElementAtOrDefault(index - 1);
+        }
+
+        return step;
+    }
+
+    /// <summary>
+    /// Is the tour or highlight currently active
+    /// </summary>
+    /// <returns></returns>
+    public Task<bool> IsActive() => InvokeAsync<bool>("isActive", Id);
+
+    /// <summary>
+    /// Recalculate and redraw the highlight
+    /// </summary>
+    /// <returns></returns>
+    public Task Refresh() => InvokeVoidAsync("refresh", Id);
+
+    /// <summary>
+    /// Look at the DriveStep section of configuration for format of the step
+    /// </summary>
+    /// <returns></returns>
+    public Task Highlight() => InvokeVoidAsync("highlight", Id);
 
     /// <summary>
     /// 添加步骤方法

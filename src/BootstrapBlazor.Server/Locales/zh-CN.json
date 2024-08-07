@@ -4702,7 +4702,8 @@
     "ConnectionService": "在线连接服务 ConnectionService",
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
     "ThemeProvider": "主题服务 IThemeProvider",
-    "IconPark": "字节跳动图标 IconPark"
+    "IconPark": "字节跳动图标 IconPark",
+    "IntersectionObserver": "交叉观察者 IntersectionObserver"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6587,5 +6588,32 @@
     "DriverJsDestroyTitle": "销毁回调方法",
     "DriverJsDestroyIntro": "销毁前回调方法 <code>OnBeforeDestroyAsync</code> 或者销毁回调方法 <code>OnDestroyedAsync</code>",
     "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加销毁前逻辑，返回 <b>非空字符串</b> 时客户端弹窗二次确认是否阻止销毁；可通过设置 <code>AllowClose</code> 阻止用户退出向导"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IntersectionObservers": {
+    "IntersectionObserverTitle": "IntersectionObserver 交叉观察器",
+    "IntersectionObserverDescription": "通过滚动使元素可见使触发组件回调，多用于数据懒加载功能",
+    "IntersectionObserverBaseUsage": "基础用法",
+    "IntersectionObserverNormalIntro": "通过设置 <code>Root</code> <code>RootMargin</code> <code>Threshold</code> 参数值，监听元素与根元素交叉变化",
+    "IntersectionObserverNormalDescription": "本例加载 100 张图片，不可见图片加载默认图片（缓存图片性能高），当滚动到可见区域时，加载真实图片",
+    "IntersectionObserverLoadTitle": "触底加载",
+    "IntersectionObserverLoadIntro": "滚动到底后，出现加载更多指示，通知后台加载数据",
+    "IntersectionObserverLoadDesc1": "通过设置 <code>Threshold=\"1.0\"</code> 约束正在加载指示符完全可见时，执行加载更多操作",
+    "IntersectionObserverLoadDesc2": "通过设置 <code>AutoUnobserve=\"false\"</code> 保证始终检测正在加载指示符可见性，防止可见后自动移除检测",
+    "IntersectionObserverLoadDesc3": "通过设置 <code>OnLoadMoreAsync</code> 方法模拟网络延时 1s",
+    "IntersectionObserverVisibleTitle": "触发阈值",
+    "IntersectionObserverVisibleIntro": "通过设置 <code>Threshold</code> 调整触发条件",
+    "IntersectionObserverVisibleDesc": "本例中设置 <code>Threshold=\"1\"</code> 即触发条件为视频完全可见时播放，否则自动暂停",
+    "IntersectionObserverVisiblePauseLabel": "视频已暂停",
+    "IntersectionObserverVisiblePlayLabel": "视频已开始播放",
+    "IntersectionObserverThresholdTitle": "阈值变化观察",
+    "IntersectionObserverThresholdIntro": "通过设置 <code>Threshold</code> 后通过回调参数 <code>IntersectionObserveEntry</code> 属性 <code>IntersectionRatio</code> 获得观察元素与根元素交叉率",
+    "IntersectionObserverThresholdDesc": "拖动下方 <code>div</code> 滚动条，可观察数据变化",
+    "AttributeUseElementViewport": "是否使用当前元素作为视窗",
+    "AttributeRootMargin": "根元素边距",
+    "AttributeThreshold": "可见性阈值",
+    "AttributeAutoUnobserveWhenIntersection": "元素可见时是否自动取消观察",
+    "AttributeAutoUnobserveWhenNotIntersection": "元素不可见时是否自动取消观察",
+    "AttributeOnIntersectingAsync": "可见回调方法",
+    "AttributeChildContent": "子组件"
   }
 }
