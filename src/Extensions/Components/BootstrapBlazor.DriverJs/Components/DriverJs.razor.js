@@ -18,18 +18,20 @@ export function start(id, options, config) {
     if (d) {
         d.config = config;
         const { autoDrive, index } = config;
-        const { onDestroyStartedAsync, onDestroyedAsync } = options;
-        if (onDestroyStartedAsync) {
+        const { hookDestroyStarted, hookDestroyed } = options;
+        if (hookDestroyStarted) {
+            delete options.hookDestroyStarted;
             options.onDestroyStarted = async (el, step, { state }) => {
-                const content = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, state.activeIndex);
+                const content = await d.invoke.invokeMethodAsync("OnBeforeDestroy", state.activeIndex);
                 if (content === null || confirm(content)) {
                     d.driver.destroy();
                 }
             }
         }
-        if (onDestroyedAsync) {
+        if (hookDestroyed) {
+            delete options.hookDestroyed;
             options.onDestroyed = () => {
-                d.invoke.invokeMethodAsync(onDestroyedAsync);
+                d.invoke.invokeMethodAsync("OnDestroyed");
             };
         }
         const driverObj = driver(options);
@@ -137,4 +139,10 @@ export function refresh(id) {
     if (d) {
         d.driver.refresh();
     }
+}
+
+export function highlight(id, options) {
+    const driverObj = driver(options);
+    driverObj.highlight({
+    });
 }
