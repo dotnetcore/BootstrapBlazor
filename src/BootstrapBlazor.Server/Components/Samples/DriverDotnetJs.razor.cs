@@ -13,6 +13,7 @@ public partial class DriverDotnetJs
     private DriverJs _guidePopover = default!;
     private DriverJs _guidePopoverStyle = default!;
     private DriverJs _guideDestroy = default!;
+    private DriverJs _guideHighlight = default!;
     private DriverJsConfig _config = default!;
     private DriverJsConfig _configPopover = default!;
     private DriverJsConfig _configPopoverStyle = default!;
@@ -69,5 +70,21 @@ public partial class DriverDotnetJs
     {
         _logger.Log("Trigger OnDestroyedAsync");
         return Task.CompletedTask;
+    }
+
+    private async Task OnStartHighlight()
+    {
+        var config = new DriverJsConfig
+        {
+            StagePadding = 20f
+        };
+        var popover = new DriverJsHighlightPopover
+        {
+            Title = "Highlight Demo",
+            Description = "This is a highlight demo",
+            Align = "center",
+            Side = "bottom"
+        };
+        await _guideHighlight.Highlight(config, ".bb-guid5 > p:first-child", popover);
     }
 }
