@@ -6587,7 +6587,9 @@
     "DriverJsPopoverStyleIntro": "通过设置 <code>PopoverClass=\"driverjs-theme\"</code> 通过自定义样式 <code>driverjs-theme</code> 设置弹窗 UI",
     "DriverJsDestroyTitle": "销毁回调方法",
     "DriverJsDestroyIntro": "销毁前回调方法 <code>OnBeforeDestroyAsync</code> 或者销毁回调方法 <code>OnDestroyedAsync</code>",
-    "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加销毁前逻辑，返回 <b>非空字符串</b> 时客户端弹窗二次确认是否阻止销毁；可通过设置 <code>AllowClose</code> 阻止用户退出向导"
+    "DriverJsDestroyDesc": "当用户尝试退出游览时，可以使用 <code>OnBeforeDestroyAsync</code> 回调添加销毁前逻辑，返回 <b>非空字符串</b> 时客户端弹窗二次确认是否阻止销毁；可通过设置 <code>AllowClose</code> 阻止用户退出向导",
+    "DriverJsHighlightTitle": "高亮显示",
+    "DriverJsHighlightIntro": "通过调用 <code>DriverJs</code> 组件实例方法 <code>Highlight</code> 使指定元素高亮聚焦显示"
   },
   "BootstrapBlazor.Server.Components.Samples.IntersectionObservers": {
     "IntersectionObserverTitle": "IntersectionObserver 交叉观察器",

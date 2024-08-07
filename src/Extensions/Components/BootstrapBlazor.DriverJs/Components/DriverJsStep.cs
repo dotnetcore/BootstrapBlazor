@@ -66,13 +66,13 @@ public class DriverJsStep : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        _popover ??= new InternalDriverJsPopover()
+        _popover ??= new DriverJsHighlightPopover()
         {
             Title = Title,
             Description = Description,
-            PrevBtnText = Localizer[nameof(InternalDriverJsPopover.PrevBtnText)],
-            NextBtnText = Localizer[nameof(InternalDriverJsPopover.NextBtnText)],
-            DoneBtnText = Localizer[nameof(InternalDriverJsPopover.DoneBtnText)]
+            PrevBtnText = Localizer[nameof(DriverJsHighlightPopover.PrevBtnText)],
+            NextBtnText = Localizer[nameof(DriverJsHighlightPopover.NextBtnText)],
+            DoneBtnText = Localizer[nameof(DriverJsHighlightPopover.DoneBtnText)]
         };
         builder.OpenComponent<CascadingValue<DriverJsStep>>(0);
         builder.AddAttribute(1, nameof(CascadingValue<DriverJsStep>.Value), this);
@@ -106,45 +106,4 @@ public class DriverJsStep : ComponentBase, IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-
-    ///// <summary>
-    ///// The popover configuration for this step.
-    ///// </summary>
-    //public FocusGuidePopover? Popover { get; set; }
-
-    ///// <summary>
-    ///// Callback when the current step is deselected
-    ///// </summary>
-    ///// <param name="step"></param>
-    ///// <param name="config"></param>
-    ///// <param name="state"></param>
-    ///// <returns></returns>
-    //public Task OnDeselected(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    //{
-    //    return Task.CompletedTask;
-    //}
-
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    ///// <param name="step"></param>
-    ///// <param name="config"></param>
-    ///// <param name="state"></param>
-    ///// <returns></returns>
-    //public Task OnHighlightStarted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    //{
-    //    return Task.CompletedTask;
-    //}
-
-    ///// <summary>
-    ///// 
-    ///// </summary>
-    ///// <param name="step"></param>
-    ///// <param name="config"></param>
-    ///// <param name="state"></param>
-    ///// <returns></returns>
-    //public Task OnHighlighted(FocusGuideStep step, FocusGuideConfig config, FocusGuideState state)
-    //{
-    //    return Task.CompletedTask;
-    //}
 }

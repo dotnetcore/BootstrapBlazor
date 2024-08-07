@@ -125,15 +125,21 @@ public class DriverJsConfig
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? DoneBtnText { get; set; }
 
-    /// <summary>
-    /// 获得/设置 组件销毁前回调方法名称
-    /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
-    internal string? OnDestroyStartedAsync { get; set; }
+    [JsonInclude]
+    private bool HookDestroyStarted => OnDestroyStartedAsync != null;
 
     /// <summary>
     /// 获得/设置 组件销毁前回调方法名称
     /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull), JsonInclude]
-    internal string? OnDestroyedAsync { get; set; }
+    [JsonIgnore]
+    public Func<DriverJsConfig, int, Task<string?>>? OnDestroyStartedAsync { get; set; }
+
+    [JsonInclude]
+    private bool HookDestroyed => OnDestroyedAsync != null;
+
+    /// <summary>
+    /// 获得/设置 组件销毁前回调方法名称
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnDestroyedAsync { get; set; }
 }

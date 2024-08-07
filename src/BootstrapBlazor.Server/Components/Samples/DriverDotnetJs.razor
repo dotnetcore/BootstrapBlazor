@@ -165,7 +165,7 @@
     </DriverJs>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DriverJsDestroyTitle"]"
+<DemoBlock Title="@Localizer["DriverJsDestroyTitle"]" 
            Introduction="@Localizer["DriverJsDestroyIntro"]"
            Name="Popover">
     <section ignore class="bb-guid4">
@@ -182,7 +182,7 @@
             </div>
         </div>
     </section>
-    <DriverJs @ref="_guideDestroy" Config="_config" OnBeforeDestroyAsync="OnBeforeDestroyAsync" OnDestroyedAsync="OnDestroyedAsync">
+    <DriverJs @ref="_guideDestroy" Config="_configDestroy">
         <DriverJsStep Selector=".bb-title">
             <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]" Side="bottom" Align="center"></DriverJsPopover>
         </DriverJsStep>
@@ -197,4 +197,23 @@
         </DriverJsStep>
     </DriverJs>
     <ConsoleLogger @ref="_logger"></ConsoleLogger>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsHighlightTitle"]"
+           Introduction="@Localizer["DriverJsHighlightIntro"]"
+           Name="Highlight">
+    <section ignore class="bb-guid5">
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartHighlight" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guideHighlight"></DriverJs>
 </DemoBlock>
