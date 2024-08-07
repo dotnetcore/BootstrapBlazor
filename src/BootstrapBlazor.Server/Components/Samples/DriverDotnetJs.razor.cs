@@ -16,6 +16,7 @@ public partial class DriverDotnetJs
     private DriverJsConfig _config = default!;
     private DriverJsConfig _configPopover = default!;
     private DriverJsConfig _configPopoverStyle = default!;
+    private DriverJsConfig _configDestroy = default!;
     private ConsoleLogger _logger = default!;
 
     /// <summary>
@@ -36,6 +37,11 @@ public partial class DriverDotnetJs
         _configPopoverStyle = new()
         {
             PopoverClass = "driverjs-theme"
+        };
+        _configDestroy = new()
+        {
+            OnDestroyStartedAsync = OnBeforeDestroyAsync,
+            OnDestroyedAsync = OnDestroyedAsync
         };
     }
 
