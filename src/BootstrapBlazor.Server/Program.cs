@@ -57,21 +57,22 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
 }
-app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
+//app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 
-var provider = new FileExtensionContentTypeProvider
-{
-    Mappings =
-    {
-        [".properties"] = "application/octet-stream",
-        [".moc"] = "application/x-msdownload",
-        [".moc3"] = "application/x-msdownload",
-        [".mtn"] = "application/x-msdownload"
-    }
-};
+//var provider = new FileExtensionContentTypeProvider
+//{
+//    Mappings =
+//    {
+//        [".properties"] = "application/octet-stream",
+//        [".moc"] = "application/x-msdownload",
+//        [".moc3"] = "application/x-msdownload",
+//        [".mtn"] = "application/x-msdownload"
+//    }
+//};
 
-app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
-app.UseStaticFiles();
+app.MapStaticAssets();
+//app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
+//app.UseStaticFiles();
 
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)
