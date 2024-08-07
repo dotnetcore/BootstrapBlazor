@@ -85,6 +85,6 @@ public partial class DriverDotnetJs
             Align = "center",
             Side = "bottom"
         };
-        await _guideHighlight.Highlight(config, ".bb-guid5 > p:first-child", popover);
+        await _guideHighlight.Highlight(config, ".bb-guid5 .col-12", popover);
     }
 }
