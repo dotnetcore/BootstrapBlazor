@@ -1,11 +1,11 @@
-﻿import {driver} from "../driver.js"
-import {addLink} from '../../BootstrapBlazor/modules/utility.js'
+﻿import { driver } from "../driver.js"
+import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import Data from "../../BootstrapBlazor/modules/data.js"
 
 export async function init(id, invoke) {
     await addLink('./_content/BootstrapBlazor.DriverJs/driver.css')
 
-    Data.set(id, {invoke});
+    Data.set(id, { invoke });
 }
 
 export function start(id, options, config) {
@@ -17,13 +17,13 @@ export function start(id, options, config) {
     const d = Data.get(id);
     if (d) {
         d.config = config;
-        const {autoDrive, index} = config;
-        const {onDestroyStartedAsync, onDestroyedAsync} = options;
+        const { autoDrive, index } = config;
+        const { onDestroyStartedAsync, onDestroyedAsync } = options;
         if (onDestroyStartedAsync) {
-            options.onDestroyStarted = async (el, step, {state}) => {
+            options.onDestroyStarted = async (el, step, { state }) => {
                 const content = await d.invoke.invokeMethodAsync(onDestroyStartedAsync, state.activeIndex);
                 if (content === null || confirm(content)) {
-                    dispose(id);
+                    d.driver.destroy();
                 }
             }
         }

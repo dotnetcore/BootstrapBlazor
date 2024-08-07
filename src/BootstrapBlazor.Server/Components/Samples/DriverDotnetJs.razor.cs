@@ -39,9 +39,9 @@ public partial class DriverDotnetJs
         };
     }
 
-    private  Task OnStart() => _guide.Start();
+    private Task OnStart() => _guide.Start();
 
-    private  Task OnStartPopover() => _guidePopover.Start();
+    private Task OnStartPopover() => _guidePopover.Start();
 
     private Task OnStartPopoverStyle() => _guidePopoverStyle.Start();
 
