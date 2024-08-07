@@ -10,6 +10,18 @@ namespace BootstrapBlazor.Components;
 public partial class DriverJs
 {
     /// <summary>
+    /// 获得/设置 是否自动销毁向导 默认 false 不销毁
+    /// </summary>
+    [Parameter]
+    public bool AutoDestroy { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动开始向导 默认 true
+    /// </summary>
+    [Parameter]
+    public bool AutoDrive { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件配置 <see cref="DriverJsConfig"/> 实例 默认 null
     /// </summary>
     [Parameter]
@@ -48,22 +60,26 @@ public partial class DriverJs
     /// 开始方法
     /// </summary>
     /// <returns></returns>
-    public async Task Start()
+    public async Task Start(int? index = 0)
     {
         Config ??= new();
         Config.Steps = _steps;
         Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
+
         if (OnBeforeDestroyAsync != null)
         {
             Config.OnDestroyStartedAsync = nameof(OnBeforeDestroy);
         }
-
         if (OnBeforeDestroyAsync != null)
         {
             Config.OnDestroyedAsync = nameof(OnDestroyed);
         }
 
-        await InvokeVoidAsync("start", Id, Config);
+        await InvokeVoidAsync("start", Id, Config, new {
+            AutoDestroy,
+            AutoDrive,
+            Index = index
+        });
     }
 
     /// <summary>
