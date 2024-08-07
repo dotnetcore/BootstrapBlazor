@@ -185,13 +185,16 @@ public partial class DriverJs
     /// <summary>
     /// Look at the DriveStep section of configuration for format of the step
     /// </summary>
+    /// <param name="config"><see cref="DriverJsConfig"/> 实例</param>
+    /// <param name="selector">target selector</param>
+    /// <param name="popover"><see cref="DriverJsHighlightPopover"/> 实例</param>
     /// <returns></returns>
-    public async Task Highlight(DriverJsConfig config, string? selector)
+    public async Task Highlight(DriverJsConfig config, string? selector, DriverJsHighlightPopover popover)
     {
         config ??= new();
         config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
 
-        await InvokeVoidAsync("highlight", Id, config);
+        await InvokeVoidAsync("highlight", Id, config, new { element = selector, popover });
     }
 
     /// <summary>

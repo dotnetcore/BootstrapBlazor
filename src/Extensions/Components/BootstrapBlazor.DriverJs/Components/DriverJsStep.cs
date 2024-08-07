@@ -66,13 +66,13 @@ public class DriverJsStep : ComponentBase, IDisposable
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        _popover ??= new InternalDriverJsPopover()
+        _popover ??= new DriverJsHighlightPopover()
         {
             Title = Title,
             Description = Description,
-            PrevBtnText = Localizer[nameof(InternalDriverJsPopover.PrevBtnText)],
-            NextBtnText = Localizer[nameof(InternalDriverJsPopover.NextBtnText)],
-            DoneBtnText = Localizer[nameof(InternalDriverJsPopover.DoneBtnText)]
+            PrevBtnText = Localizer[nameof(DriverJsHighlightPopover.PrevBtnText)],
+            NextBtnText = Localizer[nameof(DriverJsHighlightPopover.NextBtnText)],
+            DoneBtnText = Localizer[nameof(DriverJsHighlightPopover.DoneBtnText)]
         };
         builder.OpenComponent<CascadingValue<DriverJsStep>>(0);
         builder.AddAttribute(1, nameof(CascadingValue<DriverJsStep>.Value), this);

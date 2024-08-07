@@ -141,8 +141,7 @@ export function refresh(id) {
     }
 }
 
-export function highlight(id, options) {
+export function highlight(id, options, config) {
     const driverObj = driver(options);
-    driverObj.highlight({
-    });
+    driverObj.highlight(config);
 }
