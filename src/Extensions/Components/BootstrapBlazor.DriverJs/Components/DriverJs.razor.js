@@ -50,6 +50,13 @@ export function dispose(id) {
     }
 }
 
+export function drive(id, index = 0) {
+    const d = Data.get(id);
+    if (d) {
+        d.driver.drive(index);
+    }
+}
+
 export function moveNext(id) {
     const d = Data.get(id);
     if (d) {
