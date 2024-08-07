@@ -39,25 +39,13 @@ public partial class DriverDotnetJs
         };
     }
 
-    private async Task OnStart()
-    {
-        await _guide.Start();
-    }
+    private Task OnStart() => _guide.Start();
 
-    private async Task OnStartPopover()
-    {
-        await _guidePopover.Start();
-    }
+    private Task OnStartPopover() => _guidePopover.Start();
 
-    private async Task OnStartPopoverStyle()
-    {
-        await _guidePopoverStyle.Start();
-    }
+    private Task OnStartPopoverStyle() => _guidePopoverStyle.Start();
 
-    private async Task OnStartDestroy()
-    {
-        await _guideDestroy.Start();
-    }
+    private Task OnStartDestroy() => _guideDestroy.Start();
 
     private Task<string?> OnBeforeDestroyAsync(DriverJsConfig config, int index)
     {
