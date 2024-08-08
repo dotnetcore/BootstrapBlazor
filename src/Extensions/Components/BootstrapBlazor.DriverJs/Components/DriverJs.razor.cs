@@ -22,18 +22,6 @@ public partial class DriverJs
     public DriverJsConfig? Config { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件销毁前回调方法 返回 false 时阻止销毁
-    /// </summary>
-    [Parameter]
-    public Func<DriverJsConfig, int, Task<string?>>? OnBeforeDestroyAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件销毁回调方法
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnDestroyedAsync { get; set; }
-
-    /// <summary>
     /// 获得/设置 子组件内容
     /// </summary>
     [Parameter]
@@ -60,15 +48,6 @@ public partial class DriverJs
         Config.Steps = _steps;
         Config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
 
-        if (OnBeforeDestroyAsync != null)
-        {
-            Config.OnDestroyStartedAsync = nameof(OnBeforeDestroy);
-        }
-        if (OnBeforeDestroyAsync != null)
-        {
-            Config.OnDestroyedAsync = nameof(OnDestroyed);
-        }
-
         await InvokeVoidAsync("start", Id, Config, new
         {
             AutoDrive,
@@ -77,18 +56,17 @@ public partial class DriverJs
     }
 
     /// <summary>
-    /// 组件销毁前回调方法由 JavaScript 调用 返回 false 阻止销毁
+    /// 组件销毁前回调方法由 JavaScript 调用 返回 非空字符串时客户端 confirm 确认弹窗
     /// </summary>
     [JSInvokable]
     public async Task<string?> OnBeforeDestroy(int index)
     {
         string? ret = null;
-        if (OnBeforeDestroyAsync != null)
-        {
-            // Config 不为空
-            ret = await OnBeforeDestroyAsync(Config!, index);
-        }
 
+        if (Config?.OnDestroyStartedAsync != null)
+        {
+            ret = await Config.OnDestroyStartedAsync(Config, index);
+        }
         return ret;
     }
 
@@ -99,9 +77,9 @@ public partial class DriverJs
     [JSInvokable]
     public async Task OnDestroyed()
     {
-        if (OnDestroyedAsync != null)
+        if (Config?.OnDestroyedAsync != null)
         {
-            await OnDestroyedAsync();
+            await Config.OnDestroyedAsync();
         }
     }
 
@@ -207,8 +185,17 @@ public partial class DriverJs
     /// <summary>
     /// Look at the DriveStep section of configuration for format of the step
     /// </summary>
+    /// <param name="config"><see cref="DriverJsConfig"/> 实例</param>
+    /// <param name="selector">target selector</param>
+    /// <param name="popover"><see cref="DriverJsHighlightPopover"/> 实例</param>
     /// <returns></returns>
-    public Task Highlight() => InvokeVoidAsync("highlight", Id);
+    public async Task Highlight(DriverJsConfig config, string? selector, DriverJsHighlightPopover popover)
+    {
+        config ??= new();
+        config.ProgressText ??= Localizer[nameof(Config.ProgressText)];
+
+        await InvokeVoidAsync("highlight", Id, config, new { element = selector, popover });
+    }
 
     /// <summary>
     /// 添加步骤方法

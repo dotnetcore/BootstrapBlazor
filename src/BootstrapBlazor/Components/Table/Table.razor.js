@@ -42,9 +42,12 @@ export function reset(id) {
         return;
     }
 
-    table.columns = []
-    table.tables = []
-    table.dragColumns = []
+    table.columns = [];
+    table.tables = [];
+    table.dragColumns = [];
+    table.thead = null;
+    table.toolbar = null;
+    table.pages = null;
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
     if (shim !== void 0) {
@@ -93,7 +96,10 @@ export function reset(id) {
             if (right) {
                 setToolbarDropdown(table, right)
             }
+            table.toolbar = toolbar;
         }
+
+        table.pages = [...table.el.children].find(i => i.classList.contains('nav-pages'));
     }
 
     setBodyHeight(table)
@@ -105,16 +111,22 @@ export function reset(id) {
             if (entry.target === shim) {
                 setTableDefaultWidth(table);
             }
-            else if (entry.target === table.search) {
+            else if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
                 setBodyHeight(table)
             }
-        })
+        });
     });
     if (table.thead) {
         observer.observe(shim);
     }
     if (table.search) {
-        observer.observe(table.search)
+        observer.observe(table.search);
+    }
+    if (table.toolbar) {
+        observer.observe(table.toolbar);
+    }
+    if (table.pages) {
+        observer.observe(table.pages);
     }
 }
 
@@ -855,7 +867,7 @@ const saveColumnWidth = table => {
 }
 
 const setTableDefaultWidth = table => {
-    if (table.tables[0].checkVisibility()) {
+    if (table.tables.length > 0 && table.tables[0].checkVisibility()) {
         const { scrollWidth, columnMinWidth } = table.options;
         const tableWidth = [...table.tables[0].querySelectorAll('col')]
             .map(i => {
