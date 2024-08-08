@@ -207,7 +207,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         });
         Assert.Contains("is-display", cut.Markup);
         Assert.Contains("input-group-text", cut.Markup);
-        Assert.Contains("<span>姓名</span>", cut.Markup);
+        Assert.DoesNotContain("<span>姓名</span>", cut.Markup);
     }
 
     [Fact]
