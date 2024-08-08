@@ -45,6 +45,7 @@ export function reset(id) {
     table.columns = []
     table.tables = []
     table.dragColumns = []
+    table.thead = null
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
     if (shim !== void 0) {
@@ -855,7 +856,7 @@ const saveColumnWidth = table => {
 }
 
 const setTableDefaultWidth = table => {
-    if (table.tables[0].checkVisibility()) {
+    if (table.tables.length > 0 && table.tables[0].checkVisibility()) {
         const { scrollWidth, columnMinWidth } = table.options;
         const tableWidth = [...table.tables[0].querySelectorAll('col')]
             .map(i => {
