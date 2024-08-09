@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Checkbox 组件
 /// </summary>
-[BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
+[BootstrapModuleAutoLoader(JSObjectReference = true)]
 public partial class Checkbox<TValue> : ValidateBase<TValue>
 {
     /// <summary>
@@ -147,6 +147,34 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         await base.OnAfterRenderAsync(firstRender);
 
         await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
+    {
+        if (OnBeforeStateChanged != null)
+        {
+            await InvokeVoidAsync("init", Id, Interop, new { Callback = nameof(TriggerOnBeforeStateChanged) });
+        }
+    }
+
+    /// <summary>
+    /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="v"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task<bool> TriggerOnBeforeStateChanged()
+    {
+        var ret = true;
+        if (OnBeforeStateChanged != null)
+        {
+            ret = await OnBeforeStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+        }
+        return ret;
     }
 
     /// <summary>
