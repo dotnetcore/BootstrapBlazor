@@ -152,7 +152,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DriverJs", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AntDesignIcon", "src\Extensions\Components\BootstrapBlazor.AntDesignIcon\BootstrapBlazor.AntDesignIcon.csproj", "{7C09E567-AEEA-4ED1-BFF5-D06479937DAC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniTestAntDesignIcon", "test\UniTestAntDesignIcon\UniTestAntDesignIcon.csproj", "{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestAntDesignIcon", "test\UniTestAntDesignIcon\UniTestAntDesignIcon.csproj", "{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
