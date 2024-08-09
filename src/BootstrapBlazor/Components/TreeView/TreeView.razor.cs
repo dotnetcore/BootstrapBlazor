@@ -500,7 +500,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
-    private Task<bool> OnBeforeStateChanged(CheckboxState state)
+    private async Task<bool> OnBeforeStateChanged(CheckboxState state)
     {
         var ret = true;
         if (ShowCheckbox && MaxSelectedCount > 0 && state == CheckboxState.Checked)
@@ -508,7 +508,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
             ret = items.Count < MaxSelectedCount;
         }
-        return Task.FromResult(ret);
+
+        if (!ret && OnMaxSelectedCountExceed != null)
+        {
+            await OnMaxSelectedCountExceed();
+        }
+        return ret;
     }
 
     /// <summary>
