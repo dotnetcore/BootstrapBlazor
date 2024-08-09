@@ -167,22 +167,21 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <param name="v"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task<bool> TriggerOnBeforeStateChanged()
+    public async Task TriggerOnBeforeStateChanged()
     {
-        var ret = true;
         if (OnBeforeStateChanged != null)
         {
-            ret = await OnBeforeStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
-        }
-        if (ret)
-        {
-            var render = await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
-            if (render)
+            var state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+            var ret = await OnBeforeStateChanged(state);
+            if (ret)
             {
-                StateHasChanged();
+                var render = await InternalStateChanged(state);
+                if (render)
+                {
+                    StateHasChanged();
+                }
             }
         }
-        return ret;
     }
 
     /// <summary>
