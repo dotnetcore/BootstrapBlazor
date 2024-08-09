@@ -185,6 +185,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
+    /// 获得/设置 最多选中数量
+    /// </summary>
+    [Parameter]
+    public int MaxSelectedCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 超过最大选中数量时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnMaxSelectedCountExceed { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -486,6 +498,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             StateHasChanged();
         }
+    }
+
+    private Task<bool> OnBeforeStateChanged(CheckboxState state)
+    {
+        var ret = true;
+        if (ShowCheckbox && MaxSelectedCount > 0 && state == CheckboxState.Checked)
+        {
+            var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
+            ret = items.Count < MaxSelectedCount;
+        }
+        return Task.FromResult(ret);
     }
 
     /// <summary>
