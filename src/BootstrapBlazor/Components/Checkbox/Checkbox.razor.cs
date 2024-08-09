@@ -174,6 +174,14 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         {
             ret = await OnBeforeStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
+        if (ret)
+        {
+            var render = await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+            if (render)
+            {
+                StateHasChanged();
+            }
+        }
         return ret;
     }
 
@@ -188,6 +196,8 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         }
     }
 
+    private bool TriggerClick => !IsDisabled && OnBeforeStateChanged == null;
+
     /// <summary>
     /// 此变量为了提高性能，避免循环更新
     /// </summary>
@@ -198,16 +208,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         var ret = true;
 
         _paddingStateChanged = true;
-
-        if (OnBeforeStateChanged != null)
-        {
-            var prevent = await OnBeforeStateChanged(state);
-            if (!prevent)
-            {
-                _paddingStateChanged = false;
-                return false;
-            }
-        }
 
         if (IsBoolean)
         {

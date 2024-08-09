@@ -9,11 +9,7 @@ export function init(id, invoke, options) {
 
     EventHandler.on(el, 'click', async e => {
         e.preventDefault();
-
-        const ret = await invoke.invokeMethodAsync(options.callback);
-        if (ret) {
-
-        }
+        await invoke.invokeMethodAsync(options.callback);
     })
 }
 

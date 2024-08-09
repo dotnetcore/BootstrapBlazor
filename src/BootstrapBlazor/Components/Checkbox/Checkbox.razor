@@ -20,7 +20,7 @@ else
 @code {
     RenderFragment RenderCheckbox =>
     @<div @attributes="AdditionalAttributes" class="@ClassString">
-        <DynamicElement TagName="input" class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" TriggerClick="!IsDisabled" OnClick="OnToggleClick" StopPropagation="StopPropagation" />
+        <DynamicElement TagName="input" class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" TriggerClick="TriggerClick" OnClick="OnToggleClick" StopPropagation="StopPropagation" />
         @if (IsShowAfterLabel)
         {
             @RenderLabel
