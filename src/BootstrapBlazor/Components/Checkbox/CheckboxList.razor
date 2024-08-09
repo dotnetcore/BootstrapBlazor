@@ -28,7 +28,7 @@ else
             <div class="@CheckboxItemClassString">
                 <Checkbox TValue="bool" IsDisabled="GetDisabledState(item)"
                           ShowAfterLabel="true" ShowLabel="false" ShowLabelTooltip="ShowLabelTooltip"
-                          DisplayText="@item.Text"
+                          DisplayText="@item.Text" OnBeforeStateChanged="_onBeforeStateChangedCallback!"
                           Value="@item.Active" OnStateChanged="@((state, v) => OnStateChanged(item, v))"></Checkbox>
             </div>
         }
