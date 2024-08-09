@@ -254,6 +254,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.True(max);
 
         // 取消选择第一个
+        max = false;
         await cut.InvokeAsync(async () =>
         {
             await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
@@ -261,6 +262,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.False(max);
     }
 
     [Fact]
