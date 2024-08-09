@@ -209,6 +209,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnMaxSelectedCountExceed_Ok()
     {
+        bool max = false;
         var items = TreeFoo.CascadingTree(new List<TreeFoo>()
         {
             new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
@@ -221,6 +222,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCheckbox, true);
             pb.Add(a => a.MaxSelectedCount, 2);
             pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnMaxSelectedCountExceed, () =>
+            {
+                max = true;
+                return Task.CompletedTask;
+            });
         });
         var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
         Assert.Equal(3, checkboxes.Count);
@@ -245,6 +251,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.True(max);
 
         // 取消选择第一个
         await cut.InvokeAsync(async () =>
