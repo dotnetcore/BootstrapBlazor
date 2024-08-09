@@ -1,4 +1,4 @@
-﻿@page "/antdesign-icon"
+﻿@page "/ant-design-icon"
 @inject IStringLocalizer<AntDesignIconList> Localizer
 
 <h3>@Localizer["AntDesignIconTitle"]</h3>
@@ -6,9 +6,6 @@
 <h4>@Localizer["AntDesignIconDescription"]</h4>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <section ignore>
-        <p>@((MarkupString)Localizer["NormalDesc"].Value)</p>
-    </section>
     <div class="icon-park-list">
         <AntDesignIcon Name="account-book"></AntDesignIcon>
         <AntDesignIcon Name="aim"></AntDesignIcon>

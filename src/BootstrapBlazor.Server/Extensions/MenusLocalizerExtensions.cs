@@ -495,6 +495,11 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Text = Localizer["AntDesignIcon"],
+                    Url = "ant-design-icon"
+                },
+                new()
+                {
                     Text = Localizer["Ajax"],
                     Url = "ajax"
                 },
