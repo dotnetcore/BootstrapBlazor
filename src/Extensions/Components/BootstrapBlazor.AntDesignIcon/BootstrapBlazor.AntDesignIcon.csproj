@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\..\Bundle.props" />
+
+  <PropertyGroup>
+    <Version>8.0.0-beta01</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
+    <Description>Bootstrap UI components extensions of AntDesign</Description>
+  </PropertyGroup>
+
+</Project>
