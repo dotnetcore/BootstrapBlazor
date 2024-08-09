@@ -94,7 +94,8 @@ public sealed partial class Checkboxs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new(){
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["Att4"],
             Type = "boolean",
@@ -102,14 +103,13 @@ public sealed partial class Checkboxs
             DefaultValue = "false"
         },
         new()
-
         {
             Name = "State",
             Description = Localizer["Att5"],
             Type = "CheckboxState",
             ValueList = "Mixed / Checked / UnChecked",
             DefaultValue = "UnChecked"
-        },
+        }
     ];
 
     /// <summary>

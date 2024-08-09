@@ -185,6 +185,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
+    /// 获得/设置 最多选中数量
+    /// </summary>
+    [Parameter]
+    public int MaxSelectedCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 超过最大选中数量时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnMaxSelectedCountExceed { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -271,6 +283,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? _searchText;
 
+    private Func<CheckboxState, Task<bool>>? _onBeforeStateChangedCallback;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -332,6 +346,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         }
+
+        _onBeforeStateChangedCallback = (ShowCheckbox && MaxSelectedCount > 0) ? new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged)
+            : null;
     }
 
     async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
@@ -488,6 +505,22 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
+    private async Task<bool> OnBeforeStateChanged(CheckboxState state)
+    {
+        var ret = true;
+        if (state == CheckboxState.Checked)
+        {
+            var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
+            ret = items.Count < MaxSelectedCount;
+        }
+
+        if (!ret && OnMaxSelectedCountExceed != null)
+        {
+            await OnMaxSelectedCountExceed();
+        }
+        return ret;
+    }
+
     /// <summary>
     /// 节点 Checkbox 状态改变时触发此方法
     /// </summary>
@@ -496,8 +529,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
     {
-        //item.CheckedState = ToggleCheckState(item.CheckedState);
-
         if (AutoCheckChildren)
         {
             // 向下级联操作

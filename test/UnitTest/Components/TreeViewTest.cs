@@ -207,6 +207,65 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnMaxSelectedCountExceed_Ok()
+    {
+        bool max = false;
+        var items = TreeFoo.CascadingTree(new List<TreeFoo>()
+        {
+            new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" }
+        });
+
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.MaxSelectedCount, 2);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnMaxSelectedCountExceed, () =>
+            {
+                max = true;
+                return Task.CompletedTask;
+            });
+        });
+        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        Assert.Equal(3, checkboxes.Count);
+
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[1].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+
+        // 选中第三个由于限制无法选中
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[2].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.True(max);
+
+        // 取消选择第一个
+        max = false;
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.False(max);
+    }
+
+    [Fact]
     public void Template_Ok()
     {
         var items = TreeFoo.GetTreeItems();

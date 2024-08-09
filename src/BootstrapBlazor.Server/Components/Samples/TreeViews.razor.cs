@@ -81,6 +81,14 @@ public sealed partial class TreeViews
         new("False", "Keep")
     ];
 
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnMaxSelectedCountExceed()
+    {
+        return ToastService.Information(Localizer["OnMaxSelectedCountExceedTitle"], Localizer["OnMaxSelectedCountExceedContent", 2]);
+    }
+
     private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
     {
         Logger2.Log($"当前共选中{items.Count}项");
@@ -119,7 +127,7 @@ public sealed partial class TreeViews
     {
         var ret = TreeFoo.GetCheckedTreeItems();
         ret[0].IsExpand = true;
-        ret[0].Items= TreeFoo.GetCheckedTreeItems();
+        ret[0].Items = TreeFoo.GetCheckedTreeItems();
         return ret;
     }
 
@@ -235,7 +243,7 @@ public sealed partial class TreeViews
             builder.AddAttribute(2, nameof(Button.Text), "Click");
             builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
             {
-                ToastService.Warning("自定义 TreeItem", "测试 TreeItem 按钮点击事件");
+                ToastService.Warning("自定义 TreeViewItem", "测试 TreeViewItem 按钮点击事件");
             }));
             builder.CloseComponent();
         }
@@ -251,9 +259,9 @@ public sealed partial class TreeViews
         {
             Name = "Items",
             Description = "menu data set",
-            Type = "IEnumerable<TreeItem>",
+            Type = "IEnumerable<TreeViewItem>",
             ValueList = " — ",
-            DefaultValue = "new List<TreeItem>(20)"
+            DefaultValue = "new List<TreeViewItem>(20)"
         },
         new()
         {
@@ -291,7 +299,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnTreeItemClick),
             Description = "Callback delegate when tree control node is clicked",
-            Type = "Func<TreeItem, Task>",
+            Type = "Func<TreeViewItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -299,7 +307,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnTreeItemChecked),
             Description = "Callback delegate when tree control node is selected",
-            Type = "Func<TreeItem, Task>",
+            Type = "Func<TreeViewItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -307,7 +315,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeView<string>.OnExpandNodeAsync),
             Description = "Tree control node expand callback delegate",
-            Type = "Func<TreeItem, Task>",
+            Type = "Func<TreeViewItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -326,6 +334,22 @@ public sealed partial class TreeViews
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(TreeView<string>.MaxSelectedCount),
+            Description = "The maximum count of selected node",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
+        new()
+        {
+            Name = nameof(TreeView<string>.OnMaxSelectedCountExceed),
+            Description = "Select the callback method when the maximum number of nodes is reached",
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 
@@ -335,7 +359,7 @@ public sealed partial class TreeViews
         {
             Name = nameof(TreeViewItem<TreeFoo>.Items),
             Description = "Child node data source",
-            Type = "List<TreeItem<TItem>>",
+            Type = "List<TreeViewItem<TItem>>",
             ValueList = " — ",
             DefaultValue = "new ()"
         },

@@ -164,8 +164,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用
     /// </summary>
-    /// <param name="v"></param>
-    /// <returns></returns>
     [JSInvokable]
     public async Task TriggerOnBeforeStateChanged()
     {
