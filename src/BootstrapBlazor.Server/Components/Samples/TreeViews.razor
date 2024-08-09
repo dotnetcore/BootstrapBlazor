@@ -182,6 +182,14 @@
     <TreeView TItem="TreeFoo" Items="@SearchItems" ShowSearch="true" OnSearchAsync="@OnSearchAsync" IsFixedSearch="true" style="height: 180px;"></TreeView>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewMaxSelectedCountTitle"]"
+           Introduction="@Localizer["TreeViewMaxSelectedCountIntro"]"
+           Name="MaxSelectedCount">
+    <section ignore>@((MarkupString)Localizer["TreeViewMaxSelectedCountDesc"].Value)</section>
+    <TreeView TItem="TreeFoo" Items="@SearchItems" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true"
+              MaxSelectedCount="2" OnMaxSelectedCountExceed="OnMaxSelectedCountExceed"></TreeView>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>
