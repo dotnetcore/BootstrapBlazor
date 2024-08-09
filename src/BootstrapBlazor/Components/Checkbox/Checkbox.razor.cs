@@ -82,6 +82,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public EventCallback<CheckboxState> StateChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 选中状态改变前回调此方法 返回 false 可以阻止状态改变
+    /// </summary>
+    [Parameter]
+    public Func<CheckboxState, Task<bool>>? OnBeforeStateChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 选择框状态改变时回调此方法
     /// </summary>
     [Parameter]
@@ -150,7 +156,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         if (!IsDisabled)
         {
-            _paddingStateChanged = true;
             await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
     }
@@ -160,29 +165,43 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     private bool _paddingStateChanged;
 
-    private async Task InternalStateChanged(CheckboxState state)
+    private async Task<bool> InternalStateChanged(CheckboxState state)
     {
-        if (_paddingStateChanged)
+        var ret = true;
+
+        _paddingStateChanged = true;
+
+        if (OnBeforeStateChanged != null)
         {
-            if (IsBoolean)
+            var prevent = await OnBeforeStateChanged(state);
+            if (!prevent)
             {
-                CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
-            }
-
-            if (State != state)
-            {
-                State = state;
-                if (StateChanged.HasDelegate)
-                {
-                    await StateChanged.InvokeAsync(State);
-                }
-
-                if (OnStateChanged != null)
-                {
-                    await OnStateChanged.Invoke(State, Value);
-                }
+                _paddingStateChanged = false;
+                return false;
             }
         }
+
+        if (IsBoolean)
+        {
+            CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
+        }
+
+        if (State != state)
+        {
+            State = state;
+            if (StateChanged.HasDelegate)
+            {
+                await StateChanged.InvokeAsync(State);
+                ret = false;
+            }
+
+            if (OnStateChanged != null)
+            {
+                await OnStateChanged(State, Value);
+            }
+        }
+
+        return ret;
     }
 
     /// <summary>
@@ -193,10 +212,11 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         if (!_paddingStateChanged)
         {
-            _paddingStateChanged = true;
-
-            await InternalStateChanged(state);
-            StateHasChanged();
+            var render = await InternalStateChanged(state);
+            if (render)
+            {
+                StateHasChanged();
+            }
         }
     }
 
