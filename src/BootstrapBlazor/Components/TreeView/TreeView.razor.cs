@@ -283,6 +283,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? _searchText;
 
+    private Func<CheckboxState, Task<bool>>? _onBeforeStateChangedCallback;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -344,6 +346,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         }
+
+        _onBeforeStateChangedCallback = (!ShowCheckbox || MaxSelectedCount == 0) ? null
+            : new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged);
     }
 
     async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
@@ -503,7 +508,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private async Task<bool> OnBeforeStateChanged(CheckboxState state)
     {
         var ret = true;
-        if (ShowCheckbox && MaxSelectedCount > 0 && state == CheckboxState.Checked)
+        if (MaxSelectedCount > 0 && state == CheckboxState.Checked)
         {
             var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
             ret = items.Count < MaxSelectedCount;
@@ -524,8 +529,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
     {
-        //item.CheckedState = ToggleCheckState(item.CheckedState);
-
         if (AutoCheckChildren)
         {
             // 向下级联操作
