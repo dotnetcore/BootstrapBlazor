@@ -694,7 +694,12 @@
     "TreeViewSetActiveDisplayText": "当前激活节点",
     "TreeViewsAttribute": "TreeViewItem 属性",
     "TreeViewsDisableWholeTreeView": "是否禁用整个 TreeView",
-    "TreeViewsWhetherToExpandWhenDisable": "禁用时候是否可以展开或折叠子节点"
+    "TreeViewsWhetherToExpandWhenDisable": "禁用时候是否可以展开或折叠子节点",
+    "OnMaxSelectedCountExceedTitle": "可选最大数量提示",
+    "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项",
+    "TreeViewMaxSelectedCountTitle": "最大选择数量",
+    "TreeViewMaxSelectedCountIntro": "通过设置 <code>MaxSelectedCount</code> 属性控制最大可选数量，通过 <code>OnMaxSelectedCountExceed</code> 回调处理逻辑",
+    "TreeViewMaxSelectedCountDesc": "选中节点超过 2 个时，弹出 <code>Toast</code> 提示栏"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",
