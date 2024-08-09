@@ -48,6 +48,27 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Checkbox_OnBeforeStateChanged()
+    {
+        var confirm = true;
+        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
+        {
+            builder.Add(a => a.OnBeforeStateChanged, state =>
+            {
+                return Task.FromResult(confirm);
+            });
+        });
+        Assert.False(cut.Instance.Value);
+
+        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        Assert.True(cut.Instance.Value);
+
+        confirm = false;
+        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        Assert.True(cut.Instance.Value);
+    }
+
+    [Fact]
     public void Checkbox_Dispose()
     {
         var cut = Context.RenderComponent<Checkbox<string>>();
