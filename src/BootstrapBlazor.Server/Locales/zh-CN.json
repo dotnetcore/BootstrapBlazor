@@ -4721,7 +4721,8 @@
     "ExportPdfButton": "导出 Pdf 按钮 ExportPdfButton",
     "ThemeProvider": "主题服务 IThemeProvider",
     "IconPark": "字节跳动图标 IconPark",
-    "IntersectionObserver": "交叉观察者 IntersectionObserver"
+    "IntersectionObserver": "交叉观察者 IntersectionObserver",
+    "AntDesignIcon": "蚂蚁图标 AntDesignIcon"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6573,8 +6574,13 @@
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "NormalTitle": "图标组件",
-    "NormalIntro": "使用 <code>BootstrapBlazorSvgIcon</code> 组件设置其 <code>Name</code> 参数即可",
-    "NormalDesc": "更多图标名称请访问字节跳动官网 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
+    "NormalIntro": "使用 <code>AntDesignIcon</code> 组件设置其 <code>Name</code> 参数即可"
+  },
+  "BootstrapBlazor.Server.Components.Samples.AntDesignIconList": {
+    "AntDesignIconTitle": "蚂蚁图标库",
+    "AntDesignIconDescription": "语义化的矢量图形",
+    "NormalTitle": "图标组件",
+    "NormalIntro": "使用 <code>AntDesignIcon</code> 组件设置其 <code>Name</code> 参数即可",
   },
   "BootstrapBlazor.Server.Components.Samples.Icons": {
     "IconsTitle": "Icon 图标",

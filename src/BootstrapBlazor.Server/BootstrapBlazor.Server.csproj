@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="8.0.0-beta01" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />

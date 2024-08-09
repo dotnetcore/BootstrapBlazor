@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SvgIcon 组件
+/// DockViewIcon 组件
 /// </summary>
-public partial class SvgIcon
+public partial class AntDesignIcon
 {
     /// <summary>
     /// 获得/设置 图标名称
@@ -25,10 +25,16 @@ public partial class SvgIcon
     public string? Href { get; set; }
 
     /// <summary>
+    /// 获得 图标分类 默认为 Outlined    
+    /// </summary>
+    [Parameter]
+    public AntDesignIconCategory Category { get; set; } = AntDesignIconCategory.Outlined;
+
+    /// <summary>
     /// 获得 样式字符串
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-svg-icon")
-        .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
+    private string? ClassString => CssBuilder.Default("bb-ant-icon")
+        .AddClass($"bb-ant-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
     /// <summary>
@@ -38,6 +44,6 @@ public partial class SvgIcon
     {
         base.OnParametersSet();
 
-        Href ??= $"./_content/BootstrapBlazor.IconPark/icon-park.svg#{Name}";
+        Href ??= $"./_content/BootstrapBlazor.AntDesignIcon/{Category.ToDescriptionString()}.svg#{Name}";
     }
 }
