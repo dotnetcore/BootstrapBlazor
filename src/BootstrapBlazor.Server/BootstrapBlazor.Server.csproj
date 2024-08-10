@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.1" />
-    <PackageReference Include="BootstrapBlazor.IconPark" Version="8.0.3" />
+    <PackageReference Include="BootstrapBlazor.IconPark" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="0.0.4" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
