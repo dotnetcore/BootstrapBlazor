@@ -6572,20 +6572,20 @@
     "CardMargin": "Card Margin",
     "CardGroupMargin": "Card Group Margin"
   },
-  "BootstrapBlazor.Server.Components.Samples.IconParks": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "NormalTitle": "Icon",
     "NormalIntro": "Use the <code>BootstrapBlazorSvgIcon</code> component to set its <code>Name</code> parameter.",
     "NormalDesc": "For more icon names, please visit ByteDance official website <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">https://iconpark.oceanengine.com/official</a>"
   },
-  "BootstrapBlazor.Server.Components.Samples.AntDesignIconList": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIconList": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
     "AntDesignIconDescription": "Semantic vector graphics.",
     "NormalTitle": "Icon",
     "NormalIntro": "Use the <code>AntDesignIcon</code> component to set its <code>Name</code> parameter."
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
     "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
     "FATitle": "Font Icons",
