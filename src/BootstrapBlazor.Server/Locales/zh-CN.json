@@ -5761,15 +5761,6 @@
     "NotificationsNormalTitleSampleText": "你有新的物流通知",
     "NotificationsNormalMessageSampleText": "您的包裹已到达亮马河南路,距离分发只剩3站."
   },
-  "BootstrapBlazor.Server.Components.Samples.FAIcons": {
-    "Title": "FA 图标选择器",
-    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
-    "SwitchButtonTextOff": "点击拷贝",
-    "SwitchButtonTextOn": "显示高级拷贝",
-    "P1": "通过引用扩展组件包",
-    "P2": "后添加样式表文件链接开启图标",
-    "CopiedTooltipText": "拷贝成功"
-  },
   "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
     "BaseUsageText": "基础用法",
     "BaseUsageIntro": "鼠标滑动进行签名",
@@ -6573,17 +6564,26 @@
     "CardMargin": "卡片边距",
     "CardGroupMargin": "卡片组边距"
   },
+  "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
+    "Title": "FA 图标选择器",
+    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
+    "SwitchButtonTextOff": "点击拷贝",
+    "SwitchButtonTextOn": "显示高级拷贝",
+    "P1": "通过引用扩展组件包",
+    "P2": "后添加样式表文件链接开启图标",
+    "CopiedTooltipText": "拷贝成功"
+  },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "NormalTitle": "图标组件",
-    "NormalIntro": "使用 <code>AntDesignIcon</code> 组件设置其 <code>Name</code> 参数即可"
+    "NormalIntro": "使用 <code>IconParks</code> 组件设置其 <code>Name</code> 参数即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIconList": {
     "AntDesignIconTitle": "蚂蚁图标库",
     "AntDesignIconDescription": "语义化的矢量图形",
     "NormalTitle": "图标组件",
-    "NormalIntro": "使用 <code>AntDesignIcon</code> 组件设置其 <code>Name</code> 参数即可",
+    "NormalIntro": "使用 <code>AntDesignIcon</code> 组件设置其 <code>Name</code> 参数即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",

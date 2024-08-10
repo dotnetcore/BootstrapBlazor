@@ -5760,15 +5760,6 @@
     "NotificationsNormalTitleSampleText": "You have a new logistics notification",
     "NotificationsNormalMessageSampleText": "Your package has arrived on Panama South Road, and there are only 3 stops left for distribution."
   },
-  "BootstrapBlazor.Server.Components.Samples.FAIcons": {
-    "Title": "Font Awesome Icons",
-    "BaseUsageText": "<code> bootstrapblazor </code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
-    "SwitchButtonTextOff": "Click to copy",
-    "SwitchButtonTextOn": "Show Copy Dialog",
-    "P1": "Extending the Component Package by Reference",
-    "P2": "After adding the stylesheet file link open icon",
-    "CopiedTooltipText": "Copied"
-  },
   "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
     "BaseUsageText": "Basic usage",
     "BaseUsageIntro": "Signature with touch or mouse",
@@ -6571,6 +6562,15 @@
     "CardWidth": "Card Width",
     "CardMargin": "Card Margin",
     "CardGroupMargin": "Card Group Margin"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
+    "Title": "Font Awesome Icons",
+    "BaseUsageText": "<code> bootstrapblazor </code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
+    "SwitchButtonTextOff": "Click to copy",
+    "SwitchButtonTextOn": "Show Copy Dialog",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon",
+    "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
