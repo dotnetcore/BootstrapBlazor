@@ -2,16 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Components;
+namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
 /// FAIconList 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js", JSObjectReference = true)]
+[JSModuleAutoLoader("Samples/Icons/FAIconList.razor.js", JSObjectReference = true)]
 public partial class FAIconList : IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("icon-list")
