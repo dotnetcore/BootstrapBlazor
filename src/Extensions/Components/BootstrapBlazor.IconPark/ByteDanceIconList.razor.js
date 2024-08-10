@@ -12,15 +12,15 @@ export function init(id, invoke, updateMethod, copyIcon) {
     }
     Data.set(id, faList)
 
-    EventHandler.on(el, 'click', '.icons-body a', e => {
+    EventHandler.on(el, 'click', 'a', e => {
         e.preventDefault()
         e.stopPropagation()
 
-        const i = e.delegateTarget.querySelector('i')
-        const css = i.getAttribute('class')
-        faList.invoke.invokeMethodAsync(faList.updateMethod, css)
+        const span = e.delegateTarget.querySelector('span')
+        const name = span.innerHTML;
+        faList.invoke.invokeMethodAsync(faList.updateMethod, name)
         if (faList.copyIcon) {
-            faList.copy(e.delegateTarget, css)
+            faList.copy(e.delegateTarget, name)
         }
     })
 
