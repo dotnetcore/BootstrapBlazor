@@ -7,8 +7,8 @@ namespace BootstrapBlazor.Server.Components.Samples.Icons;
 /// <summary>
 /// ByteDanceIconList 组件
 /// </summary>
-[JSModuleAutoLoader("Samples/Icons/ByteDanceIconList.razor.js")]
-public partial class ByteDanceIconList : IAsyncDisposable
+[JSModuleAutoLoader("Samples/Icons/IconParkList.razor.js")]
+public partial class IconParkList : IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClassFromAttributes(AdditionalAttributes)
