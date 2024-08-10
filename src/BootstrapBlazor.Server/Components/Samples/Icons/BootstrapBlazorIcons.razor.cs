@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// Icon 组件
 /// </summary>
-public partial class Icons : ComponentBase
+public partial class BootstrapBlazorIcons : ComponentBase
 {
 
 }

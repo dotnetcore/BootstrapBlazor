@@ -4470,7 +4470,7 @@
     "GlobalException": "全局异常",
     "GlobalOption": "全局配置",
     "LayoutPage": "后台模拟器",
-    "FAIcon": "FontAwesome 图标集合",
+    "FAIcon": "FontAwesome Icons",
     "Components": "组件总览",
     "LayoutComponents": "布局组件",
     "Client": "客户信息服务 Client",
@@ -4722,7 +4722,10 @@
     "ThemeProvider": "主题服务 IThemeProvider",
     "IconPark": "字节跳动图标 IconPark",
     "IntersectionObserver": "交叉观察者 IntersectionObserver",
-    "AntDesignIcon": "蚂蚁图标 AntDesignIcon"
+    "AntDesignIcon": "蚂蚁图标 AntDesignIcon",
+    "Icons": "内置图标",
+    "BootstrapIcon": "Bootstrap Icons",
+    "MeterialIcon": "Meterial Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

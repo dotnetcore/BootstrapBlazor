@@ -1512,13 +1512,23 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    Text = Localizer["AntDesignIcon"],
-                    Url = "ant-design-icon"
+                    Text = Localizer["FAIcon"],
+                    Url = "fa-icon"
                 },
                 new()
                 {
-                    Text = Localizer["FAIcon"],
-                    Url = "fa-icon"
+                    Text = Localizer["BootstrapIcon"],
+                    Url = "bs-icon"
+                },
+                new()
+                {
+                    Text = Localizer["MeterialIcon"],
+                    Url = "md-icon"
+                },
+                new()
+                {
+                    Text = Localizer["AntDesignIcon"],
+                    Url = "ant-design-icon"
                 },
                 new()
                 {
