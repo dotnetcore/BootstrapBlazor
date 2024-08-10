@@ -1,4 +1,5 @@
 ﻿@page "/ant-design-icon"
+@layout MainLayout
 @inject IStringLocalizer<AntDesignIcons> Localizer
 
 <h3>@Localizer["AntDesignIconTitle"]</h3>
@@ -6,5 +7,7 @@
 <h4>@Localizer["AntDesignIconDescription"]</h4>
 
 <PackageTips Name="BootstrapBlazor.AntDesignIcon" />
+
+<Pre>&lt;AntDesignIcon Category="AntDesignIconCategory.Outlined" Name="account-book"&gt;&lt;AntDesignIcon&gt;</Pre>
 
 <AntDesignIconList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />
