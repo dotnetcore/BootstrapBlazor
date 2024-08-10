@@ -1532,6 +1532,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ElementIcon"],
+                    Url = "element-icon"
+                },
+                new()
+                {
                     Text = Localizer["IconPark"],
                     Url = "icon-park"
                 }
