@@ -1,4 +1,4 @@
-﻿.icon-park-list {
+﻿.icon-list {
     display: flex;
     flex-wrap: wrap;
     border: var(--bs-border-width) solid var(--bs-border-color);
@@ -6,7 +6,7 @@
     padding: 0.5rem;
 }
 
-    .icon-park-list ::deep .bb-ant-icon {
+    .icon-list ::deep .bb-svg-icon {
         --bb-svg-icon-width: 16px;
         padding: 0.5rem;
     }

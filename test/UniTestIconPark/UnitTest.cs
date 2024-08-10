@@ -62,7 +62,7 @@ public partial class UnitTest
             target = $"    <symbol viewBox=\"0 0 48 48\" fill=\"none\" id=\"{id}\">{target.Replace("stroke=\"#333\" ", string.Empty)}</symbol>";
             writer.WriteLine(target);
 
-            listWriter.WriteLine($"<SvgIcon Name=\"{id}\"></SvgIcon>");
+            listWriter.WriteLine($"<ByteDanceIcon Name=\"{id}\"></ByteDanceIcon>");
         }
         writer.WriteLine("</svg>");
         writer.Close();

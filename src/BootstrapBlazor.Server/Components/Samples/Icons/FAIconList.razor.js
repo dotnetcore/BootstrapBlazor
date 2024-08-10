@@ -1,15 +1,14 @@
-﻿import { copy } from "../../BootstrapBlazor/modules/utility.js"
-import Data from "../../BootstrapBlazor/modules/data.js"
-import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
+﻿import { copy } from "../../../_content/BootstrapBlazor/modules/utility.js"
+import Data from "../../../_content/BootstrapBlazor/modules/data.js"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
 
-export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
+export function init(id, invoke, updateMethod, showDialogMethod) {
     const el = document.getElementById(id);
     const faList = {
         element: el,
         invoke,
         updateMethod,
-        showDialogMethod,
-        copyIcon
+        showDialogMethod
     }
     Data.set(id, faList)
 
@@ -53,7 +52,8 @@ export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
         const dialog = el.classList.contains('is-dialog')
         if (dialog) {
             faList.invoke.invokeMethodAsync(faList.showDialogMethod, css)
-        } else if (faList.copyIcon) {
+        }
+        else {
             faList.copy(e.delegateTarget, css)
         }
     })

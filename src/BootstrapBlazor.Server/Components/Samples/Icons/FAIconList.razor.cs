@@ -2,16 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Components;
+namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
 /// FAIconList 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js", JSObjectReference = true)]
+[JSModuleAutoLoader("Samples/Icons/FAIconList.razor.js", JSObjectReference = true)]
 public partial class FAIconList : IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("icon-list")
@@ -52,12 +50,6 @@ public partial class FAIconList : IAsyncDisposable
     public EventCallback<string?> IconChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击图标是否进行拷贝处理 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsCopy { get; set; }
-
-    /// <summary>
     /// 获得/设置 拷贝成功提示文字
     /// </summary>
     [Parameter]
@@ -85,7 +77,7 @@ public partial class FAIconList : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog));
 
     /// <summary>
     /// UpdateIcon 方法由 JS Invoke 调用

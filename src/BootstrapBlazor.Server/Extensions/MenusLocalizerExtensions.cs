@@ -99,6 +99,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["Icons"],
+            Icon = "fa-fw fa-solid fa-icons",
+        };
+        AddIcons(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["OtherComponents"],
             Icon = "fa-fw fa-solid fas fa-share-nodes"
         };
@@ -273,11 +280,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Theme"],
                     Url = "theme"
-                },
-                new()
-                {
-                    Text = Localizer["FAIcon"],
-                    Url = "fa-icon"
                 },
                 new()
                 {
@@ -495,11 +497,6 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    Text = Localizer["AntDesignIcon"],
-                    Url = "ant-design-icon"
-                },
-                new()
-                {
                     Text = Localizer["Ajax"],
                     Url = "ajax"
                 },
@@ -643,11 +640,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Icon"],
                     Url = "icon"
-                },
-                new()
-                {
-                    Text = Localizer["IconPark"],
-                    Url = "icon-park"
                 },
                 new()
                 {
@@ -1509,6 +1501,39 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["ZipArchive"],
                     Url = "zip-archive"
+                }
+            };
+            AddBadge(item);
+        }
+
+        void AddIcons(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["FAIcon"],
+                    Url = "fa-icon"
+                },
+                new()
+                {
+                    Text = Localizer["BootstrapIcon"],
+                    Url = "bs-icon"
+                },
+                new()
+                {
+                    Text = Localizer["MaterialIcon"],
+                    Url = "md-icon"
+                },
+                new()
+                {
+                    Text = Localizer["AntDesignIcon"],
+                    Url = "ant-design-icon"
+                },
+                new()
+                {
+                    Text = Localizer["IconPark"],
+                    Url = "icon-park"
                 }
             };
             AddBadge(item);
