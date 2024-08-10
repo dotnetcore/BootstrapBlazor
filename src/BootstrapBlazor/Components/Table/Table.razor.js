@@ -88,19 +88,19 @@ export function reset(id) {
         }
 
         setCopyColumn(table)
-
-        // popover
-        const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
-        if (toolbar) {
-            const right = toolbar.querySelector('.table-column-right')
-            if (right) {
-                setToolbarDropdown(table, right)
-            }
-            table.toolbar = toolbar;
-        }
-
-        table.pages = [...table.el.children].find(i => i.classList.contains('nav-pages'));
     }
+
+    // popover
+    const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
+    if (toolbar) {
+        const right = toolbar.querySelector('.table-column-right')
+        if (right) {
+            setToolbarDropdown(table, right)
+        }
+        table.toolbar = toolbar;
+    }
+
+    table.pages = [...table.el.children].find(i => i.classList.contains('nav-pages'));
 
     setBodyHeight(table)
 
@@ -271,14 +271,14 @@ const check = table => {
 
 const setBodyHeight = table => {
     const el = table.el
-    const children = [...el.children]
-    const search = children.find(i => i.classList.contains('table-search'))
-    table.search = search;
-
     if (isVisible(el) === false) {
         table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
         return;
     }
+
+    const children = [...el.children]
+    const search = children.find(i => i.classList.contains('table-search'))
+    table.search = search;
 
     let searchHeight = 0
     if (search) {
