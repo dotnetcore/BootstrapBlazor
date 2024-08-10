@@ -16,7 +16,7 @@
         align-items: center;
     }
 
-        .icon-list a ::deep .bb-iconpark-icon {
+        .icon-list a ::deep .bb-element-icon {
             --bb-svg-icon-width: 14px;
             --bb-svg-icon-color: #000;
         }

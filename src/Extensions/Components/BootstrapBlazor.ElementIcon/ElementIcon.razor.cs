@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ByteDanceIcon 组件
+/// ElementIcon 组件
 /// </summary>
-public partial class ByteDanceIcon
+public partial class ElementIcon
 {
     /// <summary>
     /// 获得/设置 图标名称
@@ -27,8 +27,8 @@ public partial class ByteDanceIcon
     /// <summary>
     /// 获得 样式字符串
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-iconpark-icon")
-        .AddClass($"bb-iconpark-icon-{Name}", !string.IsNullOrEmpty(Name))
+    private string? ClassString => CssBuilder.Default("bb-element-icon")
+        .AddClass($"bb-element-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
     /// <summary>
@@ -38,6 +38,6 @@ public partial class ByteDanceIcon
     {
         base.OnParametersSet();
 
-        Href ??= $"./_content/BootstrapBlazor.IconPark/icon-park.svg#{Name}";
+        Href ??= $"./_content/BootstrapBlazor.ElementIcon/element.svg#{Name}";
     }
 }

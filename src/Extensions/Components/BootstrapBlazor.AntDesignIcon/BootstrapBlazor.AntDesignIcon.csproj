@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\Bundle.props" />
-
   <PropertyGroup>
-    <Version>8.0.0-beta01</Version>
+    <Version>8.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>

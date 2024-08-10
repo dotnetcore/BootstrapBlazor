@@ -13,10 +13,11 @@
         border-radius: .5rem;
         transition: .3s background-color ease-in-out;
         display: flex;
+        align-items: center;
     }
 
         .icon-list a ::deep .bb-ant-icon {
-            --bb-svg-icon-width: 20px;
+            --bb-svg-icon-width: 14px;
             --bb-svg-icon-color: #000;
         }
 

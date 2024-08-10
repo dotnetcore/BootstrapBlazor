@@ -4725,7 +4725,8 @@
     "AntDesignIcon": "蚂蚁图标 AntDesignIcon",
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
-    "MaterialIcon": "Material Icons"
+    "MaterialIcon": "Material Icons",
+    "ElementIcon": "饿了么图标 ElementIcon"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6568,6 +6569,11 @@
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Bootstrap 免费开源图标库",
     "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
+    "ElementIconTitle": "饿了么图标库",
+    "ElementIconDescription": "饿了么免费开源图标库",
+    "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
