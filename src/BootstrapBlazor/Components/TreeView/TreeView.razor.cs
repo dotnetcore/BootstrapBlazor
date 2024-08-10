@@ -283,8 +283,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? _searchText;
 
-    private Func<CheckboxState, Task<bool>>? _onBeforeStateChangedCallback;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -346,9 +344,27 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         }
+    }
 
-        _onBeforeStateChangedCallback = (ShowCheckbox && MaxSelectedCount > 0) ? new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged)
-            : null;
+    private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
+    {
+        var ret = true;
+        if (MaxSelectedCount > 0)
+        {
+            if (state == CheckboxState.Checked)
+            {
+                // 展开节点
+                var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
+                var count = items.Count + item.GetAllTreeSubItems().Count();
+                ret = count < MaxSelectedCount;
+            }
+
+            if (!ret && OnMaxSelectedCountExceed != null)
+            {
+                await OnMaxSelectedCountExceed();
+            }
+        }
+        return ret;
     }
 
     async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
@@ -503,22 +519,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             StateHasChanged();
         }
-    }
-
-    private async Task<bool> OnBeforeStateChanged(CheckboxState state)
-    {
-        var ret = true;
-        if (state == CheckboxState.Checked)
-        {
-            var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
-            ret = items.Count < MaxSelectedCount;
-        }
-
-        if (!ret && OnMaxSelectedCountExceed != null)
-        {
-            await OnMaxSelectedCountExceed();
-        }
-        return ret;
     }
 
     /// <summary>
