@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SvgIcon 组件
+/// ByteDanceIcon 组件
 /// </summary>
-public partial class SvgIcon
+public partial class ByteDanceIcon
 {
     /// <summary>
     /// 获得/设置 图标名称
