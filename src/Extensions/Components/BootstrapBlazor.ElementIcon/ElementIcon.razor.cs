@@ -38,6 +38,6 @@ public partial class ElementIcon
     {
         base.OnParametersSet();
 
-        Href ??= $"./_content/BootstrapBlazor.IconPark/icon-park.svg#{Name}";
+        Href ??= $"./_content/BootstrapBlazor.ElementIcon/element.svg#{Name}";
     }
 }
