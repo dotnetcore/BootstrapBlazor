@@ -6566,8 +6566,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
-    "BaseUsageText": "Bootstrap 免费开源图标库",
-    "CopiedTooltipText": "拷贝成功"
+    "BaseUsageText": "Bootstrap 免费开源图标库"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6577,6 +6576,10 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
     "CopiedTooltipText": "拷贝成功"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
+    "Title": "MaterialDesign Icons",
+    "BaseUsageText": "Material Design 图标简单、现代、友好"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",

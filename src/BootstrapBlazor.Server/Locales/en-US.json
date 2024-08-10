@@ -6567,7 +6567,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
-    "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6577,6 +6576,10 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
     "CopiedTooltipText": "Copied"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
+    "Title": "MaterialDesign Icons",
+    "BaseUsageText": "Material Design system icons are simple, modern and user-friendly"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",

@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
-/// 
+/// BootstrapIcons 示例页面
 /// </summary>
 public partial class BootstrapIcons
 {
