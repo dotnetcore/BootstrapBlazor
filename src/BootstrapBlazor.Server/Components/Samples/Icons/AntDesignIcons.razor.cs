@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Icons;
 /// <summary>
 /// IconPark 图标库示例
 /// </summary>
-public partial class AntDesignIconList
+public partial class AntDesignIcons
 {
 
 }

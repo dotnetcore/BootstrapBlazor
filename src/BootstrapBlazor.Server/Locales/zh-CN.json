@@ -6566,7 +6566,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
-    "BaseUsageText": "Bootstrap 免费开源图标库"
+    "BaseUsageText": "Bootstrap 免费开源图标库",
+    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6579,7 +6580,8 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
-    "BaseUsageText": "Material Design 图标简单、现代、友好"
+    "BaseUsageText": "Material Design 图标简单、现代、友好",
+    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
