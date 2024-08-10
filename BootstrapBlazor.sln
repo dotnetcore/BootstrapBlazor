@@ -154,6 +154,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AntDesignIc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestAntDesignIcon", "test\UniTestAntDesignIcon\UniTestAntDesignIcon.csproj", "{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.ElementIcon", "src\Extensions\Components\BootstrapBlazor.ElementIcon\BootstrapBlazor.ElementIcon.csproj", "{481653B0-B096-4F72-BA64-83F52E97E45B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -358,6 +360,10 @@ Global
 		{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{481653B0-B096-4F72-BA64-83F52E97E45B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{481653B0-B096-4F72-BA64-83F52E97E45B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{481653B0-B096-4F72-BA64-83F52E97E45B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{481653B0-B096-4F72-BA64-83F52E97E45B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -420,6 +426,7 @@ Global
 		{B1F29F72-E0C0-41F6-A38E-A02B775C2FE7} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{7C09E567-AEEA-4ED1-BFF5-D06479937DAC} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{DC9B84B2-AF95-4424-AFCE-D86040AFC5AF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
+		{481653B0-B096-4F72-BA64-83F52E97E45B} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
