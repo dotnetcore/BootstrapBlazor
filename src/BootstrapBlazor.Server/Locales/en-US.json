@@ -6588,11 +6588,10 @@
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "CopiedTooltipText": "Copied"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIconList": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
     "AntDesignIconDescription": "Semantic vector graphics.",
-    "NormalTitle": "Icon",
-    "NormalIntro": "Use the <code>AntDesignIcon</code> component to set its <code>Name</code> parameter."
+    "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
