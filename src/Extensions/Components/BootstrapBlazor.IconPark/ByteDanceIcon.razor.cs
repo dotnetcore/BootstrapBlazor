@@ -27,8 +27,8 @@ public partial class ByteDanceIcon
     /// <summary>
     /// 获得 样式字符串
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-svg-icon")
-        .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
+    private string? ClassString => CssBuilder.Default("bb-iconpark-icon")
+        .AddClass($"bb-iconpark-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
     /// <summary>
