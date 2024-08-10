@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
-/// FAIconList 组件
+/// ByteDanceIconList 组件
 /// </summary>
 [JSModuleAutoLoader("Samples/Icons/ByteDanceIconList.razor.js", JSObjectReference = true)]
 public partial class ByteDanceIconList : IAsyncDisposable
@@ -29,12 +29,6 @@ public partial class ByteDanceIconList : IAsyncDisposable
     public EventCallback<string?> IconChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击图标是否进行拷贝处理 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsCopy { get; set; }
-
-    /// <summary>
     /// 获得/设置 拷贝成功提示文字
     /// </summary>
     [Parameter]
@@ -48,7 +42,7 @@ public partial class ByteDanceIconList : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), IsCopy);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon));
 
     /// <summary>
     /// UpdateIcon 方法由 JS Invoke 调用

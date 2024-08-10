@@ -1522,7 +1522,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["MeterialIcon"],
+                    Text = Localizer["MaterialIcon"],
                     Url = "md-icon"
                 },
                 new()

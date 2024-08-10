@@ -2,13 +2,12 @@
 import Data from "../../../_content/BootstrapBlazor/modules/data.js"
 import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
 
-export function init(id, invoke, updateMethod, copyIcon) {
+export function init(id, invoke, updateMethod) {
     const el = document.getElementById(id);
     const faList = {
         element: el,
         invoke,
-        updateMethod,
-        copyIcon
+        updateMethod
     }
     Data.set(id, faList)
 
@@ -19,9 +18,7 @@ export function init(id, invoke, updateMethod, copyIcon) {
         const span = e.delegateTarget.querySelector('span')
         const name = span.innerHTML;
         faList.invoke.invokeMethodAsync(faList.updateMethod, name)
-        if (faList.copyIcon) {
-            faList.copy(e.delegateTarget, name)
-        }
+        faList.copy(e.delegateTarget, name)
     })
 
     faList.copy = (element, text) => {

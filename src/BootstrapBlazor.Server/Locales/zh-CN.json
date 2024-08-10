@@ -4725,7 +4725,7 @@
     "AntDesignIcon": "蚂蚁图标 AntDesignIcon",
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
-    "MeterialIcon": "Meterial Icons"
+    "MaterialIcon": "Material Icons"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6564,8 +6564,13 @@
     "CardMargin": "卡片边距",
     "CardGroupMargin": "卡片组边距"
   },
+  "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
+    "Title": "Bootstrap Icons",
+    "BaseUsageText": "Bootstrap 免费开源图标库",
+    "CopiedTooltipText": "拷贝成功"
+  },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
-    "Title": "FA 图标选择器",
+    "Title": "Font Awesome Icons",
     "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
     "SwitchButtonTextOff": "点击拷贝",
     "SwitchButtonTextOn": "显示高级拷贝",
@@ -6576,8 +6581,6 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
-    "NormalTitle": "图标组件",
-    "NormalIntro": "使用 <code>IconParks</code> 组件设置其 <code>Name</code> 参数即可",
     "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIconList": {

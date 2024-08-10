@@ -50,12 +50,6 @@ public partial class FAIconList : IAsyncDisposable
     public EventCallback<string?> IconChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击图标是否进行拷贝处理 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsCopy { get; set; }
-
-    /// <summary>
     /// 获得/设置 拷贝成功提示文字
     /// </summary>
     [Parameter]
@@ -83,7 +77,7 @@ public partial class FAIconList : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog));
 
     /// <summary>
     /// UpdateIcon 方法由 JS Invoke 调用
