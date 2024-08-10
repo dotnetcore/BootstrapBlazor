@@ -6577,7 +6577,8 @@
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "NormalTitle": "图标组件",
-    "NormalIntro": "使用 <code>IconParks</code> 组件设置其 <code>Name</code> 参数即可"
+    "NormalIntro": "使用 <code>IconParks</code> 组件设置其 <code>Name</code> 参数即可",
+    "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIconList": {
     "AntDesignIconTitle": "蚂蚁图标库",
