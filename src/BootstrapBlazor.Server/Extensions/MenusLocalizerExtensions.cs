@@ -1423,6 +1423,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DialogService"],
+                    Url = "dialog-service"
+                },
+                new()
+                {
                     Text = Localizer["Dispatch"],
                     Url = "dispatch"
                 },
@@ -1433,8 +1438,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["DialogService"],
-                    Url = "dialog-service"
+                    Text = Localizer["DrawerService"],
+                    Url = "drawer-service"
                 },
                 new()
                 {

@@ -4726,7 +4726,8 @@
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
-    "ElementIcon": "饿了么图标 ElementIcon"
+    "ElementIcon": "饿了么图标 ElementIcon",
+    "DrawerService": "抽屉服务 DrawerService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
