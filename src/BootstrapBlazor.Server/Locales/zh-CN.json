@@ -4726,7 +4726,8 @@
     "Icons": "内置图标",
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
-    "ElementIcon": "饿了么图标 ElementIcon"
+    "ElementIcon": "饿了么图标 ElementIcon",
+    "DrawerService": "抽屉服务 DrawerService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6599,7 +6600,7 @@
     "AntDesignIconDescription": "语义化的矢量图形",
     "CopiedTooltipText": "拷贝成功"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapBlazorIcons": {
+  "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",
     "IconsDescription": "同时支持字体图标、矢量 Svg 图标、以及 Image 图片",
     "FATitle": "字体图标",
