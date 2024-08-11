@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -31,6 +29,8 @@ public partial class SvgIcon
         .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
+    private string? _hrefString;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -38,6 +38,7 @@ public partial class SvgIcon
     {
         base.OnParametersSet();
 
-        Href ??= $"./_content/BootstrapBlazor.IconPark/icon-park.svg#{Name}";
+        Href ??= "./_content/BootstrapBlazor.IconPark/icon-park.svg";
+        _hrefString = $"{Href}#{Name}";
     }
 }
