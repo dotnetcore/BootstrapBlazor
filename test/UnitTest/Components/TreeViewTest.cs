@@ -178,7 +178,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnStateChanged_Ok()
+    public async Task OnStateChanged_Ok()
     {
         var items = TreeFoo.GetTreeItems();
         items[0].CssClass = "Test-Class";
@@ -195,15 +195,16 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        cut.Find("[type=\"checkbox\"]").Click();
-        cut.WaitForAssertion(() => cut.DoesNotContain("fa-solid fa-font-awesome"));
-        cut.WaitForAssertion(() => cut.Contains("Test-Class"));
+        var checkbox = cut.Find("[type=\"checkbox\"]");
+        await cut.InvokeAsync(() => checkbox.Click());
+        cut.DoesNotContain("fa-solid fa-font-awesome");
+        cut.Contains("Test-Class");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
         });
-        cut.WaitForAssertion(() => cut.Contains("fa-solid fa-font-awesome"));
+        cut.Contains("fa-solid fa-font-awesome");
     }
 
     [Fact]

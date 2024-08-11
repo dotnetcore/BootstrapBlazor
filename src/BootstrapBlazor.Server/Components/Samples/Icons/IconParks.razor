@@ -1,0 +1,13 @@
+﻿@page "/icon-park"
+@layout MainLayout
+@inject IStringLocalizer<IconParks> Localizer
+
+<h3>@Localizer["IconParkTitle"]</h3>
+
+<h4>@Localizer["IconParkDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.IconPark" />
+
+<Pre>&lt;ByteDanceIcon Name="abdominal"&gt;&lt;ByteDanceIcon&gt;</Pre>
+
+<IconParkList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />
