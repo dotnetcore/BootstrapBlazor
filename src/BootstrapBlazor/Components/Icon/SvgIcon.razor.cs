@@ -29,6 +29,8 @@ public partial class SvgIcon
         .AddClass($"bb-svg-icon-{Name}", !string.IsNullOrEmpty(Name))
         .Build();
 
+    private string? _hrefString;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -36,6 +38,7 @@ public partial class SvgIcon
     {
         base.OnParametersSet();
 
-        Href ??= $"./_content/BootstrapBlazor.IconPark/icon-park.svg#{Name}";
+        Href ??= "./_content/BootstrapBlazor.IconPark/icon-park.svg";
+        _hrefString = $"{Href}#{Name}";
     }
 }
