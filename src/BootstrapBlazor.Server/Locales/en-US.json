@@ -6599,7 +6599,7 @@
     "AntDesignIconDescription": "Semantic vector graphics.",
     "CopiedTooltipText": "Copied"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapBlazorIcons": {
+  "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
     "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
     "FATitle": "Font Icons",

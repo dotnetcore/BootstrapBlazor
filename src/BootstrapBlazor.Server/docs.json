@@ -99,7 +99,7 @@
     "live2d-display": "Live2DDisplays",
     "locator": "Locators",
     "logout": "Logouts",
-    "icon": "Icons",
+    "icon": "BootstrapBlazorIcons",
     "icon-park": "IconParks",
     "ant-design-icon": "AntDesignIconList",
     "image-viewer": "ImageViewers",
