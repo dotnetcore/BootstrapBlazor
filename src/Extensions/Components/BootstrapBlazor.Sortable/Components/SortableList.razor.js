@@ -60,16 +60,12 @@ const initSortable = (id, element, invoke, op) => {
 
     if (op.triggerUpdate) {
         op.onUpdate = event => {
-            event.item.remove();
-            event.to.insertBefore(event.item, event.to.childNodes[event.oldIndex]);
             invoke.invokeMethodAsync('TriggerUpdate', event.oldIndex, event.newIndex);
         }
     }
 
     if (op.triggerRemove) {
         op.onRemove = event => {
-            event.item.remove();
-            event.from.insertBefore(event.item, event.from.childNodes[event.oldIndex]);
             invoke.invokeMethodAsync('TriggerRemove', event.oldIndex, event.newIndex);
         }
     }
