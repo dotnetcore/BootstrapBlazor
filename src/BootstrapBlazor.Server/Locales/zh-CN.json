@@ -6672,6 +6672,8 @@
     "SortableListCloneIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Clone</code> 设置拖拽时是否克隆当前元素",
     "SortableListDisableSortTitle": "禁止排序",
     "SortableListDisableSortIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Sort</code> 设置拖拽时是否排序当前元素",
+    "SortableListHanlderTitle": "拖拽控制元素",
+    "SortableListHanlderIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Handle</code> 设置指定可拖拽元素，鼠标拖动图标时拖动整个元素",
     "SortableListTableTitle": "表格拖拽",
     "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素"
   }

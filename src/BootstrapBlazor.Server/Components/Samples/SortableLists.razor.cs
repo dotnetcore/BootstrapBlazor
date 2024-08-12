@@ -46,6 +46,12 @@ public partial class SortableLists
         Sort = false
     };
 
+    private readonly SortableOption _option6 = new()
+    {
+        RootSelector = ".sl-list",
+        GhostClass = "sl-item-ghost",
+        Handle = "i"
+    };
     private readonly SortableOption _option = new()
     {
         RootSelector = "tbody"
