@@ -10,9 +10,30 @@ export function init(id, invoke, options) {
     const op = getOptions(options);
     let element = el;
     if (op.rootSelector) {
-        element = el.querySelector(options.rootSelector);
-        delete op.rootSelector;
+        loopCheck(id, el, op);
     }
+    else {
+        initSortable(id, element, op);
+    }
+}
+
+const loopCheck = (id, el, op) => {
+    const check = () => {
+        const element = el.querySelector(op.rootSelector);
+        if (element === null) {
+            op.loopCheckHeightHandler = requestAnimationFrame(check);
+        }
+        else {
+            delete op.loopCheckHeightHandler;
+            initSortable(id, element, op);
+        }
+    };
+    check();
+}
+
+const initSortable = (id, element, op) => {
+    delete op.rootSelector;
+
     op.group = {
         name: op.group
     };
@@ -34,10 +55,8 @@ export function init(id, invoke, options) {
         delete op.putback;
     }
 
-    if (element) {
-        const sortable = Sortable.create(element, op);
-        Data.set(id, { el, element, sortable });
-    }
+    const sortable = Sortable.create(element, op);
+    Data.set(id, { element, sortable });
 }
 
 const getOptions = options => {
