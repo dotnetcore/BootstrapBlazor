@@ -15,7 +15,7 @@ public class SortableOption
     /// 获得/设置 目标元素选择器
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string?  RootSelector { get; set; }
+    public string? RootSelector { get; set; }
 
     /// <summary>
     /// or { name: "...", pull: [true, false, 'clone', array], put: [true, false, array] }
@@ -123,7 +123,7 @@ public class SortableOption
     /// Will always use inverted swap zone if set to true
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-	public bool? InvertSwap { get; set; }
+    public bool? InvertSwap { get; set; }
 
     /// <summary>
     /// Threshold of the inverted swap zone (will be set to swapThreshold value by default)
@@ -143,7 +143,9 @@ public class SortableOption
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public bool? ForceFallback { get; set; }
 
-    // Class name for the cloned DOM Element when using forceFallback
+    /// <summary>
+    /// Class name for the cloned DOM Element when using forceFallback
+    /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? FallbackClass { get; set; }
 
