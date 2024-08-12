@@ -6659,5 +6659,11 @@
     "AttributeAutoUnobserveWhenNotIntersection": "Whether to automatically cancel the observation when element invisible",
     "AttributeOnIntersectingAsync": "The callback when intersecting",
     "AttributeChildContent": "Child component"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SortableLists": {
+    "SortableListTitle": "SortableList",
+    "SortableListDescription": "Reorderable drag-and-drop lists",
+    "SortableListNormalTitle": "Simple list example",
+    "SortableListNormalIntro": "Get the root element by setting the <code>RootSelector</code> parameter of the <code>SortableListOption</code>"
   }
 }
