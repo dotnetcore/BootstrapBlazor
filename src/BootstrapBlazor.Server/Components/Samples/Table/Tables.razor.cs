@@ -26,6 +26,7 @@ public partial class Tables
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         //获取随机数据
         //Get random data
         Items = Foo.GenerateFoo(FooLocalizer);

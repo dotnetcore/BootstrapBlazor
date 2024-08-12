@@ -99,6 +99,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["Icons"],
+            Icon = "fa-fw fa-solid fa-icons",
+        };
+        AddIcons(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["OtherComponents"],
             Icon = "fa-fw fa-solid fas fa-share-nodes"
         };
@@ -156,7 +163,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Splitting"],
                     Url = "splitting"
                 },
@@ -276,11 +282,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["FAIcon"],
-                    Url = "fa-icon"
-                },
-                new()
-                {
                     Text = Localizer["LayoutPage"],
                     Url = "layout-page"
                 }
@@ -330,7 +331,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ClockPicker"],
                     Url = "clock-picker"
                 },
@@ -362,7 +362,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ListGroup"],
                     Url = "list-group"
                 },
@@ -430,13 +429,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SelectObject"],
                     Url = "select-object"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SelectTable"],
                     Url = "select-table"
                 },
@@ -505,7 +502,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["AzureOpenAI"],
                     Url = "ai-chat"
                 },
@@ -571,13 +567,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["CountUp"],
                     Url = "count-up"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["CodeEditor"],
                     Url = "code-editors"
                 },
@@ -593,7 +587,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new ()
                 {
-                    IsNew = true,
                     Text=Localizer["ExportPdfButton"],
                     Url = "export-pdf-button"
                 },
@@ -604,7 +597,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new ()
                 {
-                    IsNew = true,
                     Text=Localizer["EyeDropper"],
                     Url = "eye-dropper"
                 },
@@ -626,8 +618,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Gantt"],
-                    Url = "gantt",
-                    IsNew = true
+                    Url = "gantt"
                 },
                 new()
                 {
@@ -638,11 +629,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Icon"],
                     Url = "icon"
-                },
-                new()
-                {
-                    Text = Localizer["IconPark"],
-                    Url = "icon-park"
                 },
                 new()
                 {
@@ -666,7 +652,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["MindMap"],
                     Url = "mind-map"
                 },
@@ -682,7 +667,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["QueryBuilder"],
                     Url = "query-builder"
                 },
@@ -703,7 +687,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Segmented"],
                     Url = "segmented"
                 },
@@ -720,8 +703,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SvgEditor"],
-                    Url = "svg-editors",
-                    IsNew = true,
+                    Url = "svg-editors"
                 },
                 new()
                 {
@@ -760,19 +742,16 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Waterfall"],
                     Url = "tutorials/waterfall"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["WebSerial"],
                     Url = "web-serial"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["WebSpeech"],
                     Url = "web-speech"
                 }
@@ -1122,19 +1101,16 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ContextMenu"],
                     Url = "context-menu"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["CountButton"],
                     Url = "count-button"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DialButton"],
                     Url = "dial-button"
                 },
@@ -1155,7 +1131,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["FlipClock"],
                     Url = "flip-clock"
                 },
@@ -1178,7 +1153,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Marquee"],
                     Url = "marquee"
                 },
@@ -1229,7 +1203,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SlideButton"],
                     Url = "slide-button"
                 },
@@ -1367,6 +1340,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["SortableList"],
+                    Url = "sortable-list"
+                },
+                new()
+                {
                     Text = Localizer["Scroll"],
                     Url = "scroll"
                 },
@@ -1382,7 +1361,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Stack"],
                     Url = "stack"
                 }
@@ -1426,6 +1404,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DialogService"],
+                    Url = "dialog-service"
+                },
+                new()
+                {
                     Text = Localizer["Dispatch"],
                     Url = "dispatch"
                 },
@@ -1436,8 +1419,9 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["DialogService"],
-                    Url = "dialog-service"
+                    IsNew = true,
+                    Text = Localizer["DrawerService"],
+                    Url = "drawer-service"
                 },
                 new()
                 {
@@ -1491,7 +1475,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ThemeProvider"],
                     Url = "theme-provider"
                 },
@@ -1504,6 +1487,46 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["ZipArchive"],
                     Url = "zip-archive"
+                }
+            };
+            AddBadge(item);
+        }
+
+        void AddIcons(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["FAIcon"],
+                    Url = "fa-icon"
+                },
+                new()
+                {
+                    Text = Localizer["BootstrapIcon"],
+                    Url = "bs-icon"
+                },
+                new()
+                {
+                    Text = Localizer["MaterialIcon"],
+                    Url = "md-icon"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["AntDesignIcon"],
+                    Url = "ant-design-icon"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["ElementIcon"],
+                    Url = "element-icon"
+                },
+                new()
+                {
+                    Text = Localizer["IconPark"],
+                    Url = "icon-park"
                 }
             };
             AddBadge(item);
