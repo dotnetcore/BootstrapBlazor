@@ -37,6 +37,16 @@ public partial class SortableList
     [Parameter]
     public Func<int, int, Task>? OnRemove { get; set; }
 
+    private string? ClassString => CssBuilder.Default("bb-sortable")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Option, OnUpdate != null, OnRemove != null);
+
     /// <summary>
     /// JavaScript 调用触发节点更新方法
     /// </summary>
@@ -62,14 +72,4 @@ public partial class SortableList
             await OnRemove(oldIndex, newIndex);
         }
     }
-
-    private string? ClassString => CssBuilder.Default("bb-sortable")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Option);
 }
