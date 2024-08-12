@@ -55,7 +55,22 @@
 <DemoBlock Title="@Localizer["IntersectionObserverVisibleTitle"]"
            Introduction="@Localizer["IntersectionObserverVisibleIntro"]"
            Name="Visible">
-    <section ignore><p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p></section>
+    <HeadContent>
+        <style>
+            .bb-video video {
+                width: 256px;
+            }
+
+            @@media (min-width: 767.99px) {
+                .bb-video video {
+                    width: 350px;
+                }
+            }
+        </style>
+    </HeadContent>
+    <section ignore>
+        <p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p>
+    </section>
     <p class="text-center @_textColorString">@_videoStateString</p>
     <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserveWhenIntersection="false">
         <div class="bb-video-demo scroll">
