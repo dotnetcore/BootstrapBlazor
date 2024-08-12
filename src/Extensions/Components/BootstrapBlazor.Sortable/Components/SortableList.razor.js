@@ -3,20 +3,27 @@ import Data from '../../BootstrapBlazor/modules/data.js'
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id);
-    if(el === null) {
+    if (el === null) {
         return;
     }
 
     const op = getOptions(options);
     let element = el;
-    if(op.rootSelector) {
+    if (op.rootSelector) {
         element = el.querySelector(options.rootSelector);
         delete op.rootSelector;
     }
+    if (op.clone === true) {
+        op.group = {
+            name: op.group,
+            pull: 'clone'
+        };
+        delete op.clone;
+    }
 
-    if(element) {
+    if (element) {
         const sortable = Sortable.create(element, op);
-        Data.set(id, {el, element, sortable});
+        Data.set(id, { el, element, sortable });
     }
 }
 
@@ -32,7 +39,7 @@ export function dispose(id) {
     const sortable = Data.get(id);
     Data.remove(id);
 
-    if(sortable) {
+    if (sortable) {
 
     }
 }

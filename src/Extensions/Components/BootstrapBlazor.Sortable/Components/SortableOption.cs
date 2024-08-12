@@ -24,6 +24,12 @@ public class SortableOption
     public string? Group { get; set; }
 
     /// <summary>
+    /// 获得/设置 拖动时是否克隆元素 默认 null 未设置 不克隆
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Clone { get; set; }
+
+    /// <summary>
     /// sorting inside list
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
