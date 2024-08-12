@@ -138,10 +138,35 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SortableListNestTitle"]"
+           Introduction="@Localizer["SortableListNestIntro"]"
+           Name="Nest">
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <SortableList Option="_option1">
+                <div class="sl-list">
+                    <div class="sl-item">
+                        <SortableList Option="_option1">
+                            <div class="sl-list">
+                                <div class="sl-item"><span>11</span></div>
+                                <div class="sl-item"><span>12</span></div>
+                                <div class="sl-item"><span>13</span></div>
+                            </div>
+                        </SortableList>
+                    </div>
+                    <div class="sl-item"><span>2</span></div>
+                    <div class="sl-item"><span>3</span></div>
+                    <div class="sl-item"><span>4</span></div>
+                </div>
+            </SortableList>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SortableListTableTitle"]"
            Introduction="@Localizer["SortableListTableIntro"]"
            Name="Table">
-    <SortableList Option="_option">
+    <SortableList Option="_optionTable">
         <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />

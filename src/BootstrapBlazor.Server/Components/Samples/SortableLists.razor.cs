@@ -60,7 +60,7 @@ public partial class SortableLists
         Filter = ".filter"
     };
 
-    private readonly SortableOption _option = new()
+    private readonly SortableOption _optionTable = new()
     {
         RootSelector = "tbody"
     };
