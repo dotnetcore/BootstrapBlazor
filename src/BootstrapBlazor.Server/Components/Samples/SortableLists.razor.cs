@@ -29,6 +29,23 @@ public partial class SortableLists
         Clone = true
     };
 
+    private readonly SortableOption _option4 = new()
+    {
+        RootSelector = ".sl-list",
+        GhostClass = "sl-item-ghost",
+        Group = "group-clone",
+        Clone = true,
+        Putback = false
+    };
+
+    private readonly SortableOption _option5 = new()
+    {
+        RootSelector = ".sl-list",
+        GhostClass = "sl-item-ghost",
+        Group = "group-clone",
+        Sort = false
+    };
+
     private readonly SortableOption _option = new()
     {
         RootSelector = "tbody"
