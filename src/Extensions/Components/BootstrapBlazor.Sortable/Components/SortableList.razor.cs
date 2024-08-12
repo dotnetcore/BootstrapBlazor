@@ -32,6 +32,12 @@ public partial class SortableList
     public Func<int, int, Task>? OnUpdate { get; set; }
 
     /// <summary>
+    /// 获得/设置 元素更新回调方法
+    /// </summary>
+    [Parameter]
+    public Func<int, int, Task>? OnRemove { get; set; }
+
+    /// <summary>
     /// JavaScript 调用触发节点更新方法
     /// </summary>
     /// <returns></returns>
@@ -41,6 +47,19 @@ public partial class SortableList
         if (OnUpdate != null)
         {
             await OnUpdate(oldIndex, newIndex);
+        }
+    }
+
+    /// <summary>
+    /// JavaScript 调用触发节点更新方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerRemove(int oldIndex, int newIndex)
+    {
+        if (OnRemove != null)
+        {
+            await OnRemove(oldIndex, newIndex);
         }
     }
 

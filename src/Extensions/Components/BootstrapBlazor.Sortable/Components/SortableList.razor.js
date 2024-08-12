@@ -62,11 +62,9 @@ const initSortable = (id, element, invoke, op) => {
     }
 
     op.onRemove = event => {
-        console.log('onRemove', event);
-
         event.item.remove();
         event.from.insertBefore(event.item, event.from.childNodes[event.oldIndex]);
-        invoke.invokeMethodAsync('TriggerRemove', event.oldIndex, event.newIndex, event.item.id, event.to.id);
+        invoke.invokeMethodAsync('TriggerRemove', event.oldIndex, event.newIndex);
     }
 
     const sortable = Sortable.create(element, op);
