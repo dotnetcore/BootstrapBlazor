@@ -6678,7 +6678,7 @@
     "SortableListFilterIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Filter</code> 设置有条件性的拖拽元素，示例中红色元素无法拖动",
     "SortableListNestTitle": "嵌套使用",
     "SortableListNestIntro": "通过嵌套使用 <code>SortableList</code> 组件即可",
-    "SortableListTableTitle": "表格拖拽",
-    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素"
+    "SortableListTableTitle": "表格行拖拽",
+    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作"
   }
 }

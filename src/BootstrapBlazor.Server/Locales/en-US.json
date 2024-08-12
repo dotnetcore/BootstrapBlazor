@@ -6677,7 +6677,7 @@
     "SortableListFilterIntro": "By setting the <code>SortableListOption</code> parameter <code>Filter</code> to set conditional drag elements, the red element in the example cannot be dragged",
     "SortableListNestTitle": "Nest",
     "SortableListNestIntro": "By nesting the <code>SortableList</code> component",
-    "SortableListTableTitle": "表格拖拽",
-    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素"
+    "SortableListTableTitle": "Table Row",
+    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows."
   }
 }

@@ -74,6 +74,15 @@ public partial class SortableLists
 
         //获取随机数据
         //Get random data
-        Items = Foo.GenerateFoo(FooLocalizer);
+        Items = Foo.GenerateFoo(FooLocalizer, 8);
+    }
+
+    private Task OnUpdate(int oldIndex, int newIndex)
+    {
+        var item = Items[oldIndex];
+        Items.RemoveAt(oldIndex);
+        Items.Insert(newIndex, item);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

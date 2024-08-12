@@ -11,14 +11,12 @@
 <DemoBlock Title="@Localizer["SortableListNormalTitle"]"
            Introduction="@Localizer["SortableListNormalIntro"]"
            Name="Normal">
-    <SortableList Option="_option1">
+    <SortableList Option="_option1" OnUpdate="OnUpdate">
         <div class="sl-list row g-2">
-            <div class="col-12 col-sm-6"><div class="sl-item">1</div></div>
-            <div class="col-12 col-sm-6"><div class="sl-item">2</div></div>
-            <div class="col-12 col-sm-6"><div class="sl-item">3</div></div>
-            <div class="col-12 col-sm-6"><div class="sl-item">4</div></div>
-            <div class="col-12 col-sm-6"><div class="sl-item">5</div></div>
-            <div class="col-12 col-sm-6"><div class="sl-item">6</div></div>
+            @foreach(var item in Items)
+            {
+                <div @key="item" class="col-12 col-sm-6"><div class="sl-item">@item.Name</div></div>
+            }
         </div>
     </SortableList>
 </DemoBlock>
