@@ -30,6 +30,12 @@ public class SortableOption
     public bool? Clone { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否允许拖动回来 默认 null 未设置 允许
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Putback { get; set; }
+
+    /// <summary>
     /// sorting inside list
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

@@ -13,12 +13,25 @@ export function init(id, invoke, options) {
         element = el.querySelector(options.rootSelector);
         delete op.rootSelector;
     }
+    op.group = {
+        name: op.group
+    };
+
     if (op.clone === true) {
         op.group = {
-            name: op.group,
+            ...op.group,
             pull: 'clone'
         };
         delete op.clone;
+    }
+
+    if (op.putback === false) {
+        op.group = {
+            ...op.group,
+            pull: 'clone',
+            put: false
+        };
+        delete op.putback;
     }
 
     if (element) {
@@ -38,8 +51,4 @@ const getOptions = options => {
 export function dispose(id) {
     const sortable = Data.get(id);
     Data.remove(id);
-
-    if (sortable) {
-
-    }
 }
