@@ -220,7 +220,8 @@
     "clipboard-service": "Clipboards",
     "image-cropper": "ImageCroppers",
     "barcode-generator": "BarcodeGenerators",
-    "zip-archive": "ZipArchives"
+    "zip-archive": "ZipArchives",
+    "sortable-list": "SortableLists"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
