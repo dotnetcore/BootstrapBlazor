@@ -303,8 +303,8 @@ const setBodyHeight = table => {
         card.style.height = `calc(100% - ${bodyHeight}px)`
     }
     else {
-        const body = table.body || table.tables[0]
-        if (bodyHeight > 0) {
+        const body = table.body || table.tables[0];
+        if (bodyHeight > 0 && body && body.parentNode) {
             body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
         }
         let headerHeight = 0
