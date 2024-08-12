@@ -21,6 +21,14 @@ public partial class SortableLists
         Group = "group"
     };
 
+    private readonly SortableOption _option3 = new()
+    {
+        RootSelector = ".sl-list",
+        GhostClass = "sl-item-ghost",
+        Group = "group-clone",
+        Clone = true
+    };
+
     private readonly SortableOption _option = new()
     {
         RootSelector = "tbody"
