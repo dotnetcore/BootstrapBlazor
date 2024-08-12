@@ -6665,7 +6665,7 @@
     "SortableListTitle": "SortableList 拖拽组件",
     "SortableListDescription": "可排序的拖拽组件",
     "SortableListNormalTitle": "简单例子",
-    "SortableListNormalIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素",
+    "SortableListNormalIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素，通过设置 <code>OnUpdate</code> 回调方法重新设置数据源",
     "SortableListGroupTitle": "分组共享拖拽",
     "SortableListGroupIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Group</code> 指定组名，使不同组之间元素可以拖拽",
     "SortableListCloneTitle": "拖拽时克隆元素",

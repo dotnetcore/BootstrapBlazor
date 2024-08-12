@@ -26,22 +26,22 @@
            Name="Group">
     <div class="row g-2">
         <div class="col-12 col-sm-6">
-            <SortableList Option="_option2">
+            <SortableList Option="_option2" OnUpdate="OnUpdate1" OnRemove="OnRemove1">
                 <div class="sl-list">
-                    <div class="sl-item">1</div>
-                    <div class="sl-item">2</div>
-                    <div class="sl-item">3</div>
-                    <div class="sl-item">4</div>
+                    @foreach (var item in Items1)
+                    {
+                        <div @key="item" class="sl-item">@item.Name</div>
+                    }
                 </div>
             </SortableList>
         </div>
         <div class="col-12 col-sm-6">
-            <SortableList Option="_option2">
+            <SortableList Option="_option2" OnUpdate="OnUpdate2" OnRemove="OnRemove2">
                 <div class="sl-list">
-                    <div class="sl-item">5</div>
-                    <div class="sl-item">6</div>
-                    <div class="sl-item">7</div>
-                    <div class="sl-item">8</div>
+                    @foreach (var item in Items2)
+                    {
+                        <div @key="item" class="sl-item">@item.Name</div>
+                    }
                 </div>
             </SortableList>
         </div>

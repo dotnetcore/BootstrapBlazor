@@ -8,6 +8,12 @@ public partial class SortableLists
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    [NotNull]
+    private List<Foo>? Items1 { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items2 { get; set; }
+
     private readonly SortableOption _option1 = new()
     {
         RootSelector = ".sl-list",
@@ -75,6 +81,8 @@ public partial class SortableLists
         //获取随机数据
         //Get random data
         Items = Foo.GenerateFoo(FooLocalizer, 8);
+        Items1 = Foo.GenerateFoo(FooLocalizer, 4);
+        Items2 = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
     }
 
     private Task OnUpdate(int oldIndex, int newIndex)
@@ -82,6 +90,42 @@ public partial class SortableLists
         var item = Items[oldIndex];
         Items.RemoveAt(oldIndex);
         Items.Insert(newIndex, item);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdate1(int oldIndex, int newIndex)
+    {
+        var item = Items1[oldIndex];
+        Items1.RemoveAt(oldIndex);
+        Items1.Insert(newIndex, item);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdate2(int oldIndex, int newIndex)
+    {
+        var item = Items[oldIndex];
+        Items2.RemoveAt(oldIndex);
+        Items2.Insert(newIndex, item);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemove1(int oldIndex, int newIndex)
+    {
+        var item = Items1[oldIndex];
+        Items1.RemoveAt(oldIndex);
+        Items2.Insert(newIndex, item);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemove2(int oldIndex, int newIndex)
+    {
+        var item = Items[oldIndex];
+        Items2.RemoveAt(oldIndex);
+        Items1.Insert(newIndex, item);
         StateHasChanged();
         return Task.CompletedTask;
     }
