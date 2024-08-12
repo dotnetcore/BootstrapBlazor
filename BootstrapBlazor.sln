@@ -156,6 +156,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestSvgIcon", "test\UniT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Core", "src\Extensions\Components\BootstrapBlazor.Core\BootstrapBlazor.Core.csproj", "{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Sortable", "src\Extensions\Components\BootstrapBlazor.Sortable\BootstrapBlazor.Sortable.csproj", "{50F286FD-D814-46C3-A70C-C2F789C4338C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -364,6 +366,10 @@ Global
 		{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -427,6 +433,7 @@ Global
 		{481653B0-B096-4F72-BA64-83F52E97E45B} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{50F286FD-D814-46C3-A70C-C2F789C4338C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

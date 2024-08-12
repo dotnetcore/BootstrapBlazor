@@ -1340,6 +1340,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["SortableList"],
+                    Url = "sortable-list"
+                },
+                new()
+                {
                     Text = Localizer["Scroll"],
                     Url = "scroll"
                 },

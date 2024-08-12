@@ -4727,7 +4727,8 @@
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
     "ElementIcon": "饿了么图标 ElementIcon",
-    "DrawerService": "抽屉服务 DrawerService"
+    "DrawerService": "抽屉服务 DrawerService",
+    "SortableList": "拖拽组件 SortableList"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6659,5 +6660,25 @@
     "AttributeAutoUnobserveWhenNotIntersection": "元素不可见时是否自动取消观察",
     "AttributeOnIntersectingAsync": "可见回调方法",
     "AttributeChildContent": "子组件"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SortableLists": {
+    "SortableListTitle": "SortableList 拖拽组件",
+    "SortableListDescription": "可排序的拖拽组件",
+    "SortableListNormalTitle": "简单例子",
+    "SortableListNormalIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定样式选择器获得根元素，通过设置 <code>OnUpdate</code> 回调方法重新设置数据源",
+    "SortableListGroupTitle": "分组共享拖拽",
+    "SortableListGroupIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Group</code> 指定组名，使不同组之间元素可以拖拽",
+    "SortableListCloneTitle": "拖拽时克隆元素",
+    "SortableListCloneIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Clone</code> 设置拖拽时是否克隆当前元素",
+    "SortableListDisableSortTitle": "禁止排序",
+    "SortableListDisableSortIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Sort</code> 设置拖拽时是否排序当前元素",
+    "SortableListHanlderTitle": "拖拽控制元素",
+    "SortableListHanlderIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Handle</code> 设置指定可拖拽元素，鼠标拖动图标时拖动整个元素",
+    "SortableListFilterTitle": "条件过滤拖拽组件",
+    "SortableListFilterIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Filter</code> 设置有条件性的拖拽元素，示例中红色元素无法拖动",
+    "SortableListNestTitle": "嵌套使用",
+    "SortableListNestIntro": "通过嵌套使用 <code>SortableList</code> 组件即可",
+    "SortableListTableTitle": "表格行拖拽",
+    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作"
   }
 }

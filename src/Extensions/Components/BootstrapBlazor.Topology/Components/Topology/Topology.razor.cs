@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Topology 组件类
 /// </summary>
-public partial class Topology : IAsyncDisposable
+public partial class Topology
 {
     /// <summary>
     /// 获得/设置 JSON 文件内容

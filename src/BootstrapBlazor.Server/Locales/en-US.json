@@ -6659,5 +6659,25 @@
     "AttributeAutoUnobserveWhenNotIntersection": "Whether to automatically cancel the observation when element invisible",
     "AttributeOnIntersectingAsync": "The callback when intersecting",
     "AttributeChildContent": "Child component"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SortableLists": {
+    "SortableListTitle": "SortableList",
+    "SortableListDescription": "Reorderable drag-and-drop lists",
+    "SortableListNormalTitle": "Simple list example",
+    "SortableListNormalIntro": "Get the root element by setting the <code>RootSelector</code> parameter of the <code>SortableListOption</code>",
+    "SortableListGroupTitle": "Group",
+    "SortableListGroupIntro": "By setting the <code>SortableListOption</code> parameter <code>Group</code> to specify the group name, elements between different groups can be dragged",
+    "SortableListCloneTitle": "Clone",
+    "SortableListCloneIntro": "Set the <code>SortableListOption</code> parameter <code>Clone</code> to set whether to clone the current element when dragging",
+    "SortableListDisableSortTitle": "Disable Sort",
+    "SortableListDisableSortIntro": "By setting the <code>SortableListOption</code> parameter <code>Sort</code> to set whether to sort the current element when dragging",
+    "SortableListHanlderTitle": "Handler",
+    "SortableListHanlderIntro": "By setting the <code>SortableListOption</code> parameter <code>Handle</code> to specify the draggable element, the entire element is dragged when the mouse drags the icon",
+    "SortableListFilterTitle": "Filter",
+    "SortableListFilterIntro": "By setting the <code>SortableListOption</code> parameter <code>Filter</code> to set conditional drag elements, the red element in the example cannot be dragged",
+    "SortableListNestTitle": "Nest",
+    "SortableListNestIntro": "By nesting the <code>SortableList</code> component",
+    "SortableListTableTitle": "Table Row",
+    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows."
   }
 }
