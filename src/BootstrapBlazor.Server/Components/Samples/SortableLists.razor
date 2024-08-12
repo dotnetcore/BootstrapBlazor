@@ -121,15 +121,32 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SortableListFilterTitle"]"
+           Introduction="@Localizer["SortableListFilterIntro"]"
+           Name="Filter">
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <SortableList Option="_option7">
+                <div class="sl-list">
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>1</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>2</span></div>
+                    <div class="sl-item filter"><i class="fa-solid fa-bars"></i><span>3</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>4</span></div>
+                </div>
+            </SortableList>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SortableListTableTitle"]"
            Introduction="@Localizer["SortableListTableIntro"]"
            Name="Table">
     <SortableList Option="_option">
         <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
             <TableColumns>
-                <TableColumn @bind-Field="@context.DateTime" Width="180"/>
-                <TableColumn @bind-Field="@context.Name"/>
-                <TableColumn @bind-Field="@context.Address"/>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" />
             </TableColumns>
         </Table>
     </SortableList>
