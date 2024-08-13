@@ -33,6 +33,9 @@ public partial class CheckboxLists
     [NotNull]
     private IEnumerable<SelectedItem>? Items4 { get; set; }
 
+    [NotNull]
+    private IEnumerable<SelectedItem>? Items5 { get; set; }
+
     /// <summary>
     /// OnInitialized method
     /// </summary>
@@ -40,37 +43,45 @@ public partial class CheckboxLists
     {
         base.OnInitialized();
 
-        Items1 = new List<SelectedItem>(new List<SelectedItem>
+        Items1 = new List<SelectedItem>
         {
-            new SelectedItem { Text = "Item 9", Value = "9" },
-            new SelectedItem { Text = "Item 10", Value = "10" },
-            new SelectedItem { Text = "Item 11", Value = "11" },
-            new SelectedItem { Text = "Item 12", Value = "12" },
-        });
+            new() { Text = "Item 9", Value = "9" },
+            new() { Text = "Item 10", Value = "10" },
+            new() { Text = "Item 11", Value = "11" },
+            new() { Text = "Item 12", Value = "12" },
+        };
 
-        Items2 = new List<SelectedItem>(new List<SelectedItem>
+        Items2 = new List<SelectedItem>
         {
-            new SelectedItem { Text = "Item 13", Value = "13" },
-            new SelectedItem { Text = "Item 14", Value = "14" },
-            new SelectedItem { Text = "Item 15", Value = "15" },
-            new SelectedItem { Text = "Item 16", Value = "16" },
-        });
+            new() { Text = "Item 13", Value = "13" },
+            new() { Text = "Item 14", Value = "14" },
+            new() { Text = "Item 15", Value = "15" },
+            new() { Text = "Item 16", Value = "16" },
+        };
 
-        Items3 = new List<SelectedItem>(new List<SelectedItem>
+        Items3 = new List<SelectedItem>
         {
-            new SelectedItem { Text = Localizer["item1"], Value = Localizer["item1"] },
-            new SelectedItem { Text = Localizer["item2"], Value = Localizer["item2"] },
-            new SelectedItem { Text = Localizer["item3"], Value = Localizer["item3"] },
-            new SelectedItem { Text = Localizer["item4"], Value = Localizer["item4"] },
-        });
+            new() { Text = Localizer["item1"], Value = Localizer["item1"] },
+            new() { Text = Localizer["item2"], Value = Localizer["item2"] },
+            new() { Text = Localizer["item3"], Value = Localizer["item3"] },
+            new() { Text = Localizer["item4"], Value = Localizer["item4"] },
+        };
 
-        Items4 = new List<SelectedItem>(new List<SelectedItem>
+        Items4 = new List<SelectedItem>
         {
-            new SelectedItem { Text = Localizer["item1"], Value = Localizer["item1"] },
-            new SelectedItem { Text = Localizer["item2"], Value = Localizer["item2"] },
-            new SelectedItem { Text = Localizer["item3"], Value = Localizer["item3"] },
-            new SelectedItem { Text = Localizer["item4"], Value = Localizer["item4"] },
-        });
+            new() { Text = Localizer["item1"], Value = Localizer["item1"] },
+            new() { Text = Localizer["item2"], Value = Localizer["item2"] },
+            new() { Text = Localizer["item3"], Value = Localizer["item3"] },
+            new() { Text = Localizer["item4"], Value = Localizer["item4"] },
+        };
+
+        Items5 = new List<SelectedItem>
+        {
+            new() { Text = Localizer["item1"], Value = Localizer["item1"] },
+            new() { Text = Localizer["item2"], Value = Localizer["item2"] },
+            new() { Text = Localizer["item3"], Value = Localizer["item3"] },
+            new() { Text = Localizer["item4"], Value = Localizer["item4"] },
+        };
 
         Dummy = new Foo() { Name = Localizer["Foo"] };
         Model = Foo.Generate(LocalizerFoo);
@@ -94,13 +105,13 @@ public partial class CheckboxLists
     private ConsoleLogger? NormalLogger { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; } = new List<SelectedItem>(new List<SelectedItem>
+    private IEnumerable<SelectedItem>? Items { get; set; } = new List<SelectedItem>
     {
-        new SelectedItem { Text = "Item 1", Value = "1" },
-        new SelectedItem { Text = "Item 2", Value = "2" , IsDisabled = true },
-        new SelectedItem { Text = "Item 3", Value = "3" },
-        new SelectedItem { Text = "Item 4", Value = "4" },
-    });
+        new() { Text = "Item 1", Value = "1" },
+        new() { Text = "Item 2", Value = "2" , IsDisabled = true },
+        new() { Text = "Item 3", Value = "3" },
+        new() { Text = "Item 4", Value = "4" },
+    };
 
     private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
     {
@@ -115,6 +126,14 @@ public partial class CheckboxLists
     [Inject]
     [NotNull]
     IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private Task OnMaxSelectedCountExceed()
+    {
+        return ToastService.Information(Localizer["OnMaxSelectedCountExceedTitle"], Localizer["OnMaxSelectedCountExceedContent", 2]);
+    }
 
     private AttributeItem[] GetAttributes() =>
     [
@@ -149,6 +168,14 @@ public partial class CheckboxLists
             Type = "boolean",
             ValueList = " true / false ",
             DefaultValue = " false "
+        },
+        new()
+        {
+            Name = nameof(CheckboxList<string>.MaxSelectedCount),
+            Description = Localizer["AttributeMaxSelectedCount"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
         }
     ];
 
@@ -163,6 +190,12 @@ public partial class CheckboxLists
             Name = "OnSelectedChanged",
             Description = Localizer["Event1"],
             Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
+        },
+        new()
+        {
+            Name = nameof(CheckboxList<string>.OnMaxSelectedCountExceed),
+            Description = Localizer["AttributeOnMaxSelectedCountExceed"],
+            Type = "Func<Task>"
         }
     ];
 }

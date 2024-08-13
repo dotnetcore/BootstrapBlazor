@@ -11,6 +11,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Checkboxs
 {
+    [Inject, NotNull]
+    private SwalService? SwalService { get; set; }
+
     private Foo Model { get; set; } = new Foo();
 
     private class Foo
@@ -53,6 +56,14 @@ public sealed partial class Checkboxs
         return Task.CompletedTask;
     }
 
+    private bool SelectedValue { get; set; }
+
+    private Task<bool> OnBeforeStateChanged(CheckboxState state) => SwalService.ShowModal(new SwalOption()
+    {
+        Title = Localizer["OnBeforeStateChangedSwalTitle"],
+        Content = Localizer["OnBeforeStateChangedSwalContent"]
+    });
+
     /// <summary>
     /// GetAttributes
     /// </summary>
@@ -83,7 +94,8 @@ public sealed partial class Checkboxs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new(){
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["Att4"],
             Type = "boolean",
@@ -91,14 +103,13 @@ public sealed partial class Checkboxs
             DefaultValue = "false"
         },
         new()
-
         {
             Name = "State",
             Description = Localizer["Att5"],
             Type = "CheckboxState",
             ValueList = "Mixed / Checked / UnChecked",
             DefaultValue = "UnChecked"
-        },
+        }
     ];
 
     /// <summary>
@@ -109,14 +120,20 @@ public sealed partial class Checkboxs
     [
         new()
         {
+            Name = "OnBeforeStateChanged",
+            Description = Localizer["OnBeforeStateChanged"],
+            Type ="Action<CheckboxState, TItem>"
+        },
+        new()
+        {
             Name = "OnStateChanged",
-            Description = Localizer["Event1"],
+            Description = Localizer["OnStateChanged"],
             Type ="Action<CheckboxState, TItem>"
         },
         new()
         {
             Name = "StateChanged",
-            Description = Localizer["Event2"],
+            Description = Localizer["StateChanged"],
             Type ="EventCallback<CheckboxState>"
         }
     ];

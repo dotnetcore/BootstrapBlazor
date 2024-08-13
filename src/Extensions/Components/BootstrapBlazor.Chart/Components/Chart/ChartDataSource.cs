@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -17,7 +19,14 @@ public class ChartDataSource
     /// <summary>
     /// 获得 图表 数据集
     /// </summary>
+    [JsonIgnore]
     public List<ChartDataset> Data { get; } = [];
+
+    /// <summary>
+    /// 传递给 JS 的配置装箱实例，内部使用，添加数据集请使用 <see cref="Data"/> 属性。
+    /// </summary>
+    [JsonPropertyName("data")]
+    public IEnumerable<object> DataJS { get => Data.Cast<object>().ToList(); }
 
     /// <summary>
     /// 获得 组件配置项 设置标题 轴坐标等

@@ -1,0 +1,102 @@
+﻿@page "/intersection-observer"
+@inject IStringLocalizer<IntersectionObservers> Localizer
+
+<h3>@Localizer["IntersectionObserverTitle"]</h3>
+
+<h4>@Localizer["IntersectionObserverDescription"]</h4>
+
+<DemoBlock Title="@Localizer["IntersectionObserverBaseUsage"]"
+           Introduction="@Localizer["IntersectionObserverNormalIntro"]"
+           Name="Normal">
+    <section ignore>@((MarkupString)Localizer["IntersectionObserverNormalDescription"].Value)</section>
+    <IntersectionObserver OnIntersecting="OnIntersectingAsync">
+        <div class="bb-list-main scroll">
+            @foreach (var image in _images)
+            {
+                <IntersectionObserverItem>
+                    <div class="bb-list-item">
+                        <img src="@image" />
+                    </div>
+                </IntersectionObserverItem>
+            }
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntersectionObserverLoadTitle"]"
+           Introduction="@Localizer["IntersectionObserverLoadIntro"]"
+           Name="LoadMore">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc1"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc2"].Value)</li>
+            <li>@((MarkupString)Localizer["IntersectionObserverLoadDesc3"].Value)</li>
+        </ul>
+    </section>
+    <IntersectionObserver OnIntersecting="OnLoadMoreAsync" Threshold="1" AutoUnobserveWhenIntersection="false">
+        <div class="bb-list-load scroll">
+            <div class="bb-list-demo">
+                @foreach (var image in _items)
+                {
+                    <div class="bb-list-item">
+                        <img src="@image" />
+                    </div>
+                }
+            </div>
+            <IntersectionObserverItem>
+                <div class="bb-list-item-loading">
+                    <Spinner></Spinner>
+                </div>
+            </IntersectionObserverItem>
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntersectionObserverVisibleTitle"]"
+           Introduction="@Localizer["IntersectionObserverVisibleIntro"]"
+           Name="Visible">
+    <HeadContent>
+        <style>
+            .bb-video video {
+                width: 256px;
+            }
+
+            @@media (min-width: 767.99px) {
+                .bb-video video {
+                    width: 350px;
+                }
+            }
+        </style>
+    </HeadContent>
+    <section ignore>
+        <p>@((MarkupString)Localizer["IntersectionObserverVisibleDesc"].Value)</p>
+    </section>
+    <p class="text-center @_textColorString">@_videoStateString</p>
+    <IntersectionObserver OnIntersecting="OnVisibleChanged" Threshold="1" AutoUnobserveWhenIntersection="false">
+        <div class="bb-video-demo scroll">
+            <div class="bb-video">
+                <IntersectionObserverItem>
+                    <VideoDemo @ref="_video"></VideoDemo>
+                </IntersectionObserverItem>
+            </div>
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntersectionObserverThresholdTitle"]"
+           Introduction="@Localizer["IntersectionObserverThresholdIntro"]"
+           Name="Threshold">
+    <section ignore><p>@((MarkupString)Localizer["IntersectionObserverThresholdDesc"].Value)</p></section>
+    <p class="text-center">@_thresholdValueString</p>
+    <IntersectionObserver OnIntersecting="OnThresholdChanged" Threshold="0 0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1" AutoUnobserveWhenIntersection="false">
+        <div class="bb-list-load scroll" style="height: 200px;">
+            <div class="d-flex" style="height: 600px; justify-content: center; align-items: center;">
+                <IntersectionObserverItem>
+                    <div class="bb-list-item bg-info"></div>
+                </IntersectionObserverItem>
+            </div>
+        </div>
+    </IntersectionObserver>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

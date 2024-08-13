@@ -13,9 +13,11 @@ public partial class DriverDotnetJs
     private DriverJs _guidePopover = default!;
     private DriverJs _guidePopoverStyle = default!;
     private DriverJs _guideDestroy = default!;
+    private DriverJs _guideHighlight = default!;
     private DriverJsConfig _config = default!;
     private DriverJsConfig _configPopover = default!;
     private DriverJsConfig _configPopoverStyle = default!;
+    private DriverJsConfig _configDestroy = default!;
     private ConsoleLogger _logger = default!;
 
     /// <summary>
@@ -37,27 +39,20 @@ public partial class DriverDotnetJs
         {
             PopoverClass = "driverjs-theme"
         };
+        _configDestroy = new()
+        {
+            OnDestroyStartedAsync = OnBeforeDestroyAsync,
+            OnDestroyedAsync = OnDestroyedAsync
+        };
     }
 
-    private async Task OnStart()
-    {
-        await _guide.Start();
-    }
+    private Task OnStart() => _guide.Start();
 
-    private async Task OnStartPopover()
-    {
-        await _guidePopover.Start();
-    }
+    private Task OnStartPopover() => _guidePopover.Start();
 
-    private async Task OnStartPopoverStyle()
-    {
-        await _guidePopoverStyle.Start();
-    }
+    private Task OnStartPopoverStyle() => _guidePopoverStyle.Start();
 
-    private async Task OnStartDestroy()
-    {
-        await _guideDestroy.Start();
-    }
+    private Task OnStartDestroy() => _guideDestroy.Start();
 
     private Task<string?> OnBeforeDestroyAsync(DriverJsConfig config, int index)
     {
@@ -75,5 +70,21 @@ public partial class DriverDotnetJs
     {
         _logger.Log("Trigger OnDestroyedAsync");
         return Task.CompletedTask;
+    }
+
+    private async Task OnStartHighlight()
+    {
+        var config = new DriverJsConfig
+        {
+            StagePadding = 20f
+        };
+        var popover = new DriverJsHighlightPopover
+        {
+            Title = "Highlight Demo",
+            Description = "This is a highlight demo",
+            Align = "center",
+            Side = "bottom"
+        };
+        await _guideHighlight.Highlight(config, ".bb-guid5 .col-12", popover);
     }
 }

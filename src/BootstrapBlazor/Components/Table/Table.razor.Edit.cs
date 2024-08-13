@@ -272,13 +272,36 @@ public partial class Table<TItem>
         }
         else
         {
-            EditModel = new TItem();
+            EditModel = CreateTItem();
             if (Items == null)
             {
                 var d = DataService ?? InjectDataService;
                 await d.AddAsync(EditModel);
             }
         }
+    }
+
+    /// <summary>
+    /// 获得/设置 新建模型回调方法 默认 null 未设置时使用默认无参构造函数创建
+    /// </summary>
+    [Parameter]
+    public Func<TItem>? CreateItemCallback { get; set; }
+
+    private TItem CreateTItem()
+    {
+        var item = CreateItemCallback?.Invoke();
+        if (item == null)
+        {
+            try
+            {
+                item = Activator.CreateInstance<TItem>();
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provider {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例");
+            }
+        }
+        return item;
     }
 
     /// <summary>

@@ -127,6 +127,9 @@ public partial class Table<TItem>
         AddInCell = false;
         EditInCell = false;
 
+        ShowAddForm = false;
+        ShowEditForm = false;
+
         await OnSelectedRowsChanged();
     }
 

@@ -1,7 +1,7 @@
 ﻿{
   "BootstrapBlazor.Components.DriverJs": {
-    "PrevBtnText": "上一步",
-    "NextBtnText": "下一步",
+    "PrevBtnText": "&larr; 上一步",
+    "NextBtnText": "下一步 &rarr;",
     "DoneBtnText": "完成",
     "ProgressText": "{{current}} / {{total}}"
   }

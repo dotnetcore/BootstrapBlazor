@@ -99,6 +99,10 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, model);
             builder.AddChildContent<BootstrapInputGroup>(pb =>
             {
+                pb.AddChildContent<BootstrapInputGroupLabel>(p =>
+                {
+                    p.Add(a => a.DisplayText, "Name-Test");
+                });
                 pb.AddChildContent<BootstrapInput<string>>(p =>
                 {
                     p.Add(a => a.Value, model.Name);
@@ -108,15 +112,14 @@ public class ValidateTest : BootstrapBlazorTestBase
         });
 
         // ValidateForm 验证表单中 使用 InputGroup 组件
-        var group = cut.FindComponent<BootstrapInputGroup>();
-        group.Contains("姓名");
+        cut.Contains("Name-Test");
 
         var input = cut.FindComponent<BootstrapInput<string>>();
         input.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ShowLabel, false);
+            pb.Add(a => a.ShowLabel, true);
         });
-        group.DoesNotContain("姓名");
+        cut.Contains("姓名");
     }
 
     [Fact]
