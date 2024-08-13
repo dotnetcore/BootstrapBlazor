@@ -102,6 +102,12 @@ public partial class Chart
     public bool IsAnimation { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 扩展数据 默认为空 序列化到浏览器与数据集合 <see cref="ChartDataSource "/> 合并，方便把组件未提供的参数传递到浏览器
+    /// </summary>
+    [Parameter]
+    public object? AppendData { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
@@ -168,7 +174,7 @@ public partial class Chart
                 ds.Options.MaintainAspectRatio = false;
             }
 
-            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds);
+            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds, AppendData);
         }
     }
 
