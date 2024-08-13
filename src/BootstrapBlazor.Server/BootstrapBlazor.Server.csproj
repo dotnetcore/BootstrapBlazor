@@ -75,7 +75,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj" />
   </ItemGroup>
 
   <ItemGroup>
