@@ -77,4 +77,9 @@ public class ChartDataset
     /// 获得/设置 柱状图的边框颜色数组
     /// </summary>
     public string[] BorderColor { get; set; } = { "rgb(255, 205, 86, 0)" };
+
+    /// <summary>
+    /// 获得/设置 <see cref="ChartOptions.X"/> 等轴线 <see cref="ChartAxes.Stacked"/> 为 <see langword="true"/> 时的分组名称。
+    /// </summary>
+    public string? Stack { get; set; }
 }
