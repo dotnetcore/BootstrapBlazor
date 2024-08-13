@@ -775,6 +775,20 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
     }
 }
 
+const deepMerge = (obj1, obj2) => {
+    for (let key in obj2) {
+        if (obj2.hasOwnProperty(key)) {
+            if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
+                obj1[key] = deepMerge(obj1[key], obj2[key]);
+            }
+            else {
+                obj1[key] = obj2[key];
+            }
+        }
+    }
+    return obj1;
+}
+
 export {
     autoAdd,
     autoRemove,
@@ -785,10 +799,11 @@ export {
     addLink,
     addScript,
     copy,
-    getTextFromClipboard,
-    getAllClipboardContents,
+    deepMerge,
     debounce,
     drag,
+    getTextFromClipboard,
+    getAllClipboardContents,
     insertBefore,
     insertAfter,
     isDisabled,
