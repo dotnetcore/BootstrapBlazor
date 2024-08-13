@@ -35,7 +35,6 @@
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="8.0.3" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.6" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="8.1.6" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.7" />
@@ -75,6 +74,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj" />
   </ItemGroup>
 
   <ItemGroup>
