@@ -111,9 +111,6 @@ public partial class Chart
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     public Func<Task<ChartDataSource>>? OnInitAsync { get; set; }
 
     /// <summary>
@@ -160,18 +157,22 @@ public partial class Chart
 
         if (firstRender)
         {
-            if (OnInitAsync == null)
+            if (OnInitAsync == null && AppendData == null)
             {
-                throw new InvalidOperationException("OnInit parameter must be set");
+                throw new InvalidOperationException($"{nameof(OnInitAsync)} parameter or {nameof(AppendData)} must one be set. {nameof(OnInitAsync)} 回调方法或者 {nameof(AppendData)} 参数必须设置一个");
             }
 
-            var ds = await OnInitAsync();
-            UpdateOptions(ds);
-
-            if (Height != null && Width != null)
+            ChartDataSource? ds = null;
+            if (OnInitAsync != null)
             {
-                //设置了高度和宽度,会自动禁用约束图表比例,图表充满容器
-                ds.Options.MaintainAspectRatio = false;
+                ds = await OnInitAsync();
+                UpdateOptions(ds);
+
+                if (Height != null && Width != null)
+                {
+                    //设置了高度和宽度,会自动禁用约束图表比例,图表充满容器
+                    ds.Options.MaintainAspectRatio = false;
+                }
             }
 
             await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds, AppendData);
