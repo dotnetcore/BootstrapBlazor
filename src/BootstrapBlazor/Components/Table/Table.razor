@@ -5,7 +5,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
-        @TableColumns?.Invoke(new TItem())
+        @TableColumns?.Invoke(CreateTItem())
     </CascadingValue>
     @if (FirstRender)
     {

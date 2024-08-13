@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IDataServie 实现类基类
 /// </summary>
-public abstract class DataServiceBase<TModel> : IDataService<TModel> where TModel : class, new()
+public abstract class DataServiceBase<TModel> : IDataService<TModel> where TModel : class
 {
     /// <summary>
     /// 新建数据操作方法

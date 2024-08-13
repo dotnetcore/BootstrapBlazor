@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IDataService 接口
 /// </summary>
-public interface IDataService<TModel> where TModel : class, new()
+public interface IDataService<TModel> where TModel : class
 {
     /// <summary>
     /// 新建数据方法
@@ -42,7 +42,7 @@ public interface IDataService<TModel> where TModel : class, new()
 /// <summary>
 /// 内部默认数据注入服务实现类
 /// </summary>
-internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+internal class NullDataService<TModel> : DataServiceBase<TModel> where TModel : class
 {
     /// <summary>
     /// 查询操作方法
