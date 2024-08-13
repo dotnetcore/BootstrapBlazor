@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Server.Services;
 /// <summary>
 /// 演示网站示例数据注入服务实现类
 /// </summary>
-class TableDemoDataService<TModel>(IStringLocalizer<TModel> localizer) : DataServiceBase<TModel> where TModel : class, new()
+class TableDemoDataService<TModel>(IStringLocalizer<TModel> localizer) : DataServiceBase<TModel> where TModel : class
 {
     [NotNull]
     private List<TModel>? Items { get; set; }
