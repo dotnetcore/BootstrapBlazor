@@ -221,6 +221,10 @@
         position: sticky;
         z-index: 2;
         bottom: 0;
+
+        > tr > td {
+          border-bottom-width: 0;
+        }
     }
 
     > tr:last-child {
