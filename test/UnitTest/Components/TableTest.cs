@@ -8124,6 +8124,7 @@ public class TableTest : TableTestBase
         {
             Context.RenderComponent<BootstrapBlazorRoot>(pb =>
             {
+                pb.Add(a => a.EnableErrorLogger, false);
                 pb.AddChildContent<Table<MockFoo>>(pb =>
                 {
                     pb.Add(a => a.OnQueryAsync, op =>
