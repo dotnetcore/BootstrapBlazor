@@ -737,6 +737,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 初始化节点缓存
         TreeNodeCache ??= new(Equals);
+        SearchModel = CreateTItem();
 
         OnInitLocalization();
 
