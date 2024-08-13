@@ -14,7 +14,7 @@ namespace BootstrapBlazor.DataAccess.PetaPoco;
 /// <remarks>
 /// 构造函数
 /// </remarks>
-internal class DefaultDataService<TModel>(IDatabase db) : DataServiceBase<TModel> where TModel : class, new()
+internal class DefaultDataService<TModel>(IDatabase db) : DataServiceBase<TModel> where TModel : class
 {
     /// <summary>
     /// 删除方法

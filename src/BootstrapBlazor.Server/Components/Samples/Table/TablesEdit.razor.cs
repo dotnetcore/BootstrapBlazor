@@ -129,7 +129,7 @@ public partial class TablesEdit
         });
     }
 
-    private class FooDataService<TModel>(IStringLocalizer<TModel> localizer) : TableDemoDataService<TModel>(localizer) where TModel : class, new()
+    private class FooDataService<TModel>(IStringLocalizer<TModel> localizer) : TableDemoDataService<TModel>(localizer) where TModel : class
     {
     }
 

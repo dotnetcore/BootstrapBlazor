@@ -63,7 +63,7 @@ public class TableDrawerTestHost : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private class MockNullDataService<TModel>(IStringLocalizer<TModel> localizer) : IDataService<TModel> where TModel : class, new()
+    private class MockNullDataService<TModel>(IStringLocalizer<TModel> localizer) : IDataService<TModel> where TModel : class
     {
         IStringLocalizer<TModel> Localizer { get; set; } = localizer;
 
@@ -93,7 +93,7 @@ public class TableDrawerTestHost : IDisposable
         public Task<bool> SaveAsync(TModel model, ItemChangedType changedType) => Task.FromResult(true);
     }
 
-    private class MockEFCoreDataService<TModel>(IStringLocalizer<TModel> localizer) : MockNullDataService<TModel>(localizer), IEntityFrameworkCoreDataService where TModel : class, new()
+    private class MockEFCoreDataService<TModel>(IStringLocalizer<TModel> localizer) : MockNullDataService<TModel>(localizer), IEntityFrameworkCoreDataService where TModel : class
     {
         public Task CancelAsync() => Task.CompletedTask;
 

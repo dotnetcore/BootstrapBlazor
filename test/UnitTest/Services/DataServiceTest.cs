@@ -33,7 +33,7 @@ public class DataServiceTest
         Assert.True(ret);
     }
 
-    private class MockDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+    private class MockDataService<TModel> : DataServiceBase<TModel> where TModel : class
     {
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
