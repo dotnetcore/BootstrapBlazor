@@ -13,7 +13,8 @@
         <p>@((MarkupString)Localizer["TablesFooterStatisticsTips2"].Value)</p>
         <p>@((MarkupString)Localizer["TablesFooterStatisticsTips3"].Value)</p>
     </section>
-    <Table TItem="Foo" ShowFooter="true" class="footer-demo" IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+    <Table TItem="Foo" ShowFooter="true" class="footer-demo" IsFixedHeader="true" IsFixedFooter="true" Height="400"
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
