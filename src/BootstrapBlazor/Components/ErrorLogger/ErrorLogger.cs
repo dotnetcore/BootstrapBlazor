@@ -30,10 +30,6 @@ public class ErrorLogger
 
     [Inject]
     [NotNull]
-    private ToastService? ToastService { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
     /// <summary>
@@ -73,10 +69,10 @@ public class ErrorLogger
     [NotNull]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 #endif
-
     private Exception? Exception { get; set; }
 
-    private bool ShowErrorDetails { get; set; }
+    private bool firstRender = true;
+    private int errorRenderCount = 0;
 
     /// <summary>
     /// <inheritdoc/>
@@ -86,16 +82,6 @@ public class ErrorLogger
         base.OnInitialized();
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
-
-        ShowErrorDetails = Configuration.GetValue("DetailedErrors", false);
-
-        if (ShowErrorDetails)
-        {
-            ErrorContent ??= RenderException();
-        }
-#if NET6_0_OR_GREATER
-        MaximumErrorCount = 1;
-#endif
     }
 
     /// <summary>
@@ -112,22 +98,61 @@ public class ErrorLogger
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        this.firstRender = firstRender;
+    }
+
+    /// <summary>
+    /// OnErrorAsync 方法
+    /// </summary>
+    /// <param name="exception"></param>
+#if NET6_0_OR_GREATER
+    protected override async Task OnErrorAsync(Exception exception)
+#else
+    protected async Task OnErrorAsync(Exception exception)
+#endif
+    {
+        errorRenderCount++;
+
+#if !NET6_0_OR_GREATER
+        if (OnErrorHandleAsync == null)
+        {
+            // 此处注意 内部 logLevel=Warning
+            await ErrorBoundaryLogger.LogErrorAsync(exception);
+        }
+#else
+        Exception = exception;
+        if (OnErrorHandleAsync == null)
+        {
+            Logger.LogError(exception, "");
+        }
+#endif
+    }
+
+    /// <summary>
     /// BuildRenderTree 方法
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.OpenComponent<CascadingValue<IErrorLogger>>(0);
-        builder.AddAttribute(1, nameof(CascadingValue<IErrorLogger>.Value), this);
-        builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
-
-        var content = ChildContent;
 #if NET6_0_OR_GREATER
         var ex = Exception ?? CurrentException;
 #else
         var ex = Exception;
 #endif
-        if (ex != null && ErrorContent != null)
+
+        int sequence = 0;
+        if (ex is null)
+        {
+            builder.AddContent(sequence++, ChildContent);
+        }
+        else if (ErrorContent is not null)
         {
             if (Cache.Count > 0)
             {
@@ -139,11 +164,45 @@ public class ErrorLogger
             }
             else
             {
-                content = ErrorContent.Invoke(ex);
+                builder.AddContent(sequence++, ErrorContent(ex));
             }
         }
-        builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
-        builder.CloseComponent();
+        else
+        {
+            if (errorRenderCount > 1)
+            {
+                builder.OpenElement(sequence++, "div");
+                builder.AddAttribute(sequence++, "class", "blazor-error-boundary");
+                builder.CloseElement();
+                errorRenderCount = 0;
+            }
+            else if (Cache.Count > 0)
+            {
+                var component = Cache.Last();
+                if (component is IHandlerException handler)
+                {
+                    handler.HandlerException(ex, RenderException());
+                }
+            }
+            else
+            {
+                builder.AddContent(sequence++, ChildContent);
+                builder.OpenComponent<ErrorLoggerExceptionHandler>(sequence++);
+                builder.AddAttribute(sequence++, "ToastTitle", ToastTitle);
+                builder.AddAttribute(sequence++, "ShowToast", ShowToast);
+                builder.AddAttribute(sequence++, "Exception", CurrentException);
+                builder.AddAttribute(sequence++, "OnErrorHandleAsync", OnErrorHandleAsync);
+                builder.AddAttribute(sequence++, "ExceptionHandled", EventCallback.Factory.Create(this, ExceptionHandled));
+                builder.CloseComponent();
+            }
+        }
+    }
+
+    private void ExceptionHandled()
+    {
+        Exception = null;
+        errorRenderCount = 0;
+        Recover();
     }
 
     private RenderFragment<Exception> RenderException() => ex => builder =>
@@ -163,43 +222,6 @@ public class ErrorLogger
     public async Task HandlerExceptionAsync(Exception exception)
     {
         await OnErrorAsync(exception);
-
-        if (OnErrorHandleAsync is null && ShowErrorDetails)
-        {
-            Exception = exception;
-            StateHasChanged();
-        }
-    }
-
-    /// <summary>
-    /// OnErrorAsync 方法
-    /// </summary>
-    /// <param name="exception"></param>
-#if NET6_0_OR_GREATER
-    protected override async Task OnErrorAsync(Exception exception)
-#else
-    protected async Task OnErrorAsync(Exception exception)
-#endif
-    {
-        // 由框架调用
-        if (OnErrorHandleAsync != null)
-        {
-            await OnErrorHandleAsync(Logger, exception);
-        }
-        else
-        {
-            if (ShowToast)
-            {
-                await ToastService.Error(ToastTitle, exception.Message);
-            }
-
-#if NET6_0_OR_GREATER
-            // 此处注意 内部 logLevel=Warning
-            await ErrorBoundaryLogger.LogErrorAsync(exception);
-#else
-            Logger.LogError(exception, "");
-#endif
-        }
     }
 
     private List<ComponentBase> Cache { get; } = [];
