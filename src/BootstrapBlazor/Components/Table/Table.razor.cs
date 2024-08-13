@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
+public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
     /// 获得/设置 Loading 模板
