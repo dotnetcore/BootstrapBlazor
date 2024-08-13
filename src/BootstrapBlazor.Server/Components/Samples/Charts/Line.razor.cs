@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using OpenXmlPowerTools;
+using System;
+
 namespace BootstrapBlazor.Server.Components.Samples.Charts;
 
 /// <summary>
@@ -295,6 +298,38 @@ public partial class Line : IDisposable
         }
     }
 
+    private Task<ChartDataSource> GetData()
+    {
+        var BarDataCount = 6;
+        var BarDatasetCount = 3;
+        var Randomer = new Random();
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Bar Histogram";
+        ds.Options.X.Title = "Days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        for (var index = 0; index < BarDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
+
+    private static object GetAppendData()
+    {
+        var steps = new List<object>();
+        for (var index = 0; index < 3; index++)
+        {
+            // 添加 ChartDataset 未提供的 Stepped 参数
+            steps.Add(new { Stepped = true });
+        }
+        return new { Data = steps };
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -303,56 +338,5 @@ public partial class Line : IDisposable
     {
         Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    private Task<ChartDataSource> OnInitAddProperty(bool stacked, bool setTitle = true)
-    {
-        var BarDataCount = 6;
-        var BarDatasetCount = 3;
-        var Randomer = new Random();
-        var ds = new ChartDataSource();
-        if (setTitle)
-        {
-            ds.Options.Title = "Bar Histogram";
-        }
-        ds.Options.X.Title = "days";
-        ds.Options.Y.Title = "Numerical value";
-        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
-        for (var index = 0; index < BarDatasetCount; index++)
-        {
-            if (IsChartDataset2)
-            {
-                ds.Data.Add(new ChartDataset2()
-                {
-                    Label = $"Set {index}",
-                    Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>(),
-                    Stepped = true
-                });
-            }
-            else
-            {
-                ds.Data.Add(new ChartDataset()
-                {
-                    Label = $"Set {index}",
-                    Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
-                });
-            }
-
-        }
-        return Task.FromResult(ds);
-    }
-
-    private Chart? BarAdd { get; set; }
-
-    private bool IsChartDataset2 { get; set; } = true;
-    /// <summary>
-    /// 
-    /// </summary>
-    public class ChartDataset2 : ChartDataset
-    {
-        /// <summary>
-        /// 获得/设置 <see cref="ChartOptions.X"/> 等轴线 <see cref="ChartAxes.Stacked"/> 为 <see langword="true"/> 时的分组名称。
-        /// </summary>
-        public bool? Stepped { get; set; }
     }
 }
