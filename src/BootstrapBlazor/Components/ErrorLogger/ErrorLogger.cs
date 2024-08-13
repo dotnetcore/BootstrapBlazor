@@ -71,7 +71,6 @@ public class ErrorLogger
 #endif
     private Exception? Exception { get; set; }
 
-    private bool firstRender = true;
     private int errorRenderCount = 0;
 
     /// <summary>
@@ -95,17 +94,6 @@ public class ErrorLogger
 #if NET6_0_OR_GREATER
         Recover();
 #endif
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        this.firstRender = firstRender;
     }
 
     /// <summary>
