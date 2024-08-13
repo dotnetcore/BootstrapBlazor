@@ -62,3 +62,15 @@
     <h4 class="mt-2">JavaScript Code</h4>
     <Pre ShowToolbar="true">@_code</Pre>
 </DemoBlock>
+
+<DemoBlock Title="添加未封装属性"
+           Introduction="通过继承<code>ChartDataset</code>类型，添加未封装的属性"
+           Name="BarAddProperty">
+    <Row ItemsPerRow="ItemsPerRow.Six" RowType="RowType.Inline">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="是否通过继承添加属性"/>
+            <Switch @bind-Value=IsChartDataset2 OnValueChanged="@(v=>BarAdd!.Reload())" ShowLabel="false" />
+        </BootstrapInputGroup>
+    </Row>
+    <Chart @ref=BarAdd ChartType="ChartType.Line" OnInitAsync="() => OnInitAddProperty(true)" Title="BarColorSeparately Demo" Height="500px" Width="500px" />
+</DemoBlock>
