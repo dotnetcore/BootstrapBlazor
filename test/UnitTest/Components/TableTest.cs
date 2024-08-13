@@ -8085,6 +8085,80 @@ public class TableTest : TableTestBase
         Assert.Single(columns);
     }
 
+    [Fact]
+    public void CreateTItem_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<MockFoo>>(pb =>
+            {
+                pb.Add(a => a.CreateItemCallback, () => new MockFoo(""));
+                pb.Add(a => a.OnQueryAsync, op =>
+                {
+                    var items = new List<MockFoo>()
+                    {
+                        new("Test-1")
+                    };
+                    var data = new QueryData<MockFoo>()
+                    {
+                        Items = items,
+                        TotalCount = items.Count,
+                    };
+                    return Task.FromResult(data);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<MockFoo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
+    [Fact]
+    public async Task CreateTItem_Exception()
+    {
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        {
+            Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            {
+                pb.AddChildContent<Table<MockFoo>>(pb =>
+                {
+                    pb.Add(a => a.OnQueryAsync, op =>
+                    {
+                        var items = new List<MockFoo>()
+                        {
+                            new("Test-1")
+                        };
+                        var data = new QueryData<MockFoo>()
+                        {
+                            Items = items,
+                            TotalCount = items.Count,
+                        };
+                        return Task.FromResult(data);
+                    });
+                    pb.Add(a => a.TableColumns, foo => builder =>
+                    {
+                        builder.OpenComponent<TableColumn<MockFoo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Name");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                        builder.CloseComponent();
+                    });
+                });
+            });
+            return Task.CompletedTask;
+        });
+    }
+
+    class MockFoo
+    {
+        public MockFoo(string name) => Name = name;
+
+        public string Name { get; set; }
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
@@ -8420,7 +8494,7 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockTreeTable<TItem> : Table<TItem> where TItem : class, new()
+    private class MockTreeTable<TItem> : Table<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem a, TItem b)
         {
