@@ -178,7 +178,7 @@ public class ErrorLogger
                 builder.OpenComponent<ErrorLoggerExceptionHandler>(sequence++);
                 builder.AddAttribute(sequence++, "ToastTitle", ToastTitle);
                 builder.AddAttribute(sequence++, "ShowToast", ShowToast);
-                builder.AddAttribute(sequence++, "Exception", CurrentException);
+                builder.AddAttribute(sequence++, "Exception", ex);
                 builder.AddAttribute(sequence++, "OnErrorHandleAsync", OnErrorHandleAsync);
                 builder.AddAttribute(sequence++, "ExceptionHandled", EventCallback.Factory.Create(this, ExceptionHandled));
                 builder.CloseComponent();
