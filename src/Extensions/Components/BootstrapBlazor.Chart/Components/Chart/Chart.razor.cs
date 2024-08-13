@@ -176,9 +176,12 @@ public partial class Chart
     /// 图表绘制完成后回调此方法
     /// </summary>
     [JSInvokable]
-    public void Completed()
+    public async Task Completed()
     {
-        OnAfterInitAsync?.Invoke();
+        if (OnAfterInitAsync != null)
+        {
+            await OnAfterInitAsync();
+        }
     }
 
     /// <summary>
