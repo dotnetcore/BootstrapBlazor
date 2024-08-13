@@ -70,7 +70,23 @@ const genericOptions = {
     radius: 0
 }
 
-const getChartOption = function (option) {
+const deepMerge = (obj1, obj2) => {
+    for (let key in obj2) {
+        if (obj2.hasOwnProperty(key)) {
+            if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
+                obj1[key] = deepMerge(obj1[key], obj2[key]);
+            }
+            else {
+                obj1[key] = obj2[key];
+            }
+        }
+    }
+    return obj1;
+}
+
+const getChartOption = function (option, appendData) {
+    option = deepMerge(option, appendData);
+
     const colors = []
     const chartColors = option.options.colors
     for (const name in option.options.colors) colors.push(name)
@@ -409,8 +425,8 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(id, invoke, method, option) {
-    const op = getChartOption(option);
+export function init(id, invoke, method, option, appendData) {
+    const op = getChartOption(option, appendData);
     op.options.onClick = (event, elements, chart) => {
         if (elements.length > 0) {
             if (option.options.onClickDataMethod) {
