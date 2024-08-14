@@ -6679,6 +6679,8 @@
     "SortableListFilterIntro": "By setting the <code>SortableListOption</code> parameter <code>Filter</code> to set conditional drag elements, the red element in the example cannot be dragged",
     "SortableListNestTitle": "Nest",
     "SortableListNestIntro": "By nesting the <code>SortableList</code> component",
+    "SortableListMultiTitle": "Multiple Drag",
+    "SortableListMultiIntro": "By setting the <code>SortableListOption</code> parameter <code>MultiDrag</code> you can select multiple items before dragging",
     "SortableListTableTitle": "Table Row",
     "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows."
   }
