@@ -180,16 +180,12 @@
            Name="Table">
     <div class="row g-2">
         <div class="col-12 col-sm-6">
-            <SortableList Option="_optionMulti">
+            <SortableList Option="_optionMulti" OnUpdate="OnUpdateMultiDrag">
                 <div class="sl-list">
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>1</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>2</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>3</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>4</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>5</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>6</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>7</span></div>
-                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>8</span></div>
+                    @foreach (var item in ItemsMultiDrags)
+                    {
+                        <div @key="item" class="sl-item">@item.Name</div>
+                    }
                 </div>
             </SortableList>
         </div>
