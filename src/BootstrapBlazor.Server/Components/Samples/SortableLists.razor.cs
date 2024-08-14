@@ -184,23 +184,11 @@ public partial class SortableLists
 
     private Task OnUpdateSwap(SortableEvent @event)
     {
-        var items = @event.Items;
-
-        // 找到移除元素
-        var removeItems = new List<Foo>();
-        for (var index = items.Count - 1; index >= 0; index--)
-        {
-            var item = ItemsMultiDrags[items[index].OldIndex];
-            removeItems.Insert(0, item);
-            ItemsMultiDrags.RemoveAt(items[index].OldIndex);
-        }
-
-        // 插入元素
-        for (var index = 0; index < items.Count; index++)
-        {
-            var item = removeItems[index];
-            ItemsMultiDrags.Insert(items[index].NewIndex, item);
-        }
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = ItemsSwaps[oldIndex];
+        ItemsSwaps.RemoveAt(oldIndex);
+        ItemsSwaps.Insert(newIndex, item);
         return Task.CompletedTask;
     }
 }
