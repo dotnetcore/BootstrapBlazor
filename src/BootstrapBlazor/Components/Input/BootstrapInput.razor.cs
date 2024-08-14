@@ -15,5 +15,35 @@ public partial class BootstrapInput<TValue>
     [Parameter]
     public bool Readonly { get; set; }
 
+    /// <summary>
+    /// 获得/设置 用户删除后是否自动更改为默认值 0 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoSetDefaultWhenNull { get; set; }
+
     private string? ReadonlyString => Readonly ? "true" : null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        bool ret;
+        var v = IsTrim ? value.Trim() : value;
+        if (AutoSetDefaultWhenNull && string.IsNullOrEmpty(v))
+        {
+            result = default!;
+            validationErrorMessage = null;
+            ret = true;
+        }
+        else
+        {
+            ret = base.TryParseValueFromString(v, out result, out validationErrorMessage);
+        }
+        return ret;
+    }
 }

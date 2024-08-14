@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
 #endif
-public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class, new()
+public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
     /// 获得/设置 Loading 模板
@@ -457,6 +457,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public RenderFragment<TableRowContext<TItem>>? RowTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 行内容模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TableRowContext<TItem>>? RowContentTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 TableHeader 实例
     /// </summary>
     [Parameter]
@@ -669,6 +675,48 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public string? ClientTableName { get; set; }
 
+    /// <summary>
+    /// 获得/设置 左对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignLeftText { get; set; }
+
+    /// <summary>
+    /// 获得/设置左对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignLeftTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 居中对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignCenterText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 居中对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignCenterTooltipText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右对齐显示文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignRightText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右对齐提示信息文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AlignRightTooltipText { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -689,6 +737,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 初始化节点缓存
         TreeNodeCache ??= new(Equals);
+        SearchModel = CreateTItem();
 
         OnInitLocalization();
 
@@ -935,22 +984,22 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     {
                         Key = "align-left",
                         Icon = "fa-solid fa-align-left",
-                        Text = Localizer["AlignLeft"].Value,
-                        Tooltip = Localizer["AlignLeftTooltip"].Value
+                        Text = Localizer["AlignLeftText"].Value,
+                        Tooltip = Localizer["AlignLeftTooltipText"].Value
                     },
                     new
                     {
                         Key = "align-center",
                         Icon = "fa-solid fa-align-center",
-                        Text = Localizer["AlignCenter"].Value,
-                        Tooltip = Localizer["AlignCenterTooltip"].Value
+                        Text = Localizer["AlignCenterText"].Value,
+                        Tooltip = Localizer["AlignCenterTooltipText"].Value
                     },
                     new
                     {
                         Key = "align-left",
                         Icon = "fa-solid fa-align-right",
-                        Text = Localizer["AlignRight"].Value,
-                        Tooltip = Localizer["AlignRightTooltip"].Value
+                        Text = Localizer["AlignRightText"].Value,
+                        Tooltip = Localizer["AlignRightTooltipText"].Value
                     }
                 }
             });
@@ -1489,7 +1538,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     public async Task ResizeColumnCallback(int index, float width)
     {
-        var column = GetVisibleColumns().ElementAtOrDefault(index);
+        var column = GetVisibleColumns().Where(i => !i.Fixed).ElementAtOrDefault(index);
         if (column != null && OnResizeColumnAsync != null)
         {
             await OnResizeColumnAsync(column.GetFieldName(), width);

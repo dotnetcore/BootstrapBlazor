@@ -814,7 +814,7 @@ public partial class Table<TItem>
     {
         option.ShowLoading = ShowLoading;
         option.Model = EditModel;
-        option.Items = Columns.Where(i => !i.GetIgnore());
+        option.Items = Columns.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName()));
         option.SaveButtonIcon = EditDialogSaveButtonIcon;
         option.SaveButtonText = EditDialogSaveButtonText;
         option.CloseButtonIcon = EditDialogCloseButtonIcon;

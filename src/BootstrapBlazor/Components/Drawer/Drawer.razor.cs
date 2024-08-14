@@ -17,6 +17,11 @@ public partial class Drawer
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-drawer-position: {Position};", !string.IsNullOrEmpty(Position))
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// 获得 抽屉 Style 字符串
     /// </summary>
@@ -82,6 +87,12 @@ public partial class Drawer
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; } = Placement.Left;
+
+    /// <summary>
+    /// 获得/设置 组件定位位置 默认 null 未设置 使用样式内置定位 fixed 可更改为 absolute
+    /// </summary>
+    [Parameter]
+    public string? Position { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件

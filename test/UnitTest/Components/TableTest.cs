@@ -2403,6 +2403,7 @@ public class TableTest : TableTestBase
     {
         var clicked = false;
         var clickCallback = false;
+        var clickWithoutRender = false;
         var selected = 0;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -2427,6 +2428,11 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, nameof(TableToolbarButton<Foo>.OnClickCallback), new Func<IEnumerable<Foo>, Task>(_ =>
                     {
                         clickCallback = true;
+                        return Task.CompletedTask;
+                    }));
+                    builder.AddAttribute(15, nameof(TableToolbarButton<Foo>.OnClickWithoutRender), new Func<Task>(() =>
+                    {
+                        clickWithoutRender = true;
                         return Task.CompletedTask;
                     }));
                     builder.AddAttribute(3, nameof(TableToolbarButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
@@ -2474,6 +2480,7 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(clicked);
         Assert.True(clickCallback);
+        Assert.True(clickWithoutRender);
 
         // 选中一行
         var input = cut.Find("tbody tr input");
@@ -2975,6 +2982,13 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableTemplateColumn<Foo>>(10);
+                    builder.AddAttribute(11, "Template", new RenderFragment<TableColumnContext<Foo, object?>>(context => builder =>
+                    {
+                        builder.AddContent(0, $"template-{context.Row.Name}");
+                    }));
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.EditTemplate, foo => builder =>
@@ -3779,6 +3793,13 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableTemplateColumn<Foo>>(10);
+                    builder.AddAttribute(11, "Template", new RenderFragment<TableColumnContext<Foo, object?>>(context => builder =>
+                    {
+                        builder.AddContent(0, $"template-{context.Row.Name}");
+                    }));
                     builder.CloseComponent();
                 });
             });
@@ -7993,6 +8014,43 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(TableRenderMode.Table)]
     [InlineData(TableRenderMode.CardView)]
+    public void RowContentTemplate_Ok(TableRenderMode mode)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        IEnumerable<ITableColumn>? columns = null;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, mode);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.RowContentTemplate, context => builder =>
+                {
+                    builder.OpenElement(0, "div");
+                    builder.AddContent(1, $"template-{context.Row.Name}");
+                    builder.CloseElement();
+
+                    columns = context.Columns;
+                });
+            });
+        });
+
+        Assert.Contains($"template-{items[0].Name}", cut.Markup);
+        Assert.NotNull(columns);
+        Assert.Single(columns);
+    }
+
+    [Theory]
+    [InlineData(TableRenderMode.Table)]
+    [InlineData(TableRenderMode.CardView)]
     public void RowTemplate_Ok(TableRenderMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -8013,8 +8071,8 @@ public class TableTest : TableTestBase
                 });
                 pb.Add(a => a.RowTemplate, context => builder =>
                 {
-                    builder.OpenElement(0, "div");
-                    builder.AddContent(1, $"template-{context.Row.Name}");
+                    builder.OpenElement(0, mode == TableRenderMode.CardView ? "div" : "tr");
+                    builder.AddContent(1, new MarkupString(mode == TableRenderMode.CardView ? $"<div>template-{context.Row.Name}</div>" : $"<td>template-{context.Row.Name}</td>"));
                     builder.CloseElement();
 
                     columns = context.Columns;
@@ -8025,6 +8083,81 @@ public class TableTest : TableTestBase
         Assert.Contains($"template-{items[0].Name}", cut.Markup);
         Assert.NotNull(columns);
         Assert.Single(columns);
+    }
+
+    [Fact]
+    public void CreateTItem_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<MockFoo>>(pb =>
+            {
+                pb.Add(a => a.CreateItemCallback, () => new MockFoo(""));
+                pb.Add(a => a.OnQueryAsync, op =>
+                {
+                    var items = new List<MockFoo>()
+                    {
+                        new("Test-1")
+                    };
+                    var data = new QueryData<MockFoo>()
+                    {
+                        Items = items,
+                        TotalCount = items.Count,
+                    };
+                    return Task.FromResult(data);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<MockFoo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
+    [Fact]
+    public async Task CreateTItem_Exception()
+    {
+        await Assert.ThrowsAsync<InvalidOperationException>(() =>
+        {
+            Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            {
+                pb.Add(a => a.EnableErrorLogger, false);
+                pb.AddChildContent<Table<MockFoo>>(pb =>
+                {
+                    pb.Add(a => a.OnQueryAsync, op =>
+                    {
+                        var items = new List<MockFoo>()
+                        {
+                            new("Test-1")
+                        };
+                        var data = new QueryData<MockFoo>()
+                        {
+                            Items = items,
+                            TotalCount = items.Count,
+                        };
+                        return Task.FromResult(data);
+                    });
+                    pb.Add(a => a.TableColumns, foo => builder =>
+                    {
+                        builder.OpenComponent<TableColumn<MockFoo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Name");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                        builder.CloseComponent();
+                    });
+                });
+            });
+            return Task.CompletedTask;
+        });
+    }
+
+    class MockFoo
+    {
+        public MockFoo(string name) => Name = name;
+
+        public string Name { get; set; }
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
@@ -8362,7 +8495,7 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockTreeTable<TItem> : Table<TItem> where TItem : class, new()
+    private class MockTreeTable<TItem> : Table<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem a, TItem b)
         {

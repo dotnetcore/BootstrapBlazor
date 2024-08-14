@@ -153,7 +153,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     [ExcludeFromCodeCoverage]
-    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit 只读使用 Readonly 参数，新建时使用 IsReadonlyWhenAdd 编辑时使用 IsReadonlyWhenEdit 参数; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
+    [Obsolete("已弃用，是否可编辑改用 Readonly 参数，是否可见改用 Ignore 参数; Deprecated If it is editable, use the Readonly parameter. If it is visible, use the Ignore parameter.")]
     public bool Editable { get; set; } = true;
 
     /// <summary>
@@ -295,7 +295,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         }
     }
 #elif NET6_0_OR_GREATER
-    public RenderFragment<TableColumnContext<TItem, TType>>? Template { get; set; }
+    public RenderFragment<TableColumnContext<TItem, TType?>>? Template { get; set; }
 
     /// <summary>
     /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
@@ -305,9 +305,16 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
             // 此处 context 为行数据
-            var fieldName = GetFieldName();
-            var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-            builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType>((TItem)context, value)));
+            if (this is TableTemplateColumn<TItem> col)
+            {
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, default)));
+            }
+            else
+            {
+                var fieldName = GetFieldName();
+                var value = Utility.GetPropertyValue<object, TType?>(context, fieldName);
+                builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, value)));
+            }
         });
         set
         {

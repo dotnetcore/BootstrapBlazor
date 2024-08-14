@@ -13,10 +13,6 @@ public partial class Mask
     [NotNull]
     private MaskService? MaskService { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-mask")
-        .AddClass("show", _options is { ChildContent: not null })
-        .Build();
-
     private string? StyleString => _options == null ? null : CssBuilder.Default()
         .AddClass($"--bb-mask-zindex: {_options.ZIndex};", _options.ZIndex != null)
         .AddClass($"--bb-mask-bg: {_options.BackgroundColor};", _options.BackgroundColor != null)
@@ -33,6 +29,21 @@ public partial class Mask
         base.OnInitialized();
 
         MaskService.Register(this, Show);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id, new { Show = _options != null, _options?.ContainerId });
+        }
     }
 
     private Task Show(MaskOption? option)

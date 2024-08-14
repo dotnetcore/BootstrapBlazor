@@ -67,10 +67,10 @@ public partial class ValidateForm
     public bool ShowRequiredMark { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示验证表单内的 Label 默认为 显示
+    /// 获得/设置 是否显示验证表单内的 Label 默认为 null
     /// </summary>
     [Parameter]
-    public bool ShowLabel { get; set; } = true;
+    public bool? ShowLabel { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null

@@ -167,6 +167,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     [NotNull]
     public IEnumerable<int>? PageItemsSource { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否自动生成列信息 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool AutoGenerateColumns { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }

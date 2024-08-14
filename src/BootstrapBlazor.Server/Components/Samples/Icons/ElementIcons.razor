@@ -1,0 +1,13 @@
+﻿@page "/element-icon"
+@layout MainLayout
+@inject IStringLocalizer<ElementIcons> Localizer
+
+<h3>@Localizer["ElementIconTitle"]</h3>
+
+<h4>@Localizer["ElementIconDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.ElementIcon" />
+
+<Pre>&lt;ElementIcon Name="add-location"&gt;&lt;ElementIcon&gt;</Pre>
+
+<ElementIconList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />

@@ -38,7 +38,7 @@ public partial class EditorForm<TModel> : IShowLabel
         }
         return CssBuilder.Default("col-12")
             .AddClass($"col-sm-{cols}", cols > 0) // 指定 Cols
-            .AddClass($"col-sm-6 col-md-{mdCols}", cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
+            .AddClass($"col-sm-6 col-md-{mdCols}", mdCols < 12 && cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
             .Build();
     }
 
@@ -251,7 +251,7 @@ public partial class EditorForm<TModel> : IShowLabel
             _formItems = [];
             if (Items != null)
             {
-                _formItems.AddRange(Items.Where(i => !i.GetIgnore()));
+                _formItems.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
             }
             else
             {
@@ -279,11 +279,13 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(items);
+                    _formItems.AddRange(items.Where(i => !string.IsNullOrEmpty(i.GetFieldName())));
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore() && i.IsVisible(ItemChangedType, IsSearch.Value)));
+                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore()
+                        && !string.IsNullOrEmpty(i.GetFieldName())
+                        && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
         }

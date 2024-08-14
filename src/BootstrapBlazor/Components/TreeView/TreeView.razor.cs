@@ -185,6 +185,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool ShowCheckbox { get; set; }
 
     /// <summary>
+    /// 获得/设置 最多选中数量
+    /// </summary>
+    [Parameter]
+    public int MaxSelectedCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 超过最大选中数量时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnMaxSelectedCountExceed { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -332,6 +344,27 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         }
+    }
+
+    private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
+    {
+        var ret = true;
+        if (MaxSelectedCount > 0)
+        {
+            if (state == CheckboxState.Checked)
+            {
+                // 展开节点
+                var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
+                var count = items.Count + item.GetAllTreeSubItems().Count();
+                ret = count < MaxSelectedCount;
+            }
+
+            if (!ret && OnMaxSelectedCountExceed != null)
+            {
+                await OnMaxSelectedCountExceed();
+            }
+        }
+        return ret;
     }
 
     async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
@@ -496,8 +529,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
     {
-        //item.CheckedState = ToggleCheckState(item.CheckedState);
-
         if (AutoCheckChildren)
         {
             // 向下级联操作
@@ -541,8 +572,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 s.CheckedState = CheckboxState.UnChecked;
                 TreeNodeStateCache.ToggleCheck(s);
             });
-            StateHasChanged();
         });
+        StateHasChanged();
     }
 
     /// <summary>

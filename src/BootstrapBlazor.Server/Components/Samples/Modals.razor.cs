@@ -69,7 +69,7 @@ public sealed partial class Modals
         return Task.CompletedTask;
     }
 
-    private async Task<bool> OnSaveAsync()
+    private static async Task<bool> OnSaveAsync()
     {
         await Task.Delay(1000);
         return true;

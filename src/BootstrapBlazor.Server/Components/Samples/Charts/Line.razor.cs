@@ -280,10 +280,6 @@ public partial class Line : IDisposable
         await InvokeVoidAsync("randomize", Id, chartData);
     }
 
-    /// <summary>
-    /// JS 代码段
-    /// JS Code
-    /// </summary>
     private string? _code;
 
     private void Dispose(bool disposing)
@@ -293,6 +289,38 @@ public partial class Line : IDisposable
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource.Dispose();
         }
+    }
+
+    private Task<ChartDataSource> GetData()
+    {
+        var BarDataCount = 6;
+        var BarDatasetCount = 3;
+        var Randomer = new Random();
+        var ds = new ChartDataSource();
+        ds.Options.Title = "Bar Histogram";
+        ds.Options.X.Title = "Days";
+        ds.Options.Y.Title = "Numerical value";
+        ds.Labels = Enumerable.Range(1, BarDataCount).Select(i => i.ToString());
+        for (var index = 0; index < BarDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
+            });
+        }
+        return Task.FromResult(ds);
+    }
+
+    private static object GetAppendData()
+    {
+        var steps = new List<object>();
+        for (var index = 0; index < 3; index++)
+        {
+            // 添加 ChartDataset 未提供的 Stepped 参数
+            steps.Add(new { Stepped = true });
+        }
+        return new { Data = steps };
     }
 
     /// <summary>

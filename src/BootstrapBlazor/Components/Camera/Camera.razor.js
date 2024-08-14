@@ -1,7 +1,7 @@
 ﻿import Data from "../../modules/data.js"
 
 const openDevice = camera => {
-    if(camera.video) {
+    if (camera.video) {
         return
     }
 
@@ -9,17 +9,19 @@ const openDevice = camera => {
     if (deviceId) {
         const videoWidth = parseInt(camera.el.getAttribute("data-video-width"))
         const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
-        camera.video = {
-            deviceId, videoWidth, videoHeight
-        }
-        play(camera)
+        play(camera, {
+            video: {
+                deviceId,
+                width: { ideal: videoWidth },
+                height: { ideal: videoHeight }
+            }
+        });
     }
 }
 
 const stopDevice = camera => {
     if (camera.video) {
         camera.video.element.pause()
-        camera.video.element.srcObject = null
         if (camera.video.track) {
             camera.video.track.stop()
         }
@@ -28,28 +30,17 @@ const stopDevice = camera => {
 }
 
 const play = (camera, option = {}) => {
-    camera.video = {
-        ...camera.video,
-        ...{
-            videoWidth: 320,
-            videoHeight: 240
-        }
-    }
     const constrains = {
         ...{
             video: {
-                width: { ideal: camera.video.videoWidth },
-                height: { ideal: camera.video.videoHeight },
                 facingMode: "environment"
             },
             audio: false
         },
         ...option
     }
-    if (camera.video.deviceId) {
-        constrains.video.deviceId = { exact: camera.video.deviceId }
-    }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+        camera.video = { deviceId: option.video.deviceId };
         camera.video.element = camera.el.querySelector('video')
         camera.video.element.srcObject = stream
         camera.video.element.play()
@@ -90,7 +81,7 @@ export function update(id) {
     // handler switch device
     if (camera.video) {
         const deviceId = camera.el.getAttribute("data-device-id")
-        if (camera.video.deviceId !== deviceId){
+        if (camera.video.deviceId !== deviceId) {
             stopDevice(camera)
             openDevice(camera)
         }
@@ -125,10 +116,10 @@ export function close(id) {
 export function capture(id) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
-        return
+        return null;
     }
 
-    const url = drawImage(camera)
+    const url = drawImage(camera);
     return new Blob([url])
 }
 
@@ -153,8 +144,9 @@ export function resize(id, width, height) {
 
     const constrains = {
         video: {
-            width: { exact: width },
-            height: { exact: height }
+            deviceId: camera.video.deviceId,
+            width: { ideal: width },
+            height: { ideal: height }
         }
     }
 
@@ -176,12 +168,15 @@ export function dispose(id) {
 const drawImage = camera => {
     const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
-    const { videoWidth, videoHeight } = camera.video
-    const canvas = camera.el.querySelector('canvas')
-    canvas.width = videoWidth
-    canvas.height = videoHeight
+    const canvas = camera.el.querySelector('canvas');
+    const { videoWidth, videoHeight } = camera.video.element;
+    canvas.width = videoWidth * devicePixelRatio;
+    canvas.height = videoHeight * devicePixelRatio;
+    canvas.style.width = `${videoWidth}px`;
+    canvas.style.height = `${videoHeight}px`;
     const context = canvas.getContext('2d')
-    context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight)
+    context.scale(devicePixelRatio, devicePixelRatio)
+    context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight);
     let url = "";
     if (captureJpeg) {
         url = canvas.toDataURL("image/jpeg", quality);

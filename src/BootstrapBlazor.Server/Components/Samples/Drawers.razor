@@ -4,13 +4,18 @@
 <h3>@Localizer["Title"]</h3>
 <h4>@Localizer["Description"]</h4>
 
+<Tips>
+    <p>@((MarkupString)Localizer["DrawerTips"].Value)</p>
+</Tips>
+
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <section ignore>
         <p class="d-flex flex-wrap drawer-demo">
             <RadioList TValue="SelectedItem" Items="@DrawerDirection" OnSelectedChanged="@OnStateChanged" />
         </p>
-        <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">@Localizer["Open"]</button>
     </section>
+    <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">@Localizer["Open"]</button>
+
     <Drawer Placement="@DrawerAlign" IsOpen="@IsOpen" AllowResize="true">
         <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
             <p>@Localizer["Content"]</p>

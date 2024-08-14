@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Globalization;
-using System.Text;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -83,6 +81,10 @@ public partial class Camera
 
     private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
 
+    private string? ClassString => CssBuilder.Default("bb-camera")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -126,7 +128,7 @@ public partial class Camera
 #if NET5_0
         await Task.Delay(10);
 #elif NET6_0_OR_GREATER
-        var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
+        var streamRef = await InvokeAsync<IJSStreamReference?>("capture", Id);
         if (streamRef != null)
         {
             ret = await streamRef.OpenReadStreamAsync(streamRef.Length);

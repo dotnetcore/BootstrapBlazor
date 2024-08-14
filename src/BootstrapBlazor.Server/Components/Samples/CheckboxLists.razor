@@ -83,6 +83,11 @@
     <CheckboxList @bind-Value="@Dummy.Name" IsVertical="true" ShowBorder="false" Items="@Items4" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MaxSelectedCountTitle"]" Introduction="@Localizer["MaxSelectedCountIntro"]" Name="MaxSelectedCount">
+    <section ignore>@((MarkupString)Localizer["MaxSelectedCountDesc"].Value)</section>
+    <CheckboxList TValue="string" Items="@Items5" MaxSelectedCount="2" OnMaxSelectedCountExceed="OnMaxSelectedCountExceed" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled">
     <CheckboxList @bind-Value="@Dummy.Name" IsDisabled="true" ShowBorder="false" Items="@Items4" />
 </DemoBlock>

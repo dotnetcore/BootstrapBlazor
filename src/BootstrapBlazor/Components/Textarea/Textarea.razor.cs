@@ -10,13 +10,6 @@ namespace BootstrapBlazor.Components;
 public partial class Textarea
 {
     /// <summary>
-    /// 获得 class 样式集合
-    /// </summary>
-    private string? ClassName => CssBuilder.Default("form-control")
-        .AddClass(CssClass).AddClass(ValidCss)
-        .Build();
-
-    /// <summary>
     /// 滚动到顶部
     /// </summary>
     /// <returns></returns>

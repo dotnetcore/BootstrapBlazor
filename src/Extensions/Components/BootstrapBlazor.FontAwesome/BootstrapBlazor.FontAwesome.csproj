@@ -1,25 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\Bundle.props" />
-
   <PropertyGroup>
-    <Version>8.0.4</Version>
+    <Version>8.0.6</Version>
   </PropertyGroup>
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
     <Description>Bootstrap UI components extensions of FontAwesome</Description>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove="bundleconfig.json" />
-    <Content Remove="wwwroot\fa\*.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="bundleconfig.json" />
-    <None Include="wwwroot\fa\*.css" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.0.0" />

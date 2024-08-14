@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BarcodeReader 条码扫描
 /// </summary>
-public partial class BarcodeReader : IAsyncDisposable
+public partial class BarcodeReader
 {
     private string? AutoStopString => AutoStop ? "true" : null;
 
@@ -141,13 +141,7 @@ public partial class BarcodeReader : IAsyncDisposable
     [NotNull]
     private IStringLocalizer<BarcodeReader>? Localizer { get; set; }
 
-    private List<SelectedItem> Devices { get; } = new();
-
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<BarcodeReader>? Interop { get; set; }
+    private List<SelectedItem> Devices { get; } = [];
 
     /// <summary>
     /// 获得/设置 元素实例
@@ -172,20 +166,8 @@ public partial class BarcodeReader : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if(firstRender)
-        {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/BarcodeReader/BarcodeReader.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// 初始化设备方法
@@ -196,7 +178,7 @@ public partial class BarcodeReader : IAsyncDisposable
     public async Task InitDevices(List<DeviceItem> devices)
     {
         Devices.AddRange(devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label }));
-        IsDisabled = !Devices.Any();
+        IsDisabled = Devices.Count == 0;
 
         if (OnInit != null)
         {
@@ -222,7 +204,10 @@ public partial class BarcodeReader : IAsyncDisposable
     [JSInvokable]
     public async Task GetResult(string val)
     {
-        if (OnResult != null) await OnResult(val);
+        if (OnResult != null)
+        {
+            await OnResult(val);
+        }
     }
 
     /// <summary>
@@ -266,34 +251,4 @@ public partial class BarcodeReader : IAsyncDisposable
         }
         StateHasChanged();
     }
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-                Module = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }

@@ -16,7 +16,7 @@
 private ToastService? ToastService { get; set; }
 </Pre>
 <p class="code-label">@((MarkupString)Localizer["ToastsTips2"].Value)</p>
-<Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
+<Pre>await ToastService.Success("Title", "Content", IsAutoHide: true);</Pre>
 
 <DemoBlock Title="@Localizer["ToastsNormalTitle"]" Introduction="@Localizer["ToastsNormalIntro"]" Name="Normal" ShowCode="false">
     <div class="row g-3 overflow-hidden">

@@ -19,7 +19,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// 
+    /// 元素实例引用
     /// </summary>
     protected ElementReference FocusElement { get; set; }
 
@@ -95,7 +95,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 自动获得焦点方法
     /// </summary>
     /// <returns></returns>
-    public ValueTask FocusAsync() => FocusElement.FocusAsync();
+    public async Task FocusAsync() => await FocusElement.FocusAsync();
 
     /// <summary>
     /// 全选文字
@@ -128,6 +128,11 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
                 Type = type;
             }
         }
+
+        if (IsAutoFocus)
+        {
+            Modal?.RegisterShownCallback(this, FocusAsync);
+        }
     }
 
     /// <summary>
@@ -153,12 +158,8 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             {
                 await InvokeVoidAsync("selectAllByEnter", GetInputId());
             }
-            if (IsAutoFocus)
+            if (IsAutoFocus && Modal == null)
             {
-                if (Modal != null)
-                {
-                    await Task.Delay(100);
-                }
                 await FocusAsync();
             }
         }
@@ -214,5 +215,17 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             await OnEscAsync(Value);
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(disposing);
+
+        Modal?.UnRegisterShownCallback(this);
     }
 }

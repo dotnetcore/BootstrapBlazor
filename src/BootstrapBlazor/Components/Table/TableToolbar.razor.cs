@@ -61,6 +61,11 @@ public partial class TableToolbar<TItem> : ComponentBase
                 await button.OnClick.InvokeAsync();
             }
 
+            if (button.OnClickWithoutRender != null)
+            {
+                await button.OnClickWithoutRender();
+            }
+
             // 传递当前选中行给回调委托方法
             if (button.OnClickCallback != null)
             {
@@ -101,7 +106,7 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
         else if (button is ITableToolbarButton<TItem> tb)
         {
-            ret = tb.IsDisabledCallback == null ? (tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() != 1) : tb.IsDisabledCallback(OnGetSelectedRows());
+            ret |= tb.IsDisabledCallback == null ? (tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() != 1) : tb.IsDisabledCallback(OnGetSelectedRows());
         }
         return ret;
     }

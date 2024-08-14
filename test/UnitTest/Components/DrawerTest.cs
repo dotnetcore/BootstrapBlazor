@@ -125,4 +125,19 @@ public class DrawerTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("drawer-backdrop");
     }
+
+    [Fact]
+    public void Position_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.Position, "absolute");
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("--bb-drawer-position: absolute;");
+    }
 }

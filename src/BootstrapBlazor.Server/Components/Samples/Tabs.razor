@@ -20,25 +20,30 @@
     <p>@Localizer["TabsTips4"]</p>
 </Tips>
 
-<p>
-    <b>@Localizer["TabsInfoTitle"]</b>
-</p>
+<p class="code-label">@Localizer["TabsInfoTitle"]</p>
 
 <ul class="ul-demo">
     <li>@((MarkupString)Localizer["TabsInfoItem2"].Value)</li>
     <li>@((MarkupString)Localizer["TabsInfoItem4"].Value)</li>
 </ul>
 
-<p class="mt-3">
-    <b>@Localizer["TabsQATitle"]</b>
-</p>
+<p class="code-label">@Localizer["TabsItemMenuTitle"]</p>
+
+<Pre>services.ConfigureTabItemMenuBindOptions(op =>
+{
+    op.Binders.Add("/settings/menus", new TabItemOptionAttribute() { Text = "Menus", Icon = "fas fa-book-atlas" });
+    op.Binders.Add("/settings/roles", new TabItemOptionAttribute() { Text = "Roles", Icon = "fas fa-user-group" });
+    op.Binders.Add("/settings/users", new TabItemOptionAttribute() { Text = "Users", Icon = "fas fa-users" });
+})</Pre>
+
+<p class="code-label">@Localizer["TabsQATitle"]</p>
 
 <ul class="ul-demo">
     <li>@((MarkupString)Localizer["TabsQA1"].Value)</li>
     <li>@((MarkupString)Localizer["TabsQA2"].Value)</li>
 </ul>
 
-<Pre class="mt-3">[CascadingParameter]
+<Pre>[CascadingParameter]
 [NotNull]
 public Tab? TabSet { get; set; }
 

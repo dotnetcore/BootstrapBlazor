@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QRCode 组件
 /// </summary>
-public partial class QRCode : IAsyncDisposable
+public partial class QRCode
 {
     private string? ClassString => CssBuilder.Default("qrcode")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -97,18 +97,17 @@ public partial class QRCode : IAsyncDisposable
     [NotNull]
     private IStringLocalizer<QRCode>? Localizer { get; set; }
 
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<QRCode>? Interop { get; set; }
+    private string? _content;
 
     /// <summary>
-    /// 获得/设置 元素实例
+    /// <inheritdoc/>
     /// </summary>
-    private ElementReference Element { get; set; }
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-    private string? _content;
+        _content = Content;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -132,19 +131,18 @@ public partial class QRCode : IAsyncDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
-        {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.BarCode/Components/QRCode/QRCode.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(Generated));
-        }
-        else if (_content != Content)
+        if (_content != Content)
         {
             _content = Content;
-            await Module.InvokeVoidAsync("update", Element, Content);
+            await InvokeVoidAsync("update", Id, Content);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(Generated));
 
     private async Task OnClickClear()
     {
@@ -178,33 +176,4 @@ public partial class QRCode : IAsyncDisposable
             await OnGenerated();
         }
     }
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }

@@ -65,6 +65,12 @@ public partial class ThemeProvider
     [Parameter]
     public Alignment Alignment { get; set; } = Alignment.Right;
 
+    /// <summary>
+    /// 获得/设置 主题切换回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnThemeChangedAsync { get; set; }
+
     [Inject, NotNull]
     private IIconTheme? IconTheme { get; set; }
 
@@ -95,5 +101,25 @@ public partial class ThemeProvider
         AutoModeText ??= Localizer[nameof(AutoModeText)];
         DarkModeText ??= Localizer[nameof(DarkModeText)];
         LightModeText ??= Localizer[nameof(LightModeText)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, OnThemeChangedAsync != null ? nameof(OnThemeChanged) : null);
+
+    /// <summary>
+    /// JavaScript 回调方法
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnThemeChanged(string name)
+    {
+        if (OnThemeChangedAsync != null)
+        {
+            await OnThemeChangedAsync(name);
+        }
     }
 }

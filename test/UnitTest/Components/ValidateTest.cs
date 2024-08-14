@@ -91,6 +91,38 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ValidateForm_Group_Ok()
+    {
+        var model = new Foo() { Name = "Name-Test" };
+        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        {
+            builder.Add(a => a.Model, model);
+            builder.AddChildContent<BootstrapInputGroup>(pb =>
+            {
+                pb.AddChildContent<BootstrapInputGroupLabel>(p =>
+                {
+                    p.Add(a => a.DisplayText, "Name-Test");
+                });
+                pb.AddChildContent<BootstrapInput<string>>(p =>
+                {
+                    p.Add(a => a.Value, model.Name);
+                    p.Add(a => a.ValueExpression, model.GenerateValueExpression());
+                });
+            });
+        });
+
+        // ValidateForm 验证表单中 使用 InputGroup 组件
+        cut.Contains("Name-Test");
+
+        var input = cut.FindComponent<BootstrapInput<string>>();
+        input.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowLabel, true);
+        });
+        cut.Contains("姓名");
+    }
+
+    [Fact]
     public void ShowLabel_Ok()
     {
         var model = new Foo() { Name = "Name-Test" };

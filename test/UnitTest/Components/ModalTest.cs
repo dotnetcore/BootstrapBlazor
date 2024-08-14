@@ -111,7 +111,21 @@ public class ModalTest : BootstrapBlazorTestBase
             pb.AddChildContent<ModalDialog>();
         });
         Assert.True(render);
+    }
 
+    [Fact]
+    public async Task RegisterShownCallback_Ok()
+    {
+        var cut = Context.RenderComponent<Modal>(pb =>
+        {
+            pb.AddChildContent<MockFocusComponent>();
+        });
+
+        var component = cut.FindComponent<MockFocusComponent>();
+        Assert.False(component.Instance.Pass);
+
+        await cut.InvokeAsync(cut.Instance.ShownCallback);
+        Assert.True(component.Instance.Pass);
     }
 
     private class MockComponent : ComponentBase
@@ -141,6 +155,34 @@ public class ModalTest : BootstrapBlazorTestBase
         {
             Dialogs.Clear();
             base.SetHeaderText("");
+        }
+    }
+
+    private class MockFocusComponent : ComponentBase, IDisposable
+    {
+        [CascadingParameter, NotNull]
+        private Modal? Modal { get; set; }
+
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+
+            Modal?.RegisterShownCallback(this, TestCallback);
+            Modal?.RegisterShownCallback(this, TestCallback);
+        }
+
+        public bool Pass { get; set; }
+
+        public Task TestCallback()
+        {
+            Pass = true;
+            return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            Modal?.UnRegisterShownCallback(this);
+            GC.SuppressFinalize(this);
         }
     }
 }

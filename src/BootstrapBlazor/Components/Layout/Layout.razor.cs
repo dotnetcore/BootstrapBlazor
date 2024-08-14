@@ -214,8 +214,14 @@ public partial class Layout : IHandlerException
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("is-page", IsPage)
-        .AddClass("has-footer", ShowFooter)
+        .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass("--bb-layout-header-height: 0px;", Header == null)
+        .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
+        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
@@ -246,7 +252,7 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏 Style 字符串
     /// </summary>
     private string? SideStyleString => CssBuilder.Default()
-        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
+        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !IsCollapsed && !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
         .Build();
 
     /// <summary>

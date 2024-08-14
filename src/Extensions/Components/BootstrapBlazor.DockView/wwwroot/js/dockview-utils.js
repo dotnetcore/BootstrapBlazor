@@ -1,6 +1,6 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup } from "./dockview-group.js"
+import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage, saveConfig } from './dockview-config.js'
 import './dockview-extensions.js'
@@ -79,10 +79,8 @@ const initDockview = (dockview, options, template) => {
             floatingGroups.forEach(floatingGroup => {
                 const group = dockview.groups.find(g => g.id == floatingGroup.data.id)
                 if (!group) return
-                const { width, height, top, left } = floatingGroup.position
+                const { top, left } = floatingGroup.position
                 const style = group.element.parentElement.style
-                style.width = width + 'px'
-                style.height = height + 'px'
                 style.top = top + 'px'
                 style.left = left + 'px'
             })
@@ -90,22 +88,21 @@ const initDockview = (dockview, options, template) => {
             dockview._inited = true;
             dockview._initialized?.fire()
             dockview.groups.forEach(group => {
-                // setWidth(group.model.header.element, dockview)
                 if (dockview.params.observer === null) {
                     dockview.params.observer = new ResizeObserver(observerList => resizeObserverHandle(observerList, dockview));
                 }
                 dockview.params.observer.observe(group.header.element)
                 dockview.params.observer.observe(group.header.tabContainer)
                 for (let panel of group.panels) {
-                    if(panel.params.isActive){
+                    if (panel.params.isActive) {
                         panel.api.setActive()
                         break
                     }
                 }
             })
-        }, 0);
+        }, 100);
     })
-    // 拖拽分割线后触发
+
     dockview.gridview.onDidChange(event => {
         dockview._groupSizeChanged.fire()
         saveConfig(dockview)
@@ -132,7 +129,7 @@ const setWidth = (target, dockview) => {
         header = target
         tabsContainer = header.querySelector('.tabs-container')
     }
-    if(header.offsetWidth == 0) return
+    if (header.offsetWidth == 0) return
     let voidWidth = header.querySelector('.void-container').offsetWidth
     let dropdown = header.querySelector('.right-actions-container>.dropdown')
     if (!dropdown) return
@@ -148,10 +145,6 @@ const setWidth = (target, dockview) => {
         aEle.append(lastTab)
         liEle.append(aEle)
         dropMenu.insertAdjacentElement("afterbegin", liEle)
-        // if(lastTab.classList.contains('active-tab')){
-        //     const group = dockview.groups.find(g => g.element === header.parentElement)
-        //     group.panels[0].api.setActive()
-        // }
     }
     else {
         let firstLi = dropMenu.querySelector('li:has(.tab)') || dropMenu.children[0]
@@ -164,7 +157,7 @@ const setWidth = (target, dockview) => {
         }
     }
     setTimeout(() => {
-        if([...tabsContainer.children].every(tab => !tab.classList.contains('active-tab'))){
+        if ([...tabsContainer.children].every(tab => !tab.classList.contains('active-tab'))) {
             const group = dockview.groups.find(g => g.element === header.parentElement)
             group.panels[0].api.setActive()
         }
@@ -180,7 +173,7 @@ const toggleComponent = (dockview, options) => {
             const panel = findContentFromPanels(dockview.params.panels, p);
             const groupPanels = panels.filter(p1 => p1.params.parentId == p.params.parentId)
             let indexOfOptions = groupPanels.findIndex(p => p.params.key == panel.params.key)
-            indexOfOptions =  indexOfOptions == -1 ? 0 : indexOfOptions
+            indexOfOptions = indexOfOptions == -1 ? 0 : indexOfOptions
             const index = panel && panel.params.index
             addGroupWithPanel(dockview, panel || p, panels, index ?? indexOfOptions);
         }

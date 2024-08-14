@@ -1,0 +1,29 @@
+﻿@page "/icon"
+@inject IStringLocalizer<BootstrapBlazorIcons> Localizer
+
+<h3>@Localizer["IconsTitle"]</h3>
+
+<h4>@Localizer["IconsDescription"]</h4>
+
+<HeadContent>
+    <style>
+        .bb-icon {
+            --bb-icon-width: 24px;
+            --bb-icon-color: var(--bs-body-color);
+        }
+    </style>
+</HeadContent>
+
+<DemoBlock Title="@Localizer["FATitle"]" Introduction="@Localizer["FAIntro"]" Name="Font">
+    <BootstrapBlazorIcon Name="fa-solid fa-home"></BootstrapBlazorIcon>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SvgTitle"]" Introduction="@Localizer["SvgIntro"]" Name="Svg">
+    <BootstrapBlazorIcon Name="config" IsSvgSprites="true" Url="./_content/BootstrapBlazor.IconPark/icon-park.svg"></BootstrapBlazorIcon>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
+    <BootstrapBlazorIcon>
+        <img src="./favicon.png" alt="img" />
+    </BootstrapBlazorIcon>
+</DemoBlock>

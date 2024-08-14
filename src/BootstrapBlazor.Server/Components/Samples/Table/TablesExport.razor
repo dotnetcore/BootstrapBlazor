@@ -2,7 +2,6 @@
 @inject IStringLocalizer<NavMenu> NavMenuLocalizer
 @inject IStringLocalizer<TablesExport> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
-@inject ToastService ToastService
 
 <h3>@Localizer["TablesExportTitle"] - @NavMenuLocalizer["TableExport"]</h3>
 <h4>@((MarkupString)Localizer["TablesExportDescription1"].Value)</h4>
@@ -42,6 +41,16 @@
 <DemoBlock Title="@Localizer["TablesExportShowExportCsvButtonTitle"]"
            Introduction="@Localizer["TablesExportShowExportCsvButtonIntro"]"
            Name="ShowCsvExportButton">
+    <section ignore>
+        <p>@Localizer["TablesExportPdfDesc"]</p>
+        <PackageTips Name="BootstrapBlazor.Html2Pdf"/>
+        <p class="code-label">@((MarkupString)Localizer["TablesExportPdfNote1"].Value)</p>
+        <Pre>public void ConfigureServices(IServiceCollection services)
+{
+    // @Localizer["TablesExportPdfNote2"]
+    services.AddBootstrapBlazorHtml2PdfService();
+}</Pre>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"

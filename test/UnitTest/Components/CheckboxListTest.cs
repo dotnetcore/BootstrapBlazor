@@ -48,6 +48,27 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Checkbox_OnBeforeStateChanged()
+    {
+        var confirm = true;
+        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
+        {
+            builder.Add(a => a.OnBeforeStateChanged, state =>
+            {
+                return Task.FromResult(confirm);
+            });
+        });
+        Assert.False(cut.Instance.Value);
+
+        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        Assert.True(cut.Instance.Value);
+
+        confirm = false;
+        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        Assert.True(cut.Instance.Value);
+    }
+
+    [Fact]
     public void Checkbox_Dispose()
     {
         var cut = Context.RenderComponent<Checkbox<string>>();
@@ -79,7 +100,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
                 pb.Add(a => a.DisplayText, "TestLabel");
             });
         });
-        Assert.DoesNotContain("TestLabel", cut.Markup);
+        Assert.Contains("TestLabel", cut.Markup);
         Assert.Contains("GroupLabel", cut.Markup);
     }
 
@@ -332,6 +353,63 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             item.Click();
             cut.Contains("btn active bg-danger");
         });
+    }
+
+    [Fact]
+    public async Task OnMaxSelectedCountExceed_Ok()
+    {
+        bool max = false;
+        var items = new List<SelectedItem>()
+        {
+            new("1", "Test 1"),
+            new("2", "Test 2"),
+            new("3", "Test 3")
+        };
+        var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
+        {
+            pb.Add(a => a.MaxSelectedCount, 2);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnMaxSelectedCountExceed, () =>
+            {
+                max = true;
+                return Task.CompletedTask;
+            });
+        });
+        var checkboxes = cut.FindComponents<Checkbox<bool>>();
+        Assert.Equal(3, checkboxes.Count);
+
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[1].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+
+        // 选中第三个由于限制无法选中
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[2].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.True(max);
+
+        // 取消选择第一个
+        max = false;
+        await cut.InvokeAsync(async () =>
+        {
+            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+        });
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        Assert.False(max);
     }
 
     private class CheckboxListGenericMock<T>

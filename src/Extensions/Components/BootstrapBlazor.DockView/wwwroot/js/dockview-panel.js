@@ -4,9 +4,13 @@ import { getIcon } from "./dockview-icon.js"
 const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
-    panel.api.onDidActiveChange(({isActive}) => {
-        if(isActive && panel.group.panels.length > 1) {
+    panel.api.onDidActiveChange(({ isActive }) => {
+        if (panel.group.panels.length < 2) return
+        if (isActive) {
             saveConfig(panel.accessor)
+            panel.group.panels.filter(p => p != panel.group.activePanel).forEach(p => {
+                appendTemplatePanelEle(p)
+            })
         }
     })
 }
@@ -29,10 +33,6 @@ const onRemovePanel = event => {
             index: event.group.delPanelIndex
         }
     }
-
-    // if (event.params.groupInvisible) {
-    //     panel.groupInvisible = event.params.groupInvisible
-    // }
     savePanel(dockview, panel)
 
     if (event.group.children) {
@@ -50,6 +50,18 @@ const onRemovePanel = event => {
         }
         if (dockview.params.template) {
             dockview.params.template.append(event.view.content.element)
+        }
+    }
+}
+
+const appendTemplatePanelEle = (panel) => {
+    const dockview = panel.accessor
+    if (panel.view.content.element) {
+        if (panel.titleMenuEle) {
+            panel.view.content.element.append(panel.titleMenuEle)
+        }
+        if (dockview.params.template) {
+            dockview.params.template.append(panel.view.content.element)
         }
     }
 }

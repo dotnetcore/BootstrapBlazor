@@ -56,7 +56,7 @@ public sealed partial class Cameras
 
     private string? ImageContentData { get; set; }
 
-    private string? ImageStyleString => CssBuilder.Default("width: 320px; height: 240px; border-radius: var(--bs-border-radius);")
+    private string? ImageStyleString => CssBuilder.Default("width: 320px; border-radius: var(--bs-border-radius);")
         .AddClass("display: none;", string.IsNullOrEmpty(ImageContentData))
         .Build();
 
@@ -226,14 +226,6 @@ public sealed partial class Cameras
             Name = "OnClose",
             Description = Localizer["OnClose"],
             Type = "Func<Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnCapture",
-            Description = Localizer["OnCapture"],
-            Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },

@@ -135,39 +135,27 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
         else if (InputGroup == null)
         {
             // 如果被 InputGroup 包裹不显示 Label
-            // 组件自身未设置 ShowLabel 取 EditorForm/VaidateForm 级联值
+            // 组件自身未设置 ShowLabel 取 EditorForm/ValidateForm 级联值
             if (ShowLabel == null && (EditorForm != null || ValidateForm != null))
             {
                 showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
             }
 
             IsShowLabel = showLabel ?? false;
-
-            // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
-            if (IsShowLabel && DisplayText == null && FieldIdentifier.HasValue)
-            {
-                DisplayText = FieldIdentifier.Value.GetDisplayName();
-            }
         }
         else
         {
-            IsShowLabel = false;
-
-            if (DisplayText == null && FieldIdentifier.HasValue)
-            {
-                DisplayText = FieldIdentifier.Value.GetDisplayName();
-            }
+            IsShowLabel = showLabel ?? EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? false;
         }
 
-        if (ShowLabelTooltip == null && EditorForm != null)
+        // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
+        if (IsShowLabel)
         {
-            ShowLabelTooltip = EditorForm.ShowLabelTooltip;
+            DisplayText ??= FieldIdentifier?.GetDisplayName();
         }
 
-        if (ShowLabelTooltip == null && ValidateForm != null)
-        {
-            ShowLabelTooltip = ValidateForm.ShowLabelTooltip;
-        }
+        // 设置是否显示标签工具栏
+        ShowLabelTooltip ??= EditorForm?.ShowLabelTooltip ?? ValidateForm?.ShowLabelTooltip;
     }
 
     /// <summary>

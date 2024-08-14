@@ -1,0 +1,11 @@
+﻿@page "/md-icon"
+@layout MainLayout
+@inject IStringLocalizer<MaterialDesignIcons> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@((MarkupString)Localizer["BaseUsageText"].Value)</h4>
+
+<PackageTips Name="BootstrapBlazor.MaterialDesign" />
+
+<div>@((MarkupString)Localizer["Icons"].Value)</div>

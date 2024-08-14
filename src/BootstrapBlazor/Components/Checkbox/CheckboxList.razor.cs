@@ -85,6 +85,18 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     [Parameter]
     public Func<IEnumerable<SelectedItem>, TValue, Task>? OnSelectedChanged { get; set; }
 
+    /// <summary>
+    /// 获得/设置 最多选中数量
+    /// </summary>
+    [Parameter]
+    public int MaxSelectedCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 超过最大选中数量时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnMaxSelectedCountExceed { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
@@ -95,6 +107,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     protected bool GetDisabledState(SelectedItem item) => IsDisabled || item.IsDisabled;
+
+    private Func<CheckboxState, Task<bool>>? _onBeforeStateChangedCallback;
 
     /// <summary>
     /// OnInitialized 方法
@@ -145,10 +159,27 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
             {
                 Items = innerType.ToSelectList();
             }
-            Items ??= Enumerable.Empty<SelectedItem>();
+            Items ??= [];
         }
 
         InitValue();
+
+        _onBeforeStateChangedCallback = MaxSelectedCount > 0 ? new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged) : null;
+    }
+    private async Task<bool> OnBeforeStateChanged(CheckboxState state)
+    {
+        var ret = true;
+        if (state == CheckboxState.Checked)
+        {
+            var items = Items.Where(i => i.Active).ToList();
+            ret = items.Count < MaxSelectedCount;
+        }
+
+        if (!ret && OnMaxSelectedCountExceed != null)
+        {
+            await OnMaxSelectedCountExceed();
+        }
+        return ret;
     }
 
     /// <summary>

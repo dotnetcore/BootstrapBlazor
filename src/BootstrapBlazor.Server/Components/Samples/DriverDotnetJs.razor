@@ -1,0 +1,219 @@
+﻿@page "/driver-js"
+@inject IStringLocalizer<DriverDotnetJs> Localizer
+
+<h3>@Localizer["DriverJsTitle"]</h3>
+
+<h4>@Localizer["DriverJsSubtitle"]</h4>
+
+<DemoBlock Title="@Localizer["DriverJsNormalTitle"]"
+           Introduction="@Localizer["DriverJsNormalIntro"]"
+           Name="Normal">
+    <section ignore class="bb-guid1">
+        <p>@((MarkupString)Localizer["DriverJsNormalDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStart" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+
+    <DriverJs @ref="_guide" Config="_config">
+        <DriverJsStep Selector=".bb-title" Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]"></DriverJsStep>
+        <DriverJsStep Selector=".demo-block:has(.bb-guid1)" Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText3"]"></DriverJsStep>
+        <DriverJsStep Selector=".bb-guid1" Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText4"]"></DriverJsStep>
+        <DriverJsStep Selector=".bb-guid1 .btn-guide" Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText5"]"></DriverJsStep>
+    </DriverJs>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsPopoverTitle"]"
+           Introduction="@Localizer["DriverJsPopoverIntro"]"
+           Name="Popover">
+    <section ignore class="bb-guid2">
+        <p>@((MarkupString)Localizer["DriverJsPopoverDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartPopover" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guidePopover" Config="_configPopover">
+        <DriverJsStep Selector=".bb-title">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]" Side="bottom" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".demo-block:has(.bb-guid2)">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText3"]" Side="left" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid2">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText4"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid2 .btn-guide">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText5"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+    </DriverJs>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsPopoverStyleTitle"]"
+           Introduction="@Localizer["DriverJsPopoverStyleIntro"]"
+           Name="PopoverStyle">
+    <section ignore class="bb-guid3">
+        <HeadContent>
+            <style>
+                .driver-popover.driverjs-theme {
+                    --dj-primary-bg: var(--bb-primary-color);
+                    --dj-primary-color: #ddd;
+                    background-color: var(--dj-primary-bg);
+                    color: var(--dj-primary-color);
+                }
+
+                    .driver-popover.driverjs-theme .driver-popover-title {
+                        font-size: 20px;
+                    }
+
+                    .driver-popover.driverjs-theme .driver-popover-title,
+                    .driver-popover.driverjs-theme .driver-popover-description,
+                    .driver-popover.driverjs-theme .driver-popover-progress-text {
+                        color: var(--dj-primary-color);
+                    }
+
+                    .driver-popover.driverjs-theme button {
+                        flex: 1;
+                        text-align: center;
+                        background-color: var(--bs-primary);
+                        color: #fff;
+                        border: 1px solid var(--dj-primary-color);
+                        text-shadow: none;
+                        font-size: 14px;
+                        padding: 5px 8px;
+                        border-radius: var(--bs-border-radius);
+                    }
+
+                        .driver-popover.driverjs-theme button:hover {
+                            background-color: #0095e8;
+                            color: #fff;
+                        }
+
+                    .driver-popover.driverjs-theme .driver-popover-navigation-btns {
+                        justify-content: space-between;
+                        gap: 3px;
+                    }
+
+                    .driver-popover.driverjs-theme .driver-popover-close-btn {
+                        color: #ddd;
+                        background-color: unset;
+                        border: none;
+                        font-size: 24px;
+                    }
+
+                        .driver-popover.driverjs-theme .driver-popover-close-btn:hover {
+                            color: var(--dj-primary-color);
+                        }
+
+                    .driver-popover.driverjs-theme .driver-popover-arrow-side-left.driver-popover-arrow {
+                        border-left-color: var(--dj-primary-bg);
+                    }
+
+                    .driver-popover.driverjs-theme .driver-popover-arrow-side-right.driver-popover-arrow {
+                        border-right-color: var(--dj-primary-bg);
+                    }
+
+                    .driver-popover.driverjs-theme .driver-popover-arrow-side-top.driver-popover-arrow {
+                        border-top-color: var(--dj-primary-bg);
+                    }
+
+                    .driver-popover.driverjs-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+                        border-bottom-color: var(--dj-primary-bg);
+                    }
+            </style>
+        </HeadContent>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartPopoverStyle" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guidePopoverStyle" Config="_configPopoverStyle">
+        <DriverJsStep Selector=".bb-title">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]" Side="bottom" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".demo-block:has(.bb-guid3)">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText3"]" Side="left" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid3">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText4"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid3 .btn-guide">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText5"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+    </DriverJs>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsDestroyTitle"]" 
+           Introduction="@Localizer["DriverJsDestroyIntro"]"
+           Name="Popover">
+    <section ignore class="bb-guid4">
+        <p>@((MarkupString)Localizer["DriverJsDestroyDesc"].Value)</p>
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartDestroy" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guideDestroy" Config="_configDestroy">
+        <DriverJsStep Selector=".bb-title">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText2"]" Side="bottom" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".demo-block:has(.bb-guid4)">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText3"]" Side="left" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid4">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText4"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+        <DriverJsStep Selector=".bb-guid4 .btn-guide">
+            <DriverJsPopover Title="@Localizer["DriverJsPopoverTitleText"]" Description="@Localizer["DriverJsPopoverContentText5"]" Side="top" Align="center"></DriverJsPopover>
+        </DriverJsStep>
+    </DriverJs>
+    <ConsoleLogger @ref="_logger"></ConsoleLogger>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DriverJsHighlightTitle"]"
+           Introduction="@Localizer["DriverJsHighlightIntro"]"
+           Name="Highlight">
+    <section ignore class="bb-guid5">
+        <div class="row g-2">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInput TValue="string"></BootstrapInput>
+                    <Button Icon="fa-solid fa-magnifying-glass"></Button>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button OnClickWithoutRender="OnStartHighlight" Text="Start" class="btn-guide"></Button>
+            </div>
+        </div>
+    </section>
+    <DriverJs @ref="_guideHighlight"></DriverJs>
+</DemoBlock>

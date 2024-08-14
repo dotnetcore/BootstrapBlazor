@@ -7,9 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 模块加载器
 /// </summary>
-/// <remarks>
-/// 构造函数
-/// </remarks>
 /// <param name="jSObjectReference"></param>
 public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
