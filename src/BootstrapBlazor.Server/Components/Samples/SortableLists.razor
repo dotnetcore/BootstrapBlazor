@@ -23,6 +23,11 @@
 .sortable-ghost {
     background-color: var(--bs-info);
     color: var(--bs-body-bg);
+}
+
+.sortable-swap-highlight {
+    background-color: var(--bs-success);
+    color: var(--bs-body-bg);
 }</Pre>
 
 <DemoBlock Title="@Localizer["SortableListNormalTitle"]"
@@ -194,12 +199,29 @@
 
 <DemoBlock Title="@Localizer["SortableListMultiTitle"]"
            Introduction="@Localizer["SortableListMultiIntro"]"
-           Name="Table">
+           Name="MultiDrag">
     <div class="row g-2">
         <div class="col-12 col-sm-6">
             <SortableList Option="_optionMulti" OnUpdate="OnUpdateMultiDrag">
                 <div class="sl-list row g-2">
                     @foreach (var item in ItemsMultiDrags)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
+                </div>
+            </SortableList>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SortableListSwapTitle"]"
+           Introduction="@Localizer["SortableListSwapIntro"]"
+           Name="Swap">
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <SortableList Option="_optionSwap" OnUpdate="OnUpdateSwap">
+                <div class="sl-list row g-2">
+                    @foreach (var item in ItemsSwaps)
                     {
                         <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
                     }

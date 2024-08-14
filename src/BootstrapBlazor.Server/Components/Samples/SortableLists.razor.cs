@@ -17,6 +17,9 @@ public partial class SortableLists
     [NotNull]
     private List<Foo>? ItemsMultiDrags { get; set; }
 
+    [NotNull]
+    private List<Foo>? ItemsSwaps { get; set; }
+
     private readonly SortableOption _option1 = new()
     {
         RootSelector = ".sl-list"
@@ -80,6 +83,12 @@ public partial class SortableLists
         MultiDrag = true
     };
 
+    private readonly SortableOption _optionSwap = new()
+    {
+        RootSelector = ".sl-list",
+        Swap = true
+    };
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -93,6 +102,7 @@ public partial class SortableLists
         Items1 = Foo.GenerateFoo(FooLocalizer, 4);
         Items2 = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
         ItemsMultiDrags = Foo.GenerateFoo(FooLocalizer, 8);
+        ItemsSwaps = Foo.GenerateFoo(FooLocalizer, 8);
     }
 
     private Task OnUpdate(SortableEvent @event)
@@ -169,6 +179,16 @@ public partial class SortableLists
             var item = removeItems[index];
             ItemsMultiDrags.Insert(items[index].NewIndex, item);
         }
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateSwap(SortableEvent @event)
+    {
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = ItemsSwaps[oldIndex];
+        ItemsSwaps.RemoveAt(oldIndex);
+        ItemsSwaps.Insert(newIndex, item);
         return Task.CompletedTask;
     }
 }

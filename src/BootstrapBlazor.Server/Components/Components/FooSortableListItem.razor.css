@@ -23,3 +23,8 @@
     background-color: #44a0ff;
     color: #fff;
 }
+
+.col-12.sortable-swap-highlight .sl-item {
+    background-color: var(--bs-success);
+    color: var(--bs-body-bg);
+}
