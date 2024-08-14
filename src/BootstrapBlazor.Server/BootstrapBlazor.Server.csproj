@@ -71,6 +71,8 @@
     <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.5" />
     <PackageReference Include="Longbow.Logging" Version="8.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="8.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
