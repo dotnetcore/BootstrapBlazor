@@ -1,4 +1,4 @@
-﻿import { Sortable, MultiDrag, Swap } from '../sortable.esm.js'
+﻿import Sortable from '../sortable.esm.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
 export function init(id, invoke, options, triggerUpdate, triggerRemove) {
@@ -36,14 +36,6 @@ const loopCheck = (id, el, invoke, op) => {
 
 const initSortable = (id, element, invoke, op) => {
     delete op.rootSelector;
-
-    if (op.multiDrag) {
-        Sortable.mount(new MultiDrag());
-    }
-
-    if (op.swap) {
-        Sortable.mount(new Swap());
-    }
 
     op.group = {
         name: op.group
