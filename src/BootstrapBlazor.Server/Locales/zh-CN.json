@@ -6686,6 +6686,9 @@
     "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作",
     "SortableListClassTitle": "由于 <code>SortableList</code>为容器组件，内容均为自定义组件，无法内置样式，需要根据实际情况自行设置样式",
     "SortableListClassLi1": "拖动元素样式 <code>sortable-chosen</code>",
-    "SortableListClassLi2": "拖动元素克隆项默认样式 <code>sortable-ghost</code> 可通过 <code>GhostClass</code> 自定义"
+    "SortableListClassLi2": "拖动元素克隆项默认样式 <code>sortable-ghost</code> 可通过 <code>GhostClass</code> 自定义",
+    "SortableListClassLi3": "拖动元素交换想项默认样式 <code>sortable-swap-highlight</code> 可通过 <code>SwapClass</code> 自定义",
+    "SortableListSwapTitle": "交换",
+    "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换"
   }
 }

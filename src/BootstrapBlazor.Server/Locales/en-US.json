@@ -6685,6 +6685,9 @@
     "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows.",
     "SortableListClassTitle": "Because <code>SortableList</code> is a container component, its contents are all custom components and cannot be styled. You need to set the style yourself according to the actual situation.",
     "SortableListClassLi1": "Chosen item style <code>sortable-chosen</code>",
-    "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>"
+    "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>",
+    "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
+    "SortableListSwapTitle": "Swap",
+    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
   }
 }
