@@ -6683,6 +6683,9 @@
     "SortableListMultiTitle": "多项拖拽",
     "SortableListMultiIntro": "通过设置 <code>SortableListOption</code> 参数 <code>MultiDrag</code> 可先选择多个项目后拖拽",
     "SortableListTableTitle": "表格行拖拽",
-    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作"
+    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作",
+    "SortableListClassTitle": "由于 <code>SortableList</code>为容器组件，内容均为自定义组件，无法内置样式，需要根据实际情况自行设置样式",
+    "SortableListClassLi1": "拖动元素样式 <code>sortable-chosen</code>",
+    "SortableListClassLi2": "拖动元素克隆项默认样式 <code>sortable-ghost</code> 可通过 <code>GhostClass</code> 自定义"
   }
 }

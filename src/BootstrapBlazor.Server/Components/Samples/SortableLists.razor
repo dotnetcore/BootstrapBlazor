@@ -8,6 +8,23 @@
 
 <PackageTips Name="BootstrapBlazor.Sortable" />
 
+<p>@((MarkupString)Localizer["SortableListClassTitle"].Value)</p>
+
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["SortableListClassLi1"].Value)</li>
+    <li>@((MarkupString)Localizer["SortableListClassLi2"].Value)</li>
+</ul>
+
+<Pre>.sortable-chosen {
+    background-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+}
+
+.sortable-ghost {
+    background-color: var(--bs-info);
+    color: var(--bs-body-bg);
+}</Pre>
+
 <DemoBlock Title="@Localizer["SortableListNormalTitle"]"
            Introduction="@Localizer["SortableListNormalIntro"]"
            Name="Normal">
