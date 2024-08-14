@@ -79,6 +79,12 @@ public partial class SortableLists
         RootSelector = "tbody"
     };
 
+    private readonly SortableOption _optionMulti = new()
+    {
+        RootSelector = ".sl-list",
+        MultiDrag = true
+    };
+
     /// <summary>
     /// OnInitialized
     /// </summary>

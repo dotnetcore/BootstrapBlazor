@@ -13,7 +13,7 @@
            Name="Normal">
     <SortableList Option="_option1" OnUpdate="OnUpdate">
         <div class="sl-list row g-2">
-            @foreach(var item in Items)
+            @foreach (var item in Items)
             {
                 <div @key="item" class="col-12 col-sm-6"><div class="sl-item">@item.Name</div></div>
             }
@@ -173,4 +173,25 @@
             </TableColumns>
         </Table>
     </SortableList>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SortableListMultiTitle"]"
+           Introduction="@Localizer["SortableListMultiIntro"]"
+           Name="Table">
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <SortableList Option="_optionMulti">
+                <div class="sl-list">
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>1</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>2</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>3</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>4</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>5</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>6</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>7</span></div>
+                    <div class="sl-item"><i class="fa-solid fa-bars"></i><span>8</span></div>
+                </div>
+            </SortableList>
+        </div>
+    </div>
 </DemoBlock>
