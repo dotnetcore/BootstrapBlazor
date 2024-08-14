@@ -9,4 +9,8 @@
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NoWarn>NU1902;NU1903;CS8002</NoWarn>
+  </PropertyGroup>
+
 </Project>

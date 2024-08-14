@@ -29,13 +29,13 @@ public partial class SortableList
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<int, int, Task>? OnUpdate { get; set; }
+    public Func<SortableEvent, Task>? OnUpdate { get; set; }
 
     /// <summary>
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<int, int, Task>? OnRemove { get; set; }
+    public Func<SortableEvent, Task>? OnRemove { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-sortable")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -52,11 +52,19 @@ public partial class SortableList
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerUpdate(int oldIndex, int newIndex)
+    public async Task TriggerUpdate(List<SortableListItem> items)
     {
         if (OnUpdate != null)
         {
-            await OnUpdate(oldIndex, newIndex);
+            var @event = new SortableEvent();
+            if (items.Count == 1)
+            {
+                @event.OldIndex = items[0].OldIndex;
+                @event.NewIndex = items[0].NewIndex;
+            }
+            @event.Items.AddRange(items);
+            await Task.Delay(200);
+            await OnUpdate(@event);
         }
     }
 
@@ -65,11 +73,18 @@ public partial class SortableList
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerRemove(int oldIndex, int newIndex)
+    public async Task TriggerRemove(List<SortableListItem> items)
     {
         if (OnRemove != null)
         {
-            await OnRemove(oldIndex, newIndex);
+            var @event = new SortableEvent();
+            if (items.Count == 1)
+            {
+                @event.OldIndex = items[0].OldIndex;
+                @event.NewIndex = items[0].NewIndex;
+            }
+            @event.Items.AddRange(items);
+            await OnRemove(@event);
         }
     }
 }

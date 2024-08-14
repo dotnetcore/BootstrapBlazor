@@ -6679,7 +6679,12 @@
     "SortableListFilterIntro": "By setting the <code>SortableListOption</code> parameter <code>Filter</code> to set conditional drag elements, the red element in the example cannot be dragged",
     "SortableListNestTitle": "Nest",
     "SortableListNestIntro": "By nesting the <code>SortableList</code> component",
+    "SortableListMultiTitle": "Multiple Drag",
+    "SortableListMultiIntro": "By setting the <code>SortableListOption</code> parameter <code>MultiDrag</code> you can select multiple items before dragging",
     "SortableListTableTitle": "Table Row",
-    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows."
+    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows.",
+    "SortableListClassTitle": "Because <code>SortableList</code> is a container component, its contents are all custom components and cannot be styled. You need to set the style yourself according to the actual situation.",
+    "SortableListClassLi1": "Chosen item style <code>sortable-chosen</code>",
+    "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>"
   }
 }
