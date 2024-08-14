@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Table;
 /// </summary>
 public partial class TablesFooter
 {
-    private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
+    private static IEnumerable<int> PageItemsSource => new int[] { 10, 20, 40 };
 
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅

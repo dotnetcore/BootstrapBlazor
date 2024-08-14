@@ -9,7 +9,7 @@ namespace BootstrapBlazor.DataAccess.FreeSql;
 /// <summary>
 /// FreeSql ORM 的 IDataService 接口实现
 /// </summary>
-class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TModel : class, new()
+class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TModel : class
 {
     /// <summary>
     /// 删除方法

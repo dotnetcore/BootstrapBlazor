@@ -13,7 +13,8 @@
         <p>@((MarkupString)Localizer["TablesFooterStatisticsTips2"].Value)</p>
         <p>@((MarkupString)Localizer["TablesFooterStatisticsTips3"].Value)</p>
     </section>
-    <Table TItem="Foo" ShowFooter="true" class="footer-demo" IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+    <Table TItem="Foo" ShowFooter="true" class="footer-demo" IsFixedHeader="true" IsFixedFooter="true" Height="400"
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
@@ -27,16 +28,16 @@
     </Table>
     <section ignore>
         <div class="mt-3 btn-group">
-            <Button Icon="fa-solid fa-align-left" Text="@Left" OnClick="() => Align = Alignment.Left" />
-            <Button Icon="fa-solid fa-align-center" Text="@Center" OnClick="() => Align = Alignment.Center" />
-            <Button Icon="fa-solid fa-align-right" Text="@Right" OnClick="() => Align = Alignment.Right" />
+            <Button Icon="fa-solid fa-align-left" Text="@Left" OnClick="() => Align = Alignment.Left"></Button>
+            <Button Icon="fa-solid fa-align-center" Text="@Center" OnClick="() => Align = Alignment.Center"></Button>
+            <Button Icon="fa-solid fa-align-right" Text="@Right" OnClick="() => Align = Alignment.Right"></Button>
         </div>
         <div class="mt-3 btn-group">
-            <Button Text="Sum" OnClick="() => Aggregate = AggregateType.Sum" />
-            <Button Text="Average" OnClick="() => Aggregate = AggregateType.Average" />
-            <Button Text="Count" OnClick="() => Aggregate = AggregateType.Count" />
-            <Button Text="Min" OnClick="() => Aggregate = AggregateType.Min" />
-            <Button Text="Max" OnClick="() => Aggregate = AggregateType.Max" />
+            <Button Text="Sum" OnClick="() => Aggregate = AggregateType.Sum"></Button>
+            <Button Text="Average" OnClick="() => Aggregate = AggregateType.Average"></Button>
+            <Button Text="Count" OnClick="() => Aggregate = AggregateType.Count"></Button>
+            <Button Text="Min" OnClick="() => Aggregate = AggregateType.Min"></Button>
+            <Button Text="Max" OnClick="() => Aggregate = AggregateType.Max"></Button>
         </div>
     </section>
 </DemoBlock>

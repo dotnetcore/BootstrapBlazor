@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.8.3-beta02</Version>
+    <Version>8.8.3-beta03</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -49,14 +49,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="bundleconfig.json" />
     <Content Remove="sasscompiler.json" />
     <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\scss\**\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
-    <None Include="bundleconfig.json" />
     <None Include="sasscompiler.json" />
     <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />

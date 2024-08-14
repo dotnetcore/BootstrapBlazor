@@ -205,9 +205,15 @@ public static class Utility
     /// 重置对象属性值到默认值方法
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public static void Reset<TModel>(TModel source) where TModel : class, new()
+    public static void Reset<TModel>(TModel source) where TModel : class, new() => Reset(source, new TModel());
+
+    /// <summary>
+    /// 重置对象属性值到默认值方法
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    public static void Reset<TModel>(TModel source, TModel model) where TModel : class
     {
-        var v = new TModel();
+        var v = model;
         foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.IsCanWrite()))
         {
             var pInfo = v.GetType().GetPropertyByName(pi.Name);

@@ -560,7 +560,9 @@
     "LineBarAspectRatioTitle": "图表比例",
     "LineBarAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
     "LineChartJSTitle": "通过JS生成Chart",
-    "LineChartJSIntro": "由于 <code>BootstrapBlazor.Chart</code> 底层引用了 <code>Chart.JS</code> 所以我们可以通过JS方式来调用并生成图表。"
+    "LineChartJSIntro": "由于 <code>BootstrapBlazor.Chart</code> 底层引用了 <code>Chart.JS</code> 所以我们可以通过JS方式来调用并生成图表。",
+    "AppendDataTitle": "数据参数扩展",
+    "AppendDataIntro": "由于 <code>ChartDataSource</code> 没有完全封装 <code>Chart.JS</code> 中所有参数，当我们需要设置一些未提供的参数时，可以通过 <code>AppendData</code> 来完成"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar 图",
@@ -6589,7 +6591,7 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design 图标简单、现代、友好",
-    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
+    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",

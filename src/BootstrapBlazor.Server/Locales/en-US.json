@@ -560,7 +560,9 @@
     "LineBarAspectRatioTitle": "Chart ratio",
     "LineBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container",
     "LineChartJSTitle": "Generate Chart through JS",
-    "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS."
+    "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS.",
+    "AppendDataTitle": "Append Data",
+    "AppendDataIntro": "Since <code>ChartDataSource</code> does not fully encapsulate all parameters in <code>Chart.JS</code>, when we need to set some unprovided parameters, we can use <code>AppendData</code> to complete it."
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar graph",
@@ -6588,7 +6590,7 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
