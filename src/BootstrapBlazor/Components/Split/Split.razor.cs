@@ -28,6 +28,7 @@ public sealed partial class Split
     /// </summary>
     private string? StyleString => CssBuilder.Default()
         .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
+        .AddClass($"overflow: visible;")
         .Build();
 
     /// <summary>
