@@ -208,3 +208,20 @@
         </div>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["SortableListSwapTitle"]"
+           Introduction="@Localizer["SortableListMSwapIntro"]"
+           Name="Table">
+    <div class="row g-2">
+        <div class="col-12 col-sm-6">
+            <SortableList Option="_optionSwap" OnUpdate="OnUpdateSwap">
+                <div class="sl-list row g-2">
+                    @foreach (var item in ItemsSwaps)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
+                </div>
+            </SortableList>
+        </div>
+    </div>
+</DemoBlock>

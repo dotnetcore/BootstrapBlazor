@@ -17,6 +17,9 @@ public partial class SortableLists
     [NotNull]
     private List<Foo>? ItemsMultiDrags { get; set; }
 
+    [NotNull]
+    private List<Foo>? ItemsSwaps { get; set; }
+
     private readonly SortableOption _option1 = new()
     {
         RootSelector = ".sl-list"
@@ -80,6 +83,12 @@ public partial class SortableLists
         MultiDrag = true
     };
 
+    private readonly SortableOption _optionSwap = new()
+    {
+        RootSelector = ".sl-list",
+        Swap = true
+    };
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -93,6 +102,7 @@ public partial class SortableLists
         Items1 = Foo.GenerateFoo(FooLocalizer, 4);
         Items2 = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
         ItemsMultiDrags = Foo.GenerateFoo(FooLocalizer, 8);
+        ItemsSwaps = Foo.GenerateFoo(FooLocalizer, 8);
     }
 
     private Task OnUpdate(SortableEvent @event)
@@ -151,6 +161,28 @@ public partial class SortableLists
     }
 
     private Task OnUpdateMultiDrag(SortableEvent @event)
+    {
+        var items = @event.Items;
+
+        // 找到移除元素
+        var removeItems = new List<Foo>();
+        for (var index = items.Count - 1; index >= 0; index--)
+        {
+            var item = ItemsMultiDrags[items[index].OldIndex];
+            removeItems.Insert(0, item);
+            ItemsMultiDrags.RemoveAt(items[index].OldIndex);
+        }
+
+        // 插入元素
+        for (var index = 0; index < items.Count; index++)
+        {
+            var item = removeItems[index];
+            ItemsMultiDrags.Insert(items[index].NewIndex, item);
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateSwap(SortableEvent @event)
     {
         var items = @event.Items;
 
