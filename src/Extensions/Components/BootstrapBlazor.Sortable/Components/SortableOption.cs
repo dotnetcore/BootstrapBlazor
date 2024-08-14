@@ -190,4 +190,10 @@ public class SortableOption
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? EmptyInsertThreshold { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否允许多拖动 默认 null 未设置
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? MultiDrag { get; set; }
 }
