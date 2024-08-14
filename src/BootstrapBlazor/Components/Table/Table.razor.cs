@@ -1538,7 +1538,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [JSInvokable]
     public async Task ResizeColumnCallback(int index, float width)
     {
-        var column = GetVisibleColumns().ElementAtOrDefault(index);
+        var column = GetVisibleColumns().Where(i => !i.Fixed).ElementAtOrDefault(index);
         if (column != null && OnResizeColumnAsync != null)
         {
             await OnResizeColumnAsync(column.GetFieldName(), width);
