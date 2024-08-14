@@ -19,21 +19,18 @@ public partial class SortableLists
 
     private readonly SortableOption _option1 = new()
     {
-        RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost"
+        RootSelector = ".sl-list"
     };
 
     private readonly SortableOption _option2 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Group = "group"
     };
 
     private readonly SortableOption _option31 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Group = "group-clone",
         Clone = true,
         Putback = false
@@ -42,14 +39,12 @@ public partial class SortableLists
     private readonly SortableOption _option32 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Group = "group-clone",
     };
 
     private readonly SortableOption _option4 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Group = "group-clone",
         Clone = true,
         Putback = false
@@ -58,7 +53,6 @@ public partial class SortableLists
     private readonly SortableOption _option5 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Group = "group-clone",
         Sort = false
     };
@@ -66,14 +60,12 @@ public partial class SortableLists
     private readonly SortableOption _option6 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Handle = "i"
     };
 
     private readonly SortableOption _option7 = new()
     {
         RootSelector = ".sl-list",
-        GhostClass = "sl-item-ghost",
         Filter = ".filter"
     };
 

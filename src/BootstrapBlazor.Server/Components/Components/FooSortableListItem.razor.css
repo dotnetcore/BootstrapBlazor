@@ -14,7 +14,7 @@
     color: var(--bs-body-bg);
 }
 
-.col-12.sortable-chosen.sl-item-ghost .sl-item {
+.col-12.sortable-ghost .sl-item {
     background-color: var(--bs-info);
     color: var(--bs-body-bg);
 }

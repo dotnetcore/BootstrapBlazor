@@ -37,7 +37,7 @@
         color: var(--bs-body-bg);
     }
 
-        .sl-item.sortable-chosen.sl-item-ghost {
-            background-color: var(--bs-info);
-            color: var(--bs-body-bg);
-        }
+    .sl-item.sortable-ghost {
+        background-color: var(--bs-info);
+        color: var(--bs-body-bg);
+    }
