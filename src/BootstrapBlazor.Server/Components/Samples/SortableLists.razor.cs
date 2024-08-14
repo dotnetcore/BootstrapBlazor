@@ -27,12 +27,20 @@ public partial class SortableLists
         Group = "group"
     };
 
-    private readonly SortableOption _option3 = new()
+    private readonly SortableOption _option31 = new()
     {
         RootSelector = ".sl-list",
         GhostClass = "sl-item-ghost",
         Group = "group-clone",
-        Clone = true
+        Clone = true,
+        Putback = false
+    };
+
+    private readonly SortableOption _option32 = new()
+    {
+        RootSelector = ".sl-list",
+        GhostClass = "sl-item-ghost",
+        Group = "group-clone",
     };
 
     private readonly SortableOption _option4 = new()
@@ -123,7 +131,7 @@ public partial class SortableLists
 
     private Task OnRemove2(int oldIndex, int newIndex)
     {
-        var item = Items[oldIndex];
+        var item = Items2[oldIndex];
         Items2.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
         StateHasChanged();
