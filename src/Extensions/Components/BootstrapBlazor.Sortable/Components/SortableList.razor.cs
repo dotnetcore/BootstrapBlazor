@@ -29,13 +29,13 @@ public partial class SortableList
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<int, int, Task>? OnUpdate { get; set; }
+    public Func<List<SortableListItem>, Task>? OnUpdate { get; set; }
 
     /// <summary>
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<int, int, Task>? OnRemove { get; set; }
+    public Func<List<SortableListItem>, Task>? OnRemove { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-sortable")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -52,11 +52,11 @@ public partial class SortableList
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerUpdate(int oldIndex, int newIndex)
+    public async Task TriggerUpdate(List<SortableListItem> items)
     {
         if (OnUpdate != null)
         {
-            await OnUpdate(oldIndex, newIndex);
+            await OnUpdate(items);
         }
     }
 
@@ -65,11 +65,11 @@ public partial class SortableList
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerRemove(int oldIndex, int newIndex)
+    public async Task TriggerRemove(List<SortableListItem> items)
     {
         if (OnRemove != null)
         {
-            await OnRemove(oldIndex, newIndex);
+            await OnRemove(items);
         }
     }
 }
