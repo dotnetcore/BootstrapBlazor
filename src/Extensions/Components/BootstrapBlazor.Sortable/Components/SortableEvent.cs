@@ -5,17 +5,24 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SortableListItem 类
+/// SortableEvent 类
 /// </summary>
-public class SortableListItem
+public class SortableEvent
 {
     /// <summary>
     /// 获得/设置 原始索引
     /// </summary>
+    [NotNull]
     public int OldIndex { get; set; }
 
     /// <summary>
     /// 获得/设置 新索引
     /// </summary>
+    [NotNull]
     public int NewIndex { get; set; }
+
+    /// <summary>
+    /// 获得/设置 移动元素 <see cref="SortableListItem"/> 集合
+    /// </summary>
+    public List<SortableListItem> Items { get; } = [];
 }

@@ -1,9 +1,0 @@
-﻿.bb-sortable {
-    --bb-sortable-selected-bg: #44a0ff;
-    --bb-sortable-selected-color: #fff;
-}
-
-::deep .sortable-selected {
-    background-color: var(--bb-sortable-selected-bg);
-    color: var(--bb-sortable-selected-color);
-}

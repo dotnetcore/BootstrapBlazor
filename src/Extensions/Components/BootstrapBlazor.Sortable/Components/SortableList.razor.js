@@ -73,7 +73,6 @@ const initSortable = (id, element, invoke, op) => {
             else {
                 items.push({ oldIndex: event.oldIndex, newIndex: event.newIndex });
             }
-            console.log('onUpdate', items);
             invoke.invokeMethodAsync('TriggerUpdate', items);
         }
     }
@@ -89,7 +88,6 @@ const initSortable = (id, element, invoke, op) => {
             else {
                 items.push({ oldIndex: event.oldIndex, newIndex: event.newIndex });
             }
-            console.log('onRemove', items);
             invoke.invokeMethodAsync('TriggerRemove', items);
         }
     }

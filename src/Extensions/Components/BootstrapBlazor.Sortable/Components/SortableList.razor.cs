@@ -29,13 +29,13 @@ public partial class SortableList
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<List<SortableListItem>, Task>? OnUpdate { get; set; }
+    public Func<SortableEvent, Task>? OnUpdate { get; set; }
 
     /// <summary>
     /// 获得/设置 元素更新回调方法
     /// </summary>
     [Parameter]
-    public Func<List<SortableListItem>, Task>? OnRemove { get; set; }
+    public Func<SortableEvent, Task>? OnRemove { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-sortable")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -56,7 +56,15 @@ public partial class SortableList
     {
         if (OnUpdate != null)
         {
-            await OnUpdate(items);
+            var @event = new SortableEvent();
+            if (items.Count == 1)
+            {
+                @event.OldIndex = items[0].OldIndex;
+                @event.NewIndex = items[0].NewIndex;
+            }
+            @event.Items.AddRange(items);
+            await Task.Delay(200);
+            await OnUpdate(@event);
         }
     }
 
@@ -69,7 +77,14 @@ public partial class SortableList
     {
         if (OnRemove != null)
         {
-            await OnRemove(items);
+            var @event = new SortableEvent();
+            if (items.Count == 1)
+            {
+                @event.OldIndex = items[0].OldIndex;
+                @event.NewIndex = items[0].NewIndex;
+            }
+            @event.Items.AddRange(items);
+            await OnRemove(@event);
         }
     }
 }
