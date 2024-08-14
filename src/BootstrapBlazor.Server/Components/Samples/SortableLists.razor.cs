@@ -103,10 +103,10 @@ public partial class SortableLists
         ItemsMultiDrags = Foo.GenerateFoo(FooLocalizer, 8);
     }
 
-    private Task OnUpdate(List<SortableListItem> items)
+    private Task OnUpdate(SortableEvent @event)
     {
-        var oldIndex = items[0].OldIndex;
-        var newIndex = items[0].NewIndex;
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
         var item = Items[oldIndex];
         Items.RemoveAt(oldIndex);
         Items.Insert(newIndex, item);
@@ -114,10 +114,10 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
-    private Task OnUpdate1(List<SortableListItem> items)
+    private Task OnUpdate1(SortableEvent @event)
     {
-        var oldIndex = items[0].OldIndex;
-        var newIndex = items[0].NewIndex;
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
         var item = Items1[oldIndex];
         Items1.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
@@ -125,21 +125,21 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
-    private Task OnUpdate2(List<SortableListItem> items)
+    private Task OnUpdate2(SortableEvent @event)
     {
-        var oldIndex = items[0].OldIndex;
-        var newIndex = items[0].NewIndex;
-        var item = Items[oldIndex];
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = Items2[oldIndex];
         Items2.RemoveAt(oldIndex);
         Items2.Insert(newIndex, item);
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private Task OnRemove1(List<SortableListItem> items)
+    private Task OnRemove1(SortableEvent @event)
     {
-        var oldIndex = items[0].OldIndex;
-        var newIndex = items[0].NewIndex;
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
         var item = Items1[oldIndex];
         Items1.RemoveAt(oldIndex);
         Items2.Insert(newIndex, item);
@@ -147,10 +147,10 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
-    private Task OnRemove2(List<SortableListItem> items)
+    private Task OnRemove2(SortableEvent @event)
     {
-        var oldIndex = items[0].OldIndex;
-        var newIndex = items[0].NewIndex;
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
         var item = Items2[oldIndex];
         Items2.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
@@ -158,8 +158,10 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
-    private Task OnUpdateMultiDrag(List<SortableListItem> items)
+    private Task OnUpdateMultiDrag(SortableEvent @event)
     {
+        var items = @event.Items;
+
         // 找到移除元素
         var removeItems = new List<Foo>();
         for (var index = items.Count - 1; index >= 0; index--)

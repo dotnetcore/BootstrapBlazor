@@ -15,7 +15,7 @@
         <div class="sl-list row g-2">
             @foreach (var item in Items)
             {
-                <div @key="item" class="col-12 col-sm-6"><div class="sl-item">@item.Name</div></div>
+                <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
             }
         </div>
     </SortableList>
@@ -27,20 +27,20 @@
     <div class="row g-2">
         <div class="col-12 col-sm-6">
             <SortableList Option="_option2" OnUpdate="OnUpdate1" OnRemove="OnRemove1">
-                <div class="sl-list">
+                <div class="sl-list row g-2">
                     @foreach (var item in Items1)
                     {
-                        <div @key="item" class="sl-item">@item.Name</div>
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
                     }
                 </div>
             </SortableList>
         </div>
         <div class="col-12 col-sm-6">
             <SortableList Option="_option2" OnUpdate="OnUpdate2" OnRemove="OnRemove2">
-                <div class="sl-list">
+                <div class="sl-list row g-2">
                     @foreach (var item in Items2)
                     {
-                        <div @key="item" class="sl-item">@item.Name</div>
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
                     }
                 </div>
             </SortableList>
@@ -181,10 +181,10 @@
     <div class="row g-2">
         <div class="col-12 col-sm-6">
             <SortableList Option="_optionMulti" OnUpdate="OnUpdateMultiDrag">
-                <div class="sl-list">
+                <div class="sl-list row g-2">
                     @foreach (var item in ItemsMultiDrags)
                     {
-                        <div @key="item" class="sl-item">@item.Name</div>
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
                     }
                 </div>
             </SortableList>
