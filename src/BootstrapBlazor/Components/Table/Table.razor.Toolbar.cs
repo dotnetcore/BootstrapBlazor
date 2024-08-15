@@ -338,8 +338,9 @@ public partial class Table<TItem>
     public RenderFragment? TableExtensionToolbarTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建按钮回调方法
+    /// 获得/设置 新建按钮回调方法 用于补充模型字段值
     /// </summary>
+    /// <remarks>有些场景下新建模型有些属性字段默认值需要更改为默认业务值，或者该属性数据库中设置不可为空，新建模型默认值为空时，可通过此回调进行属性值补充更新</remarks>
     [Parameter]
     public Func<Task<TItem>>? OnAddAsync { get; set; }
 
