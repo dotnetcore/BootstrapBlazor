@@ -608,6 +608,11 @@ public partial class Table<TItem>
         if (SelectedRows.Count > 0)
         {
             SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+
+            if (SelectedRowsChanged.HasDelegate)
+            {
+                SelectedRowsChanged.InvokeAsync(SelectedRows);
+            }
         }
     }
 
