@@ -721,7 +721,7 @@ public partial class Table<TItem>
                     Rows.RemoveAt(index);
                     Rows.Insert(index, EditModel);
                 }
-                await OnSelectedRowsChanged();
+                SelectedRows.Clear();
                 if (ItemsChanged.HasDelegate)
                 {
                     await ItemsChanged.InvokeAsync(Rows);
