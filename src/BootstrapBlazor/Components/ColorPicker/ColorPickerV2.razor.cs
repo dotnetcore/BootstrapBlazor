@@ -57,6 +57,12 @@ public partial class ColorPickerV2
     #endregion
 
     /// <summary>
+    /// 需要设置透明度，默认是false，即透明度永远是100%，完全不透明
+    /// </summary>
+    [Parameter]
+    public bool NeedAlpha { get; set; }
+
+    /// <summary>
     /// 选中颜色的字符串结果显示的格式类型，默认为Hex格式
     /// </summary>
     [Parameter]
@@ -73,9 +79,11 @@ public partial class ColorPickerV2
     private string OpenSettingView => _openSettingView ? "block" : "none";
 
     /// <summary>
-    /// 最终展示色
+    /// 最终展示色（无透明通道）
     /// </summary>
     private string _previewColor = "hsl(0, 50%, 50%)";
+
+    private string PreviewColor => NeedAlpha ? _previewColor.Replace(")", $", {_alphaPercentage:F4})") : _previewColor;
 
     /// <summary>
     /// 开关设置窗口
@@ -86,6 +94,9 @@ public partial class ColorPickerV2
         _openSettingView = !_openSettingView;
     }
 
+    /// <summary>
+    ///
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
@@ -246,14 +257,63 @@ public partial class ColorPickerV2
 
     #endregion
 
-    private string GetFormatColor()
-        => FormatType switch
+    #region 透明度设置区域
+
+    /// <summary>
+    /// 色相滑块id
+    /// </summary>
+    private string _alphaSliderId = $"alpha-slider-{Guid.NewGuid().ToString()}";
+
+    /// <summary>
+    /// 透明通道设置组件对应的css样式
+    /// </summary>
+    private string OpenAlpha => NeedAlpha ? "block" : "none";
+
+    /// <summary>
+    /// 透明度滑块当前选中位置相对整个长度的0-1
+    /// </summary>
+    private double _alphaPercentage = 1;
+
+    /// <summary>
+    /// 点击色相选择滑块时，根据点击位置设置_huePercentage
+    /// </summary>
+    private async Task SelectAlphaSlider(MouseEventArgs e)
+    {
+        var alphaSliderSelectPercentage = await InvokeAsync<double[]>(
+            "getElementClickLocation", _alphaSliderId, e);
+        await SetAlphaParam(alphaSliderSelectPercentage != null ? alphaSliderSelectPercentage[0] : 0);
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 透明度选择圆形块是否选中
+    /// </summary>
+    private bool _isSelectAlphaSliderRoundBlock;
+
+    /// <summary>
+    /// 选中色相选择圆形块时，根据鼠标在色相选择滑块的移动位置设置_huePercentage
+    /// </summary>
+    private async Task MoveOnAlphaSlider(MouseEventArgs e)
+    {
+        if (_isSelectAlphaSliderRoundBlock)
         {
-            ColorPickerV2FormatType.Hex => RgbToHex(_rgbResult),
-            ColorPickerV2FormatType.GRB => FormatRgb(_rgbResult),
-            ColorPickerV2FormatType.HSL => _previewColor,
-            ColorPickerV2FormatType.CMYK => RgbToCmyk(_rgbResult),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+            var alphaSliderSelectPercentage = await InvokeAsync<double[]>(
+                "getElementClickLocation", _alphaSliderId, e);
+            await SetAlphaParam(alphaSliderSelectPercentage != null ? alphaSliderSelectPercentage[0] : 0);
+            await Task.CompletedTask;
+        }
+        await Task.CompletedTask;
+    }
+
+    private async Task SetAlphaParam(double source)
+    {
+        _alphaPercentage = Math.Clamp(source, 0, 1);
+        await SetHueParam(_huePercentage);
+        await Task.CompletedTask;
+    }
+
+    #endregion
+
+
 }
 

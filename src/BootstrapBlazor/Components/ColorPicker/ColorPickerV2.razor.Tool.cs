@@ -120,6 +120,16 @@ public partial class ColorPickerV2
         double finalY = (y - k) / (1 - k);
         return $"cmyk({DoubleToPercentage(finalC)}, {DoubleToPercentage(finalM)}, {DoubleToPercentage(finalY)}, {DoubleToPercentage(k)})";
     }
+
+    private string GetFormatColor()
+        => FormatType switch
+        {
+            ColorPickerV2FormatType.Hex => NeedAlpha ? RgbToHex(_rgbResult).Insert(1, $"{(int)Math.Round(_alphaPercentage * 255):X2}") : RgbToHex(_rgbResult),
+            ColorPickerV2FormatType.GRB => NeedAlpha ? FormatRgb(_rgbResult).Replace("rgb", "rgba").Replace(")", $", {_alphaPercentage:F4})") : FormatRgb(_rgbResult),
+            ColorPickerV2FormatType.HSL => NeedAlpha ? PreviewColor : _previewColor,
+            ColorPickerV2FormatType.CMYK => RgbToCmyk(_rgbResult),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 }
 
 /// <summary>
