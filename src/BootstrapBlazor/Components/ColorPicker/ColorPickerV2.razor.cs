@@ -69,6 +69,12 @@ public partial class ColorPickerV2
     public ColorPickerV2FormatType FormatType { get; set; } = ColorPickerV2FormatType.Hex;
 
     /// <summary>
+    /// 当关闭弹出窗口时，将结果颜色值推送出去
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnFinishSettingTask { get; set; }
+
+    /// <summary>
     /// 是否打开设置窗口
     /// </summary>
     private bool _openSettingView;
@@ -86,12 +92,14 @@ public partial class ColorPickerV2
     private string PreviewColor => NeedAlpha ? _previewColor.Replace(")", $", {_alphaPercentage:F4})") : _previewColor;
 
     /// <summary>
-    /// 开关设置窗口
+    /// 开关设置窗口，如果关闭，将最终颜色值推送出去
     /// </summary>
     /// <param name="e"></param>
-    private void OpenSettingViewChanged(MouseEventArgs e)
+    private async Task OpenSettingViewChanged(MouseEventArgs e)
     {
         _openSettingView = !_openSettingView;
+        if (!_openSettingView && OnFinishSettingTask != null)
+            await OnFinishSettingTask.Invoke(GetFormatColor());
     }
 
     /// <summary>
