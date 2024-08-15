@@ -10,6 +10,14 @@ namespace BootstrapBlazor.Components;
 public partial class ColorPickerV2
 {
     /// <summary>
+    /// 小数转百分比
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    private static string DoubleToPercentage(double source)
+        => $"{(source * 100):F2}%";
+
+    /// <summary>
     /// hsl格式转rgb格式。为了减少计算误差，结果为0-1。前端最终显示时需要Math.Round(value * 255)
     /// </summary>
     /// <param name="h">范围0-360</param>
@@ -84,14 +92,43 @@ public partial class ColorPickerV2
 
     private static string RgbToHex((double r, double g, double b) source)
     {
+        int red = (int)Math.Round(source.r * 255);
+        int green = (int)Math.Round(source.g * 255);
+        int blue = (int)Math.Round(source.b * 255);
+        return $"#{red:X2}{green:X2}{blue:X2}";
+    }
+
+    private static string FormatRgb((double r, double g, double b) source)
+    {
         // 将每个 RGB 分量从 0-1 缩放到 0-255 并转换为整数
         int red = (int)Math.Round(source.r * 255);
         int green = (int)Math.Round(source.g * 255);
         int blue = (int)Math.Round(source.b * 255);
-
-        // 转换为十六进制字符串，确保每个分量至少有两位
-        string hex = $"#{red:X2}{green:X2}{blue:X2}";
-
-        return hex;
+        return $"rgb({red}, {green}, {blue})";
     }
+
+    private static string RgbToCmyk((double r, double g, double b) source)
+    {
+        double c = 1 - source.r;
+        double m = 1 - source.g;
+        double y = 1 - source.b;
+        double k = Math.Min(c, Math.Min(m, y));
+        if (Math.Abs(k - 1) < 0.0000000001)
+            return "(0%, 0%, 0%, 100%)";
+        double finalC = (c - k) / (1 - k);
+        double finalM = (m - k) / (1 - k);
+        double finalY = (y - k) / (1 - k);
+        return $"cmyk({DoubleToPercentage(finalC)}, {DoubleToPercentage(finalM)}, {DoubleToPercentage(finalY)}, {DoubleToPercentage(k)})";
+    }
+}
+
+/// <summary>
+/// 输入框显示的颜色格式类型
+/// </summary>
+public enum ColorPickerV2FormatType
+{
+    Hex,
+    GRB,
+    HSL,
+    CMYK,
 }

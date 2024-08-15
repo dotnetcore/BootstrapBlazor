@@ -2,10 +2,6 @@
 @inherits ValidateBase<string>
 @attribute [BootstrapModuleAutoLoader("ColorPicker/ColorPickerV2.razor.js")]
 
-@if (IsShowLabel)
-{
-    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
-}
 <div class="input-group color-picker">
 
     <Button class="color-picker-button" OnClick="OpenSettingViewChanged" Color="Color.None">
@@ -44,5 +40,6 @@
             </div>
         </div>
     </div>
-    <input type="text" readonly class="@ClassName" value="@RgbToHex(_rgbResult)"/>
+    @*自己项目用，所以有透明度需求，同时又对直接输入颜色字符串让滑块组件联动没需求，所以这边选了readonly*@
+    <input type="text" readonly class="@ClassName" value="@GetFormatColor()"/>
 </div>

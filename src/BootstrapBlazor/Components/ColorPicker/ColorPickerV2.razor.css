@@ -34,8 +34,7 @@
     border: 1px solid #e9ecef;
     position: absolute;
     background-color: white;
-    min-width: 350px;
-    min-height: 250px;
+    width: 250px;
 }
 
 .color-palette {
@@ -43,7 +42,7 @@
     overflow: visible;
     position: relative;
     width: 100%;
-    min-height: 200px;
+    min-height: 150px;
     background-blend-mode: multiply;
 }
 

@@ -56,14 +56,11 @@ public partial class ColorPickerV2
 
     #endregion
 
-
     /// <summary>
-    /// 小数转百分比
+    /// 选中颜色的字符串结果显示的格式类型，默认为Hex格式
     /// </summary>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    private string DoubleToPercentage(double source)
-        => $"{(source * 100):F2}%";
+    [Parameter]
+    public ColorPickerV2FormatType FormatType { get; set; } = ColorPickerV2FormatType.Hex;
 
     /// <summary>
     /// 是否打开设置窗口
@@ -87,6 +84,12 @@ public partial class ColorPickerV2
     private void OpenSettingViewChanged(MouseEventArgs e)
     {
         _openSettingView = !_openSettingView;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await SetHueParam(0);
     }
 
     #region 饱和度+明度设置区域
@@ -242,5 +245,15 @@ public partial class ColorPickerV2
     }
 
     #endregion
+
+    private string GetFormatColor()
+        => FormatType switch
+        {
+            ColorPickerV2FormatType.Hex => RgbToHex(_rgbResult),
+            ColorPickerV2FormatType.GRB => FormatRgb(_rgbResult),
+            ColorPickerV2FormatType.HSL => _previewColor,
+            ColorPickerV2FormatType.CMYK => RgbToCmyk(_rgbResult),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 }
 
