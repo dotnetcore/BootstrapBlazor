@@ -518,6 +518,8 @@ public partial class Table<TItem>
                 // 数据源为 DataTable 新建后重建行与列
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
+                SelectedRows.Clear();
+                await OnSelectedRowsChanged();
             }
             else
             {
@@ -1052,6 +1054,8 @@ public partial class Table<TItem>
             {
                 await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
                 ResetDynamicContext();
+                SelectedRows.Clear();
+                await OnSelectedRowsChanged();
             }
             else
             {
