@@ -95,6 +95,12 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool ShowDeletedButton { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 继续上传按钮是否在列表前 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsUploadButtonAtFirst { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
