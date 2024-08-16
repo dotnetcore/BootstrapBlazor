@@ -23,7 +23,7 @@
            Introduction="@Localizer["TablesPageShowTopPaginationIntro"]"
            Name="ShowTopPagination">
     <Table TItem="Foo"
-           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" PageItems="10" OnQueryAsync="@OnQueryAsync">
+           IsPagination="true" ShowTopPagination="true" PageItemsSource="@PageItemsSource" _pageItems="10" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />

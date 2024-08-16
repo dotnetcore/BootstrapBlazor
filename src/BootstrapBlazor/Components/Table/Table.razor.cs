@@ -149,9 +149,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
-    private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
+    private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * _pageItems + 1 : 0;
 
-    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * _pageItems + Rows.Count, TotalCount];
 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
@@ -807,12 +807,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
 
-        PageItemsSource ??= new[] { 20, 50, 100, 200, 500, 1000 };
+        PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
 
-        if (PageItems == 0)
+        if (_pageItems == 0)
         {
             // 如果未设置 PageItems 取默认值第一个
-            PageItems = PageItemsSource.First();
+            _pageItems = PageItems ?? PageItemsSource.First();
         }
 
         if (ExtendButtonColumnAlignment == Alignment.None)
@@ -1363,7 +1363,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
-        PageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
+        _pageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
@@ -1415,7 +1415,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         return ret;
     }
 
-    private int GetLineNo(TItem item) => Rows.IndexOf(item) + 1 + ((ScrollMode == ScrollMode.Virtual && Items == null) ? StartIndex : (PageIndex - 1) * PageItems);
+    private int GetLineNo(TItem item) => Rows.IndexOf(item) + 1 + ((ScrollMode == ScrollMode.Virtual && Items == null) ? StartIndex : (PageIndex - 1) * _pageItems);
 
     /// <summary>
     /// Reset all Columns Filter

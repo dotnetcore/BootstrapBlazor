@@ -473,9 +473,9 @@ public partial class Table<TItem>
         {
             var queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
-            PageItems = queryOption.PageItems;
+            _pageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
-            PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
+            PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, _pageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
             QueryItems = queryData.Items ?? [];
 
@@ -582,7 +582,7 @@ public partial class Table<TItem>
         {
             IsPage = IsPagination,
             PageIndex = PageIndex,
-            PageItems = PageItems,
+            PageItems = _pageItems,
             SearchText = SearchText,
             SortOrder = SortOrder,
             SortName = SortName,
