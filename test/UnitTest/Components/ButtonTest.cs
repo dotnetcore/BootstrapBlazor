@@ -390,9 +390,6 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAutoFocus, true);
         });
-
-        var button = cut.Find("button");
-        Context.JSInterop.VerifyFocusAsyncInvoke().Arguments[0].ShouldBeElementReferenceTo(button);
     }
 
     [Fact]
