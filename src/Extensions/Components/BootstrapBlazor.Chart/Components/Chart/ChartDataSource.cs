@@ -37,4 +37,9 @@ public class ChartDataSource
     /// 获得/设置 图标类型 默认为 line
     /// </summary>
     public string Type { get; set; } = "line";
+
+    /// <summary>
+    /// 获得/设置 扩展数据 默认为空 序列化到浏览器与数据集合 <see cref="ChartDataSource "/> 合并，方便把组件未提供的参数传递到浏览器
+    /// </summary>
+    public object? AppendData { get; set; }
 }

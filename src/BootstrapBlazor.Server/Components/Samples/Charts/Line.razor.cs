@@ -309,6 +309,7 @@ public partial class Line : IDisposable
                 Data = Enumerable.Range(1, BarDataCount).Select(i => Randomer.Next(20, 37)).Cast<object>()
             });
         }
+        ds.AppendData = GetAppendData();
         return Task.FromResult(ds);
     }
 
