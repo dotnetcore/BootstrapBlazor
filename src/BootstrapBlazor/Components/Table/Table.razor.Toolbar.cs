@@ -475,16 +475,21 @@ public partial class Table<TItem>
     /// </summary>
     public async Task AddAsync()
     {
-        if (IsExcel || DynamicContext != null)
+        if (DynamicContext != null)
         {
-            await AddDynamicObjectExcelModelAsync();
+            // 数据源为 DataTable 新建后重建行与列
+            await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
+            ResetDynamicContext();
+            SelectedRows.Clear();
+            await OnSelectedRowsChanged();
+        }
+        else if (IsExcel)
+        {
+            await InternalOnAddAsync();
+            await QueryAsync(false);
+            await OnSelectedRowsChanged();
         }
         else
-        {
-            await AddItemAsync();
-        }
-
-        async Task AddItemAsync()
         {
             await ToggleLoading(true);
             await InternalOnAddAsync();
@@ -510,24 +515,6 @@ public partial class Table<TItem>
             }
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
-        }
-
-        async Task AddDynamicObjectExcelModelAsync()
-        {
-            if (DynamicContext != null)
-            {
-                // 数据源为 DataTable 新建后重建行与列
-                await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
-                ResetDynamicContext();
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-            }
-            else
-            {
-                await InternalOnAddAsync();
-                await QueryAsync(false);
-                await OnSelectedRowsChanged();
-            }
         }
     }
 
@@ -562,7 +549,6 @@ public partial class Table<TItem>
                     ShowEditForm = true;
                     ShowAddForm = false;
                     StateHasChanged();
-
                 }
                 else if (EditMode == EditMode.InCell)
                 {
