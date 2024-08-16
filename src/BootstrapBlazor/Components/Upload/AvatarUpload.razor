@@ -8,6 +8,10 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="upload-body is-avatar">
+        @if (IsUploadButtonAtFirst && CheckCanUpload())
+        {
+            @RenderAdd
+        }
         @foreach (var item in GetUploadFiles())
         {
             <div class="@GetItemClassString(item)" id="@item.ValidateId" style="@PrevStyleString">
@@ -35,17 +39,22 @@
                 }
             </div>
         }
-        @if (CheckCanUpload())
+        @if (!IsUploadButtonAtFirst && CheckCanUpload())
         {
-            <div class="@ItemClassString" style="@PrevStyleString">
-                <div class="upload-item-actions btn-browser">
-                    <span class="upload-item-plus">
-                        <i class="@AddIcon"></i>
-                    </span>
-                </div>
-            </div>
+            @RenderAdd
         }
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
 </div>
 
+
+@code {
+    RenderFragment RenderAdd =>
+    @<div class="@ItemClassString" style="@PrevStyleString">
+        <div class="upload-item-actions btn-browser">
+            <span class="upload-item-plus">
+                <i class="@AddIcon"></i>
+            </span>
+        </div>
+    </div>;
+}
