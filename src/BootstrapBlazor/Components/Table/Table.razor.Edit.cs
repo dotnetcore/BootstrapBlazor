@@ -461,12 +461,6 @@ public partial class Table<TItem>
             ResetSelectedRows(Items);
             RowsCache = null;
         }
-
-        // 更新 SelectedRow 状态
-        if (SelectedRowsChanged.HasDelegate)
-        {
-            await SelectedRowsChanged.InvokeAsync(SelectedRows);
-        }
         return;
 
         async Task OnQuery(QueryPageOptions queryOption)
