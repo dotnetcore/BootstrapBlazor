@@ -447,13 +447,13 @@ public partial class Table<TItem>
             // 设置是否为首次查询
             queryOption.IsFirstQuery = _firstQuery;
 
-            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (OnQueryAsync != null)
             {
-                QueryDynamicItems(queryOption, DynamicContext);
+                await OnQuery(queryOption);
             }
             else
             {
-                await OnQuery(queryOption);
+                QueryDynamicItems(queryOption, DynamicContext);
             }
         }
         else
