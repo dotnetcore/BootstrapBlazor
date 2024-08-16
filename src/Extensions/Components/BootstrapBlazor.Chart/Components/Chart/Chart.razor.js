@@ -84,7 +84,9 @@ const deepMerge = (obj1, obj2) => {
     return obj1;
 }
 
-const getChartOption = function (option, appendData) {
+const getChartOption = function (option) {
+    const appendData = option.appendData;
+    delete option.appendData;
     option = deepMerge(option, appendData);
 
     const colors = []
@@ -425,8 +427,8 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(id, invoke, method, option, appendData) {
-    const op = getChartOption(option, appendData);
+export function init(id, invoke, method, option) {
+    const op = getChartOption(option);
     op.options.onClick = (event, elements, chart) => {
         if (elements.length > 0) {
             if (option.options.onClickDataMethod) {
