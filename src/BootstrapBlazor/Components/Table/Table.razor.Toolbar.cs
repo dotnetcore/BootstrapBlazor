@@ -1054,7 +1054,7 @@ public partial class Table<TItem>
 
     private void ResetDynamicContext()
     {
-        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        if (DynamicContext != null)
         {
             AutoGenerateColumns = false;
 
