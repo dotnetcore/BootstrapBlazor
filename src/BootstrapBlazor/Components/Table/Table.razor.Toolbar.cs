@@ -1016,11 +1016,11 @@ public partial class Table<TItem>
                         // 由于数据删除导致页码会改变，尤其是最后一页
                         // 重新计算页码
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
                         if (items.Any())
                         {
-                            PageItems = Math.Min(PageItems, items.Min());
+                            _pageItems = Math.Min(_pageItems, items.Min());
                         }
                     }
                 }
@@ -1079,9 +1079,9 @@ public partial class Table<TItem>
             if (IsPagination)
             {
                 TotalCount = items.Count();
-                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
-                items = items.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, _pageItems));
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
+                items = items.Skip((PageIndex - 1) * _pageItems).Take(_pageItems);
             }
             QueryItems = items.Cast<TItem>();
 
