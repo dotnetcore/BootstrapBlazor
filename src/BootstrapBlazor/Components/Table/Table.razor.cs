@@ -809,10 +809,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         PageItemsSource ??= [20, 50, 100, 200, 500, 1000];
 
+        if (_originPageItems != PageItems)
+        {
+            _originPageItems = PageItems;
+            _pageItems = 0;
+        }
+
         if (_pageItems == 0)
         {
             // 如果未设置 PageItems 取默认值第一个
-            _pageItems = PageItems ?? PageItemsSource.First();
+            _pageItems = _originPageItems ?? PageItemsSource.First();
         }
 
         if (ExtendButtonColumnAlignment == Alignment.None)

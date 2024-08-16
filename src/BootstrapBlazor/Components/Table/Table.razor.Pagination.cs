@@ -123,6 +123,8 @@ public partial class Table<TItem>
     /// </summary>
     private int _pageItems;
 
+    private int? _originPageItems;
+
     /// <summary>
     /// 内部 分页信息模板
     /// </summary>
