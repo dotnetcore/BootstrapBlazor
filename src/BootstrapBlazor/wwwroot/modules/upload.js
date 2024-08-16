@@ -15,7 +15,6 @@ export function init(id) {
         inputFile.click()
     })
 
-    //阻止浏览器默认行为
     EventHandler.on(document, "dragleave", preventHandler)
     EventHandler.on(document, 'drop', preventHandler)
     EventHandler.on(document, 'dragenter', preventHandler)
@@ -23,15 +22,12 @@ export function init(id) {
 
     EventHandler.on(el, 'drop', e => {
         try {
-            //获取文件对象
             const fileList = e.dataTransfer.files
-
-            //检测是否是拖拽文件到页面的操作
             if (fileList.length === 0) {
                 return false
             }
 
-            inputFile.files = e.dataTransfer.files
+            inputFile.files = fileList
             const event = new Event('change', { bubbles: true })
             inputFile.dispatchEvent(event)
         } catch (e) {
@@ -69,9 +65,9 @@ export function dispose(id) {
     const upload = Data.get(id)
     Data.remove(id)
 
-    const el = upload.el
-    const preventHandler = upload.preventHandler
     if (upload) {
+        const { el, preventHandler } = upload;
+
         EventHandler.off(el, 'click')
         EventHandler.off(el, 'drop')
         EventHandler.off(el, 'paste')
