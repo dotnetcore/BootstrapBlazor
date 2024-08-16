@@ -531,7 +531,7 @@ public partial class Table<TItem>
             if (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
             {
                 // 提示不可编辑
-                await ShowToastAsync(EditButtonToastReadonlyContent);
+                await ShowToastAsync(EditButtonToastTitle, EditButtonToastReadonlyContent);
             }
             else
             {
@@ -581,18 +581,29 @@ public partial class Table<TItem>
         {
             // 不选或者多选弹窗提示
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
-            await ShowToastAsync(content);
+            await ShowToastAsync(EditButtonToastTitle, content);
         }
     }
 
-    private async Task ShowToastAsync(string content)
+    private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
         var option = new ToastOption
         {
-            Category = ToastCategory.Information,
-            Title = EditButtonToastTitle,
+            Category = category,
+            Title = title,
             Content = content
         };
+        await Toast.Show(option);
+    }
+
+    private async Task ShowDeleteToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
+    {
+        var option = new ToastOption
+        {
+            Category = category,
+            Title = title
+        };
+        option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
         await Toast.Show(option);
     }
 
@@ -936,31 +947,17 @@ public partial class Table<TItem>
         var ret = false;
         if (SelectedRows.Count == 0)
         {
-            await ShowToastAsync(DeleteButtonToastContent);
+            await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastContent);
+        }
+        else if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
+        {
+            await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastCanNotDeleteContent);
         }
         else
         {
-            if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
-            {
-                await ShowToastAsync(DeleteButtonToastCanNotDeleteContent);
-            }
-            else
-            {
-                ret = true;
-            }
+            ret = true;
         }
         return ret;
-
-        async Task ShowToastAsync(string content)
-        {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Information,
-                Title = DeleteButtonToastTitle
-            };
-            option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
-            await Toast.Show(option);
-        }
     }
 
     /// <summary>
