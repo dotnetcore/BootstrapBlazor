@@ -970,9 +970,17 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task DeleteAsync()
     {
-        if (IsExcel || DynamicContext != null)
+        if (DynamicContext != null)
         {
-            await DeleteDynamicObjectExcelModelAsync();
+            await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
+            ResetDynamicContext();
+            SelectedRows.Clear();
+            await OnSelectedRowsChanged();
+        }
+        else if (IsExcel)
+        {
+            await InternalOnDeleteAsync();
+            await QueryAsync();
         }
         else
         {
@@ -1033,22 +1041,6 @@ public partial class Table<TItem>
                 await QueryAsync();
             }
             return ret;
-        }
-
-        async Task DeleteDynamicObjectExcelModelAsync()
-        {
-            if (DynamicContext != null)
-            {
-                await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
-                ResetDynamicContext();
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-            }
-            else
-            {
-                await InternalOnDeleteAsync();
-                await QueryAsync();
-            }
         }
     }
 
