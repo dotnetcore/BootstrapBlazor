@@ -536,7 +536,21 @@ public partial class Table<TItem>
             else
             {
                 await ToggleLoading(true);
-                await InternalOnEditAsync();
+
+                // 跟踪模式与动态类型时使用原始数据，否则使用克隆数据
+                EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+                if (OnEditAsync != null)
+                {
+                    await OnEditAsync(EditModel);
+                }
+                else
+                {
+                    var d = DataService ?? InjectDataService;
+                    if (d is IEntityFrameworkCoreDataService ef)
+                    {
+                        await ef.EditAsync(EditModel);
+                    }
+                }
                 EditModalTitleString = EditModalTitle;
 
                 // 显示编辑框
@@ -565,37 +579,21 @@ public partial class Table<TItem>
         }
         else
         {
+            // 不选或者多选弹窗提示
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
             await ShowToastAsync(content);
         }
+    }
 
-        async Task InternalOnEditAsync()
+    private async Task ShowToastAsync(string content)
+    {
+        var option = new ToastOption
         {
-            EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
-            if (OnEditAsync != null)
-            {
-                await OnEditAsync(EditModel);
-            }
-            else
-            {
-                var d = DataService ?? InjectDataService;
-                if (d is IEntityFrameworkCoreDataService ef)
-                {
-                    await ef.EditAsync(EditModel);
-                }
-            }
-        }
-
-        async Task ShowToastAsync(string content)
-        {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Information,
-                Title = EditButtonToastTitle,
-                Content = content
-            };
-            await Toast.Show(option);
-        }
+            Category = ToastCategory.Information,
+            Title = EditButtonToastTitle,
+            Content = content
+        };
+        await Toast.Show(option);
     }
 
     /// <summary>
