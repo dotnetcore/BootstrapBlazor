@@ -429,13 +429,7 @@ const updateChart = function (config, option) {
 
 export function init(id, invoke, method, option) {
     const op = getChartOption(option);
-    op.options.onClick = (event, elements, chart) => {
-        if (elements.length > 0) {
-            if (option.options.onClickDataMethod) {
-                invoke.invokeMethodAsync(option.options.onClickDataMethod, elements[0].datasetIndex, elements[0].index);
-            }
-        }
-    };
+    handlerClickData(invoke, op, option.options.onClickDataMethod);
     const el = document.getElementById(id);
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(id, chart)
@@ -456,13 +450,25 @@ export function init(id, invoke, method, option) {
     EventHandler.on(window, 'resize', chart.resizeHandler)
 }
 
-export function update(id, option, method, angle) {
+export function update(id, invoke, option, method, angle) {
     const chart = Data.get(id)
-    const op = getChartOption(option)
+    const op = getChartOption(option);
+    handlerClickData(invoke, op, option.options.onClickDataMethod);
     op.angle = angle
     op.updateMethod = method
     updateChart(chart.config, op)
     chart.update()
+}
+
+const handlerClickData = (invoke, op, method) => {
+    console.log(op, method);
+    if (method) {
+        op.options.onClick = (event, elements, chart) => {
+            if (elements.length > 0) {
+                invoke.invokeMethodAsync(method, elements[0].datasetIndex, elements[0].index);
+            }
+        };
+    }
 }
 
 function canvasToBlob(canvas, mimeType) {
