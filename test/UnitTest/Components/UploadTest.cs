@@ -205,6 +205,12 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, true);
         });
+
+        // IsUploadButtonAtFirst
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsUploadButtonAtFirst, true);
+        });
     }
 
     [Fact]
@@ -760,6 +766,12 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new("test.png")
         })));
+
+        // IsUploadButtonAtFirst
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsUploadButtonAtFirst, true);
+        });
     }
 
     [Fact]

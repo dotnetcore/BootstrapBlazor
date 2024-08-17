@@ -338,8 +338,9 @@ public partial class Table<TItem>
     public RenderFragment? TableExtensionToolbarTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建按钮回调方法
+    /// 获得/设置 新建按钮回调方法 用于补充模型字段值
     /// </summary>
+    /// <remarks>有些场景下新建模型有些属性字段默认值需要更改为默认业务值，或者该属性数据库中设置不可为空，新建模型默认值为空时，可通过此回调进行属性值补充更新</remarks>
     [Parameter]
     public Func<Task<TItem>>? OnAddAsync { get; set; }
 
@@ -474,16 +475,21 @@ public partial class Table<TItem>
     /// </summary>
     public async Task AddAsync()
     {
-        if (IsExcel || DynamicContext != null)
+        if (DynamicContext != null)
         {
-            await AddDynamicObjectExcelModelAsync();
+            // 数据源为 DataTable 新建后重建行与列
+            await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
+            ResetDynamicContext();
+            SelectedRows.Clear();
+            await OnSelectedRowsChanged();
+        }
+        else if (IsExcel)
+        {
+            await InternalOnAddAsync();
+            await QueryAsync(false);
+            await OnSelectedRowsChanged();
         }
         else
-        {
-            await AddItemAsync();
-        }
-
-        async Task AddItemAsync()
         {
             await ToggleLoading(true);
             await InternalOnAddAsync();
@@ -510,24 +516,6 @@ public partial class Table<TItem>
             await OnSelectedRowsChanged();
             await ToggleLoading(false);
         }
-
-        async Task AddDynamicObjectExcelModelAsync()
-        {
-            if (DynamicContext != null)
-            {
-                // 数据源为 DataTable 新建后重建行与列
-                await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
-                ResetDynamicContext();
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-            }
-            else
-            {
-                await InternalOnAddAsync();
-                await QueryAsync(false);
-                await OnSelectedRowsChanged();
-            }
-        }
     }
 
     private bool ShowEditForm { get; set; }
@@ -543,12 +531,26 @@ public partial class Table<TItem>
             if (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
             {
                 // 提示不可编辑
-                await ShowToastAsync(EditButtonToastReadonlyContent);
+                await ShowToastAsync(EditButtonToastTitle, EditButtonToastReadonlyContent);
             }
             else
             {
                 await ToggleLoading(true);
-                await InternalOnEditAsync();
+
+                // 跟踪模式与动态类型时使用原始数据，否则使用克隆数据
+                EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+                if (OnEditAsync != null)
+                {
+                    await OnEditAsync(EditModel);
+                }
+                else
+                {
+                    var d = DataService ?? InjectDataService;
+                    if (d is IEntityFrameworkCoreDataService ef)
+                    {
+                        await ef.EditAsync(EditModel);
+                    }
+                }
                 EditModalTitleString = EditModalTitle;
 
                 // 显示编辑框
@@ -561,7 +563,6 @@ public partial class Table<TItem>
                     ShowEditForm = true;
                     ShowAddForm = false;
                     StateHasChanged();
-
                 }
                 else if (EditMode == EditMode.InCell)
                 {
@@ -578,37 +579,32 @@ public partial class Table<TItem>
         }
         else
         {
+            // 不选或者多选弹窗提示
             var content = SelectedRows.Count == 0 ? EditButtonToastNotSelectContent : EditButtonToastMoreSelectContent;
-            await ShowToastAsync(content);
+            await ShowToastAsync(EditButtonToastTitle, content);
         }
+    }
 
-        async Task InternalOnEditAsync()
+    private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
+    {
+        var option = new ToastOption
         {
-            EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
-            if (OnEditAsync != null)
-            {
-                await OnEditAsync(EditModel);
-            }
-            else
-            {
-                var d = DataService ?? InjectDataService;
-                if (d is IEntityFrameworkCoreDataService ef)
-                {
-                    await ef.EditAsync(EditModel);
-                }
-            }
-        }
+            Category = category,
+            Title = title,
+            Content = content
+        };
+        await Toast.Show(option);
+    }
 
-        async Task ShowToastAsync(string content)
+    private async Task ShowDeleteToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
+    {
+        var option = new ToastOption
         {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Information,
-                Title = EditButtonToastTitle,
-                Content = content
-            };
-            await Toast.Show(option);
-        }
+            Category = category,
+            Title = title
+        };
+        option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
+        await Toast.Show(option);
     }
 
     /// <summary>
@@ -951,31 +947,17 @@ public partial class Table<TItem>
         var ret = false;
         if (SelectedRows.Count == 0)
         {
-            await ShowToastAsync(DeleteButtonToastContent);
+            await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastContent);
+        }
+        else if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
+        {
+            await ShowDeleteToastAsync(DeleteButtonToastTitle, DeleteButtonToastCanNotDeleteContent);
         }
         else
         {
-            if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
-            {
-                await ShowToastAsync(DeleteButtonToastCanNotDeleteContent);
-            }
-            else
-            {
-                ret = true;
-            }
+            ret = true;
         }
         return ret;
-
-        async Task ShowToastAsync(string content)
-        {
-            var option = new ToastOption
-            {
-                Category = ToastCategory.Information,
-                Title = DeleteButtonToastTitle
-            };
-            option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
-            await Toast.Show(option);
-        }
     }
 
     /// <summary>
@@ -983,9 +965,17 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task DeleteAsync()
     {
-        if (IsExcel || DynamicContext != null)
+        if (DynamicContext != null)
         {
-            await DeleteDynamicObjectExcelModelAsync();
+            await DynamicContext.DeleteAsync(SelectedRows.OfType<IDynamicObject>());
+            ResetDynamicContext();
+            SelectedRows.Clear();
+            await OnSelectedRowsChanged();
+        }
+        else if (IsExcel)
+        {
+            await InternalOnDeleteAsync();
+            await QueryAsync();
         }
         else
         {
@@ -1026,11 +1016,11 @@ public partial class Table<TItem>
                         // 由于数据删除导致页码会改变，尤其是最后一页
                         // 重新计算页码
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
-                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                        PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
                         if (items.Any())
                         {
-                            PageItems = Math.Min(PageItems, items.Min());
+                            _pageItems = Math.Min(_pageItems, items.Min());
                         }
                     }
                 }
@@ -1047,27 +1037,11 @@ public partial class Table<TItem>
             }
             return ret;
         }
-
-        async Task DeleteDynamicObjectExcelModelAsync()
-        {
-            if (DynamicContext != null)
-            {
-                await DynamicContext.DeleteAsync(SelectedRows.AsEnumerable().OfType<IDynamicObject>());
-                ResetDynamicContext();
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-            }
-            else
-            {
-                await InternalOnDeleteAsync();
-                await QueryAsync();
-            }
-        }
     }
 
     private void ResetDynamicContext()
     {
-        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        if (DynamicContext != null)
         {
             AutoGenerateColumns = false;
 
@@ -1105,9 +1079,9 @@ public partial class Table<TItem>
             if (IsPagination)
             {
                 TotalCount = items.Count();
-                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
-                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
-                items = items.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, _pageItems));
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / _pageItems).ToString())));
+                items = items.Skip((PageIndex - 1) * _pageItems).Take(_pageItems);
             }
             QueryItems = items.Cast<TItem>();
 
