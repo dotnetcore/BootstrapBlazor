@@ -210,7 +210,7 @@ public partial class Chart
             var ds = await OnInitAsync();
             UpdateOptions(ds);
 
-            await InvokeVoidAsync("update", Id, ds, action.ToDescriptionString(), Angle);
+            await InvokeVoidAsync("update", Id, Interop, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {
