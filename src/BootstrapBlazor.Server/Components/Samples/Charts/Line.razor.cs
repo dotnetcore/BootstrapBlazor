@@ -43,6 +43,16 @@ public partial class Line : IDisposable
     private string CustomTooltipId => $"custom_tooltip_{Id}";
 
     /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
@@ -68,16 +78,6 @@ public partial class Line : IDisposable
                 }
             });
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        _code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
     }
 
     /// <summary>
