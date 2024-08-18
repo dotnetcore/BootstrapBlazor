@@ -5,6 +5,37 @@ import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 Chart.register(ChartDataLabels);
 
+if (window.BootstrapBlazor === void 0) {
+    window.BootstrapBlazor = {};
+}
+
+if (window.BootstrapBlazor.Chart === void 0) {
+    const elementMap = new Map();
+    window.BootstrapBlazor.Chart = new class {
+        setOptionsById(element, instance) {
+            if (!elementMap.has(element)) {
+                elementMap.set(element, instance)
+            }
+        }
+
+        getOptionsById(element) {
+            if (elementMap.has(element)) {
+                return elementMap.get(element)
+            }
+
+            return null
+        }
+
+        removeOptionsById(element) {
+            if (!elementMap.has(element)) {
+                return
+            }
+
+            elementMap.delete(element)
+        }
+    };
+}
+
 const plugin = {
     id: 'customCanvasBackgroundColor',
     beforeDraw: (chart, args, options) => {
@@ -30,10 +61,6 @@ const chartOption = {
                 display: true,
                 text: null
             }
-        },
-        tooltips: {
-            mode: 'index',
-            intersect: false
         },
         hover: {
             mode: 'nearest',
@@ -428,8 +455,12 @@ const updateChart = function (config, option) {
 }
 
 export function init(id, invoke, method, option) {
-    const op = getChartOption(option);
+    let op = getChartOption(option);
     handlerClickData(invoke, op, option.options.onClickDataMethod);
+    const extensionOption = BootstrapBlazor.Chart.getOptionsById(id);
+    if (extensionOption) {
+        op = deepMerge(op, extensionOption);
+    }
     const el = document.getElementById(id);
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
     Data.set(id, chart)
@@ -452,16 +483,19 @@ export function init(id, invoke, method, option) {
 
 export function update(id, invoke, option, method, angle) {
     const chart = Data.get(id)
-    const op = getChartOption(option);
+    let op = getChartOption(option);
     handlerClickData(invoke, op, option.options.onClickDataMethod);
     op.angle = angle
     op.updateMethod = method
+    const extensionOption = BootstrapBlazor.Chart.getOptionsById(id);
+    if (extensionOption) {
+        op = deepMerge(op, extensionOption);
+    }
     updateChart(chart.config, op)
     chart.update()
 }
 
 const handlerClickData = (invoke, op, method) => {
-    console.log(op, method);
     if (method) {
         op.options.onClick = (event, elements, chart) => {
             if (elements.length > 0) {
@@ -509,6 +543,7 @@ export function toImage(id, mimeType) {
 export function dispose(id) {
     const chart = Data.get(id)
     Data.remove(id)
+    BootstrapBlazor.Chart.removeOptionsById(id);
 
     if (chart) {
         EventHandler.off(window, 'resize', chart.resizeHandler)

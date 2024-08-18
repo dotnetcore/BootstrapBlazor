@@ -562,7 +562,12 @@
     "LineChartJSTitle": "Generate Chart through JS",
     "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS.",
     "AppendDataTitle": "Append Data",
-    "AppendDataIntro": "Since <code>ChartDataSource</code> does not fully encapsulate all parameters in <code>Chart.JS</code>, when we need to set some unprovided parameters, we can use <code>AppendData</code> to complete it."
+    "AppendDataIntro": "Since <code>ChartDataSource</code> does not fully encapsulate all parameters in <code>Chart.JS</code>, when we need to set some unprovided parameters, we can use <code>AppendData</code> to complete it.",
+    "CustomTooltipTitle": "Tooltip",
+    "CustomTooltipIntro": "Customizing <code>Tooltip</code> requires using client script settings",
+    "CustomTooltipLi1": "<code>Chart</code> component settings <b>Id</b> parameter",
+    "CustomTooltipLi2": "Create a client-side <code>JavaScript</code> script. This example uses the isolated script method to export the method name <code>customTooltip</code>. The parameters are <b>component Id</b> <b>callback reference instance</b> <b>callback method name (TooltipLog)</b>",
+    "CustomTooltipLi3": "In this example, the base class method <code>InvokeInitAsync</code> is overloaded to call the client script through the <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId, Interop, nameof(TooltipLog))</code> statement"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar graph",

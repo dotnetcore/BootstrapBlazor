@@ -562,7 +562,12 @@
     "LineChartJSTitle": "通过JS生成Chart",
     "LineChartJSIntro": "由于 <code>BootstrapBlazor.Chart</code> 底层引用了 <code>Chart.JS</code> 所以我们可以通过JS方式来调用并生成图表。",
     "AppendDataTitle": "数据参数扩展",
-    "AppendDataIntro": "由于 <code>ChartDataSource</code> 没有完全封装 <code>Chart.JS</code> 中所有参数，当我们需要设置一些未提供的参数时，可以通过 <code>AppendData</code> 来完成"
+    "AppendDataIntro": "由于 <code>ChartDataSource</code> 没有完全封装 <code>Chart.JS</code> 中所有参数，当我们需要设置一些未提供的参数时，可以通过 <code>AppendData</code> 来完成",
+    "CustomTooltipTitle": "自定义 Tooltip",
+    "CustomTooltipIntro": "自定义 <code>Tooltip</code> 需要使用客户端脚本设置",
+    "CustomTooltipLi1": "<code>Chart</code> 组件设置 <b>Id</b> 参数",
+    "CustomTooltipLi2": "创建客户端 <code>JavaScript</code> 脚本，本例使用隔离脚本方式导出方法名为 <code>customTooltip</code>，参数依次为 <b>组件 Id</b> <b>回调引用实例</b> <b>回调方法名称(TooltipLog)</b>",
+    "CustomTooltipLi3": "本例中重载基类方法 <code>InvokeInitAsync</code> 通过 <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId, Interop, nameof(TooltipLog))</code> 语句调用客户端脚本"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar 图",
