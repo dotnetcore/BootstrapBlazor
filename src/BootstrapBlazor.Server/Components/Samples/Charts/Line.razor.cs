@@ -40,6 +40,8 @@ public partial class Line : IDisposable
         ChartPointStyle.Triangle,
     ];
 
+    private string CustomTooltipId => $"custom_tooltip_{Id}";
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

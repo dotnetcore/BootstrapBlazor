@@ -68,3 +68,9 @@
            Name="AppendData">
     <Chart OnInitAsync="GetData" />
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomTooltipTitle"]"
+           Introduction="@Localizer["CustomTooltipIntro"]"
+           Name="CustomTooltip">
+    <Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@Id" />
+</DemoBlock>
