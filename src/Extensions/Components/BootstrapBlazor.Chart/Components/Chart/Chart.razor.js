@@ -31,10 +31,6 @@ const chartOption = {
                 text: null
             }
         },
-        tooltips: {
-            mode: 'index',
-            intersect: false
-        },
         hover: {
             mode: 'nearest',
             intersect: true
