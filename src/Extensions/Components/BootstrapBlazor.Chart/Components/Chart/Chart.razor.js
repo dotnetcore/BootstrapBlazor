@@ -1,4 +1,4 @@
-﻿import '../../js/chart.js'
+﻿import '../../js/chart.umd.js'
 import '../../js/chartjs-plugin-datalabels.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
