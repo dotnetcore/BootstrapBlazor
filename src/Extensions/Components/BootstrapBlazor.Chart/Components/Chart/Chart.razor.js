@@ -457,7 +457,6 @@ export function update(id, invoke, option, method, angle) {
 }
 
 const handlerClickData = (invoke, op, method) => {
-    console.log(op, method);
     if (method) {
         op.options.onClick = (event, elements, chart) => {
             if (elements.length > 0) {
