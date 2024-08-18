@@ -67,7 +67,7 @@ export function dispose(id) {
     Data.remove(id)
 }
 
-export function customTooltip(id) {
+export function customTooltip(id, invoke, method) {
     const chart = BootstrapBlazor.Chart;
     chart.setOptionsById(id, {
         options: {
@@ -84,6 +84,7 @@ export function customTooltip(id) {
                             tooltipItems.forEach(function (tooltipItem) {
                                 sum += tooltipItem.parsed.y;
                             });
+                            invoke.invokeMethodAsync(method, sum);
                             return 'Sum: ' + sum;
                         }
                     }

@@ -72,5 +72,6 @@
 <DemoBlock Title="@Localizer["CustomTooltipTitle"]"
            Introduction="@Localizer["CustomTooltipIntro"]"
            Name="CustomTooltip">
-    <Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@Id" />
+    <Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@CustomTooltipId" />
+    <ConsoleLogger @ref="_loggerTooltip" />
 </DemoBlock>

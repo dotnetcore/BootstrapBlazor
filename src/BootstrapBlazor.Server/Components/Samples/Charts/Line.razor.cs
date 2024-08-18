@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Server.Components.Samples.Charts;
 
 /// <summary>
 /// Line 图表示例
 /// </summary>
-[JSModuleAutoLoader("Samples/Charts/Line.razor.js")]
+[JSModuleAutoLoader("Samples/Charts/Line.razor.js", JSObjectReference = true)]
 public partial class Line : IDisposable
 {
     private readonly Random _randomer = new();
@@ -21,6 +23,8 @@ public partial class Line : IDisposable
     private Chart _continueChart = default!;
 
     private ConsoleLogger _logger = default!;
+
+    private ConsoleLogger _loggerTooltip = default!;
 
     private readonly CancellationTokenSource _cancellationTokenSource = new();
 
@@ -88,6 +92,7 @@ public partial class Line : IDisposable
     {
         var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85)).ToArray();
         await InvokeVoidAsync("init", Id, chartData);
+        await InvokeVoidAsync("customTooltip", CustomTooltipId, Interop, nameof(TooltipLog));
     }
 
     private async Task<ChartDataSource> OnInit(float tension, bool hasNull)
@@ -324,6 +329,17 @@ public partial class Line : IDisposable
             steps.Add(new { Stepped = true });
         }
         return new { Data = steps };
+    }
+
+    /// <summary>
+    /// 自定义 Tooltip 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TooltipLog(long sum)
+    {
+        _loggerTooltip.Log($"Tooltip sum callback: {sum}");
+        return Task.CompletedTask;
     }
 
     /// <summary>
