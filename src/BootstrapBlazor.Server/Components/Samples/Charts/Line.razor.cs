@@ -22,7 +22,7 @@ public partial class Line : IDisposable
 
     private ConsoleLogger _logger = default!;
 
-    private CancellationTokenSource _cancellationTokenSource = new();
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     private readonly List<int> _continueData = [1, 4, 5, 3, 4, 2, 6, 4, 9, 3, 1, 4, 5, 3, 4, 2, 6, 4, 9, 3];
 
@@ -291,7 +291,7 @@ public partial class Line : IDisposable
         }
     }
 
-    private Task<ChartDataSource> GetData()
+    private static Task<ChartDataSource> GetData()
     {
         var BarDataCount = 6;
         var BarDatasetCount = 3;
