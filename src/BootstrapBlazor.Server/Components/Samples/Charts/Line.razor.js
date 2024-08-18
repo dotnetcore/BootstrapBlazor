@@ -66,3 +66,29 @@ export function randomize(id, chartData) {
 export function dispose(id) {
     Data.remove(id)
 }
+
+export function customTooltip(id) {
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        footer: (tooltipItems) => {
+                            let sum = 0;
+
+                            tooltipItems.forEach(function (tooltipItem) {
+                                sum += tooltipItem.parsed.y;
+                            });
+                            return 'Sum: ' + sum;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
