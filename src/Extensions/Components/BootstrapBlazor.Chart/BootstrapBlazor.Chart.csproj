@@ -12,6 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\chart.umd.js" />
+    <None Include="wwwroot\js\chart.umd.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
   </ItemGroup>
 
