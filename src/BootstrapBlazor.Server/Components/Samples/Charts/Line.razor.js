@@ -68,6 +68,7 @@ export function dispose(id) {
 }
 
 export function customTooltip(id, invoke, method) {
+    // chart.js documentation: https://www.chartjs.org/docs/master/samples/tooltip/content.html
     const chart = BootstrapBlazor.Chart;
     chart.setOptionsById(id, {
         options: {

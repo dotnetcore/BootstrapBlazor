@@ -81,6 +81,7 @@
             <li>
                 <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
                 <Pre class="mb-3">export function customTooltip(id, invoke, method) {
+    // chart.js documentation: https://www.chartjs.org/docs/master/samples/tooltip/content.html
     const chart = BootstrapBlazor.Chart;
     chart.setOptionsById(id, {
         options: {
