@@ -109,6 +109,12 @@ public partial class ButtonUpload<TValue>
     [Parameter]
     public Size Size { get; set; }
 
+    /// <summary>
+    /// 获得/设置 子组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
