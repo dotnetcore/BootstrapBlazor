@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Icons;
 /// FAIconList 组件
 /// </summary>
 [JSModuleAutoLoader("Samples/Icons/FAIconList.razor.js", JSObjectReference = true)]
-public partial class FAIconList : IAsyncDisposable
+public partial class FAIconList
 {
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClass("is-catalog", ShowCatalog)
