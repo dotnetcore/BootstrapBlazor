@@ -97,6 +97,13 @@ public partial class ButtonUpload<TValue>
     public string? BrowserButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 浏览按钮颜色
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Color BrowserButtonColor { get; set; } = Color.Primary;
+
+    /// <summary>
     /// 获得/设置 Size 大小
     /// </summary>
     [Parameter]
