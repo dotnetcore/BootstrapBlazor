@@ -52,7 +52,7 @@ public partial class ColorPickerV2
 
     private async Task<string> GetFormatColorAsync()
     {
-        var result = await InvokeAsync<double[]>("getColorPickerResult", _selfId);
+        var result = await InvokeAsync<double[]>("getColorPickerResult", _selfId) ?? [0, 0, 0, 1];
         _resultColor =
             $"hsla({result![0]}, {DoubleToPercentage(result[1])}, {DoubleToPercentage(result[2])}, {result[3]:F2})";
         var formatResult = GetFormatColorString(result);

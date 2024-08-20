@@ -18,7 +18,7 @@ public partial class ColorPickers
 
     private string Value { get; set; } = "#FFFFFF";
 
-    private string ValueV2 { get; set; } = "rgba(255, 0, 0, 1.00)";
+    private string ValueV2 { get; set; } = "hsl(90, 80%, 50%)";
 
     private Task OnColorChangedV2(string color)
     {

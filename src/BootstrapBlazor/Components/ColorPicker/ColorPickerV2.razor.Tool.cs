@@ -113,7 +113,7 @@ public partial class ColorPickerV2
         double y = 1 - source.b;
         double k = Math.Min(c, Math.Min(m, y));
         if (Math.Abs(k - 1) < 0.0000000001)
-            return "(0%, 0%, 0%, 100%)";
+            return "cmyk(0%, 0%, 0%, 100%)";
         double finalC = (c - k) / (1 - k);
         double finalM = (m - k) / (1 - k);
         double finalY = (y - k) / (1 - k);
@@ -150,7 +150,7 @@ public partial class ColorPickerV2
                 var s = source
                     .Replace("hsl(", "").Replace(")", "").Split(',')
                     .Select(r => r.Trim()).Select(r => r.Contains('%')
-                        ? double.Parse(r.Replace("%", "")) * 100
+                        ? double.Parse(r.Replace("%", "")) / 100
                         : double.Parse(r)).ToArray();
                 return (s[0], s[1], s[2], 1);
             }
@@ -159,9 +159,9 @@ public partial class ColorPickerV2
                 var s = source
                     .Replace("hsla(", "").Replace(")", "").Split(',')
                     .Select(r => r.Trim()).Select(r => r.Contains('%')
-                        ? double.Parse(r.Replace("%", "")) * 100
+                        ? double.Parse(r.Replace("%", "")) / 100
                         : double.Parse(r)).ToArray();
-                return (s[0], s[1], s[2], s[3]);
+                return (s[0], s[1] / 100, s[2] / 100, s[3]);
             }
             (double r, double g, double b, double a) rgb;
             if (source.StartsWith("#"))
@@ -173,7 +173,7 @@ public partial class ColorPickerV2
                 var s = source
                     .Replace("rgb(", "").Replace(")", "").Split(',')
                     .Select(r => r.Trim()).Select(r => r.Contains('%')
-                        ? double.Parse(r.Replace("%", "")) *100
+                        ? double.Parse(r.Replace("%", "")) / 100
                         : double.Parse(r) / 255).ToArray();
                 rgb = (s[0], s[1], s[2], 1);
             }
@@ -182,7 +182,7 @@ public partial class ColorPickerV2
                 var s = source
                     .Replace("rgba(", "").Replace(")", "").Split(',')
                     .Select(r => r.Trim()).Select(r => r.Contains('%')
-                        ? double.Parse(r.Replace("%", "")) * 100
+                        ? double.Parse(r.Replace("%", "")) / 100
                         : double.Parse(r) / 255).ToArray();
                 rgb = (s[0], s[1], s[2], s[3] * 255);
             }
@@ -191,7 +191,7 @@ public partial class ColorPickerV2
                 var s = source
                     .Replace("cmyk(", "").Replace(")", "").Split(',')
                     .Select(r => r.Trim()).Select(r => r.Contains('%')
-                        ? double.Parse(r.Replace("%", "")) * 100
+                        ? double.Parse(r.Replace("%", "")) / 100
                         : double.Parse(r)).ToArray();
 
                 rgb = GetRgbFromCmyk(s[0], s[1], s[2], s[3]);

@@ -5,10 +5,10 @@
 <div class="input-group color-picker" id="@_selfId">
 
     <Button class="color-picker-button" OnClick="OpenSettingViewChanged" Color="Color.None">
-        <div class="color-picker-preview" style="background-color: @_resultColor"></div>
+        <div class="color-picker-preview" style="background-color: @_resultColor;"></div>
     </Button>
 
-    <div class="color-picker-view shadow " style="display: @OpenSettingView">
+    <div class="color-picker-view shadow " style="display: @OpenSettingView;">
 
         <div class="color-palette" id="@_colorPaletteId">
             <div class="color-palette-round-block" id="@_colorPaletteRoundBlockId"></div>
@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <div class="alpha-slider" style="display: @OpenAlpha">
+        <div class="alpha-slider" style="display: @OpenAlpha;">
             <div class="alpha-slider-background" id="@_alphaSliderId">
                 <div class="alpha-slider-round-block" id="@_alphaSliderRoundBlockId"></div>
             </div>

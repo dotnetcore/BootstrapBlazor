@@ -309,8 +309,8 @@ function hslToRgb(
     const c = (1 - Math.abs(2 * hsl.l - 1)) * hsl.s;
     const x = c * (1 - Math.abs((hsl.h / 60) % 2 - 1));
     const m = hsl.l - c / 2;
-    let result;
-    if (hsl.h >= 0 && hsl.h < 60)
+    let result = {r: 0, g: 0, b: 0};
+    if (hsl.h === 360 || (hsl.h >= 0 && hsl.h < 60))
         result = {r: c, g: x, b: 0};
     if (hsl.h >= 60 && hsl.h < 120)
         result = {r: x, g: c, b: 0};
@@ -320,7 +320,7 @@ function hslToRgb(
         result = {r: 0, g: x, b: c};
     if (hsl.h >= 240 && hsl.h < 300)
         result = {r: x, g: 0, b: c};
-    if (hsl.h >= 300 && hsl.h <= 360)
+    if (hsl.h >= 300 && hsl.h < 360)
         result = {r: c, g: 0, b: x};
     return {r: (result.r + m), g: (result.g + m), b: (result.b + m)};
 }
