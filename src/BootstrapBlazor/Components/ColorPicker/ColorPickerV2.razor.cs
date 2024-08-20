@@ -5,57 +5,6 @@ namespace BootstrapBlazor.Components;
 
 public partial class ColorPickerV2
 {
-    #region Old
-
-    /// <summary>
-    /// 获得 class 样式集合
-    /// </summary>
-    protected string? ClassName => CssBuilder.Default("form-control")
-        .AddClass(CssClass).AddClass(ValidCss)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 显示模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<string>? Template { get; set; }
-
-    /// <summary>
-    /// 获得/设置 显示颜色值格式化回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task<string>>? Formatter { get; set; }
-
-    private string? _formattedValueString;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        await FormatValue();
-    }
-
-    private async Task Setter(string v)
-    {
-        CurrentValueAsString = v;
-        await FormatValue();
-    }
-
-    private async Task FormatValue()
-    {
-        if (Formatter != null)
-        {
-            // 此处未使用父类 FormatValueAsString 方法
-            // 使用者可能需要通过回调通过异步方式获得显示数据
-            _formattedValueString = await Formatter(CurrentValueAsString);
-        }
-    }
-
-    #endregion
-
     /// <summary>
     /// 是否需要设置透明度，默认是false，即透明度永远是100%，完全不透明
     /// </summary>
@@ -69,10 +18,16 @@ public partial class ColorPickerV2
     public ColorPickerV2FormatType FormatType { get; set; } = ColorPickerV2FormatType.Hex;
 
     /// <summary>
-    /// 当关闭弹出窗口时，将结果颜色值推送出去
+    /// 当关闭设置窗口时的事件回调，返回当前设置好的颜色值
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnFinishSettingTask { get; set; }
+    public Func<string, Task>? OnValueChangedWithCloseSettingsView { get; set; }
+
+    /// <summary>
+    /// 预设的颜色值
+    /// </summary>
+    [Parameter]
+    public string? Value { get; set; }
 
     private bool _openSettingView;
     private string OpenSettingView => _openSettingView ? "block" : "none";
@@ -89,16 +44,18 @@ public partial class ColorPickerV2
         _openSettingView = !_openSettingView;
         if (!_openSettingView)
         {
-            _resultColor = await GetFormatColorAsync();
-            if (OnFinishSettingTask != null)
-                await OnFinishSettingTask.Invoke(_resultColor);
+            Value = await GetFormatColorAsync();
+            if (OnValueChangedWithCloseSettingsView != null)
+                await OnValueChangedWithCloseSettingsView.Invoke(Value);
         }
     }
 
     private async Task<string> GetFormatColorAsync()
     {
         var result = await InvokeAsync<double[]>("getColorPickerResult", _selfId);
-        var formatResult = GetFormatColor(result);
+        _resultColor =
+            $"hsla({result![0]}, {DoubleToPercentage(result[1])}, {DoubleToPercentage(result[2])}, {result[3]:F2})";
+        var formatResult = GetFormatColorString(result);
         return formatResult;
     }
 
@@ -139,7 +96,13 @@ public partial class ColorPickerV2
                 _colorPaletteId, _colorPaletteRoundBlockId,
                 _colorSliderId, _colorSliderRoundBlockId,
                 _alphaSliderId, _alphaSliderRoundBlockId);
-            _resultColor = await GetFormatColorAsync();
+            //如果本身有值，直接走一遍set
+            if (Value != null)
+            {
+                var hsla = GetFormatColorValue(Value);
+                await InvokeVoidAsync("setColorPicker", _selfId, hsla.H, hsla.S, hsla.L, hsla.A);
+            }
+            Value = await GetFormatColorAsync();
         }
     }
 
@@ -155,5 +118,14 @@ public partial class ColorPickerV2
     }
 
 
+    private async Task UpdateColorFromInputAsync(string value)
+    {
+        var hsla = GetFormatColorValue(value);
+        await InvokeVoidAsync("setColorPicker", _selfId, hsla.H, hsla.S, hsla.L, hsla.A);
+        Value = await GetFormatColorAsync();
+        if (OnValueChangedWithCloseSettingsView != null)
+            await OnValueChangedWithCloseSettingsView.Invoke(Value);
+        await InvokeAsync(StateHasChanged);
+    }
 }
 

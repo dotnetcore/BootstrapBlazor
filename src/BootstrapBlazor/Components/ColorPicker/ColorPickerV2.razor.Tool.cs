@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.RegularExpressions;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -118,24 +120,144 @@ public partial class ColorPickerV2
         return $"cmyk({DoubleToPercentage(finalC)}, {DoubleToPercentage(finalM)}, {DoubleToPercentage(finalY)}, {DoubleToPercentage(k)})";
     }
 
-    private string GetFormatColor(double[] source)
+    private string GetFormatColorString(double[] source)
     {
         var hsl = (h: source[0], s: source[1], l: source[2]);
         var alpha = source[3];
         return FormatType switch
         {
             ColorPickerV2FormatType.Hex => NeedAlpha
-                ? RgbToHex(HslToRgb(hsl)).Insert(1, $"{(int)Math.Round(alpha * 255):X2}")
+                ? string.Concat(RgbToHex(HslToRgb(hsl)), $"{(int)Math.Round(alpha * 255):X2}")
                 : RgbToHex(HslToRgb(hsl)),
-            ColorPickerV2FormatType.GRB => NeedAlpha
-                ? FormatRgb(HslToRgb(hsl)).Replace("rgb", "rgba").Replace(")", $", {alpha:F4})")
+            ColorPickerV2FormatType.Rgb => NeedAlpha
+                ? FormatRgb(HslToRgb(hsl)).Replace("rgb", "rgba").Replace(")", $", {alpha:F2})")
                 : FormatRgb(HslToRgb(hsl)),
-            ColorPickerV2FormatType.HSL => NeedAlpha
+            ColorPickerV2FormatType.Hsl => NeedAlpha
                 ? $"hsla({hsl.h}, {DoubleToPercentage(hsl.s)}, {DoubleToPercentage(hsl.l)}, {alpha})"
                 : $"hsl({hsl.h}, {DoubleToPercentage(hsl.s)}, {DoubleToPercentage(hsl.l)})",
-            ColorPickerV2FormatType.CMYK => RgbToCmyk(HslToRgb(hsl)),
+            ColorPickerV2FormatType.Cmyk => RgbToCmyk(HslToRgb(hsl)),
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
+
+    private (double H, double S, double L, double A) GetFormatColorValue(string source)
+    {
+        try
+        {
+            source = source.ToLower();
+            if (source.StartsWith("hsl("))
+            {
+                var s = source
+                    .Replace("hsl(", "").Replace(")", "").Split(',')
+                    .Select(r => r.Trim()).Select(r => r.Contains('%')
+                        ? double.Parse(r.Replace("%", "")) * 100
+                        : double.Parse(r)).ToArray();
+                return (s[0], s[1], s[2], 1);
+            }
+            if (source.StartsWith("hsla("))
+            {
+                var s = source
+                    .Replace("hsla(", "").Replace(")", "").Split(',')
+                    .Select(r => r.Trim()).Select(r => r.Contains('%')
+                        ? double.Parse(r.Replace("%", "")) * 100
+                        : double.Parse(r)).ToArray();
+                return (s[0], s[1], s[2], s[3]);
+            }
+            (double r, double g, double b, double a) rgb;
+            if (source.StartsWith("#"))
+            {
+                rgb = HexToRgba(source);
+            }
+            else if (source.StartsWith("rgb("))
+            {
+                var s = source
+                    .Replace("rgb(", "").Replace(")", "").Split(',')
+                    .Select(r => r.Trim()).Select(r => r.Contains('%')
+                        ? double.Parse(r.Replace("%", "")) *100
+                        : double.Parse(r) / 255).ToArray();
+                rgb = (s[0], s[1], s[2], 1);
+            }
+            else if (source.StartsWith("rgba("))
+            {
+                var s = source
+                    .Replace("rgba(", "").Replace(")", "").Split(',')
+                    .Select(r => r.Trim()).Select(r => r.Contains('%')
+                        ? double.Parse(r.Replace("%", "")) * 100
+                        : double.Parse(r) / 255).ToArray();
+                rgb = (s[0], s[1], s[2], s[3] * 255);
+            }
+            else if (source.StartsWith("cmyk("))
+            {
+                var s = source
+                    .Replace("cmyk(", "").Replace(")", "").Split(',')
+                    .Select(r => r.Trim()).Select(r => r.Contains('%')
+                        ? double.Parse(r.Replace("%", "")) * 100
+                        : double.Parse(r)).ToArray();
+
+                rgb = GetRgbFromCmyk(s[0], s[1], s[2], s[3]);
+            }
+            else
+            {
+                rgb = (0, 0, 0, 1);
+            }
+            return GetHslaFromRgba(rgb);
+        }
+        catch (Exception e)
+        {
+            return (0, 0, 0, 1);
+        }
+    }
+
+    private (double r, double g, double b, double a) GetRgbFromCmyk(
+        double c, double m, double y, double k)
+    {
+        c = Math.Min(Math.Max(c, 0), 1);
+        m = Math.Min(Math.Max(m, 0), 1);
+        y = Math.Min(Math.Max(y, 0), 1);
+        k = Math.Min(Math.Max(k, 0), 1);
+        return ((1 - c) * (1 - k), (1 - m) * (1 - k), (1 - y) * (1 - k), 1);
+    }
+
+
+    private (double H, double S, double L, double A) GetHslaFromRgba(
+        (double r, double g, double b, double a) source)
+    {
+        var hsl = RgbToHsl(source.r, source.g, source.b);
+        return (hsl.h, hsl.s, hsl.l, source.a);
+    }
+
+    private (double r, double g, double b, double a) HexToRgba(string hexString)
+    {
+        try
+        {
+            if (!Regex.IsMatch(hexString, @"^#[0-9a-fA-F]{6}$|^#[0-9a-fA-F]{3}$|^#[0-9a-fA-F]{8}$"))
+                return (0, 0, 0, 1);
+            hexString = hexString[1..];
+            if (hexString.Length == 3)
+            {
+                hexString = hexString[0].ToString() + hexString[0] +
+                            hexString[1] + hexString[1] +
+                            hexString[2] + hexString[2];
+            }
+            return hexString.Length switch
+            {
+                8 => (
+                    Convert.ToInt32(hexString[..2], 16) / 255.0,
+                    Convert.ToInt32(hexString.Substring(2, 2), 16) / 255.0,
+                    Convert.ToInt32(hexString.Substring(4, 2), 16) / 255.0,
+                    Convert.ToInt32(hexString.Substring(6, 2), 16) / 255.0),
+                6 => (
+                    Convert.ToInt32(hexString[..2], 16) / 255.0,
+                    Convert.ToInt32(hexString.Substring(2, 2), 16) / 255.0,
+                    Convert.ToInt32(hexString.Substring(4, 2), 16) / 255.0,
+                    1.0),
+                _ => throw new ArgumentException("Invalid hex string length.")
+            };
+        }
+        catch (Exception e)
+        {
+            return (0, 0, 0, 1);
+        }
     }
 }
 
@@ -144,8 +266,20 @@ public partial class ColorPickerV2
 /// </summary>
 public enum ColorPickerV2FormatType
 {
+    /// <summary>
+    /// hex from rgb(0-1)->(0-255)
+    /// </summary>
     Hex,
-    GRB,
-    HSL,
-    CMYK,
+    /// <summary>
+    /// https://en.wikipedia.org/wiki/RGB_color_model
+    /// </summary>
+    Rgb,
+    /// <summary>
+    /// https://en.wikipedia.org/wiki/HSL_and_HSV
+    /// </summary>
+    Hsl,
+    /// <summary>
+    /// https://en.wikipedia.org/wiki/CMYK_color_model
+    /// </summary>
+    Cmyk,
 }

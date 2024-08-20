@@ -20,7 +20,8 @@ export function init(id) {
  * colorPaletteYPercentage: number,
  * alphaSliderRoundBlockLock: boolean,
  * alphaSliderPercentage: number,
- * result: {h: number, s: number, l: number, a: number}}>}
+ * result: {h: number, s: number, l: number, a: number},
+ * refresh: function}>}
  */
 const globalColorPickerV2CacheMap = new Map();
 
@@ -58,85 +59,89 @@ export function initColorPicker(
     const colorSliderRoundBlock = document.getElementById(colorSliderRoundBlockId);
     const alphaSlider = document.getElementById(alphaSliderId);
     const alphaSliderRoundBlock = document.getElementById(alphaSliderRoundBlockId);
-    //定义对应的cache值
-    const colorPickerV2Cache = {
-        colorSliderRoundBlockLock: false, //色相滑块的圆形块是否锁定
-        colorSliderPercentage: 0, //色相滑块的当前横轴位置比例值，0-1
-        colorPaletteRoundBlockLock: false, //饱和度/明度区域的圆形块是否锁定
-        colorPaletteXPercentage: 0.5, //饱和度/明度区域的当前横轴位置比例值，0-1
-        colorPaletteYPercentage: 0.5,//饱和度/明度区域的当前纵轴位置比例值，0-1
-        alphaSliderRoundBlockLock: false, //透明通道滑块的圆形块是否锁定
-        alphaSliderPercentage: 1, //透明通道滑块的当前横轴位置比例值，0-1
-        result: {h: 0, s: 0, l: 0, a: 0}, //当前最新的结果颜色
-        refresh() {
-            //求出色相
-            this.colorSliderPercentage = clamp(this.colorSliderPercentage, 0, 1);
-            const hue = this.colorSliderPercentage * 360;
-            //求出混合后的结果色
-            this.colorPaletteXPercentage = clamp(this.colorPaletteXPercentage, 0, 1);
-            const xColor = {h: hue, s: this.colorPaletteXPercentage, l: (1 - this.colorPaletteXPercentage) / 2 + 0.5};
-            this.colorPaletteYPercentage = clamp(this.colorPaletteYPercentage, 0, 1);
-            const yColor = {h: hue, s: 0, l: 1 - this.colorPaletteYPercentage};
-            const blendColor = grbMultiplicativeBlending(hslToRgb(xColor), hslToRgb(yColor));
-            //对结果色应用透明通道
-            const resultColor = rgbToHsl(blendColor);
-            this.alphaSliderPercentage = clamp(this.alphaSliderPercentage, 0, 1);
-            this.result = {h: resultColor.h, s: resultColor.s, l: resultColor.l, a: this.alphaSliderPercentage};
-            //对对应的元素样式进行修改
-            colorSliderRoundBlock.style.cssText = `
+    let colorPickerV2Cache = globalColorPickerV2CacheMap.get(colorPickerV2Id);
+    if (!colorPickerV2Cache) {
+        colorPickerV2Cache = {
+                colorSliderRoundBlockLock: false, //色相滑块的圆形块是否锁定
+                colorSliderPercentage: 0, //色相滑块的当前横轴位置比例值，0-1
+                colorPaletteRoundBlockLock: false, //饱和度/明度区域的圆形块是否锁定
+                colorPaletteXPercentage: 0.5, //饱和度/明度区域的当前横轴位置比例值，0-1
+                colorPaletteYPercentage: 0.5,//饱和度/明度区域的当前纵轴位置比例值，0-1
+                alphaSliderRoundBlockLock: false, //透明通道滑块的圆形块是否锁定
+                alphaSliderPercentage: 1, //透明通道滑块的当前横轴位置比例值，0-1
+                result: {h: 0, s: 0, l: 0, a: 1}, //当前最新的结果颜色
+                refresh() {
+                    //求出色相
+                    this.colorSliderPercentage = clamp(this.colorSliderPercentage, 0, 1);
+                    const hue = this.colorSliderPercentage * 360;
+                    //求出混合后的结果色
+                    this.colorPaletteXPercentage = clamp(this.colorPaletteXPercentage, 0, 1);
+                    const xColor = {h: hue, s: this.colorPaletteXPercentage, l: (1 - this.colorPaletteXPercentage) / 2 + 0.5};
+                    this.colorPaletteYPercentage = clamp(this.colorPaletteYPercentage, 0, 1);
+                    const yColor = {h: hue, s: 0, l: 1 - this.colorPaletteYPercentage};
+                    const blendColor = grbMultiplicativeBlending(hslToRgb(xColor), hslToRgb(yColor));
+                    //对结果色应用透明通道
+                    const resultColor = rgbToHsl(blendColor);
+                    this.alphaSliderPercentage = clamp(this.alphaSliderPercentage, 0, 1);
+                    this.result = {h: resultColor.h, s: resultColor.s, l: resultColor.l, a: this.alphaSliderPercentage};
+                    //对对应的元素样式进行修改
+                    colorSliderRoundBlock.style.cssText = `
                 left: ${doubleToPercentage(this.colorSliderPercentage)};
                 background-color: hsl(${hue}, 100%, 50%);`;
-            colorPalette.style.cssText = `
+                    colorPalette.style.cssText = `
                 background-image:
                      linear-gradient(to bottom, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%)),
                      linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 100%, 50%));`;
-            colorPaletteRoundBlock.style.cssText = `
+                    colorPaletteRoundBlock.style.cssText = `
                 left: ${doubleToPercentage(this.colorPaletteXPercentage)};
                 top: ${doubleToPercentage(this.colorPaletteYPercentage)};
                 background-color: hsl(${resultColor.h}, ${resultColor.s}, ${resultColor.l});`;
-            alphaSlider.style.cssText = `
+                    alphaSlider.style.cssText = `
                 background-image:
                      linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%));`;
-            alphaSliderRoundBlock.style.cssText = `
+                    alphaSliderRoundBlock.style.cssText = `
                 left: ${doubleToPercentage(this.alphaSliderPercentage)};
                 background-color: hsl(${hue}, 100%, 50%);`;
-        }
-    };
-    //缓存cache
-    globalColorPickerV2CacheMap.set(colorPickerV2Id, colorPickerV2Cache);
-    //设置colorPalette事件
-    colorPalette.addEventListener('click', (e) =>
-        refreshColorPalettePercentageData(e));
-    colorPalette.addEventListener('mousemove', (e) =>
-        {if (colorPickerV2Cache.colorPaletteRoundBlockLock) {refreshColorPalettePercentageData(e)}});
-    colorPalette.addEventListener('mousedown', (_) =>
-        colorPickerV2Cache.colorPaletteRoundBlockLock = true);
-    colorPalette.addEventListener('mouseup', (_) =>
-        colorPickerV2Cache.colorPaletteRoundBlockLock = false);
-    colorPalette.addEventListener('mouseout', (_) =>
-        colorPickerV2Cache.colorPaletteRoundBlockLock = false);
-    //设置colorSlider事件
-    colorSlider.addEventListener('click', (e) =>
-        refreshColorSliderPercentageData(e));
-    colorSlider.addEventListener('mousemove', (e) =>
-    {if (colorPickerV2Cache.colorSliderRoundBlockLock) { refreshColorSliderPercentageData(e)}});
-    colorSlider.addEventListener('mousedown', (_) =>
-        colorPickerV2Cache.colorSliderRoundBlockLock = true);
-    colorSlider.addEventListener('mouseup', (_) =>
-        colorPickerV2Cache.colorSliderRoundBlockLock = false);
-    colorSlider.addEventListener('mouseout', (_) =>
-        colorPickerV2Cache.colorSliderRoundBlockLock = false);
-    //设置alphaSlider事件
-    alphaSlider.addEventListener('click', (e) =>
-        refreshAlphaSliderPercentageData(e));
-    alphaSlider.addEventListener('mousemove', (e) =>
-    {if (colorPickerV2Cache.alphaSliderRoundBlockLock) { refreshAlphaSliderPercentageData(e)}});
-    alphaSlider.addEventListener('mousedown', (_) =>
-        colorPickerV2Cache.alphaSliderRoundBlockLock = true);
-    alphaSlider.addEventListener('mouseup', (_) =>
-        colorPickerV2Cache.alphaSliderRoundBlockLock = false);
-    alphaSlider.addEventListener('mouseout', (_) =>
-        colorPickerV2Cache.alphaSliderRoundBlockLock = false);
+                }
+            };
+        //缓存cache
+        globalColorPickerV2CacheMap.set(colorPickerV2Id, colorPickerV2Cache);
+
+        //防止同一个dom元素意外产生多次事件挂载，不用addEventListener
+        //设置colorPalette事件
+        colorPalette.onclick = (e) =>
+            refreshColorPalettePercentageData(e);
+        colorPalette.onmousemove = (e) =>
+        {if (colorPickerV2Cache.colorPaletteRoundBlockLock) {refreshColorPalettePercentageData(e)}};
+        colorPalette.onmousedown = (_) =>
+        {colorPickerV2Cache.colorPaletteRoundBlockLock = true;};
+        colorPalette.onmouseup = (_) =>
+        {colorPickerV2Cache.colorPaletteRoundBlockLock = false;};
+        colorPalette.onmouseout = (_) =>
+        {colorPickerV2Cache.colorPaletteRoundBlockLock = false};
+        //设置colorSlider事件
+        colorSlider.onclick = (e) =>
+        {refreshColorSliderPercentageData(e)};
+        colorSlider.onmousemove = (e) =>
+        {if (colorPickerV2Cache.colorSliderRoundBlockLock) { refreshColorSliderPercentageData(e)}};
+        colorSlider.onmousedown = (_) =>
+        {colorPickerV2Cache.colorSliderRoundBlockLock = true};
+        colorSlider.onmouseup = (_) =>
+        {colorPickerV2Cache.colorSliderRoundBlockLock = false};
+        colorSlider.onmouseout = (_) =>
+        {colorPickerV2Cache.colorSliderRoundBlockLock = false};
+        //设置alphaSlider事件
+        alphaSlider.onclick = (e) =>
+        {refreshAlphaSliderPercentageData(e)};
+        alphaSlider.onmousemove = (e) =>
+        {if (colorPickerV2Cache.alphaSliderRoundBlockLock) { refreshAlphaSliderPercentageData(e)}};
+        alphaSlider.onmousedown = (_) =>
+        {colorPickerV2Cache.alphaSliderRoundBlockLock = true};
+        alphaSlider.onmouseup = (_) =>
+        {colorPickerV2Cache.alphaSliderRoundBlockLock = false};
+        alphaSlider.onmouseout = (_) =>
+        {colorPickerV2Cache.alphaSliderRoundBlockLock = false};
+    }
     //根据预设的四个Percentage先初始化一次
     colorPickerV2Cache.refresh();
 
@@ -193,6 +198,32 @@ export function getColorPickerResult(
 }
 
 /**
+ * 设置当前id对应的颜色选择器结果颜色值
+ * @param {string} colorPickerV2Id
+ * @param {number} h
+ * @param {number} s
+ * @param {number} l
+ * @param {number} a
+ */
+export function setColorPicker(
+    colorPickerV2Id,
+    h, s, l ,a) {
+    const cache = globalColorPickerV2CacheMap.get(colorPickerV2Id);
+    if (cache.result.h === h && cache.result.s === s && cache.result.l === l && cache.result.a === a)
+        return;
+    //确定透明度圆形块位置
+    cache.alphaSliderPercentage = a;
+    //确定色相圆形块位置
+    cache.colorSliderPercentage = h / 360;
+    //确定Y分量的hsl值
+    const rgb = hslToRgb({h: h, s: s, l: l});
+    const xy = findXYForTargetRGB(rgb, h, 0.01);
+    cache.colorPaletteXPercentage = xy.x;
+    cache.colorPaletteYPercentage = xy.y;
+    cache.refresh();
+}
+
+/**
  *
  * @param {number} value
  * @param {number} min
@@ -229,6 +260,41 @@ function getMousePointLocationInElement(element, event) {
     const xPercentage = (event.clientX - rect.left) / element.clientWidth;
     const yPercentage = (event.clientY - rect.top) / element.clientHeight;
     return {x:xPercentage, y:yPercentage};
+}
+
+/**
+ * 给定一个目标rgb值和色相，匹配一组x和y
+ * @param {{r: number, g: number, b: number}} targetRGB
+ * @param {number} hue
+ * @param {number} step
+ * @returns {{x: number, y: number}}
+ */
+function findXYForTargetRGB(targetRGB, hue, step = 0.01) {
+    let bestMatch;
+    let minError = Infinity;
+
+    for (let x = 0; x <= 1; x += step) {
+        for (let y = 0; y <= 1; y += step) {
+            const xColor = { h: hue, s: x, l: (1 - x) / 2 + 0.5 };
+            const yColor = { h: hue, s: 0, l: 1 - y };
+
+            const blendColor = grbMultiplicativeBlending(hslToRgb(xColor), hslToRgb(yColor));
+
+            const error = Math.sqrt(
+                Math.pow(blendColor.r - targetRGB.r, 2) +
+                Math.pow(blendColor.g - targetRGB.g, 2) +
+                Math.pow(blendColor.b - targetRGB.b, 2)
+            );
+            if (error < minError) {
+                minError = error;
+                bestMatch = { x: x, y: y };
+            }
+            if (error < 0.001) {
+                return bestMatch;
+            }
+        }
+    }
+    return bestMatch;
 }
 
 /**

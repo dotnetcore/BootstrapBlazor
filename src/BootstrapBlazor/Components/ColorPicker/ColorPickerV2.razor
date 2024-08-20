@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ValidateBase<string>
+@inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("ColorPicker/ColorPickerV2.razor.js")]
 
 <div class="input-group color-picker" id="@_selfId">
@@ -26,6 +26,5 @@
             </div>
         </div>
     </div>
-    @*自己项目用，所以有透明度需求，同时又对直接输入颜色字符串让滑块组件联动没需求，所以这边选了readonly*@
-    <input type="text" readonly class="@ClassName" value="@_resultColor" />
+    <BootstrapInput TValue="string" Value="@Value" OnValueChanged="@UpdateColorFromInputAsync" />
 </div>
