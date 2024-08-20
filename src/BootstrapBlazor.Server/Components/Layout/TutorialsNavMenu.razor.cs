@@ -102,7 +102,7 @@ public partial class TutorialsNavMenu
             },
             new()
             {
-                Text = Localizer["ProAdminUrl"],
+                Text = Localizer["AdminSummary"],
                 Url = "tutorials/admin",
             }
         ]);

@@ -21,7 +21,7 @@
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
     "DrawingSummary": "Drawing",
-    "ProAdminUrl": "Admin Pro"
+    "AdminSummary": "Admin"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
