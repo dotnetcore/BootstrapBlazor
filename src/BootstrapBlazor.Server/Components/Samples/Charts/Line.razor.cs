@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Server.Components.Samples.Charts;
 
 /// <summary>
 /// Line 图表示例
 /// </summary>
-[JSModuleAutoLoader("Samples/Charts/Line.razor.js")]
+[JSModuleAutoLoader("Samples/Charts/Line.razor.js", JSObjectReference = true)]
 public partial class Line : IDisposable
 {
     private readonly Random _randomer = new();
@@ -22,7 +24,9 @@ public partial class Line : IDisposable
 
     private ConsoleLogger _logger = default!;
 
-    private CancellationTokenSource _cancellationTokenSource = new();
+    private ConsoleLogger _loggerTooltip = default!;
+
+    private readonly CancellationTokenSource _cancellationTokenSource = new();
 
     private readonly List<int> _continueData = [1, 4, 5, 3, 4, 2, 6, 4, 9, 3, 1, 4, 5, 3, 4, 2, 6, 4, 9, 3];
 
@@ -39,6 +43,18 @@ public partial class Line : IDisposable
         ChartPointStyle.Star,
         ChartPointStyle.Triangle,
     ];
+
+    private string CustomTooltipId => $"custom_tooltip_{Id}";
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -69,16 +85,6 @@ public partial class Line : IDisposable
     }
 
     /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        _code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
-    }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
@@ -86,6 +92,7 @@ public partial class Line : IDisposable
     {
         var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85)).ToArray();
         await InvokeVoidAsync("init", Id, chartData);
+        await InvokeVoidAsync("customTooltip", CustomTooltipId, Interop, nameof(TooltipLog));
     }
 
     private async Task<ChartDataSource> OnInit(float tension, bool hasNull)
@@ -291,7 +298,7 @@ public partial class Line : IDisposable
         }
     }
 
-    private Task<ChartDataSource> GetData()
+    private static Task<ChartDataSource> GetData()
     {
         var BarDataCount = 6;
         var BarDatasetCount = 3;
@@ -322,6 +329,17 @@ public partial class Line : IDisposable
             steps.Add(new { Stepped = true });
         }
         return new { Data = steps };
+    }
+
+    /// <summary>
+    /// 自定义 Tooltip 回调方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TooltipLog(long sum)
+    {
+        _loggerTooltip.Log($"Tooltip sum callback: {sum}");
+        return Task.CompletedTask;
     }
 
     /// <summary>

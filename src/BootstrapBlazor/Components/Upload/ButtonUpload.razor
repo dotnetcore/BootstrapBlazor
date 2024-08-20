@@ -7,7 +7,9 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Size="Size" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Size="Size" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" Color="@BrowserButtonColor">
+        @ChildContent
+    </Button>
     @if (ShowUploadFileList)
     {
         <div class="upload-body is-list">
