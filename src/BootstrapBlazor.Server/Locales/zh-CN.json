@@ -2463,7 +2463,10 @@
     "DisabledIntro": "通过设置 <code>IsDisabled</code> 属性禁用此组件",
     "ValidateFormTitle": "验证表单中使用",
     "ValidateFormIntro": "内置于 <code>ValidateForm</code> 中使用",
-    "Event1": "颜色改变回调委托方法"
+    "Event1": "颜色改变回调委托方法",
+
+    "V2NormalTitle": "ColorPicker的V2版本基础用法",
+    "V2NormalIntro": "V2不支持对浏览器页面窗口取色，支持rgb、hsl、hex、cmyk格式输入和输出，支持对透明通道的设置和显示（cmyk格式本身不支持透明通道）"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker 日期选择器",

@@ -18,10 +18,10 @@ public partial class ColorPickerV2
     public ColorPickerV2FormatType FormatType { get; set; } = ColorPickerV2FormatType.Hex;
 
     /// <summary>
-    /// 当关闭设置窗口时的事件回调，返回当前设置好的颜色值
+    /// 颜色修改后的事件回调，触发时机为实际输入框内手动输入并回车或者点击关闭弹出的设置窗口
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnValueChangedWithCloseSettingsView { get; set; }
+    public Func<string, Task>? OnValueChanged { get; set; }
 
     /// <summary>
     /// 预设的颜色值
@@ -45,8 +45,8 @@ public partial class ColorPickerV2
         if (!_openSettingView)
         {
             Value = await GetFormatColorAsync();
-            if (OnValueChangedWithCloseSettingsView != null)
-                await OnValueChangedWithCloseSettingsView.Invoke(Value);
+            if (OnValueChanged != null)
+                await OnValueChanged.Invoke(Value);
         }
     }
 
@@ -103,6 +103,7 @@ public partial class ColorPickerV2
                 await InvokeVoidAsync("setColorPicker", _selfId, hsla.H, hsla.S, hsla.L, hsla.A);
             }
             Value = await GetFormatColorAsync();
+            await InvokeAsync(StateHasChanged);
         }
     }
 
@@ -123,8 +124,8 @@ public partial class ColorPickerV2
         var hsla = GetFormatColorValue(value);
         await InvokeVoidAsync("setColorPicker", _selfId, hsla.H, hsla.S, hsla.L, hsla.A);
         Value = await GetFormatColorAsync();
-        if (OnValueChangedWithCloseSettingsView != null)
-            await OnValueChangedWithCloseSettingsView.Invoke(Value);
+        if (OnValueChanged != null)
+            await OnValueChanged.Invoke(Value);
         await InvokeAsync(StateHasChanged);
     }
 }

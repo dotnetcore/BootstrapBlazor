@@ -46,4 +46,9 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["V2NormalTitle"]" Introduction="@Localizer["V2NormalIntro"]" Name="Normal">
+    <ColorPickerV2 Value="@ValueV2" OnValueChanged="@OnColorChangedV2" FormatType="ColorPickerV2FormatType.Rgb" NeedAlpha="true"/>
+    <ConsoleLogger @ref="NormalLogger" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

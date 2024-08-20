@@ -62,46 +62,46 @@ export function initColorPicker(
     let colorPickerV2Cache = globalColorPickerV2CacheMap.get(colorPickerV2Id);
     if (!colorPickerV2Cache) {
         colorPickerV2Cache = {
-                colorSliderRoundBlockLock: false, //色相滑块的圆形块是否锁定
-                colorSliderPercentage: 0, //色相滑块的当前横轴位置比例值，0-1
-                colorPaletteRoundBlockLock: false, //饱和度/明度区域的圆形块是否锁定
-                colorPaletteXPercentage: 0.5, //饱和度/明度区域的当前横轴位置比例值，0-1
-                colorPaletteYPercentage: 0.5,//饱和度/明度区域的当前纵轴位置比例值，0-1
-                alphaSliderRoundBlockLock: false, //透明通道滑块的圆形块是否锁定
-                alphaSliderPercentage: 1, //透明通道滑块的当前横轴位置比例值，0-1
-                result: {h: 0, s: 0, l: 0, a: 1}, //当前最新的结果颜色
-                refresh() {
-                    //求出色相
-                    this.colorSliderPercentage = clamp(this.colorSliderPercentage, 0, 1);
-                    const hue = this.colorSliderPercentage * 360;
-                    //求出混合后的结果色
-                    this.colorPaletteXPercentage = clamp(this.colorPaletteXPercentage, 0, 1);
-                    const xColor = {h: hue, s: this.colorPaletteXPercentage, l: (1 - this.colorPaletteXPercentage) / 2 + 0.5};
-                    this.colorPaletteYPercentage = clamp(this.colorPaletteYPercentage, 0, 1);
-                    const yColor = {h: hue, s: 0, l: 1 - this.colorPaletteYPercentage};
-                    const blendColor = grbMultiplicativeBlending(hslToRgb(xColor), hslToRgb(yColor));
-                    //对结果色应用透明通道
-                    const resultColor = rgbToHsl(blendColor);
-                    this.alphaSliderPercentage = clamp(this.alphaSliderPercentage, 0, 1);
-                    this.result = {h: resultColor.h, s: resultColor.s, l: resultColor.l, a: this.alphaSliderPercentage};
-                    //对对应的元素样式进行修改
-                    colorSliderRoundBlock.style.cssText = `
-                left: ${doubleToPercentage(this.colorSliderPercentage)};
-                background-color: hsl(${hue}, 100%, 50%);`;
-                    colorPalette.style.cssText = `
-                background-image:
-                     linear-gradient(to bottom, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%)),
-                     linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 100%, 50%));`;
-                    colorPaletteRoundBlock.style.cssText = `
-                left: ${doubleToPercentage(this.colorPaletteXPercentage)};
-                top: ${doubleToPercentage(this.colorPaletteYPercentage)};
-                background-color: hsl(${resultColor.h}, ${resultColor.s}, ${resultColor.l});`;
-                    alphaSlider.style.cssText = `
-                background-image:
-                     linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%));`;
-                    alphaSliderRoundBlock.style.cssText = `
-                left: ${doubleToPercentage(this.alphaSliderPercentage)};
-                background-color: hsl(${hue}, 100%, 50%);`;
+            colorSliderRoundBlockLock: false, //色相滑块的圆形块是否锁定
+            colorSliderPercentage: 0, //色相滑块的当前横轴位置比例值，0-1
+            colorPaletteRoundBlockLock: false, //饱和度/明度区域的圆形块是否锁定
+            colorPaletteXPercentage: 0.5, //饱和度/明度区域的当前横轴位置比例值，0-1
+            colorPaletteYPercentage: 0.5,//饱和度/明度区域的当前纵轴位置比例值，0-1
+            alphaSliderRoundBlockLock: false, //透明通道滑块的圆形块是否锁定
+            alphaSliderPercentage: 1, //透明通道滑块的当前横轴位置比例值，0-1
+            result: {h: 0, s: 0, l: 0, a: 1}, //当前最新的结果颜色
+            refresh() {
+                //求出色相
+                this.colorSliderPercentage = clamp(this.colorSliderPercentage, 0, 1);
+                const hue = this.colorSliderPercentage * 360;
+                //求出混合后的结果色
+                this.colorPaletteXPercentage = clamp(this.colorPaletteXPercentage, 0, 1);
+                const xColor = {h: hue, s: this.colorPaletteXPercentage, l: (1 - this.colorPaletteXPercentage) / 2 + 0.5};
+                this.colorPaletteYPercentage = clamp(this.colorPaletteYPercentage, 0, 1);
+                const yColor = {h: hue, s: 0, l: 1 - this.colorPaletteYPercentage};
+                const blendColor = grbMultiplicativeBlending(hslToRgb(xColor), hslToRgb(yColor));
+                //对结果色应用透明通道
+                const resultColor = rgbToHsl(blendColor);
+                this.alphaSliderPercentage = clamp(this.alphaSliderPercentage, 0, 1);
+                this.result = {h: resultColor.h, s: resultColor.s, l: resultColor.l, a: this.alphaSliderPercentage};
+                //对对应的元素样式进行修改
+                colorSliderRoundBlock.style.cssText = `
+                    left: ${doubleToPercentage(this.colorSliderPercentage)};
+                    background-color: hsl(${hue}, 100%, 50%);`;
+                colorPalette.style.cssText = `
+                    background-image:
+                         linear-gradient(to bottom, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%)),
+                         linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 100%, 50%));`;
+                colorPaletteRoundBlock.style.cssText = `
+                    left: ${doubleToPercentage(this.colorPaletteXPercentage)};
+                    top: ${doubleToPercentage(this.colorPaletteYPercentage)};
+                    background-color: hsl(${resultColor.h}, ${doubleToPercentage(resultColor.s)}, ${doubleToPercentage(resultColor.l)});`;
+                alphaSlider.style.cssText = `
+                    background-image:
+                         linear-gradient(to right, hsl(${hue}, 0%, 100%), hsl(${hue}, 0%, 0%));`;
+                alphaSliderRoundBlock.style.cssText = `
+                    left: ${doubleToPercentage(this.alphaSliderPercentage)};
+                    background-color: hsl(${hue}, 100%, 50%);`;
                 }
             };
         //缓存cache
@@ -217,9 +217,9 @@ export function setColorPicker(
     cache.colorSliderPercentage = h / 360;
     //确定Y分量的hsl值
     const rgb = hslToRgb({h: h, s: s, l: l});
-    const xy = findXYForTargetRGB(rgb, h, 0.01);
-    cache.colorPaletteXPercentage = xy.x;
-    cache.colorPaletteYPercentage = xy.y;
+    const xy = findXYForTargetRGB(rgb, h, 0.001);
+    cache.colorPaletteXPercentage = Number(xy.x.toFixed(2));
+    cache.colorPaletteYPercentage = Number(xy.y.toFixed(2));
     cache.refresh();
 }
 
