@@ -20,7 +20,8 @@
     "LoginSummary": "登陆注册 Login&Register",
     "WaterfallSummary": "瀑布流图片 Waterfall",
     "TranslateSummary": "翻译工具 Translate",
-    "DrawingSummary": "画图 Drawing"
+    "DrawingSummary": "画图 Drawing",
+    "AdminSummary": "中台 Admin"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor - 组件库",
@@ -35,7 +36,7 @@
     "CopiedText": "复制代码成功"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "支持 NET6.0 & NET7.0 & NET8.0",
+    "Support": "支持 NET6.0 & NET7.0 & NET8.0 & NET9.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，无缝整合了 Bootstrap 框架与 Blazor 技术。它提供了一整套强大的工具，使开发者能够轻松创建响应式和交互式的 Web 应用程序。",
     "Docs": "阅读文档",
@@ -5639,7 +5640,8 @@
     "Summarize": "总结",
     "ProjectsShow": "作品展示",
     "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> 作品 <b><a href='{3}' target='_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
-    "ShowWebSiteTitle": "演示网站",
+    "ShowWebSiteTitle1": "实战网站（混合版本）",
+    "ShowWebSiteTitle2": "实战网站（纯 Blazor 版本）",
     "GetStarted": "快速上手",
     "QuickStart": "快速入门",
     "Features": "组件特色",

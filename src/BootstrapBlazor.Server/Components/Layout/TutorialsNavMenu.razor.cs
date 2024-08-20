@@ -99,6 +99,11 @@ public partial class TutorialsNavMenu
                 Template = CreateDownloadButtonComponent("drawing", _drawingAppFileList),
                 Text = Localizer["DrawingSummary"],
                 Url = "tutorials/drawing"
+            },
+            new()
+            {
+                Text = Localizer["AdminSummary"],
+                Url = "tutorials/admin",
             }
         ]);
     }

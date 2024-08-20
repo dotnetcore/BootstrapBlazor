@@ -1,0 +1,7 @@
+﻿.card {
+    transition: box-shadow .3s linear;
+}
+
+    .card:hover {
+        box-shadow: var(--bs-box-shadow);
+    }

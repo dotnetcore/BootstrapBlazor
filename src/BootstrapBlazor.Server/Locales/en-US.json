@@ -20,7 +20,8 @@
     "LoginSummary": "Login&Register",
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
-    "DrawingSummary": "Drawing"
+    "DrawingSummary": "Drawing",
+    "AdminSummary": "Admin"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
@@ -35,7 +36,7 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "Support NET6.0 & NET7.0 & NET8.0",
+    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
     "Docs": "Read the docs",
@@ -5638,7 +5639,8 @@
     "Summarize": "Summarize",
     "ProjectsShow": "Exhibition",
     "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> Works <b><a href='{3}' target='_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
-    "ShowWebSiteTitle": "Demo Site",
+    "ShowWebSiteTitle1": "Demo Site(MVC & Blazor)",
+    "ShowWebSiteTitle2": "Demo Site(Blazor)",
     "GetStarted": "Get Started",
     "QuickStart": "Quick Start",
     "Features": "Features of Components",
