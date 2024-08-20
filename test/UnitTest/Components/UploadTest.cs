@@ -344,9 +344,11 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsSingle, true);
             pb.Add(a => a.BrowserButtonClass, "browser-class");
             pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome");
+            pb.Add(a => a.BrowserButtonColor, Color.Success);
         });
         cut.Contains("fa-solid fa-chrome");
         cut.Contains("browser-class");
+        cut.Contains("btn btn-success");
         cut.DoesNotContain("form-label");
 
         // DefaultFileList
