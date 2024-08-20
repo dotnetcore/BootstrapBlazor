@@ -20,7 +20,8 @@
     "LoginSummary": "Login&Register",
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
-    "DrawingSummary": "Drawing"
+    "DrawingSummary": "Drawing",
+    "ProAdminUrl": "Admin Pro"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
