@@ -57,7 +57,7 @@ public partial class ColorPickerV2
     #endregion
 
     /// <summary>
-    /// 需要设置透明度，默认是false，即透明度永远是100%，完全不透明
+    /// 是否需要设置透明度，默认是false，即透明度永远是100%，完全不透明
     /// </summary>
     [Parameter]
     public bool NeedAlpha { get; set; }
@@ -74,22 +74,11 @@ public partial class ColorPickerV2
     [Parameter]
     public Func<string, Task>? OnFinishSettingTask { get; set; }
 
-    /// <summary>
-    /// 是否打开设置窗口
-    /// </summary>
     private bool _openSettingView;
-
-    /// <summary>
-    /// _openSettingView对应的css样式
-    /// </summary>
     private string OpenSettingView => _openSettingView ? "block" : "none";
+    private string OpenAlpha => NeedAlpha ? "block" : "none";
 
-    /// <summary>
-    /// 最终展示色（无透明通道）
-    /// </summary>
-    private string _previewColor = "hsl(0, 50%, 50%)";
-
-    private string PreviewColor => NeedAlpha ? _previewColor.Replace(")", $", {_alphaPercentage:F4})") : _previewColor;
+    private string _resultColor;
 
     /// <summary>
     /// 开关设置窗口，如果关闭，将最终颜色值推送出去
@@ -98,229 +87,72 @@ public partial class ColorPickerV2
     private async Task OpenSettingViewChanged(MouseEventArgs e)
     {
         _openSettingView = !_openSettingView;
-        if (!_openSettingView && OnFinishSettingTask != null)
-            await OnFinishSettingTask.Invoke(GetFormatColor());
+        if (!_openSettingView)
+        {
+            _resultColor = await GetFormatColorAsync();
+            if (OnFinishSettingTask != null)
+                await OnFinishSettingTask.Invoke(_resultColor);
+        }
     }
 
+    private async Task<string> GetFormatColorAsync()
+    {
+        var result = await InvokeAsync<double[]>("getColorPickerResult", _selfId);
+        var formatResult = GetFormatColor(result);
+        return formatResult;
+    }
+
+    private string _selfId = string.Empty;
+    private string _colorPaletteId = string.Empty;
+    private string _colorPaletteRoundBlockId = string.Empty;
+    private string _colorSliderId = string.Empty;
+    private string _colorSliderRoundBlockId = string.Empty;
+    private string _alphaSliderId = string.Empty;
+    private string _alphaSliderRoundBlockId = string.Empty;
+
     /// <summary>
-    ///
+    /// 初始化id
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        await SetHueParam(0);
-    }
-
-    #region 饱和度+明度设置区域
-
-    /// <summary>
-    /// 饱和度和明度区块id
-    /// </summary>
-    private string _colorPaletteId = $"color-palette-{Guid.NewGuid().ToString()}";
-
-    /// <summary>
-    /// 饱和度当前选中位置相对整个长度的0-1
-    /// </summary>
-    private double _saturationPercentage = 0.5;
-
-    /// <summary>
-    /// 明度当前选中位置相对整个长度的0-1
-    /// </summary>
-    private double _lightnessPercentage = 0.5;
-
-    /// <summary>
-    /// 点击色相选择滑块时，根据点击位置设置_huePercentage
-    /// </summary>
-    private async Task SelectColorPalette(MouseEventArgs e)
-    {
-        var colorPaletteSelectPercentage = await InvokeAsync<double[]>(
-            "getElementClickLocation", _colorPaletteId, e);
-        SetSaturationParam(colorPaletteSelectPercentage != null ? colorPaletteSelectPercentage[0] : 0);
-        SetLightnessParam(colorPaletteSelectPercentage != null ? colorPaletteSelectPercentage[1] : 0);
-        BlendXyColor();
-        await Task.CompletedTask;
+        _selfId = $"color-picker-v2-{Guid.NewGuid().ToString()}";
+        _colorPaletteId = $"color-palette-{Guid.NewGuid().ToString()}";
+        _colorPaletteRoundBlockId = $"color-palette-round-block-{Guid.NewGuid().ToString()}";
+        _colorSliderId = $"color-slider-{Guid.NewGuid().ToString()}";
+        _colorSliderRoundBlockId = $"color-slider-round-block-{Guid.NewGuid().ToString()}";
+        _alphaSliderId = $"alpha-slider-{Guid.NewGuid().ToString()}";
+        _alphaSliderRoundBlockId = $"alpha-slider-round-block-{Guid.NewGuid().ToString()}";
     }
 
     /// <summary>
-    /// 饱和度明度选择圆形块是否选中
+    /// 初始化事件
     /// </summary>
-    private bool _isSelectColorPaletteRoundBlock;
-
-    /// <summary>
-    /// 选中色相选择圆形块时，根据鼠标在色相选择滑块的移动位置设置_huePercentage
-    /// </summary>
-    private async Task MoveOnColorPalette(MouseEventArgs e)
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (_isSelectColorPaletteRoundBlock)
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender)
         {
-            var colorPaletteSelectPercentage = await InvokeAsync<double[]>(
-                "getElementClickLocation", _colorPaletteId, e);
-            SetSaturationParam(colorPaletteSelectPercentage != null ? colorPaletteSelectPercentage[0] : 0);
-            SetLightnessParam(colorPaletteSelectPercentage != null ? colorPaletteSelectPercentage[1] : 0);
-            BlendXyColor();
+            await InvokeVoidAsync(
+                "initColorPicker", _selfId,
+                _colorPaletteId, _colorPaletteRoundBlockId,
+                _colorSliderId, _colorSliderRoundBlockId,
+                _alphaSliderId, _alphaSliderRoundBlockId);
+            _resultColor = await GetFormatColorAsync();
         }
-        await Task.CompletedTask;
     }
 
-    private (double hue, double saturation, double lightness) _xColor;
-
     /// <summary>
-    /// 设置饱和度相关参数
+    /// 取消在jsmap中的缓存
     /// </summary>
-    /// <param name="source"></param>
-    private void SetSaturationParam(double source)
+    /// <param name="disposing"></param>
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
-        _saturationPercentage = Math.Clamp(source, 0, 1);
-        _xColor = (_hueValue, _saturationPercentage, (1 - _saturationPercentage) / 2 + 0.5);
+        if (disposing)
+            await InvokeVoidAsync("disposeColorPicker", _selfId);
+        await base.DisposeAsync(disposing);
     }
-
-    private (double hue, double saturation, double lightness) _yColor;
-
-    /// <summary>
-    /// 设置明度相关参数
-    /// </summary>
-    /// <param name="source"></param>
-    private void SetLightnessParam(double source)
-    {
-        _lightnessPercentage = Math.Clamp(source, 0, 1);
-        _yColor = (_hueValue,  0, 1 - _lightnessPercentage);
-    }
-
-    private (double r, double g, double b) _rgbX;
-    private (double r, double g, double b) _rgbY;
-    private (double r, double g, double b) _rgbResult;
-    private (double hue, double saturation, double lightness) _hslResult;
-
-    private void BlendXyColor()
-    {
-        _rgbX = HslToRgb(_xColor.hue, _xColor.saturation, _xColor.lightness);
-        _rgbY = HslToRgb(_yColor.hue, _yColor.saturation, _yColor.lightness);
-        _rgbResult = MultiplyBlend(_rgbX, _rgbY);
-        _hslResult = RgbToHsl(_rgbResult.r, _rgbResult.g, _rgbResult.b);
-        _previewColor = $"hsl({_hslResult.hue:F2}, {DoubleToPercentage(_hslResult.saturation)}, {DoubleToPercentage(_hslResult.lightness)})";
-    }
-
-    #endregion
-
-    #region 色相设置区域
-
-    /// <summary>
-    /// 色相滑块id
-    /// </summary>
-    private string _colorSliderId = $"color-slider-{Guid.NewGuid().ToString()}";
-
-    /// <summary>
-    /// 当前色相滑块选中的颜色
-    /// </summary>
-    private double _hueValue = 0;
-
-    /// <summary>
-    /// 色相滑块当前选中位置相对整个长度的0-1
-    /// </summary>
-    private double _huePercentage = 0;
-
-    /// <summary>
-    /// 点击色相选择滑块时，根据点击位置设置_huePercentage
-    /// </summary>
-    private async Task SelectColorSlider(MouseEventArgs e)
-    {
-        var colorSliderSelectPercentage = await InvokeAsync<double[]>(
-            "getElementClickLocation", _colorSliderId, e);
-        await SetHueParam(colorSliderSelectPercentage != null ? colorSliderSelectPercentage[0] : 0);
-        await Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 色相选择圆形块是否选中
-    /// </summary>
-    private bool _isSelectColorSliderRoundBlock;
-
-    /// <summary>
-    /// 选中色相选择圆形块时，根据鼠标在色相选择滑块的移动位置设置_huePercentage
-    /// </summary>
-    private async Task MoveOnColorSlider(MouseEventArgs e)
-    {
-        if (_isSelectColorSliderRoundBlock)
-        {
-            var colorSliderSelectPercentage = await InvokeAsync<double[]>(
-                "getElementClickLocation", _colorSliderId, e);
-            await SetHueParam(colorSliderSelectPercentage != null ? colorSliderSelectPercentage[0] : 0);
-        }
-        await Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 设置色相相关参数
-    /// </summary>
-    /// <param name="source"></param>
-    private async Task SetHueParam(double source)
-    {
-        _huePercentage = Math.Clamp(source, 0, 1);
-        _hueValue = _huePercentage * 360;
-        SetSaturationParam(_saturationPercentage);
-        SetLightnessParam(_lightnessPercentage);
-        BlendXyColor();
-        await Task.CompletedTask;
-    }
-
-    #endregion
-
-    #region 透明度设置区域
-
-    /// <summary>
-    /// 色相滑块id
-    /// </summary>
-    private string _alphaSliderId = $"alpha-slider-{Guid.NewGuid().ToString()}";
-
-    /// <summary>
-    /// 透明通道设置组件对应的css样式
-    /// </summary>
-    private string OpenAlpha => NeedAlpha ? "block" : "none";
-
-    /// <summary>
-    /// 透明度滑块当前选中位置相对整个长度的0-1
-    /// </summary>
-    private double _alphaPercentage = 1;
-
-    /// <summary>
-    /// 点击色相选择滑块时，根据点击位置设置_huePercentage
-    /// </summary>
-    private async Task SelectAlphaSlider(MouseEventArgs e)
-    {
-        var alphaSliderSelectPercentage = await InvokeAsync<double[]>(
-            "getElementClickLocation", _alphaSliderId, e);
-        await SetAlphaParam(alphaSliderSelectPercentage != null ? alphaSliderSelectPercentage[0] : 0);
-        await Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 透明度选择圆形块是否选中
-    /// </summary>
-    private bool _isSelectAlphaSliderRoundBlock;
-
-    /// <summary>
-    /// 选中色相选择圆形块时，根据鼠标在色相选择滑块的移动位置设置_huePercentage
-    /// </summary>
-    private async Task MoveOnAlphaSlider(MouseEventArgs e)
-    {
-        if (_isSelectAlphaSliderRoundBlock)
-        {
-            var alphaSliderSelectPercentage = await InvokeAsync<double[]>(
-                "getElementClickLocation", _alphaSliderId, e);
-            await SetAlphaParam(alphaSliderSelectPercentage != null ? alphaSliderSelectPercentage[0] : 0);
-            await Task.CompletedTask;
-        }
-        await Task.CompletedTask;
-    }
-
-    private async Task SetAlphaParam(double source)
-    {
-        _alphaPercentage = Math.Clamp(source, 0, 1);
-        await SetHueParam(_huePercentage);
-        await Task.CompletedTask;
-    }
-
-    #endregion
 
 
 }

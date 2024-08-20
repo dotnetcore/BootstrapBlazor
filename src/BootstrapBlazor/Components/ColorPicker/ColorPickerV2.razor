@@ -2,58 +2,30 @@
 @inherits ValidateBase<string>
 @attribute [BootstrapModuleAutoLoader("ColorPicker/ColorPickerV2.razor.js")]
 
-<div class="input-group color-picker">
+<div class="input-group color-picker" id="@_selfId">
 
     <Button class="color-picker-button" OnClick="OpenSettingViewChanged" Color="Color.None">
-        <div class="color-picker-preview" style="background-color: @PreviewColor;"></div>
+        <div class="color-picker-preview" style="background-color: @_resultColor"></div>
     </Button>
 
     <div class="color-picker-view shadow " style="display: @OpenSettingView">
 
-        <div class="color-palette" id="@_colorPaletteId"
-             @onmousemove="@MoveOnColorPalette"
-             @onmouseup="() => _isSelectColorPaletteRoundBlock = false"
-             @onmouseout="() => _isSelectColorPaletteRoundBlock = false"
-             @onclick="@SelectColorPalette"
-             style="background-image:
-                 linear-gradient(to bottom, hsl(@_hueValue, 0%, 100%), hsl(@_hueValue, 0%, 0%)),
-                 linear-gradient(to right, hsl(@_hueValue, 0%, 100%), hsl(@_hueValue, 100%, 50%));">
-
-            <div class="color-palette-round-block"
-                 @onmousedown="() => _isSelectColorPaletteRoundBlock = true"
-                 style="
-                     left: @DoubleToPercentage(_saturationPercentage);
-                     top: @DoubleToPercentage(_lightnessPercentage);
-                     background-color: @_previewColor;"></div>
+        <div class="color-palette" id="@_colorPaletteId">
+            <div class="color-palette-round-block" id="@_colorPaletteRoundBlockId"></div>
         </div>
 
-        <div class="color-slider"
-             @onmouseout="() => _isSelectColorSliderRoundBlock = false">
-            <div class="color-slider-background" id="@_colorSliderId"
-                 @onmousemove="@MoveOnColorSlider"
-                 @onclick="@SelectColorSlider"
-                 @onmouseup="() => _isSelectColorSliderRoundBlock = false">
-                <div class="color-slider-round-block"
-                     @onmousedown="() => _isSelectColorSliderRoundBlock = true"
-                     style="left: @DoubleToPercentage(_huePercentage); background-color: hsl(@_hueValue, 100%, 50%);"></div>
+        <div class="color-slider">
+            <div class="color-slider-background" id="@_colorSliderId">
+                <div class="color-slider-round-block" id="@_colorSliderRoundBlockId"></div>
             </div>
         </div>
 
-        <div class="alpha-slider" style="display: @OpenAlpha"
-             @onmouseout="() => _isSelectAlphaSliderRoundBlock = false">
-            <div>Alpha: @DoubleToPercentage(_alphaPercentage)</div>
-            <div class="alpha-slider-background" id="@_alphaSliderId"
-                 @onmousemove="@MoveOnAlphaSlider"
-                 @onclick="@SelectAlphaSlider"
-                 @onmouseup="() => _isSelectAlphaSliderRoundBlock = false"
-                 style="background-image:
-                    linear-gradient(to right, hsl(@_hueValue, 0%, 100%), hsl(@_hueValue, 0%, 0%));">
-                <div class="alpha-slider-round-block"
-                     @onmousedown="() => _isSelectAlphaSliderRoundBlock = true"
-                     style="left: @DoubleToPercentage(_alphaPercentage); background-color: hsl(@_hueValue, 100%, 50%);"></div>
+        <div class="alpha-slider" style="display: @OpenAlpha">
+            <div class="alpha-slider-background" id="@_alphaSliderId">
+                <div class="alpha-slider-round-block" id="@_alphaSliderRoundBlockId"></div>
             </div>
         </div>
     </div>
     @*自己项目用，所以有透明度需求，同时又对直接输入颜色字符串让滑块组件联动没需求，所以这边选了readonly*@
-    <input type="text" readonly class="@ClassName" value="@GetFormatColor()"/>
+    <input type="text" readonly class="@ClassName" value="@_resultColor" />
 </div>

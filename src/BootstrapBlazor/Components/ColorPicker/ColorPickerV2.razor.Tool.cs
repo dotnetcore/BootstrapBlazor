@@ -20,18 +20,15 @@ public partial class ColorPickerV2
     /// <summary>
     /// hsl格式转rgb格式。为了减少计算误差，结果为0-1。前端最终显示时需要Math.Round(value * 255)
     /// </summary>
-    /// <param name="h">范围0-360</param>
-    /// <param name="s">范围0-1</param>
-    /// <param name="l">范围0-1</param>
+    /// <param name="source"></param>
     /// <returns></returns>
-    /// <exception cref="Exception"></exception>
     private static (double r, double g, double b) HslToRgb(
-        double h, double s, double l)
+        (double h, double s, double l) source)
     {
-        double c = (1 - Math.Abs(2 * l - 1)) * s;
-        double x = c * (1 - Math.Abs((h / 60) % 2 - 1));
-        double m = l - c / 2;
-        var (r, g, b) = h switch
+        double c = (1 - Math.Abs(2 * source.l - 1)) * source.s;
+        double x = c * (1 - Math.Abs((source.h / 60) % 2 - 1));
+        double m = source.l - c / 2;
+        var (r, g, b) = source.h switch
         {
             >= 0 and < 60 => (c, x, 0.0),
             >= 60 and < 120 => (x, c, 0.0),
@@ -121,15 +118,25 @@ public partial class ColorPickerV2
         return $"cmyk({DoubleToPercentage(finalC)}, {DoubleToPercentage(finalM)}, {DoubleToPercentage(finalY)}, {DoubleToPercentage(k)})";
     }
 
-    private string GetFormatColor()
-        => FormatType switch
+    private string GetFormatColor(double[] source)
+    {
+        var hsl = (h: source[0], s: source[1], l: source[2]);
+        var alpha = source[3];
+        return FormatType switch
         {
-            ColorPickerV2FormatType.Hex => NeedAlpha ? RgbToHex(_rgbResult).Insert(1, $"{(int)Math.Round(_alphaPercentage * 255):X2}") : RgbToHex(_rgbResult),
-            ColorPickerV2FormatType.GRB => NeedAlpha ? FormatRgb(_rgbResult).Replace("rgb", "rgba").Replace(")", $", {_alphaPercentage:F4})") : FormatRgb(_rgbResult),
-            ColorPickerV2FormatType.HSL => NeedAlpha ? PreviewColor : _previewColor,
-            ColorPickerV2FormatType.CMYK => RgbToCmyk(_rgbResult),
+            ColorPickerV2FormatType.Hex => NeedAlpha
+                ? RgbToHex(HslToRgb(hsl)).Insert(1, $"{(int)Math.Round(alpha * 255):X2}")
+                : RgbToHex(HslToRgb(hsl)),
+            ColorPickerV2FormatType.GRB => NeedAlpha
+                ? FormatRgb(HslToRgb(hsl)).Replace("rgb", "rgba").Replace(")", $", {alpha:F4})")
+                : FormatRgb(HslToRgb(hsl)),
+            ColorPickerV2FormatType.HSL => NeedAlpha
+                ? $"hsla({hsl.h}, {DoubleToPercentage(hsl.s)}, {DoubleToPercentage(hsl.l)}, {alpha})"
+                : $"hsl({hsl.h}, {DoubleToPercentage(hsl.s)}, {DoubleToPercentage(hsl.l)})",
+            ColorPickerV2FormatType.CMYK => RgbToCmyk(HslToRgb(hsl)),
             _ => throw new ArgumentOutOfRangeException()
         };
+    }
 }
 
 /// <summary>
