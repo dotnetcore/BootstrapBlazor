@@ -84,6 +84,6 @@ public class EditorTest : Core.BootstrapBlazorTestBase
         {
             pb.Add(a => a.Value, "Test");
         });
-        await cut.Instance.DoMethodAsync("test", new object[] { "1" });
+        await cut.Instance.DoMethodAsync("test", ["1"]);
     }
 }
