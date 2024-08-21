@@ -29,6 +29,11 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
+    public string AdminProUrl { get; set; } = "https://pro.blazor.zone";
+
+    /// <summary>
+    /// 
+    /// </summary>
     public string BootstrapAdminLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapAdmin";
 
     /// <summary>
