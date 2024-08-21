@@ -25,12 +25,6 @@ public class BootstrapBlazorZhTestCollection : ICollectionFixture<BootstrapBlazo
 
 public class BootstrapBlazorZhTestHost : BootstrapBlazorTestHost
 {
-    protected override void ConfigureConfiguration(IServiceCollection services)
-    {
-        // 增加单元测试 appsettings.json 配置文件
-        services.AddConfiguration("zh-CN");
-    }
-
     protected override void ConfigureServices(IServiceCollection services)
     {
         // 支持 微软 resx 格式资源文件
@@ -39,5 +33,11 @@ public class BootstrapBlazorZhTestHost : BootstrapBlazorTestHost
         {
             options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorZhTestHost);
         });
+    }
+
+    protected override void ConfigureConfiguration(IServiceCollection services)
+    {
+        // 增加单元测试 appsettings.json 配置文件
+        services.AddConfiguration("zh-CN");
     }
 }
