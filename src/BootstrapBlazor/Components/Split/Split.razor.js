@@ -21,7 +21,12 @@ export function init(id) {
     const isVertical = !splitWrapper.classList.contains('is-horizontal')
     const splitBar = splitWrapper.children[1]
     const splitLeft = splitWrapper.children[0]
-    const splitRight = splitWrapper.children[2]
+    const splitRight = splitWrapper.children[2];
+
+    split.splitBar = splitBar;
+    EventHandler.on(splitBar, 'mousedown', e => showMask(splitLeft, splitRight));
+    EventHandler.on(splitBar, 'mouseup', e => removeMask(splitLeft, splitRight));
+
     Drag.drag(splitBar,
         e => {
             splitWidth = el.offsetWidth
@@ -57,11 +62,36 @@ export function init(id) {
         })
 }
 
+const showMask = (left, right) => {
+    const div = document.createElement('div');
+    div.style = "position: absolute; inset: 0; opacity: 0; z-index: 5;";
+    div.className = "split-mask";
+
+    left.appendChild(div);
+    right.appendChild(div.cloneNode(true));
+}
+
+const removeMask = (left, right) => {
+    deleteMask(left);
+    deleteMask(right);
+}
+
+const deleteMask = el => {
+    let mask = el.querySelector('.split-mask');
+    if (mask) {
+        mask.remove();
+        mask = null;
+    }
+}
+
 export function dispose(id) {
     const split = Data.get(id)
     Data.remove(id)
 
     if (split) {
-        Drag.dispose(split.el)
+        const { el, splitBar } = split;
+        EventHandler.on(splitBar, 'mousedown');
+        EventHandler.on(splitBar, 'mouseup');
+        Drag.dispose(el)
     }
 }
