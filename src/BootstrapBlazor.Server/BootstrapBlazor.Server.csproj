@@ -27,9 +27,9 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="8.1.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.1.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="0.1.1" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.2" />
@@ -46,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.6" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.1.1" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.2.0" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="0.0.4" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
@@ -64,7 +64,7 @@
     <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.3" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="8.1.0" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="8.2.0" />
     <PackageReference Include="BootstrapBlazor.TagHelper" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.9" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.7-beta1" />
