@@ -75,7 +75,6 @@
     "empty": "Empties",
     "eye-dropper": "EyeDroppers",
     "export-pdf-button": "ExportPdfButtons",
-    "fa-icon": "FAIcons",
     "file-icon": "FileIcons",
     "flip-clock": "FlipClocks",
     "file-viewer": "FileViewers",
@@ -100,8 +99,6 @@
     "locator": "Locators",
     "logout": "Logouts",
     "icon": "BootstrapBlazorIcons",
-    "icon-park": "IconParks",
-    "ant-design-icon": "AntDesignIconList",
     "image-viewer": "ImageViewers",
     "input-number": "InputNumbers",
     "input": "Inputs",
@@ -167,7 +164,6 @@
     "tab": "Tabs",
     "tag": "Tags",
     "textarea": "TextAreas",
-    "theme-provider": "ThemeProviders",
     "time-picker": "TimePickers",
     "timeline": "Timelines",
     "timer": "Timers",
@@ -220,7 +216,6 @@
     "clipboard-service": "Clipboards",
     "image-cropper": "ImageCroppers",
     "barcode-generator": "BarcodeGenerators",
-    "zip-archive": "ZipArchives",
     "sortable-list": "SortableLists"
   },
   "video": {

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.DataAccess.SqlSugar;
 /// <summary>
 /// SqlSugar ORM 的 IDataService 接口实现
 /// </summary>
-class DefaultDataService<TModel>(ISqlSugarClient db) : DataServiceBase<TModel> where TModel : class
+class DefaultDataService<TModel>(ISqlSugarClient db) : DataServiceBase<TModel> where TModel : class, new()
 {
     /// <summary>
     /// 删除方法

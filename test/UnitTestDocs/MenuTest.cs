@@ -115,8 +115,8 @@ public partial class MenuTest
     }
 
     [Theory]
-    [InlineData("en", "zh")]
-    [InlineData("zh", "en")]
+    [InlineData("en-US", "zh-CN")]
+    [InlineData("zh-CN", "en-US")]
     public void Localizer_Compare(string sourceLanguage, string targetLanguage)
     {
         using var configZh = new ConfigurationManager();
