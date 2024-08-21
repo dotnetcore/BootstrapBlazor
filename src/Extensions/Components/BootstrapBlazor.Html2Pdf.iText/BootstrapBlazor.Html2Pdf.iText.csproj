@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.0.0-beta01</Version>
+    <Version>8.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -11,8 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.5.1" />
-    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.4" />
-    <PackageReference Include="itext7.pdfhtml" Version="5.0.4" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
+    <PackageReference Include="itext7.pdfhtml" Version="5.0.5" />
   </ItemGroup>
 
 </Project>
