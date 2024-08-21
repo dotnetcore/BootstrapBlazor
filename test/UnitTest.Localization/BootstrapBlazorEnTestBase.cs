@@ -35,7 +35,7 @@ public class BootstrapBlazorEnTestHost : BootstrapBlazorTestHost
         });
     }
 
-    protected override void ConfigureConfigration(IServiceCollection services)
+    protected override void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration("en-US");

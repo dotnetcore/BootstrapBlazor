@@ -42,9 +42,9 @@ public partial class Translators
         _results = await TranslatorService.TranslateAsync(_selectedLanguages, [_input], "en-US");
     }
 
-    private static string FormatResult(Translation translation)
+    private static string FormatResult(TranslationText translation)
     {
-        var culture = new CultureInfo(translation.To);
+        var culture = new CultureInfo(translation.TargetLanguage);
         return $"{culture.NativeName}: {translation.Text}";
     }
 
