@@ -1,4 +1,6 @@
-﻿namespace MiniExcelLibs
+﻿#nullable disable
+
+namespace MiniExcelLibs
 {
     using System;
     using System.Data;
@@ -249,3 +251,4 @@
         }
     }
 }
+#nullable restore
