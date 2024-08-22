@@ -4,7 +4,7 @@ import EventHanlder from '../BootstrapBlazor/modules/event-handler.js'
 import { addLink } from "../BootstrapBlazor/modules/utility.js"
 
 export async function init(id, invoke, options) {
-    await addLink('./_content/BootstrapBlazor.WinBox/css/winbox.min.css')
+    await addLink('./_content/BootstrapBlazor.WinBox/css/winbox.bundle.css')
 }
 
 export function show(id, invoke, option) {
