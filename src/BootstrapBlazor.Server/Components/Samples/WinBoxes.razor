@@ -27,7 +27,7 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["WinBoxNormalTitle"]"
            Introduction="@Localizer["WinBoxNormalIntro"]"
            Name="Normal">
-    <Button Text="Run" OnClickWithoutRender="OpenWinBox" ></Button>
+    <Button Text="Run" OnClickWithoutRender="OpenWinBox"></Button>
     <ConsoleLogger @ref="_logger"></ConsoleLogger>
 </DemoBlock>
 
@@ -59,6 +59,6 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
     <Pre>new WinBoxOption() { Modal = true }</Pre>
 </GroupBox>
 
-<p>更多参数信息可参考 <code>WinBoxOption</code> 注释</p>
+<p>更多参数信息可参考 <a href="https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/Extensions/Components/BootstrapBlazor.WinBox/WinBoxOption.cs" target="_blank"><code>WinBoxOption</code></a> 注释</p>
 
 <AttributeTable Items="@GetAttributes()" Title="WinBoxOption" />
