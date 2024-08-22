@@ -17,6 +17,8 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var foo = Foo.Generate(localizer);
+        var clicked = false;
+
         var cut = Context.RenderComponent<ContextMenuZone>(pb =>
         {
             pb.AddChildContent<ContextMenuTrigger>(pb =>
@@ -41,6 +43,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                     pb.Add(a => a.Disabled, true);
                     pb.Add(a => a.OnClick, (item, value) =>
                     {
+                        clicked = true;
                         return Task.CompletedTask;
                     });
                 });
@@ -100,6 +103,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
 
         await Task.Delay(500);
         row.TouchEnd();
+        Assert.True(clicked);
     }
 
     [Theory]
