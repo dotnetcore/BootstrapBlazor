@@ -3,13 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// WinBox 组件
 /// </summary>
-public partial class WinBox : IDisposable
+public partial class WinBox
 {
     /// <summary>
     /// DialogServices 服务实例
@@ -17,6 +18,10 @@ public partial class WinBox : IDisposable
     [Inject]
     [NotNull]
     private WinBoxService? WinBoxService { get; set; }
+
+    private WinBoxOption? _option;
+
+    private readonly ConcurrentDictionary<string, WinBoxOption> _cache = new();
 
     /// <summary>
     /// OnInitialized 方法
@@ -29,26 +34,66 @@ public partial class WinBox : IDisposable
         WinBoxService.Register(this, Show);
     }
 
-    private Task Show(WinBoxOption option) => InvokeVoidAsync("show", option);
-
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (disposing)
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_option != null && _render)
         {
-            WinBoxService.UnRegister(this);
+            _render = false;
+            await InvokeVoidAsync("show", _option.Id, Interop, _option);
+        }
+    }
+
+    private bool _render;
+    private async Task Show(WinBoxOption option)
+    {
+        var id = ComponentIdGenerator.Generate(option);
+
+        _cache.TryAdd(id, option);
+        option.Id = id;
+        if (option.ContentTemplate != null)
+        {
+            _render = true;
+            _option = option;
+            StateHasChanged();
+        }
+        else
+        {
+            await InvokeVoidAsync("show", option.Id, Interop, option);
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// 弹窗关闭回调方法由 JavaScript 调用
     /// </summary>
-    public void Dispose()
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnClose(string id)
     {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        if (_cache.TryRemove(id, out var option) && option.OnCloseAsync != null)
+        {
+            await option.OnCloseAsync();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(disposing);
+
+        if (disposing)
+        {
+            WinBoxService.UnRegister(this);
+        }
     }
 }

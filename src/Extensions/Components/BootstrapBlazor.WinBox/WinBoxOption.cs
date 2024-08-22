@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -181,14 +182,20 @@ public class WinBoxOption
     public object? Url { get; set; }
 
     /// <summary>
-    /// Mount an element (widget, template, etc.) to the window body.
-    /// </summary>
-    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Mount { get; set; }
-
-    /// <summary>
     /// Set the innerHTML of the window body.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Html { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件模板 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public RenderFragment? ContentTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 关闭弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnCloseAsync { get; set; }
 }

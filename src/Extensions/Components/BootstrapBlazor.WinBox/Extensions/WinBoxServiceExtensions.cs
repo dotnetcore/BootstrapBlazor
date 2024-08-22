@@ -33,6 +33,7 @@ public static class WinBoxServiceExtensions
     {
         option ??= new WinBoxOption();
         option.Title = title;
+        option.ContentTemplate = BootstrapDynamicComponent.CreateComponent(type, parameters).Render();
         await service.Show(option);
     }
 }
