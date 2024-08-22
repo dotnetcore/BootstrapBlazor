@@ -1,6 +1,7 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
 import { deletePanel, findContentFromPanels } from "./dockview-panel.js"
 import { saveConfig } from "./dockview-config.js"
+import { observeGroup } from "./dockview-utils.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {
@@ -22,6 +23,7 @@ const onAddGroup = group => {
         saveConfig(dockview)
     })
     createGroupActions(group);
+    dockview._inited && observeGroup(group)
 }
 
 const addGroupWithPanel = (dockview, panel, panels, index) => {

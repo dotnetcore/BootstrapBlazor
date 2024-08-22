@@ -88,17 +88,7 @@ const initDockview = (dockview, options, template) => {
             dockview._inited = true;
             dockview._initialized?.fire()
             dockview.groups.forEach(group => {
-                if (dockview.params.observer === null) {
-                    dockview.params.observer = new ResizeObserver(observerList => resizeObserverHandle(observerList, dockview));
-                }
-                dockview.params.observer.observe(group.header.element)
-                dockview.params.observer.observe(group.header.tabContainer)
-                for (let panel of group.panels) {
-                    if (panel.params.isActive) {
-                        panel.api.setActive()
-                        break
-                    }
-                }
+                observeGroup(group)
             })
         }, 100);
     })
@@ -112,6 +102,21 @@ const initDockview = (dockview, options, template) => {
         saveConfig(dockview)
     })
 
+}
+
+export const observeGroup = (group) => {
+    const dockview = group.api.accessor
+    if (dockview.params.observer === null) {
+        dockview.params.observer = new ResizeObserver(observerList => resizeObserverHandle(observerList, dockview));
+    }
+    dockview.params.observer.observe(group.header.element)
+    dockview.params.observer.observe(group.header.tabContainer)
+    for (let panel of group.panels) {
+        if (panel.params.isActive) {
+            panel.api.setActive()
+            break
+        }
+    }
 }
 
 const resizeObserverHandle = (observerList, dockview) => {
