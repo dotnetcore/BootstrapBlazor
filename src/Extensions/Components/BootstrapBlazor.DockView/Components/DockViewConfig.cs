@@ -46,6 +46,11 @@ class DockViewConfig
     public bool ShowMaximize { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 客户端渲染模式 always onlyWhenVisible 值
+    /// </summary>
+    public string Renderer { get; set; } = "always";
+
+    /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调
     /// </summary>
     public string? PanelVisibleChangedCallback { get; set; }
