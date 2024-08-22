@@ -42,8 +42,8 @@ public partial class ContextMenu
 
     private List<ContextMenuItem> _contextMenuItems = [];
 
-    private string? GetItemClassString(ContextMenuItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("disabled", GetItemTriggerClick(item))
+    private static string? GetItemClassString(bool disabled) => CssBuilder.Default("dropdown-item")
+        .AddClass("disabled", disabled)
         .Build();
 
     private bool GetItemTriggerClick(ContextMenuItem item) => item.OnDisabledCallback?.Invoke(item, _contextItem) ?? item.Disabled;
