@@ -194,6 +194,60 @@ public class WinBoxOption
     public RenderFragment? ContentTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 创建弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnCreateAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗可见回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnShownAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 隐藏弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnHideAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗获得焦点回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnFocusAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗失去焦点回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnBlueAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗全屏回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnFullscreenAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 恢复弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnRestoreAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大化弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnMaximizeAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最小化弹窗回调方法 默认 null
+    /// </summary>
+    [JsonIgnore]
+    public Func<Task>? OnMinimizeAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭弹窗回调方法 默认 null
     /// </summary>
     [JsonIgnore]
