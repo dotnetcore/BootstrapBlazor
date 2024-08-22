@@ -17,7 +17,9 @@ public partial class WinBoxes
     private static WinBoxOption DefaultOptions => new()
     {
         Top = "50px",
-        Left = "50px"
+        Class = "bb-win-box",
+        Border = 2,
+        Background = "var(--bb-primary-color)"
     };
 
     private async Task OpenWinBox()

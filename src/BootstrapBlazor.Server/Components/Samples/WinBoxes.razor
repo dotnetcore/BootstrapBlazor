@@ -9,12 +9,51 @@
 
 <p><code>WinBox</code> 组件封装的是 <a href="https://nextapps-de.github.io/winbox/?wt.mc_id=DT-MVP-5004174" target="_blank">WinBox.js</a></p>
 
+<p>组件使用介绍：</p>
+
+<p class="code-label">1. 引用包 <code>BootstrapBlazor.WinBox</code></p>
+
+<p class="code-label">2. 注入服务</p>
+<Pre>services.AddBootstrapBlazorWinBoxService();</Pre>
+
+<p class="code-label">3. 页面中使用服务</p>
+<Pre>[Inject]
+[NotNull]
+private WinBoxService? WinBoxService { get; set; }</Pre>
+
+<p class="code-label">4. 调用弹窗</p>
+<Pre>await WinBoxService.Show&lt;Counter&gt;("Test", option: option);</Pre>
+
 <DemoBlock Title="@Localizer["WinBoxNormalTitle"]"
            Introduction="@Localizer["WinBoxNormalIntro"]"
            Name="Normal">
     <Button Text="Run" OnClickWithoutRender="OpenWinBox" ></Button>
     <ConsoleLogger @ref="_logger"></ConsoleLogger>
 </DemoBlock>
+
+<p class="code-label mt-3">常见问题</p>
+
+<GroupBox Title="更改标题背景色" class="mb-3">
+    <p>通过 <code>WinBoxOption</code> 参数 <code>Background</code> 设置</p>
+    <Pre>new WinBoxOption() { Background = "#000" }</Pre>
+
+    <p>通过 <code>WinBoxOption</code> 参数 <code>Class</code> 设置</p>
+    <Pre>new WinBoxOption() { Class = ".bb-win-box" }</Pre>
+    <Pre>.bb-win-box {
+    background: #000;
+}</Pre>
+
+    <p>通过样式变量实现</p>
+    <Pre>.winbox {
+    --bb-winbox-bg: var(--bb-primary-color) !important;
+}</Pre>
+</GroupBox>
+
+<GroupBox Title="更改边框" class="mb-3">
+    <p>通过 <code>WinBoxOption</code> 参数 <code>Border</code> 设置</p>
+    <Pre>new WinBoxOption() { Border = 3 }</Pre>
+</GroupBox>
+
 
 <WinBox></WinBox>
 
