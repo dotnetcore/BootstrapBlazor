@@ -18,6 +18,12 @@ public partial class ContextMenuZone
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹出前回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<object?, Task>? OnClickBefore { get; set; }
+
+    /// <summary>
     /// 获得/设置 上下文菜单组件集合
     /// </summary>
     private ContextMenu? ContextMenu { get; set; }
@@ -37,6 +43,10 @@ public partial class ContextMenuZone
         // 弹出关联菜单
         if (ContextMenu != null)
         {
+            if (OnClickBefore is not null)
+            {
+                await OnClickBefore(contextItem);
+            }
             await ContextMenu.Show(args, contextItem);
         }
     }
