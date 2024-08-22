@@ -25,7 +25,7 @@ public class WinBoxOption
     public string? Id { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 弹窗容器根节点 默认 body
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Root { get; set; }
