@@ -12,8 +12,14 @@ public partial class WinBoxes
     [Inject, NotNull]
     private WinBoxService? WinBoxService { get; set; }
 
+    private static WinBoxOption DefaultOptions => new()
+    {
+        Top = "50px",
+        Left = "50px"
+    };
+
     private async Task OpenWinBox()
     {
-        await WinBoxService.Show(new WinBoxOption());
+        await WinBoxService.Show<Counter>("Test", option: DefaultOptions);
     }
 }

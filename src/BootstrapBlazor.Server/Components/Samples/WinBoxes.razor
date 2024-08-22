@@ -1,5 +1,5 @@
 ﻿@page "/win-box"
-@inject IStringLocalizer<Trees> Localizer
+@inject IStringLocalizer<WinBoxes> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["WinBoxTitle"]</h3>
@@ -7,16 +7,9 @@
 
 <PackageTips Name="BootstrapBlazor.WinBox" />
 
-<Tips class="mt-3">
-    @((MarkupString)Localizer["WinBoxIntro"].Value)
-</Tips>
-
 <DemoBlock Title="@Localizer["WinBoxNormalTitle"]"
            Introduction="@Localizer["WinBoxNormalIntro"]"
            Name="Normal">
-    <p>
-        @((MarkupString)Localizer["WinBoxNormalDescription"].Value)
-    </p>
     <Button Text="Run" OnClickWithoutRender="OpenWinBox" ></Button>
 </DemoBlock>
 
