@@ -17,6 +17,11 @@
 <ConnectionHub></ConnectionHub>
 <Mask></Mask>
 
+@foreach(var com in Generators)
+{
+    @com.Generator()
+}
+
 @code {
     RenderFragment RenderChildContent =>
     @<CascadingValue Value="this" IsFixed="true">
