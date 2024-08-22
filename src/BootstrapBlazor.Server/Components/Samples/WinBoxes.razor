@@ -54,7 +54,11 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
     <Pre>new WinBoxOption() { Border = 3 }</Pre>
 </GroupBox>
 
+<GroupBox Title="模式弹窗" class="mb-3">
+    <p>通过 <code>WinBoxOption</code> 参数 <code>Modal</code> 设置</p>
+    <Pre>new WinBoxOption() { Modal = true }</Pre>
+</GroupBox>
 
-<WinBox></WinBox>
+<p>更多参数信息可参考 <code>WinBoxOption</code> 注释</p>
 
 <AttributeTable Items="@GetAttributes()" Title="WinBoxOption" />
