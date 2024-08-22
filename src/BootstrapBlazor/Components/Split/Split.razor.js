@@ -24,9 +24,6 @@ export function init(id) {
     const splitRight = splitWrapper.children[2];
 
     split.splitBar = splitBar;
-    EventHandler.on(splitBar, 'mousedown', e => showMask(splitLeft, splitRight));
-    EventHandler.on(splitBar, 'mouseup', e => removeMask(splitLeft, splitRight));
-
     Drag.drag(splitBar,
         e => {
             splitWidth = el.offsetWidth
@@ -39,7 +36,8 @@ export function init(id) {
                 originX = e.clientX || e.touches[0].clientX
                 curVal = splitLeft.offsetWidth * 100 / splitWidth
             }
-            el.classList.add('dragging')
+            el.classList.add('dragging');
+            showMask(splitLeft, splitRight);
         },
         e => {
             if (isVertical) {
@@ -58,7 +56,8 @@ export function init(id) {
             splitRight.style.flexBasis = `${100 - newVal}%`
         },
         () => {
-            el.classList.remove('dragging')
+            el.classList.remove('dragging');
+            removeMask(splitLeft, splitRight);
         })
 }
 
@@ -89,9 +88,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (split) {
-        const { el, splitBar } = split;
-        EventHandler.on(splitBar, 'mousedown');
-        EventHandler.on(splitBar, 'mouseup');
+        const { el } = split;
         Drag.dispose(el)
     }
 }
