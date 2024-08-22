@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuItem 类
 /// </summary>
-public partial class ContextMenuItem
+public class ContextMenuItem : ComponentBase, IDisposable
 {
     /// <summary>
     /// 获得/设置 显示文本
@@ -31,7 +31,7 @@ public partial class ContextMenuItem
     /// 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/>
     /// </summary>
     [Parameter]
-    public Func<object?, Task<bool>>? OnDisabledCallback { get; set; }
+    public Func<ContextMenuItem, object?, bool>? OnDisabledCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 点击回调方法 默认 null
@@ -43,37 +43,40 @@ public partial class ContextMenuItem
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
 
-    private bool _disabled;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
 
-    private string? ClassString => CssBuilder.Default("dropdown-item")
-        .AddClass("disabled", _disabled)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
+        ContextMenu.AddItem(this);
+    }
 
-    private string? IconString => CssBuilder.Default("cm-icon")
-        .AddClass(Icon, !string.IsNullOrEmpty(Icon))
-        .Build();
+    private bool disposedValue;
+
+    /// <summary>
+    /// 释放资源方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                ContextMenu.RemoveItem(this);
+            }
+            disposedValue = true;
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
+    public void Dispose()
     {
-        await base.OnParametersSetAsync();
-
-        _disabled = Disabled;
-        if (OnDisabledCallback != null)
-        {
-            _disabled = await OnDisabledCallback(ContextMenu.GetContextItem());
-        }
-    }
-
-    private async Task OnClickItem()
-    {
-        if (!Disabled && OnClick != null)
-        {
-            await OnClick(this, ContextMenu.GetContextItem());
-        }
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -6,4 +6,14 @@
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
+    <RenderTemplate>
+        @foreach (var item in _contextMenuItems)
+        {
+            <DynamicElement @key="item" TagName="div" class="@GetItemClassString(item)"
+                            TriggerClick="!GetItemTriggerClick(item)" OnClick="() => OnClickItem(item)">
+                <i class="@GetItemIconString(item)"></i>
+                <span>@item.Text</span>
+            </DynamicElement>
+        }
+    </RenderTemplate>
 </div>
