@@ -6034,6 +6034,8 @@
     "IntroText": "Some application scenarios require us to obtain the <code>Html</code> code fragment finally output by <code>Component</code>, and call the <code>RenderAsync</code> instance method of <code>IComponentHtmlRenderer</code> service"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "Copy",
+    "ContextMenuItemPast": "Past",
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
     "ContextMenuNormalTitle": "Basic usage",

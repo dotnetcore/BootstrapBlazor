@@ -6034,6 +6034,8 @@
     "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "拷贝",
+    "ContextMenuItemPast": "粘贴",
     "ContextMenuTitle": "ContextMenu 右键菜单",
     "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
     "ContextMenuNormalTitle": "基础用法",
