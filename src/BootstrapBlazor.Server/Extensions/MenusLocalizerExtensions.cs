@@ -1233,6 +1233,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["WinBox"],
                     Url = "win-box"
                 }
