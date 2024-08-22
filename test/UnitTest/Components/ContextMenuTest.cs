@@ -13,7 +13,7 @@ namespace UnitTest.Components;
 public class ContextMenuTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ContextMenu_Ok()
+    public async Task ContextMenu_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var foo = Foo.Generate(localizer);
@@ -59,7 +59,47 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         Assert.NotNull(v);
 
         var item = menu.Find(".dropdown-item");
-        Assert.DoesNotContain("blazor:onclick", item.OuterHtml);
+        Assert.DoesNotContain("blazor:onclick", item.InnerHtml);
+
+        var contextItem = cut.FindComponent<ContextMenuItem>();
+        contextItem.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Disabled, false);
+            pb.Add(a => a.OnDisabledCallback, (item, v) =>
+            {
+                return true;
+            });
+        });
+        item = menu.Find(".dropdown-item");
+        Assert.DoesNotContain("blazor:onclick", item.InnerHtml);
+
+        // trigger OnBeforeShowCallback
+        bool menuCallback = false;
+        contextItem.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Disabled, false);
+            pb.Add(a => a.OnDisabledCallback, (item, v) =>
+            {
+                menuCallback = true;
+                return false;
+            });
+        });
+        menu.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeShowCallback, v =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+        item = menu.Find(".dropdown-item");
+        item.Click();
+        Assert.True(menuCallback);
+
+        // 测试 Touch 事件
+        TriggerTouchStart(row);
+
+        await Task.Delay(500);
+        row.TouchEnd();
     }
 
     [Theory]
