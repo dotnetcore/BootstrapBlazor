@@ -66,6 +66,12 @@ public partial class DockViewV2
     public bool ShowFloat { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 客户端渲染模式 always onlyWhenVisible 值
+    /// </summary>
+    [Parameter]
+    public string Renderer { get; set; } = "always";
+
+    /// <summary>
     /// 获得/设置 锁定状态回调此方法
     /// </summary>
     [Parameter]
@@ -177,6 +183,7 @@ public partial class DockViewV2
         ShowFloat = ShowFloat,
         ShowClose = ShowClose,
         ShowMaximize = ShowMaximize,
+        Renderer = Renderer,
         LayoutConfig = LayoutConfig,
         InitializedCallback = nameof(InitializedCallbackAsync),
         PanelVisibleChangedCallback = nameof(PanelVisibleChangedCallbackAsync),
