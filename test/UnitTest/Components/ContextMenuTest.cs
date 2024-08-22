@@ -50,29 +50,60 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(async () =>
+        var row = cut.Find(".context-trigger");
+        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+
+        var menu = cut.FindComponent<ContextMenu>();
+        menu.Contains("shadow");
+        var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(pi);
+
+        var v = pi.GetValue(menu.Instance);
+        Assert.NotNull(v);
+
+        var item = menu.Find(".dropdown-item");
+        Assert.DoesNotContain("blazor:onclick", item.InnerHtml);
+
+        var contextItem = cut.FindComponent<ContextMenuItem>();
+        contextItem.SetParametersAndRender(pb =>
         {
-            var row = cut.Find(".context-trigger");
-            row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
-
-            var menu = cut.FindComponent<ContextMenu>();
-            menu.Contains("shadow");
-            var pi = typeof(ContextMenu).GetProperty("ContextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            Assert.NotNull(pi);
-
-            var v = pi.GetValue(menu.Instance);
-            Assert.NotNull(v);
-
-            var item = menu.Find(".dropdown-item");
-            item.Click();
-            Assert.False(clicked);
-
-            // 测试 Touch 事件
-            TriggerTouchStart(row);
-
-            await Task.Delay(500);
-            row.TouchEnd();
+            pb.Add(a => a.Disabled, false);
+            pb.Add(a => a.OnDisabledCallback, (item, v) =>
+            {
+                return true;
+            });
         });
+        item = menu.Find(".dropdown-item");
+        Assert.DoesNotContain("blazor:onclick", item.InnerHtml);
+
+        // trigger OnBeforeShowCallback
+        bool menuCallback = false;
+        contextItem.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Disabled, false);
+            pb.Add(a => a.OnDisabledCallback, (item, v) =>
+            {
+                menuCallback = true;
+                return false;
+            });
+        });
+        menu.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeShowCallback, v =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+        item = menu.Find(".dropdown-item");
+        item.Click();
+        Assert.True(menuCallback);
+
+        // 测试 Touch 事件
+        TriggerTouchStart(row);
+
+        await Task.Delay(500);
+        row.TouchEnd();
+        Assert.True(clicked);
     }
 
     [Theory]
@@ -114,29 +145,26 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(async () =>
-        {
-            var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
-            row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+        var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
+        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
 
-            var menu = cut.FindComponent<ContextMenu>();
-            var pi = typeof(ContextMenu).GetProperty("ContextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            Assert.NotNull(pi);
+        var menu = cut.FindComponent<ContextMenu>();
+        var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(pi);
 
-            var v = pi.GetValue(menu.Instance);
-            Assert.NotNull(v);
+        var v = pi.GetValue(menu.Instance);
+        Assert.NotNull(v);
 
-            var item = menu.Find(".dropdown-item");
-            item.Click();
-            Assert.True(clicked);
+        var item = menu.Find(".dropdown-item");
+        item.Click();
+        Assert.True(clicked);
 
-            TriggerTouchStart(row);
-            TriggerTouchStart(row);
+        TriggerTouchStart(row);
+        TriggerTouchStart(row);
 
-            var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-            await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
-            row.TouchEnd();
-        });
+        var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
+        row.TouchEnd();
     }
 
     [Fact]
@@ -180,29 +208,26 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(async () =>
-        {
-            var row = cut.Find(".tree-content");
-            row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
+        var row = cut.Find(".tree-content");
+        row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
 
-            var menu = cut.FindComponent<ContextMenu>();
-            var pi = typeof(ContextMenu).GetProperty("ContextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            Assert.NotNull(pi);
+        var menu = cut.FindComponent<ContextMenu>();
+        var pi = typeof(ContextMenu).GetField("_contextItem", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(pi);
 
-            var v = pi.GetValue(menu.Instance);
-            Assert.NotNull(v);
+        var v = pi.GetValue(menu.Instance);
+        Assert.NotNull(v);
 
-            var item = menu.Find(".dropdown-item");
-            item.Click();
-            Assert.True(clicked);
+        var item = menu.Find(".dropdown-item");
+        item.Click();
+        Assert.True(clicked);
 
-            TriggerTouchStart(row);
-            TriggerTouchStart(row);
+        TriggerTouchStart(row);
+        TriggerTouchStart(row);
 
-            var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-            await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
-            row.TouchEnd();
-        });
+        var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
+        await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
+        row.TouchEnd();
     }
 
     private void TriggerTouchStart(IElement row)

@@ -6042,7 +6042,11 @@
     "ContextMenuTableTitle": "Table 组件",
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
-    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
+    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单",
+    "ContextMenuCallbackTitle": "ContextMenu 回调",
+    "ContextMenuCallbackIntro": "通过设置 <code>ContextMenu</code> 组件参数 <code>OnBeforeShowCallback</code> 获得右键菜单弹出前回调事件，可用于数据准备工作",
+    "ContextMenuDisabledTitle": "禁止回调方法",
+    "ContextMenuDisabledIntro": "通过设置 <code>ContextMenuItem</code> 组件参数 <code>OnDisabledCallback</code> 回调方法可用于设置当前右键选项是否禁用逻辑"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
