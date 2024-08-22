@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassString" @onclick="OnClickItem">
+<DynamicElement TagName="div" @attributes="AdditionalAttributes" class="@ClassString"
+    TriggerClick="!_disabled" OnClick="OnClickItem">
     <i class="@IconString"></i>
     <span>@Text</span>
-</div>
+</DynamicElement>
