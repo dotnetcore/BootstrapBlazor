@@ -84,6 +84,132 @@ public partial class WinBox
     }
 
     /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnCreate(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnCreateAsync != null)
+        {
+            await option.OnCreateAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnShown(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnShownAsync != null)
+        {
+            await option.OnShownAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnHide(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnHideAsync != null)
+        {
+            await option.OnHideAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnFocus(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnFocusAsync != null)
+        {
+            await option.OnFocusAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnBlur(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnBlurAsync != null)
+        {
+            await option.OnBlurAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnFullscreen(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnFullscreenAsync != null)
+        {
+            await option.OnFullscreenAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnRestore(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnRestoreAsync != null)
+        {
+            await option.OnRestoreAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnMaximize(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnMaximizeAsync != null)
+        {
+            await option.OnMaximizeAsync();
+        }
+    }
+
+    /// <summary>
+    /// 弹窗关闭回调方法由 JavaScript 调用
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnMinimize(string id)
+    {
+        if (_cache.TryGetValue(id, out var option) && option.OnMinimizeAsync != null)
+        {
+            await option.OnMinimizeAsync();
+        }
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>

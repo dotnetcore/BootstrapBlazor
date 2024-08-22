@@ -199,11 +199,17 @@ public class WinBoxOption
     [JsonIgnore]
     public Func<Task>? OnCreateAsync { get; set; }
 
+    [JsonInclude]
+    private bool TriggerOnCreate => OnCreateAsync != null;
+
     /// <summary>
     /// 获得/设置 弹窗可见回调方法 默认 null
     /// </summary>
     [JsonIgnore]
     public Func<Task>? OnShownAsync { get; set; }
+
+    [JsonInclude]
+    private bool TriggerOnShown => OnShownAsync != null;
 
     /// <summary>
     /// 获得/设置 隐藏弹窗回调方法 默认 null
@@ -211,17 +217,26 @@ public class WinBoxOption
     [JsonIgnore]
     public Func<Task>? OnHideAsync { get; set; }
 
+    [JsonInclude]
+    private bool TriggerOnHide => OnHideAsync != null;
+
     /// <summary>
     /// 获得/设置 弹窗获得焦点回调方法 默认 null
     /// </summary>
     [JsonIgnore]
     public Func<Task>? OnFocusAsync { get; set; }
 
+    [JsonInclude]
+    private bool TriggerOnFocus => OnFocusAsync != null;
+
     /// <summary>
     /// 获得/设置 弹窗失去焦点回调方法 默认 null
     /// </summary>
     [JsonIgnore]
-    public Func<Task>? OnBlueAsync { get; set; }
+    public Func<Task>? OnBlurAsync { get; set; }
+
+    [JsonInclude]
+    private bool TriggerOnBlur => OnBlurAsync != null;
 
     /// <summary>
     /// 获得/设置 弹窗全屏回调方法 默认 null
@@ -229,11 +244,17 @@ public class WinBoxOption
     [JsonIgnore]
     public Func<Task>? OnFullscreenAsync { get; set; }
 
+    [JsonInclude]
+    private bool TriggerOnFullscreen => OnFullscreenAsync != null;
+
     /// <summary>
     /// 获得/设置 恢复弹窗回调方法 默认 null
     /// </summary>
     [JsonIgnore]
     public Func<Task>? OnRestoreAsync { get; set; }
+
+    [JsonInclude]
+    private bool TriggerOnRestore => OnRestoreAsync != null;
 
     /// <summary>
     /// 获得/设置 最大化弹窗回调方法 默认 null
@@ -241,11 +262,17 @@ public class WinBoxOption
     [JsonIgnore]
     public Func<Task>? OnMaximizeAsync { get; set; }
 
+    [JsonInclude]
+    private bool TriggerOnMaximize => OnMaximizeAsync != null;
+
     /// <summary>
     /// 获得/设置 最小化弹窗回调方法 默认 null
     /// </summary>
     [JsonIgnore]
     public Func<Task>? OnMinimizeAsync { get; set; }
+
+    [JsonInclude]
+    private bool TriggerOnMinimize => OnMinimizeAsync != null;
 
     /// <summary>
     /// 获得/设置 关闭弹窗回调方法 默认 null
