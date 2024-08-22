@@ -34,6 +34,12 @@ public partial class ContextMenu
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 弹出前回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<object?, Task>? OnBeforeShowCallback { get; set; }
+
     private string ZoneId => ContextMenuZone.Id;
 
     /// <summary>
@@ -55,6 +61,10 @@ public partial class ContextMenu
     internal async Task Show(MouseEventArgs args, object? contextItem)
     {
         ContextItem = contextItem;
+        if (OnBeforeShowCallback != null)
+        {
+            await OnBeforeShowCallback(contextItem);
+        }
         await InvokeVoidAsync("show", Id, args);
     }
 
