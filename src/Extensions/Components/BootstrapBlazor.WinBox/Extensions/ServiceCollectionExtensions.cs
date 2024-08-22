@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddBootstrapBlazorWinBoxService(this IServiceCollection services)
     {
         services.AddScoped<WinBoxService>();
+        services.AddScoped<IRootComponentGenerator, ComponentGenerator>();
         return services;
     }
 }
