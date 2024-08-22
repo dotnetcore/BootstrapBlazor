@@ -7,9 +7,9 @@ public partial class ContextMenus
 {
     private List<TreeViewItem<TreeFoo>> TreeItems { get; set; } = TreeFoo.GetTreeItems();
 
-    private readonly ConsoleLogger _callbackLogger = default!;
+    private ConsoleLogger _callbackLogger = default!;
 
-    private readonly ConsoleLogger _disabledLogger = default!;
+    private ConsoleLogger _disabledLogger = default!;
 
     private static Task OnCopy(ContextMenuItem item, object value)
     {
