@@ -45,10 +45,10 @@ public partial class ContextMenus
         return Task.CompletedTask;
     }
 
-    private bool OnDisabledCallback(object? item)
+    private bool OnDisabledCallback(ContextMenuItem item, object? context)
     {
         var ret = false;
-        if (item is Foo foo)
+        if (context is Foo foo)
         {
             ret = foo.Id == 1;
             _disabledLogger.Log($"{foo.Name} trigger Disabled: {ret}");
