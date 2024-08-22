@@ -64,6 +64,7 @@ const addPanelWidthGroupId = (dockview, panel, index) => {
     dockview.addPanel({
         id: panel.id,
         title: panel.title,
+        renderer: panel.renderer,
         component: panel.component,
         position: { referenceGroup: group, index: index || 0 },
         params: { ...panel.params, isPackup, packupHeight, isMaximized, position }
@@ -100,6 +101,7 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     let option = {
         id: panel.id,
         title: panel.title,
+        renderer: panel.renderer,
         component: panel.component,
         position: { referenceGroup: group },
         params: { ...panel.params, isPackup, packupHeight, isMaximized, position }

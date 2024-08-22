@@ -199,7 +199,7 @@ const getConfigFromContent = options => {
     const getGroupId = getGroupIdFunc()
     const panels = {}, rootType = options.content[0].type
     const orientation = rootType === 'column' ? 'VERTICAL' : 'HORIZONTAL';
-    const root = getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId)
+    const root = getTree(options.content[0], { width, height, orientation }, options, panels, getGroupId, options)
     return fixObject({
         activeGroup: '1',
         grid: { width, height, orientation, root },
@@ -212,7 +212,7 @@ const getGroupIdFunc = () => {
     return () => `${currentId++}`;
 }
 
-const getTree = (contentItem, { width, height, orientation }, parent, panels, getGroupId) => {
+const getTree = (contentItem, { width, height, orientation }, parent, panels, getGroupId, options) => {
     const length = parent.content.length;
     const boxSize = orientation === 'HORIZONTAL' ? width : height;
     let size;
@@ -232,13 +232,13 @@ const getTree = (contentItem, { width, height, orientation }, parent, panels, ge
     if (contentItem.type === 'row' || contentItem.type === 'column') {
         obj.type = 'branch';
         obj.size = getSize(boxSize, contentItem.width || contentItem.height) || size
-        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId))
+        obj.data = contentItem.content.map(item => getTree(item, { width, height, orientation }, contentItem, panels, getGroupId, options))
     }
     else if (contentItem.type === 'group') {
-        obj = getGroupNode(contentItem, size, boxSize, parent, panels, getGroupId);
+        obj = getGroupNode(contentItem, size, boxSize, parent, panels, getGroupId, options);
     }
     else if (contentItem.type === 'component') {
-        obj = getLeafNode(contentItem, size, boxSize, parent, panels, getGroupId);
+        obj = getLeafNode(contentItem, size, boxSize, parent, panels, getGroupId, options);
     }
     return obj
 }
@@ -251,7 +251,7 @@ const getActualSize = (width, height, widthRate, heightRate, defaultSize) => (wi
     ? defaultSize
     : width ? width * widthRate / 100 : height * heightRate / 100;
 
-const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
+const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId, options) => {
     return {
         type: 'leaf',
         size: getSize(boxSize, contentItem.width || contentItem.height) || size,
@@ -266,6 +266,7 @@ const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId) =>
                     title: item.title,
                     tabComponent: item.componentName,
                     contentComponent: item.componentName,
+                    renderer: item.renderer || options.renderer,
                     params: { ...item, parentId: parent.id }
                 }
                 return item.id
@@ -274,7 +275,7 @@ const getGroupNode = (contentItem, size, boxSize, parent, panels, getGroupId) =>
     }
 }
 
-const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => {
+const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId, options) => {
     const visible = contentItem.visible !== false;
     const data = {
         type: 'leaf',
@@ -287,10 +288,11 @@ const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId) => 
             views: visible ? [contentItem.id] : []
         }
     };
-    if (visible) {
+    if (visible) {console.log(contentItem, 'contentItem');
         panels[contentItem.id] = {
             id: contentItem.id,
             title: contentItem.title,
+            renderer: contentItem.renderer || options.renderer,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
             params: { ...contentItem, parentId: parent.id }
