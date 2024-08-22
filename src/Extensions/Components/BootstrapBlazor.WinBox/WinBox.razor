@@ -1,0 +1,12 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.WinBox/WinBox.razor.js", JSObjectReference = true)]
+
+@foreach (var item in _cache.Values)
+{
+    <template @key="item" id="@item.Id">
+        <div class="bb-win-box-content">
+            @item?.ContentTemplate
+        </div>
+    </template>
+}

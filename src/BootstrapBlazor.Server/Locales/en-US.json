@@ -4736,7 +4736,8 @@
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
     "DrawerService": "DrawerService",
-    "SortableList": "SortableList"
+    "SortableList": "SortableList",
+    "WinBox": "WinBox"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6701,5 +6702,27 @@
     "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
     "SortableListSwapTitle": "Swap",
     "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
+  },
+  "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
+    "WinBoxTitle": "WinBox",
+    "WinBoxDescription": "Components that emulate Windows window styles",
+    "WinBoxNormalTitle": "Basic usage",
+    "WinBoxNormalIntro": "By setting the <code>WinBoxOption</code> parameter value, a pop-up window is created and displayed.",
+    "AttributeRoot": "Pop-up container root node",
+    "AttributeTitle": "Pop-up title",
+    "AttributeClass": "Pop-up style",
+    "AttributeBackground": "Popup background color",
+    "AttributeBorder": "Pop-up border",
+    "AttributeIcon": "Pop-up title icon",
+    "OnCreateAsync": "Create a pop-up callback method",
+    "OnShownAsync": "Pop-up window visible callback method",
+    "OnHideAsync": "Hide pop-up window callback method",
+    "OnFocusAsync": "Pop-up window gets focus callback method",
+    "OnBlurAsync": "Pop-up window loses focus callback method",
+    "OnFullscreenAsync": "Pop-up full screen callback method",
+    "OnRestoreAsync": "Restore pop-up window callback method",
+    "OnMaximizeAsync": "Maximize pop-up window callback method",
+    "OnMinimizeAsync": "Minimize pop-up window callback method",
+    "OnCloseAsync": "Close pop-up window callback method"
   }
 }
