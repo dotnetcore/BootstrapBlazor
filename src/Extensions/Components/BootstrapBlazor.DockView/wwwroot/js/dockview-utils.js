@@ -1,6 +1,6 @@
 ﻿import { DockviewComponent } from "./dockview-core.esm.js"
 import { DockviewPanelContent } from "./dockview-content.js"
-import { onAddGroup, addGroupWithPanel, toggleLock } from "./dockview-group.js"
+import { onAddGroup, addGroupWithPanel, toggleLock, observeFloatingGroupLocationChange } from "./dockview-group.js"
 import { onAddPanel, onRemovePanel, getPanelsFromOptions, findContentFromPanels } from "./dockview-panel.js"
 import { getConfig, reloadFromConfig, loadPanelsFromLocalstorage, saveConfig } from './dockview-config.js'
 import './dockview-extensions.js'
@@ -83,6 +83,8 @@ const initDockview = (dockview, options, template) => {
                 const style = group.element.parentElement.style
                 style.top = top + 'px'
                 style.left = left + 'px'
+
+                observeFloatingGroupLocationChange(group)
             })
 
             dockview._inited = true;

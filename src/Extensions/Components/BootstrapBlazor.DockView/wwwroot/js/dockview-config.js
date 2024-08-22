@@ -118,8 +118,8 @@ const removeEmptyLeafViews = (branch, floatingGroups, delPanels, parent) => {
     else if (branch.type == 'leaf') {
         if (
             branch.data.views.length == 0
-            && !floatingGroups.find(fg => fg.data.id.split('_')[0] == branch.data.id)
-            && !delPanels.find(p => p.groupId == branch.data.id)
+            && !floatingGroups.find(fg => fg.data.id.split('_')[0] == branch.data.id.split('_')[0])
+            && !delPanels.find(p => p.groupId?.split('_')[0] == branch.data.id?.split('_')[0])
         ) {
             parent && (parent.data = parent.data.filter(item => item.data.id != branch.data.id))
         }
@@ -288,7 +288,7 @@ const getLeafNode = (contentItem, size, boxSize, parent, panels, getGroupId, opt
             views: visible ? [contentItem.id] : []
         }
     };
-    if (visible) {console.log(contentItem, 'contentItem');
+    if (visible) {
         panels[contentItem.id] = {
             id: contentItem.id,
             title: contentItem.title,
