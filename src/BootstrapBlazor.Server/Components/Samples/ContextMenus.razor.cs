@@ -51,7 +51,7 @@ public partial class ContextMenus
         if (context is Foo foo)
         {
             ret = foo.Id == 1;
-            _disabledLogger.Log($"{foo.Name} trigger Disabled: {ret}");
+            _disabledLogger.Log($"{foo.Name} trigger {item.Text} Disabled: {ret}");
         }
         return ret;
     }
