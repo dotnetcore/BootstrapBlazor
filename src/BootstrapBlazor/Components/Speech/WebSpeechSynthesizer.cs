@@ -14,6 +14,11 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
+    /// 获得/设置 朗读结束回调方法 默认 null
+    /// </summary>
+    public Func<Task>? OnEndAsync { get; set; }
+
+    /// <summary>
     /// 开始朗读方法
     /// </summary>
     /// <param name="text"></param>
@@ -41,5 +46,39 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     public async Task Resume()
     {
         await module.InvokeVoidAsync("resume", _id);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnError()
+    {
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnEnd()
+    {
+        if (OnEndAsync != null)
+        {
+            await OnEndAsync();
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task OnSpeaking()
+    {
+        await Task.CompletedTask;
+
     }
 }

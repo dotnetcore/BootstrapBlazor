@@ -4,6 +4,7 @@ export function speak(id, invoke, option) {
     const synth = window.speechSynthesis;
     if (synth.speaking) {
         console.error("speechSynthesis.speaking");
+        invoke.invokeMethodAsync("OnSpeaking");
         return;
     }
     const { text, lang } = option;
@@ -13,12 +14,13 @@ export function speak(id, invoke, option) {
             utter.lang = lang;
         }
 
-        utter.onend = function (event) {
-            console.log(event, "SpeechSynthesisUtterance.onend");
+        utter.onend = () => {
+            invoke.invokeMethodAsync("OnEnd");
         };
 
-        utter.onerror = function (event) {
-            console.error("SpeechSynthesisUtterance.onerror");
+        utter.onerror = e => {
+            console.error("SpeechSynthesisUtterance.onerror", e);
+            invoke.invokeMethodAsync("OnError");
         };
         synth.speak(utter);
     }
