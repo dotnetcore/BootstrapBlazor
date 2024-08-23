@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class ButtonTest : BootstrapBlazorButtonTestBase
+public class ButtonTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ButtonStyle_Ok()
