@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
-public class DateTimePickerTest : BootstrapBlazorTestBase
+public class DateTimePickerTest : BootstrapBlazorDateTimePickerTestBase
 {
     #region DateTimePicker
     [Fact]
