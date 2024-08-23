@@ -69,6 +69,11 @@ public partial class WinBox
         }
     }
 
+    private async Task CloseAsync(WinBoxOption option)
+    {
+        await InvokeVoidAsync("execute", option.Id, "close");
+    }
+
     /// <summary>
     /// 弹窗关闭回调方法由 JavaScript 调用
     /// </summary>
