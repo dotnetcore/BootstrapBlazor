@@ -21,52 +21,32 @@ public partial class WebSpeeches
     private string? _text;
     private string? _buttonText = "开始合成";
     private WebSpeechSynthesizer _entry = default!;
+    private TaskCompletionSource? _tcs;
 
-    private int _count = 2;
-    private List<string> _list = ["十", "九", "八"];
     private async Task OnStart()
     {
-        if (_buttonText == "开始合成")
+        if (!string.IsNullOrEmpty(_text))
         {
-            if (!string.IsNullOrEmpty(_text))
+            if (_entry == null)
             {
-                _count = 2;
-                if (_entry == null)
-                {
-                    _entry = await WebSpeechService.CreateSynthesizerAsync();
-                    _entry.OnEndAsync = SpeakAsync;
-                }
-                await _entry.SpeakAsync("八", "zh-CN");
+                _entry = await WebSpeechService.CreateSynthesizerAsync();
+                _entry.OnEndAsync = SpeakAsync;
             }
-        }
-        else
-        {
-        }
-    }
-
-    private async Task SpeakAsync()
-    {
-        _count--;
-        if (_count >= 0)
-        {
-            await Task.Delay(1000);
-            await _entry.SpeakAsync(_list[_count], "zh-CN");
-        }
-    }
-
-    private Task Synthesizer(SynthesizerStatus status)
-    {
-        if (status == SynthesizerStatus.Synthesizer)
-        {
+            _tcs ??= new();
             _star = true;
-            _buttonText = "停止合成";
-        }
-        else
-        {
+            StateHasChanged();
+
+            await _entry.SpeakAsync(_text, "zh-CN");
+            await _tcs.Task;
             _star = false;
-            _buttonText = "开始合成";
+            _tcs = null;
+            StateHasChanged();
         }
-        StateHasChanged();
+    }
+
+    private Task SpeakAsync()
+    {
+        _tcs?.TrySetResult();
         return Task.CompletedTask;
     }
 }

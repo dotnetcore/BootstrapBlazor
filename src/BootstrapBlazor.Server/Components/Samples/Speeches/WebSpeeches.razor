@@ -13,7 +13,7 @@
         </div>
         <div class="col-12 col-sm-6 text-center">
             <SpeechWave Show="_star" ShowUsedTime="false" class="my-3"></SpeechWave>
-            <Button Text="@_buttonText" OnClick="OnStart" Icon="fa-fw fa-solid fa-microphone"></Button>
+            <Button Text="@_buttonText" OnClickWithoutRender="OnStart" IsAsync="true" Icon="fa-fw fa-solid fa-microphone"></Button>
         </div>
     </div>
 </DemoBlock>
