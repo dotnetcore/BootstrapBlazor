@@ -20,20 +20,37 @@ public partial class WebSpeeches
     private bool _star;
     private string? _text;
     private string? _buttonText = "开始合成";
-    private WebSpeechSynthesizer? _entry;
+    private WebSpeechSynthesizer _entry = default!;
 
+    private int _count = 2;
+    private List<string> _list = ["十", "九", "八"];
     private async Task OnStart()
     {
         if (_buttonText == "开始合成")
         {
             if (!string.IsNullOrEmpty(_text))
             {
-                _entry ??= await WebSpeechService.CreateSynthesizerAsync();
-                await _entry.SpeakAsync(_text, "zh-CN");
+                _count = 2;
+                if (_entry == null)
+                {
+                    _entry = await WebSpeechService.CreateSynthesizerAsync();
+                    _entry.OnEndAsync = SpeakAsync;
+                }
+                await _entry.SpeakAsync("八", "zh-CN");
             }
         }
         else
         {
+        }
+    }
+
+    private async Task SpeakAsync()
+    {
+        _count--;
+        if (_count >= 0)
+        {
+            await Task.Delay(1000);
+            await _entry.SpeakAsync(_list[_count], "zh-CN");
         }
     }
 
