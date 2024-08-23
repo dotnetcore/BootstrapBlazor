@@ -1,0 +1,19 @@
+﻿@page "/speech/web-synthesizer"
+@inherits BootstrapComponentBase
+
+<h3>@Localizer["WebSpeechTitle"]</h3>
+<h4>@Localizer["WebSpeechSubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["WebSpeechNormalTitle"]"
+           Introduction="@Localizer["WebSpeechNormalIntro"]"
+           Name="Normal">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <textarea @bind="_text" rows="6"></textarea>
+        </div>
+        <div class="col-12 col-sm-6 text-center">
+            <SpeechWave Show="_star" ShowUsedTime="false" class="my-3"></SpeechWave>
+            <Button Text="@_buttonText" OnClick="OnStart" Icon="fa-fw fa-solid fa-microphone"></Button>
+        </div>
+    </div>
+</DemoBlock>
