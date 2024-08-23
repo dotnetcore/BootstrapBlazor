@@ -22,6 +22,8 @@
     }
 
     .winbox .bb-winbox-footer {
+        white-space: nowrap;
+        overflow: hidden;
         text-align: end;
         border-top: var(--bs-border-width) solid var(--bb-winbox-footer-border-color);
         padding: var(--bb-winbox-body-padding);
