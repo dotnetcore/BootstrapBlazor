@@ -75,7 +75,10 @@ public partial class WinBoxes
             _logger.Log($"WinBoxOption({option.Id}) Trigger OnMinimizeAsync");
             return Task.CompletedTask;
         };
-        await WinBoxService.Show<Counter>("Test", option: option);
+
+        await WinBoxService.Show<CustomWinBoxContent>("Test", new Dictionary<string, object?>() {
+            { "Option", option }
+        }, option);
     }
 
     private AttributeItem[] GetAttributes() =>
