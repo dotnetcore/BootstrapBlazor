@@ -49,7 +49,13 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 
+    /// 获得 语音包方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<List<WebSpeechSynthesisVoice>> GetVoices() => await module.InvokeAsync<List<WebSpeechSynthesisVoice>>("getVoices");
+
+    /// <summary>
+    /// 朗读异常回调方法由 Javascript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -59,7 +65,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 
+    /// 朗读结束回调方法由 Javascript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -72,13 +78,12 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 
+    /// 正在朗读回调方法由 Javascript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
     public async Task OnSpeaking()
     {
         await Task.CompletedTask;
-
     }
 }
