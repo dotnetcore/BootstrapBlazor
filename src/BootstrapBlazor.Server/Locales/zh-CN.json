@@ -6299,13 +6299,11 @@
     "Layout": "布局",
     "Theme": "主题"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
-    "WebSpeechTitle": "Web Speech 语音识别/合成",
-    "WebSpeechDescription": "使用浏览器接口功能提供语音识别/合成服务",
-    "WebSpeechNormalTitle": "语音识别",
-    "WebSpeechGameTitle": "语音颜色选择游戏",
-    "WebSpeechSynthesisTitle": "语音合成",
-    "WebSpeechSynthesisCustomTitle": "语音合成自定义"
+  "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
+    "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
+    "WebSpeechSubTitle": "使用浏览器接口功能提供语音识别/合成服务",
+    "WebSpeechNormalTitle": "语音合成",
+    "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",

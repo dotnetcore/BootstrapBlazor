@@ -9,7 +9,8 @@
            Name="Normal">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <textarea @bind="_text" rows="6"></textarea>
+            <Select Items="_voices" @bind-Value="_voice" class="mb-1"></Select>
+            <Textarea @bind-Value="_text" rows="6"></Textarea>
         </div>
         <div class="col-12 col-sm-6 text-center">
             <SpeechWave Show="_star" ShowUsedTime="false" class="my-3"></SpeechWave>

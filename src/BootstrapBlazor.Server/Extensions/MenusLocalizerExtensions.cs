@@ -201,7 +201,7 @@ internal static class MenusLocalizerExtensions
                     Url = "speech/web-speech"
                 }
             };
-            AddBadge(item, count: 3);
+            AddBadge(item, count: 5);
         }
 
         void AddQuickStar(DemoMenuItem item)
