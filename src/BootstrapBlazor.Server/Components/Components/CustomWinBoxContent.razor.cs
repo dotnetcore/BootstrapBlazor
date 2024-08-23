@@ -43,4 +43,22 @@ public partial class CustomWinBoxContent
             await WinBoxService.Restore(Option);
         }
     }
+
+    private async Task SetIconWinBox()
+    {
+        if (Option != null)
+        {
+            Option.Icon = "./images/Argo-C.png";
+            await WinBoxService.SetIcon(Option);
+        }
+    }
+
+    private async Task SetTitleWinBox()
+    {
+        if (Option != null)
+        {
+            Option.Title = $"{DateTime.Now}";
+            await WinBoxService.SetTitle(Option);
+        }
+    }
 }
