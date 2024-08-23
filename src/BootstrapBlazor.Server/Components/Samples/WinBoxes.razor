@@ -27,7 +27,8 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["WinBoxNormalTitle"]"
            Introduction="@Localizer["WinBoxNormalIntro"]"
            Name="Normal">
-    <Button Text="Run" OnClickWithoutRender="OpenWinBox"></Button>
+    <Button Text="Show" OnClickWithoutRender="() => OpenWinBox(null)"></Button>
+    <Button Text="Modal" OnClickWithoutRender="OpenModalWinBox"></Button>
     <ConsoleLogger @ref="_logger"></ConsoleLogger>
 </DemoBlock>
 
