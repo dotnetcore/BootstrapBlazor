@@ -52,17 +52,20 @@ public partial class WinBox
 
     private async Task Execute(WinBoxOption? option, string method)
     {
-        if (method == "show")
+        if (method == "stack")
         {
-            await Show(option);
+            await InvokeVoidAsync("stack");
         }
-        if (method == "show")
+        else if (option != null)
         {
-            await Show(option);
-        }
-        else
-        {
-            await InvokeVoidAsync("execute", option?.Id, method);
+            if (method == "show")
+            {
+                await Show(option);
+            }
+            else
+            {
+                await InvokeVoidAsync("execute", option.Id, method);
+            }
         }
     }
 

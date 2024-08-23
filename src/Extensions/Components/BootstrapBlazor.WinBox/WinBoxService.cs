@@ -41,12 +41,29 @@ public class WinBoxService
     /// <param name="option">弹窗配置信息实体类</param>
     public Task Show(WinBoxOption option) => Invoke(option, "show");
 
-
     /// <summary>
     /// 关闭 WinBox 方法
     /// </summary>
     /// <param name="option">弹窗配置信息实体类</param>
     public Task Close(WinBoxOption option) => Invoke(option, "close");
+
+    /// <summary>
+    /// 最小化方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Minimize(WinBoxOption option) => Invoke(option, "minimize");
+
+    /// <summary>
+    /// 最大化方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Maximize(WinBoxOption option) => Invoke(option, "maximize");
+
+    /// <summary>
+    /// 最大化方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Restore(WinBoxOption option) => Invoke(option, "restore");
 
     /// <summary>
     /// 窗口排列方法
