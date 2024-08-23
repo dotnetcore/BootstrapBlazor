@@ -62,6 +62,14 @@ public partial class WinBox
             {
                 await Show(option);
             }
+            else if (method == "setIcon")
+            {
+                await InvokeVoidAsync("execute", option.Id, method, option.Icon);
+            }
+            else if (method == "setTitle")
+            {
+                await InvokeVoidAsync("execute", option.Id, method, option.Title);
+            }
             else
             {
                 await InvokeVoidAsync("execute", option.Id, method);

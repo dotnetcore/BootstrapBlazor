@@ -66,6 +66,18 @@ public class WinBoxService
     public Task Restore(WinBoxOption option) => Invoke(option, "restore");
 
     /// <summary>
+    /// 设置图标方法
+    /// </summary>
+    /// <returns></returns>
+    public Task SetIcon(WinBoxOption option) => Invoke(option, "setIcon");
+
+    /// <summary>
+    /// 设置标题方法
+    /// </summary>
+    /// <returns></returns>
+    public Task SetTitle(WinBoxOption option) => Invoke(option, "setTitle");
+
+    /// <summary>
     /// 窗口排列方法
     /// </summary>
     /// <returns></returns>
