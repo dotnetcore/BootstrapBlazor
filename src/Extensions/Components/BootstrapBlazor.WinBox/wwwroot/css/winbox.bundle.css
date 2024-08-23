@@ -1,17 +1,34 @@
 ﻿@import url('./winbox.min.css');
 
 .winbox {
-    --bb-winbox-body-padding: .5rem;
     --bb-winbox-bg: #b5b5c3;
+    --bb-winbox-bg-dark: #383b3f;
+    --bb-winbox-body-padding: .5rem;
     --bb-window-border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    --bb-winbox-footer-border-color: var(--bs-border-color);
     background: var(--bb-winbox-bg);
     border-radius: var(--bb-window-border-radius);
 }
 
     .winbox .bb-winbox-content {
         padding: var(--bb-winbox-body-padding);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .winbox .bb-winbox-body {
+        flex-grow: 1;
+    }
+
+    .winbox .bb-winbox-footer {
+        text-align: end;
+        border-top: var(--bs-border-width) solid var(--bb-winbox-footer-border-color);
+        padding: var(--bb-winbox-body-padding);
+        padding-bottom: 0;
+        margin: 0 calc(0px - var(--bb-winbox-body-padding));
     }
 
 [data-bs-theme='dark'] .winbox {
-    --bb-winbox-bg: #383b3f;
+    background: var(--bb-winbox-bg-dark);
 }
