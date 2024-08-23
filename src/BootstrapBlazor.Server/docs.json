@@ -152,6 +152,7 @@
     "speech/wave": "Speeches\\SpeechWaves",
     "speech/recognizer": "Speeches\\Recognizers",
     "speech/synthesizer": "Speeches\\Synthesizers",
+    "speech/web-speech": "Speeches\\WebSpeeches",
     "spinner": "Spinners",
     "splitting": "Splittings",
     "split": "Splits",
