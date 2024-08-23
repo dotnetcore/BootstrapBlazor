@@ -4736,7 +4736,8 @@
     "MaterialIcon": "Material Icons",
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
-    "SortableList": "拖拽组件 SortableList"
+    "SortableList": "拖拽组件 SortableList",
+    "WinBox": "窗口 WinBox"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6033,6 +6034,8 @@
     "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "拷贝",
+    "ContextMenuItemPast": "粘贴",
     "ContextMenuTitle": "ContextMenu 右键菜单",
     "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
     "ContextMenuNormalTitle": "基础用法",
@@ -6042,7 +6045,11 @@
     "ContextMenuTableTitle": "Table 组件",
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
-    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
+    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单",
+    "ContextMenuCallbackTitle": "ContextMenu 回调",
+    "ContextMenuCallbackIntro": "通过设置 <code>ContextMenu</code> 组件参数 <code>OnBeforeShowCallback</code> 获得右键菜单弹出前回调事件，可用于数据准备工作",
+    "ContextMenuDisabledTitle": "禁止回调方法",
+    "ContextMenuDisabledIntro": "通过设置 <code>ContextMenuItem</code> 组件参数 <code>OnDisabledCallback</code> 回调方法可用于设置当前右键选项是否禁用逻辑"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
@@ -6697,5 +6704,27 @@
     "SortableListClassLi3": "拖动元素交换想项默认样式 <code>sortable-swap-highlight</code> 可通过 <code>SwapClass</code> 自定义",
     "SortableListSwapTitle": "交换",
     "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换"
+  },
+  "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
+    "WinBoxTitle": "WinBox 窗口组件",
+    "WinBoxDescription": "模拟 Windows 窗口风格的组件",
+    "WinBoxNormalTitle": "基础用法",
+    "WinBoxNormalIntro": "通过设置 <code>WinBoxOption</code> 参数值，创建并且弹出窗口",
+    "AttributeRoot": "弹窗容器根节点",
+    "AttributeTitle": "弹窗标题",
+    "AttributeClass": "弹窗样式",
+    "AttributeBackground": "弹窗背景色",
+    "AttributeBorder": "弹窗边框",
+    "AttributeIcon": "弹窗标题图标",
+    "OnCreateAsync": "创建弹窗回调方法",
+    "OnShownAsync": "弹窗可见回调方法",
+    "OnHideAsync": "隐藏弹窗回调方法",
+    "OnFocusAsync": "弹窗获得焦点回调方法",
+    "OnBlurAsync": "弹窗失去焦点回调方法",
+    "OnFullscreenAsync": "弹窗全屏回调方法",
+    "OnRestoreAsync": "恢复弹窗回调方法",
+    "OnMaximizeAsync": "最大化弹窗回调方法",
+    "OnMinimizeAsync": "最小化弹窗回调方法",
+    "OnCloseAsync": "关闭弹窗回调方法"
   }
 }

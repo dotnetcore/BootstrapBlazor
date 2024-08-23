@@ -216,7 +216,8 @@
     "clipboard-service": "Clipboards",
     "image-cropper": "ImageCroppers",
     "barcode-generator": "BarcodeGenerators",
-    "sortable-list": "SortableLists"
+    "sortable-list": "SortableLists",
+    "win-box": "WinBoxes"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

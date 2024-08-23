@@ -1230,6 +1230,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Tooltip"],
                     Url = "tooltip"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["WinBox"],
+                    Url = "win-box"
                 }
             };
             AddBadge(item);

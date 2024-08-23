@@ -1,0 +1,17 @@
+﻿@import url('./winbox.min.css');
+
+.winbox {
+    --bb-winbox-body-padding: .5rem;
+    --bb-winbox-bg: #b5b5c3;
+    --bb-window-border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    background: var(--bb-winbox-bg);
+    border-radius: var(--bb-window-border-radius);
+}
+
+    .winbox .bb-win-box-content {
+        padding: var(--bb-winbox-body-padding);
+    }
+
+[data-bs-theme='dark'] .winbox {
+    --bb-winbox-bg: #383b3f;
+}
