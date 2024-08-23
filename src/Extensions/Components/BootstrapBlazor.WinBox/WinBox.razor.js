@@ -9,7 +9,7 @@ export async function init(id, invoke, options) {
 
 export function show(id, invoke, option) {
     const el = document.getElementById(id);
-    const content = el.querySelector('.bb-win-box-content');
+    const content = el.querySelector('.bb-winbox-content');
     const config = {
         ...option,
         title: 'Test',
@@ -63,9 +63,20 @@ export function show(id, invoke, option) {
             invoke.invokeMethodAsync("OnMinimize", option.id);
         }
     }
-    new WinBox(config);
+    const winbox = new WinBox(config);
+    Data.set(id, { el, winbox });
+}
+
+export function execute(id, method, args) {
+    const instance = Data.get(id);
+    if (instance) {
+        const { winbox } = instance;
+        if (winbox) {
+            winbox[method].call(winbox, args);
+        }
+    }
 }
 
 export function dispose(id) {
-
+    Data.remove(id);
 }
