@@ -22,9 +22,16 @@ public partial class WinBoxes
         Background = "var(--bb-primary-color)"
     };
 
-    private async Task OpenWinBox()
+    private Task OpenModalWinBox()
     {
         var option = DefaultOptions;
+        option.Modal = true;
+        return OpenWinBox(option);
+    }
+
+    private async Task OpenWinBox(WinBoxOption? option)
+    {
+        option ??= DefaultOptions;
         option.OnCloseAsync = () =>
         {
             _logger.Log($"WinBoxOption({option.Id}) Trigger OnCloseAsync");
@@ -35,7 +42,7 @@ public partial class WinBoxes
             _logger.Log($"WinBoxOption({option.Id}) Trigger OnCreateAsync");
             return Task.CompletedTask;
         };
-        option.OnShownAsync = () =>
+        option.OnShowAsync = () =>
         {
             _logger.Log($"WinBoxOption({option.Id}) Trigger OnShownAsync");
             return Task.CompletedTask;
@@ -75,7 +82,10 @@ public partial class WinBoxes
             _logger.Log($"WinBoxOption({option.Id}) Trigger OnMinimizeAsync");
             return Task.CompletedTask;
         };
-        await WinBoxService.Show<Counter>("Test", option: option);
+
+        await WinBoxService.Show<CustomWinBoxContent>("Test", new Dictionary<string, object?>() {
+            { "Option", option }
+        }, option);
     }
 
     private AttributeItem[] GetAttributes() =>

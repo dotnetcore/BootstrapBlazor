@@ -31,7 +31,7 @@ public partial class WinBox
         base.OnInitialized();
 
         // 注册 Dialog 弹窗事件
-        WinBoxService.Register(this, Show);
+        WinBoxService.Register(this, Execute);
     }
 
     /// <summary>
@@ -47,6 +47,33 @@ public partial class WinBox
         {
             _render = false;
             await InvokeVoidAsync("show", _option.Id, Interop, _option);
+        }
+    }
+
+    private async Task Execute(WinBoxOption? option, string method)
+    {
+        if (method == "stack")
+        {
+            await InvokeVoidAsync("stack");
+        }
+        else if (option != null)
+        {
+            if (method == "show")
+            {
+                await Show(option);
+            }
+            else if (method == "setIcon")
+            {
+                await InvokeVoidAsync("execute", option.Id, method, option.Icon);
+            }
+            else if (method == "setTitle")
+            {
+                await InvokeVoidAsync("execute", option.Id, method, option.Title);
+            }
+            else
+            {
+                await InvokeVoidAsync("execute", option.Id, method);
+            }
         }
     }
 
@@ -67,6 +94,11 @@ public partial class WinBox
         {
             await InvokeVoidAsync("show", option.Id, Interop, option);
         }
+    }
+
+    private async Task CloseAsync(WinBoxOption option)
+    {
+        await InvokeVoidAsync("execute", option.Id, "close");
     }
 
     /// <summary>
@@ -103,11 +135,11 @@ public partial class WinBox
     /// <param name="id"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnShown(string id)
+    public async Task OnShow(string id)
     {
-        if (_cache.TryGetValue(id, out var option) && option.OnShownAsync != null)
+        if (_cache.TryGetValue(id, out var option) && option.OnShowAsync != null)
         {
-            await option.OnShownAsync();
+            await option.OnShowAsync();
         }
     }
 
