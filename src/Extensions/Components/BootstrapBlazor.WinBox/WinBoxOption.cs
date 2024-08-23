@@ -212,10 +212,10 @@ public class WinBoxOption
     /// 获得/设置 弹窗可见回调方法 默认 null
     /// </summary>
     [JsonIgnore]
-    public Func<Task>? OnShownAsync { get; set; }
+    public Func<Task>? OnShowAsync { get; set; }
 
     [JsonInclude]
-    private bool TriggerOnShown => OnShownAsync != null;
+    private bool TriggerOnShow => OnShowAsync != null;
 
     /// <summary>
     /// 获得/设置 隐藏弹窗回调方法 默认 null

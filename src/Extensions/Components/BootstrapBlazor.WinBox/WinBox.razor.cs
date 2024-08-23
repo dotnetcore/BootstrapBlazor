@@ -135,11 +135,11 @@ public partial class WinBox
     /// <param name="id"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnShown(string id)
+    public async Task OnShow(string id)
     {
-        if (_cache.TryGetValue(id, out var option) && option.OnShownAsync != null)
+        if (_cache.TryGetValue(id, out var option) && option.OnShowAsync != null)
         {
-            await option.OnShownAsync();
+            await option.OnShowAsync();
         }
     }
 
