@@ -7,23 +7,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 语音合成服务
 /// </summary>
-public class SynthesizerService
+/// <param name="provider"></param>
+public class SynthesizerService(ISynthesizerProvider provider)
 {
-    private ISynthesizerProvider Provider { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="provider"></param>
-    public SynthesizerService(ISynthesizerProvider provider)
-    {
-        Provider = provider;
-    }
-
     /// <summary>
     /// 语音合成回调方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public Task InvokeAsync(SynthesizerOption option) => Provider.InvokeAsync(option);
+    public Task InvokeAsync(SynthesizerOption option) => provider.InvokeAsync(option);
 }
