@@ -31,7 +31,7 @@ public partial class WinBox
         base.OnInitialized();
 
         // 注册 Dialog 弹窗事件
-        WinBoxService.Register(this, Show);
+        WinBoxService.Register(this, Execute);
     }
 
     /// <summary>
@@ -47,6 +47,22 @@ public partial class WinBox
         {
             _render = false;
             await InvokeVoidAsync("show", _option.Id, Interop, _option);
+        }
+    }
+
+    private async Task Execute(WinBoxOption? option, string method)
+    {
+        if (method == "show")
+        {
+            await Show(option);
+        }
+        if (method == "show")
+        {
+            await Show(option);
+        }
+        else
+        {
+            await InvokeVoidAsync("execute", option?.Id, method);
         }
     }
 

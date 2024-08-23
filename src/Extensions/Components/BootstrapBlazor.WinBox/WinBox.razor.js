@@ -77,6 +77,10 @@ export function execute(id, method, args) {
     }
 }
 
+export function stack() {
+    WinBox.stack();
+}
+
 export function dispose(id) {
     Data.remove(id);
 }
