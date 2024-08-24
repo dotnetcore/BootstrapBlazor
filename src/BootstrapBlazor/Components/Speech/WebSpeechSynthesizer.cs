@@ -76,7 +76,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnError(WebSpeechSynthesisError error)
+    public async Task TriggerErrorCallback(WebSpeechSynthesisError error)
     {
         if (OnErrorAsync != null)
         {
@@ -89,7 +89,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnEnd()
+    public async Task TriggerEndCallback()
     {
         if (OnEndAsync != null)
         {
@@ -102,7 +102,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnSpeaking()
+    public async Task TriggerSpeakingCallback()
     {
         await Task.CompletedTask;
     }

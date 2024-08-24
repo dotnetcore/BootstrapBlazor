@@ -3,7 +3,7 @@
 export async function speak(id, invoke, option) {
     const synth = window.speechSynthesis;
     if (synth.speaking) {
-        invoke.invokeMethodAsync("OnSpeaking");
+        invoke.invokeMethodAsync("TriggerSpeakingCallback");
         return;
     }
 
@@ -28,11 +28,11 @@ export async function speak(id, invoke, option) {
         }
 
         utter.onend = () => {
-            invoke.invokeMethodAsync("OnEnd");
+            invoke.invokeMethodAsync("TriggerEndCallback");
         };
 
         utter.onerror = e => {
-            invoke.invokeMethodAsync("OnError");
+            invoke.invokeMethodAsync("TriggerErrorCallback");
         };
         synth.speak(utter);
     }
