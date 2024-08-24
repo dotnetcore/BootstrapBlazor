@@ -178,8 +178,11 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         // TODO: vs+windows pass
         // mac Linux rider+windows failed
-        //Assert.NotEmpty(items);
-        //Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
+        Assert.NotEmpty(items);
+        Assert.Equal("test-name", items.First(i => i.Name == "Name").Value);
+
+        var name = Utility.GetDisplayName(typeof(Dummy), "DummyName");
+        Assert.Equal("test-name", name);
     }
 
     [Fact]
@@ -338,6 +341,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
     private class Dummy
     {
+        [Display(Name = "Name")]
         public string? DummyName { get; set; }
     }
 
