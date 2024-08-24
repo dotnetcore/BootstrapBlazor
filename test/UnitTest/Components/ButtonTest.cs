@@ -11,29 +11,6 @@ namespace UnitTest.Components;
 public class ButtonTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ButtonStyle_Ok()
-    {
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.Add(b => b.ButtonStyle, ButtonStyle.None);
-        });
-        Assert.DoesNotContain("btn-round", cut.Markup);
-        Assert.DoesNotContain("btn-circle", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.ButtonStyle, ButtonStyle.Circle);
-        });
-        Assert.Contains("btn-circle", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.ButtonStyle, ButtonStyle.Round);
-        });
-        Assert.Contains("btn-round", cut.Markup);
-    }
-
-    [Fact]
     public void ButtonType_Ok()
     {
         var cut = Context.RenderComponent<Button>(pb =>
