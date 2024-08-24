@@ -49,12 +49,33 @@ public class WebSpeechServiceTest : BootstrapBlazorTestBase
         await synthesizer.TriggerErrorCallback(new WebSpeechSynthesisError
         {
             CharIndex = 10,
-            ElapsedTime = "10:00:00",
+            ElapsedTime = 1144.1f,
             Error = "ErrorCode"
         });
         Assert.NotNull(error);
         Assert.Equal(10, error.CharIndex);
-        Assert.Equal("10:00:00", error.ElapsedTime);
+        Assert.Equal(1144.1f, error.ElapsedTime);
         Assert.Equal("ErrorCode", error.Error);
+
+        await synthesizer.TriggerSpeakingCallback();
+        Assert.Equal("speaking", error.Error);
+    }
+
+    [Fact]
+    public async Task CancelAsync_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebSpeechService>();
+        var synthesizer = await service.CreateSynthesizerAsync();
+        await synthesizer.PauseAsync();
+        await synthesizer.ResumeAsync();
+        await synthesizer.CancelAsync();
+    }
+
+    [Fact]
+    public async Task GetVoices_Ok()
+    {
+        var service = Context.Services.GetRequiredService<WebSpeechService>();
+        var synthesizer = await service.CreateSynthesizerAsync();
+        var voices = await synthesizer.GetVoices();
     }
 }
