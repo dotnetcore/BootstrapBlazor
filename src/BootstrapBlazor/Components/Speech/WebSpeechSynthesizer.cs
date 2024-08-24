@@ -24,6 +24,12 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     public Func<WebSpeechSynthesisError, Task>? OnErrorAsync { get; set; }
 
     /// <summary>
+    /// 获得 语音包方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<WebSpeechSynthesisVoice[]> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]>("getVoices");
+
+    /// <summary>
     /// 开始朗读方法
     /// </summary>
     /// <param name="text"></param>
@@ -75,12 +81,6 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
-    /// 获得 语音包方法
-    /// </summary>
-    /// <returns></returns>
-    public async Task<WebSpeechSynthesisVoice[]> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]>("getVoices");
-
-    /// <summary>
     /// 朗读异常回调方法由 Javascript 调用
     /// </summary>
     /// <returns></returns>
@@ -111,8 +111,10 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerSpeakingCallback()
+    public Task TriggerSpeakingCallback() => TriggerErrorCallback(new WebSpeechSynthesisError()
     {
-        await Task.CompletedTask;
-    }
+        CharIndex = 0,
+        ElapsedTime = 0,
+        Error = "speaking"
+    });
 }

@@ -43,11 +43,13 @@ export async function speak(id, invoke, option) {
 }
 
 export function pause(id) {
-
+    const synth = window.speechSynthesis;
+    synth.pause();
 }
 
 export function resume(id) {
-
+    const synth = window.speechSynthesis;
+    synth.resume();
 }
 
 export function cancel(id) {
