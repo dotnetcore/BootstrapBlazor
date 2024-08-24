@@ -20,8 +20,9 @@ public partial class WebSpeeches
     private string? _buttonText = "开始合成";
     private WebSpeechSynthesizer _entry = default!;
     private TaskCompletionSource? _tcs;
-    private WebSpeechSynthesisVoice? _voice;
+    private string? _voiceName;
     private readonly List<SelectedItem> _voices = [];
+    private readonly List<WebSpeechSynthesisVoice> _speechVoices = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -35,8 +36,12 @@ public partial class WebSpeeches
         _entry.OnEndAsync = SpeakAsync;
 
         var voices = await _entry.GetVoices();
-        _voices.AddRange(voices.Select(i => new SelectedItem(i.voiceURI!, $"{i.Name}({i.Lang})")));
-        StateHasChanged();
+        if (voices != null)
+        {
+            _speechVoices.AddRange(voices);
+        }
+        _voices.AddRange(_speechVoices.Select(i => new SelectedItem(i.Name!, $"{i.Name}({i.Lang})")));
+        _voiceName = _speechVoices.Find(i => i.Lang == "zh-CN")?.Name;
     }
 
     private async Task OnStart()
@@ -47,7 +52,7 @@ public partial class WebSpeeches
             _star = true;
             StateHasChanged();
 
-            await _entry.SpeakAsync(_text, "zh-CN");
+            await _entry.SpeakAsync(_text, _speechVoices.Find(i => i.Name == _voiceName));
             await _tcs.Task;
             _star = false;
             _tcs = null;
