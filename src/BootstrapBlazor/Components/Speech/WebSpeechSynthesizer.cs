@@ -19,6 +19,11 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     public Func<Task>? OnEndAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 发生错误回调方法 默认 null
+    /// </summary>
+    public Func<WebSpeechSynthesisError, Task>? OnErrorAsync { get; set; }
+
+    /// <summary>
     /// 开始朗读方法
     /// </summary>
     /// <param name="text"></param>
@@ -71,9 +76,12 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnError()
+    public async Task OnError(WebSpeechSynthesisError error)
     {
-        await Task.CompletedTask;
+        if (OnErrorAsync != null)
+        {
+            await OnErrorAsync(error);
+        }
     }
 
     /// <summary>
