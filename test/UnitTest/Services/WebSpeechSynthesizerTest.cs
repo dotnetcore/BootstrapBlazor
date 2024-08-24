@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Services;
 
-public class WebSpeechServiceTest : BootstrapBlazorTestBase
+public class WebSpeechSynthesizerTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task SpeakAsync_Ok()

@@ -19,3 +19,17 @@
         </div>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["WebSpeechRecognitionTitle"]"
+           Introduction="@Localizer["WebSpeechRecognitionIntro"]"
+           Name="Recognition">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Button Text="@_buttonRecognitionText" OnClickWithoutRender="OnStartRecognition" IsAsync="true" Icon="fa-fw fa-solid fa-microphone"></Button>
+            <div class="mt-3">@_result</div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SpeechWave Show="_starRecognition" ShowUsedTime="false" class="my-3"></SpeechWave>
+        </div>
+    </div>
+</DemoBlock>

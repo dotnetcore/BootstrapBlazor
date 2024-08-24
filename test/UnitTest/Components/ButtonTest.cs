@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class ButtonTest : BootstrapBlazorTestBase
+public class ButtonTest : ButtonTestBase
 {
     [Fact]
     public void ButtonStyle_Ok()
@@ -34,6 +34,35 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Popover_Ok()
+    {
+        var cut = Context.RenderComponent<Button>(pb =>
+        {
+            pb.AddChildContent<Popover>(pb =>
+            {
+                pb.Add(t => t.Title, "popover-title");
+            });
+        });
+        cut.Contains("data-bs-toggle=\"popover\" data-bs-original-title=\"popover-title\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
+
+        // 切换 Disabled 状态移除 Popover
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.IsDisabled, true);
+        });
+        var button = cut.Find("button");
+        var d = button.GetAttribute("disabled");
+        Assert.Equal("disabled", d);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.IsDisabled, false);
+        });
+        button = cut.Find("button");
+        Assert.False(button.HasAttribute("disabled"));
+    }
+
+    [Fact]
     public void ButtonType_Ok()
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -53,6 +82,23 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.ButtonType, ButtonType.Reset);
         });
         Assert.Contains("type=\"reset\"", cut.Markup);
+    }
+
+    [Fact]
+    public void Text_Ok()
+    {
+        var cut = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(b => b.Text, "Test");
+        });
+        Assert.Contains("<span>Test</span>", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Text, null);
+            pb.AddChildContent("Button-Test");
+        });
+        Assert.Contains("Button-Test", cut.Markup);
     }
 
     [Theory]
@@ -185,23 +231,6 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Text_Ok()
-    {
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.Add(b => b.Text, "Test");
-        });
-        Assert.Contains("<span>Test</span>", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Text, null);
-            pb.AddChildContent("Button-Test");
-        });
-        Assert.Contains("Button-Test", cut.Markup);
-    }
-
-    [Fact]
     public void IsOutline_Ok()
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -283,35 +312,6 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(a => a.TooltipText, "tooltip");
         });
         await cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
-    }
-
-    [Fact]
-    public void Popover_Ok()
-    {
-        var cut = Context.RenderComponent<Button>(pb =>
-        {
-            pb.AddChildContent<Popover>(pb =>
-            {
-                pb.Add(t => t.Title, "popover-title");
-            });
-        });
-        cut.Contains("data-bs-toggle=\"popover\" data-bs-original-title=\"popover-title\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
-
-        // 切换 Disabled 状态移除 Popover
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.IsDisabled, true);
-        });
-        var button = cut.Find("button");
-        var d = button.GetAttribute("disabled");
-        Assert.Equal("disabled", d);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.IsDisabled, false);
-        });
-        button = cut.Find("button");
-        Assert.False(button.HasAttribute("disabled"));
     }
 
     [Fact]
