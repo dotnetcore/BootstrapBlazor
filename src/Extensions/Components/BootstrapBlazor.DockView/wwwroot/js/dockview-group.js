@@ -148,8 +148,11 @@ const createGroupActions = group => {
 }
 
 const disposeGroup = group => {
-    group.api.accessor.params.observer.unobserve(group.header.element);
-    group.api.accessor.params.observer.unobserve(group.header.tabContainer);
+    const { observer } = group.api.accessor.params;
+    if (observer) {
+        observer.unobserve(group.header.element);
+        observer.unobserve(group.header.tabContainer);
+    }
     removeActionEvent(group);
 }
 
