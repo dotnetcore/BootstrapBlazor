@@ -6305,6 +6305,7 @@
     "WebSpeechNormalTitle": "Speech Synthesizer",
     "WebSpeechNormalIntro": "After entering the text, select the corresponding language to read aloud",
     "WebSpeechSpeakButtonText": "Speak",
+    "WebSpeechStopButtonText": "Stop",
     "WebSpeechText": "Welcome blazor"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {

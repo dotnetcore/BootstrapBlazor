@@ -20,6 +20,7 @@ public partial class WebSpeeches
     private bool _star;
     private string? _text;
     private string? _buttonText;
+    private string? _buttonStopText;
     private WebSpeechSynthesizer _entry = default!;
     private TaskCompletionSource? _tcs;
     private string? _voiceName;
@@ -47,6 +48,7 @@ public partial class WebSpeeches
 
         _text = Localizer["WebSpeechText"];
         _buttonText = Localizer["WebSpeechSpeakButtonText"];
+        _buttonStopText = Localizer["WebSpeechStopButtonText"];
     }
 
     private async Task OnStart()
@@ -69,5 +71,11 @@ public partial class WebSpeeches
     {
         _tcs?.TrySetResult();
         return Task.CompletedTask;
+    }
+
+    private async Task OnStop()
+    {
+        await _entry.CancelAsync();
+        _tcs?.TrySetResult();
     }
 }

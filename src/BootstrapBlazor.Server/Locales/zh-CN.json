@@ -6305,6 +6305,7 @@
     "WebSpeechNormalTitle": "语音合成",
     "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读",
     "WebSpeechSpeakButtonText": "朗读",
+    "WebSpeechStopButtonText": "停止",
     "WebSpeechText": "开始朗读一段文字"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
