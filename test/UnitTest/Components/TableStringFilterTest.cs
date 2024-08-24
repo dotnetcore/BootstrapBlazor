@@ -2,10 +2,21 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
+
 namespace UnitTest.Components;
 
-public class TableStringFilterTest : BootstrapBlazorTestBase
+public class TableStringFilterTest
 {
+    private TestContext Context { get; set; }
+
+    public TableStringFilterTest()
+    {
+        Context = new();
+        Context.Services.AddBootstrapBlazor();
+        Context.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void Count_Ok()
     {
