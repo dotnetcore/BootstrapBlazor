@@ -11,17 +11,11 @@ namespace UnitTest.Localization;
 
 public class LocalizerEnTest : BootstrapBlazorEnTestBase
 {
-    private IStringLocalizer<Foo> Localizer { get; }
-
-    public LocalizerEnTest()
-    {
-        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-    }
-
     [Fact]
     public void Foo_Json_Ok()
     {
-        var foo = Foo.Generate(Localizer);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var foo = Foo.Generate(localizer);
 
         Assert.Equal("Zhangsan 1000", foo.Name);
     }
