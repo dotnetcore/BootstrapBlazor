@@ -1,6 +1,4 @@
-﻿using Azure.AI.OpenAI;
-
-namespace BootstrapBlazor.Components;
+﻿namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// IAzureOpenAIService 接口

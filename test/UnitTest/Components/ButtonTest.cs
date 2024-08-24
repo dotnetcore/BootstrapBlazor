@@ -3,12 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class ButtonTest : ButtonTestBase
+public class ButtonTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ButtonStyle_Ok()

@@ -4,7 +4,6 @@
 
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 using UnitTest.Pages;
 
 namespace UnitTest.Components;
