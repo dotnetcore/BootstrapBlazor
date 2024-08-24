@@ -333,10 +333,10 @@ const float = group => {
 const observeFloatingGroupLocationChange = fg => {
     const dockview = fg.api.accessor
     fg.api.onDidLocationChange(e => {
-        if(e.location.type == 'grid'){
+        if (e.location.type == 'grid') {
             setTimeout(() => {
                 let originalGroup = dockview.groups.find(g => g.id.split('_')[0] == fg.id.split('_')[0])
-                if(originalGroup){
+                if (originalGroup) {
                     dockview.isClearing = true
                     dockview.removeGroup(originalGroup)
                     dockview.isClearing = false
@@ -357,7 +357,7 @@ const dock = group => {
     if (group.locked) return;
     const dockview = group.api.accessor
     const originGroup = dockview.groups.find(g => g.id.split('_')[0] == group.id.split('_')[0] && g.id != group.id)
-    if(!originGroup) return
+    if (!originGroup) return
     dockview.setVisible(originGroup, true)
 
     let { isPackup, packupHeight, isMaximized, position } = group.getParams()
