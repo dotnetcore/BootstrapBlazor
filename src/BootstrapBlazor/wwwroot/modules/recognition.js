@@ -1,8 +1,14 @@
 ﻿import Data from "./data.js"
 
 export async function start(id, invoke, option) {
-    const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
-
+    const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    if (speechRecognition === null) {
+        invoke.invokeMethodAsync("TriggerErrorCallback", {
+            error: 'not-support',
+            message: 'SpeechRecognition is not supported in this browser.'
+        });
+    }
+    const recognition = new speechRecognition();
     if (option.triggerStart || true) {
         recognition.onstart = () => {
             invoke.invokeMethodAsync("TriggerStartCallback");
@@ -13,14 +19,15 @@ export async function start(id, invoke, option) {
             invoke.invokeMethodAsync("TriggerSpeechStartCallback");
         }
     }
-    if (option.triggerSpeechEnd || true) {
-        recognition.onspeechend = () => {
-            recognition.stop();
-            invoke.invokeMethodAsync("TriggerSpeechEndCallback");
-        }
+    recognition.onspeechend = () => {
+        recognition.stop();
+        invoke.invokeMethodAsync("TriggerSpeechEndCallback");
     }
     recognition.onnomatch = e => {
-        invoke.invokeMethodAsync("TriggerNoMatchCallback", {});
+        invoke.invokeMethodAsync("TriggerNoMatchCallback", {
+            error: 'no-match',
+            message: 'No match found.'
+        });
     }
     recognition.onend = () => {
         invoke.invokeMethodAsync("TriggerEndCallback");

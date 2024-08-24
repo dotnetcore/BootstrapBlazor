@@ -14,24 +14,14 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
+    /// fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
+    /// </summary>
+    public Func<Task>? OnStartAsync { get; set; }
+
+    /// <summary>
     /// fired when the speech recognition service has disconnected.
     /// </summary>
     public Func<Task>? OnEndAsync { get; set; }
-
-    /// <summary>
-    /// fired when a speech recognition error occurs.
-    /// </summary>
-    public Func<WebSpeechRecognitionError, Task>? OnErrorAsync { get; set; }
-
-    /// <summary>
-    /// fired when the speech recognition service returns a final result with no significant recognition.
-    /// </summary>
-    public Func<WebSpeechRecognitionEvent, Task>? OnNoMatchAsync { get; set; }
-
-    /// <summary>
-    /// fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app
-    /// </summary>
-    public Func<WebSpeechRecognitionEvent, Task>? OnResultAsync { get; set; }
 
     /// <summary>
     /// fired when sound recognized by the speech recognition service as speech has been detected.
@@ -44,9 +34,19 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     public Func<Task>? OnSpeechEndAsync { get; set; }
 
     /// <summary>
-    /// fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
+    /// fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app
     /// </summary>
-    public Func<Task>? OnStartAsync { get; set; }
+    public Func<WebSpeechRecognitionEvent, Task>? OnResultAsync { get; set; }
+
+    /// <summary>
+    /// fired when a speech recognition error occurs.
+    /// </summary>
+    public Func<WebSpeechRecognitionError, Task>? OnErrorAsync { get; set; }
+
+    /// <summary>
+    /// fired when the speech recognition service returns a final result with no significant recognition.
+    /// </summary>
+    public Func<WebSpeechRecognitionError, Task>? OnNoMatchAsync { get; set; }
 
     /// <summary>
     /// 开始识别方法
@@ -58,8 +58,7 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
         await module.InvokeVoidAsync("start", _id, _interop, new
         {
             TriggerStart = OnStartAsync != null,
-            TriggerSpeechStart = OnSpeechStartAsync != null,
-            TriggerSpeechEnd = OnSpeechEndAsync != null
+            TriggerSpeechStart = OnSpeechStartAsync != null
         });
     }
 
@@ -112,11 +111,11 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerNoMatchCallback(WebSpeechRecognitionEvent @event)
+    public async Task TriggerNoMatchCallback(WebSpeechRecognitionError error)
     {
         if (OnNoMatchAsync != null)
         {
-            await OnNoMatchAsync(@event);
+            await OnNoMatchAsync(error);
         }
     }
 
