@@ -15,6 +15,9 @@ public partial class WebSpeeches
     private WebSpeechService? WebSpeechService { get; set; }
 
     [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    [Inject, NotNull]
     private IStringLocalizer<WebSpeeches>? Localizer { get; set; }
 
     private bool _star;
@@ -27,7 +30,9 @@ public partial class WebSpeeches
     private readonly List<SelectedItem> _voices = [];
     private readonly List<WebSpeechSynthesisVoice> _speechVoices = [];
 
+    private bool _starRecognition;
     private WebSpeechRecognition _recognition = default!;
+    private string? _buttonRecognitionText;
     private string? _result;
 
     /// <summary>
@@ -38,6 +43,7 @@ public partial class WebSpeeches
     {
         await base.OnInitializedAsync();
 
+        // create synthesizer
         _entry = await WebSpeechService.CreateSynthesizerAsync();
         _entry.OnEndAsync = SpeakAsync;
 
@@ -53,11 +59,31 @@ public partial class WebSpeeches
         _buttonText = Localizer["WebSpeechSpeakButtonText"];
         _buttonStopText = Localizer["WebSpeechStopButtonText"];
 
+        // create recognition
+        _buttonRecognitionText = Localizer["WebSpeechRecognitionButtonText"];
         _recognition = await WebSpeechService.CreateRecognitionAsync();
-        _recognition.OnResultAsync = async e =>
+        _recognition.OnSpeechStartAsync = () =>
+        {
+            _starRecognition = true;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+        _recognition.OnSpeechEndAsync = () =>
+        {
+            _starRecognition = false;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+        _recognition.OnErrorAsync = async e =>
+        {
+            e.ParseErrorMessage(Localizer);
+            await ToastService.Error("Recognition", e.Message);
+        };
+        _recognition.OnResultAsync = e =>
         {
             _result = e.Transcript;
-            await InvokeAsync(StateHasChanged);
+            StateHasChanged();
+            return Task.CompletedTask;
         };
     }
 
