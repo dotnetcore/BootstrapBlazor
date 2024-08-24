@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 #if NET6_0_OR_GREATER
-using System.Diagnostics.CodeAnalysis;
-
 namespace Microsoft.AspNetCore.Internal;
 
 [ExcludeFromCodeCoverage]
