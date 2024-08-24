@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Server.Components.Samples.Speeches;
 
 /// <summary>
@@ -16,8 +18,8 @@ public partial class WebSpeeches
     private IStringLocalizer<WebSpeeches>? Localizer { get; set; }
 
     private bool _star;
-    private string? _text = "开始朗读一段文字";
-    private string? _buttonText = "开始合成";
+    private string? _text;
+    private string? _buttonText;
     private WebSpeechSynthesizer _entry = default!;
     private TaskCompletionSource? _tcs;
     private string? _voiceName;
@@ -41,7 +43,10 @@ public partial class WebSpeeches
             _speechVoices.AddRange(voices);
         }
         _voices.AddRange(_speechVoices.Select(i => new SelectedItem(i.Name!, $"{i.Name}({i.Lang})")));
-        _voiceName = _speechVoices.Find(i => i.Lang == "zh-CN")?.Name;
+        _voiceName = _speechVoices.Find(i => i.Lang == CultureInfo.CurrentUICulture.Name)?.Name;
+
+        _text = Localizer["WebSpeechText"];
+        _buttonText = Localizer["WebSpeechSpeakButtonText"];
     }
 
     private async Task OnStart()

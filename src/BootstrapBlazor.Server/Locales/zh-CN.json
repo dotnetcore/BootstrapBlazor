@@ -6303,7 +6303,9 @@
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
     "WebSpeechSubTitle": "使用浏览器接口功能提供语音识别/合成服务",
     "WebSpeechNormalTitle": "语音合成",
-    "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读"
+    "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读",
+    "WebSpeechSpeakButtonText": "朗读",
+    "WebSpeechText": "开始朗读一段文字"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",

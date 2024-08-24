@@ -6300,13 +6300,12 @@
     "Theme": "Theme"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
-    "WebSpeechTitle": "网页Web Speech",
-    "WebSpeechSubTitle": "Web Speech",
-    "WebSpeechDescription": "Voice recognition and synthesis",
-    "WebSpeechNormalTitle": "Voice recognition",
-    "WebSpeechGameTitle": "Voice color selection game",
-    "WebSpeechSynthesisTitle": "Voice synthesis",
-    "WebSpeechSynthesisCustomTitle": "Voice synthesis custom"
+    "WebSpeechTitle": "Web Speech Api",
+    "WebSpeechSubTitle": "Provide speech recognition/synthesis services using browser interface functions",
+    "WebSpeechNormalTitle": "Speech Synthesizer",
+    "WebSpeechNormalIntro": "After entering the text, select the corresponding language to read aloud",
+    "WebSpeechSpeakButtonText": "Speak",
+    "WebSpeechText": "Welcome blazor"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",
