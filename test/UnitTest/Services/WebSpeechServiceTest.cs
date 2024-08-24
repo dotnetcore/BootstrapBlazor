@@ -103,4 +103,22 @@ public class WebSpeechServiceTest : BootstrapBlazorTestBase
         Assert.Equal(1, utterance.Volume);
         Assert.Equal("test", utterance.Voice.VoiceURI);
     }
+
+    [Fact]
+    public void WebSpeechSynthesisVoice_Ok()
+    {
+        var voice = new WebSpeechSynthesisVoice()
+        {
+            Default = false,
+            Lang = "en-US",
+            LocalService = false,
+            VoiceURI = "test",
+            Name = "test"
+        };
+        Assert.Equal("test", voice.Name);
+        Assert.Equal("en-US", voice.Lang);
+        Assert.Equal("test", voice.VoiceURI);
+        Assert.False(voice.LocalService);
+        Assert.False(voice.Default);
+    }
 }
