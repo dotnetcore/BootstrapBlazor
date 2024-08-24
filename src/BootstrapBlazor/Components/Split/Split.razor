@@ -3,21 +3,32 @@
 @attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
-    <div class="@WrapperClassString">
+    <div class="@WrapperClassString" status="@GetPaneClassStatus()">
         <div class="split-pane split-left" style="@StyleString">
             @FirstPaneTemplate
         </div>
         <div class="split-pane split-bar">
-            <div class="split-trigger">
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-            </div>
+            @if (IsShowFirstPaneCollapseSwitch)
+            {
+                <span class="split-first-pane-collapse-switch" onclick="@(()=>PaneCollapseSwitch(FirstPane))"></span>
+            }
+            @if (IsResizable)
+            {
+                <div class="split-trigger">
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                    <i class="split-trigger-bar"></i>
+                </div>
+            }
+            @if (IsShowSecondPaneCollapseSwitch)
+            {
+                <span class="split-second-pane-collapse-switch" onclick="@(()=>PaneCollapseSwitch(SecondPane))"></span>
+            }
         </div>
         <div class="split-pane split-right" style="flex: 1;">
             @SecondPaneTemplate

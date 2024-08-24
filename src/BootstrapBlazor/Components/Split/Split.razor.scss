@@ -42,14 +42,49 @@
         overflow: unset;
     }
 
-    .split-bar:hover,
-    &.dragging > .split-wrapper > .split-bar {
+    .split-bar:hover, &.dragging > .split-wrapper > .split-bar {
         background-color: var(--bb-split-bar-hover-bg);
     }
 
     .split-bar:hover .split-trigger-bar,
     &.dragging > .split-wrapper > .split-bar .split-trigger-bar {
         background-color: var(--bs-body-bg);
+    }
+
+    .split-first-pane-collapse-switch, .split-second-pane-collapse-switch {
+        cursor: pointer;
+    }
+
+    .split-wrapper .split-first-pane-collapse-switch:before {
+        content: '△';
+    }
+
+    .split-wrapper .split-second-pane-collapse-switch:before {
+        content: '▽';
+    }
+
+    .split-wrapper[status="first-pane-collapsed"] .split-first-pane-collapse-switch:before {
+        content: '▽';
+    }
+
+    .split-wrapper[status="second-pane-collapsed"] .split-second-pane-collapse-switch:before {
+        content: '△';
+    }
+
+    .split-wrapper.is-horizontal .split-first-pane-collapse-switch:before {
+        content: '◁';
+    }
+
+    .split-wrapper.is-horizontal .split-second-pane-collapse-switch:before {
+        content: '▷';
+    }
+
+    .split-wrapper.is-horizontal[status="first-pane-collapsed"] .split-first-pane-collapse-switch:before {
+        content: '▷';
+    }
+
+    .split-wrapper.is-horizontal[status="second-pane-collapsed"] .split-second-pane-collapse-switch:before {
+        content: '◁';
     }
 
     .split-trigger {
@@ -66,6 +101,7 @@
     }
 
     .split-wrapper.is-horizontal > .split-bar {
+        flex-direction: column;
         width: 6px;
         height: 100%;
         border: 1px solid var(--bs-border-color);
@@ -79,5 +115,26 @@
             margin-left: 0;
             margin-top: 3px;
         }
+    }
+
+    .split-wrapper[status="first-pane-collapsed"] .split-bar:hover, &.dragging > .split-wrapper > .split-bar,
+    .split-wrapper[status="second-pane-collapsed"] .split-bar:hover, &.dragging > .split-wrapper > .split-bar {
+        background-color: transparent;
+    }
+
+    .split-wrapper[status="first-pane-collapsed"] .split-left {
+        flex: 0 1 0% !important;
+        overflow: hidden !important;
+        display: block !important;
+    }
+
+    .split-wrapper[status="second-pane-collapsed"] .split-left {
+        flex: 1 !important;
+    }
+
+    .split-wrapper[status="second-pane-collapsed"] .split-right {
+        flex: 0 1 0% !important;
+        overflow: hidden !important;
+        display: block !important;
     }
 }

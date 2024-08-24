@@ -40,6 +40,10 @@ export function init(id) {
             showMask(splitLeft, splitRight);
         },
         e => {
+            const isResizable = document.getElementsByClassName('split-trigger').length > 0;
+            if (isResizable === false) {
+                return;
+            }
             if (isVertical) {
                 const eventY = e.clientY || e.changedTouches[0].clientY
                 newVal = Math.ceil((eventY - originY) * 100 / splitHeight) + curVal
