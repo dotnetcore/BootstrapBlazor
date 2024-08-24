@@ -54,11 +54,10 @@ public partial class WebSpeeches
         _buttonStopText = Localizer["WebSpeechStopButtonText"];
 
         _recognition = await WebSpeechService.CreateRecognitionAsync();
-        _recognition.OnResultAsync = e =>
+        _recognition.OnResultAsync = async e =>
         {
-            _result = e.Results;
-            StateHasChanged();
-            return Task.CompletedTask;
+            _result = e.Transcript;
+            await InvokeAsync(StateHasChanged);
         };
     }
 
