@@ -14,16 +14,6 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     private string? _id;
 
     /// <summary>
-    /// fired when the user agent has finished capturing audio for speech recognition.
-    /// </summary>
-    public Func<Task>? OnAudioEndAsync { get; set; }
-
-    /// <summary>
-    /// fired when the user agent has started to capture audio for speech recognition.
-    /// </summary>
-    public Func<Task>? OnAudioStartAsync { get; set; }
-
-    /// <summary>
     /// fired when the speech recognition service has disconnected.
     /// </summary>
     public Func<Task>? OnEndAsync { get; set; }
@@ -42,16 +32,6 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     /// fired when the speech recognition service returns a result — a word or phrase has been positively recognized and this has been communicated back to the app
     /// </summary>
     public Func<WebSpeechRecognitionEvent, Task>? OnResultAsync { get; set; }
-
-    /// <summary>
-    /// fired when any sound — recognizable speech or not — has been detected.
-    /// </summary>
-    public Func<Task>? OnSoundStartAsync { get; set; }
-
-    /// <summary>
-    /// fired when any sound — recognizable speech or not — has stopped being detected.
-    /// </summary>
-    public Func<Task>? OnSoundEndAsync { get; set; }
 
     /// <summary>
     /// fired when sound recognized by the speech recognition service as speech has been detected.
@@ -79,11 +59,7 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
         {
             TriggerStart = OnStartAsync != null,
             TriggerSpeechStart = OnSpeechStartAsync != null,
-            TriggerSpeechEnd = OnSpeechEndAsync != null,
-            TriggerSoundStart = OnSoundStartAsync != null,
-            TriggerSoundEnd = OnSoundEndAsync != null,
-            TriggerAudioStart = OnAudioStartAsync != null,
-            TriggerAudioEnd = OnAudioEndAsync != null
+            TriggerSpeechEnd = OnSpeechEndAsync != null
         });
     }
 

@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 public class WebSpeechRecognitionEvent
 {
     /// <summary>
-    /// the lowest index value result in the SpeechRecognitionResultList "array" that has actually changed.
+    /// 获得/设置 可信度
     /// </summary>
-    public int ResultIndex { get; set; }
+    public float Confidence { get; set; }
 
     /// <summary>
-    /// the speech recognition results for the current session.
+    /// 获得/设置 识别文本内容
     /// </summary>
-    public string? Results { get; set; }
+    public string? Transcript { get; set; }
 }

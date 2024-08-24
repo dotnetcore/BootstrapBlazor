@@ -5,56 +5,24 @@ export async function start(id, invoke, option) {
 
     if (option.triggerStart || true) {
         recognition.onstart = () => {
-            console.log('onstart');
             invoke.invokeMethodAsync("TriggerStartCallback");
         }
     }
     if (option.triggerSpeechStart || true) {
         recognition.onspeechstart = () => {
-            console.log('onspeechstart');
             invoke.invokeMethodAsync("TriggerSpeechStartCallback");
         }
     }
     if (option.triggerSpeechEnd || true) {
         recognition.onspeechend = () => {
-            console.log('onspeechend');
+            recognition.stop();
             invoke.invokeMethodAsync("TriggerSpeechEndCallback");
         }
     }
-    if (option.triggerSoundStart || true) {
-        recognition.onsoundstart = () => {
-            console.log('onsoundstart');
-            invoke.invokeMethodAsync("TriggerSoundStartCallback");
-        }
-    }
-    if (option.triggerSoundEnd || true) {
-        recognition.onsoundend = () => {
-            console.log('onsoundend');
-            invoke.invokeMethodAsync("TriggerSoundEndCallback");
-        }
-    }
-    if (option.triggerAudioStart || true) {
-        recognition.onaudiostart = () => {
-            console.log('onaudiostart');
-            invoke.invokeMethodAsync("TriggerAudioStartCallback");
-        }
-    }
-    if (option.triggerAudioEnd || true) {
-        recognition.onaudioend = () => {
-            console.log('onaudioend');
-            invoke.invokeMethodAsync("TriggerAudioEndCallback");
-        }
-    }
-    recognition.onresult = e => {
-        console.log(e);
-        invoke.invokeMethodAsync("TriggerResultCallback", {});
-    }
     recognition.onnomatch = e => {
-        console.log(e);
         invoke.invokeMethodAsync("TriggerNoMatchCallback", {});
     }
     recognition.onend = () => {
-        console.log('onend');
         invoke.invokeMethodAsync("TriggerEndCallback");
     }
     recognition.onerror = e => {
@@ -63,13 +31,16 @@ export async function start(id, invoke, option) {
             message: e.message
         });
     }
-    //const grammarList = new webkitSpeechGrammarList();
-    //const grammar =
-    //    "#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;";
-    //grammarList.addFromString(grammar, 1);
-    //recognition.grammars = grammarList;
+    recognition.onresult = e => {
+        const transcript = e.results[0][0];
+        invoke.invokeMethodAsync("TriggerResultCallback", {
+            transcript: transcript.transcript,
+            confidence: transcript.confidence
+        });
+    }
     recognition.lang = 'zh-CN';
     recognition.maxAlternatives = 1;
+    recognition.interimResults = false;
     recognition.continuous = false;
     recognition.start();
 }
