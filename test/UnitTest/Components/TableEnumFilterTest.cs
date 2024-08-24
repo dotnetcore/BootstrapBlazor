@@ -99,7 +99,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         });
 
         var items = cut.FindAll(".dropdown-item");
-        cut.InvokeAsync(() => items[1].Click());
+        items[1].Click();
         var conditions = cut.FindComponent<EnumFilter>().Instance.GetFilterConditions();
         Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
