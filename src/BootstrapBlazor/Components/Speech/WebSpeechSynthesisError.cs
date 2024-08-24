@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -23,7 +20,7 @@ public class WebSpeechSynthesisError
     /// <summary>
     /// Returns the elapsed time in seconds after the SpeechSynthesisUtterance.text started being spoken that the event was triggered at.
     /// </summary>
-    public string? ElapsedTime { get; set; }
+    public float ElapsedTime { get; set; }
 
     /// <summary>
     /// Returns an error code indicating what has gone wrong with a speech synthesis attempt.

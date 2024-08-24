@@ -32,7 +32,11 @@ export async function speak(id, invoke, option) {
         };
 
         utter.onerror = e => {
-            invoke.invokeMethodAsync("TriggerErrorCallback");
+            invoke.invokeMethodAsync("TriggerErrorCallback", {
+                charIndex: e.charIndex,
+                elapsedTime: e.elapsedTime,
+                error: e.error
+            });
         };
         synth.speak(utter);
     }
@@ -47,7 +51,8 @@ export function resume(id) {
 }
 
 export function cancel(id) {
-
+    const synth = window.speechSynthesis;
+    synth.cancel();
 }
 
 const getUtteranceVoices = () => {

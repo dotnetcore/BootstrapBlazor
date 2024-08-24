@@ -51,7 +51,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// 暂停朗读方法
     /// </summary>
     /// <returns></returns>
-    public async Task Pause()
+    public async Task PauseAsync()
     {
         await module.InvokeVoidAsync("pause", _id);
     }
@@ -60,9 +60,18 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// 恢复朗读方法
     /// </summary>
     /// <returns></returns>
-    public async Task Resume()
+    public async Task ResumeAsync()
     {
         await module.InvokeVoidAsync("resume", _id);
+    }
+
+    /// <summary>
+    /// 取消朗读方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task CancelAsync()
+    {
+        await module.InvokeVoidAsync("cancel", _id);
     }
 
     /// <summary>
