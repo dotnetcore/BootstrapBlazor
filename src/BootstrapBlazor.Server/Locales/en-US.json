@@ -4653,6 +4653,7 @@
     "Recognizer": "Recognizer",
     "Synthesizer": "Synthesizer",
     "SpeechWave": "SpeechWave",
+    "WebSpeech": "Web Speech Api",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
@@ -4702,7 +4703,6 @@
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
-    "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Segmented": "Segmented",
@@ -6299,13 +6299,14 @@
     "Layout": "Layout",
     "Theme": "Theme"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
-    "WebSpeechTitle": "Web Speech",
-    "WebSpeechDescription": "Voice recognition and synthesis",
-    "WebSpeechNormalTitle": "Voice recognition",
-    "WebSpeechGameTitle": "Voice color selection game",
-    "WebSpeechSynthesisTitle": "Voice synthesis",
-    "WebSpeechSynthesisCustomTitle": "Voice synthesis custom"
+  "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
+    "WebSpeechTitle": "Web Speech Api",
+    "WebSpeechSubTitle": "Provide speech recognition/synthesis services using browser interface functions",
+    "WebSpeechNormalTitle": "Speech Synthesizer",
+    "WebSpeechNormalIntro": "After entering the text, select the corresponding language to read aloud",
+    "WebSpeechSpeakButtonText": "Speak",
+    "WebSpeechStopButtonText": "Stop",
+    "WebSpeechText": "Welcome blazor"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",

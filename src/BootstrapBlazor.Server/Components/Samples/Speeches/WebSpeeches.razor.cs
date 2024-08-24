@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Forms;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Components.Samples.Speeches;
 
@@ -19,24 +19,47 @@ public partial class WebSpeeches
 
     private bool _star;
     private string? _text;
-    private string? _buttonText = "开始合成";
+    private string? _buttonText;
+    private string? _buttonStopText;
     private WebSpeechSynthesizer _entry = default!;
     private TaskCompletionSource? _tcs;
+    private string? _voiceName;
+    private readonly List<SelectedItem> _voices = [];
+    private readonly List<WebSpeechSynthesisVoice> _speechVoices = [];
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _entry = await WebSpeechService.CreateSynthesizerAsync();
+        _entry.OnEndAsync = SpeakAsync;
+
+        var voices = await _entry.GetVoices();
+        if (voices != null)
+        {
+            _speechVoices.AddRange(voices);
+        }
+        _voices.AddRange(_speechVoices.Select(i => new SelectedItem(i.Name!, $"{i.Name}({i.Lang})")));
+        _voiceName = _speechVoices.Find(i => i.Lang == CultureInfo.CurrentUICulture.Name)?.Name;
+
+        _text = Localizer["WebSpeechText"];
+        _buttonText = Localizer["WebSpeechSpeakButtonText"];
+        _buttonStopText = Localizer["WebSpeechStopButtonText"];
+    }
 
     private async Task OnStart()
     {
         if (!string.IsNullOrEmpty(_text))
         {
-            if (_entry == null)
-            {
-                _entry = await WebSpeechService.CreateSynthesizerAsync();
-                _entry.OnEndAsync = SpeakAsync;
-            }
             _tcs ??= new();
             _star = true;
             StateHasChanged();
 
-            await _entry.SpeakAsync(_text, "zh-CN");
+            await _entry.SpeakAsync(_text, _speechVoices.Find(i => i.Name == _voiceName));
             await _tcs.Task;
             _star = false;
             _tcs = null;
@@ -48,5 +71,11 @@ public partial class WebSpeeches
     {
         _tcs?.TrySetResult();
         return Task.CompletedTask;
+    }
+
+    private async Task OnStop()
+    {
+        await _entry.CancelAsync();
+        _tcs?.TrySetResult();
     }
 }

@@ -194,9 +194,14 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["SpeechWave"],
                     Url = "speech/wave"
+                },
+                new()
+                {
+                    Text = Localizer["WebSpeech"],
+                    Url = "speech/web-speech"
                 }
             };
-            AddBadge(item, count: 3);
+            AddBadge(item, count: 5);
         }
 
         void AddQuickStar(DemoMenuItem item)
