@@ -11,7 +11,9 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class WebSpeechService(IJSRuntime runtime, IComponentIdGenerator ComponentIdGenerator, ILogger<WebSpeechService> logger)
 {
-    private JSModule? Module { get; set; }
+    private JSModule? SynthesisModule { get; set; }
+
+    private JSModule? RecognitionModule { get; set; }
 
     /// <summary>
     /// 语音合成方法
@@ -19,12 +21,27 @@ public class WebSpeechService(IJSRuntime runtime, IComponentIdGenerator Componen
     /// <returns></returns>
     public async Task<WebSpeechSynthesizer> CreateSynthesizerAsync()
     {
-        if (Module == null)
+        if (SynthesisModule == null)
         {
-            var moduleName = "./_content/BootstrapBlazor/modules/speech.js";
+            var moduleName = "./_content/BootstrapBlazor/modules/synthesis.js";
             logger.LogInformation("load module {moduleName}", moduleName);
-            Module = await runtime.LoadModule(moduleName);
+            SynthesisModule = await runtime.LoadModule(moduleName);
         }
-        return new WebSpeechSynthesizer(Module, ComponentIdGenerator);
+        return new WebSpeechSynthesizer(SynthesisModule, ComponentIdGenerator);
+    }
+
+    /// <summary>
+    /// 语音识别方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<WebSpeechRecognition> CreateRecognitionAsync()
+    {
+        if (RecognitionModule == null)
+        {
+            var moduleName = "./_content/BootstrapBlazor/modules/recognition.js";
+            logger.LogInformation("load module {moduleName}", moduleName);
+            RecognitionModule = await runtime.LoadModule(moduleName);
+        }
+        return new WebSpeechRecognition(RecognitionModule, ComponentIdGenerator);
     }
 }
