@@ -8,8 +8,17 @@ using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class ButtonTest : ButtonTestBase
+public class ButtonTest
 {
+    private TestContext Context { get; set; }
+
+    public ButtonTest()
+    {
+        Context = new();
+        Context.Services.AddBootstrapBlazor();
+        Context.JSInterop.Mode = JSRuntimeMode.Loose;
+    }
+
     [Fact]
     public void ButtonStyle_Ok()
     {
