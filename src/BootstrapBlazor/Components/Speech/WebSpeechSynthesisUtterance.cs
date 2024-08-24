@@ -12,7 +12,13 @@ namespace BootstrapBlazor.Components;
 public class WebSpeechSynthesisUtterance
 {
     /// <summary>
-    /// A string representing a BCP 47 language tag
+    /// gets and sets the text that will be synthesized when the utterance is spoken.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// gets and sets A string representing a BCP 47 language tag
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Lang { get; set; }
@@ -33,7 +39,7 @@ public class WebSpeechSynthesisUtterance
     /// gets and sets the voice that will be used to speak the utterance.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Voice { get; set; }
+    public WebSpeechSynthesisVoice? Voice { get; set; }
 
     /// <summary>
     /// gets and sets the volume that the utterance will be spoken at.

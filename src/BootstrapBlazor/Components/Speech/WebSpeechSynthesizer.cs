@@ -32,26 +32,35 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// <summary>
     /// 开始朗读方法
     /// </summary>
-    /// <param name="text"></param>
-    /// <param name="lang"></param>
-    public async Task SpeakAsync(string? text, string? lang)
+    /// <param name="utterance"></param>
+    public async Task SpeakAsync(WebSpeechSynthesisUtterance utterance)
     {
         _id = componentIdGenerator.Generate(this);
         _interop = DotNetObjectReference.Create(this);
-        await module.InvokeVoidAsync("speak", _id, _interop, new { text, lang });
+        await module.InvokeVoidAsync("speak", _id, _interop, utterance);
     }
 
     /// <summary>
     /// 开始朗读方法
     /// </summary>
     /// <param name="text"></param>
-    /// <param name="voice"></param>
-    public async Task SpeakAsync(string? text, WebSpeechSynthesisVoice? voice = null)
+    /// <param name="lang"></param>
+    public Task SpeakAsync(string? text, string? lang) => SpeakAsync(new WebSpeechSynthesisUtterance()
     {
-        _id = componentIdGenerator.Generate(this);
-        _interop = DotNetObjectReference.Create(this);
-        await module.InvokeVoidAsync("speak", _id, _interop, new { text, voice });
-    }
+        Text = text,
+        Lang = lang
+    });
+
+    /// <summary>
+    /// 开始朗读方法
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="voice"></param>
+    public Task SpeakAsync(string? text, WebSpeechSynthesisVoice? voice = null) => SpeakAsync(new WebSpeechSynthesisUtterance()
+    {
+        Text = text,
+        Voice = voice
+    });
 
     /// <summary>
     /// 暂停朗读方法

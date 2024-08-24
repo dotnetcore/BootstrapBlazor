@@ -22,6 +22,11 @@ public class WebSpeechServiceTest : BootstrapBlazorTestBase
             Name = "test",
             VoiceURI = "test"
         });
+        await synthesizer.SpeakAsync(new WebSpeechSynthesisUtterance()
+        {
+            Text = "just a test voice",
+            Lang = "en-US"
+        });
 
         var end = false;
         synthesizer.OnEndAsync = () =>
@@ -77,5 +82,25 @@ public class WebSpeechServiceTest : BootstrapBlazorTestBase
         var service = Context.Services.GetRequiredService<WebSpeechService>();
         var synthesizer = await service.CreateSynthesizerAsync();
         var voices = await synthesizer.GetVoices();
+    }
+
+    [Fact]
+    public void WebSpeechSynthesisUtterance_Ok()
+    {
+        var utterance = new WebSpeechSynthesisUtterance()
+        {
+            Text = "just a test voice",
+            Lang = "en-US",
+            Pitch = 1,
+            Rate = 1,
+            Voice = new WebSpeechSynthesisVoice() { VoiceURI = "test" },
+            Volume = 1
+        };
+        Assert.Equal("just a test voice", utterance.Text);
+        Assert.Equal("en-US", utterance.Lang);
+        Assert.Equal(1, utterance.Pitch);
+        Assert.Equal(1, utterance.Rate);
+        Assert.Equal(1, utterance.Volume);
+        Assert.Equal("test", utterance.Voice.VoiceURI);
     }
 }
