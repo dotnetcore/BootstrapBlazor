@@ -112,4 +112,55 @@ public class TableTestEFCore : EFCoreTableTestBase
         });
         Assert.Contains("btn-round", cut.Markup);
     }
+
+    [Fact]
+    public void Popover_Ok()
+    {
+        var cut = Context.RenderComponent<Button>(pb =>
+        {
+            pb.AddChildContent<Popover>(pb =>
+            {
+                pb.Add(t => t.Title, "popover-title");
+            });
+        });
+        cut.Contains("data-bs-toggle=\"popover\" data-bs-original-title=\"popover-title\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
+
+        // 切换 Disabled 状态移除 Popover
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.IsDisabled, true);
+        });
+        var button = cut.Find("button");
+        var d = button.GetAttribute("disabled");
+        Assert.Equal("disabled", d);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.IsDisabled, false);
+        });
+        button = cut.Find("button");
+        Assert.False(button.HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public void ButtonType_Ok()
+    {
+        var cut = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(b => b.ButtonType, ButtonType.Button);
+        });
+        Assert.Contains("type=\"button\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.ButtonType, ButtonType.Submit);
+        });
+        Assert.Contains("type=\"submit\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(b => b.ButtonType, ButtonType.Reset);
+        });
+        Assert.Contains("type=\"reset\"", cut.Markup);
+    }
 }
