@@ -40,7 +40,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Count_Ok()
+    public async Task Count_Ok()
     {
         var cut = Context.RenderComponent<EnumFilter>(pb =>
         {
@@ -56,14 +56,14 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         Assert.Empty(filter.Filters);
 
         var com = cut.FindComponent<Select<string?>>().Instance;
-        cut.InvokeAsync(() => com.SetValue("Middle"));
+        await cut.InvokeAsync(() => com.SetValue("Middle"));
 
         filter = cut.Instance.GetFilterConditions();
         Assert.NotNull(filter.Filters);
         Assert.Single(filter.Filters);
 
         com = cut.FindComponents<Select<string?>>()[1].Instance;
-        cut.InvokeAsync(() => com.SetValue("Primary"));
+        await cut.InvokeAsync(() => com.SetValue("Primary"));
 
         filter = cut.Instance.GetFilterConditions();
         Assert.NotNull(filter.Filters);
