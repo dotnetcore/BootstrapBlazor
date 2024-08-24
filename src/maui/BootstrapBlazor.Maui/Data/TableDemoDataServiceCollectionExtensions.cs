@@ -3,10 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
-using System.Diagnostics.CodeAnalysis;
 
 namespace BootstrapBlazor.Maui.Data;
 
