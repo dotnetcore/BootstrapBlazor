@@ -4,8 +4,6 @@
 
 //using HarmonyLib;
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace UnitTest.Components;
 
 public class BootstrapBlazorRootTest : TestBase

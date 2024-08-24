@@ -4,8 +4,6 @@
 
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 

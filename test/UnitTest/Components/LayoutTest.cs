@@ -5,7 +5,6 @@
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Security.Claims;
 
