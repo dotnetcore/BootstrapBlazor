@@ -27,6 +27,9 @@ public partial class WebSpeeches
     private readonly List<SelectedItem> _voices = [];
     private readonly List<WebSpeechSynthesisVoice> _speechVoices = [];
 
+    private WebSpeechRecognition _recognition = default!;
+    private string? _result;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -49,6 +52,14 @@ public partial class WebSpeeches
         _text = Localizer["WebSpeechText"];
         _buttonText = Localizer["WebSpeechSpeakButtonText"];
         _buttonStopText = Localizer["WebSpeechStopButtonText"];
+
+        _recognition = await WebSpeechService.CreateRecognitionAsync();
+        _recognition.OnResultAsync = e =>
+        {
+            _result = e.Results;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
     }
 
     private async Task OnStart()
@@ -77,5 +88,12 @@ public partial class WebSpeeches
     {
         await _entry.CancelAsync();
         _tcs?.TrySetResult();
+    }
+
+    private async Task OnStartRecognition()
+    {
+        _result = "";
+        await _recognition.StartAsync();
+        StateHasChanged();
     }
 }
