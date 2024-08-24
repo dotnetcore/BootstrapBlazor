@@ -6,11 +6,15 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
-public class AjaxTest : BootstrapBlazorTestBase
+public class AjaxTest
 {
     [Fact]
-    public void Ajax_Test()
+    public async Task Ajax_Test()
     {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+        context.Services.AddBootstrapBlazor();
+
         var option = new AjaxOption
         {
             Url = "/api/Login",
@@ -21,11 +25,11 @@ public class AjaxTest : BootstrapBlazorTestBase
         Assert.Equal("POST", option.Method);
         Assert.NotNull(option.Data);
 
-        var service = Context.Services.GetRequiredService<AjaxService>();
-        _ = service.InvokeAsync(option);
+        var service = context.Services.GetRequiredService<AjaxService>();
+        await service.InvokeAsync(option);
 
-        Context.RenderComponent<Ajax>();
-        _ = service.InvokeAsync(option);
-        _ = service.Goto("http://www.blazor.zone");
+        context.RenderComponent<Ajax>();
+        await service.InvokeAsync(option);
+        await service.Goto("http://www.blazor.zone");
     }
 }
