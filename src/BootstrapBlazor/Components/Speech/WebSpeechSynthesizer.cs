@@ -23,11 +23,23 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// </summary>
     /// <param name="text"></param>
     /// <param name="lang"></param>
-    public async Task SpeakAsync(string? text, string? lang = null)
+    public async Task SpeakAsync(string? text, string? lang)
     {
         _id = componentIdGenerator.Generate(this);
         _interop = DotNetObjectReference.Create(this);
         await module.InvokeVoidAsync("speak", _id, _interop, new { text, lang });
+    }
+
+    /// <summary>
+    /// 开始朗读方法
+    /// </summary>
+    /// <param name="text"></param>
+    /// <param name="voice"></param>
+    public async Task SpeakAsync(string? text, WebSpeechSynthesisVoice? voice = null)
+    {
+        _id = componentIdGenerator.Generate(this);
+        _interop = DotNetObjectReference.Create(this);
+        await module.InvokeVoidAsync("speak", _id, _interop, new { text, voice });
     }
 
     /// <summary>
@@ -52,7 +64,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// 获得 语音包方法
     /// </summary>
     /// <returns></returns>
-    public async Task<List<WebSpeechSynthesisVoice>> GetVoices() => await module.InvokeAsync<List<WebSpeechSynthesisVoice>>("getVoices");
+    public async Task<WebSpeechSynthesisVoice[]> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]>("getVoices");
 
     /// <summary>
     /// 朗读异常回调方法由 Javascript 调用
