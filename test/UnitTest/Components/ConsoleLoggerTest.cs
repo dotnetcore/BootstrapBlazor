@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class ConsoleLoggerTest : TestBase
+public class ConsoleLoggerTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsHtml_Ok()
