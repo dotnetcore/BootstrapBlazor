@@ -1,6 +1,6 @@
 ﻿import Data from "./data.js"
 
-export function speak(id, invoke, option) {
+export async function speak(id, invoke, option) {
     const synth = window.speechSynthesis;
     if (synth.speaking) {
         invoke.invokeMethodAsync("OnSpeaking");
@@ -20,8 +20,8 @@ export function speak(id, invoke, option) {
             utter.rate = rate;
         }
         if (voice) {
-            const voices = synth.getVoices();
-            utter.voice = voices.find(v => v.name === voice);
+            const voices = await getUtteranceVoices();
+            utter.voice = voices.find(v => v.name === voice.name);
         }
         if (volume) {
             utter.volume = volume;
@@ -50,9 +50,40 @@ export function cancel(id) {
 
 }
 
-export function getVoices() {
+const getUtteranceVoices = () => {
     const synth = window.speechSynthesis;
-    const voices = synth.getVoices();
-    console.log(voices);
-    return voices;
+    let done = false;
+    let voices = [];
+    if (synth.onvoiceschanged === null) {
+        synth.onvoiceschanged = () => {
+            voices = synth.getVoices();
+            done = true;
+        };
+    }
+    else {
+        voices = synth.getVoices();
+        done = true;
+    }
+
+    return new Promise((resolve, reject) => {
+        const handler = setInterval(() => {
+            if (done) {
+                clearInterval(handler);
+                resolve(voices);
+            }
+        }, 10)
+    })
+}
+
+export async function getVoices() {
+    const voices = await getUtteranceVoices();
+    return voices.map(i => {
+        return {
+            default: i.default,
+            lang: i.lang,
+            localService: i.localService,
+            name: i.name,
+            voiceURI: i.voiceURI
+        }
+    });
 }

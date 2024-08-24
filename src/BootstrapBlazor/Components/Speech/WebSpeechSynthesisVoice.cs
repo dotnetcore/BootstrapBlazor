@@ -27,10 +27,10 @@ public class WebSpeechSynthesisVoice
     /// <summary>
     /// 获得/设置 indicating whether the voice is supplied by a local speech synthesizer service
     /// </summary>
-    public bool localService { get; set; }
+    public bool LocalService { get; set; }
 
     /// <summary>
     /// 获得/设置 the type of URI and location of the speech synthesis service for this voice.
     /// </summary>
-    public string? voiceURI { get; set; }
+    public string? VoiceURI { get; set; }
 }
