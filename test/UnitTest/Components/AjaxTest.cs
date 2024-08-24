@@ -4,13 +4,8 @@
 
 namespace UnitTest.Components;
 
-public class AjaxTest : TestBase
+public class AjaxTest : BootstrapBlazorTestBase
 {
-    public AjaxTest()
-    {
-        Context.Services.AddBootstrapBlazor();
-    }
-
     [Fact]
     public async Task Ajax_Test()
     {
