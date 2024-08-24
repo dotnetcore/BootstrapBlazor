@@ -81,6 +81,45 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     }
 
     /// <summary>
+    /// 开始识别回调方法由 Javascript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerStartCallback()
+    {
+        if (OnStartAsync != null)
+        {
+            await OnStartAsync();
+        }
+    }
+
+    /// <summary>
+    /// 语音开始回调方法由 Javascript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerSpeechStartCallback()
+    {
+        if (OnSpeechStartAsync != null)
+        {
+            await OnSpeechStartAsync();
+        }
+    }
+
+    /// <summary>
+    /// 语音结束回调方法由 Javascript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerSpeechEndCallback()
+    {
+        if (OnSpeechEndAsync != null)
+        {
+            await OnSpeechEndAsync();
+        }
+    }
+
+    /// <summary>
     /// 异常回调方法由 Javascript 调用
     /// </summary>
     /// <returns></returns>
