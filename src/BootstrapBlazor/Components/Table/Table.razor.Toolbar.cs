@@ -774,10 +774,10 @@ public partial class Table<TItem>
     public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑弹窗的Dialog, 可防止Table放在弹出Dialog中, Popup时候隐藏Table所在的Dialog
+    /// 获得/设置 编辑弹窗 Dialog, 可避免弹窗中 Table 再次弹窗时隐藏原表格问题
     /// </summary>
     [Parameter]
-    public Dialog? PopupFormDialog { get; set; }
+    public Dialog? EditDialog { get; set; }
 
     private async Task AddItem(EditContext context)
     {
@@ -856,7 +856,7 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(option, changedType);
-        await DialogService.ShowEditDialog(option, PopupFormDialog);
+        await DialogService.ShowEditDialog(option, EditDialog);
     }
 
     /// <summary>

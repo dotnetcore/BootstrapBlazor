@@ -274,34 +274,4 @@ public class TableDrawerTest : TableDialogTestBase
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
     }
-
-    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>, IEntityFrameworkCoreDataService
-    {
-        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
-
-        public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
-
-        public Task<bool> DeleteAsync(IEnumerable<Foo> models) => Task.FromResult(true);
-
-        public Task<QueryData<Foo>> QueryAsync(QueryPageOptions option)
-        {
-            var foos = Foo.GenerateFoo(Localizer, 2);
-            var ret = new QueryData<Foo>()
-            {
-                Items = foos,
-                TotalCount = 2,
-                IsAdvanceSearch = true,
-                IsFiltered = true,
-                IsSearch = true,
-                IsSorted = true
-            };
-            return Task.FromResult(ret);
-        }
-
-        public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
-
-        public Task CancelAsync() => Task.CompletedTask;
-
-        public Task EditAsync(object model) => Task.CompletedTask;
-    }
 }
