@@ -3,12 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class TableSortDialogTest : TableSortDialogTestBase
+public class TableSortDialogTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void AdvancedSort_Ok()

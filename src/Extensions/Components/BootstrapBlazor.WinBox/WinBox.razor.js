@@ -9,63 +9,87 @@ export async function init(id, invoke, options) {
 
 export function show(id, invoke, option) {
     const el = document.getElementById(id);
-    const content = el.querySelector('.bb-win-box-content');
+    const content = el.querySelector('.bb-winbox-content');
     const config = {
         ...option,
         title: 'Test',
         mount: content,
         onclose: () => {
-            invoke.invokeMethodAsync("OnClose", option.id);
+            invoke.invokeMethodAsync("OnClose", config.id);
         }
     }
-    if (option.triggerOnCreate) {
+    if (config.triggerOnCreate) {
+        delete config.triggerOnCreate;
         config.oncreate = () => {
-            invoke.invokeMethodAsync("OnCreate", option.id);
+            invoke.invokeMethodAsync("OnCreate", config.id);
         }
     }
-    if (option.triggerOnShown) {
-        config.onshown = () => {
-            invoke.invokeMethodAsync("OnShown", option.id);
+    if (config.triggerOnShow) {
+        delete config.triggerOnShow;
+        config.onshow = () => {
+            invoke.invokeMethodAsync("OnShow", config.id);
         }
     }
-    if (option.triggerOnHide) {
+    if (config.triggerOnHide) {
+        delete config.triggerOnHide;
         config.onhide = () => {
-            invoke.invokeMethodAsync("OnHide", option.id);
+            invoke.invokeMethodAsync("OnHide", config.id);
         }
     }
-    if (option.triggerOnFocus) {
+    if (config.triggerOnFocus) {
+        delete config.triggerOnFocus;
         config.onfocus = () => {
-            invoke.invokeMethodAsync("OnFocus", option.id);
+            invoke.invokeMethodAsync("OnFocus", config.id);
         }
     }
-    if (option.triggerOnBlur) {
+    if (config.triggerOnBlur) {
+        delete config.triggerOnBlur;
         config.onblur = () => {
-            invoke.invokeMethodAsync("OnBlur", option.id);
+            invoke.invokeMethodAsync("OnBlur", config.id);
         }
     }
-    if (option.triggerOnFullscreen) {
+    if (config.triggerOnFullscreen) {
+        delete config.triggerOnFullscreen;
         config.onfullscreen = () => {
-            invoke.invokeMethodAsync("OnFullscreen", option.id);
+            invoke.invokeMethodAsync("OnFullscreen", config.id);
         }
     }
-    if (option.triggerOnRestore) {
+    if (config.triggerOnRestore) {
+        delete config.triggerOnRestore;
         config.onrestore = () => {
-            invoke.invokeMethodAsync("OnRestore", option.id);
+            invoke.invokeMethodAsync("OnRestore", config.id);
         }
     }
-    if (option.triggerOnMaximize) {
+    if (config.triggerOnMaximize) {
+        delete config.triggerOnMaximize;
         config.onmaximize = () => {
-            invoke.invokeMethodAsync("OnMaximize", option.id);
+            invoke.invokeMethodAsync("OnMaximize", config.id);
         }
     }
-    if (option.triggerOnMinimize) {
+    if (config.triggerOnMinimize) {
+        delete config.triggerOnMinimize;
         config.onminimize = () => {
-            invoke.invokeMethodAsync("OnMinimize", option.id);
+            invoke.invokeMethodAsync("OnMinimize", config.id);
         }
     }
-    new WinBox(config);
+    const winbox = new WinBox(config);
+    Data.set(id, { el, winbox });
+}
+
+export function execute(id, method, args) {
+    const instance = Data.get(id);
+    if (instance) {
+        const { winbox } = instance;
+        if (winbox) {
+            winbox[method].call(winbox, args);
+        }
+    }
+}
+
+export function stack() {
+    WinBox.stack();
 }
 
 export function dispose(id) {
-
+    Data.remove(id);
 }

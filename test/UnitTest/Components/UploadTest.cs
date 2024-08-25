@@ -376,6 +376,16 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ButtonUpload_ChildContent()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, new MarkupString("<div>test-child-content</div>")));
+        });
+        cut.Contains("<div>test-child-content</div>");
+    }
+
+    [Fact]
     public void ButtonUpload_IsDisabled_Ok()
     {
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>

@@ -3,11 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
-public class MessageTest : MessageTestBase
+public class MessageTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task Message_Ok()

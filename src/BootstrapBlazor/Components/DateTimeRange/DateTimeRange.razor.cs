@@ -279,7 +279,7 @@ public partial class DateTimeRange
     {
         base.OnInitialized();
 
-        if (EditContext != null && FieldIdentifier != null)
+        if (FieldIdentifier != null)
         {
             var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
             if (pi != null)

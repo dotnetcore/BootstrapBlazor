@@ -3,13 +3,12 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableDrawerTest : TableDrawerTestBase
+public class TableDrawerTest : TableDialogTestBase
 {
     [Fact]
     public async Task EditAsync_Ok()

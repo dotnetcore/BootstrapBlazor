@@ -15,8 +15,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="..\..\src\BootstrapBlazor.Server\Data\Foo.cs" Link="Misc\Foo.cs" />
     <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="BootstrapBlazorTestBase.cs" />
+    <Compile Include="..\UnitTest\Core\TestBase.cs" Link="TestBase.cs" />
     <Compile Include="..\UnitTest\Extensions\IServiceCollectionExtensions.cs" Link="IServiceCollectionExtensions.cs" />
   </ItemGroup>
 

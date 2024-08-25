@@ -9,9 +9,6 @@ namespace UnitTest.Core;
 /// <summary>
 /// 
 /// </summary>
-/// <remarks>
-/// 构造函数
-/// </remarks>
 /// <param name="options"></param>
 public class FooContext(DbContextOptions<FooContext> options) : DbContext(options)
 {

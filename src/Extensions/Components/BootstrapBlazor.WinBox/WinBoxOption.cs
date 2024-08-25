@@ -188,6 +188,12 @@ public class WinBoxOption
     public string? Html { get; set; }
 
     /// <summary>
+    /// Allow the window to move outside the viewport borders on left, right and bottom (default is "false").
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Overflow { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件模板 默认 null
     /// </summary>
     [JsonIgnore]
@@ -206,10 +212,10 @@ public class WinBoxOption
     /// 获得/设置 弹窗可见回调方法 默认 null
     /// </summary>
     [JsonIgnore]
-    public Func<Task>? OnShownAsync { get; set; }
+    public Func<Task>? OnShowAsync { get; set; }
 
     [JsonInclude]
-    private bool TriggerOnShown => OnShownAsync != null;
+    private bool TriggerOnShow => OnShowAsync != null;
 
     /// <summary>
     /// 获得/设置 隐藏弹窗回调方法 默认 null
