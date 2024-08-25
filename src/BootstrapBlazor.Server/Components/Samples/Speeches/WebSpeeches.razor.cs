@@ -118,7 +118,7 @@ public partial class WebSpeeches
     private async Task OnStartRecognition()
     {
         _result = "";
-        await _recognition.StartAsync();
+        await _recognition.StartAsync(CultureInfo.CurrentUICulture.Name);
         StateHasChanged();
     }
 }
