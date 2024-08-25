@@ -51,7 +51,12 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
     /// <summary>
     /// 开始识别方法
     /// </summary>
-    public async Task StartAsync()
+    public Task StartAsync(string lang) => StartAsync(new WebSpeechRecognitionOption() { Lang = lang });
+
+    /// <summary>
+    /// 开始识别方法
+    /// </summary>
+    public async Task StartAsync(WebSpeechRecognitionOption option)
     {
         _id = componentIdGenerator.Generate(this);
         _interop = DotNetObjectReference.Create(this);
@@ -59,7 +64,7 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
         {
             TriggerStart = OnStartAsync != null,
             TriggerSpeechStart = OnSpeechStartAsync != null
-        });
+        }, option);
     }
 
     /// <summary>

@@ -11,7 +11,7 @@ public class WebSpeechRecognitionTest : BootstrapBlazorTestBase
     {
         var service = Context.Services.GetRequiredService<WebSpeechService>();
         var recognition = await service.CreateRecognitionAsync();
-        await recognition.StartAsync();
+        await recognition.StartAsync("zh-CN");
         WebSpeechRecognitionEvent? result = null;
         recognition.OnResultAsync = @event =>
         {
@@ -20,11 +20,11 @@ public class WebSpeechRecognitionTest : BootstrapBlazorTestBase
         };
         await recognition.TriggerResultCallback(new WebSpeechRecognitionEvent()
         {
-            Confidence = 0.9f,
+            IsFinal = true,
             Transcript = "test"
         });
         Assert.NotNull(result);
-        Assert.Equal(0.9f, result.Confidence);
+        Assert.True(result.IsFinal);
         Assert.Equal("test", result.Transcript);
     }
 
@@ -33,7 +33,7 @@ public class WebSpeechRecognitionTest : BootstrapBlazorTestBase
     {
         var service = Context.Services.GetRequiredService<WebSpeechService>();
         var recognition = await service.CreateRecognitionAsync();
-        await recognition.StartAsync();
+        await recognition.StartAsync("zh-CN");
         WebSpeechRecognitionError? error = null;
         recognition.OnErrorAsync = err =>
         {
@@ -146,5 +146,21 @@ public class WebSpeechRecognitionTest : BootstrapBlazorTestBase
         };
         await recognition.TriggerSpeechEndCallback();
         Assert.True(end);
+    }
+
+    [Fact]
+    public void WebSpeechRecognitionOption_Ok()
+    {
+        var option = new WebSpeechRecognitionOption()
+        {
+            Lang = "zh-CN",
+            Continuous = true,
+            InterimResults = true,
+            MaxAlternatives = 1
+        };
+        Assert.True(option.Continuous);
+        Assert.True(option.InterimResults);
+        Assert.Equal("zh-CN", option.Lang);
+        Assert.Equal(1, option.MaxAlternatives);
     }
 }

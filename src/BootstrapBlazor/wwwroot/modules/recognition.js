@@ -1,6 +1,6 @@
 ﻿import Data from "./data.js"
 
-export async function start(id, invoke, option) {
+export async function start(id, invoke, trigger, option) {
     const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
     if (speechRecognition === null) {
         invoke.invokeMethodAsync("TriggerErrorCallback", {
@@ -9,12 +9,12 @@ export async function start(id, invoke, option) {
         });
     }
     const recognition = new speechRecognition();
-    if (option.triggerStart || true) {
+    if (trigger.triggerStart) {
         recognition.onstart = () => {
             invoke.invokeMethodAsync("TriggerStartCallback");
         }
     }
-    if (option.triggerSpeechStart || true) {
+    if (trigger.triggerSpeechStart) {
         recognition.onspeechstart = () => {
             invoke.invokeMethodAsync("TriggerSpeechStartCallback");
         }
@@ -39,25 +39,53 @@ export async function start(id, invoke, option) {
         });
     }
     recognition.onresult = e => {
-        const transcript = e.results[0][0];
+        let final_transcript = '';
+        let interim_transcript = '';
+        let isFinal = false;
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) {
+                final_transcript += e.results[i][0].transcript;
+                isFinal = true;
+            }
+            else {
+                interim_transcript += e.results[i][0].transcript;
+            }
+        }
         invoke.invokeMethodAsync("TriggerResultCallback", {
-            transcript: transcript.transcript,
-            confidence: transcript.confidence
+            transcript: interim_transcript || final_transcript,
+            isFinal: isFinal
         });
     }
-    recognition.lang = 'zh-CN';
-    recognition.maxAlternatives = 1;
-    recognition.interimResults = false;
-    recognition.continuous = false;
+    const { lang, maxAlternatives, continuous, interimResults } = option;
+    if (lang !== void 0) {
+        recognition.lang = lang;
+    }
+    if (maxAlternatives !== void 0) {
+        recognition.maxAlternatives = maxAlternatives;
+    }
+    if (interimResults !== void 0) {
+        recognition.interimResults = interimResults;
+    }
+    if (continuous !== void 0) {
+        recognition.continuous = continuous;
+    }
     recognition.start();
+
+    Data.set(id, recognition);
 }
 
 export function stop(id) {
-    const synth = window.speechSynthesis;
-    synth.pause();
+    const recognition = Data.get(id);
+    Data.remove(id);
+    if (recognition) {
+        recognition.stop();
+    }
 }
 
 export function abort(id) {
-    const synth = window.speechSynthesis;
-    synth.resume();
+    const recognition = Data.get(id);
+    Data.remove(id);
+    if (recognition) {
+        recognition.abort();
+    }
 }
