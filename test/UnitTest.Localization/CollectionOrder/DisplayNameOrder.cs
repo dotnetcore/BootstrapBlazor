@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
-[assembly: TestCollectionOrderer("UnitTest.CollectionOrder.DisplayNameOrderer", "UnitTest")]
+[assembly: TestCollectionOrderer("UnitTest.CollectionOrder.DisplayNameOrderer", "UnitTest.Localization")]
 
 namespace UnitTest.CollectionOrder;
 

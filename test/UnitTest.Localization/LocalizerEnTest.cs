@@ -23,6 +23,7 @@ public class LocalizerEnTest : BootstrapBlazorEnTestBase
     [Fact]
     public void Dummy_Resource_Ok()
     {
+        Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("en-US", CultureInfo.CurrentUICulture.Name);
 
         var val = Utility.GetDisplayName(typeof(DummyEn), nameof(DummyEn.Name));
