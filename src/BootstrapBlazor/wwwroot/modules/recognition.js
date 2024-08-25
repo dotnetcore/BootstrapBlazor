@@ -41,42 +41,51 @@ export async function start(id, invoke, trigger, option) {
     recognition.onresult = e => {
         let final_transcript = '';
         let interim_transcript = '';
+        let isFinal = false;
         for (let i = e.resultIndex; i < e.results.length; i++) {
             if (e.results[i].isFinal) {
                 final_transcript += e.results[i][0].transcript;
-            } else {
+                isFinal = true;
+            }
+            else {
                 interim_transcript += e.results[i][0].transcript;
             }
         }
         invoke.invokeMethodAsync("TriggerResultCallback", {
             transcript: interim_transcript || final_transcript,
-            isFinal: final_transcript !== ''
+            isFinal: isFinal
         });
     }
     const { lang, maxAlternatives, continuous, interimResults } = option;
-    if (lang !== null) {
+    if (lang !== void 0) {
         recognition.lang = lang;
     }
-    if (maxAlternatives !== null) {
+    if (maxAlternatives !== void 0) {
         recognition.maxAlternatives = maxAlternatives;
     }
-    if (interimResults !== null) {
+    if (interimResults !== void 0) {
         recognition.interimResults = interimResults;
     }
-    if (continuous !== null) {
+    if (continuous !== void 0) {
         recognition.continuous = continuous;
     }
     recognition.start();
+
+    Data.set(id, recognition);
 }
 
 export function stop(id) {
-    const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
-    const recognition = new speechRecognition();
-    recognition.stop();
+    const recognition = Data.get(id);
+    Data.remove(id);
+    if (recognition) {
+        recognition.stop();
+    }
 }
 
 export function abort(id) {
-    const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
-    const recognition = new speechRecognition();
-    recognition.abort();
+    const recognition = Data.get(id);
+    Data.remove(id);
+    if (recognition) {
+        recognition.abort();
+    }
 }
