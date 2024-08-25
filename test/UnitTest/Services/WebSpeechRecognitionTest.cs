@@ -20,11 +20,11 @@ public class WebSpeechRecognitionTest : BootstrapBlazorTestBase
         };
         await recognition.TriggerResultCallback(new WebSpeechRecognitionEvent()
         {
-            Confidence = 0.9f,
+            IsFinal = true,
             Transcript = "test"
         });
         Assert.NotNull(result);
-        Assert.Equal(0.9f, result.Confidence);
+        Assert.True(result.IsFinal);
         Assert.Equal("test", result.Transcript);
     }
 
