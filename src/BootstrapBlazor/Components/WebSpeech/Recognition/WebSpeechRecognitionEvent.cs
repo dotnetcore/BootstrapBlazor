@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 public class WebSpeechRecognitionEvent
 {
     /// <summary>
-    /// 获得/设置 可信度
-    /// </summary>
-    public float Confidence { get; set; }
-
-    /// <summary>
     /// 获得/设置 识别文本内容
     /// </summary>
     public string? Transcript { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否已经结束
+    /// </summary>
+    public bool IsFinal { get; set; }
 }
