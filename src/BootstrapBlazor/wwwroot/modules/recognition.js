@@ -1,6 +1,6 @@
 ﻿import Data from "./data.js"
 
-export async function start(id, invoke, option) {
+export async function start(id, invoke, trigger, option) {
     const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
     if (speechRecognition === null) {
         invoke.invokeMethodAsync("TriggerErrorCallback", {
@@ -9,12 +9,12 @@ export async function start(id, invoke, option) {
         });
     }
     const recognition = new speechRecognition();
-    if (option.triggerStart) {
+    if (trigger.triggerStart) {
         recognition.onstart = () => {
             invoke.invokeMethodAsync("TriggerStartCallback");
         }
     }
-    if (option.triggerSpeechStart) {
+    if (trigger.triggerSpeechStart) {
         recognition.onspeechstart = () => {
             invoke.invokeMethodAsync("TriggerSpeechStartCallback");
         }
@@ -45,10 +45,21 @@ export async function start(id, invoke, option) {
             confidence: transcript.confidence
         });
     }
-    recognition.lang = 'zh-CN';
-    recognition.maxAlternatives = 1;
-    recognition.interimResults = false;
-    recognition.continuous = false;
+    const {lang, maxAlternatives, continuous, interimResults} = option;
+    if(lang !== null) {
+        recognition.lang = lang;
+    }
+    if(maxAlternatives!== null) {
+        recognition.maxAlternatives = maxAlternatives;
+    }
+  if(interimResults!== null)
+  {
+      recognition.interimResults = interimResults;
+  }
+    if(continuous!== null)
+    {
+        recognition.continuous = continuous;
+    }
     recognition.start();
 }
 
