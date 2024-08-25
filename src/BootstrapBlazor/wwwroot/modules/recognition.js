@@ -53,11 +53,13 @@ export async function start(id, invoke, option) {
 }
 
 export function stop(id) {
-    const synth = window.speechSynthesis;
-    synth.pause();
+    const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    const recognition = new speechRecognition();
+    recognition.stop();
 }
 
 export function abort(id) {
-    const synth = window.speechSynthesis;
-    synth.resume();
+    const speechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition;
+    const recognition = new speechRecognition();
+    recognition.abort();
 }
