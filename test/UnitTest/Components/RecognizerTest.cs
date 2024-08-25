@@ -4,7 +4,6 @@
 
 namespace UnitTest.Components;
 
-
 public class RecognizerTest : SpeechTestBase
 {
     [Fact]
