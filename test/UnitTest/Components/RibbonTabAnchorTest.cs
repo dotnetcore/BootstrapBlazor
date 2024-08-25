@@ -9,7 +9,7 @@ namespace UnitTest.Components;
 /// <summary>
 /// 
 /// </summary>
-public class RibbonTabAnchorTest : RibbonTabTestBase
+public class RibbonTabAnchorTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsSupportAnchor_Ok()
