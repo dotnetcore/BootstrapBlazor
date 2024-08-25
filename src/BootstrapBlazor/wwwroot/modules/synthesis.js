@@ -59,17 +59,13 @@ export function cancel(id) {
 
 const getUtteranceVoices = () => {
     const synth = window.speechSynthesis;
-    let done = false;
-    let voices = [];
-    if (synth.onvoiceschanged === null) {
+    let voices = synth.getVoices();
+    let done = voices.length > 0;
+    if (done === false && synth.onvoiceschanged === null) {
         synth.onvoiceschanged = () => {
             voices = synth.getVoices();
             done = true;
         };
-    }
-    else {
-        voices = synth.getVoices();
-        done = true;
     }
 
     return new Promise((resolve, reject) => {
