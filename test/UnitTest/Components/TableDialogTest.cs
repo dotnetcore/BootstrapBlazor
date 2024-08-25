@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -285,4 +286,61 @@ public class TableDialogTest : TableDialogTestBase
         queryButton = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => queryButton.Click());
     }
+
+    [Fact]
+    public async Task EditDialog_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var dialogService = Context.Services.GetRequiredService<DialogService>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        Dialog dialog = default!;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent(builder =>
+            {
+                builder.OpenComponent<Dialog>(0);
+                builder.AddComponentReferenceCapture(1, obj => dialog = (Dialog)obj);
+                builder.CloseComponent();
+
+                builder.OpenComponent<Button>(2);
+                builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, e => ShowDialog(dialogService, items, dialog)));
+                builder.CloseComponent();
+            });
+        });
+
+        // 点击按钮弹出 Dialog
+        var button = cut.FindComponent<Button>();
+        await cut.InvokeAsync(button.Instance.OnClick.InvokeAsync);
+
+        // 点击表格新建按钮
+        var table = cut.FindComponent<Table<Foo>>();
+        var add = cut.Find(".table-toolbar button");
+        await cut.InvokeAsync(() => add.Click());
+
+        // 检查 dialog 是否显示
+        var editDialog = cut.FindComponents<Dialog>().FirstOrDefault(i => i.Instance == dialog);
+        Assert.NotNull(editDialog);
+        Assert.Contains("新建窗口", editDialog.Markup);
+    }
+
+    private static Task ShowDialog(DialogService dialogService, List<Foo> items, Dialog dialog) => dialogService.Show(new DialogOption()
+    {
+        Title = "test-dialog-table",
+        Component = BootstrapDynamicComponent.CreateComponent<Table<Foo>>(new Dictionary<string, object?>()
+            {
+                {"RenderMode",  TableRenderMode.Table},
+                {"Items", items},
+                {"EditDialog", dialog},
+                {"IsMultipleSelect", true},
+                {"ShowToolbar", true },
+                {"TableColumns", new RenderFragment<Foo>(foo => builder =>
+                    {
+                        builder.OpenComponent<TableColumn<Foo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Name");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                        builder.CloseComponent();
+                    })
+                }
+            })
+    });
 }
