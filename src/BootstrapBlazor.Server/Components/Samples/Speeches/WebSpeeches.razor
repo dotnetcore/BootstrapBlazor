@@ -25,11 +25,35 @@
            Name="Recognition">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Button Text="@_buttonRecognitionText" OnClickWithoutRender="OnStartRecognition" IsAsync="true" Icon="fa-fw fa-solid fa-microphone"></Button>
-            <div class="mt-3">@_result</div>
+            <Button Text="@_buttonRecognitionText" OnClickWithoutRender="OnStartRecognition" IsDisabled="_starRecognition" Icon="fa-fw fa-solid fa-microphone"></Button>
         </div>
         <div class="col-12 col-sm-6">
             <SpeechWave Show="_starRecognition" ShowUsedTime="false" class="my-3"></SpeechWave>
+        </div>
+        <div class="col-12">
+            <div class="bb-result">
+                <span class="final">@_result</span>
+            </div>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["WebSpeechRecognitionContinuousTitle"]"
+           Introduction="@Localizer["WebSpeechRecognitionContinuousIntro"]"
+           Name="Continuous">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Button Text="@_buttonRecognitionContinuousText" OnClickWithoutRender="OnStartContinuousRecognition" IsDisabled="_starRecognitionContinuous" Icon="fa-fw fa-solid fa-microphone"></Button>
+            <Button Text="@_buttonStopText" OnClickWithoutRender="OnStopContinuousRecognition" Icon="fa-fw fa-solid fa-stop"></Button>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SpeechWave Show="_starRecognitionContinuous" ShowUsedTime="false" class="my-3"></SpeechWave>
+        </div>
+        <div class="col-12">
+            <div class="bb-result">
+                <span class="final">@_finalResult</span>
+                <span class="temp">@_tempResult</span>
+            </div>
         </div>
     </div>
 </DemoBlock>

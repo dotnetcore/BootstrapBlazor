@@ -35,6 +35,12 @@ public partial class WebSpeeches
     private string? _buttonRecognitionText;
     private string? _result;
 
+    private bool _starRecognitionContinuous;
+    private string? _buttonRecognitionContinuousText;
+    private string? _finalResult;
+    private string? _tempResult;
+    private WebSpeechRecognition _recognitionContinuous = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -52,6 +58,7 @@ public partial class WebSpeeches
         {
             _speechVoices.AddRange(voices);
         }
+
         _voices.AddRange(_speechVoices.Select(i => new SelectedItem(i.Name!, $"{i.Name}({i.Lang})")));
         _voiceName = _speechVoices.Find(i => i.Lang == CultureInfo.CurrentUICulture.Name)?.Name;
 
@@ -82,6 +89,41 @@ public partial class WebSpeeches
         _recognition.OnResultAsync = e =>
         {
             _result = e.Transcript;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+
+        // create recognition continuous
+        _buttonRecognitionContinuousText = Localizer["WebSpeechRecognitionContinuousButtonText"];
+        _recognitionContinuous = await WebSpeechService.CreateRecognitionAsync();
+        _recognitionContinuous.OnSpeechStartAsync = () =>
+        {
+            _starRecognitionContinuous = true;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+        _recognitionContinuous.OnSpeechEndAsync = () =>
+        {
+            _starRecognitionContinuous = false;
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
+        _recognitionContinuous.OnErrorAsync = async e =>
+        {
+            e.ParseErrorMessage(Localizer);
+            await ToastService.Error("Recognition", e.Message);
+        };
+        _recognitionContinuous.OnResultAsync = e =>
+        {
+            if (e.IsFinal)
+            {
+                _finalResult += e.Transcript;
+                _tempResult = string.Empty;
+            }
+            else
+            {
+                _tempResult = e.Transcript;
+            }
             StateHasChanged();
             return Task.CompletedTask;
         };
@@ -119,6 +161,25 @@ public partial class WebSpeeches
     {
         _result = "";
         await _recognition.StartAsync(CultureInfo.CurrentUICulture.Name);
+        StateHasChanged();
+    }
+
+    private async Task OnStartContinuousRecognition()
+    {
+        _tempResult = "";
+        _finalResult = "";
+        await _recognitionContinuous.StartAsync(new WebSpeechRecognitionOption()
+        {
+            Lang = CultureInfo.CurrentUICulture.Name,
+            Continuous = true,
+            InterimResults = true
+        });
+        StateHasChanged();
+    }
+
+    private async Task OnStopContinuousRecognition()
+    {
+        await _recognitionContinuous.StopAsync();
         StateHasChanged();
     }
 }
