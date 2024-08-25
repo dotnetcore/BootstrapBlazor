@@ -4,7 +4,7 @@
 
 namespace UnitTest.Services;
 
-public class LookupServiceTest : MessageTestBase
+public class LookupServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void LookupService_Null()

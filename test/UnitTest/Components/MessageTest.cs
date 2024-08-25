@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
 
-public class MessageTest : MessageTestBase
+public class MessageTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task Message_Ok()
