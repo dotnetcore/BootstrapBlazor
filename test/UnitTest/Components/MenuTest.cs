@@ -4,8 +4,6 @@
 
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
@@ -487,10 +485,7 @@ public class MenuTest : BootstrapBlazorTestBase
         Assert.True(item.IsActive);
         Assert.True(parent.IsActive);
     }
-}
 
-public class MenuItemTest_Ok : DialogTestBase
-{
     [Fact]
     public void ActiveItem_Ok()
     {

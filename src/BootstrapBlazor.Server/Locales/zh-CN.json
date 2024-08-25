@@ -6306,7 +6306,22 @@
     "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读",
     "WebSpeechSpeakButtonText": "朗读",
     "WebSpeechStopButtonText": "停止",
-    "WebSpeechText": "开始朗读一段文字"
+    "WebSpeechText": "开始朗读一段文字",
+    "WebSpeechRecognitionTitle": "语音识别",
+    "WebSpeechRecognitionIntro": "通过麦克风输入语音，进行语音识别",
+    "WebSpeechRecognitionButtonText": "语音识别",
+    "WebSpeechRecognitionContinuousTitle": "实时语音识别",
+    "WebSpeechRecognitionContinuousIntro": "通过设置 <code>WebSpeechRecognitionOption</code> 参数 <code>Continuous=\"true\" InterimResults=\"true\"</code> 进行实时语音识别",
+    "WebSpeechRecognitionContinuousButtonText": "持续识别",
+    "RecognitionErrorNotAllowed": "用户已拒绝访问硬件设备",
+    "RecognitionErrorNoSpeech": "未检测到语音",
+    "RecognitionErrorAborted": "用户已取消",
+    "RecognitionErrorAudioCapture": "硬件设备无法捕获音频",
+    "RecognitionErrorNetwork": "网络错误",
+    "RecognitionErrorNotSupported": "浏览器不支持语音识别",
+    "RecognitionErrorServiceNotAllowed": "服务不允许",
+    "RecognitionErrorBadGrammar": "语法错误",
+    "RecognitionErrorLanguageNotSupported": "语言不支持"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",

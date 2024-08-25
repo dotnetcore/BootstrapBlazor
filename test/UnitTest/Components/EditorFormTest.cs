@@ -2,13 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
-public class EditorFormTest : BootstrapEditorFormTestBase
+public class EditorFormTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void CascadedEditContext_Error()

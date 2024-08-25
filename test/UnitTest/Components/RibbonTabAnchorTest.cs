@@ -3,14 +3,13 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Bunit.TestDoubles;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
 /// <summary>
 /// 
 /// </summary>
-public class RibbonTabAnchorTest : RibbonTabTestBase
+public class RibbonTabAnchorTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsSupportAnchor_Ok()

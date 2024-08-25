@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class DialogTest : DialogTestBase
+public class DialogTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task Show_Ok()
