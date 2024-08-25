@@ -39,10 +39,18 @@ export async function start(id, invoke, trigger, option) {
         });
     }
     recognition.onresult = e => {
-        const transcript = e.results[0][0];
+        let final_transcript = '';
+        let interim_transcript = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+            if (e.results[i].isFinal) {
+                final_transcript += e.results[i][0].transcript;
+            } else {
+                interim_transcript += e.results[i][0].transcript;
+            }
+        }
         invoke.invokeMethodAsync("TriggerResultCallback", {
-            transcript: transcript.transcript,
-            confidence: transcript.confidence
+            transcript: interim_transcript || final_transcript,
+            isFinal: final_transcript !== ''
         });
     }
     const { lang, maxAlternatives, continuous, interimResults } = option;
