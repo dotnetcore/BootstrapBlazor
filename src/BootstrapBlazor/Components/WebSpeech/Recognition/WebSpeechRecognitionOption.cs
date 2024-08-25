@@ -21,7 +21,7 @@ public class WebSpeechRecognitionOption
     /// whether continuous results are returned for each recognition, or only a single result.
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public bool? Continuous  { get; set; }
+    public bool? Continuous { get; set; }
 
     /// <summary>
     /// whether interim results should be returned (true) or not (false). Interim results are results that are not yet final (e.g. the SpeechRecognitionResult.isFinal property is false).

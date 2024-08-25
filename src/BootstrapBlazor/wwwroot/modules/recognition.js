@@ -45,19 +45,17 @@ export async function start(id, invoke, trigger, option) {
             confidence: transcript.confidence
         });
     }
-    const {lang, maxAlternatives, continuous, interimResults} = option;
-    if(lang !== null) {
+    const { lang, maxAlternatives, continuous, interimResults } = option;
+    if (lang !== null) {
         recognition.lang = lang;
     }
-    if(maxAlternatives!== null) {
+    if (maxAlternatives !== null) {
         recognition.maxAlternatives = maxAlternatives;
     }
-  if(interimResults!== null)
-  {
-      recognition.interimResults = interimResults;
-  }
-    if(continuous!== null)
-    {
+    if (interimResults !== null) {
+        recognition.interimResults = interimResults;
+    }
+    if (continuous !== null) {
         recognition.continuous = continuous;
     }
     recognition.start();
