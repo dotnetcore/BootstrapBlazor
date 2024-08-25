@@ -4,6 +4,16 @@
 <h3>@Localizer["WebSpeechTitle"]</h3>
 <h4>@Localizer["WebSpeechSubTitle"]</h4>
 
+<p class="code-label">1. 服务注入</p>
+<Pre>[Inject, NotNull]
+private WebSpeechService? WebSpeechService { get; set; }</Pre>
+
+<p class="code-label">2. 调用服务方法创建语音合成或者识别实例</p>
+<Pre>var synthesizer = await WebSpeechService.CreateSynthesizerAsync();
+await synthesizer.SpeakAsync("Hello Blazor", "en_US"));</Pre>
+<Pre>var recognition = await WebSpeechService.CreateRecognitionAsync();
+await recognition.StartAsync("en-US")</Pre>
+
 <DemoBlock Title="@Localizer["WebSpeechNormalTitle"]"
            Introduction="@Localizer["WebSpeechNormalIntro"]"
            Name="Normal">
