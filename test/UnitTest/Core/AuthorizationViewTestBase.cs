@@ -6,30 +6,15 @@ using Bunit.TestDoubles;
 
 namespace UnitTest.Core;
 
-public class AuthorizationViewTestBase
+public class AuthorizationViewTestBase : BootstrapBlazorTestBase
 {
-    protected TestContext Context { get; }
+    [NotNull]
+    protected TestAuthorizationContext? AuthorizationContext { get; private set; }
 
-    protected TestAuthorizationContext AuthorizationContext { get; }
-
-    public AuthorizationViewTestBase()
+    protected override void ConfigureServices(IServiceCollection services)
     {
-        Context = new TestContext();
+        base.ConfigureServices(services);
+
         AuthorizationContext = Context.AddTestAuthorization();
-
-        // Mock 脚本
-        Context.JSInterop.Mode = JSRuntimeMode.Loose;
-
-        Context.Services.AddBootstrapBlazor();
-        Context.Services.AddConfiguration();
-
-        // 渲染 BootstrapBlazorRoot 组件 激活 ICacheManager 接口
-        Context.Services.GetRequiredService<ICacheManager>();
-    }
-
-    public void Dispose()
-    {
-        Context.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
