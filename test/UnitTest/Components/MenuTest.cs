@@ -485,10 +485,7 @@ public class MenuTest : BootstrapBlazorTestBase
         Assert.True(item.IsActive);
         Assert.True(parent.IsActive);
     }
-}
 
-public class MenuItemTest_Ok : DialogTestBase
-{
     [Fact]
     public void ActiveItem_Ok()
     {

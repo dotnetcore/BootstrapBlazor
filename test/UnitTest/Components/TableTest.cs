@@ -13,7 +13,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableTest : TableTestBase
+public class TableTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_Ok()

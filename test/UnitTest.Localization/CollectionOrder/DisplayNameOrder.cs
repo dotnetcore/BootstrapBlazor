@@ -3,14 +3,3 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
-[assembly: TestCollectionOrderer("UnitTest.CollectionOrder.DisplayNameOrderer", "UnitTest")]
-
-namespace UnitTest.CollectionOrder;
-
-public class DisplayNameOrderer : ITestCollectionOrderer
-{
-    public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
-    {
-        return testCollections.OrderBy(collection => collection.DisplayName);
-    }
-}

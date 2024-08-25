@@ -6,7 +6,7 @@ using Bunit.Rendering;
 
 namespace UnitTest.Components;
 
-public class PopConfirmButtonTest : PopoverTestBase
+public class PopConfirmButtonTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task Show_Ok()

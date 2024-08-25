@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 
 namespace UnitTest.Components;
 
-public class TableTemplateColumnTest : TableTestBase
+public class TableTemplateColumnTest : BootstrapBlazorTestBase
 {
     [Theory]
     [InlineData(TableRenderMode.CardView)]

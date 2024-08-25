@@ -6,18 +6,12 @@ using Microsoft.Extensions.Configuration;
 
 namespace UnitTest.Core;
 
-public class BootstrapBlazorTestBase : IDisposable
+public class BootstrapBlazorTestBase : TestBase, IDisposable
 {
-    protected TestContext Context { get; }
-
     protected ICacheManager Cache { get; }
 
-    public BootstrapBlazorTestBase()
+    public BootstrapBlazorTestBase() : base()
     {
-        Context = new TestContext();
-        // Mock 脚本
-        Context.JSInterop.Mode = JSRuntimeMode.Loose;
-
         ConfigureServices(Context.Services);
 
         ConfigureConfiguration(Context.Services);

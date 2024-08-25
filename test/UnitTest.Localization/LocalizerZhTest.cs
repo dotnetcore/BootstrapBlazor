@@ -23,6 +23,7 @@ public class LocalizerZhTest : BootstrapBlazorZhTestBase
     [Fact]
     public void Dummy_Resource_Ok()
     {
+        Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("zh-CN", CultureInfo.CurrentUICulture.Name);
 
         var val = Utility.GetDisplayName(typeof(Dummy), nameof(Dummy.Name));

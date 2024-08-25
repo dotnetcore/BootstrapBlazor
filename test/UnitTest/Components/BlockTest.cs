@@ -24,9 +24,9 @@ public class BlockTest : TestBase
         var cut = Context.RenderComponent<Block>(builder =>
         {
             builder.Add(a => a.Condition, true);
-            builder.Add(a => a.Authorized, b => b.AddContent(0, "Authorizated"));
+            builder.Add(a => a.Authorized, b => b.AddContent(0, "Authorized"));
         });
-        Assert.Equal("Authorizated", cut.Markup);
+        Assert.Equal("Authorized", cut.Markup);
     }
 
     [Fact]
@@ -59,7 +59,7 @@ public class BlockTest : TestBase
     };
 }
 
-public class BlockAuthorizationTest : AuthorizationTestBase
+public class BlockAuthorizationTest : AuthorizationViewTestBase
 {
     [Fact]
     public void User_Ok()

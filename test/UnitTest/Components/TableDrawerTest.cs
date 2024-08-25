@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableDrawerTest : TableDrawerTestBase
+public class TableDrawerTest : TableDialogTestBase
 {
     [Fact]
     public async Task EditAsync_Ok()
