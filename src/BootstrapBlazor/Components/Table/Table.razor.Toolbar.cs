@@ -773,6 +773,12 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 编辑弹窗 Dialog, 可避免弹窗中 Table 再次弹窗时隐藏原表格问题
+    /// </summary>
+    [Parameter]
+    public Dialog? EditDialog { get; set; }
+
     private async Task AddItem(EditContext context)
     {
         var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
@@ -850,7 +856,7 @@ public partial class Table<TItem>
             }
         };
         AppendOptions(option, changedType);
-        await DialogService.ShowEditDialog(option);
+        await DialogService.ShowEditDialog(option, EditDialog);
     }
 
     /// <summary>
