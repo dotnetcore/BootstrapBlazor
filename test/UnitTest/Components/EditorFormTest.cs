@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
-public class EditorFormTest : BootstrapEditorFormTestBase
+public class EditorFormTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void CascadedEditContext_Error()
