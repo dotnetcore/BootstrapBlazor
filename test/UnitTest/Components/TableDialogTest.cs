@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -286,33 +287,60 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => queryButton.Click());
     }
 
-    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>, IEntityFrameworkCoreDataService
+    [Fact]
+    public async Task EditDialog_Ok()
     {
-        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
-
-        public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
-
-        public Task<bool> DeleteAsync(IEnumerable<Foo> models) => Task.FromResult(true);
-
-        public Task<QueryData<Foo>> QueryAsync(QueryPageOptions option)
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var dialogService = Context.Services.GetRequiredService<DialogService>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        Dialog dialog = default!;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            var foos = Foo.GenerateFoo(Localizer, 2);
-            var ret = new QueryData<Foo>()
+            pb.AddChildContent(builder =>
             {
-                Items = foos,
-                TotalCount = 2,
-                IsAdvanceSearch = true,
-                IsFiltered = true,
-                IsSearch = true,
-                IsSorted = true
-            };
-            return Task.FromResult(ret);
-        }
+                builder.OpenComponent<Dialog>(0);
+                builder.AddComponentReferenceCapture(1, obj => dialog = (Dialog)obj);
+                builder.CloseComponent();
 
-        public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
+                builder.OpenComponent<Button>(2);
+                builder.AddAttribute(3, "OnClick", EventCallback.Factory.Create<MouseEventArgs>(this, e => ShowDialog(dialogService, items, dialog)));
+                builder.CloseComponent();
+            });
+        });
 
-        public Task CancelAsync() => Task.CompletedTask;
+        // 点击按钮弹出 Dialog
+        var button = cut.FindComponent<Button>();
+        await cut.InvokeAsync(button.Instance.OnClick.InvokeAsync);
 
-        public Task EditAsync(object model) => Task.CompletedTask;
+        // 点击表格新建按钮
+        var table = cut.FindComponent<Table<Foo>>();
+        var add = cut.Find(".table-toolbar button");
+        await cut.InvokeAsync(() => add.Click());
+
+        // 检查 dialog 是否显示
+        var editDialog = cut.FindComponents<Dialog>().FirstOrDefault(i => i.Instance == dialog);
+        Assert.NotNull(editDialog);
+        Assert.Contains("新建窗口", editDialog.Markup);
     }
+
+    private static Task ShowDialog(DialogService dialogService, List<Foo> items, Dialog dialog) => dialogService.Show(new DialogOption()
+    {
+        Title = "test-dialog-table",
+        Component = BootstrapDynamicComponent.CreateComponent<Table<Foo>>(new Dictionary<string, object?>()
+            {
+                {"RenderMode",  TableRenderMode.Table},
+                {"Items", items},
+                {"EditDialog", dialog},
+                {"IsMultipleSelect", true},
+                {"ShowToolbar", true },
+                {"TableColumns", new RenderFragment<Foo>(foo => builder =>
+                    {
+                        builder.OpenComponent<TableColumn<Foo, string>>(0);
+                        builder.AddAttribute(1, "Field", "Name");
+                        builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                        builder.CloseComponent();
+                    })
+                }
+            })
+    });
 }
