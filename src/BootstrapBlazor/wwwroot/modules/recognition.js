@@ -9,12 +9,12 @@ export async function start(id, invoke, option) {
         });
     }
     const recognition = new speechRecognition();
-    if (option.triggerStart || true) {
+    if (option.triggerStart) {
         recognition.onstart = () => {
             invoke.invokeMethodAsync("TriggerStartCallback");
         }
     }
-    if (option.triggerSpeechStart || true) {
+    if (option.triggerSpeechStart) {
         recognition.onspeechstart = () => {
             invoke.invokeMethodAsync("TriggerSpeechStartCallback");
         }
