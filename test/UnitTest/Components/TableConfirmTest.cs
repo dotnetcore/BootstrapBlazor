@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class TableConfirmTest : TableConfirmTestBase
+public class TableConfirmTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void TableCellPopConfirmButton_Ok()
