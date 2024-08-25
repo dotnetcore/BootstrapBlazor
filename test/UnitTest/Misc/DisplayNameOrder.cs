@@ -3,3 +3,4 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 [assembly: CollectionBehavior(DisableTestParallelization = true)]
+[assembly: ExcludeFromCodeCoverage]
