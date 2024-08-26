@@ -57,6 +57,11 @@ class ExportDataReader<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public override int FieldCount { get; } = cols.Count();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="i"></param>
     /// <returns></returns>
     public override string GetName(int i)
