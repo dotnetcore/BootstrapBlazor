@@ -12,7 +12,7 @@
             {
                 <span class="split-first-pane-collapse-switch" onclick="@(()=>PaneCollapseSwitch(FirstPane))"></span>
             }
-            @if (IsResizable)
+            @if (IsResizable && !IsCollapsed)
             {
                 <div class="split-trigger">
                     <i class="split-trigger-bar"></i>

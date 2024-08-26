@@ -39,6 +39,11 @@ public sealed partial class Split
         .Build();
 
     /// <summary>
+    /// 获取/设置 当前折叠的窗格（FirstPane/SecondPane）
+    /// </summary>
+    private string? CollapsedPane { get; set; }
+
+    /// <summary>
     /// 获取 是否显示第一个窗格的折叠/展开按钮
     /// </summary>
     private bool IsShowFirstPaneCollapseSwitch => FirstPaneCollapsible && CollapsedPane != SecondPane;
@@ -49,9 +54,9 @@ public sealed partial class Split
     private bool IsShowSecondPaneCollapseSwitch => SecondPaneCollapsible && CollapsedPane != FirstPane;
 
     /// <summary>
-    /// 获取 是否可以拖动改变大小
+    /// 获取 是否处于折叠状态
     /// </summary>
-    private bool IsResizable => string.IsNullOrEmpty(CollapsedPane);
+    private bool IsCollapsed => !string.IsNullOrEmpty(CollapsedPane);
 
     /// <summary>
     /// 获得/设置 是否垂直分割
@@ -78,6 +83,12 @@ public sealed partial class Split
     public RenderFragment? SecondPaneTemplate { get; set; }
 
     /// <summary>
+    /// 获取/设置 是否可以拖动改变大小
+    /// </summary>
+    [Parameter]
+    public bool IsResizable { get; set; } = true;
+
+    /// <summary>
     /// 获取/设置 第一个窗格是否可关闭
     /// </summary>
     [Parameter]
@@ -88,12 +99,6 @@ public sealed partial class Split
     /// </summary>
     [Parameter]
     public bool SecondPaneCollapsible { get; set; }
-
-    /// <summary>
-    /// 获取/设置 当前折叠的窗格（FirstPane/SecondPane）
-    /// </summary>
-    [Parameter]
-    public string? CollapsedPane { get; set; }
 
     /// <summary>
     /// 折叠/展开窗格
