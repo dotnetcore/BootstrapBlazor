@@ -37,6 +37,16 @@ public class SplitTest : BootstrapBlazorTestBase
         });
         Assert.Contains("tagok", cut.Markup);
 
+        cut.Find(".split-first-pane-collapse-switch").Click();
+        Assert.Contains("first-pane-collapsed", cut.Markup);
+        cut.Find(".split-first-pane-collapse-switch").Click();
+        Assert.Contains("both-pane-expand", cut.Markup);
+
+        cut.Find(".split-second-pane-collapse-switch").Click();
+        Assert.Contains("second-pane-collapsed", cut.Markup);
+        cut.Find(".split-second-pane-collapse-switch").Click();
+        Assert.Contains("both-pane-expand", cut.Markup);
+
         RenderFragment BuildeComponent(string name = "I am Pane1") => builder =>
         {
             builder.OpenElement(1, "div");
