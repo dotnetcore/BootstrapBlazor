@@ -11,7 +11,7 @@
         if (template) {
             this._element = key
                 ? template.querySelector(`[data-bb-key="${key}"]`)
-                : (template.querySelector(`#${this.option.id}`) ?? template.querySelector(`[data-bb-title="${title}]"`))
+                : (template.querySelector(`#${this.option.id}`) ?? template.querySelector(`[data-bb-title="${title}"]`))
         }
 
         if (titleClass) {
