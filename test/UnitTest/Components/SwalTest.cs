@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class SwalTest : SwalTestBase
+public class SwalTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Show_Ok()

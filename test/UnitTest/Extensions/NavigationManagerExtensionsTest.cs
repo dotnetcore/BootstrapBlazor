@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Bunit.TestDoubles;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Extensions;
 

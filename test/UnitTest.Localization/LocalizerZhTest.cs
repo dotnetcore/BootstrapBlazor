@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.Data;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -12,17 +11,11 @@ namespace UnitTest.Localization;
 
 public class LocalizerZhTest : BootstrapBlazorZhTestBase
 {
-    private IStringLocalizer<Foo> Localizer { get; }
-
-    public LocalizerZhTest()
-    {
-        Localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-    }
-
     [Fact]
     public void Foo_Json_Ok()
     {
-        var foo = Foo.Generate(Localizer);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var foo = Foo.Generate(localizer);
 
         Assert.Equal("张三 1000", foo.Name);
     }
@@ -30,6 +23,7 @@ public class LocalizerZhTest : BootstrapBlazorZhTestBase
     [Fact]
     public void Dummy_Resource_Ok()
     {
+        Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Equal("zh-CN", CultureInfo.CurrentUICulture.Name);
 
         var val = Utility.GetDisplayName(typeof(Dummy), nameof(Dummy.Name));

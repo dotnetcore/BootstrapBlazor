@@ -6,11 +6,35 @@
 
 namespace UnitTest.Components;
 
-public class BootstrapBlazorRootTest : BootstrapBlazorTestBase
+public class BootstrapBlazorRootTest : TestBase
 {
     [Fact]
     public void Render_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>();
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        var sc = context.Services;
+        sc.AddBootstrapBlazor();
+        sc.ConfigureJsonLocalizationOptions(op =>
+        {
+            op.IgnoreLocalizerMissing = false;
+        });
+        sc.AddScoped<IRootComponentGenerator, MockGenerator>();
+        var cut = context.RenderComponent<BootstrapBlazorRoot>();
+        cut.Contains("<div class=\"auto-generator\"></div>");
+    }
+
+    class MockGenerator : IRootComponentGenerator
+    {
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public RenderFragment Generator() => builder =>
+        {
+            builder.AddContent(0, new MarkupString("<div class=\"auto-generator\"></div>"));
+        };
     }
 }

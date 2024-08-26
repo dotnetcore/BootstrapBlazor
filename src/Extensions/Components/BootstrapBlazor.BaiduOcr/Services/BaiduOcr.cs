@@ -5,7 +5,6 @@
 using Baidu.Aip.Ocr;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
 
 namespace BootstrapBlazor.Components;
 

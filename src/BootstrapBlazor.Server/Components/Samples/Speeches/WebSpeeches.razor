@@ -1,0 +1,69 @@
+﻿@page "/speech/web-speech"
+@inherits BootstrapComponentBase
+
+<h3>@Localizer["WebSpeechTitle"]</h3>
+<h4>@Localizer["WebSpeechSubTitle"]</h4>
+
+<p class="code-label">1. 服务注入</p>
+<Pre>[Inject, NotNull]
+private WebSpeechService? WebSpeechService { get; set; }</Pre>
+
+<p class="code-label">2. 调用服务方法创建语音合成或者识别实例</p>
+<Pre>var synthesizer = await WebSpeechService.CreateSynthesizerAsync();
+await synthesizer.SpeakAsync("Hello Blazor", "en_US"));</Pre>
+<Pre>var recognition = await WebSpeechService.CreateRecognitionAsync();
+await recognition.StartAsync("en-US")</Pre>
+
+<DemoBlock Title="@Localizer["WebSpeechNormalTitle"]"
+           Introduction="@Localizer["WebSpeechNormalIntro"]"
+           Name="Normal">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select Items="_voices" @bind-Value="_voiceName" class="mb-1"></Select>
+            <Textarea @bind-Value="_text" rows="6"></Textarea>
+        </div>
+        <div class="col-12 col-sm-6 text-center">
+            <SpeechWave Show="_star" ShowUsedTime="false" class="my-3"></SpeechWave>
+            <Button Text="@_buttonText" OnClickWithoutRender="OnStart" IsAsync="true" Icon="fa-fw fa-solid fa-microphone"></Button>
+            <Button Text="@_buttonStopText" IsDisabled="!_star" OnClickWithoutRender="OnStop" Icon="fa-fw fa-solid fa-stop"></Button>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["WebSpeechRecognitionTitle"]"
+           Introduction="@Localizer["WebSpeechRecognitionIntro"]"
+           Name="Recognition">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Button Text="@_buttonRecognitionText" OnClickWithoutRender="OnStartRecognition" IsDisabled="_starRecognition" Icon="fa-fw fa-solid fa-microphone"></Button>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SpeechWave Show="_starRecognition" ShowUsedTime="false" class="my-3"></SpeechWave>
+        </div>
+        <div class="col-12">
+            <div class="bb-result">
+                <span class="final">@_result</span>
+            </div>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["WebSpeechRecognitionContinuousTitle"]"
+           Introduction="@Localizer["WebSpeechRecognitionContinuousIntro"]"
+           Name="Continuous">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Button Text="@_buttonRecognitionContinuousText" OnClickWithoutRender="OnStartContinuousRecognition" IsDisabled="_starRecognitionContinuous" Icon="fa-fw fa-solid fa-microphone"></Button>
+            <Button Text="@_buttonStopText" OnClickWithoutRender="OnStopContinuousRecognition" Icon="fa-fw fa-solid fa-stop"></Button>
+        </div>
+        <div class="col-12 col-sm-6">
+            <SpeechWave Show="_starRecognitionContinuous" ShowUsedTime="false" class="my-3"></SpeechWave>
+        </div>
+        <div class="col-12">
+            <div class="bb-result">
+                <span class="final">@_finalResult</span>
+                <span class="temp">@_tempResult</span>
+            </div>
+        </div>
+    </div>
+</DemoBlock>

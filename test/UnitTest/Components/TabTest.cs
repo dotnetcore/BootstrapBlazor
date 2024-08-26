@@ -4,7 +4,6 @@
 
 using AngleSharp.Dom;
 using Bunit.TestDoubles;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UnitTest.Misc;
 

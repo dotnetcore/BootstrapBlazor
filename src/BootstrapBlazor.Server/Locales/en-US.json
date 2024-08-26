@@ -4653,6 +4653,7 @@
     "Recognizer": "Recognizer",
     "Synthesizer": "Synthesizer",
     "SpeechWave": "SpeechWave",
+    "WebSpeech": "Web Speech Api",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
@@ -4702,7 +4703,6 @@
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
-    "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Segmented": "Segmented",
@@ -4736,7 +4736,8 @@
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
     "DrawerService": "DrawerService",
-    "SortableList": "SortableList"
+    "SortableList": "SortableList",
+    "WinBox": "WinBox"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6033,6 +6034,8 @@
     "IntroText": "Some application scenarios require us to obtain the <code>Html</code> code fragment finally output by <code>Component</code>, and call the <code>RenderAsync</code> instance method of <code>IComponentHtmlRenderer</code> service"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "Copy",
+    "ContextMenuItemPast": "Past",
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
     "ContextMenuNormalTitle": "Basic usage",
@@ -6296,13 +6299,29 @@
     "Layout": "Layout",
     "Theme": "Theme"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
-    "WebSpeechTitle": "Web Speech",
-    "WebSpeechDescription": "Voice recognition and synthesis",
-    "WebSpeechNormalTitle": "Voice recognition",
-    "WebSpeechGameTitle": "Voice color selection game",
-    "WebSpeechSynthesisTitle": "Voice synthesis",
-    "WebSpeechSynthesisCustomTitle": "Voice synthesis custom"
+  "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
+    "WebSpeechTitle": "Web Speech Api",
+    "WebSpeechSubTitle": "Provide speech recognition/synthesis services using browser interface functions",
+    "WebSpeechNormalTitle": "Speech Synthesizer",
+    "WebSpeechNormalIntro": "After entering the text, select the corresponding language to read aloud",
+    "WebSpeechSpeakButtonText": "Speak",
+    "WebSpeechStopButtonText": "Stop",
+    "WebSpeechText": "Welcome blazor",
+    "WebSpeechRecognitionTitle": "Speech Recognition",
+    "WebSpeechRecognitionIntro": "Input voice through microphone for voice recognition",
+    "WebSpeechRecognitionButtonText": "Recognition",
+    "WebSpeechRecognitionContinuousTitle": "Real-time speech recognition",
+    "WebSpeechRecognitionContinuousIntro": "Real-time speech recognition by setting the <code>WebSpeechRecognitionOption</code> parameter <code>Continuous=\"true\" InterimResults=\"true\"</code>",
+    "WebSpeechRecognitionContinuousButtonText": "Recognition",
+    "RecognitionErrorNotAllowed": "The user agent disallowed any speech input from occurring for reasons of security, privacy or user preference",
+    "RecognitionErrorNoSpeech": "No speech was detected",
+    "RecognitionErrorAborted": "Speech input was aborted in some manner, perhaps by some user-agent-specific behavior like a button the user can press to cancel speech input",
+    "RecognitionErrorAudioCapture": "Audio capture failed",
+    "RecognitionErrorNetwork": "Network communication required for completing the recognition failed",
+    "RecognitionErrorNotSupported": "The browser does not support speech recognition",
+    "RecognitionErrorServiceNotAllowed": "The user agent disallowed the requested speech recognition service, either because the user agent doesn't support it or because of reasons of security, privacy or user preference. In this case it would allow another more suitable speech recognition service to be used instead",
+    "RecognitionErrorBadGrammar": "There was an error in the speech recognition grammar or semantic tags, or the chosen grammar format or semantic tag format was unsupported",
+    "RecognitionErrorLanguageNotSupported": "The user agent does not support the language specified in the value of lang attribute of the SpeechRecognition object. The set of supported languages is browser-dependent, and from frontend code there is no way to programmatically determine what languages a user's browser supports for speech recognition"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",
@@ -6701,5 +6720,27 @@
     "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
     "SortableListSwapTitle": "Swap",
     "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
+  },
+  "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
+    "WinBoxTitle": "WinBox",
+    "WinBoxDescription": "Components that emulate Windows window styles",
+    "WinBoxNormalTitle": "Basic usage",
+    "WinBoxNormalIntro": "By setting the <code>WinBoxOption</code> parameter value, a pop-up window is created and displayed.",
+    "AttributeRoot": "Pop-up container root node",
+    "AttributeTitle": "Pop-up title",
+    "AttributeClass": "Pop-up style",
+    "AttributeBackground": "Popup background color",
+    "AttributeBorder": "Pop-up border",
+    "AttributeIcon": "Pop-up title icon",
+    "OnCreateAsync": "Create a pop-up callback method",
+    "OnShownAsync": "Pop-up window visible callback method",
+    "OnHideAsync": "Hide pop-up window callback method",
+    "OnFocusAsync": "Pop-up window gets focus callback method",
+    "OnBlurAsync": "Pop-up window loses focus callback method",
+    "OnFullscreenAsync": "Pop-up full screen callback method",
+    "OnRestoreAsync": "Restore pop-up window callback method",
+    "OnMaximizeAsync": "Maximize pop-up window callback method",
+    "OnMinimizeAsync": "Minimize pop-up window callback method",
+    "OnCloseAsync": "Close pop-up window callback method"
   }
 }

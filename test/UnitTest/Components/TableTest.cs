@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +13,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableTest : TableTestBase
+public class TableTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_Ok()
