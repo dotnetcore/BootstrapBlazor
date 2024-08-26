@@ -14,10 +14,16 @@ public class SplitTest : BootstrapBlazorTestBase
             pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
             pb.Add(b => b.IsVertical, true);
+            pb.Add(b => b.IsResizable, true);
+            pb.Add(b => b.FirstPaneCollapsible, true);
+            pb.Add(b => b.SecondPaneCollapsible, true);
         });
         Assert.Contains("I am Pane1", cut.Markup);
         Assert.Contains("I am Pane2", cut.Markup);
         Assert.DoesNotContain("is-horizontal", cut.Markup);
+        Assert.Contains("split-first-pane-collapse-switch", cut.Markup);
+        Assert.Contains("split-trigger", cut.Markup);
+        Assert.Contains("split-second-pane-collapse-switch", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {

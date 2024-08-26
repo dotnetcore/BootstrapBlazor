@@ -104,7 +104,7 @@ public sealed partial class Split
     /// 折叠/展开窗格
     /// </summary>
     /// <param name="pane"></param>
-    public void PaneCollapseSwitch(string pane)
+    private void PaneCollapseSwitch(string pane)
     {
         if (CollapsedPane == pane)
         {
@@ -120,7 +120,7 @@ public sealed partial class Split
     /// 获取窗格状态
     /// </summary>
     /// <returns></returns>
-    public string GetPaneClassStatus()
+    private string GetPaneClassStatus()
     {
         if (CollapsedPane == FirstPane)
         {
