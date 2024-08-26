@@ -21,9 +21,6 @@ public class SplitTest : BootstrapBlazorTestBase
         Assert.Contains("I am Pane1", cut.Markup);
         Assert.Contains("I am Pane2", cut.Markup);
         Assert.DoesNotContain("is-horizontal", cut.Markup);
-        Assert.Contains("split-first-pane-collapse-switch", cut.Markup);
-        Assert.Contains("split-trigger", cut.Markup);
-        Assert.Contains("split-second-pane-collapse-switch", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -36,6 +33,22 @@ public class SplitTest : BootstrapBlazorTestBase
             pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tagok" });
         });
         Assert.Contains("tagok", cut.Markup);
+    }
+
+    [Fact]
+    public void SplitCollapsible_Ok()
+    {
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
+            pb.Add(b => b.FirstPaneCollapsible, true);
+            pb.Add(b => b.SecondPaneCollapsible, true);
+        });
+
+        Assert.Contains("split-first-pane-collapse-switch", cut.Markup);
+        Assert.Contains("split-trigger", cut.Markup);
+        Assert.Contains("split-second-pane-collapse-switch", cut.Markup);
 
         cut.Find(".split-first-pane-collapse-switch").Click();
         Assert.Contains("first-pane-collapsed", cut.Markup);
@@ -46,12 +59,28 @@ public class SplitTest : BootstrapBlazorTestBase
         Assert.Contains("second-pane-collapsed", cut.Markup);
         cut.Find(".split-second-pane-collapse-switch").Click();
         Assert.Contains("both-pane-expand", cut.Markup);
-
-        RenderFragment BuildeComponent(string name = "I am Pane1") => builder =>
-        {
-            builder.OpenElement(1, "div");
-            builder.AddContent(2, name);
-            builder.CloseElement();
-        };
     }
+
+    [Fact]
+    public void SplitFixedPane_Ok()
+    {
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
+            pb.Add(b => b.IsResizable, false);
+            pb.Add(b => b.FirstPaneCollapsible, false);
+            pb.Add(b => b.SecondPaneCollapsible, false);
+        });
+        Assert.DoesNotContain("split-first-pane-collapse-switch", cut.Markup);
+        Assert.DoesNotContain("split-trigger", cut.Markup);
+        Assert.DoesNotContain("split-second-pane-collapse-switch", cut.Markup);
+    }
+
+    private static RenderFragment BuildeComponent(string name = "I am Pane1") => builder =>
+    {
+        builder.OpenElement(1, "div");
+        builder.AddContent(2, name);
+        builder.CloseElement();
+    };
 }
