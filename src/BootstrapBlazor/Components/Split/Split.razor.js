@@ -26,6 +26,10 @@ export function init(id) {
     split.splitBar = splitBar;
     Drag.drag(splitBar,
         e => {
+            const isResizable = el.getElementsByClassName('split-trigger').length > 0;
+            if (isResizable === false) {
+                return;
+            }
             splitWidth = el.offsetWidth
             splitHeight = el.offsetHeight
             if (isVertical) {
@@ -40,7 +44,7 @@ export function init(id) {
             showMask(splitLeft, splitRight);
         },
         e => {
-            const isResizable = document.getElementsByClassName('split-trigger').length > 0;
+            const isResizable = el.getElementsByClassName('split-trigger').length > 0;
             if (isResizable === false) {
                 return;
             }
