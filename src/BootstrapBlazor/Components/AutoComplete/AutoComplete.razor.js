@@ -38,7 +38,6 @@ export function init(id, invoke) {
 
 export function autoScroll(id, index) {
     const ac = Data.get(id)
-    const el = ac.el
     const menu = ac.menu
     const styles = getComputedStyle(menu)
     const maxHeight = parseInt(styles.maxHeight) / 2
