@@ -150,8 +150,9 @@
         justify-content: center;
         align-items: center;
         cursor: col-resize;
-        background: var(--bb-split-bar-bg);
+        background-color: var(--bb-split-bar-bg);
         z-index: 10;
+        transition: background-color .3s linear;
 
         &:after {
             content: "";
