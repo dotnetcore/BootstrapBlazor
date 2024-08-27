@@ -39,7 +39,6 @@
 
             .split-bar-arrow-left {
                 left: 13px;
-                right: unset;
                 bottom: 20px;
 
                 &:before {
@@ -56,8 +55,7 @@
             }
 
             .split-bar-arrow-right {
-                left: unset;
-                right: 13px;
+                left: -15px;
                 top: 20px;
 
                 &:before {
@@ -124,6 +122,7 @@
         align-items: center;
         cursor: col-resize;
         background: var(--bb-split-bar-bg);
+        z-index: 15;
 
         &:after {
             content: "";
@@ -172,6 +171,27 @@
             &:after {
                 top: 11px;
                 transform-origin: 1px 1px 0;
+            }
+        }
+
+        .split-bar-handler {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 22px;
+            position: relative;
+            background-color: #fff;
+            padding: 2px 0px;
+
+            > div {
+                border-radius: 3px;
+                background: #606266;
+                width: 2px;
+                height: 100%;
+
+                &:not(:first-child) {
+                    margin-left: 4px;
+                }
             }
         }
 
