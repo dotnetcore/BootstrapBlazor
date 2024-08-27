@@ -10,11 +10,17 @@
         @SecondPaneTemplate
     </div>
     <div class="split-pane split-bar">
-        <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-left"></button>
+        @if (IsCollapsible)
+        {
+            <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-left"></button>
+        }
         <div class="split-bar-handler">
             <div></div>
             <div></div>
         </div>
-        <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-right"></button>
+        @if (IsCollapsible)
+        {
+            <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-right"></button>
+        }
     </div>
 </div>

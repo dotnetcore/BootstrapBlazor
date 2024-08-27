@@ -49,24 +49,8 @@ public sealed partial class Splits
         },
         new()
         {
-            Name = "IsResizable",
-            Description = Localizer["SplitsIsResizable"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "FirstPaneCollapsible",
-            Description = Localizer["SplitsFirstPaneCollapsible"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "SecondPaneCollapsible",
-            Description = Localizer["SplitsSecondPaneCollapsible"],
+            Name = "IsCollapsible",
+            Description = Localizer["IsCollapsible"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

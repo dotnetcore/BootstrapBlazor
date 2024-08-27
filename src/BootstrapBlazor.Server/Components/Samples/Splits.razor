@@ -10,7 +10,7 @@
         <div class="border split-demo split-demo-horizontal">
             <Split>
                 <FirstPaneTemplate>
-                    <div class="d-flex justify-content-center align-items-center h-100"></div>
+                    <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
                 </FirstPaneTemplate>
                 <SecondPaneTemplate>
                     <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel2"]</div>
@@ -75,9 +75,9 @@
                Introduction="@Localizer["SplitsCollapsibleIntro"]"
                Name="Collapsible">
         <div class="border split-demo">
-            <Split FirstPaneCollapsible="true" SecondPaneCollapsible="true">
+            <Split IsCollapsible="true">
                 <FirstPaneTemplate>
-                    <Split IsVertical="true" FirstPaneCollapsible="true" SecondPaneCollapsible="true">
+                    <Split IsVertical="true" IsCollapsible="true">
                         <FirstPaneTemplate>
                             <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel8"]</div>
                         </FirstPaneTemplate>
@@ -88,29 +88,6 @@
                 </FirstPaneTemplate>
                 <SecondPaneTemplate>
                     <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel10"]</div>
-                </SecondPaneTemplate>
-            </Split>
-        </div>
-    </DemoBlock>
-
-
-    <DemoBlock Title="@Localizer["SplitsResizableTitle"]"
-               Introduction="@Localizer["SplitsResizableIntro"]"
-               Name="Resizable">
-        <div class="border split-demo">
-            <Split IsResizable="false" FirstPaneCollapsible="true" SecondPaneCollapsible="true">
-                <FirstPaneTemplate>
-                    <Split IsVertical="true" IsResizable="false">
-                        <FirstPaneTemplate>
-                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel11"]</div>
-                        </FirstPaneTemplate>
-                        <SecondPaneTemplate>
-                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel12"]</div>
-                        </SecondPaneTemplate>
-                    </Split>
-                </FirstPaneTemplate>
-                <SecondPaneTemplate>
-                    <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel13"]</div>
                 </SecondPaneTemplate>
             </Split>
         </div>

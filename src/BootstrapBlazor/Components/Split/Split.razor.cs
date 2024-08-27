@@ -2,21 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Split 组件
 /// </summary>
 public sealed partial class Split
 {
-    private const string FirstPane = "FirstPane";
-    private const string SecondPane = "SecondPane";
-    private const string FirstPaneCollapsed = "first-pane-collapsed";
-    private const string SecondPaneCollapsed = "second-pane-collapsed";
-    private const string BothPaneExpand = "both-pane-expand";
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -33,24 +25,10 @@ public sealed partial class Split
         .Build();
 
     /// <summary>
-    /// 获取/设置 当前折叠的窗格（FirstPane/SecondPane）
+    /// 获取 是否开启折叠功能 默认 false
     /// </summary>
-    private string? CollapsedPane { get; set; }
-
-    /// <summary>
-    /// 获取 是否显示第一个窗格的折叠/展开按钮
-    /// </summary>
-    private bool IsShowFirstPaneCollapseSwitch => FirstPaneCollapsible && CollapsedPane != SecondPane;
-
-    /// <summary>
-    /// 获取 是否显示第二个窗格的折叠/展开按钮
-    /// </summary>
-    private bool IsShowSecondPaneCollapseSwitch => SecondPaneCollapsible && CollapsedPane != FirstPane;
-
-    /// <summary>
-    /// 获取 是否处于折叠状态
-    /// </summary>
-    private bool IsCollapsed => !string.IsNullOrEmpty(CollapsedPane);
+    [Parameter]
+    public bool IsCollapsible { get; set; }
 
     /// <summary>
     /// 获得/设置 是否垂直分割
@@ -75,58 +53,4 @@ public sealed partial class Split
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
-
-    /// <summary>
-    /// 获取/设置 是否可以拖动改变大小
-    /// </summary>
-    [Parameter]
-    public bool IsResizable { get; set; } = true;
-
-    /// <summary>
-    /// 获取/设置 第一个窗格是否可折叠
-    /// </summary>
-    [Parameter]
-    public bool FirstPaneCollapsible { get; set; }
-
-    /// <summary>
-    /// 获取/设置 第二个窗格是否可折叠
-    /// </summary>
-    [Parameter]
-    public bool SecondPaneCollapsible { get; set; }
-
-    /// <summary>
-    /// 折叠/展开窗格
-    /// </summary>
-    /// <param name="pane"></param>
-    private void PaneCollapseSwitch(string pane)
-    {
-        if (CollapsedPane == pane)
-        {
-            CollapsedPane = null;
-        }
-        else
-        {
-            CollapsedPane = pane;
-        }
-    }
-
-    /// <summary>
-    /// 获取窗格状态
-    /// </summary>
-    /// <returns></returns>
-    private string GetPaneClassStatus()
-    {
-        if (CollapsedPane == FirstPane)
-        {
-            return FirstPaneCollapsed;
-        }
-        else if (CollapsedPane == SecondPane)
-        {
-            return SecondPaneCollapsed;
-        }
-        else
-        {
-            return BothPaneExpand;
-        }
-    }
 }
