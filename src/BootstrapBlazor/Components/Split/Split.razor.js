@@ -1,5 +1,4 @@
-﻿import { getHeight, getInnerHeight } from "../../modules/utility.js"
-import Data from "../../modules/data.js"
+﻿import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
@@ -17,20 +16,14 @@ export function init(id) {
     let newVal = 0
     let originX = 0
     let originY = 0
-    const splitWrapper = el.firstElementChild
-    const isVertical = !splitWrapper.classList.contains('is-horizontal')
-    const splitBar = splitWrapper.children[1]
-    const splitLeft = splitWrapper.children[0]
-    const splitRight = splitWrapper.children[2];
+    const isVertical = el.classList.contains('is-vertical')
+    const splitBar = el.querySelector('.split-bar');
+    const splitLeft = el.querySelector('.split-left');
+    const splitRight = el.querySelector('.split-right');
 
     split.splitBar = splitBar;
     Drag.drag(splitBar,
         e => {
-            const isResizable = splitBar.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
-            if (isResizable === false) {
-                return;
-            }
-
             splitWidth = el.offsetWidth
             splitHeight = el.offsetHeight
             if (isVertical) {
@@ -45,11 +38,6 @@ export function init(id) {
             showMask(splitLeft, splitRight);
         },
         e => {
-            const isResizable = splitBar.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
-            if (isResizable === false) {
-                return;
-            }
-
             if (isVertical) {
                 const eventY = e.clientY || e.changedTouches[0].clientY
                 newVal = Math.ceil((eventY - originY) * 100 / splitHeight) + curVal
@@ -68,7 +56,11 @@ export function init(id) {
         () => {
             el.classList.remove('dragging');
             removeMask(splitLeft, splitRight);
-        })
+        }
+    );
+    EventHandler.on(el, 'click', '.split-bar-arrow', e => {
+
+    });
 }
 
 const showMask = (left, right) => {
@@ -98,7 +90,10 @@ export function dispose(id) {
     Data.remove(id)
 
     if (split) {
+        EventHandler.off(el, 'click', '.split-bar-arrow');
         const { el } = split;
-        Drag.dispose(el)
+        if (el.splitBar) {
+            Drag.dispose(el.splitBar);
+        }
     }
 }
