@@ -11,16 +11,13 @@ public class SplitTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Split>(pb =>
         {
-            pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
-            pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
             pb.Add(b => b.IsVertical, true);
-            pb.Add(b => b.IsResizable, true);
-            pb.Add(b => b.FirstPaneCollapsible, true);
-            pb.Add(b => b.SecondPaneCollapsible, true);
         });
         Assert.Contains("I am Pane1", cut.Markup);
         Assert.Contains("I am Pane2", cut.Markup);
-        Assert.DoesNotContain("is-horizontal", cut.Markup);
+        Assert.Contains("is-vertical", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -30,54 +27,31 @@ public class SplitTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tagok" });
+            pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tag" });
         });
-        Assert.Contains("tagok", cut.Markup);
+        Assert.Contains("tag", cut.Markup);
     }
 
     [Fact]
-    public void SplitCollapsible_Ok()
+    public void IsCollapsible_Ok()
     {
         var cut = Context.RenderComponent<Split>(pb =>
         {
-            pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
-            pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
-            pb.Add(b => b.FirstPaneCollapsible, true);
-            pb.Add(b => b.SecondPaneCollapsible, true);
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
         });
+        cut.DoesNotContain("split-bar-arrow-left");
+        cut.DoesNotContain("split-bar-arrow-right");
 
-        Assert.Contains("split-first-pane-collapse-switch", cut.Markup);
-        Assert.Contains("split-trigger", cut.Markup);
-        Assert.Contains("split-second-pane-collapse-switch", cut.Markup);
-
-        cut.Find(".split-first-pane-collapse-switch").Click();
-        Assert.Contains("first-pane-collapsed", cut.Markup);
-        cut.Find(".split-first-pane-collapse-switch").Click();
-        Assert.Contains("both-pane-expand", cut.Markup);
-
-        cut.Find(".split-second-pane-collapse-switch").Click();
-        Assert.Contains("second-pane-collapsed", cut.Markup);
-        cut.Find(".split-second-pane-collapse-switch").Click();
-        Assert.Contains("both-pane-expand", cut.Markup);
-    }
-
-    [Fact]
-    public void SplitFixedPane_Ok()
-    {
-        var cut = Context.RenderComponent<Split>(pb =>
+        cut.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.FirstPaneTemplate, BuildeComponent("I am Pane1"));
-            pb.Add(b => b.SecondPaneTemplate, BuildeComponent("I am Pane2"));
-            pb.Add(b => b.IsResizable, false);
-            pb.Add(b => b.FirstPaneCollapsible, false);
-            pb.Add(b => b.SecondPaneCollapsible, false);
+            pb.Add(b => b.IsCollapsible, true);
         });
-        Assert.DoesNotContain("split-first-pane-collapse-switch", cut.Markup);
-        Assert.DoesNotContain("split-trigger", cut.Markup);
-        Assert.DoesNotContain("split-second-pane-collapse-switch", cut.Markup);
+        cut.Contains("split-bar-arrow-left");
+        cut.Contains("split-bar-arrow-right");
     }
 
-    private static RenderFragment BuildeComponent(string name = "I am Pane1") => builder =>
+    static RenderFragment RenderSplitView(string name = "I am Pane1") => builder =>
     {
         builder.OpenElement(1, "div");
         builder.AddContent(2, name);
