@@ -12,6 +12,8 @@
 
         .split-bar {
             cursor: row-resize;
+            width: auto;
+            height: 3px;
         }
     }
 
@@ -38,12 +40,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 0 0 auto;
-        border: 1px solid var(--bs-border-color);
-        border-left: none;
-        border-right: none;
         cursor: col-resize;
-        background: #dee2e6;
+        background: var(--bb-split-bar-bg);
 
         .split-bar-arrow {
             background-color: rgba(0, 0, 0, 0);
