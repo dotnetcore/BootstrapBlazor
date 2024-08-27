@@ -3,7 +3,7 @@ import Data from '../BootstrapBlazor/modules/data.js'
 import EventHanlder from '../BootstrapBlazor/modules/event-handler.js'
 import { addLink } from "../BootstrapBlazor/modules/utility.js"
 
-export async function init(id, invoke, options) {
+export async function init(id) {
     await addLink('./_content/BootstrapBlazor.WinBox/css/winbox.bundle.css')
 }
 
@@ -12,7 +12,6 @@ export function show(id, invoke, option) {
     const content = el.querySelector('.bb-winbox-content');
     const config = {
         ...option,
-        title: 'Test',
         mount: content,
         onclose: () => {
             invoke.invokeMethodAsync("OnClose", config.id);
