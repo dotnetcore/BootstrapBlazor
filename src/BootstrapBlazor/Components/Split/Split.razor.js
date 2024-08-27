@@ -26,10 +26,11 @@ export function init(id) {
     split.splitBar = splitBar;
     Drag.drag(splitBar,
         e => {
-            const isResizable = el.getElementsByClassName('split-trigger').length > 0;
+            const isResizable = el.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
             if (isResizable === false) {
                 return;
             }
+
             splitWidth = el.offsetWidth
             splitHeight = el.offsetHeight
             if (isVertical) {
@@ -44,10 +45,11 @@ export function init(id) {
             showMask(splitLeft, splitRight);
         },
         e => {
-            const isResizable = el.getElementsByClassName('split-trigger').length > 0;
+            const isResizable = el.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
             if (isResizable === false) {
                 return;
             }
+
             if (isVertical) {
                 const eventY = e.clientY || e.changedTouches[0].clientY
                 newVal = Math.ceil((eventY - originY) * 100 / splitHeight) + curVal

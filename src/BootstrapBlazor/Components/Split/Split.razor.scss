@@ -52,17 +52,17 @@
         background-color: var(--bs-body-bg);
     }
 
-    .split-wrapper .split-first-pane-collapse-switch,
-    .split-wrapper .split-second-pane-collapse-switch {
+    .split-wrapper > .split-bar .split-first-pane-collapse-switch,
+    .split-wrapper > .split-bar .split-second-pane-collapse-switch {
         cursor: pointer;
         color: var(--bs-border-color);
         font-size: 8px;
         margin-left: 3px;
-        margin-top: 3px;
+        margin-top: 0;
     }
 
-    .split-wrapper.is-horizontal .split-first-pane-collapse-switch,
-    .split-wrapper.is-horizontal .split-second-pane-collapse-switch {
+    .split-wrapper.is-horizontal > .split-bar .split-first-pane-collapse-switch,
+    .split-wrapper.is-horizontal > .split-bar .split-second-pane-collapse-switch {
         cursor: pointer;
         color: var(--bs-border-color);
         font-size: 8px;
@@ -70,35 +70,43 @@
         margin-top: 3px;
     }
 
-    .split-wrapper .split-first-pane-collapse-switch:before {
+    .split-wrapper > .split-bar .split-first-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025B2';
     }
 
-    .split-wrapper[status="first-pane-collapsed"] .split-first-pane-collapse-switch:before {
+    .split-wrapper[status="first-pane-collapsed"] > .split-bar .split-first-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025BC';
     }
 
-    .split-wrapper .split-second-pane-collapse-switch:before {
+    .split-wrapper > .split-bar .split-second-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025BC';
     }
 
-    .split-wrapper[status="second-pane-collapsed"] .split-second-pane-collapse-switch:before {
+    .split-wrapper[status="second-pane-collapsed"] > .split-bar .split-second-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025B2';
     }
 
-    .split-wrapper.is-horizontal .split-first-pane-collapse-switch:before {
+    .split-wrapper.is-horizontal > .split-bar .split-first-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025C0';
     }
 
-    .split-wrapper.is-horizontal[status="first-pane-collapsed"] .split-first-pane-collapse-switch:before {
+    .split-wrapper.is-horizontal[status="first-pane-collapsed"] > .split-bar .split-first-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025B6';
     }
 
-    .split-wrapper.is-horizontal .split-second-pane-collapse-switch:before {
+    .split-wrapper.is-horizontal > .split-bar .split-second-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025B6';
     }
 
-    .split-wrapper.is-horizontal[status="second-pane-collapsed"] .split-second-pane-collapse-switch:before {
+    .split-wrapper.is-horizontal[status="second-pane-collapsed"] > .split-bar .split-second-pane-collapse-switch:before {
+        font-family: sans-serif;
         content: '\025C0';
     }
 
