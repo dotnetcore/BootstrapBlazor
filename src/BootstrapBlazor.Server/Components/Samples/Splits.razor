@@ -70,6 +70,51 @@
             </Split>
         </div>
     </DemoBlock>
+
+    <DemoBlock Title="@Localizer["SplitsCollapsibleTitle"]"
+               Introduction="@Localizer["SplitsCollapsibleIntro"]"
+               Name="Collapsible">
+        <div class="border split-demo">
+            <Split FirstPaneCollapsible="true" SecondPaneCollapsible="true">
+                <FirstPaneTemplate>
+                    <Split IsVertical="true" FirstPaneCollapsible="true" SecondPaneCollapsible="true">
+                        <FirstPaneTemplate>
+                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel8"]</div>
+                        </FirstPaneTemplate>
+                        <SecondPaneTemplate>
+                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel9"]</div>
+                        </SecondPaneTemplate>
+                    </Split>
+                </FirstPaneTemplate>
+                <SecondPaneTemplate>
+                    <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel10"]</div>
+                </SecondPaneTemplate>
+            </Split>
+        </div>
+    </DemoBlock>
+
+
+    <DemoBlock Title="@Localizer["SplitsResizableTitle"]"
+               Introduction="@Localizer["SplitsResizableIntro"]"
+               Name="Resizable">
+        <div class="border split-demo">
+            <Split IsResizable="false" FirstPaneCollapsible="true" SecondPaneCollapsible="true">
+                <FirstPaneTemplate>
+                    <Split IsVertical="true" IsResizable="false">
+                        <FirstPaneTemplate>
+                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel11"]</div>
+                        </FirstPaneTemplate>
+                        <SecondPaneTemplate>
+                            <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel12"]</div>
+                        </SecondPaneTemplate>
+                    </Split>
+                </FirstPaneTemplate>
+                <SecondPaneTemplate>
+                    <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel13"]</div>
+                </SecondPaneTemplate>
+            </Split>
+        </div>
+    </DemoBlock>
 </div>
 
 <AttributeTable Items="@GetAttributes()" />
