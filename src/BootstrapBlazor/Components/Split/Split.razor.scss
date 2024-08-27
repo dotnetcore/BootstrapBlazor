@@ -14,6 +14,88 @@
             cursor: row-resize;
             width: auto;
             height: 3px;
+
+            &:after {
+                content: "";
+                cursor: row-resize;
+                display: block;
+                height: 16px;
+                position: absolute;
+                width: 100%;
+                z-index: 12;
+            }
+
+            .split-bar-arrow {
+                width: 26px;
+
+                &:before, &:after {
+                    content: "";
+                    border-radius: 16px;
+                    height: 8px;
+                    transform: rotate(90deg);
+                    width: 2px;
+                }
+            }
+
+            .split-bar-arrow-left {
+                left: 13px;
+                right: unset;
+                bottom: 20px;
+
+                &:before {
+                    top: 3px;
+                    left: 10px;
+                    transform-origin: 2px 7px 0;
+                }
+
+                &:after {
+                    left: 11px;
+                    top: 8px;
+                    transform-origin: 1px 1px 0;
+                }
+            }
+
+            .split-bar-arrow-right {
+                left: unset;
+                right: 13px;
+                top: 20px;
+
+                &:before {
+                    left: 12px;
+                    top: 8px;
+                    transform-origin: 1px 6px 0;
+                }
+
+                &:after {
+                    left: 10px;
+                    top: 12px;
+                    transform-origin: 1px 2px 0;
+                }
+            }
+
+            &:hover {
+                .split-bar-arrow-left {
+                    &:before {
+                        transform: rotate(125deg);
+                    }
+
+                    &:after {
+                        transform: rotate(50deg);
+                    }
+                }
+
+                .split-bar-arrow-right {
+                    &:before {
+                        transform: rotate(55deg);
+                        transform-origin: 1px 6px 0;
+                    }
+
+                    &:after {
+                        transform: rotate(125deg);
+                        transform-origin: 1px 2px 0;
+                    }
+                }
+            }
         }
     }
 
@@ -42,6 +124,16 @@
         align-items: center;
         cursor: col-resize;
         background: var(--bb-split-bar-bg);
+
+        &:after {
+            content: "";
+            cursor: col-resize;
+            display: block;
+            height: 100%;
+            position: absolute;
+            width: 16px;
+            z-index: 10;
+        }
 
         .split-bar-arrow {
             background-color: rgba(0, 0, 0, 0);
@@ -90,7 +182,6 @@
                 background-color: rgba(0, 0, 0, 0);
                 border-color: #0d6efd;
                 border-width: 1px;
-                opacity: .9;
 
                 &:before,
                 &:after {
