@@ -1,11 +1,16 @@
 ﻿@import url('./winbox.min.css');
 
+:root {
+    --bb-winbox-mask-bg-opacity: 0.3;
+}
+
 .winbox {
     --bb-winbox-bg: #b5b5c3;
     --bb-winbox-bg-dark: #383b3f;
     --bb-winbox-body-padding: .5rem;
     --bb-window-border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
     --bb-winbox-footer-border-color: var(--bs-border-color);
+    --bb-winbox-mask-bg: #000;
     background: var(--bb-winbox-bg);
     border-radius: var(--bb-window-border-radius);
 }
@@ -33,8 +38,22 @@
 
     .winbox.modal {
         display: block;
-        overflow: hidden;
+        overflow: visible;
     }
+
+        .winbox.modal:after {
+            background: var(--bb-winbox-mask-bg);
+        }
+
+@keyframes wb-fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: var(--bb-winbox-mask-bg-opacity);
+    }
+}
 
 [data-bs-theme='dark'] .winbox {
     background: var(--bb-winbox-bg-dark);
