@@ -1775,9 +1775,7 @@
     "SplitsBasis": "Percentage of first pane position",
     "SplitsFirstPanelTemplate": "First pane template",
     "SplitsSecondPanelTemplate": "Second pane template",
-    "SplitsIsResizable": "Set whether it can be dragged to resize",
-    "SplitsFirstPaneCollapsible": "Set whether the first pane can be collapsible",
-    "SplitsSecondPaneCollapsible": "Set whether the second pane can be collapsible"
+    "SplitsIsCollapsible": "Whether to expand or collapse the split view"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",

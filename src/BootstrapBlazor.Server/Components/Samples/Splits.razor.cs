@@ -50,7 +50,7 @@ public sealed partial class Splits
         new()
         {
             Name = "IsCollapsible",
-            Description = Localizer["IsCollapsible"],
+            Description = Localizer["SplitsIsCollapsible"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
