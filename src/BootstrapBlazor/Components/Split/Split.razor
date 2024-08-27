@@ -3,35 +3,15 @@
 @attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
-    <div class="@WrapperClassString" status="@GetPaneClassStatus()">
-        <div class="split-pane split-left" style="@StyleString">
-            @FirstPaneTemplate
-        </div>
-        <div class="split-pane split-bar">
-            @if (IsShowFirstPaneCollapseSwitch)
-            {
-                <span class="split-first-pane-collapse-switch" onclick="@(()=>PaneCollapseSwitch(FirstPane))"></span>
-            }
-            @if (IsResizable && !IsCollapsed)
-            {
-                <div class="split-trigger">
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                    <i class="split-trigger-bar"></i>
-                </div>
-            }
-            @if (IsShowSecondPaneCollapseSwitch)
-            {
-                <span class="split-second-pane-collapse-switch" onclick="@(()=>PaneCollapseSwitch(SecondPane))"></span>
-            }
-        </div>
-        <div class="split-pane split-right" style="flex: 1;">
-            @SecondPaneTemplate
-        </div>
+    <div class="split-pane split-left" style="@StyleString">
+        @FirstPaneTemplate
+    </div>
+    <div class="split-pane split-right">
+        @SecondPaneTemplate
+    </div>
+    <div class="split-pane split-bar">
+        <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-left"></button>
+        <div class="e-resize-handler e-icons" style="width: 3px;"></div>
+        <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-right"></button>
     </div>
 </div>

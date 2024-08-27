@@ -21,14 +21,8 @@ public sealed partial class Split
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("split")
+        .AddClass("is-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 组件 Wrapper 样式
-    /// </summary>
-    private string? WrapperClassString => CssBuilder.Default("split-wrapper")
-        .AddClass("is-horizontal", !IsVertical)
         .Build();
 
     /// <summary>
