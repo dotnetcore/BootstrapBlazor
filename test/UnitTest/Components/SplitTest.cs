@@ -51,6 +51,27 @@ public class SplitTest : BootstrapBlazorTestBase
         cut.Contains("split-bar-arrow-right");
     }
 
+    [Fact]
+    public async Task OnCollapsedAsync_Ok()
+    {
+        var state = false;
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
+            pb.Add(b => b.IsCollapsible, true);
+            pb.Add(b => b.OnCollapsedAsync, async (collapsed) =>
+            {
+                state = collapsed;
+                await Task.CompletedTask;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnCollapsed(true));
+        Assert.True(state);
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnCollapsed(false));
+        Assert.False(state);
+    }
+
     static RenderFragment RenderSplitView(string name = "I am Pane1") => builder =>
     {
         builder.OpenElement(1, "div");
