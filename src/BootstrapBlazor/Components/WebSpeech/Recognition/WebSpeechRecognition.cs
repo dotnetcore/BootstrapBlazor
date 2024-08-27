@@ -63,7 +63,11 @@ public class WebSpeechRecognition(JSModule module, IComponentIdGenerator compone
         await module.InvokeVoidAsync("start", _id, _interop, new
         {
             TriggerStart = OnStartAsync != null,
-            TriggerSpeechStart = OnSpeechStartAsync != null
+            TriggerSpeechStart = OnSpeechStartAsync != null,
+            TriggerSpeechEnd = OnSpeechEndAsync != null,
+            TriggerNoMatch = OnNoMatchAsync != null,
+            TriggerEnd = OnEndAsync != null,
+            TriggerError = OnErrorAsync != null
         }, option);
     }
 

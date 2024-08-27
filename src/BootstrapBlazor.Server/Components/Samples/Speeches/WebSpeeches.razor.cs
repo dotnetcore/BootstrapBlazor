@@ -59,8 +59,12 @@ public partial class WebSpeeches
             _speechVoices.AddRange(voices);
         }
 
-        _voices.AddRange(_speechVoices.Select(i => new SelectedItem(i.Name!, $"{i.Name}({i.Lang})")));
-        _voiceName = _speechVoices.Find(i => i.Lang == CultureInfo.CurrentUICulture.Name)?.Name;
+        _voices.AddRange(_speechVoices.Select(i => new SelectedItem($"{i.Name}({i.Lang})", $"{i.Name}({i.Lang})")));
+        var voice = _speechVoices.Find(i => i.Lang == CultureInfo.CurrentUICulture.Name);
+        if (voice != null)
+        {
+            _voiceName = $"{voice.Name}({voice.Lang})";
+        }
 
         _text = Localizer["WebSpeechText"];
         _buttonText = Localizer["WebSpeechSpeakButtonText"];
@@ -137,7 +141,7 @@ public partial class WebSpeeches
             _star = true;
             StateHasChanged();
 
-            await _entry.SpeakAsync(_text, _speechVoices.Find(i => i.Name == _voiceName));
+            await _entry.SpeakAsync(_text, _speechVoices.Find(i => $"{i.Name}({i.Lang})" == _voiceName));
             await _tcs.Task;
             _star = false;
             _tcs = null;
