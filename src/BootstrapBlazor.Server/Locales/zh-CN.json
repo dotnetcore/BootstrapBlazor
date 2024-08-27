@@ -1451,7 +1451,7 @@
     "LayoutsAppIntro": "实际项目中的例子",
     "LayoutsPageTitle": "整页面级别的组件",
     "LayoutsPageIntro": "通过 <code>IsPage</code> 对整页面布局",
-    "LayoutsPageTips1": "通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控正页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局",
+    "LayoutsPageTips1": "通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控整页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局",
     "LayoutsPageHrefTitle": "整页面组件生成器",
     "Layouts_Header_Description": "页头组件模板",
     "Layouts_Side_Description": "侧边栏组件模板",
