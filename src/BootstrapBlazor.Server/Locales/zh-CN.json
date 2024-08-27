@@ -1761,10 +1761,16 @@
     "SplitsPanel5": "上边面板",
     "SplitsPanel6": "下边面板",
     "SplitsPanel7": "右边面板",
-    "SplitsIsVertical": "样式",
+    "SplitsCollapsibleTitle": "折叠/展开",
+    "SplitsCollapsibleIntro": "通过设置 <code>IsCollapsible</code> 属性来设置是否可以折叠面板",
+    "SplitsPanel8": "上边面板",
+    "SplitsPanel9": "下边面板",
+    "SplitsPanel10": "右边面板",
+    "SplitsIsVertical": "垂直分割",
     "SplitsBasis": "第一个窗格位置占比",
     "SplitsFirstPanelTemplate": "第一个窗格模板",
-    "SplitsSecondPanelTemplate": "第二个窗格模板"
+    "SplitsSecondPanelTemplate": "第二个窗格模板",
+    "SplitsIsCollapsible": "是否可以展开收起面板"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",

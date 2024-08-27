@@ -1761,10 +1761,16 @@
     "SplitsPanel5": "Upper",
     "SplitsPanel6": "Lower",
     "SplitsPanel7": "Right",
-    "SplitsIsVertical": "style",
+    "SplitsCollapsibleTitle": "Collapse/Expand",
+    "SplitsCollapsibleIntro": "Set whether the panels can be collapsed by configuring the <code>FirstPaneCollapsible</code> and <code>SecondPaneCollapsible</code> properties",
+    "SplitsPanel8": "Upper",
+    "SplitsPanel9": "Lower",
+    "SplitsPanel10": "Right",
+    "SplitsIsVertical": "Vertical",
     "SplitsBasis": "Percentage of first pane position",
     "SplitsFirstPanelTemplate": "First pane template",
-    "SplitsSecondPanelTemplate": "Second pane template"
+    "SplitsSecondPanelTemplate": "Second pane template",
+    "SplitsIsCollapsible": "Whether to expand or collapse the split view"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",

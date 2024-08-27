@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Split 组件
 /// </summary>
 public sealed partial class Split
 {
@@ -13,14 +13,8 @@ public sealed partial class Split
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("split")
+        .AddClass("is-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 组件 Wrapper 样式
-    /// </summary>
-    private string? WrapperClassString => CssBuilder.Default("split-wrapper")
-        .AddClass("is-horizontal", !IsVertical)
         .Build();
 
     /// <summary>
@@ -29,6 +23,12 @@ public sealed partial class Split
     private string? StyleString => CssBuilder.Default()
         .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
         .Build();
+
+    /// <summary>
+    /// 获取 是否开启折叠功能 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsCollapsible { get; set; }
 
     /// <summary>
     /// 获得/设置 是否垂直分割
@@ -53,4 +53,30 @@ public sealed partial class Split
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnCollapsedAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed));
+
+    /// <summary>
+    /// 窗格折叠时回调方法 由 JavaScript 调用   
+    /// </summary>
+    /// <param name="collapsed"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerOnCollapsed(bool collapsed)
+    {
+        if (OnCollapsedAsync != null)
+        {
+            await OnCollapsedAsync(collapsed);
+        }
+    }
 }

@@ -1,9 +1,8 @@
-﻿import { getHeight, getInnerHeight } from "../../modules/utility.js"
-import Data from "../../modules/data.js"
+﻿import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -17,11 +16,10 @@ export function init(id) {
     let newVal = 0
     let originX = 0
     let originY = 0
-    const splitWrapper = el.firstElementChild
-    const isVertical = !splitWrapper.classList.contains('is-horizontal')
-    const splitBar = splitWrapper.children[1]
-    const splitLeft = splitWrapper.children[0]
-    const splitRight = splitWrapper.children[2];
+    const isVertical = el.classList.contains('is-vertical')
+    const splitLeft = el.children[0];
+    const splitRight = el.children[1];
+    const splitBar = el.children[2];
 
     split.splitBar = splitBar;
     Drag.drag(splitBar,
@@ -58,7 +56,35 @@ export function init(id) {
         () => {
             el.classList.remove('dragging');
             removeMask(splitLeft, splitRight);
-        })
+        }
+    );
+
+    let start = 0;
+    const step = ts => {
+        if (start === 0) {
+            start = ts;
+        }
+        if (ts - start > 300) {
+            splitLeft.classList.remove('is-collapsed');
+        }
+        requestAnimationFrame(step);
+    }
+
+    EventHandler.on(splitBar, 'click', '.split-bar-arrow', e => {
+        var element = e.delegateTarget;
+        splitLeft.classList.add('is-collapsed');
+        if (element.classList.contains("split-bar-arrow-left")) {
+            splitLeft.style.setProperty('flex-basis', '0%');
+            invoke.invokeMethodAsync(method, true);
+        }
+        else {
+            splitLeft.style.setProperty('flex-basis', '100%');
+            invoke.invokeMethodAsync(method, false);
+        }
+        splitRight.style.removeProperty('flex-basis');
+        start = 0;
+        requestAnimationFrame(step);
+    });
 }
 
 const showMask = (left, right) => {
@@ -89,6 +115,9 @@ export function dispose(id) {
 
     if (split) {
         const { el } = split;
-        Drag.dispose(el)
+        if (el.splitBar) {
+            EventHandler.off(splitBar, 'click', '.split-bar-arrow');
+            Drag.dispose(el.splitBar);
+        }
     }
 }

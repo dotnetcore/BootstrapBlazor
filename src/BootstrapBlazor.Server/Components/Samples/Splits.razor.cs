@@ -46,6 +46,14 @@ public sealed partial class Splits
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsCollapsible",
+            Description = Localizer["SplitsIsCollapsible"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }
