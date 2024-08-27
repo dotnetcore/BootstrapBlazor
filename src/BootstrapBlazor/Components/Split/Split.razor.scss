@@ -5,7 +5,7 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    height: 100%;
+    overflow: hidden;
 
     &.is-vertical {
         flex-direction: column;
@@ -79,7 +79,7 @@
             }
 
             .split-bar-arrow-right {
-                left: -24px;
+                left: -25px;
                 top: 20px;
 
                 &:before {
@@ -117,17 +117,21 @@
         width: 100%;
         height: 100%;
         position: relative;
+    }
 
-        &.split-left {
-            order: 0;
-            overflow: hidden;
-        }
+    .split-left {
+        order: 0;
+        overflow: hidden;
 
-        &.split-right {
-            order: 2;
-            flex: 1;
-            overflow: hidden;
+        &.is-collapsed {
+            transition: flex-basis .3s linear;
         }
+    }
+
+    .split-right {
+        order: 2;
+        flex: 1;
+        overflow: hidden;
     }
 
     .split-bar {
