@@ -1,3 +1,12 @@
+[data-bs-theme='dark'] .split {
+    --bb-split-bar-bg: #{$bb-split-bar-bg-dark};
+    --bb-split-bar-handle-bg: #{$bb-split-bar-handle-bg-dark};
+    --bb-split-bar-handle-color: #{$bb-split-bar-handle-color-dark};
+    --bb-split-bar-handle-hover-bg: #{$bb-split-bar-handle-hover-bg-dark};
+    --bb-split-bar-handle-hover-color: #{$bb-split-bar-handle-hover-color-dark};
+    --bb-split-bar-arrow-hover-border-color: #{$bb-split-bar-arrow-hover-border-color-dark};
+}
+
 .split {
     --bb-split-bar-bg: #{$bb-split-bar-bg};
     --bb-split-bar-hover-bg: var(--bb-primary-color);
