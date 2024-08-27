@@ -33,7 +33,7 @@
 
     .winbox.modal {
         display: block;
-        overflow: hidden;
+        overflow: visible;
     }
 
 [data-bs-theme='dark'] .winbox {
