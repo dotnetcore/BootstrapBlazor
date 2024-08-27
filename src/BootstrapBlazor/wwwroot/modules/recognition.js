@@ -21,22 +21,33 @@ export async function start(id, invoke, trigger, option) {
     }
     recognition.onspeechend = () => {
         recognition.stop();
-        invoke.invokeMethodAsync("TriggerSpeechEndCallback");
+        if (trigger.triggerSpeechEnd) {
+            invoke.invokeMethodAsync("TriggerSpeechEndCallback");
+        }
     }
     recognition.onnomatch = e => {
-        invoke.invokeMethodAsync("TriggerNoMatchCallback", {
-            error: 'no-match',
-            message: 'No match found.'
-        });
+        Data.remove(id);
+        if (trigger.triggerNoMatch) {
+            invoke.invokeMethodAsync("TriggerNoMatchCallback", {
+                error: 'no-match',
+                message: 'No match found.'
+            });
+        }
     }
     recognition.onend = () => {
-        invoke.invokeMethodAsync("TriggerEndCallback");
+        Data.remove(id);
+        if (trigger.triggerEnd) {
+            invoke.invokeMethodAsync("TriggerEndCallback");
+        }
     }
     recognition.onerror = e => {
-        invoke.invokeMethodAsync("TriggerErrorCallback", {
-            error: e.error,
-            message: e.message
-        });
+        Data.remove(id);
+        if (trigger.triggerError) {
+            invoke.invokeMethodAsync("TriggerErrorCallback", {
+                error: e.error,
+                message: e.message
+            });
+        }
     }
     recognition.onresult = e => {
         let final_transcript = '';
@@ -69,9 +80,8 @@ export async function start(id, invoke, trigger, option) {
     if (continuous !== void 0) {
         recognition.continuous = continuous;
     }
-    recognition.start();
-
     Data.set(id, recognition);
+    recognition.start();
 }
 
 export function stop(id) {
