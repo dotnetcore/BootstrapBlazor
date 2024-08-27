@@ -53,4 +53,10 @@ public sealed partial class Split
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnCollapsedAsync { get; set; }
 }
