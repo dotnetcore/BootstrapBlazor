@@ -89,13 +89,13 @@ public sealed partial class Split
     public bool IsResizable { get; set; } = true;
 
     /// <summary>
-    /// 获取/设置 第一个窗格是否可关闭
+    /// 获取/设置 第一个窗格是否可折叠
     /// </summary>
     [Parameter]
     public bool FirstPaneCollapsible { get; set; }
 
     /// <summary>
-    /// 获取/设置 第二个窗格是否可关闭
+    /// 获取/设置 第二个窗格是否可折叠
     /// </summary>
     [Parameter]
     public bool SecondPaneCollapsible { get; set; }

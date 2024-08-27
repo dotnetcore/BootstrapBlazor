@@ -1776,8 +1776,8 @@
     "SplitsFirstPanelTemplate": "第一个窗格模板",
     "SplitsSecondPanelTemplate": "第二个窗格模板",
     "SplitsIsResizable": "是否可以拖动改变大小",
-    "SplitsFirstPaneCollapsible": "第一个窗格是否可关闭",
-    "SplitsSecondPaneCollapsible": "第二个窗格是否可关闭"
+    "SplitsFirstPaneCollapsible": "第一个窗格是否可折叠",
+    "SplitsSecondPaneCollapsible": "第二个窗格是否可折叠"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",
