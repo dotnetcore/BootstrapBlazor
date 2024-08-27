@@ -17,9 +17,9 @@ export function init(id) {
     let originX = 0
     let originY = 0
     const isVertical = el.classList.contains('is-vertical')
-    const splitBar = el.querySelector('.split-bar');
-    const splitLeft = el.querySelector('.split-left');
-    const splitRight = el.querySelector('.split-right');
+    const splitLeft = el.children[0];
+    const splitRight = el.children[1];
+    const splitBar = el.children[2];
 
     split.splitBar = splitBar;
     Drag.drag(splitBar,
@@ -58,8 +58,30 @@ export function init(id) {
             removeMask(splitLeft, splitRight);
         }
     );
-    EventHandler.on(el, 'click', '.split-bar-arrow', e => {
 
+    let start = 0;
+    const step = ts => {
+        if (start === 0) {
+            start = ts;
+        }
+        if (ts - start > 300) {
+            splitLeft.classList.remove('is-collapsed');
+        }
+        requestAnimationFrame(step);
+    }
+
+    EventHandler.on(splitBar, 'click', '.split-bar-arrow', e => {
+        var element = e.delegateTarget;
+        splitLeft.classList.add('is-collapsed');
+        if (element.classList.contains("split-bar-arrow-left")) {
+            splitLeft.style.setProperty('flex-basis', '0%');
+        }
+        else {
+            splitLeft.style.setProperty('flex-basis', '100%');
+        }
+        splitRight.style.removeProperty('flex-basis');
+        start = 0;
+        requestAnimationFrame(step);
     });
 }
 
@@ -90,9 +112,9 @@ export function dispose(id) {
     Data.remove(id)
 
     if (split) {
-        EventHandler.off(el, 'click', '.split-bar-arrow');
         const { el } = split;
         if (el.splitBar) {
+            EventHandler.off(splitBar, 'click', '.split-bar-arrow');
             Drag.dispose(el.splitBar);
         }
     }
