@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
     <div class="split-pane split-left" style="@StyleString">

@@ -59,4 +59,24 @@ public sealed partial class Split
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed));
+
+    /// <summary>
+    /// 窗格折叠时回调方法 由 JavaScript 调用   
+    /// </summary>
+    /// <param name="collapsed"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerOnCollapsed(bool collapsed)
+    {
+        if (OnCollapsedAsync != null)
+        {
+            await OnCollapsedAsync(collapsed);
+        }
+    }
 }

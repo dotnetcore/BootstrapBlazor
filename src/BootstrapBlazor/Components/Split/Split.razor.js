@@ -2,7 +2,7 @@
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -75,9 +75,11 @@ export function init(id) {
         splitLeft.classList.add('is-collapsed');
         if (element.classList.contains("split-bar-arrow-left")) {
             splitLeft.style.setProperty('flex-basis', '0%');
+            invoke.invokeMethodAsync(method, true);
         }
         else {
             splitLeft.style.setProperty('flex-basis', '100%');
+            invoke.invokeMethodAsync(method, false);
         }
         splitRight.style.removeProperty('flex-basis');
         start = 0;
