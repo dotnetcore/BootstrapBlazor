@@ -26,7 +26,7 @@ export function init(id) {
     split.splitBar = splitBar;
     Drag.drag(splitBar,
         e => {
-            const isResizable = el.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
+            const isResizable = splitBar.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
             if (isResizable === false) {
                 return;
             }
@@ -45,7 +45,7 @@ export function init(id) {
             showMask(splitLeft, splitRight);
         },
         e => {
-            const isResizable = el.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
+            const isResizable = splitBar.getElementsByClassName('split-trigger').length > 0 && splitWrapper.getAttribute('status') === 'both-pane-expand';
             if (isResizable === false) {
                 return;
             }
