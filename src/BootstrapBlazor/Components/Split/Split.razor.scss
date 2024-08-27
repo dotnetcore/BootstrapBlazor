@@ -140,23 +140,23 @@
         }
     }
 
-    .split-wrapper[status="first-pane-collapsed"] .split-bar:hover, &.dragging > .split-wrapper[status="first-pane-collapsed"] > .split-bar,
-    .split-wrapper[status="second-pane-collapsed"] .split-bar:hover, &.dragging > .split-wrapper[status="second-pane-collapsed"] > .split-bar {
+    .split-wrapper[status="first-pane-collapsed"] > .split-bar:hover, &.dragging > .split-wrapper[status="first-pane-collapsed"] > .split-bar,
+    .split-wrapper[status="second-pane-collapsed"] > .split-bar:hover, &.dragging > .split-wrapper[status="second-pane-collapsed"] > .split-bar {
         background-color: transparent;
         cursor: default;
     }
 
-    .split-wrapper[status="first-pane-collapsed"] .split-left {
+    .split-wrapper[status="first-pane-collapsed"] > .split-left {
         flex: 0 1 0% !important;
         overflow: hidden !important;
         display: block !important;
     }
 
-    .split-wrapper[status="second-pane-collapsed"] .split-left {
+    .split-wrapper[status="second-pane-collapsed"] > .split-left {
         flex: 1 !important;
     }
 
-    .split-wrapper[status="second-pane-collapsed"] .split-right {
+    .split-wrapper[status="second-pane-collapsed"] > .split-right {
         flex: 0 1 0% !important;
         overflow: hidden !important;
         display: block !important;
