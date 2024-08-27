@@ -1,6 +1,15 @@
 .split {
-    --bb-split-bar-bg: #{$bb-split-bar--bg};
+    --bb-split-bar-bg: #{$bb-split-bar-bg};
     --bb-split-bar-hover-bg: var(--bb-primary-color);
+    --bb-split-bar-width: #{$bb-split-bar-width};
+    --bb-split-bar-handle-bg: #{$bb-split-bar-handle-bg};
+    --bb-split-bar-handle-color: #{$bb-split-bar-handle-color};
+    --bb-split-bar-handle-hover-bg: #{$bb-split-bar-handle-hover-bg};
+    --bb-split-bar-handle-hover-color: #{$bb-split-bar-handle-hover-color};
+    --bb-split-bar-arrow-bg: #{$bb-split-bar-arrow-bg};
+    --bb-split-bar-arrow-border-color: #{$bb-split-bar-arrow-border-color};
+    --bb-split-bar-arrow-hover-bg: #{$bb-split-bar-arrow-hover-bg};
+    --bb-split-bar-arrow-hover-border-color: #{$bb-split-bar-arrow-hover-border-color};
     height: 100%;
     width: 100%;
     display: flex;
@@ -13,7 +22,7 @@
         .split-bar {
             cursor: row-resize;
             width: auto;
-            height: 3px;
+            height: var(--bb-split-bar-width);
 
             &:after {
                 content: "";
@@ -136,7 +145,7 @@
 
     .split-bar {
         order: 1;
-        width: 3px;
+        width: var(--bb-split-bar-width);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -157,14 +166,22 @@
         &:hover {
             background: var(--bb-split-bar-hover-bg);
 
+            .split-bar-handler {
+                background-color: var(--bb-split-bar-handle-hover-bg);
+
+                > div {
+                    background: var(--bb-split-bar-handle-hover-color);
+                }
+            }
+
             .split-bar-arrow {
-                background-color: rgba(0, 0, 0, 0);
-                border-color: #0d6efd;
+                background-color: var(--bb-split-bar-arrow-hover-bg);
+                border-color: var(--bb-split-bar-arrow-hover-border-color);
                 border-width: 1px;
 
                 &:before,
                 &:after {
-                    background-color: #0d6efd;
+                    background-color: var(--bb-split-bar-arrow-hover-border-color);
                     opacity: 1;
                 }
             }
@@ -191,9 +208,8 @@
         }
 
         .split-bar-arrow {
-            background-color: rgba(0, 0, 0, 0);
-            border-color: rgba(0, 0, 0, 0);
-            color: rgba(0, 0, 0, 0);
+            background-color: var(--bb-split-bar-arrow-bg);
+            border-color: var(--bb-split-bar-arrow-border-color);
             transition: background-color 500ms ease-out;
             border-radius: 50%;
             border-image: none;
@@ -209,7 +225,7 @@
             &:before,
             &:after {
                 content: "";
-                background-color: #0d6efd;
+                background-color: var(--bb-split-bar-arrow-bg);
                 opacity: 0;
                 transition-duration: .3s;
                 transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -237,12 +253,12 @@
             align-items: center;
             height: 24px;
             position: relative;
-            background-color: #fff;
+            background-color: var(--bb-split-bar-handle-bg);
             padding: 2px 0px;
 
             > div {
                 border-radius: 3px;
-                background: #606266;
+                background: var(--bb-split-bar-handle-color);
                 width: 2px;
                 height: 100%;
 

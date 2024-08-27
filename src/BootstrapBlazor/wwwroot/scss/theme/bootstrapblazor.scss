@@ -542,7 +542,16 @@ $bb-spinner-border-width-xxl: 6rem;
 $bb-spinner-border-border-width-xxl: .275em;
 
 // Split
-$bb-split-bar--bg: #dee2e6;
+$bb-split-bar-bg: #dee2e6;
+$bb-split-bar-width: 3px;
+$bb-split-bar-handle-bg: #fff;
+$bb-split-bar-handle-color: #606266;
+$bb-split-bar-handle-hover-bg: #fff;
+$bb-split-bar-handle-hover-color: #606266;
+$bb-split-bar-arrow-bg: rgba(0, 0, 0, 0);
+$bb-split-bar-arrow-border-color: rgba(0, 0, 0, 0);
+$bb-split-bar-arrow-hover-bg: rgba(0, 0, 0, 0);
+$bb-split-bar-arrow-hover-border-color: #0d6efd;
 
 // Step
 $bb-step-border-width: 2px;
