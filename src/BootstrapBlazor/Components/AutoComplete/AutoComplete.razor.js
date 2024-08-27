@@ -14,6 +14,9 @@ export function init(id, invoke) {
 
     if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' });
+        EventHandler.on(input, 'focus', e => {
+            input.click();
+        });
     }
 
     // debounce
@@ -76,9 +79,9 @@ export function dispose(id) {
     if (ac) {
         if (ac.popover) {
             Popover.dispose(ac.popover)
-        }
-        if (ac.el) {
-            EventHandler.off(ac.el, 'focus')
+            if (ac.input) {
+                EventHandler.off(ac.input, 'focus')
+            }
         }
         if (ac.composition) {
             Input.dispose(`${id}_input`)
