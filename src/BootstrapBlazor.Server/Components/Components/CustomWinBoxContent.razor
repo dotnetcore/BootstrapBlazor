@@ -3,10 +3,13 @@
 </div>
 
 <div class="bb-winbox-footer">
-    <Button Text="Stack" OnClickWithoutRender="StackWinBox"></Button>
-    <Button Text="Minimize" OnClickWithoutRender="MinWinBox"></Button>
-    <Button Text="Maximize" OnClickWithoutRender="MaxWinBox"></Button>
-    <Button Text="Restore" OnClickWithoutRender="RestoreWinBox"></Button>
+    @if (Option is not { Modal: true })
+    {
+        <Button Text="Stack" OnClickWithoutRender="StackWinBox"></Button>
+        <Button Text="Minimize" OnClickWithoutRender="MinWinBox"></Button>
+        <Button Text="Maximize" OnClickWithoutRender="MaxWinBox"></Button>
+        <Button Text="Restore" OnClickWithoutRender="RestoreWinBox"></Button>
+    }
     <Button Text="SetTitle" OnClickWithoutRender="SetTitleWinBox"></Button>
     <Button Text="SetIcon" OnClickWithoutRender="SetIconWinBox"></Button>
     <WinBoxCloseButton />
