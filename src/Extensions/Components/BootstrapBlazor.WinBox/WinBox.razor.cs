@@ -113,6 +113,7 @@ public partial class WinBox
         {
             await option.OnCloseAsync();
         }
+        StateHasChanged();
     }
 
     /// <summary>
