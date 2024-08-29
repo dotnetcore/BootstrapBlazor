@@ -21,13 +21,14 @@ export function dispose(id) {
     const tip = Data.get(id)
     Data.remove(id)
 
-    if (tip) {
+    if (tip && tip.tooltip) {
+        const timeout = tip.tooltip._config.trigger.includes("focus") ? 300 : 0
         const handler = setTimeout(() => {
             clearTimeout(handler)
             if (tip.tooltip) {
                 tip.tooltip.dispose()
                 delete tip.tooltip
             }
-        }, 10)
+        }, timeout)
     }
 }
