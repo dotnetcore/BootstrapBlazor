@@ -19,7 +19,7 @@ export function init(id, invoke, method, option) {
     const splitRight = el.children[1];
     const splitBar = el.children[2];
 
-    const split = { el, invoke, method, option, splitLeft, splitBar };
+    const split = { el, invoke, method, option, splitLeft, splitRight, splitBar, isVertical };
     Data.set(id, split)
     Drag.drag(splitBar,
         e => {
@@ -46,8 +46,11 @@ export function init(id, invoke, method, option) {
                 newVal = Math.ceil((eventX - originX) * 100 / splitWidth) + curVal
             }
 
-            if (newVal <= 0) newVal = 0
-            if (newVal >= 100) newVal = 100
+            const min = getMin(split);
+            const max = getMax(split);
+
+            if (newVal <= min) newVal = min
+            if (newVal >= max) newVal = max
 
             splitLeft.style.flexBasis = `${newVal}%`
         },
@@ -96,6 +99,67 @@ export function update(id) {
             initCollapseButton();
         }
     }
+}
+
+const convertToPercent = (split, minValue) => {
+    let ret = 0;
+    const { el, isVertical } = split;
+    let d = createVirtualDom();
+    if (isVertical) {
+        d.style.setProperty('height', minValue);
+    }
+    else {
+        d.style.setProperty('width', minValue);
+    }
+    el.appendChild(d);
+    if (isVertical) {
+        ret = d.offsetHeight * 100 / el.offsetHeight;
+    }
+    else {
+        ret = d.offsetWidth * 100 / el.offsetWidth;
+    }
+    d.remove();
+    d = null;
+    return ret;
+}
+
+const createVirtualDom = () => {
+    const d = document.createElement('div');
+    d.style.setProperty("position", "absolute");
+    d.style.setProperty("visibility", "hidden");
+    d.style.setProperty("z-index", "-10");
+    d.style.setProperty("pointer-events", "none");
+    return d;
+}
+
+const getMin = split => {
+    let ret = 0;
+    const { splitLeft } = split;
+    const leftMin = splitLeft.getAttribute('data-bb-min');
+    if (leftMin) {
+        if (leftMin.substring(leftMin.length) === '%') {
+            ret = leftMin.substring(0, leftMin.length - 1);
+        }
+        else {
+            ret = convertToPercent(split, leftMin);
+        }
+    }
+    return ret;
+}
+
+const getMax = split => {
+    let ret = 100;
+    const { splitRight } = split;
+    const rightMin = splitRight.getAttribute('data-bb-min');
+    if (rightMin) {
+        if (rightMin.substring(rightMin.length) === '%') {
+            ret = 100 - parseFloat(rightMin.substring(0, rightMin.length - 1));
+        }
+        else {
+            ret = 100 - convertToPercent(split, rightMin);
+        }
+    }
+    return ret;
 }
 
 const setLeftBasis = (split, triggerLeft) => {

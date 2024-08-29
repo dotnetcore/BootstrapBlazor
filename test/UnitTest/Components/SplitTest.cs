@@ -67,6 +67,20 @@ public class SplitTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Minimum_Ok()
+    {
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
+            pb.Add(b => b.FirstPaneMinimumSize, "abc");
+            pb.Add(b => b.SecondPaneMinimumSize, "12rem");
+        });
+        cut.Contains("data-bb-min=\"abc\"");
+        cut.Contains("data-bb-min=\"12rem\"");
+    }
+
+    [Fact]
     public async Task OnResizedAsync_Ok()
     {
         SplitterResizedEventArgs? state = null;

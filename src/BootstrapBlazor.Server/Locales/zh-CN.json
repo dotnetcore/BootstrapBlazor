@@ -1758,6 +1758,8 @@
     "SplitsPanel4": "我是底部面板",
     "SplitsNestedTitle": "嵌套使用",
     "SplitsNestedIntro": "通过嵌套 <code>Split</code> 组件进行组合布局",
+    "SplitsMinimumTitle": "最小值",
+    "SplitsMinimumIntro": "通过设置 <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> 值限制面板最小尺寸，支持所有单位",
     "SplitsPanel5": "上边面板",
     "SplitsPanel6": "下边面板",
     "SplitsPanel7": "右边面板",
@@ -1768,8 +1770,8 @@
     "SplitsPanel10": "右边面板",
     "SplitsIsVertical": "垂直分割",
     "SplitsBasis": "第一个窗格位置占比",
-    "SplitsFirstPanelTemplate": "第一个窗格模板",
-    "SplitsSecondPanelTemplate": "第二个窗格模板",
+    "SplitsFirstPaneTemplate": "第一个窗格模板",
+    "SplitsSecondPaneTemplate": "第二个窗格模板",
     "SplitsIsCollapsible": "是否可以展开收起面板",
     "SplitsIsKeepOriginalSize": "折叠后恢复时是否保持原始大小",
     "SplitsShowBarHandle": "是否显示拖动条",
@@ -1777,7 +1779,9 @@
     "SplitsBarHandleHide": "隐藏拖动栏",
     "SplitsOnResizedAsync": "面板尺寸改变时回调方法",
     "SplitsCollapsibleTrue": "显示调整按钮",
-    "SplitsCollapsibleFalse": "隐藏调整按钮"
+    "SplitsCollapsibleFalse": "隐藏调整按钮",
+    "SplitsFirstPaneMinimumSize": "第一个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px",
+    "SplitsSecondPaneMinimumSize": "第二个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",

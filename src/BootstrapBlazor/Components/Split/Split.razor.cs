@@ -46,16 +46,28 @@ public sealed partial class Split
     public RenderFragment? FirstPaneTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 第二个窗格模板
+    /// 获得/设置 第一个窗格模板 支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px
+    /// </summary>
+    [Parameter]
+    public string? FirstPaneMinimumSize { get; set; }
+
+    /// <summary>
+    /// 获得/设置 第二个窗格模板 支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 第一个窗格模板
+    /// </summary>
+    [Parameter]
+    public string? SecondPaneMinimumSize { get; set; }
+
+    /// <summary>
     /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 Deprecated. Please use OnResizedAsync")]
+    [Obsolete("已弃用，请使用 OnResizedAsync 回调方法 Deprecated. Please use OnResizedAsync")]
     [ExcludeFromCodeCoverage]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
 
@@ -85,12 +97,6 @@ public sealed partial class Split
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new { IsKeepOriginalSize });
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -107,6 +113,15 @@ public sealed partial class Split
             await InvokeVoidAsync("update", Id);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new
+    {
+        IsKeepOriginalSize
+    });
 
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   

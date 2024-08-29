@@ -3,10 +3,10 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
-    <div class="split-pane split-left" style="@StyleString">
+    <div class="split-pane split-left" data-bb-min="@FirstPaneMinimumSize" style="@StyleString">
         @FirstPaneTemplate
     </div>
-    <div class="split-pane split-right">
+    <div class="split-pane split-right" data-bb-min="@SecondPaneMinimumSize">
         @SecondPaneTemplate
     </div>
     <div class="split-pane split-bar">

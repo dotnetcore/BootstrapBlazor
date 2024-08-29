@@ -1758,6 +1758,8 @@
     "SplitsPanel4": "I am the bottom panel",
     "SplitsNestedTitle": "Nested use",
     "SplitsNestedIntro": "Combine layout by nesting <code>Split</code> components",
+    "SplitsMinimumTitle": "Minimum",
+    "SplitsMinimumIntro": "By setting <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> values",
     "SplitsPanel5": "Upper",
     "SplitsPanel6": "Lower",
     "SplitsPanel7": "Right",
@@ -1768,8 +1770,8 @@
     "SplitsPanel10": "Right",
     "SplitsIsVertical": "Vertical",
     "SplitsBasis": "Percentage of first pane position",
-    "SplitsFirstPanelTemplate": "First pane template",
-    "SplitsSecondPanelTemplate": "Second pane template",
+    "SplitsFirstPaneTemplate": "First pane template",
+    "SplitsSecondPaneTemplate": "Second pane template",
     "SplitsIsCollapsible": "Whether to expand or collapse the split view",
     "SplitsIsKeepOriginalSize": "Whether to keep the original size when restoring after collapsed",
     "SplitsShowBarHandle": "Whether to display the drag bar",
@@ -1777,7 +1779,9 @@
     "SplitsBarHandleHide": "Bar handle hidden",
     "SplitsOnResizedAsync": "Callback method when the panel size changes",
     "SplitsCollapsibleTrue": "Collapse button shown",
-    "SplitsCollapsibleFalse": "Collapse button hidden"
+    "SplitsCollapsibleFalse": "Collapse button hidden",
+    "SplitsFirstPaneMinimumSize": "The minimum size of the first pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
+    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px."
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",
