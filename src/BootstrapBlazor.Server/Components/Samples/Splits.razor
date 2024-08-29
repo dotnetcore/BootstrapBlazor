@@ -6,8 +6,12 @@
 <DemoBlock Title="@Localizer["SplitsNormalTitle"]"
            Introduction="@Localizer["SplitsNormalIntro"]"
            Name="Normal">
+    <section ignore class="d-flex align-items-center">
+        <Switch Value="_showBarHandle" OnValueChanged="OnShowBarHandle" class="w-auto"></Switch>
+        <div class="ms-3">@_barHandleText</div>
+    </section>
     <div class="border split-demo split-demo-horizontal">
-        <Split>
+        <Split ShowBarHandle="_showBarHandle">
             <FirstPaneTemplate>
                 <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
             </FirstPaneTemplate>
