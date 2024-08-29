@@ -49,7 +49,7 @@ export function init(id, invoke, method, option) {
             const min = getMin(split);
             let max = getMax(split);
 
-            if (min < 100 - max) {
+            if (min + 0.01 < 100 - max) {
                 max = 100;
             }
             if (newVal <= min) newVal = min
