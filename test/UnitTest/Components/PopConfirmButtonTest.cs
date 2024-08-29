@@ -289,6 +289,46 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         cut.Contains("data-bs-original-title=\"pop-tooltip\"");
     }
 
+    [Fact]
+    public void Placement_Ok()
+    {
+        var cut = Context.RenderComponent<PopConfirmButton>(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.LeftStart);
+        });
+        cut.DoesNotContain("data-bs-placement");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Auto);
+        });
+        cut.DoesNotContain("data-bs-placement");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Top);
+        });
+        cut.Contains("data-bs-placement=\"top\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Right);
+        });
+        cut.Contains("data-bs-placement=\"right\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Bottom);
+        });
+        cut.Contains("data-bs-placement=\"bottom\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Left);
+        });
+        cut.Contains("data-bs-placement=\"left\"");
+    }
+
     public class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "PopoverConfirmButtonCloseAsync"), NotNull]
