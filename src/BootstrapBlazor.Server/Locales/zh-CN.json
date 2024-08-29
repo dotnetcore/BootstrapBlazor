@@ -1770,7 +1770,8 @@
     "SplitsBasis": "第一个窗格位置占比",
     "SplitsFirstPanelTemplate": "第一个窗格模板",
     "SplitsSecondPanelTemplate": "第二个窗格模板",
-    "SplitsIsCollapsible": "是否可以展开收起面板"
+    "SplitsIsCollapsible": "是否可以展开收起面板",
+    "SplitsIsKeepOriginalSize": "折叠后恢复时是否保持原始大小"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",

@@ -54,6 +54,14 @@ public sealed partial class Splits
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsKeepOriginalSize",
+            Description = Localizer["SplitsIsKeepOriginalSize"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         }
     ];
 }
