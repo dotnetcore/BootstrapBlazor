@@ -70,7 +70,15 @@ public sealed partial class Split
     /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
     /// </summary>
     [Parameter]
+    [Obsolete("已过期，请使用 Deprecated. Please use OnResizedAsync")]
+    [ExcludeFromCodeCoverage]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 窗格尺寸改变时回调方法 可参阅 <see cref="SplitterResizedEventArgs"/>
+    /// </summary>
+    [Parameter]
+    public Func<SplitterResizedEventArgs, Task>? OnResizedAsync { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
