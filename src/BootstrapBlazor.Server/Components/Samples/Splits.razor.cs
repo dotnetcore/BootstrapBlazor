@@ -13,6 +13,8 @@ public sealed partial class Splits
 
     private string? _barHandleText;
 
+    private ConsoleLogger _logger = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -27,6 +29,12 @@ public sealed partial class Splits
         _showBarHandle = v;
         _barHandleText = _showBarHandle ? Localizer["SplitsBarHandleShow"] : Localizer["SplitsBarHandleHide"];
         StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnResizedAsync(SplitterResizedEventArgs args)
+    {
+        _logger.Log($"FirstPanelSize: {args.FirstPanelSize} IsCollapsed: {args.IsCollapsed()} IsExpanded: {args.IsExpanded()}");
         return Task.CompletedTask;
     }
 

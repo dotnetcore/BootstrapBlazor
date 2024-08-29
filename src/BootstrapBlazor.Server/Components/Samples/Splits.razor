@@ -11,7 +11,7 @@
         <div class="ms-3">@_barHandleText</div>
     </section>
     <div class="border split-demo split-demo-horizontal">
-        <Split ShowBarHandle="_showBarHandle">
+        <Split ShowBarHandle="_showBarHandle" OnResizedAsync="OnResizedAsync">
             <FirstPaneTemplate>
                 <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
             </FirstPaneTemplate>
@@ -20,6 +20,7 @@
             </SecondPaneTemplate>
         </Split>
     </div>
+    <ConsoleLogger @ref="_logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SplitsPercentTitle"]"
