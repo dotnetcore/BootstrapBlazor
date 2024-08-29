@@ -1759,7 +1759,7 @@
     "SplitsNestedTitle": "Nested use",
     "SplitsNestedIntro": "Combine layout by nesting <code>Split</code> components",
     "SplitsMinimumTitle": "Minimum",
-    "SplitsMinimumIntro": "By setting <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> values, you can limit the minimum size of the panel. If the size conflicts, an error will be reported. Supports numeric values ​​and percentages",
+    "SplitsMinimumIntro": "By setting <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> values",
     "SplitsPanel5": "Upper",
     "SplitsPanel6": "Lower",
     "SplitsPanel7": "Right",
