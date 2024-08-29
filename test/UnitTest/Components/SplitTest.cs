@@ -14,6 +14,7 @@ public class SplitTest : BootstrapBlazorTestBase
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
             pb.Add(b => b.IsVertical, true);
+            pb.Add(b => b.IsKeepOriginalSize, true);
         });
         Assert.Contains("I am Pane1", cut.Markup);
         Assert.Contains("I am Pane2", cut.Markup);
