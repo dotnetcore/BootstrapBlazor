@@ -67,7 +67,7 @@ public sealed partial class Split
     /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
     /// </summary>
     [Parameter]
-    [Obsolete("已过期，请使用 Deprecated. Please use OnResizedAsync")]
+    [Obsolete("已弃用，请使用 OnResizedAsync 回调方法 Deprecated. Please use OnResizedAsync")]
     [ExcludeFromCodeCoverage]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
 
