@@ -31,6 +31,12 @@ public sealed partial class Split
     public bool IsCollapsible { get; set; }
 
     /// <summary>
+    /// 获取 是否显示拖动条 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowBarHandle { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 开启 <see cref="IsCollapsible"/> 后，恢复时是否保持原始大小 默认 true
     /// </summary>
     [Parameter]

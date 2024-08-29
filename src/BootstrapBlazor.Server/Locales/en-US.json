@@ -1771,7 +1771,10 @@
     "SplitsFirstPanelTemplate": "First pane template",
     "SplitsSecondPanelTemplate": "Second pane template",
     "SplitsIsCollapsible": "Whether to expand or collapse the split view",
-    "SplitsIsKeepOriginalSize": "Whether to keep the original size when restoring after collapsed"
+    "SplitsIsKeepOriginalSize": "Whether to keep the original size when restoring after collapsed",
+    "SplitsShowBarHandle": "Whether to display the drag bar",
+    "SplitsBarHandleShow": "Bar handle shown",
+    "SplitsBarHandleHide": "Bar handle hidden"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",

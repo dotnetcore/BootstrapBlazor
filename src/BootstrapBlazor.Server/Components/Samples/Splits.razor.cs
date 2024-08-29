@@ -9,6 +9,27 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Splits
 {
+    private bool _showBarHandle = true;
+
+    private string? _barHandleText;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        _barHandleText = _showBarHandle ? Localizer["SplitsBarHandleShow"] : Localizer["SplitsBarHandleHide"];
+    }
+
+    private Task OnShowBarHandle(bool v)
+    {
+        _showBarHandle = v;
+        _barHandleText = _showBarHandle ? Localizer["SplitsBarHandleShow"] : Localizer["SplitsBarHandleHide"];
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
@@ -22,6 +43,14 @@ public sealed partial class Splits
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowBarHandle",
+            Description = Localizer["SplitsShowBarHandle"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         },
         new()
         {
