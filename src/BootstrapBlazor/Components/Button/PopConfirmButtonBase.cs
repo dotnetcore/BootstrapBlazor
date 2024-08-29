@@ -27,8 +27,9 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public bool IsLink { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗显示位置
+    /// 获得/设置 弹窗显示位置 默认 <see cref="Placement.Auto"/>
     /// </summary>
+    /// <remarks>仅支持 <see cref="Placement.Auto"/> <see cref="Placement.Top"/> <see cref="Placement.Right"/> <see cref="Placement.Bottom"/> <see cref="Placement.Left"/></remarks>
     [Parameter]
     public Placement Placement { get; set; }
 
@@ -148,5 +149,10 @@ public abstract class PopConfirmButtonBase : ButtonBase
 
         OnClose ??= () => Task.CompletedTask;
         OnConfirm ??= () => Task.CompletedTask;
+
+        if (Placement != Placement.Top && Placement != Placement.Right && Placement != Placement.Bottom && Placement != Placement.Left)
+        {
+            Placement = Placement.Auto;
+        }
     }
 }
