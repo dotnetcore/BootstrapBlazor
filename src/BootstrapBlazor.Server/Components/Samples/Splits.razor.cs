@@ -83,16 +83,16 @@ public sealed partial class Splits
         },
         new()
         {
-            Name = "FirstPanelTemplate",
-            Description = Localizer["SplitsFirstPanelTemplate"],
+            Name = "FirstPaneTemplate",
+            Description = Localizer["SplitsFirstPaneTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = "SecondPanelTemplate",
-            Description = Localizer["SplitsSecondPanelTemplate"],
+            Name = "SecondPaneTemplate",
+            Description = Localizer["SplitsSecondPaneTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

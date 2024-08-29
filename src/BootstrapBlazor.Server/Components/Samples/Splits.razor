@@ -107,4 +107,19 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SplitsMinimumTitle"]"
+           Introduction="@Localizer["SplitsMinimumIntro"]"
+           Name="Basis">
+    <div class="border split-demo split-demo-horizontal">
+        <Split Basis="40%" FirstPaneMinimumSize="48px" SecondPaneMinimumSize="48px" IsCollapsible="true">
+            <FirstPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel2"]</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
