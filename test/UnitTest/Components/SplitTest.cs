@@ -19,6 +19,7 @@ public class SplitTest : BootstrapBlazorTestBase
         Assert.Contains("I am Pane1", cut.Markup);
         Assert.Contains("I am Pane2", cut.Markup);
         Assert.Contains("is-vertical", cut.Markup);
+        Assert.Contains("split-bar-handler", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -31,6 +32,19 @@ public class SplitTest : BootstrapBlazorTestBase
             pb.Add(b => b.AdditionalAttributes, new Dictionary<string, object>() { ["tag"] = "tag" });
         });
         Assert.Contains("tag", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowBarHandle_Ok()
+    {
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
+            pb.Add(b => b.ShowBarHandle, false);
+            pb.Add(b => b.IsKeepOriginalSize, true);
+        });
+        Assert.DoesNotContain("split-bar-handler", cut.Markup);
     }
 
     [Fact]
