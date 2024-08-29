@@ -11,7 +11,13 @@ public sealed partial class Splits
 {
     private bool _showBarHandle = true;
 
+    private bool _isCollapsible = false;
+
     private string? _barHandleText;
+
+    private string? _collapsibleText;
+
+    private ConsoleLogger _logger = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -20,6 +26,7 @@ public sealed partial class Splits
     {
         base.OnParametersSet();
         _barHandleText = _showBarHandle ? Localizer["SplitsBarHandleShow"] : Localizer["SplitsBarHandleHide"];
+        _collapsibleText = _showBarHandle ? Localizer["SplitsCollapsibleTrue"] : Localizer["SplitsCollapsibleFalse"];
     }
 
     private Task OnShowBarHandle(bool v)
@@ -27,6 +34,20 @@ public sealed partial class Splits
         _showBarHandle = v;
         _barHandleText = _showBarHandle ? Localizer["SplitsBarHandleShow"] : Localizer["SplitsBarHandleHide"];
         StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnCollapsible(bool v)
+    {
+        _isCollapsible = v;
+        _collapsibleText = _showBarHandle ? Localizer["SplitsCollapsibleTrue"] : Localizer["SplitsCollapsibleFalse"];
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnResizedAsync(SplitterResizedEventArgs args)
+    {
+        _logger.Log($"FirstPanelSize: {args.FirstPanelSize} IsCollapsed: {args.IsCollapsed} IsExpanded: {args.IsExpanded}");
         return Task.CompletedTask;
     }
 
@@ -91,6 +112,14 @@ public sealed partial class Splits
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "OnResizedAsync",
+            Description = Localizer["SplitsOnResizedAsync"],
+            Type = "Func<SplitterResizedEventArgs, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

@@ -6,12 +6,22 @@
 <DemoBlock Title="@Localizer["SplitsNormalTitle"]"
            Introduction="@Localizer["SplitsNormalIntro"]"
            Name="Normal">
-    <section ignore class="d-flex align-items-center">
-        <Switch Value="_showBarHandle" OnValueChanged="OnShowBarHandle" class="w-auto"></Switch>
-        <div class="ms-3">@_barHandleText</div>
+    <section ignore class="row">
+        <div class="col-12 col-sm-6">
+            <div class="d-flex align-items-center">
+                <Switch Value="_showBarHandle" OnValueChanged="OnShowBarHandle" class="w-auto"></Switch>
+                <div class="ms-3">@_barHandleText</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="d-flex align-items-center">
+                <Switch Value="_isCollapsible" OnValueChanged="OnCollapsible" class="w-auto"></Switch>
+                <div class="ms-3">@_collapsibleText</div>
+            </div>
+        </div>
     </section>
     <div class="border split-demo split-demo-horizontal">
-        <Split ShowBarHandle="_showBarHandle">
+        <Split ShowBarHandle="_showBarHandle" OnResizedAsync="OnResizedAsync" IsCollapsible="_isCollapsible">
             <FirstPaneTemplate>
                 <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
             </FirstPaneTemplate>
@@ -20,6 +30,7 @@
             </SecondPaneTemplate>
         </Split>
     </div>
+    <ConsoleLogger @ref="_logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SplitsPercentTitle"]"

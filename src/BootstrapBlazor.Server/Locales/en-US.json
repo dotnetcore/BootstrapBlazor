@@ -1774,7 +1774,10 @@
     "SplitsIsKeepOriginalSize": "Whether to keep the original size when restoring after collapsed",
     "SplitsShowBarHandle": "Whether to display the drag bar",
     "SplitsBarHandleShow": "Bar handle shown",
-    "SplitsBarHandleHide": "Bar handle hidden"
+    "SplitsBarHandleHide": "Bar handle hidden",
+    "SplitsOnResizedAsync": "Callback method when the panel size changes",
+    "SplitsCollapsibleTrue": "Collapse button shown",
+    "SplitsCollapsibleFalse": "Collapse button hidden"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",

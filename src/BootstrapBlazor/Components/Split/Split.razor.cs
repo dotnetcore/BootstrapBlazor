@@ -10,21 +10,6 @@ namespace BootstrapBlazor.Components;
 public sealed partial class Split
 {
     /// <summary>
-    /// 获得 组件样式
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("split")
-        .AddClass("is-vertical", IsVertical)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 第一个窗格 Style
-    /// </summary>
-    private string? StyleString => CssBuilder.Default()
-        .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
-        .Build();
-
-    /// <summary>
     /// 获取 是否开启折叠功能 默认 false
     /// </summary>
     [Parameter]
@@ -70,25 +55,69 @@ public sealed partial class Split
     /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
     /// </summary>
     [Parameter]
+    [Obsolete("已过期，请使用 Deprecated. Please use OnResizedAsync")]
+    [ExcludeFromCodeCoverage]
     public Func<bool, Task>? OnCollapsedAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 窗格尺寸改变时回调方法 可参阅 <see cref="SplitterResizedEventArgs"/>
+    /// </summary>
+    [Parameter]
+    public Func<SplitterResizedEventArgs, Task>? OnResizedAsync { get; set; }
+
+    /// <summary>
+    /// 获得 组件样式
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("split")
+        .AddClass("is-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得 第一个窗格 Style
+    /// </summary>
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
+        .Build();
+
+    private bool _lastCollapsible;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed), new { IsKeepOriginalSize });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new { IsKeepOriginalSize });
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _lastCollapsible = IsCollapsible;
+        }
+        else if (_lastCollapsible != IsCollapsible)
+        {
+            _lastCollapsible = IsCollapsible;
+            await InvokeVoidAsync("update", Id);
+        }
+    }
 
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
     /// </summary>
-    /// <param name="collapsed"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerOnCollapsed(bool collapsed)
+    public async Task TriggerOnResize(string left)
     {
-        if (OnCollapsedAsync != null)
+        if (OnResizedAsync != null)
         {
-            await OnCollapsedAsync(collapsed);
+            await OnResizedAsync(new SplitterResizedEventArgs(left));
         }
     }
 }
