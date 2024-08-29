@@ -47,8 +47,11 @@ export function init(id, invoke, method, option) {
             }
 
             const min = getMin(split);
-            const max = getMax(split);
+            let max = getMax(split);
 
+            if (min < 100 - max) {
+                max = 100;
+            }
             if (newVal <= min) newVal = min
             if (newVal >= max) newVal = max
 
@@ -86,6 +89,11 @@ export function init(id, invoke, method, option) {
         });
     };
 
+    const basis = parseFloat(splitLeft.style.flexBasis);
+    const min = getMin(split);
+    if (basis < min) {
+        splitLeft.style.flexBasis = `${min}%`;
+    }
     split.initCollapseButton();
 }
 
