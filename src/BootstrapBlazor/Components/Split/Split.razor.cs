@@ -86,7 +86,7 @@ public sealed partial class Split
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed), new { IsKeepOriginalSize });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new { IsKeepOriginalSize });
 
     /// <summary>
     /// <inheritdoc/>
@@ -113,7 +113,7 @@ public sealed partial class Split
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerOnCollapsed(string left)
+    public async Task TriggerOnResize(string left)
     {
         if (OnResizedAsync != null)
         {
