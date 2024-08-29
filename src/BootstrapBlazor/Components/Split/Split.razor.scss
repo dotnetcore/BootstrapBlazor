@@ -188,8 +188,7 @@
 
             .split-bar-arrow {
                 background-color: var(--bb-split-bar-arrow-hover-bg);
-                border-color: var(--bb-split-bar-arrow-hover-border-color);
-                border-width: 1px;
+                border: 1px solid var(--bb-split-bar-arrow-hover-border-color);
 
                 &:before,
                 &:after {
