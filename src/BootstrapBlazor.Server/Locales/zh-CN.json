@@ -1779,7 +1779,9 @@
     "SplitsBarHandleHide": "隐藏拖动栏",
     "SplitsOnResizedAsync": "面板尺寸改变时回调方法",
     "SplitsCollapsibleTrue": "显示调整按钮",
-    "SplitsCollapsibleFalse": "隐藏调整按钮"
+    "SplitsCollapsibleFalse": "隐藏调整按钮",
+    "SplitsFirstPaneMinimumSize": "第一个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px",
+    "SplitsSecondPaneMinimumSize": "第二个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",

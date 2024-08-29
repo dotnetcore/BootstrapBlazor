@@ -1779,7 +1779,9 @@
     "SplitsBarHandleHide": "Bar handle hidden",
     "SplitsOnResizedAsync": "Callback method when the panel size changes",
     "SplitsCollapsibleTrue": "Collapse button shown",
-    "SplitsCollapsibleFalse": "Collapse button hidden"
+    "SplitsCollapsibleFalse": "Collapse button hidden",
+    "SplitsFirstPaneMinimumSize": "The minimum size of the first pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
+    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px."
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",

@@ -46,13 +46,13 @@ public sealed partial class Split
     public RenderFragment? FirstPaneTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 第一个窗格模板
+    /// 获得/设置 第一个窗格模板 支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px
     /// </summary>
     [Parameter]
     public string? FirstPaneMinimumSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 第二个窗格模板
+    /// 获得/设置 第二个窗格模板 支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
