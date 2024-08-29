@@ -1775,7 +1775,9 @@
     "SplitsShowBarHandle": "是否显示拖动条",
     "SplitsBarHandleShow": "显示拖动栏",
     "SplitsBarHandleHide": "隐藏拖动栏",
-    "SplitsOnResizedAsync": "面板尺寸改变时回调方法"
+    "SplitsOnResizedAsync": "面板尺寸改变时回调方法",
+    "SplitsCollapsibleTrue": "显示调整按钮",
+    "SplitsCollapsibleFalse": "隐藏调整按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",
