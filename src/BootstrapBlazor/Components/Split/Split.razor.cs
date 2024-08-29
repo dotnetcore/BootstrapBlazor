@@ -89,14 +89,13 @@ public sealed partial class Split
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
     /// </summary>
-    /// <param name="collapsed"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerOnCollapsed(bool collapsed)
+    public async Task TriggerOnCollapsed(string left)
     {
-        if (OnCollapsedAsync != null)
+        if (OnResizedAsync != null)
         {
-            await OnCollapsedAsync(collapsed);
+            await OnResizedAsync(new SplitterResizedEventArgs(left));
         }
     }
 }

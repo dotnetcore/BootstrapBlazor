@@ -19,7 +19,7 @@ export function init(id, invoke, method, option) {
     const splitRight = el.children[1];
     const splitBar = el.children[2];
 
-    const split = { el, option }
+    const split = { el, invoke, method, option }
     split.splitLeft = splitLeft;
     split.splitBar = splitBar;
     Data.set(id, split)
@@ -55,9 +55,9 @@ export function init(id, invoke, method, option) {
         },
         () => {
             el.classList.remove('dragging');
-            console.log('end');
             delete option.restoreLeftBasis;
             removeMask(splitLeft, splitRight);
+            invoke.invokeMethodAsync(method, splitLeft.style.flexBasis);
         }
     );
 
@@ -77,7 +77,6 @@ export function init(id, invoke, method, option) {
             e.stopPropagation();
             splitLeft.classList.add('is-collapsed');
             const triggerLeft = element.classList.contains("split-bar-arrow-left");
-            invoke.invokeMethodAsync(method, triggerLeft);
             setLeftBasis(split, triggerLeft);
             start = 0;
             requestAnimationFrame(step);
@@ -86,7 +85,7 @@ export function init(id, invoke, method, option) {
 }
 
 const setLeftBasis = (split, triggerLeft) => {
-    const { option, splitLeft } = split;
+    const { option, splitLeft, invoke, method } = split;
     let leftBasis = splitLeft.style.flexBasis;
     if (option.isKeepOriginalSize) {
         if (option.restoreLeftBasis === void 0) {
@@ -112,6 +111,7 @@ const setLeftBasis = (split, triggerLeft) => {
         }
     }
     splitLeft.style.setProperty('flex-basis', leftBasis);
+    invoke.invokeMethodAsync(method, leftBasis);
 }
 
 const showMask = (left, right) => {
