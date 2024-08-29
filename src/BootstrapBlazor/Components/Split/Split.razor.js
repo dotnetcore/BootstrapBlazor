@@ -2,13 +2,11 @@
 import Drag from "../../modules/drag.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id, invoke, method) {
+export function init(id, invoke, method, option) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
-    const split = { el }
-    Data.set(id, split)
 
     let splitWidth = el.offsetWidth
     let splitHeight = el.offsetHeight
@@ -21,7 +19,10 @@ export function init(id, invoke, method) {
     const splitRight = el.children[1];
     const splitBar = el.children[2];
 
+    const split = { el, option }
+    split.splitLeft = splitLeft;
     split.splitBar = splitBar;
+    Data.set(id, split)
     Drag.drag(splitBar,
         e => {
             splitWidth = el.offsetWidth
@@ -51,10 +52,11 @@ export function init(id, invoke, method) {
             if (newVal >= 100) newVal = 100
 
             splitLeft.style.flexBasis = `${newVal}%`
-            splitRight.style.flexBasis = `${100 - newVal}%`
         },
         () => {
             el.classList.remove('dragging');
+            console.log('end');
+            delete option.restoreLeftBasis;
             removeMask(splitLeft, splitRight);
         }
     );
@@ -70,21 +72,46 @@ export function init(id, invoke, method) {
         requestAnimationFrame(step);
     }
 
-    EventHandler.on(splitBar, 'click', '.split-bar-arrow', e => {
-        var element = e.delegateTarget;
-        splitLeft.classList.add('is-collapsed');
-        if (element.classList.contains("split-bar-arrow-left")) {
-            splitLeft.style.setProperty('flex-basis', '0%');
-            invoke.invokeMethodAsync(method, true);
+    [...splitBar.querySelectorAll('.split-bar-arrow')].forEach(element => {
+        EventHandler.on(element, 'mousedown', e => {
+            e.stopPropagation();
+            splitLeft.classList.add('is-collapsed');
+            const triggerLeft = element.classList.contains("split-bar-arrow-left");
+            invoke.invokeMethodAsync(method, triggerLeft);
+            setLeftBasis(split, triggerLeft);
+            start = 0;
+            requestAnimationFrame(step);
+        });
+    });
+}
+
+const setLeftBasis = (split, triggerLeft) => {
+    const { option, splitLeft } = split;
+    let leftBasis = splitLeft.style.flexBasis;
+    if (option.isKeepOriginalSize) {
+        if (option.restoreLeftBasis === void 0) {
+            option.restoreLeftBasis = splitLeft.style.flexBasis;
+            if (triggerLeft) {
+                leftBasis = '0%';
+            }
+            else {
+                leftBasis = '100%';
+            }
         }
         else {
-            splitLeft.style.setProperty('flex-basis', '100%');
-            invoke.invokeMethodAsync(method, false);
+            leftBasis = option.restoreLeftBasis;
+            delete option.restoreLeftBasis;
         }
-        splitRight.style.removeProperty('flex-basis');
-        start = 0;
-        requestAnimationFrame(step);
-    });
+    }
+    else {
+        if (triggerLeft) {
+            leftBasis = '0%';
+        }
+        else {
+            leftBasis = '100%';
+        }
+    }
+    splitLeft.style.setProperty('flex-basis', leftBasis);
 }
 
 const showMask = (left, right) => {
