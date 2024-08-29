@@ -221,7 +221,7 @@
         .split-bar-arrow {
             background-color: var(--bb-split-bar-arrow-bg);
             border-color: var(--bb-split-bar-arrow-border-color);
-            transition: background-color 500ms ease-out;
+            transition: background-color .5s ease-out;
             border-radius: 50%;
             border-image: none;
             border-width: 1px;
