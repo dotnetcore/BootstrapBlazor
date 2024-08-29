@@ -19,9 +19,7 @@ export function init(id, invoke, method, option) {
     const splitRight = el.children[1];
     const splitBar = el.children[2];
 
-    const split = { el, invoke, method, option }
-    split.splitLeft = splitLeft;
-    split.splitBar = splitBar;
+    const split = { el, invoke, method, option, splitLeft, splitBar };
     Data.set(id, split)
     Drag.drag(splitBar,
         e => {
@@ -61,27 +59,43 @@ export function init(id, invoke, method, option) {
         }
     );
 
-    let start = 0;
-    const step = ts => {
-        if (start === 0) {
-            start = ts;
-        }
-        if (ts - start > 300) {
-            splitLeft.classList.remove('is-collapsed');
-        }
-        requestAnimationFrame(step);
-    }
-
-    [...splitBar.querySelectorAll('.split-bar-arrow')].forEach(element => {
-        EventHandler.on(element, 'mousedown', e => {
-            e.stopPropagation();
-            splitLeft.classList.add('is-collapsed');
-            const triggerLeft = element.classList.contains("split-bar-arrow-left");
-            setLeftBasis(split, triggerLeft);
-            start = 0;
+    split.initCollapseButton = () => {
+        let start = 0;
+        const step = ts => {
+            if (start === 0) {
+                start = ts;
+            }
+            if (ts - start > 300) {
+                splitLeft.classList.remove('is-collapsed');
+            }
             requestAnimationFrame(step);
+        }
+
+        [...splitBar.querySelectorAll('.split-bar-arrow')].forEach(element => {
+            EventHandler.on(element, 'mousedown', e => {
+                e.stopPropagation();
+                splitLeft.classList.add('is-collapsed');
+                const triggerLeft = element.classList.contains("split-bar-arrow-left");
+                setLeftBasis(split, triggerLeft);
+                start = 0;
+                requestAnimationFrame(step);
+            });
         });
-    });
+    };
+
+    split.initCollapseButton();
+}
+
+export function update(id) {
+    const split = Data.get(id)
+
+    if (split) {
+        const { splitBar, initCollapseButton } = split;
+        if (splitBar) {
+            disposeCollapseButton(splitBar);
+            initCollapseButton();
+        }
+    }
 }
 
 const setLeftBasis = (split, triggerLeft) => {
@@ -136,15 +150,21 @@ const deleteMask = el => {
     }
 }
 
+const disposeCollapseButton = splitBar => {
+    [...splitBar.querySelectorAll('.split-bar-arrow')].forEach(element => {
+        EventHandler.off(element, 'mousedown');
+    });
+}
+
 export function dispose(id) {
     const split = Data.get(id)
     Data.remove(id)
 
     if (split) {
-        const { el } = split;
-        if (el.splitBar) {
-            EventHandler.off(splitBar, 'click', '.split-bar-arrow');
-            Drag.dispose(el.splitBar);
+        const { splitBar } = split;
+        if (splitBar) {
+            disposeCollapseButton(splitBar);
+            Drag.dispose(splitBar);
         }
     }
 }

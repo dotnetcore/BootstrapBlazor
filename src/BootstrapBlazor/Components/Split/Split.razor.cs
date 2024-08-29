@@ -10,21 +10,6 @@ namespace BootstrapBlazor.Components;
 public sealed partial class Split
 {
     /// <summary>
-    /// 获得 组件样式
-    /// </summary>
-    private string? ClassString => CssBuilder.Default("split")
-        .AddClass("is-vertical", IsVertical)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 第一个窗格 Style
-    /// </summary>
-    private string? StyleString => CssBuilder.Default()
-        .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
-        .Build();
-
-    /// <summary>
     /// 获取 是否开启折叠功能 默认 false
     /// </summary>
     [Parameter]
@@ -81,10 +66,47 @@ public sealed partial class Split
     public Func<SplitterResizedEventArgs, Task>? OnResizedAsync { get; set; }
 
     /// <summary>
+    /// 获得 组件样式
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("split")
+        .AddClass("is-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得 第一个窗格 Style
+    /// </summary>
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"flex-basis: {Basis.ConvertToPercentString()};")
+        .Build();
+
+    private bool _lastCollapsible;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed), new { IsKeepOriginalSize });
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _lastCollapsible = IsCollapsible;
+        }
+        else if (_lastCollapsible != IsCollapsible)
+        {
+            _lastCollapsible = IsCollapsible;
+            await InvokeVoidAsync("update", Id);
+        }
+    }
 
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
