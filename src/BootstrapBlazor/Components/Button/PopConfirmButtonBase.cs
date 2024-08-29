@@ -149,5 +149,10 @@ public abstract class PopConfirmButtonBase : ButtonBase
 
         OnClose ??= () => Task.CompletedTask;
         OnConfirm ??= () => Task.CompletedTask;
+
+        if (Placement != Placement.Top && Placement != Placement.Right && Placement != Placement.Bottom && Placement != Placement.Left)
+        {
+            Placement = Placement.Auto;
+        }
     }
 }
