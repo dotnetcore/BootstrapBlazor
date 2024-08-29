@@ -31,6 +31,12 @@ public sealed partial class Split
     public bool IsCollapsible { get; set; }
 
     /// <summary>
+    /// 获得/设置 开启 <see cref="IsCollapsible"/> 后，恢复时是否保持原始大小 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsKeepOriginalSize { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否垂直分割
     /// </summary>
     [Parameter]
@@ -64,7 +70,7 @@ public sealed partial class Split
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnCollapsed), new { IsKeepOriginalSize });
 
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
