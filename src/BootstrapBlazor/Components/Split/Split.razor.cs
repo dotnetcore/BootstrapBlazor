@@ -46,10 +46,22 @@ public sealed partial class Split
     public RenderFragment? FirstPaneTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 第一个窗格模板
+    /// </summary>
+    [Parameter]
+    public string? FirstPaneMinimumSize { get; set; }
+
+    /// <summary>
     /// 获得/设置 第二个窗格模板
     /// </summary>
     [Parameter]
     public RenderFragment? SecondPaneTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 第一个窗格模板
+    /// </summary>
+    [Parameter]
+    public string? SecondPaneMinimumSize { get; set; }
 
     /// <summary>
     /// 获得/设置 窗格折叠时回调方法 参数 bool 值为 true 是表示已折叠 值为 false 表示第二个已折叠
