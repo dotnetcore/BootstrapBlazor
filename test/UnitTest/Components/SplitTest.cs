@@ -67,24 +67,31 @@ public class SplitTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnCollapsedAsync_Ok()
+    public async Task OnResizedAsync_Ok()
     {
-        var state = false;
+        SplitterResizedEventArgs? state = null;
         var cut = Context.RenderComponent<Split>(pb =>
         {
             pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
             pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
             pb.Add(b => b.IsCollapsible, true);
-            pb.Add(b => b.OnCollapsedAsync, async (collapsed) =>
+            pb.Add(b => b.OnResizedAsync, async args =>
             {
-                state = collapsed;
+                state = args;
                 await Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnCollapsed(true));
-        Assert.True(state);
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnCollapsed(false));
-        Assert.False(state);
+        Assert.Null(state);
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnResize("0%"));
+        Assert.NotNull(state);
+        Assert.Equal("0%", state.FirstPanelSize);
+        Assert.True(state.IsCollapsed);
+        Assert.False(state.IsExpanded);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnResize("100%"));
+        Assert.Equal("100%", state.FirstPanelSize);
+        Assert.True(state.IsExpanded);
+        Assert.False(state.IsCollapsed);
     }
 
     static RenderFragment RenderSplitView(string name = "I am Pane1") => builder =>
