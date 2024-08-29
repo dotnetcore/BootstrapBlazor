@@ -97,12 +97,6 @@ public sealed partial class Split
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new { IsKeepOriginalSize });
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -119,6 +113,15 @@ public sealed partial class Split
             await InvokeVoidAsync("update", Id);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new
+    {
+        IsKeepOriginalSize,
+    });
 
     /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
