@@ -136,26 +136,28 @@ const getMin = split => {
     let ret = 0;
     const { splitLeft } = split;
     const leftMin = splitLeft.getAttribute('data-bb-min');
-
-    if (leftMin.substring(leftMin.length) === '%') {
-        ret = leftMin.substring(0, leftMin.length - 1);
-    }
-    else {
-        ret = convertToPercent(split, leftMin);
+    if (leftMin) {
+        if (leftMin.substring(leftMin.length) === '%') {
+            ret = leftMin.substring(0, leftMin.length - 1);
+        }
+        else {
+            ret = convertToPercent(split, leftMin);
+        }
     }
     return ret;
 }
 
 const getMax = split => {
-    let ret = 0;
+    let ret = 100;
     const { splitRight } = split;
     const rightMin = splitRight.getAttribute('data-bb-min');
-
-    if (rightMin.substring(rightMin.length) === '%') {
-        ret = 100 - parseFloat(rightMin.substring(0, rightMin.length - 1));
-    }
-    else {
-        ret = 100 - convertToPercent(split, rightMin);
+    if (rightMin) {
+        if (rightMin.substring(rightMin.length) === '%') {
+            ret = 100 - parseFloat(rightMin.substring(0, rightMin.length - 1));
+        }
+        else {
+            ret = 100 - convertToPercent(split, rightMin);
+        }
     }
     return ret;
 }
