@@ -99,6 +99,14 @@ public sealed partial class Splits
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "OnResizedAsync",
+            Description = Localizer["SplitsOnResizedAsync"],
+            Type = "Func<SplitterResizedEventArgs, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }
