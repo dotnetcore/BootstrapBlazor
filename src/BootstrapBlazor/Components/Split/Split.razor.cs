@@ -120,7 +120,7 @@ public sealed partial class Split
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerOnResize), new
     {
-        IsKeepOriginalSize,
+        IsKeepOriginalSize
     });
 
     /// <summary>
