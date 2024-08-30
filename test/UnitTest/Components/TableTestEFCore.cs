@@ -6,8 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UnitTest.Components;
 
-public class TableTestEFCore : EFCoreTableTestBase
+public class TableTestEFCore : BootstrapBlazorTestBase
 {
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        base.ConfigureServices(services);
+        services.AddDbContextFactory<FooContext>(option =>
+        {
+            option.UseSqlite("Data Source=FooTest.db;");
+        });
+    }
+
     [Fact]
     public async Task SearchText_Ok()
     {
