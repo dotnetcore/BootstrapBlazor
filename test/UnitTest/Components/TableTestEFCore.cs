@@ -97,4 +97,28 @@ public class TableTestEFCore : BootstrapBlazorTestBase
         Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
     }
+
+    class FooContext(DbContextOptions<FooContext> options) : DbContext(options)
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotNull]
+        public DbSet<Foo>? Foos { get; set; }
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Foo>().ToTable("Foo");
+            modelBuilder.Entity<Foo>().Ignore(f => f.DateTime);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Count);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Complete);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Education);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Hobby);
+            modelBuilder.Entity<Foo>().Ignore(f => f.ReadonlyColumn);
+        }
+    }
 }
