@@ -156,7 +156,7 @@ public partial class Dropdown<TValue>
         base.OnParametersSet();
 
         // 合并 Items 与 Options 集合
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
 
         if (!Items.Any() && typeof(TValue).IsEnum())
         {
