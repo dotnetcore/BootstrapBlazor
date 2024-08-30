@@ -9,8 +9,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
-public class ValidateFormTest : ValidateFormTestBase
+public class ValidateFormTest : BootstrapBlazorTestBase
 {
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddBootstrapBlazor();
+        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { GetType().Assembly });
+    }
+
     [Fact]
     public void BootstrapBlazorDataAnnotationsValidator_Error()
     {

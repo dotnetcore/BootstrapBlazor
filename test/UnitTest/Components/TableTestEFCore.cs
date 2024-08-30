@@ -6,8 +6,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace UnitTest.Components;
 
-public class TableTestEFCore : EFCoreTableTestBase
+public class TableTestEFCore : BootstrapBlazorTestBase
 {
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        base.ConfigureServices(services);
+        services.AddDbContextFactory<FooContext>(option =>
+        {
+            option.UseSqlite("Data Source=FooTest.db;");
+        });
+    }
+
     [Fact]
     public async Task SearchText_Ok()
     {
@@ -87,5 +96,29 @@ public class TableTestEFCore : EFCoreTableTestBase
         var conditions = cut.FindComponent<EnumFilter>().Instance.GetFilterConditions();
         Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
+    }
+
+    class FooContext(DbContextOptions<FooContext> options) : DbContext(options)
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [NotNull]
+        public DbSet<Foo>? Foos { get; set; }
+
+        /// <summary>
+        /// <inheritdoc />
+        /// </summary>
+        /// <param name="modelBuilder"></param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Foo>().ToTable("Foo");
+            modelBuilder.Entity<Foo>().Ignore(f => f.DateTime);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Count);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Complete);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Education);
+            modelBuilder.Entity<Foo>().Ignore(f => f.Hobby);
+            modelBuilder.Entity<Foo>().Ignore(f => f.ReadonlyColumn);
+        }
     }
 }

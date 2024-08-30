@@ -2,10 +2,18 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text;
+
 namespace UnitTest.Components;
 
-public class ExportPdfButtonTest : ExportPdfTestBase
+public class ExportPdfButtonTest : BootstrapBlazorTestBase
 {
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddBootstrapBlazor();
+        services.AddSingleton<IHtml2Pdf, MockHtml2PdfService>();
+    }
+
     [Fact]
     public async Task Normal_Ok()
     {
@@ -144,5 +152,25 @@ public class ExportPdfButtonTest : ExportPdfTestBase
         Assert.NotNull(button.OnBeforeDownload);
         Assert.NotNull(button.OnAfterDownload);
         Assert.True(button.IsAsync);
+    }
+
+    class MockHtml2PdfService : IHtml2Pdf
+    {
+        public Task<byte[]> PdfDataAsync(string url)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<byte[]> PdfDataFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Stream> PdfStreamAsync(string url)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Stream> PdfStreamFromHtmlAsync(string html, IEnumerable<string>? links = null, IEnumerable<string>? scripts = null) => Task.FromResult<Stream>(new MemoryStream(Encoding.UTF8.GetBytes("Hello World")));
     }
 }
