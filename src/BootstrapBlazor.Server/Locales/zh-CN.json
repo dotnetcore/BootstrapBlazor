@@ -1759,7 +1759,7 @@
     "SplitsNestedTitle": "嵌套使用",
     "SplitsNestedIntro": "通过嵌套 <code>Split</code> 组件进行组合布局",
     "SplitsMinimumTitle": "最小值",
-    "SplitsMinimumIntro": "通过设置 <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> 值限制面板最小尺寸，支持所有单位",
+    "SplitsMinimumIntro": "通过设置 <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> 值限制面板最小尺寸，支持所有单位。本例中设置左右面板最小值均为 <code>10%</code>",
     "SplitsPanel5": "上边面板",
     "SplitsPanel6": "下边面板",
     "SplitsPanel7": "右边面板",
