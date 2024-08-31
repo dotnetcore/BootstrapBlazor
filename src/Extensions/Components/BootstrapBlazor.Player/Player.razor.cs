@@ -8,9 +8,9 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 视频播放器 VideoPlayer 组件
+/// 视频播放器 Player 组件
 /// </summary>
-public partial class VideoPlayer
+public partial class Player
 {
     /// <summary>
     /// 获得/设置 资源地址
