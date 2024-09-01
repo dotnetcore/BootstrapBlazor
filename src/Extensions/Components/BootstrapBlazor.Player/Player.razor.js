@@ -4,37 +4,66 @@ import { addLink } from '../BootstrapBlazor/modules/utility.js';
 import Data from '../BootstrapBlazor/modules/data.js';
 
 export async function init(id, invoke, method, options) {
-    await addLink('./_content/BootstrapBlazor.VideoPlayer/plyr.css');
+    await addLink('./_content/BootstrapBlazor.Player/plyr.css');
 
     const el = document.getElementById(id);
     const p = { el, invoke, method };
     Data.set(id, p);
 
-    //const type = options.sources[0].type;
-    //if (player.supports(type)) {
-    //    const { poster } = options;
-    //    player.source = {
-    //        type: 'video',
-    //        title: 'Example title',
-    //        poster: poster,
-    //        sources: options.sources
-    //    };
-    //}
-    //else
-    if (Hls.isSupported()) {
+    const source = options.source;
+    delete options.source;
+    p.player = new Plyr(el, options);
+    if (source.sources.length === 0) {
+        return;
+    }
+
+    if (source.sources[0].type !== 'application/x-mpegURL') {
+        p.player.source = source;
+    }
+    else if (Hls.isSupported()) {
         const hls = new Hls();
-        hls.loadSource(options.sources[0].src)
+        hls.loadSource(options.source[0].src)
         hls.attachMedia(el);
         p.hls = hls;
 
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-            console.log('parsed', event, data)
             const player = new Plyr(el);
             player.on('languagechange', () => {
-                console.log('languagechange');
                 setTimeout(() => hls.subtitleTrack = player.currentTrack, 300);
             });
             p.player = player;
+        });
+
+    }
+}
+
+export function update(id, options) {
+    const p = Data.get(id);
+    if (p === null) {
+        return;
+    }
+    const { player, el } = p;
+    const source = options.source;
+    delete options.source;
+    if (source.sources[0].type !== 'application/x-mpegURL') {
+        player.source = source;
+    }
+    else if (Hls.isSupported()) {
+        player.stop();
+        player.source = source;
+
+        if (p.hls === void 0) {
+            p.hls = new Hls();
+            p.hls.attachMedia(el);
+        }
+        p.hls.loadSource(source.sources[0].src)
+        el.load();
+        el.play();
+
+        p.hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
+            player.on('languagechange', () => {
+                setTimeout(() => hls.subtitleTrack = player.currentTrack, 300);
+            });
         });
     }
 }

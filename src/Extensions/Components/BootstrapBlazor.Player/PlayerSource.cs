@@ -7,18 +7,17 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// PlayerSources 配置类
+/// 播放媒体资源类
 /// </summary>
-public class PlayerSources
+public class PlayerSource
 {
     /// <summary>
-    /// 获得/设置 资源地址
+    /// 获得/设置 资源类型 默认 video
     /// </summary>
-    [JsonPropertyName("src")]
-    public string? Url { get; set; }
+    public string Type { get; set; } = "video";
 
     /// <summary>
-    /// 获得/设置 资源类型
+    /// 获得 资源集合
     /// </summary>
-    public string? Type { get; set; } = "application/x-mpegURL";
+    public List<PlayerSources> Sources { get; } = [];
 }
