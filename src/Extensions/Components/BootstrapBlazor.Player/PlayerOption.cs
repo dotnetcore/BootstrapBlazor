@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 播放器选项类
 /// </summary>
-public class VideoPlayerOption
+public class PlayerOption
 {
     /// <summary>
     /// 获得/设置 宽度
@@ -55,8 +55,13 @@ public class VideoPlayerOption
     public string? Language { get; set; }
 
     /// <summary>
+    /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>
+    /// </summary>
+    public PlayerThumbnail Thumbnail { get; } = new();
+
+    /// <summary>
     /// 获得/设置 播放资源
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<VideoPlayerSources> Sources { get; } = [];
+    public PlayerSource Source { get; } = new();
 }
