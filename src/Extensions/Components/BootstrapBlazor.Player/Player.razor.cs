@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -16,19 +17,7 @@ public partial class Player
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public PlayerOption? Option { get; set; }
-
-    /// <summary>
-    /// 获得/设置 封面 Url
-    /// </summary>
-    [Parameter]
-    public string? Poster { get; set; }
-
-    /// <summary>
-    /// 获得/设置 界面语言
-    /// </summary>
-    [Parameter]
-    public string? Language { get; set; }
+    public Func<Task<PlayerOption>>? OnInitAsync { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-video-player")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -38,26 +27,13 @@ public partial class Player
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-
-        }
-        else
-        {
-            await InvokeVoidAsync("update", Id, Option);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        await InvokeVoidAsync("init", Id, Interop, "", Option);
+        if (OnInitAsync != null)
+        {
+            var option = await OnInitAsync();
+            option.Language ??= CultureInfo.CurrentUICulture.Name;
+            await InvokeVoidAsync("init", Id, Interop, "", option);
+        }
     }
 }

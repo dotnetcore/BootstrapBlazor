@@ -55,6 +55,11 @@ public class PlayerOption
     public string? Language { get; set; }
 
     /// <summary>
+    /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>
+    /// </summary>
+    public PlayerThumbnail Thumbnail { get; } = new();
+
+    /// <summary>
     /// 获得/设置 播放资源
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

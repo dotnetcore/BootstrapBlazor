@@ -11,21 +11,8 @@ export async function init(id, invoke, method, options) {
     const p = { el, invoke, method };
     Data.set(id, p);
 
-    options.thumbnail = {
-        enabled: true,
-        pic_num: 184,
-        width: 178,
-        height: 100,
-        col: 7,
-        row: 7,
-        offsetX: 0,
-        offsetY: 0,
-        urls: [
-            'https://cdn.plyr.io/static/demo/thumbs/100p-00001.jpg',
-            'https://cdn.plyr.io/static/demo/thumbs/100p-00002.jpg',
-            'https://cdn.plyr.io/static/demo/thumbs/100p-00003.jpg',
-            'https://cdn.plyr.io/static/demo/thumbs/100p-00004.jpg'
-        ]
+    if (options.language === 'zh-CN') {
+        setLang(options);
     }
     const source = options.source;
     delete options.source;
@@ -51,6 +38,53 @@ export async function init(id, invoke, method, options) {
             p.player = player;
         });
 
+    }
+}
+
+const setLang = (option) => {
+    option.i18n = {
+        restart: '重启',
+        rewind: '后退 {seektime}s',
+        play: '播放',
+        pause: '暂停',
+        fastForward: '前进 {seektime}s',
+        seek: '进度',
+        seekLabel: '{currentTime} of {duration}',
+        played: '已播放',
+        buffered: '已缓冲',
+        currentTime: '当前时间',
+        duration: '时长',
+        volume: '音量',
+        mute: '静音',
+        unmute: '取消静音',
+        enableCaptions: '开启字幕',
+        disableCaptions: '禁用字幕',
+        download: '下载',
+        enterFullscreen: '全屏',
+        exitFullscreen: '退出全屏',
+        frameTitle: 'Player for {title}',
+        captions: '字幕',
+        settings: '设置',
+        menuBack: '返回上级菜单',
+        speed: '倍速',
+        normal: '正常',
+        quality: '清晰度',
+        loop: '循环',
+        start: '开始',
+        end: '结束',
+        all: '所有',
+        reset: '重置',
+        disabled: '禁用',
+        enabled: '启用',
+        advertisement: '广告',
+        qualityBadge: {
+            2160: '4K',
+            1440: 'HD',
+            1080: 'HD',
+            720: 'HD',
+            576: 'SD',
+            480: 'SD',
+        }
     }
 }
 
