@@ -75,6 +75,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Player\BootstrapBlazor.Player.csproj" />
   </ItemGroup>
 
   <ItemGroup>
