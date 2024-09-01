@@ -17,7 +17,17 @@ public class PlayerSource
     public string Type { get; set; } = "video";
 
     /// <summary>
+    /// 获得/设置 封面地址
+    /// </summary>
+    public string? Poster { get; set; }
+
+    /// <summary>
     /// 获得 资源集合
     /// </summary>
     public List<PlayerSources> Sources { get; } = [];
+
+    /// <summary>
+    /// 获得 资源集合
+    /// </summary>
+    public List<PlayerTracks> Tracks { get; } = [];
 }

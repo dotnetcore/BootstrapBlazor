@@ -1,15 +1,32 @@
 ﻿import './plyr.js';
 import './hls.js';
-import { addLink } from '../BootstrapBlazor/modules/utility.js';
+import { addLink, addScript } from '../BootstrapBlazor/modules/utility.js';
 import Data from '../BootstrapBlazor/modules/data.js';
 
 export async function init(id, invoke, method, options) {
     await addLink('./_content/BootstrapBlazor.Player/plyr.css');
+    await addScript('./_content/BootstrapBlazor.Player/plyr-plugin-thumbnail.js');
 
     const el = document.getElementById(id);
     const p = { el, invoke, method };
     Data.set(id, p);
 
+    options.thumbnail = {
+        enabled: true,
+        pic_num: 184,
+        width: 178,
+        height: 100,
+        col: 7,
+        row: 7,
+        offsetX: 0,
+        offsetY: 0,
+        urls: [
+            'https://cdn.plyr.io/static/demo/thumbs/100p-00001.jpg',
+            'https://cdn.plyr.io/static/demo/thumbs/100p-00002.jpg',
+            'https://cdn.plyr.io/static/demo/thumbs/100p-00003.jpg',
+            'https://cdn.plyr.io/static/demo/thumbs/100p-00004.jpg'
+        ]
+    }
     const source = options.source;
     delete options.source;
     p.player = new Plyr(el, options);
