@@ -55,6 +55,12 @@ public class PlayerOption
     public string? Language { get; set; }
 
     /// <summary>
+    /// 获得 视频标记点实例 <see cref="PlayerMarker"/>
+    /// </summary>
+    [JsonPropertyName("markers")]
+    public PlayerMarker Makers { get; } = new();
+
+    /// <summary>
     /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>
     /// </summary>
     public PlayerThumbnail Thumbnail { get; } = new();

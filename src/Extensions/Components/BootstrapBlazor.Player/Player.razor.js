@@ -16,6 +16,7 @@ export async function init(id, invoke, method, options) {
     }
     const source = options.source;
     delete options.source;
+
     p.player = new Plyr(el, options);
     if (source.sources.length === 0) {
         return;
