@@ -12,6 +12,11 @@ namespace BootstrapBlazor.Components;
 public class PlayerOption
 {
     /// <summary>
+    /// 获得/设置 是否为 Hls 播放资源 默认 false
+    /// </summary>
+    public bool IsHls { get; set; }
+
+    /// <summary>
     /// 获得/设置 宽度
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -53,6 +58,12 @@ public class PlayerOption
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Language { get; set; }
+
+    /// <summary>
+    /// 获得 视频标记点实例 <see cref="PlayerMarker"/>
+    /// </summary>
+    [JsonPropertyName("markers")]
+    public PlayerMarker Makers { get; } = new();
 
     /// <summary>
     /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>

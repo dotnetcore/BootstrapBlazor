@@ -6759,5 +6759,14 @@
     "OnMaximizeAsync": "最大化弹窗回调方法",
     "OnMinimizeAsync": "最小化弹窗回调方法",
     "OnCloseAsync": "关闭弹窗回调方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Players": {
+    "PlayersTitle": "Player 音视频播放器",
+    "PlayersDescription": "一个简单、可访问和可定制的媒体播放器",
+    "PlayersTips": "<code>Player</code> 组件支持 视频，音频，<b>Youtube</b> 和 <b>Vimeo</b>",
+    "PlayersNormalTitle": "基础用法",
+    "PlayersNormalIntro": "通过回调方法 <code>OnInitAsync</code> 设置组件所需要的配置实例 <code>PlayerOption</code>。通过 <code>PlayerOption</code> 属性值对播放器进行设置",
+    "PlayersHlsTitle": "HLS 支持",
+    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持"
   }
 }

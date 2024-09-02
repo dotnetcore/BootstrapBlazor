@@ -218,7 +218,8 @@
     "image-cropper": "ImageCroppers",
     "barcode-generator": "BarcodeGenerators",
     "sortable-list": "SortableLists",
-    "win-box": "WinBoxes"
+    "win-box": "WinBoxes",
+    "player": "Players"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",

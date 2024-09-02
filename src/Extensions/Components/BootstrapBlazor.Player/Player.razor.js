@@ -14,30 +14,43 @@ export async function init(id, invoke, method, options) {
     if (options.language === 'zh-CN') {
         setLang(options);
     }
-    const source = options.source;
-    delete options.source;
-    p.player = new Plyr(el, options);
-    if (source.sources.length === 0) {
-        return;
-    }
 
-    if (source.sources[0].type !== 'application/x-mpegURL') {
+    if (options.isHls === true) {
+        delete options.isHls;
+        initHls(p, options)
+    }
+    else {
+        const source = options.source;
+        delete options.source;
+
+        p.player = new Plyr(el, options);
+        if (source.sources.length === 0) {
+            return;
+        }
         p.player.source = source;
     }
-    else if (Hls.isSupported()) {
+}
+
+const initHls = (p, options) => {
+    if (Hls.isSupported()) {
+        const { el } = p;
         const hls = new Hls();
-        hls.loadSource(options.source[0].src)
-        hls.attachMedia(el);
+        const source = options.source.sources;
+        if (source.length > 0) {
+            const src = source[0].src;
+            hls.loadSource(src)
+            hls.attachMedia(el);
+        }
         p.hls = hls;
 
         hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-            const player = new Plyr(el);
+            const player = new Plyr(el, options);
+            player.poster = source.poster ?? options.poster;
             player.on('languagechange', () => {
-                setTimeout(() => hls.subtitleTrack = player.currentTrack, 300);
+                setTimeout(() => hls.subtitleTrack = player.currentTrack, 50);
             });
             p.player = player;
         });
-
     }
 }
 

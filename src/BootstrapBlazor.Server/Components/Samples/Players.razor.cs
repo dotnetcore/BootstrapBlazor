@@ -9,12 +9,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Players
 {
-    private string _url = "//vjs.zencdn.net/v/oceans.mp4";
-    private string _type = "video/mp4";
+    private string _url = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8";
 
     private List<SelectedItem> Items { get; } = [];
-
-    private PlayerOption _options = new();
 
     /// <summary>
     /// OnInitialized 方法
@@ -32,17 +29,15 @@ public partial class Players
         Items.Add(new SelectedItem("https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8", "TestVideo7"));
         Items.Add(new SelectedItem("https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.mp4/.m3u8", "TestVideo8"));
         Items.Add(new SelectedItem("https://diceyk6a7voy4.cloudfront.net/e78752a1-2e83-43fa-85ae-3d508be29366/hls/fitfest-sample-1_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_30Hz_6.0Mbps_qvbr.m3u8", "TestVideo9"));
-        Items.Add(new SelectedItem("//vjs.zencdn.net/v/oceans.mp4", "Mp4"));
-        Items.Add(new SelectedItem("https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4", "Mp4"));
     }
 
-    private Task<PlayerOption> InitNormalPlayer()
+    private static Task<PlayerOption> InitNormalPlayer()
     {
         var options = new PlayerOption();
         options.Source.Poster = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg";
-        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4", Type = _type });
-        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4", Type = _type });
-        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4", Type = _type });
+        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4", Type = "video/mp4" });
+        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4", Type = "video/mp4" });
+        options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4", Type = "video/mp4" });
 
         options.Source.Tracks.Add(new PlayerTracks { Src = "https://cdn.plyr.io/static/demo/video/View_From_A_Blue_Moon_Trailer-HD.en.vtt", SrcLang = "en", Label = "English", Default = true });
         options.Source.Tracks.Add(new PlayerTracks { Src = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt", SrcLang = "fr", Label = "Français" });
@@ -54,32 +49,32 @@ public partial class Players
         options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00003.jpg");
         options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00004.jpg");
 
+        options.Makers.Enabled = true;
+        options.Makers.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
+        options.Makers.Points.Add(new PlayerPoint() { Time = 50, Label = "Second Marker" });
+
+        return Task.FromResult(options);
+    }
+
+    private Task<PlayerOption> InitHlsPlayer()
+    {
+        var options = new PlayerOption
+        {
+            IsHls = true,
+            Poster = "https://bitdash-a.akamaihd.net/content/sintel/poster.png"
+        };
+        options.Source.Sources.Add(new PlayerSources { Url = _url, Type = "application/x-mpegURL" });
+
+        options.Makers.Enabled = true;
+        options.Makers.Points.Add(new PlayerPoint() { Time = 60, Label = "First Marker" });
+        options.Makers.Points.Add(new PlayerPoint() { Time = 300, Label = "Second Marker" });
+
         return Task.FromResult(options);
     }
 
     private Task ChangeUrl(SelectedItem e)
     {
-        //_url = e.Value;
-        //_type = e.Text == "Mp4" ? "video/mp4" : "application/x-mpegURL";
-        //_options ??= new();
-        //_options.Source.Sources.Clear();
-
-        //if (Items.Last() == e)
-        //{
-        //    _options.Source.Poster = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg";
-        //    _options.Source.Sources.Add(new PlayerSources { Url = _url, Type = _type });
-        //    _options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-720p.mp4", Type = _type });
-        //    _options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1080p.mp4", Type = _type });
-        //    _options.Source.Sources.Add(new PlayerSources { Url = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-1440p.mp4", Type = _type });
-
-        //    _options.Source.Tracks.Add(new PlayerTracks { Src = "https://cdn.plyr.io/static/demo/video/View_From_A_Blue_Moon_Trailer-HD.en.vtt", SrcLang = "en", Label = "English", Default = true });
-        //    _options.Source.Tracks.Add(new PlayerTracks { Src = "https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.fr.vtt", SrcLang = "fr", Label = "Français" });
-        //}
-        //else
-        //{
-        //    _options.Source.Sources.Add(new PlayerSources { Url = _url, Type = _type });
-        //}
-
+        //_options.Source.Sources.Add(new PlayerSources { Url = _url, Type = _type });
         StateHasChanged();
         return Task.CompletedTask;
     }
