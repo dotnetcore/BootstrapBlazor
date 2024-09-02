@@ -667,6 +667,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Player"],
+                    Url = "player"
+                },
+                new()
+                {
                     Text = Localizer["Print"],
                     Url = "print"
                 },
@@ -1136,7 +1142,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DriverJs"],
                     Url = "driver-js"
                 },
@@ -1147,7 +1152,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["IntersectionObserver"],
                     Url = "intersection-observer"
                 },
@@ -1233,7 +1237,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["WinBox"],
                     Url = "win-box"
                 }
@@ -1346,7 +1349,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SortableList"],
                     Url = "sortable-list"
                 },
@@ -1425,7 +1427,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DrawerService"],
                     Url = "drawer-service"
                 },
@@ -1519,13 +1520,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["AntDesignIcon"],
                     Url = "ant-design-icon"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ElementIcon"],
                     Url = "element-icon"
                 },
