@@ -20,7 +20,8 @@
     "LoginSummary": "Login&Register",
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
-    "DrawingSummary": "Drawing"
+    "DrawingSummary": "Drawing",
+    "AdminSummary": "Admin"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
@@ -35,7 +36,7 @@
     "CopiedText": "Copied"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "Support NET6.0 & NET7.0 & NET8.0",
+    "Support": "Support NET6.0 & NET7.0 & NET8.0 & NET9.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor is an enterprise-grade library that fuses Bootstrap with Blazor, offering developers a powerful toolkit for building responsive and interactive web applications effortlessly.",
     "Docs": "Read the docs",
@@ -562,7 +563,12 @@
     "LineChartJSTitle": "Generate Chart through JS",
     "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS.",
     "AppendDataTitle": "Append Data",
-    "AppendDataIntro": "Since <code>ChartDataSource</code> does not fully encapsulate all parameters in <code>Chart.JS</code>, when we need to set some unprovided parameters, we can use <code>AppendData</code> to complete it."
+    "AppendDataIntro": "Since <code>ChartDataSource</code> does not fully encapsulate all parameters in <code>Chart.JS</code>, when we need to set some unprovided parameters, we can use <code>AppendData</code> to complete it.",
+    "CustomTooltipTitle": "Tooltip",
+    "CustomTooltipIntro": "Customizing <code>Tooltip</code> requires using client script settings",
+    "CustomTooltipLi1": "<code>Chart</code> component settings <b>Id</b> parameter",
+    "CustomTooltipLi2": "Create a client-side <code>JavaScript</code> script. This example uses the isolated script method to export the method name <code>customTooltip</code>. The parameters are <b>component Id</b> <b>callback reference instance</b> <b>callback method name (TooltipLog)</b>",
+    "CustomTooltipLi3": "In this example, the base class method <code>InvokeInitAsync</code> is overloaded to call the client script through the <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId, Interop, nameof(TooltipLog))</code> statement"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar graph",
@@ -1752,13 +1758,30 @@
     "SplitsPanel4": "I am the bottom panel",
     "SplitsNestedTitle": "Nested use",
     "SplitsNestedIntro": "Combine layout by nesting <code>Split</code> components",
+    "SplitsMinimumTitle": "Minimum",
+    "SplitsMinimumIntro": "By setting <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> values. In this example, the minimum values ​​of the left and right panels are set to <code>10%</code>",
     "SplitsPanel5": "Upper",
     "SplitsPanel6": "Lower",
     "SplitsPanel7": "Right",
-    "SplitsIsVertical": "style",
+    "SplitsCollapsibleTitle": "Collapse/Expand",
+    "SplitsCollapsibleIntro": "Set whether the panels can be collapsed by configuring the <code>FirstPaneCollapsible</code> and <code>SecondPaneCollapsible</code> properties",
+    "SplitsPanel8": "Upper",
+    "SplitsPanel9": "Lower",
+    "SplitsPanel10": "Right",
+    "SplitsIsVertical": "Vertical",
     "SplitsBasis": "Percentage of first pane position",
-    "SplitsFirstPanelTemplate": "First pane template",
-    "SplitsSecondPanelTemplate": "Second pane template"
+    "SplitsFirstPaneTemplate": "First pane template",
+    "SplitsSecondPaneTemplate": "Second pane template",
+    "SplitsIsCollapsible": "Whether to expand or collapse the split view",
+    "SplitsIsKeepOriginalSize": "Whether to keep the original size when restoring after collapsed",
+    "SplitsShowBarHandle": "Whether to display the drag bar",
+    "SplitsBarHandleShow": "Bar handle shown",
+    "SplitsBarHandleHide": "Bar handle hidden",
+    "SplitsOnResizedAsync": "Callback method when the panel size changes",
+    "SplitsCollapsibleTrue": "Collapse button shown",
+    "SplitsCollapsibleFalse": "Collapse button hidden",
+    "SplitsFirstPaneMinimumSize": "The minimum size of the first pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
+    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px."
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",
@@ -2736,8 +2759,8 @@
     "InputsTrimIntro": "Use <code>IsTrim=\"true\"</code> to automatically trim white space when entering content",
     "TrimDescription": "The front and back spaces in the component will be trimmed when set <code>IsTrim</code> to <code>true</code>",
     "InputsOnInputTitle": "Fires when the value of the text box changes",
-    "InputsOnInputIntro": "Use <code>OnInput=\"true\"</code> to trigger when the value of the text box changes, used for key-by-key response occasions",
-    "OnInputDescription": "The <code>ValueChanged</code> callback will be trigger when the keyboard is pressed if set the parameter <code>OnInput</code> to <code>true</code>",
+    "InputsOnInputIntro": "Use <code>UseInputEvent=\"true\"</code> to trigger when the value of the text box changes, used for key-by-key response occasions",
+    "OnInputDescription": "The <code>ValueChanged</code> callback will be trigger when the keyboard is pressed if set the parameter <code>UseInputEvent</code> to <code>true</code>",
     "InputsAtt1": "Validate the control",
     "InputsAtt2": "Whether to display the front label",
     "InputsAtt3": "The front label displays text",
@@ -4647,6 +4670,7 @@
     "Recognizer": "Recognizer",
     "Synthesizer": "Synthesizer",
     "SpeechWave": "SpeechWave",
+    "WebSpeech": "Web Speech Api",
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
@@ -4696,7 +4720,6 @@
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
-    "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Segmented": "Segmented",
@@ -4729,7 +4752,9 @@
     "BootstrapIcon": "Bootstrap Icons",
     "MaterialIcon": "Material Icons",
     "ElementIcon": "Element Icon",
-    "DrawerService": "DrawerService"
+    "DrawerService": "DrawerService",
+    "SortableList": "SortableList",
+    "WinBox": "WinBox"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5143,8 +5168,8 @@
     "TablesEditInjectDataServiceTips2": "Implementation principle and usage introduction",
     "TablesEditInjectDataServiceTips3": "custom data service",
     "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set",
-    "TablesVisibleNormalTitle": "Editor Visible/Hidden",
-    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
+    "TablesVisibleTitle": "Editor Visible/Hidden",
+    "TablesVisibleIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item",
     "TablesReadonlyColumnTitle": "Readonly Column",
     "TablesReadonlyColumnIntro": "By setting <code>Field</code> and <code>FieldName</code>",
     "TablesReadonlyColumnDescription": "Corresponding database calculated columns, or model read-only attributes",
@@ -5593,8 +5618,8 @@
     "DialogButtonText": "Dialog"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesAttribute": {
-    "TablesFixedHeaderTitle": "AutoGenerateClassAttribute/AutoGenerateColumnAttribute",
-    "TablesFixedHeaderDesc": "You can save a lot of code by using AutoGenerateClassAttribute or AutoGenerateColumnAttribute",
+    "TableAttributeTitle": "AutoGenerateClassAttribute/AutoGenerateColumnAttribute",
+    "TableAttributeDescription": "By using feature tags, you can save a lot of code",
     "AutoGenerateClassAttribute": "AutoGenerateClassAttribute",
     "AutoGenerateColumnAttribute": "AutoGenerateColumnAttribute",
     "AutoGenerateClassP1": "1. Usage",
@@ -5633,7 +5658,8 @@
     "Summarize": "Summarize",
     "ProjectsShow": "Exhibition",
     "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> Works <b><a href='{3}' target='_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
-    "ShowWebSiteTitle": "Demo Site",
+    "ShowWebSiteTitle1": "Demo Site(MVC & Blazor)",
+    "ShowWebSiteTitle2": "Demo Site(Blazor)",
     "GetStarted": "Get Started",
     "QuickStart": "Quick Start",
     "Features": "Features of Components",
@@ -6025,6 +6051,8 @@
     "IntroText": "Some application scenarios require us to obtain the <code>Html</code> code fragment finally output by <code>Component</code>, and call the <code>RenderAsync</code> instance method of <code>IComponentHtmlRenderer</code> service"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "Copy",
+    "ContextMenuItemPast": "Past",
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
     "ContextMenuNormalTitle": "Basic usage",
@@ -6034,7 +6062,11 @@
     "ContextMenuTableTitle": "Table",
     "ContextMenuTableIntro": "Right click on the <code>Table</code> to pop up a context menu",
     "ContextMenuTreeTitle": "Tree",
-    "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
+    "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu",
+    "ContextMenuCallbackTitle": "ContextMenu Callback",
+    "ContextMenuCallbackIntro": "By setting the <code>ContextMenu</code> component parameter <code>OnBeforeShowCallback</code>, you can get the callback event before the right-click menu pops up, which can be used for data preparation",
+    "ContextMenuDisabledTitle": "OnDisabledCallback",
+    "ContextMenuDisabledIntro": "By setting the <code>ContextMenuItem</code> component parameter <code>OnDisabledCallback</code> callback method, you can set whether the current right-click option is disabled."
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView",
@@ -6284,13 +6316,29 @@
     "Layout": "Layout",
     "Theme": "Theme"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
-    "WebSpeechTitle": "Web Speech",
-    "WebSpeechDescription": "Voice recognition and synthesis",
-    "WebSpeechNormalTitle": "Voice recognition",
-    "WebSpeechGameTitle": "Voice color selection game",
-    "WebSpeechSynthesisTitle": "Voice synthesis",
-    "WebSpeechSynthesisCustomTitle": "Voice synthesis custom"
+  "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
+    "WebSpeechTitle": "Web Speech Api",
+    "WebSpeechSubTitle": "Provide speech recognition/synthesis services using browser interface functions",
+    "WebSpeechNormalTitle": "Speech Synthesizer",
+    "WebSpeechNormalIntro": "After entering the text, select the corresponding language to read aloud",
+    "WebSpeechSpeakButtonText": "Speak",
+    "WebSpeechStopButtonText": "Stop",
+    "WebSpeechText": "Welcome blazor",
+    "WebSpeechRecognitionTitle": "Speech Recognition",
+    "WebSpeechRecognitionIntro": "Input voice through microphone for voice recognition",
+    "WebSpeechRecognitionButtonText": "Recognition",
+    "WebSpeechRecognitionContinuousTitle": "Real-time speech recognition",
+    "WebSpeechRecognitionContinuousIntro": "Real-time speech recognition by setting the <code>WebSpeechRecognitionOption</code> parameter <code>Continuous=\"true\" InterimResults=\"true\"</code>",
+    "WebSpeechRecognitionContinuousButtonText": "Recognition",
+    "RecognitionErrorNotAllowed": "The user agent disallowed any speech input from occurring for reasons of security, privacy or user preference",
+    "RecognitionErrorNoSpeech": "No speech was detected",
+    "RecognitionErrorAborted": "Speech input was aborted in some manner, perhaps by some user-agent-specific behavior like a button the user can press to cancel speech input",
+    "RecognitionErrorAudioCapture": "Audio capture failed",
+    "RecognitionErrorNetwork": "Network communication required for completing the recognition failed",
+    "RecognitionErrorNotSupported": "The browser does not support speech recognition",
+    "RecognitionErrorServiceNotAllowed": "The user agent disallowed the requested speech recognition service, either because the user agent doesn't support it or because of reasons of security, privacy or user preference. In this case it would allow another more suitable speech recognition service to be used instead",
+    "RecognitionErrorBadGrammar": "There was an error in the speech recognition grammar or semantic tags, or the chosen grammar format or semantic tag format was unsupported",
+    "RecognitionErrorLanguageNotSupported": "The user agent does not support the language specified in the value of lang attribute of the SpeechRecognition object. The set of supported languages is browser-dependent, and from frontend code there is no way to programmatically determine what languages a user's browser supports for speech recognition"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",
@@ -6590,7 +6638,7 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
@@ -6679,7 +6727,46 @@
     "SortableListFilterIntro": "By setting the <code>SortableListOption</code> parameter <code>Filter</code> to set conditional drag elements, the red element in the example cannot be dragged",
     "SortableListNestTitle": "Nest",
     "SortableListNestIntro": "By nesting the <code>SortableList</code> component",
+    "SortableListMultiTitle": "Multiple Drag",
+    "SortableListMultiIntro": "By setting the <code>SortableListOption</code> parameter <code>MultiDrag</code> you can select multiple items before dragging",
     "SortableListTableTitle": "Table Row",
-    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows."
+    "SortableListTableIntro": "By setting the <code>SortableListOption</code> parameter <code>RootSelector</code> to specify the drag root element as <code>tbody</code>, you can drag rows.",
+    "SortableListClassTitle": "Because <code>SortableList</code> is a container component, its contents are all custom components and cannot be styled. You need to set the style yourself according to the actual situation.",
+    "SortableListClassLi1": "Chosen item style <code>sortable-chosen</code>",
+    "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>",
+    "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
+    "SortableListSwapTitle": "Swap",
+    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
+  },
+  "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
+    "WinBoxTitle": "WinBox",
+    "WinBoxDescription": "Components that emulate Windows window styles",
+    "WinBoxNormalTitle": "Basic usage",
+    "WinBoxNormalIntro": "By setting the <code>WinBoxOption</code> parameter value, a pop-up window is created and displayed.",
+    "AttributeRoot": "Pop-up container root node",
+    "AttributeTitle": "Pop-up title",
+    "AttributeClass": "Pop-up style",
+    "AttributeBackground": "Popup background color",
+    "AttributeBorder": "Pop-up border",
+    "AttributeIcon": "Pop-up title icon",
+    "OnCreateAsync": "Create a pop-up callback method",
+    "OnShownAsync": "Pop-up window visible callback method",
+    "OnHideAsync": "Hide pop-up window callback method",
+    "OnFocusAsync": "Pop-up window gets focus callback method",
+    "OnBlurAsync": "Pop-up window loses focus callback method",
+    "OnFullscreenAsync": "Pop-up full screen callback method",
+    "OnRestoreAsync": "Restore pop-up window callback method",
+    "OnMaximizeAsync": "Maximize pop-up window callback method",
+    "OnMinimizeAsync": "Minimize pop-up window callback method",
+    "OnCloseAsync": "Close pop-up window callback method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Players": {
+    "PlayersTitle": "Player",
+    "PlayersDescription": "A simple, accessible and customisable media player for Video, Audio, YouTube and Vimeo",
+    "PlayersTips": "<code>Player</code> supports <b>Video</b>，<b>Audio</b>，<b>Youtube</b> and <b>Vimeo</b>",
+    "PlayersNormalTitle": "Basic usage",
+    "PlayersNormalIntro": "The callback method <code>OnInitAsync</code> sets the configuration instance <code>PlayerOption</code> required by the component. The player is set through the <code>PlayerOption</code> property value.",
+    "PlayersHlsTitle": "HLS",
+    "PlayersHlsIntro": "Enable <code>Hls</code> support by setting <code>IsHls=\"true\"</code>"
   }
 }

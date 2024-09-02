@@ -1,6 +1,7 @@
 ﻿import { getIcons, getIcon } from "./dockview-icon.js"
 import { deletePanel, findContentFromPanels } from "./dockview-panel.js"
 import { saveConfig } from "./dockview-config.js"
+import { observeGroup } from "./dockview-utils.js"
 import EventHandler from '../../BootstrapBlazor/modules/event-handler.js'
 
 const onAddGroup = group => {
@@ -22,6 +23,7 @@ const onAddGroup = group => {
         saveConfig(dockview)
     })
     createGroupActions(group);
+    dockview._inited && observeGroup(group)
 }
 
 const addGroupWithPanel = (dockview, panel, panels, index) => {
@@ -64,6 +66,7 @@ const addPanelWidthGroupId = (dockview, panel, index) => {
     dockview.addPanel({
         id: panel.id,
         title: panel.title,
+        renderer: panel.renderer,
         component: panel.component,
         position: { referenceGroup: group, index: index || 0 },
         params: { ...panel.params, isPackup, packupHeight, isMaximized, position }
@@ -100,6 +103,7 @@ const addPanelWidthCreatGroup = (dockview, panel, panels) => {
     let option = {
         id: panel.id,
         title: panel.title,
+        renderer: panel.renderer,
         component: panel.component,
         position: { referenceGroup: group },
         params: { ...panel.params, isPackup, packupHeight, isMaximized, position }
@@ -144,8 +148,11 @@ const createGroupActions = group => {
 }
 
 const disposeGroup = group => {
-    group.api.accessor.params.observer.unobserve(group.header.element);
-    group.api.accessor.params.observer.unobserve(group.header.tabContainer);
+    const { observer } = group.api.accessor.params;
+    if (observer) {
+        observer.unobserve(group.header.element);
+        observer.unobserve(group.header.tabContainer);
+    }
     removeActionEvent(group);
 }
 
@@ -299,7 +306,7 @@ const float = group => {
     const dockview = group.api.accessor;
     const x = (dockview.width - 500) / 2
     const y = (dockview.height - 460) / 2
-    const gridGroups = dockview.groups.filter(group => group.panels.length > 0 && group.type === 'grid')
+    const gridGroups = dockview.groups.filter(g => g.panels.length > 0 && g.model.location.type === 'grid')
     if (gridGroups.length <= 1) return;
 
     const { position = {} } = group.getParams()
@@ -310,7 +317,9 @@ const float = group => {
         height: position.height || 460
     }
 
-    const floatingGroup = dockview.createGroup({ id: `${group.id}_floating` });
+    const floatingGroup = dockview.createGroup({ id: getFloatingId(group.id) });
+
+    observeFloatingGroupLocationChange(floatingGroup)
 
     group.panels.slice(0).forEach((panel, index) => {
         dockview.moveGroupOrPanel({
@@ -324,12 +333,34 @@ const float = group => {
     createGroupActions(floatingGroup);
     saveConfig(dockview)
 }
+const observeFloatingGroupLocationChange = fg => {
+    const dockview = fg.api.accessor
+    fg.api.onDidLocationChange(e => {
+        if (e.location.type == 'grid') {
+            setTimeout(() => {
+                let originalGroup = dockview.groups.find(g => g.id.split('_')[0] == fg.id.split('_')[0])
+                if (originalGroup) {
+                    dockview.isClearing = true
+                    dockview.removeGroup(originalGroup)
+                    dockview.isClearing = false
+                    fg.header.rightActionsContainer.classList.remove('bb-float')
+                    saveConfig(dockview)
+                }
+            }, 0)
+
+        }
+    })
+}
+const getFloatingId = id => {
+    const arr = id.split('_')
+    return arr.length == 1 ? id + '_floating' : arr[0]
+}
 
 const dock = group => {
     if (group.locked) return;
     const dockview = group.api.accessor
-    const originGroup = dockview.groups.find(item => `${item.id}_floating` === group.id)
-    if(!originGroup) return
+    const originGroup = dockview.groups.find(g => g.id.split('_')[0] == group.id.split('_')[0] && g.id != group.id)
+    if (!originGroup) return
     dockview.setVisible(originGroup, true)
 
     let { isPackup, packupHeight, isMaximized, position } = group.getParams()
@@ -439,4 +470,4 @@ const setWidth = (observerList) => {
     })
 }
 
-export { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup };
+export { onAddGroup, addGroupWithPanel, toggleLock, disposeGroup, observeFloatingGroupLocationChange };

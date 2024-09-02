@@ -3,11 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Services;
 
-public class DrawerServiceTest : DrawerTestBase
+public class DrawerServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task Show_Ok()

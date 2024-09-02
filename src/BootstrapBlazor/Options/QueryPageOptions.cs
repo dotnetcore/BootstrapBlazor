@@ -53,7 +53,7 @@ public class QueryPageOptions
     public int StartIndex { get; set; }
 
     /// <summary>
-    /// 获得 每页条目数量 由 <see cref="Table{TItem}.PageItems"/> 与 <see cref="Table{TItem}.PageItemsSource"/> 设置
+    /// 获得 每页条目数量 由 <see cref="Table{TItem}._pageItems"/> 与 <see cref="Table{TItem}.PageItemsSource"/> 设置
     /// </summary>
     public int PageItems { get; set; } = 20;
 

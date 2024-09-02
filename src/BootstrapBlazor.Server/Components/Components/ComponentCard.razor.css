@@ -1,0 +1,3 @@
+﻿.card:hover {
+    box-shadow: var(--bs-box-shadow);
+}

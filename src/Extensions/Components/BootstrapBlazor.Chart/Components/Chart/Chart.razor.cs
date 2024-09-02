@@ -102,12 +102,6 @@ public partial class Chart
     public bool IsAnimation { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 扩展数据 默认为空 序列化到浏览器与数据集合 <see cref="ChartDataSource "/> 合并，方便把组件未提供的参数传递到浏览器
-    /// </summary>
-    [Parameter]
-    public object? AppendData { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件数据初始化委托方法
     /// </summary>
     [Parameter]
@@ -157,9 +151,9 @@ public partial class Chart
 
         if (firstRender)
         {
-            if (OnInitAsync == null && AppendData == null)
+            if (OnInitAsync == null)
             {
-                throw new InvalidOperationException($"{nameof(OnInitAsync)} parameter or {nameof(AppendData)} must one be set. {nameof(OnInitAsync)} 回调方法或者 {nameof(AppendData)} 参数必须设置一个");
+                throw new InvalidOperationException($"{nameof(OnInitAsync)} parameter must be set. {nameof(OnInitAsync)} 回调方法必须设置");
             }
 
             ChartDataSource? ds = null;
@@ -175,7 +169,7 @@ public partial class Chart
                 }
             }
 
-            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds, AppendData);
+            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds);
         }
     }
 
@@ -216,7 +210,7 @@ public partial class Chart
             var ds = await OnInitAsync();
             UpdateOptions(ds);
 
-            await InvokeVoidAsync("update", Id, ds, action.ToDescriptionString(), Angle);
+            await InvokeVoidAsync("update", Id, Interop, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {

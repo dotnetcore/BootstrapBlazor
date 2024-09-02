@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +13,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableTest : TableTestBase
+public class TableTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_Ok()
@@ -5837,6 +5836,7 @@ public class TableTest : TableTestBase
     [Fact]
     public async Task Refresh_Ok()
     {
+        var selectedRows = new List<Foo>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -5846,6 +5846,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5853,11 +5854,22 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.SelectedRows, selectedRows);
+                pb.Add(a => a.SelectedRowsChanged, EventCallback.Factory.Create<List<Foo>>(Context, rows =>
+                {
+                    selectedRows = rows;
+                }));
             });
         });
 
+        // 选中行
+        var btn = cut.Find("tbody tr td input");
+        await cut.InvokeAsync(() => btn.Click());
+
         var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-arrows-rotate");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+
+        Assert.Single(selectedRows);
     }
 
     [Fact]

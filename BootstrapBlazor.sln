@@ -156,7 +156,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestSvgIcon", "test\UniT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Core", "src\Extensions\Components\BootstrapBlazor.Core\BootstrapBlazor.Core.csproj", "{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Sortable", "src\Extensions\Components\BootstrapBlazor.Sortable\BootstrapBlazor.Sortable.csproj", "{50F286FD-D814-46C3-A70C-C2F789C4338C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Sortable", "src\Extensions\Components\BootstrapBlazor.Sortable\BootstrapBlazor.Sortable.csproj", "{50F286FD-D814-46C3-A70C-C2F789C4338C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WinBox", "src\Extensions\Components\BootstrapBlazor.WinBox\BootstrapBlazor.WinBox.csproj", "{C19A57F2-DBE3-4CD4-96EA-337C93A4D886}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Player", "src\Extensions\Components\BootstrapBlazor.Player\BootstrapBlazor.Player.csproj", "{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -370,6 +374,14 @@ Global
 		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50F286FD-D814-46C3-A70C-C2F789C4338C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -434,6 +446,8 @@ Global
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{7ACF4C1A-C06F-4D2E-A86A-BE40C70E403D} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{50F286FD-D814-46C3-A70C-C2F789C4338C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

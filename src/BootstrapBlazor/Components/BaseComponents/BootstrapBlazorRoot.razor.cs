@@ -19,6 +19,9 @@ public partial class BootstrapBlazorRoot
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
+    [Inject, NotNull]
+    private IEnumerable<IRootComponentGenerator>? Generators { get; set; }
+
     /// <summary>
     /// 获得/设置 子组件
     /// </summary>

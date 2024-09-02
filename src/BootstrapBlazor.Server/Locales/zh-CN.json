@@ -20,7 +20,8 @@
     "LoginSummary": "登陆注册 Login&Register",
     "WaterfallSummary": "瀑布流图片 Waterfall",
     "TranslateSummary": "翻译工具 Translate",
-    "DrawingSummary": "画图 Drawing"
+    "DrawingSummary": "画图 Drawing",
+    "AdminSummary": "中台 Admin"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor - 组件库",
@@ -35,7 +36,7 @@
     "CopiedText": "复制代码成功"
   },
   "BootstrapBlazor.Server.Components.Pages.Index": {
-    "Support": "支持 NET6.0 & NET7.0 & NET8.0",
+    "Support": "支持 NET6.0 & NET7.0 & NET8.0 & NET9.0",
     "Title": "Bootstrap Blazor UI",
     "SubTitle": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，无缝整合了 Bootstrap 框架与 Blazor 技术。它提供了一整套强大的工具，使开发者能够轻松创建响应式和交互式的 Web 应用程序。",
     "Docs": "阅读文档",
@@ -562,7 +563,12 @@
     "LineChartJSTitle": "通过JS生成Chart",
     "LineChartJSIntro": "由于 <code>BootstrapBlazor.Chart</code> 底层引用了 <code>Chart.JS</code> 所以我们可以通过JS方式来调用并生成图表。",
     "AppendDataTitle": "数据参数扩展",
-    "AppendDataIntro": "由于 <code>ChartDataSource</code> 没有完全封装 <code>Chart.JS</code> 中所有参数，当我们需要设置一些未提供的参数时，可以通过 <code>AppendData</code> 来完成"
+    "AppendDataIntro": "由于 <code>ChartDataSource</code> 没有完全封装 <code>Chart.JS</code> 中所有参数，当我们需要设置一些未提供的参数时，可以通过 <code>AppendData</code> 来完成",
+    "CustomTooltipTitle": "自定义 Tooltip",
+    "CustomTooltipIntro": "自定义 <code>Tooltip</code> 需要使用客户端脚本设置",
+    "CustomTooltipLi1": "<code>Chart</code> 组件设置 <b>Id</b> 参数",
+    "CustomTooltipLi2": "创建客户端 <code>JavaScript</code> 脚本，本例使用隔离脚本方式导出方法名为 <code>customTooltip</code>，参数依次为 <b>组件 Id</b> <b>回调引用实例</b> <b>回调方法名称(TooltipLog)</b>",
+    "CustomTooltipLi3": "本例中重载基类方法 <code>InvokeInitAsync</code> 通过 <code>await InvokeVoidAsync(\"customTooltip\", CustomTooltipId, Interop, nameof(TooltipLog))</code> 语句调用客户端脚本"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar 图",
@@ -1445,7 +1451,7 @@
     "LayoutsAppIntro": "实际项目中的例子",
     "LayoutsPageTitle": "整页面级别的组件",
     "LayoutsPageIntro": "通过 <code>IsPage</code> 对整页面布局",
-    "LayoutsPageTips1": "通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控正页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局",
+    "LayoutsPageTips1": "通过设置 <code>IsPage</code> 属性设置 <code>Layout</code> 组件是否掌控整页面级别的布局方式，设置为 <code>true</code> 后，本组件采用整屏布局",
     "LayoutsPageHrefTitle": "整页面组件生成器",
     "Layouts_Header_Description": "页头组件模板",
     "Layouts_Side_Description": "侧边栏组件模板",
@@ -1752,13 +1758,30 @@
     "SplitsPanel4": "我是底部面板",
     "SplitsNestedTitle": "嵌套使用",
     "SplitsNestedIntro": "通过嵌套 <code>Split</code> 组件进行组合布局",
+    "SplitsMinimumTitle": "最小值",
+    "SplitsMinimumIntro": "通过设置 <code>FirstPaneMinimumSize</code> <code>SecondPaneMinimumSize</code> 值限制面板最小尺寸，支持所有单位。本例中设置左右面板最小值均为 <code>10%</code>",
     "SplitsPanel5": "上边面板",
     "SplitsPanel6": "下边面板",
     "SplitsPanel7": "右边面板",
-    "SplitsIsVertical": "样式",
+    "SplitsCollapsibleTitle": "折叠/展开",
+    "SplitsCollapsibleIntro": "通过设置 <code>IsCollapsible</code> 属性来设置是否可以折叠面板",
+    "SplitsPanel8": "上边面板",
+    "SplitsPanel9": "下边面板",
+    "SplitsPanel10": "右边面板",
+    "SplitsIsVertical": "垂直分割",
     "SplitsBasis": "第一个窗格位置占比",
-    "SplitsFirstPanelTemplate": "第一个窗格模板",
-    "SplitsSecondPanelTemplate": "第二个窗格模板"
+    "SplitsFirstPaneTemplate": "第一个窗格模板",
+    "SplitsSecondPaneTemplate": "第二个窗格模板",
+    "SplitsIsCollapsible": "是否可以展开收起面板",
+    "SplitsIsKeepOriginalSize": "折叠后恢复时是否保持原始大小",
+    "SplitsShowBarHandle": "是否显示拖动条",
+    "SplitsBarHandleShow": "显示拖动栏",
+    "SplitsBarHandleHide": "隐藏拖动栏",
+    "SplitsOnResizedAsync": "面板尺寸改变时回调方法",
+    "SplitsCollapsibleTrue": "显示调整按钮",
+    "SplitsCollapsibleFalse": "隐藏调整按钮",
+    "SplitsFirstPaneMinimumSize": "第一个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px",
+    "SplitsSecondPaneMinimumSize": "第二个窗格最小尺寸支持任意单位如 10px 20% 5em 1rem 未提供单位时默认为 px"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown 下拉菜单",
@@ -2736,8 +2759,8 @@
     "InputsTrimIntro": "使用 <code>IsTrim=\"true\"</code> 可在输入内容的时候自动修剪空白",
     "TrimDescription": "设置参数 <code>IsTrim</code> 值为 <code>true</code> 后，组件内的前后空格将会被裁减",
     "InputsOnInputTitle": "文本框的值更改时触发",
-    "InputsOnInputIntro": "使用 <code>OnInput=\"true\"</code> 文本框的值更改时触发,用于逐键响应场合",
-    "OnInputDescription": "设置参数 <code>OnInput</code> 值为 <code>true</code> 后，每次按下键盘都会触发 <code>ValueChange</code> 事件",
+    "InputsOnInputIntro": "使用 <code>UseInputEvent=\"true\"</code> 文本框的值更改时触发,用于逐键响应场合",
+    "OnInputDescription": "设置参数 <code>UseInputEvent</code> 值为 <code>true</code> 后，每次按下键盘都会触发 <code>ValueChange</code> 事件",
     "InputsAtt1": "验证控件",
     "InputsAtt2": "是否显示前置标签",
     "InputsAtt3": "前置标签显示文本",
@@ -4647,6 +4670,7 @@
     "Recognizer": "语音识别 Recognizer",
     "Synthesizer": "语音合成 Synthesizer",
     "SpeechWave": "语音波形图 SpeechWave",
+    "WebSpeech": "Web Speech Api",
     "OnScreenKeyboard": "屏幕键盘 OnScreenKeyboard",
     "RibbonTab": "选项卡菜单 RibbonTab",
     "PulseButton": "心跳按钮 PulseButton",
@@ -4696,7 +4720,6 @@
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
-    "WebSpeech": "语音识别/合成 WebSpeech",
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
     "Segmented": "分段控制器 Segmented",
@@ -4730,7 +4753,8 @@
     "MaterialIcon": "Material Icons",
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
-    "SortableList": "拖拽组件 SortableList"
+    "SortableList": "拖拽组件 SortableList",
+    "WinBox": "窗口 WinBox"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5634,7 +5658,8 @@
     "Summarize": "总结",
     "ProjectsShow": "作品展示",
     "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> 作品 <b><a href='{3}' target='_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
-    "ShowWebSiteTitle": "演示网站",
+    "ShowWebSiteTitle1": "实战网站（混合版本）",
+    "ShowWebSiteTitle2": "实战网站（纯 Blazor 版本）",
     "GetStarted": "快速上手",
     "QuickStart": "快速入门",
     "Features": "组件特色",
@@ -6026,6 +6051,8 @@
     "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
   },
   "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
+    "ContextMenuItemCopy": "拷贝",
+    "ContextMenuItemPast": "粘贴",
     "ContextMenuTitle": "ContextMenu 右键菜单",
     "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
     "ContextMenuNormalTitle": "基础用法",
@@ -6035,7 +6062,11 @@
     "ContextMenuTableTitle": "Table 组件",
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
-    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
+    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单",
+    "ContextMenuCallbackTitle": "ContextMenu 回调",
+    "ContextMenuCallbackIntro": "通过设置 <code>ContextMenu</code> 组件参数 <code>OnBeforeShowCallback</code> 获得右键菜单弹出前回调事件，可用于数据准备工作",
+    "ContextMenuDisabledTitle": "禁止回调方法",
+    "ContextMenuDisabledIntro": "通过设置 <code>ContextMenuItem</code> 组件参数 <code>OnDisabledCallback</code> 回调方法可用于设置当前右键选项是否禁用逻辑"
   },
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
@@ -6285,13 +6316,29 @@
     "Layout": "布局",
     "Theme": "主题"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
-    "WebSpeechTitle": "Web Speech 语音识别/合成",
-    "WebSpeechDescription": "使用浏览器接口功能提供语音识别/合成服务",
-    "WebSpeechNormalTitle": "语音识别",
-    "WebSpeechGameTitle": "语音颜色选择游戏",
-    "WebSpeechSynthesisTitle": "语音合成",
-    "WebSpeechSynthesisCustomTitle": "语音合成自定义"
+  "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
+    "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
+    "WebSpeechSubTitle": "使用浏览器接口功能提供语音识别/合成服务",
+    "WebSpeechNormalTitle": "语音合成",
+    "WebSpeechNormalIntro": "输入文字后选择相对应的语种进行朗读",
+    "WebSpeechSpeakButtonText": "朗读",
+    "WebSpeechStopButtonText": "停止",
+    "WebSpeechText": "开始朗读一段文字",
+    "WebSpeechRecognitionTitle": "语音识别",
+    "WebSpeechRecognitionIntro": "通过麦克风输入语音，进行语音识别",
+    "WebSpeechRecognitionButtonText": "语音识别",
+    "WebSpeechRecognitionContinuousTitle": "实时语音识别",
+    "WebSpeechRecognitionContinuousIntro": "通过设置 <code>WebSpeechRecognitionOption</code> 参数 <code>Continuous=\"true\" InterimResults=\"true\"</code> 进行实时语音识别",
+    "WebSpeechRecognitionContinuousButtonText": "持续识别",
+    "RecognitionErrorNotAllowed": "用户已拒绝访问硬件设备",
+    "RecognitionErrorNoSpeech": "未检测到语音",
+    "RecognitionErrorAborted": "用户已取消",
+    "RecognitionErrorAudioCapture": "硬件设备无法捕获音频",
+    "RecognitionErrorNetwork": "网络错误",
+    "RecognitionErrorNotSupported": "浏览器不支持语音识别",
+    "RecognitionErrorServiceNotAllowed": "服务不允许",
+    "RecognitionErrorBadGrammar": "语法错误",
+    "RecognitionErrorLanguageNotSupported": "语言不支持"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",
@@ -6591,7 +6638,7 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design 图标简单、现代、友好",
-    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
+    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
@@ -6680,7 +6727,46 @@
     "SortableListFilterIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Filter</code> 设置有条件性的拖拽元素，示例中红色元素无法拖动",
     "SortableListNestTitle": "嵌套使用",
     "SortableListNestIntro": "通过嵌套使用 <code>SortableList</code> 组件即可",
+    "SortableListMultiTitle": "多项拖拽",
+    "SortableListMultiIntro": "通过设置 <code>SortableListOption</code> 参数 <code>MultiDrag</code> 可先选择多个项目后拖拽",
     "SortableListTableTitle": "表格行拖拽",
-    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作"
+    "SortableListTableIntro": "通过设置 <code>SortableListOption</code> 参数 <code>RootSelector</code> 指定拖拽根元素为 <code>tbody</code> 即可对行进行拖拽操作",
+    "SortableListClassTitle": "由于 <code>SortableList</code>为容器组件，内容均为自定义组件，无法内置样式，需要根据实际情况自行设置样式",
+    "SortableListClassLi1": "拖动元素样式 <code>sortable-chosen</code>",
+    "SortableListClassLi2": "拖动元素克隆项默认样式 <code>sortable-ghost</code> 可通过 <code>GhostClass</code> 自定义",
+    "SortableListClassLi3": "拖动元素交换想项默认样式 <code>sortable-swap-highlight</code> 可通过 <code>SwapClass</code> 自定义",
+    "SortableListSwapTitle": "交换",
+    "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换"
+  },
+  "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
+    "WinBoxTitle": "WinBox 窗口组件",
+    "WinBoxDescription": "模拟 Windows 窗口风格的组件",
+    "WinBoxNormalTitle": "基础用法",
+    "WinBoxNormalIntro": "通过设置 <code>WinBoxOption</code> 参数值，创建并且弹出窗口",
+    "AttributeRoot": "弹窗容器根节点",
+    "AttributeTitle": "弹窗标题",
+    "AttributeClass": "弹窗样式",
+    "AttributeBackground": "弹窗背景色",
+    "AttributeBorder": "弹窗边框",
+    "AttributeIcon": "弹窗标题图标",
+    "OnCreateAsync": "创建弹窗回调方法",
+    "OnShownAsync": "弹窗可见回调方法",
+    "OnHideAsync": "隐藏弹窗回调方法",
+    "OnFocusAsync": "弹窗获得焦点回调方法",
+    "OnBlurAsync": "弹窗失去焦点回调方法",
+    "OnFullscreenAsync": "弹窗全屏回调方法",
+    "OnRestoreAsync": "恢复弹窗回调方法",
+    "OnMaximizeAsync": "最大化弹窗回调方法",
+    "OnMinimizeAsync": "最小化弹窗回调方法",
+    "OnCloseAsync": "关闭弹窗回调方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Players": {
+    "PlayersTitle": "Player 音视频播放器",
+    "PlayersDescription": "一个简单、可访问和可定制的媒体播放器",
+    "PlayersTips": "<code>Player</code> 组件支持 视频，音频，<b>Youtube</b> 和 <b>Vimeo</b>",
+    "PlayersNormalTitle": "基础用法",
+    "PlayersNormalIntro": "通过回调方法 <code>OnInitAsync</code> 设置组件所需要的配置实例 <code>PlayerOption</code>。通过 <code>PlayerOption</code> 属性值对播放器进行设置",
+    "PlayersHlsTitle": "HLS 支持",
+    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持"
   }
 }

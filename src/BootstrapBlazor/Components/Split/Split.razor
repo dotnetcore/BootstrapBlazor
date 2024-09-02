@@ -1,26 +1,29 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="group">
-    <div class="@WrapperClassString">
-        <div class="split-pane split-left" style="@StyleString">
-            @FirstPaneTemplate
-        </div>
-        <div class="split-pane split-bar">
-            <div class="split-trigger">
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
-                <i class="split-trigger-bar"></i>
+    <div class="split-pane split-left" data-bb-min="@FirstPaneMinimumSize" style="@StyleString">
+        @FirstPaneTemplate
+    </div>
+    <div class="split-pane split-right" data-bb-min="@SecondPaneMinimumSize">
+        @SecondPaneTemplate
+    </div>
+    <div class="split-pane split-bar">
+        @if (IsCollapsible)
+        {
+            <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-left"></button>
+        }
+        @if (ShowBarHandle)
+        {
+            <div class="split-bar-handler">
+                <div></div>
+                <div></div>
             </div>
-        </div>
-        <div class="split-pane split-right" style="flex: 1;">
-            @SecondPaneTemplate
-        </div>
+        }
+        @if (IsCollapsible)
+        {
+            <button tabindex="-1" type="button" class="split-bar-arrow split-bar-arrow-right"></button>
+        }
     </div>
 </div>

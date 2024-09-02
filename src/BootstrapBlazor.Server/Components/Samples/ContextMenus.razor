@@ -12,8 +12,8 @@
             <span>@Foo.Name - @Foo.Address</span>
         </ContextMenuTrigger>
         <ContextMenu>
-            <ContextMenuItem Icon="fa-solid fa-copy" Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
         </ContextMenu>
     </ContextMenuZone>
 </DemoBlock>
@@ -22,8 +22,8 @@
     <ContextMenuZone>
         <ContextMenuList></ContextMenuList>
         <ContextMenu>
-            <ContextMenuItem Icon="fa-solid fa-copy" Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
         </ContextMenu>
     </ContextMenuZone>
 </DemoBlock>
@@ -38,8 +38,8 @@
             </TableColumns>
         </Table>
         <ContextMenu>
-            <ContextMenuItem Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
         </ContextMenu>
     </ContextMenuZone>
 </DemoBlock>
@@ -48,8 +48,36 @@
     <ContextMenuZone>
         <TreeView TItem="TreeFoo" Items="@TreeItems" />
         <ContextMenu>
-            <ContextMenuItem Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
         </ContextMenu>
     </ContextMenuZone>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ContextMenuCallbackTitle"]" Introduction="@Localizer["ContextMenuCallbackIntro"]" Name="Callback">
+    <ContextMenuZone>
+        <TreeView TItem="TreeFoo" Items="@TreeItems" />
+        <ContextMenu OnBeforeShowCallback="OnBeforeShowCallback">
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
+        </ContextMenu>
+    </ContextMenuZone>
+    <ConsoleLogger @ref="_callbackLogger"></ConsoleLogger>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ContextMenuDisabledTitle"]" Introduction="@Localizer["ContextMenuDisabledIntro"]" Name="DisabledCallback">
+    <ContextMenuZone>
+        <Table TItem="Foo" Items="@Items.Take(3)">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" />
+            </TableColumns>
+        </Table>
+        <ContextMenu>
+            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy" OnDisabledCallback="OnDisabledCallback"></ContextMenuItem>
+            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnDisabledCallback="OnDisabledCallback" OnClick="OnPaste"></ContextMenuItem>
+        </ContextMenu>
+    </ContextMenuZone>
+    <ConsoleLogger @ref="_disabledLogger"></ConsoleLogger>
 </DemoBlock>

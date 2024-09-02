@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.1.8</Version>
+    <Version>8.2.3</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Chart</PackageTags>
     <Description>Bootstrap UI components extensions of Chart.js</Description>
   </PropertyGroup>
@@ -9,6 +9,11 @@
   <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\chart.umd.js" />
+    <None Include="wwwroot\js\chart.umd.js" />
   </ItemGroup>
 
   <ItemGroup>

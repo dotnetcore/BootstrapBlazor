@@ -60,13 +60,31 @@ const initSortable = (id, element, invoke, op) => {
 
     if (op.triggerUpdate) {
         op.onUpdate = event => {
-            invoke.invokeMethodAsync('TriggerUpdate', event.oldIndex, event.newIndex);
+            const items = [];
+            if (op.multiDrag) {
+                event.oldIndicies.forEach((v, index) => {
+                    items.push({ oldIndex: v.index, newIndex: event.newIndicies[index].index });
+                });
+            }
+            else {
+                items.push({ oldIndex: event.oldIndex, newIndex: event.newIndex });
+            }
+            invoke.invokeMethodAsync('TriggerUpdate', items);
         }
     }
 
     if (op.triggerRemove) {
         op.onRemove = event => {
-            invoke.invokeMethodAsync('TriggerRemove', event.oldIndex, event.newIndex);
+            const items = [];
+            if (op.multiDrag) {
+                event.oldIndicies.forEach((v, index) => {
+                    items.push({ OldIndex: v.index, NewIndex: event.newIndicies[index].index });
+                });
+            }
+            else {
+                items.push({ oldIndex: event.oldIndex, newIndex: event.newIndex });
+            }
+            invoke.invokeMethodAsync('TriggerRemove', items);
         }
     }
 

@@ -8,6 +8,10 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
+        @if (IsUploadButtonAtFirst && CheckCanUpload())
+        {
+            @RenderAdd
+        }
         @foreach (var item in GetUploadFiles())
         {
             <div @key="@item" class="@GetItemClassString(item)">
@@ -66,18 +70,9 @@
                 </span>
             </div>
         }
-        @if (CheckCanUpload())
+        @if (!IsUploadButtonAtFirst && CheckCanUpload())
         {
-            <div class="@CardItemClass">
-                <div class="upload-item-actions btn-browser">
-                    @if (!IsDisabled)
-                    {
-                        <span class="upload-item-plus">
-                            <i class="@AddIcon"></i>
-                        </span>
-                    }
-                </div>
-            </div>
+            @RenderAdd
         }
     </div>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
@@ -87,3 +82,17 @@
         <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
     }
 </div>
+
+@code {
+    RenderFragment RenderAdd =>
+    @<div class="@CardItemClass">
+        <div class="upload-item-actions btn-browser">
+            @if (!IsDisabled)
+        {
+            <span class="upload-item-plus">
+                <i class="@AddIcon"></i>
+            </span>
+        }
+        </div>
+    </div>;
+}

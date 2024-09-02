@@ -190,4 +190,22 @@ public class SortableOption
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public int? EmptyInsertThreshold { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否允许多拖动 默认 null 未设置
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? MultiDrag { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否交换拖动 默认 null 未设置
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? Swap { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否交换拖动项样式名称 默认 null 未设置
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public bool? SwapClass { get; set; }
 }

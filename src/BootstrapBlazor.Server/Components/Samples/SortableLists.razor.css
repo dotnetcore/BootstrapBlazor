@@ -10,14 +10,6 @@
     padding: 1rem;
 }
 
-    .sl-item i {
-        cursor: pointer;
-    }
-
-    .sl-item span {
-        margin-left: 2rem;
-    }
-
     .sl-item:not(:last-child) {
         margin-bottom: 0.5rem;
         user-select: none;
@@ -32,14 +24,20 @@
             cursor: not-allowed;
         }
 
-    .col-12.sortable-chosen .sl-item,
+    .sl-item i {
+        cursor: pointer;
+    }
+
+    .sl-item span {
+        margin-left: 2rem;
+    }
+
     .sl-item.sortable-chosen {
         background-color: var(--bs-primary);
         color: var(--bs-body-bg);
     }
 
-        .col-12.sortable-chosen.sl-item-ghost .sl-item,
-        .sl-item.sortable-chosen.sl-item-ghost {
-            background-color: var(--bs-info);
-            color: var(--bs-body-bg);
-        }
+    .sl-item.sortable-ghost {
+        background-color: var(--bs-info);
+        color: var(--bs-body-bg);
+    }

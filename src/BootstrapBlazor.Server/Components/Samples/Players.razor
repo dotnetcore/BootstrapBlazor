@@ -1,0 +1,35 @@
+﻿@page "/player"
+@inject IStringLocalizer<Players> Localizer
+
+<h3>@Localizer["PlayersTitle"]</h3>
+
+<h4>@Localizer["PlayersDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Player" />
+
+<Tips class="mt-3">
+    <p>@((MarkupString)Localizer["PlayersTips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["PlayersNormalTitle"]"
+           Introduction="@Localizer["PlayersNormalIntro"]"
+           Name="Normal">
+    <Player OnInitAsync="InitNormalPlayer"></Player>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PlayersHlsTitle"]"
+           Introduction="@Localizer["PlayersHlsIntro"]"
+           Name="Hls">
+    <div class="row g-3 mb-3">
+        <div class="col-12 col-sm-auto">
+            <Dropdown Items="Items" Value="@_url" OnSelectedItemChanged="ChangeUrl" />
+        </div>
+        <div class="col-12 col-sm-auto">
+            <Display @bind-Value="@_url" />
+        </div>
+    </div>
+    <Player OnInitAsync="InitHlsPlayer"></Player>
+</DemoBlock>
+
+@* <AttributeTable Items="@GetAttributes()" /> *@
+

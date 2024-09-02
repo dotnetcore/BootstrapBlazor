@@ -66,5 +66,64 @@
 <DemoBlock Title="@Localizer["AppendDataTitle"]"
            Introduction="@Localizer["AppendDataIntro"]"
            Name="AppendData">
-    <Chart OnInitAsync="GetData" AppendData="GetAppendData()" />
+    <Chart OnInitAsync="GetData" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomTooltipTitle"]"
+           Introduction="@Localizer["CustomTooltipIntro"]"
+           Name="CustomTooltip">
+    <section ignore>
+        <ul class="ul-demo">
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi1"].Value)</p>
+                <Pre class="mb-3">&lt;Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@@CustomTooltipId" /&gt;</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi2"].Value)</p>
+                <Pre class="mb-3">export function customTooltip(id, invoke, method) {
+    // chart.js documentation: https://www.chartjs.org/docs/master/samples/tooltip/content.html
+    const chart = BootstrapBlazor.Chart;
+    chart.setOptionsById(id, {
+        options: {
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        footer: (tooltipItems) => {
+                            let sum = 0;
+
+                            tooltipItems.forEach(function (tooltipItem) {
+                                sum += tooltipItem.parsed.y;
+                            });
+                            invoke.invokeMethodAsync(method, sum);
+                            return 'Sum: ' + sum;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}</Pre>
+            </li>
+            <li>
+                <p>@((MarkupString)Localizer["CustomTooltipLi3"].Value)</p>
+                <Pre>protected override async Task InvokeInitAsync()
+{
+    await InvokeVoidAsync("customTooltip", CustomTooltipId, Interop, nameof(TooltipLog));
+}
+
+[JSInvokable]
+public Task TooltipLog(long sum)
+{
+    _loggerTooltip.Log($"Tooltip sum callback: {sum}");
+    return Task.CompletedTask;
+}</Pre>
+            </li>
+        </ul>
+    </section>
+    <Chart OnInitAsync="() => OnInit(0.4f, false)" Id="@CustomTooltipId" />
+    <ConsoleLogger @ref="_loggerTooltip" />
 </DemoBlock>

@@ -5,7 +5,6 @@
 using iText.Html2pdf;
 using iText.Html2pdf.Resolver.Font;
 using iText.IO.Font;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace BootstrapBlazor.Components;
 

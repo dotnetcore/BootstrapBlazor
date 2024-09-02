@@ -3347,6 +3347,7 @@ function removeMultiDragElements() {
 
 Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
+Sortable.mount(new SwapPlugin());
+Sortable.mount(new MultiDragPlugin());
 
 export default Sortable;
-export { MultiDragPlugin as MultiDrag, Sortable, SwapPlugin as Swap };

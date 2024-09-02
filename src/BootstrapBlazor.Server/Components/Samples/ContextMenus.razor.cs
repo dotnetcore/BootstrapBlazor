@@ -7,6 +7,10 @@ public partial class ContextMenus
 {
     private List<TreeViewItem<TreeFoo>> TreeItems { get; set; } = TreeFoo.GetTreeItems();
 
+    private ConsoleLogger _callbackLogger = default!;
+
+    private ConsoleLogger _disabledLogger = default!;
+
     private static Task OnCopy(ContextMenuItem item, object value)
     {
         return Task.CompletedTask;
@@ -30,5 +34,25 @@ public partial class ContextMenus
     {
         Foo = Foo.Generate(LocalizerFoo);
         Items = Foo.GenerateFoo(LocalizerFoo);
+    }
+
+    private Task OnBeforeShowCallback(object? item)
+    {
+        if (item is TreeFoo foo)
+        {
+            _callbackLogger.Log($"{foo.Text} trigger");
+        }
+        return Task.CompletedTask;
+    }
+
+    private bool OnDisabledCallback(ContextMenuItem item, object? context)
+    {
+        var ret = false;
+        if (context is Foo foo)
+        {
+            ret = foo.Id == 1;
+            _disabledLogger.Log($"{foo.Name} trigger {item.Text} Disabled: {ret}");
+        }
+        return ret;
     }
 }

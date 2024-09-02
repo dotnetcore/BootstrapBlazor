@@ -205,6 +205,12 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, true);
         });
+
+        // IsUploadButtonAtFirst
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsUploadButtonAtFirst, true);
+        });
     }
 
     [Fact]
@@ -338,9 +344,11 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsSingle, true);
             pb.Add(a => a.BrowserButtonClass, "browser-class");
             pb.Add(a => a.BrowserButtonIcon, "fa-solid fa-chrome");
+            pb.Add(a => a.BrowserButtonColor, Color.Success);
         });
         cut.Contains("fa-solid fa-chrome");
         cut.Contains("browser-class");
+        cut.Contains("btn btn-success");
         cut.DoesNotContain("form-label");
 
         // DefaultFileList
@@ -365,6 +373,16 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.Size, Size.ExtraSmall);
         });
         cut.Contains("btn-xs");
+    }
+
+    [Fact]
+    public void ButtonUpload_ChildContent()
+    {
+        var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ChildContent, builder => builder.AddContent(0, new MarkupString("<div>test-child-content</div>")));
+        });
+        cut.Contains("<div>test-child-content</div>");
     }
 
     [Fact]
@@ -760,6 +778,12 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new("test.png")
         })));
+
+        // IsUploadButtonAtFirst
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsUploadButtonAtFirst, true);
+        });
     }
 
     [Fact]

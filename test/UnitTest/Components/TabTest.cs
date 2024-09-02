@@ -4,14 +4,25 @@
 
 using AngleSharp.Dom;
 using Bunit.TestDoubles;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using UnitTest.Misc;
 
 namespace UnitTest.Components;
 
-public class TabTest : TabTestBase
+public class TabTest : BootstrapBlazorTestBase
 {
+    protected override void ConfigureServices(IServiceCollection services)
+    {
+        services.AddBootstrapBlazor(op => op.ToastDelay = 2000);
+        services.ConfigureTabItemMenuBindOptions(options =>
+        {
+            options.Binders = new()
+            {
+                { "/Binder", new() { Text = "Index_Binder_Test" } }
+            };
+        });
+    }
+
     [Fact]
     public void TabItem_Ok()
     {

@@ -66,10 +66,10 @@ public partial class Table<TItem>
     protected int PageIndex { get; set; } = 1;
 
     /// <summary>
-    /// 获得/设置 默认每页数据数量 默认 0 使用 <see cref="PageItemsSource"/> 第一个值
+    /// 获得/设置 默认每页数据数量 默认 null 使用 <see cref="PageItemsSource"/> 第一个值
     /// </summary>
     [Parameter]
-    public int PageItems { get; set; }
+    public int? PageItems { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 Goto 跳转导航
@@ -117,6 +117,13 @@ public partial class Table<TItem>
     /// 获得/设置 当前行
     /// </summary>
     protected int StartIndex { get; set; }
+
+    /// <summary>
+    /// 当前每页项目数量设置 默认 null 内部使用
+    /// </summary>
+    private int _pageItems;
+
+    private int? _originPageItems;
 
     /// <summary>
     /// 内部 分页信息模板
@@ -169,10 +176,10 @@ public partial class Table<TItem>
     /// </summary>
     protected async Task OnPageItemsValueChanged(int pageItems)
     {
-        if (PageItems != pageItems)
+        if (_pageItems != pageItems)
         {
             PageIndex = 1;
-            PageItems = pageItems;
+            _pageItems = pageItems;
             await QueryAsync();
         }
     }

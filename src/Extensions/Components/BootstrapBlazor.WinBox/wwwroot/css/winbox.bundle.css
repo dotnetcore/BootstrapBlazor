@@ -1,0 +1,60 @@
+﻿@import url('./winbox.min.css');
+
+:root {
+    --bb-winbox-mask-bg-opacity: 0.3;
+}
+
+.winbox {
+    --bb-winbox-bg: #b5b5c3;
+    --bb-winbox-bg-dark: #383b3f;
+    --bb-winbox-body-padding: .5rem;
+    --bb-window-border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    --bb-winbox-footer-border-color: var(--bs-border-color);
+    --bb-winbox-mask-bg: #000;
+    background: var(--bb-winbox-bg);
+    border-radius: var(--bb-window-border-radius);
+}
+
+    .winbox .bb-winbox-content {
+        padding: var(--bb-winbox-body-padding);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .winbox .bb-winbox-body {
+        flex-grow: 1;
+    }
+
+    .winbox .bb-winbox-footer {
+        white-space: nowrap;
+        overflow: hidden;
+        text-align: end;
+        border-top: var(--bs-border-width) solid var(--bb-winbox-footer-border-color);
+        padding: var(--bb-winbox-body-padding);
+        padding-bottom: 0;
+        margin: 0 calc(0px - var(--bb-winbox-body-padding));
+    }
+
+    .winbox.modal {
+        display: block;
+        overflow: visible;
+    }
+
+        .winbox.modal:after {
+            background: var(--bb-winbox-mask-bg);
+        }
+
+@keyframes wb-fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: var(--bb-winbox-mask-bg-opacity);
+    }
+}
+
+[data-bs-theme='dark'] .winbox {
+    background: var(--bb-winbox-bg-dark);
+}

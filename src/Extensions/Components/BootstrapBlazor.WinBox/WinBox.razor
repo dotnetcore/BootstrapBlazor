@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.WinBox/WinBox.razor.js", JSObjectReference = true)]
+
+<CascadingValue Value="CloseAsync" IsFixed="true">
+    @foreach (var (key, item) in _cache)
+    {
+        <template @key="key" id="@item?.Id">
+            <CascadingValue Value="item" IsFixed="true">
+                <div class="bb-winbox-content">
+                    @item?.ContentTemplate
+                </div>
+            </CascadingValue>
+        </template>
+    }
+</CascadingValue>

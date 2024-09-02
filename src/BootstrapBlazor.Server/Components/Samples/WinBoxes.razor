@@ -1,0 +1,117 @@
+﻿@page "/win-box"
+@inject IStringLocalizer<WinBoxes> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+
+<h3>@Localizer["WinBoxTitle"]</h3>
+<h4>@Localizer["WinBoxDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.WinBox" />
+
+<p><code>WinBox</code> 组件封装的是 <a href="https://nextapps-de.github.io/winbox/?wt.mc_id=DT-MVP-5004174" target="_blank">WinBox.js</a></p>
+
+<p>组件使用介绍：</p>
+
+<p class="code-label">1. 引用包 <code>BootstrapBlazor.WinBox</code></p>
+
+<p class="code-label">2. 注入服务</p>
+<Pre>services.AddBootstrapBlazorWinBoxService();</Pre>
+
+<p class="code-label">3. 页面中使用服务</p>
+<Pre>[Inject]
+[NotNull]
+private WinBoxService? WinBoxService { get; set; }</Pre>
+
+<p class="code-label">4. 调用弹窗</p>
+<Pre>await WinBoxService.Show&lt;Counter&gt;("Test", option: option);</Pre>
+
+<DemoBlock Title="@Localizer["WinBoxNormalTitle"]"
+           Introduction="@Localizer["WinBoxNormalIntro"]"
+           Name="Normal">
+    <Button Text="Show" OnClickWithoutRender="() => OpenWinBox(null)"></Button>
+    <Button Text="Modal" OnClickWithoutRender="OpenModalWinBox"></Button>
+    <ConsoleLogger @ref="_logger"></ConsoleLogger>
+</DemoBlock>
+
+<p class="code-label mt-3">常见问题</p>
+<GroupBox Title="更改标题背景色" class="mb-3">
+    <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Background</code> 设置</p>
+    <Pre>new WinBoxOption() { Background = "#000" }</Pre>
+
+    <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Class</code> 设置</p>
+    <Pre>new WinBoxOption() { Class = ".bb-win-box" }</Pre>
+    <Pre>.bb-win-box {
+    background: #000;
+}</Pre>
+
+    <p class="code-label">通过样式变量实现</p>
+    <Pre>.winbox {
+    --bb-winbox-bg: var(--bb-primary-color);
+}</Pre>
+</GroupBox>
+
+<GroupBox Title="更改边框" class="mb-3">
+    <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Border</code> 设置</p>
+    <Pre>new WinBoxOption() { Border = 3 }</Pre>
+</GroupBox>
+
+<GroupBox Title="设置图标" class="mb-3">
+    <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Icon</code> 设置</p>
+    <Pre>new WinBoxOption() { Icon = "./images/Argo-C.png" }</Pre>
+
+    <p class="code-label">通过服务方法 <code>WinBoxService</code> 实例方法</p>
+    <Pre>[Inject]
+[NotNull]
+private WinBoxService? WinBoxService { get; set; }
+
+private async Task SetIcon()
+{
+    // 提前保持弹窗 WinBoxOption 实例
+    option.Icon = "./images/Argo-C.png";
+    await WinBoxService.setIcon(option.Id);
+}</Pre>
+</GroupBox>
+
+<GroupBox Title="模式弹窗" class="mb-3">
+    <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Modal</code> 设置</p>
+    <Pre>new WinBoxOption() { Modal = true }</Pre>
+
+    <p class="code-label">通过扩展方法 <code>WinBoxService.ShowModal</code></p>
+    <Pre>WinBoxService.ShowModal&lt;Count&gt;("Title")</Pre>
+</GroupBox>
+
+<GroupBox Title="代码关闭弹窗" class="mb-3">
+    <p class="code-label">通过 <code>WinBoxCloseButton</code> 组件</p>
+    <Pre>&lt;WinBoxCloseButton /&gt;</Pre>
+
+    <p class="code-label">通过服务方法 <code>WinBoxService</code> 实例方法</p>
+
+    <p class="code-label">弹窗内: 使用级联参数 <code>OnCloseAsync</code> <code>WinBoxOption</code> 关闭弹窗</p>
+    <Pre>[CascadingParameter]
+private Func&lt;WinBoxOption, Task&gt;? OnCloseAsync { get; set; }
+
+[CascadingParameter]
+private WinBoxOption? Option { get; set; }
+
+private async Task Close()
+{
+    if (OnCloseAsync != null && Option != null)
+    {
+        await OnCloseAsync(Option);
+    }
+}</Pre>
+
+    <p class="code-label">弹窗外: 使用 <code>WinBoxService</code> 服务实例方法 <code>CloseAsync</code> 关闭弹窗</p>
+    <Pre>[Inject]
+[NotNull]
+private WinBoxService? WinBoxService { get; set; }
+
+private async Task Close()
+{
+    // 提前保持弹窗 WinBoxOption 实例
+    await WinBoxService.CloseAsync(option.Id);
+}</Pre>
+</GroupBox>
+
+<p>更多参数信息可参考 <a href="https://github.com/dotnetcore/BootstrapBlazor/blob/main/src/Extensions/Components/BootstrapBlazor.WinBox/WinBoxOption.cs" target="_blank">WinBoxOption</a> 注释</p>
+
+<AttributeTable Items="@GetAttributes()" Title="WinBoxOption" />

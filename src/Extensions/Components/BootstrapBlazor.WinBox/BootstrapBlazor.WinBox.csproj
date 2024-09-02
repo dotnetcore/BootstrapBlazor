@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <Version>8.0.3</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Winbox Dialog</PackageTags>
+    <Description>Bootstrap UI components extensions of Winbox</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="8.8.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Microsoft.JSInterop" />
+  </ItemGroup>
+
+</Project>

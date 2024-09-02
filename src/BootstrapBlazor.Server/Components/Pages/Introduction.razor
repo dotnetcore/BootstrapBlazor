@@ -48,7 +48,9 @@
 
 <p>@((MarkupString)Localizer["P5", LocalizerRules].Value)</p>
 
-<p>@Localizer["ShowWebSiteTitle"]：<a href="@($"{WebsiteOption.CurrentValue.AdminUrl}/Pages")" target="_blank">@WebsiteOption.CurrentValue.AdminUrl</a></p>
+<p>@Localizer["ShowWebSiteTitle1"]：<a href="@($"{WebsiteOption.CurrentValue.AdminUrl}/Pages")" target="_blank">@WebsiteOption.CurrentValue.AdminUrl</a></p>
+
+<p>@Localizer["ShowWebSiteTitle2"]：<a href="@($"{WebsiteOption.CurrentValue.AdminProUrl}")" target="_blank" class="text-success">@WebsiteOption.CurrentValue.AdminProUrl</a></p>
 
 <h4>@Localizer["GetStarted"]</h4>
 
