@@ -54,6 +54,10 @@ public partial class Players
         options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00003.jpg");
         options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00004.jpg");
 
+        options.Makers.Enabled = true;
+        options.Makers.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
+        options.Makers.Points.Add(new PlayerPoint() { Time = 50, Label = "First Marker" });
+
         return Task.FromResult(options);
     }
 
