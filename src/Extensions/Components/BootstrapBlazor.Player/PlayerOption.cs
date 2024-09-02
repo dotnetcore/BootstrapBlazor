@@ -12,6 +12,11 @@ namespace BootstrapBlazor.Components;
 public class PlayerOption
 {
     /// <summary>
+    /// 获得/设置 是否为 Hls 播放资源 默认 false
+    /// </summary>
+    public bool IsHls { get; set; }
+
+    /// <summary>
     /// 获得/设置 宽度
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
