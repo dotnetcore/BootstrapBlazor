@@ -28,7 +28,7 @@
             <Display @bind-Value="@_url" />
         </div>
     </div>
-    <Player OnInitAsync="InitHlsPlayer"></Player>
+    <Player OnInitAsync="InitHlsPlayer" @ref="_hlsPlayer"></Player>
 </DemoBlock>
 
 @* <AttributeTable Items="@GetAttributes()" /> *@

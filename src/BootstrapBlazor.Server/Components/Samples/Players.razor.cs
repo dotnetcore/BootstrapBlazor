@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -13,8 +15,10 @@ public partial class Players
 
     private List<SelectedItem> Items { get; } = [];
 
+    private Player _hlsPlayer = default!;
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -74,7 +78,13 @@ public partial class Players
 
     private Task ChangeUrl(SelectedItem e)
     {
-        //_options.Source.Sources.Add(new PlayerSources { Url = _url, Type = _type });
+        _url = e.Value;
+        var options = new PlayerOption();
+        options.Source.Sources.Add(new PlayerSources { Url = _url, Type = "application/x-mpegURL" });
+        options.Makers.Enabled = true;
+        options.Makers.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
+        options.Makers.Points.Add(new PlayerPoint() { Time = 60, Label = "Second Marker" });
+        _hlsPlayer.Reload(options);
         StateHasChanged();
         return Task.CompletedTask;
     }
