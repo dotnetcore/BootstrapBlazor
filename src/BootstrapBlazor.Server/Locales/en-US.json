@@ -6759,5 +6759,14 @@
     "OnMaximizeAsync": "Maximize pop-up window callback method",
     "OnMinimizeAsync": "Minimize pop-up window callback method",
     "OnCloseAsync": "Close pop-up window callback method"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Players": {
+    "PlayersTitle": "Player",
+    "PlayersDescription": "A simple, accessible and customisable media player for Video, Audio, YouTube and Vimeo",
+    "PlayersTips": "<code>Player</code> supports <b>Video</b>，<b>Audio</b>，<b>Youtube</b> and <b>Vimeo</b>",
+    "PlayersNormalTitle": "Basic usage",
+    "PlayersNormalIntro": "The callback method <code>OnInitAsync</code> sets the configuration instance <code>PlayerOption</code> required by the component. The player is set through the <code>PlayerOption</code> property value.",
+    "PlayersHlsTitle": "HLS",
+    "PlayersHlsIntro": "Enable <code>Hls</code> support by setting <code>IsHls=\"true\"</code>"
   }
 }
