@@ -36,4 +36,11 @@ public partial class Player
             await InvokeVoidAsync("init", Id, Interop, "", option);
         }
     }
+
+    /// <summary>
+    /// 重新配置播放器方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public Task Reload(PlayerOption option) => InvokeVoidAsync("reload", Id, option);
 }
