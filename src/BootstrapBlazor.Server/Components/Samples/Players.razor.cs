@@ -15,9 +15,11 @@ public partial class Players
 
     private Player _hlsPlayer = default!;
 
-    private PlayerOptions _options = new();
+    private readonly PlayerOptions _options = new();
 
-    private PlayerOptions _hlsOptions = new();
+    private readonly PlayerOptions _hlsOptions = new();
+
+    private readonly PlayerOptions _audioOptions = new();
 
     /// <summary>
     /// <inheritdoc/>
@@ -62,6 +64,9 @@ public partial class Players
         _hlsOptions.Marker.Enabled = true;
         _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 60, Label = "First Marker" });
         _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 300, Label = "Second Marker" });
+
+        _audioOptions.Source.Type = "audio";
+        _audioOptions.Source.Sources.Add(new PlayerSources { Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", Type = "audio/mp3" });
     }
 
     private Task ChangeUrl(SelectedItem e)
@@ -70,9 +75,9 @@ public partial class Players
 
         var options = new PlayerOptions();
         options.Source.Sources.Add(new PlayerSources { Url = _url, Type = "application/x-mpegURL" });
-        options.Makers.Enabled = true;
-        options.Makers.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
-        options.Makers.Points.Add(new PlayerPoint() { Time = 60, Label = "Second Marker" });
+        options.Marker.Enabled = true;
+        options.Marker.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
+        options.Marker.Points.Add(new PlayerPoint() { Time = 60, Label = "Second Marker" });
         _hlsPlayer.Reload(options);
 
         StateHasChanged();
