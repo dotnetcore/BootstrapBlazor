@@ -5,15 +5,12 @@ const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
     panel.api.onDidActiveChange(({ isActive }) => {
-        // if (panel.group.panels.length < 2)
-        // if (isActive) {
-        //     saveConfig(panel.accessor)
-        //     panel.group.panels.filter(p => p != panel.group.activePanel).forEach(p => {
-        //         appendTemplatePanelEle(p)
-        //     })
-        // }
-        if(isActive){
+        if (isActive && !panel.group.api.isMaximized()) {
             saveConfig(panel.accessor)
+            if (panel.group.panels.length < 2) return
+            panel.group.panels.filter(p => p != panel.group.activePanel && p.renderer == 'onlyWhenVisible').forEach(p => {
+                appendTemplatePanelEle(p)
+            })
         }
     })
 }

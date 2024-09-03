@@ -66,10 +66,10 @@ public partial class DockViewV2
     public bool ShowFloat { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 客户端渲染模式 always onlyWhenVisible 值
+    /// 获得/设置 客户端渲染模式 默认 null 客户端默认使用 always onlyWhenVisible 值
     /// </summary>
     [Parameter]
-    public string Renderer { get; set; } = "always";
+    public string? Renderer { get; set; }
 
     /// <summary>
     /// 获得/设置 锁定状态回调此方法
