@@ -6768,6 +6768,8 @@
     "PlayersNormalTitle": "Basic usage",
     "PlayersNormalIntro": "The callback method <code>OnInitAsync</code> sets the configuration instance <code>PlayerOption</code> required by the component. The player is set through the <code>PlayerOption</code> property value.",
     "PlayersHlsTitle": "HLS",
-    "PlayersHlsIntro": "Enable <code>Hls</code> support by setting <code>IsHls=\"true\"</code>"
+    "PlayersHlsIntro": "Enable <code>Hls</code> support by setting <code>IsHls=\"true\"</code>",
+    "PlayersAudioTitle": "Audio Player",
+    "PlayersAudioIntro": "Play audio files by setting <code>Mode=\"PlayerMode.Audio\"</code>"
   }
 }

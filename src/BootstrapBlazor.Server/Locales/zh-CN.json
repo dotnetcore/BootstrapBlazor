@@ -6768,6 +6768,8 @@
     "PlayersNormalTitle": "基础用法",
     "PlayersNormalIntro": "通过回调方法 <code>OnInitAsync</code> 设置组件所需要的配置实例 <code>PlayerOption</code>。通过 <code>PlayerOption</code> 属性值对播放器进行设置",
     "PlayersHlsTitle": "HLS 支持",
-    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持"
+    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持",
+    "PlayersAudioTitle": "音频播放器",
+    "PlayersAudioIntro": "通过设置 <code>Mode=\"PlayerMode.Audio\"</code> 播放音频文件"
   }
 }

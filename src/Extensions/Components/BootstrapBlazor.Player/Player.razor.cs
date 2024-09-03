@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +11,12 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Player
 {
+    /// <summary>
+    /// 获得/设置 组件模式 默认为 <see cref="PlayerMode.Video"/>
+    /// </summary>
+    [Parameter]
+    public PlayerMode Mode { get; set; }
+
     /// <summary>
     /// 获得/设置 PlayerOption 实例
     /// </summary>

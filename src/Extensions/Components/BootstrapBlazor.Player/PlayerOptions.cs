@@ -63,7 +63,7 @@ public class PlayerOptions
     /// 获得 视频标记点实例 <see cref="PlayerMarker"/>
     /// </summary>
     [JsonPropertyName("markers")]
-    public PlayerMarker Makers { get; } = new();
+    public PlayerMarker Marker { get; } = new();
 
     /// <summary>
     /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>
