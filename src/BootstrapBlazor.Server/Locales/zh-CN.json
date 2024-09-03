@@ -4754,7 +4754,8 @@
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
     "SortableList": "拖拽组件 SortableList",
-    "WinBox": "窗口 WinBox"
+    "WinBox": "窗口 WinBox",
+    "Player": "播放器 Player"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
