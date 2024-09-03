@@ -101,34 +101,24 @@ const setLang = (option) => {
     }
 }
 
-export function update(id, options) {
+export function reload(id, options) {
     const p = Data.get(id);
     if (p === null) {
         return;
     }
-    const { player, el } = p;
-    const source = options.source;
+
+    const { player, hls } = p;
+    const source = options.source.sources;
     delete options.source;
-    if (source.sources[0].type !== 'application/x-mpegURL') {
-        player.source = source;
-    }
-    else if (Hls.isSupported()) {
-        player.stop();
-        player.source = source;
-
-        if (p.hls === void 0) {
-            p.hls = new Hls();
-            p.hls.attachMedia(el);
+    if (hls) {
+        if (source.length > 0) {
+            const src = source[0].src;
+            hls.loadSource(src);
         }
-        p.hls.loadSource(source.sources[0].src)
-        el.load();
-        el.play();
-
-        p.hls.on(Hls.Events.MANIFEST_PARSED, function (event, data) {
-            player.on('languagechange', () => {
-                setTimeout(() => hls.subtitleTrack = player.currentTrack, 300);
-            });
-        });
+    }
+    else {
+        player.poster = source.poster ?? options.poster;
+        player.source = source;
     }
 }
 
@@ -136,31 +126,6 @@ export function setPoster(id, poster) {
     execute(id, p => {
         const { player } = p;
         player.poster = poster;
-    });
-}
-
-export function reload(id, url, type, poster) {
-    execute(id, p => {
-        const { player, hls } = p;
-        if (player.supports(type)) {
-            player.source = {
-                type: 'video',
-                title: 'Example title',
-                poster: poster,
-                sources: [
-                    {
-                        src: url,
-                        type: type
-                    }
-                ]
-            };
-        }
-        else if (Hls.isSupported()) {
-            player.stop();
-            delete player.source;
-
-            hls.loadSource(url);
-        }
     });
 }
 

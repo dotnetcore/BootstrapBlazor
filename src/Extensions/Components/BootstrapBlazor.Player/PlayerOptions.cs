@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 播放器选项类
 /// </summary>
-public class PlayerOption
+public class PlayerOptions
 {
     /// <summary>
     /// 获得/设置 是否为 Hls 播放资源 默认 false
