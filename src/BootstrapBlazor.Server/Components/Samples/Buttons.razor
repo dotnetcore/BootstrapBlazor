@@ -100,6 +100,21 @@
             <Button Color="Color.Info" Text="@Localizer["ButtonAvailable"]" OnClickWithoutRender="@ClickButton2" class="ms-3"></Button>
         </div>
     </div>
+
+    <br />
+    <p><b>@Localizer["ButtonDisabledColorSubTitle"]</b></p>
+    <ul class="ul-demo mb-3">
+        <li>@((MarkupString)Localizer["ButtonDisabledColorTip"].Value)</li>
+    </ul>
+    <div class="row g-3">
+        <div class="col-12">
+            <Button DisabledColor="ButtonDisabledColor" Text="@Localizer["ButtonDisabled"]" OnClick="@ClickButton1" IsDisabled="@IsDisable"></Button>
+            <Button DisabledColor="ButtonDisabledColor" Color="Color.Danger" Text="@Localizer["ButtonDisabled"]" OnClick="@ClickButton1" IsDisabled="@IsDisable"></Button>
+            <Button Color="Color.Danger" DisabledColor="ButtonDisabledColor" Text="Outline" OnClick="@ClickButton1" IsDisabled="@IsDisable" IsOutline="true"></Button>
+            <Button Color="Color.Success" Text="@Localizer["ButtonAvailable"]" OnClick="@ClickButton2" class="ms-3"></Button>
+            <Button Color="Color.Dark" Text="@Localizer["ButtonDisabledColorChange"]" OnClick="@ClickButton3" class="ms-3"></Button>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Color">

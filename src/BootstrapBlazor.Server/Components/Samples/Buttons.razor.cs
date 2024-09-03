@@ -14,6 +14,7 @@ public sealed partial class Buttons
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
+    private Color ButtonDisabledColor = Color.Secondary;
     /// <summary>
     ///
     /// </summary>
@@ -41,6 +42,12 @@ public sealed partial class Buttons
         return Task.CompletedTask;
     }
 
+    private void ClickButton3()
+    {
+        ButtonDisabledColor = ButtonDisabledColor == Color.None ? Color.Secondary : Color.None;
+
+        StateHasChanged();
+    }
     private string ButtonText { get; set; } = "";
 
     private Task ClickButtonShowText(string text)

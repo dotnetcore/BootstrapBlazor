@@ -17,8 +17,10 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// </summary>
     /// <returns></returns>
     protected string? ClassName => CssBuilder.Default("btn")
-        .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
-        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
+        .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline && (!IsDisabled || DisabledColor == Color.None))
+        .AddClass($"btn-outline-{DisabledColor.ToDescriptionString()}", IsOutline && IsDisabled && DisabledColor != Color.None)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None && (!IsDisabled || DisabledColor == Color.None))
+        .AddClass($"btn-{DisabledColor.ToDescriptionString()}", !IsOutline && IsDisabled && DisabledColor != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
         .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
@@ -75,6 +77,12 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// </summary>
     [Parameter]
     public virtual Color Color { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// 获得/设置 禁用之后的按钮颜色(默认None原始颜色)
+    /// </summary>
+    [Parameter]
+    public virtual Color DisabledColor { get; set; } = Color.None;
 
     /// <summary>
     /// 获得/设置 显示图标

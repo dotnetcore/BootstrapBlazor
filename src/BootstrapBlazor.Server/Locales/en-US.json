@@ -2302,7 +2302,10 @@
     "TooltipText": "Button",
     "TooltipTitle": "Tooltip",
     "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
-    "TooltipDisabledText": "Disabled"
+    "TooltipDisabledText": "Disabled",
+    "ButtonDisabledColorSubTitle": "DisabledColor comparison",
+    "ButtonDisabledColorTip": "<code>DisabledColor</code> property will set disabled style",
+    "ButtonDisabledColorChange": "Click it change DisabledColor or none"
   },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Title": "Basic usage",

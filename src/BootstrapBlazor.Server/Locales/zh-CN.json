@@ -2302,7 +2302,10 @@
     "TooltipText": "按钮",
     "TooltipTitle": "按钮提示栏",
     "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
-    "TooltipDisabledText": "禁用按钮"
+    "TooltipDisabledText": "禁用按钮",
+    "ButtonDisabledColorSubTitle": "DisabledColor 效果对比",
+    "ButtonDisabledColorTip": "<code>DisabledColor</code> 属性会影响禁用后的效果",
+    "ButtonDisabledColorChange": "点击切换DisabledColor属性"
   },
   "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Title": "基础用法",
