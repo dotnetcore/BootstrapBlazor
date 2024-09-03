@@ -17,7 +17,7 @@ public partial class Player
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public Func<Task<PlayerOption>>? OnInitAsync { get; set; }
+    public PlayerOptions? Options { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-video-player")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -29,12 +29,7 @@ public partial class Player
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        if (OnInitAsync != null)
-        {
-            var option = await OnInitAsync();
-            option.Language ??= CultureInfo.CurrentUICulture.Name;
-            await InvokeVoidAsync("init", Id, Interop, "", option);
-        }
+        await InvokeVoidAsync("init", Id, Interop, "", Options);
     }
 
     /// <summary>
@@ -42,5 +37,5 @@ public partial class Player
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public Task Reload(PlayerOption option) => InvokeVoidAsync("reload", Id, option);
+    public Task Reload(PlayerOptions option) => InvokeVoidAsync("reload", Id, option);
 }
