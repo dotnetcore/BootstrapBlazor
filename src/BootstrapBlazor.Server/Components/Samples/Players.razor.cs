@@ -51,17 +51,17 @@ public partial class Players
         _options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00003.jpg");
         _options.Thumbnail.Urls.Add("https://cdn.plyr.io/static/demo/thumbs/100p-00004.jpg");
 
-        _options.Makers.Enabled = true;
-        _options.Makers.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
-        _options.Makers.Points.Add(new PlayerPoint() { Time = 50, Label = "Second Marker" });
+        _options.Marker.Enabled = true;
+        _options.Marker.Points.Add(new PlayerPoint() { Time = 10, Label = "First Marker" });
+        _options.Marker.Points.Add(new PlayerPoint() { Time = 50, Label = "Second Marker" });
 
         _hlsOptions.IsHls = true;
         _hlsOptions.Poster = "https://bitdash-a.akamaihd.net/content/sintel/poster.png";
         _hlsOptions.Source.Sources.Add(new PlayerSources { Url = _url, Type = "application/x-mpegURL" });
 
-        _hlsOptions.Makers.Enabled = true;
-        _hlsOptions.Makers.Points.Add(new PlayerPoint() { Time = 60, Label = "First Marker" });
-        _hlsOptions.Makers.Points.Add(new PlayerPoint() { Time = 300, Label = "Second Marker" });
+        _hlsOptions.Marker.Enabled = true;
+        _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 60, Label = "First Marker" });
+        _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 300, Label = "Second Marker" });
     }
 
     private Task ChangeUrl(SelectedItem e)
