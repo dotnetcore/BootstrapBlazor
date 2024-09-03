@@ -14,7 +14,7 @@
 <DemoBlock Title="@Localizer["PlayersNormalTitle"]"
            Introduction="@Localizer["PlayersNormalIntro"]"
            Name="Normal">
-    <Player OnInitAsync="InitNormalPlayer"></Player>
+    <Player Options="_options"></Player>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PlayersHlsTitle"]"
@@ -28,7 +28,7 @@
             <Display @bind-Value="@_url" />
         </div>
     </div>
-    <Player OnInitAsync="InitHlsPlayer" @ref="_hlsPlayer"></Player>
+    <Player Options="_hlsOptions" @ref="_hlsPlayer"></Player>
 </DemoBlock>
 
 @* <AttributeTable Items="@GetAttributes()" /> *@
