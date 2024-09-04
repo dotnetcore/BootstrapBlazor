@@ -1,0 +1,23 @@
+<Project>
+
+  <Import Project="..\Directory.Build.props" />
+  <Import Project="..\Frameworks.props" />
+  <Import Project="..\Logo.props" />
+  <Import Project="..\SourceLink.targets" />
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
+    <Description>Bootstrap UI components for Blazor and Razor Components</Description>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageReleaseNotes>https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="readme.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <NoWarn>NU1902;NU1903;CS8002</NoWarn>
+  </PropertyGroup>
+
+</Project>
