@@ -36,7 +36,7 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="8.1.7" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="8.1.5-beta01" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="8.1.4-beta01" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.3" />
