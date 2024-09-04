@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Core.Converter;
 /// 枚举类型转换器
 /// </summary>
 /// <remarks>序列化时把枚举类型序列化成字符串</remarks>
-public class JsonEnumDescriptionConverter<T> : JsonConverter<T> where T : struct, Enum
+public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 {
     /// <summary>
     /// <inheritdoc/>
@@ -26,9 +26,10 @@ public class JsonEnumDescriptionConverter<T> : JsonConverter<T> where T : struct
         if (reader.TokenType == JsonTokenType.String)
         {
             var enumStringValue = reader.GetString();
-            if (Enum.TryParse<T>(enumStringValue, true, out T v))
+            var v = Enum.GetNames<T>().FirstOrDefault(i => typeof(T).ToDescriptionString(i) == enumStringValue);
+            if (v != null && Enum.TryParse<T>(v, true, out T val))
             {
-                ret = v;
+                ret = val;
             }
         }
         return ret;
