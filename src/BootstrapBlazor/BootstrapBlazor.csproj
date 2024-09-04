@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>8.9.1-beta01</Version>
+    <Version>8.9.1-beta02</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -61,10 +61,6 @@
     <None Include="wwwroot\lib\**\*.css" />
     <None Include="wwwroot\scss\**\*.*" />
     <None Include="wwwroot\src\**\*.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor.Core\BootstrapBlazor.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>

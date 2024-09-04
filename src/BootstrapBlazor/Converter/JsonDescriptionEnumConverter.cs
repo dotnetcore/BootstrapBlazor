@@ -5,12 +5,12 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BootstrapBlazor.Components;
+namespace BootstrapBlazor.Core.Converter;
 
 /// <summary>
-/// DockType 转换器
+/// 枚举类型转换器 序列化时把枚举类型的 [Description] 标签内容序列化成字符串 推荐使用 <see cref="JsonEnumConverter"/> 转换器
 /// </summary>
-class DockViewTypeConverter<T> : JsonConverter<T>
+public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 {
     /// <summary>
     /// <inheritdoc/>
@@ -19,10 +19,19 @@ class DockViewTypeConverter<T> : JsonConverter<T>
     /// <param name="typeToConvert"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        throw new NotImplementedException();
+        T ret = default;
+        if (reader.TokenType == JsonTokenType.String)
+        {
+            var enumStringValue = reader.GetString();
+            var v = Enum.GetNames<T>().FirstOrDefault(i => typeof(T).ToDescriptionString(i) == enumStringValue);
+            if (Enum.TryParse<T>(v, true, out T val))
+            {
+                ret = val;
+            }
+        }
+        return ret;
     }
 
     /// <summary>
@@ -33,6 +42,6 @@ class DockViewTypeConverter<T> : JsonConverter<T>
     /// <param name="options"></param>
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(typeof(T).ToDescriptionString(value?.ToString()));
+        writer.WriteStringValue(value.ToDescriptionString());
     }
 }

@@ -32,6 +32,18 @@ public class JsonDescriptionEnumConverterTest : TestBase
         Assert.Equal(TestEnum.Item1, v);
     }
 
+    [Fact]
+    public void JsonEnumConverter_Ok()
+    {
+        var value = MockEnum.Item1;
+        var json = JsonSerializer.Serialize(value);
+        Assert.Equal("\"item1\"", json);
+
+        var value2 = MockEnum2.Item1;
+        json = JsonSerializer.Serialize(value2);
+        Assert.Equal("\"Item1\"", json);
+    }
+
     [JsonConverter(typeof(JsonDescriptionEnumConverter<TestEnum>))]
     public enum TestEnum
     {
@@ -39,6 +51,22 @@ public class JsonDescriptionEnumConverterTest : TestBase
         Item1,
 
         [Description("test2")]
+        Item2
+    }
+
+    [JsonEnumConverter(true)]
+    public enum MockEnum
+    {
+        Item1,
+
+        Item2
+    }
+
+    [JsonEnumConverter]
+    public enum MockEnum2
+    {
+        Item1,
+
         Item2
     }
 }
