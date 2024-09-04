@@ -48,7 +48,8 @@ class DockViewConfig
     /// <summary>
     /// 获得/设置 客户端渲染模式 默认 null 客户端默认使用 always onlyWhenVisible 值
     /// </summary>
-    public string? Renderer { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public DockViewRenderMode Renderer { get; set; }
 
     /// <summary>
     /// 获得/设置 标签页可见状态改变事件回调

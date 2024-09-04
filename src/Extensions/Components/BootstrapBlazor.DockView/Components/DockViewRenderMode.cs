@@ -8,32 +8,20 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DockContent 类型
+/// DockViewRenderMode 渲染模式枚举类型
 /// </summary>
-[JsonConverter(typeof(DockViewTypeConverter<DockViewContentType>))]
-public enum DockViewContentType
+[JsonConverter(typeof(DockViewTypeConverter<DockViewRenderMode>))]
+public enum DockViewRenderMode
 {
     /// <summary>
-    /// 行排列 水平排列
+    /// 可见时渲染
     /// </summary>
-    [Description("row")]
-    Row,
+    [Description("onlyWhenVisible")]
+    OnlyWhenVisible,
 
     /// <summary>
-    /// 列排列 垂直排列
+    /// 始终渲染
     /// </summary>
-    [Description("column")]
-    Column,
-
-    /// <summary>
-    /// 标签排列
-    /// </summary>
-    [Description("group")]
-    Group,
-
-    /// <summary>
-    /// 组件
-    /// </summary>
-    [Description("component")]
-    Component,
+    [Description("always")]
+    Always
 }
