@@ -3359,7 +3359,7 @@
     "UploadClickUploadIntro": "The <code>ButtonUpload</code> components, classic styles, user click button to pop up the file selection box.",
     "UploadClickUploadTips1": "Click on the <code>browse button</code> select file upload, in this case set <code>IsMultiple-true</code> multiple-selectable file can be uploaded",
     "UploadClickUploadTips2": "When you set up <code>IsSingle</code>, you can upload only one image or file",
-    "UploadClickUploadTips3ShowUploadList": "Set <code>ShowUploadList</code> value to <b>false</b> as normal button",
+    "UploadClickUploadTips3ShowUploadList": "Set <code>ShowUploadFileList</code> value to <b>false</b> as normal button",
     "UploadedFilesTitle": "A list of files has been uploaded",
     "UploadedFilesIntro": "Use <code>DefaultFileList</code> to set up uploaded content",
     "UploadFolderTitle": "Upload a folder",
