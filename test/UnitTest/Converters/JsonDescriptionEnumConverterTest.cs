@@ -24,6 +24,12 @@ public class JsonDescriptionEnumConverterTest : TestBase
 
         var v = JsonSerializer.Deserialize<TestEnum>("\"test2\"");
         Assert.Equal(TestEnum.Item2, v);
+
+        v = JsonSerializer.Deserialize<TestEnum>("\"Test1\"");
+        Assert.Equal(TestEnum.Item1, v);
+
+        v = JsonSerializer.Deserialize<TestEnum>("test3");
+        Assert.Equal(TestEnum.Item1, v);
     }
 
     [JsonConverter(typeof(JsonDescriptionEnumConverter<TestEnum>))]

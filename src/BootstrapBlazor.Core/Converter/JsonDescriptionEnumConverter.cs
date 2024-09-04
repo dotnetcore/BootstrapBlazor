@@ -27,7 +27,7 @@ public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct
         {
             var enumStringValue = reader.GetString();
             var v = Enum.GetNames<T>().FirstOrDefault(i => typeof(T).ToDescriptionString(i) == enumStringValue);
-            if (v != null && Enum.TryParse<T>(v, true, out T val))
+            if (Enum.TryParse<T>(v, true, out T val))
             {
                 ret = val;
             }
