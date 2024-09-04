@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockType 转换器
 /// </summary>
-class DockViewTypeConverter : JsonConverter<DockViewContentType>
+class DockViewTypeConverter<T> : JsonConverter<T>
 {
     /// <summary>
     /// <inheritdoc/>
@@ -20,7 +20,7 @@ class DockViewTypeConverter : JsonConverter<DockViewContentType>
     /// <param name="options"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public override DockViewContentType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
@@ -31,8 +31,8 @@ class DockViewTypeConverter : JsonConverter<DockViewContentType>
     /// <param name="writer"></param>
     /// <param name="value"></param>
     /// <param name="options"></param>
-    public override void Write(Utf8JsonWriter writer, DockViewContentType value, JsonSerializerOptions options)
+    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
-        writer.WriteStringValue(value.ToDescriptionString());
+        writer.WriteStringValue(typeof(T).ToDescriptionString(value?.ToString()));
     }
 }

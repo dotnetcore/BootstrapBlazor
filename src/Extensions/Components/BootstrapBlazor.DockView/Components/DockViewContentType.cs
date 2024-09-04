@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContent 类型
 /// </summary>
-[JsonConverter(typeof(DockViewTypeConverter))]
+[JsonConverter(typeof(DockViewTypeConverter<DockViewContentType>))]
 public enum DockViewContentType
 {
     /// <summary>
