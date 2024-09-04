@@ -64,6 +64,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor.Core\BootstrapBlazor.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Options" />
