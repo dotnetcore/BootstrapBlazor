@@ -8,9 +8,8 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Core.Converter;
 
 /// <summary>
-/// 枚举类型转换器
+/// 枚举类型转换器 序列化时把枚举类型的 [Description] 标签内容序列化成字符串 推荐使用 <see cref="JsonEnumConverter"/> 转换器
 /// </summary>
-/// <remarks>序列化时把枚举类型序列化成字符串</remarks>
 public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 {
     /// <summary>
