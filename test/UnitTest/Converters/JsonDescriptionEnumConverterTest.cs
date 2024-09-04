@@ -28,7 +28,7 @@ public class JsonDescriptionEnumConverterTest : TestBase
         v = JsonSerializer.Deserialize<TestEnum>("\"Test1\"");
         Assert.Equal(TestEnum.Item1, v);
 
-        v = JsonSerializer.Deserialize<TestEnum>("test3");
+        v = JsonSerializer.Deserialize<TestEnum>("\"Test3\"");
         Assert.Equal(TestEnum.Item1, v);
     }
 
