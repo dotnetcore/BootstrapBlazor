@@ -70,6 +70,7 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    [Parameter]
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
