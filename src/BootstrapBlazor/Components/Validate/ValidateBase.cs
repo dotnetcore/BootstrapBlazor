@@ -325,7 +325,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     private string GetDefaultErrorMessage()
     {
-        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"] ?? "{0} is required.";
+        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"];
         return _defaultErrorMessage;
     }
 
