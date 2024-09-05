@@ -96,6 +96,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool? IsRequiredWhenEdit { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? RequiredErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 false
     /// </summary>
     public bool ShowLabelTooltip { get; set; }

@@ -144,4 +144,9 @@ public interface IEditorItem
     /// 获得/设置 是否为必填项 默认为 null
     /// </summary>
     bool? Required { get; set; }
+
+    /// <summary>
+    /// 获得/设置 必填项缺失时错误提示文本 默认为 null
+    /// </summary>
+    string? RequiredErrorMessage { get; set; }
 }

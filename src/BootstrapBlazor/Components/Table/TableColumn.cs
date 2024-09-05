@@ -214,6 +214,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    public string? RequiredErrorMessage { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
     public Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 
     /// <summary>

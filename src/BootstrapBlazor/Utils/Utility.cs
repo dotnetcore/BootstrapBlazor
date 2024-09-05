@@ -479,6 +479,7 @@ public static class Utility
             builder.AddAttribute(30, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(40, nameof(ValidateBase<string>.ValueExpression), valueExpression);
             builder.AddAttribute(41, nameof(ValidateBase<string>.ShowRequired), GetRequired(item, changedType));
+            builder.AddAttribute(41, nameof(ValidateBase<string>.RequiredErrorMessage), item.RequiredErrorMessage);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
