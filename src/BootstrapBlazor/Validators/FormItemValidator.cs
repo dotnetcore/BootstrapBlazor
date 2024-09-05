@@ -7,21 +7,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 自定义验证类
 /// </summary>
-public class FormItemValidator : ValidatorBase
+/// <param name="attribute"></param>
+public class FormItemValidator(ValidationAttribute attribute) : ValidatorBase
 {
     /// <summary>
     /// 获得 ValidationAttribute 实例
     /// </summary>
-    public ValidationAttribute Validator { get; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="attribute"></param>
-    public FormItemValidator(ValidationAttribute attribute)
-    {
-        Validator = attribute;
-    }
+    public ValidationAttribute Validator { get; } = attribute;
 
     /// <summary>
     /// 验证方法
