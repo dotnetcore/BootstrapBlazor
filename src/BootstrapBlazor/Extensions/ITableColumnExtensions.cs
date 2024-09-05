@@ -60,6 +60,8 @@ public static class IEditItemExtensions
         if (!string.IsNullOrEmpty(source.PlaceHolder)) dest.PlaceHolder = source.PlaceHolder;
         if (!string.IsNullOrEmpty(source.Step)) dest.Step = source.Step;
         if (source.Order != 0) dest.Order = source.Order;
+        if (source.Required.HasValue) dest.Required = source.Required;
+        if (!string.IsNullOrEmpty(source.RequiredErrorMessage)) dest.RequiredErrorMessage = source.RequiredErrorMessage;
 
         if (source is ITableColumn col)
         {
@@ -104,6 +106,8 @@ public static class IEditItemExtensions
         if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
         if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
         if (col.ToolboxTemplate != null) dest.ToolboxTemplate = col.ToolboxTemplate;
+        if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
+        if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
     }
 
     /// <summary>

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -25,7 +26,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="EditContext"/>.
+    /// Gets the associated <see cref="EditContext"/>
     /// </summary>
     protected EditContext? EditContext { get; set; }
 
@@ -170,10 +171,25 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示必填项标记 默认为 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? ShowRequired { get; set; }
+
+    /// <summary>
+    /// 获得/设置 必填项错误文本 默认为 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? RequiredErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得 父组件的 EditContext 实例
     /// </summary>
     [CascadingParameter]
     protected EditContext? CascadedEditContext { get; set; }
+
+    [Inject, NotNull]
+    private IStringLocalizer<ValidateBase<string>>? Localizer { get; set; }
 
     /// <summary>
     /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
@@ -209,7 +225,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 判断是否为必填字段
     /// </summary>
     /// <returns></returns>
-    protected virtual bool IsRequired() => FieldIdentifier
+    protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
         || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
@@ -221,8 +237,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>
-    /// properties. Derived components should typically use this value for the primary HTML element's
-    /// 'class' attribute.
+    /// properties. Derived components should typically use this value for the primary HTML element's class attribute.
     /// </summary>
     protected string? CssClass => CssBuilder.Default()
         .AddClass(FieldClass, IsNeedValidate)
@@ -277,6 +292,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         base.OnParametersSet();
 
         Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && IsRequired()) ? "true" : null;
+
+        if (ShowRequired is true)
+        {
+            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultErrorMessage() });
+        }
     }
 
     /// <summary>
@@ -299,6 +319,14 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 await ShowValidResult();
             }
         }
+    }
+
+    private string? _defaultErrorMessage;
+
+    private string GetDefaultErrorMessage()
+    {
+        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"];
+        return _defaultErrorMessage;
     }
 
     #region Validation

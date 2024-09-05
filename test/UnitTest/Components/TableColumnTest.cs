@@ -79,6 +79,11 @@ public class TableColumnTest
         SetValue("GetTooltipTextCallback", new Func<object, Task<string?>>(_ => Task.FromResult((string?)"")));
         SetValue("CustomSearch", new Func<ITableColumn, string?, SearchFilterAction>((_, _) => new SearchFilterAction("test", "test")));
 
+        SetValue("Required", true);
+        SetValue("RequiredErrorMessage", "test");
+        SetValue("IsRequiredWhenAdd", true);
+        SetValue("IsRequiredWhenEdit", true);
+
         void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }
 }
