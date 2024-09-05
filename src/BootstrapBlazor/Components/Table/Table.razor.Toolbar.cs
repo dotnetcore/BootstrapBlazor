@@ -223,7 +223,7 @@ public partial class Table<TItem>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
     /// </summary>
     [Parameter]
-    [Obsolete("This callback is obsolete. Use ShowExtendEditButtonCallback instead. 已过期，请使用 ShowExtendEditButtonCallback 参数")]
+    [Obsolete("已弃用，请使用 ShowExtendEditButtonCallback 参数. Deprecated Use ShowExtendEditButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowEditButtonCallback
     {
