@@ -247,7 +247,7 @@ public partial class Table<TItem>
     /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
     /// </summary>
     [Parameter]
-    [Obsolete("This callback is obsolete. Use ShowExtendDeleteButtonCallback instead. 已过期，请使用 ShowExtendDeleteButtonCallback 参数")]
+    [Obsolete(" 已过期，请使用 ShowExtendDeleteButtonCallback 参数. Deprecated Use ShowExtendDeleteButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowDeleteButtonCallback
     {
