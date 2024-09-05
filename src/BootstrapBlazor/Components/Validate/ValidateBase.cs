@@ -170,6 +170,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示必填项标记 默认为 null 未设置
+    /// </summary>
+    [Parameter]
+    public bool? ShowRequired { get; set; }
+
+    /// <summary>
     /// 获得 父组件的 EditContext 实例
     /// </summary>
     [CascadingParameter]
@@ -209,7 +215,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 判断是否为必填字段
     /// </summary>
     /// <returns></returns>
-    protected virtual bool IsRequired() => FieldIdentifier
+    protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
         || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
