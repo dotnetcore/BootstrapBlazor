@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -187,6 +188,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     [CascadingParameter]
     protected EditContext? CascadedEditContext { get; set; }
 
+    [Inject, NotNull]
+    private IStringLocalizer<ValidateBase<string>>? Localizer { get; set; }
+
     /// <summary>
     /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
     /// <see cref="CurrentValueAsString"/> interprets incoming values.
@@ -291,7 +295,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (ShowRequired is true)
         {
-            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage });
+            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultErrorMessage() });
         }
     }
 
@@ -315,6 +319,14 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 await ShowValidResult();
             }
         }
+    }
+
+    private string? _defaultErrorMessage;
+
+    private string GetDefaultErrorMessage()
+    {
+        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"] ?? "{0} is required.";
+        return _defaultErrorMessage;
     }
 
     #region Validation
