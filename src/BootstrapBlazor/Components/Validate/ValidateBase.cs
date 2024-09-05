@@ -176,6 +176,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     public bool? ShowRequired { get; set; }
 
     /// <summary>
+    /// 获得/设置 必填项错误文本 默认为 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? RequiredErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得 父组件的 EditContext 实例
     /// </summary>
     [CascadingParameter]
@@ -282,6 +288,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         base.OnParametersSet();
 
         Required = (IsNeedValidate && !string.IsNullOrEmpty(DisplayText) && (ValidateForm?.ShowRequiredMark ?? false) && IsRequired()) ? "true" : null;
+
+        if (ShowRequired is true)
+        {
+            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage });
+        }
     }
 
     /// <summary>
