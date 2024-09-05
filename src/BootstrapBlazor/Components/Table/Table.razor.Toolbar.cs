@@ -414,6 +414,12 @@ public partial class Table<TItem>
     public string? ExportToastInProgressContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 编辑弹窗配置类扩展回调方法 新建/编辑弹窗弹出前回调此方法用于设置弹窗配置信息
+    /// </summary>
+    [Parameter]
+    public Action<ITableEditDialogOption<TItem>>? BeforeShowEditDialogCallback { get; set; }
+
+    /// <summary>
     /// ToastService 服务实例
     /// </summary>
     [Inject]
@@ -830,6 +836,8 @@ public partial class Table<TItem>
         option.DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter;
         option.IsTracking = IsTracking;
         option.DialogFooterTemplate = EditFooterTemplate;
+
+        BeforeShowEditDialogCallback?.Invoke(option);
     }
 
     /// <summary>
