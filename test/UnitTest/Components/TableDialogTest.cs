@@ -86,6 +86,7 @@ public class TableDialogTest : TableDialogTestBase
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
+            pb.Add(a => a.BeforeShowEditDialogCallback, new Action<ITableEditDialogOption<Foo>>(o => o.DisableAutoSubmitFormByEnter = true));
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());

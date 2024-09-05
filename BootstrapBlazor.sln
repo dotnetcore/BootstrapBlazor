@@ -162,8 +162,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WinBox", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Player", "src\Extensions\Components\BootstrapBlazor.Player\BootstrapBlazor.Player.csproj", "{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Core", "src\BootstrapBlazor.Core\BootstrapBlazor.Core.csproj", "{6162D045-845C-4753-9A4D-52090D9390D5}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -384,10 +382,6 @@ Global
 		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6162D045-845C-4753-9A4D-52090D9390D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6162D045-845C-4753-9A4D-52090D9390D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6162D045-845C-4753-9A4D-52090D9390D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6162D045-845C-4753-9A4D-52090D9390D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -454,7 +448,6 @@ Global
 		{50F286FD-D814-46C3-A70C-C2F789C4338C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{C19A57F2-DBE3-4CD4-96EA-337C93A4D886} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{C6145F86-D8F0-42A6-AE06-0EABA90ECD6B} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
-		{6162D045-845C-4753-9A4D-52090D9390D5} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

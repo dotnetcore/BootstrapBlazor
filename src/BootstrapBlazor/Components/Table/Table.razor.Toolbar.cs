@@ -223,7 +223,7 @@ public partial class Table<TItem>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
     /// </summary>
     [Parameter]
-    [Obsolete("This callback is obsolete. Use ShowExtendEditButtonCallback instead. 已过期，请使用 ShowExtendEditButtonCallback 参数")]
+    [Obsolete("已弃用，请使用 ShowExtendEditButtonCallback 参数. Deprecated Use ShowExtendEditButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowEditButtonCallback
     {
@@ -247,7 +247,7 @@ public partial class Table<TItem>
     /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
     /// </summary>
     [Parameter]
-    [Obsolete("This callback is obsolete. Use ShowExtendDeleteButtonCallback instead. 已过期，请使用 ShowExtendDeleteButtonCallback 参数")]
+    [Obsolete(" 已过期，请使用 ShowExtendDeleteButtonCallback 参数. Deprecated Use ShowExtendDeleteButtonCallback instead.")]
     [ExcludeFromCodeCoverage]
     public Func<TItem, bool>? ShowDeleteButtonCallback
     {
@@ -412,6 +412,12 @@ public partial class Table<TItem>
     [Parameter]
     [NotNull]
     public string? ExportToastInProgressContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑弹窗配置类扩展回调方法 新建/编辑弹窗弹出前回调此方法用于设置弹窗配置信息
+    /// </summary>
+    [Parameter]
+    public Action<ITableEditDialogOption<TItem>>? BeforeShowEditDialogCallback { get; set; }
 
     /// <summary>
     /// ToastService 服务实例
@@ -830,6 +836,8 @@ public partial class Table<TItem>
         option.DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter;
         option.IsTracking = IsTracking;
         option.DialogFooterTemplate = EditFooterTemplate;
+
+        BeforeShowEditDialogCallback?.Invoke(option);
     }
 
     /// <summary>
