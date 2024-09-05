@@ -25,7 +25,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
-    /// Gets the associated <see cref="EditContext"/>.
+    /// Gets the associated <see cref="EditContext"/>
     /// </summary>
     protected EditContext? EditContext { get; set; }
 
@@ -221,8 +221,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
     /// <summary>
     /// Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>
-    /// properties. Derived components should typically use this value for the primary HTML element's
-    /// 'class' attribute.
+    /// properties. Derived components should typically use this value for the primary HTML element's class attribute.
     /// </summary>
     protected string? CssClass => CssBuilder.Default()
         .AddClass(FieldClass, IsNeedValidate)
