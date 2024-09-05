@@ -139,4 +139,9 @@ public interface IEditorItem
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     int GroupOrder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为必填项 默认为 null
+    /// </summary>
+    bool? Required { get; set; }
 }
