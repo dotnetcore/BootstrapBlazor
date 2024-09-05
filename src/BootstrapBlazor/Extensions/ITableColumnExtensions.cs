@@ -106,6 +106,8 @@ public static class IEditItemExtensions
         if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
         if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
         if (col.ToolboxTemplate != null) dest.ToolboxTemplate = col.ToolboxTemplate;
+        if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
+        if (col.IsRequiredWhenEdit.HasValue) dest.IsRequiredWhenEdit = col.IsRequiredWhenEdit;
     }
 
     /// <summary>
