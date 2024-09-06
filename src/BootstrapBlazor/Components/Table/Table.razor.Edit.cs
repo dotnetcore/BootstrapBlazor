@@ -607,10 +607,14 @@ public partial class Table<TItem>
     {
         if (SelectedRows.Count > 0)
         {
-            SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
-            if (SelectedRowsChanged.HasDelegate)
+            var selectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+            if (!selectedRows.SequenceEqual(SelectedRows))
             {
-                _ = SelectedRowsChanged.InvokeAsync(SelectedRows);
+                SelectedRows = selectedRows;
+                if (SelectedRowsChanged.HasDelegate)
+                {
+                    _ = SelectedRowsChanged.InvokeAsync(selectedRows);
+                }
             }
         }
     }
