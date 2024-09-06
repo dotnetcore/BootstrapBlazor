@@ -7765,11 +7765,22 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.DynamicContext, context);
                 pb.Add(a => a.ModelEqualityComparer, (x, y) => x.GetValue("Id")?.ToString() == y.GetValue("Id")?.ToString());
                 pb.Add(a => a.SelectedRows, rows.Cast<DynamicObject>().ToList());
+                pb.Add(a => a.SelectedRowsChanged, rows =>
+                {
+
+                });
             });
         });
 
         var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
         Assert.NotNull(check);
+
+        context = CreateDynamicContext(localizer);
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DynamicContext, context);
+        });
     }
 
     [Fact]
