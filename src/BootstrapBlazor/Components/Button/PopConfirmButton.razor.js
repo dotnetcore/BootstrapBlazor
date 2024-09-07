@@ -49,7 +49,9 @@ export function init(id) {
             clearTimeout(handler);
             const hasConfirm = el.hasAttribute('data-bb-confirm');
             if (hasConfirm) {
-                confirm.popover.dispose();
+                if (confirm.popover.tip) {
+                    confirm.popover.dispose();
+                }
                 delete confirm.popover;
             }
         }, 50);
