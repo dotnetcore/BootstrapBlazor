@@ -28,6 +28,12 @@ public partial class ColorPicker
     [Parameter]
     public Func<string, Task<string>>? Formatter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否支持透明度 默认 false 不支持
+    /// </summary>
+    [Parameter]
+    public bool IsSupportOpacity { get; set; }
+
     private string? _formattedValueString;
 
     /// <summary>
@@ -39,6 +45,12 @@ public partial class ColorPicker
 
         await FormatValue();
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity });
 
     private async Task Setter(string v)
     {

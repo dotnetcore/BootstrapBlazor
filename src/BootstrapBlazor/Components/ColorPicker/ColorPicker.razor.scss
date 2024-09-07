@@ -2,6 +2,19 @@
     .form-control-color {
         max-width: 3rem;
     }
+
+    .pickr .pcr-button {
+        width: 22px;
+        height: 21px;
+
+        &:hover, &:focus {
+            box-shadow: none;
+        }
+
+        &:before, &:after {
+            border-radius: var(--bs-border-radius);
+        }
+    }
 }
 
 .input-group > .color-picker {
