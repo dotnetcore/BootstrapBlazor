@@ -1,0 +1,16 @@
+﻿.bb-result {
+    margin-top: 1rem;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    min-height: 160px;
+    padding: .5rem;
+}
+
+.final {
+    color: #000;
+}
+
+.temp {
+    color: gray;
+    margin-left: 1rem;
+}

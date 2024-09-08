@@ -373,5 +373,8 @@
     "AutoModeText": "Auto",
     "DarkModeText": "Dark",
     "LightModeText": "Light"
+  },
+  "BootstrapBlazor.Components.ValidateBase": {
+    "DefaultErrorMessage": "{0} is required."
   }
 }

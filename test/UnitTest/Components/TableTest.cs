@@ -5,7 +5,6 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
@@ -14,7 +13,7 @@ using System.Reflection;
 
 namespace UnitTest.Components;
 
-public class TableTest : TableTestBase
+public class TableTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_Ok()
@@ -7766,11 +7765,22 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.DynamicContext, context);
                 pb.Add(a => a.ModelEqualityComparer, (x, y) => x.GetValue("Id")?.ToString() == y.GetValue("Id")?.ToString());
                 pb.Add(a => a.SelectedRows, rows.Cast<DynamicObject>().ToList());
+                pb.Add(a => a.SelectedRowsChanged, rows =>
+                {
+
+                });
             });
         });
 
         var check = cut.FindComponents<Checkbox<DynamicObject>>().FirstOrDefault(i => i.Instance.State == CheckboxState.Checked);
         Assert.NotNull(check);
+
+        context = CreateDynamicContext(localizer);
+        var table = cut.FindComponent<Table<DynamicObject>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DynamicContext, context);
+        });
     }
 
     [Fact]

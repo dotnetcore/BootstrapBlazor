@@ -1,12 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>8.0.0-beta01</Version>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
-    <Description>Bootstrap UI components core libarayrary</Description>
+    <Version>8.0.2</Version>
   </PropertyGroup>
 
 </Project>

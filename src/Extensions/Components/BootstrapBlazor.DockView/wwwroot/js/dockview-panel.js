@@ -5,10 +5,10 @@ const onAddPanel = panel => {
     updateCloseButton(panel);
     updateTitle(panel);
     panel.api.onDidActiveChange(({ isActive }) => {
-        if (panel.group.panels.length < 2) return
-        if (isActive) {
+        if (isActive && !panel.group.api.isMaximized()) {
             saveConfig(panel.accessor)
-            panel.group.panels.filter(p => p != panel.group.activePanel).forEach(p => {
+            if (panel.group.panels.length < 2) return
+            panel.group.panels.filter(p => p != panel.group.activePanel && p.renderer == 'onlyWhenVisible').forEach(p => {
                 appendTemplatePanelEle(p)
             })
         }
@@ -21,6 +21,7 @@ const onRemovePanel = event => {
         id: event.id,
         title: event.title,
         component: event.view.contentComponent,
+        renderer: event.renderer,
         groupId: event.group.id,
         params: {
             ...event.params,
@@ -100,22 +101,23 @@ const updateTitle = panel => {
 }
 
 const getPanelsFromOptions = options => {
-    return getPanels(options.content[0])
+    return getPanels(options.content[0], options)
 }
 
-const getPanels = (contentItem, parent = {}, panels = []) => {
+const getPanels = (contentItem, options, parent = {}, panels = []) => {
     if (contentItem.type === 'component') {
         panels.push({
             id: contentItem.id,
             groupId: contentItem.groupId,
             title: contentItem.title,
+            renderer: contentItem.renderer || options.renderer,
             tabComponent: contentItem.componentName,
             contentComponent: contentItem.componentName,
             params: { ...contentItem, parentType: parent.type, parentId: parent.id }
         });
     }
     else {
-        contentItem.content?.forEach(item => getPanels(item, contentItem, panels))
+        contentItem.content?.forEach(item => getPanels(item, options, contentItem, panels))
     }
     return panels
 }

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
 namespace UnitTest.Extensions;
@@ -14,6 +13,14 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
         await jsRuntime.LoadModule("./mock.js", "test");
+    }
+
+    [Fact]
+    public async Task LoadModule_Exception()
+    {
+        var jsRuntime = new MockJSRuntime();
+        var ex = await Assert.ThrowsAsync<Exception>(async () => await jsRuntime.LoadModule("./mock.js", "test"));
+        Assert.Equal("load ./mock.js?v=test module fail", ex.Message);
     }
 
     [Fact]
@@ -85,5 +92,18 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     class MockComponent : ComponentBase
     {
 
+    }
+
+    class MockJSRuntime : IJSRuntime
+    {
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -194,9 +194,14 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["SpeechWave"],
                     Url = "speech/wave"
+                },
+                new()
+                {
+                    Text = Localizer["WebSpeech"],
+                    Url = "speech/web-speech"
                 }
             };
-            AddBadge(item, count: 3);
+            AddBadge(item, count: 5);
         }
 
         void AddQuickStar(DemoMenuItem item)
@@ -662,6 +667,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Player"],
+                    Url = "player"
+                },
+                new()
+                {
                     Text = Localizer["Print"],
                     Url = "print"
                 },
@@ -749,11 +760,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["WebSerial"],
                     Url = "web-serial"
-                },
-                new()
-                {
-                    Text = Localizer["WebSpeech"],
-                    Url = "web-speech"
                 }
             };
             AddBadge(item);
@@ -1136,7 +1142,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DriverJs"],
                     Url = "driver-js"
                 },
@@ -1147,7 +1152,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["IntersectionObserver"],
                     Url = "intersection-observer"
                 },
@@ -1230,6 +1234,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Tooltip"],
                     Url = "tooltip"
+                },
+                new()
+                {
+                    Text = Localizer["WinBox"],
+                    Url = "win-box"
                 }
             };
             AddBadge(item);
@@ -1340,7 +1349,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SortableList"],
                     Url = "sortable-list"
                 },
@@ -1419,7 +1427,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["DrawerService"],
                     Url = "drawer-service"
                 },
@@ -1513,13 +1520,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["AntDesignIcon"],
                     Url = "ant-design-icon"
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["ElementIcon"],
                     Url = "element-icon"
                 },

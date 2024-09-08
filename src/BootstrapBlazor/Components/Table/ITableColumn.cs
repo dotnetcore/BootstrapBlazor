@@ -155,6 +155,16 @@ public interface ITableColumn : IEditorItem
     bool IsMarkupString { get; set; }
 
     /// <summary>
+    /// 获得/设置 新建时是否为必填项 默认为 null
+    /// </summary>
+    bool? IsRequiredWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时是否为必填项 默认为 null
+    /// </summary>
+    bool? IsRequiredWhenEdit { get; set; }
+
+    /// <summary>
     /// 获得/设置 新建时此列只读 默认为 null 使用 <see cref="IEditorItem.Readonly"/> 值
     /// </summary>
     bool? IsReadonlyWhenAdd { get; set; }

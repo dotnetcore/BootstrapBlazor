@@ -49,7 +49,7 @@
         width: 100%;
     }
 
-    .bb-dockview .groupview > .content-container {
+    .bb-dockview .groupview > .content-container, .dv-render-overlay {
         padding: var(--bb-dockview-padding);
     }
 

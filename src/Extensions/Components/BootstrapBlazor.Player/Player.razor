@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Player/Player.razor.js", JSObjectReference = true)]
+
+@if (Mode == PlayerMode.Video)
+{
+    <video id="@Id" playsinline controls crossorigin>
+    </video>
+}
+else if (Mode == PlayerMode.Audio)
+{
+    <audio id="@Id" playsinline controls crossorigin>
+    </audio>
+}
+else if (Mode == PlayerMode.YouTube)
+{
+    <div class="plyr__video-embed" id="@Id">
+        <iframe allowfullscreen allowtransparency allow="autoplay"></iframe>
+    </div>
+}
+else if (Mode == PlayerMode.Vimeo)
+{
+    <div class="plyr__video-embed" id="@Id">
+        <iframe allowfullscreen allowtransparency allow="autoplay"></iframe>
+    </div>
+}
+

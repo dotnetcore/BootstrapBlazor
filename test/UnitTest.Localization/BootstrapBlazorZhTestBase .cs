@@ -2,28 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace UnitTest.Localization;
 
-[Collection("BlazorZhTestContext")]
-public class BootstrapBlazorZhTestBase
-{
-    protected TestContext Context { get; }
-
-    public BootstrapBlazorZhTestBase()
-    {
-        Context = BootstrapBlazorZhTestHost.Instance;
-    }
-}
-
-[CollectionDefinition("BlazorZhTestContext")]
-public class BootstrapBlazorZhTestCollection : ICollectionFixture<BootstrapBlazorZhTestHost>
-{
-
-}
-
-public class BootstrapBlazorZhTestHost : BootstrapBlazorTestHost
+public class BootstrapBlazorZhTestBase : BootstrapBlazorTestBase
 {
     protected override void ConfigureServices(IServiceCollection services)
     {
@@ -31,11 +12,11 @@ public class BootstrapBlazorZhTestHost : BootstrapBlazorTestHost
         services.AddLocalization(option => option.ResourcesPath = "Resources");
         services.AddBootstrapBlazor(localizationConfigure: options =>
         {
-            options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorZhTestHost);
+            options.ResourceManagerStringLocalizerType = typeof(BootstrapBlazorZhTestBase);
         });
     }
 
-    protected override void ConfigureConfigration(IServiceCollection services)
+    protected override void ConfigureConfiguration(IServiceCollection services)
     {
         // 增加单元测试 appsettings.json 配置文件
         services.AddConfiguration("zh-CN");

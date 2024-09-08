@@ -67,7 +67,12 @@ public class AutoGenerateClassTest
             HeaderTextTooltip = "test header tooltip",
             HeaderTextEllipsis = true,
             HeaderTextWrap = true,
-            IsMarkupString = true
+            IsMarkupString = true,
+
+            Required = true,
+            RequiredErrorMessage = "test",
+            IsRequiredWhenAdd = true,
+            IsRequiredWhenEdit = true
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
@@ -220,5 +225,10 @@ public class AutoGenerateClassTest
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
+
+        Assert.True(attr.Required);
+        Assert.True(attr.IsRequiredWhenEdit);
+        Assert.True(attr.IsRequiredWhenAdd);
+        Assert.Equal("test", attr.RequiredErrorMessage);
     }
 }

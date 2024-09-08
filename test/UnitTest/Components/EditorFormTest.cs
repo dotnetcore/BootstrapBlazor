@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -226,6 +225,9 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.OpenComponent<EditorItem<Foo, string>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Required), true);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.RequiredErrorMessage), "Test");
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Readonly), true);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.SkipValidate), false);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");

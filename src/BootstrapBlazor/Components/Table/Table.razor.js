@@ -720,6 +720,7 @@ const setCopyColumn = table => {
 
     const el = table.el
     EventHandler.on(el, 'click', '.col-copy', e => {
+        e.stopPropagation();
         const index = e.delegateTarget.closest('th').cellIndex
         let rows
         if (table.thead) {

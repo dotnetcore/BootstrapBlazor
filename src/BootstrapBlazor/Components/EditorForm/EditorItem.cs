@@ -62,6 +62,18 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public bool? Readonly { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool? Required { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public string? RequiredErrorMessage { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
     /// </summary>
     [Parameter]

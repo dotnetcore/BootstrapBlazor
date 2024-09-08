@@ -208,7 +208,7 @@ public partial class Transfer<TValue>
         OnSetItemClass ??= _ => null;
 
         // 处理 Required 标签
-        if (EditContext != null && FieldIdentifier != null)
+        if (FieldIdentifier != null)
         {
             var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
             if (pi != null)

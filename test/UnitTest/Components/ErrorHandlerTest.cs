@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace UnitTest.Components;
 
-public class ErrorHandlerTest : ErrorLoggerTestBase
+public class ErrorHandlerTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task HandlerException_Ok()

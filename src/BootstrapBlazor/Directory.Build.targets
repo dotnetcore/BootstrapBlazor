@@ -8,6 +8,7 @@
     <Message Text="Copy bootstrapblazor assets ..." Importance="high"></Message>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/animate/animate.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/animate.min.css" SkipUnchangedFiles="true" ></Copy>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/swal/sweetalert2.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/sweetalert2.css" SkipUnchangedFiles="true" ></Copy>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/lib/pickr/nano.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/nano.min.css" SkipUnchangedFiles="true" ></Copy>
 
     <Message Text="Copy motronic theme ..." Importance="high"></Message>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/src/css/motronic.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/motronic.min.css" SkipUnchangedFiles="true" ></Copy>

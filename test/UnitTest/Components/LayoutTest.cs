@@ -5,7 +5,6 @@
 using Bunit.TestDoubles;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Security.Claims;
 
@@ -386,7 +385,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     private static RenderFragment CreateSide(string? content = "Side") => builder => builder.AddContent(0, content);
 }
 
-public class LayoutAuthorizationTest : AuthorizateViewTestBase
+public class LayoutAuthorizationTest : AuthorizationViewTestBase
 {
     [Fact]
     public void Authorized_Ok()
