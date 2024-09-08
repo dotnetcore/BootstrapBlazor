@@ -3,8 +3,10 @@
         max-width: 3rem;
     }
 
-    .bb-color-picker-root {
+    .bb-color-picker-body {
+        height: 100%;
         background-color: var(--bb-color-pick-val);
+        border-radius: var(--bs-border-radius);
     }
 }
 

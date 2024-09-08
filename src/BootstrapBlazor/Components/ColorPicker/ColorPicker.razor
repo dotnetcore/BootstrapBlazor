@@ -9,7 +9,9 @@
 <div class="input-group bb-color-picker">
     @if (IsSupportOpacity)
     {
-        <span id="@Id" class="form-control form-control-color bb-color-picker-root" style="--bb-color-pick-val: @CurrentValueAsString"></span>
+        <div id="@Id" class="form-control form-control-color">
+            <div class="bb-color-picker-body" style="--bb-color-pick-val: @CurrentValueAsString"></div>
+        </div>
     }
     else
     {
