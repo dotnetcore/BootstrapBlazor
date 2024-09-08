@@ -6,12 +6,10 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div class="input-group color-picker">
+<div class="input-group bb-color-picker">
     @if (IsSupportOpacity)
     {
-        <div id="@Id" class="color-picker-root">
-            <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled value="@CurrentValueAsString" />
-        </div>
+        <span id="@Id" class="form-control form-control-color bb-color-picker-root" style="--bb-color-pick-val: @CurrentValueAsString"></span>
     }
     else
     {

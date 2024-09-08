@@ -1,19 +1,14 @@
-.color-picker {
+.bb-color-picker {
     .form-control-color {
         max-width: 3rem;
     }
 
-    .color-picker-root {
-        .form-control-color {
-            pointer-events: none;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-            background-color: var(--bs-body-bg);
-        }
+    .bb-color-picker-root {
+        background-color: var(--bb-color-pick-val);
     }
 }
 
-.input-group > .color-picker {
+.input-group > .bb-color-picker {
     flex: 1;
 
     > .form-control-color {

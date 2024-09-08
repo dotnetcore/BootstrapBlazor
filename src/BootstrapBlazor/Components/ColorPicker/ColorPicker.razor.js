@@ -51,15 +51,19 @@ export async function init(id, invoke, options) {
 
 const formatColorString = color => {
     if (color === null) {
-        return "#ffffff";
+        return "#FFFFFF";
     }
     else {
         const hex = color.toRGBA();
-        return `#${formatHexString(hex[0])}${formatHexString(hex[1])}${formatHexString(hex[2])}`
+        let val = `#${formatHexString(hex[0])}${formatHexString(hex[1])}${formatHexString(hex[2])}`;
+        if (hex[3] !== 1) {
+            val = `${val}${formatHexString(hex[3] * 255)}`;
+        }
+        return val.toUpperCase();
     }
 };
 
-const formatHexString = hex => Math.round(hex).toString(16);
+const formatHexString = hex => Math.round(hex).toString(16).padStart(2, '0');
 
 export function dispose(id) {
     const data = Data.get(id);
