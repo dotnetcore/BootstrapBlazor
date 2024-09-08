@@ -2481,10 +2481,7 @@
     "DisabledIntro": "Disable this component by setting the <code>IsDisabled</code> property",
     "ValidateFormTitle": "Used in the verification form",
     "ValidateFormIntro": "Built in <code>ValidateForm</code> to use",
-    "Event1": "Color change callback delegate method",
-
-    "V2NormalTitle": "Basic usage of ColorPicker V2",
-    "V2NormalIntro": "V2 does not support the browser page window color, support rgb, hsl, hex, cmyk format input and output, support the setting of alpha channels and display (cmyk format itself does not support alpha channels)"
+    "Event1": "Color change callback delegate method"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker",
