@@ -1,7 +1,6 @@
 ﻿import '../../lib/pickr/pickr.es5.min.js'
 import { addLink } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
 
 export async function init(id, invoke, options) {
     if (options.isSupportOpacity === true) {
@@ -11,6 +10,7 @@ export async function init(id, invoke, options) {
         const pickr = Pickr.create({
             el,
             theme: 'nano',
+            default: options.value,
             swatches: [
                 'rgba(244, 67, 54, 1)',
                 'rgba(233, 30, 99, 0.95)',
@@ -43,10 +43,32 @@ export async function init(id, invoke, options) {
             pickr._root.root.classList.add("form-control");
             pickr._root.root.classList.add("form-control-color");
         }
-        console.log(pickr._root.root);
+
+        pickr.on('save', (color, instance) => {
+            instance.hide();
+            invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
+        }).on('swatchselect', color => {
+            invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
+        });
     }
 }
 
+const formatColorString = color => {
+    if (color === null) {
+        return "";
+    }
+    else {
+        const hex = color.toRGBA();
+        return `#${formatHexString(hex[0])}${formatHexString(hex[1])}${formatHexString(hex[2])}`
+    }
+};
+
+const formatHexString = hex => Math.round(hex).toString(16);
+
 export function dispose(id) {
-    console.log(id);
+    const data = Data.get(id);
+    data.remove(id);
+    if (data) {
+        data.pickr.destroyAndRemove();
+    }
 }

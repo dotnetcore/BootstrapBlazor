@@ -50,7 +50,7 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Value });
 
     private async Task Setter(string v)
     {
@@ -66,5 +66,18 @@ public partial class ColorPicker
             // 使用者可能需要通过回调通过异步方式获得显示数据
             _formattedValueString = await Formatter(CurrentValueAsString);
         }
+    }
+
+    /// <summary>
+    /// 选中颜色值变化时回调此方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task OnColorChanged(string value)
+    {
+        CurrentValueAsString = value;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }
