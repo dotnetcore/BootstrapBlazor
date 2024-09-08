@@ -3,17 +3,12 @@
         max-width: 3rem;
     }
 
-    .pickr .pcr-button {
-        width: 22px;
-        height: 21px;
-        padding: 0;
-
-        &:hover, &:focus {
-            box-shadow: none;
-        }
-
-        &:before, &:after {
-            border-radius: var(--bs-border-radius);
+    .color-picker-root {
+        .form-control-color {
+            pointer-events: none;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            background-color: var(--bs-body-bg);
         }
     }
 }

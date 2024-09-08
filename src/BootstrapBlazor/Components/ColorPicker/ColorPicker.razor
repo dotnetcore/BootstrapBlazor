@@ -9,7 +9,9 @@
 <div class="input-group color-picker">
     @if (IsSupportOpacity)
     {
-        <div id="@Id"></div>
+        <div id="@Id" class="color-picker-root">
+            <input @attributes="@AdditionalAttributes" type="color" class="form-control form-control-color" disabled value="@CurrentValueAsString" />
+        </div>
     }
     else
     {

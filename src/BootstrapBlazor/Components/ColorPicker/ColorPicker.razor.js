@@ -11,6 +11,7 @@ export async function init(id, invoke, options) {
             el,
             theme: 'nano',
             default: options.value,
+            useAsButton: true,
             swatches: [
                 'rgba(244, 67, 54, 1)',
                 'rgba(233, 30, 99, 0.95)',
@@ -39,11 +40,6 @@ export async function init(id, invoke, options) {
 
         Data.set(id, { pickr });
 
-        if (pickr._root.root) {
-            pickr._root.root.classList.add("form-control");
-            pickr._root.root.classList.add("form-control-color");
-        }
-
         pickr.on('save', (color, instance) => {
             instance.hide();
             invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
@@ -55,7 +51,7 @@ export async function init(id, invoke, options) {
 
 const formatColorString = color => {
     if (color === null) {
-        return "";
+        return "#ffffff";
     }
     else {
         const hex = color.toRGBA();
