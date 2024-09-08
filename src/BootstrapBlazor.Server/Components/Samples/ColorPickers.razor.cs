@@ -18,15 +18,6 @@ public partial class ColorPickers
 
     private string Value { get; set; } = "#FFFFFF";
 
-    private string ValueV2 { get; set; } = "hsl(90, 80%, 50%)";
-
-    private Task OnColorChangedV2(string color)
-    {
-        NormalLogger.Log($"Selected color: {color}");
-        ValueV2 = color;
-        return Task.CompletedTask;
-    }
-
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
