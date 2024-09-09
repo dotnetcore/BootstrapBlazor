@@ -46,4 +46,19 @@
             }
         }
     }
+
+    &.btn-group-vertical {
+
+        .btn {
+            margin-left: 0 !important;
+
+            &:first-child {
+                border-top-right-radius: var(--bs-border-radius);
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--bs-border-radius);
+            }
+        }
+    }
 }
