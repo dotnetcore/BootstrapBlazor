@@ -11,12 +11,6 @@ namespace BootstrapBlazor.Components;
 public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
-    /// IJSObjectReference 实例
-    /// </summary>
-    [NotNull]
-    private IJSObjectReference? Module { get; } = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
-
-    /// <summary>
     /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
@@ -58,7 +52,10 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         {
             try
             {
-                await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
+                if (jSObjectReference != null)
+                {
+                    await jSObjectReference.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
+                }
             }
             catch (JSException)
             {
