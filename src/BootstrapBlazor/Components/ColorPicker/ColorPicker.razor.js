@@ -65,6 +65,17 @@ const formatColorString = color => {
 
 const formatHexString = hex => Math.round(hex).toString(16).padStart(2, '0');
 
+export function update(id, val) {
+    const data = Data.get(id);
+    if (data) {
+        const { pickr } = data;
+        const original = formatColorString(pickr.getColor());
+        if (original !== val) {
+            pickr.setColor(val, true);
+        }
+    }
+}
+
 export function dispose(id) {
     const data = Data.get(id);
     data.remove(id);

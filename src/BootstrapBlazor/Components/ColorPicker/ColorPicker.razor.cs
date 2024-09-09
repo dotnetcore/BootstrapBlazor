@@ -49,6 +49,24 @@ public partial class ColorPicker
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            if (IsSupportOpacity)
+            {
+                await InvokeVoidAsync("update", Id, CurrentValueAsString);
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Value });
 
@@ -77,7 +95,6 @@ public partial class ColorPicker
     public Task OnColorChanged(string value)
     {
         CurrentValueAsString = value;
-        StateHasChanged();
         return Task.CompletedTask;
     }
 }
