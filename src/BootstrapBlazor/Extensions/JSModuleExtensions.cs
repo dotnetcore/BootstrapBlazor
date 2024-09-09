@@ -79,7 +79,7 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
+    public static ValueTask<TValue?> Eval<TValue>(this JSModule module, string script) => module.InvokeAsync<TValue?>("runEval", script);
 
     /// <summary>
     /// 通过 Function 动态运行 JavaScript 代码
@@ -93,7 +93,7 @@ public static class JSModuleExtensions
     /// <summary>
     /// 动态运行js代码
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <param name="args"></param>
