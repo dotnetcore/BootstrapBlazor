@@ -20,7 +20,7 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     {
         var jsRuntime = new MockJSRuntime();
         var module = await jsRuntime.LoadModule("./mock.js", "test");
-        Assert.Null(module);
+        Assert.NotNull(module);
     }
 
     [Fact]
