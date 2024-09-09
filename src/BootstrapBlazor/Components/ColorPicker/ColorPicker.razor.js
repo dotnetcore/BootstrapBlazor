@@ -3,42 +3,13 @@ import { addLink } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export async function init(id, invoke, options) {
-    const { isSupportOpacity, value, isDisabled } = options;
+    const { isSupportOpacity } = options;
     if (isSupportOpacity === true) {
         await addLink("./_content/BootstrapBlazor/css/nano.min.css");
 
         const el = document.getElementById(id);
-        const pickr = Pickr.create({
-            el,
-            theme: 'nano',
-            default: value,
-            disabled: isDisabled,
-            useAsButton: true,
-            swatches: [
-                'rgba(244, 67, 54, 1)',
-                'rgba(233, 30, 99, 0.95)',
-                'rgba(156, 39, 176, 0.9)',
-                'rgba(103, 58, 183, 0.85)',
-                'rgba(63, 81, 181, 0.8)',
-                'rgba(33, 150, 243, 0.75)',
-                'rgba(3, 169, 244, 0.7)'
-            ],
-            defaultRepresentation: 'HEXA',
-            components: {
-                preview: true,
-                opacity: true,
-                hue: true,
-
-                interaction: {
-                    hex: false,
-                    rgba: false,
-                    hsva: false,
-                    input: true,
-                    clear: true,
-                    save: true
-                }
-            }
-        });
+        const config = getOptions(el, options)
+        const pickr = Pickr.create(config);
 
         Data.set(id, { pickr });
 
@@ -66,6 +37,46 @@ const formatColorString = color => {
 };
 
 const formatHexString = hex => Math.round(hex).toString(16).padStart(2, '0');
+
+const getOptions = (el, options) => {
+    const config = {
+        el,
+        theme: 'nano',
+        useAsButton: true,
+        swatches: [
+            'rgba(244, 67, 54, 1)',
+            'rgba(233, 30, 99, 0.95)',
+            'rgba(156, 39, 176, 0.9)',
+            'rgba(103, 58, 183, 0.85)',
+            'rgba(63, 81, 181, 0.8)',
+            'rgba(33, 150, 243, 0.75)',
+            'rgba(3, 169, 244, 0.7)'
+        ],
+        defaultRepresentation: 'HEXA',
+        components: {
+            preview: true,
+            opacity: true,
+            hue: true,
+
+            interaction: {
+                hex: false,
+                rgba: false,
+                hsva: false,
+                input: true,
+                clear: true,
+                save: true
+            }
+        },
+        ...options
+    }
+    if (config.lang === "zh-CN") {
+        config.i18n = {
+            'btn:save': '保存',
+            'btn:clear': '清除'
+        }
+    }
+    return config;
+}
 
 export function update(id, options) {
     const data = Data.get(id);
