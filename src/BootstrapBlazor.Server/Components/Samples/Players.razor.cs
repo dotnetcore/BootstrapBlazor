@@ -21,6 +21,8 @@ public partial class Players
 
     private readonly PlayerOptions _audioOptions = new();
 
+    private readonly PlayerOptions _youtubeOptions = new();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -65,8 +67,11 @@ public partial class Players
         _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 60, Label = "First Marker" });
         _hlsOptions.Marker.Points.Add(new PlayerPoint() { Time = 300, Label = "Second Marker" });
 
-        _audioOptions.Source.Type = "audio";
+        _audioOptions.Source.Type = PlayerMode.Audio;
         _audioOptions.Source.Sources.Add(new PlayerSources { Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", Type = "audio/mp3" });
+
+        _youtubeOptions.Source.Type = PlayerMode.YouTube;
+        _youtubeOptions.Source.Sources.Add(new PlayerSources { Url = "https://youtube.com/watch?v=bTqVqk7FSmY", Provider = "youtube", Type = null });
     }
 
     private Task ChangeUrl(SelectedItem e)
