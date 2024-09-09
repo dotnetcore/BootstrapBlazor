@@ -8,6 +8,10 @@
         background-color: var(--bb-color-pick-val);
         border-radius: var(--bs-border-radius);
     }
+
+    input[type="text"] {
+        text-transform: uppercase;
+    }
 }
 
 .input-group > .bb-color-picker {
