@@ -701,10 +701,9 @@ public partial class Table<TItem>
                         await QueryData();
                     }
                 }
-                else
-                {
-                    StateHasChanged();
-                }
+
+                // TODO: 如果有双绑时（bind-SelectedRow）其实这里不需要手动更新，多刷新一次
+                StateHasChanged();
             }
             else if (EditMode == EditMode.InCell)
             {
