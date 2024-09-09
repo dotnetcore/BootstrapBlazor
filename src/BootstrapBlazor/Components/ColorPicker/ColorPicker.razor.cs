@@ -95,6 +95,10 @@ public partial class ColorPicker
     public Task OnColorChanged(string value)
     {
         CurrentValueAsString = value;
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 }
