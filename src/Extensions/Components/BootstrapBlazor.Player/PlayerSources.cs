@@ -20,10 +20,12 @@ public class PlayerSources
     /// <summary>
     /// 获得/设置 资源类型
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Type { get; set; } = "application/x-mpegURL";
 
     /// <summary>
-    /// 获得/设置 源提供者 <see cref="PlayerMode.YouTube"/> 时使用
+    /// 获得/设置 源提供者
     /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Provider { get; set; }
 }

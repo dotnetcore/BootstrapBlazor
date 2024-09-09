@@ -16,13 +16,5 @@ public enum PlayerMode
     /// <summary>
     /// 音频模式
     /// </summary>
-    Audio,
-    /// <summary>
-    /// YouTube 模式
-    /// </summary>
-    YouTube,
-    /// <summary>
-    /// Vimeo 模式
-    /// </summary>
-    Vimeo
+    Audio
 }
