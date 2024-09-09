@@ -2479,8 +2479,12 @@
     "BindValueIntro": "Set the color value by setting the <code>Value</code> property",
     "DisabledTitle": "Disabled",
     "DisabledIntro": "Disable this component by setting the <code>IsDisabled</code> property",
+    "FormatterTitle": "Formatter",
+    "FormatterIntro": "Set the display value by setting the <code>Formatter</code> callback method",
     "ValidateFormTitle": "Used in the verification form",
     "ValidateFormIntro": "Built in <code>ValidateForm</code> to use",
+    "IsSupportOpacityTitle": "Support Opacity",
+    "IsSupportOpacityIntro": "Enable transparency support by setting <code>IsSupportOpacity=\"true\"</code>",
     "Event1": "Color change callback delegate method"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {

@@ -2479,8 +2479,12 @@
     "BindValueIntro": "通过设置 <code>Value</code> 属性设定颜色值",
     "DisabledTitle": "禁用",
     "DisabledIntro": "通过设置 <code>IsDisabled</code> 属性禁用此组件",
+    "FormatterTitle": "格式化",
+    "FormatterIntro": "通过设置 <code>Formatter</code> 回调方法设置显示值",
     "ValidateFormTitle": "验证表单中使用",
     "ValidateFormIntro": "内置于 <code>ValidateForm</code> 中使用",
+    "IsSupportOpacityTitle": "支持透明度",
+    "IsSupportOpacityIntro": "通过设置 <code>IsSupportOpacity=\"true\"</code> 开启透明度支持",
     "Event1": "颜色改变回调委托方法"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
