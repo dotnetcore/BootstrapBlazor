@@ -2484,7 +2484,7 @@
     "ValidateFormTitle": "Used in the verification form",
     "ValidateFormIntro": "Built in <code>ValidateForm</code> to use",
     "IsSupportOpacityTitle": "Support Opacity",
-    "IsSupportOpacityIntro": "通过设置 <code>IsSupportOpacity=\"true\"</code> 开启透明度支持",
+    "IsSupportOpacityIntro": "Enable transparency support by setting <code>IsSupportOpacity=\"true\"</code>",
     "Event1": "Color change callback delegate method"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
