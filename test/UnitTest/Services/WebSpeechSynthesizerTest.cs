@@ -79,7 +79,7 @@ public class WebSpeechSynthesizerTest : BootstrapBlazorTestBase
     {
         var service = Context.Services.GetRequiredService<WebSpeechService>();
         var synthesizer = await service.CreateSynthesizerAsync();
-        var voices = await synthesizer.GetVoices();
+        await synthesizer.GetVoices();
     }
 
     [Fact]
