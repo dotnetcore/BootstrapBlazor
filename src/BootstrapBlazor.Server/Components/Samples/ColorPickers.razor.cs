@@ -18,11 +18,16 @@ public partial class ColorPickers
 
     private string Value { get; set; } = "#FFFFFF";
 
+    private string _opacityValue = "#dd0324";
+
+    private bool _opacityDisabled = false;
+
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
     private Task OnColorChanged(string color)
     {
+        Value = color;
         NormalLogger.Log($"Selected color: {color}");
         return Task.CompletedTask;
     }
