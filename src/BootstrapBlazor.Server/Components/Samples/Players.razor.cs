@@ -70,7 +70,6 @@ public partial class Players
         _audioOptions.Source.Type = PlayerMode.Audio;
         _audioOptions.Source.Sources.Add(new PlayerSources { Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", Type = "audio/mp3" });
 
-        _youtubeOptions.Source.Type = PlayerMode.YouTube;
         _youtubeOptions.Source.Sources.Add(new PlayerSources { Url = "https://youtube.com/watch?v=bTqVqk7FSmY", Provider = "youtube", Type = null });
     }
 
