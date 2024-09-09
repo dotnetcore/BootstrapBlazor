@@ -12,7 +12,7 @@ public class PlayerSource
     /// <summary>
     /// 获得/设置 资源类型 默认 video
     /// </summary>
-    public string Type { get; set; } = "video";
+    public PlayerMode Type { get; set; }
 
     /// <summary>
     /// 获得/设置 封面地址
