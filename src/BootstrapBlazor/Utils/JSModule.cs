@@ -11,12 +11,6 @@ namespace BootstrapBlazor.Components;
 public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
-    /// IJSObjectReference 实例
-    /// </summary>
-    [NotNull]
-    private IJSObjectReference? Module { get; } = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
-
-    /// <summary>
     /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
@@ -58,7 +52,10 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         {
             try
             {
-                await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
+                if (jSObjectReference != null)
+                {
+                    await jSObjectReference.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
+                }
             }
             catch (JSException)
             {
@@ -79,7 +76,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="identifier"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+    public virtual ValueTask<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
     /// InvokeAsync 方法
@@ -88,11 +85,11 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="timeout"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
+    public virtual ValueTask<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
         using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
         CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
-        return InvokeAsync<TValue>(identifier, cancellationToken, args);
+        return InvokeAsync<TValue?>(identifier, cancellationToken, args);
     }
 
     /// <summary>
@@ -102,7 +99,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual async ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    public virtual async ValueTask<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
         var paras = new List<object?>();
         if (args != null)
@@ -111,12 +108,15 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         }
         return await InvokeAsync();
 
-        async ValueTask<TValue> InvokeAsync()
+        async ValueTask<TValue?> InvokeAsync()
         {
-            TValue ret = default!;
+            TValue? ret = default;
             try
             {
-                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
+                if (jSObjectReference != null)
+                {
+                    ret = await jSObjectReference.InvokeAsync<TValue?>(identifier, cancellationToken, [.. paras]);
+                }
             }
             catch (JSException)
             {
@@ -143,7 +143,10 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         {
             try
             {
-                await Module.DisposeAsync();
+                if (jSObjectReference != null)
+                {
+                    await jSObjectReference.DisposeAsync();
+                }
             }
             catch { }
         }

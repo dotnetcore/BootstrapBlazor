@@ -19,8 +19,8 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     public async Task LoadModule_Exception()
     {
         var jsRuntime = new MockJSRuntime();
-        var ex = await Assert.ThrowsAsync<Exception>(async () => await jsRuntime.LoadModule("./mock.js", "test"));
-        Assert.Equal("load ./mock.js?v=test module fail", ex.Message);
+        var module = await jsRuntime.LoadModule("./mock.js", "test");
+        Assert.NotNull(module);
     }
 
     [Fact]
@@ -98,12 +98,12 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     {
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args)
         {
-            throw new NotImplementedException();
+            throw new TaskCanceledException();
         }
 
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
         {
-            throw new NotImplementedException();
+            throw new TaskCanceledException();
         }
     }
 }

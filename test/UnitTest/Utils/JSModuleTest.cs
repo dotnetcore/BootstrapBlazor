@@ -14,8 +14,6 @@ public class JSModuleTest
         var js = new MockJSObjectReference();
         var module = new JSModule(js);
         Assert.NotNull(module);
-
-        Assert.Throws<ArgumentNullException>(() => new JSModule(null));
     }
 
     [Fact]

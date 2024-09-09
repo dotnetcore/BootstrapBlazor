@@ -25,6 +25,7 @@ public static class JSModuleExtensions
     /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string? version = null)
     {
+        JSModule? module = null;
         if (!string.IsNullOrEmpty(version))
         {
             fileName = $"{fileName}?v={version}";
@@ -32,12 +33,10 @@ public static class JSModuleExtensions
         try
         {
             var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
-            return new JSModule(jSObjectReference);
+            module = new JSModule(jSObjectReference);
         }
-        catch (Exception ex)
-        {
-            throw new Exception($"load {fileName} module fail", ex);
-        }
+        catch (OperationCanceledException) { }
+        return module ?? new JSModule(null);
     }
 
     /// <summary>
@@ -80,7 +79,7 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
+    public static ValueTask<TValue?> Eval<TValue>(this JSModule module, string script) => module.InvokeAsync<TValue?>("runEval", script);
 
     /// <summary>
     /// 通过 Function 动态运行 JavaScript 代码
@@ -94,80 +93,20 @@ public static class JSModuleExtensions
     /// <summary>
     /// 动态运行js代码
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <param name="args"></param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    public static ValueTask<T> Function<T>(this JSModule module, string script, params object?[]? args) => module.InvokeAsync<T>("runFunction", script, args);
-
-    ///// <summary>
-    ///// 动态增加 head 标签
-    ///// <para>
-    ///// 示例：
-    ///// <code>
-    ///// [Inject]
-    ///// [NotNull]
-    ///// private <see cref="IJSRuntime"/> JSRuntime
-    ///// 
-    ///// [NotNull]
-    ///// private <see cref="JSModule"/>? Module { get; set; }
-    ///// 
-    ///// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
-    ///// {
-    /////     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
-    /////     
-    /////     <see langword="if"/>(firstRender)
-    /////     {
-    /////         Module = <see langword="await"/> JSRuntime.LoadUtility();
-    /////     }
-    ///// }
-    /////
-    ///// private <see langword="async"/> <see cref="Task"/> OnClick()
-    ///// {
-    /////     var result = <see langword="await"/> Module.AddMetaAsync("styles.css")
-    ///// }
-    ///// </code>
-    ///// </para>
-    ///// </summary>
-    ///// <param name="module"><see cref="JSModule"/> 实例</param>
-    ///// <param name="content">添加的 Meta 内容</param>
-    ///// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    //public static ValueTask<bool> AddMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("addMeta", content);
-
-    ///// <summary>
-    ///// 动态移除 head 标签
-    ///// <para>
-    ///// 示例：
-    ///// <code>
-    ///// [Inject]
-    ///// [NotNull]
-    ///// private <see cref="IJSRuntime"/> JSRuntime
-    ///// 
-    ///// [NotNull]
-    ///// private <see cref="JSModule"/>? Module { get; set; }
-    ///// 
-    ///// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
-    ///// {
-    /////     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
-    /////     
-    /////     <see langword="if"/>(firstRender)
-    /////     {
-    /////         Module = <see langword="await"/> JSRuntime.LoadUtility();
-    /////     }
-    ///// }
-    /////
-    ///// private <see langword="async"/> <see cref="Task"/> OnClick()
-    ///// {
-    /////     var result = <see langword="await"/> Module.RemoveMetaAsync("styles.css")
-    ///// }
-    ///// </code>
-    ///// </para>
-    ///// </summary>
-    ///// <param name="module"><see cref="JSModule"/> 实例</param>
-    ///// <param name="content">移除 Meta 内容</param>
-    ///// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    //public static ValueTask<bool> RemoveMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("removeMeta", content);
+    public static async ValueTask<TValue?> Function<TValue>(this JSModule module, string script, params object?[]? args)
+    {
+        TValue? ret = default;
+        if (module != null)
+        {
+            ret = await module.InvokeAsync<TValue?>("runFunction", script, args);
+        }
+        return ret;
+    }
 
     /// <summary>
     /// 获取当前终端是否为移动设备
