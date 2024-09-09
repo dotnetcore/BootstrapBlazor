@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -68,7 +70,7 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Value, IsDisabled });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
 
     private async Task Setter(string v)
     {
