@@ -59,7 +59,7 @@ public partial class ColorPicker
         {
             if (IsSupportOpacity)
             {
-                await InvokeVoidAsync("update", Id, CurrentValueAsString);
+                await InvokeVoidAsync("update", Id, new { Value, IsDisabled });
             }
         }
     }
@@ -68,7 +68,7 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Value });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Value, IsDisabled });
 
     private async Task Setter(string v)
     {

@@ -3,14 +3,16 @@ import { addLink } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export async function init(id, invoke, options) {
-    if (options.isSupportOpacity === true) {
+    const { isSupportOpacity, value, isDisabled } = options;
+    if (isSupportOpacity === true) {
         await addLink("./_content/BootstrapBlazor/css/nano.min.css");
 
         const el = document.getElementById(id);
         const pickr = Pickr.create({
             el,
             theme: 'nano',
-            default: options.value,
+            default: value,
+            disabled: isDisabled,
             useAsButton: true,
             swatches: [
                 'rgba(244, 67, 54, 1)',
@@ -65,13 +67,22 @@ const formatColorString = color => {
 
 const formatHexString = hex => Math.round(hex).toString(16).padStart(2, '0');
 
-export function update(id, val) {
+export function update(id, options) {
     const data = Data.get(id);
     if (data) {
+        const { value, isDisabled } = options;
         const { pickr } = data;
         const original = formatColorString(pickr.getColor());
-        if (original !== val) {
-            pickr.setColor(val, true);
+        if (original !== value) {
+            pickr.setColor(value, true);
+        }
+        if (pickr.options.disabled !== isDisabled) {
+            if (isDisabled) {
+                pickr.disable();
+            }
+            else {
+                pickr.enable();
+            }
         }
     }
 }
