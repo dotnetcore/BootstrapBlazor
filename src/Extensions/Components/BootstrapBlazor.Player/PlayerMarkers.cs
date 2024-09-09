@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Player 组件预览图类
 /// </summary>
-public class PlayerMarker
+public class PlayerMarkers
 {
     /// <summary>
     /// get or set Whether to enable markers

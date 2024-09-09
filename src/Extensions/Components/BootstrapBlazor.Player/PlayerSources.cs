@@ -21,11 +21,17 @@ public class PlayerSources
     /// 获得/设置 资源类型
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public string? Type { get; set; } = "application/x-mpegURL";
+    public string? Type { get; set; }
 
     /// <summary>
     /// 获得/设置 源提供者
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? Provider { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清晰度 576/720/1080/1440
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public int? Size { get; set; }
 }
