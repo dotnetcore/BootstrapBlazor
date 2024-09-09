@@ -89,7 +89,7 @@ export function update(id, options) {
 
 export function dispose(id) {
     const data = Data.get(id);
-    data.remove(id);
+    Data.remove(id);
     if (data) {
         data.pickr.destroyAndRemove();
     }
