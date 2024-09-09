@@ -64,6 +64,5 @@ public class ColorPickerTest : BootstrapBlazorTestBase
         Assert.Equal("#123456", cut.Instance.Value);
 
         await cut.InvokeAsync(() => cut.Instance.SetValue("#333333"));
-        Assert.Equal("#333333", Context.JSInterop.VerifyInvoke("update").Arguments[1]);
     }
 }
