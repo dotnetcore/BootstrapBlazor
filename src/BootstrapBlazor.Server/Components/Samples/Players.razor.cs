@@ -82,7 +82,11 @@ public partial class Players
 
         // audio
         _audioOptions.Source.Type = PlayerMode.Audio;
-        _audioOptions.Source.Sources.Add(new PlayerSources { Url = "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", Type = "audio/mp3" });
+        _audioOptions.Source.Sources.AddRange(new PlayerSources[]
+        {
+            new() { Url = "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.mp3", Type = "audio/mp3" },
+            new() { Url = "https://cdn.plyr.io/static/demo/Kishi_Bashi_-_It_All_Began_With_a_Burst.ogg", Type = "audio/ogg" }
+        });
 
         // youtube
         _youtubeOptions.Source.Sources.Add(new PlayerSources { Url = "https://youtube.com/watch?v=bTqVqk7FSmY", Provider = "youtube" });
