@@ -27,7 +27,7 @@ public class WebSpeechSynthesizer(JSModule module, IComponentIdGenerator compone
     /// 获得 语音包方法
     /// </summary>
     /// <returns></returns>
-    public async Task<WebSpeechSynthesisVoice[]> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]>("getVoices");
+    public async Task<WebSpeechSynthesisVoice[]?> GetVoices() => await module.InvokeAsync<WebSpeechSynthesisVoice[]?>("getVoices");
 
     /// <summary>
     /// 开始朗读方法
