@@ -60,10 +60,9 @@ public class PlayerOptions
     public string? Language { get; set; }
 
     /// <summary>
-    /// 获得 视频标记点实例 <see cref="PlayerMarker"/>
+    /// 获得 视频标记点实例 <see cref="PlayerMarkers"/>
     /// </summary>
-    [JsonPropertyName("markers")]
-    public PlayerMarker Marker { get; } = new();
+    public PlayerMarkers Markers { get; } = new();
 
     /// <summary>
     /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>
