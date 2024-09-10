@@ -152,8 +152,7 @@ public partial class InputUpload<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
-    /// <param name="validProperty"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public override void ToggleMessage(IEnumerable<ValidationResult> results)
     {
         if (results.Any())
         {

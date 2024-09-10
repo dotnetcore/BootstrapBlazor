@@ -227,7 +227,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <returns></returns>
     protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
-        || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
+        || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.IsRequired).Any() ?? false)
+        || (ValidateRules?.OfType<RequiredValidator>().Any() ?? false);
 
     /// <summary>
     /// Gets a string that indicates the status of the field being edited. This will include
@@ -295,7 +296,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (ShowRequired is true)
         {
-            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultErrorMessage() });
+            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultRequiredErrorMessage() });
         }
     }
 
@@ -321,12 +322,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
-    private string? _defaultErrorMessage;
+    private string? _defaultRequiredErrorMessage;
 
-    private string GetDefaultErrorMessage()
+    private string GetDefaultRequiredErrorMessage()
     {
-        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"];
-        return _defaultErrorMessage;
+        _defaultRequiredErrorMessage ??= Localizer["DefaultRequiredErrorMessage"];
+        return _defaultRequiredErrorMessage;
     }
 
     #region Validation
@@ -356,11 +357,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         && value.GetType().IsClass;
 
     /// <summary>
-    /// 获得/设置 是否执行了自定义异步验证
-    /// </summary>
-    protected bool IsAsyncValidate { get; set; }
-
-    /// <summary>
     /// 属性验证方法
     /// </summary>
     /// <param name="propertyValue"></param>
@@ -382,7 +378,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                     if (validator is IValidatorAsync v)
                     {
                         await v.ValidateAsync(propertyValue, context, results);
-                        IsAsyncValidate = true;
                     }
                     else
                     {
@@ -403,7 +398,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                     if (validator is IValidatorAsync v)
                     {
                         await v.ValidateAsync(propertyValue, context, results);
-                        IsAsyncValidate = true;
                     }
                     else
                     {
@@ -440,8 +434,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 显示/隐藏验证结果方法
     /// </summary>
     /// <param name="results"></param>
-    /// <param name="validProperty">是否对本属性进行数据验证</param>
-    public virtual void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public virtual void ToggleMessage(IEnumerable<ValidationResult> results)
     {
         if (FieldIdentifier != null)
         {
@@ -460,11 +453,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             OnValidate(IsValid);
         }
 
-        if (IsAsyncValidate)
-        {
-            IsAsyncValidate = false;
-            StateHasChanged();
-        }
+        // 必须刷新一次 UI 保证状态正确
+        StateHasChanged();
     }
 
     private JSModule? ValidateModule { get; set; }

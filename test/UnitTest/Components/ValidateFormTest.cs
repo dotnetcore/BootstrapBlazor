@@ -162,7 +162,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetError_Ok()
+    public async Task SetError_Ok()
     {
         var foo = new Foo();
         var dummy = new Dummy();
@@ -180,9 +180,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, "Value", typeof(DateTime?)));
             });
         });
-        cut.Instance.SetError("Name", "Test_SetError");
-        cut.Instance.SetError("Test.Name", "Test_SetError");
-        cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError("Name", "Test_SetError"));
+        await cut.InvokeAsync(() => cut.Instance.SetError("Test.Name", "Test_SetError"));
+        await cut.InvokeAsync(() => cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError"));
 
         // 利用反射提高代码覆盖率
         var method = typeof(ValidateForm).GetMethod("TryGetValidator", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -193,7 +193,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetError_UnaryExpression()
+    public async Task SetError_UnaryExpression()
     {
         var foo = new Foo();
         var dummy = new Dummy();
@@ -211,13 +211,13 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, "Value", typeof(DateTime?)));
             });
         });
-        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError"));
 
         // 利用反射提高代码覆盖率
         var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
         cache.Remove(("Value", typeof(Dummy)), out _);
-        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError"));
     }
 
     [Fact]
@@ -257,6 +257,38 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         var form = cut.Find("form");
         cut.InvokeAsync(() => form.Submit());
+    }
+
+    [Fact]
+    public async Task ValidateAll_Ok()
+    {
+        var invalid = false;
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.ValidateAllProperties, false);
+            pb.AddChildContent<BootstrapInput<Foo>>(pb =>
+            {
+                pb.Add(a => a.Value, dummy.Foo);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, nameof(dummy.Foo), typeof(Foo)));
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ValidateAllProperties, true);
+        });
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
     }
 
     [Fact]
@@ -435,7 +467,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Validate_Servise_Ok()
+    public async Task Validate_Service_Ok()
     {
         var foo = new HasService();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -446,6 +478,26 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Value, foo.Tag);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
                 pb.Add(a => a.ValidateRules, [new FormItemValidator(new HasServiceAttribute())]);
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal(HasServiceAttribute.Success, msg);
+    }
+
+    [Fact]
+    public async Task RequiredValidator_Ok()
+    {
+        var foo = new HasService();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Tag);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
+                pb.Add(a => a.ValidateRules, [new RequiredValidator()]);
             });
         });
         var form = cut.Find("form");
