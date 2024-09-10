@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Components.Forms;
 using System.Collections.Concurrent;
 
@@ -54,6 +55,7 @@ public partial class ValidateForms
         Model8 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
         Model9 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
         Model10 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
+        Model11 = new Company { Name = "", Telephone1 = "123456789", Telephone2 = "123456789" };
 
         // 初始化参数
         Hobbies2 = Foo.GenerateHobbies(LocalizerFoo);
@@ -215,6 +217,18 @@ public partial class ValidateForms
 
     [NotNull]
     private Foo? Model10 { get; set; }
+
+    [NotNull]
+    private Company? Model11 { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger7 { get; set; }
+
+    private Task OnInvalidValidatableObject(EditContext context)
+    {
+        Logger7.Log(Localizer["OnInvalidSubmitCallBackLog"]);
+        return Task.CompletedTask;
+    }
 
     #region 参数说明
     private AttributeItem[] GetAttributes() =>

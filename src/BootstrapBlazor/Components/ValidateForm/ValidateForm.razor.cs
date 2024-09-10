@@ -258,6 +258,25 @@ public partial class ValidateForm
                 }
             }
         }
+
+        // 验证 IValidatableObject
+        if (context.ObjectInstance is IValidatableObject validatableObject)
+        {
+            var messages = validatableObject.Validate(context).ToList();
+            if (messages.Count > 0)
+            {
+                foreach (var key in _validatorCache.Keys)
+                {
+                    var validatorValue = _validatorCache[key];
+                    var validator = validatorValue.ValidateComponent;
+                    if (validator.IsNeedValidate)
+                    {
+                        validator.ToggleMessage(messages, false);
+                    }
+                }
+                results.AddRange(messages);
+            }
+        }
     }
 
     /// <summary>
