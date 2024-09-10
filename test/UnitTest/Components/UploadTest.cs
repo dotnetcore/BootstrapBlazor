@@ -452,7 +452,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new("test", memberNames)
         };
-        uploader.Instance.ToggleMessage(results, true);
+        uploader.Instance.ToggleMessage(results);
     }
 
     [Fact]

@@ -441,8 +441,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 显示/隐藏验证结果方法
     /// </summary>
     /// <param name="results"></param>
-    /// <param name="validProperty">是否对本属性进行数据验证</param>
-    public virtual void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public virtual void ToggleMessage(IEnumerable<ValidationResult> results)
     {
         if (FieldIdentifier != null)
         {
