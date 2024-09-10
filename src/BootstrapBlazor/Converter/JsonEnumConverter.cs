@@ -5,7 +5,7 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BootstrapBlazor.Components;
+namespace BootstrapBlazor.Core.Converter;
 
 /// <summary>
 /// JsonEnumConverter 枚举转换器
