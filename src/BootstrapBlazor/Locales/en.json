@@ -375,6 +375,6 @@
     "LightModeText": "Light"
   },
   "BootstrapBlazor.Components.ValidateBase": {
-    "DefaultErrorMessage": "{0} is required."
+    "DefaultRequiredErrorMessage": "{0} is required."
   }
 }

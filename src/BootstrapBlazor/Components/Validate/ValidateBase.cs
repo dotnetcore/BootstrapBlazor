@@ -295,7 +295,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (ShowRequired is true)
         {
-            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultErrorMessage() });
+            Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultRequiredErrorMessage() });
         }
     }
 
@@ -321,12 +321,12 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
-    private string? _defaultErrorMessage;
+    private string? _defaultRequiredErrorMessage;
 
-    private string GetDefaultErrorMessage()
+    private string GetDefaultRequiredErrorMessage()
     {
-        _defaultErrorMessage ??= Localizer["DefaultErrorMessage"];
-        return _defaultErrorMessage;
+        _defaultRequiredErrorMessage ??= Localizer["DefaultRequiredErrorMessage"];
+        return _defaultRequiredErrorMessage;
     }
 
     #region Validation
