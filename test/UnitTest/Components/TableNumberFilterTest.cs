@@ -73,7 +73,7 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Misc_Ok()
+    public async Task Misc_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -93,17 +93,17 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
                 }));
             });
         });
-        var filter = cut.FindComponent<NumberFilter<int>>();
-        var input = filter.FindComponent<BootstrapInputNumber<int>>();
+        var filter = cut.FindComponent<NumberFilter<int?>>();
+        var input = filter.FindComponent<BootstrapInputNumber<int?>>();
 
         // Click ToDay Cell
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             input.Instance.SetValue(10);
         });
 
         var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             // OnFilterValueChanged
             var logics = filterButton.FindAll(".dropdown-item");
@@ -118,15 +118,13 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         Assert.Equal(FilterAction.LessThanOrEqual, conditions.Filters[0].FilterAction);
 
         // OnClearFilter
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             filterButton.Find(".fa-ban").Click();
         });
         conditions = filter.Instance.GetFilterConditions();
         Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
-        Assert.Equal(0, conditions.Filters[0].FieldValue);
-        Assert.Equal(FilterAction.GreaterThanOrEqual, conditions.Filters[0].FilterAction);
+        Assert.Empty(conditions.Filters);
     }
 
     [Fact]
