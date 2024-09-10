@@ -230,7 +230,7 @@
 {
     base.OnInitialized();
     // @Localizer["CustomValidationFormComment1"]
-    CustomerRules.Add(new CustomerValidator(new EmailAddressAttribute()));
+    CustomerRules.Add(new FormItemValidator(new EmailAddressAttribute()));
 
     // @Localizer["CustomValidationFormComment2"]
     // &lt;BootstrapInput @@bind-Value="@@Model.Address" ValidateRules="@@CustomerRules" /&gt;
