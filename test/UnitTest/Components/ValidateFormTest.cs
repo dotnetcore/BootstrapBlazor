@@ -435,7 +435,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Validate_Servise_Ok()
+    public async Task Validate_Service_Ok()
     {
         var foo = new HasService();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
