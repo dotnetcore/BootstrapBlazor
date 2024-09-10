@@ -153,7 +153,7 @@ public partial class InputUpload<TValue>
     /// </summary>
     /// <param name="results"></param>
     /// <param name="validProperty"></param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public override async Task ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
     {
         if (results.Any())
         {
@@ -165,6 +165,7 @@ public partial class InputUpload<TValue>
             ErrorMessage = null;
             IsValid = true;
         }
-        OnValidate(IsValid);
+
+        await OnValidate(IsValid);
     }
 }

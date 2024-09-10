@@ -253,7 +253,7 @@ public partial class ValidateForm
                         await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
                     }
                     // 客户端提示
-                    validator.ToggleMessage(messages, false);
+                    await validator.ToggleMessage(messages, false);
                     results.AddRange(messages);
                 }
             }
@@ -280,7 +280,7 @@ public partial class ValidateForm
                 }
 
                 // 客户端提示
-                validator.ToggleMessage(results, true);
+                await validator.ToggleMessage(results, true);
             }
         }
     }
@@ -402,7 +402,7 @@ public partial class ValidateForm
                         await ValidateAsync(validator, context, messages, pi, propertyValue);
 
                         // 客户端提示
-                        validator.ToggleMessage(messages, true);
+                        await validator.ToggleMessage(messages, true);
                     }
                     results.AddRange(messages);
                 }

@@ -60,7 +60,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// </summary>
     /// <param name="results"></param>
     /// <param name="validProperty">是否对本属性进行数据验证</param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public override async Task ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
     {
         if (FieldIdentifier != null)
         {
@@ -82,7 +82,8 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
                 ErrorMessage = null;
                 IsValid = true;
             }
-            OnValidate(IsValid);
+
+            await OnValidate(IsValid);
         }
     }
 
