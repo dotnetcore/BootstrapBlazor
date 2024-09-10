@@ -19,6 +19,14 @@
         cursor: pointer;
         transition: border 0.15s ease-in-out;
 
+        &.is-invalid {
+            border-color: var(--bs-form-invalid-border-color);
+        }
+
+        &.is-valid {
+            border-color: var(--bs-form-valid-border-color);
+        }
+
         &.is-fixed {
             --bb-multi-select-max-height: var(--bb-multi-select-min-height);
         }
@@ -39,7 +47,7 @@
             }
         }
 
-        &:not(.disabled):hover {
+        &:not(.disabled):not(.is-valid):not(.is-invalid):hover {
             border: 1px solid var(--bb-border-hover-color);
         }
 
