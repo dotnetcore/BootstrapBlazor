@@ -162,7 +162,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetError_Ok()
+    public async Task SetError_Ok()
     {
         var foo = new Foo();
         var dummy = new Dummy();
@@ -180,9 +180,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, "Value", typeof(DateTime?)));
             });
         });
-        cut.Instance.SetError("Name", "Test_SetError");
-        cut.Instance.SetError("Test.Name", "Test_SetError");
-        cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError("Name", "Test_SetError"));
+        await cut.InvokeAsync(() => cut.Instance.SetError("Test.Name", "Test_SetError"));
+        await cut.InvokeAsync(() => cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError"));
 
         // 利用反射提高代码覆盖率
         var method = typeof(ValidateForm).GetMethod("TryGetValidator", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
@@ -193,7 +193,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void SetError_UnaryExpression()
+    public async Task SetError_UnaryExpression()
     {
         var foo = new Foo();
         var dummy = new Dummy();
@@ -211,13 +211,13 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, "Value", typeof(DateTime?)));
             });
         });
-        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError"));
 
         // 利用反射提高代码覆盖率
         var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
         cache.Remove(("Value", typeof(Dummy)), out _);
-        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+        await cut.InvokeAsync(() => cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError"));
     }
 
     [Fact]
