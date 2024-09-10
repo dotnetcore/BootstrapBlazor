@@ -552,7 +552,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     [Fact]
     public void Validate_IValidatableObject_Ok()
     {
-        var company = new MockCompany() { Telephone1 = "123", Telephone2 = "1232" };
+        var company = new MockCompany() { Telephone1 = "123", Telephone2 = "123" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, company);
