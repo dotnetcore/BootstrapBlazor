@@ -407,6 +407,12 @@ public partial class ValidateForm
                     results.AddRange(messages);
                 }
             }
+            else
+            {
+                var messages = new List<ValidationResult>();
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
+                results.AddRange(messages);
+            }
         }
     }
 
