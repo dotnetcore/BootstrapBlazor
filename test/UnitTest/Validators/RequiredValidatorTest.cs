@@ -35,7 +35,7 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void EnnumerableValue_Ok()
+    public void EnumerableValue_Ok()
     {
         var foo = new Foo();
         var validator = new RequiredValidator()
@@ -75,5 +75,11 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         validator.Options.ResourceManagerStringLocalizerType = typeof(Foo);
         validator.Validate("v1", context, results);
         Assert.Empty(results);
+
+        var provider = Context.Services.GetRequiredService<IServiceProvider>();
+        validator = new RequiredValidator();
+        context = new ValidationContext(foo, provider, null);
+        validator.Validate(null, context, results);
+        Assert.Single(results);
     }
 }

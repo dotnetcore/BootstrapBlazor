@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections;
 using System.Globalization;
@@ -43,6 +44,15 @@ public class RequiredValidator : ValidatorBase
     /// <param name="results">ValidateResult 集合实例</param>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
+        if (string.IsNullOrEmpty(ErrorMessage))
+        {
+            var localizer = context.GetRequiredService<IStringLocalizer<ValidateBase<string>>>();
+            var l = localizer["DefaultRequiredErrorMessage"];
+            if (!l.ResourceNotFound)
+            {
+                ErrorMessage = l.Value;
+            }
+        }
         var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
         var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
         if (propertyValue == null)

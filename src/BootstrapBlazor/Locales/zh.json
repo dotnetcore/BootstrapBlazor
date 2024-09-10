@@ -375,6 +375,6 @@
     "LightModeText": "明亮"
   },
   "BootstrapBlazor.Components.ValidateBase": {
-    "DefaultErrorMessage": "{0}是必填项"
+    "DefaultRequiredErrorMessage": "{0}是必填项"
   }
 }
