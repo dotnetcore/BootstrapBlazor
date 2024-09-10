@@ -271,7 +271,7 @@ public partial class ValidateForm
                     var validator = validatorValue.ValidateComponent;
                     if (validator.IsNeedValidate)
                     {
-                        validator.ToggleMessage(messages, false);
+                        validator.ToggleMessage(messages);
                     }
                 }
                 results.AddRange(messages);

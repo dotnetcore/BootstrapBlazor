@@ -549,6 +549,30 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         method.Invoke(form, [context, result]);
     }
 
+    [Fact]
+    public void Validate_IValidatableObject_Ok()
+    {
+        var company = new MockCompany() { Telephone1 = "123", Telephone2 = "1232" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, company);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, company.Telephone1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(company, "Telephone1", typeof(string)));
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, company.Telephone2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(company, "Telephone2", typeof(string)));
+            });
+        });
+        var form = cut.Find("form");
+        cut.InvokeAsync(() => form.Submit());
+        var msg1 = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", msg1);
+    }
+
     private class HasServiceAttribute : ValidationAttribute
     {
         public const string Success = "Has Service";
@@ -601,6 +625,24 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [EmailAddress()]
         public string? Member { get; set; } = "test";
+    }
+
+    private class MockCompany : IValidatableObject
+    {
+        [Required(ErrorMessage = "{0} is Required")]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessage = "{0} is Required")]
+        public string? Telephone1 { get; set; }
+        public string? Telephone2 { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
+            {
+                yield return new ValidationResult("Telephone1 and Telephone2 can not be the same", [nameof(Telephone1), nameof(Telephone2)]);
+            }
+        }
     }
 
     private class MockInput<TValue> : BootstrapInput<TValue>
