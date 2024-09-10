@@ -227,7 +227,8 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <returns></returns>
     protected virtual bool IsRequired() => ShowRequired ?? FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
-        || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
+        || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.IsRequired).Any() ?? false)
+        || (ValidateRules?.OfType<RequiredValidator>().Any() ?? false);
 
     /// <summary>
     /// Gets a string that indicates the status of the field being edited. This will include
