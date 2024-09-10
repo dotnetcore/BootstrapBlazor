@@ -33,5 +33,5 @@ public interface IValidateComponent
     /// </summary>
     /// <param name="results"></param>
     /// <param name="validProperty">是否为模型验证 true 为属性验证 false 为整个模型验证</param>
-    Task ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty);
+    void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty);
 }

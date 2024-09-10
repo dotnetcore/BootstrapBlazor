@@ -303,7 +303,7 @@ public partial class MultiSelect<TValue>
             var validationResults = new List<ValidationResult>();
 
             await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
-            await ToggleMessage(validationResults, true);
+            ToggleMessage(validationResults, true);
         }
 
         if (OnSelectedItemsChanged != null)
@@ -384,6 +384,18 @@ public partial class MultiSelect<TValue>
             data = OnSearchTextChanged(SearchText);
         }
         return data;
+    }
+
+    /// <summary>
+    /// 客户端检查完成时调用此方法
+    /// </summary>
+    /// <param name="valid"></param>
+    protected override void OnValidate(bool? valid)
+    {
+        if (valid != null)
+        {
+            Color = valid.Value ? Color.Success : Color.Danger;
+        }
     }
 
     private void ResetItems()

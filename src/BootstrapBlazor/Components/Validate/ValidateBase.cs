@@ -300,6 +300,28 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
+    /// <summary>
+    /// OnAfterRender 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender && IsValid.HasValue)
+        {
+            var valid = IsValid.Value;
+            if (valid)
+            {
+                await RemoveValidResult();
+            }
+            else
+            {
+                await ShowValidResult();
+            }
+        }
+    }
+
     private string? _defaultRequiredErrorMessage;
 
     private string GetDefaultRequiredErrorMessage()
@@ -335,6 +357,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         && value.GetType().IsClass;
 
     /// <summary>
+    /// 获得/设置 是否执行了自定义异步验证
+    /// </summary>
+    protected bool IsAsyncValidate { get; set; }
+
+    /// <summary>
     /// 属性验证方法
     /// </summary>
     /// <param name="propertyValue"></param>
@@ -356,6 +383,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                     if (validator is IValidatorAsync v)
                     {
                         await v.ValidateAsync(propertyValue, context, results);
+                        IsAsyncValidate = true;
                     }
                     else
                     {
@@ -376,6 +404,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                     if (validator is IValidatorAsync v)
                     {
                         await v.ValidateAsync(propertyValue, context, results);
+                        IsAsyncValidate = true;
                     }
                     else
                     {
@@ -413,7 +442,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// </summary>
     /// <param name="results"></param>
     /// <param name="validProperty">是否对本属性进行数据验证</param>
-    public virtual async Task ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public virtual void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
     {
         if (FieldIdentifier != null)
         {
@@ -429,7 +458,13 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 IsValid = true;
             }
 
-            await OnValidate(IsValid);
+            OnValidate(IsValid);
+        }
+
+        if (IsAsyncValidate)
+        {
+            IsAsyncValidate = false;
+            StateHasChanged();
         }
     }
 
@@ -441,7 +476,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 增加客户端 Tooltip 方法
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task ShowValidResult()
+    protected virtual async ValueTask ShowValidResult()
     {
         var id = RetrieveId();
         if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
@@ -455,7 +490,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 移除客户端 Tooltip 方法
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task RemoveValidResult(string? validateId = null)
+    protected virtual async ValueTask RemoveValidResult(string? validateId = null)
     {
         var id = validateId ?? RetrieveId();
         if (!string.IsNullOrEmpty(id))
@@ -469,16 +504,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 客户端检查完成时调用此方法
     /// </summary>
     /// <param name="valid">检查结果</param>
-    protected virtual async Task OnValidate(bool? valid)
+    protected virtual void OnValidate(bool? valid)
     {
-        if (valid is false)
-        {
-            await ShowValidResult();
-        }
-        else
-        {
-            await RemoveValidResult();
-        }
+
     }
 
     /// <summary>
