@@ -35,7 +35,7 @@ public static class JSModuleExtensions
             var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
             module = new JSModule(jSObjectReference);
         }
-        catch (OperationCanceledException) { }
+        catch (Exception) { }
         return module ?? new JSModule(null);
     }
 
