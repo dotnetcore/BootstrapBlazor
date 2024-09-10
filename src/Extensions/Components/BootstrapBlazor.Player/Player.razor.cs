@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -34,6 +35,10 @@ public partial class Player
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
+        if (Options != null)
+        {
+            Options.Language ??= CultureInfo.CurrentUICulture.Name;
+        }
         await InvokeVoidAsync("init", Id, Interop, "", Options);
     }
 

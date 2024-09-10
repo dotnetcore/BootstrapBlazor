@@ -6774,6 +6774,10 @@
     "PlayersHlsTitle": "HLS 支持",
     "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持",
     "PlayersAudioTitle": "音频播放器",
-    "PlayersAudioIntro": "通过设置 <code>Mode=\"PlayerMode.Audio\"</code> 播放音频文件"
+    "PlayersAudioIntro": "通过设置 <code>Mode=\"PlayerMode.Audio\"</code> 播放音频文件",
+    "PlayersYouTubeTitle": "YouTube 支持",
+    "PlayersYouTubeIntro": "通过设置 <code>Mode=\"PlayerSources\"</code> 参数 <b>Provider=\"youtube\"</b> 播放 <code>YouTube</code> 视频",
+    "PlayersVimeoTitle": "Vimeo 支持",
+    "PlayersVimeoIntro": "通过设置 <code>Mode=\"PlayerSources\"</code> 参数 <b>Provider=\"vimeo\"</b> 播放 <code>Vimei</code> 视频"
   }
 }

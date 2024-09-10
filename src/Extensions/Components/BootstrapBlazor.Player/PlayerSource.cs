@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Core.Converter;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +14,8 @@ public class PlayerSource
     /// <summary>
     /// 获得/设置 资源类型 默认 video
     /// </summary>
-    public string Type { get; set; } = "video";
+    [JsonEnumConverter(true)]
+    public PlayerMode Type { get; set; }
 
     /// <summary>
     /// 获得/设置 封面地址
