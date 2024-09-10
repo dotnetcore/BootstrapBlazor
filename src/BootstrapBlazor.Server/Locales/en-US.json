@@ -6774,6 +6774,10 @@
     "PlayersHlsTitle": "HLS",
     "PlayersHlsIntro": "Enable <code>Hls</code> support by setting <code>IsHls=\"true\"</code>",
     "PlayersAudioTitle": "Audio Player",
-    "PlayersAudioIntro": "Play audio files by setting <code>Mode=\"PlayerMode.Audio\"</code>"
+    "PlayersAudioIntro": "Play audio files by setting <code>Mode=\"PlayerMode.Audio\"</code>",
+    "PlayersYouTubeTitle": "YouTube",
+    "PlayersYouTubeIntro": "Play <code>YouTube</code> videos by setting the <code>Mode=\"PlayerSources\"</code> parameter <b>Provider=\"youtube\"</b>",
+    "PlayersVimeoTitle": "Vimeo",
+    "PlayersVimeoIntro": "Play <code>Vimei</code> videos by setting <code>Mode=\"PlayerSources\"</code> parameter <b>Provider=\"vimeo\"</b>"
   }
 }
