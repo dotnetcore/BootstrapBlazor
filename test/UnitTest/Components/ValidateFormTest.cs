@@ -260,6 +260,38 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ValidateAll_Ok()
+    {
+        var invalid = false;
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.ValidateAllProperties, false);
+            pb.AddChildContent<BootstrapInput<Foo>>(pb =>
+            {
+                pb.Add(a => a.Value, dummy.Foo);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, nameof(dummy.Foo), typeof(Foo)));
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.False(invalid);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ValidateAllProperties, true);
+        });
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.True(invalid);
+    }
+
+    [Fact]
     public async Task Validate_UploadFile_Ok()
     {
         var foo = new Dummy() { File = "text.txt" };
@@ -446,6 +478,26 @@ public class ValidateFormTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Value, foo.Tag);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
                 pb.Add(a => a.ValidateRules, [new FormItemValidator(new HasServiceAttribute())]);
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal(HasServiceAttribute.Success, msg);
+    }
+
+    [Fact]
+    public async Task RequiredValidator_Ok()
+    {
+        var foo = new HasService();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Tag);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
+                pb.Add(a => a.ValidateRules, [new RequiredValidator()]);
             });
         });
         var form = cut.Find("form");
