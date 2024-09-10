@@ -87,7 +87,7 @@ public partial class Cascader<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string _lastVaslue = string.Empty;
+    private string _lastValue = string.Empty;
 
     private string? SubMenuIconString => CssBuilder.Default("nav-link-right")
         .AddClass(SubMenuIcon, !string.IsNullOrEmpty(SubMenuIcon))
@@ -103,13 +103,13 @@ public partial class Cascader<TValue>
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
         SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
 
-        Items ??= Enumerable.Empty<CascaderItem>();
+        Items ??= [];
 
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-        if (_lastVaslue != CurrentValueAsString)
+        if (_lastValue != CurrentValueAsString)
         {
-            _lastVaslue = CurrentValueAsString;
+            _lastValue = CurrentValueAsString;
             SetDefaultValue(CurrentValueAsString);
         }
     }
@@ -139,7 +139,7 @@ public partial class Cascader<TValue>
     /// <param name="items"></param>
     /// <param name="value"></param>
     /// <returns></returns>
-    private CascaderItem? GetNodeByValue(IEnumerable<CascaderItem> items, string value)
+    private static CascaderItem? GetNodeByValue(IEnumerable<CascaderItem> items, string value)
     {
         foreach (var item in items)
         {
@@ -211,7 +211,7 @@ public partial class Cascader<TValue>
         CurrentValueAsString = value;
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged(SelectedItems.ToArray());
+            await OnSelectedItemChanged([.. SelectedItems]);
         }
         if (SelectedItems.Count != 1)
         {
