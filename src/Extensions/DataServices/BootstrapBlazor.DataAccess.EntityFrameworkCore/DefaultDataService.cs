@@ -59,6 +59,14 @@ class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCore
     public Task EditAsync(object model)
     {
         Model = model as TModel;
+        if (Model != null)
+        {
+            var existingEntity = _db.Set<TModel>().Local.FirstOrDefault(e => e == Model);
+            if (existingEntity != null)
+            {
+                _db.Entry(existingEntity).State = EntityState.Detached;
+            } 
+        }
         return Task.CompletedTask;
     }
 
@@ -92,6 +100,10 @@ class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCore
         }
 
         await _db.SaveChangesAsync();
+
+        // 保存完成后，分离实体，避免进一步跟踪
+        _db.Entry(model).State = EntityState.Detached;
+
         return true;
     }
 
