@@ -36,7 +36,7 @@ public class CustomValidateCollectionModel : IValidateCollection
         _invalidMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
-            var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidateCollectionModel>>();
+            var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
             var errorMessage = localizer["CanNotBeTheSame"];
             if (validationContext.MemberName == nameof(Telephone1))
             {

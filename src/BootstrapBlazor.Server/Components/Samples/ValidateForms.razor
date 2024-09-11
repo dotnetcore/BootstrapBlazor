@@ -295,48 +295,6 @@ private Task OnClickValidate()
     </ValidateForm>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["ValidateFormIValidateCollectionTitle"]" Introduction="@Localizer["ValidateFormIValidateCollectionIntro"]" Name="IValidateCollectionObject">
-    <section ignore>
-        <p>@((MarkupString)Localizer["ValidateFormIValidateCollectionDescription"].Value)</p>
-        <Pre class="mb-3">public class CustomValidataModel : IValidatableObject
-{
-    public string? Name { get; set; }
-
-    public string? Telephone1 { get; set; }
-
-    public string? Telephone2 { get; set; }
-
-    public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)
-    {
-        if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
-        {
-            var localizer = validationContext.GetRequiredService&lt;IStringLocalizer&lt;CustomValidataModel&gt;&gt;();
-            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
-        }
-        if (string.IsNullOrEmpty(Name))
-        {
-            yield return new ValidationResult("Name is required", [nameof(Name)]);
-        }
-    }
-}</Pre>
-        <p>@((MarkupString)Localizer["ValidateFormIValidatableObjectDescription"].Value)</p>
-    </section>
-    <ValidateForm Model="@ValidateCollectionModel" OnInvalidSubmit="OnInvalidValidateCollection">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@ValidateCollectionModel.Telephone1" />
-            </div>
-            <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@ValidateCollectionModel.Telephone2" />
-            </div>
-            <div class="col-12">
-                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
-            </div>
-        </div>
-    </ValidateForm>
-    <ConsoleLogger @ref="Logger7" />
-</DemoBlock> *@
-
 <DemoBlock Title="@Localizer["ValidateFormIValidatableObjectTitle"]" Introduction="@Localizer["ValidateFormIValidatableObjectIntro"]" Name="IValidatableObject">
     <section ignore>
         <p>@((MarkupString)Localizer["ValidateFormIValidatableObjectDescription"].Value)</p>
@@ -376,6 +334,48 @@ private Task OnClickValidate()
         </div>
     </ValidateForm>
     <ConsoleLogger @ref="Logger8" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ValidateFormIValidateCollectionTitle"]" Introduction="@Localizer["ValidateFormIValidateCollectionIntro"]" Name="IValidateCollectionObject">
+    <section ignore>
+        <p>@((MarkupString)Localizer["ValidateFormIValidateCollectionDescription"].Value)</p>
+        <Pre class="mb-3">public class CustomValidataModel : IValidatableObject
+{
+    public string? Name { get; set; }
+
+    public string? Telephone1 { get; set; }
+
+    public string? Telephone2 { get; set; }
+
+    public IEnumerable&lt;ValidationResult&gt; Validate(ValidationContext validationContext)
+    {
+        if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
+        {
+            var localizer = validationContext.GetRequiredService&lt;IStringLocalizer&lt;CustomValidataModel&gt;&gt;();
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
+        }
+        if (string.IsNullOrEmpty(Name))
+        {
+            yield return new ValidationResult("Name is required", [nameof(Name)]);
+        }
+    }
+}</Pre>
+        <p>@((MarkupString)Localizer["ValidateFormIValidatableObjectDescription"].Value)</p>
+    </section>
+    <ValidateForm Model="@ValidateCollectionModel" OnInvalidSubmit="OnInvalidValidateCollection">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@ValidateCollectionModel.Telephone1" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@ValidateCollectionModel.Telephone2" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
+            </div>
+        </div>
+    </ValidateForm>
+    <ConsoleLogger @ref="Logger7" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
