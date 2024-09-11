@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Server.Data;
 /// <summary>
 /// 公司模型类
 /// </summary>
-public class CustomValidataModel : IValidatableObject
+public class CustomValidataModel : IValidatableObject, IValidataResult
 {
     /// <summary>
     /// 名称
@@ -27,6 +27,8 @@ public class CustomValidataModel : IValidatableObject
     [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
+    private readonly List<string> _clearMemberNames = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -34,14 +36,23 @@ public class CustomValidataModel : IValidatableObject
     /// <returns></returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
+        _clearMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
+            var memberNames = new List<string>([nameof(Telephone1), nameof(Telephone2)]);
+            _clearMemberNames.AddRange(memberNames);
             var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
-            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], memberNames);
         }
         if (string.IsNullOrEmpty(Name))
         {
             yield return new ValidationResult("Name is required", [nameof(Name)]);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public List<string> ClearMembers() => _clearMemberNames;
 }
