@@ -451,25 +451,21 @@ public partial class ValidateForm
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
-                // 验证 IValidatableObject
-                if (context.ObjectInstance is IValidatableObject validatableObject)
+                // 验证 IValidateCollection
+                // 清除指定字段错误信息
+                if (context.ObjectInstance is IValidateCollection validateCollection)
                 {
-                    messages.AddRange(validatableObject.Validate(context));
-
-                    // 清除指定字段错误信息
-                    if (context.ObjectInstance is IValidateCollection validateCollection)
-                    {
-                        ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
-                        InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
-                    }
+                    messages.AddRange(validateCollection.Validate(context));
+                    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
+                    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
                 }
-                else
-                {
-                    _tcs = new();
-                    // 自定义验证组件
-                    await validator.ValidatePropertyAsync(propertyValue, context, messages);
-                    _tcs.TrySetResult(messages.Count == 0);
-                }
+            }
+            else
+            {
+                _tcs = new();
+                // 自定义验证组件
+                await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                _tcs.TrySetResult(messages.Count == 0);
             }
         }
 
