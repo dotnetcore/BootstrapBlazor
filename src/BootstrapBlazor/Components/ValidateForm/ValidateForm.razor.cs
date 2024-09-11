@@ -267,6 +267,28 @@ public partial class ValidateForm
                     results.AddRange(messages);
                 }
             }
+
+            // 验证 IValidatableObject
+            if (results.Count == 0)
+            {
+                if (context.ObjectInstance is IValidatableObject validatableObject)
+                {
+                    var messages = validatableObject.Validate(context);
+                    if (messages.Any())
+                    {
+                        foreach (var key in _validatorCache.Keys)
+                        {
+                            var validatorValue = _validatorCache[key];
+                            var validator = validatorValue.ValidateComponent;
+                            if (validator.IsNeedValidate)
+                            {
+                                validator.ToggleMessage(messages);
+                            }
+                        }
+                        results.AddRange(messages);
+                    }
+                }
+            }
         }
     }
 
