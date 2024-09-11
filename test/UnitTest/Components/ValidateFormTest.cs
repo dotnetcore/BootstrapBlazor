@@ -550,9 +550,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Validate_IValidatableObject_Ok()
+    public async Task IValidatableObject_Ok()
     {
-        var company = new MockCompany() { Telephone1 = "123", Telephone2 = "123" };
+        var company = new MockValidataModel() { Telephone1 = "123", Telephone2 = "123" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, company);
@@ -568,7 +568,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
         var msg1 = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", msg1);
     }
@@ -627,13 +627,10 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         public string? Member { get; set; } = "test";
     }
 
-    private class MockCompany : IValidatableObject
+    private class MockValidataModel : IValidatableObject
     {
-        [Required(ErrorMessage = "{0} is Required")]
-        public string? Name { get; set; }
-
-        [Required(ErrorMessage = "{0} is Required")]
         public string? Telephone1 { get; set; }
+
         public string? Telephone2 { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
