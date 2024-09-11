@@ -299,7 +299,7 @@ private Task OnClickValidate()
 <DemoBlock Title="@Localizer["ValidateFormIValidatableObjectTitle"]" Introduction="@Localizer["ValidateFormIValidatableObjectIntro"]" Name="IValidatableObject">
     <section ignore>
         <p>@((MarkupString)Localizer["ValidateFormIValidatableObjectDescription"].Value)</p>
-        <Pre class="mb-3">public class Company : IValidatableObject
+        <Pre class="mb-3">public class CustomValidataModel : IValidatableObject
 {
     public string? Name { get; set; }
 
@@ -311,8 +311,8 @@ private Task OnClickValidate()
     {
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
-            var localizer = validationContext.GetRequiredService&lt;IStringLocalizer&lt;Company&gt;&gt;();
-            yield return new ValidationResult(localizer["Telephone1AndTelephone2.CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
+            var localizer = validationContext.GetRequiredService&lt;IStringLocalizer&lt;CustomValidataModel&gt;&gt;();
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
         }
         if (string.IsNullOrEmpty(Name))
         {
@@ -321,13 +321,13 @@ private Task OnClickValidate()
     }
 }</Pre>
     </section>
-    <ValidateForm Model="@Model11" DisableAutoSubmitFormByEnter="true" OnInvalidSubmit="OnInvalidValidatableObject">
+    <ValidateForm Model="@ValidataModel" OnInvalidSubmit="OnInvalidValidatableObject">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model11.Telephone1" />
+                <BootstrapInput @bind-Value="@ValidataModel.Telephone1" />
             </div>
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model11.Telephone2" />
+                <BootstrapInput @bind-Value="@ValidataModel.Telephone2" />
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
