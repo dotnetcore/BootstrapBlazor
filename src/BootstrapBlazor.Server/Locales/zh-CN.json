@@ -6791,5 +6791,9 @@
     "Telephone1": "联系电话1",
     "Telephone2": "联系电话2",
     "CanNotBeTheSame": "联系电话1 和 联系电话2 不能相同"
+  },
+  "BootstrapBlazor.Server.Data.CustomValidateCollectionModel": {
+    "Telephone1": "联系电话1",
+    "Telephone2": "联系电话2"
   }
 }

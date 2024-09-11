@@ -6791,5 +6791,9 @@
     "Telephone1": "Telephone 1",
     "Telephone2": "Telephone 2",
     "CanNotBeTheSame": "Telephone 1 and Telephone 2 can not be the same"
+  },
+  "BootstrapBlazor.Server.Data.CustomValidateCollectionModel": {
+    "Telephone1": "Telephone 1",
+    "Telephone2": "Telephone 2"
   }
 }
