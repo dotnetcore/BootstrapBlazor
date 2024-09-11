@@ -7,23 +7,22 @@ namespace BootstrapBlazor.Server.Data;
 /// <summary>
 /// 公司模型类
 /// </summary>
-public class CustomValidataModel : IValidateCollection
+public class CustomValidataModel : IValidatableObject
 {
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string? Name { get; set; }
+
     /// <summary>
     /// 联系电话1
     /// </summary>
-    [Display(Name = "联系电话1")]
     public string? Telephone1 { get; set; }
 
     /// <summary>
     /// 联系电话2
     /// </summary>
-    [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
-
-    private readonly List<string> _validMemberNames = [];
-
-    private readonly List<ValidationResult> _invalidMemberNames = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -32,42 +31,15 @@ public class CustomValidataModel : IValidateCollection
     /// <returns></returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        _validMemberNames.Clear();
-        _invalidMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
             var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
-            var errorMessage = localizer["CanNotBeTheSame"];
-            if (validationContext.MemberName == nameof(Telephone1))
-            {
-                _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone2)]));
-            }
-            else if (validationContext.MemberName == nameof(Telephone2))
-            {
-                _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone1)]));
-            }
-            yield return new ValidationResult(errorMessage, [validationContext.MemberName!]);
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
         }
-        else if (validationContext.MemberName == nameof(Telephone1))
-        {
-            _validMemberNames.Add(nameof(Telephone2));
 
-        }
-        else if (validationContext.MemberName == nameof(Telephone2))
+        if (string.IsNullOrEmpty(Name))
         {
-            _validMemberNames.Add(nameof(Telephone1));
+            yield return new ValidationResult("Name is required", [nameof(Name)]);
         }
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public List<string> ValidMemberNames() => _validMemberNames;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
 }

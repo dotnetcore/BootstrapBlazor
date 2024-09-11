@@ -54,7 +54,8 @@ public partial class ValidateForms
         Model8 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
         Model9 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
         Model10 = new Foo { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
-        ValidataModel = new CustomValidataModel { Telephone1 = "123456789", Telephone2 = "123456789" };
+        ValidateCollectionModel = new CustomValidateCollectionModel { Telephone1 = "123456789", Telephone2 = "123456789" };
+        ValidataModel = new CustomValidataModel { Name = "", Telephone1 = "123456789", Telephone2 = "123456789" };
 
         // 初始化参数
         Hobbies2 = Foo.GenerateHobbies(LocalizerFoo);
@@ -218,14 +219,26 @@ public partial class ValidateForms
     private Foo? Model10 { get; set; }
 
     [NotNull]
+    private CustomValidateCollectionModel? ValidateCollectionModel { get; set; }
+
+    [NotNull]
     private CustomValidataModel? ValidataModel { get; set; }
 
     [NotNull]
     private ConsoleLogger? Logger7 { get; set; }
 
-    private Task OnInvalidValidatableObject(EditContext context)
+    private Task OnInvalidValidateCollection(EditContext context)
     {
         Logger7.Log(Localizer["OnInvalidSubmitCallBackLog"]);
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? Logger8 { get; set; }
+
+    private Task OnInvalidValidatableObject(EditContext context)
+    {
+        Logger8.Log(Localizer["OnInvalidSubmitCallBackLog"]);
         return Task.CompletedTask;
     }
 
