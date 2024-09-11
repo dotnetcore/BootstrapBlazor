@@ -299,24 +299,25 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultRequiredErrorMessage() });
         }
 
-        //if (ValidateForm != null)
-        //{
-        //    var fieldName = FieldIdentifier?.FieldName;
-        //    if (!string.IsNullOrEmpty(fieldName))
-        //    {
-        //        var item = ValidateForm.InvalidMemberNames.Find(i => i.MemberNames.Any(m => m == fieldName));
-        //        if (item != null)
-        //        {
-        //            ValidateForm.InvalidMemberNames.Remove(item);
-        //            IsValid = false;
-        //            ErrorMessage = item.ErrorMessage;
-        //        }
-        //        else if (ValidateForm.ValidMemberNames.Remove(fieldName))
-        //        {
-        //            IsValid = true;
-        //        }
-        //    }
-        //}
+        if (ValidateForm != null)
+        {
+            var fieldName = FieldIdentifier?.FieldName;
+            if (!string.IsNullOrEmpty(fieldName))
+            {
+                var item = ValidateForm.InvalidMemberNames.Find(i => i.MemberNames.Any(m => m == fieldName));
+                if (item != null)
+                {
+                    ValidateForm.InvalidMemberNames.Remove(item);
+                    IsValid = false;
+                    ErrorMessage = item.ErrorMessage;
+                }
+                else if (ValidateForm.ValidMemberNames.Remove(fieldName))
+                {
+                    IsValid = true;
+                    ErrorMessage = null;
+                }
+            }
+        }
     }
 
     /// <summary>

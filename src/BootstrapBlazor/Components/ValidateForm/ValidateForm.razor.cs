@@ -103,15 +103,15 @@ public partial class ValidateForm
 
     private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
 
-    ///// <summary>
-    ///// 验证合法成员集合
-    ///// </summary>
-    //internal List<string> ValidMemberNames { get; } = [];
+    /// <summary>
+    /// 验证合法成员集合
+    /// </summary>
+    internal List<string> ValidMemberNames { get; } = [];
 
-    ///// <summary>
-    ///// 验证非法成员集合
-    ///// </summary>
-    //internal List<ValidationResult> InvalidMemberNames { get; } = [];
+    /// <summary>
+    /// 验证非法成员集合
+    /// </summary>
+    internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
     /// <summary>
     /// OnParametersSet 方法
@@ -473,21 +473,21 @@ public partial class ValidateForm
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
-                // 验证 IValidateCollection
-                // 清除指定字段错误信息
-                //if (context.ObjectInstance is IValidateCollection validateCollection)
-                //{
-                //    messages.AddRange(validateCollection.Validate(context));
-                //    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
-                //    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
-                //}
-                //}
-                //else
-                //{
-                _tcs = new();
                 // 自定义验证组件
+                _tcs = new();
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
                 _tcs.TrySetResult(messages.Count == 0);
+            }
+
+            if (messages.Count == 0)
+            {
+                // 联动字段验证 IValidateCollection
+                if (context.ObjectInstance is IValidateCollection validateCollection)
+                {
+                    messages.AddRange(validateCollection.Validate(context));
+                    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
+                    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
+                }
             }
         }
 

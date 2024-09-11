@@ -12,13 +12,11 @@ public class CustomValidateCollectionModel : IValidateCollection
     /// <summary>
     /// 联系电话1
     /// </summary>
-    [Display(Name = "联系电话1")]
     public string? Telephone1 { get; set; }
 
     /// <summary>
     /// 联系电话2
     /// </summary>
-    [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
     private readonly List<string> _validMemberNames = [];
@@ -36,7 +34,7 @@ public class CustomValidateCollectionModel : IValidateCollection
         _invalidMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
-            var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidateCollectionModel>>();
+            var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
             var errorMessage = localizer["CanNotBeTheSame"];
             if (validationContext.MemberName == nameof(Telephone1))
             {
