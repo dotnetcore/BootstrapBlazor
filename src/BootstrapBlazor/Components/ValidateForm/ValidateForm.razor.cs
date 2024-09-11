@@ -258,25 +258,6 @@ public partial class ValidateForm
                 }
             }
         }
-
-        // 验证 IValidatableObject
-        if (context.ObjectInstance is IValidatableObject validatableObject)
-        {
-            var messages = validatableObject.Validate(context).ToList();
-            if (messages.Count > 0)
-            {
-                foreach (var key in _validatorCache.Keys)
-                {
-                    var validatorValue = _validatorCache[key];
-                    var validator = validatorValue.ValidateComponent;
-                    if (validator.IsNeedValidate)
-                    {
-                        validator.ToggleMessage(messages);
-                    }
-                }
-                results.AddRange(messages);
-            }
-        }
     }
 
     /// <summary>
@@ -460,10 +441,18 @@ public partial class ValidateForm
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
-                _tcs = new();
-                // 自定义验证组件
-                await validator.ValidatePropertyAsync(propertyValue, context, messages);
-                _tcs.TrySetResult(messages.Count == 0);
+                // 验证 IValidatableObject
+                if (context.ObjectInstance is IValidatableObject validatableObject)
+                {
+                    messages.AddRange(validatableObject.Validate(context));
+                }
+                else
+                {
+                    _tcs = new();
+                    // 自定义验证组件
+                    await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                    _tcs.TrySetResult(messages.Count == 0);
+                }
             }
         }
 
