@@ -10,8 +10,14 @@ namespace BootstrapBlazor.Components;
 public interface IValidataResult
 {
     /// <summary>
-    /// 返回要清除错误结果成员集合
+    /// 返回合法成员集合
     /// </summary>
     /// <returns></returns>
-    List<string> ResetMemberNames();
+    List<string> ValidMemberNames();
+
+    /// <summary>
+    /// 返回非法成员集合
+    /// </summary>
+    /// <returns></returns>
+    List<ValidationResult> InvalidMemberNames();
 }

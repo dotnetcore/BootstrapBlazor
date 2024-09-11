@@ -104,9 +104,14 @@ public partial class ValidateForm
     private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
 
     /// <summary>
-    /// 重置成员集合
+    /// 验证合法成员集合
     /// </summary>
-    internal List<string> ResetMemberNames { get; } = [];
+    internal List<string> ValidMemberNames { get; } = [];
+
+    /// <summary>
+    /// 验证非法成员集合
+    /// </summary>
+    internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
     /// <summary>
     /// OnParametersSet 方法
@@ -454,7 +459,8 @@ public partial class ValidateForm
                     // 清除指定字段错误信息
                     if (context.ObjectInstance is IValidataResult validataResult)
                     {
-                        ResetMemberNames.AddRange(validataResult.ResetMemberNames());
+                        ValidMemberNames.AddRange(validataResult.ValidMemberNames());
+                        InvalidMemberNames.AddRange(validataResult.InvalidMemberNames());
                     }
                 }
                 else

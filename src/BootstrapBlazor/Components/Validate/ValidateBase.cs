@@ -299,12 +299,22 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             Rules.Add(new RequiredValidator() { ErrorMessage = RequiredErrorMessage ?? GetDefaultRequiredErrorMessage() });
         }
 
-        if (IsValid is false && ValidateForm != null)
+        if (ValidateForm != null)
         {
             var fieldName = FieldIdentifier?.FieldName;
-            if (!string.IsNullOrEmpty(fieldName) && ValidateForm.ResetMemberNames.Remove(fieldName))
+            if (!string.IsNullOrEmpty(fieldName))
             {
-                IsValid = true;
+                var item = ValidateForm.InvalidMemberNames.Find(i => i.MemberNames.Any(m => m == fieldName));
+                if (item != null)
+                {
+                    ValidateForm.InvalidMemberNames.Remove(item);
+                    IsValid = false;
+                    ErrorMessage = item.ErrorMessage;
+                }
+                else if (ValidateForm.ValidMemberNames.Remove(fieldName))
+                {
+                    IsValid = true;
+                }
             }
         }
     }
@@ -329,11 +339,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
                 await ShowValidResult();
             }
         }
-    }
-
-    private bool IsPassiveCheck()
-    {
-        return true;
     }
 
     private string? _defaultRequiredErrorMessage;

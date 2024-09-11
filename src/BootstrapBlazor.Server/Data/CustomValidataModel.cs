@@ -27,7 +27,9 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
-    private readonly List<string> _resetMemberNames = [];
+    private readonly List<string> _validMemberNames = [];
+
+    private readonly List<ValidationResult> _invalidMemberNames = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,20 +38,30 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     /// <returns></returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        _resetMemberNames.Clear();
+        _validMemberNames.Clear();
+        _invalidMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
             var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
-            yield return new ValidationResult(localizer["CanNotBeTheSame"], [validationContext.MemberName!]);
+            var errorMessage = localizer["CanNotBeTheSame"];
+            if (validationContext.MemberName == nameof(Telephone1))
+            {
+                _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone2)]));
+            }
+            else if (validationContext.MemberName == nameof(Telephone2))
+            {
+                _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone1)]));
+            }
+            yield return new ValidationResult(errorMessage, [validationContext.MemberName!]);
         }
         else if (validationContext.MemberName == nameof(Telephone1))
         {
-            _resetMemberNames.Add(nameof(Telephone2));
+            _validMemberNames.Add(nameof(Telephone2));
 
         }
         else if (validationContext.MemberName == nameof(Telephone2))
         {
-            _resetMemberNames.Add(nameof(Telephone1));
+            _validMemberNames.Add(nameof(Telephone1));
         }
 
         if (string.IsNullOrEmpty(Name))
@@ -62,5 +74,11 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public List<string> ResetMemberNames() => _resetMemberNames;
+    public List<string> ValidMemberNames() => _validMemberNames;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
 }
