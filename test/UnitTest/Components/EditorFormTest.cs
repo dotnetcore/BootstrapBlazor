@@ -225,6 +225,9 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.OpenComponent<EditorItem<Foo, string>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Required), true);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.RequiredErrorMessage), "Test");
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Readonly), true);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.SkipValidate), false);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");

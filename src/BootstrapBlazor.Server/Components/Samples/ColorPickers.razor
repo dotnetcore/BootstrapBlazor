@@ -46,4 +46,9 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IsSupportOpacityTitle"]" Introduction="@Localizer["IsSupportOpacityIntro"]" Name="IsSupportOpacity">
+    <Switch @bind-Value="_opacityDisabled"></Switch>
+    <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="true" IsDisabled="_opacityDisabled" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

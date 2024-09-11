@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// CherryMarkdown 组件
 /// </summary>
-public partial class CherryMarkdown : IAsyncDisposable
+public partial class CherryMarkdown
 {
     private CherryMarkdownOption Option { get; } = new();
 
@@ -62,17 +62,6 @@ public partial class CherryMarkdown : IAsyncDisposable
     [Parameter]
     public bool? IsViewer { get; set; }
 
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<CherryMarkdown>? Interop { get; set; }
-
-    /// <summary>
-    /// 获得/设置 DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -89,6 +78,8 @@ public partial class CherryMarkdown : IAsyncDisposable
             Option.Editor.DefaultModel = "previewOnly";
             Option.Toolbars.Toolbar = false;
         }
+
+        _lastValue = Value;
     }
 
     /// <summary>
@@ -98,22 +89,20 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (Value != _lastValue)
         {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.CherryMarkdown/Components/CherryMarkdown/CherryMarkdown.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Upload));
-        }
-        else
-        {
-            if (Value != _lastValue)
-            {
-                _lastValue = Value;
-                await Module.InvokeVoidAsync("update", Element, Value);
-            }
+            _lastValue = Value;
+            await InvokeVoidAsync("update", Id, Value);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Option, nameof(Upload));
 
     /// <summary>
     /// 文件上传回调
@@ -126,12 +115,15 @@ public partial class CherryMarkdown : IAsyncDisposable
         var ret = "";
         if (Module != null)
         {
-            var stream = await Module.InvokeAsync<IJSStreamReference>("fetch", Element);
-            using var data = await stream.OpenReadStreamAsync();
-            uploadFile.UploadStream = data;
-            if (OnFileUpload != null)
+            var stream = await InvokeAsync<IJSStreamReference>("fetch", Id);
+            if (stream != null)
             {
-                ret = await OnFileUpload(uploadFile);
+                using var data = await stream.OpenReadStreamAsync();
+                uploadFile.UploadStream = data;
+                if (OnFileUpload != null)
+                {
+                    ret = await OnFileUpload(uploadFile);
+                }
             }
         }
         return ret;
@@ -144,17 +136,17 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <summary>
     /// 更新组件值方法
     /// </summary>
-    /// <param name="vals"></param>
+    /// <param name="values"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Update(string[] vals)
+    public async Task Update(string[] values)
     {
-        if (vals.Length == 2)
+        if (values.Length == 2)
         {
-            var hasChanged = !EqualityComparer<string>.Default.Equals(vals[0], Value);
+            var hasChanged = !EqualityComparer<string>.Default.Equals(values[0], Value);
             if (hasChanged)
             {
-                Value = vals[0];
+                Value = values[0];
                 _lastValue = Value;
 
                 if (ValueChanged.HasDelegate)
@@ -163,10 +155,10 @@ public partial class CherryMarkdown : IAsyncDisposable
                 }
             }
 
-            hasChanged = !EqualityComparer<string>.Default.Equals(vals[1], Html);
+            hasChanged = !EqualityComparer<string>.Default.Equals(values[1], Html);
             if (hasChanged)
             {
-                Html = vals[1];
+                Html = values[1];
                 if (HtmlChanged.HasDelegate)
                 {
                     await HtmlChanged.InvokeAsync(Html);
@@ -181,34 +173,5 @@ public partial class CherryMarkdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("invoke", Element, method, parameters);
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Id, method, parameters);
 }

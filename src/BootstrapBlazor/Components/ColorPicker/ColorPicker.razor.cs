@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -28,6 +30,12 @@ public partial class ColorPicker
     [Parameter]
     public Func<string, Task<string>>? Formatter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否支持透明度 默认 false 不支持
+    /// </summary>
+    [Parameter]
+    public bool IsSupportOpacity { get; set; }
+
     private string? _formattedValueString;
 
     /// <summary>
@@ -39,6 +47,30 @@ public partial class ColorPicker
 
         await FormatValue();
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            if (IsSupportOpacity)
+            {
+                await InvokeVoidAsync("update", Id, new { Value, IsDisabled });
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
 
     private async Task Setter(string v)
     {
@@ -54,5 +86,21 @@ public partial class ColorPicker
             // 使用者可能需要通过回调通过异步方式获得显示数据
             _formattedValueString = await Formatter(CurrentValueAsString);
         }
+    }
+
+    /// <summary>
+    /// 选中颜色值变化时回调此方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task OnColorChanged(string value)
+    {
+        CurrentValueAsString = value;
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
+        return Task.CompletedTask;
     }
 }

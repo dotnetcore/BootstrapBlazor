@@ -2479,8 +2479,12 @@
     "BindValueIntro": "通过设置 <code>Value</code> 属性设定颜色值",
     "DisabledTitle": "禁用",
     "DisabledIntro": "通过设置 <code>IsDisabled</code> 属性禁用此组件",
+    "FormatterTitle": "格式化",
+    "FormatterIntro": "通过设置 <code>Formatter</code> 回调方法设置显示值",
     "ValidateFormTitle": "验证表单中使用",
     "ValidateFormIntro": "内置于 <code>ValidateForm</code> 中使用",
+    "IsSupportOpacityTitle": "支持透明度",
+    "IsSupportOpacityIntro": "通过设置 <code>IsSupportOpacity=\"true\"</code> 开启透明度支持",
     "Event1": "颜色改变回调委托方法"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
@@ -3359,7 +3363,7 @@
     "UploadClickUploadIntro": "<code>ButtonUpload</code> 组件，经典款式，用户点击按钮弹出文件选择框。",
     "UploadClickUploadTips1": "点击 <code>浏览按钮</code> 选择文件上传，本例中设置 <code>IsMultiple=true</code> 可多选文件进行上传",
     "UploadClickUploadTips2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
-    "UploadClickUploadTips3ShowUploadList": "设置 <code>ShowUploadList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑",
+    "UploadClickUploadTips3ShowUploadList": "设置 <code>ShowUploadFileList</code> 值为 <b>false</b> 组件即与普通按钮一样，可自行处理上传文件逻辑",
     "UploadedFilesTitle": "已上传文件列表",
     "UploadedFilesIntro": "使用 <code>DefaultFileList</code> 设置已上传的内容",
     "UploadFolderTitle": "上传文件夹",
@@ -3463,7 +3467,7 @@
     "ValidateFormCustomDisplayErrorDescription": "<b>应用场景</b><p>客户端验证通过后进行数据库保存操作，如果出现其他问题，后仍然可以进行表单自定义错误提示，本例中数据验证合法后，点击 <code>提交表单</code> 按钮后，姓名字段会显示，<code>数据库中已存在</code> 这样的自定义提示信息</p>",
     "ValidateFormValidatorAllFieldTitle": "验证所有字段值",
     "ValidateFormValidatorAllFieldIntro": "此组件默认检查表单内模型绑定字段值，如需要检查模型所有字段值时设置 <code>ValidateAllProperties</code> 值",
-    "ValidateFormValidatorAllFieldDescription": " 本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以 <code>Address</code> 字段仍然被检查，及时表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托",
+    "ValidateFormValidatorAllFieldDescription": " 本例中未放置 <code>Address</code>，由于设置 <code>ValidateAllProperties</code> 参数值为 <code>true</code>，所以 <code>Address</code> 字段仍然被检查，即使表单内所有数据均合法后，提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托",
     "ValidateFormComplexValidationTitle": "复杂类型支持",
     "ValidateFormComplexValidationIntro": "支持任意复杂类型的绑定与验证",
     "ValidateFormComplexValidationDescription": "本示例中第二个绑定的是一个超级复杂类型 <code>ComplexModel.Dummy.Dummy2.Name</code> 清空值后，点击 <b>提交表单</b> 会对数据进行验证。第二个文本框验证合规后，通过调用 <code>SetError</code> 再次显示错误提示",
@@ -4754,7 +4758,8 @@
     "ElementIcon": "饿了么图标 ElementIcon",
     "DrawerService": "抽屉服务 DrawerService",
     "SortableList": "拖拽组件 SortableList",
-    "WinBox": "窗口 WinBox"
+    "WinBox": "窗口 WinBox",
+    "Player": "播放器 Player"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6767,6 +6772,12 @@
     "PlayersNormalTitle": "基础用法",
     "PlayersNormalIntro": "通过回调方法 <code>OnInitAsync</code> 设置组件所需要的配置实例 <code>PlayerOption</code>。通过 <code>PlayerOption</code> 属性值对播放器进行设置",
     "PlayersHlsTitle": "HLS 支持",
-    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持"
+    "PlayersHlsIntro": "通过设置 <code>IsHls=\"true\"</code> 开启 <code>Hls</code> 支持",
+    "PlayersAudioTitle": "音频播放器",
+    "PlayersAudioIntro": "通过设置 <code>Mode=\"PlayerMode.Audio\"</code> 播放音频文件",
+    "PlayersYouTubeTitle": "YouTube 支持",
+    "PlayersYouTubeIntro": "通过设置 <code>Mode=\"PlayerSources\"</code> 参数 <b>Provider=\"youtube\"</b> 播放 <code>YouTube</code> 视频",
+    "PlayersVimeoTitle": "Vimeo 支持",
+    "PlayersVimeoIntro": "通过设置 <code>Mode=\"PlayerSources\"</code> 参数 <b>Provider=\"vimeo\"</b> 播放 <code>Vimei</code> 视频"
   }
 }

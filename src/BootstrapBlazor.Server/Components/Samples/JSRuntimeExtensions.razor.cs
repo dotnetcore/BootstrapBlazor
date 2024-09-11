@@ -39,7 +39,7 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
 
     private async Task OpenUrl_Self() => await Module.OpenUrl(Url, "_self");
 
-    private bool IsMobile { get; set; }
+    private bool? IsMobile { get; set; }
 
     private async Task GetIsMobile() => IsMobile = await Module.IsMobile();
 
@@ -49,9 +49,9 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         `当前URL: ${currentUrl}`;
         """;
 
-    private string evalResult { get; set; } = string.Empty;
+    private string? evalResult { get; set; }
 
-    private async Task RunEval() => evalResult = await Module.Eval<string>(evalContent);
+    private async Task RunEval() => evalResult = await Module.Eval<string?>(evalContent);
 
     private string functionContent = """
         const currentUrl = window.location.href;
@@ -59,9 +59,9 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         return `当前URL: ${currentUrl}`;
         """;
 
-    private string functionResult { get; set; } = string.Empty;
+    private string? functionResult { get; set; }
 
-    private async Task RunFunction() => functionResult = await Module.Function<string>(functionContent);
+    private async Task RunFunction() => functionResult = await Module.Function<string?>(functionContent);
 
     private MethodItem[] GetMethods() =>
     [

@@ -14,7 +14,7 @@
 <DemoBlock Title="@Localizer["PlayersNormalTitle"]"
            Introduction="@Localizer["PlayersNormalIntro"]"
            Name="Normal">
-    <Player OnInitAsync="InitNormalPlayer"></Player>
+    <Player Options="_options"></Player>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PlayersHlsTitle"]"
@@ -28,7 +28,25 @@
             <Display @bind-Value="@_url" />
         </div>
     </div>
-    <Player OnInitAsync="InitHlsPlayer"></Player>
+    <Player Options="_hlsOptions" @ref="_hlsPlayer"></Player>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PlayersYouTubeTitle"]"
+           Introduction="@Localizer["PlayersYouTubeIntro"]"
+           Name="youtube">
+    <Player Options="_youtubeOptions"></Player>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PlayersVimeoTitle"]"
+           Introduction="@Localizer["PlayersVimeoIntro"]"
+           Name="vimeo">
+    <Player Options="_vimeoOptions"></Player>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PlayersAudioTitle"]"
+           Introduction="@Localizer["PlayersAudioIntro"]"
+           Name="audio">
+    <Player Mode="PlayerMode.Audio" Options="_audioOptions"></Player>
 </DemoBlock>
 
 @* <AttributeTable Items="@GetAttributes()" /> *@

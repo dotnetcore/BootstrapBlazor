@@ -59,8 +59,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// 显示/隐藏验证结果方法
     /// </summary>
     /// <param name="results"></param>
-    /// <param name="validProperty">是否对本属性进行数据验证</param>
-    public override void ToggleMessage(IEnumerable<ValidationResult> results, bool validProperty)
+    public override void ToggleMessage(IEnumerable<ValidationResult> results)
     {
         if (FieldIdentifier != null)
         {

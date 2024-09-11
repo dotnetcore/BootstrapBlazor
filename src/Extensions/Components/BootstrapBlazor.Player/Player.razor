@@ -2,5 +2,12 @@
 @inherits BootstrapModuleComponentBase
 @attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Player/Player.razor.js", JSObjectReference = true)]
 
-<video id="@Id" playsinline controls crossorigin>
-</video>
+@if (Mode == PlayerMode.Audio)
+{
+    <audio id="@Id" playsinline controls crossorigin>
+    </audio>
+}
+else {
+    <video id="@Id" playsinline controls crossorigin>
+    </video>
+}

@@ -373,5 +373,8 @@
     "AutoModeText": "自动",
     "DarkModeText": "暗黑",
     "LightModeText": "明亮"
+  },
+  "BootstrapBlazor.Components.ValidateBase": {
+    "DefaultRequiredErrorMessage": "{0}是必填项"
   }
 }

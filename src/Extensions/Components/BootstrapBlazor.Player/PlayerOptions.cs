@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 播放器选项类
 /// </summary>
-public class PlayerOption
+public class PlayerOptions
 {
     /// <summary>
     /// 获得/设置 是否为 Hls 播放资源 默认 false
@@ -60,10 +60,9 @@ public class PlayerOption
     public string? Language { get; set; }
 
     /// <summary>
-    /// 获得 视频标记点实例 <see cref="PlayerMarker"/>
+    /// 获得 视频标记点实例 <see cref="PlayerMarkers"/>
     /// </summary>
-    [JsonPropertyName("markers")]
-    public PlayerMarker Makers { get; } = new();
+    public PlayerMarkers Markers { get; } = new();
 
     /// <summary>
     /// 获得 播放资源预览图实例 <see cref="PlayerThumbnail"/>

@@ -49,4 +49,20 @@ public class ColorPickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => input.Change("#000000"));
         cut.Contains("test-color-value#000000");
     }
+
+    [Fact]
+    public async Task IsSupportOpacity_Ok()
+    {
+        var cut = Context.RenderComponent<ColorPicker>(builder =>
+        {
+            builder.Add(a => a.IsSupportOpacity, true);
+            builder.Add(a => a.Value, "#AABBCCDD");
+        });
+        cut.Contains("<div class=\"bb-color-picker-body\" style=\"--bb-color-pick-val: #AABBCCDD\"></div>");
+
+        await cut.InvokeAsync(() => cut.Instance.OnColorChanged("#123456"));
+        Assert.Equal("#123456", cut.Instance.Value);
+
+        await cut.InvokeAsync(() => cut.Instance.SetValue("#333333"));
+    }
 }

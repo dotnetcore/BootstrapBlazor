@@ -163,7 +163,7 @@ public partial class ValidateForm
                 {
                     new(errorMessage, new string[] { fieldName })
                 };
-                validator.ToggleMessage(results, true);
+                validator.ToggleMessage(results);
             }
         }
     }
@@ -181,7 +181,7 @@ public partial class ValidateForm
             {
                 new(errorMessage, new string[] { fieldName })
             };
-            validator.ToggleMessage(results, true);
+            validator.ToggleMessage(results);
         }
     }
 
@@ -253,7 +253,7 @@ public partial class ValidateForm
                         await ValidateAsync(validator, propertyValidateContext, messages, pi, propertyValue);
                     }
                     // 客户端提示
-                    validator.ToggleMessage(messages, false);
+                    validator.ToggleMessage(messages);
                     results.AddRange(messages);
                 }
             }
@@ -280,7 +280,7 @@ public partial class ValidateForm
                 }
 
                 // 客户端提示
-                validator.ToggleMessage(results, true);
+                validator.ToggleMessage(results);
             }
         }
     }
@@ -402,10 +402,16 @@ public partial class ValidateForm
                         await ValidateAsync(validator, context, messages, pi, propertyValue);
 
                         // 客户端提示
-                        validator.ToggleMessage(messages, true);
+                        validator.ToggleMessage(messages);
                     }
                     results.AddRange(messages);
                 }
+            }
+            else
+            {
+                var messages = new List<ValidationResult>();
+                ValidateDataAnnotations(propertyValue, context, messages, pi);
+                results.AddRange(messages);
             }
         }
     }
@@ -556,7 +562,7 @@ public partial class ValidateForm
     /// 获取 当前表单值改变的属性集合
     /// </summary>
     /// <returns></returns>
-    [Obsolete("已过期，单词拼写错误，请使用 ValueChangedFields，Please use ValueChangedFields instead. wrong typo")]
+    [Obsolete("已弃用，单词拼写错误，请使用 ValueChangedFields，Deprecated Please use ValueChangedFields instead. wrong typo")]
     [ExcludeFromCodeCoverage]
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
 }

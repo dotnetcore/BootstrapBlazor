@@ -105,7 +105,12 @@ public class ITableColumnExtensionsTest
             Order = -1,
             IsMarkupString = true,
             GetTooltipTextCallback = _ => Task.FromResult<string?>(null),
-            CustomSearch = (_, _) => new SearchFilterAction("test", "test")
+            CustomSearch = (_, _) => new SearchFilterAction("test", "test"),
+
+            Required = true,
+            RequiredErrorMessage = "test",
+            IsRequiredWhenAdd = true,
+            IsRequiredWhenEdit = true
         };
         col.CopyValue(attr);
         Assert.NotNull(col.ComponentType);
@@ -165,6 +170,11 @@ public class ITableColumnExtensionsTest
         Assert.NotNull(col.GetTooltipTextCallback);
         Assert.True(col.IsMarkupString);
         Assert.NotNull(col.CustomSearch);
+
+        Assert.True(col.Required);
+        Assert.True(col.IsRequiredWhenEdit);
+        Assert.True(col.IsRequiredWhenAdd);
+        Assert.Equal("test", col.RequiredErrorMessage);
     }
 
     [Fact]

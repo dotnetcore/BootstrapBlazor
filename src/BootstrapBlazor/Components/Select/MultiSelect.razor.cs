@@ -303,7 +303,7 @@ public partial class MultiSelect<TValue>
             var validationResults = new List<ValidationResult>();
 
             await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
-            ToggleMessage(validationResults, true);
+            ToggleMessage(validationResults);
         }
 
         if (OnSelectedItemsChanged != null)

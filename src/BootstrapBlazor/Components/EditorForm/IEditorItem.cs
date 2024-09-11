@@ -17,7 +17,7 @@ public interface IEditorItem
     /// <summary>
     /// 获得/设置 当前编辑项是否可编辑 默认为 true
     /// </summary>
-    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit 只读使用 Readonly 参数，新建时使用 IsReadonlyWhenAdd 编辑时使用 IsReadonlyWhenEdit 参数; Discarded, use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
+    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit 只读使用 Readonly 参数，新建时使用 IsReadonlyWhenAdd 编辑时使用 IsReadonlyWhenEdit 参数; Deprecated use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
     bool Editable { get; set; }
 
     /// <summary>
@@ -139,4 +139,14 @@ public interface IEditorItem
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     int GroupOrder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为必填项 默认为 null
+    /// </summary>
+    bool? Required { get; set; }
+
+    /// <summary>
+    /// 获得/设置 必填项缺失时错误提示文本 默认为 null
+    /// </summary>
+    string? RequiredErrorMessage { get; set; }
 }

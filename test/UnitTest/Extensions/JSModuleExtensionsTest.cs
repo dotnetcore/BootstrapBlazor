@@ -16,6 +16,14 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task LoadModule_Exception()
+    {
+        var jsRuntime = new MockJSRuntime();
+        var module = await jsRuntime.LoadModule("./mock.js", "test");
+        Assert.NotNull(module);
+    }
+
+    [Fact]
     public void GetTypeModuleName_Ok()
     {
         var type1 = typeof(List<string>);
@@ -84,5 +92,18 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     class MockComponent : ComponentBase
     {
 
+    }
+
+    class MockJSRuntime : IJSRuntime
+    {
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args)
+        {
+            throw new TaskCanceledException();
+        }
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args)
+        {
+            throw new TaskCanceledException();
+        }
     }
 }

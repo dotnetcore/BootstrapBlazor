@@ -478,6 +478,8 @@ public static class Utility
             builder.AddAttribute(20, nameof(ValidateBase<string>.Value), fieldValue);
             builder.AddAttribute(30, nameof(ValidateBase<string>.ValueChanged), fieldValueChanged);
             builder.AddAttribute(40, nameof(ValidateBase<string>.ValueExpression), valueExpression);
+            builder.AddAttribute(41, nameof(ValidateBase<string>.ShowRequired), GetRequired(item, changedType));
+            builder.AddAttribute(41, nameof(ValidateBase<string>.RequiredErrorMessage), item.RequiredErrorMessage);
 
             if (!item.CanWrite(model.GetType(), changedType, isSearch))
             {
@@ -548,6 +550,16 @@ public static class Utility
             builder.AddAttribute(190, nameof(Select<string>.IsPopover), item.IsPopover);
         }
         builder.CloseComponent();
+    }
+
+    private static bool? GetRequired(IEditorItem editorItem, ItemChangedType changedType)
+    {
+        var ret = editorItem.Required;
+        if (ret is null && editorItem is ITableColumn col)
+        {
+            ret = changedType == ItemChangedType.Add ? col.IsRequiredWhenAdd : col.IsRequiredWhenEdit;
+        }
+        return ret;
     }
 
     private static List<SelectedItem> Clone(this IEnumerable<SelectedItem> source) => source.Select(d => new SelectedItem(d.Value, d.Text)

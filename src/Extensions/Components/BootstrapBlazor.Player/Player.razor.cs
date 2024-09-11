@@ -13,11 +13,17 @@ namespace BootstrapBlazor.Components;
 public partial class Player
 {
     /// <summary>
+    /// 获得/设置 组件模式 默认为 <see cref="PlayerMode.Video"/>
+    /// </summary>
+    [Parameter]
+    public PlayerMode Mode { get; set; }
+
+    /// <summary>
     /// 获得/设置 PlayerOption 实例
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public Func<Task<PlayerOption>>? OnInitAsync { get; set; }
+    public PlayerOptions? Options { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-video-player")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -29,11 +35,17 @@ public partial class Player
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        if (OnInitAsync != null)
+        if (Options != null)
         {
-            var option = await OnInitAsync();
-            option.Language ??= CultureInfo.CurrentUICulture.Name;
-            await InvokeVoidAsync("init", Id, Interop, "", option);
+            Options.Language ??= CultureInfo.CurrentUICulture.Name;
         }
+        await InvokeVoidAsync("init", Id, Interop, "", Options);
     }
+
+    /// <summary>
+    /// 重新配置播放器方法
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public Task Reload(PlayerOptions option) => InvokeVoidAsync("reload", Id, option);
 }

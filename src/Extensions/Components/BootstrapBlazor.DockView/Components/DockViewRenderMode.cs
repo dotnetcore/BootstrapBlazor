@@ -2,20 +2,23 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Core.Converter;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Player 组件预览图类
+/// DockViewRenderMode 渲染模式枚举类型
 /// </summary>
-public class PlayerMarker
+[JsonEnumConverter(true)]
+public enum DockViewRenderMode
 {
     /// <summary>
-    /// get or set Whether to enable markers
+    /// 可见时渲染
     /// </summary>
-    public bool Enabled { get; set; }
+    OnlyWhenVisible,
 
     /// <summary>
-    /// 获得 标记点集合
+    /// 始终渲染
     /// </summary>
-    public List<PlayerPoint> Points { get; } = [];
+    Always
 }
