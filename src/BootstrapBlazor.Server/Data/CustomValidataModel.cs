@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Server.Data;
 /// <summary>
 /// 公司模型类
 /// </summary>
-public class CustomValidataModel : IValidatableObject, IValidataResult
+public class CustomValidataModel : IValidateCollection
 {
     /// <summary>
     /// 名称

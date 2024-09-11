@@ -5,10 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ValidataResult 验证结果接口配合 <see cref="IValidatableObject"/> 接口使用
+/// IValidateCollection 多个验证结果接口 支持组件间联动验证
 /// </summary>
-public interface IValidataResult
+public interface IValidateCollection
 {
+    /// <summary>
+    /// 验证方法
+    /// </summary>
+    /// <param name="validationContext"></param>
+    /// <returns></returns>
+    IEnumerable<ValidationResult> Validate(ValidationContext validationContext);
+
     /// <summary>
     /// 返回合法成员集合
     /// </summary>

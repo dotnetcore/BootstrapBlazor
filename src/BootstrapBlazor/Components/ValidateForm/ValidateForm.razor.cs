@@ -457,10 +457,10 @@ public partial class ValidateForm
                     messages.AddRange(validatableObject.Validate(context));
 
                     // 清除指定字段错误信息
-                    if (context.ObjectInstance is IValidataResult validataResult)
+                    if (context.ObjectInstance is IValidateCollection validateCollection)
                     {
-                        ValidMemberNames.AddRange(validataResult.ValidMemberNames());
-                        InvalidMemberNames.AddRange(validataResult.InvalidMemberNames());
+                        ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
+                        InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
                     }
                 }
                 else
