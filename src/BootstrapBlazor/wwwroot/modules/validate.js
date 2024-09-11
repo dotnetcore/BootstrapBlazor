@@ -23,7 +23,7 @@ export function dispose(id) {
                 if (tip && tip._element) {
                     tip.dispose()
                 }
-            }, 10)
+            }, 100);
         }
     }
 }
