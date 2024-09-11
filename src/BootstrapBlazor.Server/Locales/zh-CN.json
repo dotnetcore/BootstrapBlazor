@@ -3509,9 +3509,9 @@
     "ValidateFormDisableAutoSubmitFormByEnterTitle": "禁用自动提交功能",
     "ValidateFormDisableAutoSubmitFormByEnterIntro": "当焦点在表单内输入框时，按 <kbd>Enter</kbd> 默认是自动提交表单的，通过设置 <code>DisableAutoSubmitFormByEnter=\"false\"</code> 禁止自动提交",
     "DisableAutoSubmitFormByEnterDesc": "<code>form</code> 表单是 <code>web</code> 一个重要的元素，如果表单内有 <code>input</code> 元素当此元素获得焦点时，按下 <kbd>Enter</kbd> 会自动提交表单，这是表单元素的特性，并不是我们组件代码逻辑，如果不需要这个功能时通过设置 <code>DisableAutoSubmitFormByEnter=\"true\"</code> 禁用此功能，此例中文本框内按回车不会 <b>自动提交</b> 并且进行数据合规性检查，需要点击 <b>提交表单</b> 按钮提交表单",
-    "ValidateFormIValidatableObjectTitle": "IValidatableObject",
+    "ValidateFormIValidatableObjectTitle": "IValidatableObject 接口类型",
     "ValidateFormIValidatableObjectIntro": "<code>IValidatableObject</code> 接口提供了更加灵活的自定义校验，非常适合进行非常复杂的数据校验，例如多属性组合起来进行校验等场景。",
-    "ValidateFormIValidatableObjectDescription": "本示例使用IValidatableObject实现校验 <code>联系电话1</code> 和 <code>联系电话2 </code> 不能相同，以及 <code>名称</code> 不能为空，本例中并未房子 <code>名称</code> ，但是由于模型对 <code>IValidatableObject</code> 接口的实现中进行了校验，所以在提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托"
+    "ValidateFormIValidatableObjectDescription": "本示例使用 <code>IValidatableObject</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同，以及 <code>名称</code> 不能为空，本例中并未设置 <code>名称</code> 为必填项，但是由于模型对 <code>IValidatableObject</code> 接口的实现中进行了校验，所以在提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托"
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",
@@ -6783,10 +6783,10 @@
     "PlayersVimeoTitle": "Vimeo 支持",
     "PlayersVimeoIntro": "通过设置 <code>Mode=\"PlayerSources\"</code> 参数 <b>Provider=\"vimeo\"</b> 播放 <code>Vimei</code> 视频"
   },
-  "BootstrapBlazor.Server.Data.Company": {
+  "BootstrapBlazor.Server.Data.CustomValidataModel": {
     "Name": "名称",
     "Telephone1": "联系电话1",
     "Telephone2": "联系电话2",
-    "Telephone1AndTelephone2.CanNotBeTheSame": "联系电话1和联系电话2不能相同！"
+    "CanNotBeTheSame": "联系电话1 和 联系电话2 不能相同"
   }
 }

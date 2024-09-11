@@ -7,19 +7,17 @@ namespace BootstrapBlazor.Server.Data;
 /// <summary>
 /// 公司模型类
 /// </summary>
-public class Company : IValidatableObject
+public class CustomValidataModel : IValidatableObject
 {
     /// <summary>
     /// 名称
     /// </summary>
-    [Required(ErrorMessage = "{0}不能为空")]
     [Display(Name = "名称")]
     public string? Name { get; set; }
 
     /// <summary>
     /// 联系电话1
     /// </summary>
-    [Required(ErrorMessage = "{0}不能为空")]
     [Display(Name = "联系电话1")]
     public string? Telephone1 { get; set; }
 
@@ -29,13 +27,17 @@ public class Company : IValidatableObject
     [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
+    /// <summary>
     /// <inheritdoc/>
+    /// </summary>
+    /// <param name="validationContext"></param>
+    /// <returns></returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
-            var localizer = validationContext.GetRequiredService<IStringLocalizer<Company>>();
-            yield return new ValidationResult(localizer["Telephone1AndTelephone2.CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
+            var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], [nameof(Telephone1), nameof(Telephone2)]);
         }
         if (string.IsNullOrEmpty(Name))
         {

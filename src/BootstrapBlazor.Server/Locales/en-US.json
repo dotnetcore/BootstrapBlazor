@@ -6783,10 +6783,10 @@
     "PlayersVimeoTitle": "Vimeo",
     "PlayersVimeoIntro": "Play <code>Vimei</code> videos by setting <code>Mode=\"PlayerSources\"</code> parameter <b>Provider=\"vimeo\"</b>"
   },
-  "BootstrapBlazor.Server.Data.Company": {
+  "BootstrapBlazor.Server.Data.CustomValidataModel": {
     "Name": "Name",
     "Telephone1": "Telephone 1",
     "Telephone2": "Telephone 2",
-    "Telephone1AndTelephone2.CanNotBeTheSame": "Telephone 1 and Telephone 2 can not be the same!"
+    "CanNotBeTheSame": "Telephone 1 and Telephone 2 can not be the same"
   }
 }
