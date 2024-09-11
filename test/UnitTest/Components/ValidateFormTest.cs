@@ -549,6 +549,30 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         method.Invoke(form, [context, result]);
     }
 
+    [Fact]
+    public async Task IValidatableObject_Ok()
+    {
+        var company = new MockValidataModel() { Telephone1 = "123", Telephone2 = "123" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, company);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, company.Telephone1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(company, "Telephone1", typeof(string)));
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, company.Telephone2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(company, "Telephone2", typeof(string)));
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+    }
+
     private class HasServiceAttribute : ValidationAttribute
     {
         public const string Success = "Has Service";
@@ -601,6 +625,21 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [EmailAddress()]
         public string? Member { get; set; } = "test";
+    }
+
+    private class MockValidataModel : IValidatableObject
+    {
+        public string? Telephone1 { get; set; }
+
+        public string? Telephone2 { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
+            {
+                yield return new ValidationResult("Telephone1 and Telephone2 can not be the same", [nameof(Telephone1), nameof(Telephone2)]);
+            }
+        }
     }
 
     private class MockInput<TValue> : BootstrapInput<TValue>

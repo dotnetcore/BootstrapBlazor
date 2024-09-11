@@ -3508,7 +3508,10 @@
     "DisableAutoSubmitFormByEnter": "Disable automatic submit form",
     "ValidateFormDisableAutoSubmitFormByEnterTitle": "Disable automatic submit form",
     "ValidateFormDisableAutoSubmitFormByEnterIntro": "When the focus is in the input box in the form, pressing <kbd>Enter</kbd> will automatically submit the form by default. You can disable automatic submission by setting <code>DisableAutoSubmitFormByEnter=\"false\"</code>",
-    "DisableAutoSubmitFormByEnterDesc": "<code>form</code> form is an important element of<code>web</code>. If there is an <code>input</code> element in the form, when this element gets the focus, pressing <kbd>Enter</kbd> will automatically submit the form. This is a feature of the form element, not our component code logic. If this function is not needed, disable it by setting <code>DisableAutoSubmitFormByEnter=\"true\"</code>, In this example, pressing Enter in the text box will not automatically <b>submit</b> and perform data compliance check. You need to click the <b>Submit</b> button to submit the form"
+    "DisableAutoSubmitFormByEnterDesc": "<code>form</code> form is an important element of<code>web</code>. If there is an <code>input</code> element in the form, when this element gets the focus, pressing <kbd>Enter</kbd> will automatically submit the form. This is a feature of the form element, not our component code logic. If this function is not needed, disable it by setting <code>DisableAutoSubmitFormByEnter=\"true\"</code>, In this example, pressing Enter in the text box will not automatically <b>submit</b> and perform data compliance check. You need to click the <b>Submit</b> button to submit the form",
+    "ValidateFormIValidatableObjectTitle": "IValidatableObject",
+    "ValidateFormIValidatableObjectIntro": "The <code>IValidatableObject</code> interface provides more flexible custom validation, making it very suitable for performing complex data validation scenarios, such as validating combinations of multiple properties.",
+    "ValidateFormIValidatableObjectDescription": "This example uses the <code>IValidatableObject</code> interface to implement validation that <code>Telephone 1</code> and <code>Telephone 2</code> must not be the same, and that <code>Name</code> cannot be empty. In this example, <code>Name</code> is not provided, but since the model implements validation through the <code>IValidatableObject</code> interface, it still triggers the <code>OnInvalidSubmit</code> callback delegate when submitting data."
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
@@ -6779,5 +6782,11 @@
     "PlayersYouTubeIntro": "Play <code>YouTube</code> videos by setting the <code>Mode=\"PlayerSources\"</code> parameter <b>Provider=\"youtube\"</b>",
     "PlayersVimeoTitle": "Vimeo",
     "PlayersVimeoIntro": "Play <code>Vimei</code> videos by setting <code>Mode=\"PlayerSources\"</code> parameter <b>Provider=\"vimeo\"</b>"
+  },
+  "BootstrapBlazor.Server.Data.CustomValidataModel": {
+    "Name": "Name",
+    "Telephone1": "Telephone 1",
+    "Telephone2": "Telephone 2",
+    "CanNotBeTheSame": "Telephone 1 and Telephone 2 can not be the same"
   }
 }

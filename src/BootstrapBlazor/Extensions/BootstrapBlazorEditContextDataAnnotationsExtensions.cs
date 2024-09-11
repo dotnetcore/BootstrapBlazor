@@ -39,7 +39,10 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
             {
                 foreach (var memberName in validationResult.MemberNames)
                 {
-                    messages.Add(editContext.Field(memberName), validationResult.ErrorMessage!);
+                    if (!string.IsNullOrEmpty(memberName))
+                    {
+                        messages.Add(editContext.Field(memberName), validationResult.ErrorMessage!);
+                    }
                 }
             }
             editContext.NotifyValidationStateChanged();
