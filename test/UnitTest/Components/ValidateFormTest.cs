@@ -569,8 +569,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         });
         var form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        var msg1 = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
-        Assert.Equal("Telephone1 and Telephone2 can not be the same", msg1);
+        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
     }
 
     private class HasServiceAttribute : ValidationAttribute

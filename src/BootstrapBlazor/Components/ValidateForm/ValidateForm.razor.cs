@@ -103,15 +103,15 @@ public partial class ValidateForm
 
     private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
 
-    /// <summary>
-    /// 验证合法成员集合
-    /// </summary>
-    internal List<string> ValidMemberNames { get; } = [];
+    ///// <summary>
+    ///// 验证合法成员集合
+    ///// </summary>
+    //internal List<string> ValidMemberNames { get; } = [];
 
-    /// <summary>
-    /// 验证非法成员集合
-    /// </summary>
-    internal List<ValidationResult> InvalidMemberNames { get; } = [];
+    ///// <summary>
+    ///// 验证非法成员集合
+    ///// </summary>
+    //internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
     /// <summary>
     /// OnParametersSet 方法
