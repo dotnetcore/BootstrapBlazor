@@ -27,7 +27,7 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
-    private readonly List<string> _clearMemberNames = [];
+    private readonly List<string> _resetMemberNames = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,14 +36,22 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     /// <returns></returns>
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-        _clearMemberNames.Clear();
+        _resetMemberNames.Clear();
         if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
         {
-            var memberNames = new List<string>([nameof(Telephone1), nameof(Telephone2)]);
-            _clearMemberNames.AddRange(memberNames);
             var localizer = validationContext.GetRequiredService<IStringLocalizer<CustomValidataModel>>();
-            yield return new ValidationResult(localizer["CanNotBeTheSame"], memberNames);
+            yield return new ValidationResult(localizer["CanNotBeTheSame"], [validationContext.MemberName!]);
         }
+        else if (validationContext.MemberName == nameof(Telephone1))
+        {
+            _resetMemberNames.Add(nameof(Telephone2));
+
+        }
+        else if (validationContext.MemberName == nameof(Telephone2))
+        {
+            _resetMemberNames.Add(nameof(Telephone1));
+        }
+
         if (string.IsNullOrEmpty(Name))
         {
             yield return new ValidationResult("Name is required", [nameof(Name)]);
@@ -54,5 +62,5 @@ public class CustomValidataModel : IValidatableObject, IValidataResult
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public List<string> ClearMembers() => _clearMemberNames;
+    public List<string> ResetMemberNames() => _resetMemberNames;
 }

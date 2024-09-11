@@ -13,5 +13,5 @@ public interface IValidataResult
     /// 返回要清除错误结果成员集合
     /// </summary>
     /// <returns></returns>
-    List<string> ClearMembers();
+    List<string> ResetMemberNames();
 }
