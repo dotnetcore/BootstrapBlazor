@@ -10,12 +10,6 @@ namespace BootstrapBlazor.Server.Data;
 public class CustomValidataModel : IValidateCollection
 {
     /// <summary>
-    /// 名称
-    /// </summary>
-    [Display(Name = "名称")]
-    public string? Name { get; set; }
-
-    /// <summary>
     /// 联系电话1
     /// </summary>
     [Display(Name = "联系电话1")]
@@ -62,11 +56,6 @@ public class CustomValidataModel : IValidateCollection
         else if (validationContext.MemberName == nameof(Telephone2))
         {
             _validMemberNames.Add(nameof(Telephone1));
-        }
-
-        if (string.IsNullOrEmpty(Name))
-        {
-            yield return new ValidationResult("Name is required", [nameof(Name)]);
         }
     }
 
