@@ -585,16 +585,37 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Value, model.Telephone1);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone1", typeof(string)));
+                pb.Add(a => a.ValueChanged, v => model.Telephone1 = v);
             });
             pb.AddChildContent<MockInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, model.Telephone2);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone2", typeof(string)));
+                pb.Add(a => a.ValueChanged, v => model.Telephone2 = v);
             });
         });
         var form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
-        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        var input = cut.FindComponent<MockInput<string>>();
+        var input2 = cut.FindComponents<MockInput<string>>().Last();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", input.Instance.GetErrorMessage());
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", input2.Instance.GetErrorMessage());
+
+        // 触发符合条件后联动
+        var inputEl = cut.Find("input");
+        await cut.InvokeAsync(() => inputEl.Change("1234"));
+        var message = input.Instance.GetErrorMessage();
+        Assert.Null(message);
+        cut.SetParametersAndRender();
+        message = input2.Instance.GetErrorMessage();
+        Assert.Null(message);
+
+        var inputEl2 = cut.FindAll("input").Last();
+        await cut.InvokeAsync(() => inputEl2.Change("1234"));
+        message = input2.Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+        cut.SetParametersAndRender();
+        message = input.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
     }
 
