@@ -453,15 +453,15 @@ public partial class ValidateForm
             {
                 // 验证 IValidateCollection
                 // 清除指定字段错误信息
-                if (context.ObjectInstance is IValidateCollection validateCollection)
-                {
-                    messages.AddRange(validateCollection.Validate(context));
-                    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
-                    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
-                }
-            }
-            else
-            {
+                //if (context.ObjectInstance is IValidateCollection validateCollection)
+                //{
+                //    messages.AddRange(validateCollection.Validate(context));
+                //    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
+                //    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
+                //}
+                //}
+                //else
+                //{
                 _tcs = new();
                 // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
