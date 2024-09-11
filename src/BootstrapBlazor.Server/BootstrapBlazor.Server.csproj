@@ -70,8 +70,10 @@
     <PackageReference Include="BootstrapBlazor.WinBox" Version="8.0.3" />
     <PackageReference Include="Longbow.Logging" Version="8.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="8.0.3" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.8" />
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0-rc.1.24451.1" />
+    <PackageReference Include="System.Text.Json" Version="9.0.0-rc.1.24431.7" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
