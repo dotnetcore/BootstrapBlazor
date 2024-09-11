@@ -12,13 +12,11 @@ public class CustomValidateCollectionModel : IValidateCollection
     /// <summary>
     /// 联系电话1
     /// </summary>
-    [Display(Name = "联系电话1")]
     public string? Telephone1 { get; set; }
 
     /// <summary>
     /// 联系电话2
     /// </summary>
-    [Display(Name = "联系电话2")]
     public string? Telephone2 { get; set; }
 
     private readonly List<string> _validMemberNames = [];
