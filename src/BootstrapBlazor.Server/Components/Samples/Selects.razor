@@ -6,41 +6,6 @@
 
 <h4>@Localizer["SelectsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
-           Introduction="@Localizer["SelectsVirtualizeIntro"]"
-           Name="IsVirtualize">
-    <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
-
-    <div class="row mb-3">
-        <div class="col-12 col-sm-12">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="ShowSearch" />
-                <Checkbox @bind-Value="@ShowSearch" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
-
-    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
-    <div class="row mb-3">
-        <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="ShowSearch"></Select>
-        </div>
-        <div class="col-6">
-            <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
-        </div>
-    </div>
-
-    <p class="code-label">2. 使用 Items 作为数据源</p>
-    <div class="row">
-        <div class="col-6">
-            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" OnSearchTextChanged="OnSearchTextChanged" ShowSearch="ShowSearch"></Select>
-        </div>
-        <div class="col-6">
-            <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
-        </div>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
            Name="Normal">
@@ -351,12 +316,22 @@
 <DemoBlock Title="@Localizer["SelectsShowSearchTitle"]"
            Introduction="@Localizer["SelectsShowSearchIntro"]"
            Name="ShowSearch">
-    <div class="row g-3">
+    <section ignore>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isShowSearchClearable" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <div class="row g-3 mt-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" ShowSearch="true" />
+            <Select TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" />
+            <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
         </div>
     </div>
 </DemoBlock>
@@ -414,6 +389,47 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true"></Select>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
+           Introduction="@Localizer["SelectsVirtualizeIntro"]"
+           Name="IsVirtualize">
+    <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+
+    <div class="row mb-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                <Checkbox @bind-Value="@_showSearch" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                <Checkbox @bind-Value="@_isClearable" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row mb-3">
+        <div class="col-6">
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
+        </div>
+    </div>
+
+    <p class="code-label">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
         </div>
     </div>
 </DemoBlock>
