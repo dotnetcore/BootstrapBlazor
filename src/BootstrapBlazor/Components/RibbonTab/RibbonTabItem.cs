@@ -10,6 +10,23 @@ namespace BootstrapBlazor.Components;
 public class RibbonTabItem
 {
     /// <summary>
+    /// 获得/设置 当前节点 Id 默认为 null
+    /// </summary>
+    /// <remarks>一般配合数据库使用</remarks>
+    public string? Id { get; set; }
+
+    /// <summary>
+    /// 获得/设置 父级节点 Id 默认为 null
+    /// </summary>
+    /// <remarks>一般配合数据库使用</remarks>
+    public string? ParentId { get; set; }
+
+    /// <summary>
+    /// 获得 父级菜单 默认为 null
+    /// </summary>
+    public RibbonTabItem? Parent { get; set; }
+
+    /// <summary>
     /// 获得/设置 导航菜单链接地址
     /// </summary>
     public string? Url { get; set; }
@@ -48,6 +65,11 @@ public class RibbonTabItem
     /// 获得/设置 自定义样式名
     /// </summary>
     public string? CssClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否收缩 默认 true 收缩 
+    /// </summary>
+    public bool IsCollapsed { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否被禁用 默认 false
