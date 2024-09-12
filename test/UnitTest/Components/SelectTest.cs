@@ -97,7 +97,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("2", "Test2"),
                 new("3", "Test3")
             });
-            pb.Add(a => a.Value, "");
+            pb.Add(a => a.Value, "2");
             pb.Add(a => a.OnValueChanged, v =>
             {
                 val = v;
@@ -106,7 +106,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         var clearButton = cut.Find(".clear-icon");
         cut.InvokeAsync(() => clearButton.Click());
-        Assert.Null(val);
+        Assert.Empty(val);
 
         // 提高代码覆盖率
         var select = cut;
