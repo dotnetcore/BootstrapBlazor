@@ -437,7 +437,10 @@ public partial class Select<TValue> : ISelect
             if (OnQueryAsync != null)
             {
                 await VirtualizeElement.RefreshDataAsync();
-                item = VirtualItems?.FirstOrDefault();
+                if (VirtualItems != null)
+                {
+                    item = VirtualItems.FirstOrDefault();
+                }
             }
             else
             {
