@@ -431,16 +431,13 @@ public partial class Select<TValue> : ISelect
             await OnClearAsync();
         }
 
-        SelectedItem? item = null;
+        SelectedItem? item;
         if (IsVirtualize)
         {
-            if (OnQueryAsync != null)
+            if (VirtualizeElement != null)
             {
                 await VirtualizeElement.RefreshDataAsync();
-                if (VirtualItems != null)
-                {
-                    item = VirtualItems.FirstOrDefault();
-                }
+                item = VirtualItems!.FirstOrDefault();
             }
             else
             {
