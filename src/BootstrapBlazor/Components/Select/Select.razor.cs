@@ -269,7 +269,9 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = (VirtualItems ?? _dataSource).FirstOrDefault(i => i.Value == value) ?? GetVirtualizeItem();
+        SelectedItem = Items.FirstOrDefault(i => i.Value == value)
+            ?? VirtualItems?.FirstOrDefault(i => i.Value == value)
+            ?? GetVirtualizeItem();
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
@@ -432,7 +434,25 @@ public partial class Select<TValue> : ISelect
             await OnClearAsync();
         }
 
-        var item = DataSource.FirstOrDefault();
+        SelectedItem? item = null;
+        if (IsVirtualize)
+        {
+            if (OnQueryAsync != null)
+            {
+                await VirtualizeElement.RefreshDataAsync();
+                item = VirtualItems?.FirstOrDefault();
+            }
+            else
+            {
+                VirtualItems = Items;
+                item = Items.FirstOrDefault();
+            }
+        }
+        else
+        {
+            item = Items.FirstOrDefault();
+        }
+
         if (item != null)
         {
             await SelectedItemChanged(item);
