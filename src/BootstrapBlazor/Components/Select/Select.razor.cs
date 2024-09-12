@@ -431,7 +431,7 @@ public partial class Select<TValue> : ISelect
             await OnClearAsync();
         }
 
-        SelectedItem? item;
+        SelectedItem? item = null;
         if (IsVirtualize)
         {
             if (OnQueryAsync != null)
