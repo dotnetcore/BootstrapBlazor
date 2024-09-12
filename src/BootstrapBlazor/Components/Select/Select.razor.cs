@@ -57,12 +57,9 @@ public partial class Select<TValue> : ISelect
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
-    /// <summary>
-    /// Razor 文件中 Options 模板子项
-    /// </summary>
-    private List<SelectedItem> Children { get; } = [];
+    private readonly List<SelectedItem> _children = [];
 
-    private List<SelectedItem> _dataSource = [];
+    private readonly List<SelectedItem> _dataSource = [];
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -295,7 +292,7 @@ public partial class Select<TValue> : ISelect
         if (string.IsNullOrEmpty(SearchText))
         {
             _dataSource.AddRange(Items);
-            _dataSource.AddRange(Children);
+            _dataSource.AddRange(_children);
 
             if (VirtualItems != null)
             {
@@ -416,7 +413,7 @@ public partial class Select<TValue> : ISelect
     /// 添加静态下拉项方法
     /// </summary>
     /// <param name="item"></param>
-    public void Add(SelectedItem item) => Children.Add(item);
+    public void Add(SelectedItem item) => _children.Add(item);
 
     /// <summary>
     /// 清空搜索栏文本内容
@@ -434,7 +431,7 @@ public partial class Select<TValue> : ISelect
             await OnClearAsync();
         }
 
-        SelectedItem? item = null;
+        SelectedItem? item;
         if (IsVirtualize)
         {
             if (OnQueryAsync != null)
