@@ -144,11 +144,6 @@ public partial class BarcodeReader
     private List<SelectedItem> Devices { get; } = [];
 
     /// <summary>
-    /// 获得/设置 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
