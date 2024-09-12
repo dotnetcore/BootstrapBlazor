@@ -432,7 +432,12 @@ public partial class Select<TValue> : ISelect
         {
             await OnClearAsync();
         }
-        CurrentValue = default;
+
+        var item = DataSource.FirstOrDefault();
+        if (item != null)
+        {
+            await SelectedItemChanged(item);
+        }
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
