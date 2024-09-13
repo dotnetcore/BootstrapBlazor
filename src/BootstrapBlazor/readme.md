@@ -21,13 +21,12 @@
 - Seamless integration with existing ASP.NET Core MVC and Razor Pages projects.
 
 ## Online Examples
-[![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=red&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
-[![website](https://img.shields.io/badge/Github-https://argozhang.github.io-success.svg?logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=red&logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## Installation Guide
 
-- Install .net core sdk [Offical website](https://dotnet.microsoft.com/download)
-- Install Visual Studio 2019 lastest [Offical website](https://visualstudio.microsoft.com/vs/getting-started/)
+- Install .net core sdk [Official website](https://dotnet.microsoft.com/download)
+- Install Visual Studio 2019 lastest [Official website](https://visualstudio.microsoft.com/vs/getting-started/)
 
 ```shell
 git clone https://github.com/dotnetcore/BootstrapBlazor.git
