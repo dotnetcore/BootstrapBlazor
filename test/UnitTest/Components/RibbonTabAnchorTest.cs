@@ -14,6 +14,11 @@ public class RibbonTabAnchorTest : BootstrapBlazorTestBase
     [Fact]
     public void IsSupportAnchor_Ok()
     {
+        var item1 = new RibbonTabItem() { Text = "test1" };
+        item1.Items.Add(new RibbonTabItem() { Text = "Item" });
+        var item2 = new RibbonTabItem() { Text = "test2" };
+        item2.Items.Add(new RibbonTabItem() { Text = "Item" });
+
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
             pb.Add(a => a.IsSupportAnchor, true);
@@ -22,31 +27,7 @@ public class RibbonTabAnchorTest : BootstrapBlazorTestBase
                 return $"{url}#{text}-anchor";
             });
             pb.Add(a => a.DecodeAnchorCallback, url => url.Split('#').LastOrDefault()?.Split('-').FirstOrDefault());
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test1",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                },
-                new()
-                {
-                    Text = "test2",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item1, item2]);
         });
 
         cut.InvokeAsync(() =>
