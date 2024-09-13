@@ -94,6 +94,6 @@ public static class FreeSqlExtensions
         FilterAction.GreaterThanOrEqual => DynamicFilterOperator.GreaterThanOrEqual,
         FilterAction.LessThan => DynamicFilterOperator.LessThan,
         FilterAction.LessThanOrEqual => DynamicFilterOperator.LessThanOrEqual,
-        _ => throw new NotSupportedException("Please use ")
+        _ => throw new NotSupportedException("Please use the ToDynamicFilter method second parameter to support CustomPredicate")
     };
 }
