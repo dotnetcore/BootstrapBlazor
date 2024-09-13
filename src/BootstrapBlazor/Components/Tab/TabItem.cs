@@ -47,6 +47,12 @@ public class TabItem : ComponentBase
     public bool AlwaysLoad { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义样式名
+    /// </summary>
+    [Parameter]
+    public string? CssClass { get; set; }
+
+    /// <summary>
     /// 获得/设置 图标字符串
     /// </summary>
     [Parameter]

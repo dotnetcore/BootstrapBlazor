@@ -25,6 +25,7 @@ public partial class Tab : IHandlerException
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
+        .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
         .Build();
 
