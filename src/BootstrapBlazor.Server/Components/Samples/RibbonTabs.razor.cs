@@ -77,35 +77,31 @@ public partial class RibbonTabs
 
     private static string? DecodeAnchorCallback(string url) => HttpUtility.UrlDecode(url.Split('#').LastOrDefault())?.Split('-').LastOrDefault();
 
-    private List<RibbonTabItem> GenerateRibbonTabs() =>
-    [
-        new()
-        {
-            Text = Localizer["RibbonTabsItemsText1"],
-            Items = new List<RibbonTabItem>()
-            {
-                new() { Text = Localizer["RibbonTabsItems1"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                new() { Text = Localizer["RibbonTabsItems2"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                new() { Text = Localizer["RibbonTabsItems3"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                new() { Text = Localizer["RibbonTabsItems4"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                new() { Text = Localizer["RibbonTabsItems5"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
-                new() { Text = Localizer["RibbonTabsItems6"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] }
-            }
-        },
-        new()
-        {
-            Text = Localizer["RibbonTabsItemsText2"],
-            Items = new List<RibbonTabItem>()
-            {
-                new() { Text = Localizer["RibbonTabsItems7"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                new() { Text = Localizer["RibbonTabsItems8"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                new() { Text = Localizer["RibbonTabsItems9"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                new() { Text = Localizer["RibbonTabsItems10"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                new() { Text = Localizer["RibbonTabsItems11"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
-                new() { Text = Localizer["RibbonTabsItems12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
-            }
-        }
-    ];
+    private List<RibbonTabItem> GenerateRibbonTabs()
+    {
+        var item1 = new RibbonTabItem() { Text = Localizer["RibbonTabsItemsText1"] };
+        item1.Items.AddRange(
+        [
+            new() { Text = Localizer["RibbonTabsItems1"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+            new() { Text = Localizer["RibbonTabsItems2"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+            new() { Text = Localizer["RibbonTabsItems3"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+            new() { Text = Localizer["RibbonTabsItems4"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+            new() { Text = Localizer["RibbonTabsItems5"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+            new() { Text = Localizer["RibbonTabsItems6"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] }
+        ]);
+
+        var item2 = new RibbonTabItem() { Text = Localizer["RibbonTabsItemsText2"] };
+        item2.Items.AddRange(
+        [
+            new() { Text = Localizer["RibbonTabsItems7"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+            new() { Text = Localizer["RibbonTabsItems8"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+            new() { Text = Localizer["RibbonTabsItems9"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+            new() { Text = Localizer["RibbonTabsItems10"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+            new() { Text = Localizer["RibbonTabsItems11"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+            new() { Text = Localizer["RibbonTabsItems12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
+        ]);
+        return [item1, item2];
+    }
 
     private AttributeItem[] GetAttributes() =>
     [

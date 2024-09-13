@@ -88,35 +88,47 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void RibbonTabItem_Ok()
     {
+        var parent = new RibbonTabItem() { Text = "parent", CssClass = "test-header-class" };
         var item = new RibbonTabItem()
         {
+            Id = "10",
+            ParentId = "1",
+            Parent = parent,
+            IsCollapsed = true,
+            IsDisabled = false,
+            CssClass = "test-class",
+            Target = "_blank",
+            Url = "https://blazor.zone",
             ImageUrl = "test-image-url",
             Command = "test-command"
         };
-        Assert.Equal("test-image-url", item.ImageUrl);
+        parent.Items.Add(item);
+
+        var cut = Context.RenderComponent<RibbonTab>(pb =>
+        {
+            pb.Add(a => a.Items, [parent]);
+        });
+        cut.Contains("href=\"https://blazor.zone\"");
+        cut.Contains("target=\"_blank\"");
+        cut.Contains("<img alt=\"img\" src=\"test-image-url\" />");
+        cut.Contains("test-class");
+        cut.Contains("test-header-class");
+
+        Assert.True(item.IsCollapsed);
+        Assert.Equal("1", item.ParentId);
+        Assert.Equal("10", item.Id);
         Assert.Equal("test-command", item.Command);
+        Assert.NotNull(item.Parent);
     }
 
     [Fact]
     public void RibbonTabItem_Template()
     {
+        var item = new RibbonTabItem() { Text = "test" };
+        item.Items.Add(new RibbonTabItem() { Text = "Item", Template = builder => builder.AddContent(0, "Test-Template") });
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item",
-                            Template = builder => builder.AddContent(0, "Test-Template")
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item]);
         });
         Assert.Contains("Test-Template", cut.Markup);
     }
@@ -124,23 +136,11 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void RibbonTabItem_Component()
     {
+        var item = new RibbonTabItem() { Text = "test" };
+        item.Items.Add(new RibbonTabItem() { Text = "Item", Component = BootstrapDynamicComponent.CreateComponent<MockCom>() });
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item",
-                            Component = BootstrapDynamicComponent.CreateComponent<MockCom>()
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item]);
         });
         Assert.Contains("Test-Template", cut.Markup);
     }
@@ -148,22 +148,11 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void ChildContent_Ok()
     {
+        var item = new RibbonTabItem() { Text = "test" };
+        item.Items.Add(new RibbonTabItem() { Text = "Item" });
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item]);
             pb.Add(a => a.ChildContent, builder =>
             {
                 builder.AddContent(0, "test-child-content");
@@ -176,23 +165,12 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void OnMenuClickAsync_Ok()
     {
+        var item = new RibbonTabItem() { Text = "test 1" };
+        item.Items.Add(new RibbonTabItem() { Text = "Item" });
         var clickedText = "";
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test 1",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item]);
             pb.Add(a => a.OnMenuClickAsync, item =>
             {
                 clickedText = item.Text;
@@ -208,22 +186,11 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void IsBoard_Ok()
     {
+        var item = new RibbonTabItem() { Text = "test 1" };
+        item.Items.Add(new RibbonTabItem() { Text = "Item" });
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new()
-                {
-                    Text = "test 1",
-                    Items = new RibbonTabItem[]
-                    {
-                        new()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                }
-            });
+            pb.Add(a => a.Items, [item]);
             pb.Add(a => a.IsBorder, false);
         });
         cut.Contains("class=\"ribbon-tab\"");
@@ -239,20 +206,10 @@ public class RibbonTabTest : BootstrapBlazorTestBase
     [Fact]
     public void Render_Ok()
     {
-        var items = new List<RibbonTabItem>
-        {
-            new()
-            {
-                Text = "test 1",
-                Items = new RibbonTabItem[]
-                {
-                    new()
-                    {
-                        Text = "Item"
-                    }
-                }
-            }
-        };
+        var item1 = new RibbonTabItem() { Text = "test 1" };
+        item1.Items.Add(new RibbonTabItem() { Text = "Item" });
+
+        var items = new List<RibbonTabItem>() { item1 };
         var cut = Context.RenderComponent<RibbonTab>(pb =>
         {
             pb.Add(a => a.Items, items);
@@ -262,35 +219,30 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         cut.Contains("<span class=\"tabs-item-text\">Test2</span>");
     }
 
-    private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
+    private static IEnumerable<RibbonTabItem> GetItems()
     {
-        new()
-        {
-            Text = "文件",
-            Items = new List<RibbonTabItem>()
-            {
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
-                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
-                new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
-                new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" }
-            }
-        },
-        new()
-        {
-            Text = "编辑",
-            Items = new List<RibbonTabItem>()
-            {
-                new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三", IsDefault = true },
-                new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
-                new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
-                new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" }
-            }
-        }
-    };
+        var item1 = new RibbonTabItem() { Text = "文件" };
+        item1.Items.AddRange(
+        [
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组一" },
+            new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
+            new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" },
+            new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组二" }
+        ]);
+        var item2 = new RibbonTabItem() { Text = "编辑" };
+        item2.Items.AddRange(
+        [
+            new() { Text = "打开", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三", IsDefault = true },
+            new() { Text = "保存", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+            new() { Text = "另存为", Icon = "fa-solid fa-font-awesome", GroupName = "操作组三" },
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" },
+            new() { Text = "常规操作", Icon = "fa-solid fa-font-awesome", GroupName = "操作组四" }
+        ]);
+        return [item1, item2];
+    }
 
     class MockCom : ComponentBase
     {

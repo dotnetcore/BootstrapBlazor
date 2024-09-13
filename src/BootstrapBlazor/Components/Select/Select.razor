@@ -63,7 +63,7 @@
                         <i class="@SearchIconString"></i>
                     </div>
                 }
-                @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+                @foreach (var itemGroup in _dataSource.GroupBy(i => i.GroupName))
                 {
                     if (!string.IsNullOrEmpty(itemGroup.Key))
                     {
@@ -81,7 +81,7 @@
                         @RenderRow(item)
                     }
                 }
-                @if (!DataSource.Any())
+                @if (!_dataSource.Any())
                 {
                     <div class="dropdown-item">@NoSearchDataText</div>
                 }

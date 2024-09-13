@@ -112,6 +112,7 @@ public partial class RibbonTabHeader
 
     private static string? GetClassString(RibbonTabItem item) => CssBuilder.Default()
         .AddClass("active", item.IsActive)
+        .AddClass(item.CssClass)
         .Build();
 
     /// <summary>
