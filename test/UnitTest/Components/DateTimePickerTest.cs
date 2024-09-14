@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
+using UnitTest.Pages;
 
 namespace UnitTest.Components;
 
@@ -1029,17 +1030,38 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var cut2 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
-            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
-            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Now.AddDays(1));
+            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(2));
         });
-        Assert.Equal(DateTime.Today.AddDays(-1), cut2.Instance.Value);
 
         var cut3 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut3.Instance.Value);
+
+        var cut4 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Now.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(-1));
+        });
+
+        var cut5 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
         });
-        Assert.Equal(DateTime.Today, cut3.Instance.Value);
+        Assert.Equal(DateTime.Today, cut5.Instance.Value);
+
+        var cut6 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Now.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(2));
+        });
     }
 
     [Fact]
@@ -1067,6 +1089,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value);
         Assert.Contains("btn picker-panel-link-btn is-now", cut.Markup);
+
+        var cut2 = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.DisableDayPredicate, DisableToday);
+            pb.Add(a => a.Value, DateTime.Today);
+        });
     }
 
     private bool DisableToday(DateTime day)
