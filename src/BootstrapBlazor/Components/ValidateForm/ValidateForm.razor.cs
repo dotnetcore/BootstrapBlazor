@@ -40,6 +40,12 @@ public partial class ValidateForm
     public Action<string, object?>? OnFieldValueChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示所有验证失败字段的提示信息 默认 false 仅显示第一个验证失败字段的提示信息
+    /// </summary>
+    [Parameter]
+    public bool ShowAllInvalidResult { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否验证所有字段 默认 false
     /// </summary>
     [Parameter]
@@ -112,6 +118,8 @@ public partial class ValidateForm
     /// 验证非法成员集合
     /// </summary>
     internal List<ValidationResult> InvalidMemberNames { get; } = [];
+
+    private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : null;
 
     /// <summary>
     /// OnParametersSet 方法

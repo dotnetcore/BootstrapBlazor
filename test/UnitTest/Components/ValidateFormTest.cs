@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
@@ -597,7 +596,8 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         var form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
         var input = cut.FindComponent<MockInput<string>>();
-        var input2 = cut.FindComponents<MockInput<string>>().Last();
+        var all = cut.FindComponents<MockInput<string>>();
+        var input2 = all[all.Count - 1];
         Assert.Equal("Telephone1 and Telephone2 can not be the same", input.Instance.GetErrorMessage());
         Assert.Equal("Telephone1 and Telephone2 can not be the same", input2.Instance.GetErrorMessage());
 
@@ -610,13 +610,36 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         message = input2.Instance.GetErrorMessage();
         Assert.Null(message);
 
-        var inputEl2 = cut.FindAll("input").Last();
+        var allInputs = cut.FindAll("input");
+        var inputEl2 = allInputs[all.Count - 1];
         await cut.InvokeAsync(() => inputEl2.Change("1234"));
         message = input2.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
         cut.SetParametersAndRender();
         message = input.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+    }
+
+    [Fact]
+    public void ShowAllInvalidResult_Ok()
+    {
+        var model = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Name", typeof(string)));
+            });
+        });
+        cut.DoesNotContain("data-bb-invalid-result");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowAllInvalidResult, true);
+        });
+        cut.Contains("data-bb-invalid-result");
     }
 
     private class HasServiceAttribute : ValidationAttribute
