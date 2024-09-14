@@ -1017,6 +1017,43 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
+    [Fact]
+    public void DisableDayPredicate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.DisableDayPredicate, DisableToday);
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Null(cut.Instance.Value);
+        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut.Markup);
+        Assert.Contains("today disabled", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.Today.AddDays(1));
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisableDayPredicate, DisableYesterday);
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+        Assert.Contains("btn picker-panel-link-btn is-now", cut.Markup);
+    }
+
+    private bool DisableToday(DateTime day)
+    {
+        return day.Date == DateTime.Today;
+    }
+
+    private bool DisableYesterday(DateTime day)
+    {
+        return day.Date == DateTime.Today.AddDays(-1);
+    }
+
     class MockDateTimePicker : DatePickerBody
     {
         public static bool GetSafeYearDateTime_Ok()

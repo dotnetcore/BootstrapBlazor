@@ -90,6 +90,8 @@ public sealed partial class DateTimePickers
     private bool _showSolarTerm = true;
     private bool _showFestivals = true;
     private bool _showHolidays = true;
+    private bool _disableSunday = true;
+    private bool _disableToday = false;
 
     /// <summary>
     /// 获得事件方法

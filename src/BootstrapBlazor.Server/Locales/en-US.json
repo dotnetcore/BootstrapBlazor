@@ -2556,7 +2556,13 @@
     "FeatureShowFestivals": "Festivals",
     "FeatureShowHolidays": "Holidays",
     "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>",
-    "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>"
+    "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>",
+    "DisableOptions": "Disable options",
+    "DisableSunday": "Disable sunday",
+    "DisableToday": "Disable today",
+    "DisableDayPredicateTitle": "Customize the disable date",
+    "DisableDayPredicateIntro": "Specify which dates are disabled by setting <code>DisableDayPredicate</code>",
+    "DisableDayPredicateTip": "Please note that you must set the allowed empty time for the custom disable date to take effect. When the binding value is determined to be disabled, the binding value will be reset to empty time!"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

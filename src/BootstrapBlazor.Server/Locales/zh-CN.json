@@ -2556,7 +2556,13 @@
     "FeatureShowFestivals": "节日",
     "FeatureShowHolidays": "法定假日",
     "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
-    "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>"
+    "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>",
+    "DisableOptions": "禁用选项",
+    "DisableSunday": "禁用周日",
+    "DisableToday": "禁用今天",
+    "DisableDayPredicateTitle": "自定义禁用日期",
+    "DisableDayPredicateIntro": "通过设置 <code>DisableDayPredicate</code> 自定义哪些日期需要被禁用",
+    "DisableDayPredicateTip": "请注意，必须要设置允许空时间，自定义禁用日期才会生效，当绑定值被判断为禁用时，绑定值将被重置为空时间！"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

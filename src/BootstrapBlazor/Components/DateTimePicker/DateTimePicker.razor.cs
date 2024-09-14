@@ -209,6 +209,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool ShowHolidays { get; set; }
 
+    /// <summary>
+    /// 获取/设置 自定义禁用日期判断方法 (注意：仅当允许空时间时此方法才会生效)
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, bool>? DisableDayPredicate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -221,6 +227,8 @@ public partial class DateTimePicker<TValue>
     private string? GenericTypeErrorMessage { get; set; }
 
     private DateTime SelectedValue { get; set; }
+
+    private Func<DateTime, bool>? ReliableDisableDayPredicate { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -249,6 +257,11 @@ public partial class DateTimePicker<TValue>
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
+        if (AllowNull && DisableDayPredicate != null)
+        {
+            ReliableDisableDayPredicate = DisableDayPredicate;
+        }
+
         var type = typeof(TValue);
 
         // 判断泛型类型
@@ -257,24 +270,33 @@ public partial class DateTimePicker<TValue>
             throw new InvalidOperationException(GenericTypeErrorMessage);
         }
 
-        // Value 为 MinValue 时 设置 Value 默认值
         if (Value == null)
         {
             SelectedValue = DateTime.MinValue;
         }
         else if (Value is DateTimeOffset v1)
         {
-            SelectedValue = v1.DateTime;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? v1.DateTime : v1.DateTime.Date;
         }
         else
         {
-            SelectedValue = (DateTime)(object)Value;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? (DateTime)(object)Value : ((DateTime)(object)Value).Date;
         }
 
-        if (MinValueToEmpty(SelectedValue))
+        if (ReliableDisableDayPredicate != null && ReliableDisableDayPredicate(SelectedValue))
         {
-            SelectedValue = DateTime.Today;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             Value = default;
+        }
+        else if (MinValueToEmpty(SelectedValue))
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            Value = default;
+        }
+        else if (MinValue.HasValue && MinValue > DateTime.Today)
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
+            Value = GetValue();
         }
         else if (MinValueToToday(SelectedValue))
         {
@@ -377,4 +399,13 @@ public partial class DateTimePicker<TValue>
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
+
+    private Func<DateTime, bool>? GetSafeDisableDayPredicate()
+    {
+        if (!AllowNull || AutoToday)
+        {
+            return null;
+        }
+        return DisableDayPredicate;
+    }
 }
