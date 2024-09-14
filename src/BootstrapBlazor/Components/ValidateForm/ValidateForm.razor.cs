@@ -119,7 +119,7 @@ public partial class ValidateForm
     /// </summary>
     internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
-    private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : "false";
+    private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : null;
 
     /// <summary>
     /// OnParametersSet 方法
