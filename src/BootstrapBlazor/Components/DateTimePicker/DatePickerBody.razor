@@ -73,14 +73,14 @@
                                             var text = GetDayText(day.Day);
                                             var isOverflow = IsDayOverflow(week, index);
                                             <td class="@GetDayClass(day, isOverflow)">
-                                                @if(isOverflow)
+                                                @if (isOverflow)
                                                 {
                                                     <span class="cell"> - </span>
                                                 }
                                                 else if (IsDisabled(day))
                                                 {
                                                     <span class="cell">
-                                                        @if (ShowLunar)
+                                                        @if(ShowLunar)
                                                         {
                                                             <span>@text</span>
                                                             <span class="bb-picker-body-lunar-text">@GetLunarText(day)</span>
