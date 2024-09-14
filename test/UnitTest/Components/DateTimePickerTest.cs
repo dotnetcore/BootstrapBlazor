@@ -1018,6 +1018,31 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void MinValueToToday_Ok()
+    {
+        var cut1 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut1.Instance.Value);
+
+        var cut2 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut2.Instance.Value);
+
+        var cut3 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
+        });
+        Assert.Equal(DateTime.Today, cut3.Instance.Value);
+    }
+
+    [Fact]
     public void DisableDayPredicate_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>

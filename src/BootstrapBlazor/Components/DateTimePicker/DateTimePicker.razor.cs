@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.Design;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -293,14 +294,20 @@ public partial class DateTimePicker<TValue>
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             Value = default;
         }
-        else if (MinValue.HasValue && MinValue > DateTime.Today)
-        {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
-            Value = GetValue();
-        }
         else if (MinValueToToday(SelectedValue))
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            if (MinValue.HasValue && MinValue > DateTime.Today)
+            {
+                SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
+            }
+            else if (MaxValue.HasValue && MaxValue < DateTime.Today)
+            {
+                SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
+            }
+            else
+            {
+                SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            }
             Value = GetValue();
         }
     }
@@ -399,13 +406,4 @@ public partial class DateTimePicker<TValue>
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
-
-    private Func<DateTime, bool>? GetSafeDisableDayPredicate()
-    {
-        if (!AllowNull || AutoToday)
-        {
-            return null;
-        }
-        return DisableDayPredicate;
-    }
 }

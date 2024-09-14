@@ -34,7 +34,7 @@
             <Pre>builder.Services.AddBootstrapHolidayService();</Pre>
         </div>
     </section>
-    <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" ShowLunar="_showLunar" ShowSolarTerm="_showSolarTerm" ShowFestivals="_showFestivals" ShowHolidays="_showHolidays"/>
+    <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" ShowLunar="_showLunar" ShowSolarTerm="_showSolarTerm" ShowFestivals="_showFestivals" ShowHolidays="_showHolidays" />
     <ConsoleLogger @ref="NormalLogger" class="mt-3" />
     <section ignore>
         <Tips class="mt-3">
@@ -190,6 +190,9 @@
 
 <DemoBlock Title="@Localizer["DisableDayPredicateTitle"]" Introduction="@Localizer["DisableDayPredicateIntro"]" Name="DisableDayPredicate">
     <section ignore>
+        <Tips class="mt-3">
+            <p>@((MarkupString)Localizer["DisableDayPredicateTip"].Value)</p>
+        </Tips>
         <GroupBox Title="@Localizer["DisableOptions"]">
             <div class="row g-3 form-inline text-end">
                 <div class="col-12 col-sm-3">
@@ -204,11 +207,6 @@
     <DateTimePicker ViewMode="DatePickerViewMode.DateTime" @bind-Value="@BindNullValue" DisableDayPredicate="(day) => _disableSunday && day.DayOfWeek == DayOfWeek.Sunday || (_disableToday && day.Date == DateTime.Today)">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
-     <section ignore>
-        <Tips class="mt-3">
-            <p>@((MarkupString)Localizer["DisableDayPredicateTip"].Value)</p>
-        </Tips>
-    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
