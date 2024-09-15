@@ -1,1 +1,0 @@
-define("vs/base/common/worker/simpleWorker.nls.ja",{"vs/base/common/platform":["_"]});
