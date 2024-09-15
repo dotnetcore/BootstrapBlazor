@@ -14,6 +14,20 @@ export function init(id) {
     })
 }
 
+export function update(id, eId, title) {
+    const el = document.getElementById(eId);
+    if (el) {
+        const tip = bootstrap.Tooltip.getOrCreateInstance(el, { customClass: 'is-invalid', title })
+        if (title !== tip._config.title) {
+            tip._config.title = title;
+        }
+
+        if (!tip._isShown()) {
+            tip.show();
+        }
+    }
+}
+
 export function dispose(id) {
     const el = document.getElementById(id)
     EventHandler.off(el, 'keydown')
