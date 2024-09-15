@@ -257,9 +257,6 @@ public partial class Dropzone<TItem> : IDisposable
                 if (DragDropService.ActiveItem != null)
                 {
                     DragDropService.Items.Insert(DragDropService.OldIndex.Value, DragDropService.ActiveItem);
-
-                    //commit the changes
-                    DragDropService.Commit();
                 }
             }
             StateHasChanged();
