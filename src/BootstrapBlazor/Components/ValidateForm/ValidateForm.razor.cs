@@ -143,7 +143,7 @@ public partial class ValidateForm
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!string.IsNullOrEmpty(_validationResult.Id))
+        if (ShowAllInvalidResult && !string.IsNullOrEmpty(_validationResult.Id))
         {
             await InvokeVoidAsync("update", Id, _validationResult.Id, _validationResult.ErrorMessage);
             _validationResult = default;
