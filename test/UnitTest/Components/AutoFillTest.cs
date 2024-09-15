@@ -263,9 +263,10 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ValidateForm_Ok()
+    public async Task ValidateForm_Ok()
     {
         var v = "";
+        var trigger = false;
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
@@ -276,6 +277,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 pb.Add(a => a.OnCustomFilter, key =>
                 {
                     v = key;
+                    trigger = true;
                     return Task.FromResult(items);
                 });
             });
@@ -284,8 +286,15 @@ public class AutoFillTest : BootstrapBlazorTestBase
         // Trigger js invoke
         var comp = cut.FindComponent<AutoFill<string>>().Instance;
         comp.TriggerOnChange("v");
-        cut.InvokeAsync(() => comp.OnKeyUp("Enter"));
+        await cut.InvokeAsync(() => comp.OnKeyUp("v"));
         Assert.Equal("v", v);
+        Assert.True(trigger);
+
+        // not trigger OnKeyUp
+        v = "";
+        trigger = false;
+        await cut.InvokeAsync(() => comp.OnKeyUp("Enter"));
+        Assert.False(trigger);
     }
 
     class AutoFillNullStringMock
