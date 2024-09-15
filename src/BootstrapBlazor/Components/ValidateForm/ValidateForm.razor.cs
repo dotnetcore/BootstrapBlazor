@@ -135,6 +135,22 @@ public partial class ValidateForm
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!string.IsNullOrEmpty(_validationResult.Id))
+        {
+            await InvokeVoidAsync("update", Id, _validationResult.Id, _validationResult.ErrorMessage);
+            _validationResult = default;
+        }
+    }
+
+    /// <summary>
     /// 添加数据验证组件到 EditForm 中
     /// </summary>
     /// <param name="key"></param>
@@ -240,6 +256,8 @@ public partial class ValidateForm
     /// <param name="results"></param>
     internal async Task ValidateObject(ValidationContext context, List<ValidationResult> results)
     {
+        _validationResult = default;
+
         if (ValidateAllProperties)
         {
             await ValidateProperty(context, results);
@@ -601,6 +619,16 @@ public partial class ValidateForm
     {
         ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
+    }
+
+    private (string Id, string? ErrorMessage) _validationResult = default;
+
+    internal void SetValidationResult(string id, string? errorMessage)
+    {
+        if (string.IsNullOrEmpty(_validationResult.Id))
+        {
+            _validationResult = (id, errorMessage);
+        }
     }
 
     /// <summary>

@@ -473,6 +473,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             OnValidate(IsValid);
         }
 
+        if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            ValidateForm?.SetValidationResult(Id, ErrorMessage);
+        }
+
         // 必须刷新一次 UI 保证状态正确
         StateHasChanged();
     }
