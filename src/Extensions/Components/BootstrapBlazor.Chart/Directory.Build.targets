@@ -1,8 +1,0 @@
-<Project>
-
-  <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net8.0'">
-    <Message Text="Copy chart.umd.js to chart.js ..." Importance="high"></Message>
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/js/chart.umd.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/chart.js" SkipUnchangedFiles="true" ></Copy>
-  </Target>
-
-</Project>

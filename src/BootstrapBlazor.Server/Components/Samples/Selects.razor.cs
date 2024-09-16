@@ -40,7 +40,11 @@ public sealed partial class Selects
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private bool ShowSearch { get; set; }
+    private bool _showSearch;
+
+    private bool _isShowSearchClearable;
+
+    private bool _isClearable;
 
     private string? _fooName;
 

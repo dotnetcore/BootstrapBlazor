@@ -549,6 +549,99 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         method.Invoke(form, [context, result]);
     }
 
+    [Fact]
+    public async Task IValidatableObject_Ok()
+    {
+        var model = new MockValidataModel() { Telephone1 = "123", Telephone2 = "123" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Telephone1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone1", typeof(string)));
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Telephone2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone2", typeof(string)));
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+    }
+
+    [Fact]
+    public async Task IValidateCollection_Ok()
+    {
+        var model = new MockValidateCollectionModel() { Telephone1 = "123", Telephone2 = "123" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Telephone1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone1", typeof(string)));
+                pb.Add(a => a.ValueChanged, v => model.Telephone1 = v);
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Telephone2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Telephone2", typeof(string)));
+                pb.Add(a => a.ValueChanged, v => model.Telephone2 = v);
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var input = cut.FindComponent<MockInput<string>>();
+        var all = cut.FindComponents<MockInput<string>>();
+        var input2 = all[all.Count - 1];
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", input.Instance.GetErrorMessage());
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", input2.Instance.GetErrorMessage());
+
+        // 触发符合条件后联动
+        var inputEl = cut.Find("input");
+        await cut.InvokeAsync(() => inputEl.Change("1234"));
+        var message = input.Instance.GetErrorMessage();
+        Assert.Null(message);
+        cut.SetParametersAndRender();
+        message = input2.Instance.GetErrorMessage();
+        Assert.Null(message);
+
+        var allInputs = cut.FindAll("input");
+        var inputEl2 = allInputs[all.Count - 1];
+        await cut.InvokeAsync(() => inputEl2.Change("1234"));
+        message = input2.Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+        cut.SetParametersAndRender();
+        message = input.Instance.GetErrorMessage();
+        Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
+    }
+
+    [Fact]
+    public void ShowAllInvalidResult_Ok()
+    {
+        var model = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Name", typeof(string)));
+            });
+        });
+        cut.DoesNotContain("data-bb-invalid-result");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowAllInvalidResult, true);
+        });
+        cut.Contains("data-bb-invalid-result");
+    }
+
     private class HasServiceAttribute : ValidationAttribute
     {
         public const string Success = "Has Service";
@@ -601,6 +694,83 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [EmailAddress()]
         public string? Member { get; set; } = "test";
+    }
+
+    private class MockValidataModel : IValidatableObject
+    {
+        public string? Telephone1 { get; set; }
+
+        public string? Telephone2 { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
+            {
+                yield return new ValidationResult("Telephone1 and Telephone2 can not be the same", [nameof(Telephone1), nameof(Telephone2)]);
+            }
+        }
+    }
+
+    private class MockValidateCollectionModel : IValidateCollection
+    {
+        /// <summary>
+        /// 联系电话1
+        /// </summary>
+        public string? Telephone1 { get; set; }
+
+        /// <summary>
+        /// 联系电话2
+        /// </summary>
+        public string? Telephone2 { get; set; }
+
+        private readonly List<string> _validMemberNames = [];
+
+        private readonly List<ValidationResult> _invalidMemberNames = [];
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="validationContext"></param>
+        /// <returns></returns>
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            _validMemberNames.Clear();
+            _invalidMemberNames.Clear();
+            if (string.Equals(Telephone1, Telephone2, StringComparison.InvariantCultureIgnoreCase))
+            {
+                var errorMessage = "Telephone1 and Telephone2 can not be the same";
+                if (validationContext.MemberName == nameof(Telephone1))
+                {
+                    _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone2)]));
+                }
+                else if (validationContext.MemberName == nameof(Telephone2))
+                {
+                    _invalidMemberNames.Add(new ValidationResult(errorMessage, [nameof(Telephone1)]));
+                }
+                yield return new ValidationResult(errorMessage, [validationContext.MemberName!]);
+            }
+            else if (validationContext.MemberName == nameof(Telephone1))
+            {
+                _validMemberNames.Add(nameof(Telephone2));
+
+            }
+            else if (validationContext.MemberName == nameof(Telephone2))
+            {
+                _validMemberNames.Add(nameof(Telephone1));
+            }
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        public List<string> ValidMemberNames() => _validMemberNames;
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <returns></returns>
+        public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
     }
 
     private class MockInput<TValue> : BootstrapInput<TValue>

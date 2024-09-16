@@ -2,15 +2,16 @@
     --bb-layout-header-height: #{$bb-layout-header-height};
     --bb-layout-header-background: #{$bb-layout-header-background};
     --bb-layout-header-color: #{$bb-layout-header-color};
+    --bb-layout-headerbar-color: var(--bb-layout-header-color);
     --bb-layout-headerbar-background: #{$bb-layout-headerbar-background};
     --bb-layout-headerbar-border-color: #{$bb-layout-headerbar-border-color};
+    --bb-layout-headerbar-padding: #{$bb-layout-headerbar-padding};
     --bb-layout-footer-background: #{$bb-layout-footer-background};
     --bb-layout-footer-color: #{$bb-layout-footer-color};
     --bb-layout-footer-height: #{$bb-layout-footer-height};
     --bb-layout-sidebar-width: #{$bb-layout-sidebar-width};
     --bb-layout-sidebar-collapse-width: #{$bb-layout-sidebar-collapse-width};
     --bb-layout-sidebar-banner-background: #{$bb-layout-sidebar-banner-background};
-    --bb-layout-sidebar-scrollbar-background: #{$bb-layout-sidebar-scrollbar-background};
     --bb-layout-sidebar-background: #{$bb-layout-sidebar-background};
     --bb-layout-sidebar-color: #{$bb-layout-sidebar-color};
     --bb-layout-title-color: #{$bb-layout-title-color};
@@ -163,10 +164,10 @@
 }
 
 .layout-header-bar {
-    padding: 4px 12px;
-    color: #fff;
+    padding: var(--bb-layout-headerbar-padding);
+    color: var(--bb-layout-headerbar-color);
     background-color: var(--bb-layout-headerbar-background);
-    border-color: var(--bb-layout-headerbar-border-color);
+    border: var(--bs-border-width) solid var(--bb-layout-headerbar-border-color);
     border-radius: var(--bs-border-radius);
 
     .fa-bars {

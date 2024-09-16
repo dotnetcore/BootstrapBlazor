@@ -4,9 +4,9 @@
     <Tab OnClickTabItemAsync="OnClickTabItemAsync">
         @foreach (var item in Items)
         {
-            <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
+            <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive" CssClass="@item.CssClass">
                 <div class="tab-commands">
-                    @foreach (var groups in item.Items.OfType<RibbonTabItem>().GroupBy(s => s.GroupName))
+                    @foreach (var groups in item.Items.GroupBy(s => s.GroupName))
                     {
                         <div class="link-group">
                             <div class="d-flex">

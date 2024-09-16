@@ -57,13 +57,9 @@ public partial class Select<TValue> : ISelect
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
-    /// <summary>
-    /// Razor 文件中 Options 模板子项
-    /// </summary>
-    private List<SelectedItem> Children { get; } = [];
+    private readonly List<SelectedItem> _children = [];
 
-    [NotNull]
-    private List<SelectedItem> DataSource { get; } = [];
+    private readonly List<SelectedItem> _dataSource = [];
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -270,7 +266,9 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value) ?? GetVirtualizeItem();
+        SelectedItem = Items.FirstOrDefault(i => i.Value == value)
+            ?? VirtualItems?.FirstOrDefault(i => i.Value == value)
+            ?? GetVirtualizeItem();
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
@@ -289,21 +287,21 @@ public partial class Select<TValue> : ISelect
 
     private void ResetSelectedItem()
     {
-        DataSource.Clear();
+        _dataSource.Clear();
 
         if (string.IsNullOrEmpty(SearchText))
         {
-            DataSource.AddRange(Items);
-            DataSource.AddRange(Children);
+            _dataSource.AddRange(Items);
+            _dataSource.AddRange(_children);
 
             if (VirtualItems != null)
             {
-                DataSource.AddRange(VirtualItems);
+                _dataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.Find(i => i.Active)
-                ?? DataSource.Where(i => !i.IsDisabled).FirstOrDefault()
+            SelectedItem = _dataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? _dataSource.Find(i => i.Active)
+                ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
 
             if (SelectedItem != null)
@@ -328,7 +326,7 @@ public partial class Select<TValue> : ISelect
         }
         else
         {
-            DataSource.AddRange(OnSearchTextChanged(SearchText));
+            _dataSource.AddRange(OnSearchTextChanged(SearchText));
         }
     }
 
@@ -347,7 +345,7 @@ public partial class Select<TValue> : ISelect
     public async Task ConfirmSelectedItem(int index)
     {
         var ds = string.IsNullOrEmpty(SearchText)
-            ? DataSource
+            ? _dataSource
             : OnSearchTextChanged(SearchText);
         var item = ds.ElementAt(index);
         await OnClickItem(item);
@@ -415,7 +413,7 @@ public partial class Select<TValue> : ISelect
     /// 添加静态下拉项方法
     /// </summary>
     /// <param name="item"></param>
-    public void Add(SelectedItem item) => Children.Add(item);
+    public void Add(SelectedItem item) => _children.Add(item);
 
     /// <summary>
     /// 清空搜索栏文本内容
@@ -432,7 +430,30 @@ public partial class Select<TValue> : ISelect
         {
             await OnClearAsync();
         }
-        CurrentValue = default;
+
+        SelectedItem? item;
+        if (IsVirtualize)
+        {
+            if (VirtualizeElement != null)
+            {
+                await VirtualizeElement.RefreshDataAsync();
+                item = VirtualItems!.FirstOrDefault();
+            }
+            else
+            {
+                VirtualItems = Items;
+                item = Items.FirstOrDefault();
+            }
+        }
+        else
+        {
+            item = Items.FirstOrDefault();
+        }
+
+        if (item != null)
+        {
+            await SelectedItemChanged(item);
+        }
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";

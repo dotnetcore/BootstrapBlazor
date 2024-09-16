@@ -864,7 +864,9 @@
             <div class="table-cell">
                 @if (EditTemplate != null)
                 {
-                    @EditTemplate.Invoke(item.Item)
+                    <CascadingValue Value="item.ChangedType" IsFixed="true">
+                        @EditTemplate.Invoke(item.Item)
+                    </CascadingValue>
                 }
                 else
                 {

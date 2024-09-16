@@ -315,18 +315,18 @@ $bb-ip-cell-max-width: 30px;
 
 // Layout
 $bb-layout-header-height: 50px;
-$bb-layout-header-background: #f8f9fa;
+$bb-layout-header-background: var(--bs-body-bg);
 $bb-layout-header-color: var(--bs-body-color);
-$bb-layout-headerbar-background: #409eff;
-$bb-layout-headerbar-border-color: #409eff;
-$bb-layout-footer-background: #f8f9fa;
+$bb-layout-headerbar-background: var(--bb-header-bg);
+$bb-layout-headerbar-border-color: var(--bs-border-color);
+$bb-layout-headerbar-padding: 4px 12px;
+$bb-layout-footer-background: var(--bs-body-bg);
 $bb-layout-footer-color: var(--bs-body-color);
 $bb-layout-footer-height: 40px;
 $bb-layout-sidebar-width: 214px;
 $bb-layout-sidebar-collapse-width: 70px;
-$bb-layout-sidebar-banner-background: #f8f9fa;
-$bb-layout-sidebar-scrollbar-background: #c1c1c1;
-$bb-layout-sidebar-background: #f8f9fa;
+$bb-layout-sidebar-banner-background: var(--bs-body-bg);
+$bb-layout-sidebar-background: var(--bs-body-bg);
 $bb-layout-sidebar-color: var(--bs-body-color);
 $bb-layout-title-color: var(--bs-body-color);
 $bb-layout-title-margin-left: .5rem;

@@ -1,15 +1,37 @@
 ﻿export function execute(id, title) {
-    const el = document.getElementById(id)
+    const el = document.getElementById(id);
 
     if (el) {
         const tip = bootstrap.Tooltip.getOrCreateInstance(el, { customClass: 'is-invalid', title })
         if (!tip._isShown()) {
             if (title !== tip._config.title) {
-                tip._config.title = title
+                tip._config.title = title;
             }
-            tip.show()
+
+            if (showResult(el)) {
+                tip.show();
+            }
         }
     }
+}
+
+const showResult = el => {
+    let ret = false;
+    const form = el.closest('form');
+    if (form) {
+        const show = form.getAttribute("data-bb-invalid-result");
+        if (show === "true") {
+            ret = true;
+        }
+        else {
+            const shown = form.getAttribute("data-bb-invalid-shown");
+            if (shown !== "true") {
+                ret = true;
+                form.setAttribute("data-bb-invalid-shown", "true");
+            }
+        }
+    }
+    return ret;
 }
 
 export function dispose(id) {
@@ -23,7 +45,7 @@ export function dispose(id) {
                 if (tip && tip._element) {
                     tip.dispose()
                 }
-            }, 10)
+            }, 100);
         }
     }
 }

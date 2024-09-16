@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IValidComponent 接口
+/// IValidateComponent 接口
 /// </summary>
 public interface IValidateComponent
 {
