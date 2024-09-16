@@ -84,7 +84,7 @@ public partial class Dropzone<TItem> : IDisposable
     private DragDropService<TItem>? DragDropService { get; set; }
 
     private string? ItemClass => CssBuilder.Default()
-        .AddClass("bb-dd-inprogess", DragDropService.ActiveItem != null)
+        .AddClass("bb-dd-process", DragDropService.ActiveItem != null)
         .Build();
 
     [ExcludeFromCodeCoverage]
