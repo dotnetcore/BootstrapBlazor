@@ -14,17 +14,32 @@ export function init(id) {
     })
 }
 
-export function update(id, eId, title) {
-    const el = document.getElementById(eId);
-    if (el) {
-        const tip = bootstrap.Tooltip.getOrCreateInstance(el, { customClass: 'is-invalid', title })
-        if (title !== tip._config.title) {
-            tip._config.title = title;
+export function update(id, invalidIds) {
+    const el = document.getElementById(id);
+    const items = [...el.children];
+    const invalidElements = invalidIds.map(cId => {
+        const item = document.getElementById(cId);
+        let parentEl = item.parentElement;
+        while (parentEl !== el) {
+            parentEl = parentEl.parentElement;
         }
+        return {
+            item, order: items.indexOf(item)
+        };
+    });
+    invalidElements.sort((a, b) => b.order - a.order);
 
-        if (!tip._isShown()) {
-            tip.show();
-        }
+    const invalid = invalidElements.pop();
+    if (invalid) {
+        const handler = setInterval(() => {
+            const tip = bootstrap.Tooltip.getInstance(invalid.item)
+            if (tip) {
+                clearInterval(handler);
+                if (!tip._isShown()) {
+                    tip.show();
+                }
+            }
+        }, 20);
     }
 }
 
