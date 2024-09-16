@@ -23,7 +23,19 @@ body:
     label: Expected Behavior
     description: A clear and concise description of what you expected to happen.
   validations:
-    required: false
+    required: true
+- type: dropdown
+    attributes:
+      label: Interactive render mode
+      description: What render mode of our software are you running?
+      options:
+        - Static Server (Static server-side rendering (static SSR))
+        - Interactive Server (Interactive server-side rendering (interactive SSR) using Blazor Server)
+        - Interactive WebAssembly (Client-side rendering (CSR) using Blazor WebAssembly)
+        - Interactive Auto (Server, then client)
+      default: 0
+    validations:
+      required: true    
 - type: textarea
   attributes:
     label: Steps To Reproduce
@@ -36,7 +48,7 @@ body:
       - If the repro project is attached as a `.zip` file.
       - If the GitHub repro project is set to `Private`.
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Exceptions (if any)
@@ -50,7 +62,7 @@ body:
     description: |
       Run `dotnet --version`
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Anything else?
