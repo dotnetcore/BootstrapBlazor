@@ -23,13 +23,6 @@ const showResult = el => {
         if (show === "true") {
             ret = true;
         }
-        else {
-            const shown = form.getAttribute("data-bb-invalid-shown");
-            if (shown !== "true") {
-                ret = true;
-                form.setAttribute("data-bb-invalid-shown", "true");
-            }
-        }
     }
     return ret;
 }

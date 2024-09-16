@@ -14,6 +14,35 @@ export function init(id) {
     })
 }
 
+export function update(id, invalidIds) {
+    const el = document.getElementById(id);
+    const items = [...el.children];
+    const invalidElements = invalidIds.map(cId => {
+        const item = document.getElementById(cId);
+        let parentEl = item.parentElement;
+        while (parentEl !== el) {
+            parentEl = parentEl.parentElement;
+        }
+        return {
+            item, order: items.indexOf(item)
+        };
+    });
+    invalidElements.sort((a, b) => b.order - a.order);
+
+    const invalid = invalidElements.pop();
+    if (invalid) {
+        const handler = setInterval(() => {
+            const tip = bootstrap.Tooltip.getInstance(invalid.item)
+            if (tip) {
+                clearInterval(handler);
+                if (!tip._isShown()) {
+                    tip.show();
+                }
+            }
+        }, 20);
+    }
+}
+
 export function dispose(id) {
     const el = document.getElementById(id)
     EventHandler.off(el, 'keydown')
