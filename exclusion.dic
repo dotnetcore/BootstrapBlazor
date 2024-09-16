@@ -10,6 +10,7 @@ cors
 dest
 dissubmit
 dropup
+dropzone
 editform
 ellips
 fullscreen
