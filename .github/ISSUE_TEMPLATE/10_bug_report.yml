@@ -25,17 +25,17 @@ body:
   validations:
     required: true
 - type: dropdown
-    attributes:
-      label: Interactive render mode
-      description: What render mode of our software are you running?
-      options:
-        - Static Server (Static server-side rendering (static SSR))
-        - Interactive Server (Interactive server-side rendering (interactive SSR) using Blazor Server)
-        - Interactive WebAssembly (Client-side rendering (CSR) using Blazor WebAssembly)
-        - Interactive Auto (Server, then client)
-      default: 0
-    validations:
-      required: true    
+  attributes:
+    label: Interactive render mode
+    description: What render mode of our software are you running?
+    options:
+      - Static Server (Static server-side rendering (static SSR))
+      - Interactive Server (Interactive server-side rendering (interactive SSR) using Blazor Server)
+      - Interactive WebAssembly (Client-side rendering (CSR) using Blazor WebAssembly)
+      - Interactive Auto (Server, then client)
+    default: 1
+  validations:
+    required: true
 - type: textarea
   attributes:
     label: Steps To Reproduce
@@ -47,18 +47,28 @@ body:
       - If we will not be able to repro the behavior you're reporting.
       - If the repro project is attached as a `.zip` file.
       - If the GitHub repro project is set to `Private`.
+      
+      如果您选择此模板说明您是想提交一个组件的 `BUG` 而不是来描述一个您遇到的问题结果，所以必须提供复现步骤与复现工程。如果不提供我们将不予处理，机器人将于一段时间后自动关闭本 `Issue`
+
+      请在下方文本框内写清楚，运行后点击那个页面，或者点击那个按钮复现问题，文件上传拖动到下方文本框内即可。
+      
+      **最小复现工程** 
+      - 删除 `bin` `obj` 文件夹后打包成 `zip` 压缩包的文件
+      - 公开 `github` 仓库地址
+      - 私有 `github` 仓库地址（邀请 argo@live.ca）
+    
+    placeholder: "drop file in here. （此处写复现步骤，最小工程压缩包可拖拽到这里）"
   validations:
     required: true
 - type: textarea
   attributes:
     label: Exceptions (if any)
     description: Include the exception you get when facing this issue.
-    placeholder: 
   validations:
     required: false
 - type: input
   attributes:
-    label: .NET Version 
+    label: .NET Version
     description: |
       Run `dotnet --version`
   validations:
@@ -70,9 +80,9 @@ body:
       - ASP.NET Core version:
       - The IDE (VS / VS Code/ VS4Mac) you're running on, and its version:
       - Include the output of `dotnet --info`:
-
+      
       Links? References? Anything that will give us more context about the issue you are encountering!
-
+      
       Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
   validations:
     required: false
