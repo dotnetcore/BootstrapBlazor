@@ -191,7 +191,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsItemDragable_Ok()
+    public void IsItemDraggable_Ok()
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
