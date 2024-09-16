@@ -149,7 +149,7 @@ public partial class Dropzone<TItem> : IDisposable
         return builder.ToString();
     }
 
-    private string IsItemDragable(TItem? item)
+    private string IsItemDraggable(TItem? item)
     {
         if (item == null)
         {
