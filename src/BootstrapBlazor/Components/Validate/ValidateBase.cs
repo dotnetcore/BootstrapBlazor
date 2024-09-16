@@ -475,7 +475,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (!string.IsNullOrEmpty(ErrorMessage))
         {
-            ValidateForm?.SetValidationResult(Id, ErrorMessage);
+            ValidateForm?.AddValidationComponent(Id);
         }
 
         // 必须刷新一次 UI 保证状态正确
