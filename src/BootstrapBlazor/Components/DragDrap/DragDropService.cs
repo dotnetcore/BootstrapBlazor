@@ -58,7 +58,7 @@ internal class DragDropService<T>
 
         if (StateHasChanged != null)
         {
-            StateHasChanged.Invoke(this, EventArgs.Empty);
+            StateHasChanged(this, EventArgs.Empty);
         }
     }
 }
