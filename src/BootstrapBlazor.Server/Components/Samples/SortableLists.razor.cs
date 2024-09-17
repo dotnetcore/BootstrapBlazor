@@ -138,7 +138,6 @@ public partial class SortableLists
         var item = Items[oldIndex];
         Items.RemoveAt(oldIndex);
         Items.Insert(newIndex, item);
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -149,7 +148,6 @@ public partial class SortableLists
         var item = Items1[oldIndex];
         Items1.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -160,7 +158,6 @@ public partial class SortableLists
         var item = Items2[oldIndex];
         Items2.RemoveAt(oldIndex);
         Items2.Insert(newIndex, item);
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -171,7 +168,6 @@ public partial class SortableLists
         var item = Items1[oldIndex];
         Items1.RemoveAt(oldIndex);
         Items2.Insert(newIndex, item);
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -182,7 +178,6 @@ public partial class SortableLists
         var item = Items2[oldIndex];
         Items2.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
-        StateHasChanged();
         return Task.CompletedTask;
     }
 
