@@ -213,9 +213,10 @@ public partial class SortableLists
     {
         var oldIndex = @event.OldIndex;
         var newIndex = @event.NewIndex;
-        var item = ItemsSwaps[oldIndex];
-        ItemsSwaps.RemoveAt(oldIndex);
-        ItemsSwaps.Insert(newIndex, item);
+        var item1 = Utility.Clone(ItemsSwaps[oldIndex]);
+        var item2 = Utility.Clone(ItemsSwaps[newIndex]);
+        ItemsSwaps[oldIndex] = item2;
+        ItemsSwaps[newIndex] = item1;
         return Task.CompletedTask;
     }
 
