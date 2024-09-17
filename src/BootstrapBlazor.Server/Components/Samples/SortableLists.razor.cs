@@ -141,6 +141,13 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
+    private Task OnAdd1(SortableEvent @event)
+    {
+        var item = Items2[@event.OldIndex];
+        Items1.Insert(@event.NewIndex, item);
+        return Task.CompletedTask;
+    }
+
     private Task OnUpdate1(SortableEvent @event)
     {
         var oldIndex = @event.OldIndex;
@@ -148,6 +155,19 @@ public partial class SortableLists
         var item = Items1[oldIndex];
         Items1.RemoveAt(oldIndex);
         Items1.Insert(newIndex, item);
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemove1(SortableEvent @event)
+    {
+        Items1.RemoveAt(@event.OldIndex);
+        return Task.CompletedTask;
+    }
+
+    private Task OnAdd2(SortableEvent @event)
+    {
+        var item = Items1[@event.OldIndex];
+        Items2.Insert(@event.NewIndex, item);
         return Task.CompletedTask;
     }
 
@@ -161,23 +181,9 @@ public partial class SortableLists
         return Task.CompletedTask;
     }
 
-    private Task OnRemove1(SortableEvent @event)
-    {
-        var oldIndex = @event.OldIndex;
-        var newIndex = @event.NewIndex;
-        var item = Items1[oldIndex];
-        Items1.RemoveAt(oldIndex);
-        Items2.Insert(newIndex, item);
-        return Task.CompletedTask;
-    }
-
     private Task OnRemove2(SortableEvent @event)
     {
-        var oldIndex = @event.OldIndex;
-        var newIndex = @event.NewIndex;
-        var item = Items2[oldIndex];
-        Items2.RemoveAt(oldIndex);
-        Items1.Insert(newIndex, item);
+        Items2.RemoveAt(@event.OldIndex);
         return Task.CompletedTask;
     }
 

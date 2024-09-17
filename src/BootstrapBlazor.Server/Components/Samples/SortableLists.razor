@@ -48,7 +48,7 @@
            Name="Group">
     <div class="row g-2">
         <div class="col-12 col-sm-6">
-            <SortableList Option="_option2" OnUpdate="OnUpdate1" OnRemove="OnRemove1">
+            <SortableList Option="_option2" OnAdd="OnAdd1" OnUpdate="OnUpdate1" OnRemove="OnRemove1">
                 <div class="sl-list row g-2">
                     @foreach (var item in Items1)
                     {
@@ -58,7 +58,7 @@
             </SortableList>
         </div>
         <div class="col-12 col-sm-6">
-            <SortableList Option="_option2" OnUpdate="OnUpdate2" OnRemove="OnRemove2">
+            <SortableList Option="_option2" OnAdd="OnAdd2" OnUpdate="OnUpdate2" OnRemove="OnRemove2">
                 <div class="sl-list row g-2">
                     @foreach (var item in Items2)
                     {
