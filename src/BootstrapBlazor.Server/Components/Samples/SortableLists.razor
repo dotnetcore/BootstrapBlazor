@@ -76,21 +76,21 @@
     <div class="row g-2">
         <div class="col-12 col-sm-6">
             <SortableList Option="_option31">
-                <div class="sl-list">
-                    <div class="sl-item">1</div>
-                    <div class="sl-item">2</div>
-                    <div class="sl-item">3</div>
-                    <div class="sl-item">4</div>
+                <div class="sl-list row g-2">
+                    @foreach (var item in ItemsCloneLeft)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
                 </div>
             </SortableList>
         </div>
         <div class="col-12 col-sm-6">
             <SortableList Option="_option32">
-                <div class="sl-list">
-                    <div class="sl-item">5</div>
-                    <div class="sl-item">6</div>
-                    <div class="sl-item">7</div>
-                    <div class="sl-item">8</div>
+                <div class="sl-list row g-2">
+                    @foreach (var item in ItemsCloneRight)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
                 </div>
             </SortableList>
         </div>
@@ -224,6 +224,43 @@
                     @foreach (var item in ItemsSwaps)
                     {
                         <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
+                </div>
+            </SortableList>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SortableListOnAddTitle"]"
+           Introduction="@Localizer["SortableListOnAddIntro"]"
+           Name="OnAdd">
+    <div class="row g-2">
+        <div class="col-12 col-sm-4">
+            <SortableList Id="sl01" Option="_optionAdd" OnAdd="OnAddItems1" OnUpdate="OnUpdateItems1" OnRemove="OnRemoveItems1">
+                <div class="sl-list row g-2">
+                    @foreach (var item in AddItems1)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
+                </div>
+            </SortableList>
+        </div>
+        <div class="col-12 col-sm-4">
+            <SortableList Id="sl02" Option="_optionAdd" OnAdd="OnAddItems2" OnUpdate="OnUpdateItems2" OnRemove="OnRemoveItems2">
+                <div class="sl-list row g-2">
+                    @foreach (var item in AddItems2)
+                    {
+                        <FooSortableListItem @key="item" Value="item"></FooSortableListItem>
+                    }
+                </div>
+            </SortableList>
+        </div>
+        <div class="col-12 col-sm-4">
+            <SortableList Id="sl03" Option="_optionAdd" OnAdd="OnAddItems3" OnUpdate="OnUpdateItems3" OnRemove="OnRemoveItems3">
+                <div class="sl-list row g-2">
+                    @foreach (var item in AddItems3)
+                    {
+                        <FooSortableListRightItem @key="item" Value="item"></FooSortableListRightItem>
                     }
                 </div>
             </SortableList>

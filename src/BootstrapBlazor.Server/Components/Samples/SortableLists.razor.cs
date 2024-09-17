@@ -18,7 +18,22 @@ public partial class SortableLists
     private List<Foo>? ItemsMultiDrags { get; set; }
 
     [NotNull]
+    private List<Foo>? ItemsCloneLeft { get; set; }
+
+    [NotNull]
+    private List<Foo>? ItemsCloneRight { get; set; }
+
+    [NotNull]
     private List<Foo>? ItemsSwaps { get; set; }
+
+    [NotNull]
+    private List<Foo>? AddItems1 { get; set; }
+
+    [NotNull]
+    private List<Foo>? AddItems2 { get; set; }
+
+    [NotNull]
+    private List<Foo>? AddItems3 { get; set; }
 
     private readonly SortableOption _option1 = new()
     {
@@ -89,6 +104,12 @@ public partial class SortableLists
         Swap = true
     };
 
+    private readonly SortableOption _optionAdd = new()
+    {
+        RootSelector = ".sl-list",
+        Group = "group-add"
+    };
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -103,6 +124,11 @@ public partial class SortableLists
         Items2 = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
         ItemsMultiDrags = Foo.GenerateFoo(FooLocalizer, 8);
         ItemsSwaps = Foo.GenerateFoo(FooLocalizer, 8);
+        ItemsCloneLeft = Foo.GenerateFoo(FooLocalizer, 4);
+        ItemsCloneRight = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
+        AddItems1 = Foo.GenerateFoo(FooLocalizer, 4);
+        AddItems2 = Foo.GenerateFoo(FooLocalizer, 8).Skip(4).ToList();
+        AddItems3 = Foo.GenerateFoo(FooLocalizer, 12).Skip(8).ToList();
     }
 
     private Task OnUpdate(SortableEvent @event)
@@ -189,6 +215,81 @@ public partial class SortableLists
         var item = ItemsSwaps[oldIndex];
         ItemsSwaps.RemoveAt(oldIndex);
         ItemsSwaps.Insert(newIndex, item);
+        return Task.CompletedTask;
+    }
+
+    private Task OnAddItems1(SortableEvent @event)
+    {
+        var foo = @event.FromId == "sl02"
+           ? AddItems2[@event.OldIndex]
+           : AddItems3[@event.OldIndex];
+        AddItems1.Insert(@event.NewIndex, foo);
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateItems1(SortableEvent @event)
+    {
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = AddItems1[oldIndex];
+        AddItems1.RemoveAt(oldIndex);
+        AddItems1.Insert(newIndex, item);
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemoveItems1(SortableEvent @event)
+    {
+        AddItems1.RemoveAt(@event.OldIndex);
+        return Task.CompletedTask;
+    }
+
+    private Task OnAddItems2(SortableEvent @event)
+    {
+        var foo = @event.FromId == "sl01"
+           ? AddItems1[@event.OldIndex]
+           : AddItems3[@event.OldIndex];
+        AddItems2.Insert(@event.NewIndex, foo);
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateItems2(SortableEvent @event)
+    {
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = AddItems2[oldIndex];
+        AddItems2.RemoveAt(oldIndex);
+        AddItems2.Insert(newIndex, item);
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemoveItems2(SortableEvent @event)
+    {
+        AddItems2.RemoveAt(@event.OldIndex);
+        return Task.CompletedTask;
+    }
+
+    private Task OnAddItems3(SortableEvent @event)
+    {
+        var foo = @event.FromId == "sl01"
+           ? AddItems1[@event.OldIndex]
+           : AddItems2[@event.OldIndex];
+        AddItems3.Insert(@event.NewIndex, foo);
+        return Task.CompletedTask;
+    }
+
+    private Task OnUpdateItems3(SortableEvent @event)
+    {
+        var oldIndex = @event.OldIndex;
+        var newIndex = @event.NewIndex;
+        var item = AddItems3[oldIndex];
+        AddItems3.RemoveAt(oldIndex);
+        AddItems3.Insert(newIndex, item);
+        return Task.CompletedTask;
+    }
+
+    private Task OnRemoveItems3(SortableEvent @event)
+    {
+        AddItems3.RemoveAt(@event.OldIndex);
         return Task.CompletedTask;
     }
 }
