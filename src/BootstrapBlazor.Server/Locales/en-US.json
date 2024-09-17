@@ -6747,7 +6747,9 @@
     "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>",
     "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
     "SortableListSwapTitle": "Swap",
-    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
+    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped.",
+    "SortableListOnAddTitle": "Multiple SortableList",
+    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox",

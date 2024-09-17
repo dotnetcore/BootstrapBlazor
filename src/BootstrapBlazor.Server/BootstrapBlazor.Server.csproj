@@ -58,7 +58,7 @@
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.Player" Version="8.0.0-beta05" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.2" />
-    <PackageReference Include="BootstrapBlazor.Sortable" Version="8.0.5" />
+    <PackageReference Include="BootstrapBlazor.Sortable" Version="8.0.6" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.4" />
@@ -75,7 +75,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BootstrapBlazor.Extensions\src\components\BootstrapBlazor.Sortable\BootstrapBlazor.Sortable.csproj" />
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
