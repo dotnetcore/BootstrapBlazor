@@ -6,6 +6,7 @@ using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
+using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -295,9 +296,15 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
+                IValidatableObject? validatae;
                 if (context.ObjectInstance is IValidatableObject validatableObject)
+                    validatae = validatableObject;
+                else
+                    validatae = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context.ObjectInstance);
+
+                if (validatae != null)
                 {
-                    var messages = validatableObject.Validate(context);
+                    var messages = validatae.Validate(context);
                     if (messages.Any())
                     {
                         foreach (var key in _validatorCache.Keys)
@@ -506,11 +513,17 @@ public partial class ValidateForm
             if (messages.Count == 0)
             {
                 // 联动字段验证 IValidateCollection
+                IValidateCollection? validate;
                 if (context.ObjectInstance is IValidateCollection validateCollection)
+                    validate = validateCollection;
+                else
+                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidateCollection>(context.ObjectInstance);
+
+                if(validate != null)
                 {
-                    messages.AddRange(validateCollection.Validate(context));
-                    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
-                    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
+                    messages.AddRange(validate.Validate(context));
+                    ValidMemberNames.AddRange(validate.ValidMemberNames());
+                    InvalidMemberNames.AddRange(validate.InvalidMemberNames());
                 }
             }
         }
@@ -519,6 +532,28 @@ public partial class ValidateForm
     }
 
     private bool _invalid = false;
+    /// <summary>
+    /// 从 <see cref="MetadataTypeAttribute"/> 中获取验证接口实例。
+    /// </summary>
+    /// <typeparam name="T">验证接口类型。</typeparam>
+    /// <param name="context"></param>
+    /// <returns>没有实现 <typeparamref name="T"/> 接口，则返回 <see langword="null"/> 。</returns>
+    private static T? GetValidateInstanceByMetadataTypeAttribute<T>(object context) where T : class
+    {
+        var att = context.GetType().GetCustomAttribute<MetadataTypeAttribute>();
+        if (att?.MetadataClassType.GetInterfaces().Any(x => x.IsAssignableTo(typeof(T))) ?? false)
+        {
+            try
+            {
+                //此处是否需要缓存？
+                return Activator.CreateInstance(att.MetadataClassType) as T;
+            }
+            catch (Exception)
+            {
+            }
+        }
+        return null;
+    }
 
     private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
