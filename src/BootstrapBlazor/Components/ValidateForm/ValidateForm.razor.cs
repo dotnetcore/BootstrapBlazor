@@ -544,15 +544,8 @@ public partial class ValidateForm
         var att = context.ObjectInstance.GetType().GetCustomAttribute<MetadataTypeAttribute>();
         if (att != null && att.MetadataClassType.GetInterfaces().Any(x => x.Equals(typeof(T))))
         {
-            try
-            {
-                //此处是否需要缓存？
-                return ActivatorUtilities.CreateInstance(context, att.MetadataClassType) as T;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            //此处是否需要缓存？
+            return ActivatorUtilities.CreateInstance(context, att.MetadataClassType) as T;
         }
         return null;
     }
