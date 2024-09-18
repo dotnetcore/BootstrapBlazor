@@ -286,21 +286,22 @@ public partial class DateTimePicker<TValue>
 
         if (ReliableDisableDayPredicate != null && ReliableDisableDayPredicate(SelectedValue))
         {
-            SelectedValue = DateTime.Today;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             Value = default;
         }
         else if (MinValueToEmpty(SelectedValue))
         {
-            SelectedValue = DateTime.Today;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             Value = default;
         }
         else if (MinValueToToday(SelectedValue))
         {
-            if (MinValue.HasValue && MinValue > DateTime.Today)
+            var today = DateTime.Today;
+            if (MinValue.HasValue && MinValue > today)
             {
                 SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
             }
-            else if (MaxValue.HasValue && MaxValue < DateTime.Today)
+            else if (MaxValue.HasValue && MaxValue < today)
             {
                 SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
             }
