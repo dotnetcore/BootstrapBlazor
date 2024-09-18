@@ -277,21 +277,21 @@ public partial class DateTimePicker<TValue>
         }
         else if (Value is DateTimeOffset v1)
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? v1.DateTime : v1.DateTime.Date;
+            SelectedValue = v1.DateTime;
         }
         else
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? (DateTime)(object)Value : ((DateTime)(object)Value).Date;
+            SelectedValue = (DateTime)(object)Value;
         }
 
         if (ReliableDisableDayPredicate != null && ReliableDisableDayPredicate(SelectedValue))
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            SelectedValue = DateTime.Today;
             Value = default;
         }
         else if (MinValueToEmpty(SelectedValue))
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            SelectedValue = DateTime.Today;
             Value = default;
         }
         else if (MinValueToToday(SelectedValue))

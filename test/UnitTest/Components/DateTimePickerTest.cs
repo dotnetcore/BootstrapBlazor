@@ -1021,47 +1021,86 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void MinValueToToday_Ok()
     {
-        var cut1 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
         });
-        Assert.Equal(DateTime.Today.AddDays(1), cut1.Instance.Value);
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
 
-        var cut2 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-            pb.Add(a => a.MinValue, DateTime.Now.AddDays(1));
-            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(2));
-        });
-
-        var cut3 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
-        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
         });
-        Assert.Equal(DateTime.Today.AddDays(-1), cut3.Instance.Value);
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
 
-        var cut4 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-            pb.Add(a => a.MinValue, DateTime.Now.AddDays(-2));
-            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(-1));
-        });
-
-        var cut5 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
-        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
         });
-        Assert.Equal(DateTime.Today, cut5.Instance.Value);
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
 
-        var cut6 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-            pb.Add(a => a.MinValue, DateTime.Now.AddDays(-2));
-            pb.Add(a => a.MaxValue, DateTime.Now.AddDays(2));
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
         });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-2));
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(2));
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, null);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.MaxValue, null);
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, null);
+            pb.Add(a => a.MaxValue, null);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
     }
 
     [Fact]
@@ -1096,6 +1135,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisableDayPredicate, DisableToday);
             pb.Add(a => a.Value, DateTime.Today);
         });
+        Assert.Null(cut2.Instance.Value);
+        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut2.Markup);
+        Assert.Contains("today disabled", cut2.Markup);
+
+        var cut3 = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.DisableDayPredicate, DisableToday);
+            pb.Add(a => a.Value, DateTimeOffset.Now);
+        });
+        Assert.Null(cut3.Instance.Value);
+        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut3.Markup);
+        Assert.Contains("today disabled", cut3.Markup);
     }
 
     private bool DisableToday(DateTime day)
