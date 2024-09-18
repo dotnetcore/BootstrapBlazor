@@ -1,9 +1,0 @@
-﻿[
-  {
-    "outputFileName": "wwwroot/css/bootstrap.blazor.editor.min.css",
-    "inputFiles": [
-      "wwwroot/css/summernote-bs5.min.css",
-      "Components/**/*.css"
-    ]
-  }
-]

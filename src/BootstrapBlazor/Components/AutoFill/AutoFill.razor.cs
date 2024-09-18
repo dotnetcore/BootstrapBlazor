@@ -178,6 +178,8 @@ public partial class AutoFill<TValue>
         }
     }
 
+    private static readonly List<string> HandlerKeys = ["ArrowUp", "ArrowDown", "Escape", "Enter"];
+
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
@@ -186,23 +188,30 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public virtual async Task OnKeyUp(string key)
     {
-        if (!_isLoading)
+        if (!HandlerKeys.Contains(key))
         {
-            _isLoading = true;
-            if (OnCustomFilter != null)
+            // 非功能按键时触发过滤
+            if (!_isLoading)
             {
-                var items = await OnCustomFilter(_inputString);
-                _filterItems = items.ToList();
+                _isLoading = true;
+                if (OnCustomFilter != null)
+                {
+                    var items = await OnCustomFilter(_inputString);
+                    _filterItems = items.ToList();
+                }
+                else
+                {
+                    var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+                    var items = IsLikeMatch ?
+                        Items.Where(s => OnGetDisplayText(s).Contains(_inputString, comparison)) :
+                        Items.Where(s => OnGetDisplayText(s).StartsWith(_inputString, comparison));
+                    _filterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
+                }
+                _isLoading = false;
             }
-            else
-            {
-                var items = FindItem();
-                _filterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
-            }
-            _isLoading = false;
         }
 
-        if (_filterItems.Any())
+        if (_filterItems.Count > 0)
         {
             _isShown = true;
             // 键盘向上选择
@@ -257,14 +266,6 @@ public partial class AutoFill<TValue>
             }
         }
         StateHasChanged();
-
-        IEnumerable<TValue> FindItem()
-        {
-            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            return IsLikeMatch ?
-                Items.Where(s => OnGetDisplayText(s).Contains(_inputString, comparison)) :
-                Items.Where(s => OnGetDisplayText(s).StartsWith(_inputString, comparison));
-        }
     }
 
     /// <summary>

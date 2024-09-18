@@ -21,12 +21,12 @@
 - Seamless integration with existing ASP.NET Core MVC and Razor Pages projects.
 
 ## Online Examples
-[![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=red&logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/China-https://www.blazor.zone-success.svg?color=blue&logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## Installation Guide
 
-- Install .net core sdk [Official website](https://dotnet.microsoft.com/download)
-- Install Visual Studio 2019 lastest [Official website](https://visualstudio.microsoft.com/vs/getting-started/)
+- Install .net core sdk [Official website](https://dotnet.microsoft.com/download?wt.mc_id=DT-MVP-5004174)
+- Install Visual Studio 2019 lastest [Official website](https://visualstudio.microsoft.com/vs/getting-started?wt.mc_id=DT-MVP-5004174)
 
 ```shell
 git clone https://github.com/dotnetcore/BootstrapBlazor.git
@@ -48,7 +48,7 @@ dotnet run
 
 1. Download Project Template
 
-Microsoft Market [link](https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate)
+Microsoft Market [link](https://marketplace.visualstudio.com/items?itemName=Longbow.BootstrapBlazorUITemplate&wt.mc_id=DT-MVP-5004174)
 
 2. Double Click **BootstrapBlazor.UITemplate.vsix**
 
@@ -71,30 +71,17 @@ Microsoft Market [link](https://marketplace.visualstudio.com/items?itemName=Long
 </head>
 <body>
     . . .
-    <script src="_framework/blazor.server.js"></script>
     <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
 </body>
 </html>
 ```
 
-3. Open the `~/Startup.cs` file in the and register the `Bootstrap Blazor` service:
+3. Open the `Program.cs` file in the and register the `Bootstrap Blazor` service:
 
  **C#**
 
 ```
-namespace BootstrapBlazorAppName
-{
-    public class Startup
-    {
-        public void ConfigureServices(IServiceCollection services)
-        {
-            //more code may be present here
-            services.AddBootstrapBlazor();
-        }
-
-        //more code may be present here
-    }
-}
+builder.Services.AddBootstrapBlazorServices();
 ```
 
 ## Visual Studio Integration

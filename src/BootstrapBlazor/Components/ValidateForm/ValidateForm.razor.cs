@@ -40,6 +40,12 @@ public partial class ValidateForm
     public Action<string, object?>? OnFieldValueChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示所有验证失败字段的提示信息 默认 false 仅显示第一个验证失败字段的提示信息
+    /// </summary>
+    [Parameter]
+    public bool ShowAllInvalidResult { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否验证所有字段 默认 false
     /// </summary>
     [Parameter]
@@ -113,6 +119,8 @@ public partial class ValidateForm
     /// </summary>
     internal List<ValidationResult> InvalidMemberNames { get; } = [];
 
+    private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : null;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -123,6 +131,22 @@ public partial class ValidateForm
         if (!DisableAutoSubmitFormByEnter.HasValue && BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.HasValue)
         {
             DisableAutoSubmitFormByEnter = BootstrapBlazorOptions.CurrentValue.DisableAutoSubmitFormByEnter.Value;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!ShowAllInvalidResult && _invalidComponents.Count > 0)
+        {
+            await InvokeVoidAsync("update", Id, _invalidComponents);
+            _invalidComponents.Clear();
         }
     }
 
@@ -593,6 +617,13 @@ public partial class ValidateForm
     {
         ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
+    }
+
+    private List<string> _invalidComponents = [];
+
+    internal void AddValidationComponent(string id)
+    {
+        _invalidComponents.Add(id);
     }
 
     /// <summary>

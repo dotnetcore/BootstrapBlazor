@@ -1,0 +1,30 @@
+﻿.sl-item {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    padding: 1rem;
+}
+
+    .sl-item:not(:last-child) {
+        margin-bottom: 0.5rem;
+        user-select: none;
+    }
+
+.col-12.sortable-chosen .sl-item {
+    background-color: var(--bs-primary);
+    color: var(--bs-body-bg);
+}
+
+.col-12.sortable-ghost .sl-item {
+    background-color: var(--bs-info);
+    color: var(--bs-body-bg);
+}
+
+.col-12.sortable-selected .sl-item {
+    background-color: #44a0ff;
+    color: #fff;
+}
+
+.col-12.sortable-swap-highlight .sl-item {
+    background-color: var(--bs-success);
+    color: var(--bs-body-bg);
+}
