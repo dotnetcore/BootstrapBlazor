@@ -234,7 +234,31 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
+        cut.InvokeAsync(() => form.Submit()); 
+    }
+
+    [Fact]
+    public void MetadataTypeAttributeIValidatableObject_Ok()
+    {
+        var foo = new Dummy() { Password1 = "password", Password2 = "Password2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Password1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Password1", typeof(string)));
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Password2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Password2", typeof(string)));
+            });
+        });
+        var form = cut.Find("form");
         cut.InvokeAsync(() => form.Submit());
+        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("两次密码必须一致。", message);
     }
 
     [Fact]
@@ -672,12 +696,27 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [Required]
         public string? File { get; set; }
+
+        public string? Password1 { get; set; }
+        public string? Password2 { get; set; }
     }
 
-    private class DummyMetadata
+    private class DummyMetadata : IValidatableObject
     {
         [Required]
         public DateTime? Value { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var result = new List<ValidationResult>();
+            if (validationContext.ObjectInstance is Dummy dy)
+            {
+                if (!string.Equals(dy.Password1, dy.Password2, StringComparison.InvariantCultureIgnoreCase))
+                    result.Add(new ValidationResult("两次密码必须一致。",
+                        [nameof(Dummy.Password1), nameof(Dummy.Password2)]));
+            }
+            return result;
+        }
     }
 
     private class MockFoo

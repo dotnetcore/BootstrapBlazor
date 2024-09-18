@@ -542,7 +542,7 @@ public partial class ValidateForm
     private static T? GetValidateInstanceByMetadataTypeAttribute<T>(ValidationContext context) where T : class
     {
         var att = context.ObjectInstance.GetType().GetCustomAttribute<MetadataTypeAttribute>();
-        if (att != null && att.MetadataClassType.GetInterfaces().Any(x => x.IsAssignableTo(typeof(T))))
+        if (att != null && att.MetadataClassType.GetInterfaces().Any(x => x.Equals(typeof(T))))
         {
             try
             {
