@@ -170,6 +170,13 @@ To start the wizard, use either of the following approaches
 4. Create Pull Request
 
 ## Donate
+# ref
+![main-qimg-4b22fc407d09722c12ee6ec650d77ad1](https://github.com/user-attachments/assets/a17fb90c-4b4a-4500-aa7a-245c8396f5fb)
+
+- https://indiaguide.github.io/The-Best-Beaches-in-Goa-A-Comprehensive-Guide/
+- https://indiaguide.github.io/Understanding-the-Genetic-and-Cultural-Mosaic-of-India/
+- https://indiaguide.github.io/Unveiling-the-Spiritual-Splendor-of-the-Meenakshi-Temple-in-Madurai/
+- https://indiaguide.github.io/Visiting-the-Golden-Temple-A-Comprehensive-Guide/
 
 If this project is helpful to you, please scan the QR code below for a cup of coffee.
 
