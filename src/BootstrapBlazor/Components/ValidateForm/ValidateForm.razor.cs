@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
@@ -300,7 +301,7 @@ public partial class ValidateForm
                 if (context.ObjectInstance is IValidatableObject validatableObject)
                     validatae = validatableObject;
                 else
-                    validatae = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context.ObjectInstance);
+                    validatae = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context);
 
                 if (validatae != null)
                 {
@@ -517,7 +518,7 @@ public partial class ValidateForm
                 if (context.ObjectInstance is IValidateCollection validateCollection)
                     validate = validateCollection;
                 else
-                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidateCollection>(context.ObjectInstance);
+                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidateCollection>(context);
 
                 if(validate != null)
                 {
@@ -538,18 +539,19 @@ public partial class ValidateForm
     /// <typeparam name="T">验证接口类型。</typeparam>
     /// <param name="context"></param>
     /// <returns>没有实现 <typeparamref name="T"/> 接口，则返回 <see langword="null"/> 。</returns>
-    private static T? GetValidateInstanceByMetadataTypeAttribute<T>(object context) where T : class
+    private static T? GetValidateInstanceByMetadataTypeAttribute<T>(ValidationContext context) where T : class
     {
-        var att = context.GetType().GetCustomAttribute<MetadataTypeAttribute>();
-        if (att?.MetadataClassType.GetInterfaces().Any(x => x.IsAssignableTo(typeof(T))) ?? false)
+        var att = context.ObjectInstance.GetType().GetCustomAttribute<MetadataTypeAttribute>();
+        if (att != null && att.MetadataClassType.GetInterfaces().Any(x => x.IsAssignableTo(typeof(T))))
         {
             try
             {
                 //此处是否需要缓存？
-                return Activator.CreateInstance(att.MetadataClassType) as T;
+                return ActivatorUtilities.CreateInstance(context, att.MetadataClassType) as T;
             }
             catch (Exception)
             {
+                throw;
             }
         }
         return null;
