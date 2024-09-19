@@ -3,9 +3,7 @@
 
 <h3>@Localizer["OnScreenKeyboardsTitle"]</h3>
 
-<div>重构中 ... 稍后开放</div>
-
-@* <PackageTips Name="BootstrapBlazor.OnScreenKeyboard" />
+<PackageTips Name="BootstrapBlazor.OnScreenKeyboard" />
 
 <p><b>@Localizer["OnScreenKeyboardsBasicTitle"]</b></p>
 <div class="code-label">Razor</div>
@@ -71,14 +69,14 @@
            Introduction=""
            Name="App">
     <p>@Localizer["OnScreenKeyboardsAppDescription"]</p>
-    <OnScreenKeyboard ClassName="virtualkeyboardbb" Option="AppOption" />
     <div class="form-control textarea-demo"> @BindValue</div>
     <p>BootstrapInput</p>
     <BootstrapInput class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapInput" @bind-Value="@BindValue" />
     <p>BootstrapPassword</p>
     <BootstrapPassword class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapPassword" @bind-Value="@BindValue" />
     <p>Textarea</p>
-<Textarea class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="Textarea" rows="4" @bind-Value="@BindValue" />
+    <Textarea class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="Textarea" rows="4" @bind-Value="@BindValue" />
+    <OnScreenKeyboard ClassName="virtualkeyboardbb" Option="AppOption" />
 </DemoBlock>
 
 <Tips class="mt-3">
@@ -90,31 +88,4 @@
 
 <AttributeTable Items="@GetKeyboardOptionAttributes()" Title="KeyboardOption" />
 
-<AttributeTable Items="@GetKeyboardEnumAttributes()" Title="KeyboardEnum" /> *@
-
-@code {
-
-    static KeyboardOption CustomerOption => new()
-    {
-        KeyboardSpecialcharacters = KeyboardSpecialcharacters.europe
-    };
-
-    static KeyboardOption SpecialcharactersOption => new()
-    {
-        CustomerKeyboardSpecialcharacters = new string[] { "中", "国", "女", "足", "牛啊" }
-    };
-
-    static KeyboardOption Option => new()
-    {
-        keysFontFamily = "Barlow",
-        keysFontWeight = "500",
-        Theme = KeyboardTheme.dark,
-    };
-
-    string BindValue { get; set; } = "virtualkeyboard";
-
-    static KeyboardOption AppOption => new()
-    {
-        autoScroll = true
-    };
-}
+<AttributeTable Items="@GetKeyboardEnumAttributes()" Title="KeyboardEnum" />
