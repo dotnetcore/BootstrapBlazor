@@ -73,6 +73,7 @@ layui
 devui
 appsettings
 cshtml
+csharp
 Starup
 args
 nameof
