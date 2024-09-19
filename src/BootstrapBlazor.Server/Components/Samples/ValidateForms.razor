@@ -401,23 +401,14 @@ private Task OnClickValidate()
     <ConsoleLogger @ref="Logger7" />
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
-
-<MethodTable Items="@GetMethods()" />
-
 <DemoBlock Title="@Localizer["ValidateFormIValidateCollectionTitle"]" Introduction="@Localizer["ValidateFormIValidateCollectionIntro"]" Name="IValidateCollectionObject2">
-    <section ignore>
-        <p>@((MarkupString)Localizer["ValidateFormIValidateCollectionDescription"].Value)</p>
-        <Pre class="mb-3"></Pre>
-        <p>@((MarkupString)Localizer["ValidateFormIValidatableObjectDescription"].Value)</p>
-    </section>
     <ValidateForm Model="@Model2_zdy" OnInvalidSubmit="OnInvalidValidateCollection">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model2_zdy!.Address" />
+                <BootstrapInput @bind-Value="@Model2_zdy!.Address" DisplayText="地址1" />
             </div>
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model2_zdy!.Address2" />
+                <BootstrapInput @bind-Value="@Model2_zdy!.Address2" DisplayText="地址2" />
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
@@ -427,8 +418,12 @@ private Task OnClickValidate()
     <ConsoleLogger @ref="Logger7" />
 </DemoBlock>
 
+<AttributeTable Items="@GetAttributes()" />
+
+<MethodTable Items="@GetMethods()" />
+
 @code{
-    private AzModel2? Model2_zdy = new AzModel2();
+    private AzModel2? Model2_zdy = new AzModel2() { Address = "北京市市辖区东城区", Address2 = "河北省秦皇岛市海港区" };
     [MetadataType(typeof(AzModel2MetadataType))]
     public class AzModel2
     {
