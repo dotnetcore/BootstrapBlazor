@@ -401,63 +401,21 @@ private Task OnClickValidate()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormIValidateCollectionTitle"]" Introduction="@Localizer["ValidateFormIValidateCollectionIntro"]" Name="IValidateCollectionObject2">
-    <ValidateForm Model="@Model2_zdy" OnInvalidSubmit="OnInvalidValidateCollection">
+    <ValidateForm Model="@_mockModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model2_zdy!.Address" DisplayText="地址1" />
+                <BootstrapInput @bind-Value="@_mockModel.Address" />
             </div>
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@Model2_zdy!.Address2" DisplayText="地址2" />
+                <BootstrapInput @bind-Value="@_mockModel.Address2" />
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
             </div>
         </div>
     </ValidateForm>
-    <ConsoleLogger @ref="Logger7" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
 <MethodTable Items="@GetMethods()" />
-
-@code{
-    private AzModel2? Model2_zdy = new AzModel2() { Address = "北京市市辖区东城区", Address2 = "河北省秦皇岛市海港区" };
-    [MetadataType(typeof(AzModel2MetadataType))]
-    public class AzModel2
-    {
-        public string? Address{ get; set; }
-        public string? Address2 { get; set; }
-    }
-
-    public class AzModel2MetadataType : IValidateCollection
-    {
-        private List<string> _ValidMemberNames = [];
-        private List<ValidationResult> _InvalidMemberNames = [];
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            _ValidMemberNames.Clear();
-            _InvalidMemberNames.Clear();
-            if(validationContext.ObjectInstance is AzModel2 model2)
-            {
-                if ((model2.Address == null && model2.Address2 == null) ||
-                    (model2.Address?.Equals(model2.Address2, StringComparison.OrdinalIgnoreCase) ?? false))
-                {
-                    _ValidMemberNames.AddRange([nameof(model2.Address), nameof(model2.Address2)]);
-                }
-                else
-                {
-                    _InvalidMemberNames.AddRange(
-                        [
-                        new ValidationResult("两个值必须一致。",[nameof(model2.Address), nameof(model2.Address2)])
-                    ]);
-                }
-            }
-            return InvalidMemberNames();
-        }
-
-        public List<string> ValidMemberNames() => _ValidMemberNames;
-
-        public List<ValidationResult> InvalidMemberNames() => _InvalidMemberNames;
-    }
-}
