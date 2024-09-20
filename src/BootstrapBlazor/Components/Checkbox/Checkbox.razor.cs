@@ -118,6 +118,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
 
         if (ShowAfterLabel)
         {
+            DisplayText ??= FieldIdentifier?.GetDisplayName();
             ShowLabel = false;
         }
 
