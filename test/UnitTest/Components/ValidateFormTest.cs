@@ -234,11 +234,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             });
         });
         var form = cut.Find("form");
-        cut.InvokeAsync(() => form.Submit()); 
+        cut.InvokeAsync(() => form.Submit());
     }
 
     [Fact]
-    public void MetadataTypeAttributeIValidatableObject_Ok()
+    public void MetadataTypeIValidatableObject_Ok()
     {
         var foo = new Dummy() { Password1 = "password", Password2 = "Password2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
