@@ -295,7 +295,15 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
-                var validate = GetValidatableObject(context);
+                IValidatableObject? validate;
+                if (context.ObjectInstance is IValidatableObject v)
+                {
+                    validate = v;
+                }
+                else
+                {
+                    validate = context.GetInstanceFromMetadataType<IValidatableObject>();
+                }
                 if (validate != null)
                 {
                     var messages = validate.Validate(context);
@@ -507,7 +515,15 @@ public partial class ValidateForm
             if (messages.Count == 0)
             {
                 // 联动字段验证 IValidateCollection
-                var validate = GetValidatableObject(context);
+                IValidateCollection? validate;
+                if (context.ObjectInstance is IValidateCollection v)
+                {
+                    validate = v;
+                }
+                else
+                {
+                    validate = context.GetInstanceFromMetadataType<IValidateCollection>();
+                }
                 if (validate != null)
                 {
                     messages.AddRange(validate.Validate(context));
@@ -518,20 +534,6 @@ public partial class ValidateForm
         }
 
         _invalid = messages.Count > 0;
-    }
-
-    private static IValidateCollection? GetValidatableObject(ValidationContext context)
-    {
-        IValidateCollection? validate;
-        if (context.ObjectInstance is IValidateCollection validateCollection)
-        {
-            validate = validateCollection;
-        }
-        else
-        {
-            validate = context.GetInstanceFromMetadataType<IValidateCollection>();
-        }
-        return validate;
     }
 
     private bool _invalid = false;
