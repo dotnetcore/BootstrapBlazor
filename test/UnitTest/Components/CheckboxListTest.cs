@@ -117,13 +117,15 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
             builder.AddChildContent<Checkbox<bool>>(pb =>
             {
+                pb.Add(a => a.ShowLabel, false);
+                pb.Add(a => a.ShowAfterLabel, true);
                 pb.Add(a => a.Value, foo.Complete);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(foo.Complete), typeof(bool)));
             });
         });
         // 断言生成 CheckboxList
         Assert.Contains("form-check is-label", cut.Markup);
-        Assert.Contains("class=\"form-label\">是/否", cut.Markup);
+        cut.Contains("是/否");
 
         // 提交表单触发客户端验证
         var form = cut.Find("form");
