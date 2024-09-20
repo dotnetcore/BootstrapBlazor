@@ -258,8 +258,9 @@ public partial class Dropzone<TItem> : IDisposable
                 {
                     DragDropService.Items.Insert(DragDropService.OldIndex.Value, DragDropService.ActiveItem);
 
-                    //commit the changes
-                    DragDropService.Commit();
+                    // 增加这行代码后单元测试有问题，等排查后再决定是否加上
+                    // commit the changes
+                    //DragDropService.Commit();
                 }
             }
             StateHasChanged();
