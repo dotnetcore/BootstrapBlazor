@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
-using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -297,15 +296,15 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
-                IValidatableObject? validatae;
+                IValidatableObject? validate;
                 if (context.ObjectInstance is IValidatableObject validatableObject)
-                    validatae = validatableObject;
+                    validate = validatableObject;
                 else
-                    validatae = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context);
+                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context);
 
-                if (validatae != null)
+                if (validate != null)
                 {
-                    var messages = validatae.Validate(context);
+                    var messages = validate.Validate(context);
                     if (messages.Any())
                     {
                         foreach (var key in _validatorCache.Keys)
@@ -520,7 +519,7 @@ public partial class ValidateForm
                 else
                     validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidateCollection>(context);
 
-                if(validate != null)
+                if (validate != null)
                 {
                     messages.AddRange(validate.Validate(context));
                     ValidMemberNames.AddRange(validate.ValidMemberNames());
@@ -649,7 +648,7 @@ public partial class ValidateForm
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
-    private List<string> _invalidComponents = [];
+    private readonly List<string> _invalidComponents = [];
 
     internal void AddValidationComponent(string id)
     {
