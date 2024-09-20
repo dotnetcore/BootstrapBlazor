@@ -404,10 +404,10 @@ private Task OnClickValidate()
     <ValidateForm Model="@_mockModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@_mockModel.Address" />
+                <BootstrapInput @bind-Value="@_mockModel.Email" />
             </div>
             <div class="col-12 col-sm-6">
-                <BootstrapInput @bind-Value="@_mockModel.Address2" />
+                <BootstrapInput @bind-Value="@_mockModel.ConfirmEmail" />
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
