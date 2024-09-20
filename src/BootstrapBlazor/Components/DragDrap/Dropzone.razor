@@ -20,7 +20,7 @@
 
     @foreach (var item in Items)
     {
-        <div draggable="@IsItemDragable(item)"
+        <div draggable="@IsItemDraggable(item)"
              @ondragstart="() => OnDragStart(item)"
              @ondragend="@OnDragEnd"
              @ondragenter="() => OnDragEnter(item)"
