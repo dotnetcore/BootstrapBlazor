@@ -10,6 +10,7 @@ cors
 dest
 dissubmit
 dropup
+dropzone
 editform
 ellips
 fullscreen
@@ -102,3 +103,4 @@ vimeo
 scrlang
 Validata
 Validatable
+noselect
