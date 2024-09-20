@@ -135,6 +135,22 @@ public partial class ValidateForm
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!ShowAllInvalidResult && _invalidComponents.Count > 0)
+        {
+            await InvokeVoidAsync("update", Id, _invalidComponents);
+            _invalidComponents.Clear();
+        }
+    }
+
+    /// <summary>
     /// 添加数据验证组件到 EditForm 中
     /// </summary>
     /// <param name="key"></param>
@@ -601,6 +617,13 @@ public partial class ValidateForm
     {
         ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
+    }
+
+    private List<string> _invalidComponents = [];
+
+    internal void AddValidationComponent(string id)
+    {
+        _invalidComponents.Add(id);
     }
 
     /// <summary>

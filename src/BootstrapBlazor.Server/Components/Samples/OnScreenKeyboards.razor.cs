@@ -12,6 +12,30 @@ public sealed partial class OnScreenKeyboards
     private static readonly Dictionary<string, string> Keys1 = new() { { "0", "L" }, { "1", "O" } };
     private static readonly Dictionary<string, string> Keys2 = new() { { "0", "V" }, { "1", "E" } };
 
+    static KeyboardOption CustomerOption => new()
+    {
+        KeyboardSpecialcharacters = KeyboardSpecialcharacters.europe
+    };
+
+    static KeyboardOption SpecialcharactersOption => new()
+    {
+        CustomerKeyboardSpecialcharacters = new string[] { "中", "国", "女", "足", "牛啊" }
+    };
+
+    static KeyboardOption Option => new()
+    {
+        keysFontFamily = "Barlow",
+        keysFontWeight = "500",
+        Theme = KeyboardTheme.dark,
+    };
+
+    string BindValue { get; set; } = "virtualkeyboard";
+
+    static KeyboardOption AppOption => new()
+    {
+        autoScroll = true
+    };
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
