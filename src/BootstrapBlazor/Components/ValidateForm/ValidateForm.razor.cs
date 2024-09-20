@@ -4,7 +4,6 @@
 
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
@@ -296,12 +295,7 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
-                IValidatableObject? validate;
-                if (context.ObjectInstance is IValidatableObject validatableObject)
-                    validate = validatableObject;
-                else
-                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidatableObject>(context);
-
+                var validate = GetValidatableObject(context);
                 if (validate != null)
                 {
                     var messages = validate.Validate(context);
@@ -513,12 +507,7 @@ public partial class ValidateForm
             if (messages.Count == 0)
             {
                 // 联动字段验证 IValidateCollection
-                IValidateCollection? validate;
-                if (context.ObjectInstance is IValidateCollection validateCollection)
-                    validate = validateCollection;
-                else
-                    validate = ValidateForm.GetValidateInstanceByMetadataTypeAttribute<IValidateCollection>(context);
-
+                var validate = GetValidatableObject(context);
                 if (validate != null)
                 {
                     messages.AddRange(validate.Validate(context));
@@ -531,23 +520,21 @@ public partial class ValidateForm
         _invalid = messages.Count > 0;
     }
 
-    private bool _invalid = false;
-    /// <summary>
-    /// 从 <see cref="MetadataTypeAttribute"/> 中获取验证接口实例。
-    /// </summary>
-    /// <typeparam name="T">验证接口类型。</typeparam>
-    /// <param name="context"></param>
-    /// <returns>没有实现 <typeparamref name="T"/> 接口，则返回 <see langword="null"/> 。</returns>
-    private static T? GetValidateInstanceByMetadataTypeAttribute<T>(ValidationContext context) where T : class
+    private static IValidateCollection? GetValidatableObject(ValidationContext context)
     {
-        var att = context.ObjectInstance.GetType().GetCustomAttribute<MetadataTypeAttribute>();
-        if (att != null && att.MetadataClassType.GetInterfaces().Any(x => x.Equals(typeof(T))))
+        IValidateCollection? validate;
+        if (context.ObjectInstance is IValidateCollection validateCollection)
         {
-            //此处是否需要缓存？
-            return ActivatorUtilities.CreateInstance(context, att.MetadataClassType) as T;
+            validate = validateCollection;
         }
-        return null;
+        else
+        {
+            validate = context.GetInstanceFromMetadataType<IValidateCollection>();
+        }
+        return validate;
     }
+
+    private bool _invalid = false;
 
     private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
