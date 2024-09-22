@@ -358,7 +358,21 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
+
+    [JSInvokable]
+    private ValueTask TriggerKeyDown(string key)
+    {
+        if (key == "ArrowUp")
+        {
+
+        }
+        else if (key == "ArrowDown")
+        {
+
+        }
+        return ValueTask.CompletedTask;
+    }
 
     private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
     {
