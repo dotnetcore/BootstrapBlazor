@@ -135,7 +135,7 @@ public partial class FileViewers
         },
         new()
         {
-            Name = nameof(FileViewer.NodataString),
+            Name = nameof(FileViewer.NoDataString),
             Description = "无数据提示文本",
             Type = "string",
             ValueList = "-",
