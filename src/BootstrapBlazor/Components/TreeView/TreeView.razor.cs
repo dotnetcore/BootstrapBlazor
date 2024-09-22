@@ -245,6 +245,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public string? ExpandNodeIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否开启键盘上下键操作 默认 false
+    /// </summary>
+    [Parameter]
+    public bool EnableKeyboardArrowUpDown { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -282,6 +288,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     private string? _searchText;
+
+    private string? EnableKeyboardArrowUpDownString => EnableKeyboardArrowUpDown ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
