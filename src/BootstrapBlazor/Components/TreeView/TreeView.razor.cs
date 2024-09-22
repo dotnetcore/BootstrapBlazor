@@ -354,6 +354,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
     private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
     {
         var ret = true;
