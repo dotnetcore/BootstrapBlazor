@@ -176,13 +176,21 @@ public partial class Modal
     /// <summary>
     /// 弹窗状态切换方法
     /// </summary>
-    public Task Toggle() => InvokeVoidAsync("execute", Id, "toggle");
+    public async Task Toggle()
+    {
+        await ModuleInitTask.Task;
+        await InvokeVoidAsync("execute", Id, "toggle");
+    }
 
     /// <summary>
     /// 显示弹窗方法
     /// </summary>
     /// <returns></returns>
-    public Task Show() => InvokeVoidAsync("execute", Id, "show");
+    public async Task Show()
+    {
+        await ModuleInitTask.Task;
+        await InvokeVoidAsync("execute", Id, "show");
+    }
 
     /// <summary>
     /// 关闭当前弹窗方法
