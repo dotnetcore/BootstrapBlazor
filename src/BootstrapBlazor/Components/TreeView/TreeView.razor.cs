@@ -360,18 +360,92 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
 
+    /// <summary>
+    /// 客户端用户键盘操作处理方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     [JSInvokable]
-    private ValueTask TriggerKeyDown(string key)
+    public async ValueTask TriggerKeyDown(string key)
     {
+        // 通过 ActiveItem 找到兄弟节点
+        // 如果兄弟节点没有时，找到父亲节点
+        if (ActiveItem == null)
+        {
+            return;
+        }
+
+        await ActiveTreeViewItem(key, ActiveItem);
+        StateHasChanged();
+    }
+
+    private async Task ActiveTreeViewItem(string key, TreeViewItem<TItem> item)
+    {
+        var root = item.Parent?.Items ?? Items;
+        var index = root.IndexOf(item);
+
+        if (key == "ArrowUp")
+        {
+            index--;
+            if (index >= 0)
+            {
+                var currentItem = root[index];
+                if (currentItem.Items.Count > 0 && currentItem.IsExpand)
+                {
+                    await OnClick(currentItem.Items[^1]);
+                }
+                else
+                {
+                    await OnClick(root[index]);
+                }
+            }
+            else if (item.Parent != null)
+            {
+                await OnClick(item.Parent);
+            }
+        }
+        else if (key == "ArrowDown")
+        {
+            if (item.Items.Count > 0 && item.IsExpand)
+            {
+                await OnClick(item.Items[0]);
+            }
+            else
+            {
+                index++;
+                if (index < root.Count)
+                {
+                    await OnClick(root[index]);
+                }
+                else if (item.Parent != null)
+                {
+                    await ActiveParentTreeViewItem(key, item.Parent);
+                }
+            }
+        }
+    }
+
+    private async Task ActiveParentTreeViewItem(string key, TreeViewItem<TItem> item)
+    {
+        var root = item.Parent?.Items ?? Items;
+        var index = root.IndexOf(item);
+
         if (key == "ArrowUp")
         {
 
         }
         else if (key == "ArrowDown")
         {
-
+            index++;
+            if (index < root.Count)
+            {
+                await OnClick(root[index]);
+            }
+            else if (item.Parent != null)
+            {
+                await ActiveParentTreeViewItem(key, item.Parent);
+            }
         }
-        return ValueTask.CompletedTask;
     }
 
     private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
@@ -444,7 +518,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (ShowCheckbox && ClickToggleCheck)
         {
             item.CheckedState = ToggleCheckState(item.CheckedState);
-            await OnCheckStateChanged(item);
+            await OnCheckStateChanged(item, false);
         }
 
         StateHasChanged();
