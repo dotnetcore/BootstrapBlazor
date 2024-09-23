@@ -37,6 +37,11 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
 
     /// <summary>
+    /// 获得/设置 Module 加载任务实例
+    /// </summary>
+    protected TaskCompletionSource TaskLoader = new();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -60,6 +65,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             {
                 await InvokeInitAsync();
             }
+            TaskLoader.SetResult();
         }
     }
 
@@ -68,7 +74,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// </summary>
     protected virtual void OnLoadJSModule()
     {
-        var type = this.GetType();
+        var type = GetType();
         var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
         if (inherited)
         {
@@ -112,6 +118,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected async Task InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
+        if (identifier != "init")
+        {
+            await TaskLoader.Task;
+        }
         if (Module != null)
         {
             await Module.InvokeVoidAsync(identifier, timeout, args);
@@ -127,6 +137,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected async Task InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
+        if (identifier != "init")
+        {
+            await TaskLoader.Task;
+        }
         if (Module != null)
         {
             await Module.InvokeVoidAsync(identifier, cancellationToken, args);
@@ -150,6 +164,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected async Task<TValue?> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
     {
+        if (identifier != "init")
+        {
+            await TaskLoader.Task;
+        }
         TValue? ret = default;
         if (Module != null)
         {
@@ -167,6 +185,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected async Task<TValue?> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
     {
+        if (identifier != "init")
+        {
+            await TaskLoader.Task;
+        }
         TValue? ret = default;
         if (Module != null)
         {
