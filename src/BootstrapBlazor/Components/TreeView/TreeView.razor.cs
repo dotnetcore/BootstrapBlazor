@@ -379,24 +379,28 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
+    private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
+
+    private List<TreeViewItem<TItem>> GetItems(TreeViewItem<TItem> item) => item.Parent?.Items ?? Items;
+
     private async Task ActiveTreeViewItem(string key, TreeViewItem<TItem> item)
     {
-        var root = item.Parent?.Items ?? Items;
-        var index = root.IndexOf(item);
+        var items = GetItems(item);
+        var index = items.IndexOf(item);
 
         if (key == "ArrowUp")
         {
             index--;
             if (index >= 0)
             {
-                var currentItem = root[index];
-                if (currentItem.Items.Count > 0 && currentItem.IsExpand)
+                var currentItem = items[index];
+                if (IsExpand(currentItem))
                 {
                     await OnClick(currentItem.Items[^1]);
                 }
                 else
                 {
-                    await OnClick(root[index]);
+                    await OnClick(currentItem);
                 }
             }
             else if (item.Parent != null)
@@ -406,16 +410,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
         else if (key == "ArrowDown")
         {
-            if (item.Items.Count > 0 && item.IsExpand)
+            if (IsExpand(item))
             {
                 await OnClick(item.Items[0]);
             }
             else
             {
                 index++;
-                if (index < root.Count)
+                if (index < items.Count)
                 {
-                    await OnClick(root[index]);
+                    await OnClick(items[index]);
                 }
                 else if (item.Parent != null)
                 {
@@ -427,8 +431,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private async Task ActiveParentTreeViewItem(string key, TreeViewItem<TItem> item)
     {
-        var root = item.Parent?.Items ?? Items;
-        var index = root.IndexOf(item);
+        var items = GetItems(item);
+        var index = items.IndexOf(item);
 
         if (key == "ArrowUp")
         {
@@ -437,9 +441,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         else if (key == "ArrowDown")
         {
             index++;
-            if (index < root.Count)
+            if (index < items.Count)
             {
-                await OnClick(root[index]);
+                await OnClick(items[index]);
             }
             else if (item.Parent != null)
             {
