@@ -73,9 +73,9 @@ public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableT
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsync(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         Toolbar?.RemoveButton(this);
-        await base.DisposeAsync(disposing);
+        return ValueTask.CompletedTask;
     }
 }
