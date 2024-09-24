@@ -245,6 +245,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public string? ExpandNodeIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否开启键盘上下键操作 默认 false
+    /// </summary>
+    [Parameter]
+    public bool EnableKeyboardArrowUpDown { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -282,6 +288,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool AutoCheckParent { get; set; }
 
     private string? _searchText;
+
+    private string? EnableKeyboardArrowUpDownString => EnableKeyboardArrowUpDown ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -343,6 +351,91 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
+
+    /// <summary>
+    /// 客户端用户键盘操作处理方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async ValueTask TriggerKeyDown(string key)
+    {
+        // 通过 ActiveItem 找到兄弟节点
+        // 如果兄弟节点没有时，找到父亲节点
+        if (ActiveItem != null)
+        {
+            await ActiveTreeViewItem(key, ActiveItem);
+            StateHasChanged();
+        }
+    }
+
+    private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
+
+    private List<TreeViewItem<TItem>> GetItems(TreeViewItem<TItem> item) => item.Parent?.Items ?? Items;
+
+    private async Task ActiveTreeViewItem(string key, TreeViewItem<TItem> item)
+    {
+        var items = GetItems(item);
+        var index = items.IndexOf(item);
+
+        if (key == "ArrowUp")
+        {
+            index--;
+            if (index >= 0)
+            {
+                var currentItem = items[index];
+                if (IsExpand(currentItem))
+                {
+                    await OnClick(currentItem.Items[^1]);
+                }
+                else
+                {
+                    await OnClick(currentItem);
+                }
+            }
+            else if (item.Parent != null)
+            {
+                await OnClick(item.Parent);
+            }
+        }
+        else if (key == "ArrowDown")
+        {
+            if (IsExpand(item))
+            {
+                await OnClick(item.Items[0]);
+            }
+            else
+            {
+                index++;
+                if (index < items.Count)
+                {
+                    await OnClick(items[index]);
+                }
+                else if (item.Parent != null)
+                {
+                    await ActiveParentTreeViewItem(item.Parent);
+                }
+            }
+        }
+    }
+
+    private async Task ActiveParentTreeViewItem(TreeViewItem<TItem> item)
+    {
+        var items = GetItems(item);
+        var index = items.IndexOf(item);
+
+        index++;
+        if (index < items.Count)
+        {
+            await OnClick(items[index]);
         }
     }
 
@@ -416,7 +509,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (ShowCheckbox && ClickToggleCheck)
         {
             item.CheckedState = ToggleCheckState(item.CheckedState);
-            await OnCheckStateChanged(item);
+            await OnCheckStateChanged(item, false);
         }
 
         StateHasChanged();

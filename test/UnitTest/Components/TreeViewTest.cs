@@ -873,6 +873,48 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Null(key);
     }
 
+    [Fact]
+    public async Task KeyBoard_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[0].IsActive = true;
+        items[1].IsExpand = true;
+        items[1].Items[1].IsExpand = true;
+        items[1].Items[1].Items[1].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.EnableKeyboardArrowUpDown, true);
+            pb.Add(a => a.Items, items);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+
+
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
