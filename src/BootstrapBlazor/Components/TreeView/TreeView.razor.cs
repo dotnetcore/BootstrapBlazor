@@ -251,6 +251,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool EnableKeyboardArrowUpDown { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "center", inline: "nearest" }
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewOptions? ScrollIntoViewOptions { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -357,8 +363,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_keyboardArrowUpDownTrigger)
+        {
+            _keyboardArrowUpDownTrigger = false;
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions ?? new() { Behavior = ScrollIntoViewBehavior.Smooth, Block = ScrollIntoViewBlock.Center, Inline = ScrollIntoViewInline.Nearest });
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
+
+    private bool _keyboardArrowUpDownTrigger;
 
     /// <summary>
     /// 客户端用户键盘操作处理方法 由 JavaScript 调用
@@ -372,8 +396,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         // 如果兄弟节点没有时，找到父亲节点
         if (ActiveItem != null)
         {
+            _keyboardArrowUpDownTrigger = true;
             await ActiveTreeViewItem(key, ActiveItem);
-            StateHasChanged();
         }
     }
 
@@ -436,6 +460,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (index < items.Count)
         {
             await OnClick(items[index]);
+        }
+        else if (item.Parent != null)
+        {
+            await ActiveParentTreeViewItem(item.Parent);
         }
     }
 

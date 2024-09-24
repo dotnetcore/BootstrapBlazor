@@ -41,6 +41,17 @@ export function init(id, invoke, method) {
     });
 }
 
+export function scroll(id, options) {
+    const tree = Data.get(id)
+    if (tree) {
+        const { el } = tree;
+        const item = el.querySelector(".active .tree-node");
+        if (item) {
+            item.scrollIntoView(options);
+        }
+    }
+}
+
 export function dispose(id) {
     const tree = Data.get(id)
     Data.remove(id);
