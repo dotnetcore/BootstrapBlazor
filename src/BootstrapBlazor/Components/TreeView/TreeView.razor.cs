@@ -251,6 +251,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public bool EnableKeyboardArrowUpDown { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "center", inline: "nearest" }
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewOptions? ScrollIntoViewOptions { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -366,7 +372,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (_keyboardArrowUpDownTrigger)
         {
             _keyboardArrowUpDownTrigger = false;
-            await InvokeVoidAsync("scroll", Id);
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions ?? new() { Behavior = ScrollIntoViewBehavior.Smooth, Block = ScrollIntoViewBlock.Center, Inline = ScrollIntoViewInline.Nearest });
         }
     }
 

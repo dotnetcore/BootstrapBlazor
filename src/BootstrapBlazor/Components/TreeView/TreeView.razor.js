@@ -41,13 +41,13 @@ export function init(id, invoke, method) {
     });
 }
 
-export function scroll(id) {
+export function scroll(id, options) {
     const tree = Data.get(id)
     if (tree) {
         const { el } = tree;
         const item = el.querySelector(".active .tree-node");
         if (item) {
-            item.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+            item.scrollIntoView(options);
         }
     }
 }
