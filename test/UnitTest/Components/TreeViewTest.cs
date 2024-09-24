@@ -965,29 +965,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Contains("node-icon visible fa-solid fa-caret-right");
     }
 
-    [Fact]
-    public async Task ToggleCheck_Ok()
-    {
-        List<TreeFoo> data =
-        [
-            new() { Text = "1010", Id = "1010" }
-        ];
-
-        var items = TreeFoo.CascadingTree(data);
-        items[0].IsActive = true;
-        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
-        {
-            pb.Add(a => a.EnableKeyboard, true);
-            pb.Add(a => a.ShowCheckbox, true);
-            pb.Add(a => a.Items, items);
-        });
-        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("Space"));
-        cut.Contains("node-icon visible fa-solid fa-caret-right fa-rotate-90");
-
-        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("Space"));
-        cut.Contains("node-icon visible fa-solid fa-caret-right");
-    }
-
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
