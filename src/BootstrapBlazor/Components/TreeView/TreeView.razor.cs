@@ -370,13 +370,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         // 通过 ActiveItem 找到兄弟节点
         // 如果兄弟节点没有时，找到父亲节点
-        if (ActiveItem == null)
+        if (ActiveItem != null)
         {
-            return;
+            await ActiveTreeViewItem(key, ActiveItem);
+            StateHasChanged();
         }
-
-        await ActiveTreeViewItem(key, ActiveItem);
-        StateHasChanged();
     }
 
     private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
@@ -423,32 +421,21 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 }
                 else if (item.Parent != null)
                 {
-                    await ActiveParentTreeViewItem(key, item.Parent);
+                    await ActiveParentTreeViewItem(item.Parent);
                 }
             }
         }
     }
 
-    private async Task ActiveParentTreeViewItem(string key, TreeViewItem<TItem> item)
+    private async Task ActiveParentTreeViewItem(TreeViewItem<TItem> item)
     {
         var items = GetItems(item);
         var index = items.IndexOf(item);
 
-        if (key == "ArrowUp")
+        index++;
+        if (index < items.Count)
         {
-
-        }
-        else if (key == "ArrowDown")
-        {
-            index++;
-            if (index < items.Count)
-            {
-                await OnClick(items[index]);
-            }
-            else if (item.Parent != null)
-            {
-                await ActiveParentTreeViewItem(key, item.Parent);
-            }
+            await OnClick(items[index]);
         }
     }
 
