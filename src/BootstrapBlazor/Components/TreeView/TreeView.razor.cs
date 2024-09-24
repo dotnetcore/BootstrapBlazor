@@ -247,6 +247,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     /// <summary>
     /// 获得/设置 是否开启键盘上下左右按键操作 默认 false
+    /// <para>ArrowLeft 收起节点</para>
+    /// <para>ArrowRight 展开节点</para>
+    /// <para>ArrowUp 向上移动节点</para>
+    /// <para>ArrowDown 向下移动节点</para>
+    /// <para>Space 选中当前节点</para>
     /// </summary>
     [Parameter]
     public bool EnableKeyboard { get; set; }
