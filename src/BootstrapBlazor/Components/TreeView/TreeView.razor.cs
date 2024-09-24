@@ -396,8 +396,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         // 如果兄弟节点没有时，找到父亲节点
         if (ActiveItem != null)
         {
-            _keyboardArrowUpDownTrigger = true;
-            await ActiveTreeViewItem(key, ActiveItem);
+            if (key == "ArrowUp" || key == "ArrowDown")
+            {
+                _keyboardArrowUpDownTrigger = true;
+                await ActiveTreeViewItem(key, ActiveItem);
+            }
+            else if (key == "ArrowLeft" || key == "ArrowRight")
+            {
+                await OnToggleNodeAsync(ActiveItem, true);
+            }
         }
     }
 
