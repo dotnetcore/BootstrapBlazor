@@ -30,12 +30,21 @@ export function init(id, invoke, method) {
     })
 
     EventHandler.on(el, 'keydown', '.tree-root', e => {
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Enter') {
-            const v = el.getAttribute('data-bb-keyboard-arrow-up-down');
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            const v = el.getAttribute('data-bb-keyboard');
             if (v === "true") {
                 e.preventDefault();
 
                 invoke.invokeMethodAsync(method, e.key);
+            }
+        }
+        else if (e.keyCode === 32) {
+            const v = el.getAttribute('data-bb-keyboard');
+            if (v === "true") {
+                const checkbox = el.querySelector(".active > .tree-content > .form-check > .form-check-input");
+                if (checkbox) {
+                    checkbox.click();
+                }
             }
         }
     });

@@ -246,10 +246,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ExpandNodeIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启键盘上下键操作 默认 false
+    /// 获得/设置 是否开启键盘上下左右按键操作 默认 false
+    /// <para>ArrowLeft 收起节点</para>
+    /// <para>ArrowRight 展开节点</para>
+    /// <para>ArrowUp 向上移动节点</para>
+    /// <para>ArrowDown 向下移动节点</para>
+    /// <para>Space 选中当前节点</para>
     /// </summary>
     [Parameter]
-    public bool EnableKeyboardArrowUpDown { get; set; }
+    public bool EnableKeyboard { get; set; }
 
     /// <summary>
     /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "center", inline: "nearest" }
@@ -295,7 +300,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? _searchText;
 
-    private string? EnableKeyboardArrowUpDownString => EnableKeyboardArrowUpDown ? "true" : null;
+    private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -396,8 +401,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         // 如果兄弟节点没有时，找到父亲节点
         if (ActiveItem != null)
         {
-            _keyboardArrowUpDownTrigger = true;
-            await ActiveTreeViewItem(key, ActiveItem);
+            if (key == "ArrowUp" || key == "ArrowDown")
+            {
+                _keyboardArrowUpDownTrigger = true;
+                await ActiveTreeViewItem(key, ActiveItem);
+            }
+            else if (key == "ArrowLeft" || key == "ArrowRight")
+            {
+                await OnToggleNodeAsync(ActiveItem, true);
+            }
         }
     }
 
