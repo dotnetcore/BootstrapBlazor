@@ -709,7 +709,7 @@
     "TreeViewMaxSelectedCountIntro": "Control the maximum number of selectable items by setting the <code>MaxSelectedCount</code> property, and handle the logic through the <code>OnMaxSelectedCountExceed</code> callback",
     "TreeViewMaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up",
     "TreeViewEnableKeyboardArrowUpDownTitle": "Keyboard",
-    "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>"
+    "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
