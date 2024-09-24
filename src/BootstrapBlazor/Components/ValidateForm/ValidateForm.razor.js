@@ -16,16 +16,17 @@ export function init(id) {
 
 export function update(id, invalidIds) {
     const el = document.getElementById(id);
-    const items = [...el.children];
+    const items = [...el.querySelectorAll(".is-invalid")];
     const invalidElements = invalidIds.map(cId => {
         const item = document.getElementById(cId);
-        let parentEl = item.parentElement;
-        while (parentEl !== el) {
-            parentEl = parentEl.parentElement;
+        let order = items.indexOf(item);
+        if (order === -1) {
+            const invalidEl = item.querySelector(".is-invalid");
+            if (invalidEl) {
+                order = items.indexOf(invalidEl);
+            }
         }
-        return {
-            item, order: items.indexOf(item)
-        };
+        return { item, order };
     });
     invalidElements.sort((a, b) => b.order - a.order);
 

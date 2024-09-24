@@ -10,6 +10,7 @@ cors
 dest
 dissubmit
 dropup
+dropzone
 editform
 ellips
 fullscreen
@@ -73,6 +74,7 @@ layui
 devui
 appsettings
 cshtml
+csharp
 Starup
 args
 nameof
@@ -101,3 +103,4 @@ vimeo
 scrlang
 Validata
 Validatable
+noselect

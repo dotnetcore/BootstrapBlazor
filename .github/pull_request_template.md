@@ -1,14 +1,47 @@
-## {PR title}
+# {PR title}
 
-<!-- Thank you for submitting a pull request to our repo. -->
+Summary of the changes (Less than 80 chars)
 
-<!-- If this is your first PR in the ASP.NET Core repo, please run through the checklist
-below to ensure a smooth review and merge process for your PR. -->
+简单描述你更改了什么, 不超过80个字符；如果有关联 Issue 请在下方填写相关编号
 
-<!-- Once all that is done, you're ready to go. Open the PR with the content below. -->
+## Description
 
-<!-- Summary of the changes (Less than 80 chars) -->
+{Detail}
 
-### Description
+Fixes #{bug number} (in this specific format)
 
-close #{bug number}
+## Regression?
+
+- [ ] Yes
+- [ ] No
+
+[If yes, specify the version the behavior has regressed from]
+
+[是否影响老版本]
+
+## Risk
+
+- [ ] High
+- [ ] Medium
+- [ ] Low
+
+[Justify the selection above]
+
+## Verification
+
+- [ ] Manual (required)
+- [ ] Automated
+
+## Packaging changes reviewed?
+
+- [ ] Yes
+- [ ] No
+- [ ] N/A
+
+## ☑️ Self Check before Merge
+
+⚠️ Please check all items below before review. ⚠️
+
+- [ ] Doc is updated/provided or not needed
+- [ ] Demo is updated/provided or not needed
+- [ ] Merge the latest code from the main branch

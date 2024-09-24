@@ -3520,7 +3520,9 @@
     "ValidateFormIValidatableObjectDescription": "本示例使用 <code>IValidatableObject</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同，以及 <code>名称</code> 不能为空，本例中并未设置 <code>名称</code> 为必填项，但是由于模型对 <code>IValidatableObject</code> 接口的实现中进行了校验，所以在提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托",
     "ValidateFormIValidateCollectionTitle": "IValidateCollection 接口类型",
     "ValidateFormIValidateCollectionIntro": "<code>IValidateCollection</code> 接口提供了更加灵活的自定义 <code>联动</code> 校验，非常适合进行非常复杂的数据校验，例如多属性组合起来进行校验等场景。",
-    "ValidateFormIValidateCollectionDescription": "本示例使用 <code>IValidateCollection</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同校验，更改任意单元格使电话号码相同时两个文本框均进行提示"
+    "ValidateFormIValidateCollectionDescription": "本示例使用 <code>IValidateCollection</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同校验，更改任意单元格使电话号码相同时两个文本框均进行提示",
+    "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
+    "ValidateMetadataTypeIntro": "模型通过 <code>[MetadataType(typeof(MockModelMetadataType))]</code> 指定元数据类型 <code>MockModelMetadataType</code> 进行模型验证，如果指定模型继承 <code>IValidateCollection</code> 接口时，调用其 <code>Validate</code> 方法进行数据合规性检查"
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",

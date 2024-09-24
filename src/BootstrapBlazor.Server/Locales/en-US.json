@@ -3520,7 +3520,9 @@
     "ValidateFormIValidatableObjectDescription": "This example uses the <code>IValidatableObject</code> interface to implement validation that <code>Telephone 1</code> and <code>Telephone 2</code> must not be the same, and that <code>Name</code> cannot be empty. In this example, <code>Name</code> is not provided, but since the model implements validation through the <code>IValidatableObject</code> interface, it still triggers the <code>OnInvalidSubmit</code> callback delegate when submitting data.",
     "ValidateFormIValidateCollectionTitle": "IValidateCollection",
     "ValidateFormIValidateCollectionIntro": "The <code>IValidateCollection</code> interface provides more flexible custom <code>linked</code> validation, which is very suitable for very complex data validation, such as combining multiple attributes for validation.",
-    "ValidateFormIValidateCollectionDescription": "This example uses <code>IValidateCollection</code> to verify that <code>Telephone 1</code> and <code>Telephone 2</code> cannot be the same. If any cell is changed so that the phone numbers are the same, both text boxes will prompt."
+    "ValidateFormIValidateCollectionDescription": "This example uses <code>IValidateCollection</code> to verify that <code>Telephone 1</code> and <code>Telephone 2</code> cannot be the same. If any cell is changed so that the phone numbers are the same, both text boxes will prompt.",
+    "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
+    "ValidateMetadataTypeIntro": "The model uses <code>[MetadataType(typeof(MockModelMetadataType))]</code> to specify the metadata type <code>MockModelMetadataType</code> for model validation. If the specified model inherits the <code>IValidateCollection</code> interface, its <code>Validate</code> method is called to perform data compliance checks."
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",

@@ -32,14 +32,13 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Checkbox<string>>(builder =>
         {
             builder.Add(a => a.ShowAfterLabel, true);
-            builder.Add(a => a.DisplayText, "Test");
         });
-        var label = cut.Find("label");
-        label.MarkupMatches("<label class=\"form-check-label\" diff:ignore>Test</label>");
+        cut.MarkupMatches("<div class=\"form-check\"><input class=\"form-check-input\" type=\"checkbox\" diff:ignore /></div>");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowLabelTooltip, true);
+            pb.Add(a => a.DisplayText, "Test");
         });
 
         var span = cut.Find("span");
@@ -116,9 +115,17 @@ public class CheckboxListTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Value, foo.Hobby);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(foo.Hobby), typeof(IEnumerable<string>)));
             });
+            builder.AddChildContent<Checkbox<bool>>(pb =>
+            {
+                pb.Add(a => a.ShowLabel, false);
+                pb.Add(a => a.ShowAfterLabel, true);
+                pb.Add(a => a.Value, foo.Complete);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(foo.Complete), typeof(bool)));
+            });
         });
         // 断言生成 CheckboxList
         Assert.Contains("form-check is-label", cut.Markup);
+        cut.Contains("是/否");
 
         // 提交表单触发客户端验证
         var form = cut.Find("form");

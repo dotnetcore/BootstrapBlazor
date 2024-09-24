@@ -295,9 +295,18 @@ public partial class ValidateForm
             // 验证 IValidatableObject
             if (results.Count == 0)
             {
-                if (context.ObjectInstance is IValidatableObject validatableObject)
+                IValidatableObject? validate;
+                if (context.ObjectInstance is IValidatableObject v)
                 {
-                    var messages = validatableObject.Validate(context);
+                    validate = v;
+                }
+                else
+                {
+                    validate = context.GetInstanceFromMetadataType<IValidatableObject>();
+                }
+                if (validate != null)
+                {
+                    var messages = validate.Validate(context);
                     if (messages.Any())
                     {
                         foreach (var key in _validatorCache.Keys)
@@ -506,11 +515,20 @@ public partial class ValidateForm
             if (messages.Count == 0)
             {
                 // 联动字段验证 IValidateCollection
-                if (context.ObjectInstance is IValidateCollection validateCollection)
+                IValidateCollection? validate;
+                if (context.ObjectInstance is IValidateCollection v)
                 {
-                    messages.AddRange(validateCollection.Validate(context));
-                    ValidMemberNames.AddRange(validateCollection.ValidMemberNames());
-                    InvalidMemberNames.AddRange(validateCollection.InvalidMemberNames());
+                    validate = v;
+                }
+                else
+                {
+                    validate = context.GetInstanceFromMetadataType<IValidateCollection>();
+                }
+                if (validate != null)
+                {
+                    messages.AddRange(validate.Validate(context));
+                    ValidMemberNames.AddRange(validate.ValidMemberNames());
+                    InvalidMemberNames.AddRange(validate.InvalidMemberNames());
                 }
             }
         }
@@ -619,7 +637,7 @@ public partial class ValidateForm
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
-    private List<string> _invalidComponents = [];
+    private readonly List<string> _invalidComponents = [];
 
     internal void AddValidationComponent(string id)
     {
