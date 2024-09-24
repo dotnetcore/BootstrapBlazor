@@ -373,7 +373,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (ActiveItem != null)
         {
             await ActiveTreeViewItem(key, ActiveItem);
-            StateHasChanged();
         }
     }
 
