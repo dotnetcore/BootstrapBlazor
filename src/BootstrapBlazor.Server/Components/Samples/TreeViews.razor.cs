@@ -44,6 +44,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; set; } = TreeFoo.GetTreeItems();
 
+    private List<TreeViewItem<TreeFoo>> KeyboardItems { get; set; } = TreeFoo.GetTreeItems();
+
     private List<SelectedItem> SelectedItems { get; set; } = TreeFoo.GetItems().Select(x => new SelectedItem(x.Id, x.Text)).ToList();
 
     private TreeView<TreeFoo>? SetActiveTreeView { get; set; }
@@ -54,9 +56,18 @@ public sealed partial class TreeViews
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
+    private string? _selectedValue;
+
     private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
     {
         Logger1.Log($"TreeItem: {item.Text} clicked");
+        return Task.CompletedTask;
+    }
+
+    private Task OnTreeItemKeyboardClick(TreeViewItem<TreeFoo> item)
+    {
+        _selectedValue = item.Value.Text;
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
