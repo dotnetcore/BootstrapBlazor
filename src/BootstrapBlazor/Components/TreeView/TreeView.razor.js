@@ -38,6 +38,15 @@ export function init(id, invoke, method) {
                 invoke.invokeMethodAsync(method, e.key);
             }
         }
+        else if (e.keyCode === 32) {
+            const v = el.getAttribute('data-bb-keyboard');
+            if (v === "true") {
+                const checkbox = el.querySelector(".active > .tree-content > .form-check > .form-check-input");
+                if (checkbox) {
+                    checkbox.click();
+                }
+            }
+        }
     });
 }
 
