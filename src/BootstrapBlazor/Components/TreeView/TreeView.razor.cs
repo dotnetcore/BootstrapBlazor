@@ -246,10 +246,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ExpandNodeIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启键盘上下键操作 默认 false
+    /// 获得/设置 是否开启键盘上下左右按键操作 默认 false
     /// </summary>
     [Parameter]
-    public bool EnableKeyboardArrowUpDown { get; set; }
+    public bool EnableKeyboard { get; set; }
 
     /// <summary>
     /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "center", inline: "nearest" }
@@ -295,7 +295,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? _searchText;
 
-    private string? EnableKeyboardArrowUpDownString => EnableKeyboardArrowUpDown ? "true" : null;
+    private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>

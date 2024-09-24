@@ -31,7 +31,7 @@ export function init(id, invoke, method) {
 
     EventHandler.on(el, 'keydown', '.tree-root', e => {
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-            const v = el.getAttribute('data-bb-keyboard-arrow-up-down');
+            const v = el.getAttribute('data-bb-keyboard');
             if (v === "true") {
                 e.preventDefault();
 
