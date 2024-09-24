@@ -901,7 +901,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var activeItemText = "1010";
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
-            pb.Add(a => a.EnableKeyboardArrowUpDown, true);
+            pb.Add(a => a.EnableKeyboard, true);
             pb.Add(a => a.Items, items);
             pb.Add(a => a.OnTreeItemClick, new Func<TreeViewItem<TreeFoo>, Task>(treeViewItem =>
             {
@@ -955,13 +955,36 @@ public class TreeViewTest : BootstrapBlazorTestBase
         items[0].IsActive = true;
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
-            pb.Add(a => a.EnableKeyboardArrowUpDown, true);
+            pb.Add(a => a.EnableKeyboard, true);
             pb.Add(a => a.Items, items);
         });
         await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowRight"));
         cut.Contains("node-icon visible fa-solid fa-caret-right fa-rotate-90");
 
         await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowLeft"));
+        cut.Contains("node-icon visible fa-solid fa-caret-right");
+    }
+
+    [Fact]
+    public async Task ToggleCheck_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" }
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.EnableKeyboard, true);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.Items, items);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("Space"));
+        cut.Contains("node-icon visible fa-solid fa-caret-right fa-rotate-90");
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("Space"));
         cut.Contains("node-icon visible fa-solid fa-caret-right");
     }
 
