@@ -296,18 +296,14 @@ public partial class DateTimePicker<TValue>
         }
         else if (MinValueToToday(SelectedValue))
         {
-            var today = DateTime.Today;
-            if (MinValue.HasValue && MinValue > today)
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            if (MinValue != null && MinValue > SelectedValue)
             {
                 SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
             }
-            else if (MaxValue.HasValue && MaxValue < today)
+            else if (MaxValue != null && MaxValue < SelectedValue)
             {
                 SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
-            }
-            else
-            {
-                SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             }
             Value = GetValue();
         }
