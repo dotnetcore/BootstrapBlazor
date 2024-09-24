@@ -357,8 +357,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_keyboardArrowUpDownTrigger)
+        {
+            _keyboardArrowUpDownTrigger = false;
+            await InvokeVoidAsync("scroll", Id);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
+
+    private bool _keyboardArrowUpDownTrigger;
 
     /// <summary>
     /// 客户端用户键盘操作处理方法 由 JavaScript 调用
@@ -372,6 +390,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         // 如果兄弟节点没有时，找到父亲节点
         if (ActiveItem != null)
         {
+            _keyboardArrowUpDownTrigger = true;
             await ActiveTreeViewItem(key, ActiveItem);
         }
     }
