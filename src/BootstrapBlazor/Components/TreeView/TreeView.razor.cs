@@ -436,6 +436,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             await OnClick(items[index]);
         }
+        else if (item.Parent != null)
+        {
+            await ActiveParentTreeViewItem(item.Parent);
+        }
     }
 
     private async Task<bool> OnBeforeStateChangedCallback(TreeViewItem<TItem> item, CheckboxState state)
