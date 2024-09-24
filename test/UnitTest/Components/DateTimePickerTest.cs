@@ -1019,6 +1019,26 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void MinValueToEmpty_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
     public void MinValueToToday_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
@@ -1117,6 +1137,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, DateTime.MinValue);
             pb.Add(a => a.MinValue, null);
             pb.Add(a => a.MaxValue, null);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.MinValue, DateTime.Today);
+            pb.Add(a => a.MaxValue, DateTime.Today);
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value);
     }
