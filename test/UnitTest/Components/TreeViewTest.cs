@@ -957,6 +957,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.EnableKeyboard, true);
             pb.Add(a => a.Items, items);
+            pb.Add(a => a.ScrollIntoViewOptions, new ScrollIntoViewOptions() { Behavior = ScrollIntoViewBehavior.Auto });
         });
         await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowRight"));
         cut.Contains("node-icon visible fa-solid fa-caret-right fa-rotate-90");
