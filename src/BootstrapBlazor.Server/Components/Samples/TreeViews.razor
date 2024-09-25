@@ -194,7 +194,8 @@
            Introduction="@Localizer["TreeViewEnableKeyboardArrowUpDownIntro"]"
            Name="Normal">
     <section ignore>@_selectedValue</section>
-    <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" EnableKeyboard="true" />
+    <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
+              EnableKeyboard="true" ClickToggleNode="false" ClickToggleCheck="false" ShowCheckbox="true" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
