@@ -34,7 +34,6 @@ export function init(id, invoke, method) {
             const v = el.getAttribute('data-bb-keyboard');
             if (v === "true") {
                 e.preventDefault();
-
                 invoke.invokeMethodAsync(method, e.key);
             }
         }
@@ -43,6 +42,7 @@ export function init(id, invoke, method) {
             if (v === "true") {
                 const checkbox = el.querySelector(".active > .tree-content > .form-check > .form-check-input");
                 if (checkbox) {
+                    e.preventDefault();
                     checkbox.click();
                 }
             }
