@@ -4,16 +4,16 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body" data-bb-dismiss=".picker-panel-link-btn">
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
+            <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled"/>
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
+        <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled"/>
     </div>
     @if (ShowClearButton)
     {
@@ -33,19 +33,20 @@
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
-                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
-                                ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                ShowRightButtons="@_showRightButtons" MaxValue="MaxValue" MinValue="MinValue">
-                </DatePickerBody>
                 @if (RenderMode == DateTimeRangeRenderMode.Double)
                 {
-                    <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                    <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                     DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
                                     ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
-                                    ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                                    ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     </DatePickerBody>
                 }
+                <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                                ShowLunar="ShowLunar" ShowSolarTerm="ShowSolarTerm" ShowFestivals="ShowFestivals" ShowHolidays="ShowHolidays"
+                                ShowLeftButtons="@_showLefttButtons" MaxValue="MaxValue" MinValue="MinValue">
+                </DatePickerBody>
+
             </CascadingValue>
         </div>
         <div class="picker-panel-footer">
