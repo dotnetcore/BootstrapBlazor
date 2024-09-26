@@ -516,10 +516,10 @@ public partial class ValidateForm
                 //验证后的错误字段名集合。
                 var newNames = messages.SelectMany(x => x.MemberNames).ToList();
                 //计算新增的验证错误字段名称集合。
-                var removeNames = newNames.Where(x => oldNames.Contains(x)).ToArray();
+                var removeNames = newNames.Where(x => oldNames.Contains(x)).ToList();
                 //从验证通过的字段集合内移除后续验证错误的字段名。
-                foreach (var name in removeNames)
-                    ValidMemberNames.Remove(name);
+                ValidMemberNames.RemoveAll(x => removeNames.Contains(x));
+
                 _tcs.TrySetResult(messages.Count == 0);
             }
 
