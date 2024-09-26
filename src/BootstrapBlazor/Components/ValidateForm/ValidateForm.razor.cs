@@ -321,11 +321,7 @@ public partial class ValidateForm
                             var validator = validatorValue.ValidateComponent;
                             if (validator.IsNeedValidate)
                             {
-                                _validateResults.AddOrUpdate(validator, k => messages, (k, m) =>
-                                {
-                                    m.AddRange(messages);
-                                    return m;
-                                });
+                                _validateResults[validator].AddRange(messages);
                             }
                         }
                         results.AddRange(messages);
