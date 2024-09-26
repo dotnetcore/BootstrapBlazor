@@ -543,8 +543,8 @@ public partial class ValidateForm
                 if (validate != null)
                 {
                     messages.AddRange(validate.Validate(context));
-                    ValidMemberNames.AddRange(validate.ValidMemberNames());
-                    InvalidMemberNames.AddRange(validate.InvalidMemberNames());
+                    ValidMemberNames.AddRange(validate.GetValidMemberNames());
+                    InvalidMemberNames.AddRange(validate.GetInvalidMemberNames());
                 }
             }
         }
