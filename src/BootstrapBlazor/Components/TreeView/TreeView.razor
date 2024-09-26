@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 @if (Items == null)
 {
@@ -18,7 +18,7 @@
 }
 else
 {
-    <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
+    <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-keyboard="@EnableKeyboardString">
         @if (ShowSearch)
         {
             @if (SearchTemplate == null)
@@ -37,7 +37,7 @@ else
                 @SearchTemplate
             }
         }
-        <ul class="tree-root scroll">
+        <ul class="tree-root scroll" tabindex="0">
             @foreach (var item in Items)
             {
                 @RenderTreeItem(item)
@@ -58,7 +58,7 @@ else
     private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
     @<li class="@GetItemClassString(item)">
         <div class="tree-content" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd">
-            <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
+            <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
             @if (ShowCheckbox)
             {
                 <Checkbox Value="@item.CheckedState" IsDisabled="GetItemDisabledState(item)" SkipValidate="true"

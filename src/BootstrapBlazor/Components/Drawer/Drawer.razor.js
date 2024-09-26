@@ -61,7 +61,11 @@ const initDrag = el => {
 }
 
 export function init(id) {
-    const el = document.getElementById(id)
+    const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
+
     const dw = {
         el,
         body: document.querySelector('body')
