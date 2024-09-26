@@ -426,6 +426,8 @@ public partial class ValidateForm
                     ? rule.FormatErrorMessage(displayName)
                     : rule.ErrorMessage;
                 results.Add(new ValidationResult(errorMessage, new string[] { memberName }));
+                //从验证通过的字段集合中移除后续验证错误的字段名称。
+                ValidMemberNames.Remove(memberName);
             }
         }
     }
@@ -508,7 +510,16 @@ public partial class ValidateForm
             {
                 // 自定义验证组件
                 _tcs = new();
+                //记录验证前的错误字段名集合。
+                var oldNames = messages.SelectMany(x => x.MemberNames).ToList();
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                //验证后的错误字段名集合。
+                var newNames = messages.SelectMany(x => x.MemberNames).ToList();
+                //计算新增的验证错误字段名称集合。
+                var removeNames = newNames.Where(x => oldNames.Contains(x)).ToArray();
+                //从验证通过的字段集合内移除后续验证错误的字段名。
+                foreach (var name in removeNames)
+                    ValidMemberNames.Remove(name);
                 _tcs.TrySetResult(messages.Count == 0);
             }
 
