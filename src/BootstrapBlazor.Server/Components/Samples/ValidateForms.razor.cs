@@ -163,12 +163,12 @@ public partial class ValidateForms
                     _validMemberNames.AddRange([nameof(model.Email), nameof(model.ConfirmEmail)]);
                 }
             }
-            return InvalidMemberNames();
+            return GetInvalidMemberNames();
         }
 
-        public List<string> ValidMemberNames() => _validMemberNames;
+        public List<string> GetValidMemberNames() => _validMemberNames;
 
-        public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
+        public List<ValidationResult> GetInvalidMemberNames() => _invalidMemberNames;
     }
 
     class ComplexFoo : Foo
