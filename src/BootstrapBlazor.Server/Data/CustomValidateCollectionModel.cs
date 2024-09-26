@@ -61,11 +61,11 @@ public class CustomValidateCollectionModel : IValidateCollection
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public List<string> ValidMemberNames() => _validMemberNames;
+    public List<string> GetValidMemberNames() => _validMemberNames;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
+    public List<ValidationResult> GetInvalidMemberNames() => _invalidMemberNames;
 }
