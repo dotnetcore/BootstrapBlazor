@@ -189,24 +189,22 @@ public partial class ValidateForm
 
     private void InternalSetError(MemberExpression exp, string errorMessage)
     {
-        var fieldName = exp.Member.Name;
-        if (exp.Expression == null)
+        if (exp.Expression != null)
         {
-            return;
-        }
+            var fieldName = exp.Member.Name;
+            var modelType = exp.Expression.Type;
+            var validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+            if (validator == null)
+            {
+                return;
+            }
 
-        var modelType = exp.Expression.Type;
-        var validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
-        if (validator == null)
-        {
-            return;
+            var results = new List<ValidationResult>
+            {
+                new(errorMessage, [fieldName])
+            };
+            validator.ToggleMessage(results);
         }
-
-        var results = new List<ValidationResult>
-        {
-            new(errorMessage, [fieldName])
-        };
-        validator.ToggleMessage(results);
     }
 
     /// <summary>
