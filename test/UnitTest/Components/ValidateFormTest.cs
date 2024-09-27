@@ -658,7 +658,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => form.Submit());
         var input = cut.FindComponent<MockInput<string>>();
         var all = cut.FindComponents<MockInput<string>>();
-        var input2 = all[all.Count - 1];
+        var input2 = all[^1];
         Assert.Equal("Telephone1 and Telephone2 can not be the same", input.Instance.GetErrorMessage());
         Assert.Equal("Telephone1 and Telephone2 can not be the same", input2.Instance.GetErrorMessage());
 
@@ -672,7 +672,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         Assert.Null(message);
 
         var allInputs = cut.FindAll("input");
-        var inputEl2 = allInputs[all.Count - 1];
+        var inputEl2 = allInputs[^1];
         await cut.InvokeAsync(() => inputEl2.Change("1234"));
         message = input2.Instance.GetErrorMessage();
         Assert.Equal("Telephone1 and Telephone2 can not be the same", message);
@@ -706,7 +706,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     private class HasServiceAttribute : ValidationAttribute
     {
         public const string Success = "Has Service";
-        public const string Error = "No Service";
+        private const string Error = "No Service";
 
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
@@ -729,20 +729,20 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     {
         public DateTime? Value { get; set; }
 
-        public Foo Foo { get; set; } = new Foo();
+        public Foo Foo { get; } = new Foo();
 
         [Required]
-        public string? File { get; set; }
+        public string? File { get; init; }
 
-        public string? Password1 { get; set; }
+        public string? Password1 { get; init; }
 
-        public string? Password2 { get; set; }
+        public string? Password2 { get; init; }
     }
 
     private class DummyMetadata : IValidatableObject
     {
         [Required]
-        public DateTime? Value { get; set; }
+        public DateTime? Value { get; init; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
@@ -769,11 +769,11 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     public class Dummy2MetadataCollection : IValidateCollection
     {
         [Required]
-        public int Value1 { get; set; }
+        public int Value1 { get; init; }
 
         [CustomValidation(typeof(Dummy2MetadataCollection), nameof(CustomValidate), ErrorMessage = "{0} 必须大于 0")]
         [Required]
-        public int Value2 { get; set; }
+        public int Value2 { get; init; }
 
         private readonly List<string> _validMemberNames = [];
 
@@ -804,7 +804,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         public static ValidationResult? CustomValidate(object value, ValidationContext context)
         {
             ValidationResult? ret = null;
-            if (value is int v && v < 1)
+            if (value is int and < 1)
             {
                 ret = new ValidationResult("Value2 必须大于 0", ["Value2"]);
             }
@@ -830,9 +830,9 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
     private class MockValidataModel : IValidatableObject
     {
-        public string? Telephone1 { get; set; }
+        public string? Telephone1 { get; init; }
 
-        public string? Telephone2 { get; set; }
+        public string? Telephone2 { get; init; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
