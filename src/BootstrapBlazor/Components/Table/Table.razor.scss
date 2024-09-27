@@ -327,7 +327,14 @@
 .btn-gear .dropdown-menu .dropdown-item {
     padding: 6px 12px;
     display: table-cell;
-    color: #504d4d;
+
+    &:not(.disabled) {
+        color: #504d4d;
+    }
+
+    &.disabled {
+        pointer-events: auto;
+    }
 }
 
 .btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
