@@ -101,6 +101,12 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool IsUploadButtonAtFirst { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上传非法时是否重置 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoResetWhenInvalid { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
