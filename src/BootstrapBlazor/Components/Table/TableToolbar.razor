@@ -52,7 +52,7 @@
                             {
                                 case TableToolbarButton<TItem> { IsShow: true } b:
                                 {
-                                    <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
+                                    <DynamicElement class="@GetItemClass(b)" TriggerClick="!GetDisabled(b)" OnClick="() => OnToolbarButtonClick(b)">
                                         @if (string.IsNullOrEmpty(b.Icon))
                                         {
                                             <span>@b.Text</span>
@@ -61,12 +61,12 @@
                                         {
                                             <i class="@b.Icon"></i>
                                         }
-                                    </div>
+                                    </DynamicElement>
                                     break;
                                 }
                                 case TableToolbarPopConfirmButton<TItem> { IsShow: true } pb:
                                 {
-                                    <div class="dropdown-item" @onclick="pb.OnConfirm">
+                                    <DynamicElement class="@GetItemClass(pb)" TriggerClick="!GetDisabled(pb)" OnClick="pb.OnConfirm">
                                         @if (string.IsNullOrEmpty(pb.Icon))
                                         {
                                             <span>@pb.Text</span>
@@ -75,7 +75,7 @@
                                         {
                                             <i class="@pb.Icon"></i>
                                         }
-                                    </div>
+                                    </DynamicElement>
                                     break;
                                 }
                             }
