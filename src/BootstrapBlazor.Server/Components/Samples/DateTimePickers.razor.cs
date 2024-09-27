@@ -90,8 +90,10 @@ public sealed partial class DateTimePickers
     private bool _showSolarTerm = true;
     private bool _showFestivals = true;
     private bool _showHolidays = true;
-    private bool _disableSunday = true;
+    private bool _disableWeekend = true;
     private bool _disableToday = false;
+
+    private bool DisableDayCallback(DateTime day) => (_disableWeekend && (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)) || (_disableToday && day.Date == DateTime.Today);
 
     /// <summary>
     /// 获得事件方法

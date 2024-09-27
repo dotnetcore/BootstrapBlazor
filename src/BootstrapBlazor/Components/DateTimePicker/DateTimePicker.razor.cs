@@ -214,7 +214,7 @@ public partial class DateTimePicker<TValue>
     /// 获取/设置 自定义禁用日期判断方法 (注意：仅当允许空时间时此方法才会生效)
     /// </summary>
     [Parameter]
-    public Func<DateTime, bool>? DisableDayPredicate { get; set; }
+    public Func<DateTime, bool>? DisableDayCallback { get; set; }
 
     [Inject]
     [NotNull]
@@ -258,9 +258,9 @@ public partial class DateTimePicker<TValue>
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
-        if (AllowNull && DisableDayPredicate != null)
+        if (AllowNull && DisableDayCallback != null)
         {
-            ReliableDisableDayPredicate = DisableDayPredicate;
+            ReliableDisableDayPredicate = DisableDayCallback;
         }
 
         var type = typeof(TValue);
