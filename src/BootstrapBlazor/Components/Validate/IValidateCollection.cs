@@ -20,11 +20,11 @@ public interface IValidateCollection
     /// 返回合法成员集合
     /// </summary>
     /// <returns></returns>
-    List<string> ValidMemberNames();
+    List<string> GetValidMemberNames();
 
     /// <summary>
     /// 返回非法成员集合
     /// </summary>
     /// <returns></returns>
-    List<ValidationResult> InvalidMemberNames();
+    List<ValidationResult> GetInvalidMemberNames();
 }

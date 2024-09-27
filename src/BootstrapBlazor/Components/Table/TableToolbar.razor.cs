@@ -50,6 +50,10 @@ public partial class TableToolbar<TItem> : ComponentBase
         .AddClass("d-none d-sm-inline-flex", IsAutoCollapsedToolbarButton)
         .Build();
 
+    private string? GetItemClass(ButtonBase button) => CssBuilder.Default("dropdown-item")
+        .AddClass("disabled", GetDisabled(button))
+        .Build();
+
     private async Task OnToolbarButtonClick(TableToolbarButton<TItem> button)
     {
         _asyncButtonStateCache.TryGetValue(button, out var disabled);
