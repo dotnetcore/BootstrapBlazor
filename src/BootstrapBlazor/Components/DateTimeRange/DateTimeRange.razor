@@ -4,16 +4,16 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body" data-bb-dismiss=".picker-panel-link-btn">
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled"/>
+            <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled"/>
+        <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
     @if (ShowClearButton)
     {
