@@ -21,7 +21,7 @@ public sealed partial class Uploads
 
     private CancellationTokenSource? ReadToken { get; set; }
 
-    private static long MaxFileLength => 200 * 1024 * 1024;
+    private static long MaxFileLength => 5 * 1024 * 1024;
 
     private Person Foo1 { get; set; } = new Person();
 
@@ -184,7 +184,7 @@ public sealed partial class Uploads
     {
         if (file != null && file.File != null)
         {
-            // 服务器端验证当文件大于 2MB 时提示文件太大信息
+            // 服务器端验证当文件大于 5MB 时提示文件太大信息
             if (file.Size > MaxFileLength)
             {
                 await ToastService.Information(Localizer["UploadsFileMsg"], Localizer["UploadsFileError"]);

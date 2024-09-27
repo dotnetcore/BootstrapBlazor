@@ -214,7 +214,8 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
             }
             file.Uploaded = true;
         }
-        //触发ValueChange，以支持bing-value
+
+        //触发 ValueChange，以支持 bind-value
         await base.OnFileChange(args);
     }
 
