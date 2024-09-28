@@ -112,12 +112,9 @@ public sealed partial class DateTimePickers
         }
 
         // 处理今天是否禁用
-        if (start < DateTime.Today && DateTime.Today < end)
+        if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
         {
-            if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
-            {
-                ret.Add(DateTime.Today);
-            }
+            ret.Add(DateTime.Today);
         }
 
         // 模拟异步延迟
