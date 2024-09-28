@@ -188,15 +188,15 @@
     </DateTimePicker>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisableDayPredicateTitle"]" Introduction="@Localizer["DisableDayPredicateIntro"]" Name="DisableDayPredicate">
+<DemoBlock Title="@Localizer["DisableDayCallbackTitle"]" Introduction="@Localizer["DisableDayCallbackIntro"]" Name="DisableDayCallback">
     <section ignore>
         <Tips>
-            <p>@((MarkupString)Localizer["DisableDayPredicateTip"].Value)</p>
+            <p>@((MarkupString)Localizer["DisableDayCallbackTip"].Value)</p>
         </Tips>
         <GroupBox Title="@Localizer["DisableOptions"]">
             <div class="row g-3 form-inline text-end">
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <Switch DisplayText="@Localizer["DisableSunday"]" ShowLabel="true" @bind-Value="_disableWeekend" />
+                    <Switch DisplayText="@Localizer["DisableWeekend"]" ShowLabel="true" @bind-Value="_disableWeekend" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-auto">
                     <Switch DisplayText="@Localizer["DisableToday"]" ShowLabel="true" @bind-Value="_disableToday" />
@@ -204,9 +204,18 @@
             </div>
         </GroupBox>
     </section>
-    <DateTimePicker ViewMode="DatePickerViewMode.DateTime" @bind-Value="@BindNullValue" DisableDayCallback="DisableDayCallback">
-        <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
-    </DateTimePicker>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@DisableDayCallbackBindNullValue" DisableDayCallback="DisableDayCallback">
+                <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
+            </DateTimePicker>
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@DisableDayCallbackBindValue" DisableDayCallback="DisableDayCallback">
+                <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
+            </DateTimePicker>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -2560,11 +2560,13 @@
     "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
     "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>",
     "DisableOptions": "禁用选项",
-    "DisableSunday": "禁用周日",
+    "DisableWeekend": "禁用周末",
     "DisableToday": "禁用今天",
-    "DisableDayPredicateTitle": "自定义禁用日期",
-    "DisableDayPredicateIntro": "通过设置 <code>DisableDayPredicate</code> 自定义哪些日期需要被禁用",
-    "DisableDayPredicateTip": "请注意，必须要设置允许空时间，自定义禁用日期才会生效，当绑定值被判断为禁用时，绑定值将被重置为空时间！"
+    "DisableDayCallbackTitle": "自定义禁用日期",
+    "DisableDayCallbackIntro": "通过设置 <code>DisableDayCallback</code> 自定义哪些日期需要被禁用",
+    "DisableDayCallbackTip": "请注意：当绑定值被判断为禁用时，绑定值将被重置为 <code>DateTime.MinValue</code>，如果允许空时间则会被重置为空时间！",
+    "DisableDayCallbackAllowNullDisplayText": "允许空时间",
+    "DisableDayCallbackNotAllowNullDisplayText": "不允许空时间"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

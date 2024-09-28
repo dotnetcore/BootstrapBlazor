@@ -70,7 +70,7 @@ public sealed partial class DateTimePickers
 
     private bool IsDisabled { get; set; } = true;
 
-    private DateTime? BindValue { get; set; } = DateTime.Today;
+    private DateTime? BindValue { get; set; } = DateTime.Now;
 
     private string BindValueString
     {
@@ -86,12 +86,17 @@ public sealed partial class DateTimePickers
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
 
+
     private bool _showLunar = true;
     private bool _showSolarTerm = true;
     private bool _showFestivals = true;
     private bool _showHolidays = true;
     private bool _disableWeekend = true;
     private bool _disableToday = false;
+
+    private DateTime? DisableDayCallbackBindNullValue { get; set; } = DateTime.Today;
+
+    private DateTime DisableDayCallbackBindValue { get; set; } = DateTime.Today;
 
     private bool DisableDayCallback(DateTime day) => (_disableWeekend && (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)) || (_disableToday && day.Date == DateTime.Today);
 

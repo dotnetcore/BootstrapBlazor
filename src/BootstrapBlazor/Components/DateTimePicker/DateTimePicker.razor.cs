@@ -211,7 +211,7 @@ public partial class DateTimePicker<TValue>
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// 获取/设置 自定义禁用日期判断方法 (注意：仅当允许空时间时此方法才会生效)
+    /// 获取/设置 自定义禁用日期判断方法
     /// </summary>
     [Parameter]
     public Func<DateTime, bool>? DisableDayCallback { get; set; }
@@ -228,8 +228,6 @@ public partial class DateTimePicker<TValue>
     private string? GenericTypeErrorMessage { get; set; }
 
     private DateTime SelectedValue { get; set; }
-
-    private Func<DateTime, bool>? ReliableDisableDayPredicate { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -258,11 +256,6 @@ public partial class DateTimePicker<TValue>
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
-        if (AllowNull && DisableDayCallback != null)
-        {
-            ReliableDisableDayPredicate = DisableDayCallback;
-        }
-
         var type = typeof(TValue);
 
         // 判断泛型类型
@@ -284,12 +277,16 @@ public partial class DateTimePicker<TValue>
             SelectedValue = (DateTime)(object)Value;
         }
 
-        if (ReliableDisableDayPredicate != null && ReliableDisableDayPredicate(SelectedValue))
+        if (MinValue != null && MinValue > SelectedValue)
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
-            Value = default;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
         }
-        else if (MinValueToEmpty(SelectedValue))
+        else if (MaxValue != null && MaxValue < SelectedValue)
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
+        }
+
+        if (MinValueToEmpty(SelectedValue))
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
             Value = default;
@@ -297,15 +294,12 @@ public partial class DateTimePicker<TValue>
         else if (MinValueToToday(SelectedValue))
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
-            //if (MinValue != null && MinValue > SelectedValue)
-            //{
-            //    SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
-            //}
-            //else if (MaxValue != null && MaxValue < SelectedValue)
-            //{
-            //    SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
-            //}
-            Value = GetValue();
+            Value = IsDisableDay(SelectedValue) ? default : GetValue();
+        }
+        else if (IsDisableDay(SelectedValue))
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            Value = default;
         }
     }
 
@@ -325,7 +319,7 @@ public partial class DateTimePicker<TValue>
             d = v2.DateTime;
         }
 
-        if (d.HasValue && MinValueToToday(d.Value))
+        if (d.HasValue && MinValueToToday(d.Value) && !IsDisableDay(DateTime.Today))
         {
             d = DateTime.Today;
         }
@@ -340,6 +334,8 @@ public partial class DateTimePicker<TValue>
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
+
+    private bool IsDisableDay(DateTime val) => DisableDayCallback != null && DisableDayCallback(val);
 
     /// <summary>
     /// 确认按钮点击时回调此方法
