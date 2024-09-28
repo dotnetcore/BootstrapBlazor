@@ -70,7 +70,7 @@ public sealed partial class DateTimePickers
 
     private bool IsDisabled { get; set; } = true;
 
-    private DateTime? BindValue { get; set; } = DateTime.Now;
+    private DateTime? BindValue { get; set; } = DateTime.Today;
 
     private string BindValueString
     {
@@ -85,7 +85,6 @@ public sealed partial class DateTimePickers
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
-
 
     private bool _showLunar = true;
     private bool _showSolarTerm = true;
