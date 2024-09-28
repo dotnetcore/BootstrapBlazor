@@ -263,17 +263,13 @@ public partial class DateTimePicker<TValue>
             throw new InvalidOperationException(GenericTypeErrorMessage);
         }
 
-        if (Value == null)
-        {
-            SelectedValue = DateTime.MinValue;
-        }
-        else if (Value is DateTimeOffset v1)
+        if (Value is DateTimeOffset v1)
         {
             SelectedValue = v1.DateTime;
         }
         else
         {
-            SelectedValue = (DateTime)(object)Value;
+            SelectedValue = Value == null ? DateTime.MinValue : (DateTime)(object)Value;
         }
 
         if (MinValue > SelectedValue)
