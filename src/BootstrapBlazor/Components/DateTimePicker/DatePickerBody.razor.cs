@@ -512,28 +512,18 @@ public partial class DatePickerBody
     {
         await base.OnParametersSetAsync();
 
-        await UpdateDisabledDaysCache();
+        await UpdateDisabledDaysCache(true);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        if (!EnableGetMonthDisabledDaysCache)
-        {
-            _monthDisabledDaysCache.Clear();
-        }
-    }
-
-    private async Task UpdateDisabledDaysCache()
+    private async Task UpdateDisabledDaysCache(bool force)
     {
         if (OnGetMonthDisabledDaysCallback != null)
         {
             var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
+            if (force && EnableGetMonthDisabledDaysCache == false)
+            {
+                _monthDisabledDaysCache.Clear();
+            }
             if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
             {
                 disabledDays = await OnGetMonthDisabledDaysCallback(StartDate, EndDate);
@@ -581,7 +571,7 @@ public partial class DatePickerBody
     private async Task OnClickPrevMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
-        await UpdateDisabledDaysCache();
+        await UpdateDisabledDaysCache(false);
 
         if (OnDateChanged != null)
         {
@@ -610,7 +600,7 @@ public partial class DatePickerBody
     private async Task OnClickNextMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
-        await UpdateDisabledDaysCache();
+        await UpdateDisabledDaysCache(false);
 
         if (OnDateChanged != null)
         {
