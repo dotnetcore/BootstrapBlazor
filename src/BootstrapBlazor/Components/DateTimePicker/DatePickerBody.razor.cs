@@ -846,29 +846,12 @@ public partial class DatePickerBody
     /// <returns></returns>
     protected static DateTime GetSafeYearDateTime(DateTime dt, int year)
     {
-        var @base = dt;
-        if (year < 0)
+        var @base = year switch
         {
-            if (DateTime.MinValue.AddYears(0 - year) < dt)
-            {
-                @base = dt.AddYears(year);
-            }
-            else
-            {
-                @base = DateTime.MinValue.Date;
-            }
-        }
-        else if (year > 0)
-        {
-            if (DateTime.MaxValue.AddYears(0 - year) > dt)
-            {
-                @base = dt.AddYears(year);
-            }
-            else
-            {
-                @base = DateTime.MaxValue.Date;
-            }
-        }
+            < 0 => DateTime.MinValue.AddYears(0 - year) < dt ? dt.AddYears(year) : DateTime.MinValue.Date,
+            > 0 => DateTime.MaxValue.AddYears(0 - year) > dt ? dt.AddYears(year) : DateTime.MaxValue.Date,
+            _ => dt
+        };
         return @base;
     }
 
@@ -878,7 +861,7 @@ public partial class DatePickerBody
     /// <param name="dt"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    protected static DateTime GetSafeDayDateTime(DateTime dt, int day)
+    private static DateTime GetSafeDayDateTime(DateTime dt, int day)
     {
         var @base = day switch
         {
@@ -895,7 +878,7 @@ public partial class DatePickerBody
     /// <param name="dt"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    protected static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
+    private static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
 
     /// <summary>
     /// 判断年视图是否溢出方法
@@ -903,7 +886,7 @@ public partial class DatePickerBody
     /// <param name="dt"></param>
     /// <param name="year"></param>
     /// <returns></returns>
-    protected static bool IsYearOverflow(DateTime dt, int year)
+    private static bool IsYearOverflow(DateTime dt, int year)
     {
         var ret = year switch
         {
