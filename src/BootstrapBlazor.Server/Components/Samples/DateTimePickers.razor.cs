@@ -95,22 +95,42 @@ public sealed partial class DateTimePickers
     private DateTime? _disabledNullValue = DateTime.Today;
     private DateTime _disabledValue = DateTime.Today;
 
-    private static Task<List<DateTime>> OnGetMonthDisabledWeekendsCallback(DateTime start, DateTime end)
+    private async Task<List<DateTime>> OnGetMonthDisabledWeekendsCallback(DateTime start, DateTime end)
     {
         var ret = new List<DateTime>();
-        var day = start;
-        while (day < end)
+        if (_disableWeekend)
         {
-            if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)
+            var day = start;
+            while (day < end)
             {
-                ret.Add(day);
+                if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)
+                {
+                    ret.Add(day);
+                }
+                day = day.AddDays(1);
             }
-            day = day.AddDays(1);
         }
-        return Task.FromResult(ret);
+
+        // 处理今天是否禁用
+        if (start < DateTime.Today && DateTime.Today < end)
+        {
+            if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday || DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+            {
+                ret.Add(DateTime.Today);
+            }
+        }
+
+        // 模拟异步延迟
+        await Task.Delay(100);
+        return ret;
     }
 
-    private static Task<List<DateTime>> OnGetMonthDisabledTodayCallback(DateTime start, DateTime end) => Task.FromResult<List<DateTime>>([DateTime.Today]);
+    private async Task<List<DateTime>> OnGetMonthDisabledTodayCallback(DateTime start, DateTime end)
+    {
+        // 模拟异步延迟
+        await Task.Delay(100);
+        return _disableToday ? [DateTime.Today] : [];
+    }
 
     /// <summary>
     /// 获得事件方法
