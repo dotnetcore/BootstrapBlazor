@@ -539,7 +539,12 @@ public partial class DatePickerBody
         }
     }
 
-    private bool IsDisableDay(DateTime val)
+    /// <summary>
+    /// 判定当前日期是否为禁用日期
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    public bool IsDisableDay(DateTime val)
     {
         bool ret = false;
         if (_monthDisabledDaysCache.TryGetValue($"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}", out var disabledDays))

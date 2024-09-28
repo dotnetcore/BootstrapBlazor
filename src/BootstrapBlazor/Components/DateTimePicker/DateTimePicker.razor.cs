@@ -234,6 +234,8 @@ public partial class DateTimePicker<TValue>
 
     private DateTime SelectedValue { get; set; }
 
+    private DatePickerBody? _datePickerBody = default;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -317,14 +319,27 @@ public partial class DateTimePicker<TValue>
             d = v2.DateTime;
         }
 
-        if (d.HasValue && MinValueToToday(d.Value))
+        if (d.HasValue)
         {
-            d = DateTime.Today;
-        }
+            if (MinValueToToday(d.Value))
+            {
+                d = DateTime.Today;
+            }
 
-        if (d.HasValue && !MinValueToEmpty(d.Value))
-        {
-            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
+            if (_datePickerBody != null)
+            {
+                var isDisabled = _datePickerBody.IsDisableDay(d.Value);
+                if (isDisabled)
+                {
+                    d = DateTime.MinValue;
+                }
+
+                var isEmpty = MinValueToEmpty(d.Value);
+                if (!isEmpty)
+                {
+                    ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
+                }
+            }
         }
         return ret;
     }
