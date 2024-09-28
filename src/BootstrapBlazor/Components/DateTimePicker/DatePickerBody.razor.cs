@@ -547,8 +547,7 @@ public partial class DatePickerBody
     private bool IsDisableDay(DateTime val)
     {
         bool ret = false;
-        var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
-        if (_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
+        if (_monthDisabledDaysCache.TryGetValue($"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}", out var disabledDays))
         {
             ret = disabledDays.Contains(val);
         }
