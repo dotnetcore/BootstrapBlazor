@@ -270,7 +270,7 @@ public partial class DateTimeRange
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private bool _showRightButtons = false;
+    private bool _showLeftButtons = false;
 
     /// <summary>
     /// <inheritdoc/>
@@ -297,7 +297,7 @@ public partial class DateTimeRange
             }
         }
 
-        _showRightButtons = RenderMode == DateTimeRangeRenderMode.Single;
+        _showLeftButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 
     /// <summary>
