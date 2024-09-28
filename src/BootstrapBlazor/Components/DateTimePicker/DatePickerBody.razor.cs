@@ -458,7 +458,7 @@ public partial class DatePickerBody
 
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
 
-    private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = new();
+    private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = [];
 
     /// <summary>
     /// <inheritdoc/>
