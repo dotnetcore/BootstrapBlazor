@@ -297,6 +297,7 @@ public partial class DateTimePicker<TValue>
         else if (MinValueToToday(SelectedValue))
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            Value = GetValue();
         }
     }
 
