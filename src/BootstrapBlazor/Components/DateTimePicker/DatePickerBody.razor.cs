@@ -867,29 +867,12 @@ public partial class DatePickerBody
     /// <returns></returns>
     protected static DateTime GetSafeDayDateTime(DateTime dt, int day)
     {
-        var @base = dt;
-        if (day < 0)
+        var @base = day switch
         {
-            if (DateTime.MinValue.AddDays(0 - day) < dt)
-            {
-                @base = dt.AddDays(day);
-            }
-            else
-            {
-                @base = DateTime.MinValue;
-            }
-        }
-        else if (day > 0)
-        {
-            if (DateTime.MaxValue.AddDays(0 - day) > dt)
-            {
-                @base = dt.AddDays(day);
-            }
-            else
-            {
-                @base = DateTime.MaxValue;
-            }
-        }
+            < 0 => DateTime.MinValue.AddDays(0 - day) < dt ? dt.AddDays(day) : DateTime.MinValue,
+            > 0 => DateTime.MaxValue.AddDays(0 - day) > dt ? dt.AddDays(day) : DateTime.MaxValue,
+            _ => dt
+        };
         return @base;
     }
 
@@ -909,15 +892,12 @@ public partial class DatePickerBody
     /// <returns></returns>
     protected static bool IsYearOverflow(DateTime dt, int year)
     {
-        var ret = false;
-        if (year < 0)
+        var ret = year switch
         {
-            ret = DateTime.MinValue.AddYears(0 - year) > dt;
-        }
-        else if (year > 0)
-        {
-            ret = DateTime.MaxValue.AddYears(0 - year) < dt;
-        }
+            < 0 => DateTime.MinValue.AddYears(0 - year) > dt,
+            > 0 => DateTime.MaxValue.AddYears(0 - year) < dt,
+            _ => false
+        };
         return ret;
     }
 
