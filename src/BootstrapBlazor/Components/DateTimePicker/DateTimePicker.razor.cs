@@ -276,12 +276,12 @@ public partial class DateTimePicker<TValue>
             SelectedValue = (DateTime)(object)Value;
         }
 
-        if (MinValue != null && MinValue > SelectedValue)
+        if (MinValue > SelectedValue)
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
             Value = GetValue();
         }
-        else if (MaxValue != null && MaxValue < SelectedValue)
+        else if (MaxValue < SelectedValue)
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
             Value = GetValue();
