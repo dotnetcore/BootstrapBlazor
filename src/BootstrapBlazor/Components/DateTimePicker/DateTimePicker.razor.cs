@@ -210,10 +210,16 @@ public partial class DateTimePicker<TValue>
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// 获取/设置 自定义禁用日期判断方法
+    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableGetMonthDisabledDaysCache"/> 参数关闭
     /// </summary>
     [Parameter]
-    public Func<DateTime, bool>? OnDisabledDayCallback { get; set; }
+    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetMonthDisabledDaysCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用获得年自定义禁用日期缓存
+    /// </summary>
+    [Parameter]
+    public bool EnableGetMonthDisabledDaysCache { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -291,12 +297,6 @@ public partial class DateTimePicker<TValue>
         else if (MinValueToToday(SelectedValue))
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
-            Value = IsDisableDay(SelectedValue) ? default : GetValue();
-        }
-        else if (IsDisableDay(SelectedValue))
-        {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
-            Value = default;
         }
     }
 
@@ -316,7 +316,7 @@ public partial class DateTimePicker<TValue>
             d = v2.DateTime;
         }
 
-        if (d.HasValue && MinValueToToday(d.Value) && !IsDisableDay(DateTime.Today))
+        if (d.HasValue && MinValueToToday(d.Value))
         {
             d = DateTime.Today;
         }
@@ -331,8 +331,6 @@ public partial class DateTimePicker<TValue>
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
-
-    private bool IsDisableDay(DateTime val) => OnDisabledDayCallback != null && OnDisabledDayCallback(val);
 
     /// <summary>
     /// 确认按钮点击时回调此方法

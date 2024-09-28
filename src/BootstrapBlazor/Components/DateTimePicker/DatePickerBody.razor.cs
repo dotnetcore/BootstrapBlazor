@@ -73,7 +73,9 @@ public partial class DatePickerBody
         .AddClass("is-open", ShowTimePicker)
         .Build();
 
-    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value) || (OnDisabledDayCallback != null && OnDisabledDayCallback(day));
+    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value)
+        || (MaxValue.HasValue && day > MaxValue.Value)
+        || IsDisableDay(day);
 
     /// <summary>
     /// 获得 上一月按钮样式
@@ -376,10 +378,16 @@ public partial class DatePickerBody
     private DateTimeRange? Ranger { get; set; }
 
     /// <summary>
-    /// 获取/设置 自定义禁用日期判断方法
+    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableGetMonthDisabledDaysCache"/> 参数关闭
     /// </summary>
     [Parameter]
-    public Func<DateTime, bool>? OnDisabledDayCallback { get; set; }
+    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetMonthDisabledDaysCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用获得年自定义禁用日期缓存
+    /// </summary>
+    [Parameter]
+    public bool EnableGetMonthDisabledDaysCache { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -452,6 +460,8 @@ public partial class DatePickerBody
 
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
 
+    private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = new();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -497,6 +507,54 @@ public partial class DatePickerBody
         NextYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextYearIcon);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        await UpdateDisabledDaysCache();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (!EnableGetMonthDisabledDaysCache)
+        {
+            _monthDisabledDaysCache.Clear();
+        }
+    }
+
+    private async Task UpdateDisabledDaysCache()
+    {
+        if (OnGetMonthDisabledDaysCallback != null)
+        {
+            var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
+            if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
+            {
+                disabledDays = await OnGetMonthDisabledDaysCallback(StartDate, EndDate);
+                _monthDisabledDaysCache.Add(key, disabledDays);
+            }
+        }
+    }
+
+    private bool IsDisableDay(DateTime val)
+    {
+        bool ret = false;
+        var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
+        if (_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
+        {
+            ret = disabledDays.Contains(val);
+        }
+        return ret;
+    }
+
     private async Task OnValueChanged()
     {
         if (ValueChanged.HasDelegate)
@@ -526,6 +584,7 @@ public partial class DatePickerBody
     private async Task OnClickPrevMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
+        await UpdateDisabledDaysCache();
 
         if (OnDateChanged != null)
         {
@@ -554,6 +613,7 @@ public partial class DatePickerBody
     private async Task OnClickNextMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
+        await UpdateDisabledDaysCache();
 
         if (OnDateChanged != null)
         {
