@@ -91,11 +91,26 @@ public sealed partial class DateTimePickers
     private bool _showFestivals = true;
     private bool _showHolidays = true;
     private bool _disableWeekend = true;
-    private bool _disableToday = false;
+    private bool _disableToday = true;
     private DateTime? _disabledNullValue = DateTime.Today;
     private DateTime _disabledValue = DateTime.Today;
 
-    private bool DisableDayCallback(DateTime day) => (_disableWeekend && (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)) || (_disableToday && day.Date == DateTime.Today);
+    private static Task<List<DateTime>> OnGetMonthDisabledWeekendsCallback(DateTime start, DateTime end)
+    {
+        var ret = new List<DateTime>();
+        var day = start;
+        while (day < end)
+        {
+            if (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)
+            {
+                ret.Add(day);
+            }
+            day = day.AddDays(1);
+        }
+        return Task.FromResult(ret);
+    }
+
+    private static Task<List<DateTime>> OnGetMonthDisabledTodayCallback(DateTime start, DateTime end) => Task.FromResult<List<DateTime>>([DateTime.Today]);
 
     /// <summary>
     /// 获得事件方法

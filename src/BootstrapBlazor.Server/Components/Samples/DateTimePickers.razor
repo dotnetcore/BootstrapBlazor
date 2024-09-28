@@ -188,7 +188,7 @@
     </DateTimePicker>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisableDayCallbackTitle"]" Introduction="@Localizer["DisableDayCallbackIntro"]" Name="DisableDayCallback">
+<DemoBlock Title="@Localizer["DisableDayCallbackTitle"]" Introduction="@Localizer["DisableDayCallbackIntro"]" Name="OnDisabledDayCallback">
     <section ignore>
         <Tips>
             <p>@((MarkupString)Localizer["DisableDayCallbackTip"].Value)</p>
@@ -206,13 +206,15 @@
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@_disabledNullValue" OnDisabledDayCallback="DisableDayCallback">
-                <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]"
+                            ShowLabel="true" @bind-Value="@_disabledNullValue"
+                            OnGetMonthDisabledDaysCallback="OnGetMonthDisabledWeekendsCallback">
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@_disabledValue" OnDisabledDayCallback="DisableDayCallback">
-                <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]"
+                            ShowLabel="true" @bind-Value="@_disabledValue"
+                            OnGetMonthDisabledDaysCallback="OnGetMonthDisabledTodayCallback">
             </DateTimePicker>
         </div>
     </div>
