@@ -1106,7 +1106,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         var cut1 = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
-            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableToday);
             pb.Add(a => a.Value, DateTime.Today);
         });
         Assert.Null(cut1.Instance.Value);
@@ -1121,7 +1121,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut1.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.DisableDayCallback, DisableYesterday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableYesterday);
             pb.Add(a => a.Value, DateTime.Today);
         });
         Assert.Equal(DateTime.Today, cut1.Instance.Value);
@@ -1130,7 +1130,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut2 = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableToday);
             pb.Add(a => a.Value, DateTime.Today);
         });
         Assert.Null(cut2.Instance.Value);
@@ -1139,7 +1139,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var cut3 = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
         {
-            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableToday);
             pb.Add(a => a.Value, DateTimeOffset.Now);
         });
         Assert.Null(cut3.Instance.Value);
@@ -1148,7 +1148,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var cut4 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
-            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableToday);
             pb.Add(a => a.Value, DateTime.Now);
         });
         Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
@@ -1158,7 +1158,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut4.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
-            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableToday);
             pb.Add(a => a.Value, DateTime.MinValue);
         });
         Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
@@ -1166,7 +1166,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut4.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
-            pb.Add(a => a.DisableDayCallback, DisableYesterday);
+            pb.Add(a => a.OnDisabledDayCallback, DisableYesterday);
             pb.Add(a => a.Value, DateTime.MinValue);
         });
         Assert.Equal(DateTime.Today, cut4.Instance.Value);
