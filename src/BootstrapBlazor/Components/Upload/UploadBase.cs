@@ -102,7 +102,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     }
 
     /// <summary>
-    /// 
+    /// 上传文件改变时回调此方法
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
