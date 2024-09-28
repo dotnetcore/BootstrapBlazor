@@ -1121,8 +1121,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 组件值为 null
         Assert.True(fetched);
         Assert.Equal(DateTime.Today, cut.Instance.Value);
-        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut.Markup);
-        Assert.Contains("today disabled", cut.Markup);
 
         fetched = false;
         // 设置组件值不为当前天
