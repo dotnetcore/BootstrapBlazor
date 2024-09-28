@@ -213,7 +213,7 @@ public partial class DateTimePicker<TValue>
     /// 获取/设置 自定义禁用日期判断方法
     /// </summary>
     [Parameter]
-    public Func<DateTime, bool>? DisableDayCallback { get; set; }
+    public Func<DateTime, bool>? OnDisabledDayCallback { get; set; }
 
     [Inject]
     [NotNull]
@@ -332,7 +332,7 @@ public partial class DateTimePicker<TValue>
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
 
-    private bool IsDisableDay(DateTime val) => DisableDayCallback != null && DisableDayCallback(val);
+    private bool IsDisableDay(DateTime val) => OnDisabledDayCallback != null && OnDisabledDayCallback(val);
 
     /// <summary>
     /// 确认按钮点击时回调此方法

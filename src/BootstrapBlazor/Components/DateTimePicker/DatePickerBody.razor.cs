@@ -73,7 +73,7 @@ public partial class DatePickerBody
         .AddClass("is-open", ShowTimePicker)
         .Build();
 
-    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value) || (DisableDayCallback != null && DisableDayCallback(day));
+    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value) || (OnDisabledDayCallback != null && OnDisabledDayCallback(day));
 
     /// <summary>
     /// 获得 上一月按钮样式
@@ -379,7 +379,7 @@ public partial class DatePickerBody
     /// 获取/设置 自定义禁用日期判断方法
     /// </summary>
     [Parameter]
-    public Func<DateTime, bool>? DisableDayCallback { get; set; }
+    public Func<DateTime, bool>? OnDisabledDayCallback { get; set; }
 
     [Inject]
     [NotNull]
