@@ -4,7 +4,7 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
+@* <DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
     <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
                     Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
@@ -186,7 +186,7 @@
             </span>
         </DayTemplate>
     </DateTimePicker>
-</DemoBlock>
+</DemoBlock> *@
 
 <DemoBlock Title="@Localizer["DisableDayCallbackTitle"]" Introduction="@Localizer["DisableDayCallbackIntro"]" Name="OnDisabledDayCallback">
     <section ignore>
@@ -212,10 +212,10 @@
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]"
+            @* <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]"
                             ShowLabel="true" @bind-Value="@_disabledValue"
                             OnGetMonthDisabledDaysCallback="OnGetMonthDisabledTodayCallback">
-            </DateTimePicker>
+            </DateTimePicker> *@
         </div>
     </div>
 </DemoBlock>
