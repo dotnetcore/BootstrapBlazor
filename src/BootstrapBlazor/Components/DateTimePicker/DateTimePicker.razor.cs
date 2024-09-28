@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using System.ComponentModel.Design;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
