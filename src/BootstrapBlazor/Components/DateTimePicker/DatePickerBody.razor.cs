@@ -522,7 +522,7 @@ public partial class DatePickerBody
             var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
             if (force && EnableGetMonthDisabledDaysCache == false)
             {
-                _monthDisabledDaysCache.Clear();
+                _monthDisabledDaysCache.Remove(key);
             }
             if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
             {
