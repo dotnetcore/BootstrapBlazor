@@ -92,10 +92,8 @@ public sealed partial class DateTimePickers
     private bool _showHolidays = true;
     private bool _disableWeekend = true;
     private bool _disableToday = false;
-
-    private DateTime? DisableDayCallbackBindNullValue { get; set; } = DateTime.Today;
-
-    private DateTime DisableDayCallbackBindValue { get; set; } = DateTime.Today;
+    private DateTime? _disabledNullValue = DateTime.Today;
+    private DateTime _disabledValue = DateTime.Today;
 
     private bool DisableDayCallback(DateTime day) => (_disableWeekend && (day.DayOfWeek == DayOfWeek.Sunday || day.DayOfWeek == DayOfWeek.Saturday)) || (_disableToday && day.Date == DateTime.Today);
 

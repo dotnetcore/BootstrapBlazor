@@ -206,12 +206,12 @@
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@DisableDayCallbackBindNullValue" DisableDayCallback="DisableDayCallback">
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@_disabledNullValue" DisableDayCallback="DisableDayCallback">
                 <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@DisableDayCallbackBindValue" DisableDayCallback="DisableDayCallback">
+            <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]" ShowLabel="true" @bind-Value="@_disabledValue" DisableDayCallback="DisableDayCallback">
                 <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
             </DateTimePicker>
         </div>
