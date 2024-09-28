@@ -665,6 +665,13 @@ public partial class DatePickerBody
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
+            if (view is DatePickerViewMode.Date or DatePickerViewMode.DateTime)
+            {
+                // update disabled days cache
+                _render = false;
+                await UpdateDisabledDaysCache(false);
+                _render = true;
+            }
             StateHasChanged();
         }
         else if (AutoClose)
