@@ -200,12 +200,44 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void MaxValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MaxValue, DateTime.Today.AddDays(1)));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value.Date);
     }
 
     [Fact]
     public void MinValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1)));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value.Date);
     }
 
     [Fact]
@@ -1091,6 +1123,22 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
         Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut4.Markup);
         Assert.Contains("today disabled", cut4.Markup);
+
+        cut4.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DisableDayCallback, DisableToday);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
+
+        cut4.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DisableDayCallback, DisableYesterday);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.Today, cut4.Instance.Value);
     }
 
     private bool DisableToday(DateTime day)

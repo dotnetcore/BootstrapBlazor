@@ -280,10 +280,12 @@ public partial class DateTimePicker<TValue>
         if (MinValue != null && MinValue > SelectedValue)
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MinValue.Value : MinValue.Value.Date;
+            Value = GetValue();
         }
         else if (MaxValue != null && MaxValue < SelectedValue)
         {
             SelectedValue = ViewMode == DatePickerViewMode.DateTime ? MaxValue.Value : MaxValue.Value.Date;
+            Value = GetValue();
         }
 
         if (MinValueToEmpty(SelectedValue))
