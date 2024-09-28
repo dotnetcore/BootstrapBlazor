@@ -515,6 +515,13 @@ public partial class DatePickerBody
         await UpdateDisabledDaysCache(true);
     }
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override bool ShouldRender() => _render;
+
     private async Task UpdateDisabledDaysCache(bool force)
     {
         if (OnGetMonthDisabledDaysCallback != null)
@@ -571,7 +578,10 @@ public partial class DatePickerBody
     private async Task OnClickPrevMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
+
+        _render = false;
         await UpdateDisabledDaysCache(false);
+        _render = true;
 
         if (OnDateChanged != null)
         {
@@ -600,7 +610,10 @@ public partial class DatePickerBody
     private async Task OnClickNextMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
+
+        _render = false;
         await UpdateDisabledDaysCache(false);
+        _render = true;
 
         if (OnDateChanged != null)
         {
