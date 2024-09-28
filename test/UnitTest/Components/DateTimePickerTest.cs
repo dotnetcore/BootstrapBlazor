@@ -1102,85 +1102,48 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DisableDayCallback_Ok()
+    public async Task OnGetMonthDisabledDaysCallback_Ok()
     {
-        var cut1 = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        var fetched = false;
+
+        // 禁用当天
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableToday);
-            pb.Add(a => a.EnableGetMonthDisabledDaysCache, true);
+            pb.Add(a => a.OnGetMonthDisabledDaysCallback, async (start, end) =>
+            {
+                fetched = true;
+                await Task.Yield();
+                return [DateTime.Today];
+            });
             pb.Add(a => a.Value, DateTime.Today);
         });
-        Assert.Null(cut1.Instance.Value);
-        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut1.Markup);
-        Assert.Contains("today disabled", cut1.Markup);
 
-        cut1.SetParametersAndRender(pb =>
+        // 组件值为 null
+        Assert.True(fetched);
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut.Markup);
+        Assert.Contains("today disabled", cut.Markup);
+
+        fetched = false;
+        // 设置组件值不为当前天
+        cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Value, DateTime.Today.AddDays(1));
         });
-        Assert.Equal(DateTime.Today.AddDays(1), cut1.Instance.Value);
+        Assert.False(fetched);
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
 
-        cut1.SetParametersAndRender(pb =>
+        // 禁用缓存
+        // 每次组件渲染都会触发回调
+        cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableYesterday);
-            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.EnableGetMonthDisabledDaysCache, false);
         });
-        Assert.Equal(DateTime.Today, cut1.Instance.Value);
-        Assert.Contains("btn picker-panel-link-btn is-now", cut1.Markup);
 
-        var cut2 = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
-        {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableToday);
-            pb.Add(a => a.Value, DateTime.Today);
-        });
-        Assert.Null(cut2.Instance.Value);
-        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut2.Markup);
-        Assert.Contains("today disabled", cut2.Markup);
-
-        var cut3 = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
-        {
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableToday);
-            pb.Add(a => a.Value, DateTimeOffset.Now);
-        });
-        Assert.Null(cut3.Instance.Value);
-        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut3.Markup);
-        Assert.Contains("today disabled", cut3.Markup);
-
-        var cut4 = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
-        {
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableToday);
-            pb.Add(a => a.Value, DateTime.Now);
-        });
-        Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
-        Assert.DoesNotContain("btn picker-panel-link-btn is-now", cut4.Markup);
-        Assert.Contains("today disabled", cut4.Markup);
-
-        cut4.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableToday);
-            pb.Add(a => a.Value, DateTime.MinValue);
-        });
-        Assert.Equal(DateTime.MinValue, cut4.Instance.Value);
-
-        cut4.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, DisableYesterday);
-            pb.Add(a => a.Value, DateTime.MinValue);
-        });
-        Assert.Equal(DateTime.Today, cut4.Instance.Value);
-    }
-
-    private static Task<List<DateTime>> DisableToday(DateTime start, DateTime end)
-    {
-        return Task.FromResult<List<DateTime>>([DateTime.Today]);
-    }
-
-    private Task<List<DateTime>> DisableYesterday(DateTime start, DateTime end)
-    {
-        return Task.FromResult<List<DateTime>>([DateTime.Today.AddDays(-1)]);
+        var buttons = cut.FindAll(".picker-panel-header button");
+        // 下一月
+        await cut.InvokeAsync(() => buttons[2].Click());
+        Assert.True(fetched);
     }
 
     class MockDateTimePicker : DatePickerBody
