@@ -101,7 +101,7 @@ public sealed partial class DateTimePickers
         if (_disableWeekend)
         {
             var day = start;
-            while (day < end)
+            while (day <= end)
             {
                 if (day.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
                 {

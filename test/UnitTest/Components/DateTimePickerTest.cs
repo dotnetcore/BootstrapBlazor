@@ -1041,6 +1041,21 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         var v = mi.Invoke(picker, [DateTime.MinValue]);
         Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
+
+        // 设置为 禁用日期时 UI 显示为空字符串
+        // cut.SetParametersAndRender(pb =>
+        // {
+        //     pb.Add(a => a.Value, DateTime.Today);
+        //     pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+        //     {
+        //         await Task.Delay(0);
+        //         var ret = new List<DateTime>() { DateTime.Today };
+        //         return ret;
+        //     });
+        // });
+        //
+        // v = mi.Invoke(picker, [DateTime.MinValue]);
+        // Assert.Equal(string.Empty, v);
     }
 
     [Fact]
