@@ -92,8 +92,8 @@ public sealed partial class DateTimePickers
     private bool _showHolidays = true;
     private bool _disableWeekend = true;
     private bool _disableToday = true;
-    private DateTime? _disabledNullValue;
-    private DateTime _disabledValue;
+    private DateTime? _disabledNullValue = DateTime.Today;
+    private DateTime _disabledValue = DateTime.Today;
 
     private async Task<List<DateTime>> OnGetDisabledDaysCallback(DateTime start, DateTime end)
     {

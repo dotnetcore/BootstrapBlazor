@@ -210,7 +210,7 @@
         <div class="col-12 col-sm-6">
             <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]"
                             ShowLabel="true" @bind-Value="@_disabledNullValue" @ref="_picker1"
-                            OnGetDisabledDaysCallback="OnGetDisabledDaysCallback">
+                            OnGetDisabledDaysCallback="OnGetDisabledDaysCallback" DisplayDisabledDayAsEmpty="true">
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
