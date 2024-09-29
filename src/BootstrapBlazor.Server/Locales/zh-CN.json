@@ -2495,7 +2495,7 @@
     "NormalTitle": "选择日",
     "NormalIntro": "以「日」为基本单位，基础的日期选择控件",
     "ShowIconTitle": "是否显示组件图标",
-    "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\" 不显示组件图标节约空间",
+    "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\"</code> 不显示组件图标节约空间",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
     "IsEditableTitle": "手工录入",
@@ -2544,8 +2544,6 @@
     "ValidateFormValue": "时间",
     "DateTimePickerTitle": "时间选择",
     "DateTimePickerIntro": "通过时钟表盘选择时分秒，获取当前的日期和时间。",
-    "ShowLunarTitle": "显示农历",
-    "ShowLunarIntro": "通过设置 <code>ShowLunar=\"true\"</code> 显示农历",
     "DayTemplateTitle": "自定义日期显示",
     "DayTemplateIntro": "通过设置 <code>DayTemplate</code> 自定义显示模板，禁用的日期模板为 <code>DayDisabledTemplate</code>",
     "AttrShowLunar": "是否显示农历",
@@ -2566,7 +2564,11 @@
     "DisableDayCallbackIntro": "通过设置 <code>DisableDayCallback</code> 自定义哪些日期需要被禁用",
     "DisableDayCallbackTip": "请注意：当绑定值被判断为禁用时，绑定值将被重置为 <code>DateTime.MinValue</code>，如果允许空时间则会被重置为空时间！",
     "DisableDayCallbackAllowNullDisplayText": "允许空时间",
-    "DisableDayCallbackNotAllowNullDisplayText": "不允许空时间"
+    "DisableDayCallbackNotAllowNullDisplayText": "不允许空时间",
+    "FeatureShowLunarIntro": "是否显示农历 <code>ShowLunar</code>",
+    "FeatureShowSolarTermIntro": "是否显示 24 节气 <code>ShowSolarTerm</code>",
+    "FeatureShowFestivalsIntro": "是否显示节日 <code>ShowFestivals</code>",
+    "FeatureShowHolidaysIntro": "是否显示假日 <code>ShowHolidays</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

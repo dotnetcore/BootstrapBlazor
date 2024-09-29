@@ -2544,8 +2544,6 @@
     "ValidateFormValue": "DateTimePick",
     "DateTimePickerTitle": "Select the time",
     "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time.",
-    "ShowLunarTitle": "Show lunar",
-    "ShowLunarIntro": "Display the lunar calendar by setting <code>ShowLunar=\"true\"</code>",
     "DayTemplateTitle": "Custom date display",
     "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>",
     "AttrShowLunar": "Whether to display ChineseLunar",
@@ -2566,7 +2564,11 @@
     "DisableDayCallbackIntro": "Specify which dates are disabled by setting <code>DisableDayCallback</code>",
     "DisableDayCallbackTip": "Note: When the binding value is judged to be disabled, the binding value is reset to <code>DateTime.MinValue</code> or to empty time if it is allowed",
     "DisableDayCallbackAllowNullDisplayText": "Allow empty time",
-    "DisableDayCallbackNotAllowNullDisplayText": "Not allow empty time"
+    "DisableDayCallbackNotAllowNullDisplayText": "Not allow empty time",
+    "FeatureShowLunarIntro": "Whether to display the lunar calendar <code>ShowLunar</code>",
+    "FeatureShowSolarTermIntro": "Whether to display the 24 solar terms <code>ShowSolarTerm</code>",
+    "FeatureShowFestivalsIntro": "Whether to display festivals <code>ShowFestivals</code>",
+    "FeatureShowHolidaysIntro": "Whether to display holidays <code>ShowHolidays</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

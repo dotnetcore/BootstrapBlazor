@@ -39,6 +39,12 @@
     <section ignore>
         <Tips class="mt-3">
             <p>@((MarkupString)Localizer["FeatureIntro"].Value)</p>
+            <ul class="ul-demo mt-3">
+                <li>@((MarkupString)Localizer["FeatureShowLunarIntro"].Value)</li>
+                <li>@((MarkupString)Localizer["FeatureShowSolarTermIntro"].Value)</li>
+                <li>@((MarkupString)Localizer["FeatureShowFestivalsIntro"].Value)</li>
+                <li>@((MarkupString)Localizer["FeatureShowHolidaysIntro"].Value)</li>
+            </ul>
             <div>@((MarkupString)Localizer["FeatureFestivalIntro"].Value)</div>
         </Tips>
     </section>
@@ -171,10 +177,6 @@
             </BootstrapInputGroup>
         </div>
     </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ShowLunarTitle"]" Introduction="@Localizer["ShowLunarIntro"]" Name="ShowLunar">
-    <DateTimePicker TValue="DateTimeOffset" ShowLunar="true" ShowSolarTerm="true" ShowFestivals="true" ShowHolidays="true"></DateTimePicker>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DayTemplateTitle"]" Introduction="@Localizer["DayTemplateIntro"]" Name="DayTemplate">
