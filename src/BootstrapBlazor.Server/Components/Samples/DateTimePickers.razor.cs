@@ -275,6 +275,13 @@ public sealed partial class DateTimePickers
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
+        },
+        new() {
+            Name = "DisplayDisabledDayAsEmpty",
+            Description = Localizer["AttrDisplayDisabledDayAsEmpty"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
     ];
 }

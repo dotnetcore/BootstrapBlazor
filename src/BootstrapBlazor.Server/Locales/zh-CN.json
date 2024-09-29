@@ -2570,7 +2570,8 @@
     "FeatureShowFestivalsIntro": "<code>ShowFestivals</code> 是否显示节日",
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> 是否显示假日",
     "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
-    "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存"
+    "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存",
+    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",

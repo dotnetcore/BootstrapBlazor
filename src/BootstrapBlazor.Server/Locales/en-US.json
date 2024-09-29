@@ -2570,7 +2570,8 @@
     "FeatureShowFestivalsIntro": "<code>ShowFestivals</code> Whether to display festivals",
     "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> Whether to display holidays",
     "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
-    "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache"
+    "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache",
+    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
