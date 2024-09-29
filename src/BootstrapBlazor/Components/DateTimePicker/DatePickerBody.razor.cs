@@ -382,7 +382,7 @@ public partial class DatePickerBody
     public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否启用获得年自定义禁用日期缓存
+    /// 获得/设置 是否启用获得自定义禁用日期缓存
     /// </summary>
     [Parameter]
     public bool EnableDisabledDaysCache { get; set; } = true;

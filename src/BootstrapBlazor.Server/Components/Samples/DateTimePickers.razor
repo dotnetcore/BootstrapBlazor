@@ -57,7 +57,7 @@
                 <DateTimePicker @bind-Value="@ValidateFormValue" />
             </div>
             <div class="col-12 col-sm-auto align-self-end">
-                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk" />
+                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk"></Button>
             </div>
         </div>
     </ValidateForm>
@@ -193,7 +193,7 @@
 <DemoBlock Title="@Localizer["DisableDayCallbackTitle"]" Introduction="@Localizer["DisableDayCallbackIntro"]" Name="OnDisabledDayCallback">
     <section ignore>
         <Tips>
-            <p>@((MarkupString)Localizer["DisableDayCallbackTip"].Value)</p>
+            @((MarkupString)Localizer["DisableDayCallbackTip"].Value)
         </Tips>
         <GroupBox Title="@Localizer["DisableOptions"]">
             <div class="row g-3 form-inline text-end">

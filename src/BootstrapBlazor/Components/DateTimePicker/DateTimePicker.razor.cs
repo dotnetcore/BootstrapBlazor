@@ -210,7 +210,7 @@ public partial class DateTimePicker<TValue>
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
+    /// 获取/设置 获得自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
     /// </summary>
     [Parameter]
     public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
@@ -320,9 +320,11 @@ public partial class DateTimePicker<TValue>
         {
             if (MinValueToToday(d.Value))
             {
+                // 最小值映射为当天
                 d = DateTime.Today;
             }
-            else if (!MinValueToEmpty(d.Value))
+
+            if (!MinValueToEmpty(d.Value))
             {
                 ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
             }

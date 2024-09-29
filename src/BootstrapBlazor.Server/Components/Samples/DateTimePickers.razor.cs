@@ -156,6 +156,12 @@ public sealed partial class DateTimePickers
             Name = "ValueChanged",
             Description = Localizer["Event2"],
             Type ="EventCallback<DateTime?>"
+        },
+        new()
+        {
+            Name = "OnGetDisabledDaysCallback",
+            Description = Localizer["OnGetDisabledDaysCallbackEvent"],
+            Type ="Func<DateTime, DateTime, Task<List<DateTime>>>"
         }
     ];
 
@@ -262,6 +268,13 @@ public sealed partial class DateTimePickers
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new() {
+            Name = "EnableDisabledDaysCache",
+            Description = Localizer["AttrEnableDisabledDaysCache"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
         }
     ];
 }

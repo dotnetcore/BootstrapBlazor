@@ -2562,13 +2562,15 @@
     "DisableToday": "Disable today",
     "DisableDayCallbackTitle": "Customize the disable date",
     "DisableDayCallbackIntro": "Specify which dates are disabled by setting <code>DisableDayCallback</code>",
-    "DisableDayCallbackTip": "Note: When the binding value is judged to be disabled, the binding value is reset to <code>DateTime.MinValue</code> or to empty time if it is allowed",
-    "DisableDayCallbackAllowNullDisplayText": "Allow empty time",
-    "DisableDayCallbackNotAllowNullDisplayText": "Not allow empty time",
+    "DisableDayCallbackTip": "<ul class=\"ul-demo\"><li>When the bound value is judged as a disabled date, the component display value is an empty string</li><li>This example uses slightly more complex logic to judge the disabled date. The disabled date is a combination of conditions, so when the condition changes, you need to call the component instance method <code>ClearDisabledDays</code> to clear the internal cache</li></ul>",
+    "DisableDayCallbackAllowNullDisplayText": "DateTime?",
+    "DisableDayCallbackNotAllowNullDisplayText": "DateTime",
     "FeatureShowLunarIntro": "Whether to display the lunar calendar <code>ShowLunar</code>",
     "FeatureShowSolarTermIntro": "Whether to display the 24 solar terms <code>ShowSolarTerm</code>",
     "FeatureShowFestivalsIntro": "Whether to display festivals <code>ShowFestivals</code>",
-    "FeatureShowHolidaysIntro": "Whether to display holidays <code>ShowHolidays</code>"
+    "FeatureShowHolidaysIntro": "Whether to display holidays <code>ShowHolidays</code>",
+    "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
+    "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",

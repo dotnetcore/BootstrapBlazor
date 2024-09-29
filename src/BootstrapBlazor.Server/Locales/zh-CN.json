@@ -2557,18 +2557,20 @@
     "FeatureShowHolidays": "法定假日",
     "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
     "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>",
-    "DisableOptions": "禁用选项",
+    "DisableOptions": "组合禁用条件",
     "DisableWeekend": "禁用周末",
     "DisableToday": "禁用今天",
     "DisableDayCallbackTitle": "自定义禁用日期",
     "DisableDayCallbackIntro": "通过设置 <code>DisableDayCallback</code> 自定义哪些日期需要被禁用",
-    "DisableDayCallbackTip": "请注意：当绑定值被判断为禁用时，绑定值将被重置为 <code>DateTime.MinValue</code>，如果允许空时间则会被重置为空时间！",
+    "DisableDayCallbackTip": "<p class\"mb-3\"><b>请注意</b></p><ul class=\"ul-demo\"><li>当绑定值为判断为禁用日期时，组件显示值为空字符串</li><li>本例为稍微复杂逻辑判断禁用日期，禁用日期为组合条件，所以当条件更改时需要调用组件实例方法 <code>ClearDisabledDays</code> 清除内部缓存</li></ul>",
     "DisableDayCallbackAllowNullDisplayText": "允许空时间",
     "DisableDayCallbackNotAllowNullDisplayText": "不允许空时间",
     "FeatureShowLunarIntro": "是否显示农历 <code>ShowLunar</code>",
     "FeatureShowSolarTermIntro": "是否显示 24 节气 <code>ShowSolarTerm</code>",
     "FeatureShowFestivalsIntro": "是否显示节日 <code>ShowFestivals</code>",
-    "FeatureShowHolidaysIntro": "是否显示假日 <code>ShowHolidays</code>"
+    "FeatureShowHolidaysIntro": "是否显示假日 <code>ShowHolidays</code>",
+    "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
+    "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
