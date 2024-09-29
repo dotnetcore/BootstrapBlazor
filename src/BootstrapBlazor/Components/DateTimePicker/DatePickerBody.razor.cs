@@ -673,9 +673,7 @@ public partial class DatePickerBody
             if (view is DatePickerViewMode.Date or DatePickerViewMode.DateTime)
             {
                 // update disabled days cache
-                _render = false;
                 await UpdateDisabledDaysCache(false);
-                _render = true;
             }
             StateHasChanged();
         }
