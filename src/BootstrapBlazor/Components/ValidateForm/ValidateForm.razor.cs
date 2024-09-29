@@ -177,13 +177,14 @@ public partial class ValidateForm
     /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
     public void SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
     {
-        if (expression.Body is UnaryExpression unary && unary.Operand is MemberExpression mem)
+        switch (expression.Body)
         {
-            InternalSetError(mem, errorMessage);
-        }
-        else if (expression.Body is MemberExpression exp)
-        {
-            InternalSetError(exp, errorMessage);
+            case UnaryExpression { Operand: MemberExpression mem }:
+                InternalSetError(mem, errorMessage);
+                break;
+            case MemberExpression exp:
+                InternalSetError(exp, errorMessage);
+                break;
         }
     }
 
