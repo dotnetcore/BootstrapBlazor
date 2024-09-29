@@ -234,6 +234,8 @@ public partial class DateTimePicker<TValue>
 
     private DateTime SelectedValue { get; set; }
 
+    private DatePickerBody _pickerBody = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -327,6 +329,11 @@ public partial class DateTimePicker<TValue>
     private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
 
     private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
+
+    /// <summary>
+    /// 清除内部缓存方法
+    /// </summary>
+    public void ClearDisabledDays() => _pickerBody.ClearDisabledDays();
 
     /// <summary>
     /// 确认按钮点击时回调此方法

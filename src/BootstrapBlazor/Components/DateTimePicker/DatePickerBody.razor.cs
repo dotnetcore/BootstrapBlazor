@@ -554,6 +554,11 @@ public partial class DatePickerBody
         return ret;
     }
 
+    /// <summary>
+    /// 清除内部缓存方法
+    /// </summary>
+    public void ClearDisabledDays() => _monthDisabledDaysCache.Clear();
+
     private async Task OnValueChanged()
     {
         if (ValueChanged.HasDelegate)
