@@ -199,12 +199,76 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public void MaxValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MaxValue, DateTime.Today.AddDays(1)));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(-1), cut.Instance.Value.Date);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MaxValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MaxValue, null);
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
     }
 
     [Fact]
     public void MinValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder => builder.Add(a => a.MinValue, DateTime.Today.AddDays(-1)));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value.Date);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, DateTime.Today.AddDays(-1));
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.MinValue, null);
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
     }
 
     [Fact]
@@ -963,7 +1027,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void FormatValueAsString_Ok()
+    public void FormatValueAsString_DateTime_Ok()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
@@ -971,12 +1035,84 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTime.MinValue);
         });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
         Assert.Equal(DateTime.Today, cut.Instance.Value);
 
-        var picker = cut.Instance;
-        var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
-        var v = mi.Invoke(picker, [DateTime.MinValue]);
-        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
+        // 设置为 禁用日期时 UI 显示为空字符串
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+            {
+                await Task.Delay(0);
+                var ret = new List<DateTime>() { DateTime.Today };
+                return ret;
+            });
+        });
+        Assert.Equal("", input.GetAttribute("value"));
+
+        // 禁用 AutoToday 显示 0001-01-01
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.AutoToday, false);
+        });
+        Assert.Equal("0001-01-01", input.GetAttribute("value"));
+
+        // 更改值为未禁用日期
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal($"{DateTime.Today.AddDays(-1):yyyy-MM-dd}", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FormatValueAsString_DateTimeOffset_Ok()
+    {
+        // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+            {
+                await Task.Delay(0);
+                var ret = new List<DateTime>() { DateTime.Today };
+                return ret;
+            });
+        });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.Now);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, false);
+        });
+        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, false);
+        });
+        Assert.Equal($"0001-01-01", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+        });
+        Assert.Equal($"0001-01-01", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -1015,6 +1151,72 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             input.Change("02/15/2024 01:00:00");
         });
         Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
+    }
+
+    [Fact]
+    public void MinValueToEmpty_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task OnGetDisabledDaysCallback_Ok()
+    {
+        var fetched = false;
+
+        // 禁用当天
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+            {
+                fetched = true;
+                await Task.Yield();
+                return [DateTime.Today];
+            });
+            pb.Add(a => a.Value, DateTime.Today);
+        });
+
+        // 组件值为 null
+        Assert.True(fetched);
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+
+        fetched = false;
+        // 设置组件值不为当前天
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.Today.AddDays(1));
+        });
+        Assert.False(fetched);
+        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+
+        // 禁用缓存
+        // 每次组件渲染都会触发回调
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.EnableDisabledDaysCache, false);
+        });
+
+        var buttons = cut.FindAll(".picker-panel-header button");
+        // 下一月
+        await cut.InvokeAsync(() => buttons[2].Click());
+        Assert.True(fetched);
+
+        // 调用清除缓存方法
+        cut.Instance.ClearDisabledDays();
     }
 
     class MockDateTimePicker : DatePickerBody

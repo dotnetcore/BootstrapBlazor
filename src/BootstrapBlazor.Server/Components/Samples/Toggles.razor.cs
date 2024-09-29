@@ -71,7 +71,7 @@ public sealed partial class Toggles
             Description = Localizer["OffTextAttr"],
             Type = "string",
             ValueList = "—",
-            DefaultValue = Localizer["OffTextDefautValue"]!
+            DefaultValue = Localizer["OffTextDefaultValue"]!
         },
         new()
         {
@@ -79,7 +79,7 @@ public sealed partial class Toggles
             Description = Localizer["OnTextAttr"],
             Type = "string",
             ValueList = "—",
-            DefaultValue = Localizer["OnTextDefautValue"]!
+            DefaultValue = Localizer["OnTextDefaultValue"]!
         },
         new()
         {

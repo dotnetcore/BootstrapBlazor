@@ -175,7 +175,7 @@
                     </Button>
                 }
             </div>
-            @if (MinValue == null && MaxValue == null)
+            @if (!IsDisabled(DateTime.Today))
             {
                 <Button class="picker-panel-link-btn is-now" Color="Color.None" OnClickWithoutRender="@ClickNowButton">
                     <span>@NowButtonText</span>
