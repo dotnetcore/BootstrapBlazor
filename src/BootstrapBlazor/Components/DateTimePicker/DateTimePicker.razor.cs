@@ -346,7 +346,7 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        CurrentValue = GetValue();
+        CurrentValue = GetValue()!;
 
         if (AutoClose)
         {
@@ -357,7 +357,7 @@ public partial class DateTimePicker<TValue>
     private async Task OnClear()
     {
         // 允许为空时才会触发 OnClear 方法
-        CurrentValue = default;
+        CurrentValue = default!;
         SelectedValue = DateTime.Today;
 
         if (AutoClose)
