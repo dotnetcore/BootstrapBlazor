@@ -1027,7 +1027,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void FormatValueAsString_Ok()
+    public void FormatValueAsString_DateTime_Ok()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
@@ -1035,27 +1035,84 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoToday, true);
             pb.Add(a => a.Value, DateTime.MinValue);
         });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
         Assert.Equal(DateTime.Today, cut.Instance.Value);
 
-        var picker = cut.Instance;
-        var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
-        var v = mi.Invoke(picker, [DateTime.MinValue]);
-        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
-
         // 设置为 禁用日期时 UI 显示为空字符串
-        // cut.SetParametersAndRender(pb =>
-        // {
-        //     pb.Add(a => a.Value, DateTime.Today);
-        //     pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
-        //     {
-        //         await Task.Delay(0);
-        //         var ret = new List<DateTime>() { DateTime.Today };
-        //         return ret;
-        //     });
-        // });
-        //
-        // v = mi.Invoke(picker, [DateTime.MinValue]);
-        // Assert.Equal(string.Empty, v);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+            {
+                await Task.Delay(0);
+                var ret = new List<DateTime>() { DateTime.Today };
+                return ret;
+            });
+        });
+        Assert.Equal("", input.GetAttribute("value"));
+
+        // 禁用 AutoToday 显示 0001-01-01
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.AutoToday, false);
+        });
+        Assert.Equal("0001-01-01", input.GetAttribute("value"));
+
+        // 更改值为未禁用日期
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.Today.AddDays(-1));
+        });
+        Assert.Equal($"{DateTime.Today.AddDays(-1):yyyy-MM-dd}", input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void FormatValueAsString_DateTimeOffset_Ok()
+    {
+        // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
+            {
+                await Task.Delay(0);
+                var ret = new List<DateTime>() { DateTime.Today };
+                return ret;
+            });
+        });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.Now);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, false);
+        });
+        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, false);
+        });
+        Assert.Equal($"0001-01-01", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.DisplayDisabledDayAsEmpty, true);
+        });
+        Assert.Equal($"0001-01-01", input.GetAttribute("value"));
     }
 
     [Fact]

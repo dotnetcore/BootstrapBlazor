@@ -328,14 +328,22 @@ public partial class DateTimePicker<TValue>
                 _ => DateTime.MinValue
             };
 
-            if (MinValueToToday(d))
+            if (d != DateTime.MinValue)
             {
-                d = DateTime.Today;
+                _render = false;
+                _disabledDaysList = await OnGetDisabledDaysCallback(d, d);
+                _render = true;
             }
-
-            _disabledDaysList = await OnGetDisabledDaysCallback(d, d);
         }
     }
+
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// 格式化数值方法
@@ -350,18 +358,9 @@ public partial class DateTimePicker<TValue>
             _ => null
         };
 
-        if (d.HasValue)
+        if (d.HasValue && !_disabledDaysList.Contains(d.Value))
         {
-            if (MinValueToToday(d.Value))
-            {
-                // 最小值映射为当天
-                d = DateTime.Today;
-            }
-
-            if (!MinValueToEmpty(d.Value) && !_disabledDaysList.Contains(d.Value))
-            {
-                ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
-            }
+            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
         }
         return ret;
     }
