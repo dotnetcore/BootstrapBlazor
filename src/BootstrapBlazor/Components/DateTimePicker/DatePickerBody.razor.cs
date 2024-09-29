@@ -376,16 +376,16 @@ public partial class DatePickerBody
     private DateTimeRange? Ranger { get; set; }
 
     /// <summary>
-    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableGetMonthDisabledDaysCache"/> 参数关闭
+    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
     /// </summary>
     [Parameter]
-    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetMonthDisabledDaysCallback { get; set; }
+    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 是否启用获得年自定义禁用日期缓存
     /// </summary>
     [Parameter]
-    public bool EnableGetMonthDisabledDaysCache { get; set; } = true;
+    public bool EnableDisabledDaysCache { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -524,16 +524,16 @@ public partial class DatePickerBody
 
     private async Task UpdateDisabledDaysCache(bool force)
     {
-        if (OnGetMonthDisabledDaysCallback != null)
+        if (OnGetDisabledDaysCallback != null)
         {
             var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
-            if (force && EnableGetMonthDisabledDaysCache == false)
+            if (force && EnableDisabledDaysCache == false)
             {
                 _monthDisabledDaysCache.Remove(key);
             }
             if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
             {
-                disabledDays = await OnGetMonthDisabledDaysCallback(StartDate, EndDate);
+                disabledDays = await OnGetDisabledDaysCallback(StartDate, EndDate);
                 _monthDisabledDaysCache.Add(key, disabledDays);
             }
         }

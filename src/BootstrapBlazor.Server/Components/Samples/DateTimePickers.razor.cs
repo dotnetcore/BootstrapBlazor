@@ -95,7 +95,7 @@ public sealed partial class DateTimePickers
     private DateTime? _disabledNullValue = DateTime.Today;
     private DateTime _disabledValue = DateTime.Today;
 
-    private async Task<List<DateTime>> OnGetMonthDisabledWeekendsCallback(DateTime start, DateTime end)
+    private async Task<List<DateTime>> OnGetDisabledWeekendsCallback(DateTime start, DateTime end)
     {
         var ret = new List<DateTime>();
         if (_disableWeekend)
@@ -122,7 +122,7 @@ public sealed partial class DateTimePickers
         return ret;
     }
 
-    private async Task<List<DateTime>> OnGetMonthDisabledTodayCallback(DateTime start, DateTime end)
+    private async Task<List<DateTime>> OnGetDisabledTodayCallback(DateTime start, DateTime end)
     {
         // 模拟异步延迟
         await Task.Delay(100);

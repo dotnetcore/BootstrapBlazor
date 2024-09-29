@@ -1109,7 +1109,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 禁用当天
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
-            pb.Add(a => a.OnGetMonthDisabledDaysCallback, async (start, end) =>
+            pb.Add(a => a.OnGetDisabledDaysCallback, async (start, end) =>
             {
                 fetched = true;
                 await Task.Yield();
@@ -1135,7 +1135,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 每次组件渲染都会触发回调
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.EnableGetMonthDisabledDaysCache, false);
+            pb.Add(a => a.EnableDisabledDaysCache, false);
         });
 
         var buttons = cut.FindAll(".picker-panel-header button");

@@ -208,13 +208,13 @@
         <div class="col-12 col-sm-6">
             <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]"
                             ShowLabel="true" @bind-Value="@_disabledNullValue"
-                            OnGetMonthDisabledDaysCallback="OnGetMonthDisabledWeekendsCallback">
+                            OnGetDisabledDaysCallback="OnGetDisabledWeekendsCallback">
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
             <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]"
                             ShowLabel="true" @bind-Value="@_disabledValue"
-                            OnGetMonthDisabledDaysCallback="OnGetMonthDisabledTodayCallback">
+                            OnGetDisabledDaysCallback="OnGetDisabledTodayCallback">
             </DateTimePicker>
         </div>
     </div>

@@ -8,7 +8,7 @@ using System.Globalization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DateTimePicker 组件基类
+/// DateTimePicker 组件
 /// </summary>
 public partial class DateTimePicker<TValue>
 {
@@ -210,16 +210,16 @@ public partial class DateTimePicker<TValue>
     public bool ShowHolidays { get; set; }
 
     /// <summary>
-    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableGetMonthDisabledDaysCache"/> 参数关闭
+    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
     /// </summary>
     [Parameter]
-    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetMonthDisabledDaysCallback { get; set; }
+    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 是否启用获得年自定义禁用日期缓存
     /// </summary>
     [Parameter]
-    public bool EnableGetMonthDisabledDaysCache { get; set; } = true;
+    public bool EnableDisabledDaysCache { get; set; } = true;
 
     [Inject]
     [NotNull]
@@ -233,8 +233,6 @@ public partial class DateTimePicker<TValue>
     private string? GenericTypeErrorMessage { get; set; }
 
     private DateTime SelectedValue { get; set; }
-
-    private DatePickerBody? _datePickerBody = default;
 
     /// <summary>
     /// <inheritdoc/>
@@ -321,25 +319,7 @@ public partial class DateTimePicker<TValue>
 
         if (d.HasValue)
         {
-            if (MinValueToToday(d.Value))
-            {
-                d = DateTime.Today;
-            }
-
-            if (_datePickerBody != null)
-            {
-                var isDisabled = _datePickerBody.IsDisableDay(d.Value);
-                if (isDisabled)
-                {
-                    d = DateTime.MinValue;
-                }
-
-                var isEmpty = MinValueToEmpty(d.Value);
-                if (!isEmpty)
-                {
-                    ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
-                }
-            }
+            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
         }
         return ret;
     }
