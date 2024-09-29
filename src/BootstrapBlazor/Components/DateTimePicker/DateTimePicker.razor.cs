@@ -309,19 +309,23 @@ public partial class DateTimePicker<TValue>
     protected override string FormatValueAsString(TValue value)
     {
         var ret = "";
-        DateTime? d = null;
-        if (value is DateTime v1)
+        DateTime? d = value switch
         {
-            d = v1;
-        }
-        else if (value is DateTimeOffset v2)
-        {
-            d = v2.DateTime;
-        }
+            DateTime v1 => v1,
+            DateTimeOffset v2 => v2.DateTime,
+            _ => null
+        };
 
         if (d.HasValue)
         {
-            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
+            if (MinValueToToday(d.Value))
+            {
+                d = DateTime.Today;
+            }
+            else if (!MinValueToEmpty(d.Value))
+            {
+                ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
+            }
         }
         return ret;
     }
