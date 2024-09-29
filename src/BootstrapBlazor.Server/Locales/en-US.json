@@ -2561,7 +2561,7 @@
     "DisableWeekend": "Disable weekend",
     "DisableToday": "Disable today",
     "DisableDayCallbackTitle": "Customize the disable date",
-    "DisableDayCallbackIntro": "Specify which dates are disabled by setting <code>DisableDayCallback</code>",
+    "DisableDayCallbackIntro": "Customize which days need to be disabled by setting <code>OnGetDisabledDaysCallback</code>",
     "DisableDayCallbackTip": "<ul class=\"ul-demo\"><li>When the bound value is judged as a disabled date, the component display value is an empty string</li><li>This example uses slightly more complex logic to judge the disabled date. The disabled date is a combination of conditions, so when the condition changes, you need to call the component instance method <code>ClearDisabledDays</code> to clear the internal cache</li></ul>",
     "DisableDayCallbackAllowNullDisplayText": "DateTime?",
     "DisableDayCallbackNotAllowNullDisplayText": "DateTime",

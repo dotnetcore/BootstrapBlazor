@@ -2561,7 +2561,7 @@
     "DisableWeekend": "禁用周末",
     "DisableToday": "禁用今天",
     "DisableDayCallbackTitle": "自定义禁用日期",
-    "DisableDayCallbackIntro": "通过设置 <code>DisableDayCallback</code> 自定义哪些日期需要被禁用",
+    "DisableDayCallbackIntro": "通过设置 <code>OnGetDisabledDaysCallback</code> 自定义哪些日期需要被禁用",
     "DisableDayCallbackTip": "<p class\"mb-3\"><b>请注意</b></p><ul class=\"ul-demo\"><li>当绑定值为判断为禁用日期时，组件显示值为空字符串</li><li>本例为稍微复杂逻辑判断禁用日期，禁用日期为组合条件，所以当条件更改时需要调用组件实例方法 <code>ClearDisabledDays</code> 清除内部缓存</li></ul>",
     "DisableDayCallbackAllowNullDisplayText": "允许空时间",
     "DisableDayCallbackNotAllowNullDisplayText": "不允许空时间",
