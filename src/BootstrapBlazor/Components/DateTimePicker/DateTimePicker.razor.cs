@@ -221,6 +221,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool EnableDisabledDaysCache { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 是否将禁用日期显示为空字符串 默认 false 开启后组件会频繁调用 <see cref="OnGetDisabledDaysCallback"/> 方法，建议外部使用缓存提高性能
+    /// </summary>
+    [Parameter]
+    public bool DisplayDisabledDayAsEmpty { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -303,6 +309,34 @@ public partial class DateTimePicker<TValue>
         }
     }
 
+    private List<DateTime> _disabledDaysList = [];
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (OnGetDisabledDaysCallback != null && DisplayDisabledDayAsEmpty)
+        {
+            DateTime d = Value switch
+            {
+                DateTime v1 => v1,
+                DateTimeOffset v2 => v2.DateTime,
+                _ => DateTime.MinValue
+            };
+
+            if (MinValueToToday(d))
+            {
+                d = DateTime.Today;
+            }
+
+            _disabledDaysList = await OnGetDisabledDaysCallback(d, d);
+        }
+    }
+
     /// <summary>
     /// 格式化数值方法
     /// </summary>
@@ -324,7 +358,7 @@ public partial class DateTimePicker<TValue>
                 d = DateTime.Today;
             }
 
-            if (!MinValueToEmpty(d.Value))
+            if (!MinValueToEmpty(d.Value) && !_disabledDaysList.Contains(d.Value))
             {
                 ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
             }
