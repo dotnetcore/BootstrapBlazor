@@ -633,9 +633,7 @@ public partial class ValidateForm
     public bool Validate()
     {
         _invalid = true;
-        var ret = Validator.Validate() && !_invalid;
-        StateHasChanged();
-        return ret;
+        return Validator.Validate() && !_invalid;
     }
 
     /// <summary>
