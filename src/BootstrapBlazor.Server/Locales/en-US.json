@@ -1089,7 +1089,7 @@
   },
   "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "H1": "Component library updated to",
-    "B1": "Bootstrap Blazor at present has more than 120 components. This component is based on",
+    "B1": "Bootstrap Blazor at present has nearly 200 components. This component is based on",
     "B2": "An enterprise-level component library that provides several types of common components such as layout, navigation, form, data, notification, icon, voice, etc. Each component has been carefully designed with modularity, responsiveness and excellent performance. Starting from more practical scenarios, meeting the needs of various scenarios, greatly reducing the time cost of developers, greatly shortening the development cycle, greatly improving development efficiency, and providing a set of",
     "B3": "General Rights Management System",
     "B4": "Example project",
