@@ -1102,7 +1102,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnGetMonthDisabledDaysCallback_Ok()
+    public async Task OnGetDisabledDaysCallback_Ok()
     {
         var fetched = false;
 
@@ -1142,6 +1142,9 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 下一月
         await cut.InvokeAsync(() => buttons[2].Click());
         Assert.True(fetched);
+
+        // 调用清除缓存方法
+        cut.Instance.ClearDisabledDays();
     }
 
     class MockDateTimePicker : DatePickerBody
