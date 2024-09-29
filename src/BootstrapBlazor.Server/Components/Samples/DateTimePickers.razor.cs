@@ -128,6 +128,17 @@ public sealed partial class DateTimePickers
         return ret;
     }
 
+    private DateTimePicker<DateTime?> _picker1 = default!;
+
+    private DateTimePicker<DateTime> _picker2 = default!;
+
+    private Task OnDisabledDaysChanged(bool v)
+    {
+        _picker1.ClearDisabledDays();
+        _picker2.ClearDisabledDays();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

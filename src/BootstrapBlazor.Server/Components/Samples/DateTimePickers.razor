@@ -196,10 +196,10 @@
         <GroupBox Title="@Localizer["DisableOptions"]">
             <div class="row g-3 form-inline text-end">
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <Switch DisplayText="@Localizer["DisableWeekend"]" ShowLabel="true" @bind-Value="_disableWeekend" />
+                    <Switch DisplayText="@Localizer["DisableWeekend"]" ShowLabel="true" @bind-Value="_disableWeekend" OnValueChanged="OnDisabledDaysChanged" />
                 </div>
                 <div class="col-12 col-sm-6 col-md-auto">
-                    <Switch DisplayText="@Localizer["DisableToday"]" ShowLabel="true" @bind-Value="_disableToday" />
+                    <Switch DisplayText="@Localizer["DisableToday"]" ShowLabel="true" @bind-Value="_disableToday" OnValueChanged="OnDisabledDaysChanged" />
                 </div>
             </div>
         </GroupBox>
@@ -207,13 +207,13 @@
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
             <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackAllowNullDisplayText"]"
-                            ShowLabel="true" @bind-Value="@_disabledNullValue"
-                            OnGetDisabledDaysCallback="OnGetDisabledDaysCallback" EnableDisabledDaysCache="false">
+                            ShowLabel="true" @bind-Value="@_disabledNullValue" @ref="_picker1"
+                            OnGetDisabledDaysCallback="OnGetDisabledDaysCallback">
             </DateTimePicker>
         </div>
         <div class="col-12 col-sm-6">
             <DateTimePicker ViewMode="DatePickerViewMode.DateTime" DisplayText="@Localizer["DisableDayCallbackNotAllowNullDisplayText"]"
-                            ShowLabel="true" @bind-Value="@_disabledValue"
+                            ShowLabel="true" @bind-Value="@_disabledValue" @ref="_picker2"
                             OnGetDisabledDaysCallback="OnGetDisabledDaysCallback">
             </DateTimePicker>
         </div>
