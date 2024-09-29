@@ -534,7 +534,7 @@ public partial class DatePickerBody
             if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
             {
                 disabledDays = await OnGetDisabledDaysCallback(StartDate, EndDate);
-                _monthDisabledDaysCache.Add(key, disabledDays);
+                _monthDisabledDaysCache.TryAdd(key, disabledDays);
             }
         }
     }
