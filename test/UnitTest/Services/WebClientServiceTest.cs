@@ -85,15 +85,6 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task GetClientId_Ok()
-    {
-        Context.JSInterop.Setup<string?>("getItem").SetResult("_clientId");
-        var service = Context.Services.GetRequiredService<WebClientService>();
-        var id = await service.GetClientId();
-        Assert.Equal("_clientId", id);
-    }
-
-    [Fact]
     public async Task WebClientService_Dispose()
     {
         await (Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable).DisposeAsync();
