@@ -27,8 +27,6 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     private ClientInfo? _client;
     private IIpLocatorProvider? _provider;
 
-    private JSModule? _clientModule;
-
     /// <summary>
     /// 获得 ClientInfo 实例方法
     /// </summary>
@@ -92,12 +90,6 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
             {
                 await _jsModule.DisposeAsync();
                 _jsModule = null;
-            }
-
-            if (_clientModule != null)
-            {
-                await _clientModule.DisposeAsync();
-                _clientModule = null;
             }
         }
     }
