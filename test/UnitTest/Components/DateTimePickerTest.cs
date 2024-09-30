@@ -1215,6 +1215,22 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => buttons[2].Click());
         Assert.True(fetched);
 
+        // 上一月
+        // 数据已缓存不会触发回调
+        fetched = false;
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.False(fetched);
+
+        // 上一年
+        await cut.InvokeAsync(() => buttons[0].Click());
+        Assert.True(fetched);
+
+        // 下一年
+        // 数据已缓存不会触发回调
+        fetched = false;
+        await cut.InvokeAsync(() => buttons[3].Click());
+        Assert.False(fetched);
+
         // 调用清除缓存方法
         cut.Instance.ClearDisabledDays();
     }
