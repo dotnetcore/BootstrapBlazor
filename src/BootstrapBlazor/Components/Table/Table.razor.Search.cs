@@ -246,7 +246,7 @@ public partial class Table<TItem>
     protected List<IFilterAction> GetAdvanceSearches()
     {
         var searches = new List<IFilterAction>();
-        if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
+        if (ShowAdvancedSearch && CustomerSearchModel == null)
         {
             var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
             {
