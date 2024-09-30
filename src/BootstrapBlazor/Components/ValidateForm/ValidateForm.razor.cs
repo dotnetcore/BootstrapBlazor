@@ -632,13 +632,6 @@ public partial class ValidateForm
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
-    //private readonly List<string> _invalidComponents = [];
-
-    //internal void AddValidationComponent(string id)
-    //{
-    //    _invalidComponents.Add(id);
-    //}
-
     /// <summary>
     /// 获取 当前表单值改变的属性集合
     /// </summary>
