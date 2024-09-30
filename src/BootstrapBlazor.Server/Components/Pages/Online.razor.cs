@@ -20,6 +20,7 @@ public partial class Online : IDisposable
     private readonly DataTable _table = new();
 
     private CancellationTokenSource? _cancellationTokenSource = null;
+    private string? _clientId;
 
     /// <summary>
     /// <inheritdoc/>
@@ -29,23 +30,22 @@ public partial class Online : IDisposable
         base.OnInitialized();
 
         CreateTable();
-        BuildContext();
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnAfterRender(firstRender);
+        await base.OnAfterRenderAsync(firstRender);
 
         if (firstRender)
         {
-            Task.Run(async () =>
+            _clientId = await ConnectionService.GetClientId();
+            _ = Task.Run(async () =>
             {
-                await Task.Delay(500);
-                _cancellationTokenSource = new();
+                _cancellationTokenSource ??= new();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     try
@@ -62,6 +62,7 @@ public partial class Online : IDisposable
 
     private void CreateTable()
     {
+        _table.Columns.Add("Id", typeof(string));
         _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
         _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
         _table.Columns.Add("Dur", typeof(TimeSpan));
@@ -81,6 +82,7 @@ public partial class Online : IDisposable
         foreach (var item in ConnectionService.Connections)
         {
             _table.Rows.Add(
+                item.Id,
                 item.ConnectionTime,
                 item.LastBeatTime,
                 item.LastBeatTime - item.ConnectionTime,
@@ -100,7 +102,11 @@ public partial class Online : IDisposable
         DataTableDynamicContext = new DataTableDynamicContext(_table, (context, col) =>
         {
             col.Text = Localizer[col.GetFieldName()];
-            if (col.GetFieldName() == "ConnectionTime")
+            if (col.GetFieldName() == "Id")
+            {
+                col.Ignore = true;
+            }
+            else if (col.GetFieldName() == "ConnectionTime")
             {
                 col.FormatString = "yyyy/MM/dd HH:mm:ss";
                 col.Width = 118;
@@ -148,6 +154,12 @@ public partial class Online : IDisposable
             }
         }
         return ret;
+    }
+
+    private string? SetRowClassFormatter(DynamicObject context)
+    {
+        var id = context.GetValue("id")?.ToString();
+        return _clientId == id ? "active" : null;
     }
 
     private void Dispose(bool disposing)
