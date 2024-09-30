@@ -3849,7 +3849,6 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.SearchModel, new Foo());
                 pb.Add(a => a.SearchMode, SearchMode.Top);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.SearchTemplate, foo => builder => builder.AddContent(0, "test_SearchTemplate"));
@@ -3863,8 +3862,14 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-
         cut.Contains("test_SearchTemplate");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.SearchModel, null);
+            pb.Add(a => a.CreateSearchModelCallback, () => new Foo());
+        });
     }
 
     [Fact]
