@@ -137,22 +137,6 @@ public partial class ValidateForm
         }
     }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    ///// <param name="firstRender"></param>
-    ///// <returns></returns>
-    //protected override async Task OnAfterRenderAsync(bool firstRender)
-    //{
-    //    await base.OnAfterRenderAsync(firstRender);
-
-    //    if (!ShowAllInvalidResult && _invalidComponents.Count > 0)
-    //    {
-    //        await InvokeVoidAsync("update", Id, _invalidComponents);
-    //        _invalidComponents.Clear();
-    //    }
-    //}
-
     /// <summary>
     /// 添加数据验证组件到 EditForm 中
     /// </summary>
