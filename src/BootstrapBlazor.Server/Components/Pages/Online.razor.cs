@@ -48,7 +48,8 @@ public partial class Online : IDisposable
         {
             Task.Run(async () =>
             {
-                _clientId = await WebClientService.GetClientId();
+                var client = await WebClientService.GetClientInfo();
+                _clientId = client.Id;
                 _cancellationTokenSource ??= new();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
