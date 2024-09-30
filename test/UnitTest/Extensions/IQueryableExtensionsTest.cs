@@ -4,7 +4,7 @@
 
 namespace UnitTest.Extensions;
 
-public class IQueryableExtensionsTest
+public class IQueryableExtensionsTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Where_Ok()
@@ -28,8 +28,8 @@ public class IQueryableExtensionsTest
             new() { Name = "Test2" }
         }.AsQueryable();
 
-        Assert.Equal("Test2", foos.Sort<Foo>("Name", SortOrder.Desc, true).First().Name);
-        Assert.Equal("Test1", foos.Sort<Foo>("Name", SortOrder.Desc, false).First().Name);
+        Assert.Equal("Test2", foos.Sort("Name", SortOrder.Desc, true).First().Name);
+        Assert.Equal("Test1", foos.Sort("Name", SortOrder.Desc, false).First().Name);
     }
 
     [Fact]

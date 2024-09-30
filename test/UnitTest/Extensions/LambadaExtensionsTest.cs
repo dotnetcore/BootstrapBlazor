@@ -8,7 +8,7 @@ using System.Linq.Expressions;
 
 namespace UnitTest.Extensions;
 
-public class LambadaExtensionsTest
+public class LambadaExtensionsTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void GetFilterFunc_Null()
