@@ -4,7 +4,7 @@
 
 namespace UnitTest.Extensions;
 
-public class QueryPageOptionsExtensionsTest
+public class QueryPageOptionsExtensionsTest : BootstrapBlazorTestBase
 {
     private readonly Foo[] _foos;
 
