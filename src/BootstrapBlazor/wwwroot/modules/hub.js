@@ -63,10 +63,6 @@ export async function init(id, options) {
     Data.set(id, hub);
 }
 
-export function getItem(connectionIdKey = "bb_hub_connection_id") {
-    return localStorage.getItem(connectionIdKey);
-}
-
 export async function dispose(id) {
     const hub = Data.get(id);
 
