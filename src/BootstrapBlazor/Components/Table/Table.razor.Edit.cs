@@ -305,6 +305,14 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 获得/设置 新建搜索模型回调方法 默认 null 未设置时先 尝试使用 <see cref="CreateItemCallback"/> 回调，再使用默认无参构造函数创建
+    /// </summary>
+    [Parameter]
+    public Func<TItem>? CreateSearchModelCallback { get; set; }
+
+    private TItem CreateSearchModel() => CreateSearchModelCallback?.Invoke() ?? CreateTItem();
+
+    /// <summary>
     /// 单选模式下选择行时调用此方法
     /// </summary>
     /// <param name="val"></param>

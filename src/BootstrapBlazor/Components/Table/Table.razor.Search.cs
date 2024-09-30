@@ -139,7 +139,7 @@ public partial class Table<TItem>
         }
         else if (SearchTemplate == null)
         {
-            Utility.Reset(SearchModel, CreateTItem());
+            Utility.Reset(SearchModel, CreateSearchModel());
         }
 
         PageIndex = 1;

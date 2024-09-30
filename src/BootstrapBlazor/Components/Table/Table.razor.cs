@@ -859,7 +859,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
         AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
 
-        SearchModel ??= CreateTItem();
+        SearchModel ??= CreateSearchModel();
     }
 
     /// <summary>
