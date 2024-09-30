@@ -32,7 +32,7 @@ public class BootstrapBlazorRootTest : TestBase
         /// </summary>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public RenderFragment Generator() => builder =>
+        public RenderFragment Render() => builder =>
         {
             builder.AddContent(0, new MarkupString("<div class=\"auto-generator\"></div>"));
         };
