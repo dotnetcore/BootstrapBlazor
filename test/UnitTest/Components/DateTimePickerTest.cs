@@ -1177,7 +1177,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     public async Task OnGetDisabledDaysCallback_Ok()
     {
         var fetched = false;
-
+        var dtm = new DateTime(2024, 9, 25);
         // 禁用当天
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
@@ -1185,23 +1185,24 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             {
                 fetched = true;
                 await Task.Yield();
-                return [DateTime.Today];
+                return [dtm];
             });
-            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.Value, dtm);
         });
 
         // 组件值为 null
         Assert.True(fetched);
-        Assert.Equal(DateTime.Today, cut.Instance.Value);
+        Assert.Equal(dtm, cut.Instance.Value);
 
-        fetched = false;
         // 设置组件值不为当前天
+        // 相同月数据已缓存不会触发回调
+        fetched = false;
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Value, DateTime.Today.AddDays(1));
+            pb.Add(a => a.Value, dtm.AddDays(1));
         });
         Assert.False(fetched);
-        Assert.Equal(DateTime.Today.AddDays(1), cut.Instance.Value);
+        Assert.Equal(dtm.AddDays(1), cut.Instance.Value);
 
         // 禁用缓存
         // 每次组件渲染都会触发回调
@@ -1210,10 +1211,28 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.EnableDisabledDaysCache, false);
         });
 
+        // 获得所有按钮
         var buttons = cut.FindAll(".picker-panel-header button");
+
         // 下一月
         await cut.InvokeAsync(() => buttons[2].Click());
         Assert.True(fetched);
+
+        // 上一月
+        // 数据已缓存不会触发回调
+        fetched = false;
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.False(fetched);
+
+        // 上一年
+        await cut.InvokeAsync(() => buttons[0].Click());
+        Assert.True(fetched);
+
+        // 下一年
+        // 数据已缓存不会触发回调
+        fetched = false;
+        await cut.InvokeAsync(() => buttons[3].Click());
+        Assert.False(fetched);
 
         // 调用清除缓存方法
         cut.Instance.ClearDisabledDays();
