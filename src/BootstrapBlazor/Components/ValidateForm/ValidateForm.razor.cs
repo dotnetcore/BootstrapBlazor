@@ -138,22 +138,6 @@ public partial class ValidateForm
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (!ShowAllInvalidResult && _invalidComponents.Count > 0)
-        {
-            await InvokeVoidAsync("update", Id, _invalidComponents);
-            _invalidComponents.Clear();
-        }
-    }
-
-    /// <summary>
     /// 添加数据验证组件到 EditForm 中
     /// </summary>
     /// <param name="key"></param>
@@ -177,13 +161,14 @@ public partial class ValidateForm
     /// <param name="errorMessage">错误描述信息，可为空，为空时查找资源文件</param>
     public void SetError<TModel>(Expression<Func<TModel, object?>> expression, string errorMessage)
     {
-        if (expression.Body is UnaryExpression unary && unary.Operand is MemberExpression mem)
+        switch (expression.Body)
         {
-            InternalSetError(mem, errorMessage);
-        }
-        else if (expression.Body is MemberExpression exp)
-        {
-            InternalSetError(exp, errorMessage);
+            case UnaryExpression { Operand: MemberExpression mem }:
+                InternalSetError(mem, errorMessage);
+                break;
+            case MemberExpression exp:
+                InternalSetError(exp, errorMessage);
+                break;
         }
     }
 
@@ -633,9 +618,7 @@ public partial class ValidateForm
     public bool Validate()
     {
         _invalid = true;
-        var ret = Validator.Validate() && !_invalid;
-        StateHasChanged();
-        return ret;
+        return Validator.Validate() && !_invalid;
     }
 
     /// <summary>
@@ -649,12 +632,12 @@ public partial class ValidateForm
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
-    private readonly List<string> _invalidComponents = [];
+    //private readonly List<string> _invalidComponents = [];
 
-    internal void AddValidationComponent(string id)
-    {
-        _invalidComponents.Add(id);
-    }
+    //internal void AddValidationComponent(string id)
+    //{
+    //    _invalidComponents.Add(id);
+    //}
 
     /// <summary>
     /// 获取 当前表单值改变的属性集合
