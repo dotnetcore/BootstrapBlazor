@@ -737,8 +737,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 初始化节点缓存
         TreeNodeCache ??= new(Equals);
-        SearchModel = CreateTItem();
-
         OnInitLocalization();
 
         // 设置 OnSort 回调方法
@@ -860,6 +858,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
         TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
         AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
+
+        SearchModel ??= CreateTItem();
     }
 
     /// <summary>
