@@ -15,6 +15,10 @@ public partial class Online : IDisposable
     [NotNull]
     private IConnectionService? ConnectionService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private WebClientService? WebClientService { get; set; }
+
     private DynamicObjectContext? DataTableDynamicContext { get; set; }
 
     private readonly DataTable _table = new();
@@ -36,15 +40,15 @@ public partial class Online : IDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnAfterRender(bool firstRender)
     {
-        await base.OnAfterRenderAsync(firstRender);
+        base.OnAfterRender(firstRender);
 
         if (firstRender)
         {
-            _clientId = await ConnectionService.GetClientId();
-            _ = Task.Run(async () =>
+            Task.Run(async () =>
             {
+                _clientId = await WebClientService.GetClientId();
                 _cancellationTokenSource ??= new();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
