@@ -576,6 +576,10 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
 
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
+
         if (OnDateChanged != null)
         {
             await OnDateChanged(CurrentDate);
@@ -607,6 +611,10 @@ public partial class DatePickerBody
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
+
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
 
         if (OnDateChanged != null)
         {
