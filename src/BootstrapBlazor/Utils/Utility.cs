@@ -213,13 +213,13 @@ public static class Utility
     /// <typeparam name="TModel"></typeparam>
     public static void Reset<TModel>(TModel source, TModel model) where TModel : class
     {
-        var v = model;
+        var modelType = model.GetType();
         foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.IsCanWrite()))
         {
-            var pInfo = v.GetType().GetPropertyByName(pi.Name);
+            var pInfo = modelType.GetPropertyByName(pi.Name);
             if (pInfo != null)
             {
-                pi.SetValue(source, pInfo.GetValue(v));
+                pi.SetValue(source, pInfo.GetValue(model));
             }
         }
     }
