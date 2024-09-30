@@ -111,7 +111,7 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
 public class ClientInfo
 {
     /// <summary>
-    /// 获得/设置 操作日志主键ID
+    /// 获得/设置 链接 Id
     /// </summary>
     public string? Id { get; set; }
 
