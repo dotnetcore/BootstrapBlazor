@@ -27,6 +27,8 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     private ClientInfo? _client;
     private IIpLocatorProvider? _provider;
 
+    private JSModule? _clientModule;
+
     /// <summary>
     /// 获得 ClientInfo 实例方法
     /// </summary>
@@ -62,6 +64,16 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
     }
 
     /// <summary>
+    /// 获得 ClientId 方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string?> GetClientId()
+    {
+        _clientModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/hub.js");
+        return await _clientModule.InvokeAsync<string?>("getItem");
+    }
+
+    /// <summary>
     /// SetData 方法由 JS 调用
     /// </summary>
     /// <param name="client"></param>
@@ -90,6 +102,12 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
             {
                 await _jsModule.DisposeAsync();
                 _jsModule = null;
+            }
+
+            if (_clientModule != null)
+            {
+                await _clientModule.DisposeAsync();
+                _clientModule = null;
             }
         }
     }
