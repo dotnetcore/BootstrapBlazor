@@ -23,7 +23,7 @@ export async function getClientInfo(url) {
     });
     if (result) {
         data.ip = result.Ip;
-        data.id = result.Id;
     }
+    data.id = localStorage.getItem('bb_hub_connection_id') ?? result.Id;
     return data;
 }
