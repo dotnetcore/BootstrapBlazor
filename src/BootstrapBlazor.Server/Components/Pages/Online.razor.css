@@ -1,0 +1,12 @@
+﻿::deep .table-container {
+    --bb-table-row-active-bg: rgba(var(--bb-primary-color-rgb), 0.8);
+    --bb-table-row-hover-bg: rgba(var(--bb-primary-color-rgb), 0.8);
+}
+
+    ::deep .table-container .table tr.active > td {
+        color: #fff !important;
+    }
+
+        ::deep .table-container .table tr.active > td a {
+            --bs-link-color-rgb: #fff;
+        }
