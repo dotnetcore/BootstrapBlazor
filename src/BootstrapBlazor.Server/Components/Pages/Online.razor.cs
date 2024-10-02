@@ -23,7 +23,8 @@ public partial class Online : IDisposable
 
     private readonly DataTable _table = new();
 
-    private CancellationTokenSource? _cancellationTokenSource = null;
+    private CancellationTokenSource? _cancellationTokenSource;
+
     private string? _clientId;
 
     /// <summary>
@@ -50,7 +51,7 @@ public partial class Online : IDisposable
             {
                 var client = await WebClientService.GetClientInfo();
                 _clientId = client.Id;
-                _cancellationTokenSource ??= new();
+                _cancellationTokenSource ??= new CancellationTokenSource();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     try
@@ -59,7 +60,10 @@ public partial class Online : IDisposable
                         await InvokeAsync(StateHasChanged);
                         await Task.Delay(10000, _cancellationTokenSource.Token);
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             });
         }
