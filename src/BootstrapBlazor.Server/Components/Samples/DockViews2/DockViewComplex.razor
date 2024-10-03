@@ -44,7 +44,7 @@
                 <FetchData></FetchData>
             </DockViewComponent>
             <DockViewComponent Key="tab4" Title="标签四">
-                <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+                <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
                        Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                     <TableColumns>
                         <TableColumn @bind-Field="@context.Name" Width="140" />

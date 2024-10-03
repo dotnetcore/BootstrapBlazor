@@ -43,7 +43,7 @@
             <DockViewV2 Name="DockViewInnerNest" Theme="_theme">
                 <DockViewContent Type="DockViewContentType.Column">
                     <DockViewComponent Key="tab31" Title="内嵌标签一">
-                        <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+                        <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
                                Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                             <TableColumns>
                                 <TableColumn @bind-Field="@context.Name" Width="140" />
