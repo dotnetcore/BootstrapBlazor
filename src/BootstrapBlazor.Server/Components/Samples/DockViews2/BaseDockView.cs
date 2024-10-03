@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples.DockViews2;
 
 /// <summary>
-/// 
+/// DockView 基类
 /// </summary>
 public abstract class BaseDockView : ComponentBase
 {
@@ -13,39 +13,33 @@ public abstract class BaseDockView : ComponentBase
     [NotNull]
     private ICacheManager? CacheManager { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private MockDataTableDynamicService? DataTableDynamicService { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 数据集合
     /// </summary>
     [NotNull]
     protected IEnumerable<Foo>? Items { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 带层次结构的数据集合
     /// </summary>
     [NotNull]
     protected List<TreeFoo>? TreeItems { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 <see cref="DataTableDynamicContext"/> 实例
     /// </summary>
     protected DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 <see cref="DynamicObjectContext"/> 实例方法
     /// </summary>
     /// <param name="context"></param>
     /// <returns></returns>
@@ -71,7 +65,7 @@ public abstract class BaseDockView : ComponentBase
     }
 
     /// <summary>
-    /// 
+    /// 增加方法
     /// </summary>
     /// <returns></returns>
     protected Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
@@ -87,7 +81,7 @@ public abstract class BaseDockView : ComponentBase
     }
 
     /// <summary>
-    /// 
+    /// 转换方法
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
@@ -114,7 +108,7 @@ public abstract class BaseDockView : ComponentBase
     }
 
     /// <summary>
-    /// 
+    /// 展开方法
     /// </summary>
     /// <param name="foo"></param>
     /// <returns></returns>
@@ -127,12 +121,12 @@ public abstract class BaseDockView : ComponentBase
     });
 
     /// <summary>
-    /// 
+    /// Tree 示例数据类
     /// </summary>
     public class TreeFoo : Foo
     {
         /// <summary>
-        /// 
+        /// 获得/设置 父级节点 Id
         /// </summary>
         public int ParentId { get; set; }
 

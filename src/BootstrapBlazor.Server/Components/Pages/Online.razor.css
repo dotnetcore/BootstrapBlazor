@@ -10,3 +10,7 @@
         ::deep .table-container .table tr.active > td a {
             --bs-link-color-rgb: #fff;
         }
+
+::deep .table-striped .table-row.active {
+    background-color: var(--bb-table-row-active-bg);
+}
