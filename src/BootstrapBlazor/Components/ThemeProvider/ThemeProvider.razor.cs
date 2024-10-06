@@ -69,7 +69,13 @@ public partial class ThemeProvider
     /// 获得/设置 主题切换回调方法
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnThemeChangedAsync { get; set; }
+    public Func<ThemeValue, Task>? OnThemeChangedAsync { get; set; }
+
+    /// <summary>
+    /// 主题类型
+    /// </summary>
+    [Parameter]
+    public ThemeValue ThemeValue { get; set; } = Components.ThemeValue.UseLocalStorage;
 
     [Inject, NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -107,7 +113,7 @@ public partial class ThemeProvider
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, OnThemeChangedAsync != null ? nameof(OnThemeChanged) : null);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, ThemeValue, OnThemeChangedAsync != null ? nameof(OnThemeChanged) : null);
 
     /// <summary>
     /// JavaScript 回调方法
@@ -117,9 +123,10 @@ public partial class ThemeProvider
     [JSInvokable]
     public async Task OnThemeChanged(string name)
     {
+        System.Console.WriteLine(name);
         if (OnThemeChangedAsync != null)
         {
-            await OnThemeChangedAsync(name);
+            await OnThemeChangedAsync(ThemeValue.Auto);
         }
     }
 }

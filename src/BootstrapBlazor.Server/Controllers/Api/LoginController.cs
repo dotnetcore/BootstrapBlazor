@@ -9,7 +9,7 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 namespace BootstrapBlazor.Server.Controllers.Api;
 
 /// <summary>
-/// 
+///
 /// </summary>
 [Route("api/[controller]")]
 [AllowAnonymous]
@@ -17,7 +17,7 @@ namespace BootstrapBlazor.Server.Controllers.Api;
 public class LoginController : ControllerBase
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
