@@ -6647,7 +6647,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
     "ElementIconTitle": "Element-plus Icons",
