@@ -6668,7 +6668,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",

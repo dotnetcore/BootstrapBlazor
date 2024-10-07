@@ -6668,7 +6668,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design 图标简单、现代、友好",
-    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看"
+    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看",
+    "P1": "通过引用扩展组件包",
+    "P2": "后添加样式表文件链接开启图标"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
