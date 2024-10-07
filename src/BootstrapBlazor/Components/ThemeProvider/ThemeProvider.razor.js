@@ -51,6 +51,6 @@ const changeTheme = id => {
     }
 
     if (theme.currentTheme === 'auto') {
-        switchTheme('auto');
+        switchTheme('auto', window.innerWidth, 0);
     }
 }
