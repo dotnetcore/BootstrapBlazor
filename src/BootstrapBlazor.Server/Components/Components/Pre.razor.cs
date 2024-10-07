@@ -180,12 +180,12 @@ public partial class Pre
         return content.TrimEnd('\n');
     }
 
-    [GeneratedRegex("<section ignore[ \\s\\S]*?>[\\s\\S]*?</section>")]
+    [GeneratedRegex(@"<section ignore[ \s\S]*?>[\s\S]*?</section>")]
     private static partial Regex IgnoreRegex();
 
-    [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
+    [GeneratedRegex(@"<ConsoleLogger [\s\S]* />")]
     private static partial Regex ConsoleLoggerRegex();
 
-    [GeneratedRegex("<Tips[\\s\\S]*>[\\s\\S]*?</Tips>")]
+    [GeneratedRegex(@"<Tips[\s\S]*>[\s\S]*?</Tips>")]
     private static partial Regex TipsRegex();
 }

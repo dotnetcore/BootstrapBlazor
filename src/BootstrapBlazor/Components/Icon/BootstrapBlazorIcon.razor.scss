@@ -1,5 +1,5 @@
 .bb-icon {
-    --bb-icon-width: 12px;
+    --bb-icon-width: #{$bb-icon-width};
     --bb-icon-color: var(--bs-body-color);
     display: inline-flex;
 

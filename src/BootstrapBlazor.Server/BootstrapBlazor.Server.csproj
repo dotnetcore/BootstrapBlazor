@@ -64,7 +64,7 @@
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.4" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="8.2.1" />
     <PackageReference Include="BootstrapBlazor.TagHelper" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.9" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.7" />
     <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.5" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="8.0.3" />
