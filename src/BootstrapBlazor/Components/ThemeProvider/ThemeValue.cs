@@ -13,17 +13,20 @@ namespace BootstrapBlazor.Components;
 public enum ThemeValue
 {
     /// <summary>
+    /// 自动
+    /// </summary>
+    Auto,
+
+    /// <summary>
     /// 明亮主题
     /// </summary>
     Light,
+
     /// <summary>
     /// 暗黑主题
     /// </summary>
     Dark,
-    /// <summary>
-    /// 自动主题
-    /// </summary>
-    Auto,
+
     /// <summary>
     /// 使用本地保存选项
     /// </summary>

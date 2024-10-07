@@ -75,10 +75,10 @@ public partial class ThemeProvider
     /// 主题类型
     /// </summary>
     [Parameter]
-    public ThemeValue ThemeValue { get; set; } = Components.ThemeValue.UseLocalStorage;
+    public ThemeValue ThemeValue { get; set; } = ThemeValue.UseLocalStorage;
 
     /// <summary>
-    /// 主题类型改变
+    /// 主题类型改变回调方法
     /// </summary>
     [Parameter]
     public EventCallback<ThemeValue> ThemeValueChanged { get; set; }
@@ -129,7 +129,11 @@ public partial class ThemeProvider
     [JSInvokable]
     public async Task OnThemeChanged(ThemeValue name)
     {
-        await ThemeValueChanged.InvokeAsync(name);
+        if (ThemeValueChanged.HasDelegate)
+        {
+            await ThemeValueChanged.InvokeAsync(name);
+        }
+
         if (OnThemeChangedAsync != null)
         {
             await OnThemeChangedAsync(name);
