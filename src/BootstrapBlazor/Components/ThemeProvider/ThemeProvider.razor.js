@@ -12,15 +12,15 @@ export function init(id, invoke, themeValue, callback) {
     Data.set(id, theme);
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    theme.mediaQueryList = darkModeMediaQuery;
     EventHandler.on(darkModeMediaQuery, 'change', () => changeTheme(id));
+    theme.mediaQueryList = darkModeMediaQuery;
 
     let currentTheme = themeValue;
     if (currentTheme === 'useLocalStorage') {
         currentTheme = getPreferredTheme();
     }
-    theme.currentTheme = currentTheme;
     setTheme(currentTheme, true);
+    theme.currentTheme = currentTheme;
 
     EventHandler.on(el, 'click', '.dropdown-item', e => {
         const activeTheme = e.delegateTarget.getAttribute('data-bb-theme-value');
