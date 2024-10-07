@@ -57,5 +57,5 @@ public partial class Header
         _versionString = $"v{PackageVersionService.Version}";
     }
 
-    private Task OnThemeChangedAsync(string themeName) => InvokeVoidAsync("updateTheme", themeName);
+    private Task OnThemeChangedAsync(ThemeValue themeName) => InvokeVoidAsync("updateTheme", themeName);
 }

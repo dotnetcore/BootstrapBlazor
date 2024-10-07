@@ -9,7 +9,7 @@ using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 namespace BootstrapBlazor.Server.Controllers.Api;
 
 /// <summary>
-/// 
+/// 登录控制器
 /// </summary>
 [Route("api/[controller]")]
 [AllowAnonymous]
@@ -17,22 +17,10 @@ namespace BootstrapBlazor.Server.Controllers.Api;
 public class LoginController : ControllerBase
 {
     /// <summary>
-    /// 
+    /// 认证方法
     /// </summary>
     /// <param name="user"></param>
     /// <returns></returns>
     [HttpPost]
-    public IActionResult Post(User user)
-    {
-        IActionResult? response;
-        if (user.UserName == "admin" && user.Password == "123456")
-        {
-            response = new JsonResult(new { Code = 200, Message = "登录成功" });
-        }
-        else
-        {
-            response = new JsonResult(new { Code = 500, Message = "用户名或密码错误" });
-        }
-        return response;
-    }
+    public IActionResult Post(User user) => user is { UserName: "admin", Password: "123456" } ? new JsonResult(new { Code = 200, Message = "登录成功" }) : new JsonResult(new { Code = 500, Message = "用户名或密码错误" });
 }

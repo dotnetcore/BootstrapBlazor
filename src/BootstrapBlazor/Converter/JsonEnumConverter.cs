@@ -15,31 +15,23 @@ public class JsonEnumConverter : JsonConverterAttribute
     /// <summary>
     /// 构造函数
     /// </summary>
-    public JsonEnumConverter() : base()
-    {
-
-    }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
     /// <param name="camelCase">Optional naming policy for writing enum values.</param>
     /// <param name="allowIntegerValues">True to allow undefined enum values. When true, if an enum value isn't defined it will output as a number rather than a string.</param>
-    public JsonEnumConverter(bool camelCase, bool allowIntegerValues = true) : this()
+    public JsonEnumConverter(bool camelCase = false, bool allowIntegerValues = true)
     {
-        CamelCase = camelCase;
-        AllowIntegerValues = allowIntegerValues;
+        _camelCase = camelCase;
+        _allowIntegerValues = allowIntegerValues;
     }
 
     /// <summary>
     /// naming policy for writing enum values
     /// </summary>
-    public bool CamelCase { get; private set; }
+    private readonly bool _camelCase;
 
     /// <summary>
     /// True to allow undefined enum values. When true, if an enum value isn't defined it will output as a number rather than a string
     /// </summary>
-    public bool AllowIntegerValues { get; private set; } = true;
+    private readonly bool _allowIntegerValues;
 
     /// <summary>
     /// <inheritdoc/>
@@ -48,9 +40,9 @@ public class JsonEnumConverter : JsonConverterAttribute
     /// <returns></returns>
     public override JsonConverter? CreateConverter(Type typeToConvert)
     {
-        var converter = CamelCase
-                ? new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, AllowIntegerValues)
-                : new JsonStringEnumConverter(null, AllowIntegerValues);
+        var converter = _camelCase
+                ? new JsonStringEnumConverter(JsonNamingPolicy.CamelCase, _allowIntegerValues)
+                : new JsonStringEnumConverter(null, _allowIntegerValues);
         return converter;
     }
 }

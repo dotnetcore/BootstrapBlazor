@@ -69,7 +69,19 @@ public partial class ThemeProvider
     /// 获得/设置 主题切换回调方法
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnThemeChangedAsync { get; set; }
+    public Func<ThemeValue, Task>? OnThemeChangedAsync { get; set; }
+
+    /// <summary>
+    /// 主题类型
+    /// </summary>
+    [Parameter]
+    public ThemeValue ThemeValue { get; set; } = ThemeValue.UseLocalStorage;
+
+    /// <summary>
+    /// 主题类型改变回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<ThemeValue> ThemeValueChanged { get; set; }
 
     [Inject, NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -107,7 +119,7 @@ public partial class ThemeProvider
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, OnThemeChangedAsync != null ? nameof(OnThemeChanged) : null);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, ThemeValue, nameof(OnThemeChanged));
 
     /// <summary>
     /// JavaScript 回调方法
@@ -115,8 +127,13 @@ public partial class ThemeProvider
     /// <param name="name"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnThemeChanged(string name)
+    public async Task OnThemeChanged(ThemeValue name)
     {
+        if (ThemeValueChanged.HasDelegate)
+        {
+            await ThemeValueChanged.InvokeAsync(name);
+        }
+
         if (OnThemeChangedAsync != null)
         {
             await OnThemeChangedAsync(name);
