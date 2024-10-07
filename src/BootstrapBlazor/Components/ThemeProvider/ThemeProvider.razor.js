@@ -5,11 +5,8 @@ import Data from "../../modules/data.js"
 const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 export function init(id, invoke, themeValue, callback) {
-    console.log(id)
     const el = document.getElementById(id);
-    console.log(el)
     if (el) {
-        console.log(themeValue);
         Data.set('theme', el);
         darkModeMediaQuery.addEventListener('change', handleDarkModeChange);
         let currentTheme = themeValue;
@@ -17,7 +14,6 @@ export function init(id, invoke, themeValue, callback) {
             currentTheme = getPreferredTheme();
         }
         Data.set('currentTheme', currentTheme);
-        console.log(currentTheme);
         setTheme(currentTheme, false);
         const activeItem = el.querySelector(`.dropdown-item[data-bb-theme-value="${currentTheme}"]`);
         if (activeItem) {
@@ -55,13 +51,5 @@ function handleDarkModeChange(e) {
     console.log(Data.get('currentTheme'))
     if (Data.get('currentTheme') === 'auto') {
         switchTheme('auto');
-        if (e.matches) {
-            // 现在是暗模式
-            console.log('Dark mode is now enabled');
-
-        } else {
-            // 现在是明亮模式
-            console.log('Light mode is now enabled');
-        }
     }
 }
