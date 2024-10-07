@@ -13,11 +13,7 @@ export function init(id, invoke, themeValue, callback) {
 
     const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     theme.mediaQueryList = darkModeMediaQuery;
-    EventHandler.on(darkModeMediaQuery, 'change', () => {
-        if (Data.get('currentTheme') === 'auto') {
-            switchTheme('auto');
-        }
-    });
+    EventHandler.on(darkModeMediaQuery, 'change', () => changeTheme(id));
 
     let currentTheme = themeValue;
     if (currentTheme === 'useLocalStorage') {
@@ -46,4 +42,15 @@ export function dispose(id) {
     const { el, darkModeMediaQuery } = theme;
     EventHandler.off(el, 'click');
     EventHandler.off(darkModeMediaQuery, 'change');
+}
+
+const changeTheme = id => {
+    const theme = Data.get(id);
+    if (theme === null) {
+        return;
+    }
+
+    if (theme.currentTheme === 'auto') {
+        switchTheme('auto');
+    }
 }
