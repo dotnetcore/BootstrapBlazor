@@ -3,7 +3,7 @@
 @page "/index"
 @page "/home"
 
-<section class="bd-masthead mb-3">
+<section class="bd-masthead">
     <div class="container-xxl bd-gutter">
         <div class="col-md-8 mx-auto text-center">
             <a class="d-flex flex-column flex-lg-row justify-content-center align-items-center mb-4 text-dark lh-sm text-decoration-none" href="https://github.com/dotnetcore/BootstrapBlazor?wt.mc_id=DT-MVP-5004174" rel="noopener" target="_blank">
@@ -11,7 +11,7 @@
                     @Localizer["Support"]
                 </span>
             </a>
-            <img src="./favicon.png" width="150" height="150" alt="bootstrap-blazor" class="d-none d-sm-block mx-auto my-5">
+            <img src="./favicon.png" alt="bootstrap-blazor" class="bb-logo d-none d-sm-block mx-auto my-5">
             <h1 class="mb-3 fw-semibold">@Localizer["Title"]</h1>
             <p class="lead mb-4">
                 @Localizer["SubTitle"]
@@ -35,5 +35,11 @@
         <h3>@Localizer["DonateH1"]</h3>
         <h5 class="d-none d-sm-block mb-3">@Localizer["DonateH2"]</h5>
         <img alt="barcode" class="barcode" src="./images/BarCode@2x.png" />
+    </div>
+    <div class="bb-foundation">
+        <a class="bb-foundation-img" href="https://www.dotnetfoundation.org/">
+            <img align="right" src="https://github.com/dotnet-foundation/swag/blob/main/logo/dotnetfoundation_v4.png?raw=true" width="100" />
+        </a>
+        <div class="bb-foundation-content">本项目属于 <a href="https://www.dotnetfoundation.org/">.NET 基金会</a>，并根据其 <a href="https://www.dotnetfoundation.org/code-of-conduct">行为准则</a> 运作。</div>
     </div>
 </section>

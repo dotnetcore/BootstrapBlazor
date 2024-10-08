@@ -4,7 +4,7 @@
     --bd-pink-rgb: 214, 51, 132;
     --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
     --bd-accent-rgb: 255, 228, 132;
-    padding: 3rem 0;
+    padding-top: 3rem;
     background-image: linear-gradient(180deg, rgba(var(--bs-body-bg-rgb), 0.01), rgba(var(--bs-body-bg-rgb), 1) 85%), radial-gradient(ellipse at top left, rgba(var(--bs-primary-rgb), 0.5), transparent 50%), radial-gradient(ellipse at top right, rgba(var(--bd-accent-rgb), 0.5), transparent 50%), radial-gradient(ellipse at center right, rgba(var(--bd-violet-rgb), 0.5), transparent 50%), radial-gradient(ellipse at center left, rgba(var(--bd-pink-rgb), 0.5), transparent 50%);
 }
 
@@ -27,6 +27,10 @@
         .bd-masthead .text-body-secondary a {
             text-decoration: underline;
         }
+
+    .bd-masthead .bb-logo {
+        width: 200px;
+    }
 
 .bd-gutter {
     --bs-gutter-x: 3rem;
@@ -78,6 +82,25 @@
 
     .donate .barcode {
         width: 280px;
+    }
+
+.bb-foundation {
+    background-color: rgb(var(--bs-tertiary-bg-rgb));
+    position: relative;
+}
+
+    .bb-foundation .bb-foundation-img {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+
+    .bb-foundation .bb-foundation-content {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: bolder;
+        line-height: 100px;
+        padding: 1rem 0;
     }
 
 @media (min-width: 768px) {
