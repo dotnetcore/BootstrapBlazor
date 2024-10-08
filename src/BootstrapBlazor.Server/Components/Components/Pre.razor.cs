@@ -148,7 +148,7 @@ public partial class Pre
         {
             var regex = new Regex($"<DemoBlock [\\s\\S]*? Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
             var match = regex.Match(content);
-            if (match.Success && match.Groups.Count == 2)
+            if (match is { Success: true, Groups.Count: 2 })
             {
                 content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
             }

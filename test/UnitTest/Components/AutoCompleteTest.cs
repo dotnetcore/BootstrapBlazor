@@ -294,7 +294,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void IsPopover_Ok()
     {
-        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<AutoComplete>(pb =>
         {
             pb.Add(a => a.Items, items);
@@ -308,5 +308,30 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         cut.Contains("data-bs-toggle=\"bb.dropdown\"");
         cut.DoesNotContain("data-bs-placement");
         cut.Contains("data-bs-custom-class=\"ac-pop-test shadow\"");
+    }
+
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        string? val = "";
+        var items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnBlurAsync, v =>
+            {
+                val = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        // trigger blur
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("123");
+            input.Blur();
+        });
+        Assert.Equal("123", val);
     }
 }
