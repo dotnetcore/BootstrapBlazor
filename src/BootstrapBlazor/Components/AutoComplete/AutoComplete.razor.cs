@@ -151,7 +151,7 @@ public partial class AutoComplete
     /// <summary>
     /// OnBlur 方法
     /// </summary>
-    private async Task OnBlur()
+    protected virtual async Task OnBlur()
     {
         CurrentSelectedItem = "";
         IsShown = false;
