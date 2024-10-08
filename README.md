@@ -15,6 +15,9 @@
 English | <a href="README.zh-CN.md">中文</a>
 
 ---
+## .NET Foundation
+[<img align="right" src="https://github.com/dotnet-foundation/swag/blob/main/logo/dotnetfoundation_v4.png?raw=true" width="100" />](https://www.dotnetfoundation.org/)
+<p>This project is part of the <a href="https://www.dotnetfoundation.org/">.NET Foundation</a> and operates under their <a href="https://www.dotnetfoundation.org/code-of-conduct">code of conduct</a>. </p>
 
 ## Features
 - Enterprise-class UI designed for web applications.
@@ -168,6 +171,11 @@ To start the wizard, use either of the following approaches
 2. Create Feat_xxx branch
 3. Commit
 4. Create Pull Request
+
+## Code of Conduct
+
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
 
 ## Donate
 

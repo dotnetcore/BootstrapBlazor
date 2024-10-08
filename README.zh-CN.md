@@ -15,6 +15,9 @@
 <a href="README.md">English</a> | <span>中文</span>
 
 ---
+## .NET Foundation
+[<img align="right" src="https://github.com/dotnet-foundation/swag/blob/main/logo/dotnetfoundation_v4.png?raw=true" width="100" />](https://www.dotnetfoundation.org/)
+<p>该项目属于 <a href="https://www.dotnetfoundation.org/">.NET 基金会</a> ，并根据其 <a href="https://www.dotnetfoundation.org/code-of-conduct">行为准则</a> 运作。</p>
 
 ## 项目介绍
 Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
@@ -39,7 +42,7 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 目前 `BootstrapBlazor` 团队由六名热爱开源的技术达人组成，其中有四名 **微软最有价值专家(Microsoft MVP)** ；成立了大约 2000 人的 `Blazor 中文社区` 积极响应，只讨论 Blazor 相关技术
 
-本组件库内置 **150** 多个组件，作者所在几家公司的项目均在重度使用，大多数组件都是在实际项目中提炼出来，非常适合国人操作习惯，大大节约开发时间，不像有些开源作品甚至作者本人都不使用，遇到问题从根本上无法解决，提交 Issue 也是让其自行解决并帮忙 PR 到其仓库
+本组件库内置 **200** 多个组件，作者所在几家公司的项目均在重度使用，大多数组件都是在实际项目中提炼出来，非常适合国人操作习惯，大大节约开发时间，不像有些开源作品甚至作者本人都不使用，遇到问题从根本上无法解决，提交 Issue 也是让其自行解决并帮忙 PR 到其仓库
 
 作者与团队积极处理 Issue 社区中积极回答问题，绝对不会一个开源仓库有几百上千 Issue 不予处理，当需求合理，即使是新功能也会积极响应并尽快提供新版本不会出现让提交者自己实现功能并提交 PR 的行为
 
@@ -69,7 +72,7 @@ WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开�
 ### 克隆代码
 
 ```shell
-git clone https://gitee.com/LongbowEnterprise/BootstrapBlazor.git
+git clone https://github.com/dotnetcore/BootstrapBlazor.git
 cd BootstrapBlazor/src/BootstrapBlazor.Server
 dotnet run
 ```
@@ -202,7 +205,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 
 ### 上海智通建设发展股份有限公司
 
-特别鸣谢胡总对本项目的鼎力赞助 **10000** 元
+特别鸣谢对本项目的鼎力赞助 **10000** 元
 
 <img src="https://gitee.com/Longbow/Pictures/raw/master/BootstrapBlazor/Donate@x2.png" width="552px;" />
 
@@ -212,6 +215,11 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 2. 新建 Feat_xxx 分支
 3. 提交代码
 4. 新建 Pull Request
+
+## 行为准则
+
+本项目采用了《贡献者公约》所定义的行为准则，以明确我们社区的预期行为。
+更多信息请见 [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
 
 ## 捐助
 
