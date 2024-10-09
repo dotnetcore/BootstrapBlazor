@@ -486,11 +486,18 @@ public partial class Table<TItem>
             // 数据源为 DataTable 新建后重建行与列
             await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
             ResetDynamicContext();
+
+            if (!IsKeepSelectedRowAfterAdd)
+            {
+                SelectedRows.Clear();
+                await OnSelectedRowsChanged();
+            }
         }
         else if (IsExcel)
         {
             await InternalOnAddAsync();
             await QueryAsync(false);
+            await OnSelectedRowsChanged();
         }
         else
         {
@@ -516,14 +523,8 @@ public partial class Table<TItem>
             {
                 await ShowEditDrawer(ItemChangedType.Add);
             }
-
-            await ToggleLoading(false);
-        }
-
-        if (!IsKeepSelectedRowAfterAdd)
-        {
-            SelectedRows.Clear();
             await OnSelectedRowsChanged();
+            await ToggleLoading(false);
         }
     }
 
