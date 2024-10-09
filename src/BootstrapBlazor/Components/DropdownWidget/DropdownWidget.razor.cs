@@ -31,6 +31,12 @@ public sealed partial class DropdownWidget
     [Parameter]
     public Func<DropdownWidgetItem, Task>? OnItemCloseAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 下拉项关闭回调方法
+    /// </summary>
+    [Parameter]
+    public Func<DropdownWidgetItem, Task>? OnItemShownAsync { get; set; }
+
     private List<DropdownWidgetItem> Childs { get; } = new List<DropdownWidgetItem>(20);
 
     /// <summary>
@@ -54,15 +60,23 @@ public sealed partial class DropdownWidget
     /// Widget 下拉项关闭回调方法 由 JavaScript 调用
     /// </summary>
     /// <param name="index"></param>
+    /// <param name="shown"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnWidgetItemClosed(int index)
+    public async Task OnWidgetItemClosed(int index, bool shown)
     {
         var items = GetItems().ToList();
         var item = index < items.Count ? items[index] : null;
-        if (item != null && OnItemCloseAsync != null)
+        if (item != null)
         {
-            await OnItemCloseAsync(item);
+            if (OnItemCloseAsync != null && !shown)
+            {
+                await OnItemCloseAsync(item);
+            }
+            else if (OnItemShownAsync != null && shown)
+            {
+                await OnItemShownAsync(item);
+            }
         }
     }
 }

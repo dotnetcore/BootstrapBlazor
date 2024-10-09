@@ -7,13 +7,16 @@ export function init(id, invoke, options) {
         return;
     }
 
-    const { method } = options;
-    EventHandler.on(el, 'hidden.bs.dropdown', e => {
+    const invokeMethod = e => {
         const item = e.target;
         const items = [...el.querySelectorAll("[data-bs-toggle=\"dropdown\"]")];
         const index = items.indexOf(item);
-        invoke.invokeMethodAsync(method, index);
-    });
+        invoke.invokeMethodAsync(method, index, e.type === 'shown.bs.dropdown');
+    }
+
+    const { method } = options;
+    EventHandler.on(el, 'hidden.bs.dropdown', invokeMethod);
+    EventHandler.on(el, 'shown.bs.dropdown', invokeMethod);
 }
 
 export function dispose(id) {
