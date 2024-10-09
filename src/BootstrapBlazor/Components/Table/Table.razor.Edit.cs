@@ -265,7 +265,6 @@ public partial class Table<TItem>
 
     private async Task InternalOnAddAsync()
     {
-        SelectedRows.Clear();
         if (OnAddAsync != null)
         {
             EditModel = await OnAddAsync();
