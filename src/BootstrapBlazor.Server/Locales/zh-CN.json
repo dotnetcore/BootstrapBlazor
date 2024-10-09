@@ -3980,7 +3980,8 @@
     "BasicUsageNotify": "您有 10 个未读通知",
     "BasicUsageViewNotify": "查看所有通知",
     "BasicUsageTasks": "您有 3 个任务",
-    "BasicUsageViewTasks": "查看所有任务"
+    "BasicUsageViewTasks": "查看所有任务",
+    "OnItemCloseAsync": "关闭菜单项回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty 空状态",
