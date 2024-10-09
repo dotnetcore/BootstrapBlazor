@@ -4894,6 +4894,8 @@
     "IsTreeAttr": "是否为树形数据",
     "IsDetailsAttr": "是否为明细行表格，未设置时使用 DetailRowTemplate 进行逻辑判断",
     "IsHideFooterWhenNoDataAttr": "无数据时是否显示 Footer",
+    "IsKeepSelectedRowsAttr": "翻页后是否保持选中行数据",
+    "IsKeepSelectedRowAfterAddAttr": "新建数据后是否保持选中行",
     "ClickToSelectAttr": "点击行即选中本行",
     "ShowCheckboxTextAttr": "显示文字的选择列",
     "ShowFooterAttr": "是否显示表脚",

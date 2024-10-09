@@ -647,6 +647,22 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.IsKeepSelectedRows),
+            Description = Localizer["IsKeepSelectedRowsAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.IsKeepSelectedRowAfterAdd),
+            Description = Localizer["IsKeepSelectedRowAfterAddAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ClickToSelect",
             Description = Localizer["ClickToSelectAttr"],
             Type = "boolean",
