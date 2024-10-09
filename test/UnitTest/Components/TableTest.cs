@@ -185,7 +185,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Theory]
     [InlineData(InsertRowMode.First)]
     [InlineData(InsertRowMode.Last)]
-    public void Items_EditForm_Add(InsertRowMode insertMode)
+    public async Task Items_EditForm_Add(InsertRowMode insertMode)
     {
         var updated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -206,7 +206,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
-        _ = table.Instance.AddAsync();
+        await cut.InvokeAsync(table.Instance.AddAsync);
         Assert.True(updated);
         Assert.Equal(2, table.Instance.Rows.Count);
     }
@@ -6044,6 +6044,35 @@ public class TableTest : BootstrapBlazorTestBase
 
         var delete = cut.FindComponent<TableToolbarPopConfirmButton<DynamicObject>>();
         await cut.InvokeAsync(() => delete.Instance.OnConfirm());
+    }
+
+    [Fact]
+    public async Task IsKeepSelectedRowAfterAdd_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<DynamicObject>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.IsKeepSelectedRowAfterAdd, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+
+        var table = cut.FindComponent<Table<DynamicObject>>();
+
+        // 选中第一行数据
+        var input = cut.Find("tbody .form-check-input");
+        await cut.InvokeAsync(() => input.Click());
+        var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
+        Assert.NotNull(selectedRow);
+
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
+        selectedRow = table.Instance.SelectedRows.FirstOrDefault();
+        Assert.NotNull(selectedRow);
     }
 
     [Fact]

@@ -25,6 +25,12 @@ public partial class Table<TItem>
     public bool IsKeepSelectedRows { get; set; }
 
     /// <summary>
+    /// 获得/设置 新建数据是否保持原选择行，默认为 false 不保持
+    /// </summary>
+    [Parameter]
+    public bool IsKeepSelectedRowAfterAdd { get; set; }
+
+    /// <summary>
     /// 获得 表头行是否选中状态
     /// </summary>
     /// <returns></returns>
