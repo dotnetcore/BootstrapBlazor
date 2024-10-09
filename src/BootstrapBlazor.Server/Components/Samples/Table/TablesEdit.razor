@@ -150,7 +150,6 @@
         <RadioList @bind-Value="InsertMode" />
     </section>
     <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
@@ -169,7 +168,6 @@
         <p>@((MarkupString)Localizer["TablesEditModeDrawer"].Value)</p>
     </section>
     <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
            AddModalTitle="@Localizer["TablesEditModeAddModalTitle"]" EditModalTitle="@Localizer["TablesEditModeEditModalTitle"]"
