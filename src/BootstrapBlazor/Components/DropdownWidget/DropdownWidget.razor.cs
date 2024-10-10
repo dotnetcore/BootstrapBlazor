@@ -43,7 +43,7 @@ public sealed partial class DropdownWidget
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Method = nameof(OnWidgetItemClosed) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Method = nameof(TriggerStateChanged) });
 
     /// <summary>
     /// 添加 DropdownWidgetItem 方法
@@ -63,7 +63,7 @@ public sealed partial class DropdownWidget
     /// <param name="shown"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task OnWidgetItemClosed(int index, bool shown)
+    public async Task TriggerStateChanged(int index, bool shown)
     {
         var items = GetItems().ToList();
         var item = index < items.Count ? items[index] : null;

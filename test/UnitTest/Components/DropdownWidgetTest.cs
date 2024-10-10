@@ -181,7 +181,45 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
         Assert.NotNull(ele);
     }
 
-    private static IEnumerable<DropdownWidgetItem> GetItems()
+    [Fact]
+    public async Task OnItemAsync_OK()
+    {
+        var shown = false;
+        var closed = false;
+        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        {
+            builder.Add(a => a.OnItemShownAsync, item =>
+            {
+                shown = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.OnItemCloseAsync, item =>
+            {
+                closed = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<DropdownWidgetItem>(0);
+                builder.AddAttribute(1, nameof(DropdownWidgetItem.HeaderColor), Color.Success);
+                builder.AddAttribute(2, nameof(DropdownWidgetItem.Title), "Test1");
+                builder.CloseComponent();
+
+                builder.OpenComponent<DropdownWidgetItem>(0);
+                builder.AddAttribute(10, nameof(DropdownWidgetItem.HeaderColor), Color.Success);
+                builder.AddAttribute(11, nameof(DropdownWidgetItem.Title), "Test2");
+                builder.CloseComponent();
+            }));
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(0, true));
+        Assert.True(shown);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(1, false));
+        Assert.True(closed);
+    }
+
+    private static List<DropdownWidgetItem> GetItems()
     {
         var ret = new List<DropdownWidgetItem>();
         var widget = new DropdownWidgetItem();
