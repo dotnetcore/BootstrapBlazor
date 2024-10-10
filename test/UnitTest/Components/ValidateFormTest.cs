@@ -238,6 +238,67 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void MetadataTypeIValidatableObject_Ok()
+    {
+        var foo = new Dummy() { Password1 = "password", Password2 = "Password2" };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Password1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Password1", typeof(string)));
+            });
+            pb.AddChildContent<MockInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Password2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Password2", typeof(string)));
+            });
+        });
+        var form = cut.Find("form");
+        cut.InvokeAsync(() => form.Submit());
+        var message = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
+        Assert.Equal("两次密码必须一致。", message);
+    }
+
+    [Fact]
+    public async Task MetadataTypeIValidateCollection_Ok()
+    {
+        var model = new Dummy2() { Value1 = 0, Value2 = 0 };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, model);
+            pb.AddChildContent<MockInput<int>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Value1);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Value1", typeof(int)));
+            });
+            pb.AddChildContent<MockInput<int>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Value2);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Value2", typeof(int)));
+            });
+        });
+        var form = cut.Find("form");
+        await cut.InvokeAsync(() => form.Submit());
+        var input = cut.FindComponent<MockInput<int>>();
+        var all = cut.FindComponents<MockInput<int>>();
+        var input2 = all[all.Count - 1];
+        Assert.Null(input.Instance.GetErrorMessage());
+        Assert.Equal("Value2 必须大于 0", input2.Instance.GetErrorMessage());
+
+        model.Value1 = 0;
+        model.Value2 = 2;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Model, model);
+        });
+        await cut.InvokeAsync(() => form.Submit());
+        Assert.Equal("Value1 必须大于 Value2", input.Instance.GetErrorMessage());
+        Assert.Equal("Value1 必须大于 Value2", input2.Instance.GetErrorMessage());
+    }
+
+    [Fact]
     public void Validate_Class_Ok()
     {
         var dummy = new Dummy();
@@ -463,7 +524,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         var form = cut.Instance;
         await cut.InvokeAsync(() => form.Validate());
-        Assert.Contains("form-control invalid is-invalid", cut.Markup);
+        Assert.Contains("form-control valid is-invalid", cut.Markup);
     }
 
     [Fact]
@@ -672,12 +733,83 @@ public class ValidateFormTest : BootstrapBlazorTestBase
 
         [Required]
         public string? File { get; set; }
+
+        public string? Password1 { get; set; }
+
+        public string? Password2 { get; set; }
     }
 
-    private class DummyMetadata
+    private class DummyMetadata : IValidatableObject
     {
         [Required]
         public DateTime? Value { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            var result = new List<ValidationResult>();
+            if (validationContext.ObjectInstance is Dummy dy)
+            {
+                if (!string.Equals(dy.Password1, dy.Password2, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    result.Add(new ValidationResult("两次密码必须一致。", [nameof(Dummy.Password1), nameof(Dummy.Password2)]));
+                }
+            }
+            return result;
+        }
+    }
+
+    [MetadataType(typeof(Dummy2MetadataCollection))]
+    private class Dummy2
+    {
+        public int Value1 { get; set; }
+
+        public int Value2 { get; set; }
+    }
+
+    public class Dummy2MetadataCollection : IValidateCollection
+    {
+        [Required]
+        public int Value1 { get; set; }
+
+        [CustomValidation(typeof(Dummy2MetadataCollection), nameof(CustomValidate), ErrorMessage = "{0} 必须大于 0")]
+        [Required]
+        public int Value2 { get; set; }
+
+        private readonly List<string> _validMemberNames = [];
+
+        public List<string> GetValidMemberNames() => _validMemberNames;
+
+        private readonly List<ValidationResult> _invalidMemberNames = [];
+
+        public List<ValidationResult> GetInvalidMemberNames() => _invalidMemberNames;
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            _invalidMemberNames.Clear();
+            _validMemberNames.Clear();
+            if (validationContext.ObjectInstance is Dummy2 dummy)
+            {
+                if (dummy.Value1 < dummy.Value2)
+                {
+                    _invalidMemberNames.Add(new ValidationResult("Value1 必须大于 Value2", [nameof(Dummy2.Value1), nameof(Dummy2.Value2)]));
+                }
+                else
+                {
+                    _validMemberNames.AddRange([nameof(Dummy2.Value1), nameof(Dummy2.Value2)]);
+                }
+            }
+            return _invalidMemberNames;
+        }
+
+        public static ValidationResult? CustomValidate(object value, ValidationContext context)
+        {
+            ValidationResult? ret = null;
+            if (value is int v && v < 1)
+            {
+                ret = new ValidationResult("Value2 必须大于 0", ["Value2"]);
+            }
+            return ret;
+        }
     }
 
     private class MockFoo
@@ -764,13 +896,13 @@ public class ValidateFormTest : BootstrapBlazorTestBase
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        public List<string> ValidMemberNames() => _validMemberNames;
+        public List<string> GetValidMemberNames() => _validMemberNames;
 
         /// <summary>
         /// <inheritdoc/>
         /// </summary>
         /// <returns></returns>
-        public List<ValidationResult> InvalidMemberNames() => _invalidMemberNames;
+        public List<ValidationResult> GetInvalidMemberNames() => _invalidMemberNames;
     }
 
     private class MockInput<TValue> : BootstrapInput<TValue>

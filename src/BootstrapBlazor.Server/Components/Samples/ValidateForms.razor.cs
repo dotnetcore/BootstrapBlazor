@@ -36,7 +36,7 @@ public partial class ValidateForms
     }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -132,19 +132,58 @@ public partial class ValidateForms
 
     private ConcurrentDictionary<FieldIdentifier, object?> GetValueChangedFieldCollection() => ComplexForm?.ValueChangedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
 
-    private class ComplexFoo : Foo
+    private readonly MockModel _mockModel = new() { Email = "argo@live.ca", ConfirmEmail = "argo@163.com" };
+
+    [MetadataType(typeof(MockModelMetadataType))]
+    class MockModel
+    {
+        public string? Email { get; set; }
+
+        public string? ConfirmEmail { get; set; }
+    }
+
+    class MockModelMetadataType : IValidateCollection
+    {
+        private readonly List<string> _validMemberNames = [];
+        private readonly List<ValidationResult> _invalidMemberNames = [];
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            _validMemberNames.Clear();
+            _invalidMemberNames.Clear();
+            if (validationContext.ObjectInstance is MockModel model)
+            {
+                if (!string.IsNullOrEmpty(model.Email) && !string.IsNullOrEmpty(model.ConfirmEmail)
+                    && !model.Email.Equals(model.ConfirmEmail, StringComparison.OrdinalIgnoreCase))
+                {
+                    _invalidMemberNames.Add(new ValidationResult("两个值必须一致。", [nameof(model.Email), nameof(model.ConfirmEmail)]));
+                }
+                else
+                {
+                    _validMemberNames.AddRange([nameof(model.Email), nameof(model.ConfirmEmail)]);
+                }
+            }
+            return GetInvalidMemberNames();
+        }
+
+        public List<string> GetValidMemberNames() => _validMemberNames;
+
+        public List<ValidationResult> GetInvalidMemberNames() => _invalidMemberNames;
+    }
+
+    class ComplexFoo : Foo
     {
         [NotNull]
         public Dummy1? Dummy { get; set; }
     }
 
-    private class Dummy1
+    class Dummy1
     {
         [NotNull]
         public Dummy2? Dummy2 { get; set; }
     }
 
-    private class Dummy2
+    class Dummy2
     {
         [Required]
         public string? Name { get; set; }

@@ -60,6 +60,12 @@ public partial class AutoComplete
     public bool OnFocusFilter { get; set; }
 
     /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<string?, Task>? OnBlurAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true
     /// </summary>
     [Parameter]
@@ -145,10 +151,15 @@ public partial class AutoComplete
     /// <summary>
     /// OnBlur 方法
     /// </summary>
-    protected void OnBlur()
+    protected virtual async Task OnBlur()
     {
         CurrentSelectedItem = "";
         IsShown = false;
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 
     /// <summary>
@@ -239,7 +250,7 @@ public partial class AutoComplete
             }
             else if (key == "Escape")
             {
-                OnBlur();
+                await OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
                 {
                     await OnEscAsync(Value);
@@ -256,7 +267,7 @@ public partial class AutoComplete
                     }
                 }
 
-                OnBlur();
+                await OnBlur();
                 if (!SkipEnter && OnEnterAsync != null)
                 {
                     await OnEnterAsync(Value);
@@ -268,7 +279,7 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// 
+    /// 自定义按键处理方法
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>

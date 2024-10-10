@@ -15,11 +15,17 @@ public partial class Online : IDisposable
     [NotNull]
     private IConnectionService? ConnectionService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private WebClientService? WebClientService { get; set; }
+
     private DynamicObjectContext? DataTableDynamicContext { get; set; }
 
     private readonly DataTable _table = new();
 
-    private CancellationTokenSource? _cancellationTokenSource = null;
+    private CancellationTokenSource? _cancellationTokenSource;
+
+    private string? _clientId;
 
     /// <summary>
     /// <inheritdoc/>
@@ -29,7 +35,6 @@ public partial class Online : IDisposable
         base.OnInitialized();
 
         CreateTable();
-        BuildContext();
     }
 
     /// <summary>
@@ -44,8 +49,9 @@ public partial class Online : IDisposable
         {
             Task.Run(async () =>
             {
-                await Task.Delay(500);
-                _cancellationTokenSource = new();
+                var client = await WebClientService.GetClientInfo();
+                _clientId = client.Id;
+                _cancellationTokenSource ??= new CancellationTokenSource();
                 while (_cancellationTokenSource is { IsCancellationRequested: false })
                 {
                     try
@@ -54,7 +60,10 @@ public partial class Online : IDisposable
                         await InvokeAsync(StateHasChanged);
                         await Task.Delay(10000, _cancellationTokenSource.Token);
                     }
-                    catch { }
+                    catch
+                    {
+                        // ignored
+                    }
                 }
             });
         }
@@ -62,6 +71,7 @@ public partial class Online : IDisposable
 
     private void CreateTable()
     {
+        _table.Columns.Add("Id", typeof(string));
         _table.Columns.Add("ConnectionTime", typeof(DateTimeOffset));
         _table.Columns.Add("LastBeatTime", typeof(DateTimeOffset));
         _table.Columns.Add("Dur", typeof(TimeSpan));
@@ -78,9 +88,11 @@ public partial class Online : IDisposable
     private void BuildContext()
     {
         _table.Rows.Clear();
+        var rows = ConnectionService.Connections.Sort(["ConnectionTime"]);
         foreach (var item in ConnectionService.Connections)
         {
             _table.Rows.Add(
+                item.Id,
                 item.ConnectionTime,
                 item.LastBeatTime,
                 item.LastBeatTime - item.ConnectionTime,
@@ -100,7 +112,11 @@ public partial class Online : IDisposable
         DataTableDynamicContext = new DataTableDynamicContext(_table, (context, col) =>
         {
             col.Text = Localizer[col.GetFieldName()];
-            if (col.GetFieldName() == "ConnectionTime")
+            if (col.GetFieldName() == "Id")
+            {
+                col.Ignore = true;
+            }
+            else if (col.GetFieldName() == "ConnectionTime")
             {
                 col.FormatString = "yyyy/MM/dd HH:mm:ss";
                 col.Width = 118;
@@ -148,6 +164,12 @@ public partial class Online : IDisposable
             }
         }
         return ret;
+    }
+
+    private string? SetRowClassFormatter(DynamicObject context)
+    {
+        var id = context.GetValue("id")?.ToString();
+        return _clientId == id ? "active" : null;
     }
 
     private void Dispose(bool disposing)

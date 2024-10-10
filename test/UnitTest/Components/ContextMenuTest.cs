@@ -221,15 +221,16 @@ public class ContextMenuTest : BootstrapBlazorTestBase
         item.Click();
         Assert.True(clicked);
 
+        var options = Context.Services.GetRequiredService<IOptionsMonitor<BootstrapBlazorOptions>>();
+        options.CurrentValue.ContextMenuOptions.OnTouchDelay = 100;
         TriggerTouchStart(row);
         TriggerTouchStart(row);
 
-        var options = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        await Task.Delay(100 + options.Value.ContextMenuOptions.OnTouchDelay);
+        await Task.Delay(100 + 2 * options.CurrentValue.ContextMenuOptions.OnTouchDelay);
         row.TouchEnd();
     }
 
-    private void TriggerTouchStart(IElement row)
+    private static void TriggerTouchStart(IElement row)
     {
         row.TouchStart(new TouchEventArgs()
         {

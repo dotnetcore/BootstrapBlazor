@@ -707,7 +707,9 @@
     "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项",
     "TreeViewMaxSelectedCountTitle": "最大选择数量",
     "TreeViewMaxSelectedCountIntro": "通过设置 <code>MaxSelectedCount</code> 属性控制最大可选数量，通过 <code>OnMaxSelectedCountExceed</code> 回调处理逻辑",
-    "TreeViewMaxSelectedCountDesc": "选中节点超过 2 个时，弹出 <code>Toast</code> 提示栏"
+    "TreeViewMaxSelectedCountDesc": "选中节点超过 2 个时，弹出 <code>Toast</code> 提示栏",
+    "TreeViewEnableKeyboardArrowUpDownTitle": "键盘支持",
+    "TreeViewEnableKeyboardArrowUpDownIntro": "通过设置 <code>EnableKeyboardArrowUpDown=\"true\"</code> 支持键盘上下箭头操作。<kbd>左箭头</kbd> 收起节点，<kbd>右箭头</kbd> 展开节点，<kbd>上箭头</kbd> 向上移动节点，<kbd>下箭头</kbd> 向下移动节点，<kbd>空格</kbd> 选中节点"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",
@@ -1028,9 +1030,9 @@
   "BootstrapBlazor.Server.Components.Samples.Labels": {
     "LabelsTitle": "组件标签",
     "LabelsDescription": "本套组件中有 <code>ValidateForm</code> <code>EditorForm</code> 以及多种继承 <code>ValidateBase&lt;TValue&gt;</code> 的 <b>表单组件</b>，这些组件中有一套特殊的显示前置标签逻辑，现在我们统一的梳理一下：",
-    "LabelsDescriptionTips1": "<a href='/validateforms' target='_blank'>ValidateForm</a> 组件是 <b>可验证的</b> 表单组件，此组件内的表单组件会自动进行数据合规性检查，如果数据不合规将会阻止 <b>提交(Submit)</b> 动作，是数据提交中使用最最最频繁的组件",
-    "LabelsDescriptionTips2": "<a href='/editorforms' target='_blank'>EditorForm</a> 组件是普通的表单组件，此组件绑定 <code>Model</code> 后即可自动生成整个表单，大大减少重复性编码，外面套上 <code>ValidateForm</code> 即可开启 <b>数据合规性检查</b> 非常方便、简洁、高效",
-    "LabelsDescriptionTips3": "以 <a href='inputs' target='_blank'>BootstrapInput</a> 输入框组件为例，阐述一下是否显示 <code>Label</code> 逻辑",
+    "LabelsDescriptionTips1": "<a href='/validate-form' target='_blank'>ValidateForm</a> 组件是 <b>可验证的</b> 表单组件，此组件内的表单组件会自动进行数据合规性检查，如果数据不合规将会阻止 <b>提交(Submit)</b> 动作，是数据提交中使用最最最频繁的组件",
+    "LabelsDescriptionTips2": "<a href='/editor-form' target='_blank'>EditorForm</a> 组件是普通的表单组件，此组件绑定 <code>Model</code> 后即可自动生成整个表单，大大减少重复性编码，外面套上 <code>ValidateForm</code> 即可开启 <b>数据合规性检查</b> 非常方便、简洁、高效",
+    "LabelsDescriptionTips3": "以 <a href='input' target='_blank'>BootstrapInput</a> 输入框组件为例，阐述一下是否显示 <code>Label</code> 逻辑",
     "LabelsTips": "<code>ShowLabel</code> 的逻辑即就近原则，离自身越近的设置生效，如表单组件内置到 <code>ValidateForm</code> 组件中，即使 <code>ValidateForm</code> 设置 <code>ShowLabel=true</code>，表单组件自身设置 <code>ShowLabel=false</code> 时，标签最终结果为 <b>不显示</b>",
     "LabelsNormalTitle": "单独使用",
     "LabelsNormalIntro": "适用于数据录入",
@@ -1072,11 +1074,11 @@
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "安装",
     "GitP1": "Git 工具有很多种大家比较熟悉的，这里我介绍两款 Git 客户端工具",
-    "GitP2": "推荐使用 <a href='https://fork.dev'>Fork</a> 工具进行安装，它能更好地和 <a href='https://visualstudio.microsoft.com/vs/getting-started/' target='_blank'>Visutal Studio</a> 开发工具配合使用。",
+    "GitP2": "推荐使用 <a href='https://fork.dev'>Fork</a> 工具进行安装，它能更好地和 <a href='https://visualstudio.microsoft.com/vs/getting-started/' target='_blank'>Visual Studio</a> 开发工具配合使用。",
     "NugetInstall": "Nuget 安装",
     "NugetP1": "使用 <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> 进行 BootstrapBlazor 组件的安装",
     "EnvBuildTitle": "项目环境搭建",
-    "EnvLi1": "安装 .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>官方网址</a>",
+    "EnvLi1": "安装 .net core sdk <a href='https://www.microsoft.com/net/download' target='_blank'>官方网址</a>",
     "EnvLi2": "安装 Visual Studio 2022 以上 <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>官方网址</a>",
     "EnvLi3": "拉取项目代码 BootstrapBlazor <a href='{0}' target='_blank'>仓库网址</a>"
   },
@@ -1087,7 +1089,7 @@
   },
   "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "H1": "组件库 更新到",
-    "B1": "首先感谢您对本套组件的关注，目前本套组件已经拥有超过 120 个组件，本组件是基于",
+    "B1": "首先感谢您对本套组件的关注，目前本套组件已经拥有将近 200 个组件，本组件是基于",
     "B2": "企业级组件库，提供如布局、导航、表单、数据、通知、图标、语音等几大类通用组件，每一个组件都经过精心设计，具有模块化、响应式和优秀的性能。从更多实际场景出发，满足多种场景的需求，极大的减少开发者时间成本，大大缩短开发周期，大幅提高开发效率，并提供了一套",
     "B3": "通用权限管理系统",
     "B4": "示例工程",
@@ -2493,7 +2495,7 @@
     "NormalTitle": "选择日",
     "NormalIntro": "以「日」为基本单位，基础的日期选择控件",
     "ShowIconTitle": "是否显示组件图标",
-    "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\" 不显示组件图标节约空间",
+    "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\"</code> 不显示组件图标节约空间",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
     "IsEditableTitle": "手工录入",
@@ -2526,7 +2528,7 @@
     "Att2": "是否显示快捷侧边栏",
     "Att3": "前置标签显示文本",
     "Att4": "日期格式字符串 默认为 yyyy-MM-dd",
-    "Att6": "是否禁用 默认为 fasle",
+    "Att6": "是否禁用 默认为 false",
     "Att8": "组件值与 ValueChanged 作为双向绑定的值",
     "Att9": "获得/设置 组件显示模式 默认为显示年月日模式",
     "AttrAutoClose": "选中日期后是否自动关闭弹窗",
@@ -2542,8 +2544,6 @@
     "ValidateFormValue": "时间",
     "DateTimePickerTitle": "时间选择",
     "DateTimePickerIntro": "通过时钟表盘选择时分秒，获取当前的日期和时间。",
-    "ShowLunarTitle": "显示农历",
-    "ShowLunarIntro": "通过设置 <code>ShowLunar=\"true\"</code> 显示农历",
     "DayTemplateTitle": "自定义日期显示",
     "DayTemplateIntro": "通过设置 <code>DayTemplate</code> 自定义显示模板，禁用的日期模板为 <code>DayDisabledTemplate</code>",
     "AttrShowLunar": "是否显示农历",
@@ -2556,7 +2556,22 @@
     "FeatureShowFestivals": "节日",
     "FeatureShowHolidays": "法定假日",
     "FeatureIntro": "<b>假日</b>功能依赖组件包 <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[传送门]</a>",
-    "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>"
+    "FeatureFestivalIntro": "<b>节日</b>功能由组件库内置服务 <code>ICalendarFestivals</code> 提供，内置默认实现提供了 12 个公历节日与 7 个农历节日，可以通过自定义节日服务进行扩展，详细功能介绍请参阅 <b>节日服务</b> 文档 <a href=\"festival\" target=\"_blank\">[传送门]</a>",
+    "DisableOptions": "组合禁用条件",
+    "DisableWeekend": "禁用周末",
+    "DisableToday": "禁用今天",
+    "DisableDayCallbackTitle": "自定义禁用日期",
+    "DisableDayCallbackIntro": "通过设置 <code>OnGetDisabledDaysCallback</code> 自定义哪些日期需要被禁用",
+    "DisableDayCallbackTip": "<p class\"mb-3\"><b>请注意</b></p><ul class=\"ul-demo\"><li>组件赋值为禁用日期时，组件默认仍然显示其值，如果需要将禁用日期显示为 <b>空字符串</b> 请设置 <code>DisplayDisabledDayAsEmpty=\"true\"</code></li><li>本例为稍微复杂逻辑判断禁用日期，禁用日期为组合条件，所以当条件更改时需要调用组件实例方法 <code>ClearDisabledDays</code> 清除内部缓存</li></ul><p class=\"mb-3\">本例中第一个组件由于设置了 <code>DisplayDisabledDayAsEmpty=\"true\"</code> 所以组件值为 <code>DateTime.Today</code> 显示值为 <b>空字符串</b></p><div>本例中第二个组件数据类型为 <b>不可为空类型</b> 由于参数 <code>AutoToday</code> 默认值为 <code>true</code> 所以即使初始化值为 <code>DateTime.MinValue</code> 其显示值为 <code>DateTime.Today</code> 即使当禁用今天时，仍然显示，如果需要显示 <b>空字符串</b> 请设置 <code>DisplayDisabledDayAsEmpty=\"true\"</code></div>",
+    "DisableDayCallbackAllowNullDisplayText": "可为空类型",
+    "DisableDayCallbackNotAllowNullDisplayText": "不可为空类型",
+    "FeatureShowLunarIntro": "<code>ShowLunar</code> 是否显示农历",
+    "FeatureShowSolarTermIntro": "<code>ShowSolarTerm</code> 是否显示 24 节气",
+    "FeatureShowFestivalsIntro": "<code>ShowFestivals</code> 是否显示节日",
+    "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> 是否显示假日",
+    "OnGetDisabledDaysCallbackEvent": "获得自定义禁用日期回调方法",
+    "AttrEnableDisabledDaysCache": "是否启用获得自定义禁用日期缓存",
+    "AttrDisplayDisabledDayAsEmpty": "显示禁用日期为空字符串"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker 时间选择器",
@@ -3287,9 +3302,9 @@
     "Color": "颜色",
     "IsDisabled": "是否禁用",
     "OffTextAttr": "组件 Off 时显示文本",
-    "OffTextDefautValue": "收缩",
+    "OffTextDefaultValue": "收缩",
     "OnTextAttr": "组件 On 时显示文本",
-    "OnTextDefautValue": "展开",
+    "OnTextDefaultValue": "展开",
     "Width": "组件宽度",
     "Value": "获取值",
     "ShowLabel": "是否显示前置标签",
@@ -3374,7 +3389,7 @@
     "AvatarUploadTips2": "圆形头像框",
     "AvatarUploadTips3": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
     "AvatarUploadTips4": " <div>组件提供了 <code>Accept</code> 属性用于设置上传文件过滤功能，本例中圆形头像框接受 GIF 和 JPEG 两种图像，设置 <code>Accept='image/gif, image/jpeg'</code>，如果不限制图像的格式，可以写为：<code>Accept='image/*'</code>，该属性并不安全还是应该是使用 <b>服务器端验证</b> 进行文件格式验证</div>",
-    "AvatarUploadTips5": "相关文档：<a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept 属性详解]</a> <a href='http://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types 详细列表]</a>",
+    "AvatarUploadTips5": "相关文档：<a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept 属性详解]</a> <a href='https://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types 详细列表]</a>",
     "AvatarUploadTips6": "通过 <code>DefaultFileList</code> 属性设置预览地址 <code>PrevUrl</code> 即可",
     "AvatarUploadTips7": "验证表单内使用头像框示例",
     "AvatarUploadButtonText": "提交",
@@ -3385,7 +3400,7 @@
     "UploadPreCardStyleWasm": "<b>Wasm 模式</b>",
     "UploadPreCardStyleWasmSide": "<code>wasm</code> 模式中无法使用 <code>IWebHostEnvironment</code> 需要调用 <code>webapi</code> 接口等形式将文件保存到服务器端",
     "UploadPreCardStyleLink": "有兴趣的同学可以通过开源仓库中的 <code>wiki</code> 文档中相关资源查看关于 <code>Upload</code> 组件的相关知识技巧 <a href='{0}' target='_blank'>[传送门]</a>",
-    "UploadPreCardStyleValidation": "本例中通过服务器端验证当文件大小超过 <code>200MB</code> 时，提示文件太大提示信息",
+    "UploadPreCardStyleValidation": "本例中通过服务器端验证当文件大小超过 <code>5MB</code> 时，提示文件太大提示信息",
     "UploadPreCardStyleTips1": "本例中设置 <code>ShowProgress=true</code> 显示上传进度条",
     "UploadPreCardStyleTips2": "设置 <code>IsSingle</code> 时，仅可以上传一张图片或者文件",
     "UploadFileIconTitle": "文件图标",
@@ -3423,7 +3438,7 @@
     "UploadsFormatError": "文件格式不正确",
     "UploadsAvatarMsg": "头像上传",
     "UploadsFileMsg": "上传文件",
-    "UploadsFileError": "文件大小超过 200MB",
+    "UploadsFileError": "文件大小超过 5MB",
     "UploadsSaveFileError": "保存文件失败",
     "UploadFile": "上传文件",
     "UploadsWasmError": "Wasm 模式未实现保存代码",
@@ -3514,7 +3529,9 @@
     "ValidateFormIValidatableObjectDescription": "本示例使用 <code>IValidatableObject</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同，以及 <code>名称</code> 不能为空，本例中并未设置 <code>名称</code> 为必填项，但是由于模型对 <code>IValidatableObject</code> 接口的实现中进行了校验，所以在提交数据时仍然触发 <code>OnInvalidSubmit</code> 回调委托",
     "ValidateFormIValidateCollectionTitle": "IValidateCollection 接口类型",
     "ValidateFormIValidateCollectionIntro": "<code>IValidateCollection</code> 接口提供了更加灵活的自定义 <code>联动</code> 校验，非常适合进行非常复杂的数据校验，例如多属性组合起来进行校验等场景。",
-    "ValidateFormIValidateCollectionDescription": "本示例使用 <code>IValidateCollection</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同校验，更改任意单元格使电话号码相同时两个文本框均进行提示"
+    "ValidateFormIValidateCollectionDescription": "本示例使用 <code>IValidateCollection</code> 实现校验 <code>联系电话1</code> 和 <code>联系电话2</code> 不能相同校验，更改任意单元格使电话号码相同时两个文本框均进行提示",
+    "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
+    "ValidateMetadataTypeIntro": "模型通过 <code>[MetadataType(typeof(MockModelMetadataType))]</code> 指定元数据类型 <code>MockModelMetadataType</code> 进行模型验证，如果指定模型继承 <code>IValidateCollection</code> 接口时，调用其 <code>Validate</code> 方法进行数据合规性检查"
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax调用",
@@ -3963,7 +3980,8 @@
     "BasicUsageNotify": "您有 10 个未读通知",
     "BasicUsageViewNotify": "查看所有通知",
     "BasicUsageTasks": "您有 3 个任务",
-    "BasicUsageViewTasks": "查看所有任务"
+    "BasicUsageViewTasks": "查看所有任务",
+    "OnItemCloseAsync": "关闭菜单项回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty 空状态",
@@ -4877,6 +4895,8 @@
     "IsTreeAttr": "是否为树形数据",
     "IsDetailsAttr": "是否为明细行表格，未设置时使用 DetailRowTemplate 进行逻辑判断",
     "IsHideFooterWhenNoDataAttr": "无数据时是否显示 Footer",
+    "IsKeepSelectedRowsAttr": "翻页后是否保持选中行数据",
+    "IsKeepSelectedRowAfterAddAttr": "新建数据后是否保持选中行",
     "ClickToSelectAttr": "点击行即选中本行",
     "ShowCheckboxTextAttr": "显示文字的选择列",
     "ShowFooterAttr": "是否显示表脚",
@@ -6630,7 +6650,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Bootstrap 免费开源图标库",
-    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看"
+    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看",
+    "P1": "通过引用扩展组件包",
+    "P2": "后添加样式表文件链接开启图标"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
     "ElementIconTitle": "饿了么图标库",
@@ -6649,7 +6671,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design 图标简单、现代、友好",
-    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看"
+    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看",
+    "P1": "通过引用扩展组件包",
+    "P2": "后添加样式表文件链接开启图标"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
@@ -6747,7 +6771,9 @@
     "SortableListClassLi2": "拖动元素克隆项默认样式 <code>sortable-ghost</code> 可通过 <code>GhostClass</code> 自定义",
     "SortableListClassLi3": "拖动元素交换想项默认样式 <code>sortable-swap-highlight</code> 可通过 <code>SwapClass</code> 自定义",
     "SortableListSwapTitle": "交换",
-    "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换"
+    "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换",
+    "SortableListOnAddTitle": "多区域拖动",
+    "SortableListOnAddIntro": "通过设置 <code>SortableEvent</code> 参数 <code>FromId</code> 获得拖动项所属 <code>SortableList</code>。本示例中三个区域内元素可以任意拖动"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox 窗口组件",

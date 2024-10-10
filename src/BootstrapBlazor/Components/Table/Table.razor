@@ -311,7 +311,7 @@
                     {
                         <div class="table-row table-footer">
                             <CascadingValue Value="true" Name="IsMobileMode" IsFixed="true">
-                                <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
+                                <CascadingValue Value="@Rows" Name="TableFooterContext">
                                     @if (FooterTemplate != null)
                                     {
                                         @FooterTemplate(Rows)
@@ -458,8 +458,8 @@
         {
             <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
-                    <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
-                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint" IsFixed="true">
+                    <CascadingValue Value="@Rows" Name="TableFooterContext">
+                        <CascadingValue Value="@ScreenSize" Name="TableBreakPoint">
                             @if (FooterTemplate != null)
                             {
                                 @FooterTemplate(Rows)

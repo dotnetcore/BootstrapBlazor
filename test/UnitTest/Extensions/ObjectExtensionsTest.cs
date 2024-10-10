@@ -7,7 +7,7 @@ using System.Globalization;
 
 namespace UnitTest.Extensions;
 
-public class ObjectExtensionsTest
+public class ObjectExtensionsTest : BootstrapBlazorTestBase
 {
     [Theory]
     [InlineData(null, "")]

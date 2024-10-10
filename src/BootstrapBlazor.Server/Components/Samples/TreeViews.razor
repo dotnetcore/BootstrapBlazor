@@ -190,6 +190,14 @@
               MaxSelectedCount="2" OnMaxSelectedCountExceed="OnMaxSelectedCountExceed"></TreeView>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewEnableKeyboardArrowUpDownTitle"]"
+           Introduction="@Localizer["TreeViewEnableKeyboardArrowUpDownIntro"]"
+           Name="Normal">
+    <section ignore>@_selectedValue</section>
+    <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
+              EnableKeyboard="true" ClickToggleNode="false" ClickToggleCheck="false" ShowCheckbox="true" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>

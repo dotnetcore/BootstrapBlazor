@@ -148,7 +148,7 @@ public partial class Pre
         {
             var regex = new Regex($"<DemoBlock [\\s\\S]*? Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
             var match = regex.Match(content);
-            if (match.Success && match.Groups.Count == 2)
+            if (match is { Success: true, Groups.Count: 2 })
             {
                 content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
             }
@@ -180,12 +180,12 @@ public partial class Pre
         return content.TrimEnd('\n');
     }
 
-    [GeneratedRegex("<section ignore[ \\s\\S]*?>[\\s\\S]*?</section>")]
+    [GeneratedRegex(@"<section ignore[ \s\S]*?>[\s\S]*?</section>")]
     private static partial Regex IgnoreRegex();
 
-    [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
+    [GeneratedRegex(@"<ConsoleLogger [\s\S]* />")]
     private static partial Regex ConsoleLoggerRegex();
 
-    [GeneratedRegex("<Tips[\\s\\S]*>[\\s\\S]*?</Tips>")]
+    [GeneratedRegex(@"<Tips[\s\S]*>[\s\S]*?</Tips>")]
     private static partial Regex TipsRegex();
 }

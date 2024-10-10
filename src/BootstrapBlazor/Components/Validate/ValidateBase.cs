@@ -301,6 +301,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
         if (ValidateForm != null)
         {
+            // IValidateCollection 支持组件间联动验证
             var fieldName = FieldIdentifier?.FieldName;
             if (!string.IsNullOrEmpty(fieldName))
             {

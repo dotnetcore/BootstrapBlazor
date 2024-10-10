@@ -38,7 +38,7 @@
             </Table>
         </DockViewComponent>
         <DockViewComponent Key="tab3" Title="标签三" Height="33">
-            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>
                     <TableColumn @bind-Field="@context.Name" Width="140" />

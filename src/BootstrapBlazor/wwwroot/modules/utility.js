@@ -716,7 +716,9 @@ export function getTheme() {
 }
 
 export function saveTheme(theme) {
-    localStorage.setItem('theme', theme)
+    if (localStorage) {
+        localStorage.setItem('theme', theme);
+    }
 }
 
 export function getAutoThemeValue() {

@@ -73,7 +73,7 @@ public partial class DatePickerBody
         .AddClass("is-open", ShowTimePicker)
         .Build();
 
-    private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value);
+    private bool IsDisabled(DateTime day) => day < MinValue || day > MaxValue || IsDisableDay(day);
 
     /// <summary>
     /// 获得 上一月按钮样式
@@ -375,6 +375,18 @@ public partial class DatePickerBody
     [CascadingParameter]
     private DateTimeRange? Ranger { get; set; }
 
+    /// <summary>
+    /// 获取/设置 获得月自定义禁用日期回调方法，默认 null 内部默认启用数据缓存 可通过 <see cref="EnableDisabledDaysCache"/> 参数关闭
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, DateTime, Task<List<DateTime>>>? OnGetDisabledDaysCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用获得自定义禁用日期缓存
+    /// </summary>
+    [Parameter]
+    public bool EnableDisabledDaysCache { get; set; } = true;
+
     [Inject]
     [NotNull]
     private ICalendarFestivals? CalendarFestivals { get; set; }
@@ -446,6 +458,8 @@ public partial class DatePickerBody
 
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
 
+    private readonly Dictionary<string, List<DateTime>> _monthDisabledDaysCache = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -491,6 +505,60 @@ public partial class DatePickerBody
         NextYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextYearIcon);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        await UpdateDisabledDaysCache(true);
+    }
+
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override bool ShouldRender() => _render;
+
+    private async Task UpdateDisabledDaysCache(bool force)
+    {
+        if (OnGetDisabledDaysCallback != null)
+        {
+            var key = $"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}";
+            if (force && EnableDisabledDaysCache == false)
+            {
+                _monthDisabledDaysCache.Remove(key);
+            }
+            if (!_monthDisabledDaysCache.TryGetValue(key, out var disabledDays))
+            {
+                disabledDays = await OnGetDisabledDaysCallback(StartDate, EndDate);
+                _monthDisabledDaysCache.TryAdd(key, disabledDays);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 判定当前日期是否为禁用日期
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    public bool IsDisableDay(DateTime val)
+    {
+        bool ret = false;
+        if (_monthDisabledDaysCache.TryGetValue($"{StartDate:yyyyMMdd}-{EndDate:yyyyMMdd}", out var disabledDays))
+        {
+            ret = disabledDays.Contains(val);
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// 清除内部缓存方法
+    /// </summary>
+    public void ClearDisabledDays() => _monthDisabledDaysCache.Clear();
+
     private async Task OnValueChanged()
     {
         if (ValueChanged.HasDelegate)
@@ -508,6 +576,10 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
 
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
+
         if (OnDateChanged != null)
         {
             await OnDateChanged(CurrentDate);
@@ -520,6 +592,10 @@ public partial class DatePickerBody
     private async Task OnClickPrevMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
+
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
 
         if (OnDateChanged != null)
         {
@@ -536,6 +612,10 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
 
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
+
         if (OnDateChanged != null)
         {
             await OnDateChanged(CurrentDate);
@@ -548,6 +628,10 @@ public partial class DatePickerBody
     private async Task OnClickNextMonth()
     {
         CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
+
+        _render = false;
+        await UpdateDisabledDaysCache(false);
+        _render = true;
 
         if (OnDateChanged != null)
         {
@@ -599,6 +683,11 @@ public partial class DatePickerBody
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
+            if (view is DatePickerViewMode.Date or DatePickerViewMode.DateTime)
+            {
+                // update disabled days cache
+                await UpdateDisabledDaysCache(false);
+            }
             StateHasChanged();
         }
         else if (AutoClose)
@@ -770,101 +859,64 @@ public partial class DatePickerBody
         TimePickerPanel?.Reset();
     }
 
-    private bool Validate() => (!MinValue.HasValue || SelectValue >= MinValue.Value) && (!MaxValue.HasValue || SelectValue <= MaxValue.Value);
+    private bool Validate() => !IsDisabled(SelectValue);
 
     /// <summary>
-    /// 
+    /// 获得安全的年数据
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="year"></param>
     /// <returns></returns>
     protected static DateTime GetSafeYearDateTime(DateTime dt, int year)
     {
-        var @base = dt;
-        if (year < 0)
+        var @base = year switch
         {
-            if (DateTime.MinValue.AddYears(0 - year) < dt)
-            {
-                @base = dt.AddYears(year);
-            }
-            else
-            {
-                @base = DateTime.MinValue.Date;
-            }
-        }
-        else if (year > 0)
-        {
-            if (DateTime.MaxValue.AddYears(0 - year) > dt)
-            {
-                @base = dt.AddYears(year);
-            }
-            else
-            {
-                @base = DateTime.MaxValue.Date;
-            }
-        }
+            < 0 => DateTime.MinValue.AddYears(0 - year) < dt ? dt.AddYears(year) : DateTime.MinValue.Date,
+            > 0 => DateTime.MaxValue.AddYears(0 - year) > dt ? dt.AddYears(year) : DateTime.MaxValue.Date,
+            _ => dt
+        };
         return @base;
     }
 
     /// <summary>
-    /// 
+    /// 获得安全的日视图日期
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    protected static DateTime GetSafeDayDateTime(DateTime dt, int day)
+    private static DateTime GetSafeDayDateTime(DateTime dt, int day)
     {
-        var @base = dt;
-        if (day < 0)
+        var @base = day switch
         {
-            if (DateTime.MinValue.AddDays(0 - day) < dt)
-            {
-                @base = dt.AddDays(day);
-            }
-            else
-            {
-                @base = DateTime.MinValue;
-            }
-        }
-        else if (day > 0)
-        {
-            if (DateTime.MaxValue.AddDays(0 - day) > dt)
-            {
-                @base = dt.AddDays(day);
-            }
-            else
-            {
-                @base = DateTime.MaxValue;
-            }
-        }
+            < 0 => DateTime.MinValue.AddDays(0 - day) < dt ? dt.AddDays(day) : DateTime.MinValue,
+            > 0 => DateTime.MaxValue.AddDays(0 - day) > dt ? dt.AddDays(day) : DateTime.MaxValue,
+            _ => dt
+        };
         return @base;
     }
 
     /// <summary>
-    /// 
+    /// 判断日视图是否溢出方法
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="day"></param>
     /// <returns></returns>
-    protected static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
+    private static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
 
     /// <summary>
-    /// 
+    /// 判断年视图是否溢出方法
     /// </summary>
     /// <param name="dt"></param>
     /// <param name="year"></param>
     /// <returns></returns>
-    protected static bool IsYearOverflow(DateTime dt, int year)
+    private static bool IsYearOverflow(DateTime dt, int year)
     {
-        var ret = false;
-        if (year < 0)
+        var ret = year switch
         {
-            ret = DateTime.MinValue.AddYears(0 - year) > dt;
-        }
-        else if (year > 0)
-        {
-            ret = DateTime.MaxValue.AddYears(0 - year) < dt;
-        }
+            < 0 => DateTime.MinValue.AddYears(0 - year) > dt,
+            > 0 => DateTime.MaxValue.AddYears(0 - year) < dt,
+            _ => false
+        };
         return ret;
     }
 

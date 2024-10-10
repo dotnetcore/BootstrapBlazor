@@ -707,7 +707,9 @@
     "OnMaxSelectedCountExceedContent": "You can select at most {0} items",
     "TreeViewMaxSelectedCountTitle": "MaxSelectedCount",
     "TreeViewMaxSelectedCountIntro": "Control the maximum number of selectable items by setting the <code>MaxSelectedCount</code> property, and handle the logic through the <code>OnMaxSelectedCountExceed</code> callback",
-    "TreeViewMaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up"
+    "TreeViewMaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up",
+    "TreeViewEnableKeyboardArrowUpDownTitle": "Keyboard",
+    "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
@@ -1028,8 +1030,8 @@
   "BootstrapBlazor.Server.Components.Samples.Labels": {
     "LabelsTitle": "Component label",
     "LabelsDescription": "This set of components includes <code>ValidateForm</code> <code>EditorForm</code> and a variety of <b>Form components</b> inherited from <code>ValidateBase&lt;TValue&gt;</code>. Among these components There is a special set of display front label logic, now let’s sort it out in a unified way:",
-    "LabelsDescriptionTips1": "The <a href='/validateforms' target='_blank'>ValidateForm</a> component is a <b>verifiable</b> form component. The form component in this component will automatically perform data compliance checks. If Data non-compliance will prevent the <b>Submit</b> action, which is the most frequently used component in data submission",
-    "LabelsDescriptionTips2": "The <a href='/editorforms' target='_blank'>EditorForm</a> component is an ordinary form component. After this component is bound to the <code>Model</code>, the entire form can be automatically generated, which greatly reduces repetition Code, put the <code>ValidateForm</code> on the outside to open the <b>data compliance check</b> very convenient, concise and efficient",
+    "LabelsDescriptionTips1": "The <a href='/validate-form' target='_blank'>ValidateForm</a> component is a <b>verifiable</b> form component. The form component in this component will automatically perform data compliance checks. If Data non-compliance will prevent the <b>Submit</b> action, which is the most frequently used component in data submission",
+    "LabelsDescriptionTips2": "The <a href='/editor-form' target='_blank'>EditorForm</a> component is an ordinary form component. After this component is bound to the <code>Model</code>, the entire form can be automatically generated, which greatly reduces repetition Code, put the <code>ValidateForm</code> on the outside to open the <b>data compliance check</b> very convenient, concise and efficient",
     "LabelsDescriptionTips3": "Take the <a href='input' target='_blank'>BootstrapInput</a> input box component as an example to explain whether to display the <code>Label</code> logic",
     "LabelsTips": "The logic of <code>ShowLabel</code> is the principle of proximity. The closer the setting is to itself, the setting takes effect. For example, the form component is built into the <code>ValidateForm</code> component, even if <code>ValidateForm</code> is set to <code>>ShowLabel=true</code>, when the form component itself sets <code>ShowLabel=false</code>, the final result of the label is <b>not displayed</b>",
     "LabelsNormalTitle": "Use alone",
@@ -1072,11 +1074,11 @@
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "Install",
     "GitP1": "There are many kinds of Git tools that everyone is familiar with, here I introduce two Git client tools",
-    "GitP2": "It is recommended to use the <a href='https://fork.dev'>Fork</a> tool to install, it can better and <a href='https://visualstudio.microsoft.com/vs/getting- started/' target='_blank'>Visutal Studio</a> to use with development tools.",
+    "GitP2": "It is recommended to use the <a href='https://fork.dev'>Fork</a> tool to install, it can better and <a href='https://visualstudio.microsoft.com/vs/getting- started/' target='_blank'>Visual Studio</a> to use with development tools.",
     "NugetInstall": "Nuget Install",
     "NugetP1": "Use <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> to install BootstrapBlazor components",
     "EnvBuildTitle": "Project Environment Construction",
-    "EnvLi1": "Install .net core sdk <a href='http://www.microsoft.com/net/download' target='_blan'>Official Website</a>",
+    "EnvLi1": "Install .net core sdk <a href='https://www.microsoft.com/net/download' target='_blank'>Official Website</a>",
     "EnvLi2": "Install Visual Studio 2022 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
     "EnvLi3": "Pull the project code BootstrapBlazor <a href='{0}' target='_blank'>Warehouse URL</a>"
   },
@@ -1087,7 +1089,7 @@
   },
   "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "H1": "Component library updated to",
-    "B1": "Bootstrap Blazor at present has more than 120 components. This component is based on",
+    "B1": "Bootstrap Blazor at present has nearly 200 components. This component is based on",
     "B2": "An enterprise-level component library that provides several types of common components such as layout, navigation, form, data, notification, icon, voice, etc. Each component has been carefully designed with modularity, responsiveness and excellent performance. Starting from more practical scenarios, meeting the needs of various scenarios, greatly reducing the time cost of developers, greatly shortening the development cycle, greatly improving development efficiency, and providing a set of",
     "B3": "General Rights Management System",
     "B4": "Example project",
@@ -2492,7 +2494,7 @@
     "Description": "Used to select or enter a date",
     "NormalTitle": "Select the day",
     "NormalIntro": "Select the control based on the date of the day in 「day」as the base unit",
-    "ShowIconTitle": "Wether show the component icon",
+    "ShowIconTitle": "Whether show the component icon",
     "ShowIconIntro": "Save space by setting <code>ShowIcon=\"false\"</code> to not display component icons",
     "ValidateFormTitle": "Client validation",
     "ValidateFormIntro": "Check data validity and prompt automatically based on custom validation rules",
@@ -2521,12 +2523,12 @@
     "BlockAutoCloseIntro": "Auto close the popup window by se <code>AutoClose</code> to <code>true</code>",
     "BlockAutoCloseDesc": "<code>AutoClose</code> The default value is <code>true</code> When selecting a date, the pop-up window will automatically close. When the value is set to <code>false</code>, the pop-up window needs to be closed when the <b>confirm</b> button is clicked",
     "BlockGroupTitle": "InputGroup",
-    "BlockGroupIntro": "combox with <code>BootstrapInputGroupLabel</code> inside <code>BootstrapInputGroupLabel</code>",
+    "BlockGroupIntro": "Used in the built-in <code>BootstrapInputGroup</code> and in combination with <code>BootstrapInputGroupLabel</code>",
     "Att1": "Whether to display the front label",
     "Att2": "Whether to display the shortcut sidebar",
     "Att3": "The front label displays text",
     "Att4": "Date format string The default is yyyyy-MM-dd",
-    "Att6": "Whether to disable Fasle by default",
+    "Att6": "Whether to disable False by default",
     "Att8": "The value of the component is a two-way binding with ValueChanged",
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
     "AttrAutoClose": "Whether auto close the popup window",
@@ -2542,8 +2544,6 @@
     "ValidateFormValue": "DateTimePick",
     "DateTimePickerTitle": "Select the time",
     "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time.",
-    "ShowLunarTitle": "Show lunar",
-    "ShowLunarIntro": "Display the lunar calendar by setting <code>ShowLunar=\"true\"</code>",
     "DayTemplateTitle": "Custom date display",
     "DayTemplateIntro": "By setting the <code>DayTemplate</code> custom display template, the disabled date template is <code>DayDisabledTemplate</code>",
     "AttrShowLunar": "Whether to display ChineseLunar",
@@ -2556,7 +2556,22 @@
     "FeatureShowFestivals": "Festivals",
     "FeatureShowHolidays": "Holidays",
     "FeatureIntro": "<b>Holidays</b> Functional dependency component packages <code>BootstrapBlazor.Holiday</code> <a href=\"holiday\" target=\"_blank\">[Portal]</a>",
-    "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>"
+    "FeatureFestivalIntro": "<b>The festival</b> function is provided by the built-in service <code>ICalendarFestivals</code> in the component library. The built-in default implementation provides 12 Gregorian festivals and 7 lunar festivals, which can be extended through custom festival services. For detailed function introductions, please refer to the <b>Festival Services</b> documentation <a href=\"festival\" target=\"_blank\">[Portal]</a>",
+    "DisableOptions": "Disable options",
+    "DisableWeekend": "Disable weekend",
+    "DisableToday": "Disable today",
+    "DisableDayCallbackTitle": "Customize the disable date",
+    "DisableDayCallbackIntro": "Customize which days need to be disabled by setting <code>OnGetDisabledDaysCallback</code>",
+    "DisableDayCallbackTip": "<ul class=\"ul-demo\"><li>When a component is assigned a disabled date, the component still displays its value by default. If you need to display the disabled date as an <b>empty string</b>, please set <code>DisplayDisabledDayAsEmpty=\"true\"</code></li><li>This example uses slightly more complex logic to determine the disabled date. The disabled date is a combination of conditions, so when the conditions change, you need to call the component instance method <code>ClearDisabledDays</code> to clear the internal cache</li></ul><p class=\"mb-3\">In this example, the first component has <code>DisplayDisabledDayAsEmpty=\"true\"</code> set, so the component value is <code>DateTime.Today</code> and the displayed value is <b>empty string</b></p><div>In this example, the data type of the second component is <b>non-nullable type</b>. Since the default value of the parameter <code>AutoToday</code> is <code>true</code> So even if the initial value is <code>DateTime.MinValue</code>, its display value is <code>DateTime.Today</code> Even when today is disabled, it is still displayed. If you need to display an <b>empty string</b>, please set <code>DisplayDisabledDayAsEmpty=\"true\"</code></div>",
+    "DisableDayCallbackAllowNullDisplayText": "DateTime?",
+    "DisableDayCallbackNotAllowNullDisplayText": "DateTime",
+    "FeatureShowLunarIntro": "<code>ShowLunar</code> Whether to display the lunar calendar",
+    "FeatureShowSolarTermIntro": "<code>ShowSolarTerm</code> Whether to display the 24 solar terms",
+    "FeatureShowFestivalsIntro": "<code>ShowFestivals</code> Whether to display festivals",
+    "FeatureShowHolidaysIntro": "<code>ShowHolidays</code> Whether to display holidays",
+    "OnGetDisabledDaysCallbackEvent": "Disable date callback method",
+    "AttrEnableDisabledDaysCache": "Whether to enable custom disabled date cache",
+    "AttrDisplayDisabledDayAsEmpty": "Display disabled date as an empty string"
   },
   "BootstrapBlazor.Server.Components.Samples.TimePickers": {
     "Title": "TimePicker",
@@ -3287,9 +3302,9 @@
     "Color": "Color",
     "IsDisabled": "Whether to disable it",
     "OffTextAttr": "The text is displayed when the component is off",
-    "OffTextDefautValue": "Shrink",
+    "OffTextDefaultValue": "Shrink",
     "OnTextAttr": "The text is displayed when component On",
-    "OnTextDefautValue": "Unfold",
+    "OnTextDefaultValue": "Unfold",
     "Width": "The width of the component",
     "Value": "Get the value",
     "ShowLabel": "Whether to display the front label",
@@ -3352,7 +3367,7 @@
     "UploadNormalTitle": "Basic usage",
     "UploadNormalIntro": "The <code>InputUpload</code> component is used with other form components to display the file name, select the file and upload it by clicking the <b>browse button</b>, and by setting the <code>ShowRemoveButton</code> parameter, display the <b>delete button</b>, click the delete button to call back <code>onDelete</code> delegate method",
     "UploadNormalLabelName": "Name:",
-    "UploadNormalLabelAddress": "Adress:",
+    "UploadNormalLabelAddress": "Address:",
     "UploadNormalLabelPhoto": "Photo:",
     "UploadFormSettingsTitle": "FormSettings",
     "UploadFormSettingsIntro": "Use the file upload component to constrain the file format within the form",
@@ -3374,7 +3389,7 @@
     "AvatarUploadTips2": "Round avatar frame",
     "AvatarUploadTips3": "When you set up <code>IsSingle</code>, you can upload only one image or file",
     "AvatarUploadTips4": " <div>The component provides <code>Accept</code> property for upload file filtering, in this case the circular avatar box accepts both GIF and JPEG images, sets the <code>Accept='image/gif, image/jpeg'</code> and can be written as: <code>Accept='image/*'</code> if you don't restrict the format of the image. Whether this property is not secure or should be to file format validation using the <b>server-side authentication </b></div>",
-    "AvatarUploadTips5": "RELATED: <a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept]</a>  <a href='http://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types]</a>",
+    "AvatarUploadTips5": "RELATED: <a href='https://www.runoob.com/tags/att-input-accept.html' target='_blank'>[Accept]</a>  <a href='https://www.iana.org/assignments/media-types/media-types.xhtml' target='_blank'>[Media Types]</a>",
     "AvatarUploadTips6": "Set the preview address <code>PrevUrl</code> with the <code>DefaultFileList</code> property",
     "AvatarUploadTips7": "Verify that an example of using a picture box is used in the form",
     "AvatarUploadButtonText": "Submit",
@@ -3385,7 +3400,7 @@
     "UploadPreCardStyleWasm": "<b>Wasm mode </b>",
     "UploadPreCardStyleWasmSide": "It wasn't available in <code>wasm</code> mode, <code>IWebHostEnvironment</code> needed to save files to the server side by calling <code>webapi</code> interface, and so on",
     "UploadPreCardStyleLink": "Interested students can view their knowledge of <code>Upload</code> components through the <code>wiki</code> in the open source repository related resources of the <a href='{0}' target='_blank'>[The portal]</a>",
-    "UploadPreCardStyleValidation": "In this example, server-side verification prompts the file for too much prompt when the file size exceeds <code>200MB</code>",
+    "UploadPreCardStyleValidation": "In this example, server-side verification prompts the file for too much prompt when the file size exceeds <code>5MB</code>",
     "UploadPreCardStyleTips1": "In this example, the <code>ShowProgress=true</code> display upload progress bar",
     "UploadPreCardStyleTips2": "When you set up <code>IsSingle</code>, you can upload only one image or file",
     "UploadFileIconTitle": "The file icon",
@@ -3393,7 +3408,7 @@
     "UploadFileIconTemplateTitle": "Custom file icon",
     "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/file-icon\">[FileIcon example]</a>",
     "UploadBase64Title": "Base64 format",
-    "UploadBase64Intro": "use <code>data:image/xxx;base64,XXXXX</code> format data string as PrevUrl value",
+    "UploadBase64Intro": "use <code>data:image/xxx;base64,xxx</code> format data string as PrevUrl value",
     "UploadsShowDeleteButton": "Whether to display the Delete button",
     "UploadsShowDownloadButton": "Whether to display the Download button",
     "UploadsIsDisabled": "Whether to disable it",
@@ -3423,7 +3438,7 @@
     "UploadsFormatError": "The file format is incorrect",
     "UploadsAvatarMsg": "Avatar upload",
     "UploadsFileMsg": "Upload the file",
-    "UploadsFileError": "The file size is greater than 200MB",
+    "UploadsFileError": "The file size is greater than 5MB",
     "UploadsSaveFileError": "Failed to save the file",
     "UploadFile": "Upload the file",
     "UploadsWasmError": "Wasm mode does not implement saving code",
@@ -3514,7 +3529,9 @@
     "ValidateFormIValidatableObjectDescription": "This example uses the <code>IValidatableObject</code> interface to implement validation that <code>Telephone 1</code> and <code>Telephone 2</code> must not be the same, and that <code>Name</code> cannot be empty. In this example, <code>Name</code> is not provided, but since the model implements validation through the <code>IValidatableObject</code> interface, it still triggers the <code>OnInvalidSubmit</code> callback delegate when submitting data.",
     "ValidateFormIValidateCollectionTitle": "IValidateCollection",
     "ValidateFormIValidateCollectionIntro": "The <code>IValidateCollection</code> interface provides more flexible custom <code>linked</code> validation, which is very suitable for very complex data validation, such as combining multiple attributes for validation.",
-    "ValidateFormIValidateCollectionDescription": "This example uses <code>IValidateCollection</code> to verify that <code>Telephone 1</code> and <code>Telephone 2</code> cannot be the same. If any cell is changed so that the phone numbers are the same, both text boxes will prompt."
+    "ValidateFormIValidateCollectionDescription": "This example uses <code>IValidateCollection</code> to verify that <code>Telephone 1</code> and <code>Telephone 2</code> cannot be the same. If any cell is changed so that the phone numbers are the same, both text boxes will prompt.",
+    "ValidateMetadataTypeTitle": "MetadataType IValidateCollection",
+    "ValidateMetadataTypeIntro": "The model uses <code>[MetadataType(typeof(MockModelMetadataType))]</code> to specify the metadata type <code>MockModelMetadataType</code> for model validation. If the specified model inherits the <code>IValidateCollection</code> interface, its <code>Validate</code> method is called to perform data compliance checks."
   },
   "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
@@ -3963,7 +3980,8 @@
     "BasicUsageNotify": "You have 10 unread notifications",
     "BasicUsageViewNotify": "View all notifications",
     "BasicUsageTasks": "You have 3 tasks",
-    "BasicUsageViewTasks": "View all tasks"
+    "BasicUsageViewTasks": "View all tasks",
+    "OnItemCloseAsync": "Close dropdown widget item callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty",
@@ -4877,6 +4895,8 @@
     "IsTreeAttr": "Is it tree data",
     "IsDetailsAttr": "Whether it is a detail row table, use DetailRowTemplate for logical judgment when not set",
     "IsHideFooterWhenNoDataAttr": "Whether to show Footer when no data is available",
+    "IsKeepSelectedRowsAttr": "Whether to keep the selected row after switch page index",
+    "IsKeepSelectedRowAfterAddAttr": "Whether to keep the selected row after call add method",
     "ClickToSelectAttr": "Click on the line to select the line",
     "ShowCheckboxTextAttr": "Selection column that displays text",
     "ShowFooterAttr": "Show feet",
@@ -6630,7 +6650,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
     "ElementIconTitle": "Element-plus Icons",
@@ -6649,7 +6671,9 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>"
+    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>",
+    "P1": "Extending the Component Package by Reference",
+    "P2": "After adding the stylesheet file link open icon"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
@@ -6747,7 +6771,9 @@
     "SortableListClassLi2": "The default style of drag element clones is <code>sortable-ghost</code> and can be customized through <code>GhostClass</code>",
     "SortableListClassLi3": "Drag elements to swap items. Default style <code>sortable-swap-highlight</code> can be customized by <code>SwapClass</code>",
     "SortableListSwapTitle": "Swap",
-    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped."
+    "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped.",
+    "SortableListOnAddTitle": "Multiple SortableList",
+    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox",

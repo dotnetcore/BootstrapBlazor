@@ -873,6 +873,99 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Null(key);
     }
 
+    [Fact]
+    public async Task KeyBoard_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" },
+            new() { Text = "1020", Id = "1020" },
+            new() { Text = "1030", Id = "1030" },
+
+            new() { Text = "1020-01", Id = "1020-01", ParentId = "1020" },
+            new() { Text = "1020-02", Id = "1020-02", ParentId = "1020" },
+
+            new() { Text = "1020-02-01", Id = "1020-02-01", ParentId = "1020-02" },
+            new() { Text = "1020-02-02", Id = "1020-02-02", ParentId = "1020-02" },
+
+            new() { Text = "1020-02-02-01", Id = "1020-02-02-01", ParentId = "1020-02-02" },
+            new() { Text = "1020-02-02-02", Id = "1020-02-02-02", ParentId = "1020-02-02" }
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        items[1].IsExpand = true;
+        items[1].Items[1].IsExpand = true;
+        items[1].Items[1].Items[1].IsExpand = true;
+
+        var activeItemText = "1010";
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.EnableKeyboard, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnTreeItemClick, new Func<TreeViewItem<TreeFoo>, Task>(treeViewItem =>
+            {
+                activeItemText = treeViewItem.Text;
+                return Task.CompletedTask;
+            }));
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowDown"));
+        Assert.Equal("1030", activeItemText);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowUp"));
+        Assert.Equal("1010", activeItemText);
+    }
+
+    [Fact]
+    public async Task ToggleExpand_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" },
+            new() { Text = "1010-01", Id = "1010-01", ParentId = "1010" },
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.EnableKeyboard, true);
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ScrollIntoViewOptions, new ScrollIntoViewOptions() { Behavior = ScrollIntoViewBehavior.Auto });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowRight"));
+        cut.Contains("node-icon visible fa-solid fa-caret-right fa-rotate-90");
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowLeft"));
+        cut.Contains("node-icon visible fa-solid fa-caret-right");
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);

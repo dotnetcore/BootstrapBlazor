@@ -84,7 +84,7 @@ public partial class Dropzone<TItem> : IDisposable
     private DragDropService<TItem>? DragDropService { get; set; }
 
     private string? ItemClass => CssBuilder.Default()
-        .AddClass("bb-dd-inprogess", DragDropService.ActiveItem != null)
+        .AddClass("bb-dd-process", DragDropService.ActiveItem != null)
         .Build();
 
     [ExcludeFromCodeCoverage]
@@ -149,7 +149,7 @@ public partial class Dropzone<TItem> : IDisposable
         return builder.ToString();
     }
 
-    private string IsItemDragable(TItem? item)
+    private string IsItemDraggable(TItem? item)
     {
         if (item == null)
         {
@@ -257,6 +257,10 @@ public partial class Dropzone<TItem> : IDisposable
                 if (DragDropService.ActiveItem != null)
                 {
                     DragDropService.Items.Insert(DragDropService.OldIndex.Value, DragDropService.ActiveItem);
+
+                    // 增加这行代码后单元测试有问题，等排查后再决定是否加上
+                    // commit the changes
+                    //DragDropService.Commit();
                 }
             }
             StateHasChanged();

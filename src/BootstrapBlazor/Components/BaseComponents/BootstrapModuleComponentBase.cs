@@ -37,6 +37,16 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected DotNetObjectReference<BootstrapModuleComponentBase>? Interop { get; set; }
 
     /// <summary>
+    /// 获得/设置 Module 是否加载完成
+    /// </summary>
+    protected TaskCompletionSource ModuleLoadTask { get; } = new();
+
+    /// <summary>
+    /// 获得/设置 Module 是否初始化完成
+    /// </summary>
+    protected TaskCompletionSource ModuleInitTask { get; } = new();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -55,11 +65,13 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
             Module ??= await JSRuntime.LoadModule(ModulePath);
+            ModuleLoadTask.SetResult();
 
             if (AutoInvokeInit)
             {
                 await InvokeInitAsync();
             }
+            ModuleInitTask.SetResult();
         }
     }
 

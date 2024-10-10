@@ -90,6 +90,54 @@ public sealed partial class DateTimePickers
     private bool _showSolarTerm = true;
     private bool _showFestivals = true;
     private bool _showHolidays = true;
+    private bool _disableWeekend = true;
+    private bool _disableToday = true;
+    private DateTime? _disabledNullValue = DateTime.Today;
+    private DateTime _disabledValue = DateTime.Today;
+
+    private async Task<List<DateTime>> OnGetDisabledDaysCallback(DateTime start, DateTime end)
+    {
+        var ret = new List<DateTime>();
+        if (_disableWeekend)
+        {
+            var day = start;
+            while (day <= end)
+            {
+                if (day.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
+                {
+                    ret.Add(day);
+                }
+                day = day.AddDays(1);
+            }
+
+            if (DateTime.Today.DayOfWeek is DayOfWeek.Sunday or DayOfWeek.Saturday)
+            {
+                // 处理今天是否禁用
+                ret.Add(DateTime.Today);
+            }
+        }
+
+        if (_disableToday)
+        {
+            // 处理今天是否禁用
+            ret.Add(DateTime.Today);
+        }
+
+        // 模拟异步延迟
+        await Task.Delay(100);
+        return ret;
+    }
+
+    private DateTimePicker<DateTime?> _picker1 = default!;
+
+    private DateTimePicker<DateTime> _picker2 = default!;
+
+    private Task OnDisabledDaysChanged(bool v)
+    {
+        _picker1.ClearDisabledDays();
+        _picker2.ClearDisabledDays();
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// 获得事件方法
@@ -108,6 +156,12 @@ public sealed partial class DateTimePickers
             Name = "ValueChanged",
             Description = Localizer["Event2"],
             Type ="EventCallback<DateTime?>"
+        },
+        new()
+        {
+            Name = "OnGetDisabledDaysCallback",
+            Description = Localizer["OnGetDisabledDaysCallbackEvent"],
+            Type ="Func<DateTime, DateTime, Task<List<DateTime>>>"
         }
     ];
 
@@ -211,6 +265,20 @@ public sealed partial class DateTimePickers
         new() {
             Name = "ShowHolidays",
             Description = Localizer["AttrShowHolidays"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "EnableDisabledDaysCache",
+            Description = Localizer["AttrEnableDisabledDaysCache"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new() {
+            Name = "DisplayDisabledDayAsEmpty",
+            Description = Localizer["AttrDisplayDisabledDayAsEmpty"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"

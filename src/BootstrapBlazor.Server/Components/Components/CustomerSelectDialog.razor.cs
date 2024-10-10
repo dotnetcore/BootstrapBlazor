@@ -12,9 +12,9 @@ public partial class CustomerSelectDialog
     private IEnumerable<SelectedItem>? Items2;
     private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
     {
-            new SelectedItem ("", "请选择 ..."),
-            new SelectedItem ("Beijing", "北京"),
-            new SelectedItem ("Shanghai", "上海")
+        new("", "请选择 ..."),
+        new("Beijing", "北京"),
+        new("Shanghai", "上海")
     };
 
     /// <summary>
@@ -29,21 +29,21 @@ public partial class CustomerSelectDialog
         {
             Items2 = new SelectedItem[]
             {
-                    new SelectedItem("1","朝阳区"),
-                    new SelectedItem("2","海淀区"),
+                new("1","朝阳区"),
+                new("2","海淀区"),
             };
         }
         else if (item.Value == "Shanghai")
         {
             Items2 = new SelectedItem[]
             {
-                    new SelectedItem("1","静安区"),
-                    new SelectedItem("2","黄浦区"),
+                new("1","静安区"),
+                new("2","黄浦区"),
             };
         }
         else
         {
-            Items2 = Enumerable.Empty<SelectedItem>();
+            Items2 = [];
         }
         StateHasChanged();
     }

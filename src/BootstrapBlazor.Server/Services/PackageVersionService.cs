@@ -6,7 +6,7 @@ namespace BootstrapBlazor.Server.Services;
 
 class PackageVersionService
 {
-    private IHttpClientFactory Factory { get; set; }
+    private IHttpClientFactory Factory { get; }
 
     public string? Version { get; }
 
@@ -16,14 +16,9 @@ class PackageVersionService
     public PackageVersionService(IHttpClientFactory factory)
     {
         Factory = factory;
-        if (OperatingSystem.IsBrowser())
-        {
-            Version = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
-        }
-        else
-        {
-            Version = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
-        }
+        Version = OperatingSystem.IsBrowser()
+            ? typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString()
+            : System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
 
         if (!string.IsNullOrEmpty(Version))
         {
@@ -43,7 +38,7 @@ class PackageVersionService
 
     private async Task<string> FetchVersionAsync(string packageName = "bootstrapblazor")
     {
-        var version = "lastest";
+        var version = "latest";
         try
         {
             var url = $"https://azuresearch-usnc.nuget.org/query?q={packageName}&prerelease=true&semVerLevel=2.0.0";
@@ -55,7 +50,11 @@ class PackageVersionService
                 version = package.GetVersion();
             }
         }
-        catch { }
+        catch
+        {
+            // ignored
+        }
+
         return version;
     }
 
@@ -67,7 +66,7 @@ class PackageVersionService
         public IEnumerable<NugetPackageData> Data { get; set; } = Array.Empty<NugetPackageData>();
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <returns></returns>
         public string GetVersion() => Data.FirstOrDefault()?.Version ?? "";

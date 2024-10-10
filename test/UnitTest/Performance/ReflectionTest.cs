@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace UnitTest.Performance;
 
-public class ReflectionTest(ITestOutputHelper logger)
+public class ReflectionTest(ITestOutputHelper logger) : BootstrapBlazorTestBase
 {
     private ITestOutputHelper Logger { get; } = logger;
 

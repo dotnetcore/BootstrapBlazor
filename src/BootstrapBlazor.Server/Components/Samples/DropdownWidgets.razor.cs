@@ -9,6 +9,14 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class DropdownWidgets
 {
+    private ConsoleLogger _logger = default!;
+
+    private Task OnItemCloseAsync(DropdownWidgetItem item)
+    {
+        _logger.Log($"Item {item.BadgeNumber} closed");
+        return Task.CompletedTask;
+    }
+
     private AttributeItem[] GetAttributes() =>
     [
         new()
@@ -80,6 +88,14 @@ public partial class DropdownWidgets
             Name = "FooterTemplate",
             Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnItemCloseAsync",
+            Description = Localizer["OnItemCloseAsync"],
+            Type = "Func<DropdownWidgetItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }

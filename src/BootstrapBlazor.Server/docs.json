@@ -128,7 +128,6 @@
     "qr-code": "QRCodes",
     "query-builder": "QueryBuilders",
     "web-serial": "WebSerials",
-    "web-speech": "WebSpeechs",
     "radio": "Radios",
     "rate": "Rates",
     "reconnector": "Reconnectors",
