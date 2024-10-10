@@ -1,5 +1,4 @@
-﻿import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id);
@@ -15,13 +14,10 @@ export function init(id, invoke, options) {
     }
 
     const { method } = options;
-    EventHandler.on(el, 'hidden.bs.dropdown', invokeMethod);
     EventHandler.on(el, 'shown.bs.dropdown', invokeMethod);
+    EventHandler.on(el, 'hidden.bs.dropdown', invokeMethod);
 }
 
 export function dispose(id) {
-    const dw = Data.get(id)
-    Data.remove(id);
-
     EventHandler.off(el, 'hidden.bs.dropdown');
 }
