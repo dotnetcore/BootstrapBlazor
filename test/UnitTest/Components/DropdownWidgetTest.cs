@@ -193,11 +193,6 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
                 shown = true;
                 return Task.CompletedTask;
             });
-            builder.Add(a => a.OnItemCloseAsync, item =>
-            {
-                closed = true;
-                return Task.CompletedTask;
-            });
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
                 builder.OpenComponent<DropdownWidgetItem>(0);
@@ -212,9 +207,26 @@ public class DropdownWidgetTest : BootstrapBlazorTestBase
             }));
         });
 
+        // 索引越界
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(2, false));
+        Assert.False(closed);
+
+        // 未注册 OnItemCloseAsync 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(1, false));
+        Assert.False(closed);
+
+        // 触发 OnItemShownAsync 回调
         await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(0, true));
         Assert.True(shown);
 
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnItemCloseAsync, item =>
+            {
+                closed = true;
+                return Task.CompletedTask;
+            });
+        });
         await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(1, false));
         Assert.True(closed);
     }
