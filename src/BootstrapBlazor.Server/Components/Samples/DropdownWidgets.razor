@@ -7,7 +7,7 @@
 
 <DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <div class="widget-demo">
-        <DropdownWidget>
+        <DropdownWidget OnItemCloseAsync="OnItemCloseAsync">
             <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
                 <HeaderTemplate>
                     <span>@Localizer["BasicUsageMessage"]</span>
@@ -81,7 +81,9 @@
             </DropdownWidgetItem>
         </DropdownWidget>
     </div>
-
+    <section ignore>
+        <ConsoleLogger @ref="_logger"></ConsoleLogger>
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttributeTitle"]" />

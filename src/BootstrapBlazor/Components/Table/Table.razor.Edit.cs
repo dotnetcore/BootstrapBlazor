@@ -287,21 +287,18 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem>? CreateItemCallback { get; set; }
 
-    private TItem CreateTItem()
+    private TItem CreateTItem() => CreateItemCallback?.Invoke() ?? CreateInstance();
+
+    private TItem CreateInstance()
     {
-        var item = CreateItemCallback?.Invoke();
-        if (item == null)
+        try
         {
-            try
-            {
-                item = Activator.CreateInstance<TItem>();
-            }
-            catch (Exception)
-            {
-                throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provider {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例");
-            }
+            return Activator.CreateInstance<TItem>();
         }
-        return item;
+        catch (Exception)
+        {
+            throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provider {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例");
+        }
     }
 
     /// <summary>

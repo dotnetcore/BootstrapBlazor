@@ -3980,7 +3980,8 @@
     "BasicUsageNotify": "You have 10 unread notifications",
     "BasicUsageViewNotify": "View all notifications",
     "BasicUsageTasks": "You have 3 tasks",
-    "BasicUsageViewTasks": "View all tasks"
+    "BasicUsageViewTasks": "View all tasks",
+    "OnItemCloseAsync": "Close dropdown widget item callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty",
@@ -4894,6 +4895,8 @@
     "IsTreeAttr": "Is it tree data",
     "IsDetailsAttr": "Whether it is a detail row table, use DetailRowTemplate for logical judgment when not set",
     "IsHideFooterWhenNoDataAttr": "Whether to show Footer when no data is available",
+    "IsKeepSelectedRowsAttr": "Whether to keep the selected row after switch page index",
+    "IsKeepSelectedRowAfterAddAttr": "Whether to keep the selected row after call add method",
     "ClickToSelectAttr": "Click on the line to select the line",
     "ShowCheckboxTextAttr": "Selection column that displays text",
     "ShowFooterAttr": "Show feet",

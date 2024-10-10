@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class DropdownWigetTest : BootstrapBlazorTestBase
+public class DropdownWidgetTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_OK()
@@ -54,12 +54,12 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
                 builder.OpenComponent<DropdownWidgetItem>(0);
-                builder.AddAttribute(1, nameof(DropdownWidgetItem.Title), "Wiget Title");
+                builder.AddAttribute(1, nameof(DropdownWidgetItem.Title), "Widget Title");
                 builder.CloseComponent();
             }));
         });
 
-        Assert.Contains("Wiget Title", cut.Markup);
+        Assert.Contains("Widget Title", cut.Markup);
     }
 
     [Fact]
@@ -181,10 +181,60 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
         Assert.NotNull(ele);
     }
 
-    private static IEnumerable<DropdownWidgetItem> GetItems()
+    [Fact]
+    public async Task OnItemAsync_OK()
+    {
+        var shown = false;
+        var closed = false;
+        var cut = Context.RenderComponent<DropdownWidget>(builder =>
+        {
+            builder.Add(a => a.OnItemShownAsync, item =>
+            {
+                shown = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<DropdownWidgetItem>(0);
+                builder.AddAttribute(1, nameof(DropdownWidgetItem.HeaderColor), Color.Success);
+                builder.AddAttribute(2, nameof(DropdownWidgetItem.Title), "Test1");
+                builder.CloseComponent();
+
+                builder.OpenComponent<DropdownWidgetItem>(0);
+                builder.AddAttribute(10, nameof(DropdownWidgetItem.HeaderColor), Color.Success);
+                builder.AddAttribute(11, nameof(DropdownWidgetItem.Title), "Test2");
+                builder.CloseComponent();
+            }));
+        });
+
+        // 索引越界
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(2, false));
+        Assert.False(closed);
+
+        // 未注册 OnItemCloseAsync 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(1, false));
+        Assert.False(closed);
+
+        // 触发 OnItemShownAsync 回调
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(0, true));
+        Assert.True(shown);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnItemCloseAsync, item =>
+            {
+                closed = true;
+                return Task.CompletedTask;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerStateChanged(1, false));
+        Assert.True(closed);
+    }
+
+    private static List<DropdownWidgetItem> GetItems()
     {
         var ret = new List<DropdownWidgetItem>();
-        var wiget = new DropdownWidgetItem();
+        var widget = new DropdownWidgetItem();
         var parameters = new Dictionary<string, object?>()
         {
             ["Icon"] = "fa-regular fa-bell",
@@ -207,8 +257,8 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             }),
 
         };
-        wiget.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-        ret.Add(wiget);
+        widget.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        ret.Add(widget);
         return ret;
     }
 }

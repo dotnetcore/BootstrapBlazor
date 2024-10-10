@@ -3980,7 +3980,8 @@
     "BasicUsageNotify": "您有 10 个未读通知",
     "BasicUsageViewNotify": "查看所有通知",
     "BasicUsageTasks": "您有 3 个任务",
-    "BasicUsageViewTasks": "查看所有任务"
+    "BasicUsageViewTasks": "查看所有任务",
+    "OnItemCloseAsync": "关闭菜单项回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty 空状态",
@@ -4894,6 +4895,8 @@
     "IsTreeAttr": "是否为树形数据",
     "IsDetailsAttr": "是否为明细行表格，未设置时使用 DetailRowTemplate 进行逻辑判断",
     "IsHideFooterWhenNoDataAttr": "无数据时是否显示 Footer",
+    "IsKeepSelectedRowsAttr": "翻页后是否保持选中行数据",
+    "IsKeepSelectedRowAfterAddAttr": "新建数据后是否保持选中行",
     "ClickToSelectAttr": "点击行即选中本行",
     "ShowCheckboxTextAttr": "显示文字的选择列",
     "ShowFooterAttr": "是否显示表脚",
