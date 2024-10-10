@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET6Version)" />
+    <PackageReference Include="System.Text.Json" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
@@ -22,6 +23,7 @@
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET7Version)" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET7Version)" />
+    <PackageReference Include="System.Text.Json" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
