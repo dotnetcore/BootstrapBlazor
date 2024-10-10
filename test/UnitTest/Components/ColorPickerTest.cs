@@ -64,5 +64,15 @@ public class ColorPickerTest : BootstrapBlazorTestBase
         Assert.Equal("#123456", cut.Instance.Value);
 
         await cut.InvokeAsync(() => cut.Instance.SetValue("#333333"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsSupportOpacity, false);
+        });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
     }
 }
