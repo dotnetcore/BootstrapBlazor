@@ -3980,7 +3980,8 @@
     "BasicUsageNotify": "You have 10 unread notifications",
     "BasicUsageViewNotify": "View all notifications",
     "BasicUsageTasks": "You have 3 tasks",
-    "BasicUsageViewTasks": "View all tasks"
+    "BasicUsageViewTasks": "View all tasks",
+    "OnItemCloseAsync": "Close dropdown widget item callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty",
