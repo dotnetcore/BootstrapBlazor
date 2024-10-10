@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class DropdownWigetTest : BootstrapBlazorTestBase
+public class DropdownWidgetTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Items_OK()
@@ -54,12 +54,12 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             builder.Add(s => s.ChildContent, new RenderFragment(builder =>
             {
                 builder.OpenComponent<DropdownWidgetItem>(0);
-                builder.AddAttribute(1, nameof(DropdownWidgetItem.Title), "Wiget Title");
+                builder.AddAttribute(1, nameof(DropdownWidgetItem.Title), "Widget Title");
                 builder.CloseComponent();
             }));
         });
 
-        Assert.Contains("Wiget Title", cut.Markup);
+        Assert.Contains("Widget Title", cut.Markup);
     }
 
     [Fact]
@@ -184,7 +184,7 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
     private static IEnumerable<DropdownWidgetItem> GetItems()
     {
         var ret = new List<DropdownWidgetItem>();
-        var wiget = new DropdownWidgetItem();
+        var widget = new DropdownWidgetItem();
         var parameters = new Dictionary<string, object?>()
         {
             ["Icon"] = "fa-regular fa-bell",
@@ -207,8 +207,8 @@ public class DropdownWigetTest : BootstrapBlazorTestBase
             }),
 
         };
-        wiget.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-        ret.Add(wiget);
+        widget.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        ret.Add(widget);
         return ret;
     }
 }
