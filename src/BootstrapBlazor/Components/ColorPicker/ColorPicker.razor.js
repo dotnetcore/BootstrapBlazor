@@ -3,22 +3,64 @@ import { addLink } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 
 export async function init(id, invoke, options) {
+    const obj = { invoke, pickr: null };
+    Data.set(id, obj);
+    await getOrCreatePickr(id, obj, options);
+}
+
+export async function update(id, options) {
+    const obj = Data.get(id);
+    await getOrCreatePickr(id, obj, options);
+}
+
+export function dispose(id) {
+    const data = Data.get(id);
+    Data.remove(id);
+    if (data) {
+        data.pickr.destroyAndRemove();
+    }
+}
+
+const getOrCreatePickr = async (id, picker, options) => {
     const { isSupportOpacity } = options;
+
     if (isSupportOpacity === true) {
         await addLink("./_content/BootstrapBlazor/css/nano.min.css");
 
-        const el = document.getElementById(id);
-        const config = getOptions(el, options)
-        const pickr = Pickr.create(config);
+        const { invoke, pickr } = picker;
+        if (pickr) {
+            const { value, disabled } = options;
+            const original = formatColorString(pickr.getColor());
+            if (original !== value) {
+                pickr.setColor(value, true);
+            }
+            if (pickr.options.disabled !== disabled) {
+                if (disabled) {
+                    pickr.disable();
+                }
+                else {
+                    pickr.enable();
+                }
+            }
+        }
+        else {
+            const el = document.getElementById(id);
+            const config = getOptions(el, options)
+            const pickr = Pickr.create(config);
 
-        Data.set(id, { pickr });
+            pickr.on('save', (color, instance) => {
+                instance.hide();
+                invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
+            }).on('swatchselect', color => {
+                invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
+            });
 
-        pickr.on('save', (color, instance) => {
-            instance.hide();
-            invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
-        }).on('swatchselect', color => {
-            invoke.invokeMethodAsync('OnColorChanged', formatColorString(color));
-        });
+            picker.pickr = pickr;
+        }
+    }
+    else if (picker.pickr) {
+        picker.pickr.destroyAndRemove();
+        picker.pickr = null;
     }
 }
 
@@ -39,6 +81,11 @@ const formatColorString = color => {
 const formatHexString = hex => Math.round(hex).toString(16).padStart(2, '0');
 
 const getOptions = (el, options) => {
+    delete options.isSupportOpacity;
+    if (options.value) {
+        options.default = options.value;
+        delete options.value;
+    }
     const config = {
         el,
         theme: 'nano',
@@ -76,32 +123,4 @@ const getOptions = (el, options) => {
         }
     }
     return config;
-}
-
-export function update(id, options) {
-    const data = Data.get(id);
-    if (data) {
-        const { value, isDisabled } = options;
-        const { pickr } = data;
-        const original = formatColorString(pickr.getColor());
-        if (original !== value) {
-            pickr.setColor(value, true);
-        }
-        if (pickr.options.disabled !== isDisabled) {
-            if (isDisabled) {
-                pickr.disable();
-            }
-            else {
-                pickr.enable();
-            }
-        }
-    }
-}
-
-export function dispose(id) {
-    const data = Data.get(id);
-    Data.remove(id);
-    if (data) {
-        data.pickr.destroyAndRemove();
-    }
 }

@@ -89,7 +89,7 @@ public partial class Online : IDisposable
     {
         _table.Rows.Clear();
         var rows = ConnectionService.Connections.Sort(["ConnectionTime"]);
-        foreach (var item in ConnectionService.Connections)
+        foreach (var item in rows)
         {
             _table.Rows.Add(
                 item.Id,

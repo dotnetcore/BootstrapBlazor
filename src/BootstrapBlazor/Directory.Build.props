@@ -1,7 +1,6 @@
 <Project>
 
   <Import Project="..\Directory.Build.props" />
-  <Import Project="..\Frameworks.props" />
   <Import Project="..\Logo.props" />
   <Import Project="..\Bundle.props" />
   <Import Project="..\SourceLink.targets" />
@@ -14,12 +13,18 @@
     <PackageReleaseNotes>https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NET6Version>6.0.*</NET6Version>
+    <NET7Version>7.0.*</NET7Version>
+    <NET8Version>8.0</NET8Version>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <NoWarn>NU1902;NU1903;CS8002</NoWarn>
-  </PropertyGroup>
 
 </Project>
