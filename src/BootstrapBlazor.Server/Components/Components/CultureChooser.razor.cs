@@ -68,7 +68,7 @@ public partial class CultureChooser
             if (SelectedCulture != item.Value)
             {
                 var culture = item.Value;
-                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
                 var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
 
                 // use a path that matches your culture redirect controller from the previous steps
