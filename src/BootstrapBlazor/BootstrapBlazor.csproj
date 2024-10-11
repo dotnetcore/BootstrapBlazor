@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Locales\*.json" />
     <EmbeddedResource Include="Locales\*.json" />
   </ItemGroup>
@@ -51,6 +55,10 @@
     <None Include="wwwroot\lib\**\*.css" />
     <None Include="wwwroot\scss\**\*.*" />
     <None Include="wwwroot\src\**\*.*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>

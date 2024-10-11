@@ -14,12 +14,8 @@
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
   <PropertyGroup>
-    <NoWarn>NETSDK1138;CS8002</NoWarn>
+    <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
 
 </Project>
