@@ -2,7 +2,6 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Logo.props" />
-  <Import Project="..\Bundle.props" />
   <Import Project="..\SourceLink.targets" />
 
   <PropertyGroup>
@@ -10,6 +9,11 @@
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174</PackageReleaseNotes>
+    <PackageProjectUrl>https://www.blazor.zone</PackageProjectUrl>
+    <RepositoryType>github</RepositoryType>
+    <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -19,8 +23,42 @@
   <PropertyGroup>
     <NET6Version>6.0.*</NET6Version>
     <NET7Version>7.0.*</NET7Version>
-    <NET8Version>8.0</NET8Version>
+    <NET8Version>8.0.*</NET8Version>
   </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET7Version)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
+    <PackageReference Include="System.Text.Json" Version="$(NET8Version)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.*" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="readme.md" Pack="true" PackagePath="" />
