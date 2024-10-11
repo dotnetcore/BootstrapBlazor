@@ -14,9 +14,6 @@
     <DocumentationFile>$(MSBuildProjectName).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
   <PropertyGroup>
     <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
