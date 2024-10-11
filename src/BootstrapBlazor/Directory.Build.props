@@ -2,7 +2,6 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Logo.props" />
-  <Import Project="..\Bundle.props" />
   <Import Project="..\SourceLink.targets" />
 
   <PropertyGroup>
@@ -10,6 +9,11 @@
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageReleaseNotes>https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174</PackageReleaseNotes>
+    <PackageProjectUrl>https://www.blazor.zone</PackageProjectUrl>
+    <RepositoryType>github</RepositoryType>
+    <RepositoryUrl>https://github.com/dotnetcore/BootstrapBlazor.git</RepositoryUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <PropertyGroup>
