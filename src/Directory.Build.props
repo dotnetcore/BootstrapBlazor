@@ -17,5 +17,8 @@
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>CS8002</NoWarn>
+  </PropertyGroup>
 
 </Project>
