@@ -18,8 +18,4 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <NoWarn>NETSDK1138;CS8002</NoWarn>
-  </PropertyGroup>
-
 </Project>

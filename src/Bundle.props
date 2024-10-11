@@ -4,4 +4,8 @@
     <PackageReference Include="AspNetCore.SassCompiler" Version="1.*" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <NoWarn>CS8002</NoWarn>
+  </PropertyGroup>
+
 </Project>
