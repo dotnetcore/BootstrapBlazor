@@ -17,6 +17,8 @@ public partial class ImageCroppers
 
     private string? _base64String;
 
+    private string? _base64String2;
+
     private async Task OnClickReplace()
     {
         index = index == 0 ? 1 : 0;
@@ -26,6 +28,13 @@ public partial class ImageCroppers
     private async Task Crop()
     {
         _base64String = await _cropper.Crop();
+    }
+
+    private Task OnCropAsync(ImageCropperResult result)
+    {
+        _base64String2 = result.Data;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private Task Rotate() => _cropper.Rotate(90);

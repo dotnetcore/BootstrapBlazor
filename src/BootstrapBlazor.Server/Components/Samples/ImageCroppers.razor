@@ -17,12 +17,20 @@
             <Button Text="@Localizer["ImageCropperDisabledText"]" OnClick="_cropper.Disable" />
             <Button Text="@Localizer["ImageCropperClearText"]" OnClick="_cropper.Clear" />
         </BootstrapInputGroup>
-        <Textarea Value="@_base64String" rows="3" class="mt-3" />
+        @if (!string.IsNullOrEmpty(_base64String))
+        {
+            <img src="@_base64String" style="width: 240px;" />
+            <Textarea Value="@_base64String" rows="3" class="mt-3" />
+        }
     </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper Url="@images[0]" CropperShape="ImageCropperShape.Round" />
+    <ImageCropper Url="@images[0]" CropperShape="ImageCropperShape.Round" OnCropAsync="OnCropAsync" />
+    @if (!string.IsNullOrEmpty(_base64String2))
+    {
+        <img src="@_base64String2" style="width: 240px;" />
+    }
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
