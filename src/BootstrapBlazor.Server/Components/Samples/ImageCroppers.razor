@@ -6,14 +6,35 @@
 <PackageTips Name="BootstrapBlazor.ImageCropper" />
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper @ref="Cropper" Url="@images[0]" DefaultButton="false" />
+    <ImageCropper @ref="_cropper" Url="@images[0]"></ImageCropper>
     <section ignore>
         <BootstrapInputGroup>
-            <Button Text="OK" OnClick="(async () => Base64 = await Cropper.Crop())" />
-            <Button Text="@Localizer["ImageCropperResetText"]" OnClick="Cropper.Reset" />
+            <Button Text="OK" OnClick="Crop" />
+            <Button Text="@Localizer["ImageCropperResetText"]" OnClick="_cropper.Reset" />
             <Button Text="@Localizer["ImageCropperReplaceText"]" OnClick="OnClickReplace" />
+            <Button Text="@Localizer["ImageCropperRotateText"]" OnClick="Rotate" />
+            <Button Text="@Localizer["ImageCropperEnableText"]" OnClick="_cropper.Enable" />
+            <Button Text="@Localizer["ImageCropperDisabledText"]" OnClick="_cropper.Disable" />
+            <Button Text="@Localizer["ImageCropperClearText"]" OnClick="_cropper.Clear" />
         </BootstrapInputGroup>
-        <Textarea Value="@Base64" rows="3" class="mt-3" />
+        @if (!string.IsNullOrEmpty(_base64String))
+        {
+            <img src="@_base64String" style="width: 240px;" />
+            <Textarea Value="@_base64String" rows="3" class="mt-3" />
+        }
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
+    <ImageCropper @ref="_roundCropper" Url="@images[0]" CropperShape="ImageCropperShape.Round" Options="_roundOptions" />
+    <section ignore>
+        <BootstrapInputGroup>
+            <Button Text="OK" OnClick="RoundCrop" />
+        </BootstrapInputGroup>
+        @if (!string.IsNullOrEmpty(_base64String2))
+        {
+            <img src="@_base64String2" style="width: 240px;" />
+        }
     </section>
 </DemoBlock>
 

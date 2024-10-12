@@ -12,9 +12,10 @@ public class LinkTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Link>(pb =>
         {
             pb.Add(a => a.Href, "http://www.blazor.zone");
+            pb.Add(a => a.Rel, "stylesheet-test");
         });
         var versionService = cut.Services.GetRequiredService<IVersionService>();
-        Assert.Equal($"<link href=\"http://www.blazor.zone?v={versionService.GetVersion()}\" rel=\"stylesheet\" />", cut.Markup);
+        Assert.Equal($"<link href=\"http://www.blazor.zone?v={versionService.GetVersion()}\" rel=\"stylesheet-test\" />", cut.Markup);
     }
 
     [Fact]
