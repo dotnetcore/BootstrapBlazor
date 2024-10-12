@@ -40,7 +40,7 @@ public static class JSModuleExtensions
         {
             throw;
         }
-        return module ?? new JSModule(null);
+        return module;
     }
 
     /// <summary>
