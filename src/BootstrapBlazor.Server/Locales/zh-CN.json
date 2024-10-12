@@ -6499,13 +6499,15 @@
     "ImageCropperNormalIntro": "Url 参数设置图片",
     "ImageCropperResetText": "复位",
     "ImageCropperReplaceText": "替换",
-    "AttributesImageCropperUrl": "图片URL 或 Base64 dataurl",
-    "AttributesImageCropperDefaultButton": "显示默认按钮",
-    "AttributesImageCropperPreview": "显示剪裁后预览",
-    "AttributesImageCropperOnResult": "剪裁结果 Stream 回调方法",
-    "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
-    "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
-    "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
+    "ImageCropperRotateText": "旋转",
+    "ImageCropperEnableText": "启用",
+    "ImageCropperDisabledText": "禁用",
+    "ImageCropperClearText": "清除",
+    "AttributesImageCropperUrl": "图片地址",
+    "AttributesImageCropperIsDisabled": "是否被禁用",
+    "AttributesImageCropperOnCropAsync": "剪裁结果回调方法",
+    "AttributesImageCropperOptions": "裁剪选项",
+    "AttributesImageCropperShape": "裁剪形状"
   },
   "BootstrapBlazor.Server.Components.Samples.Translators": {
     "TranslatorsTitle": "AzureTranslator 翻译服务",
