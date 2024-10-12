@@ -11,6 +11,8 @@ public partial class ImageCroppers
 {
     private ImageCropper _cropper = default!;
 
+    private ImageCropper _roundCropper = default!;
+
     private readonly string[] images = ["./images/picture.jpg", "./images/ImageList2.jpeg"];
 
     private int index = 0;
@@ -18,6 +20,8 @@ public partial class ImageCroppers
     private string? _base64String;
 
     private string? _base64String2;
+
+    private ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%" };
 
     private async Task OnClickReplace()
     {
@@ -30,11 +34,9 @@ public partial class ImageCroppers
         _base64String = await _cropper.Crop();
     }
 
-    private Task OnCropAsync(ImageCropperResult result)
+    private async Task RoundCrop()
     {
-        _base64String2 = result.Data;
-        StateHasChanged();
-        return Task.CompletedTask;
+        _base64String2 = await _roundCropper.Crop();
     }
 
     private Task Rotate() => _cropper.Rotate(90);

@@ -26,11 +26,16 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper Url="@images[0]" CropperShape="ImageCropperShape.Round" OnCropAsync="OnCropAsync" />
-    @if (!string.IsNullOrEmpty(_base64String2))
-    {
-        <img src="@_base64String2" style="width: 240px;" />
-    }
+    <ImageCropper @ref="_roundCropper" Url="@images[0]" CropperShape="ImageCropperShape.Round" Options="_roundOptions" />
+    <section ignore>
+        <BootstrapInputGroup>
+            <Button Text="OK" OnClick="RoundCrop" />
+        </BootstrapInputGroup>
+        @if (!string.IsNullOrEmpty(_base64String2))
+        {
+            <img src="@_base64String2" style="width: 240px;" />
+        }
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
