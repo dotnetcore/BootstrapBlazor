@@ -20,8 +20,7 @@ public partial class Link
     /// 获得/设置 Rel 属性值, 默认 stylesheet
     /// </summary>
     [Parameter]
-    [EditorRequired]
-    public string? Rel { get; set; }= "stylesheet";
+    public string? Rel { get; set; } = "stylesheet";
 
     /// <summary>
     /// 获得/设置 版本号 默认 null 自动生成
