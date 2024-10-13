@@ -505,6 +505,12 @@ public class TabTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => item.Click());
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");
+
+        // 再点击第一个 TabItem
+        item = items[1];
+        cut.InvokeAsync(() => item.Click());
+        cut.Contains("Tab1-Content");
+        cut.Contains("Tab2-Content");
     }
 
     [Fact]
