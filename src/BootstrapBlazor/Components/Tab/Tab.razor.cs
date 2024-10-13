@@ -57,12 +57,12 @@ public partial class Tab : IHandlerException
     private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
-    /// 获得/设置 是否为排除地址 默认为 false
+    /// 获得/设置 是否为排除地址 默认 false
     /// </summary>
     private bool Excluded { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为卡片样式
+    /// 获得/设置 是否为卡片样式 默认 false
     /// </summary>
     [Parameter]
     public bool IsCard { get; set; }
