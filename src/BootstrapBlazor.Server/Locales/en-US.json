@@ -6499,13 +6499,15 @@
     "ImageCropperNormalIntro": "Url parameter setting image",
     "ImageCropperResetText": "Reset",
     "ImageCropperReplaceText": "Replace",
-    "AttributesImageCropperUrl": "Image URL or Base64 dataurl",
-    "AttributesImageCropperDefaultButton": "Show default button",
-    "AttributesImageCropperPreview": "Show preview after cropping",
-    "AttributesImageCropperOnResult": "Crop result Stream callback method",
-    "AttributesImageCropperOnBase64Result": "Crop result base64 callback method",
-    "AttributesImageCropperCrop": "Crop, return base64, and execute OnResult/OnBase64Result callback",
-    "AttributesImageCropperCropToStream": "Crop, return Stream"
+    "ImageCropperRotateText": "Rotate",
+    "ImageCropperEnableText": "Enable",
+    "ImageCropperDisabledText": "Disabled",
+    "ImageCropperClearText": "Clear",
+    "AttributesImageCropperUrl": "Image Url",
+    "AttributesImageCropperIsDisabled": "Whether the component is disabled",
+    "AttributesImageCropperOnCropAsync": "Crop result callback method",
+    "AttributesImageCropperOptions": "Crop option",
+    "AttributesImageCropperShape": "Crop shape"
   },
   "BootstrapBlazor.Server.Components.Samples.Translators": {
     "TranslatorsTitle": "Azure Translator",
@@ -6657,7 +6659,10 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
     "ElementIconTitle": "Element-plus Icons",
     "ElementIconDescription": "Free, high quality, open source icon library",
-    "CopiedTooltipText": "Copied"
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6678,12 +6683,18 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
-    "CopiedTooltipText": "Copied"
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
     "AntDesignIconDescription": "Semantic vector graphics.",
-    "CopiedTooltipText": "Copied"
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",

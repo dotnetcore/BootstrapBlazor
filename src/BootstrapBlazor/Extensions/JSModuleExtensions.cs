@@ -25,18 +25,22 @@ public static class JSModuleExtensions
     /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string? version = null)
     {
-        JSModule? module = null;
         if (!string.IsNullOrEmpty(version))
         {
             fileName = $"{fileName}?v={version}";
         }
+
+        JSModule? module;
         try
         {
             var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
             module = new JSModule(jSObjectReference);
         }
-        catch (Exception) { }
-        return module ?? new JSModule(null);
+        catch (Exception)
+        {
+            throw;
+        }
+        return module;
     }
 
     /// <summary>
