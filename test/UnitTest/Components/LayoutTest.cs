@@ -219,6 +219,43 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void UseTabSet_ShowTabExtendButtons()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowTabExtendButtons, false);
+        });
+        cut.DoesNotContain("<div class=\"nav-link-bar dropdown dropdown-toggle\" data-bs-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">");
+    }
+
+    [Fact]
+    public void UseTabSet_ShowCloseButton()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowTabItemClose, false);
+        });
+        cut.DoesNotContain("<span class=\"tabs-item-close\"");
+    }
+
+    [Fact]
+    public void UseTabSet_ClickTabToNavigation()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, false);
+        });
+        var tab = cut.FindComponent<Tab>();
+        Assert.False(tab.Instance.ClickTabToNavigation);
+    }
+
+    [Fact]
     public void IsFixedHeader_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>

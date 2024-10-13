@@ -118,10 +118,12 @@
     @<main class="@MainClassString">
         @if (UseTabSet)
         {
-            <Tab ClickTabToNavigation="true" ShowExtendButtons="true" ShowClose="true" AllowDrag="AllowDragTab"
+            <Tab ClickTabToNavigation="ClickTabToNavigation"
+                 ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"
                  AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
                  DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!" />
+                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!">
+            </Tab>
         }
         else
         {
