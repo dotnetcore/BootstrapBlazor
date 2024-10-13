@@ -150,11 +150,8 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-
-
-        _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-
-
+        var pv = ParameterView.FromDictionary(parameters);
+        pv.SetParameterProperties(item);
         return item;
     }
 }
