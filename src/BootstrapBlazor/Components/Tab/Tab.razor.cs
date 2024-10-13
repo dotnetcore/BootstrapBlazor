@@ -388,10 +388,10 @@ public partial class Tab : IHandlerException
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
         // 判断是否排除
-        var urls = ExcludeUrls ?? [];
+        var routes = ExcludeUrls ?? [];
         Excluded = requestUrl == ""
-            ? urls.Any(u => u is "" or "/")
-            : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
+            ? routes.Any(u => u is "" or "/")
+            : routes.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
         if (!Excluded)
         {
             // 地址相同参数不同需要重新渲染 TabItem
