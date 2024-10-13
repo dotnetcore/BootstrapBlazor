@@ -7,7 +7,6 @@ using System.Globalization;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
-#if NET6_0_OR_GREATER
 /// <summary>
 /// Shared logic for parsing tokens from route values and querystring values.
 /// </summary>
@@ -183,4 +182,3 @@ internal abstract class UrlValueConstraint
         }
     }
 }
-#endif

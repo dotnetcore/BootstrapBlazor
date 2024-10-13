@@ -23,9 +23,7 @@ internal class RouteContext
 
     public string[] Segments { get; }
 
-#if NET6_0_OR_GREATER
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-#endif
     public Type? Handler { get; set; }
 
     public IReadOnlyDictionary<string, object>? Parameters { get; set; }

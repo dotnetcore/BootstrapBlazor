@@ -4,7 +4,6 @@
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
-#if NET6_0_OR_GREATER
 // This is very similar to Microsoft.Extensions.Primitives.StringValues, except it works in terms
 // of ReadOnlyMemory<char> rather than string, so the querystring handling logic doesn't need to
 // allocate per-value when tracking things that will be parsed as value types.
@@ -64,4 +63,3 @@ internal struct StringSegmentAccumulator
         }
     }
 }
-#endif
