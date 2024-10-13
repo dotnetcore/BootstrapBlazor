@@ -2,25 +2,15 @@
 @using System.Diagnostics.CodeAnalysis
 @using ThingsGateway.Razor
 @inherits BaseLayout
-               <Layout SideWidth="0" IsPage="true" IsFullSide="true" IsFixedHeader="true"
-                    ShowGotoTop="true" ShowCollapseBar="true" 
-                 AllowDragTab=true  Menus="@MenuService.MenuItems"
-                    UseTabSet="false" TabDefaultUrl="/">
-                    <Side>
 
-                </Side>
-                <Main>
-                    <Tab ClickTabToNavigation="true" ShowExtendButtons="false" ShowClose="true" AllowDrag=true  Menus="@MenuService.MenuItems"
-                         DefaultUrl=@("/") Body=@(Body!) >
-                    </Tab>
+<Layout SideWidth="0" IsPage="true" IsFullSide="true" IsFixedHeader="true"
+        ShowGotoTop="true" ShowCollapseBar="true" ShowTabExtendButtons="false"
+        AllowDragTab=true Menus="@MenuService.MenuItems"
+        UseTabSet="true" TabDefaultUrl="/">
+    <Side></Side>
+</Layout>
 
-                </Main>
-            </Layout>
-
-
-
-
-@code{
+@code {
     [Inject]
     [NotNull]
     private IMenuService? MenuService { get; set; }
