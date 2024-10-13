@@ -57,12 +57,12 @@ public partial class Tab : IHandlerException
     private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
-    /// 获得/设置 是否为排除地址 默认为 false
+    /// 获得/设置 是否为排除地址 默认 false
     /// </summary>
     private bool Excluded { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为卡片样式
+    /// 获得/设置 是否为卡片样式 默认 false
     /// </summary>
     [Parameter]
     public bool IsCard { get; set; }
@@ -388,10 +388,10 @@ public partial class Tab : IHandlerException
         var requestUrl = Navigator.ToBaseRelativePath(Navigator.Uri);
 
         // 判断是否排除
-        var urls = ExcludeUrls ?? [];
+        var routes = ExcludeUrls ?? [];
         Excluded = requestUrl == ""
-            ? urls.Any(u => u is "" or "/")
-            : urls.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
+            ? routes.Any(u => u is "" or "/")
+            : routes.Any(u => u != "/" && requestUrl.StartsWith(u.TrimStart('/'), StringComparison.OrdinalIgnoreCase));
         if (!Excluded)
         {
             // 地址相同参数不同需要重新渲染 TabItem

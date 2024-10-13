@@ -39,9 +39,9 @@ public class TimePickerSetting : ComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         if (Option != null)
         {

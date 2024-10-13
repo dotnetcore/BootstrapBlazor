@@ -11,7 +11,7 @@ using System.Collections.ObjectModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapBlazorAuthorizeView 组件
 /// </summary>
 public class BootstrapBlazorAuthorizeView : ComponentBase
 {
@@ -49,16 +49,14 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     [Inject]
     private IAuthorizationService? AuthorizationService { get; set; }
 
-#if NET6_0_OR_GREATER
     [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
-#endif
 
     private bool Authorized { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
@@ -68,7 +66,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     }
 
     /// <summary>
-    /// BuildRenderTree 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
@@ -82,9 +80,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
             {
                 builder.AddAttribute(index++, kv.Key, kv.Value);
             }
-#if NET6_0_OR_GREATER
             BuildQueryParameters();
-#endif
             builder.CloseComponent();
         }
         else
@@ -92,7 +88,6 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
             builder.AddContent(0, NotAuthorized);
         }
 
-#if NET6_0_OR_GREATER
         void BuildQueryParameters()
         {
             var queryParameterSupplier = QueryParameterValueSupplier.ForType(Type);
@@ -106,6 +101,5 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
                 queryParameterSupplier.RenderParametersFromQueryString(builder, query);
             }
         }
-#endif
     }
 }

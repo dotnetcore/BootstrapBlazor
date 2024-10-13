@@ -41,6 +41,15 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TabItem_Null()
+    {
+        var cut = Context.RenderComponent<TabItem>(pb =>
+        {
+            pb.Add(a => a.Text, "Test");
+        });
+    }
+
+    [Fact]
     public void TabItemCreate_Ok()
     {
         TabItem.Create(new Dictionary<string, object?>()
@@ -265,19 +274,19 @@ public class TabTest : BootstrapBlazorTestBase
         navMan.NavigateTo("/");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/" });
+            pb.Add(a => a.ExcludeUrls, ["/"]);
         });
 
         navMan.NavigateTo("/");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "" });
+            pb.Add(a => a.ExcludeUrls, [""]);
         });
 
         navMan.NavigateTo("/Cat");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/", "Cat" });
+            pb.Add(a => a.ExcludeUrls, ["/", "Cat"]);
         });
 
         navMan.NavigateTo("/");
@@ -288,7 +297,7 @@ public class TabTest : BootstrapBlazorTestBase
         }));
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/Test" });
+            pb.Add(a => a.ExcludeUrls, ["/Test"]);
         });
         cut.InvokeAsync(() => cut.Instance.CloseCurrentTab());
 
@@ -369,7 +378,7 @@ public class TabTest : BootstrapBlazorTestBase
         {
             var instance = cut.Instance;
             var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            mi.Invoke(instance, new object[] { "/" });
+            mi.Invoke(instance, ["/"]);
         });
     }
 
@@ -387,7 +396,7 @@ public class TabTest : BootstrapBlazorTestBase
         {
             var instance = cut.Instance;
             var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            mi.Invoke(instance, new object[] { "/" });
+            mi.Invoke(instance, ["/"]);
         });
     }
 
@@ -485,13 +494,15 @@ public class TabTest : BootstrapBlazorTestBase
         cut.DoesNotContain("Tab2-Content");
 
         // 点击第二个 TabItem
-        var item = cut.FindAll(".tabs-item").Last();
+        var items = cut.FindAll(".tabs-item");
+        var item = items[items.Count - 1];
         cut.InvokeAsync(() => item.Click());
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");
 
         // 再点击第一个 TabItem
-        item = cut.FindAll(".tabs-item").First();
+        items = cut.FindAll(".tabs-item");
+        item = items[0];
         cut.InvokeAsync(() => item.Click());
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");

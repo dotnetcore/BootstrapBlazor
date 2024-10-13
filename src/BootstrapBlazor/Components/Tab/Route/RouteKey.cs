@@ -5,7 +5,6 @@ using System.Reflection;
 
 namespace Microsoft.AspNetCore.Components.Routing;
 
-#if NET6_0_OR_GREATER
 [ExcludeFromCodeCoverage]
 internal readonly struct RouteKey : IEquatable<RouteKey>
 {
@@ -61,4 +60,3 @@ internal readonly struct RouteKey : IEquatable<RouteKey>
         return HashCode.Combine(AppAssembly, AdditionalAssemblies.Count);
     }
 }
-#endif
