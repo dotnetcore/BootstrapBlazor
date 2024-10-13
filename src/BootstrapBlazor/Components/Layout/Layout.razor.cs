@@ -182,6 +182,24 @@ public partial class Layout : IHandlerException
     public string TabDefaultUrl { get; set; } = "";
 
     /// <summary>
+    /// 获得/设置 标签是否显示关闭按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowTabItemClose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 标签是否显示扩展按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowTabExtendButtons { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 点击标签页是否切换地址栏 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ClickTabToNavigation { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 授权回调方法多用于权限控制
     /// </summary>
     [Parameter]
