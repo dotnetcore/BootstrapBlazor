@@ -144,17 +144,10 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-        _ = Task.Run(async () =>
-         {
-             try
-             {
-                 await item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-             }
-             catch (Exception ex)
-             {
 
-             }
-         });
+
+        _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+
 
         return item;
     }
