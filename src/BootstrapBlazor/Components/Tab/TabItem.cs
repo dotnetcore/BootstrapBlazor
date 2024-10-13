@@ -144,9 +144,18 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-        //_ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
-        //不需要渲染，直接设置参数(或者不需要设置?)
-        ParameterView.FromDictionary(parameters!).SetParameterProperties(item);
+        _ = Task.Run(async () =>
+         {
+             try
+             {
+                 await item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+             }
+             catch (Exception ex)
+             {
+
+             }
+         });
+
         return item;
     }
 }
