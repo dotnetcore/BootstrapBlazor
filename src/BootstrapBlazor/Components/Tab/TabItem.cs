@@ -103,6 +103,12 @@ public class TabItem : ComponentBase
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => false;
+
+    /// <summary>
     /// 设置是否被选中方法
     /// </summary>
     /// <param name="active"></param>
