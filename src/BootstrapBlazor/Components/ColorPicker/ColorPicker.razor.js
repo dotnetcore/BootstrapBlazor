@@ -16,7 +16,7 @@ export async function update(id, options) {
 export function dispose(id) {
     const data = Data.get(id);
     Data.remove(id);
-    if (data) {
+    if (data && data.pickr) {
         data.pickr.destroyAndRemove();
     }
 }
