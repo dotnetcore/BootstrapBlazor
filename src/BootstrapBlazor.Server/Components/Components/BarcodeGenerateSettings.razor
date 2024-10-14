@@ -1,0 +1,66 @@
+﻿@inject IStringLocalizer<BarcodeGenerateSettings> Localizer
+
+<GroupBox Title="@Localizer["BarcodeGeneratorGroupBoxText"]">
+    <div class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput Value="Value" ShowLabel="true" UseInputEvent="true" OnValueChanged="OnValueChanged" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="Format" OnValueChanged="OnFormatChanged" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="Width" Min="1" Max="6" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="Height" Min="10" Max="300" Step="5" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Slider @bind-Value="Margin" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="MarginLeft" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="MarginTop" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="MarginRight" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="MarginBottom" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <ColorPicker @bind-Value="Background" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <ColorPicker @bind-Value="LineColor" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="DisplayValue" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="Text" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="TextAlign" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="TextPosition" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="Font" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="FontOptions" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="FontSize" Min="8" Max="52" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="TextMargin" Min="-30" Max="100" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Textarea Value="@SvgString" DisplayText="Svg" ShowLabel="true" readonly />
+        </div>
+    </div>
+</GroupBox>
