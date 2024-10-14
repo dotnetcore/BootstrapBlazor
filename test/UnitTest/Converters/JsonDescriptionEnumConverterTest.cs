@@ -42,6 +42,14 @@ public class JsonDescriptionEnumConverterTest : TestBase
         var value2 = MockEnum2.Item1;
         json = JsonSerializer.Serialize(value2);
         Assert.Equal("\"Item1\"", json);
+
+        var value3 = EnumBarcodeTextFontOption.Bold_Italic;
+        json = JsonSerializer.Serialize(value3);
+        Assert.Equal("\"bold italic\"", json);
+
+        var value4 = EnumBarcodeTextFontOption.Normal;
+        json = JsonSerializer.Serialize(value4);
+        Assert.Equal("\"\"", json);
     }
 
     [JsonConverter(typeof(JsonDescriptionEnumConverter<TestEnum>))]
@@ -69,4 +77,28 @@ public class JsonDescriptionEnumConverterTest : TestBase
 
         Item2
     }
+
+    [JsonConverter(typeof(JsonDescriptionEnumConverter<EnumBarcodeTextFontOption>))]
+    public enum EnumBarcodeTextFontOption
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("")]
+        Normal,
+        /// <summary>
+        /// 
+        /// </summary>
+        Bold,
+        /// <summary>
+        /// 
+        /// </summary>
+        Italic,
+        /// <summary>
+        /// 
+        /// </summary>
+        [Description("bold italic")]
+        Bold_Italic,
+    }
+
 }

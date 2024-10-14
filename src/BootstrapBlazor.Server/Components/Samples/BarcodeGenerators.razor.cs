@@ -11,79 +11,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class BarcodeGenerators
 {
-
     private BarcodeGeneratorOption Options { get; set; } = new();
 
-    private BarcodeGeneratorOption Options1 { get; set; } = new()
+    private string Value { get; set; } = "12345";
+
+    private string? _svgString;
+
+    private Task OnCompletedAsync(string? val)
     {
-        Value = "Hi!",
-        FontSize = 40,
-        Background = "#4b8b7f",
-        LineColor = "#ffffff",
-        Margin = 40,
-        TextMargin = 80
-    };
-
-    private BarcodeGeneratorOption Options2 { get; set; } = new()
-    {
-        Value = "Hi!",
-        TextAlign = EnumBarcodeTextAlign.left,
-        TextPosition = EnumTextPosition.top,
-        Font = EnumBarcodeFont.Cursive,
-        FontOptions = EnumBarcodeFontOption.bold,
-        FontSize = 40,
-        TextMargin = 15,
-        Text = "Special"
-    };
-
-
-    private BarcodeGeneratorOption Options3 { get; set; } = new()
-    {
-        Value = "1234",
-        Type = EnumBarcodeType.pharmacode,
-        DisplayValue = false,
-        Height = 50,
-        Width = 6
-    };
-
-
-    private Dictionary<string, string> defaultValues = new Dictionary<string, string>()
-    {
-        { "CODE128", "Example 1234"},
-        { "CODE128A", "EXAMPLE"},
-        { "CODE128B", "Example text"},
-        { "CODE128C", "12345678"},
-        { "EAN13", "1234567890128"},
-        { "EAN8", "12345670"},
-        { "EAN5", "12340"},
-        { "EAN2", "10"},
-        { "UPC", "123456789999"},
-        { "CODE39", "EXAMPLE TEXT"},
-        { "ITF14", "10012345000017"},
-        { "ITF", "123456"},
-        { "MSI", "123456"},
-        { "MSI10", "123456"},
-        { "MSI11", "123456"},
-        { "MSI1010", "123456"},
-        { "MSI1110", "123456"},
-        { "pharmacode", "1234"}
-    };
-
-    [DisplayName("条码文字")]
-    private string? value { get; set; } = "12345";
-
-    [DisplayName("SVG内容")]
-    private string? svg { get; set; }
-
-    private Task OnResult(string value)
-    {
-        svg = value;
-        return Task.CompletedTask;
-    }
-
-    private Task OnValueChanged(EnumBarcodeType type)
-    {
-        value = defaultValues[type.ToString()];
+        _svgString = val;
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -95,41 +32,25 @@ public partial class BarcodeGenerators
     [
         new()
         {
-            Name = nameof(BarCodeGenerator.Type),
-            Description = Localizer[nameof(BarCodeGenerator.Type)].Value,
-            Type = "EnumBarcodeType",
-            ValueList = "CODE128 / CODE128A / CODE128B / CODE128C / EAN13 / EAN8 / EAN5 / EAN2 / UPC / CODE39 / ITF14 / ITF / MSI / MSI10 / MSI11 / MSI1010 / MSI1110 / pharmacode",
-            DefaultValue = "'auto' (CODE128)"
-        },
-        new()
-        {
-            Name = nameof(BarCodeGenerator.Value),
-            Description = Localizer[nameof(BarCodeGenerator.Value)].Value,
+            Name = nameof(BarcodeGenerator.Value),
+            Description = Localizer[nameof(BarcodeGenerator.Value)],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = nameof(BarCodeGenerator.Options),
-            Description = Localizer[nameof(BarCodeGenerator.Options)].Value,
-            Type = "BarcodeGeneratorOption",
+            Name = nameof(BarcodeGenerator.Options),
+            Description = Localizer[nameof(BarcodeGenerator.Options)],
+            Type = nameof(BarcodeGeneratorOption),
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = nameof(BarCodeGenerator.OnResult),
-            Description = Localizer[nameof(BarCodeGenerator.OnResult)].Value,
-            Type = "Func",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(BarCodeGenerator.OnError),
-            Description = Localizer[nameof(BarCodeGenerator.OnError)].Value,
-            Type = "Func",
+            Name = nameof(BarcodeGenerator.OnCompletedAsync),
+            Description = Localizer[nameof(BarcodeGenerator.OnCompletedAsync)],
+            Type = "Func<string?, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
@@ -143,24 +64,16 @@ public partial class BarcodeGenerators
     [
         new()
         {
-            Name = nameof(BarcodeGeneratorOption.Type),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Type)].Value,
-            Type = "EnumBarcodeType",
-            ValueList = "CODE128 / CODE128A / CODE128B / CODE128C / EAN13 / EAN8 / EAN5 / EAN2 / UPC / CODE39 / ITF14 / ITF / MSI / MSI10 / MSI11 / MSI1010 / MSI1110 / pharmacode",
-            DefaultValue = "'auto' (CODE128)"
-        },
-        new()
-        {
-            Name = nameof(BarcodeGeneratorOption.Value),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Value)].Value,
-            Type = "string",
+            Name = nameof(BarcodeGeneratorOption.Format),
+            Description = Localizer[nameof(BarcodeGeneratorOption.Format)],
+            Type = nameof(EnumBarcodeFormat),
             ValueList = " — ",
-            DefaultValue = " — "
+            DefaultValue = "CODE128"
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Width),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Width)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.Width)],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2"
@@ -168,7 +81,7 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Height),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Height)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.Height)],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "100"
@@ -176,7 +89,7 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.DisplayValue),
-            Description = Localizer[nameof(BarcodeGeneratorOption.DisplayValue)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.DisplayValue)],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "true"
@@ -184,7 +97,7 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Text),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Text)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.Text)],
             Type = "string",
             ValueList = " - ",
             DefaultValue = " - "
@@ -192,39 +105,39 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.FontOptions),
-            Description = Localizer[nameof(BarcodeGeneratorOption.FontOptions)].Value,
-            Type = "EnumBarcodeFontOption",
-            ValueList = "normal / bold / italic / bold italic",
-            DefaultValue = "2"
+            Description = Localizer[nameof(BarcodeGeneratorOption.FontOptions)],
+            Type = nameof(EnumBarcodeTextFontOption),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Font),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Font)].Value,
-            Type = "EnumBarcodeFont",
-            ValueList = "Monospace / SansSerif / Serif / Fantasy / Cursive",
-            DefaultValue = "Monospace"
+            Description = Localizer[nameof(BarcodeGeneratorOption.Font)],
+            Type = nameof(EnumBarcodeTextFont),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.TextAlign),
-            Description = Localizer[nameof(BarcodeGeneratorOption.TextAlign)].Value,
-            Type = "EnumBarcodeTextAlign",
-            ValueList = "left / center / right",
-            DefaultValue = "center"
+            Description = Localizer[nameof(BarcodeGeneratorOption.TextAlign)],
+            Type = nameof(EnumBarcodeTextAlign),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.TextPosition),
-            Description = Localizer[nameof(BarcodeGeneratorOption.TextPosition)].Value,
-            Type = "EnumTextPosition",
-            ValueList = "bottom / top",
-            DefaultValue = "bottom"
+            Description = Localizer[nameof(BarcodeGeneratorOption.TextPosition)],
+            Type = nameof(EnumBarcodeTextPosition),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.TextMargin),
-            Description = Localizer[nameof(BarcodeGeneratorOption.TextMargin)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.TextMargin)],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2"
@@ -232,7 +145,7 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.FontSize),
-            Description = Localizer[nameof(BarcodeGeneratorOption.FontSize)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.FontSize)],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "20"
@@ -240,15 +153,15 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Background),
-            Description = Localizer[nameof(BarcodeGeneratorOption.TextPosition)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.TextPosition)],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "#ffffff"
+            DefaultValue = "#FFFFFF"
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.LineColor),
-            Description = Localizer[nameof(BarcodeGeneratorOption.LineColor)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.LineColor)],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "#000000"
@@ -256,7 +169,7 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Margin),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Margin)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.Margin)],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "10"
@@ -264,39 +177,39 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGeneratorOption.MarginTop),
-            Description = Localizer[nameof(BarcodeGeneratorOption.MarginTop)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.MarginTop)],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = " - "
-        }, 
+            DefaultValue = " — "
+        },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.MarginBottom),
-            Description = Localizer[nameof(BarcodeGeneratorOption.MarginBottom)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.MarginBottom)],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = " - "
-        }, 
+            DefaultValue = " — "
+        },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.MarginLeft),
-            Description = Localizer[nameof(BarcodeGeneratorOption.MarginLeft)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.MarginLeft)],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = " - "
-        }, 
+            DefaultValue = " — "
+        },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.MarginRight),
-            Description = Localizer[nameof(BarcodeGeneratorOption.MarginRight)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.MarginRight)],
             Type = "int",
             ValueList = " — ",
-            DefaultValue = " - "
-        }, 
+            DefaultValue = " — "
+        },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Flat),
-            Description = Localizer[nameof(BarcodeGeneratorOption.Flat)].Value,
+            Description = Localizer[nameof(BarcodeGeneratorOption.Flat)],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
