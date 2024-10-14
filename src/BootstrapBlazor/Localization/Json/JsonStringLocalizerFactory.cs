@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 
-namespace BootstrapBlazor.Localization.Json;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// IStringLocalizerFactory 实现类

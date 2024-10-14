@@ -5,7 +5,7 @@
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
-namespace BootstrapBlazor.Localization.Json;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// LocalizationOptions 配置类
