@@ -43,6 +43,7 @@ public partial class Tab : IHandlerException
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height}px;", Height > 0)
+        .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private readonly List<TabItem> _items = new(50);
