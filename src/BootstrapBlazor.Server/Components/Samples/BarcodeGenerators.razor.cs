@@ -30,18 +30,10 @@ public partial class BarcodeGenerators
     /// <returns></returns>
     protected AttributeItem[] GetAttributes() =>
     [
-        //new()
-        //{
-        //    Name = nameof(BarcodeGenerator.Type),
-        //    Description = Localizer[nameof(BarcodeGenerator.Type)].Value,
-        //    Type = "EnumBarcodeType",
-        //    ValueList = "CODE128 / CODE128A / CODE128B / CODE128C / EAN13 / EAN8 / EAN5 / EAN2 / UPC / CODE39 / ITF14 / ITF / MSI / MSI10 / MSI11 / MSI1010 / MSI1110 / Pharmacode",
-        //    DefaultValue = "'auto' (CODE128)"
-        //},
         new()
         {
             Name = nameof(BarcodeGenerator.Value),
-            Description = Localizer[nameof(BarcodeGenerator.Value)].Value,
+            Description = Localizer[nameof(BarcodeGenerator.Value)],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -49,8 +41,16 @@ public partial class BarcodeGenerators
         new()
         {
             Name = nameof(BarcodeGenerator.Options),
-            Description = Localizer[nameof(BarcodeGenerator.Options)].Value,
-            Type = "BarcodeGeneratorOption",
+            Description = Localizer[nameof(BarcodeGenerator.Options)],
+            Type = nameof(BarcodeGeneratorOption),
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BarcodeGenerator.OnCompletedAsync),
+            Description = Localizer[nameof(BarcodeGenerator.OnCompletedAsync)],
+            Type = "Func<string?, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
@@ -66,9 +66,9 @@ public partial class BarcodeGenerators
         {
             Name = nameof(BarcodeGeneratorOption.Format),
             Description = Localizer[nameof(BarcodeGeneratorOption.Format)],
-            Type = "EnumBarcodeType",
-            ValueList = "CODE128 / CODE128A / CODE128B / CODE128C / EAN13 / EAN8 / EAN5 / EAN2 / UPC / CODE39 / ITF14 / ITF / MSI / MSI10 / MSI11 / MSI1010 / MSI1110 / Pharmacode",
-            DefaultValue = "'auto' (CODE128)"
+            Type = nameof(EnumBarcodeFormat),
+            ValueList = " — ",
+            DefaultValue = "CODE128"
         },
         new()
         {
@@ -106,33 +106,33 @@ public partial class BarcodeGenerators
         {
             Name = nameof(BarcodeGeneratorOption.FontOptions),
             Description = Localizer[nameof(BarcodeGeneratorOption.FontOptions)],
-            Type = "EnumBarcodeFontOption",
-            ValueList = "normal / bold / italic / bold italic",
-            DefaultValue = "2"
+            Type = nameof(EnumBarcodeTextFontOption),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.Font),
             Description = Localizer[nameof(BarcodeGeneratorOption.Font)],
-            Type = "EnumBarcodeFont",
-            ValueList = "Monospace / SansSerif / Serif / Fantasy / Cursive",
-            DefaultValue = "Monospace"
+            Type = nameof(EnumBarcodeTextFont),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.TextAlign),
             Description = Localizer[nameof(BarcodeGeneratorOption.TextAlign)],
-            Type = "EnumBarcodeTextAlign",
-            ValueList = "left / center / right",
-            DefaultValue = "center"
+            Type = nameof(EnumBarcodeTextAlign),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = nameof(BarcodeGeneratorOption.TextPosition),
             Description = Localizer[nameof(BarcodeGeneratorOption.TextPosition)],
-            Type = "EnumTextPosition",
-            ValueList = "bottom / top",
-            DefaultValue = "bottom"
+            Type = nameof(EnumBarcodeTextPosition),
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
