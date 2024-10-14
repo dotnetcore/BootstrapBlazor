@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-namespace BootstrapBlazor.Localization.Json;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// JsonStringLocalizer 实现类
