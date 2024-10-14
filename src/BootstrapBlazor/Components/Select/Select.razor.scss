@@ -5,6 +5,7 @@
 
 .select {
     --bb-select-focus-shadow: #{$bb-select-focus-shadow};
+    --bb-select-padding-right: #{$bb-select-padding-right};
     --bb-select-padding: #{$bb-select-padding};
     --bb-select-search-padding: #{$bb-select-search-padding};
     --bb-select-search-margin-bottom: #{$bb-select-search-margin-bottom};
@@ -182,6 +183,7 @@
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     background-position: right -1rem center, center right 1.5rem;
+    padding-right: var(--bb-select-padding-right);
 }
 
 .arrow-danger {
