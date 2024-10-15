@@ -31,7 +31,7 @@
     <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.BootstrapIcon" Version="8.0.3" />
-    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.0.6" />
+    <PackageReference Include="BootstrapBlazor.BootstrapIcon.Extensions" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="8.2.3" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.1.1" />
@@ -41,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.1.1" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.6" />
-    <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.Gantt" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="8.1.0" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.2.1" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="8.0.4" />
