@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+
 using System.Collections.Concurrent;
 using System.Reflection;
 
@@ -594,17 +595,18 @@ public partial class Tab : IHandlerException
                 // TabItemOptionAttribute
                 SetTabItemParameters(option.Text, option.Icon, option.Closable, true);
             }
-            else if (Options.Valid())
-            {
-                // TabItemTextOptions
-                SetTabItemParameters(Options.Text, Options.Icon, Options.Closable, Options.IsActive);
-                Options.Reset();
-            }
+
             else if (Layout != null)
             {
                 // CascadeParameter Menus
                 var menu = GetMenuItem(url);
                 SetTabItemParameters(menu?.Text, menu?.Icon, true, true);
+            }
+            else if (Options.Valid())
+            {
+                // TabItemTextOptions
+                SetTabItemParameters(Options.Text, Options.Icon, Options.Closable, Options.IsActive);
+                Options.Reset();
             }
             else
             {
