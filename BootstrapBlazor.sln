@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
+# 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor", "src\BootstrapBlazor\BootstrapBlazor.csproj", "{D0AE3016-4878-4807-A04C-C33CBEC7B092}"
@@ -60,6 +60,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configurat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestSvgIcon", "test\UniTestSvgIcon\UniTestSvgIcon.csproj", "{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp2", "src\BlazorApp2\BlazorApp2.csproj", "{1CD48339-62C1-4187-860C-9C4B91ED85D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD48339-62C1-4187-860C-9C4B91ED85D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD48339-62C1-4187-860C-9C4B91ED85D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD48339-62C1-4187-860C-9C4B91ED85D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD48339-62C1-4187-860C-9C4B91ED85D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -109,6 +115,7 @@ Global
 		{6D73FED6-0086-460B-84FA-1FA78176BF59} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
+		{1CD48339-62C1-4187-860C-9C4B91ED85D2} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
