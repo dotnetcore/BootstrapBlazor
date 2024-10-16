@@ -602,15 +602,8 @@ public partial class Tab : IHandlerException
             }
             else
             {
-                var menu = GetMenuItem(url);
-                if (menu != null)
-                {
-                    SetTabItemParameters(menu.Text, menu.Icon, true, true);
-                }
-                else
-                {
-                    parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
-                }
+                var menu = GetMenuItem(url) ?? new MenuItem() { Text = url.Split("/").FirstOrDefault() };
+                SetTabItemParameters(menu.Text, menu.Icon, true, true);
             }
             parameters.Add(nameof(TabItem.Url), url);
 
