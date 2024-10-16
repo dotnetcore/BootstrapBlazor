@@ -607,7 +607,10 @@ public partial class Tab : IHandlerException
                 {
                     SetTabItemParameters(menu.Text, menu.Icon, true, true);
                 }
-                parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
+                else
+                {
+                    parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
+                }
             }
             parameters.Add(nameof(TabItem.Url), url);
 
