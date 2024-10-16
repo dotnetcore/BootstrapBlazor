@@ -594,13 +594,6 @@ public partial class Tab : IHandlerException
                 // TabItemOptionAttribute
                 SetTabItemParameters(option.Text, option.Icon, option.Closable, true);
             }
-
-            else if (Layout != null)
-            {
-                // CascadeParameter Menus
-                var menu = GetMenuItem(url);
-                SetTabItemParameters(menu?.Text, menu?.Icon, true, true);
-            }
             else if (Options.Valid())
             {
                 // TabItemTextOptions
@@ -609,6 +602,11 @@ public partial class Tab : IHandlerException
             }
             else
             {
+                var menu = GetMenuItem(url);
+                if (menu != null)
+                {
+                    SetTabItemParameters(menu.Text, menu.Icon, true, true);
+                }
                 parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
             }
             parameters.Add(nameof(TabItem.Url), url);
