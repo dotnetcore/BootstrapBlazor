@@ -104,8 +104,9 @@ public partial class Layout : IHandlerException
     public bool IsFullSide { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为正页面布局 默认为 false
+    /// 获得/设置 是否为整页面布局 默认为 false
     /// </summary>
+    /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
     public bool IsPage { get; set; }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@live.ca). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -600,15 +600,10 @@ public partial class Tab : IHandlerException
                 SetTabItemParameters(Options.Text, Options.Icon, Options.Closable, Options.IsActive);
                 Options.Reset();
             }
-            else if (Layout != null)
-            {
-                // CascadeParameter Menus
-                var menu = GetMenuItem(url);
-                SetTabItemParameters(menu?.Text, menu?.Icon, true, true);
-            }
             else
             {
-                parameters.Add(nameof(TabItem.Text), url.Split("/").FirstOrDefault());
+                var menu = GetMenuItem(url) ?? new MenuItem() { Text = url.Split("/").FirstOrDefault() };
+                SetTabItemParameters(menu.Text, menu.Icon, true, true);
             }
             parameters.Add(nameof(TabItem.Url), url);
 
@@ -679,6 +674,8 @@ public partial class Tab : IHandlerException
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
+        Options.Reset();
+
         if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
         {
             return;

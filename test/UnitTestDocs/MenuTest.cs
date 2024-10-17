@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Localization.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -13,9 +12,9 @@ namespace UnitTestDocs;
 
 public partial class MenuTest
 {
-    private ITestOutputHelper _logger;
-    private IServiceProvider _serviceProvider;
-    private IEnumerable<Type> _routerTable;
+    private readonly ITestOutputHelper _logger;
+    private readonly IServiceProvider _serviceProvider;
+    private readonly IEnumerable<Type> _routerTable;
 
     public MenuTest(ITestOutputHelper logger)
     {
@@ -149,7 +148,7 @@ public partial class MenuTest
 
     static string RemoveBlockStatement(string payload, string removeString)
     {
-        var index = payload.IndexOf(removeString);
+        var index = payload.IndexOf(removeString, StringComparison.Ordinal);
         if (index > -1)
         {
             var end = payload.IndexOf("\n", index, StringComparison.OrdinalIgnoreCase);

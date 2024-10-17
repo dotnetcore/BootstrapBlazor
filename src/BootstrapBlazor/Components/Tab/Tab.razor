@@ -20,7 +20,14 @@ else
                         <RenderTemplate>
                             @if (!Items.Any() && !string.IsNullOrEmpty(DefaultUrl))
                             {
-                                AddTabItem(DefaultUrl);
+                                if (ClickTabToNavigation)
+                                {
+                                    Navigator.NavigateTo(DefaultUrl);
+                                }
+                                else
+                                {
+                                    AddTabItem(DefaultUrl);
+                                }
                             }
                             @if (FirstRender)
                             {
