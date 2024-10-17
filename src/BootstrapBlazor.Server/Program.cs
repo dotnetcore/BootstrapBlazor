@@ -5,7 +5,6 @@
 using BootstrapBlazor.Server.Components;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -23,7 +22,6 @@ builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 
 #if DEBUG
-builder.Services.AddSassCompiler();
 #else
 builder.Services.AddResponseCompression(options =>
 {
@@ -57,22 +55,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
 }
-//app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
-
-//var provider = new FileExtensionContentTypeProvider
-//{
-//    Mappings =
-//    {
-//        [".properties"] = "application/octet-stream",
-//        [".moc"] = "application/x-msdownload",
-//        [".moc3"] = "application/x-msdownload",
-//        [".mtn"] = "application/x-msdownload"
-//    }
-//};
 
 app.MapStaticAssets();
-//app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
-//app.UseStaticFiles();
 
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)
@@ -84,7 +68,6 @@ if (cors?.Length > 0)
 }
 
 app.UseBootstrapBlazor();
-
 app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
