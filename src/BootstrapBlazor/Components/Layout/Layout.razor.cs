@@ -104,8 +104,9 @@ public partial class Layout : IHandlerException
     public bool IsFullSide { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为正页面布局 默认为 false
+    /// 获得/设置 是否为整页面布局 默认为 false
     /// </summary>
+    /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
     public bool IsPage { get; set; }
 
@@ -180,6 +181,24 @@ public partial class Layout : IHandlerException
     /// </summary>
     [Parameter]
     public string TabDefaultUrl { get; set; } = "";
+
+    /// <summary>
+    /// 获得/设置 标签是否显示关闭按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowTabItemClose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 标签是否显示扩展按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowTabExtendButtons { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 点击标签页是否切换地址栏 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ClickTabToNavigation { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 授权回调方法多用于权限控制

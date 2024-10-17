@@ -38,6 +38,10 @@ public partial class ColorPicker
 
     private string? _formattedValueString;
 
+    private bool _originalSupportOpacityValue;
+
+    private bool _originalIsDisabledValue;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -57,12 +61,17 @@ public partial class ColorPicker
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender)
+        if (firstRender)
         {
-            if (IsSupportOpacity)
-            {
-                await InvokeVoidAsync("update", Id, new { Value, IsDisabled });
-            }
+            _originalSupportOpacityValue = IsSupportOpacity;
+            _originalIsDisabledValue = IsDisabled;
+        }
+
+        if (_originalSupportOpacityValue != IsSupportOpacity || _originalIsDisabledValue != IsDisabled)
+        {
+            _originalSupportOpacityValue = IsSupportOpacity;
+            _originalIsDisabledValue = IsDisabled;
+            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
         }
     }
 

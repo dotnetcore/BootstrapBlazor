@@ -96,7 +96,7 @@ public partial class HomeLayout
         // 使用 api 方式 适用于 Server-Side 模式
         if (SelectedCulture != cultureName)
         {
-            var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
             var query = $"?culture={Uri.EscapeDataString(cultureName)}&redirectUri={Uri.EscapeDataString(uri)}";
 
             // use a path that matches your culture redirect controller from the previous steps

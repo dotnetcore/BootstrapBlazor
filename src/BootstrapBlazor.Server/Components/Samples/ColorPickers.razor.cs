@@ -20,7 +20,9 @@ public partial class ColorPickers
 
     private string _opacityValue = "#dd0324";
 
-    private bool _opacityDisabled = false;
+    private bool _opacityIsDisabled = false;
+
+    private bool _opacityIsSupport = true;
 
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }

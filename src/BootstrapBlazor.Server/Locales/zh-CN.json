@@ -6499,13 +6499,15 @@
     "ImageCropperNormalIntro": "Url 参数设置图片",
     "ImageCropperResetText": "复位",
     "ImageCropperReplaceText": "替换",
-    "AttributesImageCropperUrl": "图片URL 或 Base64 dataurl",
-    "AttributesImageCropperDefaultButton": "显示默认按钮",
-    "AttributesImageCropperPreview": "显示剪裁后预览",
-    "AttributesImageCropperOnResult": "剪裁结果 Stream 回调方法",
-    "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
-    "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
-    "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
+    "ImageCropperRotateText": "旋转",
+    "ImageCropperEnableText": "启用",
+    "ImageCropperDisabledText": "禁用",
+    "ImageCropperClearText": "清除",
+    "AttributesImageCropperUrl": "图片地址",
+    "AttributesImageCropperIsDisabled": "是否被禁用",
+    "AttributesImageCropperOnCropAsync": "剪裁结果回调方法",
+    "AttributesImageCropperOptions": "裁剪选项",
+    "AttributesImageCropperShape": "裁剪形状"
   },
   "BootstrapBlazor.Server.Components.Samples.Translators": {
     "TranslatorsTitle": "AzureTranslator 翻译服务",
@@ -6518,16 +6520,10 @@
   "BootstrapBlazor.Server.Components.Samples.BarcodeGenerators": {
     "Title": "BarcodeGenerator 条码生成器",
     "BarcodeGeneratorNormalText": "条码生成器",
-    "BarcodeGeneratorNormalIntro": "完整设置参数演示",
-    "BarcodeGeneratorGroupBoxText": "参数",
-    "BarcodeGeneratorBatchText": "批量演示",
-    "BarcodeGeneratorBatchIntro": "批量设置参数",
-    "BarcodeGeneratorSimpleText": "简单配置",
-    "BarcodeGeneratorSimpleIntro": "简单配置参数",
-    "OnResult": "条码生成(svg)回调方法",
-    "OnError": "错误回调方法",
+    "BarcodeGeneratorNormalIntro": "通过给定 <code>Value</code> 值渲染成相对应格式的一维条码",
+    "OnCompletedAsync": "条码生成(svg)回调方法",
     "Options": "条码选项",
-    "Type": "条码类型",
+    "Format": "条码类型",
     "Value": "条码值",
     "Width": "单个条形的宽度",
     "Height": "条形码的高度",
@@ -6657,7 +6653,10 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
     "ElementIconTitle": "饿了么图标库",
     "ElementIconDescription": "饿了么免费开源图标库",
-    "CopiedTooltipText": "拷贝成功"
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6678,12 +6677,18 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
-    "CopiedTooltipText": "拷贝成功"
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "蚂蚁图标库",
     "AntDesignIconDescription": "语义化的矢量图形",
-    "CopiedTooltipText": "拷贝成功"
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",

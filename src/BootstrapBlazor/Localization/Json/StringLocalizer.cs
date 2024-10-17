@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Localization;
 
-namespace BootstrapBlazor.Localization.Json;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// IStringLocalizer 实现类

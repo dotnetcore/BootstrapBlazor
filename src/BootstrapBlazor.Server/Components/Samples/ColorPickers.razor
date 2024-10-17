@@ -47,8 +47,17 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["IsSupportOpacityTitle"]" Introduction="@Localizer["IsSupportOpacityIntro"]" Name="IsSupportOpacity">
-    <Switch @bind-Value="_opacityDisabled"></Switch>
-    <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="true" IsDisabled="_opacityDisabled" />
+    <section ignore>
+        <div class="row form-inline">
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="_opacityIsSupport" DisplayText="SupportOpacity" ShowLabel="true"></Switch>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Switch @bind-Value="_opacityIsDisabled" DisplayText="Disabled" ShowLabel="true"></Switch>
+            </div>
+        </div>
+    </section>
+    <ColorPicker @bind-Value="@_opacityValue" IsSupportOpacity="_opacityIsSupport" IsDisabled="_opacityIsDisabled" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -28,7 +28,9 @@ public partial class Chats
 
     private List<AzureOpenAIChatMessage> Messages { get; } = [];
 
-    private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
+    private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack")
+        .AddClass("msg-stack-assistant", role == ChatRole.Assistant)
+        .Build();
 
     private static readonly ConcurrentDictionary<string, int> _cache = new();
 

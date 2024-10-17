@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// TransitionType 枚举类型

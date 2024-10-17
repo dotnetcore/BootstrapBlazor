@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Localization;
 
-namespace BootstrapBlazor.Localization;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// ILocalizationResolve 服务

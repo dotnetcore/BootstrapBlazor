@@ -41,6 +41,15 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TabItem_Null()
+    {
+        var cut = Context.RenderComponent<TabItem>(pb =>
+        {
+            pb.Add(a => a.Text, "Test");
+        });
+    }
+
+    [Fact]
     public void TabItemCreate_Ok()
     {
         TabItem.Create(new Dictionary<string, object?>()
@@ -252,7 +261,7 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AddTabByUrl_Ok()
+    public async Task AddTabByUrl_Ok()
     {
         var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
         navMan.NavigateTo("/");
@@ -265,35 +274,35 @@ public class TabTest : BootstrapBlazorTestBase
         navMan.NavigateTo("/");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/" });
+            pb.Add(a => a.ExcludeUrls, ["/"]);
         });
 
         navMan.NavigateTo("/");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "" });
+            pb.Add(a => a.ExcludeUrls, [""]);
         });
 
         navMan.NavigateTo("/Cat");
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/", "Cat" });
+            pb.Add(a => a.ExcludeUrls, ["/", "Cat"]);
         });
 
         navMan.NavigateTo("/");
-        cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
+        await cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
         {
             ["Text"] = "Cat",
             ["Url"] = "Cat"
         }));
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ExcludeUrls, new String[] { "/Test" });
+            pb.Add(a => a.ExcludeUrls, ["/Test"]);
         });
-        cut.InvokeAsync(() => cut.Instance.CloseCurrentTab());
+        await cut.InvokeAsync(() => cut.Instance.CloseCurrentTab());
 
         // AddTab
-        cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
+        await cut.InvokeAsync(() => cut.Instance.AddTab(new Dictionary<string, object?>
         {
             ["Text"] = "Cat",
             ["Url"] = null,
@@ -305,14 +314,16 @@ public class TabTest : BootstrapBlazorTestBase
         Assert.NotNull(item);
         Assert.Equal("", item.Url);
 
-        cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
         item = cut.Instance.GetActiveTab();
         Assert.NotNull(item);
         Assert.Equal("Cat", item.Url);
 
-        cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
         item = cut.Instance.GetActiveTab();
         Assert.Null(item);
+
+        await cut.InvokeAsync(() => cut.Instance.CloseCurrentTab());
     }
 
     [Fact]
@@ -369,7 +380,7 @@ public class TabTest : BootstrapBlazorTestBase
         {
             var instance = cut.Instance;
             var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            mi.Invoke(instance, new object[] { "/" });
+            mi.Invoke(instance, ["/"]);
         });
     }
 
@@ -387,7 +398,7 @@ public class TabTest : BootstrapBlazorTestBase
         {
             var instance = cut.Instance;
             var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
-            mi.Invoke(instance, new object[] { "/" });
+            mi.Invoke(instance, ["/"]);
         });
     }
 
@@ -485,13 +496,15 @@ public class TabTest : BootstrapBlazorTestBase
         cut.DoesNotContain("Tab2-Content");
 
         // 点击第二个 TabItem
-        var item = cut.FindAll(".tabs-item").Last();
+        var items = cut.FindAll(".tabs-item");
+        var item = items[items.Count - 1];
         cut.InvokeAsync(() => item.Click());
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");
 
         // 再点击第一个 TabItem
-        item = cut.FindAll(".tabs-item").First();
+        items = cut.FindAll(".tabs-item");
+        item = items[0];
         cut.InvokeAsync(() => item.Click());
         cut.Contains("Tab1-Content");
         cut.Contains("Tab2-Content");
@@ -523,26 +536,24 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ActiveTab_Ok()
+    public async Task ActiveTab_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
         {
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.DefaultUrl, "/");
         });
-        cut.InvokeAsync(() => cut.Instance.ActiveTab(0));
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(0));
+
         var item = cut.Instance.GetActiveTab();
         Assert.NotNull(item);
-        cut.InvokeAsync(() =>
-        {
-            if (item != null)
-            {
-                cut.Instance.ActiveTab(item);
-            }
-        });
-        cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
+
+        await cut.InvokeAsync(() => cut.Instance.ActiveTab(item));
+
+        // 移除标签导航到默认标签
+        await cut.InvokeAsync(() => cut.Instance.RemoveTab(item!));
         item = cut.Instance.GetActiveTab();
-        Assert.Null(item);
+        Assert.NotNull(item);
     }
 
     [Fact]

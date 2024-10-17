@@ -71,6 +71,11 @@ class DefaultZipArchiveService : IZipArchiveService
     {
         if (Directory.Exists(directoryName))
         {
+            var folder = Path.GetDirectoryName(archiveFileName);
+            if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
+            {
+                Directory.CreateDirectory(folder);
+            }
             await Task.Run(() => ZipFile.CreateFromDirectory(directoryName, archiveFileName, compressionLevel, includeBaseDirectory, encoding));
         }
     }

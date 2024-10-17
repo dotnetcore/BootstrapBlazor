@@ -19,8 +19,7 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     public async Task LoadModule_Exception()
     {
         var jsRuntime = new MockJSRuntime();
-        var module = await jsRuntime.LoadModule("./mock.js", "test");
-        Assert.NotNull(module);
+        await Assert.ThrowsAsync<TaskCanceledException>(() => jsRuntime.LoadModule("./mock.js", "test"));
     }
 
     [Fact]
