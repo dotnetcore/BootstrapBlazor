@@ -15,13 +15,21 @@ public partial class WebSerials
     private string? _message;
     private string? _statusMessage;
     private string? _errorMessage;
-    private readonly WebSerialOptions options = new() { BaudRate = 115200, AutoGetSignals = true  };
+    private readonly WebSerialOptions options = new() { BaudRate = 115200, AutoGetSignals = true };
 
-    [NotNull]
-    private IEnumerable<SelectedItem> BaudRateList { get; set; } = ListToSelectedItem();
+    private List<SelectedItem> _baudRateList =
+    [
+        new("300", "300"),
+        new("600", "600"),
+        new("1200", "1200"),
+        new("2400", "2400"),
+        new("4800", "4800"),
+        new("9600", "9600"),
+        new("14400", "14400"),
+        new("19200", "19200"),
+    ];
 
-    [DisplayName("波特率")]
-    private int SelectedBaudRate { get; set; } = 115200;
+    private string _selectedBaudRate = "9600";
 
     private bool Flag { get; set; }
 
@@ -34,6 +42,32 @@ public partial class WebSerials
 
     [NotNull]
     private WebSerial? WebSerial { get; set; }
+
+    [Inject, NotNull]
+    private ISerialService? SerialService { get; set; }
+
+    private ISerialPort? _serialPort;
+
+    private async Task GetPort()
+    {
+        _serialPort = await SerialService.GetPort();
+    }
+
+    private async Task OpenPort()
+    {
+        if (_serialPort != null)
+        {
+            await _serialPort.Open();
+        }
+    }
+
+    private async Task ClosePort()
+    {
+        if (_serialPort != null)
+        {
+            await _serialPort.Close();
+        }
+    }
 
     private Task OnReceive(string? message)
     {
@@ -90,18 +124,10 @@ public partial class WebSerials
         return Task.CompletedTask;
     }
 
-    private static IEnumerable<SelectedItem> ListToSelectedItem()
-    {
-        foreach (var item in WebSerialOptions.BaudRateList)
-        {
-            yield return new SelectedItem(item.ToString(), item.ToString());
-        }
-    }
-
     private void OnApply()
     {
-        options.BaudRate = SelectedBaudRate;
-        Flag = !Flag;
+        //options.BaudRate = SelectedBaudRate;
+        //Flag = !Flag;
     }
 
     /// <summary>

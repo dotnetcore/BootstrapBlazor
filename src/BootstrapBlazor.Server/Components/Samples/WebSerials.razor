@@ -7,28 +7,35 @@
 
 <p>@((MarkupString)Localizer["WebSerialDescription"].Value)</p>
 
-<PackageTips Name="BootstrapBlazor.WebAPI" />
+<GroupBox Title="串口设置">
+    <div class="row form-inline g-3">
+        <div class="col-12 col-sm-6">
+            <Select Items="_baudRateList" @bind-Value="@_selectedBaudRate" ShowLabel="true" DisplayText="波特率" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@options.DataBits" ShowLabel="true" DisplayText="数据位" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@options.StopBits" ShowLabel="true" DisplayText="停止位" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@options.FlowControlType" ShowLabel="true" DisplayText="校验位" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@options.ParityType" ShowLabel="true" DisplayText="缓冲区" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="@options.ParityType" ShowLabel="true" DisplayText="流控制" />
+        </div>
+        <div class="col-12">
+            <Button OnClick="GetPort" Text="选择串口"></Button>
+            <Button OnClick="OpenPort" Text="打开串口"></Button>
+            <Button OnClick="ClosePort" Text="关闭串口"></Button>
+        </div>
+    </div>
+</GroupBox>
 
 <DemoBlock Title="@Localizer["WebSerialNormalTitle"]" Introduction="@Localizer["WebSerialNormalIntro"]" Name="WebSerialNormal">
-    <GroupBox Title="串口设置">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" Items="BaudRateList" @bind-Value="@SelectedBaudRate" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.DataBits" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.StopBits" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" @bind-Value="@options.FlowControlType" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" @bind-Value="@options.ParityType" ShowLabel="true" />
-            </div>
-        </div>
-    </GroupBox>
     <GroupBox Title="其他功能" class="mt-3">
         <div class="row g-3">
             <div class="col-12 col-sm-6 col-md-4">
