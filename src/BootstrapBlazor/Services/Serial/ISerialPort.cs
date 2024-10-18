@@ -24,13 +24,13 @@ public interface ISerialPort
     /// 打开端口方法
     /// </summary>
     /// <returns></returns>
-    Task Open();
+    Task Open(SerialOptions options);
 
     /// <summary>
     /// 读取数据方法
     /// </summary>
     /// <returns></returns>
-    byte[] Read();
+    List<byte> Read();
 
     /// <summary>
     /// 写入数据方法

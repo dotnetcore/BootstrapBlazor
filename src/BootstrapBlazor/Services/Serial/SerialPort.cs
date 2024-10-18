@@ -12,16 +12,20 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsOpen { get; }
+    public bool IsOpen { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public byte[] Read()
+    public List<byte> Read()
     {
-
-        return new byte[0];
+        var ret = new List<byte>();
+        if (IsOpen)
+        {
+            //var ret = await jsModule.InvokeAsync<bool>("open", serialPortId, options);
+        }
+        return ret;
     }
 
     /// <summary>
@@ -38,9 +42,13 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Open()
+    public async Task Open(SerialOptions options)
     {
-        await jsModule.InvokeVoidAsync("open", serialPortId);
+        var ret = await jsModule.InvokeAsync<bool>("open", serialPortId, options);
+        if (ret)
+        {
+            IsOpen = true;
+        }
     }
 
     /// <summary>
@@ -49,6 +57,10 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <returns></returns>
     public async Task Close()
     {
-        await jsModule.InvokeVoidAsync("close", serialPortId);
+        var ret = await jsModule.InvokeAsync<bool>("close", serialPortId);
+        if (ret)
+        {
+            IsOpen = false;
+        }
     }
 }

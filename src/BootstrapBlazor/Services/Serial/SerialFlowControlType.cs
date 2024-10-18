@@ -2,13 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
+using BootstrapBlazor.Core.Converter;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 流量控制方法
 /// </summary>
+[JsonEnumConverter(true)]
 public enum SerialFlowControlType
 {
     /// <summary>
