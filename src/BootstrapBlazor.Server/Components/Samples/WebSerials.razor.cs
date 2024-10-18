@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
+using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -11,13 +11,19 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class WebSerials
 {
+    private string _sendData = "";
+    private int _sendInterval = 1000;
+    private bool _appendCRLF;
+    private bool _isHEX;
+    private bool _isLoop;
+    private ConsoleMessageCollection _messages = new(8);
 
     private string? _message;
     private string? _statusMessage;
     private string? _errorMessage;
     private readonly WebSerialOptions options = new() { BaudRate = 115200, AutoGetSignals = true };
 
-    private List<SelectedItem> _baudRateList =
+    private readonly List<SelectedItem> _baudRateList =
     [
         new("300", "300"),
         new("600", "600"),
@@ -29,15 +35,15 @@ public partial class WebSerials
         new("19200", "19200"),
     ];
 
-    private List<SelectedItem> _bufferSizes =
+    private readonly List<SelectedItem> _bufferSizes =
     [
         new("255", "255"),
         new("1024", "1024")
     ];
 
-    private List<SelectedItem> _dataBits = [new("7", "7"), new("8", "8")];
+    private readonly List<SelectedItem> _dataBits = [new("7", "7"), new("8", "8")];
 
-    private List<SelectedItem> _stopBits = [new("1", "1"), new("2", "2")];
+    private readonly List<SelectedItem> _stopBits = [new("1", "1"), new("2", "2")];
 
     private bool Flag { get; set; }
 
@@ -47,9 +53,6 @@ public partial class WebSerials
     /// 收到的信号数据
     /// </summary>
     public WebSerialSignals Signals { get; set; } = new WebSerialSignals();
-
-    [NotNull]
-    private WebSerial? WebSerial { get; set; }
 
     [Inject, NotNull]
     private ISerialService? SerialService { get; set; }
@@ -71,10 +74,10 @@ public partial class WebSerials
     {
         if (_serialPort != null)
         {
-            _serialPort.DataReceive = data =>
+            _serialPort.DataReceive = async data =>
             {
-                System.Console.WriteLine(data);
-                return Task.CompletedTask;
+                _messages.Add(new ConsoleMessageItem() { Message = Encoding.ASCII.GetString(data) });
+                await InvokeAsync(StateHasChanged);
             };
             await _serialPort.Open(_serialOptions);
         }
@@ -90,10 +93,36 @@ public partial class WebSerials
 
     private async Task Write()
     {
-        if (_serialPort != null)
+        if (_serialPort == null)
         {
-            await _serialPort.Write([0x15, 0x18]);
+            return;
         }
+
+        var data = _sendData;
+        if (_appendCRLF)
+        {
+            data += "\r\n";
+        }
+
+        var buffer = _isHEX
+            ? ConvertToHex(data)
+            : Encoding.ASCII.GetBytes(data);
+        await _serialPort.Write(buffer);
+    }
+
+    private static byte[] ConvertToHex(string data)
+    {
+        var ret = new List<byte>();
+        for (int i = 0; i < data.Length;)
+        {
+            if (i + 2 <= data.Length)
+            {
+                var seg = data.Substring(i, 2);
+                ret.Add(Convert.ToByte(seg, 16));
+            }
+            i = i + 2;
+        }
+        return [.. ret];
     }
 
     private Task OnReceive(string? message)

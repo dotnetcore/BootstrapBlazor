@@ -6298,14 +6298,21 @@
   "BootstrapBlazor.Server.Components.Samples.WebSerials": {
     "WebSerialTitle": "Web Serial",
     "WebSerialIntro": "Serial port is a widely used communication protocol that enables data transmission between computers",
-    "WebSerialDescription": "allow websites to communicate with peripherals connected to a user's computer. It provides the ability to connect to devices that are required by the operating system to communicate via the serial API, see <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，or <a href='https://developer.mozilla.org/en'>WebHID</a>.",
-    "WebSerialNormalIntro": "read and write serial devices",
+    "WebSerialDescription": "allow websites to communicate with peripherals connected to a user's computer. It provides the ability to connect to devices that are required by the operating system to communicate via the serial API",
     "WebSerialNormalTitle": "Basic usage",
-    "ConnectButtonText": "Connect",
+    "WebSerialNormalIntro": "By calling the <code>ISerialService</code> service, you can connect, open, close, read and write to the serial port device.",
+    "BaudRateText": "BaudRate",
+    "DataBitsText": "DataBits",
+    "StopBitsText": "StopBits",
+    "ParityTypeText": "ParityType",
+    "BufferSizeText": "BufferSize",
+    "FlowControlTypeText": "FlowControlType",
+    "RequestPortText": "Request",
+    "OpenPortText": "Open",
+    "ClosePortText": "Close",
     "WriteButtonText": "Write",
-    "DisconnectButtonText": "Disonnect",
-    "ApplyButtonText": "Apply",
-    "WebSerialOptionsText": "WebSerialOptions"
+    "WriteDataText": "Send Data",
+    "ReadDataText": "Receive Data"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
