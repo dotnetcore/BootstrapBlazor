@@ -17,16 +17,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    public List<byte> Read(CancellationToken token = default)
-    {
-        var ret = new List<byte>();
-        if (IsOpen)
-        {
-            //var ret = await jsModule.InvokeAsync<bool>("open", serialPortId, options);
-        }
-        return ret;
-    }
+    public Func<byte[], Task>? DataReceive { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -48,7 +39,12 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <returns></returns>
     public async Task Open(SerialOptions options, CancellationToken token = default)
     {
-        var ret = await jsModule.InvokeAsync<bool>("open", token, serialPortId, options);
+        DotNetObjectReference<SerialPort>? interop = null;
+        if (DataReceive != null)
+        {
+            interop = DotNetObjectReference.Create(this);
+        }
+        var ret = await jsModule.InvokeAsync<bool>("open", token, serialPortId, interop, nameof(DataReceiveCallback), options);
         if (ret)
         {
             IsOpen = true;
@@ -65,6 +61,20 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
         if (ret)
         {
             IsOpen = false;
+        }
+    }
+
+    /// <summary>
+    /// 接收数据回调方法 由 Javascript 调用
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task DataReceiveCallback(byte[] data)
+    {
+        if (DataReceive != null)
+        {
+            await DataReceive(data);
         }
     }
 }

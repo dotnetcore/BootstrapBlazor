@@ -27,10 +27,10 @@ public interface ISerialPort
     Task Open(SerialOptions options, CancellationToken token = default);
 
     /// <summary>
-    /// 读取数据方法
+    /// 接收数据回调方法
     /// </summary>
     /// <returns></returns>
-    List<byte> Read(CancellationToken token = default);
+    Func<byte[], Task>? DataReceive { get; set; }
 
     /// <summary>
     /// 写入数据方法

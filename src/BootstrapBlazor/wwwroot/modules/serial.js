@@ -21,13 +21,14 @@ export async function getPort(id) {
     return ret;
 }
 
-export async function open(id, options) {
+export async function open(id, invoke, method, options) {
     let ret = false;
     const data = Data.get(id);
     if (data.serialPort !== null) {
         console.log(`open serial port: ${id}`);
         try {
             await data.serialPort.open(options);
+            read(data.serialPort, invoke, method);
             ret = true;
         }
         catch (err) {
@@ -53,6 +54,30 @@ export async function close(id) {
     return ret;
 }
 
+export async function read(serialPort, invoke, method) {
+    if (invoke === null) {
+        return;
+    }
+
+    if (serialPort && serialPort.readable) {
+        const reader = serialPort.readable.getReader()
+        try {
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    break
+                }
+                console.log([...value]);
+                invoke.invokeMethodAsync(method, value);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            reader.releaseLock()
+        }
+    }
+}
+
 export async function write(id, data) {
     let ret = false;
     const port = Data.get(id);
@@ -65,20 +90,6 @@ export async function write(id, data) {
         ret = true;
     }
     return ret;
-}
-
-async function writeData(data) {
-    if (!serialPort || !serialPort.writable) {
-        addLogErr('请先打开串口再发送数据')
-        return
-    }
-    const writer = serialPort.writable.getWriter()
-    if (toolOptions.addCRLF) {
-        data = new Uint8Array([...data, 0x0d, 0x0a])
-    }
-    await writer.write(data)
-    writer.releaseLock()
-    addLog(data, false)
 }
 
 export function dispose(id) {
