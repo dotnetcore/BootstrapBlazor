@@ -10,22 +10,22 @@
 <GroupBox Title="串口设置">
     <div class="row form-inline g-3">
         <div class="col-12 col-sm-6">
-            <Select Items="_baudRateList" @bind-Value="@_selectedBaudRate" ShowLabel="true" DisplayText="波特率" />
+            <Select Items="_baudRateList" @bind-Value="@_serialOptions.BaudRate" ShowLabel="true" DisplayText="波特率" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@options.DataBits" ShowLabel="true" DisplayText="数据位" />
+            <Select Items="_dataBits" @bind-Value="@_serialOptions.DataBits" ShowLabel="true" DisplayText="数据位" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@options.StopBits" ShowLabel="true" DisplayText="停止位" />
+            <Select Items="_stopBits" @bind-Value="@_serialOptions.StopBits" ShowLabel="true" DisplayText="停止位" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@options.FlowControlType" ShowLabel="true" DisplayText="校验位" />
+            <Select @bind-Value="@_serialOptions.ParityType" ShowLabel="true" DisplayText="校验位" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@options.ParityType" ShowLabel="true" DisplayText="缓冲区" />
+            <Select Items="_bufferSizes" @bind-Value="@_serialOptions.BufferSize" ShowLabel="true" DisplayText="缓冲区" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="@options.ParityType" ShowLabel="true" DisplayText="流控制" />
+            <Select @bind-Value="@_serialOptions.FlowControlType" ShowLabel="true" DisplayText="流控制" />
         </div>
         <div class="col-12">
             <Button OnClick="GetPort" Text="选择串口"></Button>

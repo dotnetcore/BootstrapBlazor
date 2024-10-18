@@ -29,7 +29,15 @@ public partial class WebSerials
         new("19200", "19200"),
     ];
 
-    private string _selectedBaudRate = "9600";
+    private List<SelectedItem> _bufferSizes =
+    [
+        new("255", "255"),
+        new("1024", "1024")
+    ];
+
+    private List<SelectedItem> _dataBits = [new("7", "7"), new("8", "8")];
+
+    private List<SelectedItem> _stopBits = [new("1", "1"), new("2", "2")];
 
     private bool Flag { get; set; }
 
@@ -48,6 +56,8 @@ public partial class WebSerials
 
     private ISerialPort? _serialPort;
 
+    private SerialOptions _serialOptions = new();
+
     private async Task GetPort()
     {
         _serialPort = await SerialService.GetPort();
@@ -57,7 +67,7 @@ public partial class WebSerials
     {
         if (_serialPort != null)
         {
-            await _serialPort.Open();
+            await _serialPort.Open(_serialOptions);
         }
     }
 
