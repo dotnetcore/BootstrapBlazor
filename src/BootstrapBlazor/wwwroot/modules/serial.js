@@ -28,7 +28,7 @@ export async function open(id, invoke, method, options) {
         console.log(`open serial port: ${id}`);
         try {
             await data.serialPort.open(options);
-            read(data.serialPort, invoke, method);
+            read(data, invoke, method);
             ret = true;
         }
         catch (err) {
@@ -41,10 +41,14 @@ export async function open(id, invoke, method, options) {
 export async function close(id) {
     let ret = false;
     const data = Data.get(id);
-    if (data.serialPort !== null) {
+    const { reader, serialPort } = data;
+    if (serialPort !== null) {
         console.log(`close serial port: ${id}`)
         try {
-            await data.serialPort.close();
+            if (reader) {
+                await reader.cancel();
+            }
+            await serialPort.close();
             ret = true;
         }
         catch (err) {
@@ -54,16 +58,17 @@ export async function close(id) {
     return ret;
 }
 
-export async function read(serialPort, invoke, method) {
+export async function read(serial, invoke, method) {
     if (invoke === null) {
         return;
     }
 
+    const { serialPort } = serial;
     if (serialPort && serialPort.readable) {
-        const reader = serialPort.readable.getReader()
+        serial.reader = serialPort.readable.getReader()
         try {
             while (true) {
-                const { value, done } = await reader.read();
+                const { value, done } = await serial.reader.read();
                 if (done) {
                     break
                 }
@@ -73,7 +78,7 @@ export async function read(serialPort, invoke, method) {
         } catch (error) {
             console.log(error);
         } finally {
-            reader.releaseLock()
+            serial.reader.releaseLock()
         }
     }
 }
