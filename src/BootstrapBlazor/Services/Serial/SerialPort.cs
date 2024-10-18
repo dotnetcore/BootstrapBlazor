@@ -37,7 +37,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
         var ret = false;
         if (IsOpen)
         {
-            ret = await jsModule.InvokeAsync<bool>("write", serialPortId, token, data);
+            ret = await jsModule.InvokeAsync<bool>("write", token, serialPortId, data);
         }
         return ret;
     }

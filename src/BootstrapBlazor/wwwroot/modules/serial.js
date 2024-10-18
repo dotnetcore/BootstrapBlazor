@@ -54,7 +54,31 @@ export async function close(id) {
 }
 
 export async function write(id, data) {
+    let ret = false;
+    const port = Data.get(id);
+    const { serialPort } = port;
+    if (serialPort && serialPort.writable) {
+        const writer = serialPort.writable.getWriter()
+        const payload = new Uint8Array([...data])
+        await writer.write(payload)
+        writer.releaseLock();
+        ret = true;
+    }
+    return ret;
+}
 
+async function writeData(data) {
+    if (!serialPort || !serialPort.writable) {
+        addLogErr('请先打开串口再发送数据')
+        return
+    }
+    const writer = serialPort.writable.getWriter()
+    if (toolOptions.addCRLF) {
+        data = new Uint8Array([...data, 0x0d, 0x0a])
+    }
+    await writer.write(data)
+    writer.releaseLock()
+    addLog(data, false)
 }
 
 export function dispose(id) {
