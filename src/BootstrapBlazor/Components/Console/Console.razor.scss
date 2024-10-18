@@ -2,6 +2,17 @@
     --bs-card-color: #{$bb-console-color};
     --bb-console-body-bg: #{$bb-console-body-bg};
     --bb-console-clear-button-margin-left: #{$bb-console-clear-button-margin-left};
+    width: 100%;
+
+    .card-header {
+        .card-title {
+            flex-grow: 1;
+
+            + [data-bs-toggle="tooltip"] {
+                display: inline-flex;
+            }
+        }
+    }
 
     .card-body {
         background-color: var(--bb-console-body-bg);
