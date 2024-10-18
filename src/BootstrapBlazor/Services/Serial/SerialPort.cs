@@ -18,7 +18,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public List<byte> Read()
+    public List<byte> Read(CancellationToken token = default)
     {
         var ret = new List<byte>();
         if (IsOpen)
@@ -31,20 +31,24 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="data"></param>
     /// <returns></returns>
-    public Task Write(byte[] data)
+    public async Task<bool> Write(List<byte> data, CancellationToken token = default)
     {
-        return Task.CompletedTask;
+        var ret = false;
+        if (IsOpen)
+        {
+            ret = await jsModule.InvokeAsync<bool>("write", serialPortId, token, data);
+        }
+        return ret;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Open(SerialOptions options)
+    public async Task Open(SerialOptions options, CancellationToken token = default)
     {
-        var ret = await jsModule.InvokeAsync<bool>("open", serialPortId, options);
+        var ret = await jsModule.InvokeAsync<bool>("open", token, serialPortId, options);
         if (ret)
         {
             IsOpen = true;
@@ -55,9 +59,9 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Close()
+    public async Task Close(CancellationToken token = default)
     {
-        var ret = await jsModule.InvokeAsync<bool>("close", serialPortId);
+        var ret = await jsModule.InvokeAsync<bool>("close", token, serialPortId);
         if (ret)
         {
             IsOpen = false;

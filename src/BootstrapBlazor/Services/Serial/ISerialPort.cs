@@ -18,24 +18,23 @@ public interface ISerialPort
     /// 关闭端口方法
     /// </summary>
     /// <returns></returns>
-    Task Close();
+    Task Close(CancellationToken token = default);
 
     /// <summary>
     /// 打开端口方法
     /// </summary>
     /// <returns></returns>
-    Task Open(SerialOptions options);
+    Task Open(SerialOptions options, CancellationToken token = default);
 
     /// <summary>
     /// 读取数据方法
     /// </summary>
     /// <returns></returns>
-    List<byte> Read();
+    List<byte> Read(CancellationToken token = default);
 
     /// <summary>
     /// 写入数据方法
     /// </summary>
-    /// <param name="data"></param>
     /// <returns></returns>
-    Task Write(byte[] data);
+    Task<bool> Write(List<byte> data, CancellationToken token = default);
 }

@@ -53,6 +53,10 @@ export async function close(id) {
     return ret;
 }
 
+export async function write(id, data) {
+
+}
+
 export function dispose(id) {
 
 }
