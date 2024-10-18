@@ -71,6 +71,11 @@ public partial class WebSerials
     {
         if (_serialPort != null)
         {
+            _serialPort.DataReceive = data =>
+            {
+                System.Console.WriteLine(data);
+                return Task.CompletedTask;
+            };
             await _serialPort.Open(_serialOptions);
         }
     }
