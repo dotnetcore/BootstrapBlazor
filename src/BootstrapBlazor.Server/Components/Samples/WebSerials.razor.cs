@@ -83,6 +83,14 @@ public partial class WebSerials
         }
     }
 
+    private async Task Write()
+    {
+        if (_serialPort != null)
+        {
+            await _serialPort.Write([0x15, 0x18]);
+        }
+    }
+
     private Task OnReceive(string? message)
     {
         _message = $"{DateTime.Now:hh:mm:ss} 收到数据: {message}{Environment.NewLine}" + _message;
