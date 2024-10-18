@@ -36,5 +36,5 @@ public interface ISerialPort
     /// 写入数据方法
     /// </summary>
     /// <returns></returns>
-    Task<bool> Write(List<byte> data, CancellationToken token = default);
+    Task<bool> Write(byte[] data, CancellationToken token = default);
 }

@@ -23,7 +23,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task<bool> Write(List<byte> data, CancellationToken token = default)
+    public async Task<bool> Write(byte[] data, CancellationToken token = default)
     {
         var ret = false;
         if (IsOpen)
