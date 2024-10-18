@@ -6308,7 +6308,7 @@
     "BufferSizeText": "缓冲区",
     "FlowControlTypeText": "流控制",
     "RequestPortText": "选择串口",
-    "OpenPortText": "打开窗口",
+    "OpenPortText": "打开串口",
     "ClosePortText": "关闭串口",
     "WriteButtonText": "写入",
     "WriteDataText": "发送数据",
