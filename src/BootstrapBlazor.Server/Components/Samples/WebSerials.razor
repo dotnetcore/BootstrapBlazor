@@ -29,8 +29,8 @@
         </div>
         <div class="col-12">
             <Button OnClick="GetPort" Text="选择串口"></Button>
-            <Button OnClick="OpenPort" Text="打开串口"></Button>
-            <Button OnClick="ClosePort" Text="关闭串口"></Button>
+            <Button IsDisabled="CheckOpen" OnClick="OpenPort" Text="打开串口"></Button>
+            <Button IsDisabled="CheckClose" OnClick="ClosePort" Text="关闭串口"></Button>
         </div>
     </div>
 </GroupBox>

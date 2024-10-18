@@ -58,6 +58,10 @@ public partial class WebSerials
 
     private SerialOptions _serialOptions = new();
 
+    private bool CheckOpen => _serialPort is not { IsOpen: false };
+
+    private bool CheckClose => _serialPort is not { IsOpen: true };
+
     private async Task GetPort()
     {
         _serialPort = await SerialService.GetPort();
