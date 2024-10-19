@@ -44,11 +44,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
         {
             interop = DotNetObjectReference.Create(this);
         }
-        var ret = await jsModule.InvokeAsync<bool>("open", token, serialPortId, interop, nameof(DataReceiveCallback), options);
-        if (ret)
-        {
-            IsOpen = true;
-        }
+        IsOpen = await jsModule.InvokeAsync<bool>("open", token, serialPortId, interop, nameof(DataReceiveCallback), options);
     }
 
     /// <summary>
