@@ -12,10 +12,10 @@ public class SerialPortUsbInfo
     /// <summary>
     /// 厂商 Id
     /// </summary>
-    public string? UsbVendorId { get; internal set; }
+    public string? UsbVendorId { get; set; }
 
     /// <summary>
     /// 产品 Id
     /// </summary>
-    public string? UsbProductId { get; internal set; }
+    public string? UsbProductId { get; set; }
 }

@@ -14,7 +14,7 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("open", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<bool>("close", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<bool>("write", matcher => matcher.Arguments.Count == 2 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
-        Context.JSInterop.Setup<SerialPortUsbInfo>("getInfo", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(new SerialPortUsbInfo());
+        Context.JSInterop.Setup<SerialPortUsbInfo>("getInfo", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(new SerialPortUsbInfo() { UsbVendorId = "Test", UsbProductId = "Test123" });
         Context.JSInterop.Setup<SerialPortSignals>("getSignals", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(new SerialPortSignals()
         {
             RING = false,
@@ -62,8 +62,8 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         // getInfo
         var info = await serialPort.GetUsbInfo();
         Assert.NotNull(info);
-        Assert.Null(info.UsbVendorId);
-        Assert.Null(info.UsbProductId);
+        Assert.Equal("Test", info.UsbVendorId);
+        Assert.Equal("Test123", info.UsbProductId);
 
         // getSignals
         var signals = await serialPort.GetSignals();
@@ -71,7 +71,7 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         Assert.False(signals.RING);
         Assert.True(signals.DSR);
         Assert.True(signals.CTS);
-        Assert.True(signals.CTS);
+        Assert.True(signals.DCD);
 
         // setSignals
         var signalOption = new SerialPortSignalsOptions()
