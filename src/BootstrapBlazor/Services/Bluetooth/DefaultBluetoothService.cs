@@ -11,7 +11,13 @@ class DefaultBluetoothService : IBluetoothService
     /// </summary>
     public bool IsSupport { get; set; }
 
-    private JSModule? _module;
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    public bool IsAvailable { get; set; }
+
+    [NotNull]
+    private JSModule? _module = null;
 
     private readonly IJSRuntime _runtime;
 
@@ -42,7 +48,30 @@ class DefaultBluetoothService : IBluetoothService
         if (IsSupport)
         {
             ret = await _module.InvokeAsync<bool>("getAvailability", _deviceId);
+            IsAvailable = ret;
         }
         return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    public async Task GetDevices()
+    {
+        if (IsAvailable)
+        {
+            await _module.InvokeVoidAsync("getDevices", _deviceId);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    public async Task RequestDevice()
+    {
+        if (IsAvailable)
+        {
+            await _module.InvokeVoidAsync("requestDevice", _deviceId);
+        }
     }
 }

@@ -5,15 +5,39 @@ export async function init(id) {
     return navigator.bluetooth !== void 0;
 }
 
-export async function getAvaliablity() {
+export async function getAvailability(id) {
     let ret = false;
     try {
-        if (navigator.serial) {
-            close(id);
-            const serialPort = await navigator.bluetooth.getAvaliablity();
-            const data = Data.get(id);
-            data.serialPort = serialPort;
-            ret = true;
+        if (navigator.bluetooth) {
+            ret = await navigator.bluetooth.getAvailability();
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function requestDevice(id) {
+    let ret = false;
+    try {
+        if (navigator.bluetooth) {
+            ret = await navigator.bluetooth.requestDevice({
+                acceptAllDevices: true
+            });
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getDevices(id) {
+    let ret = false;
+    try {
+        if (navigator.bluetooth) {
+            ret = await navigator.bluetooth.getDevices();
         }
     }
     catch (err) {
