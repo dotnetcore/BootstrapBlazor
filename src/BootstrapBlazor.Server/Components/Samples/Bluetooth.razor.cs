@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Bluetooth
 {
-    Printer printer { get; set; } = new Printer();
+    //Printer printer { get; set; } = new Printer();
 
     /// <summary>
     /// 显示内置界面
@@ -45,10 +45,25 @@ public partial class Bluetooth
     {
         if (BluetoothService.IsAvailable)
         {
-            await BluetoothService.RequestDevice();
+            _blueDevice = await BluetoothService.RequestDevice();
         }
     }
 
+    private async Task Connect()
+    {
+        if (_blueDevice != null)
+        {
+            await _blueDevice.Connect();
+        }
+    }
+
+    private async Task Disconnect()
+    {
+        if (_blueDevice != null)
+        {
+            await _blueDevice.Disconnect();
+        }
+    }
     private async Task GetDevices()
     {
         if (BluetoothService.IsAvailable)
@@ -97,7 +112,7 @@ public partial class Bluetooth
         ShowUI = !ShowUI;
     }
 
-    Heartrate heartrate { get; set; } = new Heartrate();
+    //Heartrate heartrate { get; set; } = new Heartrate();
 
     private Task OnUpdateValue(int v)
     {
@@ -107,17 +122,17 @@ public partial class Bluetooth
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// 获取心率
-    /// </summary>
-    public Task GetHeartrate() => heartrate.GetHeartrate();
+    ///// <summary>
+    ///// 获取心率
+    ///// </summary>
+    //public Task GetHeartrate() => heartrate.GetHeartrate();
 
-    /// <summary>
-    /// 停止获取心率
-    /// </summary>
-    public Task StopHeartrate() => heartrate.StopHeartrate();
+    ///// <summary>
+    ///// 停止获取心率
+    ///// </summary>
+    //public Task StopHeartrate() => heartrate.StopHeartrate();
 
-    BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
+    //BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
 
     private decimal? value = 0;
 
@@ -129,17 +144,17 @@ public partial class Bluetooth
         return Task.CompletedTask;
     }
 
-    private Task OnUpdateStatus(BluetoothDevice device)
-    {
-        statusMessage = device.Status;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
+    //private Task OnUpdateStatus(BluetoothDevice device)
+    //{
+    //    statusMessage = device.Status;
+    //    StateHasChanged();
+    //    return Task.CompletedTask;
+    //}
 
-    /// <summary>
-    /// 获取设备电量
-    /// </summary>
-    public Task GetBatteryLevel() => batteryLevel.GetBatteryLevel();
+    ///// <summary>
+    ///// 获取设备电量
+    ///// </summary>
+    //public Task GetBatteryLevel() => batteryLevel.GetBatteryLevel();
 
     /// <summary>
     /// 获得属性方法

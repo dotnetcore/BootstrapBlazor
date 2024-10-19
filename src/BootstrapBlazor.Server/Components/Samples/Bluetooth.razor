@@ -24,28 +24,30 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
     <Button Text="检查" OnClick="GetAvailability"></Button>
     <Button Text="请求" IsDisabled="!BluetoothService.IsAvailable" OnClick="RequestDevice"></Button>
     <Button Text="获得" IsDisabled="!BluetoothService.IsAvailable" OnClick="GetDevices"></Button>
+    <Button Text="连接" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
+    <Button Text="断开" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
     @if (ShowUI)
     {
         <span>@Localizer["InnerUI"]</span>
 
-        <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/>
+        @* <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/> *@
 
     }
     else
     {
         <p>@Localizer["BasicUsage"]</p>
-        <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/>
+        @* <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/> *@
         <div>
-            <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
+            @*             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
             <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
             <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
-        </div>
+ *@        </div>
     }
-    <hr/>
+    <hr />
     <pre>@message</pre>
     <pre style="color:green">@statusMessage</pre>
     <pre style="color:red">@errorMessage</pre>
-    <p/>
+    <p />
     <button class="btn btn-link" @onclick="SwitchUI">@Localizer["SwitchUI"]</button>
 </DemoBlock>
 
@@ -54,8 +56,8 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BluetoothBatteryLevelTitle"]"
            Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
            Name="BatteryLevel">
-    <button class="btn btn-outline-primary" @onclick="GetBatteryLevel ">@Localizer["GetBatteryLevelButtonText"]</button>
-    <BatteryLevel @ref="batteryLevel" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" />
+    @* <button class="btn btn-outline-primary" @onclick="GetBatteryLevel ">@Localizer["GetBatteryLevelButtonText"]</button> *@
+    @* <BatteryLevel @ref="batteryLevel" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" /> *@
     <br />
     <progress max="100" value="@value"> @value % </progress>
     <pre>@message</pre>
@@ -68,16 +70,16 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BatteryLevelTitle"]"
            Introduction="@Localizer["BatteryLevelIntro"]"
            Name="HeartRate">
-    <button class="btn btn-outline-primary" @onclick="GetHeartrate ">@Localizer["GetHeartrateButtonText"]</button>
+    @*     <button class="btn btn-outline-primary" @onclick="GetHeartrate ">@Localizer["GetHeartrateButtonText"]</button>
     <button class="btn btn-outline-danger" @onclick="StopHeartrate ">@Localizer["StopHeartrateButtonText"]</button>
-    <Heartrate @ref="heartrate" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" />
+ *@    @* <Heartrate @ref="heartrate" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" /> *@
     <h3 style="color:red" data-action="heartrate"></h3>
     <pre>@message</pre>
     <pre style="color:green">@statusMessage</pre>
     <pre style="color:red">@errorMessage</pre>
 </DemoBlock>
 
-<AttributeTable Title="@Localizer["PrinterComponent"]" Items="@GetAttributes()" />
+@* <AttributeTable Title="@Localizer["PrinterComponent"]" Items="@GetAttributes()" />
 
 <AttributeTable Title="@Localizer["BatteryLevelComponent"]" Items="@GetAttributesBatteryLevel()" />
 
@@ -86,3 +88,4 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <AttributeTable Title="@Localizer["BluetoothDeviceClass"]" Items="@GetBluetoothDeviceAttributes()" />
 
 <AttributeTable Title="@Localizer["PrinterOptionClass"]" Items="@GetPrinterOptionAttributes()" />
+ *@
