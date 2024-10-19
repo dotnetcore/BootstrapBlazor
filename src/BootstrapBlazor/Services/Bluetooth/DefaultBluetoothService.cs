@@ -9,33 +9,40 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public bool IsSupport { get; }
+    public bool IsSupport { get; set; }
 
     private JSModule? _module;
 
     private readonly IJSRuntime _runtime;
 
-    private readonly string _bluetoothId;
+    private readonly string _deviceId;
 
-    public DefaultSerialService(IJSRuntime jsRuntime)
+    public DefaultBluetoothService(IJSRuntime jsRuntime)
     {
         _runtime = jsRuntime;
-        _bluetoothId = $"bb_serial_{GetHashCode()}";
+        _deviceId = $"bb_bt_{GetHashCode()}";
     }
 
     private async Task<JSModule> LoadModule()
     {
-        var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/serial.js");
+        var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
 
-        IsSupport = await module.InvokeAsync<bool>("init", _bluetoothId);
+        IsSupport = await module.InvokeAsync<bool>("init", _deviceId);
         return module;
     }
 
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public Task<bool> GetAvailability()
+    public async Task<bool> GetAvailability()
     {
+        _module ??= await LoadModule();
 
+        var ret = false;
+        if (IsSupport)
+        {
+            ret = await _module.InvokeAsync<bool>("getAvailability", _deviceId);
+        }
+        return ret;
     }
 }
