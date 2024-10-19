@@ -72,7 +72,6 @@ export async function read(serial, invoke, method) {
                 if (done) {
                     break
                 }
-                console.log([...value]);
                 invoke.invokeMethodAsync(method, value);
             }
         } catch (error) {
