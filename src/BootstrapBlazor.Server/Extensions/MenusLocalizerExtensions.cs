@@ -755,11 +755,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Waterfall"],
                     Url = "tutorials/waterfall"
-                },
-                new()
-                {
-                    Text = Localizer["WebSerial"],
-                    Url = "web-serial"
                 }
             };
             AddBadge(item);
@@ -1489,6 +1484,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Title"],
                     Url = "title"
+                },
+                new()
+                {
+                    Text = Localizer["WebSerial"],
+                    Url = "web-serial"
                 },
                 new()
                 {
