@@ -13,9 +13,9 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
 
     private JSModule? _module;
 
-    private IJSRuntime _runtime;
+    private readonly IJSRuntime _runtime;
 
-    private string _serialPortId;
+    private readonly string _serialPortId;
 
     private SerialPort? _serialPort;
 
