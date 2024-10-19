@@ -6319,7 +6319,11 @@
     "LoopIntervalText": "发送间隔(ms)",
     "WebSerialTipsLi1": "该功能仅在部分或所有支持浏览器的安全上下文(HTTPS)中可用",
     "WebSerialTipsLi2": "这是一项实验性技术，在生产中使用之前请仔细,检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/SerialPort#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
-    "WebSerialTipsTitle": ""
+    "WebSerialTipsTitle": "注意：<code>ISerialPort</code> 接口实例继承 <code>IAsyncDisposable</code> 路由切换时需要对其进行资源释放，调用其 <code>DisposeAsync</code> 即可",
+    "NotSupportSerialTitle": "申请串口权限",
+    "NotSupportSerialContent": "当前浏览器不支持串口操作，请更换 Edge 或者 Chrome 浏览器",
+    "OpenPortSerialTitle": "打开串口操作",
+    "OpenPortSerialContent": "打开串口失败"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",

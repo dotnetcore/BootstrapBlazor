@@ -9,19 +9,14 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// WebSerials 组件
 /// </summary>
-public partial class WebSerials : IDisposable
+public partial class WebSerials : IAsyncDisposable
 {
     private string _sendData = "";
     private int _sendInterval = 1000;
     private bool _appendCRLF;
     private bool _isHEX;
     private bool _isLoop;
-    private ConsoleMessageCollection _messages = new(8);
-
-    private string? _message;
-    private string? _statusMessage;
-    private string? _errorMessage;
-    private readonly WebSerialOptions options = new() { BaudRate = 115200, AutoGetSignals = true };
+    private readonly ConsoleMessageCollection _messages = new(8);
 
     private readonly List<SelectedItem> _baudRateList =
     [
@@ -45,21 +40,15 @@ public partial class WebSerials : IDisposable
 
     private readonly List<SelectedItem> _stopBits = [new("1", "1"), new("2", "2")];
 
-    private bool Flag { get; set; }
-
-    private bool IsConnected { get; set; }
-
-    /// <summary>
-    /// 收到的信号数据
-    /// </summary>
-    public WebSerialSignals Signals { get; set; } = new WebSerialSignals();
-
     [Inject, NotNull]
     private ISerialService? SerialService { get; set; }
 
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     private ISerialPort? _serialPort;
 
-    private SerialOptions _serialOptions = new();
+    private readonly SerialOptions _serialOptions = new();
 
     private bool CheckOpen => _serialPort is not { IsOpen: false };
 
@@ -68,6 +57,10 @@ public partial class WebSerials : IDisposable
     private async Task GetPort()
     {
         _serialPort = await SerialService.GetPort();
+        if (SerialService.IsSupport == false)
+        {
+            await ToastService.Error(Localizer["NotSupportSerialTitle"], Localizer["NotSupportSerialContent"]);
+        }
     }
 
     private async Task OpenPort()
@@ -84,6 +77,11 @@ public partial class WebSerials : IDisposable
                 await InvokeAsync(StateHasChanged);
             };
             await _serialPort.Open(_serialOptions);
+
+            if (_serialPort.IsOpen == false)
+            {
+                await ToastService.Error(Localizer["OpenPortSerialTitle"], Localizer["OpenPortSerialContent"]);
+            }
         }
     }
 
@@ -149,60 +147,6 @@ public partial class WebSerials : IDisposable
             i = i + 2;
         }
         return [.. ret];
-    }
-
-    private Task OnSignals(WebSerialSignals? signals)
-    {
-        if (signals is null) return Task.CompletedTask;
-
-        Signals = signals;
-
-        if (!options.AutoGetSignals)
-        {
-            // 仅在不自动获取信号时才显示
-            _message = $"{DateTime.Now:hh:mm:ss} 收到信号数据: {Environment.NewLine}" +
-                            $"RING:  {signals.RING}{Environment.NewLine}" +
-                            $"DSR:   {signals.DSR}{Environment.NewLine}" +
-                            $"CTS:   {signals.CTS}{Environment.NewLine}" +
-                            $"DCD:   {signals.DCD}{Environment.NewLine}" +
-                            $"{_message}{Environment.NewLine}";
-        }
-
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnConnect(bool flag)
-    {
-        IsConnected = flag;
-        if (flag)
-        {
-            _message = null;
-            _statusMessage = null;
-            _errorMessage = null;
-        }
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnLog(string message)
-    {
-        _statusMessage = message;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnError(string message)
-    {
-        _errorMessage = message;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private void OnApply()
-    {
-        //options.BaudRate = SelectedBaudRate;
-        //Flag = !Flag;
     }
 
     /// <summary>
@@ -292,151 +236,26 @@ public partial class WebSerials : IDisposable
         }
     ];
 
-    /// <summary>s
-    /// 获得WebSerialOptions属性方法
-    /// </summary>
-    /// <returns></returns>
-    private static AttributeItem[] GetWebSerialOptionsAttributes() =>
-    [
-        new()
-        {
-            Name = "BaudRate",
-            Description = "波特率",
-            Type = "int",
-            ValueList = "-",
-            DefaultValue = "9600"
-        },
-        new()
-        {
-            Name = "DataBits",
-            Description = "数据位",
-            Type = "int",
-            ValueList = "7|8",
-            DefaultValue = "8"
-        },
-        new()
-        {
-            Name = "StopBits",
-            Description = "停止位",
-            Type = "int",
-            ValueList = "1|2",
-            DefaultValue = "1"
-        },
-        new()
-        {
-            Name = "ParityType",
-            Description = "流控制",
-            Type = "WebSerialFlowControlType",
-            ValueList = "none|even|odd",
-            DefaultValue = "none"
-        },
-        new()
-        {
-            Name = "BufferSize",
-            Description = "读写缓冲区",
-            Type = "int",
-            ValueList = "-",
-            DefaultValue = "255"
-        },
-        new()
-        {
-            Name = "FlowControlType",
-            Description = "校验",
-            Type = "WebSerialParityType",
-            ValueList = "none|hardware",
-            DefaultValue = "none"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.InputWithHex),
-            Description = "HEX发送",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.OutputInHex),
-            Description = "HEX接收",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue ="false"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.AutoConnect),
-            Description = "自动连接设备",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue ="true"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.AutoFrameBreakType),
-            Description = "自动断帧方式",
-            Type =  "AutoFrameBreakType",
-            ValueList = "-",
-            DefaultValue ="Character"
-        },
-        new(){
-            Name =nameof(WebSerialOptions.FrameBreakChar),
-            Description = "断帧字符",
-            Type =  "string",
-            ValueList = "-",
-            DefaultValue ="\\n"
-        },
-        new()
-        {
-            Name = nameof(WebSerialOptions.ConnectBtnTitle),
-            Description = "获得/设置 连接按钮文本",
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "连接"
-        },
-        new()
-        {
-            Name = nameof(WebSerialOptions.DisconnectBtnTitle),
-            Description = "获得/设置 断开连接按钮文本",
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "连接"
-        },
-        new()
-        {
-            Name = nameof(WebSerialOptions.WriteBtnTitle),
-            Description = "获得/设置 写入按钮文本",
-            Type = "string",
-            ValueList = "",
-            DefaultValue = "写入"
-        },
-        new()
-        {
-            Name = nameof(WebSerialOptions.AutoGetSignals),
-            Description = "获得/设置 自动检查状态",
-            Type = "bool",
-            ValueList = "-",
-            DefaultValue ="false"
-        }
-    ];
-
-    private void Dispose(bool disposing)
+    private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
-        {
             if (_loopSendTokenSource != null)
             {
                 _loopSendTokenSource.Cancel();
                 _loopSendTokenSource = null;
             }
+        if (_serialPort != null)
+        {
+            await _serialPort.DisposeAsync();
         }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

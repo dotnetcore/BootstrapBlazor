@@ -6319,7 +6319,11 @@
     "LoopIntervalText": "Interval(ms)",
     "WebSerialTipsLi1": "This feature is available only in secure contexts (HTTPS)",
     "WebSerialTipsLi2": "This is an experimental technology Check the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/SerialPort#browser_compatibility\" target=\"_blank\">Browser compatibility table</a> carefully before using this in production",
-    "WebSerialTipsTitle": ""
+    "WebSerialTipsTitle": "Note: The <code>ISerialPort</code> interface instance inherits <code>IAsyncDisposable</code>. When switching routes, you need to release its resources by calling its <code>DisposeAsync</code>",
+    "NotSupportSerialTitle": "Get Port",
+    "NotSupportSerialContent": "The current browser does not support serial port operations. Please change to Edge or Chrome browser.",
+    "OpenPortSerialTitle": "Open Port",
+    "OpenPortSerialContent": "Failed to open the serial port"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
