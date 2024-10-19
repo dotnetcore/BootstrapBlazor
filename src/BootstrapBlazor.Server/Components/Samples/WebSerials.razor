@@ -7,147 +7,137 @@
 
 <p>@((MarkupString)Localizer["WebSerialDescription"].Value)</p>
 
-<PackageTips Name="BootstrapBlazor.WebAPI" />
+<Pre>[Inject, NotNull]
+private ISerialService? SerialService { get; set; }</Pre>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["WebSerialTipsLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["WebSerialTipsLi2"].Value)</li>
+    </ul>
+    <div>@((MarkupString)Localizer["WebSerialTipsTitle"].Value)</div>
+</Tips>
 
 <DemoBlock Title="@Localizer["WebSerialNormalTitle"]" Introduction="@Localizer["WebSerialNormalIntro"]" Name="WebSerialNormal">
     <GroupBox Title="串口设置">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" Items="BaudRateList" @bind-Value="@SelectedBaudRate" ShowLabel="true" />
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-6">
+                <Select Items="_baudRateList" @bind-Value="@_serialOptions.BaudRate" ShowLabel="true" DisplayText="@Localizer["BaudRateText"]" />
             </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.DataBits" ShowLabel="true" />
+            <div class="col-12 col-sm-6">
+                <Select Items="_dataBits" @bind-Value="@_serialOptions.DataBits" ShowLabel="true" DisplayText="@Localizer["DataBitsText"]" />
             </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.StopBits" ShowLabel="true" />
+            <div class="col-12 col-sm-6">
+                <Select Items="_stopBits" @bind-Value="@_serialOptions.StopBits" ShowLabel="true" DisplayText="@Localizer["StopBitsText"]" />
             </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" @bind-Value="@options.FlowControlType" ShowLabel="true" />
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="@_serialOptions.ParityType" ShowLabel="true" DisplayText="@Localizer["ParityTypeText"]" />
             </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" @bind-Value="@options.ParityType" ShowLabel="true" />
+            <div class="col-12 col-sm-6">
+                <Select Items="_bufferSizes" @bind-Value="@_serialOptions.BufferSize" ShowLabel="true" DisplayText="@Localizer["BufferSizeText"]" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="@_serialOptions.FlowControlType" ShowLabel="true" DisplayText="@Localizer["FlowControlTypeText"]" />
+            </div>
+            <div class="col-12">
+                <Button OnClick="GetPort" Text="@Localizer["RequestPortText"]"></Button>
+                <Button IsDisabled="CheckOpen" OnClick="OpenPort" Text="@Localizer["OpenPortText"]" class="ms-2"></Button>
+                <Button IsDisabled="CheckClose" OnClick="ClosePort" Text="@Localizer["ClosePortText"]" class="ms-2"></Button>
+            </div>
+            <div class="col-12">
+                <Console Items="@_messages" Height="126" IsAutoScroll="true" HeaderText="@Localizer["ReadDataText"]" />
+            </div>
+            <div class="col-12">
+                <div>@Localizer["WriteDataText"]</div>
+            </div>
+            <div class="col-12">
+                <Textarea IsDisabled="CheckClose" @bind-Value="@_sendData" rows="3"></Textarea>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox @bind-Value="_appendCRLF" ShowAfterLabel="true" DisplayText="@Localizer["CRLFText"]"></Checkbox>
+                <Checkbox @bind-Value="_isHEX" ShowAfterLabel="true" DisplayText="@Localizer["HEXText"]" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox @bind-Value="_isLoop" ShowAfterLabel="true" DisplayText="@Localizer["LoopSendText"]" class="me-3"></Checkbox>
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["LoopIntervalText"]"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="_sendInterval"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12">
+                <Button IsDisabled="CheckClose" OnClick="Write" Text="@Localizer["WriteButtonText"]"></Button>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox Value="_ring" ShowAfterLabel="true" DisplayText="RING"></Checkbox>
+                <Checkbox Value="_dsr" ShowAfterLabel="true" DisplayText="DSR" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox Value="_cts" ShowAfterLabel="true" DisplayText="CTS"></Checkbox>
+                <Checkbox Value="_dcd" ShowAfterLabel="true" DisplayText="DCD" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12">
+                <Button IsDisabled="CheckClose" OnClick="GetSignals" Text="@Localizer["GetSignalsButtonText"]"></Button>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="@_usbInfo?.UsbVendorId" ShowLabel="true" DisplayText="VendorId"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="@_usbInfo?.UsbProductId" ShowLabel="true" DisplayText="ProductId"></Display>
+            </div>
+            <div class="col-12">
+                <Button IsDisabled="CheckClose" OnClick="GetInfo" Text="@Localizer["GetInfoButtonText"]"></Button>
             </div>
         </div>
     </GroupBox>
-    <GroupBox Title="其他功能" class="mt-3">
-        <div class="row g-3">
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.BufferSize" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Select Color="Color.Primary" @bind-Value="@options.AutoFrameBreakType" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <BootstrapInput Color="Color.Primary" @bind-Value="@options.FrameBreakChar" ShowLabel="true" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Switch ShowLabel="true" @bind-Value="@options.AutoConnect" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Switch ShowLabel="true" @bind-Value="@options.OutputInHex" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Switch ShowLabel="true" @bind-Value="@options.InputWithHex" />
-            </div>
-            <div class="col-12 col-sm-6 col-md-4">
-                <Switch ShowLabel="true" @bind-Value="@options.AutoGetSignals" />
-            </div>
-        </div>
-    </GroupBox>
-
-    <GroupBox Title="操作" class="mt-3">
-        <div class="mt-3">
-            @if (Flag)
-            {
-                <WebSerial @ref="WebSerial"
-                           OnConnect="@OnConnect"
-                           OnReceive="@OnReceive"
-                           OnSignals="@OnSignals"
-                           OnLog="@OnLog"
-                           OnError="@OnError"
-                           Options="@options" Debug
-                           ShowUI="false" />
-
-                <div @ref="WebSerial.Element">
-                    <div class="row m-3">
-                        <div class="col-12">
-                            <BootstrapInputGroup>
-                                <Button data-action="butConnect" Text="@options.ConnectBtnTitle" />
-                                @if (!IsConnected)
-                                {
-                                    <Button Text="关闭" OnClick="OnApply" Icon="fa-fw fa-solid fa-close" />
-                                }
-                                else
-                                {
-                                    <Button Text="@options.GetSignalsBtnTitle" OnClick="WebSerial.GetSignals" />
-                                }
-                            </BootstrapInputGroup>
-                        </div>
-                    </div>
-                    <div class="row m-3">
-                        <div class="col-6">
-                            <textarea class="form-control" type="text" data-action="fname" style="visibility:hidden;" />
-                        </div>
-                        <div class="col-6">
-                            <Button data-action='butwrite' style="visibility:hidden;" Text="@options.WriteBtnTitle" />
-                        </div>
-                    </div>
-                    @if (WebSerial != null && IsConnected)
-                    {
-                        <div class="row m-3">
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                <Switch @bind-Value="WebSerial.DTR" ShowLabel="true" OnValueChanged="WebSerial.SetSignalDTR" />
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                <Switch @bind-Value="WebSerial.RTS" ShowLabel="true" OnValueChanged="WebSerial.SetSignalRTS" />
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                <Switch @bind-Value="WebSerial.Break" ShowLabel="true" OnValueChanged="WebSerial.SetSignalBreak" />
-                            </div>
-                        </div>
-                        <div class="row m-3">
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                RING
-                                <Light Color="@(Signals.RING?Color.Success:Color.None)"></Light>
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                DSR
-                                <Light Color="@(Signals.DSR?Color.Success:Color.None)"></Light>
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                CTS
-                                <Light Color="@(Signals.CTS?Color.Success:Color.None)"></Light>
-                            </div>
-                            <div class="col-12 col-sm-4 col-md-3 col-lg-auto">
-                                DCD
-                                <Light Color="@(Signals.DCD?Color.Success:Color.None)"></Light>
-                            </div>
-                        </div>
-                    }
-                </div>
-                <pre data-action="log"></pre>
-            }
-            else
-            {
-                <div class="col-6">
-                    <Button Text="应用" OnClick="OnApply" Icon="fa-fw fa-solid fa-play" />
-                </div>
-            }
-        </div>
-    </GroupBox>
-
-    <section ignore>
-        <p>注意:本例子改变设置要点关闭再重新应用</p>
-        <pre style="overflow-y:scroll;max-height:500px;">@_message</pre>
-        <pre style="color:green">@_statusMessage</pre>
-        <pre style="color:red">@_errorMessage</pre>
-        <hr />
-        <a href="https://github.com/densen2014/Densen.Extensions/blob/master/Demo/Receive_DSP.ino">附件: Arduino源码示例</a>
-    </section>
 </DemoBlock>
 
+<p class="code-label mt-3">1. 服务注入</p>
 
-<AttributeTable Items="@GetAttributes()" />
+<Pre>[Inject]
+[NotNull]
+private ISerialService? SerialService { get; set; }</Pre>
 
-<AttributeTable Title="@Localizer["WebSerialOptionsText"]" Items="@GetWebSerialOptionsAttributes()" />
+<p class="code-label">2. 申请串口权限</p>
+<p>调用 <code>SerialService</code> 实例方法 <code>GetPort</code> 即可，通过 <code>IsSupport</code> 进行浏览器是否支持判断</p>
 
+<Pre>_serialPort = await SerialService.GetPort();
+if (SerialService.IsSupport == false)
+{
+    await ToastService.Error(Localizer["NotSupportSerialTitle"], Localizer["NotSupportSerialContent"]);
+}</Pre>
+
+<p class="code-label">3. 打开串口</p>
+
+<ul class="ul-demo">
+    <li>如果需要读取数据，请先设置 <code>ISerialPort</code> 实例 <code>DataReceive</code> 参数</li>
+    <li>调用 <code>ISerialPort</code> 实例方法 <code>Open</code> 打开串口，可通过 <code>SerialPortOptions</code> 参数设置 <code>波特率</code> 等信息</li>
+</ul>
+
+<Pre>private async Task OpenPort()
+{
+    if (_serialPort != null)
+    {
+        _serialPort.DataReceive = async data =>
+        {
+            _messages.Add(new ConsoleMessageItem()
+            {
+                IsHtml = true,
+                Message = $"{DateTime.Now}: --> Text: {Encoding.ASCII.GetString(data)} HEX: {Convert.ToHexString(data)}"
+            });
+            await InvokeAsync(StateHasChanged);
+        };
+        await _serialPort.Open(_serialOptions);
+    }
+}</Pre>
+
+<p class="code-label">4. 关闭串口</p>
+
+<p>调用 <code>ISerialPort</code> 实例方法 <code>Close</code> 关闭串口，请注意路由切换时，请调用其 <code>DisposeAsync</code> 方法释放资源</p>
+
+<Pre>private async Task ClosePort()
+{
+    if (_serialPort != null)
+    {
+        await _serialPort.Close();
+    }
+}</Pre>
