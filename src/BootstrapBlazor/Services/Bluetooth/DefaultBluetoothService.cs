@@ -67,11 +67,17 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task RequestDevice()
+    public async Task<BluetoothDevice?> RequestDevice()
     {
+        BluetoothDevice? device = null;
         if (IsAvailable)
         {
-            await _module.InvokeVoidAsync("requestDevice", _deviceId);
+            device = await _module.InvokeAsync<BluetoothDevice?>("requestDevice", _deviceId);
+            if (device != null)
+            {
+                device.SetInvoker(_module, _deviceId);
+            }
         }
+        return device;
     }
 }

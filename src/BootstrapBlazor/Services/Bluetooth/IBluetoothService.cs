@@ -29,7 +29,7 @@ public interface IBluetoothService
     /// 请求蓝牙配对方法
     /// </summary>
     /// <returns></returns>
-    Task RequestDevice();
+    Task<BluetoothDevice?> RequestDevice();
 
     /// <summary>
     /// 获得蓝牙设备方法

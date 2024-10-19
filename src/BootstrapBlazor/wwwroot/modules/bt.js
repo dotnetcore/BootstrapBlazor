@@ -6,6 +6,7 @@ export async function init(id) {
 }
 
 export async function getAvailability(id) {
+    Data.set(id, {});
     let ret = false;
     try {
         if (navigator.bluetooth) {
@@ -19,18 +20,22 @@ export async function getAvailability(id) {
 }
 
 export async function requestDevice(id) {
-    let ret = false;
+    let device = null;
     try {
         if (navigator.bluetooth) {
-            ret = await navigator.bluetooth.requestDevice({
+            const ret = await navigator.bluetooth.requestDevice({
                 acceptAllDevices: true
             });
+            device = { name: ret.name, id: ret.id };
+
+            const bt = Data.get(id);
+            bt.device = ret;
         }
     }
     catch (err) {
         console.error(err);
     }
-    return ret;
+    return device;
 }
 
 export async function getDevices(id) {
@@ -46,6 +51,42 @@ export async function getDevices(id) {
     return ret;
 }
 
+export async function connect(id) {
+    let ret = false;
+    try {
+        if (navigator.bluetooth) {
+            const bt = Data.get(id);
+            const { device } = bt;
+            if (device.gatt.connected === false) {
+                const state = await device.gatt.connect();
+                console.log(state);
+            }
+            ret = true;
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function disconnect(id) {
+    let ret = false;
+    try {
+        if (navigator.bluetooth) {
+            const bt = Data.get(id);
+            const { device } = bt;
+            if (device.gatt.connected === true) {
+                device.disconnect();
+            }
+            ret = true;
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
+    return ret;
+}
 export async function getPort(id) {
     let ret = false;
     try {
