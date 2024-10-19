@@ -7,9 +7,9 @@ using System.Text;
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// WebSerials
+/// WebSerials 组件
 /// </summary>
-public partial class WebSerials
+public partial class WebSerials : IDisposable
 {
     private string _sendData = "";
     private int _sendInterval = 1000;
@@ -95,6 +95,8 @@ public partial class WebSerials
         }
     }
 
+    private CancellationTokenSource? _loopSendTokenSource;
+
     private async Task Write()
     {
         if (_serialPort == null)
@@ -108,10 +110,32 @@ public partial class WebSerials
             data += "\r\n";
         }
 
+        if (_isLoop)
+        {
+            _loopSendTokenSource ??= new CancellationTokenSource();
+            while (_loopSendTokenSource is { IsCancellationRequested: false } && _sendInterval > 500)
+            {
+                try
+                {
+                    await InternalSend(_serialPort, data);
+                    await Task.Delay(_sendInterval, _loopSendTokenSource.Token);
+                }
+                catch { }
+            }
+        }
+        else
+        {
+            await InternalSend(_serialPort, data);
+        }
+    }
+
+    private async Task InternalSend(ISerialPort serialPort, string data)
+    {
         var buffer = _isHEX
             ? ConvertToHex(data)
             : Encoding.ASCII.GetBytes(data);
-        await _serialPort.Write(buffer);
+        await serialPort.Write(buffer);
+
     }
 
     private static byte[] ConvertToHex(string data)
@@ -127,13 +151,6 @@ public partial class WebSerials
             i = i + 2;
         }
         return [.. ret];
-    }
-
-    private Task OnReceive(string? message)
-    {
-        _message = $"{DateTime.Now:hh:mm:ss} 收到数据: {message}{Environment.NewLine}" + _message;
-        StateHasChanged();
-        return Task.CompletedTask;
     }
 
     private Task OnSignals(WebSerialSignals? signals)
@@ -403,4 +420,25 @@ public partial class WebSerials
             DefaultValue ="false"
         }
     ];
+
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            if (_loopSendTokenSource != null)
+            {
+                _loopSendTokenSource.Cancel();
+                _loopSendTokenSource = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }

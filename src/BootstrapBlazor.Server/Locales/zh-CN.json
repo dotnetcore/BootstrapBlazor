@@ -1687,7 +1687,7 @@
     "PdfReaderText": "PDF阅读器 PDF Reader",
     "VideoPlayerText": "视频播放器 VideoPlayer",
     "FileViewerText": "文件预览器 FileViewer",
-    "WebSerialText": "串口读写 WebSerial",
+    "WebSerialText": "串口服务 ISerialService",
     "MindMapText": "思维导图 Mind Map",
     "WebSpeechText": "语音识别/合成 WebSpeech",
     "ImageCropperText": "图像裁剪 ImageCropper",
@@ -6316,7 +6316,10 @@
     "CRLFText": "末尾加回车换行",
     "HEXText": "HEX 发送",
     "LoopSendText": "循环发送",
-    "LoopIntervalText": "发送间隔(ms)"
+    "LoopIntervalText": "发送间隔(ms)",
+    "WebSerialTipsLi1": "该功能仅在部分或所有支持浏览器的安全上下文(HTTPS)中可用",
+    "WebSerialTipsLi2": "这是一项实验性技术，在生产中使用之前请仔细,检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/SerialPort#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
+    "WebSerialTipsTitle": ""
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",

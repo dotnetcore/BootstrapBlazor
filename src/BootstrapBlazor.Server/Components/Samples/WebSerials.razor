@@ -7,6 +7,17 @@
 
 <p>@((MarkupString)Localizer["WebSerialDescription"].Value)</p>
 
+<Pre>[Inject, NotNull]
+private ISerialService? SerialService { get; set; }</Pre>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["WebSerialTipsLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["WebSerialTipsLi2"].Value)</li>
+    </ul>
+    <div>@((MarkupString)Localizer["WebSerialTipsTitle"].Value)</div>
+</Tips>
+
 <DemoBlock Title="@Localizer["WebSerialNormalTitle"]" Introduction="@Localizer["WebSerialNormalIntro"]" Name="WebSerialNormal">
     <GroupBox Title="串口设置">
         <div class="row form-inline g-3">
@@ -34,10 +45,13 @@
                 <Button IsDisabled="CheckClose" OnClick="ClosePort" Text="@Localizer["ClosePortText"]" class="ms-2"></Button>
             </div>
             <div class="col-12">
-                <Console Items="@_messages" Height="126" IsAutoScroll="true" />
+                <Console Items="@_messages" Height="126" IsAutoScroll="true" HeaderText="@Localizer["ReadDataText"]" />
             </div>
             <div class="col-12">
-                <Textarea IsDisabled="CheckClose" @bind-Value="@_sendData" ShowLabel="true" DisplayText="@Localizer["WriteDataText"]" rows="3"></Textarea>
+                <div>@Localizer["WriteDataText"]</div>
+            </div>
+            <div class="col-12">
+                <Textarea IsDisabled="CheckClose" @bind-Value="@_sendData" rows="3"></Textarea>
             </div>
             <div class="col-12 col-sm-6">
                 <Checkbox @bind-Value="_appendCRLF" ShowAfterLabel="true" DisplayText="@Localizer["CRLFText"]"></Checkbox>
