@@ -1487,6 +1487,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["WebSerial"],
                     Url = "web-serial"
                 },
