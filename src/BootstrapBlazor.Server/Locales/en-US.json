@@ -4746,7 +4746,7 @@
     "CountButton": "CountButton",
     "Splitting": "Splitting",
     "QueryBuilder": "QueryBuilder",
-    "WebSerial": "Web Serial",
+    "SerialService": "ISerialService",
     "MindMap": "Mind Map",
     "Marquee": "Marquee",
     "Stack": "Stack",

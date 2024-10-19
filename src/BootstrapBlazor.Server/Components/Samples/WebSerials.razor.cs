@@ -104,20 +104,14 @@ public partial class WebSerials : IDisposable
             return;
         }
 
-        var data = _sendData;
-        if (_appendCRLF)
-        {
-            data += "\r\n";
-        }
-
         if (_isLoop)
         {
             _loopSendTokenSource ??= new CancellationTokenSource();
-            while (_loopSendTokenSource is { IsCancellationRequested: false } && _sendInterval > 500)
+            while (_isLoop && _loopSendTokenSource is { IsCancellationRequested: false } && _sendInterval > 500)
             {
                 try
                 {
-                    await InternalSend(_serialPort, data);
+                    await InternalSend(_serialPort);
                     await Task.Delay(_sendInterval, _loopSendTokenSource.Token);
                 }
                 catch { }
@@ -125,17 +119,21 @@ public partial class WebSerials : IDisposable
         }
         else
         {
-            await InternalSend(_serialPort, data);
+            await InternalSend(_serialPort);
         }
     }
 
-    private async Task InternalSend(ISerialPort serialPort, string data)
+    private async Task InternalSend(ISerialPort serialPort)
     {
+        var data = _sendData;
+        if (_appendCRLF)
+        {
+            data += "\r\n";
+        }
         var buffer = _isHEX
             ? ConvertToHex(data)
             : Encoding.ASCII.GetBytes(data);
         await serialPort.Write(buffer);
-
     }
 
     private static byte[] ConvertToHex(string data)

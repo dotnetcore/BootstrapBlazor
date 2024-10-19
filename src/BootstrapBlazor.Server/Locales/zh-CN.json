@@ -4746,7 +4746,7 @@
     "CountButton": "倒计时按钮 CountButton",
     "Splitting": "动画组件 Splitting",
     "QueryBuilder": "条件生成器 QueryBuilder",
-    "WebSerial": "串口读写 WebSerial",
+    "WebSerial": "串口服务 ISerialService",
     "MindMap": "思维导图 MindMap",
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
