@@ -1,5 +1,4 @@
 ﻿import Data from "./data.js"
-import EventHandler from "./event-handler.js"
 
 export async function init(id) {
     Data.set(id, { serialPort: null });
@@ -9,30 +8,31 @@ export async function init(id) {
 export async function getPort(id) {
     let ret = false;
     try {
-        const port = await navigator.serial.requestPort();
+        const serialPort = await navigator.serial.requestPort();
         close(id);
         const data = Data.get(id);
-        data.serialPort = port;
+        data.serialPort = serialPort;
         ret = true;
     }
     catch (err) {
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
 
 export async function open(id, invoke, method, options) {
     let ret = false;
-    const data = Data.get(id);
-    if (data.serialPort !== null) {
-        console.log(`open serial port: ${id}`);
+    const serial = Data.get(id);
+    const { serialPort } = serial;
+    if (serialPort !== null) {
         try {
-            await data.serialPort.open(options);
-            read(data, invoke, method);
+            await close(id);
+            await serialPort.open(options);
+            read(serial, invoke, method);
             ret = true;
         }
         catch (err) {
-            console.log(err);
+            console.error(err);
         }
     }
     return ret;
@@ -40,19 +40,21 @@ export async function open(id, invoke, method, options) {
 
 export async function close(id) {
     let ret = false;
-    const data = Data.get(id);
-    const { reader, serialPort } = data;
+    const serial = Data.get(id);
+    const { reader, serialPort } = serial;
     if (serialPort !== null) {
-        console.log(`close serial port: ${id}`)
         try {
             if (reader) {
                 await reader.cancel();
+                delete serial.reader;
             }
-            await serialPort.close();
+            if (serialPort.readable || serialPort.writable) {
+                await serialPort.close();
+            }
             ret = true;
         }
         catch (err) {
-            console.log(err);
+            console.error(err);
         }
     }
     return ret;
@@ -75,7 +77,7 @@ export async function read(serial, invoke, method) {
                 invoke.invokeMethodAsync(method, value);
             }
         } catch (error) {
-            console.log(error);
+            console.error(error);
         } finally {
             serial.reader.releaseLock()
         }
@@ -84,8 +86,8 @@ export async function read(serial, invoke, method) {
 
 export async function write(id, data) {
     let ret = false;
-    const port = Data.get(id);
-    const { serialPort } = port;
+    const serial = Data.get(id);
+    const { serialPort } = serial;
     if (serialPort && serialPort.writable) {
         const writer = serialPort.writable.getWriter()
         const payload = new Uint8Array([...data])
@@ -96,6 +98,7 @@ export async function write(id, data) {
     return ret;
 }
 
-export function dispose(id) {
-
+export async function dispose(id) {
+    await close(id);
+    Data.remove(id);
 }
