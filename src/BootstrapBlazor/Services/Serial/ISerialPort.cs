@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ISerialPort 接口
 /// </summary>
-public interface ISerialPort
+public interface ISerialPort : IAsyncDisposable
 {
     /// <summary>
     /// 获得 端口是否打开

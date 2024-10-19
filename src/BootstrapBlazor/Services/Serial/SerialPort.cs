@@ -77,4 +77,22 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
             await DataReceive(data);
         }
     }
+
+    private async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            await jsModule.InvokeVoidAsync("dispose", serialPortId);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }
