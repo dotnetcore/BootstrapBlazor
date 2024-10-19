@@ -9,6 +9,7 @@ public class SerialServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task GetPort_Ok()
     {
+        // https://itldg.github.io/web-serial-debug/?wt.mc_id=DT-MVP-5004174 网页串口调试工具
         Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<bool>("getPort", matcher => matcher.Arguments.Count == 1 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<bool>("open", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_serial_") ?? false)).SetResult(true);
