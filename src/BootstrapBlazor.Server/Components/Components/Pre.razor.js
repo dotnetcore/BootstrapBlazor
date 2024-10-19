@@ -55,7 +55,7 @@ export async function highlight(id) {
 
     if (el) {
         const invoke = () => {
-            hljs.highlightElement(el.querySelector('code'))
+            hljs.highlightElement(el.querySelector('code'));
             el.querySelector('.loading').classList.add('d-none')
             el.classList.remove('loaded')
         }
@@ -64,6 +64,9 @@ export async function highlight(id) {
             const handler = setInterval(() => {
                 const done = window.hljs !== void 0;
                 if (done) {
+                    hljs.configure({
+                        ignoreUnescapedHTML: true
+                    });
                     clearInterval(handler)
                     resolve()
                 }
