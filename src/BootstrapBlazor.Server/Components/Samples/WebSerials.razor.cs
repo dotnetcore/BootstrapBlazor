@@ -48,7 +48,7 @@ public partial class WebSerials : IAsyncDisposable
 
     private ISerialPort? _serialPort;
 
-    private readonly SerialOptions _serialOptions = new();
+    private readonly SerialPortOptions _serialOptions = new();
 
     private bool CheckOpen => _serialPort is not { IsOpen: false };
 
@@ -147,6 +147,38 @@ public partial class WebSerials : IAsyncDisposable
             i = i + 2;
         }
         return [.. ret];
+    }
+
+    private SerialPortSignals? _signals;
+
+    private bool _ring => _signals?.RING ?? false;
+
+    private bool _dsr => _signals?.DSR ?? false;
+
+    private bool _dcd => _signals?.DCD ?? false;
+
+    private bool _cts => _signals?.CTS ?? false;
+
+    private async Task GetSignals()
+    {
+        if (_serialPort == null)
+        {
+            return;
+        }
+
+        _signals = await _serialPort.GetSignals();
+    }
+
+    private SerialPortUsbInfo? _usbInfo;
+
+    private async Task GetInfo()
+    {
+        if (_serialPort == null)
+        {
+            return;
+        }
+
+        _usbInfo = await _serialPort.GetUsbInfo();
     }
 
     private async ValueTask DisposeAsync(bool disposing)

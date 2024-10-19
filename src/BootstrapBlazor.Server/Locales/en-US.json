@@ -6323,7 +6323,9 @@
     "NotSupportSerialTitle": "Get Port",
     "NotSupportSerialContent": "The current browser does not support serial port operations. Please change to Edge or Chrome browser.",
     "OpenPortSerialTitle": "Open Port",
-    "OpenPortSerialContent": "Failed to open the serial port"
+    "OpenPortSerialContent": "Failed to open the serial port",
+    "GetSignalsButtonText": "Signals",
+    "GetInfoButtonText": "Infos"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",

@@ -67,6 +67,26 @@ private ISerialService? SerialService { get; set; }</Pre>
             <div class="col-12">
                 <Button IsDisabled="CheckClose" OnClick="Write" Text="@Localizer["WriteButtonText"]"></Button>
             </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox Value="_ring" ShowAfterLabel="true" DisplayText="RING"></Checkbox>
+                <Checkbox Value="_dsr" ShowAfterLabel="true" DisplayText="DSR" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox Value="_cts" ShowAfterLabel="true" DisplayText="CTS"></Checkbox>
+                <Checkbox Value="_dcd" ShowAfterLabel="true" DisplayText="DCD" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12">
+                <Button IsDisabled="CheckClose" OnClick="GetSignals" Text="@Localizer["GetSignalsButtonText"]"></Button>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="@_usbInfo?.UsbVendorId" ShowLabel="true" DisplayText="VendorId"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="@_usbInfo?.UsbProductId" ShowLabel="true" DisplayText="ProductId"></Display>
+            </div>
+            <div class="col-12">
+                <Button IsDisabled="CheckClose" OnClick="GetInfo" Text="@Localizer["GetInfoButtonText"]"></Button>
+            </div>
         </div>
     </GroupBox>
 </DemoBlock>
@@ -90,7 +110,7 @@ if (SerialService.IsSupport == false)
 
 <ul class="ul-demo">
     <li>如果需要读取数据，请先设置 <code>ISerialPort</code> 实例 <code>DataReceive</code> 参数</li>
-    <li>调用 <code>ISerialPort</code> 实例方法 <code>Open</code> 打开串口，可通过参数设置 <code>波特率</code> 等信息</li>
+    <li>调用 <code>ISerialPort</code> 实例方法 <code>Open</code> 打开串口，可通过 <code>SerialPortOptions</code> 参数设置 <code>波特率</code> 等信息</li>
 </ul>
 
 <Pre>private async Task OpenPort()

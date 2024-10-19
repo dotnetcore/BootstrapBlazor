@@ -6323,7 +6323,9 @@
     "NotSupportSerialTitle": "申请串口权限",
     "NotSupportSerialContent": "当前浏览器不支持串口操作，请更换 Edge 或者 Chrome 浏览器",
     "OpenPortSerialTitle": "打开串口操作",
-    "OpenPortSerialContent": "打开串口失败"
+    "OpenPortSerialContent": "打开串口失败",
+    "GetSignalsButtonText": "串口参数",
+    "GetInfoButtonText": "USB 信息"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
