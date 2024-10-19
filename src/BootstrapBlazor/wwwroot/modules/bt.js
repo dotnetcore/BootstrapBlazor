@@ -24,7 +24,11 @@ export async function requestDevice(id) {
     try {
         if (navigator.bluetooth) {
             const ret = await navigator.bluetooth.requestDevice({
-                acceptAllDevices: true
+                acceptAllDevices: true,
+                optionalServices: [
+                    0x180D,
+                    0x180F
+                ]
             });
             device = { name: ret.name, id: ret.id };
 
@@ -58,10 +62,30 @@ export async function connect(id) {
             const bt = Data.get(id);
             const { device } = bt;
             if (device.gatt.connected === false) {
-                const state = await device.gatt.connect();
-                console.log(state);
+                await device.gatt.connect();
             }
             ret = true;
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getBatteryValue(id) {
+    let ret = null;
+    try {
+        const bt = Data.get(id);
+        const { device } = bt;
+        const gattServer = device.gatt;
+        const server = await gattServer.getPrimaryService('battery_service');
+        const characters = await server.getCharacteristics('battery_level');
+        if(characters.length > 0) {
+            const uuid = characters[0].uuid;
+            const characteristic = await server.getCharacteristic(uuid);
+            const v = await characteristic.readValue();
+            ret = `${v.getUint8(0)}%`;
         }
     }
     catch (err) {
@@ -77,69 +101,13 @@ export async function disconnect(id) {
             const bt = Data.get(id);
             const { device } = bt;
             if (device.gatt.connected === true) {
-                device.disconnect();
+                device.gatt.disconnect();
             }
             ret = true;
         }
     }
     catch (err) {
         console.error(err);
-    }
-    return ret;
-}
-export async function getPort(id) {
-    let ret = false;
-    try {
-        if (navigator.serial) {
-            close(id);
-            const serialPort = await navigator.serial.requestPort();
-            const data = Data.get(id);
-            data.serialPort = serialPort;
-            ret = true;
-        }
-    }
-    catch (err) {
-        console.error(err);
-    }
-    return ret;
-}
-
-export async function open(id, invoke, method, options) {
-    let ret = false;
-    const serial = Data.get(id);
-    const { serialPort } = serial;
-    if (serialPort !== null) {
-        try {
-            await close(id);
-            await serialPort.open(options);
-            read(serial, invoke, method);
-            ret = true;
-        }
-        catch (err) {
-            console.error(err);
-        }
-    }
-    return ret;
-}
-
-export async function close(id) {
-    let ret = false;
-    const serial = Data.get(id);
-    const { reader, serialPort } = serial;
-    if (serialPort !== null) {
-        try {
-            if (reader) {
-                await reader.cancel();
-                delete serial.reader;
-            }
-            if (serialPort.readable || serialPort.writable) {
-                await serialPort.close();
-            }
-            ret = true;
-        }
-        catch (err) {
-            console.error(err);
-        }
     }
     return ret;
 }

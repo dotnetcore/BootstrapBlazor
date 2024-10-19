@@ -73,10 +73,7 @@ class DefaultBluetoothService : IBluetoothService
         if (IsAvailable)
         {
             device = await _module.InvokeAsync<BluetoothDevice?>("requestDevice", _deviceId);
-            if (device != null)
-            {
-                device.SetInvoker(_module, _deviceId);
-            }
+            device?.SetInvoker(_module, _deviceId);
         }
         return device;
     }

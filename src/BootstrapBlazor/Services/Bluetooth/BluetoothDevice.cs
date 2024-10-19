@@ -56,7 +56,19 @@ public class BluetoothDevice
         }
     }
 
-    public Task GetPrimaryService() { return Task.CompletedTask; }
+    /// <summary>
+    /// 获得设备电量方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string?> GetBatteryValue()
+    {
+        string? ret = null;
+        if (Connected && _module != null)
+        {
+            ret = await _module.InvokeAsync<string?>("getBatteryValue", _clientId);
+        }
+        return ret;
+    }
 
     internal void SetInvoker(JSModule module, string? clientId)
     {
