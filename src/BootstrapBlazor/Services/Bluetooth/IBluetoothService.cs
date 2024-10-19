@@ -9,4 +9,14 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public interface IBluetoothService
 {
+    /// <summary>
+    /// 获得/设置 是否支持蓝牙
+    /// </summary>
+    bool IsSupport { get; }
+
+    /// <summary>
+    /// 获得所有可用串口
+    /// </summary>
+    /// <returns></returns>
+    Task<bool> GetAvailability();
 }
