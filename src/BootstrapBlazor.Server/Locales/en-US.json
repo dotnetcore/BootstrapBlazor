@@ -1683,7 +1683,7 @@
     "OnScreenKeyboardText": "OnScreenKeyboard",
     "NotificationsText": "Notification",
     "SignaturePadText": "SignaturePad",
-    "BluetoothText": "Bluetooth & Printer",
+    "BluetoothText": "Bluetooth Service",
     "PdfReaderText": "PDF Reader",
     "VideoPlayerText": "VideoPlayer",
     "FileViewerText": "FileViewer",
@@ -4702,7 +4702,7 @@
     "OnScreenKeyboard": "OnScreenKeyboard",
     "RibbonTab": "RibbonTab",
     "PulseButton": "PulseButton",
-    "Bluetooth": "Bluetooth & Printer",
+    "Bluetooth": "IBluetooth",
     "PdfReader": "PDF Reader",
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
@@ -5887,7 +5887,7 @@
     "OnScreenKeyboardsBasicTitle": "Basic"
   },
   "BootstrapBlazor.Server.Components.Samples.Bluetooth": {
-    "BluetoothTitle": "Bluetooth & Printer",
+    "BluetoothTitle": "IBluetooth Service ",
     "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "After connecting the device, perform operations such as printing, and write the corresponding commands(ESC/POS/CPCL) according to the characteristics of the printer",
     "BluetoothBatteryLevelTitle": "Bluetooth Battery Level",

@@ -3,38 +3,48 @@
 
 <h3>@Localizer["BluetoothTitle"]</h3>
 
-<PackageTips Name="BootstrapBlazor.Bluetooth" />
+<h4>@Localizer["BluetoothIntro"]</h4>
 
-<Tips class="mt-2">
-    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+<p>@((MarkupString)Localizer["BluetoothDescription"].Value)</p>
+
+<Pre>[Inject, NotNull]
+private IBluetoothService? BluetoothService { get; set; }</Pre>
+
+<Tips>
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["BluetoothTipsLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["BluetoothTipsLi2"].Value)</li>
+    </ul>
+    <div>@((MarkupString)Localizer["BluetoothTipsTitle"].Value)</div>
 </Tips>
 
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
+    <Button Text="请求" OnClick="Request"></Button>
     @if (ShowUI)
     {
         <span>@Localizer["InnerUI"]</span>
 
-        <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+        <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/>
 
     }
     else
     {
         <p>@Localizer["BasicUsage"]</p>
-        <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
+        <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices"/>
         <div>
             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
             <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
             <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
         </div>
     }
-    <hr />
-<pre>@message</pre>
-<pre style="color:green">@statusMessage</pre>
-<pre style="color:red">@errorMessage</pre>
-    <p />
-    <button class="btn btn-link" @onclick="SwitchUI ">@Localizer["SwitchUI"]</button>
+    <hr/>
+    <pre>@message</pre>
+    <pre style="color:green">@statusMessage</pre>
+    <pre style="color:red">@errorMessage</pre>
+    <p/>
+    <button class="btn btn-link" @onclick="SwitchUI">@Localizer["SwitchUI"]</button>
 </DemoBlock>
 
 <h4>@Localizer["BluetoothTitle"]</h4>

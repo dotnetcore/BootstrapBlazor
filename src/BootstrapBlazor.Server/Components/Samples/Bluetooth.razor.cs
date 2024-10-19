@@ -20,6 +20,23 @@ public partial class Bluetooth
     private string? statusMessage;
     private string? errorMessage;
 
+    [Inject, NotNull]
+    private IBluetoothService? BluetoothService { get; set; }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private BluetoothDevice? _bluetoothDevice;
+
+    private async Task Request()
+    {
+        _bluetoothDevice = await BluetoothService.GetPort();
+        if (_bluetoothDevice.IsSupport == false)
+        {
+            await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
+        }
+    }
+
     private Task OnResult(string? result)
     {
         message = result;
