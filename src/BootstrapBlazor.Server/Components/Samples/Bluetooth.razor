@@ -26,6 +26,8 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
     <Button Text="获得" IsDisabled="!BluetoothService.IsAvailable" OnClick="GetDevices"></Button>
     <Button Text="连接" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
     <Button Text="断开" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
+    <Button Text="电量" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
+    <Display Value="@_batteryValue"></Display>
     @if (ShowUI)
     {
         <span>@Localizer["InnerUI"]</span>

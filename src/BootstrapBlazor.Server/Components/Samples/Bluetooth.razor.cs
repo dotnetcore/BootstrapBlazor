@@ -28,6 +28,8 @@ public partial class Bluetooth
 
     private BluetoothDevice? _blueDevice;
 
+    private string? _batteryValue = null;
+
     private async Task GetAvailability()
     {
         await BluetoothService.GetAvailability();
@@ -64,11 +66,20 @@ public partial class Bluetooth
             await _blueDevice.Disconnect();
         }
     }
+
     private async Task GetDevices()
     {
         if (BluetoothService.IsAvailable)
         {
             await BluetoothService.GetDevices();
+        }
+    }
+
+    private async Task GetBatteryValue()
+    {
+        if (_blueDevice != null)
+        {
+            _batteryValue = await _blueDevice.GetBatteryValue();
         }
     }
 
