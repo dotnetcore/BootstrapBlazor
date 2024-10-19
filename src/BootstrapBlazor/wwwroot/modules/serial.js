@@ -8,11 +8,13 @@ export async function init(id) {
 export async function getPort(id) {
     let ret = false;
     try {
-        const serialPort = await navigator.serial.requestPort();
-        close(id);
-        const data = Data.get(id);
-        data.serialPort = serialPort;
-        ret = true;
+        if (navigator.serial) {
+            close(id);
+            const serialPort = await navigator.serial.requestPort();
+            const data = Data.get(id);
+            data.serialPort = serialPort;
+            ret = true;
+        }
     }
     catch (err) {
         console.error(err);
