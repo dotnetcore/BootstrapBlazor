@@ -6312,7 +6312,11 @@
     "ClosePortText": "关闭串口",
     "WriteButtonText": "写入",
     "WriteDataText": "发送数据",
-    "ReadDataText": "接收数据"
+    "ReadDataText": "接收数据",
+    "CRLFText": "末尾加回车换行",
+    "HEXText": "HEX 发送",
+    "LoopSendText": "循环发送",
+    "LoopIntervalText": "发送间隔(ms)"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",

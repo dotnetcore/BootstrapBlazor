@@ -76,7 +76,11 @@ public partial class WebSerials
         {
             _serialPort.DataReceive = async data =>
             {
-                _messages.Add(new ConsoleMessageItem() { Message = $"{DateTime.Now}: -->\nText: {Encoding.ASCII.GetString(data)}\nHEX: {Convert.ToHexString(data)}" });
+                _messages.Add(new ConsoleMessageItem()
+                {
+                    IsHtml = true,
+                    Message = $"{DateTime.Now}: --><br/>Text: {Encoding.ASCII.GetString(data)}<br/>HEX: {Convert.ToHexString(data)}"
+                });
                 await InvokeAsync(StateHasChanged);
             };
             await _serialPort.Open(_serialOptions);

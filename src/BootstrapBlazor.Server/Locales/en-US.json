@@ -6312,7 +6312,11 @@
     "ClosePortText": "Close",
     "WriteButtonText": "Write",
     "WriteDataText": "Send Data",
-    "ReadDataText": "Receive Data"
+    "ReadDataText": "Receive Data",
+    "CRLFText": "CRLF",
+    "HEXText": "HEX",
+    "LoopSendText": "Loop",
+    "LoopIntervalText": "Interval(ms)"
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",

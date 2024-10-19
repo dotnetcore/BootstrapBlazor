@@ -11,22 +11,22 @@
     <GroupBox Title="串口设置">
         <div class="row form-inline g-3">
             <div class="col-12 col-sm-6">
-                <Select Items="_baudRateList" @bind-Value="@_serialOptions.BaudRate" ShowLabel="true" DisplayText="@Localizer["BaudRate"]" />
+                <Select Items="_baudRateList" @bind-Value="@_serialOptions.BaudRate" ShowLabel="true" DisplayText="@Localizer["BaudRateText"]" />
             </div>
             <div class="col-12 col-sm-6">
-                <Select Items="_dataBits" @bind-Value="@_serialOptions.DataBits" ShowLabel="true" DisplayText="@Localizer["DataBits"]" />
+                <Select Items="_dataBits" @bind-Value="@_serialOptions.DataBits" ShowLabel="true" DisplayText="@Localizer["DataBitsText"]" />
             </div>
             <div class="col-12 col-sm-6">
-                <Select Items="_stopBits" @bind-Value="@_serialOptions.StopBits" ShowLabel="true" DisplayText="@Localizer["StopBits"]" />
+                <Select Items="_stopBits" @bind-Value="@_serialOptions.StopBits" ShowLabel="true" DisplayText="@Localizer["StopBitsText"]" />
             </div>
             <div class="col-12 col-sm-6">
-                <Select @bind-Value="@_serialOptions.ParityType" ShowLabel="true" DisplayText="@Localizer["ParityType"]" />
+                <Select @bind-Value="@_serialOptions.ParityType" ShowLabel="true" DisplayText="@Localizer["ParityTypeText"]" />
             </div>
             <div class="col-12 col-sm-6">
-                <Select Items="_bufferSizes" @bind-Value="@_serialOptions.BufferSize" ShowLabel="true" DisplayText="@Localizer["BufferSize"]" />
+                <Select Items="_bufferSizes" @bind-Value="@_serialOptions.BufferSize" ShowLabel="true" DisplayText="@Localizer["BufferSizeText"]" />
             </div>
             <div class="col-12 col-sm-6">
-                <Select @bind-Value="@_serialOptions.FlowControlType" ShowLabel="true" DisplayText="@Localizer["FlowControlType"]" />
+                <Select @bind-Value="@_serialOptions.FlowControlType" ShowLabel="true" DisplayText="@Localizer["FlowControlTypeText"]" />
             </div>
             <div class="col-12">
                 <Button OnClick="GetPort" Text="@Localizer["RequestPortText"]"></Button>
@@ -39,12 +39,14 @@
             <div class="col-12">
                 <Textarea IsDisabled="CheckClose" @bind-Value="@_sendData" ShowLabel="true" DisplayText="@Localizer["WriteDataText"]" rows="3"></Textarea>
             </div>
-            <div class="col-12">
-                <Checkbox @bind-Value="_appendCRLF" ShowLabel="true" DisplayText="末尾加回车换行"></Checkbox>
-                <Checkbox @bind-Value="_isHEX" ShowLabel="true" DisplayText="HEX 发送"></Checkbox>
-                <Checkbox @bind-Value="_isLoop" ShowLabel="true" DisplayText="循环发送"></Checkbox>
+            <div class="col-12 col-sm-6">
+                <Checkbox @bind-Value="_appendCRLF" ShowAfterLabel="true" DisplayText="@Localizer["CRLFText"]"></Checkbox>
+                <Checkbox @bind-Value="_isHEX" ShowAfterLabel="true" DisplayText="@Localizer["HEXText"]" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Checkbox @bind-Value="_isLoop" ShowAfterLabel="true" DisplayText="@Localizer["LoopSendText"]" class="me-3"></Checkbox>
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="发送间隔(ms)"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["LoopIntervalText"]"></BootstrapInputGroupLabel>
                     <BootstrapInput @bind-Value="_sendInterval"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
