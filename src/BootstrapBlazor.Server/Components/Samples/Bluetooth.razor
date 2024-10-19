@@ -21,7 +21,9 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
-    <Button Text="请求" OnClick="Request"></Button>
+    <Button Text="检查" OnClick="GetAvailability"></Button>
+    <Button Text="请求" IsDisabled="!BluetoothService.IsAvailable" OnClick="RequestDevice"></Button>
+    <Button Text="获得" IsDisabled="!BluetoothService.IsAvailable" OnClick="GetDevices"></Button>
     @if (ShowUI)
     {
         <span>@Localizer["InnerUI"]</span>

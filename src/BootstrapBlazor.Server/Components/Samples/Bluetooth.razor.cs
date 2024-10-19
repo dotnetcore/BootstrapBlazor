@@ -26,14 +26,34 @@ public partial class Bluetooth
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
-    private BluetoothDevice? _bluetoothDevice;
+    private BluetoothDevice? _blueDevice;
 
-    private async Task Request()
+    private async Task GetAvailability()
     {
-        _bluetoothDevice = await BluetoothService.GetPort();
-        if (_bluetoothDevice.IsSupport == false)
+        await BluetoothService.GetAvailability();
+        if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
+        }
+        if (BluetoothService.IsAvailable == false)
+        {
+            await ToastService.Error(Localizer["NoBluetoothAdapterTitle"], Localizer["NoBluetoothAdapterContent"]);
+        }
+    }
+
+    private async Task RequestDevice()
+    {
+        if (BluetoothService.IsAvailable)
+        {
+            await BluetoothService.RequestDevice();
+        }
+    }
+
+    private async Task GetDevices()
+    {
+        if (BluetoothService.IsAvailable)
+        {
+            await BluetoothService.GetDevices();
         }
     }
 
