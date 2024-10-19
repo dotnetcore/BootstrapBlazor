@@ -26,13 +26,13 @@ public class SerialServiceTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         };
 
-        var option = new SerialOptions()
+        var option = new SerialPortOptions()
         {
             BaudRate = 9600,
             BufferSize = 1024,
             DataBits = 8,
-            FlowControlType = SerialFlowControlType.Hardware,
-            ParityType = SerialParityType.Odd,
+            FlowControlType = SerialPortFlowControlType.Hardware,
+            ParityType = SerialPortParityType.Odd,
             StopBits = 1
         };
         await serialPort.Open(option);
@@ -40,8 +40,8 @@ public class SerialServiceTest : BootstrapBlazorTestBase
         Assert.Equal(9600, option.BaudRate);
         Assert.Equal(1024, option.BufferSize);
         Assert.Equal(8, option.DataBits);
-        Assert.Equal(SerialFlowControlType.Hardware, option.FlowControlType);
-        Assert.Equal(SerialParityType.Odd, option.ParityType);
+        Assert.Equal(SerialPortFlowControlType.Hardware, option.FlowControlType);
+        Assert.Equal(SerialPortParityType.Odd, option.ParityType);
         Assert.Equal(1, option.StopBits);
 
         await serialPort.Write([0x31, 0x32]);

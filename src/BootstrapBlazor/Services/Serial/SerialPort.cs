@@ -37,7 +37,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Open(SerialOptions options, CancellationToken token = default)
+    public async Task Open(SerialPortOptions options, CancellationToken token = default)
     {
         DotNetObjectReference<SerialPort>? interop = null;
         if (DataReceive != null)
@@ -73,6 +73,29 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
             await DataReceive(data);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<SerialPortUsbInfo?> GetUsbInfo(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortUsbInfo>("getInfo", token, serialPortId);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<SerialPortSignals?> GetSignals(CancellationToken token = default) => await jsModule.InvokeAsync<SerialPortSignals>("getSignals", token, serialPortId);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> SetSignals(SerialPortSignalsOptions options, CancellationToken token = default) => await jsModule.InvokeAsync<bool>("setSignals", token, serialPortId, options);
 
     private async ValueTask DisposeAsync(bool disposing)
     {

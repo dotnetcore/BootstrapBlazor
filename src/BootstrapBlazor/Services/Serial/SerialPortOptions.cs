@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 串口通讯参数
 /// </summary>
-public class SerialOptions
+public class SerialPortOptions
 {
     /// <summary>
     /// 波特率 默认 9600
@@ -30,7 +30,7 @@ public class SerialOptions
     /// 校验位 none、even、odd 默认 "none" 
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public SerialParityType ParityType { get; set; }
+    public SerialPortParityType ParityType { get; set; }
 
     /// <summary>
     /// 读写缓冲区 默认 255
@@ -41,5 +41,5 @@ public class SerialOptions
     /// 流控制 "none"或"hardware" 默认值为"none" 
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public SerialFlowControlType FlowControlType { get; set; }
+    public SerialPortFlowControlType FlowControlType { get; set; }
 }

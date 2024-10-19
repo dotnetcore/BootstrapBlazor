@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 //RS-232C接口定义(DB9)
@@ -19,29 +21,33 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 串口信号
 /// </summary>
-public class SerialSignals
+public class SerialPortSignals
 {
     /// <summary>
     /// 振铃提示 RI（Ring Indicator）
     /// 如果 RI 为 true，则表示已检测到振铃。如果 RI 为 false，则表示未检测到振铃。Pin 9
-    /// </summary> 
+    /// </summary>
+    [JsonPropertyName("ringIndicator")]
     public bool RING { get; set; }
 
     /// <summary>
     /// 数据准备就绪 DSR（Data Set Ready）
     /// 如果 DSR 为 true，则表示已准备好接收数据。如果 DSR 为 false，则表示未准备好接收数据。Pin 6
     /// </summary>
+    [JsonPropertyName("dataSetReady")]
     public bool DSR { get; set; }
 
     /// <summary>
     /// 清除发送 CTS（Clear To Send）
     /// 如果 CTS 为 true，则表示已准备好发送数据。如果 CTS 为 false，则表示未准备好发送数据。Pin 8
     /// </summary>
+    [JsonPropertyName("clearToSend")]
     public bool CTS { get; set; }
 
     /// <summary>
     /// 载波检测 DCD（Data Carrier Detect）
     /// 如果 DCD 为 true，则表示已检测到载波。如果 DCD 为 false，则表示未检测到载波。Pin 1
     /// </summary>
+    [JsonPropertyName("dataCarrierDetect")]
     public bool DCD { get; set; }
 }

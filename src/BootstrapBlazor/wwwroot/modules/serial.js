@@ -100,6 +100,33 @@ export async function write(id, data) {
     return ret;
 }
 
+export async function getInfo(id) {
+    const serial = Data.get(id);
+    const { serialPort } = serial;
+    if (serialPort) {
+        const info = await serialPort.getInfo();
+        console.log(info);
+    }
+}
+
+export async function getSignals(id) {
+    const serial = Data.get(id);
+    const { serialPort } = serial;
+    if (serialPort) {
+        const info = await serialPort.getSignals();
+        return info;
+    }
+}
+
+export async function setSignals(id, options) {
+    const serial = Data.get(id);
+    const { serialPort } = serial;
+    if (serialPort) {
+        const info = await serialPort.setSignals(options);
+        return info;
+    }
+}
+
 export async function dispose(id) {
     await close(id);
     Data.remove(id);

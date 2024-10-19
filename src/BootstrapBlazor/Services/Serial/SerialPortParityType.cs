@@ -7,18 +7,23 @@ using BootstrapBlazor.Core.Converter;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 流量控制方法
+/// 校验位枚举
 /// </summary>
 [JsonEnumConverter(true)]
-public enum SerialFlowControlType
+public enum SerialPortParityType
 {
     /// <summary>
-    /// 未启用流量控制
+    /// 每个数据字不发送奇偶校验位
     /// </summary>
     None,
 
     /// <summary>
-    /// 启用使用 RTS 和 CTS 信号的硬件流控制
+    /// 数据字加上奇偶校验位具有偶奇偶校验
     /// </summary>
-    Hardware,
+    Even,
+
+    /// <summary>
+    /// 数据字加奇偶校验位具有奇校验
+    /// </summary>
+    Odd
 }

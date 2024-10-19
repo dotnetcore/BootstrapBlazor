@@ -2,28 +2,20 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Core.Converter;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 校验位枚举
+/// Usb 串口设备信息类
 /// </summary>
-[JsonEnumConverter(true)]
-public enum SerialParityType
+public class SerialPortUsbInfo
 {
     /// <summary>
-    /// 每个数据字不发送奇偶校验位
+    /// 厂商 Id
     /// </summary>
-    None,
+    public string? UsbVendorId { get; internal set; }
 
     /// <summary>
-    /// 数据字加上奇偶校验位具有偶奇偶校验
+    /// 产品 Id
     /// </summary>
-    Even,
-
-    /// <summary>
-    /// 数据字加奇偶校验位具有奇校验
-    /// </summary>
-    Odd
+    public string? UsbProductId { get; internal set; }
 }

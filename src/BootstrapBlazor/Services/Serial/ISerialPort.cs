@@ -24,7 +24,7 @@ public interface ISerialPort : IAsyncDisposable
     /// 打开端口方法
     /// </summary>
     /// <returns></returns>
-    Task Open(SerialOptions options, CancellationToken token = default);
+    Task Open(SerialPortOptions options, CancellationToken token = default);
 
     /// <summary>
     /// 接收数据回调方法
@@ -37,4 +37,26 @@ public interface ISerialPort : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     Task<bool> Write(byte[] data, CancellationToken token = default);
+
+    /// <summary>
+    /// 获得 Usb 设备信息
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<SerialPortUsbInfo?> GetUsbInfo(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备参数
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<SerialPortSignals?> GetSignals(CancellationToken token = default);
+
+    /// <summary>
+    /// 设置设备参数
+    /// </summary>
+    /// <param name="options"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<bool> SetSignals(SerialPortSignalsOptions options, CancellationToken token = default);
 }
