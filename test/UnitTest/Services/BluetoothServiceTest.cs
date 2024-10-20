@@ -29,6 +29,9 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         var val = await device.ReadValue("battery_service", "battery_level");
         Assert.Equal([0x31], val);
 
+        var v = await device.GetBatteryValue();
+        Assert.Equal(0x31, v);
+
         var mi = device.GetType().GetMethod("OnError");
         Assert.NotNull(mi);
         mi.Invoke(device, ["test"]);
