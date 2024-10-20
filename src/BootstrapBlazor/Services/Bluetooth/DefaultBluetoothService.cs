@@ -33,7 +33,7 @@ class DefaultBluetoothService : IBluetoothService
     {
         var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
 
-        IsSupport = await module.InvokeAsync<bool>("init", _deviceId);
+        IsSupport = await module.InvokeAsync<bool>("init");
         return module;
     }
 
@@ -56,23 +56,12 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task GetDevices()
-    {
-        if (IsAvailable)
-        {
-            await _module.InvokeVoidAsync("getDevices", _deviceId);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    public async Task<BluetoothDevice?> RequestDevice()
+    public async Task<BluetoothDevice?> RequestDevice(string[] optionalServices)
     {
         BluetoothDevice? device = null;
         if (IsAvailable)
         {
-            device = await _module.InvokeAsync<BluetoothDevice?>("requestDevice", _deviceId);
+            device = await _module.InvokeAsync<BluetoothDevice?>("requestDevice", _deviceId, optionalServices);
             device?.SetInvoker(_module, _deviceId);
         }
         return device;

@@ -28,12 +28,7 @@ public interface IBluetoothService
     /// <summary>
     /// 请求蓝牙配对方法
     /// </summary>
+    /// <param name="optionalServices">请求服务列表 请参考 https://github.com/WebBluetoothCG/registries/blob/master/gatt_assigned_services.txt</param>
     /// <returns></returns>
-    Task<BluetoothDevice?> RequestDevice();
-
-    /// <summary>
-    /// 获得蓝牙设备方法
-    /// </summary>
-    /// <returns></returns>
-    Task GetDevices();
+    Task<BluetoothDevice?> RequestDevice(string[] optionalServices);
 }
