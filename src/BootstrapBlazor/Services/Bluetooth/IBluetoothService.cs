@@ -20,6 +20,11 @@ public interface IBluetoothService
     bool IsAvailable { get; }
 
     /// <summary>
+    /// 获得 上次运行错误描述信息
+    /// </summary>
+    string? ErrorMessage { get; }
+
+    /// <summary>
     /// 获得所有可用串口
     /// </summary>
     /// <returns></returns>

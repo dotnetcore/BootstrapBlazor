@@ -16,6 +16,11 @@ class DefaultBluetoothService : IBluetoothService
     /// </summary>
     public bool IsAvailable { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? ErrorMessage { get; private set; }
+
     [NotNull]
     private JSModule? _module = null;
 
@@ -68,5 +73,15 @@ class DefaultBluetoothService : IBluetoothService
             }
         }
         return device;
+    }
+
+    /// <summary>
+    /// JavaScript 报错回调方法
+    /// </summary>
+    /// <param name="message"></param>
+    [JSInvokable]
+    public void OnError(string message)
+    {
+        ErrorMessage = message;
     }
 }
