@@ -17,7 +17,7 @@ sealed class DefaultBluetoothService : IBluetoothService
     public bool IsAvailable { get; private set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// <inheritdoc />
     /// </summary>
     public string? ErrorMessage { get; private set; }
 
@@ -30,6 +30,10 @@ sealed class DefaultBluetoothService : IBluetoothService
 
     private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
 
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="jsRuntime"></param>
     public DefaultBluetoothService(IJSRuntime jsRuntime)
     {
         _runtime = jsRuntime;
@@ -48,6 +52,8 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public async Task<bool> GetAvailability(CancellationToken token = default)
     {
         _module ??= await LoadModule();
@@ -55,7 +61,7 @@ sealed class DefaultBluetoothService : IBluetoothService
         var ret = false;
         if (IsSupport)
         {
-            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId);
+            ret = await _module.InvokeAsync<bool>("getAvailability", token);
             IsAvailable = ret;
         }
         return ret;
@@ -66,8 +72,10 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// </summary>
     public async Task<IBluetoothDevice?> RequestDevice(string[] optionalServices, CancellationToken token = default)
     {
+        _module ??= await LoadModule();
+
         BluetoothDevice? device = null;
-        if (IsAvailable)
+        if (IsSupport)
         {
             var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices, _interop, nameof(OnError));
             if (parameters != null)

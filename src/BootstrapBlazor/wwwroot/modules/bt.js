@@ -4,8 +4,7 @@ export async function init() {
     return navigator.bluetooth !== void 0;
 }
 
-export async function getAvailability(id) {
-    Data.set(id, {});
+export async function getAvailability() {
     let ret = false;
     if (navigator.bluetooth) {
         ret = await navigator.bluetooth.getAvailability();
@@ -14,12 +13,14 @@ export async function getAvailability(id) {
 }
 
 export async function requestDevice(id, optionalServices, invoke, method) {
-    let device = null;
-    const bt = Data.get(id);
-    if (bt === null) {
-        return device;
+    let ret = await getAvailability();
+    if (ret === false) {
+        return null;
     }
 
+    let device = null;
+    const bt = { device: null };
+    Data.set(id, bt);
     try {
         const ret = await navigator.bluetooth.requestDevice({
             acceptAllDevices: true,
@@ -65,12 +66,15 @@ export async function readValue(id, serviceName, characteristicName, invoke, met
 
     try {
         const { device } = bt;
-        const gattServer = device.gatt;
-        const server = await gattServer.getPrimaryService(serviceName);
-        const characteristic = await server.getCharacteristic(characteristicName);
+        const server = device.gatt;
+        if (server.connected === false) {
+            await server.connect();
+        }
+        const service = await server.getPrimaryService(serviceName);
+        const characteristic = await service.getCharacteristic(characteristicName);
         const dv = await characteristic.readValue();
         ret = new Uint8Array(dv.byteLength);
-        for(let index = 0; index< dv.byteLength; index++) {
+        for (let index = 0; index < dv.byteLength; index++) {
             ret[index] = dv.getUint8(index);
         }
     }
