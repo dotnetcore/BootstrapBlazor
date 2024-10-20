@@ -55,7 +55,7 @@ class DefaultBluetoothService : IBluetoothService
         var ret = false;
         if (IsSupport)
         {
-            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId, _interop, nameof(OnError));
+            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId);
             IsAvailable = ret;
         }
         return ret;

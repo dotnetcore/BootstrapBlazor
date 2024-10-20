@@ -7,18 +7,13 @@ export async function init() {
 export async function getAvailability(id) {
     Data.set(id, {});
     let ret = false;
-    try {
-        if (navigator.bluetooth) {
-            ret = await navigator.bluetooth.getAvailability();
-        }
-    }
-    catch (err) {
-        console.error(err);
+    if (navigator.bluetooth) {
+        ret = await navigator.bluetooth.getAvailability();
     }
     return ret;
 }
 
-export async function requestDevice(id, optionalServices) {
+export async function requestDevice(id, optionalServices, invoke, method) {
     let device = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -34,12 +29,13 @@ export async function requestDevice(id, optionalServices) {
         device = [ret.name, ret.id];
     }
     catch (err) {
-        console.error(err);
+        invoke.invokeMethodAsync(method, err.toString());
+        console.log(err);
     }
     return device;
 }
 
-export async function connect(id) {
+export async function connect(id, invoke, method) {
     let ret = false;
     const bt = Data.get(id);
     if (bt === null) {
@@ -54,12 +50,13 @@ export async function connect(id) {
         ret = true;
     }
     catch (err) {
-        console.error(err);
+        invoke.invokeMethodAsync(method, err.toString());
+        console.log(err);
     }
     return ret;
 }
 
-export async function readValue(id, serviceName, characteristicName) {
+export async function readValue(id, serviceName, characteristicName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -72,15 +69,16 @@ export async function readValue(id, serviceName, characteristicName) {
         const server = await gattServer.getPrimaryService(serviceName);
         const characteristic = await server.getCharacteristic(characteristicName);
         const dv = await characteristic.readValue();
-        return dv.buffer
+        ret = dv;
     }
     catch (err) {
-        console.error(err);
+        invoke.invokeMethodAsync(method, err.toString());
+        console.log(err);
     }
     return ret;
 }
 
-export async function disconnect(id) {
+export async function disconnect(id, invoke, method) {
     let ret = false;
     const bt = Data.get(id);
     if (bt === null) {
@@ -95,7 +93,8 @@ export async function disconnect(id) {
         ret = true;
     }
     catch (err) {
-        console.error(err);
+        invoke.invokeMethodAsync(method, err.toString());
+        console.log(err);
     }
     return ret;
 }

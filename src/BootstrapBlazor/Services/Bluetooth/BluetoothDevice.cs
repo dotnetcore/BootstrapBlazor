@@ -113,6 +113,7 @@ class BluetoothDevice : IBluetoothDevice
     {
         ErrorMessage = message;
     }
+
     private async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
