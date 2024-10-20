@@ -77,18 +77,21 @@ class BluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task<string?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default)
+    public async Task<byte[]?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default)
     {
-        string? ret = null;
+        byte[]? ret = null;
         if (Connected && _module != null)
         {
             var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName);
             if (buffer != null)
             {
                 using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);
-                using var reader = new StreamReader(stream);
-                ret = await reader.ReadToEndAsync();
-                reader.Close();
+                var data = new byte[stream.Length];
+                var length = await stream.ReadAsync(data, token);
+                if (length > 0)
+                {
+                    ret = data;
+                }
             }
         }
         return ret;
