@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -80,8 +82,14 @@ class BluetoothDevice : IBluetoothDevice
         string? ret = null;
         if (Connected && _module != null)
         {
-            var stream = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName);
-            stream.re
+            var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName);
+            if (buffer != null)
+            {
+                using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);
+                using var reader = new StreamReader(stream);
+                ret = await reader.ReadToEndAsync();
+                reader.Close();
+            }
         }
         return ret;
     }
