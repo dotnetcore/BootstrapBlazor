@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IBluetoothDevice 接口
 /// </summary>
-public interface IBluetoothDevice
+public interface IBluetoothDevice : IAsyncDisposable
 {
     /// <summary>
     /// 获得 当前设备连接状态

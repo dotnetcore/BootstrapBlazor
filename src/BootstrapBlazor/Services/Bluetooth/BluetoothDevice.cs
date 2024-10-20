@@ -113,4 +113,21 @@ class BluetoothDevice : IBluetoothDevice
     {
         ErrorMessage = message;
     }
+    private async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            await _module.InvokeVoidAsync("dispose", _clientId);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }
