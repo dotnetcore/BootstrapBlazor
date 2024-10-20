@@ -5,30 +5,40 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 蓝牙服务接口
+/// IBluetoothDevice 接口
 /// </summary>
-public interface IBluetoothService
+public interface IBluetoothDevice
 {
     /// <summary>
-    /// 获得 浏览器是否支持蓝牙
+    /// 获得 当前设备连接状态
     /// </summary>
-    bool IsSupport { get; }
+    bool Connected { get; }
 
     /// <summary>
-    /// 获得 是否有蓝牙模块
+    /// 获得 设备 Id
     /// </summary>
-    bool IsAvailable { get; }
+    string? Id { get; }
 
     /// <summary>
-    /// 获得所有可用串口
+    /// 获得 设备名称
+    /// </summary>
+    string? Name { get; }
+
+    /// <summary>
+    /// 连接方法
     /// </summary>
     /// <returns></returns>
-    Task<bool> GetAvailability();
+    Task Connect();
 
     /// <summary>
-    /// 请求蓝牙配对方法
+    /// 断开连接方法
     /// </summary>
-    /// <param name="optionalServices">请求服务列表 请参考 https://github.com/WebBluetoothCG/registries/blob/master/gatt_assigned_services.txt</param>
     /// <returns></returns>
-    Task<IBluetoothDevice?> RequestDevice(string[] optionalServices);
+    Task Disconnect();
+
+    /// <summary>
+    /// 获得设备电量方法
+    /// </summary>
+    /// <returns></returns>
+    Task<string?> GetBatteryValue();
 }

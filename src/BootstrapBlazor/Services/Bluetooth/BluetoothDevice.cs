@@ -7,29 +7,29 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 蓝牙设备
 /// </summary>
-public class BluetoothDevice
+class BluetoothDevice : IBluetoothDevice
 {
     private JSModule? _module;
 
     private string? _clientId;
 
     /// <summary>
-    /// 获得 设备名称
+    /// <inheritdoc/>
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
-    /// 获得 设备 Id
+    /// <inheritdoc/>
     /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
-    /// 获得 当前设备连接状态
+    /// <inheritdoc/>
     /// </summary>
-    public bool Connected { get; private set; }
+    public bool Connected { get; set; }
 
     /// <summary>
-    /// 连接方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task Connect()
@@ -41,7 +41,7 @@ public class BluetoothDevice
     }
 
     /// <summary>
-    /// 断开连接方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task Disconnect()
@@ -57,7 +57,7 @@ public class BluetoothDevice
     }
 
     /// <summary>
-    /// 获得设备电量方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async Task<string?> GetBatteryValue()
@@ -70,7 +70,12 @@ public class BluetoothDevice
         return ret;
     }
 
-    internal void SetInvoker(JSModule module, string? clientId)
+    /// <summary>
+    /// 设置 Javascript 方法
+    /// </summary>
+    /// <param name="module"></param>
+    /// <param name="clientId"></param>
+    public void SetInvoker(JSModule module, string? clientId)
     {
         _module = module;
         _clientId = clientId;

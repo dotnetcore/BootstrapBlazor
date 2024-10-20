@@ -56,7 +56,7 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task<BluetoothDevice?> RequestDevice(string[] optionalServices)
+    public async Task<IBluetoothDevice?> RequestDevice(string[] optionalServices)
     {
         BluetoothDevice? device = null;
         if (IsAvailable)
