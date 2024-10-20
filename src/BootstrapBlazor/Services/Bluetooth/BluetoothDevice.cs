@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 蓝牙设备
 /// </summary>
-class BluetoothDevice : IBluetoothDevice
+sealed class BluetoothDevice : IBluetoothDevice
 {
     private readonly JSModule _module;
 
@@ -18,12 +18,12 @@ class BluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public string? Name { get; private set; }
+    public string? Name { get; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public string? Id { get; private set; }
+    public string? Id { get; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -33,7 +33,7 @@ class BluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Connected { get; set; }
+    public bool Connected { get; private set; }
 
     public BluetoothDevice(JSModule module, string clientId, string[] args)
     {
@@ -71,6 +71,7 @@ class BluetoothDevice : IBluetoothDevice
         var ret = false;
         if (Connected && _module != null)
         {
+            ErrorMessage = null;
             ret = await _module.InvokeAsync<bool>("disconnect", token, _clientId, _interop, nameof(OnError));
             if (ret)
             {
@@ -89,10 +90,11 @@ class BluetoothDevice : IBluetoothDevice
         byte[]? ret = null;
         if (Connected && _module != null)
         {
+            ErrorMessage = null;
             var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));
             if (buffer != null)
             {
-                using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);
+                await using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);
                 var data = new byte[stream.Length];
                 var length = await stream.ReadAsync(data, token);
                 if (length > 0)

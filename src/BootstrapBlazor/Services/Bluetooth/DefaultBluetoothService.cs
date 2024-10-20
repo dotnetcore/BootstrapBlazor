@@ -4,17 +4,17 @@
 
 namespace BootstrapBlazor.Components;
 
-class DefaultBluetoothService : IBluetoothService
+sealed class DefaultBluetoothService : IBluetoothService
 {
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public bool IsSupport { get; set; }
+    public bool IsSupport { get; private set; }
 
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public bool IsAvailable { get; set; }
+    public bool IsAvailable { get; private set; }
 
     /// <summary>
     /// <inheritdoc/>
