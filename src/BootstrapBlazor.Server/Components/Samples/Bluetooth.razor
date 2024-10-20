@@ -24,8 +24,11 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
     <div class="row form-inline g-3">
         <div class="col-12">
             <Button Text="@Localizer["BluetoothRequestText"]" Icon="fa-brands fa-bluetooth" OnClick="RequestDevice"></Button>
-            <Button Text="@Localizer["BluetoothConnectText"]" Icon="fa-solid fa-circle-play" IsAsync="true" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect" class="ms-3"></Button>
+            <Button Text="@Localizer["BluetoothConnectText"]" Icon="fa-solid fa-circle-play" IsAsync="true" IsDisabled="@(_blueDevice is not {Connected: false})" IsKeepDisabled="true" OnClick="Connect" class="ms-3"></Button>
             <Button Text="@Localizer["BluetoothDisconnectText"]" Icon="fa-solid fa-circle-stop" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect" class="ms-3"></Button>
+        </div>
+        <div class="col-12">
+            <Display Value="@BluetoothDeviceName" ShowLabel="true" DisplayText="Device Name"></Display>
         </div>
         <div class="col-12">
             <div class="d-flex align-items-center">
@@ -90,6 +93,8 @@ if (BluetoothService.IsSupport == false)
 <p><code>IBluetoothService</code> 与 <code>IBluetoothDevice</code> 所有实例方法均有返回值，可通过查看其实例属性 <code>ErrorMessage</code> 获得上一次执行的错误描述信息</p>
 
 <p><code>IBluetoothDevice</code> 实例方法 <code>ReadValue</code> 是通用方法，通过参数指定<code>Services</code> 与 <code>Characteristics</code></p>
+
+<p>原生方法 <code>getDevices</code> 暂未封装，因为需要设置浏览器才能开启</p>
 
 <p>可根据自己的业务需求自定义扩展方法，内置扩展方法列表如下：</p>
 

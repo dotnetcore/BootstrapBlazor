@@ -15,6 +15,8 @@ public partial class Bluetooth
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
+    private string? BluetoothDeviceName => _blueDevice?.Name ?? "Unknown or Unsupported Device";
+
     private IBluetoothDevice? _blueDevice;
 
     private string? _batteryValue = null;
@@ -76,26 +78,6 @@ public partial class Bluetooth
 
             _batteryValue = $"{val}";
             _batteryValueString = $"{_batteryValue} %";
-        }
-    }
-
-    private async Task GetHeartRateValue()
-    {
-        if (_blueDevice != null)
-        {
-            _batteryValue = null;
-            _batteryValueString = null;
-            _batteryValue = await _blueDevice.GetHeartRateValue();
-
-            if (string.IsNullOrEmpty(_batteryValue) && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
-            {
-                await ToastService.Error("Battery Value", _blueDevice.ErrorMessage);
-                return;
-            }
-            if (!string.IsNullOrEmpty(_batteryValue))
-            {
-                _batteryValueString = $"{_batteryValue} %";
-            }
         }
     }
 }
