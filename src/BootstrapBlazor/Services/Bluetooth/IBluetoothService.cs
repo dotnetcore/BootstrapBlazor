@@ -23,12 +23,13 @@ public interface IBluetoothService
     /// 获得所有可用串口
     /// </summary>
     /// <returns></returns>
-    Task<bool> GetAvailability();
+    Task<bool> GetAvailability(CancellationToken token = default);
 
     /// <summary>
     /// 请求蓝牙配对方法
     /// </summary>
     /// <param name="optionalServices">请求服务列表 请参考 https://github.com/WebBluetoothCG/registries/blob/master/gatt_assigned_services.txt</param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    Task<IBluetoothDevice?> RequestDevice(string[] optionalServices);
+    Task<IBluetoothDevice?> RequestDevice(string[] optionalServices, CancellationToken token = default);
 }

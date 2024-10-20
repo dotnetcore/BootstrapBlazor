@@ -28,17 +28,18 @@ public interface IBluetoothDevice
     /// 连接方法
     /// </summary>
     /// <returns></returns>
-    Task Connect();
+    Task Connect(CancellationToken token = default);
 
     /// <summary>
     /// 断开连接方法
     /// </summary>
     /// <returns></returns>
-    Task Disconnect();
+    Task Disconnect(CancellationToken token = default);
 
     /// <summary>
-    /// 获得设备电量方法
+    /// 获得设备指定值方法
     /// </summary>
+    /// <remarks>比如获得电量方法为 ReadValue("battery_service", "battery_level")</remarks>
     /// <returns></returns>
-    Task<string?> GetBatteryValue();
+    Task<string?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default);
 }

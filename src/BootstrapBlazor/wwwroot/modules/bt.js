@@ -31,7 +31,7 @@ export async function requestDevice(id, optionalServices) {
             optionalServices: optionalServices
         });
         bt.device = ret;
-        device = { name: ret.name, id: ret.id };
+        device = [ret.name, ret.id];
     }
     catch (err) {
         console.error(err);
@@ -59,7 +59,7 @@ export async function connect(id) {
     return ret;
 }
 
-export async function getBatteryValue(id) {
+export async function readValue(id, serviceName, characteristicName) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -69,14 +69,16 @@ export async function getBatteryValue(id) {
     try {
         const { device } = bt;
         const gattServer = device.gatt;
-        const server = await gattServer.getPrimaryService('battery_service');
-        const characters = await server.getCharacteristics('battery_level');
-        if (characters.length > 0) {
-            const uuid = characters[0].uuid;
-            const characteristic = await server.getCharacteristic(uuid);
-            const v = await characteristic.readValue();
-            ret = `${v.getUint8(0)}%`;
-        }
+        const server = await gattServer.getPrimaryService(serviceName);
+        const characteristic = await server.getCharacteristic(characteristicName);
+        //if (characters.length > 0) {
+        //    const uuid = characters[0].uuid;
+        //    const characteristic = await server.getCharacteristic(uuid);
+        //    const v = await characteristic.readValue();
+        //    ret = `${v.getUint8(0)}%`;
+        //}
+        const v = await characteristic.readValue();
+        ret = `${v.getUint8(0)}%`;
     }
     catch (err) {
         console.error(err);

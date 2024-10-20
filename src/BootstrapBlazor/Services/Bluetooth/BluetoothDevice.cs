@@ -9,34 +9,37 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 class BluetoothDevice : IBluetoothDevice
 {
-    private JSModule? _module;
+    private readonly JSModule _module;
 
-    private string? _clientId;
+    private readonly string _clientId;
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public string? Name { get; set; }
+    private readonly DotNetObjectReference<BluetoothDevice> _interop;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public string? Id { get; set; }
+    public string? Name { get; private set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? Id { get; private set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     public bool Connected { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async Task Connect()
+    public BluetoothDevice(JSModule module, string clientId, string[] args)
     {
-        if (Connected == false && _module != null)
+        _module = module;
+        _clientId = clientId;
+        _interop = DotNetObjectReference.Create(this);
+
+        if (args.Length == 2)
         {
-            Connected = await _module.InvokeAsync<bool>("connect", _clientId);
+            Name = args[0];
+            Id = args[1];
         }
     }
 
@@ -44,11 +47,23 @@ class BluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Disconnect()
+    public async Task Connect(CancellationToken token = default)
+    {
+        if (Connected == false && _module != null)
+        {
+            Connected = await _module.InvokeAsync<bool>("connect", token, _clientId);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async Task Disconnect(CancellationToken token = default)
     {
         if (Connected && _module != null)
         {
-            var ret = await _module.InvokeAsync<bool>("disconnect", _clientId);
+            var ret = await _module.InvokeAsync<bool>("disconnect", token, _clientId);
             if (ret)
             {
                 Connected = false;
@@ -60,24 +75,13 @@ class BluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task<string?> GetBatteryValue()
+    public async Task<string?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default)
     {
         string? ret = null;
         if (Connected && _module != null)
         {
-            ret = await _module.InvokeAsync<string?>("getBatteryValue", _clientId);
+            ret = await _module.InvokeAsync<string?>("readValue", token, _clientId, serviceName, characteristicName);
         }
         return ret;
-    }
-
-    /// <summary>
-    /// 设置 Javascript 方法
-    /// </summary>
-    /// <param name="module"></param>
-    /// <param name="clientId"></param>
-    public void SetInvoker(JSModule module, string? clientId)
-    {
-        _module = module;
-        _clientId = clientId;
     }
 }

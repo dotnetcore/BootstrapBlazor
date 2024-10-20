@@ -40,14 +40,14 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task<bool> GetAvailability()
+    public async Task<bool> GetAvailability(CancellationToken token = default)
     {
         _module ??= await LoadModule();
 
         var ret = false;
         if (IsSupport)
         {
-            ret = await _module.InvokeAsync<bool>("getAvailability", _deviceId);
+            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId);
             IsAvailable = ret;
         }
         return ret;
@@ -56,13 +56,16 @@ class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task<IBluetoothDevice?> RequestDevice(string[] optionalServices)
+    public async Task<IBluetoothDevice?> RequestDevice(string[] optionalServices, CancellationToken token = default)
     {
         BluetoothDevice? device = null;
         if (IsAvailable)
         {
-            device = await _module.InvokeAsync<BluetoothDevice?>("requestDevice", _deviceId, optionalServices);
-            device?.SetInvoker(_module, _deviceId);
+            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices);
+            if (parameters != null)
+            {
+                device = new BluetoothDevice(_module, _deviceId, parameters);
+            }
         }
         return device;
     }
