@@ -19,28 +19,18 @@ public partial class Bluetooth
 
     private string? _batteryValue = null;
 
-    private async Task GetAvailability()
+    private async Task RequestDevice()
     {
-        await BluetoothService.GetAvailability();
+        _blueDevice = await BluetoothService.RequestDevice(["battery_service"]);
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
+            return;
         }
-        if (BluetoothService.IsAvailable == false)
-        {
-            await ToastService.Error(Localizer["NoBluetoothAdapterTitle"], Localizer["NoBluetoothAdapterContent"]);
-        }
-    }
 
-    private async Task RequestDevice()
-    {
-        if (BluetoothService.IsAvailable)
+        if (_blueDevice == null && !string.IsNullOrEmpty(BluetoothService.ErrorMessage))
         {
-            _blueDevice = await BluetoothService.RequestDevice(["battery_service"]);
-            if (_blueDevice == null && !string.IsNullOrEmpty(BluetoothService.ErrorMessage))
-            {
-                await ToastService.Error("Request", BluetoothService.ErrorMessage);
-            }
+            await ToastService.Error("Request", BluetoothService.ErrorMessage);
         }
     }
 

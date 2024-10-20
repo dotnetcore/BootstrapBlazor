@@ -21,10 +21,60 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
-    <Button Text="检查" OnClick="GetAvailability"></Button>
-    <Button Text="请求" IsDisabled="!BluetoothService.IsAvailable" OnClick="RequestDevice"></Button>
+    <Button Text="请求" OnClick="RequestDevice"></Button>
     <Button Text="连接" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
     <Button Text="断开" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
     <Button Text="电量" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
     <Display Value="@_batteryValue"></Display>
 </DemoBlock>
+
+<p class="code-label mt-3">1. 服务注入</p>
+
+<Pre>[Inject]
+[NotNull]
+private ISerialService? SerialService { get; set; }</Pre>
+
+<p class="code-label">2. 申请串口权限</p>
+<p>调用 <code>SerialService</code> 实例方法 <code>GetPort</code> 即可，通过 <code>IsSupport</code> 进行浏览器是否支持判断</p>
+
+<Pre>_serialPort = await SerialService.GetPort();
+if (SerialService.IsSupport == false)
+{
+    await ToastService.Error(Localizer["NotSupportSerialTitle"], Localizer["NotSupportSerialContent"]);
+}</Pre>
+
+<p class="code-label">3. 打开串口</p>
+
+<ul class="ul-demo">
+    <li>如果需要读取数据，请先设置 <code>ISerialPort</code> 实例 <code>DataReceive</code> 参数</li>
+    <li>调用 <code>ISerialPort</code> 实例方法 <code>Open</code> 打开串口，可通过 <code>SerialPortOptions</code> 参数设置 <code>波特率</code> 等信息</li>
+</ul>
+
+<Pre>private async Task OpenPort()
+{
+    if (_serialPort != null)
+    {
+        _serialPort.DataReceive = async data =>
+        {
+            _messages.Add(new ConsoleMessageItem()
+            {
+                IsHtml = true,
+                Message = $"{DateTime.Now}: --> Text: {Encoding.ASCII.GetString(data)} HEX: {Convert.ToHexString(data)}"
+            });
+            await InvokeAsync(StateHasChanged);
+        };
+        await _serialPort.Open(_serialOptions);
+    }
+}</Pre>
+
+<p class="code-label">4. 关闭串口</p>
+
+<p>调用 <code>ISerialPort</code> 实例方法 <code>Close</code> 关闭串口，请注意路由切换时，请调用其 <code>DisposeAsync</code> 方法释放资源</p>
+
+<Pre>private async Task ClosePort()
+{
+    if (_serialPort != null)
+    {
+        await _serialPort.Close();
+    }
+}</Pre>

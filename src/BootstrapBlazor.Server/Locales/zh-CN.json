@@ -5895,8 +5895,6 @@
     "BluetoothTipsTitle": "注意：<code>IBluetoothService</code> 接口实例继承 <code>IAsyncDisposable</code> 路由切换时需要对其进行资源释放，调用其 <code>DisposeAsync</code> 即可",
     "NotSupportBluetoothTitle": "扫描设备",
     "NotSupportBluetoothContent": "当前浏览器不支持串口操作，请更换 Edge 或者 Chrome 浏览器",
-    "NoBluetoothAdapterTitle": "扫描设备",
-    "NoBluetoothAdapterContent": "无蓝牙模块，无法使用本组件",
     "BaseUsageTitle": "基础用法",
     "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯",
     "BluetoothBatteryLevelTitle": "蓝牙设备电量",
