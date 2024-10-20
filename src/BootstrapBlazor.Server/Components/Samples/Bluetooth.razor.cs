@@ -15,7 +15,7 @@ public partial class Bluetooth
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
-    private BluetoothDevice? _blueDevice;
+    private IBluetoothDevice? _blueDevice;
 
     private string? _batteryValue = null;
 
