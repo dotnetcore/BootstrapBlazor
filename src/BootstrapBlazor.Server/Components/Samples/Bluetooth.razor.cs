@@ -19,6 +19,8 @@ public partial class Bluetooth
 
     private string? _batteryValue = null;
 
+    private string? _batteryValueString = null;
+
     private async Task RequestDevice()
     {
         _blueDevice = await BluetoothService.RequestDevice(["battery_service"]);
@@ -60,12 +62,39 @@ public partial class Bluetooth
 
     private async Task GetBatteryValue()
     {
+        _batteryValue = null;
+        _batteryValueString = null;
+
         if (_blueDevice != null)
         {
-            _batteryValue = await _blueDevice.GetBatteryValue();
+            var val = await _blueDevice.GetBatteryValue();
+            if (val == 0 && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Battery Value", _blueDevice.ErrorMessage);
+                return;
+            }
+
+            _batteryValue = $"{val}";
+            _batteryValueString = $"{_batteryValue} %";
+        }
+    }
+
+    private async Task GetHeartRateValue()
+    {
+        if (_blueDevice != null)
+        {
+            _batteryValue = null;
+            _batteryValueString = null;
+            _batteryValue = await _blueDevice.GetHeartRateValue();
+
             if (string.IsNullOrEmpty(_batteryValue) && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
             {
                 await ToastService.Error("Battery Value", _blueDevice.ErrorMessage);
+                return;
+            }
+            if (!string.IsNullOrEmpty(_batteryValue))
+            {
+                _batteryValueString = $"{_batteryValue} %";
             }
         }
     }

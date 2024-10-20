@@ -21,15 +21,20 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
-    <div class="row form-inline">
+    <div class="row form-inline g-3">
         <div class="col-12">
-            <Button Text="@Localizer["BluetoothRequestText"]" OnClick="RequestDevice"></Button>
-            <Button Text="@Localizer["BluetoothConnectText"]" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
-            <Button Text="@Localizer["BluetoothDisconnectText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
+            <Button Text="@Localizer["BluetoothRequestText"]" Icon="fa-brands fa-bluetooth" OnClick="RequestDevice"></Button>
+            <Button Text="@Localizer["BluetoothConnectText"]" Icon="fa-solid fa-circle-play" IsAsync="true" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect" class="ms-3"></Button>
+            <Button Text="@Localizer["BluetoothDisconnectText"]" Icon="fa-solid fa-circle-stop" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect" class="ms-3"></Button>
         </div>
         <div class="col-12">
-            <label>Battery: <progress value="@_batteryValue" max="100"></progress></label>
-            <Button Text="@Localizer["BluetoothGetBatteryText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
+            <div class="d-flex align-items-center">
+                <Button Text="@Localizer["BluetoothGetBatteryText"]" Icon="fa-solid fa-battery-half" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetBatteryValue"></Button>
+                <label class="d-flex align-items-center"><progress value="@_batteryValue" max="100" class="ms-3"></progress><span class="ms-3">@_batteryValueString</span></label>
+            </div>
+        </div>
+        <div class="col-12">
+            <Button Text="@Localizer["BluetoothGetHeartRateText"]" Icon="fa-solid fa-heart-pulse" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetHeartRateValue"></Button>
         </div>
     </div>
 </DemoBlock>

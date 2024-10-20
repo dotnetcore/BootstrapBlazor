@@ -5899,6 +5899,7 @@
     "BluetoothConnectText": "连接",
     "BluetoothDisconnectText": "断开",
     "BluetoothGetBatteryText": "读取电量",
+    "BluetoothGetHeartRateText": "读取心率",
     "BaseUsageTitle": "基础用法",
     "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯",
     "BluetoothBatteryLevelTitle": "蓝牙设备电量",

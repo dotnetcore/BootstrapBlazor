@@ -14,10 +14,26 @@ public static class IBluetoothDeviceExtensions
     /// </summary>
     /// <param name="blueDevice"></param>
     /// <returns></returns>
-    public static async Task<string?> GetBatteryValue(this IBluetoothDevice blueDevice)
+    public static async Task<byte> GetBatteryValue(this IBluetoothDevice blueDevice)
+    {
+        byte value = 0;
+        var data = await blueDevice.ReadValue("battery_service", "battery_level");
+        if (data is { Length: > 0 })
+        {
+            value = data[0];
+        }
+        return value;
+    }
+
+    /// <summary>
+    /// 获得 设备电量方法
+    /// </summary>
+    /// <param name="blueDevice"></param>
+    /// <returns></returns>
+    public static async Task<string?> GetHeartRateValue(this IBluetoothDevice blueDevice)
     {
         string? value = null;
-        var data = await blueDevice.ReadValue("battery_service", "battery_level");
+        var data = await blueDevice.ReadValue("heart_rate", "heart_rate_measurement");
         if (data is { Length: > 0 })
         {
             value = $"{data[0]}%";
