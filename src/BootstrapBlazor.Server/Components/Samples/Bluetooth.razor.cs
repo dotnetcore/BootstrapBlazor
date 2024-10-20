@@ -60,7 +60,11 @@ public partial class Bluetooth
     {
         if (_blueDevice != null)
         {
-            _batteryValue = await _blueDevice.ReadValue("battery_service", "battery_level");
+            var data = await _blueDevice.ReadValue("battery_service", "battery_level");
+            if (data is { Length: > 0 })
+            {
+                _batteryValue = $"{data[0]}%";
+            }
         }
     }
 }
