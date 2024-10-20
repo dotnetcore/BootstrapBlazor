@@ -21,11 +21,17 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
-    <Button Text="请求" OnClick="RequestDevice"></Button>
-    <Button Text="连接" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
-    <Button Text="断开" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
-    <Button Text="电量" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
-    <Display Value="@_batteryValue"></Display>
+    <div class="row form-inline">
+        <div class="col-12">
+            <Button Text="@Localizer[" BluetoothRequestText"]" OnClick="RequestDevice"></Button>
+            <Button Text="@Localizer[" BluetoothConnectText"]" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
+            <Button Text="@Localizer[" BluetoothDisconnectText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
+        </div>
+        <div class="col-12">
+            <label>Battery: <progress value="@_batteryValue" max="100"></progress></label>
+            <Button Text="@Localizer[" BluetoothGetBatteryText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
+        </div>
+    </div>
 </DemoBlock>
 
 <p class="code-label mt-3">1. 服务注入</p>
