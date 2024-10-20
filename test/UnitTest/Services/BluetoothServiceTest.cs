@@ -44,6 +44,19 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task ReadValue_null()
+    {
+        Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
+        Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
+        Context.JSInterop.Setup<byte[]?>("readValue", matcher => matcher.Arguments.Count == 5 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(null);
+        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var device = await bluetoothService.RequestDevice(["battery_service"]);
+        Assert.NotNull(device);
+        var v = await device.GetBatteryValue();
+        Assert.Equal(0x0, v);
+    }
+
+    [Fact]
     public async Task GetAvailability_Ok()
     {
         Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);

@@ -24,20 +24,4 @@ public static class IBluetoothDeviceExtensions
         }
         return value;
     }
-
-    /// <summary>
-    /// 获得 设备电量方法
-    /// </summary>
-    /// <param name="blueDevice"></param>
-    /// <returns></returns>
-    public static async Task<string?> GetHeartRateValue(this IBluetoothDevice blueDevice)
-    {
-        string? value = null;
-        var data = await blueDevice.ReadValue("heart_rate", "heart_rate_measurement");
-        if (data is { Length: > 0 })
-        {
-            value = $"{data[0]}%";
-        }
-        return value;
-    }
 }
