@@ -69,7 +69,10 @@ export async function readValue(id, serviceName, characteristicName, invoke, met
         const server = await gattServer.getPrimaryService(serviceName);
         const characteristic = await server.getCharacteristic(characteristicName);
         const dv = await characteristic.readValue();
-        ret = dv;
+        ret = new Uint8Array(dv.byteLength);
+        for(let index = 0; index< dv.byteLength; index++) {
+            ret[index] = dv.getUint8(index);
+        }
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
