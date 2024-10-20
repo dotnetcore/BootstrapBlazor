@@ -91,17 +91,7 @@ sealed class BluetoothDevice : IBluetoothDevice
         if (Connected && _module != null)
         {
             ErrorMessage = null;
-            var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));
-            if (buffer != null)
-            {
-                await using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);
-                var data = new byte[stream.Length];
-                var length = await stream.ReadAsync(data, token);
-                if (length > 0)
-                {
-                    ret = data;
-                }
-            }
+            ret = await _module.InvokeAsync<byte[]?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));
         }
         return ret;
     }
