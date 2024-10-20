@@ -12,11 +12,11 @@ public interface ISerialService
     /// <summary>
     /// 获得/设置 是否支持串口通讯
     /// </summary>
-    public bool IsSupport { get; }
+    bool IsSupport { get; }
 
     /// <summary>
     /// 获得所有可用串口
     /// </summary>
     /// <returns></returns>
-    Task<ISerialPort?> GetPort();
+    Task<ISerialPort?> GetPort(CancellationToken token = default);
 }

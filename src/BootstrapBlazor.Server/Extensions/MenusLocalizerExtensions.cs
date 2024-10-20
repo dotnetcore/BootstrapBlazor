@@ -532,11 +532,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Bluetooth"],
-                    Url = "blue-tooth"
-                },
-                new()
-                {
                     Text = Localizer["Card"],
                     Url = "card"
                 },
@@ -1384,6 +1379,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["BaiduOcr"],
                     Url = "ocr"
+                },
+                new()
+                {
+                    Text = Localizer["Bluetooth"],
+                    Url = "blue-tooth"
                 },
                 new()
                 {

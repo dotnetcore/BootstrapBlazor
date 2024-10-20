@@ -37,13 +37,13 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
     /// get the current position of the device
     /// </summary>
     /// <returns></returns>
-    public async Task<ISerialPort?> GetPort()
+    public async Task<ISerialPort?> GetPort(CancellationToken token = default)
     {
         _module ??= await LoadModule();
 
         if (IsSupport)
         {
-            var ret = await _module.InvokeAsync<bool>("getPort", _serialPortId);
+            var ret = await _module.InvokeAsync<bool>("getPort", token, _serialPortId);
             if (ret)
             {
                 _serialPort = new SerialPort(_module, _serialPortId);
