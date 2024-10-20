@@ -28,6 +28,11 @@ class BluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    public string? ErrorMessage { get; private set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     public bool Connected { get; set; }
 
     public BluetoothDevice(JSModule module, string clientId, string[] args)
@@ -93,5 +98,15 @@ class BluetoothDevice : IBluetoothDevice
             }
         }
         return ret;
+    }
+
+    /// <summary>
+    /// JavaScript 报错回调方法
+    /// </summary>
+    /// <param name="message"></param>
+    [JSInvokable]
+    public void OnError(string message)
+    {
+        ErrorMessage = message;
     }
 }

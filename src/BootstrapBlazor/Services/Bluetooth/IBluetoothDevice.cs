@@ -25,6 +25,11 @@ public interface IBluetoothDevice
     string? Name { get; }
 
     /// <summary>
+    /// 获得 上次运行错误描述信息
+    /// </summary>
+    string? ErrorMessage { get; }
+
+    /// <summary>
     /// 连接方法
     /// </summary>
     /// <returns></returns>
