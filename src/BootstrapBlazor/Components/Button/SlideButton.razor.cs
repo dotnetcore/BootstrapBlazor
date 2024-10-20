@@ -60,7 +60,7 @@ public partial class SlideButton
     public Placement Placement { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗便宜量 默认 8px
+    /// 获得/设置 弹窗偏移量 默认 8px
     /// </summary>
     [Parameter]
     public float Offset { get; set; } = 8;
