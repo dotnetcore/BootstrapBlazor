@@ -5888,7 +5888,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Bluetooth": {
     "BluetoothTitle": "IBluetoothService 蓝牙服务",
-    "BluetoothIntro": "<code>IBluetoothService</code> 接口提供了查询蓝牙可用性和请求访问设备的方法",
+    "BluetoothIntro": "提供了查询蓝牙可用性和请求访问设备的方法",
     "BluetoothDescription": "允许网站与连接到用户计算机的蓝牙设备进行通信。例如可以连接蓝牙打印机进行打印操作",
     "BluetoothTipsLi1": "该功能仅在部分或所有支持浏览器的安全上下文(HTTPS)中可用",
     "BluetoothTipsLi2": "这是一项实验性技术，在生产中使用之前请仔细,检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Bluetooth#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",

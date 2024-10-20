@@ -23,13 +23,13 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
            Name="Normal">
     <div class="row form-inline">
         <div class="col-12">
-            <Button Text="@Localizer[" BluetoothRequestText"]" OnClick="RequestDevice"></Button>
-            <Button Text="@Localizer[" BluetoothConnectText"]" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
-            <Button Text="@Localizer[" BluetoothDisconnectText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
+            <Button Text="@Localizer["BluetoothRequestText"]" OnClick="RequestDevice"></Button>
+            <Button Text="@Localizer["BluetoothConnectText"]" IsDisabled="@(_blueDevice is not {Connected: false})" OnClick="Connect"></Button>
+            <Button Text="@Localizer["BluetoothDisconnectText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="Disconnect"></Button>
         </div>
         <div class="col-12">
             <label>Battery: <progress value="@_batteryValue" max="100"></progress></label>
-            <Button Text="@Localizer[" BluetoothGetBatteryText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
+            <Button Text="@Localizer["BluetoothGetBatteryText"]" IsDisabled="@(_blueDevice is not {Connected: true})" OnClick="GetBatteryValue"></Button>
         </div>
     </div>
 </DemoBlock>
