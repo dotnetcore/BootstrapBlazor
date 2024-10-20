@@ -71,14 +71,8 @@ export async function readValue(id, serviceName, characteristicName) {
         const gattServer = device.gatt;
         const server = await gattServer.getPrimaryService(serviceName);
         const characteristic = await server.getCharacteristic(characteristicName);
-        //if (characters.length > 0) {
-        //    const uuid = characters[0].uuid;
-        //    const characteristic = await server.getCharacteristic(uuid);
-        //    const v = await characteristic.readValue();
-        //    ret = `${v.getUint8(0)}%`;
-        //}
-        const v = await characteristic.readValue();
-        ret = `${v.getUint8(0)}%`;
+        const dv = await characteristic.readValue();
+        return dv.buffer
     }
     catch (err) {
         console.error(err);

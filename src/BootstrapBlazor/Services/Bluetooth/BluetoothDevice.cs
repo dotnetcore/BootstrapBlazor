@@ -80,7 +80,8 @@ class BluetoothDevice : IBluetoothDevice
         string? ret = null;
         if (Connected && _module != null)
         {
-            ret = await _module.InvokeAsync<string?>("readValue", token, _clientId, serviceName, characteristicName);
+            var stream = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName);
+            stream.re
         }
         return ret;
     }
