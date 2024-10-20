@@ -18,13 +18,13 @@ public interface ISerialPort : IAsyncDisposable
     /// 关闭端口方法
     /// </summary>
     /// <returns></returns>
-    Task Close(CancellationToken token = default);
+    Task<bool> Close(CancellationToken token = default);
 
     /// <summary>
     /// 打开端口方法
     /// </summary>
     /// <returns></returns>
-    Task Open(SerialPortOptions options, CancellationToken token = default);
+    Task<bool> Open(SerialPortOptions options, CancellationToken token = default);
 
     /// <summary>
     /// 接收数据回调方法

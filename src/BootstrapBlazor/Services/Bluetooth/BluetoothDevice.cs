@@ -52,28 +52,32 @@ class BluetoothDevice : IBluetoothDevice
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Connect(CancellationToken token = default)
+    public async Task<bool> Connect(CancellationToken token = default)
     {
         if (Connected == false && _module != null)
         {
-            Connected = await _module.InvokeAsync<bool>("connect", token, _clientId);
+            ErrorMessage = null;
+            Connected = await _module.InvokeAsync<bool>("connect", token, _clientId, _interop, nameof(OnError));
         }
+        return Connected;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Disconnect(CancellationToken token = default)
+    public async Task<bool> Disconnect(CancellationToken token = default)
     {
+        var ret = false;
         if (Connected && _module != null)
         {
-            var ret = await _module.InvokeAsync<bool>("disconnect", token, _clientId);
+            ret = await _module.InvokeAsync<bool>("disconnect", token, _clientId, _interop, nameof(OnError));
             if (ret)
             {
                 Connected = false;
             }
         }
+        return ret;
     }
 
     /// <summary>
@@ -85,7 +89,7 @@ class BluetoothDevice : IBluetoothDevice
         byte[]? ret = null;
         if (Connected && _module != null)
         {
-            var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName);
+            var buffer = await _module.InvokeAsync<IJSStreamReference?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));
             if (buffer != null)
             {
                 using var stream = await buffer.OpenReadStreamAsync(buffer.Length, token);

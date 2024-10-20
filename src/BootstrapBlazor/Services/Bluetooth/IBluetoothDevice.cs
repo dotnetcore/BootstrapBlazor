@@ -33,13 +33,13 @@ public interface IBluetoothDevice
     /// 连接方法
     /// </summary>
     /// <returns></returns>
-    Task Connect(CancellationToken token = default);
+    Task<bool> Connect(CancellationToken token = default);
 
     /// <summary>
     /// 断开连接方法
     /// </summary>
     /// <returns></returns>
-    Task Disconnect(CancellationToken token = default);
+    Task<bool> Disconnect(CancellationToken token = default);
 
     /// <summary>
     /// 获得设备指定值方法

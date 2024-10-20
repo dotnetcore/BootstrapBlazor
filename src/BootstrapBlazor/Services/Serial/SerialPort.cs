@@ -37,7 +37,7 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Open(SerialPortOptions options, CancellationToken token = default)
+    public async Task<bool> Open(SerialPortOptions options, CancellationToken token = default)
     {
         DotNetObjectReference<SerialPort>? interop = null;
         if (DataReceive != null)
@@ -45,19 +45,21 @@ class SerialPort(JSModule jsModule, string serialPortId) : ISerialPort
             interop = DotNetObjectReference.Create(this);
         }
         IsOpen = await jsModule.InvokeAsync<bool>("open", token, serialPortId, interop, nameof(DataReceiveCallback), options);
+        return IsOpen;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public async Task Close(CancellationToken token = default)
+    public async Task<bool> Close(CancellationToken token = default)
     {
         var ret = await jsModule.InvokeAsync<bool>("close", token, serialPortId);
         if (ret)
         {
             IsOpen = false;
         }
+        return ret;
     }
 
     /// <summary>
