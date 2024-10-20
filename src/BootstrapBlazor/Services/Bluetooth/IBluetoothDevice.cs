@@ -41,5 +41,5 @@ public interface IBluetoothDevice
     /// </summary>
     /// <remarks>比如获得电量方法为 ReadValue("battery_service", "battery_level")</remarks>
     /// <returns></returns>
-    Task<string?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default);
+    Task<byte[]?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default);
 }
