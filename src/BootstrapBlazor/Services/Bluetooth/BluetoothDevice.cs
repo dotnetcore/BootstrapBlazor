@@ -54,7 +54,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     /// <returns></returns>
     public async Task<bool> Connect(CancellationToken token = default)
     {
-        if (Connected == false && _module != null)
+        if (Connected == false)
         {
             ErrorMessage = null;
             Connected = await _module.InvokeAsync<bool>("connect", token, _clientId, _interop, nameof(OnError));
@@ -69,7 +69,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     public async Task<bool> Disconnect(CancellationToken token = default)
     {
         var ret = false;
-        if (Connected && _module != null)
+        if (Connected)
         {
             ErrorMessage = null;
             ret = await _module.InvokeAsync<bool>("disconnect", token, _clientId, _interop, nameof(OnError));
@@ -88,7 +88,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     public async Task<byte[]?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default)
     {
         byte[]? ret = null;
-        if (Connected && _module != null)
+        if (Connected)
         {
             ErrorMessage = null;
             ret = await _module.InvokeAsync<byte[]?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));

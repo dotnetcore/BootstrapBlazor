@@ -45,7 +45,7 @@ sealed class DefaultBluetoothService : IBluetoothService
     {
         var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
 
-        IsSupport = await module.InvokeAsync<bool>("init", _interop, nameof(OnError));
+        IsSupport = await module.InvokeAsync<bool>("init");
         return module;
     }
 
@@ -77,6 +77,7 @@ sealed class DefaultBluetoothService : IBluetoothService
         BluetoothDevice? device = null;
         if (IsSupport)
         {
+            ErrorMessage = null;
             var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices, _interop, nameof(OnError));
             if (parameters != null)
             {
