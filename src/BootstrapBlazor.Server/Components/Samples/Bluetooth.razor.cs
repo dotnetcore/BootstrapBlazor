@@ -37,6 +37,10 @@ public partial class Bluetooth
         if (BluetoothService.IsAvailable)
         {
             _blueDevice = await BluetoothService.RequestDevice(["battery_service"]);
+            if (_blueDevice == null && !string.IsNullOrEmpty(BluetoothService.ErrorMessage))
+            {
+                await ToastService.Error("Request", BluetoothService.ErrorMessage);
+            }
         }
     }
 
@@ -44,7 +48,11 @@ public partial class Bluetooth
     {
         if (_blueDevice != null)
         {
-            await _blueDevice.Connect();
+            var ret = await _blueDevice.Connect();
+            if (ret == false && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Connect", _blueDevice.ErrorMessage);
+            }
         }
     }
 
@@ -52,7 +60,11 @@ public partial class Bluetooth
     {
         if (_blueDevice != null)
         {
-            await _blueDevice.Disconnect();
+            var ret = await _blueDevice.Disconnect();
+            if (ret == false && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Disconnect", _blueDevice.ErrorMessage);
+            }
         }
     }
 
@@ -61,6 +73,10 @@ public partial class Bluetooth
         if (_blueDevice != null)
         {
             _batteryValue = await _blueDevice.GetBatteryValue();
+            if (string.IsNullOrEmpty(_batteryValue) && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Battery Value", _blueDevice.ErrorMessage);
+            }
         }
     }
 }
