@@ -28,17 +28,20 @@ class DefaultBluetoothService : IBluetoothService
 
     private readonly string _deviceId;
 
+    private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
+
     public DefaultBluetoothService(IJSRuntime jsRuntime)
     {
         _runtime = jsRuntime;
         _deviceId = $"bb_bt_{GetHashCode()}";
+        _interop = DotNetObjectReference.Create(this);
     }
 
     private async Task<JSModule> LoadModule()
     {
         var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
 
-        IsSupport = await module.InvokeAsync<bool>("init");
+        IsSupport = await module.InvokeAsync<bool>("init", _interop, nameof(OnError));
         return module;
     }
 
@@ -52,7 +55,7 @@ class DefaultBluetoothService : IBluetoothService
         var ret = false;
         if (IsSupport)
         {
-            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId);
+            ret = await _module.InvokeAsync<bool>("getAvailability", token, _deviceId, _interop, nameof(OnError));
             IsAvailable = ret;
         }
         return ret;
@@ -66,7 +69,7 @@ class DefaultBluetoothService : IBluetoothService
         BluetoothDevice? device = null;
         if (IsAvailable)
         {
-            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices);
+            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices, _interop, nameof(OnError));
             if (parameters != null)
             {
                 device = new BluetoothDevice(_module, _deviceId, parameters);
