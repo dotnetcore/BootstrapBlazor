@@ -25,7 +25,7 @@ public partial class Bluetooth
 
     private async Task RequestDevice()
     {
-        _blueDevice = await BluetoothService.RequestDevice(["battery_service"]);
+        _blueDevice = await BluetoothService.RequestDevice();
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);

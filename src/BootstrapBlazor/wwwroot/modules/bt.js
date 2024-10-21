@@ -12,7 +12,7 @@ export async function getAvailability() {
     return ret;
 }
 
-export async function requestDevice(id, optionalServices, invoke, method) {
+export async function requestDevice(id, options, invoke, method) {
     let ret = await getAvailability();
     if (ret === false) {
         return null;
@@ -22,9 +22,8 @@ export async function requestDevice(id, optionalServices, invoke, method) {
     const bt = { device: null };
     Data.set(id, bt);
     try {
-        const ret = await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
-            optionalServices: optionalServices
+        const ret = await navigator.bluetooth.requestDevice(options ?? {
+            acceptAllDevices: true
         });
         bt.device = ret;
         device = [ret.name, ret.id];
