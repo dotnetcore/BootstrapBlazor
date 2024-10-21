@@ -34,4 +34,10 @@ public class BluetoothFilter
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public List<BluetoothManufacturerDataFilter>? ManufacturerData { get; set; }
+
+    /// <summary>
+    /// An array of objects matching against service data in the Bluetooth Low Energy (BLE) advertising packets.
+    /// </summary>
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public List<BluetoothServiceDataFilter>? ServiceData { get; set; }
 }

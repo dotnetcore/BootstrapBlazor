@@ -93,7 +93,13 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
                       ],
                       Name = "test-Name",
                       NamePrefix = "test-NamePrefix",
-                      Services = ["test-service"]
+                      Services = ["test-service"],
+                      ServiceData = [new BluetoothServiceDataFilter()
+                      {
+                           DataPrefix = "test-data-prefix",
+                           Service = "test-data-service",
+                           Mask = "test-data-mask"
+                      }]
                  }
             ],
             AcceptAllDevices = false,
@@ -117,8 +123,14 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Assert.NotNull(services);
         Assert.Equal("test-service", services[0]);
 
+        var serviceData = filter.Filters[0].ServiceData;
+        Assert.NotNull(serviceData);
+        Assert.Equal("test-data-prefix", serviceData[0].DataPrefix);
+        Assert.Equal("test-data-service", serviceData[0].Service);
+        Assert.Equal("test-data-mask", serviceData[0].Mask);
+
         Assert.False(filter.AcceptAllDevices);
-        Assert.False(filter.AcceptAllDevices);
+        Assert.Empty(filter.ExclusionFilters);
         Assert.Equal(["test-manufacturer-data"], filter.OptionalManufacturerData);
         Assert.Equal(["test-optional-service"], filter.OptionalServices);
     }
