@@ -59,6 +59,11 @@ public partial class Bluetooth
             {
                 await ToastService.Error("Disconnect", _blueDevice.ErrorMessage);
             }
+            else
+            {
+                _batteryValue = null;
+                _batteryValueString = null;
+            }
         }
     }
 
