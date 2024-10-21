@@ -70,7 +70,7 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc />
     /// </summary>
-    public async Task<IBluetoothDevice?> RequestDevice(string[] optionalServices, CancellationToken token = default)
+    public async Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default)
     {
         _module ??= await LoadModule();
 
@@ -78,7 +78,7 @@ sealed class DefaultBluetoothService : IBluetoothService
         if (IsSupport)
         {
             ErrorMessage = null;
-            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, optionalServices, _interop, nameof(OnError));
+            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, options, _interop, nameof(OnError));
             if (parameters != null)
             {
                 device = new BluetoothDevice(_module, _deviceId, parameters);

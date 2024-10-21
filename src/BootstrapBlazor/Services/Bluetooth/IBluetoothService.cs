@@ -33,8 +33,8 @@ public interface IBluetoothService
     /// <summary>
     /// 请求蓝牙配对方法
     /// </summary>
-    /// <param name="optionalServices">请求服务列表 请参考 https://github.com/WebBluetoothCG/registries/blob/master/gatt_assigned_services.txt</param>
+    /// <param name="options"><see cref="BluetoothRequestOptions"/> 实例</param>
     /// <param name="token"></param>
     /// <returns></returns>
-    Task<IBluetoothDevice?> RequestDevice(string[] optionalServices, CancellationToken token = default);
+    Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default);
 }
