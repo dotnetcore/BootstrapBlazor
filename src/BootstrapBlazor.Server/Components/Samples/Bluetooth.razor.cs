@@ -25,7 +25,7 @@ public partial class Bluetooth
 
     private async Task RequestDevice()
     {
-        _blueDevice = await BluetoothService.RequestDevice();
+        _blueDevice = await BluetoothService.RequestDevice(["device_information"]);
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
@@ -83,6 +83,19 @@ public partial class Bluetooth
 
             _batteryValue = $"{val}";
             _batteryValueString = $"{_batteryValue} %";
+        }
+    }
+
+    private readonly List<string> _deviceInfoList = [];
+
+    private async Task GetDeviceInfoValue()
+    {
+        _deviceInfoList.Clear();
+        if (_blueDevice != null)
+        {
+            var info = await _blueDevice.GetDeviceInfo();
+            _deviceInfoList.Add($"ManufacturerName: {info?.ManufacturerName}");
+            _deviceInfoList.Add($"ModuleNumber: {info?.ModelNumber}");
         }
     }
 }
