@@ -88,6 +88,18 @@ sealed class DefaultBluetoothService : IBluetoothService
     }
 
     /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="optionalServices"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default)
+    {
+        var options = new BluetoothRequestOptions() { AcceptAllDevices = true, OptionalServices = optionalServices };
+        return RequestDevice(options, token);
+    }
+
+    /// <summary>
     /// JavaScript 报错回调方法
     /// </summary>
     /// <param name="message"></param>

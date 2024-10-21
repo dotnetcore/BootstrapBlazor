@@ -97,6 +97,22 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default)
+    {
+        BluetoothDeviceInfo? ret = null;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            ret = await _module.InvokeAsync<BluetoothDeviceInfo?>("getDeviceInfo", token, _clientId, _interop, nameof(OnError));
+        }
+        return ret;
+    }
+
+    /// <summary>
     /// JavaScript 报错回调方法
     /// </summary>
     /// <param name="message"></param>
