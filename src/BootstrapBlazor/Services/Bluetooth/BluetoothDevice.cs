@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -125,7 +127,7 @@ sealed class BluetoothDevice : IBluetoothDevice
         {
             ErrorMessage = null;
             var timeString = await _module.InvokeAsync<string?>("getCurrentTime", token, _clientId, _interop, nameof(OnError));
-            if (DateTimeOffset.TryParseExact(timeString, "yyyy-MM-dd HH:mm:ss", null,  System.Globalization.DateTimeStyles.None, out var d))
+            if (DateTimeOffset.TryParseExact(timeString, "yyyy-MM-ddTHH:mm:sszzz", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out var d))
             {
                 ret = d;
             }

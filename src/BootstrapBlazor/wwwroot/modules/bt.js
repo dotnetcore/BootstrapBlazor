@@ -155,30 +155,35 @@ export async function getCurrentTime(id, invoke, method) {
 
         const service = await server.getPrimaryService('current_time');
         const characteristics = await service.getCharacteristics();
-        let dv = null;
+        let zone = 0;
+        let dt = null;
         for (const characteristic of characteristics) {
             console.log(characteristic);
 
             switch (characteristic.uuid) {
                 case BluetoothUUID.getCharacteristic('local_time_information'):
-                    dv = await characteristic.readValue();
-                    console.log(dv.getUint8(0));
+                    let dv = await characteristic.readValue();
+                    zone = dv.getUint8(0) - 12;
                     break;
 
                 case BluetoothUUID.getCharacteristic('current_time'):
-                    dv = await characteristic.readValue();
+                    let dv = await characteristic.readValue();
                     const year = dv.getUint16(0, true);
                     const month = dv.getUint8(2);
                     const day = dv.getUint8(3);
                     const hours = dv.getUint8(4);
                     const minutes = dv.getUint8(5);
                     const seconds = dv.getUint8(6);
-                    ret = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                    dt = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
                     break;
 
                 default:
                     console.log('Unknown Characteristic: ' + characteristic.uuid);
             }
+        }
+
+        if (dt) {
+            ret = `${dt}${getZonePrefix(zone)}${zone}:00`;
         }
     }
     catch (err) {
@@ -187,6 +192,8 @@ export async function getCurrentTime(id, invoke, method) {
     }
     return ret;
 }
+
+const getZonePrefix = zone => zone >= 0 ? "+" : "-";
 
 const padHex = value => {
     return ('00' + value.toString(16).toUpperCase()).slice(-2);
