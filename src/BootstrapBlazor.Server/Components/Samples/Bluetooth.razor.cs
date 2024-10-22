@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
+using System.Reflection;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -26,18 +29,53 @@ public partial class Bluetooth
 
     private string? _currentTimeValueString = null;
 
+    private string? _readValueString = null;
+
+    private List<string> _services = [];
+
+    private List<string> _characteristics = [];
+
+    private string? _selectedService;
+
+    private string? _selectedCharacteristic;
+
+    private List<SelectedItem> ServicesList => _services.Select(i => new SelectedItem(i, FormatServiceName(i))).ToList();
+
+    private List<SelectedItem> CharacteristicsList => _characteristics.Select(i => new SelectedItem(i, FormatCharacteristicsName(i))).ToList();
+
+    private Dictionary<string, string> ServiceUuids = [];
+
+    /// <summary>
+    /// <include />
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ServiceUuids = Enum.GetNames(typeof(BluetoothServicesEnum)).Select(i =>
+        {
+            var attributes = typeof(BluetoothServicesEnum).GetField(i)!.GetCustomAttribute<BluetoothUuidAttribute>(false)!;
+            return new KeyValuePair<string, string>(attributes.Name.ToUpperInvariant(), i);
+        }).ToDictionary();
+    }
+
+    private string FormatServiceName(string serviceName)
+    {
+        var name = ServiceUuids[serviceName.ToUpperInvariant()];
+        return $"{name}({serviceName.ToUpperInvariant()})";
+    }
+
+    private string FormatCharacteristicsName(string characteristicName)
+    {
+        return characteristicName.ToUpperInvariant();
+    }
+
     private async Task RequestDevice()
     {
         var options = new BluetoothRequestOptions()
         {
-            // Filters = [
-            //    new BluetoothFilter()
-            //    {
-            //         NamePrefix = "Argo"
-            //    }
-            // ],
             AcceptAllDevices = true,
-            OptionalServices = ["device_information", "current_time", "battery_service"]
+            OptionalServices = ["device_information", "current_time", "battery_service", "alert_notification"]
         };
         _blueDevice = await BluetoothService.RequestDevice(options);
         if (BluetoothService.IsSupport == false)
@@ -78,6 +116,8 @@ public partial class Bluetooth
                 _batteryValue = null;
                 _batteryValueString = null;
                 _deviceInfoList.Clear();
+                _services.Clear();
+                _characteristics.Clear();
             }
         }
     }
@@ -130,6 +170,35 @@ public partial class Bluetooth
             _deviceInfoList.Add($"Firmware Revision: {info?.FirmwareRevision}");
             _deviceInfoList.Add($"Hardware Revision: {info?.HardwareRevision}");
             _deviceInfoList.Add($"Software Revision: {info?.SoftwareRevision}");
+        }
+    }
+
+    private async Task GetServices()
+    {
+        if (_blueDevice != null)
+        {
+            _services = await _blueDevice.GetPrimaryServices();
+        }
+    }
+
+    private async Task GetCharacteristics()
+    {
+        if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService))
+        {
+            _characteristics = await _blueDevice.GetCharacteristics(_selectedService);
+        }
+    }
+
+    private async Task ReadValue()
+    {
+        _readValueString = null;
+        if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService) && !string.IsNullOrEmpty(_selectedCharacteristic))
+        {
+            var data = await _blueDevice.ReadValue(_selectedService, _selectedCharacteristic);
+            if (data != null)
+            {
+                _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+            }
         }
     }
 }
