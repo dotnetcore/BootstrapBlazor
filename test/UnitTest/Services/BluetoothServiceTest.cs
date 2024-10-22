@@ -21,7 +21,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
 
         var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
 
-        var services = new List<BluetoothServices>() { BluetoothServices.DeviceInformation };
+        var services = new List<BluetoothServicesEnum>() { BluetoothServicesEnum.DeviceInformation };
         var device = await bluetoothService.RequestDevice(services.GetServicesList());
         Assert.NotNull(device);
         Assert.Equal("test", device.Name);
