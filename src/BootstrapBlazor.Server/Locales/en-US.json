@@ -5904,7 +5904,10 @@
     "BaseUsageIntro": "Request communication with Bluetooth devices through the <code>IBluetoothService</code> service",
     "BluetoothGetCurrentTimeText": "Time",
     "BluetoothDeviceInfoText": "Device Info",
-    "UsageDesc": "Click the Scan button and select the phone to test in the pop-up window"
+    "UsageDesc": "Click the Scan button and select the phone to test in the pop-up window",
+    "BluetoothGetServicesText": "Services",
+    "BluetoothGetCharacteristicsText": "Characteristics",
+    "BluetoothReadValueText": "ReadValue"
   },
   "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon",

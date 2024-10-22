@@ -30,7 +30,7 @@ export async function requestDevice(id, options, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return device;
 }
@@ -43,15 +43,83 @@ export async function connect(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        if (device.gatt.connected === false) {
-            await device.gatt.connect();
-        }
+        await getGattServer(bt);
         ret = true;
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getPrimaryServices(id, invoke, method)
+{
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const services = await server.getPrimaryServices();
+        ret = [];
+        for(const service of services)
+        {
+            ret.push(service.uuid);
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getCharacteristics(id, serviceName, invoke, method)
+{
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristics = await service.getCharacteristics();
+        ret = [];
+        for (const characteristic of characteristics) {
+            ret.push(characteristic.uuid);
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+export async function readValue(id, serviceName, characteristicName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristic = await service.getCharacteristic(characteristicName);
+        const dv = await characteristic.readValue();
+        ret = new Uint8Array(dv.byteLength);
+        for (let index = 0; index < dv.byteLength; index++) {
+            ret[index] = dv.getUint8(index);
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
     }
     return ret;
 }
@@ -64,12 +132,7 @@ export async function getDeviceInfo(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
+        const server = await getGattServer(bt);
         const service = await server.getPrimaryService('device_information');
         const characteristics = await service.getCharacteristics();
         const decoder = new TextDecoder('utf-8');
@@ -128,13 +191,13 @@ export async function getDeviceInfo(id, invoke, method) {
                     break;
 
                 default:
-                    console.log('Unknown Characteristic: ' + characteristic.uuid);
+                    console.warn('Unknown Characteristic: ' + characteristic.uuid);
             }
         }
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
@@ -147,27 +210,22 @@ export async function getCurrentTime(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
+        const server = await getGattServer(bt);
         const service = await server.getPrimaryService('current_time');
         const characteristics = await service.getCharacteristics();
         let zone = 0;
         let dt = null;
+        let dv = null;
         for (const characteristic of characteristics) {
-            console.log(characteristic);
-
             switch (characteristic.uuid) {
                 case BluetoothUUID.getCharacteristic('local_time_information'):
-                    let dv = await characteristic.readValue();
-                    zone = dv.getUint8(0) - 12;
+                    dv = await characteristic.readValue();
+                    zone = parseInt(dv.getUint8(0).toString(16));
+                    zone -= 12;
                     break;
 
                 case BluetoothUUID.getCharacteristic('current_time'):
-                    let dv = await characteristic.readValue();
+                    dv = await characteristic.readValue();
                     const year = dv.getUint16(0, true);
                     const month = dv.getUint8(2);
                     const day = dv.getUint8(3);
@@ -178,7 +236,7 @@ export async function getCurrentTime(id, invoke, method) {
                     break;
 
                 default:
-                    console.log('Unknown Characteristic: ' + characteristic.uuid);
+                    console.warn('Unknown Characteristic: ' + characteristic.uuid);
             }
         }
 
@@ -188,44 +246,24 @@ export async function getCurrentTime(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
+}
+
+const getGattServer = async bt => {
+    const { device } = bt;
+    const server = device.gatt;
+    if (server.connected === false) {
+        await server.connect();
+    }
+    return server;
 }
 
 const getZonePrefix = zone => zone >= 0 ? "+" : "-";
 
 const padHex = value => {
     return ('00' + value.toString(16).toUpperCase()).slice(-2);
-}
-
-export async function readValue(id, serviceName, characteristicName, invoke, method) {
-    let ret = null;
-    const bt = Data.get(id);
-    if (bt === null) {
-        return ret;
-    }
-
-    try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
-        const service = await server.getPrimaryService(serviceName);
-        const characteristic = await service.getCharacteristic(characteristicName);
-        const dv = await characteristic.readValue();
-        ret = new Uint8Array(dv.byteLength);
-        for (let index = 0; index < dv.byteLength; index++) {
-            ret[index] = dv.getUint8(index);
-        }
-    }
-    catch (err) {
-        invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
-    }
-    return ret;
 }
 
 export async function disconnect(id, invoke, method) {
@@ -244,7 +282,7 @@ export async function disconnect(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }

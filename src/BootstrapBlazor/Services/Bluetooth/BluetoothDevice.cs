@@ -85,6 +85,47 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<List<string>> GetPrimaryServices(CancellationToken token = default)
+    {
+        var ret = new List<string>();
+        if (Connected)
+        {
+            ErrorMessage = null;
+            var services = await _module.InvokeAsync<List<string>?>("getPrimaryServices", token, _clientId, _interop, nameof(OnError));
+            if (services != null)
+            {
+                ret.AddRange(services);
+            }
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="serviceName"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<List<string>> GetCharacteristics(string serviceName, CancellationToken token = default)
+    {
+        var ret = new List<string>();
+        if (Connected)
+        {
+            ErrorMessage = null;
+            var characteristics = await _module.InvokeAsync<List<string>?>("getCharacteristics", token, _clientId, serviceName, _interop, nameof(OnError));
+            if (characteristics != null)
+            {
+                ret.AddRange(characteristics);
+            }
+        }
+        return ret;
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
@@ -100,7 +141,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>

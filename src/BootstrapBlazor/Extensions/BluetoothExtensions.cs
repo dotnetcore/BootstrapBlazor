@@ -18,10 +18,10 @@ public static class BluetoothExtensions
     /// </summary>
     /// <param name="services"></param>
     /// <returns></returns>
-    public static List<string> GetServicesList(this IEnumerable<BluetoothServices> services) => services.Select(i =>
+    public static List<string> GetServicesList(this IEnumerable<BluetoothServicesEnum> services) => services.Select(i =>
     {
         var v = i.ToString();
-        var attributes = typeof(BluetoothServices).GetField(v)!.GetCustomAttribute<JsonPropertyNameAttribute>(false)!;
+        var attributes = typeof(BluetoothServicesEnum).GetField(v)!.GetCustomAttribute<JsonPropertyNameAttribute>(false)!;
         return attributes.Name;
     }).ToList();
 }
