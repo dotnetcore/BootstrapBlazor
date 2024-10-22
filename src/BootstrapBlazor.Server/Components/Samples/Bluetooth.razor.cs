@@ -30,14 +30,14 @@ public partial class Bluetooth
     {
         var options = new BluetoothRequestOptions()
         {
-            //Filters = [
+            // Filters = [
             //    new BluetoothFilter()
             //    {
             //         NamePrefix = "Argo"
             //    }
-            //],
+            // ],
             AcceptAllDevices = true,
-            OptionalServices = ["device_information", "current_time"]
+            OptionalServices = ["device_information", "current_time", "battery_service"]
         };
         _blueDevice = await BluetoothService.RequestDevice(options);
         if (BluetoothService.IsSupport == false)
@@ -77,6 +77,7 @@ public partial class Bluetooth
             {
                 _batteryValue = null;
                 _batteryValueString = null;
+                _deviceInfoList.Clear();
             }
         }
     }
