@@ -30,7 +30,7 @@ export async function requestDevice(id, options, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return device;
 }
@@ -51,7 +51,7 @@ export async function connect(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
@@ -128,13 +128,13 @@ export async function getDeviceInfo(id, invoke, method) {
                     break;
 
                 default:
-                    console.log('Unknown Characteristic: ' + characteristic.uuid);
+                    console.warn('Unknown Characteristic: ' + characteristic.uuid);
             }
         }
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.err(err);
     }
     return ret;
 }
@@ -157,17 +157,16 @@ export async function getCurrentTime(id, invoke, method) {
         const characteristics = await service.getCharacteristics();
         let zone = 0;
         let dt = null;
+        let dv = null;
         for (const characteristic of characteristics) {
-            console.log(characteristic);
-
             switch (characteristic.uuid) {
                 case BluetoothUUID.getCharacteristic('local_time_information'):
-                    let dv = await characteristic.readValue();
+                    dv = await characteristic.readValue();
                     zone = dv.getUint8(0) - 12;
                     break;
 
                 case BluetoothUUID.getCharacteristic('current_time'):
-                    let dv = await characteristic.readValue();
+                    dv = await characteristic.readValue();
                     const year = dv.getUint16(0, true);
                     const month = dv.getUint8(2);
                     const day = dv.getUint8(3);
@@ -178,7 +177,7 @@ export async function getCurrentTime(id, invoke, method) {
                     break;
 
                 default:
-                    console.log('Unknown Characteristic: ' + characteristic.uuid);
+                    console.warn('Unknown Characteristic: ' + characteristic.uuid);
             }
         }
 
@@ -188,7 +187,7 @@ export async function getCurrentTime(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
@@ -223,7 +222,7 @@ export async function readValue(id, serviceName, characteristicName, invoke, met
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
@@ -244,7 +243,7 @@ export async function disconnect(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.log(err);
+        console.error(err);
     }
     return ret;
 }
