@@ -43,11 +43,57 @@ export async function connect(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        if (device.gatt.connected === false) {
-            await device.gatt.connect();
-        }
+        await getGattServer(bt);
         ret = true;
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getPrimaryServices(id, invoke, method)
+{
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristic = await service.getCharacteristic(characteristicName);
+        const dv = await characteristic.readValue();
+        ret = new Uint8Array(dv.byteLength);
+        for (let index = 0; index < dv.byteLength; index++) {
+            ret[index] = dv.getUint8(index);
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function readValue(id, serviceName, characteristicName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristic = await service.getCharacteristic(characteristicName);
+        const dv = await characteristic.readValue();
+        ret = new Uint8Array(dv.byteLength);
+        for (let index = 0; index < dv.byteLength; index++) {
+            ret[index] = dv.getUint8(index);
+        }
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
@@ -64,12 +110,7 @@ export async function getDeviceInfo(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
+        const server = await getGattServer(bt);
         const service = await server.getPrimaryService('device_information');
         const characteristics = await service.getCharacteristics();
         const decoder = new TextDecoder('utf-8');
@@ -147,12 +188,7 @@ export async function getCurrentTime(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
+        const server = await getGattServer(bt);
         const service = await server.getPrimaryService('current_time');
         const characteristics = await service.getCharacteristics();
         let zone = 0;
@@ -193,39 +229,19 @@ export async function getCurrentTime(id, invoke, method) {
     return ret;
 }
 
+const getGattServer = async bt => {
+    const { device } = bt;
+    const server = device.gatt;
+    if (server.connected === false) {
+        await server.connect();
+    }
+    return server;
+}
+
 const getZonePrefix = zone => zone >= 0 ? "+" : "-";
 
 const padHex = value => {
     return ('00' + value.toString(16).toUpperCase()).slice(-2);
-}
-
-export async function readValue(id, serviceName, characteristicName, invoke, method) {
-    let ret = null;
-    const bt = Data.get(id);
-    if (bt === null) {
-        return ret;
-    }
-
-    try {
-        const { device } = bt;
-        const server = device.gatt;
-        if (server.connected === false) {
-            await server.connect();
-        }
-
-        const service = await server.getPrimaryService(serviceName);
-        const characteristic = await service.getCharacteristic(characteristicName);
-        const dv = await characteristic.readValue();
-        ret = new Uint8Array(dv.byteLength);
-        for (let index = 0; index < dv.byteLength; index++) {
-            ret[index] = dv.getUint8(index);
-        }
-    }
-    catch (err) {
-        invoke.invokeMethodAsync(method, err.toString());
-        console.error(err);
-    }
-    return ret;
 }
 
 export async function disconnect(id, invoke, method) {
