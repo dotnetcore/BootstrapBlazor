@@ -65,7 +65,7 @@ export async function getPrimaryServices(id, invoke, method)
         const server = await getGattServer(bt);
         const services = await server.getPrimaryServices();
         ret = [];
-        for(const service in services)
+        for(const service of services)
         {
             ret.push(service.uuid);
         }
