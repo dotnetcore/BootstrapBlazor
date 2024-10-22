@@ -55,4 +55,11 @@ public interface IBluetoothDevice : IAsyncDisposable
     /// <param name="token"></param>
     /// <returns></returns>
     Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备当前时间方法
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default);
 }

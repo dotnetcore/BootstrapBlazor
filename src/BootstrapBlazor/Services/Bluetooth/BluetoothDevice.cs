@@ -114,6 +114,25 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default)
+    {
+        DateTimeOffset? ret = null;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            var timeString = await _module.InvokeAsync<string?>("getCurrentTime", token, _clientId, _interop, nameof(OnError));
+            if (DateTimeOffset.TryParseExact(timeString, "yyyy-MM-dd HH:mm:ss", null,  System.Globalization.DateTimeStyles.None, out var d))
+            {
+                ret = d;
+            }
+        }
+        return ret;
+    }
+    /// <summary>
     /// JavaScript 报错回调方法
     /// </summary>
     /// <param name="message"></param>
