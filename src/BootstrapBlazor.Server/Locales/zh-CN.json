@@ -5904,7 +5904,10 @@
     "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯",
     "BluetoothGetCurrentTimeText": "读取时间",
     "BluetoothDeviceInfoText": "读取硬件信息",
-    "UsageDesc": "点击扫描按钮，在弹窗中选中手机进行测试"
+    "UsageDesc": "点击扫描按钮，在弹窗中选中手机进行测试",
+    "BluetoothGetServicesText": "读取服务列表",
+    "BluetoothGetCharacteristicsText": "读取特征列表",
+    "BluetoothReadValueText": "读取特征值"
   },
   "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon 文件图标",
