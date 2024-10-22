@@ -49,6 +49,38 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task GetPrimaryServices_Ok()
+    {
+        Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
+        Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
+        Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
+        Context.JSInterop.Setup<List<string>?>("getPrimaryServices", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["battery_service"]);
+        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var device = await bluetoothService.RequestDevice();
+        Assert.NotNull(device);
+
+        await device.Connect();
+        var v = await device.GetPrimaryServices();
+        Assert.Equal("battery_service", v[0]);
+    }
+
+    [Fact]
+    public async Task GetCharacteristics_Ok()
+    {
+        Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
+        Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
+        Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
+        Context.JSInterop.Setup<List<string>?>("getCharacteristics", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["battery_level"]);
+        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var device = await bluetoothService.RequestDevice();
+        Assert.NotNull(device);
+
+        await device.Connect();
+        var v = await device.GetCharacteristics("battery_service");
+        Assert.Equal("battery_level", v[0]);
+    }
+
+    [Fact]
     public async Task ReadValue_null()
     {
         Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
@@ -223,5 +255,12 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
     {
         var services = BluetoothRequestOptions.GetAllServices();
         Assert.True(services.Count > 0);
+    }
+
+    [Fact]
+    public void UUID_Ok()
+    {
+        var attr = new BluetoothUUIDAttribute("1234");
+        Assert.Equal("1234", attr.Name);
     }
 }
