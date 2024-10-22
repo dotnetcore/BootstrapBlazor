@@ -30,6 +30,11 @@ public class BluetoothDeviceInfo
     public string? FirmwareRevision { get; set; }
 
     /// <summary>
+    /// 获得/设置 SoftwareRevision
+    /// </summary>
+    public string? SoftwareRevision { get; set; }
+
+    /// <summary>
     /// 获得/设置 SystemId
     /// </summary>
     public SystemId? SystemId { get; set; }
