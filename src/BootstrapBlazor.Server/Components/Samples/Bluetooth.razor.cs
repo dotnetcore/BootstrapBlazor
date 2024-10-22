@@ -28,16 +28,18 @@ public partial class Bluetooth
 
     private async Task RequestDevice()
     {
-        _blueDevice = await BluetoothService.RequestDevice(new BluetoothRequestOptions()
+        var options = new BluetoothRequestOptions()
         {
-            Filters = [
-                new BluetoothFilter()
-                {
-                     NamePrefix = "Argo"
-                }
-            ],
-            OptionalServices = ["device_information"]
-        });
+            //Filters = [
+            //    new BluetoothFilter()
+            //    {
+            //         NamePrefix = "Argo"
+            //    }
+            //],
+            AcceptAllDevices = true,
+            OptionalServices = ["device_information", "current_time"]
+        };
+        _blueDevice = await BluetoothService.RequestDevice(options);
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
@@ -102,7 +104,7 @@ public partial class Bluetooth
     {
         _currentTimeValueString = null;
 
-        if(_blueDevice != null) 
+        if (_blueDevice != null)
         {
             var val = await _blueDevice.GetCurrentTime();
             if (val.HasValue && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
