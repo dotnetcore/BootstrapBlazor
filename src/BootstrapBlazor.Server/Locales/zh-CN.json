@@ -5901,7 +5901,10 @@
     "BluetoothGetBatteryText": "读取电量",
     "BluetoothGetHeartRateText": "读取心率",
     "BaseUsageTitle": "基础用法",
-    "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯"
+    "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯",
+    "BluetoothGetCurrentTimeText": "读取时间",
+    "BluetoothDeviceInfoText": "读取硬件信息",
+    "UsageDesc": "点击扫描按钮，在弹窗中选中手机进行测试"
   },
   "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon 文件图标",

@@ -24,9 +24,20 @@ public partial class Bluetooth
 
     private string? _batteryValueString = null;
 
+    private string? _currentTimeValueString = null;
+
     private async Task RequestDevice()
     {
-        _blueDevice = await BluetoothService.RequestDevice();
+        _blueDevice = await BluetoothService.RequestDevice(new BluetoothRequestOptions()
+        {
+            Filters = [
+                new BluetoothFilter()
+                {
+                     NamePrefix = "Argo"
+                }
+            ],
+            OptionalServices = ["device_information"]
+        });
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
@@ -60,6 +71,11 @@ public partial class Bluetooth
             {
                 await ToastService.Error("Disconnect", _blueDevice.ErrorMessage);
             }
+            else
+            {
+                _batteryValue = null;
+                _batteryValueString = null;
+            }
         }
     }
 
@@ -79,6 +95,38 @@ public partial class Bluetooth
 
             _batteryValue = $"{val}";
             _batteryValueString = $"{_batteryValue} %";
+        }
+    }
+
+    private async Task GetTimeValue()
+    {
+        _currentTimeValueString = null;
+
+        if(_blueDevice != null) 
+        {
+            var val = await _blueDevice.GetCurrentTime();
+            if (val.HasValue && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Current Time", _blueDevice.ErrorMessage);
+                return;
+            }
+            _currentTimeValueString = val.ToString();
+        }
+    }
+
+    private readonly List<string> _deviceInfoList = [];
+
+    private async Task GetDeviceInfoValue()
+    {
+        _deviceInfoList.Clear();
+        if (_blueDevice != null)
+        {
+            var info = await _blueDevice.GetDeviceInfo();
+            _deviceInfoList.Add($"Manufacturer Name: {info?.ManufacturerName}");
+            _deviceInfoList.Add($"Module Number: {info?.ModelNumber}");
+            _deviceInfoList.Add($"Firmware Revision: {info?.FirmwareRevision}");
+            _deviceInfoList.Add($"Hardware Revision: {info?.HardwareRevision}");
+            _deviceInfoList.Add($"Software Revision: {info?.SoftwareRevision}");
         }
     }
 }

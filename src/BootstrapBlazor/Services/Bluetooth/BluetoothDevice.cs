@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -97,6 +99,41 @@ sealed class BluetoothDevice : IBluetoothDevice
         return ret;
     }
 
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default)
+    {
+        BluetoothDeviceInfo? ret = null;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            ret = await _module.InvokeAsync<BluetoothDeviceInfo?>("getDeviceInfo", token, _clientId, _interop, nameof(OnError));
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default)
+    {
+        DateTimeOffset? ret = null;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            var timeString = await _module.InvokeAsync<string?>("getCurrentTime", token, _clientId, _interop, nameof(OnError));
+            if (DateTimeOffset.TryParseExact(timeString, "yyyy-MM-ddTHH:mm:sszzz", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out var d))
+            {
+                ret = d;
+            }
+        }
+        return ret;
+    }
     /// <summary>
     /// JavaScript 报错回调方法
     /// </summary>

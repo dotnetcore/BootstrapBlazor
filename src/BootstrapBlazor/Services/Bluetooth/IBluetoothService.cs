@@ -38,4 +38,12 @@ public interface IBluetoothService
     /// <param name="token"></param>
     /// <returns></returns>
     Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default);
+
+    /// <summary>
+    /// 请求蓝牙配对方法
+    /// </summary>
+    /// <param name="optionalServices"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default);
 }
