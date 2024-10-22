@@ -162,7 +162,8 @@ export async function getCurrentTime(id, invoke, method) {
             switch (characteristic.uuid) {
                 case BluetoothUUID.getCharacteristic('local_time_information'):
                     dv = await characteristic.readValue();
-                    zone = dv.getUint8(0) - 12;
+                    zone = parseInt(dv.getUint8(0).toString(16));
+                    zone -= 12;
                     break;
 
                 case BluetoothUUID.getCharacteristic('current_time'):
