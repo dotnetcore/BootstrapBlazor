@@ -134,7 +134,7 @@ export async function getDeviceInfo(id, invoke, method) {
     }
     catch (err) {
         invoke.invokeMethodAsync(method, err.toString());
-        console.err(err);
+        console.error(err);
     }
     return ret;
 }
