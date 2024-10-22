@@ -179,4 +179,47 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Assert.Equal("2024-10-10 10:05:10", v.Value.ToString("yyyy-MM-dd HH:mm:ss"));
         Assert.Equal(7, v.Value.Offset.TotalHours);
     }
+
+    [Fact]
+    public void BluetoothDeviceInfo_Ok()
+    {
+        var info = new BluetoothDeviceInfo()
+        {
+            FirmwareRevision = "test",
+            HardwareRevision = "test",
+            IEEERegulatoryCertificationDataList = "test",
+            ManufacturerName = "test",
+            ModelNumber = "test",
+            SoftwareRevision = "test",
+            SystemId = new SystemId()
+            {
+                ManufacturerIdentifier = "test",
+                OrganizationallyUniqueIdentifier = "test",
+            },
+            PnPID = new PnPID()
+            {
+                ProductId = "test",
+                ProductVersion = "test",
+                VendorIdSource = "test",
+            }
+        };
+        Assert.Equal("test", info.FirmwareRevision);
+        Assert.Equal("test", info.HardwareRevision);
+        Assert.Equal("test", info.SoftwareRevision);
+        Assert.Equal("test", info.IEEERegulatoryCertificationDataList);
+        Assert.Equal("test", info.ManufacturerName);
+        Assert.Equal("test", info.ModelNumber);
+        Assert.Equal("test", info.SystemId.ManufacturerIdentifier);
+        Assert.Equal("test", info.SystemId.OrganizationallyUniqueIdentifier);
+        Assert.Equal("test", info.PnPID.ProductId);
+        Assert.Equal("test", info.PnPID.ProductVersion);
+        Assert.Equal("test", info.PnPID.VendorIdSource);
+    }
+
+    [Fact]
+    public void GetAllServices_Ok()
+    {
+        var services = BluetoothRequestOptions.GetAllServices();
+        Assert.True(services.Count > 0);
+    }
 }

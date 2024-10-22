@@ -51,7 +51,7 @@ public class BluetoothRequestOptions
     public static List<string> GetAllServices() => Enum.GetNames(typeof(BluetoothServices)).Select(i =>
     {
         var v = i.ToString();
-        var attributes = typeof(BluetoothServices).GetField(v)?.GetCustomAttribute<JsonPropertyNameAttribute>(false);
-        return attributes?.Name ?? v;
+        var attributes = typeof(BluetoothServices).GetField(v)!.GetCustomAttribute<JsonPropertyNameAttribute>(false)!;
+        return attributes.Name;
     }).ToList();
 }
