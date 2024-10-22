@@ -1,6 +1,8 @@
 # Bootstrap Blazor Component
 
-## A set of enterprise-class UI components based on Bootstrap and Blazor.
+## an enterprise-level UI component library based on Bootstrap and Blazor.
+
+<h4>This project is part of the <a href="https://www.dotnetfoundation.org/">.NET Foundation</a> and operates under their <a href="https://www.dotnetfoundation.org/code-of-conduct">code of conduct</a>. </h4>
 
 [![License](https://img.shields.io/github/license/dotnetcore/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
 [![Github build](https://img.shields.io/github/actions/workflow/status/dotnetcore/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/dotnetcore/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
