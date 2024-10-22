@@ -1,7 +1,8 @@
 <h1 align="center">Bootstrap Blazor 组件库</h1>
 
 <div align="center">
-<h2>一套基于 Bootstrap 和 Blazor 的企业级组件库</h2>
+<h2>Bootstrap Blazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库</h2>
+<h4>.NET 基金会成员项目</h4>
 
 [![License](https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&logoColor=red)](https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
 [![Nuget](https://img.shields.io/nuget/v/BootstrapBlazor.svg?color=red&logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
