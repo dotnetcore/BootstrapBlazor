@@ -20,7 +20,9 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("disconnect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
 
         var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
-        var device = await bluetoothService.RequestDevice();
+
+        var services = new List<BluetoothServices>() { BluetoothServices.DeviceInformation };
+        var device = await bluetoothService.RequestDevice(services.GetServicesList());
         Assert.NotNull(device);
         Assert.Equal("test", device.Name);
         Assert.Equal("id_1234", device.Id);
