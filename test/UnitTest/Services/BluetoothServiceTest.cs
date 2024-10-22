@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Globalization;
+
 namespace UnitTest.Services;
 
 public class BluetoothServiceTest : BootstrapBlazorTestBase
@@ -134,5 +136,47 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Assert.Empty(filter.ExclusionFilters);
         Assert.Equal(["test-manufacturer-data"], filter.OptionalManufacturerData);
         Assert.Equal(["test-optional-service"], filter.OptionalServices);
+    }
+
+    [Fact]
+    public void DateTimeOffset_Ok()
+    {
+        var val = "2018-12-04T13:53:42+07:00";
+        Assert.True(DateTimeOffset.TryParseExact(val, "yyyy-MM-ddTHH:mm:sszzz", DateTimeFormatInfo.InvariantInfo, DateTimeStyles.None, out var d));
+    }
+
+    [Fact]
+    public async Task GetDeviceInfo_null()
+    {
+        Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
+        Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
+        Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
+        Context.JSInterop.Setup<BluetoothDeviceInfo?>("getDeviceInfo", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(new BluetoothDeviceInfo() { ManufacturerName = "test" });
+
+        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var device = await bluetoothService.RequestDevice();
+        Assert.NotNull(device);
+
+        await device.Connect();
+        var v = await device.GetDeviceInfo();
+        Assert.Equal("test", v?.ManufacturerName);
+    }
+
+    [Fact]
+    public async Task GetCurrentTime_null()
+    {
+        Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
+        Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
+        Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
+        Context.JSInterop.Setup<string?>("getCurrentTime", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult("2024-10-10T10:05:10+07:00");
+
+        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var device = await bluetoothService.RequestDevice();
+        Assert.NotNull(device);
+
+        await device.Connect();
+        var v = await device.GetCurrentTime();
+        Assert.Equal("2024-10-10 10:05:10", v.Value.ToString("yyyy-MM-dd HH:mm:ss"));
+        Assert.Equal(7, v.Value.Offset.TotalHours);
     }
 }
