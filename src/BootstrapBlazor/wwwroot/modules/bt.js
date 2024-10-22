@@ -63,12 +63,11 @@ export async function getPrimaryServices(id, invoke, method)
 
     try {
         const server = await getGattServer(bt);
-        const service = await server.getPrimaryService(serviceName);
-        const characteristic = await service.getCharacteristic(characteristicName);
-        const dv = await characteristic.readValue();
-        ret = new Uint8Array(dv.byteLength);
-        for (let index = 0; index < dv.byteLength; index++) {
-            ret[index] = dv.getUint8(index);
+        const services = await server.getPrimaryServices();
+        ret = [];
+        for(const service in services)
+        {
+            ret.push(service.uuid);
         }
     }
     catch (err) {
