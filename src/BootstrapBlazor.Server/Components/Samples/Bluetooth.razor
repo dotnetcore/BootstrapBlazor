@@ -21,6 +21,9 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 <DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
            Name="Normal">
+    <section ignore>
+        <div>点击扫描按钮，在弹窗中选中手机进行测试</div>
+    </section>
     <div class="row form-inline g-3">
         <div class="col-12">
             <Button Text="@Localizer["BluetoothRequestText"]" Icon="fa-brands fa-bluetooth" OnClick="RequestDevice"></Button>
@@ -34,6 +37,12 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
             <div class="d-flex align-items-center">
                 <Button Text="@Localizer["BluetoothGetBatteryText"]" Icon="fa-solid fa-battery-half" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetBatteryValue"></Button>
                 <label class="d-flex align-items-center"><progress value="@_batteryValue" max="100" class="ms-3"></progress><span class="ms-3">@_batteryValueString</span></label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="d-flex align-items-center">
+                <Button Text="@Localizer["BluetoothGetCurrentTimeText"]" Icon="fa-solid fa-clock" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetTimeValue"></Button>
+                <label class="ms-3">@_currentTimeValueString</label>
             </div>
         </div>
         <div class="col-12">

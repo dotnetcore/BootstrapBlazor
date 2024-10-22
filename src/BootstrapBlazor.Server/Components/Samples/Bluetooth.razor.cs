@@ -24,6 +24,8 @@ public partial class Bluetooth
 
     private string? _batteryValueString = null;
 
+    private string? _currentTimeValueString = null;
+
     private async Task RequestDevice()
     {
         _blueDevice = await BluetoothService.RequestDevice(new BluetoothRequestOptions()
@@ -31,10 +33,10 @@ public partial class Bluetooth
             Filters = [
                 new BluetoothFilter()
                 {
-                     NamePrefix = "HUAWEI"
+                     NamePrefix = "Argo"
                 }
             ],
-            OptionalServices = BluetoothRequestOptions.GetAllServices()
+            OptionalServices = ["device_information"]
         });
         if (BluetoothService.IsSupport == false)
         {
@@ -93,6 +95,22 @@ public partial class Bluetooth
 
             _batteryValue = $"{val}";
             _batteryValueString = $"{_batteryValue} %";
+        }
+    }
+
+    private async Task GetTimeValue()
+    {
+        _currentTimeValueString = null;
+
+        if(_blueDevice != null) 
+        {
+            var val = await _blueDevice.GetCurrentTime();
+            if (val.HasValue && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Current Time", _blueDevice.ErrorMessage);
+                return;
+            }
+            _currentTimeValueString = val.ToString();
         }
     }
 
