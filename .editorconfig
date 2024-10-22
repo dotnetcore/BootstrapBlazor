@@ -119,7 +119,7 @@ dotnet_style_collection_initializer = true:suggestion
 dotnet_style_explicit_tuple_names = true:suggestion
 dotnet_style_null_propagation = true:suggestion
 dotnet_style_coalesce_expression = true:suggestion
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true:silent
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true:suggestion
 dotnet_style_prefer_inferred_tuple_names = true:suggestion
 dotnet_style_prefer_inferred_anonymous_type_member_names = true:suggestion
 dotnet_style_prefer_auto_properties = true:silent
@@ -192,7 +192,7 @@ csharp_new_line_between_query_expression_clauses = true
 # Indentation preferences 
 csharp_indent_case_contents = true
 csharp_indent_switch_labels = true
-csharp_indent_labels = flush_left
+csharp_indent_labels = one_less_than_current
 # Space preferences 
 csharp_space_after_cast = false
 csharp_space_after_keywords_in_control_flow_statements = true
@@ -216,9 +216,9 @@ csharp_preserve_single_line_blocks = true
 visual_basic_preferred_modifier_order = Partial,Default,Private,Protected,Public,Friend,NotOverridable,Overridable,MustOverride,Overloads,Overrides,MustInherit,NotInheritable,Static,Shared,Shadows,ReadOnly,WriteOnly,Dim,Const,WithEvents,Widening,Narrowing,Custom,Async:suggestion
 [*.cs]
 # Add file header
-file_header_template = Copyright (c) Argo Zhang (argo@163.com). All rights reserved.\nLicensed under the Apache License, Version 2.0. See License.txt in the project root for license information.\nWebsite: https://www.blazor.zone or https://argozhang.github.io/
-csharp_style_namespace_declarations = file_scoped:suggestion
-csharp_style_expression_bodied_local_functions = true:silent
+file_header_template = Licensed to the .NET Foundation under one or more agreements.\nThe .NET Foundation licenses this file to you under the Apache 2.0 License\nSee the LICENSE file in the project root for more information.\nMaintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_expression_bodied_local_functions = false:silent
 csharp_using_directive_placement = outside_namespace:silent
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_style_prefer_method_group_conversion = true:silent
@@ -246,3 +246,4 @@ csharp_style_prefer_pattern_matching = true:silent
 csharp_style_prefer_not_pattern = true:suggestion
 csharp_style_prefer_extended_property_pattern = true:suggestion
 csharp_prefer_static_anonymous_function = true:suggestion
+csharp_prefer_system_threading_lock = true:suggestion
