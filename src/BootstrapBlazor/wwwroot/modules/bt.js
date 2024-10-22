@@ -69,6 +69,9 @@ export async function getDeviceInfo(id, invoke, method) {
         if (server.connected === false) {
             await server.connect();
         }
+        const services = await server.getPrimaryServices();
+        console.log(services);
+
         const service = await server.getPrimaryService('device_information');
         const characteristics = await service.getCharacteristics();
         const decoder = new TextDecoder('utf-8');
@@ -135,7 +138,6 @@ export async function getDeviceInfo(id, invoke, method) {
         invoke.invokeMethodAsync(method, err.toString());
         console.log(err);
     }
-    console.log(ret);
     return ret;
 }
 
