@@ -69,8 +69,6 @@ export async function getDeviceInfo(id, invoke, method) {
         if (server.connected === false) {
             await server.connect();
         }
-        const services = await server.getPrimaryServices();
-        console.log(services);
 
         const service = await server.getPrimaryService('device_information');
         const characteristics = await service.getCharacteristics();
@@ -141,12 +139,57 @@ export async function getDeviceInfo(id, invoke, method) {
     return ret;
 }
 
-const padHex = value => {
-    return ('00' + value.toString(16).toUpperCase()).slice(-2);
+export async function getCurrentTime(id, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const { device } = bt;
+        const server = device.gatt;
+        if (server.connected === false) {
+            await server.connect();
+        }
+
+        const service = await server.getPrimaryService('current_time');
+        const characteristics = await service.getCharacteristics();
+        let dv = null;
+        for (const characteristic of characteristics) {
+            console.log(characteristic);
+
+            switch (characteristic.uuid) {
+                case BluetoothUUID.getCharacteristic('local_time_information'):
+                    dv = await characteristic.readValue();
+                    console.log(dv.getUint8(0));
+                    break;
+
+                case BluetoothUUID.getCharacteristic('current_time'):
+                    dv = await characteristic.readValue();
+                    const year = dv.getUint16(0, true);
+                    const month = dv.getUint8(2);
+                    const day = dv.getUint8(3);
+                    const hours = dv.getUint8(4);
+                    const minutes = dv.getUint8(5);
+                    const seconds = dv.getUint8(6);
+                    ret = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+                    break;
+
+                default:
+                    console.log('Unknown Characteristic: ' + characteristic.uuid);
+            }
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.log(err);
+    }
+    return ret;
 }
 
-const getUsbVendorName = value => {
-    return value + (value in valueToUsbVendorName ? ' (' + valueToUsbVendorName[value] + ')' : '');
+const padHex = value => {
+    return ('00' + value.toString(16).toUpperCase()).slice(-2);
 }
 
 export async function readValue(id, serviceName, characteristicName, invoke, method) {
@@ -162,6 +205,7 @@ export async function readValue(id, serviceName, characteristicName, invoke, met
         if (server.connected === false) {
             await server.connect();
         }
+
         const service = await server.getPrimaryService(serviceName);
         const characteristic = await service.getCharacteristic(characteristicName);
         const dv = await characteristic.readValue();
