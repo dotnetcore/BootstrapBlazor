@@ -77,6 +77,29 @@ export async function getPrimaryServices(id, invoke, method)
     return ret;
 }
 
+export async function getCharacteristics(id, serviceName, invoke, method)
+{
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristics = await service.getCharacteristics();
+        ret = [];
+        for (const characteristic of characteristics) {
+            ret.push(characteristic.uuid);
+        }
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
 export async function readValue(id, serviceName, characteristicName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
