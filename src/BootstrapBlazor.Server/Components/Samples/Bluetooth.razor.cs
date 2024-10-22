@@ -114,6 +114,7 @@ public partial class Bluetooth
                 _deviceInfoList.Clear();
                 _services.Clear();
                 _characteristics.Clear();
+                _readValueString = null;
             }
         }
     }
