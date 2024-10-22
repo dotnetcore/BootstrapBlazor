@@ -85,7 +85,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <include />
+    /// <inheritdoc />
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
@@ -104,6 +104,12 @@ sealed class BluetoothDevice : IBluetoothDevice
         return ret;
     }
 
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="serviceName"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
     public async Task<List<string>> GetCharacteristics(string serviceName, CancellationToken token = default)
     {
         var ret = new List<string>();
@@ -135,7 +141,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>

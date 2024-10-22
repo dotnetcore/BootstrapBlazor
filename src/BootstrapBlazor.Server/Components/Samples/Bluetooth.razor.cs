@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using System.Reflection;
 
 namespace BootstrapBlazor.Server.Components.Samples;
@@ -43,39 +42,36 @@ public partial class Bluetooth
 
     private List<SelectedItem> CharacteristicsList => _characteristics.Select(i => new SelectedItem(i, FormatCharacteristicsName(i))).ToList();
 
-    private Dictionary<string, string> ServiceUuids = [];
+    private Dictionary<string, string> ServiceUUIDList = [];
 
     /// <summary>
-    /// <include />
+    /// <inheritdoc />
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        ServiceUuids = Enum.GetNames(typeof(BluetoothServicesEnum)).Select(i =>
+        ServiceUUIDList = Enum.GetNames(typeof(BluetoothServicesEnum)).Select(i =>
         {
-            var attributes = typeof(BluetoothServicesEnum).GetField(i)!.GetCustomAttribute<BluetoothUuidAttribute>(false)!;
+            var attributes = typeof(BluetoothServicesEnum).GetField(i)!.GetCustomAttribute<BluetoothUUIDAttribute>(false)!;
             return new KeyValuePair<string, string>(attributes.Name.ToUpperInvariant(), i);
         }).ToDictionary();
     }
 
     private string FormatServiceName(string serviceName)
     {
-        var name = ServiceUuids[serviceName.ToUpperInvariant()];
+        var name = ServiceUUIDList[serviceName.ToUpperInvariant()];
         return $"{name}({serviceName.ToUpperInvariant()})";
     }
 
-    private string FormatCharacteristicsName(string characteristicName)
-    {
-        return characteristicName.ToUpperInvariant();
-    }
+    private string FormatCharacteristicsName(string characteristicName) => characteristicName.ToUpperInvariant();
 
     private async Task RequestDevice()
     {
         var options = new BluetoothRequestOptions()
         {
             AcceptAllDevices = true,
-            OptionalServices = ["device_information", "current_time", "battery_service", "alert_notification"]
+            OptionalServices = ["device_information", "current_time", "battery_service"]
         };
         _blueDevice = await BluetoothService.RequestDevice(options);
         if (BluetoothService.IsSupport == false)
