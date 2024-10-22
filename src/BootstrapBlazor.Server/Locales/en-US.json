@@ -5901,7 +5901,9 @@
     "BluetoothGetBatteryText": "Battery",
     "BluetoothGetHeartRateText": "HeartRate",
     "BaseUsageTitle": "Basic usage",
-    "BaseUsageIntro": "Request communication with Bluetooth devices through the <code>IBluetoothService</code> service"
+    "BaseUsageIntro": "Request communication with Bluetooth devices through the <code>IBluetoothService</code> service",
+    "BluetoothGetCurrentTimeText": "Time",
+    "BluetoothDeviceInfoText": "Device Info"
   },
   "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon",
