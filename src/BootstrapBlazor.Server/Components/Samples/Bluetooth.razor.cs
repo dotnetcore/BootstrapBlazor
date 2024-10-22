@@ -26,7 +26,16 @@ public partial class Bluetooth
 
     private async Task RequestDevice()
     {
-        _blueDevice = await BluetoothService.RequestDevice(["device_information"]);
+        _blueDevice = await BluetoothService.RequestDevice(new BluetoothRequestOptions()
+        {
+            Filters = [
+                new BluetoothFilter()
+                {
+                     NamePrefix = "HUAWEI"
+                }
+            ],
+            OptionalServices = BluetoothRequestOptions.GetAllServices()
+        });
         if (BluetoothService.IsSupport == false)
         {
             await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
@@ -95,8 +104,11 @@ public partial class Bluetooth
         if (_blueDevice != null)
         {
             var info = await _blueDevice.GetDeviceInfo();
-            _deviceInfoList.Add($"ManufacturerName: {info?.ManufacturerName}");
-            _deviceInfoList.Add($"ModuleNumber: {info?.ModelNumber}");
+            _deviceInfoList.Add($"Manufacturer Name: {info?.ManufacturerName}");
+            _deviceInfoList.Add($"Module Number: {info?.ModelNumber}");
+            _deviceInfoList.Add($"Firmware Revision: {info?.FirmwareRevision}");
+            _deviceInfoList.Add($"Hardware Revision: {info?.HardwareRevision}");
+            _deviceInfoList.Add($"Software Revision: {info?.SoftwareRevision}");
         }
     }
 }

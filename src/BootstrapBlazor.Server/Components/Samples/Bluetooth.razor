@@ -37,10 +37,12 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
             </div>
         </div>
         <div class="col-12">
-            @foreach (var info in _deviceInfoList)
-            {
-                <div>@info</div>
-            }
+            <div>
+                @foreach (var info in _deviceInfoList)
+                {
+                    <div>@info</div>
+                }
+            </div>
         </div>
         <div class="col-12">
             <div class="d-flex align-items-center">
