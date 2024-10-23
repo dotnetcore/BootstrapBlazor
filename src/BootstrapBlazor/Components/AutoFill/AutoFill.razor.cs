@@ -104,12 +104,6 @@ public partial class AutoFill<TValue>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
-    /// <summary>
-    /// 比对是否一致
-    /// </summary>
-    [Parameter]
-    public Func<TValue, TValue, bool>? Compare { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
@@ -117,15 +111,6 @@ public partial class AutoFill<TValue>
     private string _inputString = "";
 
     private TValue? ActiveSelectedItem { get; set; }
-
-    private bool IsSame(TValue value)
-    {
-        if (Compare != null)
-        {
-            return Compare.Invoke(Value, value);
-        }
-        return OnGetDisplayText.Invoke(Value) == OnGetDisplayText(value);
-    }
 
     /// <summary>
     /// <inheritdoc/>

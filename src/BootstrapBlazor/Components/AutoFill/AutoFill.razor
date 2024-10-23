@@ -11,12 +11,11 @@
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
     <ul class="dropdown-menu">
-        @if (Items.Any())
+        @if (_filterItems.Any())
         {
-            foreach (var item in Items)
+            foreach (var item in _filterItems)
             {
-                <li @key="@item" class="dropdown-item" @onmousedown="() => OnClickItem(item)"
-                    style="@(IsSame(item) ? "background-color: var(--bs-dropdown-link-hover-bg)" : "")">
+                <li @key="@item" class="dropdown-item" @onmousedown="() => OnClickItem(item)">
                     @if (Template != null)
                     {
                         @Template(item)
