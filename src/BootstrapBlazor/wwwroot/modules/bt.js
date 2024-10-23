@@ -311,7 +311,6 @@ export async function startNotifications(id, serviceName, characteristicName, in
             bt.notifications = [];
         }
         bt.notifications.push({ uuid: characteristicName, characteristic });
-        console.log(bt.notifications.length);
         ret = true;
     }
     catch (err) {
@@ -334,7 +333,6 @@ export async function stopNotifications(id, characteristicName) {
         if (noti) {
             await noti.characteristic.stopNotifications();
             notifications.remove(noti);
-            console.log(notifications.length);
         }
     }
     ret = true;
