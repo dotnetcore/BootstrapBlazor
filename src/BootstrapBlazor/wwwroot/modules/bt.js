@@ -311,7 +311,7 @@ export async function startNotifications(id, serviceName, characteristicName, in
             bt.notifications = [];
         }
         bt.notifications.push({ uuid: characteristicName, characteristic });
-        console.log(notifications.length);
+        console.log(bt.notifications.length);
         ret = true;
     }
     catch (err) {
@@ -364,7 +364,12 @@ export async function disconnect(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
+        const { device, notifications } = bt;
+        if (notifications) {
+            for (const noti of notifications) {
+                await stopNotifications(id, noti.uuid);
+            }
+        }
         if (device.gatt.connected === true) {
             device.gatt.disconnect();
         }
