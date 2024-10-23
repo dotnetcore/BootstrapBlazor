@@ -59,19 +59,19 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
             </div>
         </div>
         <div class="col-12">
-            <Button Text="@Localizer["BluetoothGetServicesText"]" Icon="fa-solid fa-microchip" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetServices"></Button>
+            <Button Text="@Localizer["BluetoothGetServicesText"]" Icon="fa-solid fa-server" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetServices"></Button>
         </div>
         <div class="col-12">
             <Select Items="ServicesList" @bind-Value="_selectedService" class="flex-fill"></Select>
         </div>
         <div class="col-12">
-            <Button Text="@Localizer["BluetoothGetCharacteristicsText"]" Icon="fa-solid fa-microchip" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetCharacteristics"></Button>
+            <Button Text="@Localizer["BluetoothGetCharacteristicsText"]" Icon="fa-solid fa-plug" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="GetCharacteristics"></Button>
         </div>
         <div class="col-12">
             <Select Items="CharacteristicsList" @bind-Value="_selectedCharacteristic" class="flex-fill"></Select>
         </div>
         <div class="col-12">
-            <Button Text="@Localizer["BluetoothReadValueText"]" Icon="fa-solid fa-microchip" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="ReadValue"></Button>
+            <Button Text="@Localizer["BluetoothReadValueText"]" Icon="fa-solid fa-memory" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="ReadValue"></Button>
         </div>
         <div class="col-12">
             <Textarea Value="@_readValueString" rows="3" readonly></Textarea>

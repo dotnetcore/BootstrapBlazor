@@ -30,17 +30,17 @@ public partial class Bluetooth
 
     private string? _readValueString = null;
 
-    private List<string> _services = [];
+    private List<IBluetoothService> _bluetoothServices = [];
 
-    private List<string> _characteristics = [];
+    private List<IBluetoothCharacteristic> _bluetoothCharacteristics = [];
 
     private string? _selectedService;
 
     private string? _selectedCharacteristic;
 
-    private List<SelectedItem> ServicesList => _services.Select(i => new SelectedItem(i, FormatServiceName(i))).ToList();
+    private List<SelectedItem> ServicesList => _bluetoothServices.Select(i => new SelectedItem(i.UUID, FormatServiceName(i))).ToList();
 
-    private List<SelectedItem> CharacteristicsList => _characteristics.Select(i => new SelectedItem(i, FormatCharacteristicsName(i))).ToList();
+    private List<SelectedItem> CharacteristicsList => _bluetoothCharacteristics.Select(i => new SelectedItem(i.UUID, FormatCharacteristicsName(i))).ToList();
 
     private Dictionary<string, string> ServiceUUIDList = [];
 
@@ -58,13 +58,14 @@ public partial class Bluetooth
         }).ToDictionary();
     }
 
-    private string FormatServiceName(string serviceName)
+    private string FormatServiceName(IBluetoothService service)
     {
-        var name = ServiceUUIDList[serviceName.ToUpperInvariant()];
-        return $"{name}({serviceName.ToUpperInvariant()})";
+        var uuId = service.UUID.ToUpperInvariant();
+        return ServiceUUIDList.TryGetValue(uuId, out var serviceName)
+            ? $"{serviceName}({uuId})" : uuId;
     }
 
-    private string FormatCharacteristicsName(string characteristicName) => characteristicName.ToUpperInvariant();
+    private string FormatCharacteristicsName(IBluetoothCharacteristic characteristic) => characteristic.UUID.ToUpperInvariant();
 
     private async Task RequestDevice()
     {
@@ -112,8 +113,8 @@ public partial class Bluetooth
                 _batteryValue = null;
                 _batteryValueString = null;
                 _deviceInfoList.Clear();
-                _services.Clear();
-                _characteristics.Clear();
+                _bluetoothServices.Clear();
+                _bluetoothCharacteristics.Clear();
                 _readValueString = null;
             }
         }
@@ -174,7 +175,7 @@ public partial class Bluetooth
     {
         if (_blueDevice != null)
         {
-            _services = await _blueDevice.GetPrimaryServices();
+            _bluetoothServices = await _blueDevice.GetPrimaryServices();
         }
     }
 
@@ -182,7 +183,12 @@ public partial class Bluetooth
     {
         if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService))
         {
-            _characteristics = await _blueDevice.GetCharacteristics(_selectedService);
+            _bluetoothCharacteristics.Clear();
+            var service = _bluetoothServices.Find(i => i.UUID == _selectedService);
+            if (service != null)
+            {
+                _bluetoothCharacteristics = await service.GetCharacteristics();
+            }
         }
     }
 
@@ -191,10 +197,14 @@ public partial class Bluetooth
         _readValueString = null;
         if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService) && !string.IsNullOrEmpty(_selectedCharacteristic))
         {
-            var data = await _blueDevice.ReadValue(_selectedService, _selectedCharacteristic);
-            if (data != null)
+            var characteristics = _bluetoothCharacteristics.Find(i => i.UUID == _selectedCharacteristic);
+            if (characteristics != null)
             {
-                _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+                var data = await characteristics.ReadValue();
+                if (data != null)
+                {
+                    _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+                }
             }
         }
     }
