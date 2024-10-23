@@ -166,9 +166,9 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<byte> GetBatteryValue(CancellationToken token = default)
+    public async Task<byte?> GetBatteryValue(CancellationToken token = default)
     {
-        byte ret = 0x0;
+        byte? ret = null;
         if (Connected)
         {
             ErrorMessage = null;
@@ -177,6 +177,22 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
             {
                 ret = data[0];
             }
+        }
+        return ret;
+    }
+
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default)
+    {
+        byte[]? ret = null;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            ret = await _module.InvokeAsync<byte[]?>("readValue", token, _clientId, serviceUUID, characteristicUUID, _interop, nameof(OnError));
         }
         return ret;
     }

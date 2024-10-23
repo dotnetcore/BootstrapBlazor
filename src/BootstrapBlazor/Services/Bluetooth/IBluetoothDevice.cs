@@ -65,6 +65,13 @@ public interface IBluetoothDevice : IAsyncDisposable
     Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default);
 
     /// <summary>
+    /// 获得设备指定值方法
+    /// </summary>
+    /// <remarks>比如获得电量方法为 ReadValue("battery_service", "battery_level")</remarks>
+    /// <returns></returns>
+    Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default);
+
+    /// <summary>
     /// 获得设备当前时间方法
     /// </summary>
     /// <param name="token"></param>
@@ -76,5 +83,5 @@ public interface IBluetoothDevice : IAsyncDisposable
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    Task<byte> GetBatteryValue(CancellationToken token = default);
+    Task<byte?> GetBatteryValue(CancellationToken token = default);
 }
