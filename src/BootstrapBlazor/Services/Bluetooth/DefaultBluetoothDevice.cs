@@ -89,37 +89,16 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<List<string>> GetPrimaryServices(CancellationToken token = default)
+    public async Task<List<IBluetoothService>> GetPrimaryServices(CancellationToken token = default)
     {
-        var ret = new List<string>();
+        var ret = new List<IBluetoothService>();
         if (Connected)
         {
             ErrorMessage = null;
             var services = await _module.InvokeAsync<List<string>?>("getPrimaryServices", token, _clientId, _interop, nameof(OnError));
             if (services != null)
             {
-                ret.AddRange(services);
-            }
-        }
-        return ret;
-    }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    /// <param name="serviceName"></param>
-    /// <param name="token"></param>
-    /// <returns></returns>
-    public async Task<List<string>> GetCharacteristics(string serviceName, CancellationToken token = default)
-    {
-        var ret = new List<string>();
-        if (Connected)
-        {
-            ErrorMessage = null;
-            var characteristics = await _module.InvokeAsync<List<string>?>("getCharacteristics", token, _clientId, serviceName, _interop, nameof(OnError));
-            if (characteristics != null)
-            {
-                ret.AddRange(characteristics);
+                ret.AddRange(services.Select(serviceName => new DefaultBluetoothService(_module, _clientId, serviceName, serviceName)));
             }
         }
         return ret;
@@ -128,14 +107,20 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="serviceName"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<byte[]?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default)
+    public async Task<IBluetoothService?> GetPrimaryService(string serviceName, CancellationToken token = default)
     {
-        byte[]? ret = null;
+        IBluetoothService? ret = null;
         if (Connected)
         {
             ErrorMessage = null;
-            ret = await _module.InvokeAsync<byte[]?>("readValue", token, _clientId, serviceName, characteristicName, _interop, nameof(OnError));
+            var uuId = await _module.InvokeAsync<string?>("getPrimaryService", token, _clientId, serviceName, _interop, nameof(OnError));
+            if (!string.IsNullOrEmpty(uuId))
+            {
+                ret = new DefaultBluetoothService(_module, _clientId, serviceName, uuId);
+            }
         }
         return ret;
     }
@@ -175,6 +160,27 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
         }
         return ret;
     }
+
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    public async Task<byte> GetBatteryValue(CancellationToken token = default)
+    {
+        byte ret = 0x0;
+        if (Connected)
+        {
+            ErrorMessage = null;
+            var data = await _module.InvokeAsync<byte[]?>("readValue", token, _clientId, "battery_service", "battery_level", _interop, nameof(OnError));
+            if (data is { Length: > 0 })
+            {
+                ret = data[0];
+            }
+        }
+        return ret;
+    }
+
     /// <summary>
     /// JavaScript 报错回调方法
     /// </summary>

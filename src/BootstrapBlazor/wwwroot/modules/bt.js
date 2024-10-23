@@ -53,8 +53,7 @@ export async function connect(id, invoke, method) {
     return ret;
 }
 
-export async function getPrimaryServices(id, invoke, method)
-{
+export async function getPrimaryServices(id, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -65,8 +64,7 @@ export async function getPrimaryServices(id, invoke, method)
         const server = await getGattServer(bt);
         const services = await server.getPrimaryServices();
         ret = [];
-        for(const service of services)
-        {
+        for (const service of services) {
             ret.push(service.uuid);
         }
     }
@@ -77,8 +75,25 @@ export async function getPrimaryServices(id, invoke, method)
     return ret;
 }
 
-export async function getCharacteristics(id, serviceName, invoke, method)
-{
+export async function getPrimaryService(id, serviceName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        ret = await server.getPrimaryService(serviceName);
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getCharacteristics(id, serviceName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -100,6 +115,26 @@ export async function getCharacteristics(id, serviceName, invoke, method)
     }
     return ret;
 }
+
+export async function getCharacteristic(id, serviceName, characteristicName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        ret = await service.getCharacteristic(characteristicName);
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
 export async function readValue(id, serviceName, characteristicName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
