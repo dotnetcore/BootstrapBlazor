@@ -38,10 +38,10 @@ public partial class Bluetooth
 
     private string? _selectedCharacteristic;
 
-    private List<SelectedItem> ServicesList => _bluetoothServices.Select(i => new SelectedItem(i.UUID, FormatServiceName(i))).ToList();
+    private List<SelectedItem> ServicesList => _bluetoothServices.Select(i => new SelectedItem(i.UUID.ToUpperInvariant(), FormatServiceName(i))).ToList();
 
-    private List<SelectedItem> CharacteristicsList => _bluetoothCharacteristics.Select(i => new SelectedItem(i.UUID, FormatCharacteristicsName(i))).ToList();
-
+    private List<SelectedItem> CharacteristicsList => _bluetoothCharacteristics.Select(i => new SelectedItem(i.UUID.ToUpperInvariant(), FormatCharacteristicsName(i))).ToList();
+    
     private Dictionary<string, string> ServiceUUIDList = [];
 
     /// <summary>
@@ -184,7 +184,7 @@ public partial class Bluetooth
         if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService))
         {
             _bluetoothCharacteristics.Clear();
-            var service = _bluetoothServices.Find(i => i.UUID == _selectedService);
+            var service = _bluetoothServices.Find(i => i.UUID.ToUpperInvariant() == _selectedService);
             if (service != null)
             {
                 _bluetoothCharacteristics = await service.GetCharacteristics();
@@ -195,16 +195,13 @@ public partial class Bluetooth
     private async Task ReadValue()
     {
         _readValueString = null;
-        if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService) && !string.IsNullOrEmpty(_selectedCharacteristic))
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
         {
-            var characteristics = _bluetoothCharacteristics.Find(i => i.UUID == _selectedCharacteristic);
-            if (characteristics != null)
+            var data = await characteristics.ReadValue();
+            if (data != null)
             {
-                var data = await characteristics.ReadValue();
-                if (data != null)
-                {
-                    _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
-                }
+                _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
             }
         }
     }
