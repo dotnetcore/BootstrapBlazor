@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Select<TValue> : ISelect
+public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 {
     [Inject]
     [NotNull]
@@ -164,6 +164,25 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
+
+    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
+    {
+        get => ValueEqualityComparer;
+        set => ValueEqualityComparer = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
@@ -480,4 +499,12 @@ public partial class Select<TValue> : ISelect
             CurrentValueAsString = v;
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

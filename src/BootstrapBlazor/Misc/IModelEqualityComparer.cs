@@ -11,17 +11,17 @@ namespace BootstrapBlazor.Components;
 public interface IModelEqualityComparer<TItem>
 {
     /// <summary>
-    /// 
+    /// 获得/设置 模型比对回调方法
     /// </summary>
     Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 模型键值标签
     /// </summary>
     Type CustomKeyAttribute { get; set; }
 
     /// <summary>
-    /// 
+    /// 相等判定方法
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
