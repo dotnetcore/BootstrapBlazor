@@ -8,6 +8,13 @@
 
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
+           Name="Generic">
+    <Select Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></Select>
+    <Display Value="_selectedFoo?.Address"></Display>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsNormalTitle"]"
+           Introduction="@Localizer["SelectsNormalIntro"]"
            Name="Normal">
     <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
     <div class="row g-3">
