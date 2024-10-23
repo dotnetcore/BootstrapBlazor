@@ -52,10 +52,10 @@ public interface IBluetoothDevice : IAsyncDisposable
     /// <summary>
     /// 获得设备指定服务
     /// </summary>
-    /// <param name="serviceName"></param>
+    /// <param name="serviceUUID"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    Task<IBluetoothService?> GetPrimaryService(string serviceName, CancellationToken token = default);
+    Task<IBluetoothService?> GetPrimaryService(string serviceUUID, CancellationToken token = default);
 
     /// <summary>
     /// 获得设备信息方法

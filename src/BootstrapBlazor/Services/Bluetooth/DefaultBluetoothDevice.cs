@@ -107,19 +107,19 @@ sealed class DefaultBluetoothDevice : IBluetoothDevice
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="serviceName"></param>
+    /// <param name="serviceUUID"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<IBluetoothService?> GetPrimaryService(string serviceName, CancellationToken token = default)
+    public async Task<IBluetoothService?> GetPrimaryService(string serviceUUID, CancellationToken token = default)
     {
         IBluetoothService? ret = null;
         if (Connected)
         {
             ErrorMessage = null;
-            var uuId = await _module.InvokeAsync<string?>("getPrimaryService", token, _clientId, serviceName, _interop, nameof(OnError));
+            var uuId = await _module.InvokeAsync<string?>("getPrimaryService", token, _clientId, serviceUUID, _interop, nameof(OnError));
             if (!string.IsNullOrEmpty(uuId))
             {
-                ret = new DefaultBluetoothService(_module, _clientId, serviceName, uuId);
+                ret = new DefaultBluetoothService(_module, _clientId, serviceUUID, uuId);
             }
         }
         return ret;

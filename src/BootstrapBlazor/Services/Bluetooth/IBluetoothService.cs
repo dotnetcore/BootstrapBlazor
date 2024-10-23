@@ -35,8 +35,8 @@ public interface IBluetoothService
     /// <summary>
     /// 获得设备特定支持特征
     /// </summary>
-    /// <param name="characteristicName"></param>
+    /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicName, CancellationToken token = default);
+    Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicUUID, CancellationToken token = default);
 }

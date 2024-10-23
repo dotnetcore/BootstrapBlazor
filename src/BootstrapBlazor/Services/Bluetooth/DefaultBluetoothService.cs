@@ -70,14 +70,14 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="characteristicName"></param>
+    /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicName, CancellationToken token = default)
+    public async Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicUUID, CancellationToken token = default)
     {
         IBluetoothCharacteristic? characteristic = null;
         ErrorMessage = null;
-        var uuId = await _module.InvokeAsync<string?>("getCharacteristic", token, Id, Name, characteristicName, _interop, nameof(OnError));
+        var uuId = await _module.InvokeAsync<string?>("getCharacteristic", token, Id, Name, characteristicUUID, _interop, nameof(OnError));
         if (!string.IsNullOrEmpty(uuId))
         {
             characteristic = new DefaultBluetoothCharacteristic(_module, Id, Name, uuId);
