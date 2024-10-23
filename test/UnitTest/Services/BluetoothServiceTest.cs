@@ -325,9 +325,10 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         });
         Assert.True(notification);
+        Assert.True(characteristic.IsNotify);
 
-        await characteristic.StartNotifications(payload => { return Task.CompletedTask; });
-        Assert.Equal("the battery_level characteristic already started.", characteristic.ErrorMessage);
+        notification = await characteristic.StartNotifications(payload => { return Task.CompletedTask; });
+        Assert.False(notification);
 
         // trigger notification
         var mi = characteristic.GetType().GetMethod("OnNotification");
@@ -338,6 +339,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
 
         notification = await characteristic.StopNotifications();
         Assert.True(notification);
+        Assert.False(characteristic.IsNotify);
 
         Context.JSInterop.Setup<bool?>("startNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(null);
         await characteristic.StartNotifications(payload =>
@@ -345,7 +347,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         });
         notification = await characteristic.StopNotifications();
-        Assert.False(notification);
+        Assert.True(notification);
 
         Context.JSInterop.Setup<bool?>("startNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(true);
         Context.JSInterop.Setup<bool?>("stopNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(null);
