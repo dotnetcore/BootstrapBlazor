@@ -5892,7 +5892,7 @@
     "BluetoothDescription": "Allows websites to communicate with Bluetooth devices connected to the user's computer. For example, you can connect to a Bluetooth printer to print.",
     "BluetoothTipsLi1": "This feature is available only in secure contexts (HTTPS)",
     "BluetoothTipsLi2": "This is an experimental technology Check the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Bluetooth#browser_compatibility\" target=\"_blank\">Browser compatibility table</a> carefully before using this in production",
-    "BluetoothTipsTitle": "Note: The <code>IBluetoothService</code> interface instance inherits <code>IAsyncDisposable</code>. When switching routes, you need to release its resources by calling its <code>DisposeAsync</code>.",
+    "BluetoothTipsTitle": "Note: The <code>IBluetoothDevice</code> interface instance inherits <code>IAsyncDisposable</code>. When switching routes, you need to release its resources by calling its <code>DisposeAsync</code>.",
     "NotSupportBluetoothTitle": "Scan Devices",
     "NotSupportBluetoothContent": "The current browser does not support serial port operations. Please change to Edge or Chrome browser.",
     "BluetoothRequestText": "Scan",
@@ -5901,7 +5901,13 @@
     "BluetoothGetBatteryText": "Battery",
     "BluetoothGetHeartRateText": "HeartRate",
     "BaseUsageTitle": "Basic usage",
-    "BaseUsageIntro": "Request communication with Bluetooth devices through the <code>IBluetoothService</code> service"
+    "BaseUsageIntro": "Request communication with Bluetooth devices through the <code>IBluetooth</code> service",
+    "BluetoothGetCurrentTimeText": "Time",
+    "BluetoothDeviceInfoText": "Device Info",
+    "UsageDesc": "Click the Scan button and select the phone to test in the pop-up window",
+    "BluetoothGetServicesText": "Services",
+    "BluetoothGetCharacteristicsText": "Characteristics",
+    "BluetoothReadValueText": "ReadValue"
   },
   "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon",

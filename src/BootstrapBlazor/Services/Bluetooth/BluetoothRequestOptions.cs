@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Reflection;
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -39,6 +40,18 @@ public class BluetoothRequestOptions
     /// <summary>
     /// A boolean value indicating that the requesting script can accept all Bluetooth devices. The default is false.
     /// </summary>
+    /// <remarks>This option is appropriate when devices have not advertised enough information for filtering to be useful. When acceptAllDevices is set to true you should omit all filters and exclusionFilters, and you must set optionalServices to be able to use the returned device.</remarks>
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool AcceptAllDevices { get; set; }
+
+    /// <summary>
+    /// 获得所有蓝牙服务
+    /// </summary>
+    /// <returns></returns>
+    public static List<string> GetAllServices() => typeof(BluetoothServicesEnum).GetEnumNames().Select(i =>
+    {
+        var v = i.ToString();
+        var attributes = typeof(BluetoothServicesEnum).GetField(v)!.GetCustomAttribute<JsonPropertyNameAttribute>(false)!;
+        return attributes.Name;
+    }).ToList();
 }

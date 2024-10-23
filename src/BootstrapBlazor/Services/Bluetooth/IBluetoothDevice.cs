@@ -43,9 +43,45 @@ public interface IBluetoothDevice : IAsyncDisposable
     Task<bool> Disconnect(CancellationToken token = default);
 
     /// <summary>
+    /// 获得设备所有支持服务
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<List<IBluetoothService>> GetPrimaryServices(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备指定服务
+    /// </summary>
+    /// <param name="serviceUUID"></param>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<IBluetoothService?> GetPrimaryService(string serviceUUID, CancellationToken token = default);
+
+    /// <summary>
     /// 获得设备指定值方法
     /// </summary>
     /// <remarks>比如获得电量方法为 ReadValue("battery_service", "battery_level")</remarks>
     /// <returns></returns>
-    Task<byte[]?> ReadValue(string serviceName, string characteristicName, CancellationToken token = default);
+    Task<byte[]?> ReadValue(string serviceUUID, string characteristicUUID, CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备信息方法
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<BluetoothDeviceInfo?> GetDeviceInfo(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备当前时间方法
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<DateTimeOffset?> GetCurrentTime(CancellationToken token = default);
+
+    /// <summary>
+    /// 获得设备当前时间方法
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns></returns>
+    Task<byte?> GetBatteryValue(CancellationToken token = default);
 }
