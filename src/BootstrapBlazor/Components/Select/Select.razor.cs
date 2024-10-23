@@ -50,7 +50,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", () => item.Value == CurrentValueAsString)
+        .AddClass("active", Match(item))
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
@@ -183,6 +183,13 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [Parameter]
     [NotNull]
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
+    /// <summary>
+    /// 获得/设置 编辑时生成 Value 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<TValue>>? EditTextConvertToValueCallback { get; set; }
+
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
@@ -319,7 +326,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
                 _dataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = _dataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+            SelectedItem = _dataSource.Find(Match)
                 ?? _dataSource.Find(i => i.Active)
                 ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
@@ -355,6 +362,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
+
+    private bool Match(SelectedItem i) => i is SelectedItem<TValue> d ? Equals(d.Value, Value) : i.Value.Equals(CurrentValueAsString, StringComparison);
 
     /// <summary>
     /// 客户端回车回调方法
@@ -410,6 +419,27 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     }
 
     private async Task SelectedItemChanged(SelectedItem item)
+    {
+        if (item is SelectedItem<TValue> d && !Equals(d.Value, Value))
+        {
+            item.Active = true;
+            SelectedItem = item;
+
+            CurrentValue = d.Value;
+
+            // 触发 SelectedItemChanged 事件
+            if (OnSelectedItemChanged != null)
+            {
+                await OnSelectedItemChanged(SelectedItem);
+            }
+        }
+        else
+        {
+            await ValueTypeChanged(item);
+        }
+    }
+
+    private async Task ValueTypeChanged(SelectedItem item)
     {
         if (_lastSelectedValueString != item.Value)
         {
@@ -482,21 +512,49 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     {
         if (args.Value is string v)
         {
+            // 判断是否为泛型 SelectedItem
+            var isGeneric = Items.GetType().GetGenericArguments()[0].IsGenericType;
+
             // Items 中没有时插入一个 SelectedItem
-            if (Items.FirstOrDefault(i => i.Text == v) == null)
+            var item = Items.FirstOrDefault(i => i.Text == v);
+
+            TValue? val = default;
+            if (item == null)
             {
-                var items = new List<SelectedItem>
+                if (isGeneric)
                 {
-                    new(v, v)
-                };
+                    if (EditTextConvertToValueCallback != null)
+                    {
+                        val = await EditTextConvertToValueCallback(v);
+                    }
+                    item = new SelectedItem<TValue>() { Text = v, Value = val };
+                }
+                else
+                {
+                    item = new SelectedItem(v, v);
+                }
+                var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
             }
+            else if (item is SelectedItem<TValue> value)
+            {
+                val = value.Value;
+            }
+
+            if (isGeneric)
+            {
+                CurrentValue = val;
+            }
+            else
+            {
+                CurrentValueAsString = v;
+            }
+
             if (OnInputChangedCallback != null)
             {
                 await OnInputChangedCallback(v);
             }
-            CurrentValueAsString = v;
         }
     }
 
