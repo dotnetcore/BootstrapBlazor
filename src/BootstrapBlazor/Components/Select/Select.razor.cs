@@ -513,7 +513,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         if (args.Value is string v)
         {
             // 判断是否为泛型 SelectedItem
-            var isGeneric = Items.GetType().GetGenericArguments()[0].IsGenericType;
+            var isGeneric = Items.GetType().GetGenericArguments().Length > 0;
 
             // Items 中没有时插入一个 SelectedItem
             var item = Items.FirstOrDefault(i => i.Text == v);

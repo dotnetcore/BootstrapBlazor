@@ -911,6 +911,38 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsEditable_Generic()
+    {
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem<Foo>[]
+            {
+                new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
+                new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
+            });
+            pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.EditTextConvertToValueCallback, v =>
+            {
+                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
+            });
+        });
+
+        var input = cut.Find(".form-select");
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("test2");
+        });
+        Assert.Equal("Foo2", cut.Instance.Value.Address);
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("test3");
+        });
+        Assert.Equal("Foo3", cut.Instance.Value.Address);
+    }
+
+    [Fact]
     public async Task OnClearAsync_Ok()
     {
         var clear = false;
@@ -954,5 +986,27 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         await cut.Instance.Show();
         await cut.Instance.Hide();
+    }
+
+    [Fact]
+    public void GenericValue_Ok()
+    {
+        var items = new List<SelectedItem<Foo>>()
+        {
+            new()
+            {
+                Value = new Foo() { Id = 1, Name = "Foo1" },
+                Text = "Foo1"
+            },
+            new()
+            {
+                Value = new Foo() { Id = 2, Name = "Foo2" },
+                Text = "Foo2"
+            }
+        };
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
     }
 }
