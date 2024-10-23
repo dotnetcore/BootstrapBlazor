@@ -1,7 +1,9 @@
 ﻿if (typeof (Array.prototype.remove) !== 'function') {
-    Array.prototype.remove = item => {
+    Array.prototype.remove = function(item) {
         const index = this.indexOf(item);
-        this.splice(index, 1);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
         return this;
     }
 }
