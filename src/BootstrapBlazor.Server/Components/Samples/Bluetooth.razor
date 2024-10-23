@@ -76,6 +76,12 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
         <div class="col-12">
             <Textarea Value="@_readValueString" rows="3" readonly></Textarea>
         </div>
+        <div class="col-12">
+            <Button Text="@Localizer["BluetoothStartText"]" Icon="fa-solid fa-play" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="StartNotifications"></Button>
+        </div>
+        <div class="col-12">
+            <Button Text="@Localizer["BluetoothStopText"]" Icon="fa-solid fa-stop" IsDisabled="@(_blueDevice is not { Connected: true })" OnClick="StopNotifications"></Button>
+        </div>
     </div>
 </DemoBlock>
 

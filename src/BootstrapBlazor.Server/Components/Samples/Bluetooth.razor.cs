@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// Bluetooth
 /// </summary>
-public partial class Bluetooth
+public partial class Bluetooth : IAsyncDisposable
 {
     [Inject, NotNull]
     private IBluetooth? BluetoothService { get; set; }
@@ -74,6 +74,10 @@ public partial class Bluetooth
             AcceptAllDevices = true,
             OptionalServices = ["device_information", "current_time", "battery_service"]
         };
+        #if DEBUG
+        options.AcceptAllDevices = false;
+        options.Filters = [ new BluetoothFilter() { NamePrefix = "Argo" } ];
+        #endif
         _blueDevice = await BluetoothService.RequestDevice(options);
         if (BluetoothService.IsSupport == false)
         {
@@ -204,5 +208,49 @@ public partial class Bluetooth
                 _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
             }
         }
+    }
+
+    private async Task StartNotifications()
+    {
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
+        {
+            await characteristics.StartNotifications(HandlerNotification);
+        }
+    }
+
+    private async Task StopNotifications()
+    {
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
+        {
+            await characteristics.StopNotifications();
+        }
+    }
+
+    private Task HandlerNotification(byte[] payload) {
+        _readValueString = string.Join(" ", payload.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async ValueTask DisposeAsync(bool disposing) 
+    {
+        if (disposing) 
+        {
+            if (_blueDevice != null) 
+            {
+                await _blueDevice.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync() {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
