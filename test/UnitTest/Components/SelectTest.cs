@@ -163,7 +163,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnSelectedItemChanged_OK()
+    public async Task OnSelectedItemChanged_OK()
     {
         var triggered = false;
 
@@ -185,7 +185,7 @@ public class SelectTest : BootstrapBlazorTestBase
         Assert.False(triggered);
 
         // 切换候选项时触发 OnSelectedItemChanged 回调测试
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var count = items.Count;
@@ -198,7 +198,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 切换回 空值 触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var item = items[0];
@@ -222,7 +222,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 切换回 空值 触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var count = items.Count;
@@ -231,6 +231,33 @@ public class SelectTest : BootstrapBlazorTestBase
             item.Click();
         });
         Assert.True(triggered);
+    }
+
+    [Fact]
+    public async Task OnSelectedItemChanged_Generic()
+    {
+        Foo? selectedValue = null;
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem<Foo>[]
+            {
+                new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
+                new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
+            });
+            pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
+            pb.Add(a => a.OnSelectedItemChanged, v =>
+            {
+                if (v is SelectedItem<Foo> d)
+                {
+                    selectedValue = d.Value;
+                }
+                return Task.CompletedTask;
+            });
+        });
+
+        var items = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => items[1].Click());
+        Assert.NotNull(selectedValue);
     }
 
     [Fact]
@@ -824,11 +851,11 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         var select = cut.Instance;
         var mi = select.GetType().GetMethod("LoadItems", BindingFlags.NonPublic | BindingFlags.Instance);
-        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
 
         var totalCountProperty = select.GetType().GetProperty("TotalCount", BindingFlags.NonPublic | BindingFlags.Instance);
         totalCountProperty?.SetValue(select, 2);
-        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
     }
 
     [Fact]
