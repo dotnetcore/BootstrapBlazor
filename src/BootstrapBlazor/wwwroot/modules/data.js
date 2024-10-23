@@ -1,4 +1,12 @@
-﻿const elementMap = new Map()
+﻿if (typeof (Array.prototype.remove) !== 'function') {
+    Array.prototype.remove = item => {
+        const index = this.indexOf(item);
+        this.splice(index, 1);
+        return this;
+    }
+}
+
+const elementMap = new Map()
 
 export default {
     set(element, instance) {

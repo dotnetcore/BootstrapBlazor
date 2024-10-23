@@ -14,6 +14,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
 
     private readonly DotNetObjectReference<DefaultBluetoothCharacteristic> _interop;
 
+    private readonly Dictionary<string, Func<byte[], Task>> _callbackCache = [];
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -69,9 +71,16 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <param name="notificationCallback"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default)
+    public async Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default)
     {
-        return Task.FromResult(false);
+        ErrorMessage = null;
+        var result = await _module.InvokeAsync<bool?>("startNotifications", token, Id, ServiceUUID, UUID, _interop, nameof(OnError), nameof(OnNotification));
+        var ret = result is true;
+        if (ret)
+        {
+            _callbackCache.Add(UUID, notificationCallback);
+        }
+        return ret;
     }
 
     /// <summary>
@@ -79,9 +88,25 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<bool> StopNotifications(CancellationToken token = default)
+    public async Task<bool> StopNotifications(CancellationToken token = default)
     {
-        return Task.FromResult(false);
+        ErrorMessage = null;
+        var result = await _module.InvokeAsync<bool?>("stopNotifications", token, Id, UUID);
+        var ret = result is true;
+        if (ret)
+        {
+            _callbackCache.Remove(UUID);
+        }
+        return ret;
+    }
+
+    [JSInvokable]
+    public async Task OnNotification(string uuId, byte[] payload)
+    {
+        if (_callbackCache.TryGetValue(uuId, out var notificationCallback))
+        {
+            await notificationCallback(payload);
+        }
     }
 
     /// <summary>
