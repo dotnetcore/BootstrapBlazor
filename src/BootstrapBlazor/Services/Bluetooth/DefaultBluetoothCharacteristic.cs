@@ -73,12 +73,19 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <returns></returns>
     public async Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default)
     {
+        if (_callbackCache.TryGetValue(UUID, out _))
+        {
+            ErrorMessage = $"the {UUID} characteristic already started.";
+            return false;
+        }
+
+        var ret = false;
         ErrorMessage = null;
         var result = await _module.InvokeAsync<bool?>("startNotifications", token, Id, ServiceUUID, UUID, _interop, nameof(OnError), nameof(OnNotification));
-        var ret = result is true;
+        ret = result is true;
         if (ret)
         {
-            _callbackCache.Add(UUID, notificationCallback);
+            _callbackCache.TryAdd(UUID, notificationCallback);
         }
         return ret;
     }
@@ -90,12 +97,16 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <returns></returns>
     public async Task<bool> StopNotifications(CancellationToken token = default)
     {
-        ErrorMessage = null;
-        var result = await _module.InvokeAsync<bool?>("stopNotifications", token, Id, UUID);
-        var ret = result is true;
-        if (ret)
+        var ret = false;
+        if (_callbackCache.TryGetValue(UUID, out _))
         {
-            _callbackCache.Remove(UUID);
+            ErrorMessage = null;
+            var result = await _module.InvokeAsync<bool?>("stopNotifications", token, Id, UUID);
+            ret = result is true;
+            if (ret)
+            {
+                _callbackCache.Remove(UUID);
+            }
         }
         return ret;
     }
