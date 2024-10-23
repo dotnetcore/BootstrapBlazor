@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System;
 using System.Globalization;
 
 namespace UnitTest.Services;
@@ -114,6 +115,11 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
 
         var characteristic = await service.GetCharacteristic("battery_level");
         Assert.NotNull(characteristic);
+
+        mi = characteristic.GetType().GetMethod("OnError");
+        Assert.NotNull(mi);
+        mi.Invoke(characteristic, ["test"]);
+        Assert.Equal("test", characteristic.ErrorMessage);
 
         v = await characteristic.ReadValue();
         Assert.Null(v);
@@ -312,13 +318,43 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         var characteristic = await service.GetCharacteristic("battery_level");
         Assert.NotNull(characteristic);
 
+        byte[]? buffer = null;
         var notification = await characteristic.StartNotifications(payload =>
         {
+            buffer = payload;
             return Task.CompletedTask;
         });
         Assert.True(notification);
 
+        await characteristic.StartNotifications(payload => { return Task.CompletedTask; });
+        Assert.Equal("the battery_level characteristic already started.", characteristic.ErrorMessage);
+
+        // trigger notification
+        var mi = characteristic.GetType().GetMethod("OnNotification");
+        Assert.NotNull(mi);
+        Assert.Null(buffer);
+        mi.Invoke(characteristic, ["battery_level", "1"u8.ToArray()]);
+        Assert.NotNull(buffer);
+
         notification = await characteristic.StopNotifications();
         Assert.True(notification);
+
+        Context.JSInterop.Setup<bool?>("startNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(null);
+        await characteristic.StartNotifications(payload =>
+        {
+            return Task.CompletedTask;
+        });
+        notification = await characteristic.StopNotifications();
+        Assert.False(notification);
+
+        Context.JSInterop.Setup<bool?>("startNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(true);
+        Context.JSInterop.Setup<bool?>("stopNotifications", matcher => matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false).SetResult(null);
+        await characteristic.StartNotifications(payload =>
+        {
+            return Task.CompletedTask;
+        });
+        notification = await characteristic.StopNotifications();
+        Assert.False(notification);
+
     }
 }
