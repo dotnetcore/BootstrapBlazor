@@ -6,6 +6,7 @@
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace UnitTest.Components;
@@ -253,7 +254,12 @@ public class SelectTest : BootstrapBlazorTestBase
                 }
                 return Task.CompletedTask;
             });
+            pb.Add(a => a.CustomKeyAttribute, typeof(KeyAttribute));
         });
+
+        IModelEqualityComparer<Foo> comparer = cut.Instance as IModelEqualityComparer<Foo>;
+        Assert.NotNull(comparer);
+        comparer.ModelEqualityComparer = (x, y) => x.Id == y.Id;
 
         var items = cut.FindAll(".dropdown-item");
         await cut.InvokeAsync(() => items[1].Click());
