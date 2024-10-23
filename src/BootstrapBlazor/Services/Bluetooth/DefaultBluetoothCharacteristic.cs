@@ -35,11 +35,6 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     public string? ErrorMessage { get; private set; }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool Connected { get; private set; }
-
-    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="module"></param>
@@ -63,11 +58,8 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     public async Task<byte[]?> ReadValue(CancellationToken token = default)
     {
         byte[]? ret = null;
-        if (Connected)
-        {
-            ErrorMessage = null;
-            ret = await _module.InvokeAsync<byte[]?>("readValue", token, Id, ServiceUUID, UUID, _interop, nameof(OnError));
-        }
+        ErrorMessage = null;
+        ret = await _module.InvokeAsync<byte[]?>("readValue", token, Id, ServiceUUID, UUID, _interop, nameof(OnError));
         return ret;
     }
 
