@@ -14,8 +14,6 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
 
     private readonly DotNetObjectReference<DefaultBluetoothCharacteristic> _interop;
 
-    private readonly Dictionary<string, Func<byte[], Task>> _callbackCache = [];
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -34,7 +32,14 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public string? ErrorMessage { get; private set; }
+    public string? ErrorMessage { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsNotify { get; set; }
+
+    private Func<byte[], Task>? _notifyCallback;
 
     /// <summary>
     /// 构造函数
@@ -73,21 +78,16 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <returns></returns>
     public async Task<bool> StartNotifications(Func<byte[], Task> notificationCallback, CancellationToken token = default)
     {
-        if (_callbackCache.TryGetValue(UUID, out _))
+        if (IsNotify)
         {
-            ErrorMessage = $"the {UUID} characteristic already started.";
             return false;
         }
 
-        var ret = false;
         ErrorMessage = null;
         var result = await _module.InvokeAsync<bool?>("startNotifications", token, Id, ServiceUUID, UUID, _interop, nameof(OnError), nameof(OnNotification));
-        ret = result is true;
-        if (ret)
-        {
-            _callbackCache.TryAdd(UUID, notificationCallback);
-        }
-        return ret;
+        IsNotify = result is true;
+        _notifyCallback = notificationCallback;
+        return IsNotify;
     }
 
     /// <summary>
@@ -97,16 +97,12 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     /// <returns></returns>
     public async Task<bool> StopNotifications(CancellationToken token = default)
     {
-        var ret = false;
-        if (_callbackCache.TryGetValue(UUID, out _))
+        ErrorMessage = null;
+        var result = await _module.InvokeAsync<bool?>("stopNotifications", token, Id, UUID);
+        var ret = result is true;
+        if (ret)
         {
-            ErrorMessage = null;
-            var result = await _module.InvokeAsync<bool?>("stopNotifications", token, Id, UUID);
-            ret = result is true;
-            if (ret)
-            {
-                _callbackCache.Remove(UUID);
-            }
+            IsNotify = false;
         }
         return ret;
     }
@@ -114,9 +110,9 @@ sealed class DefaultBluetoothCharacteristic : IBluetoothCharacteristic
     [JSInvokable]
     public async Task OnNotification(string uuId, byte[] payload)
     {
-        if (_callbackCache.TryGetValue(uuId, out var notificationCallback))
+        if (_notifyCallback != null)
         {
-            await notificationCallback(payload);
+            await _notifyCallback(payload);
         }
     }
 

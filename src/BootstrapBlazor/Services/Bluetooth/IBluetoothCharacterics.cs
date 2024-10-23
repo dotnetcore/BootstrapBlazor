@@ -26,6 +26,11 @@ public interface IBluetoothCharacteristic
     public string UUID { get; }
 
     /// <summary>
+    /// 获得 是否已经开始调用 <see cref="StartNotifications"/> 方法
+    /// </summary>
+    public bool IsNotify { get; }
+
+    /// <summary>
     /// 设备指定特征开始持续回调方法
     /// </summary>
     /// <param name="notificationCallback"></param>
