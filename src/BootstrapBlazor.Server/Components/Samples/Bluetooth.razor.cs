@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class Bluetooth
 {
     [Inject, NotNull]
-    private IBluetoothService? BluetoothService { get; set; }
+    private IBluetooth? BluetoothService { get; set; }
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }

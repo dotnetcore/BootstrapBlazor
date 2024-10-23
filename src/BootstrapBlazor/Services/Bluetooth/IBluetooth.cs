@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 蓝牙服务接口
 /// </summary>
-public interface IBluetoothService
+public interface IBluetooth
 {
     /// <summary>
     /// 获得 浏览器是否支持蓝牙

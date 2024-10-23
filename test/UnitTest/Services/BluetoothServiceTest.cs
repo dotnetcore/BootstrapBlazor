@@ -19,7 +19,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<byte[]>("readValue", matcher => matcher.Arguments.Count == 5 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult([0x31]);
         Context.JSInterop.Setup<bool>("disconnect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
 
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
 
         var services = new List<BluetoothServicesEnum>() { BluetoothServicesEnum.DeviceInformation };
         var device = await bluetoothService.RequestDevice(services.GetServicesList());
@@ -55,7 +55,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
         Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<List<string>?>("getPrimaryServices", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["battery_service"]);
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
         var device = await bluetoothService.RequestDevice();
         Assert.NotNull(device);
 
@@ -71,7 +71,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
         Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<List<string>?>("getCharacteristics", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["battery_level"]);
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
         var device = await bluetoothService.RequestDevice();
         Assert.NotNull(device);
 
@@ -86,7 +86,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
         Context.JSInterop.Setup<string[]?>("requestDevice", matcher => matcher.Arguments.Count == 4 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(["test", "id_1234"]);
         Context.JSInterop.Setup<byte[]?>("readValue", matcher => matcher.Arguments.Count == 5 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(null);
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
         var device = await bluetoothService.RequestDevice();
         Assert.NotNull(device);
         var v = await device.GetBatteryValue();
@@ -98,7 +98,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
     {
         Context.JSInterop.Setup<bool>("init", matcher => matcher.Arguments.Count == 0).SetResult(true);
         Context.JSInterop.Setup<bool>("getAvailability", matcher => matcher.Arguments.Count == 0).SetResult(true);
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
 
         await bluetoothService.GetAvailability();
         Assert.True(bluetoothService.IsSupport);
@@ -187,7 +187,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<BluetoothDeviceInfo?>("getDeviceInfo", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(new BluetoothDeviceInfo() { ManufacturerName = "test" });
 
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
         var device = await bluetoothService.RequestDevice();
         Assert.NotNull(device);
 
@@ -204,7 +204,7 @@ public class BluetoothServiceTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<bool>("connect", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult(true);
         Context.JSInterop.Setup<string?>("getCurrentTime", matcher => matcher.Arguments.Count == 3 && (matcher.Arguments[0]?.ToString()?.StartsWith("bb_bt_") ?? false)).SetResult("2024-10-10T10:05:10+07:00");
 
-        var bluetoothService = Context.Services.GetRequiredService<IBluetoothService>();
+        var bluetoothService = Context.Services.GetRequiredService<IBluetooth>();
         var device = await bluetoothService.RequestDevice();
         Assert.NotNull(device);
 

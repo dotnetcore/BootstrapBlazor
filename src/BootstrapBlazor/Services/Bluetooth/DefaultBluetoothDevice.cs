@@ -10,13 +10,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 蓝牙设备
 /// </summary>
-sealed class BluetoothDevice : IBluetoothDevice
+sealed class DefaultBluetoothDevice : IBluetoothDevice
 {
     private readonly JSModule _module;
 
     private readonly string _clientId;
 
-    private readonly DotNetObjectReference<BluetoothDevice> _interop;
+    private readonly DotNetObjectReference<DefaultBluetoothDevice> _interop;
 
     /// <summary>
     /// <inheritdoc/>
@@ -38,7 +38,7 @@ sealed class BluetoothDevice : IBluetoothDevice
     /// </summary>
     public bool Connected { get; private set; }
 
-    public BluetoothDevice(JSModule module, string clientId, string[] args)
+    public DefaultBluetoothDevice(JSModule module, string clientId, string[] args)
     {
         _module = module;
         _clientId = clientId;

@@ -5,7 +5,7 @@
 
 namespace BootstrapBlazor.Components;
 
-sealed class DefaultBluetoothService : IBluetoothService
+sealed class DefaultBluetooth : IBluetooth
 {
     /// <summary>
     /// <inheritdoc />
@@ -29,13 +29,13 @@ sealed class DefaultBluetoothService : IBluetoothService
 
     private readonly string _deviceId;
 
-    private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
+    private readonly DotNetObjectReference<DefaultBluetooth> _interop;
 
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="jsRuntime"></param>
-    public DefaultBluetoothService(IJSRuntime jsRuntime)
+    public DefaultBluetooth(IJSRuntime jsRuntime)
     {
         _runtime = jsRuntime;
         _deviceId = $"bb_bt_{GetHashCode()}";
@@ -75,14 +75,14 @@ sealed class DefaultBluetoothService : IBluetoothService
     {
         _module ??= await LoadModule();
 
-        BluetoothDevice? device = null;
+        DefaultBluetoothDevice? device = null;
         if (IsSupport)
         {
             ErrorMessage = null;
             var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, options, _interop, nameof(OnError));
             if (parameters != null)
             {
-                device = new BluetoothDevice(_module, _deviceId, parameters);
+                device = new DefaultBluetoothDevice(_module, _deviceId, parameters);
             }
         }
         return device;

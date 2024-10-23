@@ -70,7 +70,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
         services.TryAddScoped<IBrowserFingerService, DefaultBrowserFingerService>();
         services.TryAddScoped<ISerialService, DefaultSerialService>();
-        services.TryAddScoped<IBluetoothService, DefaultBluetoothService>();
+        services.TryAddScoped<IBluetooth, DefaultBluetooth>();
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();
         services.AddScoped<MaskService>();
