@@ -5,49 +5,49 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// DefaultBluetoothService 实现类
+/// </summary>
 sealed class DefaultBluetoothService : IBluetoothService
 {
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    public bool IsSupport { get; private set; }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    public bool IsAvailable { get; private set; }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    public string? ErrorMessage { get; private set; }
-
-    [NotNull]
-    private JSModule? _module = null;
-
-    private readonly IJSRuntime _runtime;
-
-    private readonly string _deviceId;
+    private readonly JSModule _module;
 
     private readonly DotNetObjectReference<DefaultBluetoothService> _interop;
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string Name { get; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string UUID { get; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string Id { get; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? ErrorMessage { get; private set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="jsRuntime"></param>
-    public DefaultBluetoothService(IJSRuntime jsRuntime)
+    /// <param name="module"></param>
+    /// <param name="clientId"></param>
+    /// <param name="serviceName"></param>
+    /// <param name="serviceUUID"></param>
+    public DefaultBluetoothService(JSModule module, string clientId, string serviceName, string serviceUUID)
     {
-        _runtime = jsRuntime;
-        _deviceId = $"bb_bt_{GetHashCode()}";
+        Name = serviceName;
+        Id = clientId;
+        UUID = serviceUUID;
+        _module = module;
         _interop = DotNetObjectReference.Create(this);
-    }
-
-    private async Task<JSModule> LoadModule()
-    {
-        var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
-
-        IsSupport = await module.InvokeAsync<bool>("init");
-        return module;
     }
 
     /// <summary>
@@ -55,49 +55,34 @@ sealed class DefaultBluetoothService : IBluetoothService
     /// </summary>
     /// <param name="token"></param>
     /// <returns></returns>
-    public async Task<bool> GetAvailability(CancellationToken token = default)
+    public async Task<List<IBluetoothCharacteristic>> GetCharacteristics(CancellationToken token = default)
     {
-        _module ??= await LoadModule();
-
-        var ret = false;
-        if (IsSupport)
+        var ret = new List<IBluetoothCharacteristic>();
+        ErrorMessage = null;
+        var characteristics = await _module.InvokeAsync<List<string>?>("getCharacteristics", token, Id, Name, _interop, nameof(OnError));
+        if (characteristics != null)
         {
-            ret = await _module.InvokeAsync<bool>("getAvailability", token);
-            IsAvailable = ret;
+            ret.AddRange(characteristics.Select(characteristics => new DefaultBluetoothCharacteristic(_module, Id, Name, characteristics)));
         }
         return ret;
     }
 
     /// <summary>
-    /// <inheritdoc />
+    /// <inheritdoc/>
     /// </summary>
-    public async Task<IBluetoothDevice?> RequestDevice(BluetoothRequestOptions? options = null, CancellationToken token = default)
-    {
-        _module ??= await LoadModule();
-
-        BluetoothDevice? device = null;
-        if (IsSupport)
-        {
-            ErrorMessage = null;
-            var parameters = await _module.InvokeAsync<string[]?>("requestDevice", token, _deviceId, options, _interop, nameof(OnError));
-            if (parameters != null)
-            {
-                device = new BluetoothDevice(_module, _deviceId, parameters);
-            }
-        }
-        return device;
-    }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    /// <param name="optionalServices"></param>
+    /// <param name="characteristicUUID"></param>
     /// <param name="token"></param>
     /// <returns></returns>
-    public Task<IBluetoothDevice?> RequestDevice(List<string> optionalServices, CancellationToken token = default)
+    public async Task<IBluetoothCharacteristic?> GetCharacteristic(string characteristicUUID, CancellationToken token = default)
     {
-        var options = new BluetoothRequestOptions() { AcceptAllDevices = true, OptionalServices = optionalServices };
-        return RequestDevice(options, token);
+        IBluetoothCharacteristic? characteristic = null;
+        ErrorMessage = null;
+        var uuId = await _module.InvokeAsync<string?>("getCharacteristic", token, Id, Name, characteristicUUID, _interop, nameof(OnError));
+        if (!string.IsNullOrEmpty(uuId))
+        {
+            characteristic = new DefaultBluetoothCharacteristic(_module, Id, Name, uuId);
+        }
+        return characteristic;
     }
 
     /// <summary>

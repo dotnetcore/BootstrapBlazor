@@ -1,4 +1,5 @@
 ﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
 export async function init() {
     return navigator.bluetooth !== void 0;
@@ -53,8 +54,7 @@ export async function connect(id, invoke, method) {
     return ret;
 }
 
-export async function getPrimaryServices(id, invoke, method)
-{
+export async function getPrimaryServices(id, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -65,8 +65,7 @@ export async function getPrimaryServices(id, invoke, method)
         const server = await getGattServer(bt);
         const services = await server.getPrimaryServices();
         ret = [];
-        for(const service of services)
-        {
+        for (const service of services) {
             ret.push(service.uuid);
         }
     }
@@ -77,8 +76,25 @@ export async function getPrimaryServices(id, invoke, method)
     return ret;
 }
 
-export async function getCharacteristics(id, serviceName, invoke, method)
-{
+export async function getPrimaryService(id, serviceName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        ret = await server.getPrimaryService(serviceName);
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function getCharacteristics(id, serviceName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
     if (bt === null) {
@@ -100,6 +116,26 @@ export async function getCharacteristics(id, serviceName, invoke, method)
     }
     return ret;
 }
+
+export async function getCharacteristic(id, serviceName, characteristicName, invoke, method) {
+    let ret = null;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        ret = await service.getCharacteristic(characteristicName);
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
 export async function readValue(id, serviceName, characteristicName, invoke, method) {
     let ret = null;
     const bt = Data.get(id);
@@ -251,6 +287,58 @@ export async function getCurrentTime(id, invoke, method) {
     return ret;
 }
 
+export async function startNotifications(id, serviceName, characteristicName, invoke, method, callback) {
+    let ret = false;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    try {
+        const server = await getGattServer(bt);
+        const service = await server.getPrimaryService(serviceName);
+        const characteristic = await service.getCharacteristic(characteristicName);
+        await characteristic.startNotifications();
+        EventHandler.on(characteristic, 'characteristicvaluechanged', e => {
+            let dv = e.target.value;
+            const data = new Uint8Array(dv.byteLength);
+            for (let index = 0; index < dv.byteLength; index++) {
+                data[index] = dv.getUint8(index);
+            }
+            invoke.invokeMethodAsync(callback, data);
+        });
+        if (bt.notifications === void 0) {
+            bt.notifications = [];
+        }
+        bt.notifications.push({ uuid: characteristicName, characteristic });
+        ret = true;
+    }
+    catch (err) {
+        invoke.invokeMethodAsync(method, err.toString());
+        console.error(err);
+    }
+    return ret;
+}
+
+export async function stopNotifications(id, characteristicName) {
+    let ret = false;
+    const bt = Data.get(id);
+    if (bt === null) {
+        return ret;
+    }
+
+    const { notifications } = bt;
+    if (notifications) {
+        const noti = notifications.find(i => i.uuid === characteristicName);
+        if (noti) {
+            await noti.characteristic.stopNotifications();
+            notifications.remove(noti);
+        }
+    }
+    ret = true;
+    return ret;
+}
+
 const getGattServer = async bt => {
     const { device } = bt;
     const server = device.gatt;
@@ -274,7 +362,12 @@ export async function disconnect(id, invoke, method) {
     }
 
     try {
-        const { device } = bt;
+        const { device, notifications } = bt;
+        if (notifications) {
+            for (const noti of notifications) {
+                await stopNotifications(id, noti.uuid);
+            }
+        }
         if (device.gatt.connected === true) {
             device.gatt.disconnect();
         }
