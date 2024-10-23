@@ -8,7 +8,7 @@
 <p>@((MarkupString)Localizer["BluetoothDescription"].Value)</p>
 
 <Pre>[Inject, NotNull]
-private IBluetoothService? BluetoothService { get; set; }</Pre>
+private IBluetooth? BluetoothService { get; set; }</Pre>
 
 <Tips>
     <ul class="ul-demo">
@@ -89,7 +89,7 @@ private IBluetoothService? BluetoothService { get; set; }</Pre>
 
 <Pre>[Inject]
 [NotNull]
-private IBluetoothService? BluetoothService { get; set; }</Pre>
+private IBluetooth? BluetoothService { get; set; }</Pre>
 
 <p class="code-label">2. 列出蓝牙设备</p>
 <p>调用 <code>BluetoothService</code> 实例方法 <code>RequestDevice</code> 即可，通过 <code>IsSupport</code> 进行浏览器是否支持蓝牙。可以通过 <code>BluetoothRequestOptions</code> 过滤参数过滤蓝牙设备</p>
@@ -136,16 +136,26 @@ if (BluetoothService.IsSupport == false)
 
 <p><code>IBluetoothService</code> 实例属性 <code>IsSupport</code> 是表示当前浏览器是否支持蓝牙功能</p>
 
-<p><code>IBluetoothService</code> 与 <code>IBluetoothDevice</code> 所有实例方法均有返回值，可通过查看其实例属性 <code>ErrorMessage</code> 获得上一次执行的错误描述信息</p>
+<p><code>IBluetooth</code> 与 <code>IBluetoothDevice</code> 所有实例方法均有返回值，可通过查看其实例属性 <code>ErrorMessage</code> 获得上一次执行的错误描述信息</p>
 
-<p><code>IBluetoothDevice</code> 实例方法 <code>ReadValue</code> 是通用方法，通过参数指定<code>Services</code> 与 <code>Characteristics</code></p>
+<p><code>IBluetoothDevice</code> 实例方法 <code>ReadValue</code> 是通用方法，通过参数指定<code>ServiceUUID</code> 与 <code>CharacteristicUUID</code></p>
 
 <p>原生方法 <code>getDevices</code> 暂未封装，因为需要设置浏览器才能开启</p>
 
-<p>可根据自己的业务需求自定义扩展方法，内置扩展方法列表如下：</p>
+<p>可根据自己的业务需求自定义扩展方法，内置方法列表如下：</p>
 
 <ul class="ul-demo">
+    <li><code>GetDeviceInfo</code> 读取设备信息</li>
+    <li><code>GetCurrentTime</code> 读取当前时间</li>
     <li><code>GetBatteryValue</code> 读取电量方法</li>
+</ul>
+
+<p class="code-label">接口说明</p>
+<ul class="ul-demo">
+    <li><code>IBluetooth</code> 蓝牙服务（系统注入）</li>
+    <li><code>IBluetoothDevice</code> 蓝牙设备</li>
+    <li><code>IBluetoothService</code> 蓝牙设备提供的服务接口 如时间服务</li>
+    <li><code>IBluetoothCharacteristic</code> 蓝牙设备服务提供的特性接口 如时间服务的当前时间特性（还有时区特性）</li>
 </ul>
 
 <p class="code-label">相关文档</p>

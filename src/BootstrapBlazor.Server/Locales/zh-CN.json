@@ -5887,12 +5887,12 @@
     "OnScreenKeyboardsBasicTitle": "基础用法"
   },
   "BootstrapBlazor.Server.Components.Samples.Bluetooth": {
-    "BluetoothTitle": "IBluetoothService 蓝牙服务",
+    "BluetoothTitle": "IBluetooth 蓝牙服务",
     "BluetoothIntro": "提供了查询蓝牙可用性和请求访问设备的方法",
     "BluetoothDescription": "允许网站与连接到用户计算机的蓝牙设备进行通信。例如可以连接蓝牙打印机进行打印操作",
     "BluetoothTipsLi1": "该功能仅在部分或所有支持浏览器的安全上下文(HTTPS)中可用",
     "BluetoothTipsLi2": "这是一项实验性技术，在生产中使用之前请仔细,检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/Bluetooth#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
-    "BluetoothTipsTitle": "注意：<code>IBluetoothService</code> 接口实例继承 <code>IAsyncDisposable</code> 路由切换时需要对其进行资源释放，调用其 <code>DisposeAsync</code> 即可",
+    "BluetoothTipsTitle": "注意：<code>IBluetoothDevice</code> 接口实例继承 <code>IAsyncDisposable</code> 路由切换时需要对其进行资源释放，调用其 <code>DisposeAsync</code> 即可",
     "NotSupportBluetoothTitle": "扫描设备",
     "NotSupportBluetoothContent": "当前浏览器不支持串口操作，请更换 Edge 或者 Chrome 浏览器",
     "BluetoothRequestText": "扫描",
@@ -5901,7 +5901,7 @@
     "BluetoothGetBatteryText": "读取电量",
     "BluetoothGetHeartRateText": "读取心率",
     "BaseUsageTitle": "基础用法",
-    "BaseUsageIntro": "通过 <code>IBluetoothService</code> 服务，请求与蓝牙设备通讯",
+    "BaseUsageIntro": "通过 <code>IBluetooth</code> 服务，请求与蓝牙设备通讯",
     "BluetoothGetCurrentTimeText": "读取时间",
     "BluetoothDeviceInfoText": "读取硬件信息",
     "UsageDesc": "点击扫描按钮，在弹窗中选中手机进行测试",
