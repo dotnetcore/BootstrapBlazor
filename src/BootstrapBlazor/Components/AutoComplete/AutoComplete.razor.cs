@@ -61,12 +61,6 @@ public partial class AutoComplete
     public bool OnFocusFilter { get; set; }
 
     /// <summary>
-    /// 获得/设置 失去焦点回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<string?, Task>? OnBlurAsync { get; set; }
-
-    /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true
     /// </summary>
     [Parameter]
@@ -152,7 +146,7 @@ public partial class AutoComplete
     /// <summary>
     /// OnBlur 方法
     /// </summary>
-    protected virtual async Task OnBlur()
+    protected override async Task OnBlur()
     {
         CurrentSelectedItem = "";
         IsShown = false;
