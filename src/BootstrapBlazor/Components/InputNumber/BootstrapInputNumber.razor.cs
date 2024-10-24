@@ -83,6 +83,12 @@ public partial class BootstrapInputNumber<TValue>
     [Parameter]
     public string? PlusIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
@@ -280,6 +286,11 @@ public partial class BootstrapInputNumber<TValue>
         {
             // set component value empty
             await InvokeVoidAsync("clear", Id);
+        }
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
         }
     }
 
