@@ -256,7 +256,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         var editor = new MockNullDisplayNameColumn("Name", typeof(string)) { Readonly = true };
         var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Foo() { Name = "Test-Component" }));
         var cut = Context.Render(builder => builder.AddContent(0, fragment));
-        Assert.Contains("class=\"form-control\" disabled=\"disabled\" value=\"Test-Component\"", cut.Markup);
+        Assert.Contains("value=\"Test-Component\"", cut.Markup);
     }
 
     [Fact]

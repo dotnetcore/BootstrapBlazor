@@ -356,4 +356,21 @@ public class InputTest : BootstrapBlazorTestBase
             Assert.Equal("Test_Test-Test_Test", val);
         });
     }
+
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
 }
