@@ -139,6 +139,23 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<BootstrapInputNumber<int>>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
+
+    [Fact]
     public async Task ShowButton_Ok()
     {
         var inc = false;
