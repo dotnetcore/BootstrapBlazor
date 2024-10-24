@@ -144,7 +144,7 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// OnBlur 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override async Task OnBlur()
     {
