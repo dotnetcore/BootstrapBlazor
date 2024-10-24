@@ -386,9 +386,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsIsEditableTitle"]" Introduction="@Localizer["SelectsIsEditableIntro"]" Name="IsEditable">
+    <section ignore>@((MarkupString)Localizer["SelectsIsEditableDesc"].Value)</section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true"></Select>
+            <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true" OnInputChangedCallback="OnInputChangedCallback"></Select>
         </div>
     </div>
 </DemoBlock>
@@ -396,7 +397,7 @@
 <DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
            Introduction="@Localizer["SelectsVirtualizeIntro"]"
            Name="IsVirtualize">
-    <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</section>
 
     <div class="row mb-3">
         <div class="col-12 col-sm-6">
@@ -430,6 +431,20 @@
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsGenericTitle"]"
+           Introduction="@Localizer["SelectsGenericIntro"]"
+           Name="Generic">
+    <section ignore>@((MarkupString)Localizer["SelectsGenericDesc"].Value)</section>
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="_selectedFoo?.Address"></Display>
         </div>
     </div>
 </DemoBlock>

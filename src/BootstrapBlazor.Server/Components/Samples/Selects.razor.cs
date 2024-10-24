@@ -141,7 +141,7 @@ public sealed partial class Selects
         }
         else
         {
-            Items2 = Enumerable.Empty<SelectedItem>();
+            Items2 = [];
         }
         StateHasChanged();
     }
@@ -173,6 +173,19 @@ public sealed partial class Selects
     private EnumEducation? SelectedEnumItem1 { get; set; }
 
     private int? NullableSelectedIntItem { get; set; }
+
+    private Task OnInputChangedCallback(string v)
+    {
+        var item = Items.FirstOrDefault(i => i.Text.Equals(v, StringComparison.OrdinalIgnoreCase));
+        if (item == null)
+        {
+            item = new SelectedItem() { Value = v, Text = v };
+            var items = Items.ToList();
+            items.Insert(0, item);
+            Items = items;
+        }
+        return Task.CompletedTask;
+    }
 
     private string GetSelectedIntItemString()
     {
@@ -234,6 +247,15 @@ public sealed partial class Selects
         return Task.CompletedTask;
     }
 
+    private readonly List<SelectedItem<Foo>> _genericItems =
+    [
+        new() { Text = "Foo1", Value = new Foo() { Id = 1, Address = "Address_F001" } },
+        new() { Text = "Foo2", Value = new Foo() { Id = 2, Address = "Address_F002" } },
+        new() { Text = "Foo3", Value = new Foo() { Id = 3, Address = "Address_F003" } }
+    ];
+
+    private Foo? _selectedFoo;
+
     /// <summary>
     /// 获得事件方法
     /// </summary>
@@ -251,6 +273,18 @@ public sealed partial class Selects
             Name = "OnBeforeSelectedItemChange",
             Description = Localizer["SelectsOnBeforeSelectedItemChange"],
             Type = "Func<SelectedItem, Task<bool>>"
+        },
+        new()
+        {
+            Name = "OnInputChangedCallback",
+            Description = Localizer["SelectsOnInputChangedCallback"],
+            Type = "Func<string, Task>"
+        },
+        new()
+        {
+            Name = "TextConvertToValueCallback",
+            Description = Localizer["SelectsTextConvertToValueCallback"],
+            Type = "Func<string, Task<TValue>>"
         }
     ];
 
@@ -299,6 +333,14 @@ public sealed partial class Selects
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = "IsEditable",
+            Description = Localizer["SelectsIsEditable"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
         },
         new()
         {

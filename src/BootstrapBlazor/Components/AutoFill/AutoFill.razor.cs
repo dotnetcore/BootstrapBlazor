@@ -121,7 +121,7 @@ public partial class AutoFill<TValue>
 
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        Items ??= Enumerable.Empty<TValue>();
+        Items ??= [];
     }
 
     /// <summary>
