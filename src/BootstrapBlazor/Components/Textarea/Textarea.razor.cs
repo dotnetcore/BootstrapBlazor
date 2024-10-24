@@ -35,12 +35,6 @@ public partial class Textarea
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
-    /// 获得/设置 失去焦点回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<string?, Task>? OnBlurAsync { get; set; }
-
-    /// <summary>
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
@@ -57,17 +51,6 @@ public partial class Textarea
         if (!firstRender)
         {
             await InvokeVoidAsync("execute", Id, "update");
-        }
-    }
-
-    /// <summary>
-    /// OnBlur 方法
-    /// </summary>
-    protected virtual async Task OnBlur()
-    {
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
         }
     }
 }
