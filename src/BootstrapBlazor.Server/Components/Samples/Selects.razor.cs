@@ -273,6 +273,18 @@ public sealed partial class Selects
             Name = "OnBeforeSelectedItemChange",
             Description = Localizer["SelectsOnBeforeSelectedItemChange"],
             Type = "Func<SelectedItem, Task<bool>>"
+        },
+        new()
+        {
+            Name = "OnInputChangedCallback",
+            Description = Localizer["SelectsOnInputChangedCallback"],
+            Type = "Func<string, Task>"
+        },
+        new()
+        {
+            Name = "TextConvertToValueCallback",
+            Description = Localizer["SelectsTextConvertToValueCallback"],
+            Type = "Func<string, Task<TValue>>"
         }
     ];
 
@@ -321,6 +333,14 @@ public sealed partial class Selects
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = "IsEditable",
+            Description = Localizer["SelectsIsEditable"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
         },
         new()
         {
