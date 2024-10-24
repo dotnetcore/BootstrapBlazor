@@ -22,6 +22,12 @@ public partial class FloatingLabel<TValue>
     public bool IsGroupBox { get; set; }
 
     /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -29,5 +35,16 @@ public partial class FloatingLabel<TValue>
         base.OnParametersSet();
 
         PlaceHolder ??= FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : DisplayText;
+    }
+
+    /// <summary>
+    /// OnBlur 方法
+    /// </summary>
+    protected virtual async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 }
