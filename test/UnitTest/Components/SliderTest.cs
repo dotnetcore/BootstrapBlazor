@@ -111,6 +111,23 @@ public class SliderTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<Slider<int>>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
+
+    [Fact]
     public void Range_OK()
     {
         var model = new SliderModel();
