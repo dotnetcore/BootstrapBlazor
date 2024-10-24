@@ -1239,6 +1239,23 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.Instance.ClearDisabledDays();
     }
 
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
+
     class MockDateTimePicker : DatePickerBody
     {
         public static bool GetSafeYearDateTime_Ok()
