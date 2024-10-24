@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Core.Converter;
 using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
