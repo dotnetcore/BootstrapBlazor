@@ -53,4 +53,21 @@ public class TextareaTest : BootstrapBlazorTestBase
         cut.Instance.ScrollToTop();
         cut.Instance.ScrollToBottom();
     }
+
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<Textarea>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("textarea");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
 }
