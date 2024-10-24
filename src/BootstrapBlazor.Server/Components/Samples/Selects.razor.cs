@@ -141,7 +141,7 @@ public sealed partial class Selects
         }
         else
         {
-            Items2 = Enumerable.Empty<SelectedItem>();
+            Items2 = [];
         }
         StateHasChanged();
     }
@@ -173,6 +173,19 @@ public sealed partial class Selects
     private EnumEducation? SelectedEnumItem1 { get; set; }
 
     private int? NullableSelectedIntItem { get; set; }
+
+    private Task OnInputChangedCallback(string v)
+    {
+        var item = Items.FirstOrDefault(i => i.Text.Equals(v, StringComparison.OrdinalIgnoreCase));
+        if (item == null)
+        {
+            item = new SelectedItem() { Value = v, Text = v };
+            var items = Items.ToList();
+            items.Insert(0, item);
+            Items = items;
+        }
+        return Task.CompletedTask;
+    }
 
     private string GetSelectedIntItemString()
     {

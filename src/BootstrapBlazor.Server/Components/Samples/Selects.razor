@@ -386,9 +386,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsIsEditableTitle"]" Introduction="@Localizer["SelectsIsEditableIntro"]" Name="IsEditable">
+    <section ignore>@((MarkupString)Localizer["SelectsIsEditableDesc"].Value)</section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true"></Select>
+            <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true" OnInputChangedCallback="OnInputChangedCallback"></Select>
         </div>
     </div>
 </DemoBlock>
