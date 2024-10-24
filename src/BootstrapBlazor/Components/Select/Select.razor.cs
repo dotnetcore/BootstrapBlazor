@@ -93,7 +93,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
-    public Func<string, Task>? OnInputChangedCallback { get; set; }
+    public Func<string, Task<TValue>>? OnInputChangedCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -183,12 +183,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [Parameter]
     [NotNull]
     public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
-
-    /// <summary>
-    /// 获得/设置 编辑时生成 Value 回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task<TValue>>? EditTextConvertToValueCallback { get; set; }
 
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
@@ -523,9 +517,9 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             {
                 if (isGeneric)
                 {
-                    if (EditTextConvertToValueCallback != null)
+                    if (OnInputChangedCallback != null)
                     {
-                        val = await EditTextConvertToValueCallback(v);
+                        val = await OnInputChangedCallback(v);
                     }
                     item = new SelectedItem<TValue>() { Text = v, Value = val };
                 }
@@ -537,23 +531,14 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
                 items.AddRange(Items);
                 Items = items;
             }
-            else if (item is SelectedItem<TValue> value)
-            {
-                val = value.Value;
-            }
 
-            if (isGeneric)
+            if (item is SelectedItem<TValue> value)
             {
-                CurrentValue = val;
+                CurrentValue = value.Value;
             }
             else
             {
                 CurrentValueAsString = v;
-            }
-
-            if (OnInputChangedCallback != null)
-            {
-                await OnInputChangedCallback(v);
             }
         }
     }

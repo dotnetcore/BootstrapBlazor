@@ -930,7 +930,7 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnInputChangedCallback, v =>
             {
                 updated = true;
-                return Task.CompletedTask;
+                return Task.FromResult(v);
             });
         });
         Assert.False(input.IsReadOnly());
@@ -946,32 +946,27 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public async Task IsEditable_Generic()
     {
+        var items = new List<SelectedItem<Foo>>()
+        {
+            new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
+            new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
+        };
         var cut = Context.RenderComponent<Select<Foo>>(pb =>
         {
-            pb.Add(a => a.Items, new SelectedItem<Foo>[]
-            {
-                new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
-                new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
-            });
+            pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
             pb.Add(a => a.IsEditable, true);
-            pb.Add(a => a.EditTextConvertToValueCallback, v =>
+            pb.Add(a => a.OnInputChangedCallback, v =>
             {
                 return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
             });
         });
 
         var input = cut.Find(".form-select");
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("test2");
-        });
+        await cut.InvokeAsync(() => { input.Change("test2"); });
         Assert.Equal("Foo2", cut.Instance.Value.Address);
 
-        await cut.InvokeAsync(() =>
-        {
-            input.Change("test3");
-        });
+        await cut.InvokeAsync(() => { input.Change("test3"); });
         Assert.Equal("Foo3", cut.Instance.Value.Address);
     }
 
