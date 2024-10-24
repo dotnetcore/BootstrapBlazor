@@ -22,6 +22,12 @@ public partial class BootstrapInput<TValue>
     [Parameter]
     public bool AutoSetDefaultWhenNull { get; set; }
 
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
     private string? ReadonlyString => Readonly ? "true" : null;
 
     /// <summary>
@@ -46,5 +52,16 @@ public partial class BootstrapInput<TValue>
             ret = base.TryParseValueFromString(v, out result, out validationErrorMessage);
         }
         return ret;
+    }
+
+    /// <summary>
+    /// OnBlur 方法
+    /// </summary>
+    protected virtual async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 }
