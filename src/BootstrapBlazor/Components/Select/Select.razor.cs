@@ -93,7 +93,14 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
-    public Func<string, Task<TValue>>? OnInputChangedCallback { get; set; }
+    public Func<string, Task>? OnInputChangedCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -517,9 +524,9 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             {
                 if (isGeneric)
                 {
-                    if (OnInputChangedCallback != null)
+                    if (TextConvertToValueCallback != null)
                     {
-                        val = await OnInputChangedCallback(v);
+                        val = await TextConvertToValueCallback(v);
                     }
                     item = new SelectedItem<TValue>() { Text = v, Value = val };
                 }
@@ -527,6 +534,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
                 {
                     item = new SelectedItem(v, v);
                 }
+
                 var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
@@ -539,6 +547,11 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             else
             {
                 CurrentValueAsString = v;
+            }
+
+            if (OnInputChangedCallback != null)
+            {
+                await OnInputChangedCallback(v);
             }
         }
     }

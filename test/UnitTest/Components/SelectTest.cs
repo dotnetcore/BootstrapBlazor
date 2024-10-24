@@ -930,7 +930,7 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnInputChangedCallback, v =>
             {
                 updated = true;
-                return Task.FromResult(v);
+                return Task.CompletedTask;
             });
         });
         Assert.False(input.IsReadOnly());
@@ -956,7 +956,7 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
             pb.Add(a => a.IsEditable, true);
-            pb.Add(a => a.OnInputChangedCallback, v =>
+            pb.Add(a => a.TextConvertToValueCallback, v =>
             {
                 return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
             });
