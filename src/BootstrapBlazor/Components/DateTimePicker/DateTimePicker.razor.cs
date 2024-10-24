@@ -228,6 +228,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool DisplayDisabledDayAsEmpty { get; set; }
 
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -437,4 +443,15 @@ public partial class DateTimePicker<TValue>
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected virtual async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
+    }
 }
