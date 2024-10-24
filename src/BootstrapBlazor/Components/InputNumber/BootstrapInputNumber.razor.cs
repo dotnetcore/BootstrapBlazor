@@ -83,12 +83,6 @@ public partial class BootstrapInputNumber<TValue>
     [Parameter]
     public string? PlusIcon { get; set; }
 
-    /// <summary>
-    /// 获得/设置 失去焦点回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<TValue, Task>? OnBlurAsync { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
@@ -268,10 +262,10 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// 失去焦点是触发此方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    private async Task OnBlur()
+    protected override async Task OnBlur()
     {
         if (!PreviousParsingAttemptFailed)
         {
