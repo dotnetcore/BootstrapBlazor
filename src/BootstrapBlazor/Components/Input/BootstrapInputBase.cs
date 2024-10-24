@@ -84,6 +84,12 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool IsTrim { get; set; }
 
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
     [CascadingParameter]
     private Modal? Modal { get; set; }
 
@@ -190,6 +196,17 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// <param name="validationErrorMessage"></param>
     /// <returns></returns>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
+
+    /// <summary>
+    /// OnBlur 方法
+    /// </summary>
+    protected virtual async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
+    }
 
     /// <summary>
     /// 客户端 EnterCallback 回调方法
