@@ -298,6 +298,23 @@ public class AutoFillTest : BootstrapBlazorTestBase
         Assert.False(trigger);
     }
 
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var blur = false;
+        var cut = Context.RenderComponent<AutoFill<Foo>>(builder =>
+        {
+            builder.Add(a => a.OnBlurAsync, v =>
+            {
+                blur = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => { input.Blur(); });
+        Assert.True(blur);
+    }
+
     class AutoFillNullStringMock
     {
         [NotNull]
