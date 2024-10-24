@@ -141,13 +141,18 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// OnBlur 方法
     /// </summary>
-    protected async Task OnBlur()
+    protected override async Task OnBlur()
     {
         _isShown = false;
         if (OnSelectedItemChanged != null && ActiveSelectedItem != null)
         {
             await OnSelectedItemChanged(ActiveSelectedItem);
             ActiveSelectedItem = default;
+        }
+
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
         }
     }
 
