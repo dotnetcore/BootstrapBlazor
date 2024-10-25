@@ -27,6 +27,8 @@ public class TitleTest : BootstrapBlazorTestBase
         });
         var text = cut.Instance.Text;
         Assert.Equal("Text", text);
+
+        cut.SetParametersAndRender();
     }
 
     private class MockTitle : ComponentBase
