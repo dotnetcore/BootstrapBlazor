@@ -31,7 +31,7 @@ public class Title : ComponentBase
 
         if (firstRender && Text != null)
         {
-            await TitleService.SetTitle(Text);
+            await TitleService.SetTitle(Text, CancellationToken.None);
         }
     }
 }
