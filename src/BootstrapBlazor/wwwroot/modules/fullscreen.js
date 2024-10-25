@@ -1,6 +1,6 @@
 ﻿import { isElement } from "./utility.js"
 
-export function toggle(options) {
+export async function toggle(options) {
     let el = null;
     options = options || {};
     if (options.id) {
@@ -15,54 +15,26 @@ export function toggle(options) {
 
     if (el !== null) {
         if (isFullscreen()) {
-            exit();
+            await document.exitFullscreen()
         }
         else {
-            enterFullscreen(el);
+            await enterFullscreen(el);
         }
     }
 }
 
-const enterFullscreen = el => {
-    el.requestFullscreen() || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen
+const enterFullscreen = async el => {
+    await el.requestFullscreen();
 
-    // 处理 ESC 按键退出全屏
-    var handler = setTimeout(() => {
-        clearTimeout(handler);
-
-        const fullscreenCheck = () => {
-            if (!isFullscreen()) {
-                el.classList.remove('bb-fs-open');
-                document.documentElement.classList.remove('bb-fs-open');
-            }
-            else {
-                el.classList.add('bb-fs-open')
-                requestAnimationFrame(fullscreenCheck);
-            }
-        }
-        requestAnimationFrame(fullscreenCheck);
-    }, 200);
+    if (!isFullscreen()) {
+        el.classList.remove('bb-fs-open');
+        document.documentElement.classList.remove('bb-fs-open');
+    }
+    else {
+        el.classList.add('bb-fs-open')
+    }
 }
 
 const isFullscreen = () => {
-    return document.fullscreen ||
-        document.webkitIsFullScreen ||
-        document.webkitFullScreen ||
-        document.mozFullScreen ||
-        document.msFullScreent
-}
-
-const exit = () => {
-    if (document.exitFullscreen) {
-        document.exitFullscreen()
-    }
-    else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen()
-    }
-    else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen()
-    }
-    else if (document.msExitFullscreen) {
-        document.msExitFullscreen()
-    }
+    return document.fullscreenElement !== null;
 }
