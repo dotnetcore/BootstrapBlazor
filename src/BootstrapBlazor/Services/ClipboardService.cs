@@ -18,10 +18,10 @@ public class ClipboardService(IJSRuntime jSRuntime)
     /// <summary>
     /// 获取剪切板数据方法
     /// </summary>
-    public async Task<List<ClipboardItem>?> Get(CancellationToken token = default)
+    public async Task<List<ClipboardItem>> Get(CancellationToken token = default)
     {
         _module ??= await LoadModule();
-        return await _module.InvokeAsync<List<ClipboardItem>?>("getAllClipboardContents", token);
+        return await _module.InvokeAsync<List<ClipboardItem>?>("getAllClipboardContents", token) ?? [];
     }
 
     /// <summary>
