@@ -8,12 +8,20 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FullScreen 服务
 /// </summary>
-public class FullScreenService : BootstrapServiceBase<FullScreenOption>
+public class FullScreenService(IJSRuntime jSRuntime)
 {
+    [NotNull]
+    private JSModule? _module = null;
+
     /// <summary>
     /// 全屏方法，已经全屏时再次调用后退出全屏
     /// </summary>
     /// <param name="option"></param>
+    /// <param name="token"></param>
     /// <returns></returns>
-    public Task Toggle(FullScreenOption? option = null) => Invoke(option ?? new());
+    public async Task Toggle(FullScreenOption? option = null, CancellationToken token = default)
+    {
+        _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/fullscreen.js");
+        await _module.InvokeVoidAsync("toggle", token, option);
+    }
 }

@@ -8,15 +8,18 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Title 服务
 /// </summary>
-public class TitleService : BootstrapServiceBase<TitleOption>
+public class TitleService(IJSRuntime jSRuntime)
 {
+    [NotNull]
+    private JSModule? _module = null;
+
     /// <summary>
     /// 设置当前网页 Title 方法
     /// </summary>
     /// <returns></returns>
-    public async Task SetTitle(string title)
+    public async Task SetTitle(string title, CancellationToken token = default)
     {
-        var op = new TitleOption() { Title = title };
-        await Invoke(op);
+        _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+        await _module.InvokeVoidAsync("setTitle", token, title);
     }
 }
