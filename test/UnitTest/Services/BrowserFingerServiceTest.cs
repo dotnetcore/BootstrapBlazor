@@ -10,10 +10,9 @@ public class BrowserFingerServiceTest : BootstrapBlazorTestBase
     [Fact]
     public async Task GetFingerCodeAsync_Ok()
     {
+        Context.JSInterop.Setup<string?>("getFingerCode").SetResult("9527");
         var service = Context.Services.GetRequiredService<IBrowserFingerService>();
-        var cut = Context.RenderComponent<BrowserFinger>();
         var code = await service.GetFingerCodeAsync();
-        cut.Instance.Dispose();
-        Assert.Null(code);
+        Assert.Equal("9527", code);
     }
 }
