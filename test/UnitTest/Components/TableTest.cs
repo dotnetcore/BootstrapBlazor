@@ -5932,6 +5932,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task CardView_Ok()
     {
+        Context.JSInterop.Setup<BreakPoint>("getResponsive").SetResult(BreakPoint.Small);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
