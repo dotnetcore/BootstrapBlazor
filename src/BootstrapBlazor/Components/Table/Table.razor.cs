@@ -1149,10 +1149,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     protected override async Task InvokeInitAsync()
     {
         ScreenSize = BreakPoint.ExtraExtraLarge;
-        var pointString = await InvokeAsync<string?>("getResponsive");
-        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        var breakPoint = await InvokeAsync<BreakPoint>("getResponsive");
+        if (breakPoint != BreakPoint.None)
         {
-            ScreenSize = p;
+            ScreenSize = breakPoint;
         }
     }
 
