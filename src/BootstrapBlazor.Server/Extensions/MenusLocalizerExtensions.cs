@@ -596,11 +596,6 @@ internal static class MenusLocalizerExtensions
                     Text=Localizer["Empty"],
                     Url = "empty"
                 },
-                new ()
-                {
-                    Text=Localizer["EyeDropper"],
-                    Url = "eye-dropper"
-                },
                 new()
                 {
                     Text = Localizer["FileIcon"],
@@ -1430,6 +1425,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["FullScreen"],
                     Url = "fullscreen"
+                },
+                new ()
+                {
+                    Text=Localizer["EyeDropper"],
+                    Url = "eye-dropper"
                 },
                 new()
                 {
