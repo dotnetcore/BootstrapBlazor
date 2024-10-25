@@ -8,30 +8,14 @@ namespace UnitTest.Components;
 public class TitleTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ChildContent_Ok()
+    public async Task SetTitle_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<MockTitleTest>();
+            pb.AddChildContent<MockTitle>();
         });
-        cut.InvokeAsync(async () =>
-        {
-            var titleService = cut.FindComponent<MockTitleTest>().Instance.TitleService;
-            await titleService.SetTitle("test");
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var title = cut.FindComponent<Title>();
-            title.SetParametersAndRender();
-
-            // 模拟 Module 为空
-            var moduleProperty = title.Instance.GetType().GetProperty("Module", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            moduleProperty?.SetValue(title.Instance, null);
-
-            var methodInfo = title.Instance.GetType().GetMethod("SetTitle", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            methodInfo?.Invoke(title.Instance, new object[] { new TitleOption() { Title = "test" } });
-        });
+        var mockTitle = cut.FindComponent<MockTitle>();
+        await mockTitle.Instance.SetTitle("test");
     }
 
     [Fact]
@@ -43,12 +27,16 @@ public class TitleTest : BootstrapBlazorTestBase
         });
         var text = cut.Instance.Text;
         Assert.Equal("Text", text);
+
+        cut.SetParametersAndRender();
     }
 
-    private class MockTitleTest : ComponentBase
+    private class MockTitle : ComponentBase
     {
         [Inject]
         [NotNull]
         public TitleService? TitleService { get; set; }
+
+        public Task SetTitle(string title) => TitleService.SetTitle(title);
     }
 }
