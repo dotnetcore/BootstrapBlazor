@@ -8,8 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Title 组件
 /// </summary>
-[BootstrapModuleAutoLoader(ModuleName = "title", AutoInvokeInit = false, AutoInvokeDispose = false)]
-public class Title : BootstrapModuleComponentBase
+public class Title : ComponentBase
 {
     [Inject]
     [NotNull]
@@ -22,16 +21,6 @@ public class Title : BootstrapModuleComponentBase
     public string? Text { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        TitleService.Register(this, SetTitle);
-    }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
@@ -42,33 +31,7 @@ public class Title : BootstrapModuleComponentBase
 
         if (firstRender && Text != null)
         {
-            var op = new TitleOption() { Title = Text };
-            await SetTitle(op);
-        }
-    }
-
-    private async Task SetTitle(TitleOption op)
-    {
-        if (Module != null)
-        {
-            await InvokeVoidAsync("setTitle", op.Title);
-        }
-        else
-        {
-            Text = op.Title;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        await base.DisposeAsync(disposing);
-
-        if (disposing)
-        {
-            TitleService.UnRegister(this);
+            await TitleService.SetTitle(Text);
         }
     }
 }
