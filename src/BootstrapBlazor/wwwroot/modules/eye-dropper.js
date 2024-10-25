@@ -1,7 +1,7 @@
 ﻿export async function open() {
     if (!window.EyeDropper) {
         console.error("Your browser does not support the EyeDropper API")
-        return
+        return null;
     }
 
     const eyeDropper = new EyeDropper();
