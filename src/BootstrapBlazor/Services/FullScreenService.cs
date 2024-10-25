@@ -22,6 +22,6 @@ public class FullScreenService(IJSRuntime jSRuntime)
     public async Task Toggle(FullScreenOption? option = null, CancellationToken token = default)
     {
         _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/fullscreen.js");
-        await _module.InvokeAsync<string?>("toggle", token, option);
+        await _module.InvokeVoidAsync("toggle", token, option);
     }
 }
