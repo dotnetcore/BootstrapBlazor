@@ -85,6 +85,47 @@ a, a:hover, a:focus {
     animation: clip .3s ease-in;
 }
 
+body:before {
+    content: "extraExtraSmall";
+    display: none;
+}
+
+@media (min-width:375px) {
+    body:before {
+        content: "extraSmall";
+    }
+}
+
+@media (min-width:576px) {
+    body:before {
+        content: "small";
+    }
+}
+
+@media (min-width:768px) {
+    body:before {
+        content: "medium";
+    }
+}
+
+@media (min-width:992px) {
+    body:before {
+        content: "large";
+    }
+}
+
+@media (min-width:1200px) {
+    body:before {
+        content: "extraLarge";
+    }
+}
+
+@media (min-width:1400px) {
+    body:before {
+        content: "extraExtraLarge";
+    }
+}
+
 @keyframes clip {
     from {
         clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));

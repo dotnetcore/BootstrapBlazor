@@ -6,14 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 网页尺寸变化通知组件
+/// 响应监听 组件
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "responsive", JSObjectReference = true)]
-public class ResizeNotification : BootstrapModuleComponentBase
+public class Responsive : BootstrapModuleComponentBase
 {
-    [Inject]
-    [NotNull]
-    private ResizeNotificationService? ResizeService { get; set; }
+    /// <summary>
+    /// 获得/设置 浏览器断点阈值改变时触发 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
+
+    private BreakPoint _breakPoint = BreakPoint.None;
 
     /// <summary>
     /// <inheritdoc/>
@@ -24,16 +28,16 @@ public class ResizeNotification : BootstrapModuleComponentBase
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="pointString"></param>
+    /// <param name="breakPoint"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task OnResize(string pointString)
+    public async Task OnResize(BreakPoint breakPoint)
     {
-        var point = BreakPoint.ExtraExtraLarge;
-        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        if (OnBreakPointChanged != null && breakPoint != _breakPoint)
         {
-            point = p;
+            _breakPoint = breakPoint;
+
+            await OnBreakPointChanged(breakPoint);
         }
-        return ResizeService.InvokeAsync(point);
     }
 }
