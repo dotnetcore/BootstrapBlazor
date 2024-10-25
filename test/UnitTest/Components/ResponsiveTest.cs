@@ -16,6 +16,7 @@ public class ResponsiveTest : BootstrapBlazorTestBase
         var resp = cut.Instance;
         cut.InvokeAsync(() => resp.OnResize(BreakPoint.ExtraLarge));
 
+        Assert.Null(point);
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.OnBreakPointChanged, b =>
