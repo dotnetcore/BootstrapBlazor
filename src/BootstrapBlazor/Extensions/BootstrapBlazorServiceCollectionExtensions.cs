@@ -86,7 +86,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<AjaxService>();
         services.AddScoped(typeof(DragDropService<>));
         services.AddScoped<ClipboardService>();
-        services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
         services.AddScoped<EyeDropperService>();
         services.AddScoped<WebSpeechService>();
