@@ -791,6 +791,10 @@ const deepMerge = (obj1, obj2) => {
     return obj1;
 }
 
+export function setTitle(title) {
+    document.title = title;
+}
+
 export {
     autoAdd,
     autoRemove,
