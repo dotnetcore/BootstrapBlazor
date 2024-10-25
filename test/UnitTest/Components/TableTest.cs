@@ -5890,7 +5890,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnBreakPointChanged_Ok()
+    public async Task OnBreakPointChanged_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -5922,8 +5922,8 @@ public class TableTest : BootstrapBlazorTestBase
         var cols = table.FindComponents<TableColumn<Foo, string>>();
         Assert.Equal(2, cols.Count);
 
-        var resp = cut.FindComponent<ResizeNotification>().Instance;
-        resp.OnResize("Small");
+        var resp = cut.FindComponent<Responsive>().Instance;
+        await resp.OnResize(BreakPoint.Small);
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -5932,6 +5932,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task CardView_Ok()
     {
+        Context.JSInterop.Setup<BreakPoint>("getResponsive").SetResult(BreakPoint.Small);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

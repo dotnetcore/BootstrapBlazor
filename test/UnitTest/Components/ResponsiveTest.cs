@@ -11,28 +11,21 @@ public class ResponsiveTest : BootstrapBlazorTestBase
     public void Responsive_Ok()
     {
         BreakPoint? point = null;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        var cut = Context.RenderComponent<Responsive>();
+
+        var resp = cut.Instance;
+        cut.InvokeAsync(() => resp.OnResize(BreakPoint.ExtraLarge));
+
+        Assert.Null(point);
+        cut.SetParametersAndRender(pb =>
         {
-            pb.AddChildContent<Responsive>(pb =>
+            pb.Add(a => a.OnBreakPointChanged, b =>
             {
-                pb.Add(a => a.OnBreakPointChanged, b =>
-                {
-                    point = b;
-                    return Task.CompletedTask;
-                });
+                point = b;
+                return Task.CompletedTask;
             });
         });
-
-        var resp = cut.FindComponent<ResizeNotification>().Instance;
-        cut.InvokeAsync(() => resp.OnResize("Large"));
-        Assert.Equal(BreakPoint.Large, point);
-    }
-
-    [Fact]
-    public void Service_Ok()
-    {
-        var service = new ResizeNotificationService();
-        service.Subscribe(this, b => Task.CompletedTask);
-        service.Subscribe(this, b => Task.CompletedTask);
+        cut.InvokeAsync(() => resp.OnResize(BreakPoint.ExtraLarge));
+        Assert.Equal(BreakPoint.ExtraLarge, point);
     }
 }
