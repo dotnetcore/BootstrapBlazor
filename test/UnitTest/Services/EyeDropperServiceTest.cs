@@ -5,15 +5,14 @@
 
 namespace UnitTest.Services;
 
-public class EyeDropperTest : BootstrapBlazorTestBase
+public class EyeDropperServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
     public async Task EyeDropperService_Ok()
     {
-        Context.JSInterop.Setup<string?>("open").SetResult("Ok");
+        Context.JSInterop.Setup<string?>("open").SetResult("#FFFFFF");
         var service = Context.Services.GetRequiredService<EyeDropperService>();
-        var cut = Context.RenderComponent<EyeDropper>();
         var expected = await service.PickAsync();
-        Assert.Equal("Ok", expected);
+        Assert.Equal("#FFFFFF", expected);
     }
 }
