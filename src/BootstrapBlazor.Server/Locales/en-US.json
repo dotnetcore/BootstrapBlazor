@@ -902,7 +902,12 @@
     "ExportPdfDialogTitle": "Pop up window with export Pdf function",
     "ExportPdfDialogIntro": "Set <code>ShowExportPdfButtonInHeader</code> to display an export PDF button on the <code>Header</code>",
     "ExportPdfDialogTip": "More parameters can be set by setting <code>ExportPdfButtonOptions</code>",
-    "ExportPdfButton": "Export Pdf"
+    "ExportPdfButton": "Export Pdf",
+    "LiteralConfirmDialogTitle": "Literal Confirmation Modal",
+    "LiteralConfirmDialogIntro": "By passing in the string <code>content</code> , you can pop up a confirmation modal without creating a razor component.",
+    "LiteralConfirmDialogButton": "Popup Modal",
+    "LiteralConfirmDialogModalTitle": "Literal Confirmation Modal",
+    "LiteralConfirmDialogModalContent": "this is the prompt message."
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch message distribution",

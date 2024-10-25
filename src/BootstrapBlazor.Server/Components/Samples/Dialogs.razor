@@ -205,4 +205,8 @@ private async Task OnClick()
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["LiteralConfirmDialogTitle"]" Introduction="@Localizer["LiteralConfirmDialogIntro"]" Name="LiteralConfirmModal">
+    <Button Text="@Localizer["LiteralConfirmDialogButton"]" OnClick="@OnLiteralConfirmModalClick"></Button>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["Attribute"]" />

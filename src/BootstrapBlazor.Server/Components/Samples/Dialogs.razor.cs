@@ -303,6 +303,11 @@ public sealed partial class Dialogs
         }
     }
 
+    private async Task OnLiteralConfirmModalClick()
+    {
+        var result = await DialogService.ShowLiteralConfirmModal(Localizer["LiteralConfirmDialogModalContent"], Localizer["LiteralConfirmDialogModalTitle"]);
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

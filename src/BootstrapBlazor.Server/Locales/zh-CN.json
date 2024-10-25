@@ -902,7 +902,12 @@
     "ExportPdfDialogTitle": "带导出 Pdf 功能的弹窗",
     "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
     "ExportPdfDialogTip": "可通过设置 <code>ExportPdfButtonOptions</code> 对更多参数进行设置",
-    "ExportPdfButton": "导出 Pdf 弹窗"
+    "ExportPdfButton": "导出 Pdf 弹窗",
+    "LiteralConfirmDialogTitle": "文字确认模态框",
+    "LiteralConfirmDialogIntro": "通过传入字符串 <code>content</code> ，无需创建razor组件即可弹出确认模态框",
+    "LiteralConfirmDialogButton": "弹出模态框",
+    "LiteralConfirmDialogModalTitle": "文字确认模态框",
+    "LiteralConfirmDialogModalContent": "这是一个文字确认模态框，这是提示信息"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",
