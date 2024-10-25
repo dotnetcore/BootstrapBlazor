@@ -4589,7 +4589,7 @@
     "DateTimeRange": "时间范围框 DateTimeRange",
     "Editor": "富文本框 Editor",
     "EditorForm": "表单编辑框 EditorForm",
-    "EyeDropper": "取色服务 EyeDropper",
+    "EyeDropper": "取色服务 EyeDropperService",
     "Input": "输入框 Input",
     "InputNumber": "数字框 InputNumber",
     "InputGroup": "输入组 InputGroup",
@@ -6034,7 +6034,7 @@
     "Numerals": "数字符号集合"
   },
   "BootstrapBlazor.Server.Components.Samples.EyeDroppers": {
-    "EyeDropperTitle": "屏幕取色 EyeDropper",
+    "EyeDropperTitle": "屏幕取色 EyeDropperService",
     "EyeDropperDescription": "用户可以从屏幕上采样颜色，包括在浏览器窗口之外",
     "EyeDropperNormalTitle": "基础用法",
     "EyeDropperNormalIntro": "使用 <code>EyeDropperService</code>，可以启动吸管模式。启动后，光标会发生变化以向用户指示该模式处于活动状态。然后用户可以从屏幕上的任何位置选择一种颜色，通过按 <kbd>Escape</kbd> 关闭吸管模式",

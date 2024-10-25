@@ -8,16 +8,18 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// EyeDropper 服务用于屏幕吸色
 /// </summary>
-public class EyeDropperService : BootstrapServiceBase<EyeDropperOption>
+public class EyeDropperService(IJSRuntime jSRuntime)
 {
+    [NotNull]
+    private JSModule? _module = null;
+
     /// <summary>
     /// 全屏方法，已经全屏时再次调用后退出全屏
     /// </summary>
     /// <returns></returns>
-    public async Task<string?> PickAsync()
+    public async Task<string?> PickAsync(CancellationToken token = default)
     {
-        var op = new EyeDropperOption();
-        await Invoke(op);
-        return op.Value;
+        _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/eye-dropper.js");
+        return await _module.InvokeAsync<string?>("open", token);
     }
 }

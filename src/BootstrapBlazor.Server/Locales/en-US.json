@@ -4589,7 +4589,7 @@
     "DateTimeRange": "DateTimeRange",
     "Editor": "Editor",
     "EditorForm": "EditorForm",
-    "EyeDropper": "EyeDropper",
+    "EyeDropper": "EyeDropper Service",
     "Input": "Input",
     "InputNumber": "InputNumber",
     "InputGroup": "InputGroup",
@@ -6034,7 +6034,7 @@
     "Numerals": "numeral glyph substitution"
   },
   "BootstrapBlazor.Server.Components.Samples.EyeDroppers": {
-    "EyeDropperTitle": "EyeDropper",
+    "EyeDropperTitle": "EyeDropper Service",
     "EyeDropperDescription": "The <code>EyeDropperService</code> provides a mechanism for creating an eyedropper tool. Using this tool, users can sample colors from their screens, including outside of the browser window.",
     "EyeDropperNormalTitle": "Basic usage",
     "EyeDropperNormalIntro": "Using the <code>EyeDropperService</code> application can start the eyedropper mode. Once started, the cursor changes to indicate to the user that the mode is active. The user can then either select a color from anywhere on the screen, or dismiss the eyedropper mode by pressing <kbd>Escape</kbd>",

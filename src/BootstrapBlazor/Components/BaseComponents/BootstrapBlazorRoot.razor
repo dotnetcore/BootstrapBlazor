@@ -3,7 +3,6 @@
 
 @RenderBody()
 
-<EyeDropper></EyeDropper>
 <Title></Title>
 
 <Message @ref="MessageContainer"></Message>
@@ -14,7 +13,7 @@
 <ConnectionHub></ConnectionHub>
 <Mask></Mask>
 
-@foreach(var com in Generators)
+@foreach (var com in Generators)
 {
     @com.Generator()
 }
