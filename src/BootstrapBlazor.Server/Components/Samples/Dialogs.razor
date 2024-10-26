@@ -124,7 +124,8 @@ private async Task OnClick()
             <li>@Localizer["ModalDialogTip5"]</li>
         </ul>
     </section>
-    <Button OnClick="@OnResultDialogClick">@Localizer["ModalDialogButton"]</Button>
+    <Button Text="@Localizer["ModalDialogButton"]" OnClick="@OnResultDialogClick"></Button>
+    <Button Text="@Localizer["ConfirmDialogButton"]" OnClick="@OnConfirmModalClick"></Button>
     <ConsoleLogger @ref="ModalDialogLogger" />
 </DemoBlock>
 
@@ -203,10 +204,6 @@ private async Task OnClick()
         <BootstrapInput PlaceHolder="@Localizer["EmailInput"]" Value="@EmailInputValue" />
         <Button Icon="fa-regular fa-address-card" OnClick="@OnEmailButtonClick" />
     </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["LiteralConfirmDialogTitle"]" Introduction="@Localizer["LiteralConfirmDialogIntro"]" Name="LiteralConfirmModal">
-    <Button Text="@Localizer["LiteralConfirmDialogButton"]" OnClick="@OnLiteralConfirmModalClick"></Button>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["Attribute"]" />
