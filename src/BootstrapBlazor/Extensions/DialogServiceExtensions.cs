@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -71,21 +73,23 @@ public static class DialogServiceExtensions
     public static async Task<DialogResult> ShowModal<TDialog>(this DialogService service, ResultDialogOption option, Dialog? dialog = null)
         where TDialog : IComponent, IResultDialog
     {
-        IResultDialog? resultDialog = null;
-        option.GetDialog = () => resultDialog;
-        option.BodyTemplate = builder =>
+        if (option.BodyTemplate == null)
         {
-            var index = 0;
-            builder.OpenComponent(index++, typeof(TDialog));
-            if (option.ComponentParameters != null)
+            IResultDialog? resultDialog = null;
+            option.GetDialog = () => resultDialog;
+            option.BodyTemplate = builder =>
             {
-                builder.AddMultipleAttributes(1, option.ComponentParameters);
-            }
-            builder.AddComponentReferenceCapture(index++, com => resultDialog = (IResultDialog)com);
-            builder.CloseComponent();
-        };
+                builder.OpenComponent(0, typeof(TDialog));
+                if (option.ComponentParameters != null)
+                {
+                    builder.AddMultipleAttributes(10, option.ComponentParameters);
+                }
+                builder.AddComponentReferenceCapture(30, com => resultDialog = (IResultDialog)com);
+                builder.CloseComponent();
+            };
+        }
 
-        option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
+        option.FooterTemplate ??= BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
         {
             [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText,
             [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText,
@@ -103,6 +107,52 @@ public static class DialogServiceExtensions
         }
         await service.Show(option, dialog);
         return await option.ResultTask.Task;
+    }
+
+    /// <summary>
+    /// 弹出带结果的对话框
+    /// </summary>
+    /// <param name="service">DialogService 服务实例</param>
+    /// <param name="title">对话框标题，优先级高于 <see cref="DialogOption.Title"/></param>
+    /// <param name="content">对话框 <see cref="MarkupString"/> 文本参数</param>
+    /// <param name="option"><see cref="ResultDialogOption"/> 对话框参数实例</param>
+    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
+    public static Task<DialogResult> ShowModal(this DialogService service, string title, string content, ResultDialogOption? option = null, Dialog? dialog = null)
+    {
+        option ??= new();
+        if (!string.IsNullOrEmpty(title))
+        {
+            option.Title = title;
+        }
+        if (!string.IsNullOrEmpty(content))
+        {
+            IResultDialog? resultDialog = null;
+            option.GetDialog = () => resultDialog;
+            option.BodyTemplate = builder =>
+            {
+                builder.OpenComponent(0, typeof(ResultDialog));
+                builder.AddAttribute(20, nameof(ResultDialog.Content), content);
+                builder.AddComponentReferenceCapture(30, com => resultDialog = (IResultDialog)com);
+                builder.CloseComponent();
+            };
+        }
+        return ShowModal<ResultDialog>(service, option, dialog);
+    }
+
+    private class ResultDialog : ComponentBase, IResultDialog
+    {
+        [Parameter]
+        public string? Content { get; set; }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.AddMarkupContent(0, Content);
+        }
+
+        public Task OnClose(DialogResult result)
+        {
+            return Task.CompletedTask;
+        }
     }
 
     /// <summary>
@@ -175,54 +225,5 @@ public static class DialogServiceExtensions
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
-    }
-
-    /// <summary>
-    /// 弹出带确认结果的文本对话框
-    /// </summary>
-    /// <param name="service">DialogService 服务实例</param>
-    /// <param name="content">对话框文本参数</param>
-    /// <param name="title">对话框标题，优先级低于ResultDialogOption</param>
-    /// <param name="elementType">文本的html标签</param>
-    /// <param name="isMarkUpString">文本是否为MarkupString</param>
-    /// <param name="option">对话框参数</param>
-    /// <param name="dialog">指定弹窗组件 默认为 null 使用 <see cref="BootstrapBlazorRoot"/> 组件内置弹窗组件</param>
-    /// <returns></returns>
-    public static async Task<DialogResult> ShowLiteralConfirmModal(this DialogService service, string content, string? title = null, string elementType = "text", bool isMarkUpString = false, ResultDialogOption? option = null, Dialog? dialog = null)
-    {
-        IResultDialog? resultDialog = null;
-        option ??= new();
-        option.Title ??= title;
-        option.GetDialog = () => resultDialog;
-        option.BodyTemplate = builder =>
-        {
-            var index = 0;
-            builder.OpenElement(index++, elementType);
-            if (option.ComponentParameters != null)
-            {
-                builder.AddMultipleAttributes(1, option.ComponentParameters);
-            }
-            if (isMarkUpString) builder.AddMarkupContent(index++, content); else builder.AddContent(index++, content);
-            builder.CloseElement();
-        };
-
-        option.FooterTemplate = BootstrapDynamicComponent.CreateComponent<ResultDialogFooter>(new Dictionary<string, object?>
-        {
-            [nameof(ResultDialogFooter.ButtonNoText)] = option.ButtonNoText,
-            [nameof(ResultDialogFooter.ButtonYesText)] = option.ButtonYesText,
-            [nameof(ResultDialogFooter.ShowYesButton)] = option.ShowYesButton,
-            [nameof(ResultDialogFooter.ButtonYesColor)] = option.ButtonYesColor,
-            [nameof(ResultDialogFooter.ButtonYesIcon)] = option.ButtonYesIcon,
-            [nameof(ResultDialogFooter.ShowNoButton)] = option.ShowNoButton,
-            [nameof(ResultDialogFooter.ButtonNoColor)] = option.ButtonNoColor,
-            [nameof(ResultDialogFooter.ButtonNoIcon)] = option.ButtonNoIcon
-        }).Render();
-
-        if (option.ResultTask.Task.IsCompleted)
-        {
-            option.ResultTask = new();
-        }
-        await service.Show(option, dialog);
-        return await option.ResultTask.Task;
     }
 }
