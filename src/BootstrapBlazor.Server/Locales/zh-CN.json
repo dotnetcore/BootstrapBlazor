@@ -902,7 +902,10 @@
     "ExportPdfDialogTitle": "带导出 Pdf 功能的弹窗",
     "ExportPdfDialogIntro": "通过设置 <code>ShowExportPdfButtonInHeader</code> 使 <code>Header</code> 上显示一个导出 pdf 按钮",
     "ExportPdfDialogTip": "可通过设置 <code>ExportPdfButtonOptions</code> 对更多参数进行设置",
-    "ExportPdfButton": "导出 Pdf 弹窗"
+    "ExportPdfButton": "导出 Pdf 弹窗",
+    "ConfirmDialogButton": "弹出模态框",
+    "ConfirmDialogModalTitle": "文字确认模态框",
+    "ConfirmDialogModalContent": "<p>这是一个文字确认模态框</p><div class=\"text-danger\">这是警告信息</div>"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",

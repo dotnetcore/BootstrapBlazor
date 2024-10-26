@@ -48,5 +48,9 @@ public class ClipboardServiceTest : BootstrapBlazorTestBase
         items = await service.Get();
         item = items[0];
         Assert.Empty(item.Text);
+
+        Context.JSInterop.Setup<List<ClipboardItem>?>("getAllClipboardContents").SetResult(null);
+        items = await service.Get();
+        Assert.Empty(items);
     }
 }

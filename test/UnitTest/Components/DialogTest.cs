@@ -8,6 +8,24 @@ namespace UnitTest.Components;
 public class DialogTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task ShowModal_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, false);
+            pb.AddChildContent<MockDialogTest>();
+        });
+        var modal = cut.FindComponent<Modal>();
+        var dialog = cut.FindComponent<MockDialogTest>().Instance.DialogService;
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        var closeButton = cut.Find(".btn-primary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+    }
+
+    [Fact]
     public async Task Show_Ok()
     {
         #region Show
@@ -304,6 +322,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 No 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-danger"));
 
@@ -314,6 +333,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 Close 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
@@ -341,6 +361,7 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击右上角关闭按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-close"));
 
@@ -349,10 +370,19 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击 FooterTemplate 中的 关闭 按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
         closeButton = cut.Find(".btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 测试 Markup 扩展模式弹窗
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        closeButton = cut.Find(".btn-primary");
         await cut.InvokeAsync(() => closeButton.Click());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion

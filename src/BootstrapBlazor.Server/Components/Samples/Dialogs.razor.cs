@@ -163,6 +163,13 @@ public sealed partial class Dialogs
         ModalDialogLogger.Log($"The return value of the popup window is: {result} The return value of the component is: {DemoValue1}");
     }
 
+    private async Task OnConfirmModalClick()
+    {
+        var result = await DialogService.ShowModal(Localizer["ConfirmDialogModalContent"], Localizer["ConfirmDialogModalTitle"]);
+
+        ModalDialogLogger.Log($"The return value of the popup window is: {result} no component provider");
+    }
+
     private async Task OnEditDialogClick()
     {
         var option = new EditDialogOption<Foo>()

@@ -902,7 +902,10 @@
     "ExportPdfDialogTitle": "Pop up window with export Pdf function",
     "ExportPdfDialogIntro": "Set <code>ShowExportPdfButtonInHeader</code> to display an export PDF button on the <code>Header</code>",
     "ExportPdfDialogTip": "More parameters can be set by setting <code>ExportPdfButtonOptions</code>",
-    "ExportPdfButton": "Export Pdf"
+    "ExportPdfButton": "Export Pdf",
+    "ConfirmDialogButton": "Popup Modal",
+    "ConfirmDialogModalTitle": "Literal Confirmation Modal",
+    "ConfirmDialogModalContent": "<p>this is the prompt message. </p><div class=\"text-danger\">this is a danger info</div>"
   },
   "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch message distribution",
