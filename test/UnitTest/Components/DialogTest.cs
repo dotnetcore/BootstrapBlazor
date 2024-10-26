@@ -8,6 +8,24 @@ namespace UnitTest.Components;
 public class DialogTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task ShowModal_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, false);
+            pb.AddChildContent<MockDialogTest>();
+        });
+        var modal = cut.FindComponent<Modal>();
+        var dialog = cut.FindComponent<MockDialogTest>().Instance.DialogService;
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        var closeButton = cut.Find(".btn-primary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+    }
+
+    [Fact]
     public async Task Show_Ok()
     {
         #region Show
@@ -304,6 +322,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 No 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-danger"));
 
@@ -314,6 +333,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 Close 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
@@ -341,6 +361,7 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击右上角关闭按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-close"));
 
@@ -349,10 +370,19 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击 FooterTemplate 中的 关闭 按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
         closeButton = cut.Find(".btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 测试 Markup 扩展模式弹窗
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        closeButton = cut.Find(".btn-primary");
         await cut.InvokeAsync(() => closeButton.Click());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
@@ -532,43 +562,7 @@ public class DialogTest : BootstrapBlazorTestBase
         }));
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
-
-        #region ShowLiteralConfirmModal
-        // 测试文本内容是否显示
-        _ = cut.InvokeAsync(() => dialog.ShowLiteralConfirmModal("test-content"));
-        cut.WaitForState(() => cut.Markup.Contains("test-content"));
-        closeButton = cut.Find(".btn-secondary");
-        await cut.InvokeAsync(() => closeButton.Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-
-        // 测试标题是否显示
-        _ = cut.InvokeAsync(() => dialog.ShowLiteralConfirmModal("test-content","test-title"));
-        cut.WaitForState(() => cut.Markup.Contains("test-title"));
-        closeButton = cut.Find(".btn-secondary");
-        await cut.InvokeAsync(() => closeButton.Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-
-        // 测试标题优先级
-        resultOption = new ResultDialogOption()
-        {
-            Title = "alter-title"
-        };
-        _ = cut.InvokeAsync(() => dialog.ShowLiteralConfirmModal("test-content", "test-title",option: resultOption));
-        cut.WaitForState(() => cut.Markup.Contains("alter-title"));
-        closeButton = cut.Find(".btn-secondary");
-        await cut.InvokeAsync(() => closeButton.Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-
-        // 测试MarkupString是否正常显示，元素标签是否生效
-        _ = cut.InvokeAsync(() => dialog.ShowLiteralConfirmModal("<div>test-content</div>", isMarkUpString:true,elementType:"div"));
-        cut.WaitForState(() => cut.Markup.Contains("<div><div>test-content</div></div>"));
-        closeButton = cut.Find(".btn-secondary");
-        await cut.InvokeAsync(() => closeButton.Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        #endregion
     }
-
-
 
     private class MockValidateFormDialog : ComponentBase
     {
