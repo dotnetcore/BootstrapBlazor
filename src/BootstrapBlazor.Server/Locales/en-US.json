@@ -6833,6 +6833,9 @@
     "IFrameTitle": "IFrame",
     "IFrameDescription": "Allows embedding documents, videos and interactive media in a page. By doing so, a secondary page can be displayed on the main page. The iFrame element allows including content from other sources, it can integrate content anywhere on the page.",
     "IFrameNormalTitle": "Basic usage",
-    "IFrameNormalIntro": "Use the <code>Src</code> parameter to set the URL of other website pages and inline their content into this page"
+    "IFrameNormalIntro": "Use the <code>Src</code> parameter to set the URL of other website pages and inline their content into this page",
+    "AttributeSrc": "Frame load url",
+    "AttributeData": "Data passed",
+    "AttributeOnPostDataAsync": "Passed back data"
   }
 }
