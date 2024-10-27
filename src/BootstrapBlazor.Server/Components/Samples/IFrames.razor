@@ -1,0 +1,14 @@
+﻿@page "/iframe"
+@inject IStringLocalizer<IFrames> Localizer
+
+<h3>@Localizer["IFrameTitle"]</h3>
+
+<h4>@Localizer["IFrameDescription"]</h4>
+
+<DemoBlock Title="@Localizer["IFrameNormalTitle"]"
+           Introduction="@Localizer["IFrameNormalIntro"]" Height="600px"
+           Name="Normal">
+    <IFrame Src="https://pro.blazor.zone"></IFrame>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

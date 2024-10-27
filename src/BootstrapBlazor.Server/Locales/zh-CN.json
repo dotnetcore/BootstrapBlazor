@@ -4635,6 +4635,7 @@
     "ListGroup": "列表框 ListGroup",
     "Locator": "位置定位 IpLocatorFactory",
     "Icon": "图标 Icon",
+    "IFrame": "内嵌框架 IFrame",
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",
@@ -6827,5 +6828,14 @@
   "BootstrapBlazor.Server.Data.CustomValidateCollectionModel": {
     "Telephone1": "联系电话1",
     "Telephone2": "联系电话2"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IFrames": {
+    "IFrameTitle": "IFrame 内联框架",
+    "IFrameDescription": "允许在页面中嵌入文档、视频和交互式媒体。 通过这样做可以在主页上显示一个辅助页面。 iFrame 元素允许包含来自其他源的内容，它可以在页面的任何地方集成内容。",
+    "IFrameNormalTitle": "基础用法",
+    "IFrameNormalIntro": "通过 <code>Src</code>参数设置其他网站页面地址，内联其内容到本页面中",
+    "AttributeSrc": "Frame 加载网页路径",
+    "AttributeData": "传递的数据",
+    "AttributeOnPostDataAsync": "Frame 加载页面传递过来的数据"
   }
 }

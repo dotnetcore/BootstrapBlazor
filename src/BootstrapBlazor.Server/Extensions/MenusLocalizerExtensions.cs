@@ -628,6 +628,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["IFrame"],
+                    Url = "iframe"
+                },
+                new()
+                {
                     Text = Localizer["LinkButton"],
                     Url = "link-button"
                 },
