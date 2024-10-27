@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// 
+/// DemoBlock 组件
 /// </summary>
 public sealed partial class DemoBlock
 {
@@ -47,12 +47,22 @@ public sealed partial class DemoBlock
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// 获得/设置 CardBody 高度 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     [CascadingParameter(Name = "RazorFileName")]
     private string? CodeFile { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
+
+    private string? BodyStyleString => CssBuilder.Default()
+        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
