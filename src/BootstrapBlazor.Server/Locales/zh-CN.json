@@ -4635,6 +4635,7 @@
     "ListGroup": "列表框 ListGroup",
     "Locator": "位置定位 IpLocatorFactory",
     "Icon": "图标 Icon",
+    "IFrame": "内嵌框架 IFrame",
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
     "Popover": "弹出窗 Popover",

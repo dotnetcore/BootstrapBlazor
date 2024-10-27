@@ -4635,6 +4635,7 @@
     "ListGroup": "ListGroup",
     "Locator": "IpLocatorFactory",
     "Icon": "Icon",
+    "IFrame": "IFrame",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
     "Popover": "Popover",
