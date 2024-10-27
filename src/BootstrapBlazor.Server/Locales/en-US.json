@@ -6828,5 +6828,11 @@
   "BootstrapBlazor.Server.Data.CustomValidateCollectionModel": {
     "Telephone1": "Telephone 1",
     "Telephone2": "Telephone 2"
+  },
+  "BootstrapBlazor.Server.Components.Samples.IFrames": {
+    "IFrameTitle": "IFrame",
+    "IFrameDescription": "Allows embedding documents, videos and interactive media in a page. By doing so, a secondary page can be displayed on the main page. The iFrame element allows including content from other sources, it can integrate content anywhere on the page.",
+    "IFrameNormalTitle": "Basic usage",
+    "IFrameNormalIntro": "Use the <code>Src</code> parameter to set the URL of other website pages and inline their content into this page"
   }
 }
