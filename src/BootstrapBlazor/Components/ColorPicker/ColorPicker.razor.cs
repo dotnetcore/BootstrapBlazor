@@ -37,6 +37,13 @@ public partial class ColorPicker
     [Parameter]
     public bool IsSupportOpacity { get; set; }
 
+    /// <summary>
+    /// 获得/设置 预设候选颜色 <see cref="IsSupportOpacity"/> 开启时生效 默认 null
+    /// </summary>
+    /// <remarks>字符串集合格式为 ["rgba(244, 67, 54, 1)", "rgba(233, 30, 99, 0.95)"]</remarks>
+    [Parameter]
+    public List<string>? Swatches { get; set; }
+
     private string? _formattedValueString;
 
     private bool _originalSupportOpacityValue;
@@ -72,7 +79,7 @@ public partial class ColorPicker
         {
             _originalSupportOpacityValue = IsSupportOpacity;
             _originalIsDisabledValue = IsDisabled;
-            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
+            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
         }
     }
 
@@ -80,7 +87,7 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
 
     private async Task Setter(string v)
     {

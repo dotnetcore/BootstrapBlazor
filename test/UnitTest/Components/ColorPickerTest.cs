@@ -58,6 +58,7 @@ public class ColorPickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.IsSupportOpacity, true);
             builder.Add(a => a.Value, "#AABBCCDD");
+            builder.Add(a => a.Swatches, ["rgba(123, 1, 2, 1)", "rgba(1, 255,10, 1)"]);
         });
         cut.Contains("<div class=\"bb-color-picker-body\" style=\"--bb-color-pick-val: #AABBCCDD\"></div>");
 
