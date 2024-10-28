@@ -37,6 +37,9 @@ $bb-avatar-icon-font-size: 1.4rem;
 // Badge
 $bb-badge-color: #212529;
 
+// BootstrapIcon
+$bb-icon-width: 12px;
+
 // Button
 $bs-btn-font-size: .875rem;
 $bs-btn-focus-box-shadow: none;
@@ -273,11 +276,11 @@ $bb-flip-clock-number-line-bg: rgba(0,0,0,.4);
 $bb-flip-clock-number-line-height: 1px;
 
 // FileIcon
-$bb-icon-width: 42px;
-$bb-icon-height: auto;
-$bb-icon-padding-left: .5rem;
-$bb-icon-badge-bottom: 7px;
-$bb-icon-path-fill-color: #495057;
+$bb-file-icon-width: 42px;
+$bb-file-icon-height: auto;
+$bb-file-icon-padding-left: .5rem;
+$bb-file-icon-badge-bottom: 7px;
+$bb-file-icon-path-fill-color: #495057;
 
 // Filter
 $bb-filter-item-min-width: 220px;
@@ -305,9 +308,6 @@ $bb-groupbox-margin-top: .5rem;
 $bb-groupbox-legend-padding: 0 .5rem;
 $bb-groupbox-legend-left: 1rem;
 $bb-groupbox-legend-top: -10px;
-
-// Icon
-$bb-icon-width: 12px;
 
 // Icon Svg
 $bb-svg-icon-width: 12px;
@@ -442,7 +442,7 @@ $bb-rate-transition: .3s;
 // Ribbon Tab
 $bb-ribbon-menu-height: 30px;
 $bb-ribbon-menu-margin-top: 5px;
-$bb-ribbon-menu-body-height: 82.5px;
+$bb-ribbon-menu-body-height: 84.5px;
 $bb-ribbon-menu-body-padding: .5rem;
 $bb-ribbon-menu-radius: var(--bs-border-radius);
 $bb-ribbon-menu-padding: .5rem;

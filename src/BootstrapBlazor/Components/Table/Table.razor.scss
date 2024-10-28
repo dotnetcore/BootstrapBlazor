@@ -502,10 +502,16 @@ tr.active:not(.is-edit):hover {
     background-color: var(--bb-table-row-hover-bg);
 }
 
-.table-fixed-column .table {
-    table-layout: fixed;
-    border-collapse: separate;
-    border-spacing: 0;
+.table-fixed-column {
+    .table {
+        table-layout: fixed;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .table-bordered > :not(caption) > * > * {
+        border-width: 1px var(--bs-border-width);
+    }
 }
 
 .table-fixed-column .table .fixed,

@@ -1,11 +1,12 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// 
+/// DemoBlock 组件
 /// </summary>
 public sealed partial class DemoBlock
 {
@@ -46,12 +47,22 @@ public sealed partial class DemoBlock
     [Parameter]
     public string? Name { get; set; }
 
+    /// <summary>
+    /// 获得/设置 CardBody 高度 默认 null
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     [CascadingParameter(Name = "RazorFileName")]
     private string? CodeFile { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<DemoBlock>? Localizer { get; set; }
+
+    private string? BodyStyleString => CssBuilder.Default()
+        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>

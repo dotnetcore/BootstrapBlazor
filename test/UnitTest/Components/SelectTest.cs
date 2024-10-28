@@ -1,10 +1,12 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using AngleSharp.Dom;
 using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace UnitTest.Components;
@@ -162,7 +164,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnSelectedItemChanged_OK()
+    public async Task OnSelectedItemChanged_OK()
     {
         var triggered = false;
 
@@ -184,7 +186,7 @@ public class SelectTest : BootstrapBlazorTestBase
         Assert.False(triggered);
 
         // 切换候选项时触发 OnSelectedItemChanged 回调测试
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var count = items.Count;
@@ -197,7 +199,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 切换回 空值 触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var item = items[0];
@@ -221,7 +223,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
         // 切换回 空值 触发 OnSelectedItemChanged 回调测试
         triggered = false;
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var items = cut.FindAll(".dropdown-item");
             var count = items.Count;
@@ -230,6 +232,38 @@ public class SelectTest : BootstrapBlazorTestBase
             item.Click();
         });
         Assert.True(triggered);
+    }
+
+    [Fact]
+    public async Task OnSelectedItemChanged_Generic()
+    {
+        Foo? selectedValue = null;
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem<Foo>[]
+            {
+                new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
+                new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
+            });
+            pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
+            pb.Add(a => a.OnSelectedItemChanged, v =>
+            {
+                if (v is SelectedItem<Foo> d)
+                {
+                    selectedValue = d.Value;
+                }
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.CustomKeyAttribute, typeof(KeyAttribute));
+        });
+
+        IModelEqualityComparer<Foo> comparer = cut.Instance as IModelEqualityComparer<Foo>;
+        Assert.NotNull(comparer);
+        comparer.ModelEqualityComparer = (x, y) => x.Id == y.Id;
+
+        var items = cut.FindAll(".dropdown-item");
+        await cut.InvokeAsync(() => items[1].Click());
+        Assert.NotNull(selectedValue);
     }
 
     [Fact]
@@ -823,11 +857,11 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         var select = cut.Instance;
         var mi = select.GetType().GetMethod("LoadItems", BindingFlags.NonPublic | BindingFlags.Instance);
-        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
 
         var totalCountProperty = select.GetType().GetProperty("TotalCount", BindingFlags.NonPublic | BindingFlags.Instance);
         totalCountProperty?.SetValue(select, 2);
-        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
     }
 
     [Fact]
@@ -910,6 +944,33 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsEditable_Generic()
+    {
+        var items = new List<SelectedItem<Foo>>()
+        {
+            new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
+            new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
+        };
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.TextConvertToValueCallback, v =>
+            {
+                return Task.FromResult(new Foo() { Id = 3, Address = "Foo3" });
+            });
+        });
+
+        var input = cut.Find(".form-select");
+        await cut.InvokeAsync(() => { input.Change("test2"); });
+        Assert.Equal("Foo2", cut.Instance.Value.Address);
+
+        await cut.InvokeAsync(() => { input.Change("test3"); });
+        Assert.Equal("Foo3", cut.Instance.Value.Address);
+    }
+
+    [Fact]
     public async Task OnClearAsync_Ok()
     {
         var clear = false;
@@ -953,5 +1014,27 @@ public class SelectTest : BootstrapBlazorTestBase
         });
         await cut.Instance.Show();
         await cut.Instance.Hide();
+    }
+
+    [Fact]
+    public void GenericValue_Ok()
+    {
+        var items = new List<SelectedItem<Foo>>()
+        {
+            new()
+            {
+                Value = new Foo() { Id = 1, Name = "Foo1" },
+                Text = "Foo1"
+            },
+            new()
+            {
+                Value = new Foo() { Id = 2, Name = "Foo2" },
+                Text = "Foo2"
+            }
+        };
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
     }
 }

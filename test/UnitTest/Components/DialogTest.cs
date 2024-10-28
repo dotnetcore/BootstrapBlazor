@@ -1,11 +1,30 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 namespace UnitTest.Components;
 
 public class DialogTest : BootstrapBlazorTestBase
 {
+    [Fact]
+    public async Task ShowModal_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, false);
+            pb.AddChildContent<MockDialogTest>();
+        });
+        var modal = cut.FindComponent<Modal>();
+        var dialog = cut.FindComponent<MockDialogTest>().Instance.DialogService;
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        var closeButton = cut.Find(".btn-primary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+    }
+
     [Fact]
     public async Task Show_Ok()
     {
@@ -303,6 +322,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 No 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-danger"));
 
@@ -313,6 +333,7 @@ public class DialogTest : BootstrapBlazorTestBase
 
         // 点击的是 Close 按钮
         result = true;
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
@@ -340,6 +361,7 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击右上角关闭按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-close"));
 
@@ -348,10 +370,19 @@ public class DialogTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击 FooterTemplate 中的 关闭 按钮
+        resultOption.BodyTemplate = null;
         _ = cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         cut.WaitForState(() => cut.Markup.Contains("btn-secondary"));
 
         closeButton = cut.Find(".btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+
+        // 测试 Markup 扩展模式弹窗
+        _ = cut.InvokeAsync(() => dialog.ShowModal("title", "<span class=\"text-danger\">test-content</span>"));
+        cut.WaitForState(() => cut.Markup.Contains("btn-primary"));
+
+        closeButton = cut.Find(".btn-primary");
         await cut.InvokeAsync(() => closeButton.Click());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion

@@ -24,7 +24,7 @@
         padding: 0;
     }
 
-    .checkbox-item {
+    &:not(.is-vertical) .checkbox-item {
         display: inline-flex;
         width: var(--bb-checkbox-item-width);
 

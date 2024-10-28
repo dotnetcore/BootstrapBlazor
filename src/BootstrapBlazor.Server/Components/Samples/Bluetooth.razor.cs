@@ -1,355 +1,256 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
+using System.Reflection;
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// Bluetooth
 /// </summary>
-public partial class Bluetooth
+public partial class Bluetooth : IAsyncDisposable
 {
-    Printer printer { get; set; } = new Printer();
+    [Inject, NotNull]
+    private IBluetooth? BluetoothService { get; set; }
+
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
+    private string? BluetoothDeviceName => _blueDevice?.Name ?? "Unknown or Unsupported Device";
+
+    private IBluetoothDevice? _blueDevice;
+
+    private string? _batteryValue = null;
+
+    private string? _batteryValueString = null;
+
+    private string? _currentTimeValueString = null;
+
+    private string? _readValueString = null;
+
+    private List<IBluetoothService> _bluetoothServices = [];
+
+    private List<IBluetoothCharacteristic> _bluetoothCharacteristics = [];
+
+    private string? _selectedService;
+
+    private string? _selectedCharacteristic;
+
+    private List<SelectedItem> ServicesList => _bluetoothServices.Select(i => new SelectedItem(i.UUID.ToUpperInvariant(), FormatServiceName(i))).ToList();
+
+    private List<SelectedItem> CharacteristicsList => _bluetoothCharacteristics.Select(i => new SelectedItem(i.UUID.ToUpperInvariant(), FormatCharacteristicsName(i))).ToList();
+    
+    private Dictionary<string, string> ServiceUUIDList = [];
 
     /// <summary>
-    /// 显示内置界面
+    /// <inheritdoc />
     /// </summary>
-    bool ShowUI { get; set; } = false;
-
-    private string? message;
-    private string? statusMessage;
-    private string? errorMessage;
-
-    private Task OnResult(string? result)
+    protected override void OnInitialized()
     {
-        message = result;
-        StateHasChanged();
-        return Task.CompletedTask;
+        base.OnInitialized();
+
+        ServiceUUIDList = Enum.GetNames(typeof(BluetoothServicesEnum)).Select(i =>
+        {
+            var attributes = typeof(BluetoothServicesEnum).GetField(i)!.GetCustomAttribute<BluetoothUUIDAttribute>(false)!;
+            return new KeyValuePair<string, string>(attributes.Name.ToUpperInvariant(), i);
+        }).ToDictionary();
     }
 
-    private Task OnUpdateStatus(string message)
+    private string FormatServiceName(IBluetoothService service)
     {
-        statusMessage = message;
-        StateHasChanged();
-        return Task.CompletedTask;
+        var uuId = service.UUID.ToUpperInvariant();
+        return ServiceUUIDList.TryGetValue(uuId, out var serviceName)
+            ? $"{serviceName}({uuId})" : uuId;
     }
 
-    private Task OnError(string message)
+    private string FormatCharacteristicsName(IBluetoothCharacteristic characteristic) => characteristic.UUID.ToUpperInvariant();
+
+    private async Task RequestDevice()
     {
-        errorMessage = message;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnGetDevices(List<string>? devices)
-    {
-        message = "";
-        if (devices == null || devices!.Count == 0) return Task.CompletedTask;
-        message += $"已配对设备{devices.Count}:{Environment.NewLine}";
-        devices.ForEach(a => message += $"   {a}{Environment.NewLine}");
-        //this.message = this.message.Replace(Environment.NewLine, "<br/>");
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 切换 UI 方法
-    /// </summary>
-    public void SwitchUI()
-    {
-        ShowUI = !ShowUI;
-    }
-
-    Heartrate heartrate { get; set; } = new Heartrate();
-
-    private Task OnUpdateValue(int v)
-    {
-        value = v;
-        statusMessage = $"心率{value}";
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 获取心率
-    /// </summary>
-    public Task GetHeartrate() => heartrate.GetHeartrate();
-
-    /// <summary>
-    /// 停止获取心率
-    /// </summary>
-    public Task StopHeartrate() => heartrate.StopHeartrate();
-
-    BatteryLevel batteryLevel { get; set; } = new BatteryLevel();
-
-    private decimal? value = 0;
-
-    private Task OnUpdateValue(decimal v)
-    {
-        value = v;
-        statusMessage = Localizer["DeviceBattery", value];
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnUpdateStatus(BluetoothDevice device)
-    {
-        statusMessage = device.Status;
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 获取设备电量
-    /// </summary>
-    public Task GetBatteryLevel() => batteryLevel.GetBatteryLevel();
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributes() =>
-    [
-        new()
+        var options = new BluetoothRequestOptions()
         {
-            Name = "Commands",
-            Description = Localizer["CommandsAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
+            AcceptAllDevices = true,
+            OptionalServices = ["device_information", "current_time", "battery_service"]
+        };
+        #if DEBUG
+        options.AcceptAllDevices = false;
+        options.Filters = [ new BluetoothFilter() { NamePrefix = "Argo" } ];
+        #endif
+        _blueDevice = await BluetoothService.RequestDevice(options);
+        if (BluetoothService.IsSupport == false)
         {
-            Name = "Print",
-            Description = Localizer["PrintAttr"],
-            Type = "async Task",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateStatus",
-            Description = Localizer["OnUpdateStatusAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateError",
-            Description = Localizer["OnUpdateErrorAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "PrinterElement",
-            Description = Localizer["PrinterElementAttr"],
-            Type = "ElementReference",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "Opt",
-            Description = Localizer["OptAttr"],
-            Type = "PrinterOption",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "ShowUI",
-            Description = Localizer["ShowUIAttr"],
-            Type = "bool",
-            ValueList = "True|False",
-            DefaultValue = "False"
-        },
-        new()
-        {
-            Name = "Debug",
-            Description = Localizer["DebugAttr"],
-            Type = "bool",
-            ValueList = "True|False",
-            DefaultValue = "False"
-        },
-        new()
-        {
-            Name = "DeviceName",
-            Description = Localizer["DeviceNameAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-    ];
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetPrinterOptionAttributes() =>
-    [
-        new()
-        {
-            Name = "NamePrefix",
-            Description = Localizer["NamePrefixAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "null"
-        },
-        new()
-        {
-            Name = "MaxChunk",
-            Description = Localizer["MaxChunkAttr"],
-            Type = "int",
-            ValueList = "-",
-            DefaultValue = "100"
-        },
-    ];
-
-    /// <summary>
-    /// 获得蓝牙设备类
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetBluetoothDeviceAttributes() =>
-    [
-        new()
-        {
-            Name = "Name",
-            Description = Localizer["NameAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "null"
-        },
-        new()
-        {
-            Name = "Value",
-            Description = Localizer["ValueAttr"],
-            Type = "decimal?",
-            ValueList = "-",
-            DefaultValue = "null"
-        },
-        new()
-        {
-            Name = "Status",
-            Description = Localizer["StatusAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "null"
-        },
-        new()
-        {
-            Name = "Error",
-            Description = Localizer["ErrorAttr"],
-            Type = "string?",
-            ValueList = "-",
-            DefaultValue = "null"
+            await ToastService.Error(Localizer["NotSupportBluetoothTitle"], Localizer["NotSupportBluetoothContent"]);
+            return;
         }
-    ];
+
+        if (_blueDevice == null && !string.IsNullOrEmpty(BluetoothService.ErrorMessage))
+        {
+            await ToastService.Error("Request", BluetoothService.ErrorMessage);
+        }
+    }
+
+    private async Task Connect()
+    {
+        if (_blueDevice != null)
+        {
+            var ret = await _blueDevice.Connect();
+            if (ret == false && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Connect", _blueDevice.ErrorMessage);
+            }
+        }
+    }
+
+    private async Task Disconnect()
+    {
+        if (_blueDevice != null)
+        {
+            var ret = await _blueDevice.Disconnect();
+            if (ret == false && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Disconnect", _blueDevice.ErrorMessage);
+            }
+            else
+            {
+                _batteryValue = null;
+                _batteryValueString = null;
+                _deviceInfoList.Clear();
+                _bluetoothServices.Clear();
+                _bluetoothCharacteristics.Clear();
+                _readValueString = null;
+            }
+        }
+    }
+
+    private async Task GetBatteryValue()
+    {
+        _batteryValue = null;
+        _batteryValueString = null;
+
+        if (_blueDevice != null)
+        {
+            var val = await _blueDevice.GetBatteryValue();
+            if (val == 0 && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Battery Value", _blueDevice.ErrorMessage);
+                return;
+            }
+
+            _batteryValue = $"{val}";
+            _batteryValueString = $"{_batteryValue} %";
+        }
+    }
+
+    private async Task GetTimeValue()
+    {
+        _currentTimeValueString = null;
+
+        if (_blueDevice != null)
+        {
+            var val = await _blueDevice.GetCurrentTime();
+            if (val.HasValue && !string.IsNullOrEmpty(_blueDevice.ErrorMessage))
+            {
+                await ToastService.Error("Current Time", _blueDevice.ErrorMessage);
+                return;
+            }
+            _currentTimeValueString = val.ToString();
+        }
+    }
+
+    private readonly List<string> _deviceInfoList = [];
+
+    private async Task GetDeviceInfoValue()
+    {
+        _deviceInfoList.Clear();
+        if (_blueDevice != null)
+        {
+            var info = await _blueDevice.GetDeviceInfo();
+            _deviceInfoList.Add($"Manufacturer Name: {info?.ManufacturerName}");
+            _deviceInfoList.Add($"Module Number: {info?.ModelNumber}");
+            _deviceInfoList.Add($"Firmware Revision: {info?.FirmwareRevision}");
+            _deviceInfoList.Add($"Hardware Revision: {info?.HardwareRevision}");
+            _deviceInfoList.Add($"Software Revision: {info?.SoftwareRevision}");
+        }
+    }
+
+    private async Task GetServices()
+    {
+        if (_blueDevice != null)
+        {
+            _bluetoothServices = await _blueDevice.GetPrimaryServices();
+        }
+    }
+
+    private async Task GetCharacteristics()
+    {
+        if (_blueDevice != null && !string.IsNullOrEmpty(_selectedService))
+        {
+            _bluetoothCharacteristics.Clear();
+            var service = _bluetoothServices.Find(i => i.UUID.ToUpperInvariant() == _selectedService);
+            if (service != null)
+            {
+                _bluetoothCharacteristics = await service.GetCharacteristics();
+            }
+        }
+    }
+
+    private async Task ReadValue()
+    {
+        _readValueString = null;
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
+        {
+            var data = await characteristics.ReadValue();
+            if (data != null)
+            {
+                _readValueString = string.Join(" ", data.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+            }
+        }
+    }
+
+    private async Task StartNotifications()
+    {
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
+        {
+            await characteristics.StartNotifications(HandlerNotification);
+        }
+    }
+
+    private async Task StopNotifications()
+    {
+        var characteristics = _bluetoothCharacteristics.Find(i => i.UUID.ToUpperInvariant() == _selectedCharacteristic);
+        if (characteristics != null)
+        {
+            await characteristics.StopNotifications();
+        }
+    }
+
+    private Task HandlerNotification(byte[] payload) {
+        _readValueString = string.Join(" ", payload.Select(i => Convert.ToString(i, 16).PadLeft(2, '0').ToUpperInvariant()));
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async ValueTask DisposeAsync(bool disposing) 
+    {
+        if (disposing) 
+        {
+            if (_blueDevice != null) 
+            {
+                await _blueDevice.DisposeAsync();
+            }
+        }
+    }
 
     /// <summary>
-    /// 获得属性方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributesBatteryLevel() =>
-    [
-        new()
-        {
-            Name = "GetBatteryLevel",
-            Description = Localizer["GetBatteryLevelAttr"],
-            Type = "async Task",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateValue",
-            Description = Localizer["OnUpdateValueAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateStatus",
-            Description = Localizer["OnUpdateStatusAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateError",
-            Description = Localizer["OnUpdateErrorAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "BatteryLevelElement",
-            Description = Localizer["BatteryLevelElementAttr"],
-            Type = "ElementReference",
-            ValueList = "-",
-            DefaultValue = "-"
-        }
-    ];
-
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private AttributeItem[] GetAttributesHeartrate() =>
-    [
-        new()
-        {
-            Name = "GetHeartrate",
-            Description = Localizer["GetHeartrateAttr"],
-            Type = "async Task",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "StopHeartrate",
-            Description = Localizer["StopHeartrateAttr"],
-            Type = "async Task",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateValue",
-            Description = Localizer["OnUpdateValueAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateStatus",
-            Description = Localizer["OnUpdateStatusAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "OnUpdateError",
-            Description = Localizer["OnUpdateErrorAttr"],
-            Type = "Func<string, Task>?",
-            ValueList = "-",
-            DefaultValue = "-"
-        },
-        new()
-        {
-            Name = "HeartrateElement",
-            Description = Localizer["HeartrateElementAttr"],
-            Type = "ElementReference",
-            ValueList = "-",
-            DefaultValue = "-"
-        }
-    ];
+    public async ValueTask DisposeAsync() {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
 }

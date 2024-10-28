@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -1147,11 +1148,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        ScreenSize = BreakPoint.ExtraExtraLarge;
-        var pointString = await InvokeAsync<string?>("getResponsive");
-        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        ScreenSize = BreakPoint.None;
+        var breakPoint = await InvokeAsync<BreakPoint>("getResponsive");
+        if (breakPoint != BreakPoint.None)
         {
-            ScreenSize = p;
+            ScreenSize = breakPoint;
         }
     }
 

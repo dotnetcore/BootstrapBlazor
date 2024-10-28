@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 namespace BootstrapBlazor.Server.Components.Samples;
 
@@ -160,6 +161,13 @@ public sealed partial class Dialogs
         });
 
         ModalDialogLogger.Log($"The return value of the popup window is: {result} The return value of the component is: {DemoValue1}");
+    }
+
+    private async Task OnConfirmModalClick()
+    {
+        var result = await DialogService.ShowModal(Localizer["ConfirmDialogModalTitle"], Localizer["ConfirmDialogModalContent"]);
+
+        ModalDialogLogger.Log($"The return value of the popup window is: {result} no component provider");
     }
 
     private async Task OnEditDialogClick()

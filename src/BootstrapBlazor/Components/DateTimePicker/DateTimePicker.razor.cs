@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
 using System.Globalization;
@@ -227,6 +228,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool DisplayDisabledDayAsEmpty { get; set; }
 
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -436,4 +443,15 @@ public partial class DateTimePicker<TValue>
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected virtual async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
+    }
 }

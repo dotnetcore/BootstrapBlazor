@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
@@ -11,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Select<TValue> : ISelect
+public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 {
     [Inject]
     [NotNull]
@@ -49,7 +50,7 @@ public partial class Select<TValue> : ISelect
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", () => item.Value == CurrentValueAsString)
+        .AddClass("active", Match(item))
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
@@ -93,6 +94,13 @@ public partial class Select<TValue> : ISelect
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -162,6 +170,26 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
+
+    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
+    {
+        get => ValueEqualityComparer;
+        set => ValueEqualityComparer = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
@@ -299,7 +327,7 @@ public partial class Select<TValue> : ISelect
                 _dataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = _dataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+            SelectedItem = _dataSource.Find(Match)
                 ?? _dataSource.Find(i => i.Active)
                 ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
                 ?? GetVirtualizeItem();
@@ -335,6 +363,8 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
+
+    private bool Match(SelectedItem i) => i is SelectedItem<TValue> d ? Equals(d.Value, Value) : i.Value.Equals(CurrentValueAsString, StringComparison);
 
     /// <summary>
     /// 客户端回车回调方法
@@ -390,6 +420,27 @@ public partial class Select<TValue> : ISelect
     }
 
     private async Task SelectedItemChanged(SelectedItem item)
+    {
+        if (item is SelectedItem<TValue> d && !Equals(d.Value, Value))
+        {
+            item.Active = true;
+            SelectedItem = item;
+
+            CurrentValue = d.Value;
+
+            // 触发 SelectedItemChanged 事件
+            if (OnSelectedItemChanged != null)
+            {
+                await OnSelectedItemChanged(SelectedItem);
+            }
+        }
+        else
+        {
+            await ValueTypeChanged(item);
+        }
+    }
+
+    private async Task ValueTypeChanged(SelectedItem item)
     {
         if (_lastSelectedValueString != item.Value)
         {
@@ -462,21 +513,54 @@ public partial class Select<TValue> : ISelect
     {
         if (args.Value is string v)
         {
+            // 判断是否为泛型 SelectedItem
+            var isGeneric = Items.GetType().GetGenericArguments().Length > 0;
+
             // Items 中没有时插入一个 SelectedItem
-            if (Items.FirstOrDefault(i => i.Text == v) == null)
+            var item = Items.FirstOrDefault(i => i.Text == v);
+
+            TValue? val = default;
+            if (item == null)
             {
-                var items = new List<SelectedItem>
+                if (isGeneric)
                 {
-                    new(v, v)
-                };
+                    if (TextConvertToValueCallback != null)
+                    {
+                        val = await TextConvertToValueCallback(v);
+                    }
+                    item = new SelectedItem<TValue>() { Text = v, Value = val };
+                }
+                else
+                {
+                    item = new SelectedItem(v, v);
+                }
+
+                var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
             }
+
+            if (item is SelectedItem<TValue> value)
+            {
+                CurrentValue = value.Value;
+            }
+            else
+            {
+                CurrentValueAsString = v;
+            }
+
             if (OnInputChangedCallback != null)
             {
                 await OnInputChangedCallback(v);
             }
-            CurrentValueAsString = v;
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

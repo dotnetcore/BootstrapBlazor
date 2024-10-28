@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
@@ -5889,7 +5890,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnBreakPointChanged_Ok()
+    public async Task OnBreakPointChanged_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -5921,8 +5922,8 @@ public class TableTest : BootstrapBlazorTestBase
         var cols = table.FindComponents<TableColumn<Foo, string>>();
         Assert.Equal(2, cols.Count);
 
-        var resp = cut.FindComponent<ResizeNotification>().Instance;
-        resp.OnResize("Small");
+        var resp = cut.FindComponent<Responsive>().Instance;
+        await resp.OnResize(BreakPoint.Small);
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -5931,6 +5932,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public async Task CardView_Ok()
     {
+        Context.JSInterop.Setup<BreakPoint>("getResponsive").SetResult(BreakPoint.Small);
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

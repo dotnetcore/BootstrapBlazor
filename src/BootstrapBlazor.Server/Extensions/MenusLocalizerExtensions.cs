@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Routing;
 
@@ -532,11 +533,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Bluetooth"],
-                    Url = "blue-tooth"
-                },
-                new()
-                {
                     Text = Localizer["Card"],
                     Url = "card"
                 },
@@ -600,11 +596,6 @@ internal static class MenusLocalizerExtensions
                     Text=Localizer["Empty"],
                     Url = "empty"
                 },
-                new ()
-                {
-                    Text=Localizer["EyeDropper"],
-                    Url = "eye-dropper"
-                },
                 new()
                 {
                     Text = Localizer["FileIcon"],
@@ -634,6 +625,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Icon"],
                     Url = "icon"
+                },
+                new()
+                {
+                    Text = Localizer["IFrame"],
+                    Url = "iframe"
                 },
                 new()
                 {
@@ -755,11 +751,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Waterfall"],
                     Url = "tutorials/waterfall"
-                },
-                new()
-                {
-                    Text = Localizer["WebSerial"],
-                    Url = "web-serial"
                 }
             };
             AddBadge(item);
@@ -1392,6 +1383,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Bluetooth"],
+                    Url = "blue-tooth"
+                },
+                new()
+                {
                     Text = Localizer["BrowserFinger"],
                     Url = "browser-finger"
                 },
@@ -1434,6 +1430,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["FullScreen"],
                     Url = "fullscreen"
+                },
+                new ()
+                {
+                    Text=Localizer["EyeDropper"],
+                    Url = "eye-dropper"
                 },
                 new()
                 {
@@ -1489,6 +1490,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Title"],
                     Url = "title"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["WebSerial"],
+                    Url = "web-serial"
                 },
                 new()
                 {

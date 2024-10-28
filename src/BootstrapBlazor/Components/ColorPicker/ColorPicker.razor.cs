@@ -1,6 +1,7 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Globalization;
 
@@ -35,6 +36,13 @@ public partial class ColorPicker
     /// </summary>
     [Parameter]
     public bool IsSupportOpacity { get; set; }
+
+    /// <summary>
+    /// 获得/设置 预设候选颜色 <see cref="IsSupportOpacity"/> 开启时生效 默认 null
+    /// </summary>
+    /// <remarks>字符串集合格式为 ["rgba(244, 67, 54, 1)", "rgba(233, 30, 99, 0.95)"]</remarks>
+    [Parameter]
+    public List<string>? Swatches { get; set; }
 
     private string? _formattedValueString;
 
@@ -71,7 +79,7 @@ public partial class ColorPicker
         {
             _originalSupportOpacityValue = IsSupportOpacity;
             _originalIsDisabledValue = IsDisabled;
-            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
+            await InvokeVoidAsync("update", Id, new { IsSupportOpacity, Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
         }
     }
 
@@ -79,7 +87,7 @@ public partial class ColorPicker
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { IsSupportOpacity, Default = Value, Disabled = IsDisabled, Lang = CultureInfo.CurrentUICulture.Name, Swatches });
 
     private async Task Setter(string v)
     {

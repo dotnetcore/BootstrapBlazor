@@ -1,6 +1,8 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
+// Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -61,17 +63,41 @@ public partial class ColorPickers
     [
         new()
         {
-            Name = "OnValueChanged",
-            Description = Localizer["Event1"],
-            Type = "Func<string, Task>",
+            Name = nameof(ColorPicker.Template),
+            Description = Localizer["AttributeTemplate"],
+            Type = "RenderFragment<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = nameof(ColorPicker.Template),
-            Description = Localizer["EventTemplate"],
-            Type = "Func<string>",
+            Name = nameof(ColorPicker.Formatter),
+            Description = Localizer["AttributeFormatter"],
+            Type = "Func<string, Task<string>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.IsSupportOpacity),
+            Description = Localizer["AttributeIsSupportOpacity"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.Swatches),
+            Description = Localizer["AttributeSwatches"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.OnValueChanged),
+            Description = Localizer["EventOnValueChanged"],
+            Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }

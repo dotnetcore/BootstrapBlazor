@@ -1,7 +1,7 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.80.4" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net9.0'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.79.5" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net9.0'" />
   </ItemGroup>
   
   <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net9.0'">

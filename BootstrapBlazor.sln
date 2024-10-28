@@ -56,6 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configurat
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		exclusion.dic = exclusion.dic
+		Framework.props = Framework.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestSvgIcon", "test\UniTestSvgIcon\UniTestSvgIcon.csproj", "{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}"
