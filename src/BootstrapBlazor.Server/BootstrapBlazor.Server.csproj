@@ -18,7 +18,6 @@
     <EmbeddedResource Include="Locales\en-US.json" />
     <EmbeddedResource Include="Locales\zh-CN.json" />
     <EmbeddedResource Include="topology.json" />
-    <None Include="versionconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
