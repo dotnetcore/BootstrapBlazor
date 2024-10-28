@@ -90,8 +90,8 @@ public partial class ColorPickers
             Name = nameof(ColorPicker.Swatches),
             Description = Localizer["AttributeSwatches"],
             Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
