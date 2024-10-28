@@ -63,17 +63,41 @@ public partial class ColorPickers
     [
         new()
         {
-            Name = "OnValueChanged",
-            Description = Localizer["Event1"],
-            Type = "Func<string, Task>",
+            Name = nameof(ColorPicker.Template),
+            Description = Localizer["AttributeTemplate"],
+            Type = "RenderFragment<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = nameof(ColorPicker.Template),
-            Description = Localizer["EventTemplate"],
-            Type = "Func<string>",
+            Name = nameof(ColorPicker.Formatter),
+            Description = Localizer["AttributeFormatter"],
+            Type = "Func<string, Task<string>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.IsSupportOpacity),
+            Description = Localizer["AttributeIsSupportOpacity"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.Swatches),
+            Description = Localizer["AttributeSwatches"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(ColorPicker.OnValueChanged),
+            Description = Localizer["EventOnValueChanged"],
+            Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
