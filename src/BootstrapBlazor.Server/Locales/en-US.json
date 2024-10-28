@@ -2490,7 +2490,11 @@
     "ValidateFormIntro": "Built in <code>ValidateForm</code> to use",
     "IsSupportOpacityTitle": "Support Opacity",
     "IsSupportOpacityIntro": "Enable transparency support by setting <code>IsSupportOpacity=\"true\"</code>",
-    "Event1": "Color change callback delegate method"
+    "EventOnValueChanged": "Color change callback delegate method",
+    "AttributeTemplate": "The template for display",
+    "AttributeFormatter": "Display color value formatting callback method",
+    "AttributeIsSupportOpacity": "Whether to support transparency",
+    "AttributeSwatches": "Preset candidate colors"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker",

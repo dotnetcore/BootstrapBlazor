@@ -64,7 +64,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.79.5" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.80.4" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net8.0'" />
   </ItemGroup>
 
   <ItemGroup>

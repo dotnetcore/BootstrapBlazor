@@ -86,6 +86,9 @@ const getOptions = (el, options) => {
         options.default = options.value;
         delete options.value;
     }
+    if (options.swatches === null) {
+        delete options.swatches;
+    }
     const config = {
         el,
         theme: 'nano',
