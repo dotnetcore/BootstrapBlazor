@@ -10,7 +10,7 @@ export function init(id, invoke, options) {
     EventHandler.on(el, 'click', async e => {
         e.preventDefault();
 
-        var trigger = el.getAttribute("data-bb-trigger-before");
+        const trigger = el.getAttribute("data-bb-trigger-before");
         if (trigger === 'true') {
             await invoke.invokeMethodAsync(options.callback);
         }
