@@ -9,8 +9,12 @@ export function init(id, invoke, options) {
 
     EventHandler.on(el, 'click', async e => {
         e.preventDefault();
-        await invoke.invokeMethodAsync(options.callback);
-    })
+
+        var trigger = el.getAttribute("data-bb-trigger-before");
+        if (trigger === 'true') {
+            await invoke.invokeMethodAsync(options.callback);
+        }
+    });
 }
 
 export function dispose(id) {
