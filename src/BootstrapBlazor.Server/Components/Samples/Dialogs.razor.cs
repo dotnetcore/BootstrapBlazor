@@ -165,7 +165,7 @@ public sealed partial class Dialogs
 
     private async Task OnConfirmModalClick()
     {
-        var result = await DialogService.ShowModal(Localizer["ConfirmDialogModalContent"], Localizer["ConfirmDialogModalTitle"]);
+        var result = await DialogService.ShowModal(Localizer["ConfirmDialogModalTitle"], Localizer["ConfirmDialogModalContent"]);
 
         ModalDialogLogger.Log($"The return value of the popup window is: {result} no component provider");
     }
