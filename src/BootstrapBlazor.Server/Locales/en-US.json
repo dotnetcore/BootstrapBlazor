@@ -2494,7 +2494,7 @@
     "AttributeTemplate": "The template for display",
     "AttributeFormatter": "Display color value formatting callback method",
     "AttributeIsSupportOpacity": "Whether to support transparency",
-    "AttributeAttributeSwatches": "Preset candidate colors"
+    "AttributeSwatches": "Preset candidate colors"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker",
