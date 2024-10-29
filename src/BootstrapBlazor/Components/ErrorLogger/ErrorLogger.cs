@@ -130,9 +130,9 @@ public class ErrorLogger
 #endif
         if (ex != null && ErrorContent != null)
         {
-            if (Cache.Count > 0)
+            if (_cache.Count > 0)
             {
-                var component = Cache.Last();
+                var component = _cache.Last();
                 if (component is IHandlerException handler)
                 {
                     handler.HandlerException(ex, ErrorContent);
@@ -203,23 +203,23 @@ public class ErrorLogger
         }
     }
 
-    private List<ComponentBase> Cache { get; } = [];
+    private List<ComponentBase> _cache = [];
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     public void Register(ComponentBase component)
     {
-        Cache.Add(component);
+        _cache.Add(component);
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
     public void UnRegister(ComponentBase component)
     {
-        Cache.Remove(component);
+        _cache.Remove(component);
     }
 }

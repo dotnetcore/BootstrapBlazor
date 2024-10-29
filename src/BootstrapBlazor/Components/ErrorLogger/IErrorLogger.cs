@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IErrorLogger 接口
 /// </summary>
 public interface IErrorLogger
 {
@@ -28,13 +28,13 @@ public interface IErrorLogger
     string? ToastTitle { get; }
 
     /// <summary>
-    /// 
+    /// 注册方法
     /// </summary>
     /// <param name="component"></param>
     void Register(ComponentBase component);
 
     /// <summary>
-    /// 
+    /// 注销方法
     /// </summary>
     /// <param name="component"></param>
     void UnRegister(ComponentBase component);

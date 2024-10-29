@@ -2,29 +2,22 @@
 @namespace BootstrapBlazor.Components
 
 <CascadingValue Value="this" IsFixed="true">
-    @if (EnableErrorLoggerValue)
-    {
-        <ErrorLogger ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!">
-            @ChildContent
-        </ErrorLogger>
-    }
-    else
-    {
-        @ChildContent
-    }
+    <ErrorLogger ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!">
+        <Dialog></Dialog>
+        <DrawerContainer></DrawerContainer>
+        <SweetAlert></SweetAlert>
+        <Message @ref="MessageContainer"></Message>
+        <ToastContainer @ref="ToastContainer"></ToastContainer>
+
+        <Download></Download>
+        <Mask></Mask>
+        <Print></Print>
+        <ConnectionHub></ConnectionHub>
+
+        @foreach (var com in Generators)
+        {
+            @com.Generator()
+        }
+    </ErrorLogger>
 </CascadingValue>
 
-<ConnectionHub></ConnectionHub>
-<Dialog></Dialog>
-<Download></Download>
-<DrawerContainer></DrawerContainer>
-<Mask></Mask>
-<Message @ref="MessageContainer"></Message>
-<Print></Print>
-<SweetAlert></SweetAlert>
-<ToastContainer @ref="ToastContainer"></ToastContainer>
-
-@foreach (var com in Generators)
-{
-    @com.Generator()
-}
