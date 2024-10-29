@@ -58,8 +58,10 @@
 }</Pre>
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</p>
-    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
+    <section ignore>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</section>
+    <ErrorLogger>
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
+    </ErrorLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Swal">
