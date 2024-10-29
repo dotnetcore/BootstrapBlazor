@@ -104,9 +104,6 @@ public partial class BootstrapBlazorRoot
         builder.OpenComponent<Dialog>(0);
         builder.CloseComponent();
 
-        builder.OpenComponent<Ajax>(1);
-        builder.CloseComponent();
-
         builder.OpenComponent<SweetAlert>(2);
         builder.CloseComponent();
 
