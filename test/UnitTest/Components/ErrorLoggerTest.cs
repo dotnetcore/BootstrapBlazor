@@ -127,4 +127,35 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => button.Click());
         Assert.NotNull(exception);
     }
+
+    [Fact]
+    public void ErrorContent_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.Add(a => a.ShowToast, false);
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.OnClick, () =>
+                {
+                    var a = 0;
+                    _ = 1 / a;
+                });
+            });
+        });
+
+        var errorLogger = cut.FindComponent<ErrorLogger>();
+        errorLogger.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ErrorContent, new RenderFragment<Exception>(ex => builder =>
+            {
+                builder.AddContent(0, ex.Message);
+                builder.AddContent(1, "error_content_template");
+            }));
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        cut.Contains("Attempted to divide by zero.error_content_template");
+    }
 }
