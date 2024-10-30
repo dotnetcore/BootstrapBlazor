@@ -11,6 +11,11 @@ namespace BootstrapBlazor.Components;
 public interface IErrorLogger
 {
     /// <summary>
+    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// </summary>
+    bool EnableErrorLogger { get; set; }
+
+    /// <summary>
     /// 自定义 Error 处理方法
     /// </summary>
     /// <param name="ex"></param>

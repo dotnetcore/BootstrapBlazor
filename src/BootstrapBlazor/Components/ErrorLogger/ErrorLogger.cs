@@ -38,6 +38,12 @@ public class ErrorLogger
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// </summary>
+    [Parameter]
+    public bool EnableErrorLogger { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否显示弹窗 默认 true 显示
     /// </summary>
     [Parameter]
@@ -123,24 +129,28 @@ public class ErrorLogger
         builder.AddAttribute(2, nameof(CascadingValue<IErrorLogger>.IsFixed), true);
 
         var content = ChildContent;
+
+        if (EnableErrorLogger)
+        {
 #if NET6_0_OR_GREATER
-        var ex = Exception ?? CurrentException;
+            var ex = Exception ?? CurrentException;
 #else
         var ex = Exception;
 #endif
-        if (ex != null && ErrorContent != null)
-        {
-            if (_cache.Count > 0)
+            if (ex != null && ErrorContent != null)
             {
-                var component = _cache.Last();
-                if (component is IHandlerException handler)
+                if (_cache.Count > 0)
                 {
-                    handler.HandlerException(ex, ErrorContent);
+                    var component = _cache.Last();
+                    if (component is IHandlerException handler)
+                    {
+                        handler.HandlerException(ex, ErrorContent);
+                    }
                 }
-            }
-            else
-            {
-                content = ErrorContent.Invoke(ex);
+                else
+                {
+                    content = ErrorContent.Invoke(ex);
+                }
             }
         }
         builder.AddAttribute(3, nameof(CascadingValue<IErrorLogger>.ChildContent), content);
@@ -182,28 +192,31 @@ public class ErrorLogger
     protected async Task OnErrorAsync(Exception exception)
 #endif
     {
-        // 由框架调用
-        if (OnErrorHandleAsync != null)
+        if (EnableErrorLogger)
         {
-            await OnErrorHandleAsync(Logger, exception);
-        }
-        else
-        {
-            if (ShowToast)
+            // 由框架调用
+            if (OnErrorHandleAsync != null)
             {
-                await ToastService.Error(ToastTitle, exception.Message);
+                await OnErrorHandleAsync(Logger, exception);
             }
+            else
+            {
+                if (ShowToast)
+                {
+                    await ToastService.Error(ToastTitle, exception.Message);
+                }
 
 #if NET6_0_OR_GREATER
-            // 此处注意 内部 logLevel=Warning
-            await ErrorBoundaryLogger.LogErrorAsync(exception);
+                // 此处注意 内部 logLevel=Warning
+                await ErrorBoundaryLogger.LogErrorAsync(exception);
 #else
-            Logger.LogError(exception, "");
+                Logger.LogError(exception, "");
 #endif
+            }
         }
     }
 
-    private List<ComponentBase> _cache = [];
+    private readonly List<ComponentBase> _cache = [];
 
     /// <summary>
     /// <inheritdoc/>
