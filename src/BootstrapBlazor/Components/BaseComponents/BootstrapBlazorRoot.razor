@@ -2,7 +2,9 @@
 @namespace BootstrapBlazor.Components
 
 <CascadingValue Value="this" IsFixed="true">
-    <ErrorLogger ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!">
+    <ErrorLogger EnableErrorLogger="EnableErrorLoggerValue" ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!">
+        @ChildContent
+
         <Dialog></Dialog>
         <DrawerContainer></DrawerContainer>
         <SweetAlert></SweetAlert>
