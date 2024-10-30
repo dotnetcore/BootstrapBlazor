@@ -79,7 +79,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, nameof(TabItem.ChildContent), new RenderFragment(builder =>
                     {
                         builder.OpenComponent<Button>(0);
-                        builder.AddAttribute(1, nameof(Button.Text), "errorlogger-click");
+                        builder.AddAttribute(1, nameof(Button.Text), "errorLogger-click");
                         builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                         {
                             var a = 0;
@@ -93,7 +93,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             }));
         });
 
-        cut.Contains("errorlogger-click");
+        cut.Contains("errorLogger-click");
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
 

@@ -45,6 +45,7 @@ public class ErrorHandlerTest : BootstrapBlazorTestBase
         [NotNull]
         public DialogService? DialogService { get; set; }
     }
+
     private class ErrorComponent : ComponentBase
     {
         protected override void BuildRenderTree(RenderTreeBuilder builder)
