@@ -1723,9 +1723,7 @@
     "Para4": "This set of components additionally",
     "Para5": "The components are layered as follows",
     "Para6": "test session",
-    "Button": "test",
-    "Footer1": "because",
-    "Footer2": "The component does not provide a service form, and it is retrofitted later"
+    "Button": "test"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
     "Title": "Global exception",

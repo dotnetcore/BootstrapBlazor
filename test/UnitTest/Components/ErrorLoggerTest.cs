@@ -79,7 +79,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
                     builder.AddAttribute(1, nameof(TabItem.ChildContent), new RenderFragment(builder =>
                     {
                         builder.OpenComponent<Button>(0);
-                        builder.AddAttribute(1, nameof(Button.Text), "errorlogger-click");
+                        builder.AddAttribute(1, nameof(Button.Text), "errorLogger-click");
                         builder.AddAttribute(2, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                         {
                             var a = 0;
@@ -93,7 +93,7 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
             }));
         });
 
-        cut.Contains("errorlogger-click");
+        cut.Contains("errorLogger-click");
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
 
@@ -126,5 +126,36 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
         Assert.NotNull(exception);
+    }
+
+    [Fact]
+    public void ErrorContent_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.Add(a => a.EnableErrorLogger, true);
+            pb.Add(a => a.ShowToast, false);
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.OnClick, () =>
+                {
+                    var a = 0;
+                    _ = 1 / a;
+                });
+            });
+        });
+
+        var errorLogger = cut.FindComponent<ErrorLogger>();
+        errorLogger.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ErrorContent, new RenderFragment<Exception>(ex => builder =>
+            {
+                builder.AddContent(0, ex.Message);
+                builder.AddContent(1, "error_content_template");
+            }));
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        cut.Contains("Attempted to divide by zero.error_content_template");
     }
 }

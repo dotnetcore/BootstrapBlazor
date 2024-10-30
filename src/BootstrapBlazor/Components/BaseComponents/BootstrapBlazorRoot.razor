@@ -1,23 +1,25 @@
 ﻿@inherits ComponentBase
 @namespace BootstrapBlazor.Components
 
-@RenderBody()
-
-<Message @ref="MessageContainer"></Message>
-<ToastContainer @ref="ToastContainer"></ToastContainer>
-<DrawerContainer></DrawerContainer>
-
-<ConnectionHub></ConnectionHub>
-<Mask></Mask>
-
-@foreach (var com in Generators)
-{
-    @com.Generator()
-}
-
-@code {
-    RenderFragment RenderChildContent =>
-    @<CascadingValue Value="this" IsFixed="true">
+<CascadingValue Value="this" IsFixed="true">
+    <ErrorLogger EnableErrorLogger="EnableErrorLoggerValue" ShowToast="ShowToast" ToastTitle="@ToastTitle" OnErrorHandleAsync="OnErrorHandleAsync!">
         @ChildContent
-    </CascadingValue>;
-}
+
+        <Dialog></Dialog>
+        <DrawerContainer></DrawerContainer>
+        <SweetAlert></SweetAlert>
+        <Message @ref="MessageContainer"></Message>
+        <ToastContainer @ref="ToastContainer"></ToastContainer>
+
+        <Download></Download>
+        <Mask></Mask>
+        <Print></Print>
+        <ConnectionHub></ConnectionHub>
+
+        @foreach (var com in Generators)
+        {
+            @com.Generator()
+        }
+    </ErrorLogger>
+</CascadingValue>
+

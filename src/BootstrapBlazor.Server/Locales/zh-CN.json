@@ -1723,9 +1723,7 @@
     "Para4": "本套组件额外增加了",
     "Para5": "各组件分层如下",
     "Para6": "测试环节",
-    "Button": "测试",
-    "Footer1": "由于",
-    "Footer2": "组件未提供服务形式，后期改造"
+    "Button": "测试"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
     "Title": "全局异常",
