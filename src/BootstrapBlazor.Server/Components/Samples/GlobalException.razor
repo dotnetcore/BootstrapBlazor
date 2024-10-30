@@ -59,15 +59,17 @@
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <section ignore>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</section>
-    <ErrorLogger>
-        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
-    </ErrorLogger>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Swal">
     <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync">
         <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
     </ErrorLogger>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DialogTitle"]" Introduction="@Localizer["DialogIntro"]" Name="Dialog">
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["DialogText"]" OnClick="OnShowDialog" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
