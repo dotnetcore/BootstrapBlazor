@@ -36,11 +36,11 @@ public interface IErrorLogger
     /// 注册方法
     /// </summary>
     /// <param name="component"></param>
-    void Register(ComponentBase component);
+    void Register(IHandlerException component);
 
     /// <summary>
     /// 注销方法
     /// </summary>
     /// <param name="component"></param>
-    void UnRegister(ComponentBase component);
+    void UnRegister(IHandlerException component);
 }

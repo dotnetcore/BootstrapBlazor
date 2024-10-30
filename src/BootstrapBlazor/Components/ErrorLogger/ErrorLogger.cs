@@ -216,13 +216,13 @@ public class ErrorLogger
         }
     }
 
-    private readonly List<ComponentBase> _cache = [];
+    private readonly List<IHandlerException> _cache = [];
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
-    public void Register(ComponentBase component)
+    public void Register(IHandlerException component)
     {
         _cache.Add(component);
     }
@@ -231,7 +231,7 @@ public class ErrorLogger
     /// <inheritdoc/>
     /// </summary>
     /// <param name="component"></param>
-    public void UnRegister(ComponentBase component)
+    public void UnRegister(IHandlerException component)
     {
         _cache.Remove(component);
     }
