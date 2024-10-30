@@ -773,6 +773,7 @@ public partial class Tab : IHandlerException
     public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
     {
         _errorContent = errorContent(ex);
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
