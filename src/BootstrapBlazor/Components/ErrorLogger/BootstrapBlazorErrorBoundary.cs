@@ -80,6 +80,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             var ex = CurrentException ?? _exception;
             if (ex != null)
             {
+                _exception = null;
                 builder.AddContent(0, ExceptionContent(ex));
             }
         }
@@ -99,10 +100,20 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             var index = 0;
             builder.OpenElement(index++, "div");
             builder.AddAttribute(index++, "class", "error-stack");
-            builder.AddContent(index++, ex.FormatMarkupString(Configuration.GetEnvironmentInformation()));
+            builder.AddContent(index++, GetErrorContentMarkupString(ex));
             builder.CloseElement();
         }
     };
+
+    private bool? _errorDetails;
+
+    private MarkupString GetErrorContentMarkupString(Exception ex)
+    {
+        _errorDetails ??= Configuration.GetValue("DetailedErrors", false);
+        return _errorDetails is true
+            ? ex.FormatMarkupString(Configuration.GetEnvironmentInformation())
+            : new MarkupString(ex.Message);
+    }
 
     /// <summary>
     /// 渲染异常信息方法

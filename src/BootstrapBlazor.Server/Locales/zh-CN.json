@@ -1741,7 +1741,10 @@
     "ExceptionTestIntroduce": "本例代码中写了一个除以零的错误代码，并且未使用 <code>try/catch</code> 对异常进行捕获，系统并不会崩溃导致不可用，<ul class='ul-demo'><li><code>Debug</code> 模式下会显示错误的 <b>描述信息</b> 与 <b>堆栈信息</b></li><li><code>Release</code> 模式下默认使用 <code>Toast</code> 进行弹窗提示</li></ul>",
     "ButtonText": "测试",
     "Block2Title": "自定义错误处理",
-    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑"
+    "Block2Intro": "通过设置 <code>OnErrorHandleAsync</code> 回调方法，设置自定义异常处理逻辑",
+    "DialogTitle": "弹窗中异常捕获",
+    "DialogIntro": "点击按钮弹出弹窗，弹窗内按钮触发异常，错误显示在弹窗内",
+    "DialogText": "弹窗"
   },
   "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
     "Title": "全局配置",

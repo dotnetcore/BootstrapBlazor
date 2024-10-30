@@ -99,13 +99,7 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     /// </summary>
     /// <param name="exception"></param>
     /// <returns></returns>
-    public async Task HandlerExceptionAsync(Exception exception)
-    {
-        if (EnableErrorLogger)
-        {
-            await _errorBoundary.RenderException(exception, _cache.LastOrDefault());
-        }
-    }
+    public Task HandlerExceptionAsync(Exception exception) => _errorBoundary.RenderException(exception, _cache.LastOrDefault());
 
     private readonly List<IHandlerException> _cache = [];
 

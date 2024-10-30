@@ -14,6 +14,9 @@ public partial class GlobalException
     [NotNull]
     private SwalService? SwalService { get; set; }
 
+    [Inject, NotNull]
+    private DialogService? DialogService { get; set; }
+
     private static void OnClick()
     {
         // NET6.0 采用 ErrorLogger 统一处理
@@ -28,6 +31,12 @@ public partial class GlobalException
         Content = ex.Message,
         ShowFooter = true,
         FooterTemplate = BootstrapDynamicComponent.CreateComponent<SwalFooter>().Render()
+    });
+
+    private Task OnShowDialog() => DialogService.Show(new DialogOption()
+    {
+        Title = Localizer["DialogTitle"],
+        Component = BootstrapDynamicComponent.CreateComponent<MockError>()
     });
 
     /// <summary>
