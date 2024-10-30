@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Configuration;
 
 namespace UnitTest.Components;
 
@@ -37,6 +38,31 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         });
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
+    }
+
+    [Fact]
+    public async Task DetailedErrors_False()
+    {
+        var config = Context.Services.GetRequiredService<IConfiguration>();
+        config["DetailedErrors"] = "false";
+
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<ErrorLogger>(pb =>
+            {
+                pb.Add(e => e.ShowToast, false);
+                pb.AddChildContent<Button>(pb =>
+                {
+                    pb.Add(b => b.OnClick, () =>
+                    {
+                        var a = 0;
+                        _ = 1 / a;
+                    });
+                });
+            });
+        });
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
     }
 
     [Fact]
@@ -96,7 +122,6 @@ public class ErrorLoggerTest : BootstrapBlazorTestBase
         cut.Contains("errorLogger-click");
         var button = cut.Find("button");
         button.TriggerEvent("onclick", EventArgs.Empty);
-
         cut.Contains("<div class=\"tabs-body-content\"><div class=\"error-stack\">TimeStamp:");
     }
 
