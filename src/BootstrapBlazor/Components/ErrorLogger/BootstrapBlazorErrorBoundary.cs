@@ -80,6 +80,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
             var ex = CurrentException ?? _exception;
             if (ex != null)
             {
+                _exception = null;
                 builder.AddContent(0, ExceptionContent(ex));
             }
         }
