@@ -537,7 +537,7 @@ public static class Utility
         // 设置 SkipValidate 参数
         if (IsValidComponent(componentType))
         {
-            builder.AddAttribute(160, nameof(IEditorItem.SkipValidate), item.SkipValidate);
+            builder.AddAttribute(160, nameof(IEditorItem.SkipValidate), isSearch || item.SkipValidate);
         }
 
         builder.AddMultipleAttributes(170, CreateMultipleAttributes(fieldType, model, fieldName, item));

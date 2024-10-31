@@ -52,7 +52,7 @@ public abstract class BootstrapComponentBase : ComponentBase, IHandleEvent
                 return;
             }
 
-            if (ErrorLogger != null)
+            if (ErrorLogger is { EnableErrorLogger: true })
             {
                 IsNotRender = true;
                 await ErrorLogger.HandlerExceptionAsync(ex);

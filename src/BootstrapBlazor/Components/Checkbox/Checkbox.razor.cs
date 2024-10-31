@@ -100,6 +100,8 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool StopPropagation { get; set; }
 
+    private string? TriggerBeforeValueString => OnBeforeStateChanged == null ? null : "true";
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -155,13 +157,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync()
-    {
-        if (OnBeforeStateChanged != null)
-        {
-            await InvokeVoidAsync("init", Id, Interop, new { Callback = nameof(TriggerOnBeforeStateChanged) });
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Callback = nameof(TriggerOnBeforeStateChanged) });
 
     /// <summary>
     /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用

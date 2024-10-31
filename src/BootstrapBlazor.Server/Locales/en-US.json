@@ -1723,9 +1723,7 @@
     "Para4": "This set of components additionally",
     "Para5": "The components are layered as follows",
     "Para6": "test session",
-    "Button": "test",
-    "Footer1": "because",
-    "Footer2": "The component does not provide a service form, and it is retrofitted later"
+    "Button": "test"
   },
   "BootstrapBlazor.Server.Components.Samples.GlobalException": {
     "Title": "Global exception",
@@ -1743,7 +1741,10 @@
     "ExceptionTestIntroduce": "In this example code, an error code that divides by zero is written. Because <code>try/catch</code> is used to capture the exception, the error message is displayed in the console below",
     "ButtonText": "test",
     "Block2Title": "OnErrorHandleAsync",
-    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
+    "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method",
+    "DialogTitle": "In Dialog",
+    "DialogIntro": "Click the button to pop up a pop-up window. The button in the pop-up window triggers an exception and the error is displayed in the pop-up window",
+    "DialogText": "Popup"
   },
   "BootstrapBlazor.Server.Components.Pages.GlobalOption": {
     "Title": "Global exception",

@@ -6,10 +6,15 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IErrorLogger 接口
 /// </summary>
 public interface IErrorLogger
 {
+    /// <summary>
+    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// </summary>
+    bool EnableErrorLogger { get; set; }
+
     /// <summary>
     /// 自定义 Error 处理方法
     /// </summary>
@@ -28,14 +33,14 @@ public interface IErrorLogger
     string? ToastTitle { get; }
 
     /// <summary>
-    /// 
+    /// 注册方法
     /// </summary>
     /// <param name="component"></param>
-    void Register(ComponentBase component);
+    void Register(IHandlerException component);
 
     /// <summary>
-    /// 
+    /// 注销方法
     /// </summary>
     /// <param name="component"></param>
-    void UnRegister(ComponentBase component);
+    void UnRegister(IHandlerException component);
 }

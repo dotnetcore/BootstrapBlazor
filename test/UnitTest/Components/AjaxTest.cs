@@ -22,9 +22,12 @@ public class AjaxTest : BootstrapBlazorTestBase
 
         var service = Context.Services.GetRequiredService<AjaxService>();
         await service.InvokeAsync(option);
+    }
 
-        Context.RenderComponent<Ajax>();
-        await service.InvokeAsync(option);
+    [Fact]
+    public async Task Goto_Test()
+    {
+        var service = Context.Services.GetRequiredService<AjaxService>();
         await service.Goto("http://www.blazor.zone");
     }
 }

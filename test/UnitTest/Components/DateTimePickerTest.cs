@@ -920,13 +920,10 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
 
-        // 测试点击当前日期不触发 OnValueChanged
-        // 获得当前日期单元格
         var button = cut.FindAll(".picker-panel-content .cell").First(i => i.TextContent == $"{DateTime.Today.Day}");
         await cut.InvokeAsync(() => button.Click());
         Assert.Equal(val, DateTime.MinValue);
 
-        // 测试 AutoClose 模式下点击当前日期不触发 OnValueChanged
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.AutoClose, true);
