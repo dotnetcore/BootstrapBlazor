@@ -8,12 +8,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Print 服务
 /// </summary>
-public class PrintService : BootstrapServiceBase<DialogOption>
+public class PrintService(DialogService dialogService)
 {
     /// <summary>
     /// 打印方法
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public Task PrintAsync(DialogOption option) => Invoke(option);
+    public Task PrintAsync(DialogOption option) => dialogService.Show(option);
 }
