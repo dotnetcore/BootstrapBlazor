@@ -53,25 +53,25 @@ public partial class ModalDialog : IHandlerException
     public bool ShowResize { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗大小
+    /// 获得/设置 弹窗大小 默认为 <see cref="Size.ExtraExtraLarge"/>
     /// </summary>
     [Parameter]
     public Size Size { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
-    /// 获得/设置 弹窗大小
+    /// 获得/设置 弹窗大小 默认为 <see cref="FullScreenSize.None"/>
     /// </summary>
     [Parameter]
     public FullScreenSize FullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否垂直居中 默认为 true
+    /// 获得/设置 是否垂直居中 默认为 false
     /// </summary>
     [Parameter]
     public bool IsCentered { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否弹窗正文超长时滚动
+    /// 获得/设置 是否弹窗正文超长时滚动 默认为 false
     /// </summary>
     [Parameter]
     public bool IsScrolling { get; set; }
@@ -83,7 +83,7 @@ public partial class ModalDialog : IHandlerException
     public bool IsDraggable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示最大化按钮
+    /// 获得/设置 是否显示最大化按钮 默认为 false
     /// </summary>
     [Parameter]
     public bool ShowMaximizeButton { get; set; }
