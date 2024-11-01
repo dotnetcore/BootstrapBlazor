@@ -1,5 +1,9 @@
-﻿.is-draggable .modal-header {
+.is-draggable .modal-header {
     cursor: pointer;
+}
+
+.is-draggable-center {
+    visibility: hidden;
 }
 
 .modal-header {
