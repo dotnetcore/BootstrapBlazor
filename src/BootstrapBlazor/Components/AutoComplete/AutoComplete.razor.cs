@@ -18,14 +18,14 @@ public partial class AutoComplete
     /// <summary>
     /// 获得/设置 当前下拉框是否显示
     /// </summary>
-    private bool IsShown { get; set; }
+    private bool _isShown;
 
     /// <summary>
     /// 获得 组件样式
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .AddClass("show", IsShown && !IsPopover)
+        .AddClass("show", _isShown && !IsPopover)
         .Build();
 
     /// <summary>
@@ -149,7 +149,7 @@ public partial class AutoComplete
     protected override async Task OnBlur()
     {
         CurrentSelectedItem = "";
-        IsShown = false;
+        _isShown = false;
 
         if (OnBlurAsync != null)
         {
@@ -185,7 +185,12 @@ public partial class AutoComplete
             else
             {
                 FilterItems = DisplayCount == null ? Items.ToList() : Items.Take(DisplayCount.Value).ToList();
-                IsShown = true;
+                _isShown = true;
+
+                if (IsPopover)
+                {
+                    await InvokeVoidAsync("triggerFocus", Id);
+                }
             }
         }
     }
@@ -217,7 +222,7 @@ public partial class AutoComplete
             IsLoading = false;
         }
 
-        IsShown = true;
+        _isShown = true;
 
         var source = FilterItems;
         if (source.Count > 0)

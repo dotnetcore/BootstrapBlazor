@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Web;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -179,7 +180,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowDropdownListOnFocus_Ok()
+    public async Task ShowDropdownListOnFocus_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<AutoComplete>(pb =>
@@ -189,26 +190,20 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
 
         // 获得焦点时不会自动弹出下拉框
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find("input");
-            input.FocusAsync(new FocusEventArgs());
-            var menu = cut.Find("ul");
-            Assert.Equal("dropdown-menu", menu.ClassList.ToString());
-        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        var menu = cut.Find("ul");
+        Assert.Equal("dropdown-menu", menu.ClassList.ToString());
 
         // 获得焦点时自动弹出下拉框
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowDropdownListOnFocus, true);
         });
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find("input");
-            input.FocusAsync(new FocusEventArgs());
-            var menu = cut.Find("ul");
-            Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
-        });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        // IsShown = true
+        Assert.True(GetShownValue(cut.Instance));
 
         var filter = false;
         cut.SetParametersAndRender(pb =>
@@ -222,12 +217,25 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
 
         // trigger focus
-        cut.InvokeAsync(() =>
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        Assert.True(filter);
+
+        cut.SetParametersAndRender(pb =>
         {
-            var input = cut.Find("input");
-            input.FocusAsync(new FocusEventArgs());
-            Assert.True(filter);
+            pb.Add(a => a.IsPopover, true);
+            pb.Add(a => a.OnFocusFilter, false);
         });
+        input = cut.Find("input");
+        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
+        // IsShown = true
+        Assert.True(GetShownValue(cut.Instance));
+    }
+
+    private static bool GetShownValue(AutoComplete instance)
+    {
+        var fieldInfo = instance.GetType().GetField("_isShown", BindingFlags.NonPublic | BindingFlags.Instance);
+        return fieldInfo?.GetValue(instance) is true;
     }
 
     [Fact]
