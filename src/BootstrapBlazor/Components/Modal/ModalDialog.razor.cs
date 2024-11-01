@@ -65,10 +65,10 @@ public partial class ModalDialog : IHandlerException
     public FullScreenSize FullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否垂直居中 默认为 false
+    /// 获得/设置 是否垂直居中 默认为 true
     /// </summary>
     [Parameter]
-    public bool IsCentered { get; set; }
+    public bool IsCentered { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否弹窗正文超长时滚动 默认为 false
