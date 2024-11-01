@@ -68,6 +68,17 @@ export function composition(id) {
     }
 }
 
+export function triggerFocus(id) {
+    const ac = Data.get(id)
+    if (ac.popover) {
+        const handler = setTimeout(() => {
+            clearTimeout(handler);
+
+            ac.popover.show();
+        }, 200);
+    }
+}
+
 export function dispose(id) {
     const ac = Data.get(id)
     Data.remove(id)

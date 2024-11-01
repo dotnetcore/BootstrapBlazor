@@ -186,6 +186,11 @@ public partial class AutoComplete
             {
                 FilterItems = DisplayCount == null ? Items.ToList() : Items.Take(DisplayCount.Value).ToList();
                 IsShown = true;
+
+                if (IsPopover)
+                {
+                    await InvokeVoidAsync("triggerFocus", Id);
+                }
             }
         }
     }
