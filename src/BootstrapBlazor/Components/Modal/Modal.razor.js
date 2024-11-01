@@ -22,8 +22,8 @@ export function init(id, invoke, shownCallback, closeCallback) {
             const width = dialog.offsetWidth / 2;
             const height = dialog.offsetHeight / 2;
 
-            dialog.style.setProperty("margin-left", `calc(50vw - ${width}px`);
-            dialog.style.setProperty("margin-top", `calc(50vh - ${height}px`);
+            dialog.style.setProperty("margin-left", `calc(50vw - ${width}px)`);
+            dialog.style.setProperty("margin-top", `calc(50vh - ${height}px)`);
             dialog.classList.remove('is-draggable-center');
         }
 
