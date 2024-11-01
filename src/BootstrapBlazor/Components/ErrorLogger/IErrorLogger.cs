@@ -16,7 +16,7 @@ public interface IErrorLogger
     bool EnableErrorLogger { get; set; }
 
     /// <summary>
-    /// 自定义 Error 处理方法
+    /// 获得/设置 自定义 Error 处理方法 默认 null
     /// </summary>
     /// <param name="ex"></param>
     /// <returns></returns>
@@ -28,7 +28,7 @@ public interface IErrorLogger
     bool ShowToast { get; }
 
     /// <summary>
-    /// 获得 Error Toast 弹窗标题
+    /// 获得 Error Toast 弹窗标题 默认读取资源文件内容
     /// </summary>
     string? ToastTitle { get; }
 
