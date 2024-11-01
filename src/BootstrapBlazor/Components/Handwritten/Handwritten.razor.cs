@@ -10,6 +10,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Handwritten 手写签名
 /// </summary>
+[Obsolete("已弃用，请使用 BootstrapBlazor.SignaturePad 代替；Deprecated, use BootstrapBlazor.SignaturePad instead")]
+[ExcludeFromCodeCoverage]
 public partial class Handwritten
 {
     /// <summary>
