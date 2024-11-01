@@ -26,7 +26,7 @@
 
     ::deep .btn-update img {
         width: 55%;
-        margin-left: 2px;
+        margin-inline-start: 2px;
     }
 
 ::deep .btn-chat {

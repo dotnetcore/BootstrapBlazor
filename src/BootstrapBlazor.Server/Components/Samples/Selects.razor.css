@@ -54,7 +54,7 @@
 
 .select-custom-detail {
     flex: 1;
-    margin-left: 2rem;
+    margin-inline-start: 2rem;
 }
 
     .select-custom-detail > div {

@@ -48,7 +48,7 @@
 
 ::deep .select-custom-detail {
     flex: 1;
-    margin-left: 2rem;
+    margin-inline-start: 2rem;
 }
 
     ::deep .select-custom-detail > div {

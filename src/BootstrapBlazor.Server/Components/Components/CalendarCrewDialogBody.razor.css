@@ -21,7 +21,7 @@
         }
 
         .actions > span:not(:last-child) {
-            margin-right: .5rem;
+            margin-inline-end: .5rem;
         }
 
 .crew:not(:last-child) {
@@ -30,6 +30,6 @@
 
 .crew > input {
     max-width: 2rem;
-    margin-right: 1rem;
+    margin-inline-end: 1rem;
     border: none;
 }

@@ -110,7 +110,7 @@
 
 .search-dialog-menu {
     flex-basis: 240px;
-    margin-left: 0.5rem;
+    margin-inline-start: 0.5rem;
     padding: .5rem .25rem;
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
@@ -170,7 +170,7 @@
             --bs-badge-border-radius: 50%;
             position: absolute;
             top: 4px;
-            margin-left: 4px;
+            margin-inline-start: 4px;
         }
 
         .search-dialog-list .search-dialog-item .search-dialog-item-sub {
@@ -222,7 +222,7 @@
         --bb-global-search-left: 20px;
         --bb-global-search-right: 20px;
         margin-bottom: 0;
-        margin-right: .5rem;
+        margin-inline-end: .5rem;
     }
 
     .search-dialog {

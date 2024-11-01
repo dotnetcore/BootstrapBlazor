@@ -1276,7 +1276,7 @@
 }
 
 .btn + .btn-group, .btn-group + .btn, .btn-group + .btn-group, .btn-group .btn + .btn, .btn-group .btn + span, .btn-group > span + span, .btn-group span + .btn {
-    margin-left: -1px
+    margin-inline-start: -1px
 }
 
 .btn-group .btn-primary + .btn:not(.btn-primary):not([disabled]) {
@@ -1288,7 +1288,7 @@
 }
 
 .btn-group > .btn:first-child, .btn-group > span:first-child > .btn {
-    margin-left: 0
+    margin-inline-start: 0
 }
 
 .btn-group > .btn:only-child, .btn-group > span:only-child > .btn {
@@ -1340,8 +1340,8 @@
     }
 
 .btn-group-rtl.btn + .btn-group, .btn-group-rtl.btn-group + .btn, .btn-group-rtl.btn-group + .btn-group, .btn-group-rtl.btn-group .btn + .btn, .btn-group-rtl.btn-group .btn + span, .btn-group-rtl.btn-group > span + span, .btn-group-rtl.btn-group span + .btn, .btn-rtl.btn + .btn-group, .btn-rtl.btn-group + .btn, .btn-rtl.btn-group + .btn-group, .btn-rtl.btn-group .btn + .btn, .btn-rtl.btn-group .btn + span, .btn-rtl.btn-group > span + span, .btn-rtl.btn-group span + .btn {
-    margin-right: -1px;
-    margin-left: auto
+    margin-inline-end: -1px;
+    margin-inline-start: auto
 }
 
 .btn-group.btn-group-rtl {
@@ -1381,7 +1381,7 @@
 }
 
 .btn > .anticon + span, .btn > span + .anticon {
-    margin-left: 8px
+    margin-inline-start: 8px
 }
 
 .btn-background-ghost {
@@ -1731,7 +1731,7 @@
 }
 
 .btn-two-chinese-chars > :not(.anticon) {
-    margin-right: -.34em;
+    margin-inline-end: -.34em;
     letter-spacing: .34em
 }
 
@@ -1780,6 +1780,6 @@ a.btn-sm {
 }
 
 .btn-rtl.btn > .anticon + span, .btn-rtl.btn > span + .anticon {
-    margin-right: 8px;
-    margin-left: 0
+    margin-inline-end: 8px;
+    margin-inline-start: 0
 }

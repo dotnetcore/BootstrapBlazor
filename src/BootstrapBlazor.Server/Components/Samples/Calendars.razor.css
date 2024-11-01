@@ -3,7 +3,7 @@
 }
 
     .sum .col-12 > div {
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
         min-width: 2rem;
     }
 

@@ -7,7 +7,7 @@
         flex: 0 0 auto;
         width: 152px;
         margin-top: .5rem;
-        margin-right: .5rem;
+        margin-inline-end: .5rem;
         padding: .75rem;
         background-color: #f0f1f3;
         border-radius: .5rem;
@@ -24,7 +24,7 @@
         .icon-list a span {
             font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
             font-size: 11px;
-            margin-left: 10px;
+            margin-inline-start: 10px;
             line-height: 1.25rem;
             white-space: nowrap;
             text-overflow: ellipsis;

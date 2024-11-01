@@ -152,14 +152,14 @@ h3, h4, h5 {
 .connection-body-tail {
     border-right: 1px solid var(--bs-border-color);
     width: 1px;
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
 }
 
 .connection-link {
     color: #1371C3;
     text-decoration: underline;
     font-weight: bolder;
-    margin-left: 0.5rem;
+    margin-inline-start: 0.5rem;
 }
 
 .connection-box {
@@ -178,7 +178,7 @@ h3, h4, h5 {
 
 .connection-body img {
     height: 110px;
-    margin-left: 1rem;
+    margin-inline-start: 1rem;
 }
 
 .row-highlight {
@@ -296,7 +296,7 @@ code {
 
     .layout-demo .widget {
         --bb-widget-toggle-color: #fff;
-        margin-right: 1rem;
+        margin-inline-end: 1rem;
     }
 
     .layout-demo .layout-avatar-right {

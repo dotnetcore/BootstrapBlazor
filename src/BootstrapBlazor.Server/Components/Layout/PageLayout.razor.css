@@ -182,7 +182,7 @@
 
 .layout-drawer {
     padding: 13px;
-    margin-right: -1rem;
+    margin-inline-end: -1rem;
     cursor: pointer;
 }
 

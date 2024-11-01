@@ -9,7 +9,7 @@
     .coms-cate ::deep .badge {
         position: absolute;
         top: 0;
-        margin-left: 1rem;
+        margin-inline-start: 1rem;
         font-size: .65rem;
     }
 

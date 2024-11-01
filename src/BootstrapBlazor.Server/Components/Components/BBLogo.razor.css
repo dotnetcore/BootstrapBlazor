@@ -4,5 +4,5 @@
     border-radius: var(--bs-border-radius);
     background-color: var(--bb-primary-color);
     border: solid 1px #fff;
-    margin-right: 1rem;
+    margin-inline-end: 1rem;
 }
