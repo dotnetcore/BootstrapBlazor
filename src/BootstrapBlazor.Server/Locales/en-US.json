@@ -5730,6 +5730,7 @@
   "BootstrapBlazor.Server.Components.Samples.Handwrittens": {
     "Title": "Handwritten",
     "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
+    "Tips": "Deprecated, please use the <a href=\"signature-pad\" target=\"_blank\">BootstrapBlazor.SignaturePad</a> component",
     "BaseUsageText": "Basic usage",
     "IntroText1": "Touch device handwritten signature as Base64.",
     "IntroText2": "For desktop browser testing, please use F12 to simulate a touch device.",
