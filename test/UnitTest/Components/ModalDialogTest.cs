@@ -75,7 +75,15 @@ public class ModalDialogTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("is-draggable", cut.Markup);
+        Assert.Contains("is-draggable-center", cut.Markup);
         Assert.Contains("test_class", cut.Markup);
+
+        var dialog = cut.FindComponent<ModalDialog>();
+        dialog.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsCentered, false);
+        });
+        Assert.DoesNotContain("is-draggable-center", cut.Markup);
     }
 
     [Fact]
