@@ -24,6 +24,7 @@ public partial class ModalDialog : IHandlerException
         .AddClass("modal-dialog-scrollable", IsScrolling)
         .AddClass("modal-fullscreen", MaximizeStatus)
         .AddClass("is-draggable", IsDraggable)
+        .AddClass("is-draggable-center", IsCentered && IsDraggable)
         .AddClass("d-none", !IsShown)
         .AddClass(Class, !string.IsNullOrEmpty(Class))
         .Build();
