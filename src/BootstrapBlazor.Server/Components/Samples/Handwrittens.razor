@@ -9,9 +9,4 @@
     <div>@((MarkupString)Localizer["Tips"].Value)</div>
 </Tips>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
-    <Handwritten HandwrittenBase64="e => DrawBase64 = e" />
-    <textarea type="text" class="form-control mt-3" readonly rows="5" @bind="DrawBase64" />
-</DemoBlock>
-
 <AttributeTable Items="@GetAttributes()" />
