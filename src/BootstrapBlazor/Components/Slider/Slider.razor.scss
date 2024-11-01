@@ -12,7 +12,7 @@
     --bb-form-range-margin-top: #{$bb-form-range-margin-top};
 
     .form-range {
-        margin-top: var(--bb-form-range-margin-top);
+        margin-block-start: var(--bb-form-range-margin-top);
     }
 }
 

@@ -31,7 +31,7 @@
 
 .cascade .dropdown-menu,
 .selec .dropdown-menu {
-    margin-top: var(--bb-select-dropdown-menu-margin-top) !important;
+    margin-block-start: var(--bb-select-dropdown-menu-margin-top) !important;
 }
 
 .select .form-select {
@@ -40,6 +40,7 @@
     border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: var(--bb-select-padding);
+    padding-inline-end: var(--bb-select-padding-right);
     cursor: pointer;
 }
 
@@ -80,7 +81,7 @@
     border-color: transparent transparent rgba(0,0,0,.15);
     position: absolute;
     left: 20px;
-    margin-top: 4px;
+    margin-block-start: 4px;
     z-index: 1001;
     display: none;
 }
@@ -183,7 +184,7 @@
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     background-position: right -1rem center, center right 1.5rem;
-    padding-right: var(--bb-select-padding-right);
+    padding-inline-start: var(--bb-select-padding-right);
 }
 
 .arrow-danger {
@@ -209,8 +210,8 @@
 .dropdown-menu .search {
     padding: var(--bb-select-search-padding);
     position: relative;
-    border-bottom: var(--bs-border-width) solid var(--bb-select-search-border-color);
-    margin-bottom: var(--bb-select-search-margin-bottom);
+    border-block-end: var(--bs-border-width) solid var(--bb-select-search-border-color);
+    margin-block-end: var(--bb-select-search-margin-bottom);
 }
 
 .dropdown-menu .search.is-fixed {
@@ -220,7 +221,7 @@
 }
 
 .dropdown-menu .search .search-text {
-    padding-right: var(--bb-select-search-padding-right);
+    padding-inline-end: var(--bb-select-search-padding-right);
 }
 
 .dropdown-menu .search .icon {

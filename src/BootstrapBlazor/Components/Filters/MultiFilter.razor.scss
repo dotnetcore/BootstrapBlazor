@@ -8,7 +8,7 @@
     position: relative;
 
     .bb-multi-filter-search {
-        margin-bottom: var(--bb-multi-filter-search-margin-bottom);
+        margin-block-end: var(--bb-multi-filter-search-margin-bottom);
     }
 
     .bb-multi-filter-list {
@@ -17,7 +17,7 @@
         padding: var(--bb-multi-filter-body-item-margin);
 
         .bb-multi-filter-header {
-            margin-bottom: var(--bb-multi-filter-body-item-margin);
+            margin-block-end: var(--bb-multi-filter-body-item-margin);
             padding-bottom: var(--bb-multi-filter-body-item-margin);
             border-bottom: var(--bs-border-width) solid var(--bs-border-color);
         }
@@ -25,7 +25,7 @@
         .bb-multi-filter-body {
             height: var(--bb-multi-filter-height);
             width: var(--bb-multi-filter-width);
-            margin-top: var(--bb-multi-filter-body-item-margin);
+            margin-block-start: var(--bb-multi-filter-body-item-margin);
 
             .bb-multi-filter-body-item {
                 background-color: var(--bb-multi-filter-body-item-bg);
@@ -40,7 +40,7 @@
                 }
 
                 &:not(:last-child) {
-                    margin-bottom: var(--bb-multi-filter-body-item-margin);
+                    margin-block-end: var(--bb-multi-filter-body-item-margin);
                 }
 
                 &:hover {

@@ -49,7 +49,7 @@
 .menu .nav .dropdown-menu, .cascade .dropdown-menu {
     overflow: unset;
     max-height: unset;
-    margin-top: 10px;
+    margin-block-start: 10px;
 }
 
 .menu .nav .dropdown-menu .nav-link:not(.disabled):hover, .menu .nav .dropdown-menu .nav-link.active, .menu .submenu .nav-link.active, .menu .submenu .nav-link:not(.disabled):hover, .cascade .dropdown-item:not(.disabled):hover, .cascade .dropdown-item.active, .cascade .nav .nav-link:not(.disabled):hover, .cascade .nav .nav-link.active {
@@ -146,7 +146,7 @@
 }
 
 .menu .submenu li {
-    margin-top: 2px;
+    margin-block-start: 2px;
 }
 
 .menu .submenu .nav-link {

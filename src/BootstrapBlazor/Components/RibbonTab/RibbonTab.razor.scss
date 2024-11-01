@@ -63,7 +63,7 @@
                 }
 
                 &:not(:last-child) {
-                    margin-right: 1px;
+                    margin-inline-end: 1px;
                 }
 
                 &:not([disabled]):hover {
@@ -73,7 +73,7 @@
 
                 > i {
                     font-size: 1rem;
-                    margin-bottom: .25rem;
+                    margin-block-end: .25rem;
                 }
 
                 > span {
@@ -100,7 +100,7 @@
                         align-items: center;
 
                         .link-group-name {
-                            margin-top: var(--bb-ribbon-group-margin-top);
+                            margin-block-start: var(--bb-ribbon-group-margin-top);
                             color: var(--bb-ribbon-group-color);
                             font-size: var(--bb-ribbon-group-fontsize)
                         }
@@ -128,7 +128,7 @@
             .ribbon-customer-buttons {
                 display: flex;
                 align-items: center;
-                margin-right: 1rem;
+                margin-inline-end: 1rem;
             }
 
             .ribbon-button {

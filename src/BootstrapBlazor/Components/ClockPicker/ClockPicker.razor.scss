@@ -138,7 +138,7 @@
 
             > div {
                 position: absolute;
-                margin-top: var(--bb-time-clock-number-margin-top);
+                margin-block-start: var(--bb-time-clock-number-margin-top);
                 text-align: center;
                 width: var(--bb-time-clock-number-width);
                 height: var(--bb-time-clock-number-height);
@@ -162,7 +162,7 @@
             }
 
             .bb-clock-point {
-                margin-top: var(--bb-time-clock-number-margin-top);
+                margin-block-start: var(--bb-time-clock-number-margin-top);
                 opacity: .4;
                 height: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-number-margin-top));
                 width: 2px;

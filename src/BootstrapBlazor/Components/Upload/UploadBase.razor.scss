@@ -13,7 +13,7 @@
 }
 
 .upload .upload-body {
-    margin-top: var(--bb-upload-body-margin-top);
+    margin-block-start: var(--bb-upload-body-margin-top);
 }
 
 .upload .upload-body.is-list {
@@ -102,8 +102,8 @@
     position: relative;
     border: 1px dashed var(--bs-border-color);
     border-radius: 6px;
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+    margin-inline-end: 1rem;
+    margin-block-end: 1rem;
     overflow: hidden;
     cursor: pointer;
 }

@@ -5,11 +5,11 @@
     padding: 0.5rem 1rem;
     background-color: #174482;
     color: #fff;
-    margin-top: 1rem;
+    margin-block-start: 1rem;
 
     .logger-item {
         &:not(:last-child) {
-            margin-bottom: 0.5rem;
+            margin-block-end: 0.5rem;
         }
     }
 }

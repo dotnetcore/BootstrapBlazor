@@ -124,7 +124,7 @@
         > img {
             transition: transform .3s ease;
             margin-left: 0px;
-            margin-top: 0px;
+            margin-block-start: 0px;
 
             &.transition-none {
                 transition: none !important;

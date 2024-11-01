@@ -38,7 +38,7 @@
 .btn i + span,
 .badge i + span,
 .link-button i + span {
-    margin-left: var(--bb-btn-label-margin-left);
+    margin-inline-start: var(--bb-btn-label-margin-left);
 }
 
 .btn-circle {

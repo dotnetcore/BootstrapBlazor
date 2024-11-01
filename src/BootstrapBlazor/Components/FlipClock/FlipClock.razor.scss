@@ -30,7 +30,7 @@
         display: flex;
 
         &:not(:last-child) {
-            margin-right: var(--bb-flip-clock-list-margin-right);
+            margin-inline-end: var(--bb-flip-clock-list-margin-right);
         }
     }
 }

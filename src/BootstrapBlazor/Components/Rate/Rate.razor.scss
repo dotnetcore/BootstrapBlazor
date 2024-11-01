@@ -20,7 +20,7 @@
         cursor: pointer;
 
         &:not(:last-child) {
-            margin-right: var(--bb-rate-margin-left);
+            margin-inline-end: var(--bb-rate-margin-left);
         }
     }
 
