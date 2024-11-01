@@ -19,26 +19,26 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     private IStringLocalizer<ErrorLogger>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启全局异常捕获 默认 true
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool EnableErrorLogger { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示弹窗 默认 true 显示
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool ShowToast { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 Toast 弹窗标题
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ToastTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义错误处理回调方法
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Func<ILogger, Exception, Task>? OnErrorHandleAsync { get; set; }
@@ -50,8 +50,9 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 异常显示模板
+    /// 获得/设置 异常显示模板 默认 null
     /// </summary>
+    /// <remarks>用于自定义异常显示 UI</remarks>
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
