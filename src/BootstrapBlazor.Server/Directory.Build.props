@@ -3,8 +3,8 @@
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\..\Framework.props" />
 
-  <ItemGroup>
-    <SupportedPlatform Remove="browser" />
-  </ItemGroup>
+  <PropertyGroup>
+    <NoWarn>CS8002</NoWarn>
+  </PropertyGroup>
 
 </Project>
