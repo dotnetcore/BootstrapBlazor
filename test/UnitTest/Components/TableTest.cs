@@ -7575,7 +7575,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void TableRowContext_Exception()
     {
-        Assert.Throws<ArgumentNullException>(() => new TableRowContext<Foo?>(null, [new InternalTableColumn("Name", typeof(string))]));
+        Assert.Throws<ArgumentNullException>(() => new TableRowContext<Foo?>(null, [new InternalTableColumn("Name", typeof(string))], TableRenderMode.Table));
     }
 
     [Fact]
