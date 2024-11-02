@@ -218,6 +218,29 @@ public class CascaderTest : BootstrapBlazorTestBase
         Assert.Equal("Test1/Test11", cut.Instance.MockDisplayText);
     }
 
+    [Fact]
+    public async Task OnBlurAsync_Ok()
+    {
+        var value = "";
+        var items = new List<CascaderItem>()
+        {
+            new() { Text = "test1", Value = "1" }
+        };
+        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, "1");
+            pb.Add(a => a.OnBlurAsync, v =>
+            {
+                value = v;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() => input.Blur());
+        Assert.Equal("1", value);
+    }
+
     class MockCascader : Cascader<string>
     {
         public string? MockDisplayText => DisplayTextString;
