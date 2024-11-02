@@ -367,7 +367,7 @@ public partial class Table<TItem>
     protected Task OnClickRefreshAsync() => QueryAsync();
 
     /// <summary>
-    /// 
+    /// 点击 CardView 按钮回调方法
     /// </summary>
     /// <returns></returns>
     protected void OnClickCardView()
@@ -382,6 +382,7 @@ public partial class Table<TItem>
             TableRenderMode.Table => TableRenderMode.CardView,
             _ => TableRenderMode.Table
         };
+        _viewChanged = true;
         StateHasChanged();
     }
 

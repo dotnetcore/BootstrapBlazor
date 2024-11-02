@@ -381,6 +381,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _breakPointChanged;
 
+    private bool _viewChanged;
+
     private List<ColumnWidth> _clientColumnWidths = [];
 
     private async Task OnBreakPointChanged(BreakPoint size)
@@ -926,6 +928,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (firstRender)
         {
             await ProcessFirstRender();
+        }
+
+        if(_viewChanged)
+        {
+            _viewChanged = false;
+            await InvokeVoidAsync("reset", Id);
         }
 
         if (_breakPointChanged)
