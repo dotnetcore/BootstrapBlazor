@@ -226,7 +226,7 @@
                         if (RowTemplate != null)
                         {
                             var columns = GetVisibleColumns();
-                            @RowTemplate(new(item, columns))
+                            @RowTemplate(new(item, columns, ActiveRenderMode))
                         }
                         else
                         {
@@ -259,7 +259,7 @@
                                 @if (RowContentTemplate != null)
                                 {
                                     var columns = GetVisibleColumns();
-                                    @RowContentTemplate(new(item, columns))
+                                    @RowContentTemplate(new(item, columns, ActiveRenderMode))
                                 }
                                 else
                                 {
@@ -393,7 +393,7 @@
                     if (RowTemplate != null)
                     {
                         var columns = GetVisibleColumns();
-                        @RowTemplate(new(item, columns))
+                        @RowTemplate(new(item, columns, ActiveRenderMode))
                     }
                     else
                     {
@@ -728,7 +728,7 @@
         @if (RowContentTemplate != null)
         {
             var columns = GetVisibleColumns();
-            @RowContentTemplate(new (item, columns));
+            @RowContentTemplate(new (item, columns, ActiveRenderMode));
         }
         else
         {
