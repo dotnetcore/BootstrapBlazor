@@ -10,8 +10,14 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <param name="model"></param>
 /// <param name="columns"></param>
-public class TableRowContext<TItem>(TItem model, IEnumerable<ITableColumn> columns)
+/// <param name="renderMode"></param>
+public class TableRowContext<TItem>(TItem model, IEnumerable<ITableColumn> columns, TableRenderMode renderMode)
 {
+    /// <summary>
+    /// 获得/设置 当前渲染模式
+    /// </summary>
+    public TableRenderMode RenderMode { get; } = renderMode;
+
     /// <summary>
     /// 获得/设置 行数据实例
     /// </summary>
@@ -21,5 +27,5 @@ public class TableRowContext<TItem>(TItem model, IEnumerable<ITableColumn> colum
     /// <summary>
     /// 获得/设置 当前绑定字段数据实例
     /// </summary>
-    public IEnumerable<ITableColumn> Columns => columns;
+    public IEnumerable<ITableColumn> Columns { get; } = columns;
 }
