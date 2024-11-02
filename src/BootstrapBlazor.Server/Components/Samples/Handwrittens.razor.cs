@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// HandwrittenPage
+/// Handwritten 组件示例代码
 /// </summary>
 public sealed partial class Handwrittens
 {
