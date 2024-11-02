@@ -1,0 +1,13 @@
+﻿[dir="rtl"] .card-collapse-bar:not([aria-expanded=true]) > .card-collapse-arrow {
+    transform: rotate(180deg);
+}
+
+[dir="rtl"] .form-select-append {
+    right: unset;
+    left: 0;
+}
+
+[dir="rtl"] .select .clear-icon {
+    right: unset;
+    left: 0;
+}
