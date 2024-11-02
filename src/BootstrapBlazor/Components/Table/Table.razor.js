@@ -28,7 +28,7 @@ export function reloadColumnWidth(tableName) {
 
 export function reloadColumnOrder(tableName) {
     const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) || [];
+    return JSON.parse(localStorage.getItem(key)) ?? [];
 }
 
 export function saveColumnOrder(options) {
@@ -303,7 +303,7 @@ const setBodyHeight = table => {
         card.style.height = `calc(100% - ${bodyHeight}px)`
     }
     else {
-        const body = table.body || table.tables[0];
+        const body = table.body ?? table.tables[0];
         if (bodyHeight > 0 && body && body.parentNode) {
             body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
         }
@@ -551,10 +551,10 @@ const setResizeListener = table => {
                     colWidth = getWidth(col.closest('th'))
                 }
                 tableWidth = getWidth(col.closest('table'))
-                originalX = e.clientX || e.touches[0].clientX
+                originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
-                const eventX = e.clientX || e.changedTouches[0].clientX
+                const eventX = e.clientX ?? e.changedTouches[0].clientX
                 const marginX = eventX - originalX
                 table.tables.forEach(t => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
@@ -763,8 +763,7 @@ const setCopyColumn = table => {
 }
 
 const disposeColumnDrag = columns => {
-    columns = columns || []
-    columns.forEach(col => {
+    (columns ?? []).forEach(col => {
         EventHandler.off(col, 'click');
         EventHandler.off(col, 'dblclick');
         EventHandler.off(col, 'mousedown');
@@ -831,8 +830,7 @@ const setDraggable = table => {
 }
 
 const disposeDragColumns = columns => {
-    columns = columns || []
-    columns.forEach(col => {
+    (columns ?? []).forEach(col => {
         EventHandler.off(col, 'dragstart')
         EventHandler.off(col, 'dragend')
         EventHandler.off(col, 'drop')
