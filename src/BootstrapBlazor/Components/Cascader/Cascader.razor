@@ -4,10 +4,10 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" tabindex="-1">
-    <input type="text" id="@InputId" readonly disabled="@Disabled" class="@InputClassName" data-bs-toggle="dropdown" placeholder="@PlaceHolder" value="@DisplayTextString" />
+    <input type="text" id="@InputId" readonly disabled="@Disabled" class="@InputClassName" data-bs-toggle="dropdown" placeholder="@PlaceHolder" value="@DisplayTextString" @onblur="OnBlur" />
     <span class="@AppendClassName"><i class="@Icon"></i></span>
     <div class="dropdown-menu shadow">
         <CascadingValue Value="SelectedItems">
