@@ -13,9 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Table 组件基类
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
-#endif
 public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where TItem : class
 {
     /// <summary>
@@ -936,7 +934,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await ProcessFirstRender();
         }
 
-        if(_viewChanged)
+        if (_viewChanged)
         {
             _viewChanged = false;
             await InvokeVoidAsync("toggleView", Id);
@@ -1238,13 +1236,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _autoQuery;
 
     /// <summary>
-    /// 检查当前列是否显示方法
-    /// </summary>
-    /// <param name="col"></param>
-    /// <returns></returns>
-    protected bool CheckShownWithBreakpoint(ITableColumn col) => ScreenSize >= col.ShownWithBreakPoint;
-
-    /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
     private IEnumerable<TItem> QueryItems { get; set; } = [];
@@ -1406,7 +1397,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int GetColumnCount()
     {
-        var colSpan = GetVisibleColumns().Count(col => ScreenSize >= col.ShownWithBreakPoint);
+        var colSpan = GetVisibleColumns().Count();
         if (IsMultipleSelect)
         {
             colSpan++;
