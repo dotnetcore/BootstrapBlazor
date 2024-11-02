@@ -65,7 +65,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected string? WrapperClassName => CssBuilder.Default()
         .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
-        .AddClass("table-card", ActiveRenderMode == TableRenderMode.CardView)
+        .AddClass("table-card scroll", ActiveRenderMode == TableRenderMode.CardView)
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll scroll", !IsFixedHeader || FixedColumn)
@@ -380,6 +380,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private ILookupService? LookupService { get; set; }
 
     private bool _breakPointChanged;
+
+    private bool _viewChanged;
 
     private List<ColumnWidth> _clientColumnWidths = [];
 
@@ -926,6 +928,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (firstRender)
         {
             await ProcessFirstRender();
+        }
+
+        if(_viewChanged)
+        {
+            _viewChanged = false;
+            await InvokeVoidAsync("toggleView", Id);
         }
 
         if (_breakPointChanged)

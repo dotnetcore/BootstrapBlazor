@@ -28,7 +28,7 @@ export function reloadColumnWidth(tableName) {
 
 export function reloadColumnOrder(tableName) {
     const key = `bb-table-column-order-${tableName}`
-    return JSON.parse(localStorage.getItem(key)) || [];
+    return JSON.parse(localStorage.getItem(key)) ?? [];
 }
 
 export function saveColumnOrder(options) {
@@ -128,6 +128,7 @@ export function reset(id) {
     if (table.pages) {
         observer.observe(table.pages);
     }
+    table.observer = observer;
 }
 
 export function resetColumn(id) {
@@ -197,10 +198,21 @@ export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
     }
 }
 
+export function toggleView(id) {
+    const table = Data.get(id);
+    destroyTable(table);
+
+    reset(id);
+}
+
 export function dispose(id) {
     const table = Data.get(id)
-    Data.remove(id)
+    Data.remove(id);
 
+    destroyTable(table);
+}
+
+const destroyTable = table => {
     if (table) {
         if (table.loopCheckHeightHandler) {
             cancelAnimationFrame(table.loopCheckHeightHandler);
@@ -215,7 +227,10 @@ export function dispose(id) {
 
         disposeColumnDrag(table.columns)
         disposeDragColumns(table.dragColumns)
-        EventHandler.off(table.element, 'click', '.col-copy');
+
+        if (table.element) {
+            EventHandler.off(table.element, 'click', '.col-copy');
+        }
 
         if (table.handlers.setResizeHandler) {
             EventHandler.off(document, 'click', table.handlers.setResizeHandler);
@@ -224,7 +239,8 @@ export function dispose(id) {
             EventHandler.off(document, 'click', table.handlers.setColumnToolboxHandler);
         }
         if (table.observer) {
-            table.observer.disconnect()
+            table.observer.disconnect();
+            table.observer = null;
         }
 
         if (table.popovers) {
@@ -303,7 +319,7 @@ const setBodyHeight = table => {
         card.style.height = `calc(100% - ${bodyHeight}px)`
     }
     else {
-        const body = table.body || table.tables[0];
+        const body = table.body ?? table.tables[0];
         if (bodyHeight > 0 && body && body.parentNode) {
             body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
         }
@@ -551,10 +567,10 @@ const setResizeListener = table => {
                     colWidth = getWidth(col.closest('th'))
                 }
                 tableWidth = getWidth(col.closest('table'))
-                originalX = e.clientX || e.touches[0].clientX
+                originalX = e.clientX ?? e.touches[0].clientX
             },
             e => {
-                const eventX = e.clientX || e.changedTouches[0].clientX
+                const eventX = e.clientX ?? e.changedTouches[0].clientX
                 const marginX = eventX - originalX
                 table.tables.forEach(t => {
                     const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
@@ -763,8 +779,7 @@ const setCopyColumn = table => {
 }
 
 const disposeColumnDrag = columns => {
-    columns = columns || []
-    columns.forEach(col => {
+    (columns ?? []).forEach(col => {
         EventHandler.off(col, 'click');
         EventHandler.off(col, 'dblclick');
         EventHandler.off(col, 'mousedown');
@@ -831,8 +846,7 @@ const setDraggable = table => {
 }
 
 const disposeDragColumns = columns => {
-    columns = columns || []
-    columns.forEach(col => {
+    (columns ?? []).forEach(col => {
         EventHandler.off(col, 'dragstart')
         EventHandler.off(col, 'dragend')
         EventHandler.off(col, 'drop')
