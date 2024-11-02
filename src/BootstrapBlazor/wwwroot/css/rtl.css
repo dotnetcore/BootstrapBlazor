@@ -11,3 +11,11 @@
     right: unset;
     left: 0;
 }
+
+[dir="rtl"] .pagination .page-item:first-child .page-link > i {
+    transform: rotate(180deg);
+}
+
+[dir="rtl"] .pagination .page-item:last-child .page-link > i {
+    transform: rotate(180deg);
+}
