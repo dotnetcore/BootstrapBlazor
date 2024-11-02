@@ -8104,7 +8104,7 @@ public class TableTest : BootstrapBlazorTestBase
                 });
                 pb.Add(a => a.RowContentTemplate, context => builder =>
                 {
-                    builder.OpenElement(0, "div");
+                    builder.OpenElement(0, context.RenderMode == TableRenderMode.CardView ? "div" : "tr");
                     builder.AddContent(1, $"template-{context.Row.Name}");
                     builder.CloseElement();
 
@@ -8141,7 +8141,7 @@ public class TableTest : BootstrapBlazorTestBase
                 });
                 pb.Add(a => a.RowTemplate, context => builder =>
                 {
-                    builder.OpenElement(0, mode == TableRenderMode.CardView ? "div" : "tr");
+                    builder.OpenElement(0, context.RenderMode == TableRenderMode.CardView ? "div" : "tr");
                     builder.AddContent(1, new MarkupString(mode == TableRenderMode.CardView ? $"<div>template-{context.Row.Name}</div>" : $"<td>template-{context.Row.Name}</td>"));
                     builder.CloseElement();
 
