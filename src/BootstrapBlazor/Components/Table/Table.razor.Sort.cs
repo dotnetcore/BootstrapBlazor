@@ -281,8 +281,9 @@ public partial class Table<TItem>
         return width;
     }
 
-    private int CalcMargin(int margin)
+    private int CalcMargin()
     {
+        var margin = 0;
         if (ShowDetails())
         {
             margin += DetailColumnWidth;
