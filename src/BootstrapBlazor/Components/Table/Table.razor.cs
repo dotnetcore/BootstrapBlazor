@@ -933,7 +933,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if(_viewChanged)
         {
             _viewChanged = false;
-            await InvokeVoidAsync("reset", Id);
+            await InvokeVoidAsync("toggleView", Id);
         }
 
         if (_breakPointChanged)
