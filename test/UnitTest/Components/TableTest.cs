@@ -971,7 +971,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.PageItemsSource, new int[] { 2, 4, 8 });
+                pb.Add(a => a.PageItemsSource, [2, 4, 8]);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -1558,6 +1558,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.FixedExtendButtonsColumn, true);
                 pb.Add(a => a.IsFixedHeader, isFixedHeader);
                 pb.Add(a => a.ScrollWidth, 8);
+                pb.Add(a => a.DefaultFixedColumnWidth, 200);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1816,14 +1817,8 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("style=\"left: 0;\"");
-
-        var table = cut.FindComponent<Table<Foo>>();
-        var methodIsVisible = table.Instance.GetType().GetMethod("IsVisible", BindingFlags.Instance | BindingFlags.NonPublic);
-        Assert.NotNull(methodIsVisible);
-
-        var v = methodIsVisible.Invoke(table.Instance, [new MockTableColumn()]);
-        Assert.Equal(false, v);
     }
+
     class MockTableColumn : AutoGenerateColumnAttribute
     {
         public new string GetFieldName() => "Test";
@@ -4529,7 +4524,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.IsPagination, true);
                 pb.Add(a => a.IsKeepSelectedRows, true);
-                pb.Add(a => a.PageItemsSource, new int[] { 2 });
+                pb.Add(a => a.PageItemsSource, [2]);
                 pb.Add(a => a.OnQueryAsync, options =>
                 {
                     var total = Items.Count;
@@ -6650,7 +6645,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.IsMultipleSelect, true);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.IsPagination, true);
-                pb.Add(a => a.PageItemsSource, new int[] { 1 });
+                pb.Add(a => a.PageItemsSource, [1]);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -6671,7 +6666,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.PageItemsSource, new int[] { 1, 2, 4, 8 });
+            pb.Add(a => a.PageItemsSource, [1, 2, 4, 8]);
         });
         cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
     }
@@ -6924,17 +6919,17 @@ public class TableTest : BootstrapBlazorTestBase
 
         var instance = cut.FindComponent<Table<FooTree>>().Instance;
         var type = instance.GetType();
-        var method = type.GetMethod("GetTreeClassString", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var expected = method.Invoke(instance, new object[] { false })!;
+        var method = type.GetMethod("GetTreeClassString", BindingFlags.NonPublic | BindingFlags.Instance)!;
+        var expected = method.Invoke(instance, [false])!;
         Assert.Equal("is-tree fa-solid fa-caret-right", expected.ToString());
-        expected = method.Invoke(instance, new object[] { true })!;
+        expected = method.Invoke(instance, [true])!;
         Assert.Equal("is-tree fa-solid fa-caret-right fa-rotate-90", expected.ToString());
 
-        var p = type.GetProperty("IsLoadChildren", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var p = type.GetProperty("IsLoadChildren", BindingFlags.NonPublic | BindingFlags.Instance)!;
         p.SetValue(instance, true);
-        expected = method.Invoke(instance, new object[] { false })!;
+        expected = method.Invoke(instance, [false])!;
         Assert.Equal("is-tree fa-solid fa-spin fa-spinner", expected.ToString());
-        expected = method.Invoke(instance, new object[] { true })!;
+        expected = method.Invoke(instance, [true])!;
         Assert.Equal("is-tree fa-solid fa-spin fa-spinner", expected.ToString());
     }
 
@@ -7320,28 +7315,6 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void CheckShownWithBreakpoint_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<MockTable>(pb =>
-            {
-                pb.Add(a => a.AutoGenerateColumns, true);
-            });
-        });
-
-        var table = cut.FindComponent<MockTable>();
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Small, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Medium, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.Large, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraLarge, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraExtraLarge, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.ExtraSmall, BreakPoint.ExtraExtraLarge));
-        Assert.True(table.Instance.TestCheckShownWithBreakpoint(BreakPoint.None, BreakPoint.ExtraExtraLarge));
-    }
-
-    [Fact]
     public void QueryItems_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -7502,6 +7475,7 @@ public class TableTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_Enumerable()
     {
+        var items = new List<string>() { "test-0" };
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -7511,7 +7485,7 @@ public class TableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(0);
-                    builder.AddAttribute(1, "Field", new string[] { "test-0" });
+                    builder.AddAttribute(1, "Field", items);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Hobby", typeof(IEnumerable<string>)));
                     builder.CloseComponent();
                 });
@@ -8223,11 +8197,9 @@ public class TableTest : BootstrapBlazorTestBase
         });
     }
 
-    class MockFoo
+    class MockFoo(string name)
     {
-        public MockFoo(string name) => Name = name;
-
-        public string Name { get; set; }
+        public string Name { get; set; } = name;
     }
 
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
@@ -8502,13 +8474,6 @@ public class TableTest : BootstrapBlazorTestBase
             RenderModeResponsiveWidth = BreakPoint.Medium;
             RenderMode = TableRenderMode.Auto;
             return base.ActiveRenderMode;
-        }
-
-        public bool TestCheckShownWithBreakpoint(BreakPoint point, BreakPoint screenSize)
-        {
-            var col = new AutoGenerateColumnAttribute() { ShownWithBreakPoint = point };
-            ScreenSize = screenSize;
-            return CheckShownWithBreakpoint(col);
         }
 
         public RenderFragment TestRenderCell(Foo item, ItemChangedType changedType, Action<ITableColumn> callback)

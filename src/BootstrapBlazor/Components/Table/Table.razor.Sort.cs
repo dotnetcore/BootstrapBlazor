@@ -281,8 +281,9 @@ public partial class Table<TItem>
         return width;
     }
 
-    private int CalcMargin(int margin)
+    private int CalcMargin()
     {
+        var margin = 0;
         if (ShowDetails())
         {
             margin += DetailColumnWidth;
@@ -339,10 +340,11 @@ public partial class Table<TItem>
 
     private string? GetLeftStyle(ITableColumn col)
     {
+        var columns = GetVisibleColumns().ToList();
         var defaultWidth = 200;
         var width = 0;
         var start = 0;
-        var index = Columns.IndexOf(col);
+        var index = columns.IndexOf(col);
         if (GetFixedDetailRowHeaderColumn)
         {
             width += DetailColumnWidth;
@@ -357,29 +359,24 @@ public partial class Table<TItem>
         }
         while (index > start)
         {
-            var column = Columns[start++];
-            if (IsVisible(column))
-            {
-                width += column.Width ?? defaultWidth;
-            }
+            var column = columns[start++];
+            width += column.Width ?? defaultWidth;
         }
         return $"left: {width}px;";
     }
 
     private string? GetRightStyle(ITableColumn col, int margin)
     {
+        var columns = GetVisibleColumns().ToList();
         var defaultWidth = 200;
         var width = 0;
-        var index = Columns.IndexOf(col);
+        var index = columns.IndexOf(col);
 
         // after
-        while (index + 1 < Columns.Count)
+        while (index + 1 < columns.Count)
         {
-            var column = Columns[index++];
-            if (IsVisible(column))
-            {
-                width += column.Width ?? defaultWidth;
-            }
+            var column = columns[index++];
+            width += column.Width ?? defaultWidth;
         }
         if (ShowExtendButtons && FixedExtendButtonsColumn)
         {
@@ -387,14 +384,12 @@ public partial class Table<TItem>
         }
 
         // 如果是固定表头时增加滚动条位置
-        if (IsFixedHeader && (index + 1) == Columns.Count)
+        if (IsFixedHeader && (index + 1) == columns.Count)
         {
             width += margin;
         }
         return $"right: {width}px;";
     }
-
-    private bool IsVisible(ITableColumn col) => VisibleColumns.Find(i => i.Name == col.GetFieldName()) is { Visible: true };
 
     /// <summary>
     /// 获取指定列头样式字符串
