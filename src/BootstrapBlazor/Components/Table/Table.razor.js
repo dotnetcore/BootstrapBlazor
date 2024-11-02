@@ -200,7 +200,7 @@ export function scrollTo(id, x = 0, y = 0, options = { behavior: 'smooth' }) {
 
 export function toggleView(id) {
     const table = Data.get(id);
-    destoryTable(table);
+    destroyTable(table);
 
     reset(id);
 }
@@ -209,10 +209,10 @@ export function dispose(id) {
     const table = Data.get(id)
     Data.remove(id);
 
-    destoryTable(table);
+    destroyTable(table);
 }
 
-const destoryTable = table => {
+const destroyTable = table => {
     if (table) {
         if (table.loopCheckHeightHandler) {
             cancelAnimationFrame(table.loopCheckHeightHandler);
