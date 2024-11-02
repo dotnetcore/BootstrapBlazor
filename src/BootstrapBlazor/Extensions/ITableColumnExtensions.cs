@@ -316,4 +316,6 @@ public static class IEditItemExtensions
     internal static bool GetShowTips(this ITableColumn col) => col.ShowTips ?? false;
 
     internal static Alignment GetAlign(this ITableColumn col) => col.Align ?? Alignment.None;
+
+    internal static int? GetColumnFixedWidth(this ITableColumn col, int width) => col.Fixed ? col.Width ?? width : col.Width;
 }

@@ -32,6 +32,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? ColumnToolboxIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 默认固定列宽度 默认 200 单位 px
+    /// </summary>
+    [Parameter]
+    public int DefaultFixedColumnWidth { get; set; } = 200;
+
+    /// <summary>
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     protected Virtualize<TItem>? VirtualizeElement { get; set; }
