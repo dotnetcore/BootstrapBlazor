@@ -94,12 +94,11 @@
 
 @code {
     RenderFragment RenderTable() =>
-        @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
-           IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Width="100" />
-            <TableColumn @bind-Field="@context.Address" Width="900" />
-        </TableColumns>
-    </Table>;
+        @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" Width="100" />
+                <TableColumn @bind-Field="@context.Address" Width="900" />
+            </TableColumns>
+        </Table>;
 }
