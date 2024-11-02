@@ -742,7 +742,7 @@
                         continue;
                     }
                     var cellClass = "";
-                    var colspan = 0;
+                    var colSpan = 0;
                     string? value = null;
                     RenderFragment? valueTemplate = null;
                     if (col.OnCellRender != null)
@@ -750,12 +750,12 @@
                         var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
                         col.OnCellRender(cell);
                         cellClass = cell.Class;
-                        colspan = cell.Colspan;
+                        colSpan = cell.Colspan;
                         valueTemplate = cell.ValueTemplate;
                         value = cell.Value;
-                        colIndex = colspan;
+                        colIndex = colSpan;
                     }
-                    <td colspan="@GetColSpan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
+                    <td colspan="@GetColSpan(colSpan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                         @{
                             var isFirstColOfTree = IsTree && index++ == 0;
                             var degree = 0;
@@ -854,13 +854,13 @@
     RenderFragment<(TItem Item, ItemChangedType ChangedType)> RenderEditForm => item =>
     @<tr class="is-editform">
         @{
-            var colspanCount = GetColumnCount();
-            if (IsMultipleSelect) colspanCount++;
-            if (ShowLineNo) colspanCount++;
-            if (ShowDetails()) colspanCount++;
-            if (ShowExtendButtons) colspanCount++;
+            var colSpanCount = GetColumnCount();
+            if (IsMultipleSelect) colSpanCount++;
+            if (ShowLineNo) colSpanCount++;
+            if (ShowDetails()) colSpanCount++;
+            if (ShowExtendButtons) colSpanCount++;
         }
-        <td colspan="@colspanCount">
+        <td colspan="@colSpanCount">
             <div class="table-cell">
                 @if (EditTemplate != null)
                 {
