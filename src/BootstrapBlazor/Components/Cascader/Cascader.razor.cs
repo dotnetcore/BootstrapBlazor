@@ -45,9 +45,7 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
@@ -79,6 +77,12 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     public string? SubMenuIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 失去焦点回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnBlurAsync { get; set; }
 
     [Inject]
     [NotNull]
@@ -112,6 +116,17 @@ public partial class Cascader<TValue>
         {
             _lastValue = CurrentValueAsString;
             SetDefaultValue(CurrentValueAsString);
+        }
+    }
+
+    /// <summary>
+    /// 失去焦点时回调方法
+    /// </summary>
+    private async Task OnBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
         }
     }
 
