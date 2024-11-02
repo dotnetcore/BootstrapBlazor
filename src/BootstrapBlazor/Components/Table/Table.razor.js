@@ -128,6 +128,7 @@ export function reset(id) {
     if (table.pages) {
         observer.observe(table.pages);
     }
+    table.observer = observer;
 }
 
 export function resetColumn(id) {
@@ -227,7 +228,8 @@ export function dispose(id) {
             EventHandler.off(document, 'click', table.handlers.setColumnToolboxHandler);
         }
         if (table.observer) {
-            table.observer.disconnect()
+            table.observer.disconnect();
+            table.observer = null;
         }
 
         if (table.popovers) {
