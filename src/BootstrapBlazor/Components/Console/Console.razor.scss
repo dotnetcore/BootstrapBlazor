@@ -25,7 +25,7 @@
         justify-content: end;
 
         .console-clear {
-            margin-left: var(--bb-console-clear-button-margin-left);
+            margin-inline-start: var(--bb-console-clear-button-margin-left);
         }
     }
 }

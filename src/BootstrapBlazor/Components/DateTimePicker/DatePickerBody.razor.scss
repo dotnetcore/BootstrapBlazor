@@ -226,7 +226,7 @@
                 }
 
                 .year-table, .month-table {
-                    margin-top: 29px;
+                    margin-block-start: 29px;
 
                     tr {
                         border-top: 1px solid var(--bs-border-color);
@@ -336,7 +336,7 @@
         }
 
         &:last-child {
-            margin-left: .25rem;
+            margin-inline-start: .25rem;
         }
     }
 

@@ -15,7 +15,7 @@
 
 .anchor-link-icon {
     opacity: var(--bb-anchor-link-opacity);
-    margin-left: var(--bb-anchor-link-margin-left);
+    margin-inline-start: var(--bb-anchor-link-margin-left);
     color: var(--bs-primary);
     transition: var(--bb-anchor-link-opacity-transition);
 }

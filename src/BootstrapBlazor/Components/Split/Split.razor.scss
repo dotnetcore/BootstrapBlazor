@@ -125,8 +125,8 @@
                     height: 2px;
 
                     &:not(:first-child) {
-                        margin-left: 0;
-                        margin-top: 4px;
+                        margin-inline-start: 0;
+                        margin-block-start: 4px;
                     }
                 }
             }

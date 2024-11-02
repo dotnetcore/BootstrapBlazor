@@ -18,5 +18,5 @@
 }
 
     .dial-mode ::deep .form-check:not(.first-child) {
-        margin-left: .5rem;
+        margin-inline-start: .5rem;
     }

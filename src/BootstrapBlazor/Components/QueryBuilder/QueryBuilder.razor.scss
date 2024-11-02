@@ -14,7 +14,7 @@
             position: relative;
 
             &:not(:last-child) {
-                margin-bottom: var(--bb-qb-item-margin-bottom);
+                margin-block-end: var(--bb-qb-item-margin-bottom);
             }
 
             > .qb-group {
@@ -39,7 +39,7 @@
             display: flex;
 
             > *:not(:last-child) {
-                margin-right: var(--bb-qb-row-item-margin-right);
+                margin-inline-end: var(--bb-qb-row-item-margin-right);
             }
 
             > input.form-control {

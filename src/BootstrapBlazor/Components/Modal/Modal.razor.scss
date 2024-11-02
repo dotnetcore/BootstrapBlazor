@@ -28,7 +28,7 @@
 }
 
 .modal-footer button:not(:last-child) {
-    margin-right: .5rem;
+    margin-inline-end: .5rem;
 }
 
 .modal-resizer {
@@ -57,7 +57,7 @@
 }
 
 .modal-header-buttons .btn:not(:last-child) {
-    margin-right: .5rem;
+    margin-inline-end: .5rem;
 }
 
 .modal-header-buttons .btn-maximize {

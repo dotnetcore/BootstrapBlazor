@@ -24,7 +24,7 @@
 .git .git-fork span {
     font-size: 1.8rem;
     color: #1c3949;
-    margin-left: 38px;
+    margin-inline-start: 38px;
 }
 
 [data-bs-theme='dark'] .git .git-fork span {

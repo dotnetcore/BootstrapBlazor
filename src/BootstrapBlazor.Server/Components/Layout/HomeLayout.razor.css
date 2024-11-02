@@ -58,7 +58,7 @@
 
     .footer-info .footer-lang {
         width: 15px;
-        margin-right: 6px;
+        margin-inline-end: 6px;
     }
 
     .footer-info .footer-online i {

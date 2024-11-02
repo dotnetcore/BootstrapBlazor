@@ -2,6 +2,6 @@
     --bb-table-advance-sort-margin-top: .5rem;
 
     > .row:not(:first-child) {
-        margin-top: var(--bb-table-advance-sort-margin-top);
+        margin-block-start: var(--bb-table-advance-sort-margin-top);
     }
 }

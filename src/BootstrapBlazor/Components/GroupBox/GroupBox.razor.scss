@@ -8,7 +8,7 @@
     padding: var(--bb-groupbox-padding);
     border-radius: var(--bs-border-radius);
     position: relative;
-    margin-top: var(--bb-groupbox-margin-top);
+    margin-block-start: var(--bb-groupbox-margin-top);
 
     .legend {
         background-color: var(--bs-body-bg);
@@ -21,13 +21,13 @@
 
 .form-body {
     > .groupbox:not(:last-child) {
-        margin-bottom: 1rem;
-        margin-top: 0;
+        margin-block-end: 1rem;
+        margin-block-start: 0;
     }
 
     > .row {
         + .groupbox {
-            margin-top: 1rem;
+            margin-block-start: 1rem;
         }
     }
 }

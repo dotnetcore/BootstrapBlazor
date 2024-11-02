@@ -9,7 +9,7 @@
     }
 
         .carousel-item-demo2 .demo-item:not(:last-child) {
-            margin-right: 1rem;
+            margin-inline-end: 1rem;
         }
 
         .carousel-item-demo2 .demo-item img {

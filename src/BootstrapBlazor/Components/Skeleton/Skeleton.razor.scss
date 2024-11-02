@@ -43,7 +43,7 @@
     background-color: var(--bb-skeleton-gradient-from-color);
 
     &:not(:last-child) {
-        margin-bottom: 0.5rem;
+        margin-block-end: 0.5rem;
     }
 
     &.form-label {
@@ -118,7 +118,7 @@
 .skeleton-toolbar {
     height: var(--bb-height);
     display: flex;
-    margin-bottom: .5rem;
+    margin-block-end: .5rem;
 }
 
 .skeleton-buttons {

@@ -29,7 +29,7 @@
     height: 100%;
 
     .nav-pages {
-        margin-top: .5rem;
+        margin-block-start: .5rem;
 
         .pagination {
             --bs-pagination-color: var(--bb-table-pagination-color);
@@ -119,7 +119,7 @@
 }
 
 .table {
-    margin-bottom: 0;
+    margin-block-end: 0;
 }
 
 .table thead th, .table tbody td {
@@ -304,7 +304,7 @@
 }
 
 .table-toolbar .table-toolbar-button {
-    margin-bottom: .5rem;
+    margin-block-end: .5rem;
 }
 
 .table-toolbar .dropdown-menu {
@@ -338,11 +338,11 @@
 }
 
 .btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
-    border-left: solid 1px #aeb2b7;
+    border-inline-start: solid 1px #aeb2b7;
 }
 
 .table-column-right {
-    margin-left: 0.3125rem;
+    margin-inline-start: 0.3125rem;
 }
 
 .search-input-tooltip {
@@ -464,11 +464,11 @@ tr.active:not(.is-edit):hover {
 
 .table-row .table-cell label:not(.form-check) {
     font-weight: bold;
-    margin-bottom: 0;
+    margin-block-end: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin-right: 6px;
+    margin-inline-end: 6px;
     flex-basis: var(--bb-table-cardview-label-width);
     flex-shrink: 0;
 }
@@ -488,7 +488,7 @@ tr.active:not(.is-edit):hover {
 .table-row.table-footer .table-cell:first-child {
     font-weight: bold;
     width: var(--bb-table-cardview-label-width);
-    margin-bottom: 0;
+    margin-block-end: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -698,7 +698,7 @@ form .table .table-cell > textarea {
 }
 
 .table-search {
-    margin-bottom: .5rem;
+    margin-block-end: .5rem;
 
     .card-header {
         --bs-card-cap-padding-y: 0;
@@ -834,7 +834,7 @@ form .table .table-cell > textarea {
 }
 
 .form-footer {
-    margin-top: .5rem;
+    margin-block-start: .5rem;
 }
 
 .modal-body .form-footer {
@@ -845,7 +845,7 @@ form .table .table-cell > textarea {
 }
 
 .modal-body .form-footer button:not(:last-child) {
-    margin-right: .25rem;
+    margin-inline-end: .25rem;
 }
 
 .modal-dialog-table.modal-dialog-scrollable .modal-body {
@@ -887,7 +887,7 @@ form .table .table-cell > textarea {
 
 .col-copy {
     cursor: pointer;
-    margin-right: var(--bb-table-copy-column-margin-right);
+    margin-inline-end: var(--bb-table-copy-column-margin-right);
 }
 
 .table-drag-over {

@@ -16,7 +16,7 @@
     height: 100%;
 
     .tree-search {
-        margin-bottom: .5rem;
+        margin-block-end: .5rem;
     }
 }
 
@@ -85,7 +85,7 @@
 }
 
 .tree-view .tree-node .tree-icon {
-    margin-right: var(--bb-tree-icon-margin-right);
+    margin-inline-end: var(--bb-tree-icon-margin-right);
 }
 
 .tree-view .form-check {

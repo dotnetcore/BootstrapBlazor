@@ -29,7 +29,7 @@
     }
 
     .sl-item span {
-        margin-left: 2rem;
+        margin-inline-start: 2rem;
     }
 
     .sl-item.sortable-chosen {

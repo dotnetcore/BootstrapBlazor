@@ -49,8 +49,8 @@
     }
 
     .multi-select-item-group {
-        margin-right: var(--bb-multi-select-item-margin-x);
-        margin-bottom: var(--bb-multi-select-item-margin-y);
+        margin-inline-end: var(--bb-multi-select-item-margin-x);
+        margin-block-end: var(--bb-multi-select-item-margin-y);
     }
 
     .multi-select-items {
@@ -86,7 +86,7 @@
         .multi-select-close {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
-            margin-right: -1px;
+            margin-inline-end: -1px;
             transition: color .3s linear, background-color .3s linear;
         }
     }
@@ -120,7 +120,7 @@
         }
 
         &:not(:last-child) {
-            margin-right: .5rem;
+            margin-inline-end: .5rem;
         }
     }
 }

@@ -25,7 +25,7 @@
 
 .chat-welcome-body {
     flex: 1;
-    margin-left: .75rem;
+    margin-inline-start: .75rem;
 }
 
 .chat-welcome-title {
@@ -58,7 +58,7 @@
 }
 
 .chat-buttons {
-    margin-left: .5rem;
+    margin-inline-start: .5rem;
     display: flex;
     flex-direction: column;
 }
@@ -88,8 +88,8 @@
 
 .msg-role {
     min-width: 3rem;
-    margin-left: 1rem;
-    margin-right: 0;
+    margin-inline-start: 1rem;
+    margin-inline-end: 0;
     text-align: center;
 }
 
@@ -120,7 +120,7 @@
         border-right: none;
         border-left: 15px solid white;
         border-bottom: 15px solid transparent;
-        margin-right: 5px;
+        margin-inline-end: 5px;
     }
 
 .msg-time {
@@ -134,8 +134,8 @@
 }
 
     .msg-stack-assistant .msg-role {
-        margin-left: 0;
-        margin-right: 1rem;
+        margin-inline-start: 0;
+        margin-inline-end: 1rem;
     }
 
     .msg-stack-assistant .msg-body {
@@ -147,7 +147,7 @@
             right: auto;
             border-right: 15px solid #e9ecef;
             border-left: none;
-            margin-left: 5px;
+            margin-inline-start: 5px;
         }
 
 @media (min-width: 768px) {
@@ -157,6 +157,6 @@
     }
 
     .chat-welcome-body {
-        margin-left: 2rem;
+        margin-inline-start: 2rem;
     }
 }
