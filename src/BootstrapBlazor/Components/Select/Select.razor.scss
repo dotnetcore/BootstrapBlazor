@@ -138,6 +138,11 @@
     justify-content: center;
 }
 
+[dir="rtl"] .form-select-append {
+    right: unset;
+    left: 0;
+}
+
 .form-select-append i {
     transition: all .3s;
     transform: rotate(180deg);
@@ -158,6 +163,11 @@
     justify-content: center;
     cursor: pointer;
     display: none;
+}
+
+[dir="rtl"] .select .clear-icon {
+    right: unset;
+    left: 0;
 }
 
 .select:hover .clear-icon {
