@@ -215,7 +215,10 @@ export function dispose(id) {
 
         disposeColumnDrag(table.columns)
         disposeDragColumns(table.dragColumns)
-        EventHandler.off(table.element, 'click', '.col-copy');
+
+        if (table.element) {
+            EventHandler.off(table.element, 'click', '.col-copy');
+        }
 
         if (table.handlers.setResizeHandler) {
             EventHandler.off(document, 'click', table.handlers.setResizeHandler);
