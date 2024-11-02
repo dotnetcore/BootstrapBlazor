@@ -338,11 +338,11 @@
 }
 
 .btn-gear .dropdown-menu .dropdown-item:not(:first-child) {
-    border-left: solid 1px #aeb2b7;
+    border-inline-start: solid 1px #aeb2b7;
 }
 
 .table-column-right {
-    margin-left: 0.3125rem;
+    margin-inline-start: 0.3125rem;
 }
 
 .search-input-tooltip {
