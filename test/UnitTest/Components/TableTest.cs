@@ -6302,7 +6302,46 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowEditButton, false);
         });
-        cut.WaitForAssertion(() => table.DoesNotContain("fa-regular fa-pen-to-square"));
+        table.DoesNotContain("fa-regular fa-pen-to-square");
+    }
+
+    [Fact]
+    public void DisableEditButtonCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.SelectedRows, [items[0]]);
+            });
+        });
+
+        var buttons = cut.FindComponents<Button>();
+        var editButton = buttons.First(i => i.Instance.Text == "编辑");
+        Assert.False(editButton.Instance.IsDisabled);
+
+        // 即使选中行，编辑按钮仍然被禁用
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisableEditButtonCallback, items =>
+            {
+                return true;
+            });
+        });
+        Assert.True(editButton.Instance.IsDisabled);
     }
 
     [Fact]
@@ -6335,6 +6374,44 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowDeleteButton, false);
         });
         cut.WaitForAssertion(() => cut.DoesNotContain("fa-solid fa-xmark"));
+    }
+
+    [Fact]
+    public void DisableDeleteButtonCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.SelectedRows, [items[0]]);
+            });
+        });
+
+        var deleteButton = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
+        Assert.False(deleteButton.Instance.IsDisabled);
+
+        // 即使选中行，编辑按钮仍然被禁用
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisableDeleteButtonCallback, items =>
+            {
+                return true;
+            });
+        });
+        Assert.True(deleteButton.Instance.IsDisabled);
     }
 
     [Fact]
