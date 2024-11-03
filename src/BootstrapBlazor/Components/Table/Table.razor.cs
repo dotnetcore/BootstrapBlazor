@@ -724,6 +724,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     public string? AlignRightTooltipText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 删除按钮是否禁用回调方法
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, bool>? DisableDeleteButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑按钮是否禁用回调方法
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, bool>? DisableEditButtonCallback { get; set; }
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -1461,13 +1473,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>
-    private bool GetEditButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count != 1;
+    private bool GetEditButtonStatus() => ShowAddForm || AddInCell || (DisableEditButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count != 1);
 
     /// <summary>
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>
-    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count == 0;
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || (DisableDeleteButtonCallback?.Invoke(SelectedRows) ?? SelectedRows.Count == 0);
 
     private async Task InvokeItemsChanged()
     {
