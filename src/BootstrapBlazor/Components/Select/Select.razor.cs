@@ -513,17 +513,21 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     {
         if (args.Value is string v)
         {
-            // 判断是否为泛型 SelectedItem
-            var isGeneric = Items.GetType().GetGenericArguments().Length > 0;
-
             // Items 中没有时插入一个 SelectedItem
             var item = Items.FirstOrDefault(i => i.Text == v);
 
-            TValue? val = default;
             if (item == null)
             {
+                // 判断是否为泛型 SelectedItem
+                var itemType = Items.GetType();
+                var isGeneric = false;
+                if (itemType.IsGenericType)
+                {
+                    isGeneric = itemType.GetGenericArguments()[0].IsGenericType;
+                }
                 if (isGeneric)
                 {
+                    TValue? val = default;
                     if (TextConvertToValueCallback != null)
                     {
                         val = await TextConvertToValueCallback(v);
@@ -538,6 +542,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
                 var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
+                CurrentValueAsString = v;
             }
 
             if (item is SelectedItem<TValue> value)
