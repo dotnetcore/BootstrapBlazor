@@ -2,7 +2,7 @@
     --bb-layout-header-height: #{$bb-layout-header-height};
     --bb-layout-header-background: #{$bb-layout-header-background};
     --bb-layout-header-color: #{$bb-layout-header-color};
-    --bb-layout-headerbar-color: var(--bb-layout-header-color);
+    --bb-layout-headerbar-color: #{$bb-layout-header-color};
     --bb-layout-headerbar-background: #{$bb-layout-headerbar-background};
     --bb-layout-headerbar-border-color: #{$bb-layout-headerbar-border-color};
     --bb-layout-headerbar-padding: #{$bb-layout-headerbar-padding};
@@ -18,6 +18,9 @@
     --bb-layout-title-margin-left: #{$bb-layout-title-margin-left};
     --bb-layout-banner-font-size: #{$bb-layout-banner-font-size};
     --bb-layout-banner-logo-width: #{$bb-layout-banner-logo-width};
+    --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background};
+    --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color};
+    --bb-layout-menu-item-hover-bg: #{$bb-layout-menu-item-hover-bg};
     display: flex;
     height: 100%;
     width: 100%;
@@ -121,6 +124,18 @@
             .layout-avatar-right {
                 width: calc(var(--bb-layout-header-height) - 6px);
                 height: calc(var(--bb-layout-header-height) - 6px);
+            }
+
+            .dropdown-logout {
+                --bb-logout-text-color: var(--bb-layout-header-color);
+                --bb-logout-user-bg: var(--bb-layout-menu-user-banner-background);
+                --bb-logout-menu-border-color: var(--bb-layout-menu-user-border-color);
+            }
+        }
+
+        .layout-menu {
+            .menu {
+                --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
             }
         }
 

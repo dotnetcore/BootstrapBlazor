@@ -321,8 +321,8 @@ $bb-ip-cell-max-width: 30px;
 
 // Layout
 $bb-layout-header-height: 50px;
-$bb-layout-header-background: var(--bs-body-bg);
-$bb-layout-header-color: var(--bs-body-color);
+$bb-layout-header-background: #2c67be;
+$bb-layout-header-color: rgb(200, 210, 228);;
 $bb-layout-headerbar-background: var(--bb-header-bg);
 $bb-layout-headerbar-border-color: var(--bs-border-color);
 $bb-layout-headerbar-padding: 4px 12px;
@@ -331,13 +331,16 @@ $bb-layout-footer-color: var(--bs-body-color);
 $bb-layout-footer-height: 40px;
 $bb-layout-sidebar-width: 214px;
 $bb-layout-sidebar-collapse-width: 70px;
-$bb-layout-sidebar-banner-background: var(--bs-body-bg);
-$bb-layout-sidebar-background: var(--bs-body-bg);
+$bb-layout-sidebar-banner-background: #2c67be;
+$bb-layout-sidebar-background: #edf6ff;
 $bb-layout-sidebar-color: var(--bs-body-color);
-$bb-layout-title-color: var(--bs-body-color);
+$bb-layout-title-color: rgb(200, 210, 228);
 $bb-layout-title-margin-left: .5rem;
 $bb-layout-banner-font-size: 1.5rem;
 $bb-layout-banner-logo-width: 42px;
+$bb-layout-menu-user-banner-background: #1b55aa;
+$bb-layout-menu-user-border-color: #1b55aa;
+$bb-layout-menu-item-hover-bg: #9bc8f5;
 
 // Light
 $bb-light-bg: radial-gradient(circle, #fff, #aaa, #333);
