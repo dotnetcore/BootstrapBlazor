@@ -2,7 +2,7 @@
     --bb-layout-header-height: #{$bb-layout-header-height};
     --bb-layout-header-background: #{$bb-layout-header-background};
     --bb-layout-header-color: #{$bb-layout-header-color};
-    --bb-layout-headerbar-color: var(--bb-layout-header-color);
+    --bb-layout-headerbar-color: #{$bb-layout-header-color};
     --bb-layout-headerbar-background: #{$bb-layout-headerbar-background};
     --bb-layout-headerbar-border-color: #{$bb-layout-headerbar-border-color};
     --bb-layout-headerbar-padding: #{$bb-layout-headerbar-padding};
