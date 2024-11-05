@@ -170,7 +170,8 @@
   "BootstrapBlazor.Components.Tab": {
     "CloseCurrentTabText": "Close",
     "CloseOtherTabsText": "Close Other",
-    "CloseAllTabsText": "Close All"
+    "CloseAllTabsText": "Close All",
+    "NotFoundTabText": "NotFound"
   },
   "BootstrapBlazor.Components.MultiFilter": {
     "MultiFilterSearchPlaceHolderText": "Please enter ...",
