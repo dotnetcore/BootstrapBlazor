@@ -18,6 +18,8 @@
     --bb-layout-title-margin-left: #{$bb-layout-title-margin-left};
     --bb-layout-banner-font-size: #{$bb-layout-banner-font-size};
     --bb-layout-banner-logo-width: #{$bb-layout-banner-logo-width};
+    --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background};
+    --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color};
     display: flex;
     height: 100%;
     width: 100%;
@@ -121,6 +123,12 @@
             .layout-avatar-right {
                 width: calc(var(--bb-layout-header-height) - 6px);
                 height: calc(var(--bb-layout-header-height) - 6px);
+            }
+
+            .dropdown-logout {
+                --bb-logout-text-color: var(--bb-layout-header-color);
+                --bb-logout-user-bg: var(--bb-layout-menu-user-banner-background);
+                --bb-logout-menu-border-color: var(--bb-layout-menu-user-border-color);
             }
         }
 
