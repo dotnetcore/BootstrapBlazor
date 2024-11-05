@@ -725,13 +725,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? AlignRightTooltipText { get; set; }
 
     /// <summary>
-    /// 获得/设置 删除按钮是否禁用回调方法
+    /// 获得/设置 新建按钮是否禁用回调方法 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, bool>? DisableAddButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除按钮是否禁用回调方法 默认 null 未设置
     /// </summary>
     [Parameter]
     public Func<List<TItem>, bool>? DisableDeleteButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑按钮是否禁用回调方法
+    /// 获得/设置 编辑按钮是否禁用回调方法 默认 null 未设置
     /// </summary>
     [Parameter]
     public Func<List<TItem>, bool>? DisableEditButtonCallback { get; set; }
@@ -1468,6 +1474,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         await QueryData();
     }
+
+    private bool GetAddButtonStatus() => DisableAddButtonCallback?.Invoke(SelectedRows) ?? false;
 
     /// <summary>
     /// 返回 true 时按钮禁用
