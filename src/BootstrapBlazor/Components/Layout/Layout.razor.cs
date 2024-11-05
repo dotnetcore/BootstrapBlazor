@@ -337,7 +337,7 @@ public partial class Layout : IHandlerException
     [Inject]
     private IAuthorizationService? AuthorizationService { get; set; }
 
-    private bool IsInit { get; set; }
+    private bool _init { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -387,7 +387,7 @@ public partial class Layout : IHandlerException
             IsAuthenticated = true;
         }
 
-        IsInit = true;
+        _init = true;
     }
 
     /// <summary>

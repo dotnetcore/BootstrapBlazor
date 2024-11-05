@@ -3,7 +3,7 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <CascadingValue Value="this" IsFixed="true">
-    @if (IsInit)
+    @if (_init)
     {
         @if (IsAuthenticated)
         {
