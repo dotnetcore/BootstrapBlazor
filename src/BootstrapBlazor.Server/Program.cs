@@ -41,6 +41,16 @@ builder.Services.AddBootstrapBlazorServices();
 
 var app = builder.Build();
 
+app.UseStatusCodePages(context =>
+{
+    var response = context.HttpContext.Response;
+    if(response.StatusCode == 404)
+    {
+        response.Redirect("/");
+    }
+    return Task.CompletedTask;
+});
+
 // 启用本地化
 var option = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 if (option != null)
