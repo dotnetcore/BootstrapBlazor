@@ -140,13 +140,23 @@ public partial class Tab : IHandlerException
     /// 获得/设置 NotAuthorized 模板
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用；Deprecated Please remove")]
     public RenderFragment? NotAuthorized { get; set; }
 
     /// <summary>
     /// 获得/设置 NotFound 模板
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用；Deprecated Please remove")]
     public RenderFragment? NotFound { get; set; }
+
+    /// <summary>
+    /// 获得/设置 NotFound 标签文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    [Obsolete("已弃用；Deprecated Please remove")]
+    public string? NotFoundTabText { get; set; }
 
     /// <summary>
     /// 获得/设置 TabItems 模板
@@ -178,13 +188,6 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public Func<TabItem, Task>? OnClickTabItemAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 NotFound 标签文本
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NotFoundTabText { get; set; }
 
     /// <summary>
     /// 获得/设置 关闭当前 TabItem 菜单文本
@@ -313,7 +316,6 @@ public partial class Tab : IHandlerException
         CloseOtherTabsText ??= Localizer[nameof(CloseOtherTabsText)];
         CloseAllTabsText ??= Localizer[nameof(CloseAllTabsText)];
         CloseCurrentTabText ??= Localizer[nameof(CloseCurrentTabText)];
-        NotFoundTabText ??= Localizer[nameof(NotFoundTabText)];
 
         PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabPreviousIcon);
         NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabNextIcon);
@@ -613,17 +615,8 @@ public partial class Tab : IHandlerException
                 builder.OpenComponent<BootstrapBlazorAuthorizeView>(0);
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
-                builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
-                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
+                builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
                 builder.CloseComponent();
-            }));
-        }
-        else
-        {
-            parameters.Add(nameof(TabItem.Text), NotFoundTabText);
-            parameters.Add(nameof(TabItem.ChildContent), new RenderFragment(builder =>
-            {
-                builder.AddContent(0, NotFound);
             }));
         }
 
