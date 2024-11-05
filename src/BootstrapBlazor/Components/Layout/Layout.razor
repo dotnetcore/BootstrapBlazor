@@ -3,7 +3,7 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <CascadingValue Value="this" IsFixed="true">
-    @if (IsInit)
+    @if (_init)
     {
         @if (IsAuthenticated)
         {
@@ -70,10 +70,6 @@
                 }
             </section>
         }
-        else if (NotAuthorized != null)
-        {
-            @NotAuthorized
-        }
         else
         {
             @RenderMain
@@ -118,11 +114,10 @@
     @<main class="@MainClassString">
         @if (UseTabSet)
         {
-            <Tab ClickTabToNavigation="ClickTabToNavigation"
-                 ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"
-                 AdditionalAssemblies="@AdditionalAssemblies" NotFoundTabText="@NotFoundTabText"
+            <Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
+                 ShowExtendButtons="ShowTabExtendButtons" ShowClose="ShowTabItemClose" AllowDrag="AllowDragTab"                  
                  DefaultUrl="@TabDefaultUrl" ExcludeUrls="@ExcludeUrls" IsOnlyRenderActiveTab="IsOnlyRenderActiveTab"
-                 Body="@Main" NotAuthorized="NotAuthorized!" NotFound="NotFound!">
+                 Body="@Main">
             </Tab>
         }
         else

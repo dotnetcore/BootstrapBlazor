@@ -67,22 +67,27 @@ public partial class Layout : IHandlerException
     public RenderFragment? Side { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotAuthorized 模板
+    /// 获得/设置 NotAuthorized 模板 默认 null
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用；Deprecated Please remove")]
     public RenderFragment? NotAuthorized { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotFound 模板
+    /// 获得/设置 NotFound 模板 默认 null
     /// </summary>
+    /// <remarks>NET6/7 有效</remarks>
     [Parameter]
+    [Obsolete("已弃用；Deprecated Please remove")]
     public RenderFragment? NotFound { get; set; }
 
     /// <summary>
     /// 获得/设置 NotFound 标签文本
     /// </summary>
+    /// <remarks>NET6/7 有效</remarks>
     [Parameter]
     [NotNull]
+    [Obsolete("已弃用；Deprecated Please remove")]
     public string? NotFoundTabText { get; set; }
 
     /// <summary>
@@ -337,7 +342,7 @@ public partial class Layout : IHandlerException
     [Inject]
     private IAuthorizationService? AuthorizationService { get; set; }
 
-    private bool IsInit { get; set; }
+    private bool _init;
 
     /// <summary>
     /// <inheritdoc/>
@@ -387,7 +392,7 @@ public partial class Layout : IHandlerException
             IsAuthenticated = true;
         }
 
-        IsInit = true;
+        _init = true;
     }
 
     /// <summary>
