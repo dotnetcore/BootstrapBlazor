@@ -6345,6 +6345,45 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void DisableAddButtonCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.SelectedRows, [items[0]]);
+            });
+        });
+
+        var buttons = cut.FindComponents<Button>();
+        var editButton = buttons.First(i => i.Instance.Text == "新建");
+        Assert.False(editButton.Instance.IsDisabled);
+
+        // 新建按钮被禁用
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisableAddButtonCallback, items =>
+            {
+                return true;
+            });
+        });
+        Assert.True(editButton.Instance.IsDisabled);
+    }
+
+    [Fact]
     public void ShowDeleteButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
