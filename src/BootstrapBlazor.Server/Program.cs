@@ -46,7 +46,7 @@ app.UseStatusCodePages(context =>
     var response = context.HttpContext.Response;
     if(response.StatusCode == 404)
     {
-        response.Redirect("/");
+        response.Redirect("/", true);
     }
     return Task.CompletedTask;
 });
