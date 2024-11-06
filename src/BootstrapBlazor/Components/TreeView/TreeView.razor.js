@@ -61,6 +61,10 @@ export function scroll(id, options) {
     }
 }
 
+export function toggleLoading(state) {
+    console.log(state);
+}
+
 export function dispose(id) {
     const tree = Data.get(id)
     Data.remove(id);

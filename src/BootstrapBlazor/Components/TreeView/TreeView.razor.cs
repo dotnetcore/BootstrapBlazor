@@ -538,12 +538,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
-        node.ShowLoading = true;
 
-        StateHasChanged();
-
+        await InvokeVoidAsync("toggleLoading", true);
         var ret = await OnExpandNodeAsync(node);
-        node.ShowLoading = false;
+        await InvokeVoidAsync("toggleLoading", false);
         return ret;
     }
 

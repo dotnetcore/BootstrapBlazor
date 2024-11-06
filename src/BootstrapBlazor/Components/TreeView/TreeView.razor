@@ -72,13 +72,7 @@ else
     private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
     @<li class="@GetItemClassString(item)">
         @RenderTreeRow(item)
-        @if (item.ShowLoading)
-        {
-            <ul class="tree-ul show">
-                <Spinner Size="Size.Small" Color="Color.Primary" />
-            </ul>
-        }
-        else if (item.Items.Any())
+        if (item.Items.Any())
         {
             @RenderTreeNode(item)
         }

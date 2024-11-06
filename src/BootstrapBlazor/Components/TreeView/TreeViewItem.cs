@@ -13,6 +13,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     /// <summary>
     /// 获得/设置 是否显示正在加载动画 默认为 false
     /// </summary>
+    [Obsolete("已弃用；Deprecated")]
     public bool ShowLoading { get; set; }
 
     /// <summary>
