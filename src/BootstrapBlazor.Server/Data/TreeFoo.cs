@@ -59,6 +59,20 @@ class TreeFoo
         return CascadingTree(items);
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()
+    {
+        var ret = new List<TreeViewItem<TreeFoo>>();
+        Enumerable.Range(0, 10).ToList().ForEach(i =>
+        {
+            ret.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{i}" })
+            {
+                Text = $"Root{i}",
+                HasChildren = true
+            });
+        });
+        return ret;
+    }
+
     /// <summary>
     /// TreeFoo 带选择框树状数据集
     /// </summary>
