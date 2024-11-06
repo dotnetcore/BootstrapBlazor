@@ -72,7 +72,7 @@ else
     private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
     @<li class="@GetItemClassString(item)">
         @RenderTreeRow(item)
-        if (item.Items.Any())
+        @if (item.Items.Any())
         {
             @RenderTreeNode(item)
         }
