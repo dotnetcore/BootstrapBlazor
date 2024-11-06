@@ -235,10 +235,10 @@ public sealed partial class TreeViews
     {
         await Task.Delay(10);
         var items = new List<TreeViewItem<TreeFoo>>();
-        Enumerable.Range(1, 10000).ToList().ForEach(i =>
+        Enumerable.Range(1, 1000).ToList().ForEach(i =>
         {
             var text = $"{node.Text}-{i}";
-            items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text });
+            items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text, HasChildren = Random.Shared.Next(100) > 80 });
         });
         return items;
     }

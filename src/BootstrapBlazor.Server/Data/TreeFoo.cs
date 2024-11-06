@@ -62,7 +62,7 @@ class TreeFoo
     public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()
     {
         var ret = new List<TreeViewItem<TreeFoo>>();
-        Enumerable.Range(0, 10).ToList().ForEach(i =>
+        Enumerable.Range(1, 100).ToList().ForEach(i =>
         {
             ret.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{i}" })
             {
