@@ -187,7 +187,11 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         if (!IsDisabled)
         {
-            await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+            var render = await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+            if (render)
+            {
+                StateHasChanged();
+            }
         }
     }
 
