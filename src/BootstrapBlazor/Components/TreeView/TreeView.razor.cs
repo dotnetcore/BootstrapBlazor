@@ -100,7 +100,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool CanExpandWhenDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为手风琴效果 默认为 false
+    /// 获得/设置 是否为手风琴效果 默认为 false <see cref="IsVirtualize"/> 虚拟滚动模式下不支持手风琴效果
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
