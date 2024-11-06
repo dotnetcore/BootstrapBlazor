@@ -92,6 +92,10 @@
     &:hover {
         background-color: var(--bb-tree-item-hover-bg);
     }
+
+    .tree-node-text {
+        white-space: nowrap;
+    }
 }
 
 .tree-view .tree-node .tree-icon {

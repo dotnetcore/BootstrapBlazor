@@ -316,6 +316,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
+    private static string? GetItemTextClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node-text")
+        .AddClass(item.CssClass)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

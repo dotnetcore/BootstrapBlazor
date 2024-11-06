@@ -101,7 +101,7 @@ else
             }
             @if (item.Template == null)
             {
-                <span class="@item.CssClass">@item.Text</span>
+                <span class="@GetItemTextClassString(item)">@item.Text</span>
             }
             else
             {
