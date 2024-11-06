@@ -23,6 +23,18 @@
 <p>@((MarkupString)Localizer["TreeViewsTips11"].Value)</p>
 <p>@((MarkupString)Localizer["TreeViewsTips12"].Value)</p>
 
+<DemoBlock Title="@Localizer["TreeViewVirtualizeTitle"]"
+           Introduction="@Localizer["TreeViewVirtualizeIntro"]"
+           Name="DefaultExpand">
+    <section ignore>
+        @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+    </section>
+    <div style="height: 400px">
+        <TreeView TItem="TreeFoo" Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+                  OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewNormalTitle"]"
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">

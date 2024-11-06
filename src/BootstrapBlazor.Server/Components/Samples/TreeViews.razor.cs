@@ -25,35 +25,37 @@ public sealed partial class TreeViews
     private bool DisableCanExpand { get; set; }
     private bool IsDisabled { get; set; }
 
-    private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
 
     private bool AutoCheckChildren { get; set; }
 
     private bool AutoCheckParent { get; set; }
 
-    private List<TreeViewItem<TreeFoo>> DisabledItems { get; set; } = GetDisabledItems();
+    private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
-    private List<TreeViewItem<TreeFoo>> ExpandItems { get; set; } = GetExpandItems();
+    private List<TreeViewItem<TreeFoo>> ExpandItems { get; } = GetExpandItems();
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
     private static List<TreeViewItem<TreeFoo>> GetIconItems() => TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> GetClickExpandItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> GetClickExpandItems { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> GetFormItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> GetFormItems { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> KeyboardItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> KeyboardItems { get; } = TreeFoo.GetTreeItems();
 
-    private List<SelectedItem> SelectedItems { get; set; } = TreeFoo.GetItems().Select(x => new SelectedItem(x.Id, x.Text)).ToList();
+    private List<SelectedItem> SelectedItems { get; } = TreeFoo.GetItems().Select(x => new SelectedItem(x.Id, x.Text)).ToList();
 
     private TreeView<TreeFoo>? SetActiveTreeView { get; set; }
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
     private List<TreeViewItem<TreeFoo>>? SearchItems { get; set; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
@@ -227,6 +229,18 @@ public sealed partial class TreeViews
         SearchItems = string.IsNullOrEmpty(searchText) ? TreeFoo.GetTreeItems() : [];
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandVirtualNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(10);
+        var items = new List<TreeViewItem<TreeFoo>>();
+        Enumerable.Range(1, 10000).ToList().ForEach(i =>
+        {
+            var text = $"{node.Text}-{i}";
+            items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text });
+        });
+        return items;
     }
 
     private class CustomerTreeItem : ComponentBase
