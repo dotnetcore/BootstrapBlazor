@@ -263,6 +263,19 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public ScrollIntoViewOptions? ScrollIntoViewOptions { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否启用虚拟滚动 默认 false 不启用
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// 获得/设置 虚拟滚动行高 默认为 38
+    /// </summary>
+    /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 38f;
+
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
@@ -781,5 +794,41 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private void OnTouchEnd()
     {
         TouchStart = false;
+    }
+
+    private List<TreeViewItem<TItem>> Rows => GetTreeRows(Items);
+
+    private static List<TreeViewItem<TItem>> GetTreeRows(List<TreeViewItem<TItem>> items)
+    {
+        var rows = new List<TreeViewItem<TItem>>();
+        if (items != null)
+        {
+            foreach (var item in items)
+            {
+                rows.Add(item);
+                if (item.IsExpand)
+                {
+                    rows.AddRange(GetTreeRows(item.Items));
+                }
+            }
+        }
+        return rows;
+    }
+
+    private string? GetTreeRowStyle(TreeViewItem<TItem> item)
+    {
+        string? style = null;
+        if (IsVirtualize)
+        {
+            var level = 0;
+            var parent = item.Parent;
+            while (parent != null)
+            {
+                level++;
+                parent = parent.Parent;
+            }
+            style = $"--bb-tree-view-level: {level}";
+        }
+        return style;
     }
 }
