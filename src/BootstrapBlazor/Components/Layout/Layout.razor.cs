@@ -67,19 +67,19 @@ public partial class Layout : IHandlerException
     public RenderFragment? Side { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotAuthorized 模板
+    /// 获得/设置 NotAuthorized 模板 默认 null NET6.0/7.0 有效
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotFound 模板
+    /// 获得/设置 NotFound 模板 默认 null NET6.0/7.0 有效
     /// </summary>
     [Parameter]
     public RenderFragment? NotFound { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotFound 标签文本
+    /// 获得/设置 NotFound 标签文本 默认 null NET6.0/7.0 有效
     /// </summary>
     [Parameter]
     [NotNull]
@@ -337,7 +337,7 @@ public partial class Layout : IHandlerException
     [Inject]
     private IAuthorizationService? AuthorizationService { get; set; }
 
-    private bool IsInit { get; set; }
+    private bool _init { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -387,7 +387,7 @@ public partial class Layout : IHandlerException
             IsAuthenticated = true;
         }
 
-        IsInit = true;
+        _init = true;
     }
 
     /// <summary>
