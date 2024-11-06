@@ -201,7 +201,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     private async Task<bool> InternalStateChanged(CheckboxState state)
     {
         var ret = true;
-
         _paddingStateChanged = true;
 
         if (IsBoolean)
@@ -223,7 +222,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
                 await OnStateChanged(State, Value);
             }
         }
-
         return ret;
     }
 
