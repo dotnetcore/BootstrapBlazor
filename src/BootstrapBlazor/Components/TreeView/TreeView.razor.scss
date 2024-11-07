@@ -64,9 +64,24 @@
             }
         }
 
+        .node-loading {
+            display: none;
+            visibility: visible;
+        }
+
         .show {
             .node-icon {
                 transform: rotate(90deg);
+            }
+        }
+
+        &.loading {
+            .node-icon {
+                display: none;
+            }
+
+            .node-loading {
+                display: flex;
             }
         }
     }

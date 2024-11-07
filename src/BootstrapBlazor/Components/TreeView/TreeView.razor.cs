@@ -53,6 +53,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
         .Build();
 
+    private string? NodeLoadingClassString => CssBuilder.Default("node-icon node-loading")
+        .AddClass(LoadingIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 当前行样式
     /// </summary>
@@ -235,6 +239,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
+    /// 获得/设置 Tree Node 正在加载动画图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 Tree Node 节点图标
     /// </summary>
     [Parameter]
@@ -343,6 +353,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
         ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewLoadingIcon);
     }
 
     /// <summary>
