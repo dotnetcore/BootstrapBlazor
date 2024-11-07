@@ -233,7 +233,7 @@ public sealed partial class TreeViews
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandVirtualNodeAsync(TreeViewItem<TreeFoo> node)
     {
-        await Task.Delay(10);
+        await Task.Delay(500);
         var items = new List<TreeViewItem<TreeFoo>>();
         Enumerable.Range(1, 1000).ToList().ForEach(i =>
         {
