@@ -28,6 +28,16 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void StopPropagation_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.StopPropagation, true);
+        });
+        Assert.Contains("data-bb-stop-propagation=\"true\"", cut.Markup);
+    }
+
+    [Fact]
     public async Task SyncStateCallback_Ok()
     {
         var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
