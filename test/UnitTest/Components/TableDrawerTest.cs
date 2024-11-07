@@ -43,8 +43,8 @@ public class TableDrawerTest : TableDialogTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         // 编辑弹窗逻辑
@@ -102,8 +102,8 @@ public class TableDrawerTest : TableDialogTestBase
         {
             pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(false));
         });
-        input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
@@ -119,7 +119,7 @@ public class TableDrawerTest : TableDialogTestBase
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         // 编辑弹窗逻辑
-        input = cut.Find("form input.form-control");
+        var input = cut.Find("form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
         form = cut.Find("form");

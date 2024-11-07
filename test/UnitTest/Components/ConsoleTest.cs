@@ -195,7 +195,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ClickAutoScroll_OK()
+    public async Task ClickAutoScroll_OK()
     {
         var cut = Context.RenderComponent<Console>(builder =>
         {
@@ -206,7 +206,8 @@ public class ConsoleTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowAutoScroll, true);
         });
 
-        cut.Find(".card-footer input").Click();
+        var item = cut.FindComponent<Checkbox<bool>>();
+        await cut.InvokeAsync(item.Instance.TriggerClick);
         var res = cut.Instance.IsAutoScroll;
         Assert.False(res);
     }
