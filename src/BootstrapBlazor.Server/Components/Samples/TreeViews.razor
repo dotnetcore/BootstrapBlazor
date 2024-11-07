@@ -31,6 +31,7 @@
     </section>
     <div style="height: 400px">
         <TreeView TItem="TreeFoo" Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+                  AutoCheckChildren="true" AutoCheckParent="true"
                   OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
     </div>
 </DemoBlock>

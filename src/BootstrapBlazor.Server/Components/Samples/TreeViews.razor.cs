@@ -447,14 +447,6 @@ public sealed partial class TreeViews
         },
         new()
         {
-            Name = nameof(TreeViewItem<TreeFoo>.ShowLoading),
-            Description = "Whether to show child node loading animation",
-            Type = "bool",
-            ValueList = " true|false ",
-            DefaultValue = " false "
-        },
-        new()
-        {
             Name = nameof(TreeViewItem<TreeFoo>.Template),
             Description = "Child node template",
             Type = nameof(RenderFragment),
