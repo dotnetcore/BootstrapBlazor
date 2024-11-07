@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Bunit;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -762,6 +761,9 @@ public class TableTest : BootstrapBlazorTestBase
         var item = cut.FindComponents<Checkbox<bool>>()[0];
         await cut.InvokeAsync(item.Instance.TriggerClick);
         Assert.True(show);
+
+        await cut.InvokeAsync(item.Instance.TriggerClick);
+        Assert.False(show);
     }
 
     [Fact]
