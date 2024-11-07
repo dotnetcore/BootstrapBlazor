@@ -8,12 +8,27 @@ export function init(id, invoke, options) {
     }
 
     EventHandler.on(el, 'click', async e => {
-        e.preventDefault();
+        e.stopPropagation();
 
+        const state = el.getAttribute("data-bb-state");
         const trigger = el.getAttribute("data-bb-trigger-before");
-        if (trigger === 'true') {
-            await invoke.invokeMethodAsync(options.callback);
+
+        if (state) {
+            el.removeAttribute('data-bb-state');
+            invoke.invokeMethodAsync(options.syncStateCallback, parseInt(state));
+
+            if (trigger !== "true") {
+                return;
+            }
         }
+
+        if (trigger === 'true') {
+            e.preventDefault();
+            await invoke.invokeMethodAsync(options.triggerOnBeforeStateChanged);
+            return;
+        }
+
+        await invoke.invokeMethodAsync(options.triggerClick);
     });
 }
 
