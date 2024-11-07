@@ -28,6 +28,29 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void StopPropagation_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.StopPropagation, true);
+        });
+        Assert.Contains("data-bb-stop-propagation=\"true\"", cut.Markup);
+    }
+
+    [Fact]
+    public async Task SyncStateCallback_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
+        {
+            builder.Add(a => a.State, CheckboxState.UnChecked);
+        });
+        Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
+
+        await cut.InvokeAsync(() => cut.Instance.SyncStateCallback(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
+    }
+
+    [Fact]
     public void ShowAfterLabel_Ok()
     {
         var cut = Context.RenderComponent<Checkbox<string>>(builder =>
@@ -208,7 +231,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void StringValue_Ok()
+    public async Task StringValue_Ok()
     {
         var cut = Context.RenderComponent<CheckboxList<string>>(builder =>
         {
@@ -236,13 +259,13 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
         });
         // 字符串值选中事件
-        var item = cut.Find(".form-check-input");
-        item.Click();
+        var item = cut.FindComponent<Checkbox<bool>>();
+        await cut.InvokeAsync(item.Instance.TriggerClick);
         Assert.True(selected);
     }
 
     [Fact]
-    public void OnSelectedChanged_Ok()
+    public async Task OnSelectedChanged_Ok()
     {
         var selected = false;
         var foo = Foo.Generate(Localizer);
@@ -257,8 +280,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
         });
 
-        var item = cut.Find(".form-check-input");
-        item.Click();
+        var item = cut.FindComponent<Checkbox<bool>>();
+        await cut.InvokeAsync(item.Instance.TriggerClick);
         Assert.True(selected);
     }
 
@@ -274,7 +297,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IntValue_Ok()
+    public async Task IntValue_Ok()
     {
         var ret = new List<int>();
         var selectedIntValues = new List<int> { 1, 2 };
@@ -292,8 +315,8 @@ public class CheckboxListTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        var item = cut.Find(".form-check-input");
-        item.Click();
+        var item = cut.FindComponent<Checkbox<bool>>();
+        await cut.InvokeAsync(item.Instance.TriggerClick);
 
         // 选中 2 
         Assert.Equal(2, ret.First());

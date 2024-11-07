@@ -196,8 +196,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        var checkbox = cut.Find("[type=\"checkbox\"]");
-        await cut.InvokeAsync(() => checkbox.Click());
+        var checkbox = cut.FindComponent<Checkbox<CheckboxState>>();
+        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
         cut.DoesNotContain("fa-solid fa-font-awesome");
         cut.Contains("Test-Class");
 
@@ -784,9 +784,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCheckbox, true);
         });
 
-        var checkbox = cut.FindAll(".tree-root > .tree-item > .tree-content > .form-check > .form-check-input");
-
-        await cut.InvokeAsync(() => checkbox[0].Click());
+        var checkbox = cut.FindComponent<Checkbox<CheckboxState>>();
+        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
 
         Assert.Contains("is-checked", cut.Markup);
         var isChecked = cut.Instance.GetCheckedItems().Any();
