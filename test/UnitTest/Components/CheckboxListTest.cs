@@ -28,6 +28,19 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task SyncStateCallback_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
+        {
+            builder.Add(a => a.State, CheckboxState.UnChecked);
+        });
+        Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
+
+        await cut.InvokeAsync(() => cut.Instance.SyncStateCallback(CheckboxState.Checked));
+        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
+    }
+
+    [Fact]
     public void ShowAfterLabel_Ok()
     {
         var cut = Context.RenderComponent<Checkbox<string>>(builder =>
