@@ -758,10 +758,12 @@ public class TableTest : BootstrapBlazorTestBase
         });
         cut.Contains("Test_Column_List");
 
-        var item = cut.Find(".dropdown-item .form-check-input");
-        await cut.InvokeAsync(() => item.Click());
-
+        var item = cut.FindComponents<Checkbox<bool>>()[0];
+        await cut.InvokeAsync(item.Instance.TriggerClick);
         Assert.True(show);
+
+        await cut.InvokeAsync(item.Instance.TriggerClick);
+        Assert.False(show);
     }
 
     [Fact]
@@ -2478,8 +2480,8 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(clickWithoutRender);
 
         // 选中一行
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -2538,8 +2540,8 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(button.Instance.IsDisabled);
 
         // 选中一行
-        var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        cut.InvokeAsync(input.Instance.TriggerClick);
         Assert.False(button.Instance.IsDisabled);
     }
 
@@ -3392,8 +3394,8 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<FooTree>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
@@ -3680,8 +3682,8 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("is-node");
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<FooNoKeyTree>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var table = cut.FindComponent<Table<FooNoKeyTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
@@ -3799,8 +3801,8 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var input = cut.Find("tbody tr td button");
-        await cut.InvokeAsync(() => input.Click());
+        var button = cut.Find("tbody tr td button");
+        await cut.InvokeAsync(() => button.Click());
     }
 
     [Fact]
@@ -4462,20 +4464,20 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var btn = cut.Find("thead tr th input");
-        await cut.InvokeAsync(() => btn.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[0];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var checkboxs = cut.FindAll(".is-checked");
         Assert.Equal(3, checkboxs.Count);
 
-        await cut.InvokeAsync(() => btn.Click());
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         checkboxs = cut.FindAll(".is-checked");
         Assert.Empty(checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
-        btn = cut.Find("thead tr th input");
-        await cut.InvokeAsync(() => btn.Click());
+        input = cut.FindComponents<Checkbox<Foo>>()[0];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
     }
 
     [Fact]
@@ -4500,13 +4502,13 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var btn = cut.Find("tbody tr td input");
-        await cut.InvokeAsync(() => btn.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var checkboxs = cut.FindAll(".is-checked");
         Assert.Single(checkboxs);
 
-        await cut.InvokeAsync(() => btn.Click());
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         checkboxs = cut.FindAll(".is-checked");
         Assert.Empty(checkboxs);
     }
@@ -4541,8 +4543,8 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var btn = cut.Find("tbody tr td input");
-        await cut.InvokeAsync(() => btn.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var checkboxs = cut.FindAll(".is-checked");
         Assert.Single(checkboxs);
@@ -4559,8 +4561,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //点击表头CheckBox
-        btn = cut.Find("thead tr th input");
-        await cut.InvokeAsync(() => btn.Click());
+        input = cut.FindComponents<Checkbox<Foo>>()[0];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         //加上表头的复选框选中，结果有3项
         checkboxs = cut.FindAll(".is-checked");
@@ -5237,11 +5239,11 @@ public class TableTest : BootstrapBlazorTestBase
         });
         Assert.Empty(selectedRows);
 
-        var check = cut.Find("thead input");
-        await cut.InvokeAsync(() => check.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[0];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         Assert.Equal(2, selectedRows.Count);
 
-        await cut.InvokeAsync(() => check.Click());
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         Assert.Empty(selectedRows);
     }
 
@@ -5352,8 +5354,8 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5402,8 +5404,8 @@ public class TableTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5875,8 +5877,8 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var btn = cut.Find("tbody tr td input");
-        await cut.InvokeAsync(() => btn.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-arrows-rotate");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -6016,8 +6018,8 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         // 选中行
-        var input = cut.Find("tbody input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         Assert.True(compared);
     }
 
@@ -6062,8 +6064,8 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<DynamicObject>>();
 
         // 选中第一行数据
-        var input = cut.Find("tbody .form-check-input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
 
@@ -6088,8 +6090,8 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
@@ -6647,8 +6649,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
@@ -6661,8 +6663,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 选两个
-        input = cut.Find("thead input");
-        await cut.InvokeAsync(() => input.Click());
+        input = cut.FindComponents<Checkbox<Foo>>()[0];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
@@ -6737,8 +6739,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         table.SetParametersAndRender(pb =>
@@ -6776,8 +6778,8 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         // 选一个
-        var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        cut.InvokeAsync(input.Instance.TriggerClick);
         cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
 
         table.SetParametersAndRender(pb =>
@@ -6876,8 +6878,8 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(input.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
     }
 
@@ -7976,8 +7978,8 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(2, table.FindComponents<Checkbox<Foo>>().Count);
 
         // click header 第二行不可选择
-        var header = table.Find("thead tr th input");
-        table.InvokeAsync(() => header.Click());
+        var header = table.FindComponents<Checkbox<Foo>>()[0];
+        table.InvokeAsync(header.Instance.TriggerClick);
         Assert.Single(table.Instance.SelectedRows);
     }
 

@@ -100,6 +100,8 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool StopPropagation { get; set; }
 
+    private string? StopPropagationString => StopPropagation ? "true" : null;
+
     private string? TriggerBeforeValueString => OnBeforeStateChanged == null ? null : "true";
 
     /// <summary>
@@ -157,45 +159,56 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { Callback = nameof(TriggerOnBeforeStateChanged) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        TriggerOnBeforeStateChanged = nameof(TriggerOnBeforeStateChanged),
+        TriggerClick = nameof(TriggerClick),
+        SyncStateCallback = nameof(SyncStateCallback)
+    });
+
+    private CheckboxState NextState => State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
 
     /// <summary>
     /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task TriggerOnBeforeStateChanged()
+    public async ValueTask TriggerOnBeforeStateChanged()
     {
         if (OnBeforeStateChanged != null)
         {
-            var state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-            var ret = await OnBeforeStateChanged(state);
+            var ret = await OnBeforeStateChanged(NextState);
             if (ret)
             {
-                var render = await InternalStateChanged(state);
-                if (render)
-                {
-                    StateHasChanged();
-                }
+                await TriggerClick();
             }
         }
     }
 
     /// <summary>
-    /// 点击选择框方法
+    /// 同步 <see cref="State"/> 值方法 由 JavaScript 调用
     /// </summary>
-    private async Task OnToggleClick()
+    /// <param name="state"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public ValueTask SyncStateCallback(CheckboxState state)
     {
-        if (!IsDisabled)
-        {
-            var render = await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
-            if (render)
-            {
-                StateHasChanged();
-            }
-        }
+        State = state;
+        return ValueTask.CompletedTask;
     }
 
-    private bool TriggerClick => !IsDisabled && OnBeforeStateChanged == null;
+    /// <summary>
+    /// 触发 Click 方法 由 JavaScript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async ValueTask TriggerClick()
+    {
+        var render = await InternalStateChanged(NextState);
+        if (render)
+        {
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// 此变量为了提高性能，避免循环更新

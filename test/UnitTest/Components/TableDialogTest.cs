@@ -62,8 +62,8 @@ public class TableDialogTest : TableDialogTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
+        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         cut.Contains("test-save");
@@ -128,7 +128,7 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         // 编辑弹窗逻辑
-        input = cut.Find(".modal-body form input.form-control");
+        var input = cut.Find(".modal-body form input.form-control");
         await cut.InvokeAsync(() => input.Change("Test_Name"));
 
         form = cut.Find(".modal-body form");
@@ -362,8 +362,8 @@ public class TableDialogTest : TableDialogTestBase
         var modal = cut.FindComponent<Modal>();
 
         // 选一个
-        var input = cut.Find("tbody tr input");
-        await cut.InvokeAsync(() => input.Click());
+        var item = cut.FindComponent<Checkbox<Foo>>();
+        await cut.InvokeAsync(item.Instance.TriggerClick);
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         var form = cut.Find(".modal-body form");
