@@ -141,7 +141,17 @@ export async function setParentState(id, index, state) {
                 const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
                 for (let index = 0; index < parents.length; index++) {
                     const checkbox = parents[index].querySelector('.form-check-input');
-                    checkbox.indeterminate = true;
+                    const result = results[index];
+                    checkbox.indeterminate = false;
+                    if (result === 0) {
+                        checkbox.checked = false;
+                    }
+                    else if (result === 1) {
+                        checkbox.checked = true;
+                    }
+                    else {
+                        checkbox.indeterminate = true;
+                    }
                 }
             }
         }

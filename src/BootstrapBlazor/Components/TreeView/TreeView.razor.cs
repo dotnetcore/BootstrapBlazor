@@ -454,7 +454,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         var result = items.Select(index =>
         {
             var item = rows[index];
-            return item.CheckedState;
+            var state = item.Items[0].CheckedState;
+            foreach (var i in item.Items)
+            {
+                if (i.CheckedState != state)
+                {
+                    state = CheckboxState.Indeterminate;
+                    break;
+                }
+            }
+            return state;
         });
         return ValueTask.FromResult(result);
     }
@@ -721,15 +730,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (item.CheckedState != CheckboxState.Indeterminate)
             {
                 await InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
-                //item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+                item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
             }
         }
 
         if (AutoCheckParent)
         {
             // 向上级联操作
-            //item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
             await InvokeVoidAsync("setParentState", Id, Rows.IndexOf(item), item.CheckedState);
+            item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
         }
 
         // 更新 选中状态缓存
