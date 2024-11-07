@@ -124,11 +124,13 @@ export async function setParentState(id, index, state) {
                 }
                 prev = prev.previousElementSibling;
             }
-            console.log(parents);
-            const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
-            for(let index = 0; index < parents.length; index++) {
-                const checkbox = parents[index].querySelector('.form-check-input');
-                checkbox.indeterminate = true;
+
+            if (parents.length > 0) {
+                const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
+                for (let index = 0; index < parents.length; index++) {
+                    const checkbox = parents[index].querySelector('.form-check-input');
+                    checkbox.indeterminate = true;
+                }
             }
         }
     }
