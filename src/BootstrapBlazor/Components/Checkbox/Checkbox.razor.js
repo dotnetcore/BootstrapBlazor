@@ -17,6 +17,13 @@ export function init(id, invoke, options) {
             el.removeAttribute('data-bb-state');
             await invoke.invokeMethodAsync(options.syncStateCallback, parseInt(state));
 
+            if (state === "1") {
+                el.parentElement.classList.remove('is-checked');
+            }
+            else {
+                el.parentElement.classList.add('is-checked');
+            }
+
             if (trigger !== "true") {
                 return;
             }
