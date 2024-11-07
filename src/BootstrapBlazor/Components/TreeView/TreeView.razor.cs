@@ -675,11 +675,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                 }
             }
+            _rows = null;
         }
         else
         {
             // 重建缓存 并且更改节点展开状态
             await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+            _rows = null;
         }
 
         if (ShowCheckbox)
