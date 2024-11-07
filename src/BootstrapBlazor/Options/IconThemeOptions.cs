@@ -197,6 +197,7 @@ public class IconThemeOptions
         { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
         { ComponentIcons.TreeViewSearchIcon, "fa-solid fa-magnifying-glass" },
         { ComponentIcons.TreeViewResetSearchIcon, "fa-solid fa-delete-left" },
+        { ComponentIcons.TreeViewLoadingIcon, "fa-solid fa-spinner fa-spin" },
 
         // Upload
         { ComponentIcons.AvatarUploadDeleteIcon, "fa-regular fa-trash-can" },
