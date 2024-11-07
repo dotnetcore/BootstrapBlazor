@@ -8,7 +8,10 @@ export function init(id, invoke, options) {
     }
 
     EventHandler.on(el, 'click', async e => {
-        e.stopPropagation();
+        const stopPropagation = el.getAttribute("data-bb-stop-propagation");
+        if (stopPropagation === "true") {
+            e.stopPropagation();
+        }
 
         const state = el.getAttribute("data-bb-state");
         const trigger = el.getAttribute("data-bb-trigger-before");

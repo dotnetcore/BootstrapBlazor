@@ -20,7 +20,7 @@ else
 @code {
     RenderFragment RenderCheckbox =>
     @<div @attributes="AdditionalAttributes" class="@ClassString">
-        <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" data-bb-trigger-before="@TriggerBeforeValueString" />
+        <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" data-bb-trigger-before="@TriggerBeforeValueString" data-bb-stop-propagation="@StopPropagationString" />
         @if (IsShowAfterLabel)
         {
             @RenderLabel

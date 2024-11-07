@@ -100,6 +100,8 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool StopPropagation { get; set; }
 
+    private string? StopPropagationString => StopPropagation ? "true" : null;
+
     private string? TriggerBeforeValueString => OnBeforeStateChanged == null ? null : "true";
 
     /// <summary>
