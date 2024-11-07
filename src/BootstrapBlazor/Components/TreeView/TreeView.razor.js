@@ -1,13 +1,14 @@
 ﻿import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id, invoke, method) {
+export function init(id, options) {
+    const { invoke, method, isVirtualize } = options
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
 
-    const tree = { el };
+    const tree = { el, isVirtualize };
     Data.set(id, tree)
 
     EventHandler.on(el, 'mouseenter', '.tree-content', e => {
@@ -48,6 +49,24 @@ export function init(id, invoke, method) {
             }
         }
     });
+
+    if (isVirtualize) {
+        EventHandler.on(el, 'click', '.form-check-input', e => {
+            const ele = e.delegateTarget;
+            const row = ele.closest('.tree-content');
+            const state = ele.checked;
+            console.log(ele, row, state);
+            //if (row) {
+            //    let level = parseInt(row.style.getPropertyValue('--bb-tree-view-level'));
+            //    if (autoCheckChildren) {
+            //        setChildrenState(level, state);
+            //    }
+            //    if (autoCheckParent) {
+            //        setParentState(level, state);
+            //    }
+            //}
+        });
+    }
 }
 
 export function scroll(id, options) {
@@ -65,15 +84,64 @@ export function toggleLoading(state) {
     console.log(state);
 }
 
+export function setChildrenState(id, index, state) {
+    const tree = Data.get(id)
+    if (tree) {
+        const { el } = tree;
+        const node = el.querySelector(`[data-bb-tree-index="${index}"]`);
+        const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
+        if (node) {
+            let next = node.nextElementSibling;
+            while (next) {
+                const currentLevel = parseInt(next.style.getPropertyValue('--bb-tree-view-level'));
+                if (currentLevel <= level) {
+                    break;
+                }
+                const checkbox = next.querySelector('.form-check-input');
+                if (checkbox) {
+                    checkbox.checked = state == 1;
+                }
+                next = next.nextElementSibling;
+            }
+        }
+    }
+}
+
+export function setParentState(id, index, state) {
+    const tree = Data.get(id)
+    if (tree) {
+        const { el } = tree;
+        const node = el.querySelector(`[data-bb-tree-index="${index}"]`);
+        let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
+        if (node) {
+            const parents = [];
+            let prev = node.previousElementSibling;
+            while (prev) {
+                const currentLevel = parseInt(prev.style.getPropertyValue('--bb-tree-view-level'));
+                if (currentLevel < level) {
+                    level = currentLevel;
+                    parents.push(prev);
+                }
+                prev = prev.previousElementSibling;
+            }
+            console.log(parents);
+        }
+    }
+}
+
 export function dispose(id) {
     const tree = Data.get(id)
     Data.remove(id);
 
     if (tree) {
-        const { el } = tree;
+        const { el, isVirtualize } = tree;
         EventHandler.off(el, 'mouseenter');
         EventHandler.off(el, 'mouseleave');
         EventHandler.off(el, 'click', '.tree-node');
         EventHandler.off(el, 'keyup', '.tree-root');
+
+        if (isVirtualize) {
+            EventHandler.off(el, 'click', '.form-check-input');
+        };
     }
 }

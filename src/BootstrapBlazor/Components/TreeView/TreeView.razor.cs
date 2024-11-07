@@ -403,7 +403,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerKeyDown));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown), IsVirtualize, AutoCheckParent, AutoCheckChildren });
 
     private bool _keyboardArrowUpDownTrigger;
 
@@ -564,8 +564,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox && ClickToggleCheck)
         {
-            item.CheckedState = ToggleCheckState(item.CheckedState);
-            await OnCheckStateChanged(item, false);
+            var state = ToggleCheckState(item.CheckedState);
+            await OnCheckStateChanged(item, state);
         }
 
         StateHasChanged();
@@ -631,7 +631,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         // 手风琴效果逻辑
         node.IsExpand = !node.IsExpand;
-        if (IsAccordion)
+        if (IsAccordion && !IsVirtualize)
         {
             await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
 
@@ -660,8 +660,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
             }
-
-            await OnCheckStateChanged(node);
         }
 
         if (shouldRender)
@@ -670,27 +668,38 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     /// <summary>
     /// 节点 Checkbox 状态改变时触发此方法
     /// </summary>
     /// <param name="item"></param>
-    /// <param name="shouldRender"></param>
+    /// <param name="state"></param>
     /// <returns></returns>
-    private async Task OnCheckStateChanged(TreeViewItem<TItem> item, bool shouldRender = false)
+    private async Task OnCheckStateChanged(TreeViewItem<TItem> item, CheckboxState state)
     {
+        item.CheckedState = state;
         if (AutoCheckChildren)
         {
             // 向下级联操作
             if (item.CheckedState != CheckboxState.Indeterminate)
             {
-                item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+                await InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
+                //item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
             }
         }
 
         if (AutoCheckParent)
         {
             // 向上级联操作
-            item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
+            //item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
+            await InvokeVoidAsync("setParentState", Id, Rows.IndexOf(item), item.CheckedState);
         }
 
         // 更新 选中状态缓存
@@ -699,11 +708,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (OnTreeItemChecked != null)
         {
             await OnTreeItemChecked(GetCheckedItems().ToList());
-        }
-
-        if (shouldRender)
-        {
-            StateHasChanged();
         }
     }
 

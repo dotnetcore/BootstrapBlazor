@@ -73,7 +73,7 @@ public static class ExpandableNodeExtensions
             // 设置子节点
             if (item.Items.Any())
             {
-                item.SetChildrenCheck<TNode, TItem>(state, cache);
+                item.SetChildrenCheck(state, cache);
             }
         }
     }

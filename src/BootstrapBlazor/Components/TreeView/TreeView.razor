@@ -79,14 +79,14 @@ else
     </li>;
 
     private RenderFragment<TreeViewItem<TItem>> RenderTreeRow => item =>
-    @<div class="tree-content" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
+    @<div @key="item" class="tree-content" data-bb-tree-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
         <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
         @if (ShowCheckbox)
         {
-            <Checkbox Value="@item.CheckedState" IsDisabled="GetItemDisabledState(item)" SkipValidate="true"
-                      ShowLabel="false" ShowAfterLabel="false" @bind-State="@item.CheckedState"
-                      OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)"
-                      OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
+            <Checkbox Value="@item.CheckedState" IsDisabled="GetItemDisabledState(item)" StopPropagation="true"
+                      SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
+                      State="@item.CheckedState" OnStateChanged="(state, v) => OnCheckStateChanged(item, state)"
+                      OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)" ></Checkbox>
         }
         <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
             @if (ShowIcon)
