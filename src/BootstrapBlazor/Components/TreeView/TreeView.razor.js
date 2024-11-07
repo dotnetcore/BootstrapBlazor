@@ -80,8 +80,20 @@ export function scroll(id, options) {
     }
 }
 
-export function toggleLoading(state) {
-    console.log(state);
+export function toggleLoading(id, index, state) {
+    const tree = Data.get(id)
+    if (tree) {
+        const { el } = tree;
+        const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
+        if (node) {
+            if (state) {
+                node.classList.add('loading');
+            }
+            else {
+                node.classList.remove('loading');
+            }
+        }
+    }
 }
 
 export function setChildrenState(id, index, state) {

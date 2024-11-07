@@ -567,9 +567,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             throw new InvalidOperationException(NotSetOnTreeExpandErrorMessage);
         }
 
-        await InvokeVoidAsync("toggleLoading", true);
+        await InvokeVoidAsync("toggleLoading", Id, Rows.IndexOf(node), true);
         var ret = await OnExpandNodeAsync(node);
-        await InvokeVoidAsync("toggleLoading", false);
+        await InvokeVoidAsync("toggleLoading", Id, Rows.IndexOf(node), false);
         return ret;
     }
 
