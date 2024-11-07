@@ -164,6 +164,8 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         SyncStateCallback = nameof(SyncStateCallback)
     });
 
+    private CheckboxState NextState => State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+
     /// <summary>
     /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用
     /// </summary>
@@ -172,8 +174,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         if (OnBeforeStateChanged != null)
         {
-            var state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-            var ret = await OnBeforeStateChanged(state);
+            var ret = await OnBeforeStateChanged(NextState);
             if (ret)
             {
                 await TriggerClick();
@@ -200,7 +201,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     [JSInvokable]
     public async ValueTask TriggerClick()
     {
-        var render = await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
+        var render = await InternalStateChanged(NextState);
         if (render)
         {
             StateHasChanged();
