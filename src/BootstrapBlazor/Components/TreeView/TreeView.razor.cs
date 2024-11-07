@@ -308,7 +308,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 节点状态缓存类实例
     /// </summary>
     [NotNull]
-    protected TreeNodeCache<TreeViewItem<TItem>, TItem>? TreeNodeStateCache { get; set; }
+    private TreeNodeCache<TreeViewItem<TItem>, TItem>? TreeNodeStateCache { get; set; }
 
     /// <summary>
     /// 改变节点状态后自动更新子节点 默认 false
@@ -832,7 +832,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         TouchStart = false;
     }
 
-    private List<TreeViewItem<TItem>> Rows => _rows ?? GetTreeRows(Items);
+    private List<TreeViewItem<TItem>> Rows => GetTreeRows(Items);
 
     private List<TreeViewItem<TItem>>? _rows = null;
 
