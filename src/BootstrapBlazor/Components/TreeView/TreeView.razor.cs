@@ -431,6 +431,23 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
+    /// <summary>
+    /// 客户端查询指定行选择框状态方法 由 JavaScript 调用
+    /// </summary>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public ValueTask<IEnumerable<CheckboxState>> GetParentsState(List<int> items)
+    {
+        var rows = Rows;
+        var result = items.Select(index =>
+        {
+            var item = rows[index];
+            return item.CheckedState;
+        });
+        return ValueTask.FromResult(result);
+    }
+
     private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
 
     private List<TreeViewItem<TItem>> GetItems(TreeViewItem<TItem> item) => item.Parent?.Items ?? Items;

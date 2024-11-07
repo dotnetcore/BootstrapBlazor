@@ -8,7 +8,7 @@ export function init(id, options) {
         return
     }
 
-    const tree = { el, isVirtualize };
+    const tree = { el, invoke, isVirtualize };
     Data.set(id, tree)
 
     EventHandler.on(el, 'mouseenter', '.tree-content', e => {
@@ -88,7 +88,7 @@ export function setChildrenState(id, index, state) {
     const tree = Data.get(id)
     if (tree) {
         const { el } = tree;
-        const node = el.querySelector(`[data-bb-tree-index="${index}"]`);
+        const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
         const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
         if (node) {
             let next = node.nextElementSibling;
@@ -99,7 +99,7 @@ export function setChildrenState(id, index, state) {
                 }
                 const checkbox = next.querySelector('.form-check-input');
                 if (checkbox) {
-                    checkbox.checked = state == 1;
+                    checkbox.checked = state === 1;
                 }
                 next = next.nextElementSibling;
             }
@@ -107,11 +107,11 @@ export function setChildrenState(id, index, state) {
     }
 }
 
-export function setParentState(id, index, state) {
+export async function setParentState(id, index, state) {
     const tree = Data.get(id)
     if (tree) {
-        const { el } = tree;
-        const node = el.querySelector(`[data-bb-tree-index="${index}"]`);
+        const { el, invoke } = tree;
+        const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
         let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
         if (node) {
             const parents = [];
@@ -125,6 +125,11 @@ export function setParentState(id, index, state) {
                 prev = prev.previousElementSibling;
             }
             console.log(parents);
+            const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
+            for(let index = 0; index < parents.length; index++) {
+                const checkbox = parents[index].querySelector('.form-check-input');
+                checkbox.indeterminate = true;
+            }
         }
     }
 }

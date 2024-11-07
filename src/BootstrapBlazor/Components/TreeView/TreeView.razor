@@ -79,7 +79,7 @@ else
     </li>;
 
     private RenderFragment<TreeViewItem<TItem>> RenderTreeRow => item =>
-    @<div @key="item" class="tree-content" data-bb-tree-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
+    @<div @key="item" class="tree-content" data-bb-tree-view-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
         <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
         @if (ShowCheckbox)
         {
