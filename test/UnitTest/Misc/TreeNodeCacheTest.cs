@@ -220,6 +220,8 @@ public class TreeNodeCacheTest
 
         var node = nodeCache.FindParentNode(items, new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1110" }));
         Assert.NotNull(node);
+        Assert.Equal("Sub Menu Two", node.Value.Text);
+
         node.SetChildrenCheck(CheckboxState.UnChecked, nodeCache);
         count = GetUncheckItemCount(nodeCache);
         Assert.Equal(6, count);
