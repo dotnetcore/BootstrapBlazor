@@ -731,12 +731,14 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, CheckboxState state)
     {
         item.CheckedState = state;
+        TreeNodeStateCache.ToggleCheck(item);
+
         if (AutoCheckChildren)
         {
             // 向下级联操作
             if (item.CheckedState != CheckboxState.Indeterminate)
             {
-                await InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
+                _ = InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
                 item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
             }
         }
@@ -744,12 +746,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckParent)
         {
             // 向上级联操作
-            await InvokeVoidAsync("setParentState", Id, Rows.IndexOf(item));
-            item.SetParentCheck(item.CheckedState, TreeNodeStateCache);
+            item.SetParentCheck(TreeNodeStateCache);
+            _ = InvokeVoidAsync("setParentState", Id, Rows.IndexOf(item));
         }
-
-        // 更新 选中状态缓存
-        TreeNodeStateCache.ToggleCheck(item);
 
         if (OnTreeItemChecked != null)
         {
