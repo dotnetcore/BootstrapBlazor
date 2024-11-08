@@ -102,8 +102,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
 
     private string? StopPropagationString => StopPropagation ? "true" : null;
 
-    private string? TriggerBeforeValueString => OnBeforeStateChanged == null ? null : "true";
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -159,55 +157,40 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
-    {
-        TriggerOnBeforeStateChanged = nameof(TriggerOnBeforeStateChanged),
-        TriggerClick = nameof(TriggerClick),
-        SyncStateCallback = nameof(SyncStateCallback)
-    });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerClick));
 
     private CheckboxState NextState => State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-
-    /// <summary>
-    /// 触发 OnBeforeStateChanged 回调方法 由 JavaScript 调用
-    /// </summary>
-    [JSInvokable]
-    public async ValueTask TriggerOnBeforeStateChanged()
-    {
-        if (OnBeforeStateChanged != null)
-        {
-            var ret = await OnBeforeStateChanged(NextState);
-            if (ret)
-            {
-                await TriggerClick();
-            }
-        }
-    }
-
-    /// <summary>
-    /// 同步 <see cref="State"/> 值方法 由 JavaScript 调用
-    /// </summary>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public ValueTask SyncStateCallback(CheckboxState state)
-    {
-        State = state;
-        return ValueTask.CompletedTask;
-    }
 
     /// <summary>
     /// 触发 Click 方法 由 JavaScript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async ValueTask TriggerClick()
+    public async ValueTask<bool> TriggerClick(string? state)
     {
+        // state 为 null 时表示 Click 事件触发；不为 null 时表示 JavaScript 调用同步状态
+        // state 值 1 表示 Checked 状态，0 表示 UnChecked 状态
+        if (!string.IsNullOrEmpty(state))
+        {
+            State = state == "1" ? CheckboxState.UnChecked : CheckboxState.Checked;
+            return true;
+        }
+
+        if (OnBeforeStateChanged != null)
+        {
+            var ret = await OnBeforeStateChanged(NextState);
+            if (ret == false)
+            {
+                return false;
+            }
+        }
+
         var render = await InternalStateChanged(NextState);
         if (render)
         {
             StateHasChanged();
         }
+        return true;
     }
 
     /// <summary>
