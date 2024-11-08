@@ -88,7 +88,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
-        var node = cut.Find(".active");
+        var node = cut.Find(".active .tree-node-text");
         Assert.Equal("navigation one", node.TextContent);
 
         var activeItem = items[1].Items[0].Value;
@@ -99,7 +99,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
         });
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
-        node = cut.Find(".active");
+        node = cut.Find(".active .tree-node-text");
         Assert.Equal("Sub menu 1", node.TextContent);
 
         activeItem = new TreeFoo();
