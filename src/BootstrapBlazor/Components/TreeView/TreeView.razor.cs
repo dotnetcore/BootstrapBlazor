@@ -704,7 +704,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (!AutoCheckChildren && AutoCheckParent && node.Items.Count > 0)
             {
-                node.Items[0].SetParentCheck(node.Items[0].CheckedState, TreeNodeStateCache);
+                node.Items[0].SetParentCheck(TreeNodeStateCache);
             }
         }
 

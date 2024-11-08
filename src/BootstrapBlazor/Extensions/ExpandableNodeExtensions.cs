@@ -81,26 +81,49 @@ public static class ExpandableNodeExtensions
     /// <summary>
     /// 向上级联设置复选状态
     /// </summary>
-    public static void SetParentCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem>? cache = null) where TNode : ICheckableNode<TItem>
+    public static void SetParentCheck<TNode, TItem>(this TNode node, TreeNodeCache<TNode, TItem> cache) where TNode : ICheckableNode<TItem>
     {
-        if (node.Parent is TNode p)
+        var parent = node.Parent;
+        while (parent is TNode p)
         {
-            var nodes = p.Items.OfType<TNode>();
-            if (nodes.All(i => i.CheckedState == CheckboxState.Checked))
+            var items = p.Items.OfType<TNode>().ToList();
+            var checkedCount = 0;
+            var uncheckedCount = 0;
+            foreach (var item in items)
+            {
+                if (item.CheckedState == CheckboxState.Checked)
+                {
+                    checkedCount++;
+                    if (uncheckedCount > 0)
+                    {
+                        break;
+                    }
+                }
+                else if (item.CheckedState == CheckboxState.UnChecked)
+                {
+                    uncheckedCount++;
+                    if (checkedCount > 0)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (checkedCount == items.Count)
             {
                 p.CheckedState = CheckboxState.Checked;
             }
-            else if (nodes.Any(i => i.CheckedState == CheckboxState.Checked || i.CheckedState == CheckboxState.Indeterminate))
-            {
-                p.CheckedState = CheckboxState.Indeterminate;
-            }
-            else
+            else if (uncheckedCount == items.Count)
             {
                 p.CheckedState = CheckboxState.UnChecked;
             }
-            cache?.ToggleCheck(p);
+            else
+            {
+                p.CheckedState = CheckboxState.Indeterminate;
+            }
 
-            p.SetParentCheck(state, cache);
+            cache.ToggleCheck(p);
+            parent = p.Parent;
         }
     }
 
