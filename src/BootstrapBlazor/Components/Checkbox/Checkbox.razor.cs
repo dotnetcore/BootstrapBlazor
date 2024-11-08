@@ -238,7 +238,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// 设置 复选框状态方法
     /// </summary>
     /// <param name="state"></param>
-    public virtual async Task SetState(CheckboxState state)
+    public async Task SetState(CheckboxState state)
     {
         if (!_paddingStateChanged)
         {
