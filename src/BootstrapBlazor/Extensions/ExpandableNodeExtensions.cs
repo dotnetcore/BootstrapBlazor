@@ -109,10 +109,11 @@ public static class ExpandableNodeExtensions
     /// </summary>
     public static void SetParentExpand<TNode, TItem>(this TNode node, bool expand) where TNode : IExpandableNode<TItem>
     {
-        if (node.Parent is TNode p)
+        var parent = node.Parent;
+        while (parent is TNode p)
         {
             p.IsExpand = expand;
-            p.SetParentExpand<TNode, TItem>(expand);
+            parent = p.Parent;
         }
     }
 
