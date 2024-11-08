@@ -38,19 +38,6 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task SyncStateCallback_Ok()
-    {
-        var cut = Context.RenderComponent<Checkbox<bool>>(builder =>
-        {
-            builder.Add(a => a.State, CheckboxState.UnChecked);
-        });
-        Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
-
-        await cut.InvokeAsync(() => cut.Instance.SyncStateCallback(CheckboxState.Checked));
-        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
-    }
-
-    [Fact]
     public void ShowAfterLabel_Ok()
     {
         var cut = Context.RenderComponent<Checkbox<string>>(builder =>
@@ -82,11 +69,11 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         });
         Assert.False(cut.Instance.Value);
 
-        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        await cut.InvokeAsync(cut.Instance.TriggerClick);
         Assert.True(cut.Instance.Value);
 
         confirm = false;
-        await cut.InvokeAsync(cut.Instance.TriggerOnBeforeStateChanged);
+        await cut.InvokeAsync(cut.Instance.TriggerClick);
         Assert.True(cut.Instance.Value);
     }
 
@@ -104,7 +91,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
 
         var methodInfo = checkbox.GetType().GetMethod("DisposeAsync", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(methodInfo);
-        methodInfo.Invoke(checkbox, new object[] { false });
+        methodInfo.Invoke(checkbox, [false]);
     }
 
     [Fact]
@@ -410,20 +397,20 @@ public class CheckboxListTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[0].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[1].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[1].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         // 选中第三个由于限制无法选中
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[2].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[2].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
@@ -434,7 +421,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         max = false;
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[0].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
