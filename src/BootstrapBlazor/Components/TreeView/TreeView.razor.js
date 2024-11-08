@@ -57,7 +57,14 @@ export function init(id, options) {
             if (state) {
                 const row = checkbox.closest('.tree-content');
                 const index = row.getAttribute('data-bb-tree-view-index');
-                await setParentState(id, parseInt(index), state === '1' ? 0 : 1);
+
+                const v = state === '1' ? 0 : 1;
+                await setChildrenState(id, parseInt(index), v);
+                await setParentState(id, parseInt(index), v);
+                const handler = setTimeout(() => {
+                    checkbox.checked = v === 1;
+                    clearTimeout(handler);
+                }, 0);
             }
         });
     }
@@ -144,6 +151,7 @@ export async function setParentState(id, index, state) {
                 for (let index = 0; index < parents.length; index++) {
                     const checkbox = parents[index].querySelector('.form-check-input');
                     const result = results[index];
+                    checkbox.setAttribute('data-bb-state', result);
                     checkbox.indeterminate = false;
                     if (result === 0) {
                         checkbox.checked = false;
