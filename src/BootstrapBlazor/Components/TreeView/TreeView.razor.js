@@ -51,20 +51,15 @@ export function init(id, options) {
     });
 
     if (isVirtualize) {
-        EventHandler.on(el, 'click', '.form-check-input', e => {
-            const ele = e.delegateTarget;
-            const row = ele.closest('.tree-content');
-            const state = ele.checked;
-            console.log(ele, row, state);
-            //if (row) {
-            //    let level = parseInt(row.style.getPropertyValue('--bb-tree-view-level'));
-            //    if (autoCheckChildren) {
-            //        setChildrenState(level, state);
-            //    }
-            //    if (autoCheckParent) {
-            //        setParentState(level, state);
-            //    }
-            //}
+        EventHandler.on(el, 'click', '.form-check-input', async e => {
+            const checkbox = e.delegateTarget;
+            const state = checkbox.getAttribute('data-bb-state');
+            if (state) {
+                const row = checkbox.closest('.tree-content');
+                const index = row.getAttribute('data-bb-tree-view-index');
+                await invoke.invokeMethodAsync('SetNodeStateByIndex', parseInt(index), state === '1' ? 0 : 1);
+                await setParentState(id, index);
+            }
         });
     }
 }
@@ -112,6 +107,13 @@ export function setChildrenState(id, index, state) {
                 const checkbox = next.querySelector('.form-check-input');
                 if (checkbox) {
                     checkbox.checked = state === 1;
+                    checkbox.setAttribute('data-bb-state', state);
+                    if (state === 1) {
+                        checkbox.parentElement.classList.add('is-checked');
+                    }
+                    else {
+                        checkbox.parentElement.classList.remove('is-checked');
+                    }
                 }
                 next = next.nextElementSibling;
             }
@@ -119,7 +121,7 @@ export function setChildrenState(id, index, state) {
     }
 }
 
-export async function setParentState(id, index, state) {
+export async function setParentState(id, index) {
     const tree = Data.get(id)
     if (tree) {
         const { el, invoke } = tree;
