@@ -521,10 +521,17 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+        Assert.Equal("Test3", node.Value.Text);
 
         // 设置当前几点所有父项选中状态
-        node.SetParentCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
-        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        node.CheckedState = CheckboxState.Checked;
+        node.SetParentCheck(cache);
+
+        Assert.Equal(CheckboxState.Checked, node.Parent!.CheckedState);
+        Assert.Equal(CheckboxState.Checked, node.Parent!.Parent!.CheckedState);
+
+        bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
     }
 
     [Fact]
