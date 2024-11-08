@@ -84,7 +84,7 @@ else
         <i class="@NodeLoadingClassString"></i>
         @if (ShowCheckbox)
         {
-            <Checkbox Value="@item.CheckedState" IsDisabled="GetItemDisabledState(item)" StopPropagation="true"
+            <Checkbox Value="@item" IsDisabled="GetItemDisabledState(item)"
                       SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
                       State="@item.CheckedState" OnStateChanged="(state, v) => OnCheckStateChanged(item, state)"
                       OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)" ></Checkbox>
