@@ -156,7 +156,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 根节点
         var nodes = TreeFoo.CascadingTree(items);
         nodes[0].IsExpand = true;
+        Assert.Equal("Node1", nodes[0].Text);
         nodes[1].IsExpand = true;
+        Assert.Equal("Node2", nodes[1].Text);
 
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
