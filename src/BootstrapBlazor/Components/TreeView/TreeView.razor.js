@@ -57,8 +57,7 @@ export function init(id, options) {
             if (state) {
                 const row = checkbox.closest('.tree-content');
                 const index = row.getAttribute('data-bb-tree-view-index');
-                await invoke.invokeMethodAsync('SetNodeStateByIndex', parseInt(index), state === '1' ? 0 : 1);
-                await setParentState(id, index);
+                await setParentState(id, parseInt(index), state === '1' ? 0 : 1);
             }
         });
     }
@@ -106,6 +105,7 @@ export function setChildrenState(id, index, state) {
                 }
                 const checkbox = next.querySelector('.form-check-input');
                 if (checkbox) {
+                    checkbox.indeterminate = false;
                     checkbox.checked = state === 1;
                     checkbox.setAttribute('data-bb-state', state);
                     if (state === 1) {
@@ -121,7 +121,7 @@ export function setChildrenState(id, index, state) {
     }
 }
 
-export async function setParentState(id, index) {
+export async function setParentState(id, index, state) {
     const tree = Data.get(id)
     if (tree) {
         const { el, invoke } = tree;
@@ -140,7 +140,7 @@ export async function setParentState(id, index) {
             }
 
             if (parents.length > 0) {
-                const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
+                const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))), index, state);
                 for (let index = 0; index < parents.length; index++) {
                     const checkbox = parents[index].querySelector('.form-check-input');
                     const result = results[index];

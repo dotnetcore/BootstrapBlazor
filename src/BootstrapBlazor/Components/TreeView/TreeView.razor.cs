@@ -446,11 +446,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 客户端查询指定行选择框状态方法 由 JavaScript 调用
     /// </summary>
     /// <param name="items"></param>
+    /// <param name="index"></param>
+    /// <param name="state"></param>
     /// <returns></returns>
     [JSInvokable]
-    public ValueTask<IEnumerable<CheckboxState>> GetParentsState(List<int> items)
+    public ValueTask<IEnumerable<CheckboxState>> GetParentsState(List<int> items, int index, CheckboxState? state)
     {
         var rows = Rows;
+        if (state.HasValue)
+        {
+            rows[index].CheckedState = state.Value;
+        }
         var result = items.Select(index =>
         {
             var item = rows[index];
@@ -463,22 +469,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     break;
                 }
             }
+            item.CheckedState = state;
             return state;
         });
         return ValueTask.FromResult(result);
-    }
-
-    /// <summary>
-    /// 设置指定行节点选择状态方法 由 JavaScript 调用
-    /// </summary>
-    /// <param name="index"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public ValueTask SetNodeStateByIndex(int index, CheckboxState state)
-    {
-        Rows[index].CheckedState = state;
-        return ValueTask.CompletedTask;
     }
 
     private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
