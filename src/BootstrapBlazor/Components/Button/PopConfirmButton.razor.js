@@ -54,7 +54,7 @@ export function init(id) {
                 }
                 delete confirm.popover;
             }
-        }, 50);
+        }, 200);
     }
 
     EventHandler.on(el, 'show.bs.popover', confirm.show)
