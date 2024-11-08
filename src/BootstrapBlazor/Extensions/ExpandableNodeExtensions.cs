@@ -65,10 +65,10 @@ public static class ExpandableNodeExtensions
     /// </summary>
     public static void SetChildrenCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem>? cache = null) where TNode : ICheckableNode<TItem>
     {
-        cache?.ToggleCheck(node);
         foreach (var item in node.Items.OfType<TNode>())
         {
             item.CheckedState = state;
+            cache?.ToggleCheck(item);
 
             // 设置子节点
             if (item.Items.Any())
