@@ -256,7 +256,7 @@ public partial class AutoComplete
                     await OnEscAsync(Value);
                 }
             }
-            else if (key == "Enter")
+            else if (IsEnterKey(key))
             {
                 if (!string.IsNullOrEmpty(CurrentSelectedItem))
                 {
