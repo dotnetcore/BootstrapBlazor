@@ -434,7 +434,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
-        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
@@ -461,11 +461,29 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.RowHeight, 30f);
+            pb.Add(a => a.OnExpandNodeAsync, async item =>
+            {
+                await Task.Delay(10);
+                var node1 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1011", ParentId = item.Value.Id })
+                {
+                    Text = "Sub menu 1",
+                    HasChildren = true
+                };
+                var node2 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1021", ParentId = item.Value.Id })
+                {
+                    Text = "Sub menu 2",
+                };
+                return [node1, node2];
+            });
         });
         cut.Contains("tree-root is-virtual scroll");
 
         // 触发第一个节点展开
-        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+
+        cut.Contains("--bb-tree-view-level: 0;");
+        cut.Contains("--bb-tree-view-level: 1;");
     }
 
     [Fact]

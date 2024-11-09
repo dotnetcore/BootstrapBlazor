@@ -886,7 +886,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 level++;
                 parent = parent.Parent;
             }
-            style = $"--bb-tree-view-level: {level}";
+            style = $"--bb-tree-view-level: {level};";
         }
         return style;
     }
