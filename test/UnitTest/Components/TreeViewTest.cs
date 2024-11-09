@@ -235,20 +235,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[0].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[1].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[1].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         // 选中第三个由于限制无法选中
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[2].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[2].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
@@ -259,7 +259,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         max = false;
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerOnBeforeStateChanged();
+            await checkboxes[0].Instance.TriggerClick();
         });
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
