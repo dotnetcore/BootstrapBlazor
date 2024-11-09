@@ -702,6 +702,14 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox)
         {
+            if(AutoCheckChildren)
+            {
+                node.SetChildrenCheck(TreeNodeStateCache);
+            }
+            if(AutoCheckParent)
+            {
+                node.SetParentCheck(TreeNodeStateCache);
+            }
             if (!AutoCheckChildren && AutoCheckParent && node.Items.Count > 0)
             {
                 node.Items[0].SetParentCheck(TreeNodeStateCache);
@@ -739,7 +747,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (item.CheckedState != CheckboxState.Indeterminate)
             {
                 _ = InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
-                item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
+                item.SetChildrenCheck(TreeNodeStateCache);
             }
         }
 

@@ -63,17 +63,17 @@ public static class ExpandableNodeExtensions
     /// <summary>
     /// 向下级联设置复选状态
     /// </summary>
-    public static void SetChildrenCheck<TNode, TItem>(this TNode node, CheckboxState state, TreeNodeCache<TNode, TItem>? cache = null) where TNode : ICheckableNode<TItem>
+    public static void SetChildrenCheck<TNode, TItem>(this TNode node, TreeNodeCache<TNode, TItem> cache) where TNode : ICheckableNode<TItem>
     {
         foreach (var item in node.Items.OfType<TNode>())
         {
-            item.CheckedState = state;
-            cache?.ToggleCheck(item);
+            item.CheckedState = node.CheckedState;
+            cache.ToggleCheck(item);
 
             // 设置子节点
             if (item.Items.Any())
             {
-                item.SetChildrenCheck(state, cache);
+                item.SetChildrenCheck(cache);
             }
         }
     }
