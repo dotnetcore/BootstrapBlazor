@@ -97,12 +97,11 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.False(cut.Instance.Value);
 
         // JavaScript 调用 OnTriggerClickAsync 方法
-        // 参数 1 服务端同步更改为 UnChecked 状态 0 服务端同步更改为 Checked 状态
-        var val = await cut.Instance.OnTriggerClickAsync("1");
+        var val = await cut.Instance.OnTriggerClickAsync(CheckboxState.UnChecked);
         Assert.True(val);
         Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
 
-        val = await cut.Instance.OnTriggerClickAsync("0");
+        val = await cut.Instance.OnTriggerClickAsync(CheckboxState.Checked);
         Assert.True(val);
         Assert.Equal(CheckboxState.Checked, cut.Instance.State);
     }
