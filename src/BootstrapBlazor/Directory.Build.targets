@@ -1,10 +1,10 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.79.5" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net9.0'" />
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.79.5" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == '$(RunTargetFramework)'" />
   </ItemGroup>
   
-  <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == 'net9.0'">
+  <Target Name="CopyCss" AfterTargets="Build" Condition="'$(TargetFramework)' == '$(RunTargetFramework)'">
     <Message Text="Copy bootstrap assets ..." Importance="high"></Message>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true" ></Copy>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/css/bootstrap.min.css" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/css/bootstrap.min.css" SkipUnchangedFiles="true" ></Copy>
