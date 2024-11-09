@@ -1,7 +1,8 @@
 <Project>
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <RunTargetFramework>net9.0</RunTargetFramework>
+    <TargetFramework>$(RunTargetFramework)</TargetFramework>
   </PropertyGroup>
 
 </Project>

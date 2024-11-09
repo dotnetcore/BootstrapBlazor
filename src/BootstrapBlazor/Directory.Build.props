@@ -2,6 +2,7 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Logo.props" />
+  <Import Project="..\..\Framework.props" />
   <Import Project="..\SourceLink.targets" />
 
   <PropertyGroup>
@@ -17,7 +18,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>$(RunTargetFramework)</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
