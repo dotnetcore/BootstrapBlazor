@@ -188,10 +188,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
             var ret = await OnBeforeStateChanged(val);
             if (ret == false)
             {
+                // 阻止状态改变
                 return false;
             }
         }
 
+        // 改变状态 由点击事件触发
         var render = await InternalStateChanged(val);
         if (render)
         {
