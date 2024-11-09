@@ -1,7 +1,7 @@
 ﻿import { setIndeterminate } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
-export function init(id, invoke, options) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id);
     if (el === null) {
         return;
@@ -14,11 +14,8 @@ export function init(id, invoke, options) {
         }
 
         const state = el.getAttribute("data-bb-state");
-        const trigger = el.getAttribute("data-bb-trigger-before");
-
         if (state) {
             el.removeAttribute('data-bb-state');
-            await invoke.invokeMethodAsync(options.syncStateCallback, parseInt(state));
 
             if (state === "1") {
                 el.parentElement.classList.remove('is-checked');
@@ -26,19 +23,11 @@ export function init(id, invoke, options) {
             else {
                 el.parentElement.classList.add('is-checked');
             }
-
-            if (trigger !== "true") {
-                return;
-            }
         }
         var result = await invoke.invokeMethodAsync(method, state == "1" ? 0 : 1);
         if (result === false) {
             e.preventDefault();
-            await invoke.invokeMethodAsync(options.triggerOnBeforeStateChanged);
-            return;
         }
-
-        await invoke.invokeMethodAsync(options.triggerClick);
     });
 }
 
