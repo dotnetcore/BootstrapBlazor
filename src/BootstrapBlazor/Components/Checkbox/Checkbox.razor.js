@@ -24,7 +24,7 @@ export function init(id, invoke, method) {
                 el.parentElement.classList.add('is-checked');
             }
         }
-        var result = await invoke.invokeMethodAsync(method, state == "1" ? 0 : 1);
+        const result = await invoke.invokeMethodAsync(method, state == "1" ? 0 : 1);
         if (result === false) {
             e.preventDefault();
         }

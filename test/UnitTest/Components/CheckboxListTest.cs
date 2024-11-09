@@ -85,6 +85,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
 
         // JavaScript 调用 OnTriggerClickAsync 方法
         var val = await cut.Instance.OnTriggerClickAsync(CheckboxState.UnChecked);
+
         Assert.True(val);
         Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
 
