@@ -10,6 +10,15 @@ namespace BootstrapBlazor.Server.Extensions;
 
 internal static class StaticFileResponseContextExtensions
 {
+    public static bool IsSupportAssets(this IWebHostEnvironment webHost)
+    {
+#if NET9_0_OR_GREATER
+        return true;
+#else
+        return false;
+#endif
+    }
+
     public static void ProcessCache(this StaticFileResponseContext context, IConfiguration configuration)
     {
         if (context.CanCache(configuration, out var age))
