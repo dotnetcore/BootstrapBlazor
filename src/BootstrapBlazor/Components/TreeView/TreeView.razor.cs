@@ -698,11 +698,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         if (ShowCheckbox)
         {
-            if(AutoCheckChildren)
+            if (AutoCheckChildren)
             {
                 node.SetChildrenCheck(TreeNodeStateCache);
             }
-            if(AutoCheckParent)
+            if (AutoCheckParent)
             {
                 node.SetParentCheck(TreeNodeStateCache);
             }
@@ -717,14 +717,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             StateHasChanged();
         }
     }
-
-    private bool _render = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool ShouldRender() => _render;
 
     /// <summary>
     /// 节点 Checkbox 状态改变时触发此方法
