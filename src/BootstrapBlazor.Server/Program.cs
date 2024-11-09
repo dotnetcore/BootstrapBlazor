@@ -67,7 +67,11 @@ if (!app.Environment.IsDevelopment())
     app.UseResponseCompression();
 }
 
+#if NET9_0_OR_GREATER
 app.MapStaticAssets();
+#else
+app.UseStaticFiles();
+#endif
 
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)

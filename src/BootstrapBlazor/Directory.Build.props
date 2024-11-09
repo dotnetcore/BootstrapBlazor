@@ -2,6 +2,7 @@
 
   <Import Project="..\Directory.Build.props" />
   <Import Project="..\Logo.props" />
+  <Import Project="..\..\Framework.props" />
   <Import Project="..\SourceLink.targets" />
 
   <PropertyGroup>
@@ -16,7 +17,11 @@
     <IsPackable>true</IsPackable>
   </PropertyGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <TargetFramework>$(RunTargetFramework)</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
     <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
 
