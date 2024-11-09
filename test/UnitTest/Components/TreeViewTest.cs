@@ -447,6 +447,63 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsVirtualize_Ok()
+    {
+        var items = TreeFoo.GetVirtualizeTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, false);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("tree-root scroll");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, true);
+        });
+        cut.Contains("tree-root is-virtual scroll");
+    }
+
+    [Fact]
+    public async Task GetParentsState_Ok()
+    {
+        var items = TreeFoo.GetCheckedTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.OnExpandNodeAsync, async (item) =>
+            {
+                await Task.Yield();
+                return TreeFoo.GetCheckedTreeItems(item.Value.Id);
+            });
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        // 初始状态
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+
+        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        // 101 unchecked
+        //  -> 101-101 unchecked
+        //  -> 101-102 checked
+        // 102 checked
+
+        var parents = new List<int>() { 0 };
+        List<CheckboxState> results = await cut.Instance.GetParentsState(parents, 1, CheckboxState.Checked);
+        Assert.NotNull(results);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
+
+        Assert.Single(results);
+        Assert.Equal(CheckboxState.Checked, results[0]);
+    }
+
+    [Fact]
     public async Task OnExpandRowAsync_Exception()
     {
         var items = TreeFoo.GetTreeItems();
