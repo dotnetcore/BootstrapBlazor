@@ -619,13 +619,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
         Assert.Equal("Test3", node.Value.Text);
 
-        // 设置当前几点所有父项选中状态
+        // 设置当前节点所有父项选中状态
         var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
         node.CheckedState = CheckboxState.Checked;
         node.SetParentCheck(cache);
 
         Assert.Equal(CheckboxState.Checked, node.Parent!.CheckedState);
         Assert.Equal(CheckboxState.Checked, node.Parent!.Parent!.CheckedState);
+
+        // 设置当前节点所有父项为选中状态
+        node.CheckedState = CheckboxState.UnChecked;
+        node.SetParentCheck(cache);
+
+        Assert.Equal(CheckboxState.UnChecked, node.Parent!.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, node.Parent!.Parent!.CheckedState);
     }
 
     [Fact]
