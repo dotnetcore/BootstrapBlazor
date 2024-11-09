@@ -13,9 +13,10 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Parameter_Ok()
     {
+        var items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<AutoComplete>(builder =>
         {
-            builder.Add(a => a.Items, new string[] { "test1", "test2" });
+            builder.Add(a => a.Items, items);
             builder.Add(a => a.NoDataTip, "test3");
             builder.Add(a => a.ShowNoDataTip, true);
             builder.Add(a => a.DisplayCount, 10);
@@ -175,7 +176,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
         cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowDown"));
-        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("NumpadEnter"));
         Assert.True(enter);
     }
 

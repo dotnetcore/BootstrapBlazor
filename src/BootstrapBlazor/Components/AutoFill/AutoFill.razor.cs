@@ -257,7 +257,7 @@ public partial class AutoFill<TValue>
                     await OnEscAsync(Value);
                 }
             }
-            else if (key == "Enter")
+            else if (IsEnterKey(key))
             {
                 ActiveSelectedItem ??= _filterItems.FirstOrDefault();
                 if (ActiveSelectedItem != null)
