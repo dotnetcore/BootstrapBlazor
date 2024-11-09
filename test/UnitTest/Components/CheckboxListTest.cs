@@ -78,6 +78,23 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Checkbox_OnTriggerClickAsync()
+    {
+        var cut = Context.RenderComponent<Checkbox<bool>>();
+        Assert.False(cut.Instance.Value);
+
+        // JavaScript 调用 OnTriggerClickAsync 方法
+        // 参数 1 服务端同步更改为 UnChecked 状态 0 服务端同步更改为 Checked 状态
+        var val = await cut.Instance.OnTriggerClickAsync("1");
+        Assert.True(val);
+        Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
+
+        val = await cut.Instance.OnTriggerClickAsync("0");
+        Assert.True(val);
+        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
+    }
+
+    [Fact]
     public void Checkbox_Dispose()
     {
         var cut = Context.RenderComponent<Checkbox<string>>();
