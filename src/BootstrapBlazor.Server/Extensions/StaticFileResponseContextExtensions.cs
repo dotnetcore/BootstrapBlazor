@@ -3,8 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Net.Http.Headers;
+#if NET9_0_OR_GREATER
+using System.Reflection;
+#endif
 
 namespace BootstrapBlazor.Server.Extensions;
 
@@ -16,6 +20,44 @@ internal static class StaticFileResponseContextExtensions
         return true;
 #else
         return false;
+#endif
+    }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <returns></returns>
+    public static RenderFragment RenderAssets(this ComponentBase component) => builder =>
+    {
+#if NET9_0_OR_GREATER
+        var pi = component.GetType().GetProperty("Assets", BindingFlags.Instance | BindingFlags.NonPublic);
+        if (pi != null)
+        {
+            var v = pi.GetValue(component);
+            if (v is ResourceAssetCollection assets)
+            {
+                builder.RenderCss($"{assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]}");
+                builder.RenderCss($"{assets["_content/BootstrapBlazor.MaterialDesign/css/md.min.css"]}");
+                builder.RenderCss($"{assets["_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css"]}");
+                builder.RenderCss($"{assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]}");
+                builder.RenderCss($"{assets["_content/BootstrapBlazor/css/motronic.min.css"]}");
+                builder.RenderCss($"{assets["BootstrapBlazor.Server.styles.css"]}");
+                builder.RenderCss($"{assets["css/site.css"]}");
+
+                builder.OpenComponent<ImportMap>(0);
+                builder.CloseComponent();
+            }
+        }
+#endif
+    };
+
+    private static void RenderCss(this RenderTreeBuilder builder, string url)
+    {
+#if NET9_0_OR_GREATER
+        builder.OpenElement(0, "link");
+        builder.AddAttribute(1, "rel", "stylesheet");
+        builder.AddAttribute(2, "href", url);
+        builder.CloseElement();
 #endif
     }
 
