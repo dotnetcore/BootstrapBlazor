@@ -326,22 +326,31 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
 
-        // 初始状态
+        // 初始状态 第一节点未选中 第二节点选中
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
+        // 展开第一个节点
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        // 101 unchecked
+        //  -> 101-101 unchecked
+        //  -> 101-102 unchecked
+        // 102 checked
 
         // 展开状态-级联选中-子级
         checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.Value.CheckedState);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.Value.CheckedState);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.Value.CheckedState);
 
         // 级联选中-父级
         await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
+
+        // 由于缺少 JS 回调单元测试中 Instance.State 无法获取到最新状态
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
         Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
 
         await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
@@ -376,13 +385,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         // 展开第一个节点
+        // 未设置 AutoCheckChildren 属性，子节点不会级联更新状态
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
         // 101 unchecked
-        // -> 101-101 unchecked
-        // -> 101-102 checked
+        //  -> 101-101 unchecked
+        //  -> 101-102 checked
         // 102 checked
 
         // 展开状态
@@ -396,8 +406,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         // 由于缺少 JS 回调单元测试中 Instance.State 无法获取到最新状态
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
-
-
     }
 
     [Fact]
@@ -505,6 +513,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     class MockTreeFoo : TreeFoo { }
 
+    bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
+
     [Fact]
     public void CascadeSetCheck_Ok()
     {
@@ -518,7 +528,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        node.SetChildrenCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        node.CheckedState = CheckboxState.Checked;
+        node.SetChildrenCheck(cache);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
     }
 
@@ -541,8 +553,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         Assert.Equal(CheckboxState.Checked, node.Parent!.CheckedState);
         Assert.Equal(CheckboxState.Checked, node.Parent!.Parent!.CheckedState);
-
-        bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
     }
 
     [Fact]

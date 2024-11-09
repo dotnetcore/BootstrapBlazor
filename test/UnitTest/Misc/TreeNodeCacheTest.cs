@@ -222,7 +222,8 @@ public class TreeNodeCacheTest
         Assert.NotNull(node);
         Assert.Equal("Sub Menu Two", node.Value.Text);
 
-        node.SetChildrenCheck(CheckboxState.UnChecked, nodeCache);
+        node.CheckedState = CheckboxState.UnChecked;
+        node.SetChildrenCheck(nodeCache);
         count = GetUncheckItemCount(nodeCache);
         Assert.Equal(6, count);
     }
