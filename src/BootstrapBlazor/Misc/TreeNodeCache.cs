@@ -28,7 +28,7 @@ public class TreeNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer) : Ex
     protected List<TItem> IndeterminateNodeCache { get; } = new(50);
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 切换选中状态方法
     /// </summary>
     /// <param name="node"></param>
     /// <returns></returns>

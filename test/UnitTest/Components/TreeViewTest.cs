@@ -88,7 +88,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
-        var node = cut.Find(".active");
+        var node = cut.Find(".active .tree-node-text");
         Assert.Equal("navigation one", node.TextContent);
 
         var activeItem = items[1].Items[0].Value;
@@ -99,7 +99,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
         });
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
-        node = cut.Find(".active");
+        node = cut.Find(".active .tree-node-text");
         Assert.Equal("Sub menu 1", node.TextContent);
 
         activeItem = new TreeFoo();
@@ -156,7 +156,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 根节点
         var nodes = TreeFoo.CascadingTree(items);
         nodes[0].IsExpand = true;
+        Assert.Equal("Node1", nodes[0].Text);
         nodes[1].IsExpand = true;
+        Assert.Equal("Node2", nodes[1].Text);
 
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
@@ -165,17 +167,17 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ShowCheckbox, true);
         });
-        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
         await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
 
         // Indeterminate
         await cut.InvokeAsync(() => checkboxes[4].Instance.SetState(CheckboxState.Checked));
 
-        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
-        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
-        Assert.Equal(CheckboxState.Indeterminate, checkboxes[3].Instance.State);
-        Assert.Equal(CheckboxState.UnChecked, checkboxes[5].Instance.State);
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[3].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[5].Instance.Value.CheckedState);
     }
 
     [Fact]
@@ -196,7 +198,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        var checkbox = cut.FindComponent<Checkbox<CheckboxState>>();
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.TriggerClick);
         cut.DoesNotContain("fa-solid fa-font-awesome");
         cut.Contains("Test-Class");
@@ -230,7 +232,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
         Assert.Equal(3, checkboxes.Count);
 
         await cut.InvokeAsync(async () =>
@@ -322,28 +324,37 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
 
-        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
 
-        // 初始状态
+        // 初始状态 第一节点未选中 第二节点选中
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
+        // 展开第一个节点
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        // 101 unchecked
+        //  -> 101-101 unchecked
+        //  -> 101-102 unchecked
+        // 102 checked
 
         // 展开状态-级联选中-子级
-        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
-        Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.State);
-        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.Value.CheckedState);
 
         // 级联选中-父级
         await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
-        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.State);
+
+        // 由于缺少 JS 回调单元测试中 Instance.State 无法获取到最新状态
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
 
         await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
-        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
     }
 
     [Fact]
@@ -367,26 +378,34 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
 
-        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
 
-        // 初始状态
+        // 初始状态 第一节点未选中 第二节点选中
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
+        // 展开第一个节点
+        // 未设置 AutoCheckChildren 属性，子节点不会级联更新状态
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        // 101 unchecked
+        //  -> 101-101 unchecked
+        //  -> 101-102 checked
+        // 102 checked
 
         // 展开状态
-        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
         Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[2].Instance.State);
 
         // 级联选中-父级
         await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
-        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+
+        // 由于缺少 JS 回调单元测试中 Instance.State 无法获取到最新状态
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
     }
 
     [Fact]
@@ -409,22 +428,113 @@ public class TreeViewTest : BootstrapBlazorTestBase
             });
         });
 
-        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
 
         // 初始状态
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
-        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
         Assert.True(expanded);
 
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
 
         // 展开状态
-        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[2].Instance.State);
+    }
+
+    [Fact]
+    public async Task IsVirtualize_Ok()
+    {
+        var items = TreeFoo.GetVirtualizeTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, false);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("tree-root scroll");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 30f);
+            pb.Add(a => a.OnExpandNodeAsync, async item =>
+            {
+                await Task.Delay(10);
+                var node1 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1011", ParentId = item.Value.Id })
+                {
+                    Text = "Sub menu 1",
+                    HasChildren = true
+                };
+                var node2 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1021", ParentId = item.Value.Id })
+                {
+                    Text = "Sub menu 2",
+                };
+                return [node1, node2];
+            });
+        });
+        cut.Contains("tree-root is-virtual scroll");
+
+        // 触发第一个节点展开
+        await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+
+        cut.Contains("--bb-tree-view-level: 0;");
+        cut.Contains("--bb-tree-view-level: 1;");
+    }
+
+    [Fact]
+    public async Task GetParentsState_Ok()
+    {
+        var items = TreeFoo.GetCheckedTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ShowCheckbox, true);
+            pb.Add(a => a.AutoCheckParent, true);
+            pb.Add(a => a.OnExpandNodeAsync, async (item) =>
+            {
+                await Task.Yield();
+                return TreeFoo.GetCheckedTreeItems(item.Value.Id);
+            });
+        });
+
+        var checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        // 初始状态
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
+
+        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+
+        cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
+        // 101 unchecked
+        //  -> 101-101 unchecked
+        //  -> 101-102 checked
+        // 102 checked
+
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        var parents = new List<int>() { 0 };
+        List<CheckboxState> results = await cut.Instance.GetParentsState(parents, 1, CheckboxState.Checked);
+        Assert.NotNull(results);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
+
+        Assert.Single(results);
+        Assert.Equal(CheckboxState.Checked, results[0]);
+
+        // 更改第二个子节点状态
+        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
+        results = await cut.Instance.GetParentsState(parents, 2, CheckboxState.UnChecked);
+        Assert.NotNull(results);
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.Value.CheckedState);
+
+        Assert.Single(results);
+        Assert.Equal(CheckboxState.Indeterminate, results[0]);
     }
 
     [Fact]
@@ -494,6 +604,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     class MockTreeFoo : TreeFoo { }
 
+    bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
+
     [Fact]
     public void CascadeSetCheck_Ok()
     {
@@ -507,7 +619,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        node.SetChildrenCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        node.CheckedState = CheckboxState.Checked;
+        node.SetChildrenCheck(cache);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
     }
 
@@ -521,10 +635,22 @@ public class TreeViewTest : BootstrapBlazorTestBase
             new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+        Assert.Equal("Test3", node.Value.Text);
 
-        // 设置当前几点所有父项选中状态
-        node.SetParentCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
-        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+        // 设置当前节点所有父项选中状态
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        node.CheckedState = CheckboxState.Checked;
+        node.SetParentCheck(cache);
+
+        Assert.Equal(CheckboxState.Checked, node.Parent!.CheckedState);
+        Assert.Equal(CheckboxState.Checked, node.Parent!.Parent!.CheckedState);
+
+        // 设置当前节点所有父项为选中状态
+        node.CheckedState = CheckboxState.UnChecked;
+        node.SetParentCheck(cache);
+
+        Assert.Equal(CheckboxState.UnChecked, node.Parent!.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, node.Parent!.Parent!.CheckedState);
     }
 
     [Fact]
@@ -784,7 +910,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowCheckbox, true);
         });
 
-        var checkbox = cut.FindComponent<Checkbox<CheckboxState>>();
+        var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.TriggerClick);
 
         Assert.Contains("is-checked", cut.Markup);

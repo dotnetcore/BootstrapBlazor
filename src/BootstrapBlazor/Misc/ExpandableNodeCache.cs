@@ -55,18 +55,9 @@ public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer
             {
                 var items = await callback(node);
                 node.Items = items.ToList();
-                ICheckableNode<TItem>? checkNode = null;
-                if (node is ICheckableNode<TItem> c)
-                {
-                    checkNode = c;
-                }
                 foreach (var n in node.Items)
                 {
                     n.Parent = node;
-                    //if (checkNode != null && n is ICheckableNode<TItem> cn)
-                    //{
-                    //    cn.CheckedState = checkNode.CheckedState == CheckboxState.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
-                    //}
                 }
             }
         }

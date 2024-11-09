@@ -721,6 +721,11 @@ public enum ComponentIcons
     TreeViewResetSearchIcon,
 
     /// <summary>
+    /// TreeView 组件 LoadingIcon 属性图标
+    /// </summary>
+    TreeViewLoadingIcon,
+
+    /// <summary>
     /// TreeView 组件 NodeIcon 属性图标
     /// </summary>
     TreeViewNodeIcon,

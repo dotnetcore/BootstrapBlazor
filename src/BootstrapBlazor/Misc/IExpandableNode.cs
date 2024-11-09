@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 可扩展节点接口
 /// </summary>
 public interface IExpandableNode<TItem>
 {
