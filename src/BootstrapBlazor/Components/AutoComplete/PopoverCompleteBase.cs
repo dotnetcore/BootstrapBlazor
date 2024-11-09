@@ -156,4 +156,11 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    /// <summary>
+    /// 判断是否为回车键
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    protected bool IsEnterKey(string key) => key == "Enter" || key == "NumpadEnter";
 }
