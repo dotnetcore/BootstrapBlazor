@@ -450,28 +450,24 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="state"></param>
     /// <returns></returns>
     [JSInvokable]
-    public ValueTask<IEnumerable<CheckboxState>> GetParentsState(List<int> items, int index, CheckboxState? state)
+    public ValueTask<List<CheckboxState>> GetParentsState(List<int> items, int index, CheckboxState? state)
     {
         var rows = Rows;
         if (state.HasValue)
         {
             rows[index].CheckedState = state.Value;
         }
-        var result = items.Select(index =>
+        var result = items.Select(i =>
         {
-            var item = rows[index];
-            var state = item.Items[0].CheckedState;
-            foreach (var i in item.Items)
+            var item = rows[i];
+            var checkedState = item.Items[0].CheckedState;
+            if (item.Items.Any(s => s.CheckedState != checkedState))
             {
-                if (i.CheckedState != state)
-                {
-                    state = CheckboxState.Indeterminate;
-                    break;
-                }
+                checkedState = CheckboxState.Indeterminate;
             }
-            item.CheckedState = state;
-            return state;
-        });
+            item.CheckedState = checkedState;
+            return checkedState;
+        }).ToList();
         return ValueTask.FromResult(result);
     }
 
