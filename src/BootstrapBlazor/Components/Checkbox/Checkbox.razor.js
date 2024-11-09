@@ -31,8 +31,8 @@ export function init(id, invoke, options) {
                 return;
             }
         }
-
-        if (trigger === 'true') {
+        var result = await invoke.invokeMethodAsync(method, state == "1" ? 0 : 1);
+        if (result === false) {
             e.preventDefault();
             await invoke.invokeMethodAsync(options.triggerOnBeforeStateChanged);
             return;

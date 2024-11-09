@@ -201,9 +201,29 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async ValueTask TriggerClick()
+    public async ValueTask<bool> OnTriggerClickAsync(CheckboxState? state = null)
     {
-        var render = await InternalStateChanged(NextState);
+        // 本组件由于支持 OnBeforeStateChanged 回调方法，所以设计上移除了 onclick 事件，改为通过 JS 调用 TriggerClick 方法
+        // state 有值时表示同步状态功能
+        if (state.HasValue)
+        {
+            State = state.Value;
+            return true;
+        }
+
+        // 调用 OnBeforeStateChanged 回调方法查看是否阻止状态改变
+        // 返回 true 时改变状态，返回 false 时不改变状态阻止状态改变 preventDefault
+        var val = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+        if (OnBeforeStateChanged != null)
+        {
+            var ret = await OnBeforeStateChanged(val);
+            if (ret == false)
+            {
+                return false;
+            }
+        }
+
+        var render = await InternalStateChanged(val);
         if (render)
         {
             StateHasChanged();
