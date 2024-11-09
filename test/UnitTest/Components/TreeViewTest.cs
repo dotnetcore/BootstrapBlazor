@@ -447,7 +447,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsVirtualize_Ok()
+    public async Task IsVirtualize_Ok()
     {
         var items = TreeFoo.GetVirtualizeTreeItems();
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
@@ -460,8 +460,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 30f);
         });
         cut.Contains("tree-root is-virtual scroll");
+
+        // 触发第一个节点展开
+        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
     }
 
     [Fact]
