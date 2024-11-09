@@ -23,7 +23,7 @@ export function init(id, invoke) {
         EventHandler.on(input, 'keyup', debounce(e => {
             invoke.invokeMethodAsync('OnKeyUp', e.code)
         }, duration, e => {
-            return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) > -1
+            return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
