@@ -327,15 +327,12 @@ public partial class Layout : IHandlerException
     [CascadingParameter]
     private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
 
+    [Inject, NotNull]
+    private IServiceProvider? ServiceProvider { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
-
-    [Inject]
-    private IAuthorizationPolicyProvider? AuthorizationPolicyProvider { get; set; }
-
-    [Inject]
-    private IAuthorizationService? AuthorizationService { get; set; }
 
     private bool _init { get; set; }
 
@@ -373,7 +370,7 @@ public partial class Layout : IHandlerException
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
             {
-                IsAuthenticated = await context.Handler.IsAuthorizedAsync(AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService, Resource);
+                IsAuthenticated = await context.Handler.IsAuthorizedAsync(ServiceProvider, AuthenticationStateTask, Resource);
 
                 // 检查当前 Url
                 if (OnAuthorizing != null)

@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -15,7 +16,7 @@ internal static class TypeExtensions
 
     public static FieldInfo? GetFieldByName(this Type type, string fieldName) => CacheManager.GetRuntimeFields(type).Find(p => p.Name == fieldName);
 
-    public static async Task<bool> IsAuthorizedAsync(this Type type, Task<AuthenticationState>? authenticateState, IAuthorizationPolicyProvider? authorizePolicy, IAuthorizationService? authorizeService, object? resource = null)
+    public static async Task<bool> IsAuthorizedAsync(this Type type, IServiceProvider serviceProvider, Task<AuthenticationState>? authenticateState, object? resource = null)
     {
         var ret = true;
         var authorizeData = AttributeAuthorizeDataCache.GetAuthorizeDataForType(type);
@@ -23,6 +24,8 @@ internal static class TypeExtensions
         {
             EnsureNoAuthenticationSchemeSpecified();
 
+            var authorizePolicy = serviceProvider.GetService<IAuthorizationPolicyProvider>();
+            var authorizeService = serviceProvider.GetService<IAuthorizationService>();
             if (authenticateState != null && authorizePolicy != null && authorizeService != null)
             {
                 var currentAuthenticationState = await authenticateState;

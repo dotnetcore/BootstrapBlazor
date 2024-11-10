@@ -26,7 +26,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddMemoryCache();
         services.AddHttpClient();
 
-        services.AddAuthorizationCore();
         services.AddJsonLocalization(localizationConfigure);
 
         services.AddConfiguration();
