@@ -21,7 +21,8 @@
     <TargetFramework>$(RunTargetFramework)</TargetFramework>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' != 'Debug'">
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <TargetFramework></TargetFramework>
     <TargetFrameworks>net6.0;net7.0;net8.0;net9.0</TargetFrameworks>
   </PropertyGroup>
 
