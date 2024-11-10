@@ -1,7 +1,21 @@
+[data-bs-theme='dark'] .layout {
+    --bb-layout-header-background: #{$bb-layout-header-background-dark};
+    --bb-layout-header-border-color: #{$bb-layout-header-border-color-dark};
+    --bb-layout-banner-border-color: #{$bb-layout-banner-border-color-dark};
+    --bb-layout-sidebar-banner-background: #{$bb-layout-sidebar-banner-background-dark};
+    --bb-layout-headerbar-background: #{$bb-layout-headerbar-background-dark};
+    --bb-layout-menu-item-hover-bg: #{$bb-layout-menu-item-hover-bg-dark};
+    --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background-dark};
+    --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color-dark};
+    --bb-layout-logo-border-color: #{$bb-layout-logo-border-color-dark};
+    --bb-layout-logo-bg: #{$bb-layout-logo-bg-dark};
+}
+
 .layout {
     --bb-layout-header-height: #{$bb-layout-header-height};
     --bb-layout-header-background: #{$bb-layout-header-background};
     --bb-layout-header-color: #{$bb-layout-header-color};
+    --bb-layout-header-border-color: #{$bb-layout-header-border-color};
     --bb-layout-headerbar-color: #{$bb-layout-header-color};
     --bb-layout-headerbar-background: #{$bb-layout-headerbar-background};
     --bb-layout-headerbar-border-color: #{$bb-layout-headerbar-border-color};
@@ -18,6 +32,9 @@
     --bb-layout-title-margin-left: #{$bb-layout-title-margin-left};
     --bb-layout-banner-font-size: #{$bb-layout-banner-font-size};
     --bb-layout-banner-logo-width: #{$bb-layout-banner-logo-width};
+    --bb-layout-logo-border-color: #{$bb-layout-logo-border-color};
+    --bb-layout-logo-bg: #{$bb-layout-logo-bg};
+    --bb-layout-banner-border-color: #{$bb-layout-banner-border-color};
     --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background};
     --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color};
     --bb-layout-menu-item-hover-bg: #{$bb-layout-menu-item-hover-bg};
@@ -55,10 +72,13 @@
                 background-color: var(--bb-layout-sidebar-banner-background);
                 height: var(--bb-layout-header-height);
                 font-size: var(--bb-layout-banner-font-size);
+                border-bottom: 1px solid var(--bb-layout-banner-border-color);
 
                 .layout-logo {
                     width: var(--bb-layout-banner-logo-width);
                     border-radius: var(--bs-border-radius);
+                    background-color: var(--bb-layout-logo-bg);
+                    border: 1px solid var(--bb-layout-logo-border-color);
 
                     + .layout-title {
                         margin-left: var(--bb-layout-title-margin-left);
@@ -74,6 +94,10 @@
                 overflow-x: hidden;
                 padding: 0.5rem 0;
                 height: calc(100vh - var(--bb-layout-header-height));
+
+                .menu {
+                    --bb-menu-item-hover-color: var(--bb-layout-header-color);
+                }
             }
         }
 
@@ -114,26 +138,32 @@
             display: flex;
             align-items: center;
             padding: 0 1rem;
-            z-index: 1035;
             position: sticky;
+            z-index: 1035;
+            border-bottom: 1px solid var(--bb-layout-header-border-color);
 
             &.is-fixed {
                 top: 0;
             }
 
-            .layout-avatar-right {
-                width: calc(var(--bb-layout-header-height) - 6px);
-                height: calc(var(--bb-layout-header-height) - 6px);
+            .logout-avatar {
+                border-radius: 50%;
             }
 
             .dropdown-logout {
                 --bb-logout-text-color: var(--bb-layout-header-color);
                 --bb-logout-user-bg: var(--bb-layout-menu-user-banner-background);
                 --bb-logout-menu-border-color: var(--bb-layout-menu-user-border-color);
+
+                .dropdown-user img {
+                    border-radius: 50%;
+                }
             }
         }
 
         .layout-menu {
+            border-right: 1px solid var(--bs-border-color);
+
             .menu {
                 --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
             }
@@ -158,6 +188,7 @@
             display: flex;
             align-items: center;
             padding: 0 1rem;
+            border-top: 1px solid var(--bs-border-color);
 
             &.is-fixed {
                 z-index: 1020;
@@ -165,6 +196,10 @@
                 bottom: 0;
             }
         }
+    }
+
+    &:not(.has-footer) {
+        --bb-layout-footer-height: 0px;
     }
 }
 
