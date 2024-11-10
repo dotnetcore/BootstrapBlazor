@@ -7,6 +7,8 @@
     --bb-layout-menu-item-hover-bg: #{$bb-layout-menu-item-hover-bg-dark};
     --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background-dark};
     --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color-dark};
+    --bb-layout-logo-border-color: #{$bb-layout-logo-border-color-dark};
+    --bb-layout-logo-bg: #{$bb-layout-logo-bg-dark};
 }
 
 .layout {
@@ -30,6 +32,8 @@
     --bb-layout-title-margin-left: #{$bb-layout-title-margin-left};
     --bb-layout-banner-font-size: #{$bb-layout-banner-font-size};
     --bb-layout-banner-logo-width: #{$bb-layout-banner-logo-width};
+    --bb-layout-logo-border-color: #{$bb-layout-logo-border-color};
+    --bb-layout-logo-bg: #{$bb-layout-logo-bg};
     --bb-layout-banner-border-color: #{$bb-layout-banner-border-color};
     --bb-layout-menu-user-banner-background: #{$bb-layout-menu-user-banner-background};
     --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color};
@@ -73,6 +77,8 @@
                 .layout-logo {
                     width: var(--bb-layout-banner-logo-width);
                     border-radius: var(--bs-border-radius);
+                    background-color: var(--bb-layout-logo-bg);
+                    border: 1px solid var(--bb-layout-logo-border-color);
 
                     + .layout-title {
                         margin-left: var(--bb-layout-title-margin-left);
