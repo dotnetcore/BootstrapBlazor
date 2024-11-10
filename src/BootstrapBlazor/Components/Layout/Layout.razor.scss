@@ -146,6 +146,14 @@
                 top: 0;
             }
 
+            .widget {
+                --bb-widget-toggle-color: var(--bb-layout-header-color);
+
+                .progress {
+                    height: 7px;
+                }
+            }
+
             .logout-avatar {
                 border-radius: 50%;
             }
