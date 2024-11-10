@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BootstrapBlazor.Components;
 
@@ -61,8 +62,8 @@ public class Block : BootstrapComponentBase
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
 
-    [Inject]
-    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+    [Inject, NotNull]
+    private IServiceProvider? ServiceProvider { get; set; }
 
     private bool IsShow { get; set; }
 
@@ -92,9 +93,10 @@ public class Block : BootstrapComponentBase
     {
         bool isAuthenticated = false;
         AuthenticationState? state = null;
-        if (AuthenticationStateProvider != null)
+        var provider = ServiceProvider.GetService<AuthenticationStateProvider>();
+        if (provider != null)
         {
-            state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+            state = await provider.GetAuthenticationStateAsync();
         }
         if (state != null)
         {

@@ -45,14 +45,11 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     private Task<AuthenticationState>? AuthenticationState { get; set; }
 
     [Inject]
-    private IAuthorizationPolicyProvider? AuthorizationPolicyProvider { get; set; }
-
-    [Inject]
-    private IAuthorizationService? AuthorizationService { get; set; }
-
-    [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
+
+    [Inject, NotNull]
+    private IServiceProvider? ServiceProvider { get; set; }
 
     private bool Authorized { get; set; }
 
@@ -62,8 +59,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        Authorized = Type == null
-            || await Type.IsAuthorizedAsync(AuthenticationState, AuthorizationPolicyProvider, AuthorizationService, Resource);
+        Authorized = Type == null || await Type.IsAuthorizedAsync(ServiceProvider, AuthenticationState, Resource);
     }
 
     /// <summary>
