@@ -35,12 +35,12 @@ const exitFullscreen = async el => {
 }
 
 const updateFullscreenState = el => {
-    if (!isFullscreen()) {
-        el.classList.remove('bb-fs-open');
-        document.documentElement.classList.remove('bb-fs-open');
+    if (isFullscreen()) {
+        el.classList.add('bb-fs-open')
     }
     else {
-        el.classList.add('bb-fs-open')
+        el.classList.remove('bb-fs-open');
+        document.documentElement.classList.remove('bb-fs-open');
     }
 }
 
