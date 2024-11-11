@@ -709,7 +709,10 @@
     "TreeViewMaxSelectedCountIntro": "Control the maximum number of selectable items by setting the <code>MaxSelectedCount</code> property, and handle the logic through the <code>OnMaxSelectedCountExceed</code> callback",
     "TreeViewMaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up",
     "TreeViewEnableKeyboardArrowUpDownTitle": "Keyboard",
-    "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,"
+    "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,",
+    "TreeViewVirtualizeTitle": "Virtualize",
+    "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
+    "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data."
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
