@@ -14,7 +14,7 @@ export async function toggle(options) {
 
     if (el !== null) {
         if (isFullscreen()) {
-            await document.exitFullscreen()
+            await exitFullscreen(el);
         }
         else {
             await enterFullscreen(el);
@@ -25,12 +25,22 @@ export async function toggle(options) {
 const enterFullscreen = async el => {
     await el.requestFullscreen();
 
-    if (!isFullscreen()) {
-        el.classList.remove('bb-fs-open');
-        document.documentElement.classList.remove('bb-fs-open');
+    updateFullscreenState(el);
+}
+
+const exitFullscreen = async el => {
+    await document.exitFullscreen()
+
+    updateFullscreenState(el);
+}
+
+const updateFullscreenState = el => {
+    if (isFullscreen()) {
+        el.classList.add('bb-fs-open')
     }
     else {
-        el.classList.add('bb-fs-open')
+        el.classList.remove('bb-fs-open');
+        document.documentElement.classList.remove('bb-fs-open');
     }
 }
 
