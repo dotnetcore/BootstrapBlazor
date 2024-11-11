@@ -14,7 +14,9 @@ export function init(id, invoke, method) {
         }
 
         const state = el.getAttribute("data-bb-state");
+        let val = null;
         if (state) {
+            val = state == "1" ? 0 : 1;
             el.removeAttribute('data-bb-state');
 
             if (state === "1") {
@@ -24,7 +26,7 @@ export function init(id, invoke, method) {
                 el.parentElement.classList.add('is-checked');
             }
         }
-        const result = await invoke.invokeMethodAsync(method, state == "1" ? 0 : 1);
+        const result = await invoke.invokeMethodAsync(method, val);
         if (result === false) {
             e.preventDefault();
         }

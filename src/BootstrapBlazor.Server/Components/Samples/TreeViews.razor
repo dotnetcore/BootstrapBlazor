@@ -23,19 +23,6 @@
 <p>@((MarkupString)Localizer["TreeViewsTips11"].Value)</p>
 <p>@((MarkupString)Localizer["TreeViewsTips12"].Value)</p>
 
-<DemoBlock Title="@Localizer["TreeViewVirtualizeTitle"]"
-           Introduction="@Localizer["TreeViewVirtualizeIntro"]"
-           Name="DefaultExpand">
-    <section ignore>
-        @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
-    </section>
-    <div style="height: 400px">
-        <TreeView TItem="TreeFoo" Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
-                  AutoCheckChildren="true" AutoCheckParent="true"
-                  OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["TreeViewNormalTitle"]"
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
@@ -209,6 +196,19 @@
     <section ignore>@_selectedValue</section>
     <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
               EnableKeyboard="true" ClickToggleNode="false" ClickToggleCheck="false" ShowCheckbox="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TreeViewVirtualizeTitle"]"
+           Introduction="@Localizer["TreeViewVirtualizeIntro"]"
+           Name="DefaultExpand">
+    <section ignore>
+        @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+    </section>
+    <div style="height: 400px">
+        <TreeView TItem="TreeFoo" Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+                  AutoCheckChildren="true" AutoCheckParent="true"
+                  OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>

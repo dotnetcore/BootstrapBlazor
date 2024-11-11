@@ -355,6 +355,14 @@ public sealed partial class TreeViews
         },
         new()
         {
+            Name = nameof(TreeView<string>.IsVirtualize),
+            Description = "Virtualize",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = nameof(TreeView<string>.CanExpandWhenDisabled),
             Description = "Whether to expand when the control node is disabled",
             Type = "bool",
