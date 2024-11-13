@@ -39,13 +39,13 @@ public partial class BootstrapInputNumber<TValue>
     /// 获得/设置 数值增加时回调委托
     /// </summary>
     [Parameter]
-    public Func<TValue, Task>? OnIncrement { get; set; }
+    public Func<TValue?, Task>? OnIncrement { get; set; }
 
     /// <summary>
     /// 获得/设置 数值减少时回调委托
     /// </summary>
     [Parameter]
-    public Func<TValue, Task>? OnDecrement { get; set; }
+    public Func<TValue?, Task>? OnDecrement { get; set; }
 
     /// <summary>
     /// 获得/设置 最小值
@@ -161,9 +161,9 @@ public partial class BootstrapInputNumber<TValue>
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected override string? FormatValueAsString(TValue value) => UseInputEvent ? _lastInputValueString : GetFormatString(value);
+    protected override string? FormatValueAsString(TValue? value) => UseInputEvent ? _lastInputValueString : GetFormatString(value);
 
-    private string? GetFormatString(TValue value) => Formatter != null
+    private string? GetFormatString(TValue? value) => Formatter != null
         ? Formatter.Invoke(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
@@ -175,7 +175,7 @@ public partial class BootstrapInputNumber<TValue>
     /// <param name="value"></param>
     /// <returns></returns>
     /// <exception cref="InvalidOperationException"></exception>
-    protected virtual string? InternalFormat(TValue value) => value switch
+    protected virtual string? InternalFormat(TValue? value) => value switch
     {
         null => null,
         int @int => BindConverter.FormatValue(@int, CultureInfo.InvariantCulture),
@@ -288,7 +288,7 @@ public partial class BootstrapInputNumber<TValue>
         }
     }
 
-    private TValue SetMin(TValue val)
+    private TValue? SetMin(TValue? val)
     {
         if (!string.IsNullOrEmpty(Min))
         {
@@ -317,7 +317,7 @@ public partial class BootstrapInputNumber<TValue>
         return val;
     }
 
-    private TValue SetMax(TValue val)
+    private TValue? SetMax(TValue? val)
     {
         if (!string.IsNullOrEmpty(Max))
         {

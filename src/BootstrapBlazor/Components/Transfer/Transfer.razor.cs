@@ -364,7 +364,7 @@ public partial class Transfer<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value) => value == null
+    protected override string? FormatValueAsString(TValue? value) => value == null
         ? null
         : Utility.ConvertValueToString(value);
 

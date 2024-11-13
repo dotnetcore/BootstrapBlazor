@@ -188,7 +188,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value)
+    protected override string? FormatValueAsString(TValue? value)
     {
         string? ret = null;
         if (ValueType == typeof(string))

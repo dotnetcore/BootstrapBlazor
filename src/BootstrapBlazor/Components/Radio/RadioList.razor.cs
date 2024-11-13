@@ -81,7 +81,7 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : value?.ToString();
+    protected override string? FormatValueAsString(TValue? value) => value is SelectedItem v ? v.Value : value?.ToString();
 
     /// <summary>
     /// <inheritdoc/>
