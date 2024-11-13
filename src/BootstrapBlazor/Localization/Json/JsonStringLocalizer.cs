@@ -82,7 +82,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         {
             string? ret = null;
             var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
-            if (localizer != null)
+            if (localizer != null && localizer is not JsonStringLocalizer)
             {
                 ret = GetLocalizerValueFromCache(localizer, name);
             }
@@ -177,7 +177,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         {
             IEnumerable<LocalizedString>? ret = null;
             var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
-            if (localizer != null)
+            if (localizer != null && localizer is not JsonStringLocalizer)
             {
                 ret = localizer.GetAllStrings(includeParentCultures);
             }
