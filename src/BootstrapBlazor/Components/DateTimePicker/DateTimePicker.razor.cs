@@ -355,7 +355,7 @@ public partial class DateTimePicker<TValue>
     /// <summary>
     /// 格式化数值方法
     /// </summary>
-    protected override string FormatValueAsString(TValue value)
+    protected override string FormatValueAsString(TValue? value)
     {
         var ret = "";
         DateTime? d = value switch

@@ -61,7 +61,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// Gets or sets the current value of the input.
     /// </summary>
-    protected TValue CurrentValue
+    protected TValue? CurrentValue
     {
         get => Value;
         set
@@ -150,7 +150,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 获得/设置 Value 改变时回调方法
     /// </summary>
     [Parameter]
-    public Func<TValue, Task>? OnValueChanged { get; set; }
+    public Func<TValue?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 类型转化失败格式化字符串 默认为 null
