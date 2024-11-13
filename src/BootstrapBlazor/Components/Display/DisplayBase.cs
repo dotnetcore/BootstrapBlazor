@@ -48,13 +48,13 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// Gets or sets a callback that updates the bound value.
     /// </summary>
     [Parameter]
-    public EventCallback<TValue> ValueChanged { get; set; }
+    public EventCallback<TValue?> ValueChanged { get; set; }
 
     /// <summary>
     /// Gets or sets an expression that identifies the bound value.
     /// </summary>
     [Parameter]
-    public Expression<Func<TValue>>? ValueExpression { get; set; }
+    public Expression<Func<TValue?>>? ValueExpression { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示前置标签 默认值为 null 为空时默认不显示标签
@@ -164,7 +164,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected virtual string? FormatValueAsString(TValue value)
+    protected virtual string? FormatValueAsString(TValue? value)
     {
         string? ret;
         if (value is SelectedItem item)

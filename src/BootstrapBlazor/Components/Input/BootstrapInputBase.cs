@@ -52,7 +52,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 获得/设置 格式化字符串
     /// </summary>
     [Parameter]
-    public Func<TValue, string>? Formatter { get; set; }
+    public Func<TValue?, string>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -182,7 +182,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value) => Formatter != null
+    protected override string? FormatValueAsString(TValue? value) => Formatter != null
         ? Formatter.Invoke(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
