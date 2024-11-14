@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
@@ -306,6 +307,25 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("Test", result[0].ErrorMessage);
     }
 
+    [Fact]
+    public void ValidateFixEndlessLoop()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddBootstrapBlazor();
+        sc.AddSingleton<IStringLocalizerFactory, MockLocalizerFactory>();
+        sc.AddSingleton<IStringLocalizerFactory, MockLocalizerFactory2>();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+
+        Assert.Equal("姓名", localizer["Name"]);
+
+        var items = localizer.GetAllStrings(false);
+        Assert.Equal("姓名", items.First(i => i.Name == "Name").Value);
+        Assert.DoesNotContain("Test-JsonName", items.Select(i => i.Name));
+    }
+
     private class MockTypeInfo : TypeDelegator
     {
         public override string? FullName => null;
@@ -316,6 +336,37 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         public IStringLocalizer Create(Type resourceSource) => new MockStringLocalizer();
 
         public IStringLocalizer Create(string baseName, string location) => new MockStringLocalizer();
+    }
+
+    private class MockLocalizerFactory2 : IStringLocalizerFactory
+    {
+        private readonly IServiceProvider _serviceProvider;
+
+        public MockLocalizerFactory2(IServiceProvider serviceProvider)
+        {
+            _serviceProvider = serviceProvider;
+        }
+
+        public IStringLocalizer Create(Type resourceSource)
+        {
+            var stringLocalizerFactorys = _serviceProvider.GetServices<IStringLocalizerFactory>();
+            IStringLocalizerFactory stringLocalizerFactory;
+            if (resourceSource == typeof(Foo))
+            {
+                stringLocalizerFactory = stringLocalizerFactorys.Single(s => s.GetType().Name == "JsonStringLocalizerFactory");
+            }
+            else
+            {
+                stringLocalizerFactory = _serviceProvider.GetServices<IStringLocalizerFactory>().Single(s => s is MockLocalizerFactory);
+            }
+            return stringLocalizerFactory.Create(resourceSource);
+        }
+
+        public IStringLocalizer Create(string baseName, string location)
+        {
+            var stringLocalizerFactory = _serviceProvider.GetServices<IStringLocalizerFactory>().Single(s => s is MockLocalizerFactory);
+            return stringLocalizerFactory.Create(baseName, location);
+        }
     }
 
     private class MockStringLocalizer : IStringLocalizer
