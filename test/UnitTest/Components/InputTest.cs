@@ -77,7 +77,7 @@ public class InputTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, foo.Name);
             builder.Add(a => a.UseInputEvent, true);
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v =>
             {
                 foo.Name = v;
             }));
@@ -336,7 +336,7 @@ public class InputTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.Value, foo.Name);
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v =>
             {
                 foo.Name = v;
             }));

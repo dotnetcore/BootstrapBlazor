@@ -233,7 +233,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         }
 
-        protected override string? InternalFormat(string value)
+        protected override string? InternalFormat(string? value)
         {
             return base.InternalFormat(value);
         }
