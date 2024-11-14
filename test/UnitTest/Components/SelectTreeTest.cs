@@ -69,7 +69,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             {
                 c.Add(p => p.Items, BindItems);
                 c.Add(p => p.Value, model.Name);
-                c.Add(p => p.ValueChanged, EventCallback.Factory.Create<string>(this, s => model.Name = s));
+                c.Add(p => p.ValueChanged, EventCallback.Factory.Create<string?>(this, s => model.Name = s));
                 c.Add(p => p.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
             });
         });
@@ -89,7 +89,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             {
                 c.Add(p => p.Items, BindItems);
                 c.Add(p => p.Value, model.Name);
-                c.Add(p => p.ValueChanged, EventCallback.Factory.Create<string>(this, s => model.Name = s));
+                c.Add(p => p.ValueChanged, EventCallback.Factory.Create<string?>(this, s => model.Name = s));
                 c.Add(p => p.ValueExpression, Utility.GenerateValueExpression(model, nameof(model.Name), typeof(string)));
             });
         });
