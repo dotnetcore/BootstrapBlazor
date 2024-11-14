@@ -285,7 +285,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         //Assert.True(input.ClassList.Contains("datetime"));
         //Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
 
-        // timeformat
+        // time format
         //cut.SetParametersAndRender(pb =>
         //{
         //    pb.Add(a => a.TimeFormat, "hhmmss");
@@ -332,7 +332,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTimeRangeValue>(this, v => { value = v; }));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTimeRangeValue?>(this, v => { value = v; }));
         });
         cut.FindAll(".is-confirm").First(s => s.TextContent == "清空").Click();
     }

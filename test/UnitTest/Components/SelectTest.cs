@@ -436,7 +436,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("2", "Text2"),
             });
             pb.Add(a => a.Value, v);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem>(this, i => v = i));
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem?>(this, i => v = i));
         });
         Assert.Equal("2", cut.Instance.Value.Value);
 
@@ -771,7 +771,7 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Value, value);
             pb.Add(a => a.IsVirtualize, true);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem>(this, new Action<SelectedItem>(item =>
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem?>(this, new Action<SelectedItem?>(item =>
             {
                 value = item;
             })));
@@ -812,13 +812,13 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVirtualize_DefaultVirtualizeItemText()
     {
-        string value = "3";
+        string? value = "3";
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
             pb.Add(a => a.IsVirtualize, true);
             pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
             pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, new Action<string>(item =>
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, new Action<string?>(item =>
             {
                 value = item;
             })));

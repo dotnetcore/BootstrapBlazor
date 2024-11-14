@@ -47,7 +47,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
@@ -78,7 +78,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
@@ -105,7 +105,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
@@ -125,7 +125,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
@@ -149,7 +149,7 @@ public class ValidateFormTest : BootstrapBlazorTestBase
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
                 pb.Add(a => a.Value, foo.Name);
-                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
             });
         });
