@@ -99,14 +99,14 @@
     transform: rotate(-90deg);
 }
 
-.menu .text {
+.menu .menu-text {
     overflow: hidden;
     vertical-align: top;
     display: inline-block;
     transition: width .3s linear;
 }
 
-.menu .nav .nav-link .text {
+.menu .nav .nav-link .menu-text {
     margin-left: 4px;
 }
 
@@ -162,7 +162,7 @@
     transform: rotate(-90deg);
 }
 
-.menu .submenu .nav-link .text,
+.menu .submenu .nav-link .menu-text,
 .menu .submenu .nav-link .widget {
     margin: 0 4px;
 }
