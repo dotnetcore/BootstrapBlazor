@@ -24,7 +24,7 @@ public partial class ModalDialog : IHandlerException
         .AddClass("modal-dialog-scrollable", IsScrolling)
         .AddClass("modal-fullscreen", MaximizeStatus)
         .AddClass("is-draggable", IsDraggable)
-        .AddClass("is-draggable-center", IsCentered && IsDraggable)
+        .AddClass("is-draggable-center", IsCentered && IsDraggable && _firstRender)
         .AddClass("d-none", !IsShown)
         .AddClass(Class, !string.IsNullOrEmpty(Class))
         .Build();
@@ -291,6 +291,8 @@ public partial class ModalDialog : IHandlerException
 
     private DialogResult _result = DialogResult.Close;
 
+    private bool _firstRender = true;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -327,6 +329,20 @@ public partial class ModalDialog : IHandlerException
         ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
 
         MaximizeIconString = MaximizeWindowIcon;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            _firstRender = false;
+        }
     }
 
     /// <summary>
