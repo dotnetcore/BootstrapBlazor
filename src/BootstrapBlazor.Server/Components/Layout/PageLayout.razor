@@ -59,18 +59,18 @@
                     </div>
                     <div class="col-6">
                         <Tooltip Title="上下结构">
-                        <div class="layout-item flex-column @(IsFullSide ? "d-flex" : "active d-flex")" @onclick="@(e => IsFullSide = false)">
-                            <div class="layout-top">
-                            </div>
-                            <div class="layout-body d-flex flex-fill">
-                                <div class="layout-left">
+                            <div class="layout-item flex-column @(IsFullSide ? "d-flex" : "active d-flex")" @onclick="@(e => IsFullSide = false)">
+                                <div class="layout-top">
                                 </div>
-                                <div class="layout-right flex-fill">
+                                <div class="layout-body d-flex flex-fill">
+                                    <div class="layout-left">
+                                    </div>
+                                    <div class="layout-right flex-fill">
+                                    </div>
+                                </div>
+                                <div class="layout-footer">
                                 </div>
                             </div>
-                            <div class="layout-footer">
-                            </div>
-                        </div>
                         </Tooltip>
                     </div>
                 </div>
