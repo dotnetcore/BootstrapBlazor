@@ -19,5 +19,9 @@ export function init(id, invoke, options) {
 }
 
 export function dispose(id) {
-    EventHandler.off(el, 'hidden.bs.dropdown');
+    const el = document.getElementById(id);
+    if (el) {
+        EventHandler.off(el, 'shown.bs.dropdown');
+        EventHandler.off(el, 'hidden.bs.dropdown');
+    }
 }
