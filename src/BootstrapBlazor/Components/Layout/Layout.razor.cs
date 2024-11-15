@@ -274,18 +274,6 @@ public partial class Layout : IHandlerException
         .Build();
 
     /// <summary>
-    /// 获得 Main 样式
-    /// </summary>
-    private string? MainClassString => CssBuilder.Default("layout-main")
-        .Build();
-
-    /// <summary>
-    /// 获得 展开收缩 Bar 样式
-    /// </summary>
-    private string? CollapseBarClassString => CssBuilder.Default("layout-header-bar")
-        .Build();
-
-    /// <summary>
     /// 获得/设置 排除地址支持通配符
     /// </summary>
     [Parameter]

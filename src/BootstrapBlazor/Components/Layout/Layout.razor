@@ -98,7 +98,7 @@
         {
             @if (CollapseBarTemplate == null)
             {
-                <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="CollapseMenu">
+                <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="layout-header-bar" @onclick="CollapseMenu">
                     <i class="@MenuBarIcon"></i>
                 </a>
             }
@@ -125,7 +125,7 @@
     </div>;
 
     RenderFragment RenderMain =>
-    @<main class="@MainClassString">
+    @<main class="layout-main">
         @if (UseTabSet)
         {
             <Tab ClickTabToNavigation="ClickTabToNavigation" AdditionalAssemblies="@AdditionalAssemblies"
