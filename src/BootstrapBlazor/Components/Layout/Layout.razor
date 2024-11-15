@@ -10,7 +10,7 @@
             <section @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
                 @if (Side == null)
                 {
-                    if(Header != null)
+                    if (Header != null)
                     {
                         @RenderHeader(false)
                     }
@@ -23,7 +23,7 @@
                 else if (IsFullSide)
                 {
                     <aside class="@SideClassString" style="@SideStyleString">
-                        @if(Side != null)
+                        @if (Side != null)
                         {
                             @Side
                         }
@@ -33,7 +33,7 @@
                         }
                     </aside>
                     <section class="layout-right">
-                        @if(Header != null)
+                        @if (Header != null)
                         {
                             @RenderHeader(ShowCollapseBar)
                         }
