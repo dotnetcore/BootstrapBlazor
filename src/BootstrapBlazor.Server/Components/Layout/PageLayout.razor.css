@@ -190,10 +190,6 @@
         color: #fff;
     }
 
-.layout-drawer-body {
-    padding: 1rem;
-}
-
 .layout-item {
     cursor: pointer;
     border: 2px solid #e9ecef;
