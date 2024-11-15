@@ -61,10 +61,6 @@
             background-color: var(--bb-layout-sidebar-background);
             color: var(--bb-layout-sidebar-color);
 
-            &.is-collapsed {
-                transform: translateX(0);
-            }
-
             .layout-banner {
                 display: flex;
                 align-items: center;
@@ -184,12 +180,6 @@
         }
 
         .layout-footer {
-            &.is-collapsed {
-                display: none;
-            }
-        }
-
-        .layout-footer {
             height: var(--bb-layout-footer-height);
             color: var(--bb-layout-footer-color);
             background-color: var(--bb-layout-footer-background);
@@ -208,6 +198,20 @@
 
     &:not(.has-footer) {
         --bb-layout-footer-height: 0px;
+    }
+
+    &.is-collapsed {
+        .fa-bars {
+            transform: rotate(90deg);
+        }
+
+        .layout-side {
+            transform: translateX(0);
+        }
+
+        .layout-footer {
+            display: none;
+        }
     }
 }
 
@@ -230,10 +234,6 @@
 
     .fa-bars {
         transition: transform .3s linear;
-    }
-
-    &.is-collapsed .fa-bars {
-        transform: rotate(90deg);
     }
 }
 
@@ -265,11 +265,6 @@
 
     .layout.is-page .layout-side {
         width: var(--bb-layout-sidebar-width);
-    }
-
-    .layout.is-page .layout-side.is-collapsed:not(:hover),
-    .layout.is-page .layout-side:not(:hover) .menu.is-vertical.is-collapsed {
-        width: var(--bb-layout-sidebar-collapse-width);
     }
 
     .layout.is-page .layout-side.is-fixed-header {
@@ -314,10 +309,6 @@
         color: var(--bb-layout-title-color);
     }
 
-    .layout.is-page .is-collapsed .layout-title {
-        opacity: 0;
-    }
-
     .layout.is-page.has-sidebar .layout-side {
         min-height: calc(100vh);
     }
@@ -335,11 +326,26 @@
         height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
     }
 
-    .layout.is-page .layout-main.is-collapsed {
-        display: block;
-    }
+    .layout.is-page.is-collapsed {
+        .layout-title {
+            opacity: 0;
+        }
 
-    .layout.is-page .layout-footer.is-collapsed {
-        display: flex;
+        .layout-main {
+            display: block;
+        }
+
+        .layout-footer {
+            display: flex;
+        }
+
+        .layout-side:not(:hover),
+        .layout-side:not(:hover) .menu.is-vertical {
+            width: var(--bb-layout-sidebar-collapse-width);
+        }
+
+        .layout-side:not(:hover) .menu .text {
+            width: 0;
+        }
     }
 }

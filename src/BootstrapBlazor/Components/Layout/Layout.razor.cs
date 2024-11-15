@@ -232,6 +232,7 @@ public partial class Layout : IHandlerException
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("layout")
+        .AddClass("is-collapsed", IsCollapsed)
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("is-page", IsPage)
         .AddClass("has-footer", ShowFooter && Footer != null)
@@ -249,7 +250,6 @@ public partial class Layout : IHandlerException
     /// </summary>
     private string? FooterClassString => CssBuilder.Default("layout-footer")
         .AddClass("is-fixed", IsFixedFooter)
-        .AddClass("is-collapsed", IsCollapsed)
         .Build();
 
     /// <summary>
@@ -263,7 +263,6 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏样式
     /// </summary>
     private string? SideClassString => CssBuilder.Default("layout-side")
-        .AddClass("is-collapsed", IsCollapsed)
         .AddClass("is-fixed-header", IsFixedHeader)
         .AddClass("is-fixed-footer", IsFixedFooter)
         .Build();
@@ -279,14 +278,12 @@ public partial class Layout : IHandlerException
     /// 获得 Main 样式
     /// </summary>
     private string? MainClassString => CssBuilder.Default("layout-main")
-        .AddClass("is-collapsed", IsCollapsed)
         .Build();
 
     /// <summary>
     /// 获得 展开收缩 Bar 样式
     /// </summary>
     private string? CollapseBarClassString => CssBuilder.Default("layout-header-bar")
-        .AddClass("is-collapsed", IsCollapsed)
         .Build();
 
     /// <summary>
