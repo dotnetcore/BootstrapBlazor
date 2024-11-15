@@ -8,8 +8,14 @@
         <Header>
             <span class="ms-3 flex-fill">Bootstrap of Blazor</span>
             <Widget></Widget>
-            <img alt="avatar" src="./images/Argo-C.png" class="layout-avatar-right" />
-            <span class="mx-3 d-none d-sm-block">超级管理员</span>
+            <Logout ImageUrl="images/Argo-C.png" DisplayName="超级管理员" UserName="Admin">
+                <LinkTemplate>
+                    <a href="#"><i class="fa-solid fa-suitcase"></i>个人中心</a>
+                    <a href="#"><i class="fa-solid fa-cog"></i>设置</a>
+                    <a href="#"><i class="fa-solid fa-bell"></i>通知<span class="badge badge-pill badge-success"></span></a>
+                    <LogoutLink />
+                </LinkTemplate>
+            </Logout>
             <div class="layout-drawer" @onclick="@ToggleDrawer"><i class="fa-solid fa-gears"></i></div>
         </Header>
         <Side>
