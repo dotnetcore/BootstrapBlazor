@@ -215,21 +215,23 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         if (IsBoolean)
         {
             CurrentValue = (TValue)(object)(state == CheckboxState.Checked);
-        }
 
-        if (State != state)
-        {
-            State = state;
-            if (StateChanged.HasDelegate)
+            if (ValueChanged.HasDelegate)
             {
-                await StateChanged.InvokeAsync(State);
                 ret = false;
             }
+        }
 
-            if (OnStateChanged != null)
-            {
-                await OnStateChanged(State, Value);
-            }
+        State = state;
+        if (StateChanged.HasDelegate)
+        {
+            await StateChanged.InvokeAsync(State);
+            ret = false;
+        }
+
+        if (OnStateChanged != null)
+        {
+            await OnStateChanged(State, Value);
         }
         return ret;
     }
