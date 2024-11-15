@@ -258,11 +258,6 @@
         height: calc(100vh);
     }
 
-    .layout.is-page :not(.layout-right) .layout-main,
-    .layout.is-page .layout-right {
-        width: calc(100% - var(--bb-layout-sidebar-width));
-    }
-
     .layout.is-page .layout-side {
         width: var(--bb-layout-sidebar-width);
     }
