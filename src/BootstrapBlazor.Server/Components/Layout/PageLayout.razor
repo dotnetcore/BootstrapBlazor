@@ -1,6 +1,10 @@
 ﻿@inherits LayoutComponentBase
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
+<HeadContent>
+    <link href="./css/layout.css" rel="stylesheet" />
+</HeadContent>
+
 <CascadingValue Value="this" IsFixed="true">
     <Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
             ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@Menus"

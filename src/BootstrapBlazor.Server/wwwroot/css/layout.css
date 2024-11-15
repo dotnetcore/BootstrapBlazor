@@ -1,4 +1,9 @@
-﻿.layout-logo {
+﻿.layout {
+    --bb-layout-headerbar-background: var(--bb-primary-color);
+    --bb-layout-logo-bg: var(--bb-primary-color);
+}
+
+.layout-logo {
     border: solid 1px #fff;
 }
 
