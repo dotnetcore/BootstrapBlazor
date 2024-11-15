@@ -166,8 +166,6 @@
         }
 
         .layout-menu {
-            border-right: 1px solid var(--bs-border-color);
-
             .menu {
                 --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
             }
@@ -306,10 +304,10 @@
 
     .layout.is-page.has-sidebar .layout-side {
         min-height: calc(100vh);
-    }
 
-    .layout.is-page .has-sidebar .layout-side {
-        min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
+        .layout-menu {
+            border-right: 1px solid var(--bs-border-color);
+        }
     }
 
     .layout.is-page.has-sidebar .layout-side.is-fixed-header.is-fixed-footer .layout-menu,
