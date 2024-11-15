@@ -10,11 +10,14 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class LayoutPages
 {
-    private IEnumerable<SelectedItem> SideBarItems { get; set; } = new SelectedItem[]
-    {
-            new SelectedItem("left-right", "左右结构"),
-            new SelectedItem("top-bottom", "上下结构")
-    };
+    private List<SelectedItem> SideBarItems { get; } =
+    [
+        new("left-right", "左右结构"),
+        new("top-bottom", "上下结构")
+    ];
+
+    [NotNull]
+    private SelectedItem? ActiveItem { get; set; }
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height * 100}px", Height > 0)
@@ -63,9 +66,9 @@ public sealed partial class LayoutPages
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await base.OnInitializedAsync();
+        base.OnInitialized();
 
         IsFullSide = RootPage.IsFullSide;
         IsFixedHeader = RootPage.IsFixedHeader;
@@ -73,44 +76,67 @@ public sealed partial class LayoutPages
         ShowFooter = RootPage.ShowFooter;
         UseTabSet = RootPage.UseTabSet;
 
-        SideBarItems.ElementAt(IsFullSide ? 0 : 1).Active = true;
+        ActiveItem = IsFullSide ? SideBarItems[0] : SideBarItems[1];
     }
 
-    private Task OnFooterChanged(CheckboxState state, bool val) => UpdateAsync();
-
-    private Task OnTabStateChanged(CheckboxState state, bool val) => UpdateAsync();
-
-    private Task OnHeaderStateChanged(CheckboxState state, bool val) => UpdateAsync();
-
-    private Task OnFooterStateChanged(CheckboxState state, bool val) => UpdateAsync();
-
-    private async Task OnSideChanged(IEnumerable<SelectedItem> values, SelectedItem item)
+    private Task OnFooterChanged(CheckboxState state, bool val)
     {
-        IsFullSide = item.Value == "left-right";
-        await UpdateAsync();
+        ShowFooter = val;
+        Update();
+        return Task.CompletedTask;
     }
 
-    private Task OnUseTabSetChanged(bool val) => UpdateAsync();
+    private Task OnTabStateChanged(CheckboxState state, bool val)
+    {
+        IsFixedTab = val;
+        Update();
+        return Task.CompletedTask;
+    }
+
+    private Task OnHeaderStateChanged(CheckboxState state, bool val)
+    {
+        IsFixedHeader = val;
+        Update();
+        return Task.CompletedTask;
+    }
+
+    private Task OnFooterStateChanged(CheckboxState state, bool val)
+    {
+        IsFixedFooter = val;
+        Update();
+        return Task.CompletedTask;
+    }
+
+    private Task OnSideChanged(IEnumerable<SelectedItem> values, SelectedItem item)
+    {
+        ActiveItem.Active = false;
+        item.Active = true;
+        ActiveItem = item;
+        IsFullSide = item.Value == "left-right";
+        Update();
+        return Task.CompletedTask;
+    }
+
+    private Task OnUseTabSetChanged(bool val)
+    {
+        UseTabSet = val;
+        Update();
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// UpdateAsync 方法
     /// </summary>
     /// <returns></returns>
-    public async Task UpdateAsync()
+    public void Update()
     {
-        var parameters = new Dictionary<string, object?>()
-        {
-            [nameof(RootPage.IsFullSide)] = IsFullSide,
-            [nameof(RootPage.IsFixedFooter)] = IsFixedFooter && ShowFooter,
-            [nameof(RootPage.IsFixedHeader)] = IsFixedHeader,
-            [nameof(RootPage.IsFixedTab)] = IsFixedTab,
-            [nameof(RootPage.ShowFooter)] = ShowFooter,
-            [nameof(RootPage.UseTabSet)] = UseTabSet
-        };
-
-        await RootPage.SetParametersAsync(ParameterView.FromDictionary(parameters));
-
-        // 获得 Razor 示例代码
+        RootPage.IsFullSide = IsFullSide;
+        RootPage.IsFixedFooter = IsFixedFooter && ShowFooter;
+        RootPage.IsFixedHeader = IsFixedHeader;
+        RootPage.IsFixedTab = IsFixedTab;
+        RootPage.ShowFooter = ShowFooter;
+        RootPage.UseTabSet = UseTabSet;
+        StateHasChanged();
         RootPage.Update();
     }
 
