@@ -95,6 +95,27 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Bool_TriggerStateChanged_Ok()
+    {
+        bool value = false;
+        // 测试 bool 值改变值时触发 StateChanged 回调方法
+        var cut = Context.RenderComponent<Checkbox<bool>>(pb =>
+        {
+            pb.Add(a => a.Value, false);
+            pb.Add(a => a.OnStateChanged, (state, v) =>
+            {
+                value = v;
+                return Task.CompletedTask;
+            });
+        });
+
+        // JavaScript 调用 OnTriggerClickAsync 方法
+        await cut.InvokeAsync(() => cut.Instance.OnTriggerClickAsync());
+        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
+        Assert.True(value);
+    }
+
+    [Fact]
     public void Checkbox_Dispose()
     {
         var cut = Context.RenderComponent<Checkbox<string>>();
