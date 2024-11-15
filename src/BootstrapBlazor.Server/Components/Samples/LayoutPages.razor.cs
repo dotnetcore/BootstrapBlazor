@@ -79,7 +79,7 @@ public sealed partial class LayoutPages
         ActiveItem = IsFullSide ? SideBarItems[0] : SideBarItems[1];
     }
 
-    private Task OnFooterChanged(CheckboxState state, bool val)
+    private Task OnFooterChanged(bool val)
     {
         ShowFooter = val;
         Update();
