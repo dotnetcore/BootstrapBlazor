@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
@@ -333,6 +332,8 @@ public partial class Layout : IHandlerException
 
     private bool _init { get; set; }
 
+    private bool _isInteractive = true;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -347,6 +348,10 @@ public partial class Layout : IHandlerException
         }
 
         ErrorLogger?.Register(this);
+
+#if NET9_0_OR_GREATER
+        _isInteractive = RendererInfo.IsInteractive;
+#endif
     }
 
     /// <summary>

@@ -2,6 +2,16 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
+@if (!_isInteractive)
+{
+    <HeadContent>
+        <script type="module">
+            import { layout_init } from './_content/BootstrapBlazor/Components/Layout/Layout.razor.js';
+            layout_init();
+        </script>
+    </HeadContent>
+}
+
 <CascadingValue Value="this" IsFixed="true">
     @if (_init)
     {
