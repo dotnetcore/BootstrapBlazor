@@ -191,12 +191,6 @@
     &:not(.has-footer) {
         --bb-layout-footer-height: 0px;
     }
-
-    &.is-collapsed {
-        .fa-bars {
-            transform: rotate(90deg);
-        }
-    }
 }
 
 .has-sidebar {
@@ -236,6 +230,10 @@
 }
 
 .layout.is-collapsed {
+    .fa-bars {
+        transform: rotate(90deg);
+    }
+
     .layout-side {
         transform: translateX(0);
     }
