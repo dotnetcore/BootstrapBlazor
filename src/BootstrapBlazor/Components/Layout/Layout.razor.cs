@@ -108,8 +108,6 @@ public partial class Layout : IHandlerException
     /// </summary>
     /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
-    [Obsolete("已弃用，直接删除即可；Deprecated Please remove it")]
-    [ExcludeFromCodeCoverage]
     public bool IsPage { get; set; }
 
     /// <summary>
@@ -249,6 +247,7 @@ public partial class Layout : IHandlerException
     private string? StyleString => CssBuilder.Default()
         .AddClass("--bb-layout-header-height: 0px;", Header == null)
         .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
+        .AddClass("--bb-layout-height: 100vh;", IsPage && UseTabSet && IsFixedTabHeader)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
