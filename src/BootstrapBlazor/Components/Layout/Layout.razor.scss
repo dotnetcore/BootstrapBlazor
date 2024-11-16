@@ -258,61 +258,61 @@
 }
 
 @media(min-width: 768px) {
-    .layout-side {
-        position: relative;
-        width: var(--bb-layout-sidebar-width);
-        transform: translateX(0);
-        transition: width .3s linear;
-
-        .layout-menu {
-            border-right: 1px solid var(--bs-border-color);
-        }
-    }
-
-    .layout.has-sidebar {
+    .layout {
         .layout-side {
-            &.is-fixed-header {
-                position: sticky;
-                top: 0;
-                height: 100vh;
+            position: relative;
+            width: var(--bb-layout-sidebar-width);
+            transform: translateX(0);
+            transition: width .3s linear;
+
+            .layout-menu {
+                border-right: 1px solid var(--bs-border-color);
             }
         }
-    }
 
-    .layout.is-collapsed {
-        .layout-side:not(:hover) {
-            --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
-
-            .menu.is-vertical {
-                --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
-            }
-        }
-    }
-
-    .layout-right {
-        display: flex;
-        flex-flow: column;
-        flex: 1;
-    }
-
-    .layout.is-collapsed {
-        .layout-main {
-            display: block;
-        }
-
-        .layout-footer {
+        .layout-right {
             display: flex;
+            flex-flow: column;
+            flex: 1;
         }
 
-        .layout-title,
-        .menu.is-vertical .menu-text {
-            opacity: 0;
+        &.has-sidebar {
+            .layout-side {
+                &.is-fixed-header {
+                    position: sticky;
+                    top: 0;
+                    height: 100vh;
+                }
+            }
         }
 
-        .layout-side:hover {
+        &.is-collapsed {
+            .layout-side:not(:hover) {
+                --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+
+                .menu.is-vertical {
+                    --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+                }
+            }
+
+            .layout-main {
+                display: block;
+            }
+
+            .layout-footer {
+                display: flex;
+            }
+
             .layout-title,
             .menu.is-vertical .menu-text {
-                opacity: 1;
+                opacity: 0;
+            }
+
+            .layout-side:hover {
+                .layout-title,
+                .menu.is-vertical .menu-text {
+                    opacity: 1;
+                }
             }
         }
     }
