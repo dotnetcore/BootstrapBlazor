@@ -36,157 +36,157 @@
 
 <h4>@Localizer["LayoutsDemosTitle"]</h4>
 
-<div>
-    <DemoBlock Title="@Localizer["LayoutsUpAndDownTitle"]"
-               Introduction="@Localizer["LayoutsUpAndDownIntro"]"
-               Name="UpAndDown">
+<DemoBlock Title="@Localizer["LayoutsUpAndDownTitle"]"
+           Introduction="@Localizer["LayoutsUpAndDownIntro"]"
+           Name="UpAndDown">
+    <div>
         <Layout ShowFooter="true">
             <Header>
-                <div class="text-center header">Header</div>
+                <div>Header</div>
             </Header>
             <Main>
-                <div class="text-center main">Main</div>
+                <div>Main</div>
             </Main>
             <Footer>
-                <div class="text-center footer">Footer</div>
+                <div>Footer</div>
             </Footer>
         </Layout>
-    </DemoBlock>
+    </div>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["LayoutsMiddleLeftRightTitle"]"
-               Introduction="@Localizer["LayoutsMiddleLeftRightIntro"]"
-               Name="MiddleLeftRight">
+<DemoBlock Title="@Localizer["LayoutsMiddleLeftRightTitle"]"
+           Introduction="@Localizer["LayoutsMiddleLeftRightIntro"]"
+           Name="MiddleLeftRight">
+    <div>
         <Layout ShowFooter="true">
             <Header>
-                <div class="text-center header">Header</div>
+                <div>Header</div>
             </Header>
             <Side>
-                <div class="text-center side">Side</div>
+                <div>Side</div>
             </Side>
             <Main>
-                <div class="text-center main">Main</div>
+                <div>Main</div>
             </Main>
             <Footer>
-                <div class="text-center footer">Footer</div>
+                <div>Footer</div>
             </Footer>
         </Layout>
-    </DemoBlock>
+    </div>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["LayoutsLeftRightTitle"]"
-               Introduction="@Localizer["LayoutsLeftRightIntro"]"
-               Name="LeftRight">
+<DemoBlock Title="@Localizer["LayoutsLeftRightTitle"]"
+           Introduction="@Localizer["LayoutsLeftRightIntro"]"
+           Name="LeftRight">
+    <div>
         <Layout ShowFooter="true" IsFullSide="true">
             <Header>
-                <div class="text-center header">Header</div>
+                <div>Header</div>
             </Header>
             <Side>
-                <div class="text-center side">Side</div>
+                <div>Side</div>
             </Side>
             <Main>
-                <div class="text-center main">Main</div>
+                <div>Main</div>
             </Main>
             <Footer>
-                <div class="text-center footer">Footer</div>
+                <div>Footer</div>
             </Footer>
         </Layout>
-    </DemoBlock>
+    </div>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["LayoutsCustomPercentTitle"]"
-               Introduction="@Localizer["LayoutsCustomPercentIntro"]"
-               Name="CuntomPercent">
+<DemoBlock Title="@Localizer["LayoutsCustomPercentTitle"]"
+           Introduction="@Localizer["LayoutsCustomPercentIntro"]"
+           Name="CustomPercent">
+    <div>
         <Layout ShowFooter="true" SideWidth="200">
             <Header>
-                <div class="text-center header">Header</div>
+                <div>Header</div>
             </Header>
             <Side>
-                <div class="text-center side">Side</div>
+                <div>Side</div>
             </Side>
             <Main>
-                <div class="text-center main">Main</div>
+                <div>Main</div>
             </Main>
             <Footer>
-                <div class="text-center footer">Footer</div>
+                <div>Footer</div>
             </Footer>
         </Layout>
-    </DemoBlock>
+    </div>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["LayoutsAppTitle"]"
-               Introduction="@Localizer["LayoutsAppIntro"]"
-               Name="App">
-        <div>@Localizer["LayoutsAppTips1"]</div>
-        <ul class="mt-2">
-            <li>
-                <div>@Localizer["LayoutsAppTips2"]</div>
-            </li>
-            <li>
-                <div>@Localizer["LayoutsAppTips3"]</div>
-            </li>
-        </ul>
-        <div>@Localizer["LayoutsAppTips4"]</div>
-        <p>
-            @((MarkupString)Localizer["LayoutsAppTips5"].Value)
-        </p>
-        <p>
-            @Localizer["LayoutsAppTips6"]
-        </p>
-        <Tips>
-            @((MarkupString)Localizer["LayoutsAppTips7"].Value)
-        </Tips>
-        <div class="layout-demo layout-demo1">
-            <Layout ShowFooter="true" SideWidth="160px">
-                <Header>
-                    <div class="d-flex justify-content-center align-items-center header">Header</div>
-                </Header>
-                <Side>
-                    <div style="position: absolute; top: 0; left:0; right: 0; bottom: 0; overflow: auto; border-right: 1px solid rgba(0,0,0,.125); padding: 6px 0;">
-                        <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true"></Menu>
-                    </div>
-                </Side>
-                <Main>
-                    <div style="padding: 1rem;">Main</div>
-                </Main>
-                <Footer>
-                    <div class="d-flex justify-content-center align-items-center footer">Footer</div>
-                </Footer>
-            </Layout>
-        </div>
-        <p class="mt-3">
-            @Localizer["LayoutsAppTips8"]
-        </p>
-        <div class="layout-demo layout-demo2">
-            <Layout ShowFooter="true" SideWidth="160px">
-                <Header>
-                    <div class="d-flex justify-content-center align-items-center header">Header</div>
-                </Header>
-                <Side>
-                    <div style="border-right: 1px solid rgba(0,0,0,.125); padding: 6px 0;">
-                        <Menu Items="@IconSideMenuItems" DisableNavigation="true" IsVertical="true"></Menu>
-                    </div>
-                </Side>
-                <Main>
-                    <div style="padding: 1rem;">Main</div>
-                </Main>
-                <Footer>
-                    <div class="d-flex justify-content-center align-items-center footer">Footer</div>
-                </Footer>
-            </Layout>
-        </div>
-        <p class="mt-3">
-            @((MarkupString)Localizer["LayoutsAppTips9"].Value)
-        </p>
-    </DemoBlock>
+<DemoBlock Title="@Localizer["LayoutsAppTitle"]"
+           Introduction="@Localizer["LayoutsAppIntro"]"
+           Name="App">
+    <div>@Localizer["LayoutsAppTips1"]</div>
+    <ul class="mt-2">
+        <li>
+            <div>@Localizer["LayoutsAppTips2"]</div>
+        </li>
+        <li>
+            <div>@Localizer["LayoutsAppTips3"]</div>
+        </li>
+    </ul>
+    <div>@Localizer["LayoutsAppTips4"]</div>
+    <p>
+        @((MarkupString)Localizer["LayoutsAppTips5"].Value)
+    </p>
+    <p>
+        @Localizer["LayoutsAppTips6"]
+    </p>
+    <Tips>
+        @((MarkupString)Localizer["LayoutsAppTips7"].Value)
+    </Tips>
+    <div class="layout-demo1">
+        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems1">
+            <Header>
+                <div>Header</div>
+            </Header>
+            <Side>
+            </Side>
+            <Main>
+                <div>Main</div>
+            </Main>
+            <Footer>
+                <div>Footer</div>
+            </Footer>
+        </Layout>
+    </div>
+    <p class="mt-3">
+        @Localizer["LayoutsAppTips8"]
+    </p>
+    <div class="layout-demo2">
+        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems2">
+            <Header>
+                <div>Header</div>
+            </Header>
+            <Side>
+            </Side>
+            <Main>
+                <div>Main</div>
+            </Main>
+            <Footer>
+                <div>Footer</div>
+            </Footer>
+        </Layout>
+    </div>
+    <p class="mt-3">
+        @((MarkupString)Localizer["LayoutsAppTips9"].Value)
+    </p>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["LayoutsPageTitle"]"
-               Introduction="@Localizer["LayoutsPageIntro"]"
-               Name="Page">
-        <Tips>@((MarkupString)Localizer["LayoutsPageTips1"].Value)</Tips>
+<DemoBlock Title="@Localizer["LayoutsPageTitle"]"
+           Introduction="@Localizer["LayoutsPageIntro"]"
+           Name="Page">
+    <Tips>@((MarkupString)Localizer["LayoutsPageTips1"].Value)</Tips>
 
-        <ul class="page-layout-demo-list">
-            <li>
-                <a href="layout-page" target="_blank">@Localizer["LayoutsPageHrefTitle"]</a>
-            </li>
-        </ul>
-    </DemoBlock>
-</div>
+    <ul class="page-layout-demo-list">
+        <li>
+            <a href="layout-page" target="_blank">@Localizer["LayoutsPageHrefTitle"]</a>
+        </li>
+    </ul>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

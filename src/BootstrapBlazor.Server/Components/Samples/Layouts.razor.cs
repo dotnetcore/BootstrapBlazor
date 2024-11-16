@@ -10,7 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Layouts
 {
-    private IEnumerable<MenuItem>? IconSideMenuItems { get; set; }
+    private List<MenuItem>? IconSideMenuItems1 { get; set; }
+
+    private List<MenuItem>? IconSideMenuItems2 { get; set; }
 
     /// <summary>
     /// OnInitializedAsync 方法
@@ -20,7 +22,8 @@ public sealed partial class Layouts
     {
         await base.OnInitializedAsync();
 
-        IconSideMenuItems = await MenusDataGenerator.GetIconSideMenuItemsAsync(LocalizerMenu);
+        IconSideMenuItems1 = await MenusDataGenerator.GetIconSideMenuItemsAsync(LocalizerMenu);
+        IconSideMenuItems2 = await MenusDataGenerator.GetIconSideMenuItemsAsync(LocalizerMenu);
     }
 
     private AttributeItem[] GetAttributes() =>
