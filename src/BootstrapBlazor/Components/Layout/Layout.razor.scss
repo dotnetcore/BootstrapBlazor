@@ -287,11 +287,20 @@
         }
 
         &.is-collapsed {
-            .layout-side:not(:hover) {
-                --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
-
-                .menu.is-vertical {
+            .layout-side {
+                &:not(:hover) {
                     --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+
+                    .menu.is-vertical {
+                        --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+                    }
+                }
+
+                &:hover {
+                    .layout-title,
+                    .menu.is-vertical .menu-text {
+                        opacity: 1;
+                    }
                 }
             }
 
@@ -306,13 +315,6 @@
             .layout-title,
             .menu.is-vertical .menu-text {
                 opacity: 0;
-            }
-
-            .layout-side:hover {
-                .layout-title,
-                .menu.is-vertical .menu-text {
-                    opacity: 1;
-                }
             }
         }
     }
