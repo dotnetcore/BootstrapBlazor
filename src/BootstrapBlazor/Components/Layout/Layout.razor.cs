@@ -235,6 +235,7 @@ public partial class Layout : IHandlerException
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
+        .AddClass("is-collapsed", IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -442,13 +443,8 @@ public partial class Layout : IHandlerException
         }
     }
 
-    /// <summary>
-    /// 点击 收缩展开按钮时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private async Task CollapseMenu()
+    private async Task TriggerCollapseChanged()
     {
-        IsCollapsed = !IsCollapsed;
         if (IsCollapsedChanged.HasDelegate)
         {
             await IsCollapsedChanged.InvokeAsync(IsCollapsed);
@@ -469,7 +465,8 @@ public partial class Layout : IHandlerException
         // 小屏幕时生效
         if (IsSmallScreen && !item.Items.Any())
         {
-            await CollapseMenu();
+            IsCollapsed = false;
+            await TriggerCollapseChanged();
         }
 
         if (OnClickMenu != null)
@@ -477,6 +474,11 @@ public partial class Layout : IHandlerException
             await OnClickMenu(item);
         }
     };
+
+    private void ToggleSidebar()
+    {
+        IsCollapsed = !IsCollapsed;
+    }
 
     /// <summary>
     /// 上次渲染错误内容

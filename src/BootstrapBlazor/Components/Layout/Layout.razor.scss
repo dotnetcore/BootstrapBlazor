@@ -171,6 +171,7 @@
             background-color: var(--bb-layout-headerbar-background);
             border: var(--bs-border-width) solid var(--bb-layout-headerbar-border-color);
             border-radius: var(--bs-border-radius);
+            cursor: pointer;
 
             .fa-bars {
                 transition: transform .3s linear;

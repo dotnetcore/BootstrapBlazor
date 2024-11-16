@@ -88,9 +88,9 @@
         {
             @if (CollapseBarTemplate == null)
             {
-                <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="layout-header-bar">
+                <div data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="layout-header-bar" @onclick="ToggleSidebar">
                     <i class="@MenuBarIcon"></i>
-                </a>
+                </div>
             }
             else
             {
