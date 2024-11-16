@@ -121,13 +121,28 @@ export function init(id) {
     }
 
     if (el.classList.contains('is-draggable-center')) {
-        const width = el.offsetWidth / 2;
-        const height = el.offsetHeight / 2;
+        const check = () => {
+            if (el.offsetWidth > 0) {
+                clearInterval(dialog.handler);
+                delete dialog.handler;
 
-        el.style.setProperty("margin-left", `calc(50vw - ${width}px)`);
-        el.style.setProperty("margin-top", `calc(50vh - ${height}px)`);
-        el.classList.remove('is-draggable-center');
+                update(el);
+            }
+            else {
+                requestAnimationFrame(check);
+            }
+        }
+        requestAnimationFrame(check);
     }
+}
+
+const update = el => {
+    const width = el.offsetWidth / 2;
+    const height = el.offsetHeight / 2;
+
+    el.style.setProperty("margin-left", `calc(50vw - ${width}px)`);
+    el.style.setProperty("margin-top", `calc(50vh - ${height}px)`);
+    el.classList.remove('is-draggable-center');
 }
 
 export function dispose(id) {
