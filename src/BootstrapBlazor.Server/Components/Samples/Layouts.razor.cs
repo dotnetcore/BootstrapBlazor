@@ -137,6 +137,14 @@ public sealed partial class Layouts
         },
         new()
         {
+            Name = nameof(BootstrapBlazor.Components.Layout.IsFixedTabHeader),
+            Description = Localizer["Layouts_IsFixedTabHeader_Description"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "AdditionalAssemblies",
             Description =  Localizer["Layouts_AdditionalAssemblies_Description"],
             Type = "IEnumerable<Assembly>",

@@ -108,8 +108,6 @@ public partial class Layout : IHandlerException
     /// </summary>
     /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
-    [Obsolete("已弃用，直接删除即可；Deprecated Please remove it")]
-    [ExcludeFromCodeCoverage]
     public bool IsPage { get; set; }
 
     /// <summary>
@@ -123,6 +121,12 @@ public partial class Layout : IHandlerException
     /// </summary>
     [Parameter]
     public bool UseTabSet { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定多标签 Header 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedTabHeader { get; set; }
 
     /// <summary>
     /// 获得/设置 是否仅渲染 Active 标签
@@ -236,12 +240,14 @@ public partial class Layout : IHandlerException
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClass("is-collapsed", IsCollapsed)
+        .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
         .AddClass("--bb-layout-header-height: 0px;", Header == null)
         .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
+        .AddClass("--bb-layout-height: 100vh;", IsPage && UseTabSet && IsFixedTabHeader)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 

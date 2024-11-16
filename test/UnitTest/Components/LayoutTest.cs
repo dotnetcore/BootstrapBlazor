@@ -50,6 +50,31 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsFixedTabHeader_OK()
+    {
+        var cut = Context.RenderComponent<Layout>();
+        Assert.DoesNotContain("is-fixed-tab", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsFixedTabHeader, true));
+        Assert.DoesNotContain("is-fixed-tab", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.UseTabSet, true));
+        Assert.Contains("is-fixed-tab", cut.Markup);
+    }
+
+    [Fact]
+    public void IsPage_OK()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.IsPage, true);
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.IsFixedTabHeader, true);
+        });
+        Assert.Contains("--bb-layout-height: 100vh;", cut.Markup);
+    }
+
+    [Fact]
     public void IsCollapsed_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>

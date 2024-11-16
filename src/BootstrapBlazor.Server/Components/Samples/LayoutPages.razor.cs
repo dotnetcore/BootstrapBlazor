@@ -31,14 +31,14 @@ public sealed partial class LayoutPages
     private bool ShowFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否固定 TabHeader
-    /// </summary>
-    private bool IsFixedTab { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否固定 Header
     /// </summary>
     private bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定标签页 Header
+    /// </summary>
+    private bool IsFixedTabHeader { get; set; }
 
     /// <summary>
     /// 获得/设置 是否固定页脚
@@ -75,6 +75,7 @@ public sealed partial class LayoutPages
         IsFixedFooter = RootPage.IsFixedFooter;
         ShowFooter = RootPage.ShowFooter;
         UseTabSet = RootPage.UseTabSet;
+        IsFixedTabHeader = RootPage.IsFixedTabHeader;
 
         ActiveItem = IsFullSide ? SideBarItems[0] : SideBarItems[1];
     }
@@ -88,7 +89,7 @@ public sealed partial class LayoutPages
 
     private Task OnTabStateChanged(CheckboxState state, bool val)
     {
-        IsFixedTab = val;
+        IsFixedTabHeader = val;
         Update();
         return Task.CompletedTask;
     }
@@ -133,7 +134,7 @@ public sealed partial class LayoutPages
         RootPage.IsFullSide = IsFullSide;
         RootPage.IsFixedFooter = IsFixedFooter && ShowFooter;
         RootPage.IsFixedHeader = IsFixedHeader;
-        RootPage.IsFixedTab = IsFixedTab;
+        RootPage.IsFixedTabHeader = IsFixedTabHeader;
         RootPage.ShowFooter = ShowFooter;
         RootPage.UseTabSet = UseTabSet;
         StateHasChanged();

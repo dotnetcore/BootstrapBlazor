@@ -1474,6 +1474,7 @@
     "Layouts_ShowFooter_Description": "Whether to show Footer template",
     "Layouts_ShowGotoTop_Description": "Whether to display the back to top button",
     "Layouts_UseTabSet_Description": "Whether to open multi-label mode",
+    "Layouts_IsFixedTabHeader_Description": "Whether to fix the Header of Tabset",
     "Layouts_AdditionalAssemblies_Description": "Collection of additional programs, passed to the Tab component for use",
     "Layouts_OnCollapsed_Description": "Contract expand callback delegate",
     "Layouts_OnClickMenu_Description": "Call back the delegate when the menu item is clicked",

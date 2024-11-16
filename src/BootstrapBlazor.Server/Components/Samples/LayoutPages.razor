@@ -36,9 +36,9 @@
 
     <div class="page-layout-demo-option">
         <p>@Localizer["P20"]</p>
-        <Checkbox Value="@IsFixedTab" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
-        <Checkbox Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
-        <Checkbox Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
+        <Checkbox Value="@IsFixedTabHeader" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
+        <Checkbox Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTabHeader" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
+        <Checkbox Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTabHeader" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
     </div>
 
     <div class="page-layout-demo-option">
@@ -60,7 +60,7 @@
         <div class="page-layout-demo-option">
             <p>@Localizer["P29"]</p>
             <div>@Localizer["P30"] <b><TabLink Text="@Localizer["P31"]" Url="layout-page1" Icon="fa-solid fa-font-awesome">@Localizer["P32"]</TabLink></b> @Localizer["P33"]</div>
-            <div class="mt-2">@Localizer["P34"] <Button Text="@Localizer["P35"]" Icon="fa-solid fa-font-awesome" OnClickWithoutRender="OnNavigation" /></div>
+            <div class="mt-2">@Localizer["P34"] <Button Text="@Localizer["P35"]" Icon="fa-solid fa-font-awesome" OnClickWithoutRender="OnNavigation" TooltipText="Tooltip" TooltipTrigger="hover" /></div>
         </div>
     }
 </div>

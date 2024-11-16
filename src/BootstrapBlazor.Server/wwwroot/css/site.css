@@ -70,24 +70,8 @@ h3, h4, h5 {
     }
 
 .layout {
-    --bb-footer-height: 0px;
     --bb-layout-menu-item-hover-bg: var(--bb-primary-color);
 }
-
-    .layout.has-footer {
-        --bb-footer-height: 40px;
-    }
-
-.is-fixed-tab .tabs-body {
-    height: calc(100vh - var(--bb-layout-header-height) - var(--bb-tabs-item-height) - var(--bb-footer-height));
-    overflow: auto;
-    flex: initial;
-}
-
-    .is-fixed-tab .tabs-body .tabs-body-content {
-        height: auto;
-        min-height: 100%;
-    }
 
 .bb-sub {
     margin-top: .25rem;
