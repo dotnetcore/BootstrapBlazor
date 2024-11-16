@@ -319,10 +319,6 @@
     }
 
     .layout.is-collapsed {
-        .layout-title {
-            opacity: 0;
-        }
-
         .layout-main {
             display: block;
         }
@@ -334,6 +330,11 @@
         .layout-side:not(:hover),
         .layout-side:not(:hover) .menu.is-vertical {
             --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
+        }
+
+        .layout-title,
+        .menu.is-vertical .menu-text {
+            opacity: 0;
         }
 
         .layout-side:hover {

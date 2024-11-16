@@ -202,9 +202,3 @@
 .menu.is-bottom .dropdown-menu-arrow:after {
     content: none;
 }
-
-@media (min-width: 768px) {
-    .is-collapsed .menu .menu-text {
-        opacity: 0;
-    }
-}
