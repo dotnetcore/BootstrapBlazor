@@ -16,7 +16,6 @@ public partial class Menu
     protected string? ClassString => CssBuilder.Default("menu")
         .AddClass("is-bottom", IsBottom)
         .AddClass("is-vertical", IsVertical)
-        .AddClass("is-collapsed", IsVertical && IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
