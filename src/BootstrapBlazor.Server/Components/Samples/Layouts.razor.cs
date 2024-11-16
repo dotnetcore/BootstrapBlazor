@@ -76,6 +76,14 @@ public sealed partial class Layouts
             ValueList = " — ",
             DefaultValue = " — "
         },
+        new()
+        {
+            Name = "IsPage",
+            Description = Localizer["Layouts_IsPage_Description"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
         new() {
             Name = "IsFullSide",
             Description = Localizer["Layouts_IsFullSide_Description"],
