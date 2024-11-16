@@ -169,7 +169,7 @@
             border-top: 1px solid var(--bs-border-color);
 
             &.is-fixed {
-                z-index: 1020;
+                z-index: 1035;
                 position: sticky;
                 bottom: 0;
             }
@@ -281,23 +281,6 @@
     color: var(--bb-layout-sidebar-color);
     transition: transform .3s linear;
     transform: translateX(-100%);
-}
-
-/*left-right*/
-.layout.is-page.has-sidebar {
-    .layout-side {
-    }
-}
-
-/*top-bottom*/
-.layout.is-page {
-    .has-sidebar {
-        .layout-side {
-        }
-    }
-}
-
-.is-page .layout-side {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -306,49 +289,31 @@
     z-index: 1030;
 }
 
-.is-page.is-collapsed .layout-side {
+.is-collapsed .layout-side {
     transform: translateX(0);
 }
 
 @media(min-width: 768px) {
     .layout-side {
+        position: relative;
+        width: var(--bb-layout-sidebar-width);
+        transform: translateX(0);
         transition: width .3s linear;
     }
 
-    /*left-right*/
     .layout.has-sidebar {
         &.is-collapsed {
             .layout-side:not(:hover) {
                 --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
             }
         }
-    }
 
-    /*top-bottom*/
-    .layout {
-        .has-sidebar {
+        .layout-side {
+            &.is-fixed-header {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+            }
         }
-    }
-
-
-    .is-page .layout-side {
-        position: relative;
-        width: var(--bb-layout-sidebar-width);
-        transform: translateX(0);
-    }
-
-    .is-page .layout-side.is-fixed-header {
-        position: sticky;
-        top: var(--bb-layout-header-height);
-        height: calc(100vh - var(--bb-layout-header-height));
-    }
-
-    .is-page.has-sidebar .layout-side.is-fixed-header {
-        top: 0;
-        height: calc(100vh);
-    }
-
-    .is-page .layout-side.is-fixed-header.is-fixed-footer {
-        height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
     }
 }
