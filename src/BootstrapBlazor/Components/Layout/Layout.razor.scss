@@ -161,93 +161,91 @@
         }
     }
 
-    &.is-page {
-        .has-sidebar {
-            .layout-banner {
-                display: none;
-            }
-
-            .layout-main {
-                width: 100%;
-            }
-        }
-
-        .layout-right {
-            width: 100%;
-        }
-
-        &.is-fixed {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
-
-        .layout-header {
-            background-color: var(--bb-layout-header-background);
-            height: var(--bb-layout-header-height);
-            color: var(--bb-layout-header-color);
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-            position: sticky;
-            z-index: 1035;
-            border-bottom: 1px solid var(--bb-layout-header-border-color);
-
-            &.is-fixed {
-                top: 0;
-            }
-
-            .widget {
-                --bb-widget-toggle-color: var(--bb-layout-header-color);
-
-                .progress {
-                    height: 7px;
-                }
-            }
-
-            .logout-avatar {
-                border-radius: 50%;
-            }
-
-            .dropdown-logout {
-                --bb-logout-text-color: var(--bb-layout-header-color);
-                --bb-logout-user-bg: var(--bb-layout-menu-user-banner-background);
-                --bb-logout-menu-border-color: var(--bb-layout-menu-user-border-color);
-
-                .dropdown-user img {
-                    border-radius: 50%;
-                }
-            }
-        }
-
-        .layout-menu {
-            .menu {
-                --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
-            }
+    .has-sidebar {
+        .layout-banner {
+            display: none;
         }
 
         .layout-main {
-            padding: 1rem;
-            position: relative;
-            min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
+            width: 100%;
+        }
+    }
+
+    .layout-right {
+        width: 100%;
+    }
+
+    &.is-fixed {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .layout-header {
+        background-color: var(--bb-layout-header-background);
+        height: var(--bb-layout-header-height);
+        color: var(--bb-layout-header-color);
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        position: sticky;
+        z-index: 1035;
+        border-bottom: 1px solid var(--bb-layout-header-border-color);
+
+        &.is-fixed {
+            top: 0;
         }
 
-        .layout-footer {
-            height: var(--bb-layout-footer-height);
-            color: var(--bb-layout-footer-color);
-            background-color: var(--bb-layout-footer-background);
-            display: flex;
-            align-items: center;
-            padding: 0 1rem;
-            border-top: 1px solid var(--bs-border-color);
+        .widget {
+            --bb-widget-toggle-color: var(--bb-layout-header-color);
 
-            &.is-fixed {
-                z-index: 1035;
-                position: sticky;
-                bottom: 0;
+            .progress {
+                height: 7px;
             }
+        }
+
+        .logout-avatar {
+            border-radius: 50%;
+        }
+
+        .dropdown-logout {
+            --bb-logout-text-color: var(--bb-layout-header-color);
+            --bb-logout-user-bg: var(--bb-layout-menu-user-banner-background);
+            --bb-logout-menu-border-color: var(--bb-layout-menu-user-border-color);
+
+            .dropdown-user img {
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .layout-menu {
+        .menu {
+            --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
+        }
+    }
+
+    .layout-main {
+        padding: 1rem;
+        position: relative;
+        min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
+    }
+
+    .layout-footer {
+        height: var(--bb-layout-footer-height);
+        color: var(--bb-layout-footer-color);
+        background-color: var(--bb-layout-footer-background);
+        display: flex;
+        align-items: center;
+        padding: 0 1rem;
+        border-top: 1px solid var(--bs-border-color);
+
+        &.is-fixed {
+            z-index: 1035;
+            position: sticky;
+            bottom: 0;
         }
     }
 }

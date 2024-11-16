@@ -108,6 +108,8 @@ public partial class Layout : IHandlerException
     /// </summary>
     /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
+    [Obsolete("已弃用，直接删除即可；Deprecated Please remove it")]
+    [ExcludeFromCodeCoverage]
     public bool IsPage { get; set; }
 
     /// <summary>
@@ -233,7 +235,6 @@ public partial class Layout : IHandlerException
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("is-collapsed", IsCollapsed)
         .AddClass("has-sidebar", Side != null && IsFullSide)
-        .AddClass("is-page", IsPage)
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

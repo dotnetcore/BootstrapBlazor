@@ -100,19 +100,6 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsPage_OK()
-    {
-        var cut = Context.RenderComponent<Layout>(pb =>
-        {
-            pb.Add(a => a.IsPage, true);
-        });
-        Assert.Contains("is-page", cut.Markup);
-
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsPage, false));
-        cut.WaitForAssertion(() => Assert.DoesNotContain("is-page", cut.Markup));
-    }
-
-    [Fact]
     public void IsFullSide_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
