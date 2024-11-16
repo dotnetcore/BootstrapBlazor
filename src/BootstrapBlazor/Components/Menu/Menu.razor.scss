@@ -180,12 +180,6 @@
     background-image: none;
 }
 
-@media (min-width: 768px) {
-    .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
-        width: 0;
-    }
-}
-
 .menu.is-bottom {
     position: absolute;
     bottom: 0;
@@ -207,10 +201,4 @@
 .menu.is-bottom > .nav > li:after,
 .menu.is-bottom .dropdown-menu-arrow:after {
     content: none;
-}
-
-@media (min-width: 768px) {
-    .is-collapsed .menu .menu-text {
-        opacity: 0;
-    }
 }
