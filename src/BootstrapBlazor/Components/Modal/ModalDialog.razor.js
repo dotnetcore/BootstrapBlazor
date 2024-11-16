@@ -123,9 +123,6 @@ export function init(id) {
     if (el.classList.contains('is-draggable-center')) {
         const check = () => {
             if (el.offsetWidth > 0) {
-                clearInterval(dialog.handler);
-                delete dialog.handler;
-
                 update(el);
             }
             else {
