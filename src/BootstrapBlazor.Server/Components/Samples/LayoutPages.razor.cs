@@ -75,7 +75,7 @@ public sealed partial class LayoutPages
         IsFixedFooter = RootPage.IsFixedFooter;
         ShowFooter = RootPage.ShowFooter;
         UseTabSet = RootPage.UseTabSet;
-        IsFixedTabHeader = RootPage.IsFixedHeader;
+        IsFixedTabHeader = RootPage.IsFixedTabHeader;
 
         ActiveItem = IsFullSide ? SideBarItems[0] : SideBarItems[1];
     }
