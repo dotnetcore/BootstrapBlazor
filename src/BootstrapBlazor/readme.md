@@ -28,7 +28,7 @@
 ## Installation Guide
 
 - Install .net core sdk [Official website](https://dotnet.microsoft.com/download?wt.mc_id=DT-MVP-5004174)
-- Install Visual Studio 2019 lastest [Official website](https://visualstudio.microsoft.com/vs/getting-started?wt.mc_id=DT-MVP-5004174)
+- Install Visual Studio latest [Official website](https://visualstudio.microsoft.com/vs/getting-started?wt.mc_id=DT-MVP-5004174)
 
 ```shell
 git clone https://github.com/dotnetcore/BootstrapBlazor.git
