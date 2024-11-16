@@ -294,6 +294,12 @@
     z-index: 1036;
 }
 
+.has-sidebar {
+    .layout-side {
+        z-index: 1030;
+    }
+}
+
 .is-collapsed .layout-side {
     transform: translateX(0);
 }
