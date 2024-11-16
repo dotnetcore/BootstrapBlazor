@@ -233,7 +233,6 @@ public partial class Layout : IHandlerException
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("layout")
-        .AddClass("is-collapsed", IsCollapsed)
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -271,7 +270,7 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏 Style 字符串
     /// </summary>
     private string? SideStyleString => CssBuilder.Default()
-        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !IsCollapsed && !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
+        .AddClass($"--bb-layout-sidebar-width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
         .Build();
 
     /// <summary>
@@ -386,8 +385,6 @@ public partial class Layout : IHandlerException
         base.OnParametersSet();
 
         TooltipText ??= Localizer[nameof(TooltipText)];
-        SideWidth ??= "300";
-
         MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
     }
 

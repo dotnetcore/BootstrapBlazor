@@ -88,7 +88,7 @@
         {
             @if (CollapseBarTemplate == null)
             {
-                <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="layout-header-bar" @onclick="CollapseMenu">
+                <a data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="layout-header-bar">
                     <i class="@MenuBarIcon"></i>
                 </a>
             }
@@ -105,12 +105,12 @@
         @if (hasScroll)
         {
             <Scroll>
-                <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
+                <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
             </Scroll>
         }
         else
         {
-            <Menu Items="@Menus" IsVertical="true" IsCollapsed="@IsCollapsed" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
+            <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="@ClickMenu()"></Menu>
         }
     </div>;
 
