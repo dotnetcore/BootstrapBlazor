@@ -99,6 +99,7 @@
         height: calc(100% - var(--bb-layout-header-height));
 
         .menu {
+            --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
             --bb-menu-item-hover-color: var(--bb-layout-header-color);
         }
     }
@@ -117,6 +118,9 @@
     }
 
     .layout-main {
+        padding: 1rem;
+        position: relative;
+        min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
         flex: 1;
 
         .tabs.tabs-border-card {
@@ -206,18 +210,6 @@
                 height: calc(100vh - var(--bb-layout-header-height));
             }
         }
-    }
-
-    .layout-menu {
-        .menu {
-            --bb-menu-item-hover-bg: var(--bb-layout-menu-item-hover-bg);
-        }
-    }
-
-    .layout-main {
-        padding: 1rem;
-        position: relative;
-        min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
     }
 
     .layout-footer {
