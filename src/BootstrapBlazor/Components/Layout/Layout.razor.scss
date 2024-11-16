@@ -94,8 +94,25 @@
         }
     }
 
+    .layout-side {
+        background-color: var(--bb-layout-sidebar-background);
+        color: var(--bb-layout-sidebar-color);
+        transition: transform .3s linear;
+        transform: translateX(-100%);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1036;
+    }
+
     .layout-main {
         flex: 1;
+
+        .tabs.tabs-border-card {
+            box-shadow: none;
+        }
     }
 
     .layout-header-bar {
@@ -112,6 +129,36 @@
 
     &:not(.has-footer) {
         --bb-layout-footer-height: 0px;
+    }
+
+    &.is-collapsed {
+        .fa-bars {
+            transform: rotate(90deg);
+        }
+
+        .layout-side {
+            transform: translateX(0);
+        }
+
+        .layout-right {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .layout-footer {
+            display: none;
+        }
+
+        .has-sidebar {
+            .layout-side {
+                z-index: 1030;
+            }
+
+            .layout-main {
+                overflow: hidden;
+                height: calc(100vh - var(--bb-layout-header-height));
+            }
+        }
     }
 
     &.is-page {
@@ -208,53 +255,6 @@
 .has-sidebar {
     flex-direction: row;
     display: flex;
-}
-
-.layout-side {
-    background-color: var(--bb-layout-sidebar-background);
-    color: var(--bb-layout-sidebar-color);
-    transition: transform .3s linear;
-    transform: translateX(-100%);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1036;
-}
-
-.layout.is-collapsed {
-    .fa-bars {
-        transform: rotate(90deg);
-    }
-
-    .layout-side {
-        transform: translateX(0);
-    }
-
-    .layout-right {
-        overflow: hidden;
-        height: 100vh;
-    }
-
-    .layout-footer {
-        display: none;
-    }
-
-    .has-sidebar {
-        .layout-side {
-            z-index: 1030;
-        }
-
-        .layout-main {
-            overflow: hidden;
-            height: calc(100vh - var(--bb-layout-header-height));
-        }
-    }
-}
-
-.layout .tabs.tabs-border-card {
-    box-shadow: none;
 }
 
 @media(min-width: 768px) {
