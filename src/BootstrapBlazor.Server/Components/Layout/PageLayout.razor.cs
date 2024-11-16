@@ -16,15 +16,9 @@ public sealed partial class PageLayout
 
     private string? LayoutClassString => CssBuilder.Default("layout-demo")
         .AddClass(Theme)
-        .AddClass("is-fixed-tab", IsFixedTab)
         .Build();
 
     private IEnumerable<MenuItem>? Menus { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否固定 TabHeader
-    /// </summary>
-    public bool IsFixedTab { get; set; }
 
     /// <summary>
     /// 获得/设置 是否固定页头
@@ -35,6 +29,11 @@ public sealed partial class PageLayout
     /// 获得/设置 是否固定页脚
     /// </summary>
     public bool IsFixedFooter { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否固定页脚
+    /// </summary>
+    public bool IsFixedTabHeader { get; set; } = false;
 
     /// <summary>
     /// 获得/设置 侧边栏是否外置

@@ -36,9 +36,9 @@
 
     <div class="page-layout-demo-option">
         <p>@Localizer["P20"]</p>
-        <Checkbox Value="@IsFixedTab" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
-        <Checkbox Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
-        <Checkbox Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
+        <Checkbox Value="@IsFixedTabHeader" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
+        <Checkbox Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTabHeader" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
+        <Checkbox Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTabHeader" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
     </div>
 
     <div class="page-layout-demo-option">
