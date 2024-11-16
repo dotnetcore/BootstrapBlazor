@@ -53,6 +53,16 @@
         border-bottom: 1px solid var(--bb-layout-banner-border-color);
         background-color: var(--bb-layout-sidebar-banner-background);
 
+        .layout-title {
+            display: inline-block;
+            color: var(--bb-layout-title-color);
+            overflow: hidden;
+            white-space: nowrap;
+            flex: 1 1 auto;
+            opacity: 1;
+            transition: opacity .3s linear;
+        }
+
         .layout-logo {
             width: var(--bb-layout-banner-logo-width);
             border-radius: var(--bs-border-radius);
@@ -225,16 +235,6 @@
         display: flex;
         flex-flow: column;
         flex: 1;
-    }
-
-    .layout.is-page .layout-title {
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-        flex: 1 1 auto;
-        opacity: 1;
-        transition: opacity .3s linear;
-        color: var(--bb-layout-title-color);
     }
 
     /*.layout.is-page.has-sidebar .layout-menu {
