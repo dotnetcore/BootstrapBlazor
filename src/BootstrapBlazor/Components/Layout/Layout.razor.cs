@@ -443,6 +443,25 @@ public partial class Layout : IHandlerException
         }
     }
 
+    /// <summary>
+    /// 点击菜单时回调此方法
+    /// </summary>
+    /// <returns></returns>
+    private async Task ClickMenu(MenuItem item)
+    {
+        // 小屏幕时生效
+        if (IsSmallScreen && !item.Items.Any())
+        {
+            IsCollapsed = false;
+            await TriggerCollapseChanged();
+        }
+
+        if (OnClickMenu != null)
+        {
+            await OnClickMenu(item);
+        }
+    }
+
     private async Task TriggerCollapseChanged()
     {
         if (IsCollapsedChanged.HasDelegate)
@@ -456,28 +475,11 @@ public partial class Layout : IHandlerException
         }
     }
 
-    /// <summary>
-    /// 点击菜单时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private Func<MenuItem, Task> ClickMenu() => async item =>
-    {
-        // 小屏幕时生效
-        if (IsSmallScreen && !item.Items.Any())
-        {
-            IsCollapsed = false;
-            await TriggerCollapseChanged();
-        }
-
-        if (OnClickMenu != null)
-        {
-            await OnClickMenu(item);
-        }
-    };
-
-    private void ToggleSidebar()
+    private async Task ToggleSidebar()
     {
         IsCollapsed = !IsCollapsed;
+
+        await TriggerCollapseChanged();
     }
 
     /// <summary>
