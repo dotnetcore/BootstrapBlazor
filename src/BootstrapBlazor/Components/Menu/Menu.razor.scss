@@ -103,7 +103,8 @@
     overflow: hidden;
     vertical-align: top;
     display: inline-block;
-    transition: width .3s linear;
+    opacity: 1;
+    transition: opacity .3s linear;
 }
 
 .menu .nav .nav-link .menu-text {
@@ -200,4 +201,10 @@
 .menu.is-bottom > .nav > li:after,
 .menu.is-bottom .dropdown-menu-arrow:after {
     content: none;
+}
+
+@media (min-width: 768px) {
+    .is-collapsed .menu .menu-text {
+        opacity: 0;
+    }
 }
