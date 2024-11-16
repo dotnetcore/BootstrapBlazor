@@ -125,6 +125,12 @@ public partial class Layout : IHandlerException
     public bool UseTabSet { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否固定多标签 Header 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedTabHeader { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否仅渲染 Active 标签
     /// </summary>
     [Parameter]
@@ -236,6 +242,7 @@ public partial class Layout : IHandlerException
         .AddClass("has-sidebar", Side != null && IsFullSide)
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClass("is-collapsed", IsCollapsed)
+        .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
