@@ -82,14 +82,6 @@ public sealed partial class Layouts
         },
         new()
         {
-            Name = "IsPage",
-            Description = Localizer["Layouts_IsPage_Description"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "IsFixedFooter",
             Description = Localizer["Layouts_IsFixedFooter_Description"],
             Type = "bool",

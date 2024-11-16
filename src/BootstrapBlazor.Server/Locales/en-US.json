@@ -1468,7 +1468,6 @@
     "Layouts_Footer_Description": "Footer component template",
     "Layouts_Menus_Description": "Sidebar menu data collection when the whole page is laid out",
     "Layouts_IsFullSide_Description": "Whether the sidebar occupies the entire left",
-    "Layouts_IsPage_Description": "Whether it is the whole page layout",
     "Layouts_IsFixedFooter_Description": "Whether to fix the Footer component",
     "Layouts_IsFixedHeader_Description": "Whether to fix the Header component",
     "Layouts_ShowCollapseBar_Description": "Whether to show contraction and expansion Bar",

@@ -1468,7 +1468,6 @@
     "Layouts_Footer_Description": "页脚组件模板",
     "Layouts_Menus_Description": "整页面布局时侧边栏菜单数据集合",
     "Layouts_IsFullSide_Description": "侧边栏是否占满整个左边",
-    "Layouts_IsPage_Description": "是否为整页面布局",
     "Layouts_IsFixedFooter_Description": "是否固定 Footer 组件",
     "Layouts_IsFixedHeader_Description": "是否固定 Header 组件",
     "Layouts_ShowCollapseBar_Description": "是否显示收缩展开 Bar",
