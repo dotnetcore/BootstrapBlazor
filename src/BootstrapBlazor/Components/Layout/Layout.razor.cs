@@ -321,7 +321,7 @@ public partial class Layout : IHandlerException
 
     private bool _init { get; set; }
 
-    private bool _isInteractive = true;
+    //private bool _isInteractive = true;
 
     /// <summary>
     /// <inheritdoc/>
