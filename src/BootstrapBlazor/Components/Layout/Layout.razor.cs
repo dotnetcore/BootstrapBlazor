@@ -338,7 +338,7 @@ public partial class Layout : IHandlerException
         ErrorLogger?.Register(this);
 
 #if NET9_0_OR_GREATER
-        _isInteractive = RendererInfo.IsInteractive;
+        //_isInteractive = RendererInfo.IsInteractive;
 #endif
     }
 

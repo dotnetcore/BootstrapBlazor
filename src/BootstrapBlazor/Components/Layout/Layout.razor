@@ -4,12 +4,12 @@
 
 @if (!_isInteractive)
 {
-    <HeadContent>
+    @* <HeadContent>
         <script type="module">
             import { layout_init } from './_content/BootstrapBlazor/Components/Layout/Layout.razor.js';
             layout_init();
         </script>
-    </HeadContent>
+    </HeadContent> *@
 }
 
 <CascadingValue Value="this" IsFixed="true">
