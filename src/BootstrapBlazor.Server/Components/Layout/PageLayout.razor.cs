@@ -74,9 +74,4 @@ public sealed partial class PageLayout
     /// 更新组件方法
     /// </summary>
     public void Update() => StateHasChanged();
-
-    private void ToggleDrawer()
-    {
-        IsOpen = !IsOpen;
-    }
 }
