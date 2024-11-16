@@ -11,7 +11,7 @@
         <p>@Localizer["P1"] <code>Layout</code> @Localizer["P2"] <code>dotnet new bbapp</code> @Localizer["P3"] <code>Visual Studio</code> @Localizer["P4"] <code>@Localizer["P5"]</code> @Localizer["P6"] <a href="template" target="_blank">[@Localizer["P7"]]</a></p>
         <div>
             <b class="mb-3">@Localizer["P8"]：</b>
-            <code>Layout</code> @Localizer["P9"] <code>@Localizer["P10"]</code> @Localizer["P11"] <code>@Localizer["P12"]</code> @Localizer["P13"] <code>AdditionalAssemblies</code> @Localizer["P14"] <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?view=aspnetcore-3.1#route-to-components-from-multiple-assemblies" target="_blank">[@Localizer["P15"]]</a>
+            <code>Layout</code> @Localizer["P9"] <code>@Localizer["P10"]</code> @Localizer["P11"] <code>@Localizer["P12"]</code> @Localizer["P13"] <code>AdditionalAssemblies</code> @Localizer["P14"] <a href="https://docs.microsoft.com/en-us/aspnet/core/blazor/fundamentals/routing?#route-to-components-from-multiple-assemblies" target="_blank">[@Localizer["P15"]]</a>
         </div>
     </Tips>
 
@@ -19,31 +19,31 @@
         <p>@Localizer["P16"]</p>
         <div class="row">
             <div class="col-12">
-                <RadioList TValue="SelectedItem" Items="@SideBarItems" OnSelectedChanged="@OnSideChanged" />
+                <RadioList Value="ActiveItem" Items="@SideBarItems" OnSelectedChanged="@OnSideChanged" />
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <Checkbox @bind-Value="ShowFooter" OnStateChanged="OnFooterChanged" ShowAfterLabel="true" DisplayText="@Localizer["P17"]" />
+                <Checkbox Value="ShowFooter" OnValueChanged="OnFooterChanged" ShowAfterLabel="true" DisplayText="@Localizer["P17"]" />
             </div>
         </div>
         <div class="row mt-3">
             <div class="col-12">
-                <Switch @bind-Value="@UseTabSet" OnText="@Localizer["P18"]" OffText="@Localizer["P19"]" OnColor="@Color.Success" OffColor="@Color.Secondary" style="width: 120px;" OnValueChanged="OnUseTabSetChanged"></Switch>
+                <Switch Value="@UseTabSet" OnText="@Localizer["P18"]" OffText="@Localizer["P19"]" OnColor="@Color.Success" OffColor="@Color.Secondary" style="width: 120px;" OnValueChanged="OnUseTabSetChanged"></Switch>
             </div>
         </div>
     </div>
 
     <div class="page-layout-demo-option">
         <p>@Localizer["P20"]</p>
-        <Checkbox @bind-Value="@IsFixedTab" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
-        <Checkbox @bind-Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
-        <Checkbox @bind-Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
+        <Checkbox Value="@IsFixedTab" OnStateChanged="@OnTabStateChanged" ShowAfterLabel="true" DisplayText="@Localizer["P21"]" />
+        <Checkbox Value="@IsFixedHeader" OnStateChanged="@OnHeaderStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P22"]" class="mx-3" />
+        <Checkbox Value="@IsFixedFooter" OnStateChanged="@OnFooterStateChanged" IsDisabled="IsFixedTab" ShowAfterLabel="true" DisplayText="@Localizer["P23"]" />
     </div>
 
     <div class="page-layout-demo-option">
         <p>@Localizer["P24"]</p>
-        <div>@Localizer["P25"] <code>Header</code> @Localizer["P26"]</div>
+        <div>@Localizer["P25"] <code>Header</code> @((MarkupString)Localizer["P26"].Value)</div>
     </div>
 
     <div class="page-layout-demo-option">

@@ -71,6 +71,7 @@ h3, h4, h5 {
 
 .layout {
     --bb-footer-height: 0px;
+    --bb-layout-menu-item-hover-bg: var(--bb-primary-color);
 }
 
     .layout.has-footer {

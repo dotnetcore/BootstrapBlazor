@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
@@ -109,6 +108,8 @@ public partial class Layout : IHandlerException
     /// </summary>
     /// <remarks>为真时增加 is-page 样式</remarks>
     [Parameter]
+    [Obsolete("已弃用，直接删除即可；Deprecated Please remove it")]
+    [ExcludeFromCodeCoverage]
     public bool IsPage { get; set; }
 
     /// <summary>
@@ -233,8 +234,8 @@ public partial class Layout : IHandlerException
     /// </summary>
     private string? ClassString => CssBuilder.Default("layout")
         .AddClass("has-sidebar", Side != null && IsFullSide)
-        .AddClass("is-page", IsPage)
         .AddClass("has-footer", ShowFooter && Footer != null)
+        .AddClass("is-collapsed", IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -249,7 +250,6 @@ public partial class Layout : IHandlerException
     /// </summary>
     private string? FooterClassString => CssBuilder.Default("layout-footer")
         .AddClass("is-fixed", IsFixedFooter)
-        .AddClass("is-collapsed", IsCollapsed)
         .Build();
 
     /// <summary>
@@ -263,7 +263,6 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏样式
     /// </summary>
     private string? SideClassString => CssBuilder.Default("layout-side")
-        .AddClass("is-collapsed", IsCollapsed)
         .AddClass("is-fixed-header", IsFixedHeader)
         .AddClass("is-fixed-footer", IsFixedFooter)
         .Build();
@@ -272,21 +271,7 @@ public partial class Layout : IHandlerException
     /// 获得 侧边栏 Style 字符串
     /// </summary>
     private string? SideStyleString => CssBuilder.Default()
-        .AddClass($"width: {SideWidth.ConvertToPercentString()}", !IsCollapsed && !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
-        .Build();
-
-    /// <summary>
-    /// 获得 Main 样式
-    /// </summary>
-    private string? MainClassString => CssBuilder.Default("layout-main")
-        .AddClass("is-collapsed", IsCollapsed)
-        .Build();
-
-    /// <summary>
-    /// 获得 展开收缩 Bar 样式
-    /// </summary>
-    private string? CollapseBarClassString => CssBuilder.Default("layout-header-bar")
-        .AddClass("is-collapsed", IsCollapsed)
+        .AddClass($"--bb-layout-sidebar-width: {SideWidth.ConvertToPercentString()}", !string.IsNullOrEmpty(SideWidth) && SideWidth != "0")
         .Build();
 
     /// <summary>
@@ -336,6 +321,8 @@ public partial class Layout : IHandlerException
 
     private bool _init { get; set; }
 
+    //private bool _isInteractive = true;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -350,6 +337,10 @@ public partial class Layout : IHandlerException
         }
 
         ErrorLogger?.Register(this);
+
+#if NET9_0_OR_GREATER
+        //_isInteractive = RendererInfo.IsInteractive;
+#endif
     }
 
     /// <summary>
@@ -395,8 +386,6 @@ public partial class Layout : IHandlerException
         base.OnParametersSet();
 
         TooltipText ??= Localizer[nameof(TooltipText)];
-        SideWidth ??= "300";
-
         MenuBarIcon ??= IconTheme.GetIconByKey(ComponentIcons.LayoutMenuBarIcon);
     }
 
@@ -455,12 +444,26 @@ public partial class Layout : IHandlerException
     }
 
     /// <summary>
-    /// 点击 收缩展开按钮时回调此方法
+    /// 点击菜单时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task CollapseMenu()
+    private async Task ClickMenu(MenuItem item)
     {
-        IsCollapsed = !IsCollapsed;
+        // 小屏幕时生效
+        if (IsSmallScreen && !item.Items.Any())
+        {
+            IsCollapsed = false;
+            await TriggerCollapseChanged();
+        }
+
+        if (OnClickMenu != null)
+        {
+            await OnClickMenu(item);
+        }
+    }
+
+    private async Task TriggerCollapseChanged()
+    {
         if (IsCollapsedChanged.HasDelegate)
         {
             await IsCollapsedChanged.InvokeAsync(IsCollapsed);
@@ -472,23 +475,12 @@ public partial class Layout : IHandlerException
         }
     }
 
-    /// <summary>
-    /// 点击菜单时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private Func<MenuItem, Task> ClickMenu() => async item =>
+    private async Task ToggleSidebar()
     {
-        // 小屏幕时生效
-        if (IsSmallScreen && !item.Items.Any())
-        {
-            await CollapseMenu();
-        }
+        IsCollapsed = !IsCollapsed;
 
-        if (OnClickMenu != null)
-        {
-            await OnClickMenu(item);
-        }
-    };
+        await TriggerCollapseChanged();
+    }
 
     /// <summary>
     /// 上次渲染错误内容
