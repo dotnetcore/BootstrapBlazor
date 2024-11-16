@@ -39,7 +39,7 @@
     --bb-layout-menu-user-border-color: #{$bb-layout-menu-user-border-color};
     --bb-layout-menu-item-hover-bg: #{$bb-layout-menu-item-hover-bg};
     display: flex;
-    height: 100%;
+    height: var(--bb-layout-height, 100%);
     width: 100%;
     flex-direction: column;
     position: relative;
@@ -120,11 +120,14 @@
     .layout-main {
         padding: 1rem;
         position: relative;
-        min-height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
         flex: 1;
 
         .tabs.tabs-border-card {
             box-shadow: none;
+            margin: -1rem;
+            border: none;
+            border-radius: unset;
+            min-height: calc(100% + 2rem);
         }
     }
 
@@ -222,6 +225,26 @@
             z-index: 1090;
             position: sticky;
             bottom: 0;
+        }
+    }
+
+    &.is-fixed-tab {
+        .layout-main {
+            height: calc(100% - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
+        }
+
+        .tabs-body {
+            height: calc(100% - var(--bb-tabs-item-height));
+            overflow: auto;
+
+            .tabs-body-content {
+                height: auto;
+                min-height: 100%;
+            }
+        }
+
+        &:not(.has-footer) {
+            --bb-layout-footer-height: 0;
         }
     }
 }
