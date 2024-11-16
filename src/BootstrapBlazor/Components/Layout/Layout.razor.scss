@@ -67,11 +67,16 @@
 
     .has-sidebar {
         position: relative;
+
+        .layout-menu {
+            height: 100%;
+        }
     }
 
     .layout-menu {
         overflow-x: hidden;
         padding: 0.5rem 0;
+        height: calc(100% - var(--bb-layout-header-height));
 
         .menu {
             --bb-menu-item-hover-color: var(--bb-layout-header-color);
@@ -83,9 +88,9 @@
     }
 
     &.is-page {
-        .layout-menu {
+        /*.layout-menu {
             height: calc(100vh - var(--bb-layout-header-height));
-        }
+        }*/
 
         .has-sidebar {
             .layout-banner {
@@ -212,10 +217,10 @@
 }
 
 @media (min-width: 768px) {
-    .layout.is-page .layout-menu {
+    /*    .layout.is-page .layout-menu {
         height: auto;
     }
-
+*/
     .layout-right {
         display: flex;
         flex-flow: column;
@@ -232,18 +237,18 @@
         color: var(--bb-layout-title-color);
     }
 
-    .layout.is-page.has-sidebar .layout-menu {
+    /*.layout.is-page.has-sidebar .layout-menu {
         border-right: 1px solid var(--bs-border-color);
-    }
+    }*/
 
-    .layout.is-page.has-sidebar .layout-side.is-fixed-header.is-fixed-footer .layout-menu,
+    /*.layout.is-page.has-sidebar .layout-side.is-fixed-header.is-fixed-footer .layout-menu,
     .layout.is-page .layout-side.is-fixed-header .layout-menu {
         height: calc(100vh - var(--bb-layout-header-height));
     }
 
     .layout.is-page .layout-side.is-fixed-header.is-fixed-footer .layout-menu {
         height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
-    }
+    }*/
 
     .layout.is-collapsed {
         .layout-main {
@@ -286,7 +291,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    z-index: 1030;
+    z-index: 1036;
 }
 
 .is-collapsed .layout-side {
@@ -315,5 +320,22 @@
                 height: 100vh;
             }
         }
+    }
+}
+
+
+.layout.is-collapsed {
+    .layout-right {
+        overflow: hidden;
+        height: 100vh;
+    }
+
+    .has-sidebar .layout-main {
+        overflow: hidden;
+        height: calc(100vh - var(--bb-layout-header-height));
+    }
+
+    .layout-footer {
+        display: none;
     }
 }
