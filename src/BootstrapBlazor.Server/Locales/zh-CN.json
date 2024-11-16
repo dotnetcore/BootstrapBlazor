@@ -1474,6 +1474,7 @@
     "Layouts_ShowFooter_Description": "是否显示 Footer 模板",
     "Layouts_ShowGotoTop_Description": "是否显示返回顶端按钮",
     "Layouts_UseTabSet_Description": "是否开启多标签模式",
+    "Layouts_IsFixedTabHeader_Description": "是否固定多标签 Header",
     "Layouts_AdditionalAssemblies_Description": "额外程序集合，传递给 Tab 组件使用",
     "Layouts_OnCollapsed_Description": "收缩展开回调委托",
     "Layouts_OnClickMenu_Description": "点击菜单项时回调委托",
