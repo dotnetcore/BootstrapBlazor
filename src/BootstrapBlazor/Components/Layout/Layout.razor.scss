@@ -275,8 +275,7 @@
     }
 
     .layout .layout-side,
-    .layout.is-page .layout-side,
-    .layout .menu.is-vertical {
+    .layout.is-page .layout-side {
         transition: width .3s linear;
     }
 
@@ -319,7 +318,7 @@
         height: calc(100vh - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
     }
 
-    .layout.is-page.is-collapsed {
+    .layout.is-collapsed {
         .layout-title {
             opacity: 0;
         }
@@ -334,11 +333,14 @@
 
         .layout-side:not(:hover),
         .layout-side:not(:hover) .menu.is-vertical {
-            width: var(--bb-layout-sidebar-collapse-width);
+            --bb-layout-sidebar-width: var(--bb-layout-sidebar-collapse-width);
         }
 
-        .layout-side:not(:hover) .menu .text {
-            width: 0;
+        .layout-side:hover {
+            .layout-title,
+            .menu.is-vertical .menu-text {
+                opacity: 1;
+            }
         }
     }
 }
