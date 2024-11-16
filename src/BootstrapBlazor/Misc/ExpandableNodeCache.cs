@@ -13,23 +13,32 @@ namespace BootstrapBlazor.Components;
 /// <remarks>
 /// 构造函数
 /// </remarks>
-public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer) where TNode : IExpandableNode<TItem>
+public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TItem>
 {
     /// <summary>
     /// 所有已展开行集合 作为缓存使用
     /// </summary>
-    protected List<TItem> ExpandedNodeCache { get; } = new(50);
+    protected HashSet<TItem> ExpandedNodeCache { get; }
 
     /// <summary>
     /// 所有已收缩行集合 作为缓存使用
     /// </summary>
-    protected List<TItem> CollapsedNodeCache { get; } = new(50);
+    protected HashSet<TItem> CollapsedNodeCache { get; }
 
     /// <summary>
     /// 对象比较器
     /// </summary>
-    protected IEqualityComparer<TItem> EqualityComparer { get; } = new ModelComparer<TItem>(comparer);
+    protected IEqualityComparer<TItem> EqualityComparer { get; }
 
+    /// <remarks>
+    /// 构造函数
+    /// </remarks>
+    public ExpandableNodeCache(Func<TItem, TItem, bool> comparer)
+    {
+        EqualityComparer = new ModelComparer<TItem>(comparer);
+        ExpandedNodeCache = new(50, EqualityComparer);
+        CollapsedNodeCache = new(50, EqualityComparer);
+    }
     /// <summary>
     /// 节点展开收缩状态切换方法
     /// </summary>
@@ -42,13 +51,13 @@ public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer
         if (node.IsExpand)
         {
             // 展开节点缓存增加此节点
-            if (!ExpandedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
+            if (!ExpandedNodeCache.Contains(node.Value))
             {
                 ExpandedNodeCache.Add(node.Value);
             }
 
             // 收缩节点缓存移除此节点
-            CollapsedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+            CollapsedNodeCache.Remove(node.Value);
 
             // 无子项时通过回调方法延时加载
             if (!node.Items.Any())
@@ -64,10 +73,10 @@ public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer
         else
         {
             // 展开节点缓存移除此节点
-            ExpandedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+            ExpandedNodeCache.Remove(node.Value);
 
             // 收缩节点缓存添加此节点
-            if (!CollapsedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
+            if (!CollapsedNodeCache.Contains(node.Value))
             {
                 CollapsedNodeCache.Add(node.Value);
             }
@@ -98,7 +107,7 @@ public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer
         else
         {
             var needRemove = true;
-            if (ExpandedNodeCache.Any(i => EqualityComparer.Equals(i, node.Value)))
+            if (ExpandedNodeCache.Contains(node.Value))
             {
                 // 原来是展开状态，
                 if (node.HasChildren)
@@ -119,7 +128,7 @@ public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer
             }
             if (needRemove)
             {
-                ExpandedNodeCache.RemoveAll(i => EqualityComparer.Equals(i, node.Value));
+                ExpandedNodeCache.Remove(node.Value);
             }
         }
     }
