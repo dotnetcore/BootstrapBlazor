@@ -77,6 +77,7 @@
 
     .has-sidebar {
         position: relative;
+        flex: 1;
 
         .layout-menu {
             height: 100%;
@@ -201,7 +202,6 @@
 .has-sidebar {
     flex-direction: row;
     display: flex;
-    flex: 1;
 }
 
 .layout-header-bar {
@@ -235,29 +235,29 @@
     z-index: 1036;
 }
 
-.has-sidebar {
-    .layout-side {
-        z-index: 1030;
-    }
-}
-
-.is-collapsed .layout-side {
-    transform: translateX(0);
-}
-
 .layout.is-collapsed {
+    .layout-side {
+        transform: translateX(0);
+    }
+
     .layout-right {
         overflow: hidden;
         height: 100vh;
     }
 
-    .has-sidebar .layout-main {
-        overflow: hidden;
-        height: calc(100vh - var(--bb-layout-header-height));
-    }
-
     .layout-footer {
         display: none;
+    }
+
+    .has-sidebar {
+        .layout-side {
+            z-index: 1030;
+        }
+
+        .layout-main {
+            overflow: hidden;
+            height: calc(100vh - var(--bb-layout-header-height));
+        }
     }
 }
 
