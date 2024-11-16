@@ -1,38 +1,48 @@
-﻿::deep .layout {
+﻿.layout-demo ::deep .layout {
     --bb-layout-height: 400px;
+    --bb-layout-header-background: #7dbcea;
     --bb-layout-footer-background: #7dbcea;
     --bb-layout-footer-color: #fff;
-    --bb-layout-sidebar-background: #3f8bda;
+    --bb-layout-sidebar-background: #3ba0e9;
     --bb-layout-sidebar-color: #fff;
     height: var(--bb-layout-height);
 }
 
-::deep .layout-header div {
+.layout-demo ::deep .layout-header div {
     text-align: center;
     flex: 1;
 }
 
-::deep .layout-main div {
+.layout-demo ::deep .layout-main div {
     text-align: center;
     flex: 1;
 }
 
-::deep .layout-footer {
+.layout-demo ::deep .layout-footer {
     border-top: none;
 }
 
-    ::deep .layout-footer div {
+    .layout-demo ::deep .layout-footer div {
         text-align: center;
         flex: 1;
     }
 
-::deep .layout-side .layout-menu {
-    border-right: none;
+.layout-demo ::deep .layout-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-::deep main {
-    background-color: #459bdc;
+    .layout-demo ::deep .layout-side .layout-menu {
+        border-right: none;
+    }
+
+.layout-demo ::deep main {
+    background-color: #108ee9;
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .layout-demo1 ::deep .layout,
@@ -41,10 +51,9 @@
 }
 
 .layout-demo1 ::deep .layout-side .layout-menu {
-    height: calc(var(--bb-layout-height) - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
+    height: calc(400px - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
 }
 
 .layout-demo2 ::deep .layout {
-    min-height: 400px;
     height: auto;
 }
