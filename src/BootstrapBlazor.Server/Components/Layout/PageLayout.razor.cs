@@ -10,8 +10,6 @@ namespace BootstrapBlazor.Server.Components.Layout;
 /// </summary>
 public sealed partial class PageLayout
 {
-    private bool IsOpen { get; set; }
-
     private string? Theme { get; set; }
 
     private string? LayoutClassString => CssBuilder.Default("layout-demo")
