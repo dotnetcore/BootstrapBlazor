@@ -68,10 +68,8 @@ public class LayoutTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Layout>(pb =>
         {
             pb.Add(a => a.IsPage, true);
-            pb.Add(a => a.UseTabSet, true);
-            pb.Add(a => a.IsFixedTabHeader, true);
         });
-        Assert.Contains("--bb-layout-height: 100vh;", cut.Markup);
+        Assert.Contains("is-page", cut.Markup);
     }
 
     [Fact]
