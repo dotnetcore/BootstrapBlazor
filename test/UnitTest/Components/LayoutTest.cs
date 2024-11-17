@@ -70,6 +70,12 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsPage, true);
         });
         Assert.Contains("is-page", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPage, false);
+        });
+        Assert.DoesNotContain("is-page", cut.Markup);
     }
 
     [Fact]
