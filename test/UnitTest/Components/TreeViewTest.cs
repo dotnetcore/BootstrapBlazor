@@ -609,6 +609,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void CascadeSetCheck_Ok()
     {
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
         var items = new List<TreeFoo>()
         {
             new() { Text = "Test1", Id = "01" },
@@ -619,7 +622,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var node = TreeFoo.CascadingTree(items).First();
 
         // 设置当前几点所有子项选中状态
-        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
         node.CheckedState = CheckboxState.Checked;
         node.SetChildrenCheck(cache);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
@@ -628,6 +631,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     [Fact]
     public void SetParentCheck_Ok()
     {
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
         var items = new List<TreeFoo>()
         {
             new() { Text = "Test1", Id = "01" },
@@ -638,7 +644,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal("Test3", node.Value.Text);
 
         // 设置当前节点所有父项选中状态
-        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var cache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
         node.CheckedState = CheckboxState.Checked;
         node.SetParentCheck(cache);
 
