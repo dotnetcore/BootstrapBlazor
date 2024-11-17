@@ -9,17 +9,11 @@ namespace BootstrapBlazor.Components;
 /// 模型比较器
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class ModelComparer<TItem> : IEqualityComparer<TItem>
+/// <remarks>
+/// 构造函数
+/// </remarks>
+public class ModelComparer<TItem>(Func<TItem, TItem, bool> comparer) : IEqualityComparer<TItem>
 {
-    private readonly Func<TItem, TItem, bool> _comparer;
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public ModelComparer(Func<TItem, TItem, bool> comparer)
-    {
-        _comparer = comparer;
-    }
-
     /// <summary>
     /// Equals 方法
     /// </summary>
@@ -32,7 +26,7 @@ public class ModelComparer<TItem> : IEqualityComparer<TItem>
         if (x != null && y != null)
         {
             // 均不为空时走 comparer 方法判断
-            ret = _comparer(x, y);
+            ret = comparer(x, y);
         }
         else
         {
