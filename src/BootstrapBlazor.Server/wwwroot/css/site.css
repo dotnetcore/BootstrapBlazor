@@ -70,23 +70,8 @@ h3, h4, h5 {
     }
 
 .layout {
-    --bb-footer-height: 0px;
+    --bb-layout-menu-item-hover-bg: var(--bb-primary-color);
 }
-
-    .layout.has-footer {
-        --bb-footer-height: 40px;
-    }
-
-.is-fixed-tab .tabs-body {
-    height: calc(100vh - var(--bb-layout-header-height) - var(--bb-tabs-item-height) - var(--bb-footer-height));
-    overflow: auto;
-    flex: initial;
-}
-
-    .is-fixed-tab .tabs-body .tabs-body-content {
-        height: auto;
-        min-height: 100%;
-    }
 
 .bb-sub {
     margin-top: .25rem;
@@ -289,19 +274,8 @@ code {
 
 .layout-demo {
     --bb-layout-sidebar-banner-background: var(--bb-primary-color);
-    --bb-layout-title-color: #fff;
     --bb-layout-header-background: var(--bb-primary-color);
-    --bb-layout-header-color: #fff;
 }
-
-    .layout-demo .widget {
-        --bb-widget-toggle-color: #fff;
-        margin-inline-end: 1rem;
-    }
-
-    .layout-demo .layout-avatar-right {
-        border-radius: 50%;
-    }
 
 .card-body > section:not(:first-child) {
     margin-top: 1rem;
