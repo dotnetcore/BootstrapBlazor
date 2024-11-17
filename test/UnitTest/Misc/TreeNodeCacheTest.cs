@@ -5,13 +5,16 @@
 
 namespace UnitTest.Misc;
 
-public class TreeNodeCacheTest
+public class TreeNodeCacheTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ToggleCheck_Ok()
     {
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
         var items = TreeFoo.GetTreeItems();
-        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
         nodeCache.IsChecked(items);
 
         // 设置 1010 节点为选中状态
@@ -204,8 +207,11 @@ public class TreeNodeCacheTest
     [Fact]
     public void FindParentNode_Ok()
     {
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
         var items = TreeFoo.GetTreeItems();
-        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
         var targetId = nodeCache.FindParentNode(items, new TreeViewItem<TreeFoo>(new TreeFoo() { Id = "1110" }))?.Value?.Id;
         Assert.Equal("1080", targetId);
     }
@@ -213,8 +219,11 @@ public class TreeNodeCacheTest
     [Fact]
     public void SetChildrenCheck_Ok()
     {
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
         var items = TreeFoo.GetTreeItems();
-        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
         var count = GetUncheckItemCount(nodeCache);
         Assert.Equal(0, count);
 
@@ -231,7 +240,10 @@ public class TreeNodeCacheTest
     [Fact]
     public void Reset_Ok()
     {
-        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(Comparer);
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>();
+        var comparer = cut.Instance;
+
+        var nodeCache = new TreeNodeCache<TreeViewItem<TreeFoo>, TreeFoo>(comparer);
 
         // 设置 1070 节点为选中状态
         var node = new TreeViewItem<TreeFoo>(new TreeFoo()
