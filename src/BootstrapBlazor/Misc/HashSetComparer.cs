@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// 模型比较器
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class ModelComparer<TItem>(Func<TItem, TItem, bool> comparer) : IEqualityComparer<TItem>
+public class HashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer) : IEqualityComparer<TItem>
 {
     /// <summary>
     /// Equals 方法
@@ -17,27 +17,16 @@ public class ModelComparer<TItem>(Func<TItem, TItem, bool> comparer) : IEquality
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns></returns>
-    public bool Equals(TItem? x, TItem? y)
-    {
-        bool ret;
-        if (x != null && y != null)
-        {
-            // 均不为空时走 comparer 方法判断
-            ret = comparer(x, y);
-        }
-        else
-        {
-            // 有一个为空时 判断是否均为空
-            // 均为空时为 true 否则 false
-            ret = x == null && y == null;
-        }
-        return ret;
-    }
+    public bool Equals(TItem? x, TItem? y) => comparer.Equals(x, y);
 
     /// <summary>
     /// GetHashCode 方法
     /// </summary>
     /// <param name="obj"></param>
     /// <returns></returns>
-    public int GetHashCode([DisallowNull] TItem obj) => obj.GetHashCode();
+    public int GetHashCode([DisallowNull] TItem obj)
+    {
+        var keyValue = Utility.GetKeyValue<TItem, object>(obj, comparer.CustomKeyAttribute);
+        return keyValue?.GetHashCode() ?? obj.GetHashCode();
+    }
 }
