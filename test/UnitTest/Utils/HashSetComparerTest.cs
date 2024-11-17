@@ -12,7 +12,7 @@ public class HasSetComparerTest : BootstrapBlazorTestBase
     [Fact]
     public void GetHashCode_NoKey_Ok()
     {
-        var comparer = new HashSetComparer<Dummy>(new MockModelEqualityComparer<Dummy>() { });
+        var comparer = new ModelHashSetComparer<Dummy>(new MockModelEqualityComparer<Dummy>() { });
 
         var obj = new Dummy() { Id = 1 };
 
@@ -33,7 +33,7 @@ public class HasSetComparerTest : BootstrapBlazorTestBase
     [Fact]
     public void GetHashCode_Key_Ok()
     {
-        var comparer = new HashSetComparer<Dog>(new MockModelEqualityComparer<Dog>() { });
+        var comparer = new ModelHashSetComparer<Dog>(new MockModelEqualityComparer<Dog>() { });
 
         var obj = new Dog() { Id = 1 };
 
@@ -53,7 +53,7 @@ public class HasSetComparerTest : BootstrapBlazorTestBase
     [Fact]
     public void GetHashCode_Comparer_Ok()
     {
-        var comparer = new HashSetComparer<Dummy>(new MockModelEqualityComparer<Dummy>() { ModelEqualityComparer = (x, y) => x.Id == y.Id });
+        var comparer = new ModelHashSetComparer<Dummy>(new MockModelEqualityComparer<Dummy>() { ModelEqualityComparer = (x, y) => x.Id == y.Id });
 
         var obj = new Dummy() { Id = 1 };
 

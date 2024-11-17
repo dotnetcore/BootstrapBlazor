@@ -32,7 +32,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// </remarks>
     public ExpandableNodeCache(IModelEqualityComparer<TItem> comparer)
     {
-        EqualityComparer = new HashSetComparer<TItem>(comparer);
+        EqualityComparer = new ModelHashSetComparer<TItem>(comparer);
         ExpandedNodeCache = new(50, EqualityComparer);
         CollapsedNodeCache = new(50, EqualityComparer);
     }

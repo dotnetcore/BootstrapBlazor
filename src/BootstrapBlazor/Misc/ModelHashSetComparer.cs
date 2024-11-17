@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// 模型比较器
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public class HashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer) : IEqualityComparer<TItem>
+public class ModelHashSetComparer<TItem>(IModelEqualityComparer<TItem> comparer) : IEqualityComparer<TItem>
 {
     /// <summary>
     /// Equals 方法
