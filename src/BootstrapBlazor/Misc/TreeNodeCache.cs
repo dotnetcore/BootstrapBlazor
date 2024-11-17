@@ -31,7 +31,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// 构造函数
     /// </summary>
     /// <param name="comparer"></param>
-    public TreeNodeCache(IModelEqualityComparer<TItem> comparer) : base(new HashSetComparer<TItem>(comparer))
+    public TreeNodeCache(IModelEqualityComparer<TItem> comparer) : base(comparer)
     {
         _checkedNodeCache = new(50, EqualityComparer);
         _uncheckedNodeCache = new(50, EqualityComparer);

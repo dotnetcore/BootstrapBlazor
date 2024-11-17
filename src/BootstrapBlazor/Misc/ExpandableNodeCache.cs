@@ -30,9 +30,9 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <remarks>
     /// 构造函数
     /// </remarks>
-    public ExpandableNodeCache(IEqualityComparer<TItem> comparer)
+    public ExpandableNodeCache(IModelEqualityComparer<TItem> comparer)
     {
-        EqualityComparer = comparer;
+        EqualityComparer = new HashSetComparer<TItem>(comparer);
         ExpandedNodeCache = new(50, EqualityComparer);
         CollapsedNodeCache = new(50, EqualityComparer);
     }
