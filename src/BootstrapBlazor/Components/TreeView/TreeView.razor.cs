@@ -338,7 +338,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         base.OnInitialized();
 
         // 初始化节点缓存
-        TreeNodeStateCache ??= new(Equals);
+        TreeNodeStateCache ??= new(this);
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
     }
 
