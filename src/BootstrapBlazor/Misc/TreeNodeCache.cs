@@ -12,16 +12,6 @@ namespace BootstrapBlazor.Components;
 /// <typeparam name="TItem"></typeparam>
 public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> where TNode : ICheckableNode<TItem>
 {
-    /// <remarks>
-    /// 构造函数
-    /// </remarks>
-    public TreeNodeCache(Func<TItem, TItem, bool> comparer) : base(comparer)
-    {
-        _checkedNodeCache = new(50, EqualityComparer);
-        _uncheckedNodeCache = new(50, EqualityComparer);
-        _indeterminateNodeCache = new(50, EqualityComparer);
-    }
-
     /// <summary>
     /// 获得 所有选中节点集合 作为缓存使用
     /// </summary>
@@ -36,6 +26,17 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// 获得 所有未选中节点集合 作为缓存使用
     /// </summary>
     private readonly HashSet<TItem> _indeterminateNodeCache;
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="comparer"></param>
+    public TreeNodeCache(IModelEqualityComparer<TItem> comparer) : base(new HashSetComparer<TItem>(comparer))
+    {
+        _checkedNodeCache = new(50, EqualityComparer);
+        _uncheckedNodeCache = new(50, EqualityComparer);
+        _indeterminateNodeCache = new(50, EqualityComparer);
+    }
 
     /// <summary>
     /// 切换选中状态方法
