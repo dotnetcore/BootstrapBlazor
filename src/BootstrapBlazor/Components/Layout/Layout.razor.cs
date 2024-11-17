@@ -241,13 +241,13 @@ public partial class Layout : IHandlerException
         .AddClass("has-footer", ShowFooter && Footer != null)
         .AddClass("is-collapsed", IsCollapsed)
         .AddClass("is-fixed-tab", IsFixedTabHeader && UseTabSet)
+        .AddClass("is-page", IsPage)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
         .AddClass("--bb-layout-header-height: 0px;", Header == null)
         .AddClass("--bb-layout-footer-height: 0px;", ShowFooter == false || Footer == null)
-        .AddClass("--bb-layout-height: 100vh;", IsPage && UseTabSet && IsFixedTabHeader)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
