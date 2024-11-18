@@ -184,7 +184,7 @@
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
     background-position: right -1rem center, center right 1.5rem;
-    padding-inline-start: var(--bb-select-padding-right);
+    padding-inline-end: var(--bb-select-padding-right);
 }
 
 .arrow-danger {
