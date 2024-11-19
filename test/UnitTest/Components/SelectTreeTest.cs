@@ -109,7 +109,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ItemChanged_Ok()
+    public async Task ItemChanged_Ok()
     {
         var changed = 0;
         var cut = Context.RenderComponent<SelectTree<string>>(builder =>
@@ -123,13 +123,14 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
         Assert.Equal(1, changed);
 
-        // 选择第一个候选项
-        var node = cut.Find(".tree-node");
-        cut.InvokeAsync(() => node.Click());
-        Assert.NotEqual(2, changed);
+        // 展开第一个候选项
+        var icon = cut.Find(".node-icon");
+        await cut.InvokeAsync(() => icon.Click());
+        Assert.Equal(1, changed);
 
-        node = cut.FindAll(".tree-node").Skip(1).Take(1).First();
-        cut.InvokeAsync(() => node.Click());
+        // 点击第二个节点
+        var nodes = cut.FindAll(".tree-node");
+        await cut.InvokeAsync(() => nodes[1].Click());
         Assert.Equal(2, changed);
     }
 
