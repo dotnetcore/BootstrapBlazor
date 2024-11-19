@@ -1,7 +1,7 @@
 .tree-view {
     --bb-tree-padding: #{$bb-tree-padding};
     --bb-tree-margin: #{$bb-tree-margin};
-    --bb-tree-ul-padding-left: #{$bb-tree-ul-padding-left};
+    --bb-tree-padding-left: #{$bb-tree-padding-left};
     --bb-tree-item-margin: #{$bb-tree-item-margin};
     --bb-tree-icon-width: #{$bb-tree-icon-width};
     --bb-tree-check-margin: #{$bb-tree-check-margin};
@@ -18,36 +18,21 @@
     .tree-search {
         margin-block-end: .5rem;
     }
-}
 
-.tree-view .tree-root {
-    padding: var(--bb-tree-padding);
-    margin: var(--bb-tree-margin);
-}
+    &.is-fixed-search .tree-root {
+        height: calc(100% - var(--bb-tree-search-height));
+    }
 
-.tree-view.is-fixed-search .tree-root {
-    height: calc(100% - var(--bb-tree-search-height));
-}
+    .tree-root {
+        padding: var(--bb-tree-padding);
+        margin: var(--bb-tree-margin);
+    }
 
-.tree-view .tree-ul {
-    padding: 0 0 0 var(--bb-tree-ul-padding-left);
-    display: none;
-}
-
-.tree-view .tree-ul.show {
-    display: block;
-}
-
-.tree-view .tree-item {
-    list-style: none;
-    margin: var(--bb-tree-item-margin);
-}
-
-.tree-view {
     .tree-content {
         position: relative;
         display: flex;
         align-items: center;
+        margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
         cursor: pointer;
 
         .node-icon {
@@ -84,49 +69,50 @@
                 display: flex;
             }
         }
-    }
 
-    .is-virtual {
-        .tree-content {
-            margin-inline-start: calc(var(--bb-tree-ul-padding-left) * var(--bb-tree-view-level, 0));
+        &:after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            pointer-events: none;
+            margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0) * -1);
+        }
+
+        &:not(.disabled).active:after {
+            color: var(--bb-tree-item-active-color);
+            background-color: var(--bb-tree-item-active-bg);
+        }
+
+        &:not(.disabled):hover:after {
+            background-color: var(--bb-tree-item-hover-bg);
         }
     }
-}
 
-.tree-view .tree-node {
-    display: inline-flex;
-    align-items: center;
-    padding: var(--bb-tree-node-padding);
-    border-radius: var(--bs-border-radius);
-    flex: 1;
+    .tree-node {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--bb-tree-node-padding);
+        flex: 1;
 
-    &.disabled {
-        opacity: var(--bb-tree-disabled-opacity);
+        .form-check {
+            margin: var(--bb-tree-check-margin);
+        }
+
+        .tree-icon {
+            width: var(--bb-tree-icon-width);
+            text-align: center;
+            margin-inline-end: var(--bb-tree-icon-margin-right);
+        }
+
+        .tree-node-text {
+            white-space: nowrap;
+        }
+
+        &.disabled {
+            opacity: var(--bb-tree-disabled-opacity);
+        }
     }
-
-    &:hover {
-        background-color: var(--bb-tree-item-hover-bg);
-    }
-
-    .tree-node-text {
-        white-space: nowrap;
-    }
-}
-
-.tree-view .tree-node .tree-icon {
-    margin-inline-end: var(--bb-tree-icon-margin-right);
-}
-
-.tree-view .form-check {
-    margin: var(--bb-tree-check-margin);
-}
-
-.tree-view .tree-icon {
-    width: var(--bb-tree-icon-width);
-    text-align: center;
-}
-
-.tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
-    color: var(--bb-tree-item-active-color);
-    background-color: var(--bb-tree-item-active-bg);
 }
