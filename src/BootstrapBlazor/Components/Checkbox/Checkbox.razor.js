@@ -28,8 +28,7 @@ export function init(id, invoke, method) {
             }
         }
 
-        const result = await invoke.invokeMethodAsync(method, val);
-        return result;
+        return await invoke.invokeMethodAsync(method, val);
     });
 }
 
