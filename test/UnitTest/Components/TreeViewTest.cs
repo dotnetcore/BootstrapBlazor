@@ -603,8 +603,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     class MockTreeFoo : TreeFoo { }
 
-    bool Comparer(TreeFoo x, TreeFoo y) => x.Id == y.Id;
-
     [Fact]
     public void CascadeSetCheck_Ok()
     {
@@ -760,6 +758,42 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
         nodes = cut.FindAll(".tree-content");
         Assert.Equal(2, nodes.Count);
+    }
+
+    [Fact]
+    public async Task CanExpandWhenDisabled_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        // 未设置禁用
+        var node = cut.Find(".node-icon");
+        Assert.DoesNotContain("disabled", node.ClassList);
+
+        // 设置 节点禁用
+        items[0].IsDisabled = true;
+        cut.SetParametersAndRender();
+        node = cut.Find(".node-icon");
+        Assert.Contains("disabled", node.ClassList);
+
+        // 设置 CanExpandWhenDisabled 参数
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.CanExpandWhenDisabled, true);
+        });
+        node = cut.Find(".node-icon");
+        Assert.DoesNotContain("disabled", node.ClassList);
+
+        // 设置 Disabled 参数
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        node = cut.Find(".node-icon");
+        Assert.Contains("disabled", node.ClassList);
     }
 
     [Fact]
