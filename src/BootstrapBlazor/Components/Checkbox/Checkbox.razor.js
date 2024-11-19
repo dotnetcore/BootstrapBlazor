@@ -8,6 +8,7 @@ export function init(id, invoke, method) {
     }
 
     EventHandler.on(el, 'click', async e => {
+        e.preventDefault();
         const stopPropagation = el.getAttribute("data-bb-stop-propagation");
         if (stopPropagation === "true") {
             e.stopPropagation();
@@ -26,10 +27,9 @@ export function init(id, invoke, method) {
                 el.parentElement.classList.add('is-checked');
             }
         }
+
         const result = await invoke.invokeMethodAsync(method, val);
-        if (result === false) {
-            e.preventDefault();
-        }
+        return result;
     });
 }
 
