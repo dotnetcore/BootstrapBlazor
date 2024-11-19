@@ -50,37 +50,36 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("visible", item.HasChildren || item.Items.Count > 0)
         .AddClass(NodeIcon, !item.IsExpand)
         .AddClass(ExpandNodeIcon, item.IsExpand)
-        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
+        .AddClass("disabled", IsDisabled || (!CanExpandWhenDisabled && item.IsDisabled))
         .Build();
 
     private string? NodeLoadingClassString => CssBuilder.Default("node-icon node-loading")
         .AddClass(LoadingIcon)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 当前行样式
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private string? GetItemClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-item")
+    private string? GetContentClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-content")
         .AddClass("active", ActiveItem == item)
-        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 Tree 样式
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private static string? GetTreeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-ul")
-        .AddClass("show", item.IsExpand)
         .Build();
 
     private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
         .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Count > 0);
+    private bool CanTriggerClickNode(TreeViewItem<TItem> item)
+    {
+        // 返回 false 时禁止触发 OnClick
+        if (IsDisabled)
+        {
+            return false;
+        }
+
+        if (CanExpandWhenDisabled)
+        {
+            return true;
+        }
+
+        return !item.IsDisabled;
+    }
 
     private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
 
@@ -592,7 +591,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private async Task OnClick(TreeViewItem<TItem> item)
     {
         ActiveItem = item;
-        if (ClickToggleNode && TriggerNodeArrow(item))
+        if (ClickToggleNode && CanTriggerClickNode(item))
         {
             await OnToggleNodeAsync(item);
         }
@@ -874,20 +873,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
-    private string? GetTreeRowStyle(TreeViewItem<TItem> item)
+    private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
     {
-        string? style = null;
-        if (IsVirtualize)
+        var level = 0;
+        var parent = item.Parent;
+        while (parent != null)
         {
-            var level = 0;
-            var parent = item.Parent;
-            while (parent != null)
-            {
-                level++;
-                parent = parent.Parent;
-            }
-            style = $"--bb-tree-view-level: {level};";
+            level++;
+            parent = parent.Parent;
         }
-        return style;
+        return $"--bb-tree-view-level: {level};";
     }
 }
