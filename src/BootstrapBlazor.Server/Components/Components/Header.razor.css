@@ -25,6 +25,12 @@
     margin-top: 2px;
 }
 
+::deep .bb-g-search {
+    --bb-global-search-item-active-bg: rgba(var(--bb-primary-color-rgb), 0.5);
+    --bb-global-search-item-hover-bg: rgba(var(--bb-primary-color-rgb), 0.4);
+    --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
+}
+
 .btn-bd-download {
     font-weight: 600;
     color: var(--bb-bd-download-color);
