@@ -761,7 +761,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task CanExpandWhenDisabled_Ok()
+    public void CanExpandWhenDisabled_Ok()
     {
         var items = TreeFoo.GetTreeItems();
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
