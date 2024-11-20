@@ -8,10 +8,12 @@
     --bb-tree-node-padding: #{$bb-tree-node-padding};
     --bb-tree-item-active-color: #{$bb-tree-item-active-color};
     --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
+    --bb-tree-item-hover-color: #{$bb-tree-item-hover-color};
     --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
     --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
     --bb-tree-disabled-opacity: #{$bb-tree-disabled-opacity};
     --bb-tree-search-height: #{$bb-tree-search-height};
+    --bb-tree-item-bg-radius: var(--bs-border-radius);
     position: relative;
     height: 100%;
 
@@ -80,15 +82,29 @@
             bottom: 0;
             pointer-events: none;
             margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0) * -1);
+            border-radius: var(--bb-tree-item-bg-radius);
         }
 
-        &:not(.disabled).active:after {
-            color: var(--bb-tree-item-active-color);
-            background-color: var(--bb-tree-item-active-bg);
+        &:not(.disabled) {
+            &.active {
+                color: var(--bb-tree-item-active-color);
+
+                &:after {
+                    background-color: var(--bb-tree-item-active-bg);
+                }
+            }
+
+            &:hover {
+                color: var(--bb-tree-item-hover-color);
+
+                &:after {
+                    background-color: var(--bb-tree-item-hover-bg);
+                }
+            }
         }
 
-        &:not(.disabled):hover:after {
-            background-color: var(--bb-tree-item-hover-bg);
+        &:not(:last-child) {
+            margin-bottom: 1px;
         }
     }
 

@@ -663,7 +663,7 @@ $bb-transfer-filter-focus-border-color: #409eff;
 $bb-transfer-filter-margin: .5rem;
 
 // TreeView
-$bb-tree-padding: 0;
+$bb-tree-padding: 0 0.5rem;
 $bb-tree-margin: 0;
 $bb-tree-padding-left: 20px;
 $bb-tree-item-margin: 1px 0;
@@ -671,8 +671,9 @@ $bb-tree-icon-width: 22px;
 $bb-tree-check-margin: 0 4px;
 $bb-tree-node-padding: .25rem .5rem;
 $bb-tree-item-active-color: var(--bs-body-color);
-$bb-tree-item-active-bg: rgba(var(--bs-body-color-rgb),.08);
-$bb-tree-item-hover-bg: rgba(var(--bs-body-color-rgb),.12);
+$bb-tree-item-active-bg: rgba(var(--bs-body-color-rgb),.12);
+$bb-tree-item-hover-color: var(--bs-body-color);
+$bb-tree-item-hover-bg: rgba(var(--bs-body-color-rgb),.08);
 $bb-tree-icon-margin-right: .5rem;
 $bb-tree-search-height: 43px;
 $bb-tree-disabled-opacity: .5;
