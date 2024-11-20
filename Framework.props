@@ -1,7 +1,8 @@
 <Project>
 
+  <Import Project="Version.props"/>
+
   <PropertyGroup>
-    <RunTargetFramework>net9.0</RunTargetFramework>
     <TargetFramework>$(RunTargetFramework)</TargetFramework>
   </PropertyGroup>
 
