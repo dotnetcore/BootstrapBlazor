@@ -31,6 +31,7 @@
     .tree-content {
         position: relative;
         display: flex;
+        width: 100%;
         align-items: center;
         margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
         cursor: pointer;
