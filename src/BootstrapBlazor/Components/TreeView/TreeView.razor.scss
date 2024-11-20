@@ -33,10 +33,23 @@
     .tree-content {
         position: relative;
         display: flex;
-        width: 100%;
+        flex-wrap: nowrap;
         align-items: center;
-        margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
         cursor: pointer;
+
+        .tree-content-header {
+            flex-basis: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
+            flex-shrink: 0;
+        }
+
+        .tree-content-body {
+            display: flex;
+            flex-wrap: nowrap;
+            flex-grow: 1;
+            flex-shrink: 0;
+            align-items: center;
+            border-radius: var(--bs-border-radius);
+        }
 
         .node-icon {
             width: 18px;
@@ -73,31 +86,21 @@
             }
         }
 
-        &:after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            pointer-events: none;
-            margin-inline-start: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0) * -1);
-            border-radius: var(--bb-tree-item-bg-radius);
+        .form-check {
+            margin: var(--bb-tree-check-margin);
         }
 
         &:not(.disabled) {
             &.active {
-                color: var(--bb-tree-item-active-color);
-
-                &:after {
+                .tree-content-body {
+                    color: var(--bb-tree-item-active-color);
                     background-color: var(--bb-tree-item-active-bg);
                 }
             }
 
             &:hover {
-                color: var(--bb-tree-item-hover-color);
-
-                &:after {
+                .tree-content-body {
+                    color: var(--bb-tree-item-hover-color);
                     background-color: var(--bb-tree-item-hover-bg);
                 }
             }
@@ -113,10 +116,6 @@
         align-items: center;
         padding: var(--bb-tree-node-padding);
         flex: 1;
-
-        .form-check {
-            margin: var(--bb-tree-check-margin);
-        }
 
         .tree-icon {
             width: var(--bb-tree-icon-width);
