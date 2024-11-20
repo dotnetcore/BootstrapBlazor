@@ -663,12 +663,12 @@ $bb-transfer-filter-focus-border-color: #409eff;
 $bb-transfer-filter-margin: .5rem;
 
 // TreeView
-$bb-tree-padding: 0 0.5rem;
+$bb-tree-padding: 0 .5rem;
 $bb-tree-margin: 0;
 $bb-tree-padding-left: 20px;
 $bb-tree-item-margin: 1px 0;
 $bb-tree-icon-width: 22px;
-$bb-tree-check-margin: 0 4px;
+$bb-tree-check-margin: 0 0 0 .5rem;
 $bb-tree-node-padding: .25rem .5rem;
 $bb-tree-item-active-color: var(--bs-body-color);
 $bb-tree-item-active-bg: rgba(var(--bs-body-color-rgb),.12);
