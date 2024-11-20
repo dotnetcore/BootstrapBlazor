@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.MeiliSearch.Options;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 
@@ -159,8 +158,8 @@ internal static class ServicesExtensions
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
-        // 增加文档搜索配置项
-        services.AddOptionsMonitor<MeiliSearchOptions>();
+        // 增加 MeiliSearch 服务
+        services.AddBootstrapBlazorMeiliSearch();
 
         return services;
     }
