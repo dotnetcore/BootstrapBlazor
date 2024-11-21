@@ -3,9 +3,173 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
+/// <summary>
+/// MermaidViews
+/// </summary>
 public partial class Mermaids
 {
-    private string Content => "A-->B;\nA-->C;\nB-->D;\nC-->D;";
+    [DisplayName("类型选择")]
+    private MermaidType _options { set; get; } = new();
+    private Dictionary<MermaidType, string> data { get; set; } = new Dictionary<MermaidType, string>
+        {
+            { MermaidType.None,
+                """
+                flowchart LR
+
+                A[Hard] -->|Text| B(Round)
+                B --> C{Decision}
+                C -->|One| D[Result 1]
+                C -->|Two| E[Result 2]
+                """
+            },
+            { MermaidType.Flowchart,
+                """
+                A[Start] --> B{Is it working?}
+                B -- Yes --> C[Keep going]
+                B -- No --> D[Fix it]
+                D --> B
+                """
+            },
+            { MermaidType.SequenceDiagram,
+                """
+                participant Alice
+                participant Bob
+                Alice->>John: Hello John, how are you?
+                loop HealthCheck
+                John->>John: Fight against hypochondria
+                end
+                Note right of John: Rational thoughts <br/>prevail!
+                John-->>Alice: Great!
+                John->>Bob: How about you?
+                Bob-->>John: Jolly good!
+                """
+            },
+            { MermaidType.ClassDiagram,
+                """
+                Class01 <|-- AveryLongClass : Cool
+                Class03 *-- Class04
+                Class05 o-- Class06
+                Class07 .. Class08
+                Class09 --> C2 : Where am i?
+                Class09 --* C3
+                Class09 --|> Class07
+                Class07 : equals()
+                Class07 : Object[] elementData
+                Class01 : size()
+                Class01 : int chimp
+                Class01 : int gorilla
+                Class08 <--> C2: Cool label
+                """
+            },
+            { MermaidType.StateDiagram,
+                """
+                [*] --> Still
+                Still --> [*]
+
+                Still --> Moving
+                Moving --> Still
+                Moving --> Crash
+                Crash --> [*]
+                """
+            },
+            { MermaidType.ErDiagram,
+                """
+                CUSTOMER ||--o{ ORDER : places
+                ORDER ||--|{ LINE-ITEM : contains
+                CUSTOMER }|..|{ DELIVERY-ADDRESS : uses
+                """
+            },
+            { MermaidType.Journey,
+                """
+                section Go to work
+                Make tea: 5: Me
+                Go upstairs: 3: Me
+                Do work: 1: Me, Cat
+                section Go home
+                Go downstairs: 5: Me
+                Sit down: 5: Me
+                """
+            },
+            { MermaidType.Gantt,
+                """
+                dateFormat  YYYY-MM-DD
+                excludes weekdays 2014-01-10
+                    
+                section A section
+                Completed task            :done,    des1, 2014-01-06,2014-01-08
+                Active task               :active,  des2, 2014-01-09, 3d
+                Future task               :         des3, after des2, 5d
+                Future task2               :         des4, after des3, 5d
+                """
+            },
+            { MermaidType.Pie,
+                """
+                "Dogs" : 386
+                "Cats" : 85
+                "Rats" : 15
+                """
+            }
+        };
+
+    /// <summary>
+    /// GetAttributes
+    /// </summary>
+    /// <returns></returns>
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
+            Name = "DiagramString",
+            Description = Localizer["DiagramString"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+
+        new()
+        {
+            Name = "Title",
+            Description = Localizer["Title"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Direction",
+            Description = Localizer["Direction"],
+            Type = "MermaidDirection",
+            ValueList = "TB / BT / LR / RL",
+            DefaultValue = "TB"
+        },
+        new()
+        {
+            Name = "Type",
+            Description = Localizer["Type"],
+            Type = "MermaidType",
+            ValueList = "None / Flowchart / SequenceDiagram / ClassDiagram / StateDiagram / ErDiagram / Journey / Gantt / Pie",
+            DefaultValue = "None"
+        }
+    ];
+
+    /// <summary>
+    /// Methods
+    /// </summary>
+    /// <returns></returns>
+    private MethodItem[] GetMethods() =>
+    [
+        new()
+        {
+            Name = "ExportBase64MermaidAsync",
+            Description = Localizer["ExportBase64Mermaid"],
+            Parameters = " — ",
+            ReturnValue = "string"
+        },
+
+    ];
+
 }

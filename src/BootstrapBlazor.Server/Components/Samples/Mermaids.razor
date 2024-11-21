@@ -1,12 +1,68 @@
 ﻿@page "/mermaid"
-@inject IStringLocalizer<Mermaid> Localizer
+@inject IStringLocalizer<Mermaids> Localizer
 
 <h3>@Localizer["MermaidTitle"]</h3>
 
 <h4>@Localizer["MermaidDescription"]</h4>
 
+<PackageTips Name="BootstrapBlazor.Mermaid" />
+
 <DemoBlock Title="@Localizer["MermaidNormalTitle"]"
-           Introduction="@Localizer["MermaidNormalIntro"]"
-           Name="Normal">
-    <Mermaid Type="MermaidType.Flowchart" Direction="MermaidDirection.BT" DiagramString="@Content"></Mermaid>
+		   Introduction="@Localizer["NormalIntro"]"
+		   Name="GroupNormal">
+	@foreach (var diagram in data)
+	{
+		<Mermaid Type="diagram.Key" Direction="MermaidDirection.TB" DiagramString="@diagram.Value"
+				 style="@(_options == diagram.Key ? "display:flex; justify-content:center;" : "display:none;")"
+				 Title="@($"Title {diagram.Key}")" />
+	}
+	<div class="col-12 col-sm-3 mt-3">
+		<Select @bind-Value="_options" ShowLabel="true" />
+	</div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["MermaidStyleTitle"]"
+		   Introduction="@Localizer["StyleTitle"]"
+		   Name="GroupStyle">
+	<Mermaid DiagramString="
+			 flowchart LR
+			 A[start] -->
+		B{Whether the conditions are met?}
+		B -- yes --> C[Perform tasks 1]
+		B -- no --> D[Perform tasks 2]
+		C --> E{Condition checks}
+		D --> E
+		E -- The conditions are established --> F[Sub-processes]
+		F --> G[Complete the subprocess]
+		E -- The condition failed --> H[Error handling]
+		H --> I[Keep a log]
+		G --> J[end]
+		I --> J
+
+		style A fill:#ffe0b3,stroke:#ff9900,stroke-width:2px;
+		style B fill:#ffcccc,stroke:#ff0000,stroke-width:2px;
+		style C fill:#e6ffcc,stroke:#009933,stroke-width:2px;
+		style D fill:#cce6ff,stroke:#0033cc,stroke-width:2px;
+		style E fill:#ffccff,stroke:#9900cc,stroke-width:2px;
+		style F fill:#ccccff,stroke:#3300cc,stroke-width:2px;
+		style G fill:#b3ffff,stroke:#00cccc,stroke-width:2px;
+		style H fill:#ffd9b3,stroke:#ff6600,stroke-width:2px;
+		style I fill:#d9d9d9,stroke:#808080,stroke-width:2px;
+		style J fill:#ccffcc,stroke:#009900,stroke-width:2px;
+
+		linkStyle 0 stroke:#00cc00,stroke-width:2px;
+		linkStyle 1 fill:#006600,stroke:#009933,stroke-width:2px,font-size:12px;
+		linkStyle 2 fill:#990000,stroke:#ff3300,stroke-width:2px,font-size:12px;
+		linkStyle 3 stroke:#ff33cc,stroke-width:2px;
+		linkStyle 4 stroke:#cc33ff,stroke-width:2px;
+		linkStyle 5 stroke:#33ccff,stroke-width:2px;
+		linkStyle 6 stroke:#ff6600,stroke-width:2px,stroke-dasharray: 10,10;
+		linkStyle 7 stroke:#999999,stroke-width:2px;
+		linkStyle 8 stroke:#009900,stroke-width:2px;
+		linkStyle 9 stroke:#ff6600,stroke-width:2px;
+		"/>
+</DemoBlock>
+
+<AttributeTable Items="GetAttributes()" />
+
+<MethodTable Items="GetMethods()"></MethodTable>
