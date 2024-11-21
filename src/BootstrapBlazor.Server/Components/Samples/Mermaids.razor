@@ -1,0 +1,12 @@
+﻿@page "/mermaid"
+@inject IStringLocalizer<Mermaid> Localizer
+
+<h3>@Localizer["MermaidTitle"]</h3>
+
+<h4>@Localizer["MermaidDescription"]</h4>
+
+<DemoBlock Title="@Localizer["MermaidNormalTitle"]"
+           Introduction="@Localizer["MermaidNormalIntro"]"
+           Name="Normal">
+    <Mermaid Type="MermaidType.Flowchart" Direction="MermaidDirection.BT" DiagramString="@Content"></Mermaid>
+</DemoBlock>
