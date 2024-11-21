@@ -6366,8 +6366,9 @@
     "MermaidDescription": "This component renders Markdown-inspired text definitions to dynamically create and modify diagrams.",
     "MermaidNormalTitle": "Basic usage",
     "NormalIntro": "Mermaid basic style",
-    "MermaidStyleTitle": "Add custom styles",
-    "StyleTitle": ""
+    "MermaidStyleTitle": "Custom styles",
+    "MermaidStyleIntro": "",
+    "MermaidType": "Type"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api",

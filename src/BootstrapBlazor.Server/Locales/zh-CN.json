@@ -6365,9 +6365,10 @@
     "MermaidTitle": "Mermaid 构图工具",
     "MermaidDescription": "本组件可渲染 Markdown 启发的文本定义以动态创建和修改图表。",
     "MermaidNormalTitle": "基本用法",
-    "NormalIntro": "Mermaid基本样式",
+    "MermaidNormalIntro": "Mermaid 基本样式",
     "MermaidStyleTitle": "增加自定义样式",
-    "StyleTitle": ""
+    "MermaidStyleIntro": "",
+    "MermaidType": "图表类型"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
