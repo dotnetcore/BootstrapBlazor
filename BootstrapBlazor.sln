@@ -61,6 +61,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configurat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTestSvgIcon", "test\UniTestSvgIcon\UniTestSvgIcon.csproj", "{01DA4687-0973-4CA6-97F5-04E0B8DD1B13}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		README.zh-CN.md = README.zh-CN.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
