@@ -184,7 +184,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public ValueTask OnTriggerClickAsync(CheckboxState state)
+    public ValueTask OnStateChangedAsync(CheckboxState state)
     {
         State = state;
         return ValueTask.CompletedTask;
