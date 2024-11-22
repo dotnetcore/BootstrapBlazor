@@ -1,0 +1,30 @@
+﻿@page "/mermaid"
+@inject IStringLocalizer<Mermaids> Localizer
+
+<h3>@Localizer["MermaidTitle"]</h3>
+
+<h4>@Localizer["MermaidDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.Mermaid" />
+
+<DemoBlock Title="@Localizer["MermaidNormalTitle"]"
+           Introduction="@Localizer["MermaidNormalIntro"]"
+		   Name="GroupNormal">
+    <div class="row form-inline g-2">
+        <div class="col-12"><Select @bind-Value="Options" ShowLabel="true" DisplayText="@Localizer["MermaidType"]"></Select></div>
+    </div>
+    @foreach (var diagram in Diagrams)
+	{
+		<Mermaid Type="diagram.Key" Direction="MermaidDirection.TB" DiagramString="@diagram.Value"
+				 style="@(Options == diagram.Key ? "display:flex; justify-content:center;" : "display:none;")"
+				 Title="@($"Title {diagram.Key}")" />
+	}
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MermaidStyleTitle"]" Introduction="@Localizer["MermaidStyleIntro"]" Name="GroupStyle">
+	<Mermaid DiagramString="@CustomStyleString"></Mermaid>
+</DemoBlock>
+
+<AttributeTable Items="GetAttributes()" />
+
+<MethodTable Items="GetMethods()"></MethodTable>
