@@ -157,7 +157,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnTriggerClickAsync));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnStateChangedAsync));
 
     /// <summary>
     /// 点击组件触发方法 内部调用 <see cref="OnBeforeStateChanged"/> 回调方法
@@ -178,12 +178,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
             StateHasChanged();
         }
     }
-
-    /// <summary>
-    /// 触发 Click 方法
-    /// </summary>
-    /// <returns></returns>
-    public Task TriggerClick() => Task.CompletedTask;
 
     /// <summary>
     /// 触发 Click 方法 由 JavaScript 调用
