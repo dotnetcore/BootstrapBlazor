@@ -21,7 +21,7 @@ else
     RenderFragment RenderCheckbox =>
     @<div @attributes="AdditionalAttributes" class="@ClassString">
         <input type="checkbox" id="@Id" class="@InputClassString" disabled="@Disabled" checked="@CheckedString"
-               @onclick="OnToggleClick" @onclick:stopPropagation="true" @onclick:preventDefault="OnBeforeStateChanged != null" />
+               @onclick="OnToggleClick" @onclick:stopPropagation="StopPropagation" @onclick:preventDefault="OnBeforeStateChanged != null" />
         @if (IsShowAfterLabel)
         {
             @RenderLabel
