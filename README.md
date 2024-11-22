@@ -16,7 +16,7 @@ English | <a href="README.zh-CN.md">中文</a>
 
 ---
 ## .NET Foundation
-[<img align="right" src="https://github.com/dotnet-foundation/swag/blob/main/logo/dotnetfoundation_v4.png?raw=true" width="100" />](https://www.dotnetfoundation.org/)
+[<img align="right" src="https://github.com/dotnet-foundation/swag/blob/main/logo/dotnetfoundation_v4.png?raw=true" width="68px" />](https://www.dotnetfoundation.org/)
 <p>This project is part of the <a href="https://www.dotnetfoundation.org/">.NET Foundation</a> and operates under their <a href="https://www.dotnetfoundation.org/code-of-conduct">code of conduct</a>. </p>
 
 ## Features

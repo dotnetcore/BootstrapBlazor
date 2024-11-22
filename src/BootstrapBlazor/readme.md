@@ -105,3 +105,12 @@ To start the wizard, use either of the following approaches
 - Click File > New > Project.
 - Find and click the C# Blazor Application option (you can use the search, or filter by Blazor templates).
 - Follow the wizard.
+
+## Code of conduct
+
+This project has adopted the code of conduct defined by the Contributor Covenant to clarify expected behavior in our community.
+For more information see the [.NET Foundation Code of Conduct](https://dotnetfoundation.org/code-of-conduct).
+
+## .NET Foundation
+
+This project is supported by the [.NET Foundation](https://dotnetfoundation.org).

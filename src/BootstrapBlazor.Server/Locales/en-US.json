@@ -1696,6 +1696,7 @@
     "FileViewerText": "FileViewer",
     "WebSerialText": "SerialService",
     "MindMapText": "MindMap",
+    "MermaidText": "Mermaid",
     "WebSpeechText": "WebSpeech",
     "ImageCropperText": "ImageCropper",
     "BarcodeGeneratorText": "BarcodeGenerator"
@@ -4768,6 +4769,7 @@
     "QueryBuilder": "QueryBuilder",
     "SerialService": "ISerialService",
     "MindMap": "Mind Map",
+    "Mermaid": "Mermaid",
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Segmented": "Segmented",
@@ -6358,6 +6360,15 @@
     "OptionsText": "Options",
     "Layout": "Layout",
     "Theme": "Theme"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Mermaids": {
+    "MermaidTitle": "Mermaid",
+    "MermaidDescription": "This component renders Markdown-inspired text definitions to dynamically create and modify diagrams.",
+    "MermaidNormalTitle": "Basic usage",
+    "NormalIntro": "Mermaid basic style",
+    "MermaidStyleTitle": "Custom styles",
+    "MermaidStyleIntro": "",
+    "MermaidType": "Type"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api",

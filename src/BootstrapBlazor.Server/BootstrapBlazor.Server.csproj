@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -48,7 +48,8 @@
     <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.0.0-beta*" />
+    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.1-beta01" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.0" />
@@ -59,12 +60,12 @@
     <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.TagHelper" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.5" />
     <PackageReference Include="Longbow.Logging" Version="9.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
   </ItemGroup>
