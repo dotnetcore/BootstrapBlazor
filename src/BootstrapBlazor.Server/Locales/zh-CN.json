@@ -1696,6 +1696,7 @@
     "FileViewerText": "文件预览器 FileViewer",
     "WebSerialText": "串口服务 ISerialService",
     "MindMapText": "思维导图 Mind Map",
+    "MermaidText": "图表工具 Mermaid",
     "WebSpeechText": "语音识别/合成 WebSpeech",
     "ImageCropperText": "图像裁剪 ImageCropper",
     "BarcodeGeneratorText": "条码生成器 BarcodeGenerator"
@@ -4768,6 +4769,7 @@
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口服务 ISerialService",
     "MindMap": "思维导图 MindMap",
+    "Mermaid": "图表工具 Mermaid",
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
     "Segmented": "分段控制器 Segmented",
@@ -6358,6 +6360,15 @@
     "OptionsText": "配置选项",
     "Layout": "布局",
     "Theme": "主题"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Mermaids": {
+    "MermaidTitle": "Mermaid 构图工具",
+    "MermaidDescription": "本组件可渲染 Markdown 启发的文本定义以动态创建和修改图表。",
+    "MermaidNormalTitle": "基本用法",
+    "MermaidNormalIntro": "Mermaid 基本样式",
+    "MermaidStyleTitle": "增加自定义样式",
+    "MermaidStyleIntro": "",
+    "MermaidType": "图表类型"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api 网页原生语音处理 API",
