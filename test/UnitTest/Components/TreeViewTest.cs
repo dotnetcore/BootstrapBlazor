@@ -198,7 +198,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         cut.DoesNotContain("fa-solid fa-font-awesome");
         cut.Contains("Test-Class");
 
@@ -236,20 +236,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerClick();
+            await checkboxes[0].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[1].Instance.TriggerClick();
+            await checkboxes[1].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         // 选中第三个由于限制无法选中
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[2].Instance.TriggerClick();
+            await checkboxes[2].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
@@ -260,7 +260,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         max = false;
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerClick();
+            await checkboxes[0].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
@@ -940,7 +940,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
 
         Assert.Contains("is-checked", cut.Markup);
         var isChecked = cut.Instance.GetCheckedItems().Any();

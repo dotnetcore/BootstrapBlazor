@@ -207,7 +207,7 @@ public class ConsoleTest : BootstrapBlazorTestBase
         });
 
         var item = cut.FindComponent<Checkbox<bool>>();
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         var res = cut.Instance.IsAutoScroll;
         Assert.False(res);
     }

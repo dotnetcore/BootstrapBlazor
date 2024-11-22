@@ -235,6 +235,12 @@ public class TreeNodeCacheTest : BootstrapBlazorTestBase
         node.SetChildrenCheck(nodeCache);
         count = GetUncheckItemCount(nodeCache);
         Assert.Equal(6, count);
+
+        // Indeterminate 状态不更改子节点状态
+        node.CheckedState = CheckboxState.Indeterminate;
+        node.SetChildrenCheck(nodeCache);
+        count = GetUncheckItemCount(nodeCache);
+        Assert.Equal(6, count);
     }
 
     [Fact]

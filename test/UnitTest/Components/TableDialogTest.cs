@@ -63,7 +63,7 @@ public class TableDialogTest : TableDialogTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         cut.Contains("test-save");
@@ -363,7 +363,7 @@ public class TableDialogTest : TableDialogTestBase
 
         // 选一个
         var item = cut.FindComponent<Checkbox<Foo>>();
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         var form = cut.Find(".modal-body form");

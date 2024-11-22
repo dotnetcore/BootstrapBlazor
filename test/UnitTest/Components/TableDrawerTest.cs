@@ -44,7 +44,7 @@ public class TableDrawerTest : TableDialogTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         // 编辑弹窗逻辑
@@ -103,7 +103,7 @@ public class TableDrawerTest : TableDialogTestBase
             pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(false));
         });
         checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());
