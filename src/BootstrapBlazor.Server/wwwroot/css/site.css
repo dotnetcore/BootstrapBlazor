@@ -36,9 +36,15 @@
     --bb-main-pading: 1rem;
     --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
+    --bb-code-bg: #e9ecef;
+}
+
+html .search-dialog-mask {
     --bb-global-search-placeholder-color: #a88dbc;
     --bb-global-search-item-bg: #6522cc;
-    --bb-code-bg: #e9ecef;
+    --bb-global-search-item-active-bg: rgba(var(--bb-primary-color-rgb), 0.5);
+    --bb-global-search-item-hover-bg: rgba(var(--bb-primary-color-rgb), 0.4);
+    --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
 }
 
 .navbar {
