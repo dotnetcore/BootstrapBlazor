@@ -18,8 +18,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
-        .AddClass("is-checked", State == CheckboxState.Checked && !IsBoolean)
-        .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("disabled", IsDisabled)
