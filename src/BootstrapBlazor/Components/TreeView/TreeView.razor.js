@@ -22,7 +22,7 @@ export function init(id, options) {
         else if (e.keyCode === 32) {
             const v = el.getAttribute('data-bb-keyboard');
             if (v === "true") {
-                const checkbox = el.querySelector(".active > .tree-content > .form-check > .form-check-input");
+                const checkbox = el.querySelector(".active .form-check-input");
                 if (checkbox) {
                     e.preventDefault();
                     checkbox.click();
