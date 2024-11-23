@@ -12,6 +12,18 @@ export function init(id, invoke, method) {
     });
 }
 
+export function update(id, state, val) {
+    const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
+
+    setIndeterminate(id, state);
+    if (state === false && el.checked !== val) {
+        el.checked = val;
+    }
+}
+
 export function dispose(id) {
     const el = document.getElementById(id);
     if (el === null) {
@@ -20,5 +32,3 @@ export function dispose(id) {
 
     EventHandler.off(el, 'statechange.bb.checkbox');
 }
-
-export { setIndeterminate }

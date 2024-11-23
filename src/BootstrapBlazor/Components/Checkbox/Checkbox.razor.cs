@@ -148,7 +148,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
+        await InvokeVoidAsync("update", Id, State == CheckboxState.Indeterminate, State == CheckboxState.Checked);
     }
 
     /// <summary>
@@ -164,7 +164,15 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public async Task OnToggleClick()
     {
         var valid = true;
-        var state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+        CheckboxState state;
+        if (State == CheckboxState.Indeterminate)
+        {
+            state = CheckboxState.Checked;
+        }
+        else
+        {
+            state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+        }
         if (OnBeforeStateChanged != null)
         {
             valid = await OnBeforeStateChanged(state);
