@@ -449,12 +449,24 @@ public static class LambdaExtensions
 
         IEnumerable<TItem> EnumerableOrderBySimple()
         {
+            var type = typeof(TItem);
             IEnumerable<TItem>? ret = null;
-            var pi = typeof(TItem).GetPropertyByName(propertyName);
-            if (pi != null)
+            if (type.IsInterface && type == typeof(IDynamicObject))
             {
-                var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
-                ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
+                var instance = query.FirstOrDefault();
+                if (instance != null)
+                {
+                    ret = CastAndOrder(query, instance.GetType(), propertyName, sortOrder);
+                }
+            }
+            else
+            {
+                var pi = type.GetPropertyByName(propertyName);
+                if (pi != null)
+                {
+                    var methodName = sortOrder == SortOrder.Desc ? nameof(OrderByDescendingInternal) : nameof(OrderByInternal);
+                    ret = query.AsQueryable().InvokeSortByPropertyInfo(methodName, pi);
+                }
             }
             return ret ?? query;
         }
@@ -474,6 +486,25 @@ public static class LambdaExtensions
             }
             return ret ?? query;
         }
+    }
+
+    private static IEnumerable<TItem>? CastAndOrder<TItem>(IEnumerable<TItem> query, Type propertyType, string propertyName, SortOrder sortOrder)
+    {
+        IEnumerable<TItem>? ret = null;
+        var castMethod = typeof(Enumerable).GetMethod(nameof(Enumerable.Cast), BindingFlags.Static | BindingFlags.Public);
+        if (castMethod != null)
+        {
+            var mi = castMethod.MakeGenericMethod(propertyType);
+            var collection = mi.Invoke(null, [query]);
+
+            var orderMethod = typeof(LambdaExtensions).GetMethod(nameof(EnumerableOrderBy), BindingFlags.Static | BindingFlags.NonPublic);
+            if (orderMethod != null)
+            {
+                var miOrder = orderMethod.MakeGenericMethod(propertyType);
+                ret = miOrder.Invoke(null, [collection, propertyName, sortOrder]) as IEnumerable<TItem>;
+            }
+        }
+        return ret;
     }
 
     private static IEnumerable<TItem> EnumerableThenBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
@@ -583,13 +614,13 @@ public static class LambdaExtensions
 
     private static IOrderedQueryable<TItem> ThenByDescendingInternalByName<TItem, TKey>(IOrderedQueryable<TItem> query, string propertyName) => query.ThenByDescending(GetPropertyLambdaByName<TItem, TKey>(propertyName));
 
-    private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));
+    private static IOrderedQueryable<TItem> OrderByInternal<TItem, TKey>(IQueryable<TItem> query, PropertyInfo memberProperty) => query.OrderBy(GetPropertyLambda<TItem, TKey>(memberProperty));
 
-    private static IOrderedQueryable<TItem> OrderByDescendingInternal<TItem, TKey>(IQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.OrderByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
+    private static IOrderedQueryable<TItem> OrderByDescendingInternal<TItem, TKey>(IQueryable<TItem> query, PropertyInfo memberProperty) => query.OrderByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
 
-    private static IOrderedQueryable<TItem> ThenByInternal<TItem, TKey>(IOrderedQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.ThenBy(GetPropertyLambda<TItem, TKey>(memberProperty));
+    private static IOrderedQueryable<TItem> ThenByInternal<TItem, TKey>(IOrderedQueryable<TItem> query, PropertyInfo memberProperty) => query.ThenBy(GetPropertyLambda<TItem, TKey>(memberProperty));
 
-    private static IOrderedQueryable<TItem> ThenByDescendingInternal<TItem, TKey>(IOrderedQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.ThenByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
+    private static IOrderedQueryable<TItem> ThenByDescendingInternal<TItem, TKey>(IOrderedQueryable<TItem> query, PropertyInfo memberProperty) => query.ThenByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
