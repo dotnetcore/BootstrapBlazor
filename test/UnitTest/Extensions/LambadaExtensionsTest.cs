@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Dynamic;
 using System.Linq.Expressions;
 
@@ -414,6 +415,62 @@ public class LambadaExtensionsTest : BootstrapBlazorTestBase
 
         orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Test Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
+    }
+
+    [Fact]
+    public void Sort_IDynamicObject_Ok()
+    {
+        var dataTable = new DataTable();
+
+        DataColumn column = new DataColumn
+        {
+            DataType = Type.GetType("System.Int32"),
+            ColumnName = "ID"
+        };
+        dataTable.Columns.Add(column);
+
+        column = new DataColumn
+        {
+            DataType = Type.GetType("System.String"),
+            ColumnName = "Name"
+        };
+        dataTable.Columns.Add(column);
+
+        //Creating some rows
+        DataRow row = dataTable.NewRow();
+        row["ID"] = 1;
+        row["Name"] = "Bob";
+        dataTable.Rows.Add(row);
+
+        row = dataTable.NewRow();
+        row["ID"] = 3;
+        row["Name"] = "Adam";
+        dataTable.Rows.Add(row);
+
+        row = dataTable.NewRow();
+        row["ID"] = 2;
+        row["Name"] = "Jane";
+        dataTable.Rows.Add(row);
+
+        var context = new DataTableDynamicContext(dataTable, (context, col) => { });
+        var items = context.GetItems().ToList();
+
+        // 未排序
+        Assert.Equal("Bob", items[0].GetValue("Name"));
+        Assert.Equal("Adam", items[1].GetValue("Name"));
+        Assert.Equal("Jane", items[2].GetValue("Name"));
+
+        // Name 排序
+        var nameItems = items.Sort("Name", SortOrder.Asc).ToList();
+        Assert.Equal("Adam", nameItems[0].GetValue("Name"));
+        Assert.Equal("Bob", nameItems[1].GetValue("Name"));
+        Assert.Equal("Jane", nameItems[2].GetValue("Name"));
+
+        // Name 倒序
+        nameItems = items.Sort("Name", SortOrder.Desc).ToList();
+        Assert.Equal("Adam", nameItems[2].GetValue("Name"));
+        Assert.Equal("Bob", nameItems[1].GetValue("Name"));
+        Assert.Equal("Jane", nameItems[0].GetValue("Name"));
     }
 
     [Fact]
