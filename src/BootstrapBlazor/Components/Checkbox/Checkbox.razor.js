@@ -8,7 +8,7 @@ export function init(id, invoke, method) {
     }
 
     EventHandler.on(el, 'statechange.bb.checkbox', e => {
-        invoke.invokeMethodAsync(method, e.delegateTarget.checked ? 1 : 0);
+        invoke.invokeMethodAsync(method, e.state);
     });
 }
 
