@@ -942,14 +942,14 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var checkbox = cut.FindComponent<Checkbox<TreeViewItem<TreeFoo>>>();
         await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
 
-        Assert.Contains("is-checked", cut.Markup);
-        var isChecked = cut.Instance.GetCheckedItems().Any();
-        Assert.True(isChecked);
+        Assert.Contains("checked=\"checked\"", cut.Markup);
+        var checkedItems = cut.Instance.GetCheckedItems().Count();
+        Assert.Equal(1, checkedItems);
 
         await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
-        Assert.DoesNotContain("is-checked", cut.Markup);
-        var noChecked = !cut.Instance.GetCheckedItems().Any();
-        Assert.True(noChecked);
+        Assert.DoesNotContain("checked=\"checked\"", cut.Markup);
+        checkedItems = cut.Instance.GetCheckedItems().Count();
+        Assert.Equal(0, checkedItems);
     }
 
     [Fact]

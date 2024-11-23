@@ -4464,15 +4464,16 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[0];
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[0];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs.Count);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
         await cut.InvokeAsync(input.Instance.OnToggleClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
@@ -4502,15 +4503,16 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         await cut.InvokeAsync(input.Instance.OnToggleClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
     }
 
     [Fact]
@@ -4543,19 +4545,20 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击下页按钮翻页
         var nextBtn = cut.Find(".fa-angle-right");
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击下页按钮翻页
         await cut.InvokeAsync(() => nextBtn.Click());
@@ -4565,37 +4568,37 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
         //点击向前按钮翻页
         var prevBtn = cut.Find("i.fa-angle-left");
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向前按钮翻页
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
     }
 
     [Fact]
