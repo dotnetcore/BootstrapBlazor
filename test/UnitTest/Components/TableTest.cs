@@ -759,10 +759,10 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("Test_Column_List");
 
         var item = cut.FindComponents<Checkbox<bool>>()[0];
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
 
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
     }
 
@@ -2481,7 +2481,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中一行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -2541,7 +2541,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中一行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        cut.InvokeAsync(input.Instance.TriggerClick);
+        cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.False(button.Instance.IsDisabled);
     }
 
@@ -3395,7 +3395,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<FooTree>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
@@ -3683,7 +3683,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         cut.Contains("is-node");
         var input = cut.FindComponents<Checkbox<FooNoKeyTree>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<Table<FooNoKeyTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
@@ -4464,20 +4464,21 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[0];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs.Count);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
     }
 
     [Fact]
@@ -4502,15 +4503,16 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
     }
 
     [Fact]
@@ -4543,59 +4545,60 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击下页按钮翻页
         var nextBtn = cut.Find(".fa-angle-right");
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击下页按钮翻页
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //点击表头CheckBox
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
         //点击向前按钮翻页
         var prevBtn = cut.Find("i.fa-angle-left");
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向前按钮翻页
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
     }
 
     [Fact]
@@ -5240,10 +5243,10 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Empty(selectedRows);
 
         var input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.Equal(2, selectedRows.Count);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.Empty(selectedRows);
     }
 
@@ -5355,7 +5358,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5405,7 +5408,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5878,7 +5881,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-arrows-rotate");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -6019,7 +6022,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中行
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.True(compared);
     }
 
@@ -6065,7 +6068,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中第一行数据
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
 
@@ -6091,7 +6094,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
@@ -6650,7 +6653,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
@@ -6664,7 +6667,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选两个
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
@@ -6740,7 +6743,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         table.SetParametersAndRender(pb =>
@@ -6779,7 +6782,7 @@ public class TableTest : BootstrapBlazorTestBase
         var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        cut.InvokeAsync(input.Instance.TriggerClick);
+        cut.InvokeAsync(input.Instance.OnToggleClick);
         cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
 
         table.SetParametersAndRender(pb =>
@@ -6879,7 +6882,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
     }
 
@@ -7979,7 +7982,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // click header 第二行不可选择
         var header = table.FindComponents<Checkbox<Foo>>()[0];
-        table.InvokeAsync(header.Instance.TriggerClick);
+        table.InvokeAsync(header.Instance.OnToggleClick);
         Assert.Single(table.Instance.SelectedRows);
     }
 

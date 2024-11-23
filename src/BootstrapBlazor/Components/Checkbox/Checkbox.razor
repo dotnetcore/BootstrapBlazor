@@ -20,7 +20,8 @@ else
 @code {
     RenderFragment RenderCheckbox =>
     @<div @attributes="AdditionalAttributes" class="@ClassString">
-        <input class="@InputClassString" type="checkbox" id="@Id" disabled="@Disabled" checked="@CheckedString" data-bb-stop-propagation="@StopPropagationString" />
+        <input type="checkbox" id="@Id" class="@InputClassString" disabled="@Disabled" checked="@CheckedString"
+               @onclick="OnToggleClick" @onclick:stopPropagation="StopPropagation" @onclick:preventDefault="false" />
         @if (IsShowAfterLabel)
         {
             @RenderLabel

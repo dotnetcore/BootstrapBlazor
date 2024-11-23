@@ -18,8 +18,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// </summary>
     private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
-        .AddClass("is-checked", State == CheckboxState.Checked && !IsBoolean)
-        .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("disabled", IsDisabled)
@@ -100,8 +98,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     [Parameter]
     public bool StopPropagation { get; set; }
 
-    private string? StopPropagationString => StopPropagation ? "true" : null;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -150,56 +146,52 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
+        await InvokeVoidAsync("update", Id, State == CheckboxState.Indeterminate, State == CheckboxState.Checked);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnTriggerClickAsync));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnStateChangedAsync));
 
     /// <summary>
-    /// 触发 Click 方法
+    /// 点击组件触发方法 内部调用 <see cref="OnBeforeStateChanged"/> 回调方法
     /// </summary>
     /// <returns></returns>
-    public async Task TriggerClick() => await OnTriggerClickAsync();
+    public async Task OnToggleClick()
+    {
+        var valid = true;
+        CheckboxState state;
+        if (State == CheckboxState.Indeterminate)
+        {
+            state = CheckboxState.Checked;
+        }
+        else
+        {
+            state = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
+        }
+        if (OnBeforeStateChanged != null)
+        {
+            valid = await OnBeforeStateChanged(state);
+        }
+
+        if (valid)
+        {
+            await InternalStateChanged(state);
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// 触发 Click 方法 由 JavaScript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async ValueTask<bool> OnTriggerClickAsync(CheckboxState? state = null)
+    public ValueTask OnStateChangedAsync(CheckboxState state)
     {
-        // 本组件由于支持 OnBeforeStateChanged 回调方法，所以设计上移除了 onclick 事件，改为通过 JS 调用 TriggerClick 方法
-        // state 有值时表示同步状态功能
-        if (state.HasValue)
-        {
-            State = state.Value;
-            return true;
-        }
-
-        // 调用 OnBeforeStateChanged 回调方法查看是否阻止状态改变
-        // 返回 true 时改变状态，返回 false 时不改变状态阻止状态改变 preventDefault
-        var val = State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked;
-        if (OnBeforeStateChanged != null)
-        {
-            var ret = await OnBeforeStateChanged(val);
-            if (ret == false)
-            {
-                // 阻止状态改变
-                return false;
-            }
-        }
-
-        // 改变状态 由点击事件触发
-        var render = await InternalStateChanged(val);
-        if (render)
-        {
-            StateHasChanged();
-        }
-        return true;
+        State = state;
+        return ValueTask.CompletedTask;
     }
 
     /// <summary>
@@ -250,20 +242,5 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
                 StateHasChanged();
             }
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing && Module != null)
-        {
-            await Module.DisposeAsync();
-            Module = null;
-        }
-        await base.DisposeAsync(disposing);
     }
 }

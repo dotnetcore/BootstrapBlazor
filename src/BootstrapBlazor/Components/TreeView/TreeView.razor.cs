@@ -65,21 +65,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private bool CanTriggerClickNode(TreeViewItem<TItem> item)
-    {
-        // 返回 false 时禁止触发 OnClick
-        if (IsDisabled)
-        {
-            return false;
-        }
-
-        if (CanExpandWhenDisabled)
-        {
-            return true;
-        }
-
-        return !item.IsDisabled;
-    }
+    private bool CanTriggerClickNode(TreeViewItem<TItem> item) => !IsDisabled && (CanExpandWhenDisabled || !item.IsDisabled);
 
     private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
 
