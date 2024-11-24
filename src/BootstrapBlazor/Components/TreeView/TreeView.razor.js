@@ -78,41 +78,38 @@ export function setChildrenState(id, index, state) {
     }
 }
 
-export async function setParentState(id, index, state) {
-    const tree = Data.get(id)
-    if (tree) {
-        const { el, invoke } = tree;
-        const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
-        let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
-        if (node) {
-            const parents = [];
-            let prev = node.previousElementSibling;
-            while (prev) {
-                const currentLevel = parseInt(prev.style.getPropertyValue('--bb-tree-view-level'));
-                if (currentLevel < level) {
-                    level = currentLevel;
-                    parents.push(prev);
-                }
-                prev = prev.previousElementSibling;
+export async function setParentState(id, invoke, method, index) {
+    const el = document.getElementById(id);
+    const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
+    let level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
+    if (node) {
+        const parents = [];
+        let prev = node.previousElementSibling;
+        while (prev) {
+            const currentLevel = parseInt(prev.style.getPropertyValue('--bb-tree-view-level'));
+            if (currentLevel < level) {
+                level = currentLevel;
+                parents.push(prev);
             }
+            prev = prev.previousElementSibling;
+        }
 
-            if (parents.length > 0) {
-                const results = await invoke.invokeMethodAsync('GetParentsState', parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))), index, state);
-                for (let index = 0; index < parents.length; index++) {
-                    const checkbox = parents[index].querySelector('.form-check-input');
-                    const result = results[index];
-                    checkbox.indeterminate = false;
-                    if (result === 0) {
-                        checkbox.checked = false;
-                    }
-                    else if (result === 1) {
-                        checkbox.checked = true;
-                    }
-                    else {
-                        checkbox.indeterminate = true;
-                    }
-                    EventHandler.trigger(checkbox, "statechange.bb.checkbox", { state: result });
+        if (parents.length > 0) {
+            const results = await invoke.invokeMethodAsync(method, parents.map(p => parseInt(p.getAttribute('data-bb-tree-view-index'))));
+            for (let index = 0; index < parents.length; index++) {
+                const checkbox = parents[index].querySelector('.form-check-input');
+                const result = results[index];
+                checkbox.indeterminate = false;
+                if (result === 0) {
+                    checkbox.checked = false;
                 }
+                else if (result === 1) {
+                    checkbox.checked = true;
+                }
+                else {
+                    checkbox.indeterminate = true;
+                }
+                EventHandler.trigger(checkbox, "statechange.bb.checkbox", { state: result });
             }
         }
     }
