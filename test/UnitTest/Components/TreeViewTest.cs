@@ -507,7 +507,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
-
         cut.WaitForState(() => cut.Instance.Items[0].Items.Count > 0);
         // 101 unchecked
         //  -> 101-101 unchecked
@@ -516,21 +515,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
         var parents = new List<int>() { 0 };
-        List<CheckboxState> results = await cut.Instance.GetParentsState(parents, 1, CheckboxState.Checked);
-        Assert.NotNull(results);
-        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
-        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.Value.CheckedState);
-
-        Assert.Single(results);
-        Assert.Equal(CheckboxState.Checked, results[0]);
-
-        // 更改第二个子节点状态
-        checkboxes = cut.FindComponents<Checkbox<TreeViewItem<TreeFoo>>>();
-        results = await cut.Instance.GetParentsState(parents, 2, CheckboxState.UnChecked);
+        List<CheckboxState> results = await cut.Instance.GetParentsState(parents);
         Assert.NotNull(results);
         Assert.Equal(CheckboxState.Indeterminate, checkboxes[0].Instance.Value.CheckedState);
-        Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.Value.CheckedState);
-        Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[1].Instance.Value.CheckedState);
+        Assert.Equal(CheckboxState.Checked, checkboxes[2].Instance.Value.CheckedState);
 
         Assert.Single(results);
         Assert.Equal(CheckboxState.Indeterminate, results[0]);

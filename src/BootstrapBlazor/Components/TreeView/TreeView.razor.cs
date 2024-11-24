@@ -391,7 +391,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (_keyboardArrowUpDownTrigger)
         {
             _keyboardArrowUpDownTrigger = false;
-            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions ?? new() { Behavior = ScrollIntoViewBehavior.Smooth, Block = ScrollIntoViewBlock.Center, Inline = ScrollIntoViewInline.Nearest });
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
     }
 
@@ -399,7 +399,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown), IsVirtualize, AutoCheckParent, AutoCheckChildren });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new { Invoke = Interop, Method = nameof(TriggerKeyDown) });
 
     private bool _keyboardArrowUpDownTrigger;
 
@@ -431,17 +431,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 客户端查询指定行选择框状态方法 由 JavaScript 调用
     /// </summary>
     /// <param name="items"></param>
-    /// <param name="index"></param>
-    /// <param name="state"></param>
     /// <returns></returns>
     [JSInvokable]
-    public ValueTask<List<CheckboxState>> GetParentsState(List<int> items, int index, CheckboxState? state)
+    public ValueTask<List<CheckboxState>> GetParentsState(List<int> items)
     {
         var rows = Rows;
-        if (state.HasValue)
-        {
-            rows[index].CheckedState = state.Value;
-        }
         var result = items.Select(i =>
         {
             var item = rows[i];
@@ -719,8 +713,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 向下级联操作
             if (item.CheckedState != CheckboxState.Indeterminate)
             {
-                _ = InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
                 item.SetChildrenCheck(TreeNodeStateCache);
+                _ = InvokeVoidAsync("setChildrenState", Id, Rows.IndexOf(item), item.CheckedState);
             }
         }
 
@@ -728,7 +722,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             // 向上级联操作
             item.SetParentCheck(TreeNodeStateCache);
-            _ = InvokeVoidAsync("setParentState", Id, Rows.IndexOf(item));
+            _ = InvokeVoidAsync("setParentState", Id, Interop, nameof(GetParentsState), Rows.IndexOf(item));
         }
 
         if (OnTreeItemChecked != null)
