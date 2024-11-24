@@ -30,13 +30,10 @@ export function init(id, options) {
 }
 
 export function scroll(id, options) {
-    const tree = Data.get(id)
-    if (tree) {
-        const { el } = tree;
-        const item = el.querySelector(".active .tree-node");
-        if (item) {
-            item.scrollIntoView(options);
-        }
+    const el = document.getElementById(id);
+    const item = el.querySelector(".active .tree-node");
+    if (item) {
+        item.scrollIntoView(options ?? { behavior: 'smooth', block: 'start', inline: 'nearest' });
     }
 }
 
