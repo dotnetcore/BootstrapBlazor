@@ -110,11 +110,9 @@ export async function setParentState(id, invoke, method, index) {
 }
 
 export function dispose(id) {
-    const tree = Data.get(id)
-    Data.remove(id);
+    const el = document.getElementById(id);
 
-    if (tree) {
-        const { el } = tree;
+    if (el) {
         EventHandler.off(el, 'keyup', '.tree-root');
     }
 }
