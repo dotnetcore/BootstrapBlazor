@@ -1,5 +1,4 @@
-﻿import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, options) {
     const el = document.getElementById(id)
