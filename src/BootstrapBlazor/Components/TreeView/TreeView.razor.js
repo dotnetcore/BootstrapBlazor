@@ -51,26 +51,23 @@ export function toggleLoading(id, index, state) {
 }
 
 export function setChildrenState(id, index, state) {
-    const tree = Data.get(id)
-    if (tree) {
-        const { el } = tree;
-        const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
-        const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
-        if (node) {
-            let next = node.nextElementSibling;
-            while (next) {
-                const currentLevel = parseInt(next.style.getPropertyValue('--bb-tree-view-level'));
-                if (currentLevel <= level) {
-                    break;
-                }
-                const checkbox = next.querySelector('.form-check-input');
-                if (checkbox) {
-                    checkbox.indeterminate = false;
-                    checkbox.checked = state === 1;
-                    EventHandler.trigger(checkbox, "statechange.bb.checkbox", { state });
-                }
-                next = next.nextElementSibling;
+    const el = document.getElementById(id);
+    const node = el.querySelector(`[data-bb-tree-view-index="${index}"]`);
+    const level = parseInt(node.style.getPropertyValue('--bb-tree-view-level'));
+    if (node) {
+        let next = node.nextElementSibling;
+        while (next) {
+            const currentLevel = parseInt(next.style.getPropertyValue('--bb-tree-view-level'));
+            if (currentLevel <= level) {
+                break;
             }
+            const checkbox = next.querySelector('.form-check-input');
+            if (checkbox) {
+                checkbox.indeterminate = false;
+                checkbox.checked = state === 1;
+                EventHandler.trigger(checkbox, "statechange.bb.checkbox", { state });
+            }
+            next = next.nextElementSibling;
         }
     }
 }
