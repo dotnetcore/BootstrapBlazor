@@ -2,15 +2,12 @@
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, options) {
-    const { invoke, method, isVirtualize } = options
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
 
-    const tree = { el, invoke, isVirtualize };
-    Data.set(id, tree)
-
+    const { invoke, method } = options
     EventHandler.on(el, 'keydown', '.tree-root', e => {
         if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
             const v = el.getAttribute('data-bb-keyboard');
