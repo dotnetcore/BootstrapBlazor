@@ -84,20 +84,6 @@
         width: 280px;
     }
 
-.bb-foundation {
-    background-color: rgb(var(--bs-tertiary-bg-rgb));
-    display: flex;
-    align-items: center;
-}
-
-    .bb-foundation .bb-foundation-content {
-        text-align: center;
-        font-size: 1rem;
-        font-weight: bolder;
-        padding: 1rem 0;
-        flex-grow: 1;
-    }
-
 @media (min-width: 768px) {
     .bd-masthead .lead {
         font-size: calc(1.275rem + .3vw);
@@ -110,9 +96,5 @@
 
     .donate .barcode {
         width: 480px;
-    }
-
-    .bb-foundation .bb-foundation-content {
-        margin-left: 100px;
     }
 }
