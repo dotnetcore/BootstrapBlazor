@@ -320,7 +320,9 @@
     "PopoverConfirmsShowButtonsTitle": "Custom Component",
     "PopoverConfirmsShowButtonsIntro": "By setting <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code>, you don't display the built-in function buttons, and customize an <b>Approve</b> button in the custom component.",
     "PopoverConfirmsShowButtonsButtonText": "Custom Component",
-    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters"
+    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters",
+    "PopoverConfirmsTriggerTitle": "Trigger",
+    "PopoverConfirmsTriggerIntro": "By setting the <code>Trigger</code> parameter, you can set the way the component pops up the confirmation box. The default value is <code>click</code>. You can also set <code>hover focus</code> to use in combination."
   },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentText": "Custom content",

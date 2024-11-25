@@ -320,7 +320,9 @@
     "PopoverConfirmsShowButtonsTitle": "自定义组件",
     "PopoverConfirmsShowButtonsIntro": "通过设置 <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code> 不显示内置功能按钮，在自定义组件中自定义一个 <b>审批</b> 按钮",
     "PopoverConfirmsShowButtonsButtonText": "自定义组件",
-    "PopoverConfirmsShowButtonsDesc": "自定义组件内可通过级联参数调用组件内部的 <code>Close</code> 或者 <code>Confirm</code> 方法"
+    "PopoverConfirmsShowButtonsDesc": "自定义组件内可通过级联参数调用组件内部的 <code>Close</code> 或者 <code>Confirm</code> 方法",
+    "PopoverConfirmsTriggerTitle": "触发方式",
+    "PopoverConfirmsTriggerIntro": "通过设置 <code>Trigger</code> 参数来设置组件弹出确认框的方式，默认值为 <code>click</code> 还可以设置 <code>hover focus</code> 可组合使用"
   },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentText": "自定义弹窗内容",

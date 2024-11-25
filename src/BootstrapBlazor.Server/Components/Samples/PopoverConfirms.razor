@@ -166,6 +166,23 @@ private Func&lt;Task&gt;? OnConfirmAsync { get; set; }</Pre>
     </PopConfirmButton>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["PopoverConfirmsTriggerTitle"]"
+           Introduction="@Localizer["PopoverConfirmsTriggerIntro"]"
+           Name="Trigger">
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                      Color="Color.Primary"
+                      ConfirmButtonColor="Color.Info"
+                      Trigger="hover focus" ShowCloseButton="false" ShowConfirmButton="false"
+                      Text="@Localizer["PopoverConfirmsBodyTemplateButtonText"]">
+        <BodyTemplate>
+            <div class="d-flex align-items-center">
+                Label: Just a demo
+            </div>
+        </BodyTemplate>
+    </PopConfirmButton>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
