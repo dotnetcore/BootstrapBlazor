@@ -42,6 +42,7 @@
     background-color: #222;
     padding: var(--bb-footer-padding);
     color: #ddd;
+    display: flex;
 }
 
     .footer-info a {
