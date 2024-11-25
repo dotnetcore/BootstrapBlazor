@@ -84,25 +84,6 @@
         width: 280px;
     }
 
-.bb-foundation {
-    background-color: rgb(var(--bs-tertiary-bg-rgb));
-    position: relative;
-}
-
-    .bb-foundation .bb-foundation-img {
-        position: absolute;
-        right: 1rem;
-        top: 1rem;
-    }
-
-    .bb-foundation .bb-foundation-content {
-        text-align: center;
-        font-size: 1.1rem;
-        font-weight: bolder;
-        line-height: 100px;
-        padding: 1rem 0;
-    }
-
 @media (min-width: 768px) {
     .bd-masthead .lead {
         font-size: calc(1.275rem + .3vw);
