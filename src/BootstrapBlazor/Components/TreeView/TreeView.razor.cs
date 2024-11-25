@@ -433,7 +433,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="items"></param>
     /// <returns></returns>
     [JSInvokable]
-    public ValueTask<List<CheckboxState>> GetParentsState(List<int> items)
+    public Task<List<CheckboxState>> GetParentsState(List<int> items)
     {
         var rows = Rows;
         var result = items.Select(i =>
@@ -447,7 +447,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             item.CheckedState = checkedState;
             return checkedState;
         }).ToList();
-        return ValueTask.FromResult(result);
+        return Task.FromResult(result);
     }
 
     private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
