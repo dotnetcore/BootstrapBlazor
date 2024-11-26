@@ -45,6 +45,7 @@ html .search-dialog-mask {
     --bb-global-search-item-active-bg: rgba(var(--bb-primary-color-rgb), 0.5);
     --bb-global-search-item-hover-bg: rgba(var(--bb-primary-color-rgb), 0.4);
     --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
+    --bb-global-search-highlight-color: var(--bb-primary-color);
 }
 
 .navbar {
