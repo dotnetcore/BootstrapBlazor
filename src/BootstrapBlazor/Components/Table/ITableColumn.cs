@@ -126,7 +126,7 @@ public interface ITableColumn : IEditorItem
     string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// 获得/设置 列格式化回调委托 <see cref="TableColumnContext{TItem, TValue}"/>
     /// </summary>
     Func<object?, Task<string?>>? Formatter { get; set; }
 

@@ -156,7 +156,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// <inheritdoc/>
     /// </summary>
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
