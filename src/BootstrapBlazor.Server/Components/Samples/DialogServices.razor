@@ -57,6 +57,24 @@ private DialogService? DialogService { get; set; }</Pre>
         <p>我们换个思路，先弹出一个对话框，业务逻辑仍然由 <code>ResultDialogDemo</code> 完成，当点击 <code>关闭</code> 按钮时取消或者回滚业务逻辑操作或者仅关窗，当点击 <code>保存</code> 按钮时对业务处理结果进行入库操作或者其他操作然后关窗，这个思路也是完全没有问题，不需要通过弹窗的返回值进行后续逻辑判断，把业务逻辑处理移到弹窗内显示组件中，个人感觉更加合理代码更加内聚，并且可以解决模态弹窗返回值不够用需要自定义的问题</p>
     </GroupBox>
 
+    <GroupBox Title="如何设置模态框的返回值" class="mb-3">
+        <p>组件库提供了 <code>ShowModal</code> 扩展方法用于弹出模态框，也可以通过调用泛型扩展方法 <code>ShowModal&lt;TDialog&gt;</code> 其组件泛型约束 <code>TDialog</code> 需要继承 <code>IResultDialog</code> 接口，在组件内通过级联参数 <code>SetResultAsync</code> 来设置其模态框返回值，示例代码如下：</p>
+        <Pre>[CascadingParameter(Name = "ResultDialogContext")]
+private Func&lt;DialogResult, Task&gt;? SetResultAsync { get; set; }
+
+private async Task OnClick(DialogResult dialogResult)
+{
+    if (SetResultAsync != null)
+    {
+        await SetResultAsync(dialogResult);
+    }
+}</Pre>
+        <p>组件内示例代码如下：</p>
+        <Pre>&lt;DialogCloseButton Color="@@ButtonNoColor" Icon="@@ButtonNoIcon" Text="@@ButtonNoText" OnClickWithoutRender="() => OnClick(DialogResult.No)" /></Pre>
+        <p>通过以上代码实现点击按钮关闭当前弹窗，并且设置弹窗返回值为 <code>DialogResult.No</code></p>
+        <p>本组件库内置了 <code>ResultDialogFooter</code> 组件，可以使用或者下载源码学习</p>
+    </GroupBox>
+
     <GroupBox Title="代码中如何关闭弹窗" class="mb-3">
         <p>在使用弹窗的过程中基本都是需要根据自己的业务需求放置一些业务逻辑处理按钮的，比如放置 <b>关闭</b> <b>保存</b> <b>应用</b> 等等，这些按钮逻辑有些是需要处理业务逻辑结束后，根据业务逻辑处理结果决定是否关闭弹窗，代码关闭弹窗我们组件库内置了一下几种办法</p>
 
