@@ -290,7 +290,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Func<object?, Task<string?>>? Formatter { get; set; }
