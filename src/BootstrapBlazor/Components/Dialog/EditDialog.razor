@@ -4,24 +4,26 @@
 @attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
-    @if (BodyTemplate != null)
-    {
-        <div class="form-body">
-            @BodyTemplate(Model)
-        </div>
-        <div class="form-footer">
-            @RenderFooter
-        </div>
-    }
-    else
-    {
-        <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
-            <Buttons>
+    <CascadingValue Value="ItemChangedType" IsFixed="true">
+        @if (BodyTemplate != null)
+        {
+            <div class="form-body">
+                @BodyTemplate(Model)
+            </div>
+            <div class="form-footer">
                 @RenderFooter
-            </Buttons>
-        </EditorForm>
-    }
-    <div class="form-loader fade" id="@Id">
-        <Spinner Color="Color.Primary" />
-    </div>
+            </div>
+        }
+        else
+        {
+            <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
+                <Buttons>
+                    @RenderFooter
+                </Buttons>
+            </EditorForm>
+        }
+        <div class="form-loader fade" id="@Id">
+            <Spinner Color="Color.Primary" />
+        </div>
+    </CascadingValue>
 </ValidateForm>
