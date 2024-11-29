@@ -24,7 +24,9 @@
 
     .layout-demo ::deep .layout-footer div {
         text-align: center;
-        flex: 1;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
     }
 
 .layout-demo ::deep .layout-side {
