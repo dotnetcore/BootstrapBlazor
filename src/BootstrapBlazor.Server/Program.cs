@@ -4,52 +4,19 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components;
+using BootstrapBlazor.Shared.Components.Layout;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Unicode;
 
 // 增加中文编码支持用于定位服务
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 增加中文编码支持网页源码显示汉字
-builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
-
-builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
-builder.Services.AddCors();
-
-#if DEBUG
-#else
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
-#endif
-
-builder.Services.AddControllers();
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
-
-// 增加 SignalR 服务数据传输大小限制配置
-builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
-
-// 增加 BootstrapBlazor 服务
-builder.Services.AddBootstrapBlazorServices();
+builder.Services.AddBootstrapBlazorServerService();
 
 var app = builder.Build();
-
-//app.UseStatusCodePages(context =>
-//{
-//    var response = context.HttpContext.Response;
-//    if(response.StatusCode == 404)
-//    {
-//        response.Redirect("/", true);
-//    }
-//    return Task.CompletedTask;
-//});
 
 // 启用本地化
 var option = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
@@ -86,6 +53,6 @@ app.UseBootstrapBlazor();
 app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddAdditionalAssemblies(typeof(MainLayout).Assembly);
 
 app.Run();

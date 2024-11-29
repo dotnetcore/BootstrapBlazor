@@ -33,7 +33,7 @@ public sealed partial class Captchas
     /// <summary>
     /// 获得/设置 图床路径 默认值为 images
     /// </summary>
-    public string ImagesPath { get; set; } = "./images";
+    public string ImagesPath { get; set; } = "./_content/BootstrapBlazor.Shared/images";
 
     [NotNull]
     private Captcha? NormalCaptcha { get; set; }

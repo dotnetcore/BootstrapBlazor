@@ -14,7 +14,7 @@ public sealed partial class Avatars
     {
         // 模拟异步获取图像地址
         await Task.Delay(500);
-        return "./images/Argo-C.png";
+        return "./_content/BootstrapBlazor.Shared/images/Argo-C.png";
     }
 
     /// <summary>

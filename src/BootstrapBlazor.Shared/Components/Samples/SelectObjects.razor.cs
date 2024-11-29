@@ -30,7 +30,7 @@ public partial class SelectObjects
 
         Products = Enumerable.Range(1, 8).Select(i => new ListViews.Product()
         {
-            ImageUrl = $"./images/Pic{i}.jpg",
+            ImageUrl = $"./_content/BootstrapBlazor.Shared/images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });

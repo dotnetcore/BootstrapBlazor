@@ -28,7 +28,7 @@ public sealed partial class Uploads
 
     private Person Foo2 { get; set; } = new Person();
 
-    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "./images/Argo.png" } });
+    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "./_content/BootstrapBlazor.Shared/images/Argo.png" } });
 
     private CancellationTokenSource? ReadAvatarToken { get; set; }
 
@@ -110,7 +110,7 @@ public sealed partial class Uploads
             if (ret)
             {
                 // 保存成功
-                file.PrevUrl = $"images/uploader/{file.FileName}";
+                file.PrevUrl = $"./_content/BootstrapBlazor.Shared/images/uploader/{file.FileName}";
             }
             else
             {

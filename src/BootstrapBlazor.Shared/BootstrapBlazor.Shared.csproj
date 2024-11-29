@@ -77,9 +77,12 @@
     <Using Include="BootstrapBlazor.Shared.Extensions" />
     <Using Include="BootstrapBlazor.Shared.Services" />
     <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Configuration" />
+    <Using Include="Microsoft.Extensions.DependencyInjection" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="Microsoft.Extensions.Logging" />
     <Using Include="System.ComponentModel.DataAnnotations" />
+    <Using Include="System.Net.Http.Json" />
   </ItemGroup>
 
 </Project>

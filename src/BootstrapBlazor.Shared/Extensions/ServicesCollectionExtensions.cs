@@ -9,9 +9,9 @@ using Microsoft.Extensions.Options;
 namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
-/// 后台任务扩展方法
+/// 注册服务扩展方法
 /// </summary>
-internal static class ServicesExtensions
+public static class ServicesCollectionExtensions
 {
     /// <summary>
     /// 添加示例后台任务
@@ -20,13 +20,6 @@ internal static class ServicesExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        // 增加错误日志
-        services.AddLogging(logging => logging.AddFileLogger());
-
-        // 增加后台任务服务
-        services.AddTaskServices();
-        services.AddHostedService<ClearTempFilesService>();
-
         // 增加演示网站服务
         services.AddWebSiteServices();
 

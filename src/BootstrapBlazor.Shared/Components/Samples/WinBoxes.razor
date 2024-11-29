@@ -56,7 +56,7 @@ private WinBoxService? WinBoxService { get; set; }</Pre>
 
 <GroupBox Title="设置图标" class="mb-3">
     <p class="code-label">通过 <code>WinBoxOption</code> 参数 <code>Icon</code> 设置</p>
-    <Pre>new WinBoxOption() { Icon = "./images/Argo-C.png" }</Pre>
+    <Pre>new WinBoxOption() { Icon = "./_content/BootstrapBlazor.Shared/images/Argo-C.png" }</Pre>
 
     <p class="code-label">通过服务方法 <code>WinBoxService</code> 实例方法</p>
     <Pre>[Inject]
@@ -66,7 +66,7 @@ private WinBoxService? WinBoxService { get; set; }
 private async Task SetIcon()
 {
     // 提前保持弹窗 WinBoxOption 实例
-    option.Icon = "./images/Argo-C.png";
+    option.Icon = "./_content/BootstrapBlazor.Shared/images/Argo-C.png";
     await WinBoxService.setIcon(option.Id);
 }</Pre>
 </GroupBox>

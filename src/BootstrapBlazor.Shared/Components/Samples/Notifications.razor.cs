@@ -21,7 +21,7 @@ public partial class Notifications
 
     private NotificationItem Model { get; set; } = new()
     {
-        Icon = "./images/Argo-C.png"
+        Icon = "./_content/BootstrapBlazor.Shared/images/Argo-C.png"
     };
 
     /// <summary>

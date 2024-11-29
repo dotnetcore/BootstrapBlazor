@@ -14,7 +14,7 @@ public partial class ImageCroppers
 
     private ImageCropper _roundCropper = default!;
 
-    private readonly string[] images = ["./images/picture.jpg", "./images/ImageList2.jpeg"];
+    private readonly string[] images = ["./_content/BootstrapBlazor.Shared/images/picture.jpg", "./_content/BootstrapBlazor.Shared/images/ImageList2.jpeg"];
 
     private int index = 0;
 

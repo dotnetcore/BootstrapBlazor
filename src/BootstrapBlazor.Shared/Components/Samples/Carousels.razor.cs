@@ -18,9 +18,9 @@ public sealed partial class Carousels
     /// </summary>
     private static List<string> Images =>
     [
-        "./images/Pic0.jpg",
-        "./images/Pic1.jpg",
-        "./images/Pic2.jpg"
+        "./_content/BootstrapBlazor.Shared/images/Pic0.jpg",
+        "./_content/BootstrapBlazor.Shared/images/Pic1.jpg",
+        "./_content/BootstrapBlazor.Shared/images/Pic2.jpg"
     ];
 
     /// <summary>
