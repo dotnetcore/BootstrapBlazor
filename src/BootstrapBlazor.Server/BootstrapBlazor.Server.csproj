@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
     <Using Include="Microsoft.AspNetCore.Components" />
   </ItemGroup>
 

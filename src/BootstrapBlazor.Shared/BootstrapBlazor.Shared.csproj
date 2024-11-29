@@ -78,6 +78,7 @@
     <Using Include="BootstrapBlazor.Shared.Services" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="Microsoft.Extensions.Logging" />
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
