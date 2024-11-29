@@ -886,12 +886,11 @@ public partial class Table<TItem>
     protected async Task ShowEditDrawer(ItemChangedType changedType)
     {
         var saved = false;
-        var triggerFromSave = false;
         var editOption = new TableEditDrawerOption<TItem>()
         {
             OnCloseAsync = async () =>
             {
-                if (triggerFromSave == false && OnAfterCancelSaveAsync != null)
+                if (OnAfterCancelSaveAsync != null)
                 {
                     await OnAfterCancelSaveAsync();
                 }
@@ -900,7 +899,6 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);
-                triggerFromSave = true;
                 return saved;
             }
         };
