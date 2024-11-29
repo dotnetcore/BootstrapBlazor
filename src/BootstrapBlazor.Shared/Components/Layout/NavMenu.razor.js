@@ -1,6 +1,6 @@
-﻿import Data from "../../_content/BootstrapBlazor/modules/data.js"
-import Drag from "../../_content/BootstrapBlazor/modules/drag.js"
-import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import Data from "../../../BootstrapBlazor/modules/data.js"
+import Drag from "../../../BootstrapBlazor/modules/drag.js"
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
     const navmenu = {

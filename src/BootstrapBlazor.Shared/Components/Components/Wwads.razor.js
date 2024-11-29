@@ -1,9 +1,9 @@
-﻿import { addLink } from '../../_content/BootstrapBlazor/modules/utility.js'
+﻿import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 
 export async function init(id, options) {
     var el = document.getElementById(id)
     if (el) {
-        await addLink("../../css/wwads.css");
+        await addLink("./_content/BootstrapBlazor.Shared/css/wwads.css");
 
         const { isVertical, isDebug } = options;
 

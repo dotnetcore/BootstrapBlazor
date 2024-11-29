@@ -1,5 +1,5 @@
-﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
-import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import { copy, getDescribedElement, addLink, removeLink, addScript, getHeight, getPreferredTheme } from "../../../BootstrapBlazor/modules/utility.js"
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export async function init(id, title) {
     const el = document.getElementById(id);
@@ -7,8 +7,8 @@ export async function init(id, title) {
         return
     }
 
-    await addScript('./lib/highlight/highlight.min.js')
-    await addScript('./lib/highlight/cshtml-razor.min.js')
+    await addScript('./_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
+    await addScript('./_content/BootstrapBlazor.Shared/lib/highlight/cshtml-razor.min.js')
     await switchTheme(getPreferredTheme());
 
     const preElement = el.querySelector('pre')
