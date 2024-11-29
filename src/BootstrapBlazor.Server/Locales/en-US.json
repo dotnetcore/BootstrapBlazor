@@ -6803,7 +6803,11 @@
     "SortableListSwapTitle": "Swap",
     "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped.",
     "SortableListOnAddTitle": "Multiple SortableList",
-    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily"
+    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily",
+    "AttributeSortableListOption": "SortableListOption instance",
+    "AttributeOnAdd": "Callback method when adding elements",
+    "AttributeOnUpdate": "Callback method when updating elements",
+    "AttributeOnRemove": "Callback method when deleting elements"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox",
