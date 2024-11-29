@@ -6803,7 +6803,11 @@
     "SortableListSwapTitle": "交换",
     "SortableListSwapIntro": "通过设置 <code>SortableListOption</code> 参数 <code>Swap</code> 设置拖拽项与目标项目交换",
     "SortableListOnAddTitle": "多区域拖动",
-    "SortableListOnAddIntro": "通过设置 <code>SortableEvent</code> 参数 <code>FromId</code> 获得拖动项所属 <code>SortableList</code>。本示例中三个区域内元素可以任意拖动"
+    "SortableListOnAddIntro": "通过设置 <code>SortableEvent</code> 参数 <code>FromId</code> 获得拖动项所属 <code>SortableList</code>。本示例中三个区域内元素可以任意拖动",
+    "AttributeSortableListOption": "SortableListOption 实例",
+    "AttributeOnAdd": "增加元素时回调方法",
+    "AttributeOnUpdate": "更新元素时回调方法",
+    "AttributeOnRemove": "删除元素时回调方法"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox 窗口组件",
