@@ -734,11 +734,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Tree"],
-                    Url = "tree"
-                },
-                new()
-                {
                     Text = Localizer["TreeView"],
                     Url = "tree-view"
                 },
