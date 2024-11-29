@@ -89,6 +89,12 @@ public partial class Table<TItem>
     public Func<TItem, string?>? SetRowClassFormatter { get; set; }
 
     /// <summary>
+    /// 获得/设置 取消保存后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnAfterCancelSaveAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 保存后回调委托方法
     /// </summary>
     [Parameter]
