@@ -850,6 +850,7 @@ public partial class Table<TItem>
     protected async Task ShowEditDialog(ItemChangedType changedType)
     {
         var saved = false;
+        var triggerFromSave = false;
         var option = new EditDialogOption<TItem>()
         {
             Class = "modal-dialog-table",
@@ -860,10 +861,18 @@ public partial class Table<TItem>
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
             FullScreenSize = EditDialogFullScreenSize,
-            OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
+            OnCloseAsync = async () =>
+            {
+                if (triggerFromSave == false && OnAfterCancelSaveAsync != null)
+                {
+                    await OnAfterCancelSaveAsync();
+                }
+                await OnCloseEditDialogCallbackAsync(saved);
+            },
             OnEditAsync = async context =>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);
+                triggerFromSave = true;
                 return saved;
             }
         };
@@ -879,7 +888,14 @@ public partial class Table<TItem>
         var saved = false;
         var editOption = new TableEditDrawerOption<TItem>()
         {
-            OnCloseAsync = () => OnCloseEditDialogCallbackAsync(saved),
+            OnCloseAsync = async () =>
+            {
+                if (OnAfterCancelSaveAsync != null)
+                {
+                    await OnAfterCancelSaveAsync();
+                }
+                await OnCloseEditDialogCallbackAsync(saved);
+            },
             OnEditAsync = async context =>
             {
                 saved = await OnSaveEditCallbackAsync(context, changedType);

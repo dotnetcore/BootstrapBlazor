@@ -5505,6 +5505,106 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.True(afterModify);
     }
 
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_Popup()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.Popup);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 保存按钮
+        var saveButton = cut.Find(".bb-editor-footer .btn-primary");
+        await cut.InvokeAsync(() => saveButton.Click());
+        Assert.False(afterCancelSave);
+
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
+
+        await cut.InvokeAsync(() => button[0].Click());
+        var cancelButton = cut.Find(".bb-editor-footer .btn");
+
+        // 取消按钮
+        await cut.InvokeAsync(() => cancelButton.Click());
+        Assert.True(afterCancelSave);
+    }
+
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_Drawer()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.Drawer);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 保存按钮
+        var saveButton = cut.Find(".bb-editor-footer .btn-primary");
+        await cut.InvokeAsync(() => saveButton.Click());
+        Assert.False(afterCancelSave);
+
+        // 取消按钮
+        button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        var cancelButton = cut.Find(".bb-editor-footer .btn");
+        await cut.InvokeAsync(() => cancelButton.Click());
+        Assert.True(afterCancelSave);
+    }
+
     [Theory]
     [InlineData(EditMode.EditForm)]
     [InlineData(EditMode.InCell)]
