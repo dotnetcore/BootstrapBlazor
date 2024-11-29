@@ -1,5 +1,5 @@
 ﻿{
-  "BootstrapBlazor.Server.Data.Foo": {
+  "BootstrapBlazor.Shared.Data.Foo": {
     "Name": "Test-Name",
     "NullName": null,
     "EmptyName": "",

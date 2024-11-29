@@ -6,7 +6,7 @@
 using Longbow.Tasks;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Services;
+namespace BootstrapBlazor.Service.Services;
 
 /// <summary>
 /// 后台任务服务类
