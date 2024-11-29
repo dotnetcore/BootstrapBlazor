@@ -41,7 +41,7 @@ internal static class StaticFileResponseContextExtensions
                 builder.RenderCss($"{assets["_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor/css/motronic.min.css"]}");
-                builder.RenderCss($"{assets["BootstrapBlazor.Server.styles.css"]}");
+                builder.RenderCss($"{assets["BootstrapBlazor.Shared.styles.css"]}");
                 builder.RenderCss($"{assets["css/site.css"]}");
 
                 builder.OpenComponent<ImportMap>(0);
