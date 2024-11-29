@@ -80,12 +80,12 @@ export async function highlight(id) {
 
 export async function switchTheme(theme) {
     if (theme === 'dark') {
-        removeLink('./lib/highlight/vs.min.css')
-        await addLink('./lib/highlight/vs2015.min.css')
+        removeLink('./_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
+        await addLink('./_content/BootstrapBlazor.Shared/lib/highlight/vs2015.min.css')
     }
     else {
-        removeLink('./lib/highlight/vs2015.min.css');
-        await addLink('./lib/highlight/vs.min.css')
+        removeLink('./_content/BootstrapBlazor.Shared/lib/highlight/vs2015.min.css');
+        await addLink('./_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
     }
 }
 
