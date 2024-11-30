@@ -3,37 +3,39 @@
     --bs-accordion-btn-padding-x: 1rem;
     --bs-accordion-btn-padding-y: .5rem;
 
-    .accordion-button {
-        &.btn-primary {
-            background-color: var(--bs-primary);
+    .accordion-header {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+
+        &:not(.collapsed) {
+            background-color: var(--bs-accordion-active-bg);
         }
 
-        &.btn-secondary {
-            background-color: var(--bs-secondary);
-        }
+        .accordion-button {
+            --bs-accordion-inner-border-radius: 0;
+            flex: 1 1 auto;
+            width: 1%;
+            cursor: pointer;
 
-        &.btn-success {
-            background-color: var(--bs-success);
+            .accordion-item-icon {
+                margin-inline-end: .5rem;
+            }
         }
+    }
 
-        &.btn-info {
-            background-color: var(--bs-info);
+    .accordion-item:first-of-type {
+        .accordion-header {
+            border-top-left-radius: var(--bs-accordion-inner-border-radius);
+            border-top-right-radius: var(--bs-accordion-inner-border-radius);
         }
+    }
 
-        &.btn-warning {
-            background-color: var(--bs-warning);
-        }
-
-        &.btn-danger {
-            background-color: var(--bs-danger);
-        }
-
-        &.btn-light {
-            background-color: var(--bs-light);
-        }
-
-        &.btn-dark {
-            background-color: var(--bs-dark);
+    .accordion-item:last-of-type {
+        .accordion-header.collapsed {
+            border-bottom-left-radius: var(--bs-accordion-inner-border-radius);
+            border-bottom-right-radius: var(--bs-accordion-inner-border-radius);
         }
     }
 }
