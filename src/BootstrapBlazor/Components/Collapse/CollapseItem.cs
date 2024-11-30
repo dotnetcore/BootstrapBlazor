@@ -71,7 +71,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     private bool disposedValue;
 
     /// <summary>
-    /// 
+    /// 资源销毁
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -88,7 +88,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {
