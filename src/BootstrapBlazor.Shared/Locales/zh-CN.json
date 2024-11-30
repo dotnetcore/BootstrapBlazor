@@ -3859,7 +3859,16 @@
     "Controllability": "可控 Controllability",
     "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
     "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。",
-    "ButtonText": "切换"
+    "ButtonText": "切换",
+    "HeaderTemplateTitle": "Header 模板",
+    "HeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 自定义 <b>Header</b> 显示内容",
+    "CollapseItemAttributeText": "文本文字",
+    "CollapseItemAttributeIcon": "图标字符串",
+    "CollapseItemAttributeTitleColor": "标题颜色",
+    "CollapseItemAttributeClass": "样式名称",
+    "CollapseItemAttributeHeaderClass": "Header CSS 样式名称",
+    "CollapseItemAttributeHeaderTemplate": "Header 模板",
+    "CollapseItemAttributeIsCollapsed": "当前状态是否收缩"
   },
   "BootstrapBlazor.Shared.Components.Samples.DateTimeRanges": {
     "Title": "DateTimeRange 日期时间段选择器",

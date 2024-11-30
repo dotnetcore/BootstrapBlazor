@@ -3859,7 +3859,16 @@
     "Controllability": "Controllability",
     "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
     "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
-    "ButtonText": "Toggle"
+    "ButtonText": "Toggle",
+    "HeaderTemplateTitle": "Header Template",
+    "HeaderTemplateIntro": "Customize the <b>Header</b> display content by setting <code>HeaderTemplate</code>",
+    "CollapseItemAttributeText": "The title of header",
+    "CollapseItemAttributeIcon": "The icon of header",
+    "CollapseItemAttributeTitleColor": "The color of header",
+    "CollapseItemAttributeClass": "The class of item",
+    "CollapseItemAttributeHeaderClass": "The class of header",
+    "CollapseItemAttributeHeaderTemplate": "Header template",
+    "CollapseItemAttributeIsCollapsed": "The item status collapsed"
   },
   "BootstrapBlazor.Shared.Components.Samples.DateTimeRanges": {
     "Title": "Date Time Range Picker",
