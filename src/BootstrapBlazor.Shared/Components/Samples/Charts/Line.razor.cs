@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Components.Samples.Charts;
 /// <summary>
 /// Line 图表示例
 /// </summary>
-[JSModuleAutoLoader("Samples/Charts/Line.razor.js", JSObjectReference = true)]
+[JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Samples/Charts/Line.razor.js", JSObjectReference = true)]
 public partial class Line : IDisposable
 {
     private readonly Random _randomer = new();

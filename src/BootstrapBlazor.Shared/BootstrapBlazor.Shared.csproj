@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <ItemGroup>
     <Content Remove="docs.json" />
@@ -47,7 +47,7 @@
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.0.4" />
-    <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.1-beta01" />
+    <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.0" />
@@ -61,7 +61,7 @@
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.TagHelper" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.5" />
   </ItemGroup>
 

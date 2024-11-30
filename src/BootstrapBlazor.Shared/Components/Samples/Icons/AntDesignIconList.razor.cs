@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Components.Samples.Icons;
 /// <summary>
 /// AntDesignIconList 组件
 /// </summary>
-[JSModuleAutoLoader("Samples/Icons/AntDesignIconList.razor.js")]
+[JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Samples/Icons/AntDesignIconList.razor.js")]
 public partial class AntDesignIconList
 {
     private string? ClassString => CssBuilder.Default("icon-list")
