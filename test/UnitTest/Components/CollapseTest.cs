@@ -88,7 +88,26 @@ public class CollapseTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.Contains("btn-secondary");
+        cut.Contains("bg-secondary");
+    }
+
+    [Fact]
+    public void HeaderTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Collapse>(pb =>
+        {
+            pb.Add(a => a.CollapseItems, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CollapseItem>(0);
+                builder.AddAttribute(1, nameof(CollapseItem.Text), "Item 1");
+                builder.AddAttribute(2, nameof(CollapseItem.ChildContent), new RenderFragment(b => b.AddContent(0, "1")));
+                builder.AddAttribute(3, nameof(CollapseItem.HeaderTemplate), new RenderFragment(b => b.AddMarkupContent(0, "<div>Header-Template</div>")));
+                builder.AddAttribute(4, nameof(CollapseItem.HeaderClass), "header-class-test");
+                builder.CloseComponent();
+            }));
+        });
+        cut.Contains("header-class-test");
+        cut.Contains("<div>Header-Template</div>");
     }
 
     [Fact]
