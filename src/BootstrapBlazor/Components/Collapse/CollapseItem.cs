@@ -50,7 +50,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     /// 获得/设置 所属 Collapse 实例
     /// </summary>
     [CascadingParameter]
-    protected Collapse? Collpase { get; set; }
+    protected Collapse? Collapse { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -59,7 +59,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     {
         base.OnInitialized();
 
-        Collpase?.AddItem(this);
+        Collapse?.AddItem(this);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
 
             if (disposing)
             {
-                Collpase?.RemoveItem(this);
+                Collapse?.RemoveItem(this);
             }
         }
     }
