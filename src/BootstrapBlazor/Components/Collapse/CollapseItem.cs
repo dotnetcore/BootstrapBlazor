@@ -41,10 +41,22 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     public string? Class { get; set; }
 
     /// <summary>
+    /// 获得/设置 Header CSS 样式名称 默认 null
+    /// </summary>
+    [Parameter]
+    public string? HeaderClass { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件 Header 模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 所属 Collapse 实例
