@@ -17,7 +17,7 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前状态是否激活 默认 true
+    /// 获得/设置 当前状态是否收缩 默认 true
     /// </summary>
     [Parameter]
     public bool IsCollapsed { get; set; } = true;
