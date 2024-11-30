@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Components.Samples.Table;
 /// <summary>
 /// 选择行示例代码
 /// </summary>
-[JSModuleAutoLoader("/_content/BootstrapBlazor.Shared/Components/Samples/Table/TablesSelection.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
+[JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Samples/Table/TablesSelection.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class TablesSelection
 {
     /// <summary>
