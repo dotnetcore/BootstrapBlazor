@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Components.Samples.Icons;
 /// <summary>
 /// ByteDanceIconList 组件
 /// </summary>
-[JSModuleAutoLoader("Samples/Icons/IconParkList.razor.js")]
+[JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Samples/Icons/IconParkList.razor.js")]
 public partial class IconParkList : IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("icon-list")

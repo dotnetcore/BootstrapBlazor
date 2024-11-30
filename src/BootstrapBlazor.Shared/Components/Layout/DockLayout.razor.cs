@@ -33,7 +33,7 @@ public partial class DockLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./Components/Layout/DockLayout.razor.js");
+            Module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Shared/Components/Layout/DockLayout.razor.js");
             await Module.InvokeVoidAsync("init");
         }
     }

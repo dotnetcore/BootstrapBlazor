@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Components.Samples.Icons;
 /// <summary>
 /// ElementIconList 组件
 /// </summary>
-[JSModuleAutoLoader("Samples/Icons/ElementIconList.razor.js")]
+[JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Samples/Icons/ElementIconList.razor.js")]
 public partial class ElementIconList
 {
     private string? ClassString => CssBuilder.Default("icon-list")
