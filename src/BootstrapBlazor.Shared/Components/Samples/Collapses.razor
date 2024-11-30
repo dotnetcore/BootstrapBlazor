@@ -140,4 +140,41 @@
     </Collapse>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["HeaderTemplateTitle"]" Introduction="@Localizer["HeaderTemplateIntro"]" Name="HeaderTemplate">
+    <Collapse>
+        <CollapseItems>
+            <CollapseItem Text="@Localizer["Consistency"]">
+                <HeaderTemplate>
+                    <div class="p-2">
+                        <Select Items="Items" @bind-Value="Value" IsPopover="true"></Select>
+                    </div>
+                </HeaderTemplate>
+                <ChildContent>
+                    <div>@Localizer["ConsistencyItem1"]</div>
+                    <div>@Localizer["ConsistencyItem2"]</div>
+                    <div>@Value</div>
+                </ChildContent>
+            </CollapseItem>
+            <CollapseItem Text="@Localizer["Feedback"]">
+                <HeaderTemplate>
+                    <div class="p-2">Header-Test</div>
+                </HeaderTemplate>
+                <ChildContent>
+                    <div>@Localizer["FeedbackItem1"]</div>
+                    <div>@Localizer["FeedbackItem2"]</div>
+                </ChildContent>
+            </CollapseItem>
+            <CollapseItem Text="@Localizer["Controllability"]">
+                <HeaderTemplate>
+                    <div class="p-2">Header-Test</div>
+                </HeaderTemplate>
+                <ChildContent>
+                    <div>@Localizer["ControllabilityItem1"]</div>
+                    <div>@Localizer["ControllabilityItem2"]</div>
+                </ChildContent>
+            </CollapseItem>
+        </CollapseItems>
+    </Collapse>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

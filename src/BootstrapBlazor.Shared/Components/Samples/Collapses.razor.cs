@@ -26,6 +26,14 @@ public sealed partial class Collapses
         State = !State;
     }
 
+    private string Value { get; set; }
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
