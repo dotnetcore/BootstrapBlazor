@@ -53,12 +53,10 @@ internal static class StaticFileResponseContextExtensions
 
     private static void RenderCss(this RenderTreeBuilder builder, string url)
     {
-#if NET9_0_OR_GREATER
         builder.OpenElement(0, "link");
         builder.AddAttribute(1, "rel", "stylesheet");
         builder.AddAttribute(2, "href", url);
         builder.CloseElement();
-#endif
     }
 
     public static void ProcessCache(this StaticFileResponseContext context, IConfiguration configuration)
