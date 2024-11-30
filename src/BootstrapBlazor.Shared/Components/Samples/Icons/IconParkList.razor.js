@@ -1,6 +1,6 @@
-﻿import { copy } from "../../../_content/BootstrapBlazor/modules/utility.js"
-import Data from "../../../_content/BootstrapBlazor/modules/data.js"
-import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import { copy } from "/_content/BootstrapBlazor/modules/utility.js"
+import Data from "/_content/BootstrapBlazor/modules/data.js"
+import EventHandler from "/_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
     const el = document.getElementById(id);
