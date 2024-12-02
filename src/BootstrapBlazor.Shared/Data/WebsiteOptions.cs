@@ -88,6 +88,18 @@ public class WebsiteOptions
     public string? ContentRootPath { get; set; }
 
     /// <summary>
+    /// 获得/设置 资源文件根目录
+    /// </summary>
+    [NotNull]
+    public string? AssetRootPath { get; set; }
+
+    /// <summary>
+    /// 获得/设置 脚本根路径
+    /// </summary>
+    [NotNull]
+    public string JSModuleRootPath { get; set; } = "./_content/BootstrapBlazor.Shared/Components/";
+
+    /// <summary>
     /// 获得/设置 视频地址
     /// </summary>
     public string VideoUrl { get; set; } = "https://www.bilibili.com/video/";
