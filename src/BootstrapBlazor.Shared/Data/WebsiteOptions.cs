@@ -149,6 +149,10 @@ public class WebsiteOptions
         SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
         Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
         Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+
+        AssetRootPath = "./_content/BootstrapBlazor.Shared/";
+        ContentRootPath = Path.Combine(AppContext.BaseDirectory, "../../../");
+        WebRootPath = Path.Combine(AppContext.BaseDirectory, "../../wwwroot/");
     }
 
     private IConfiguration GetConfiguration(string jsonFileName)
