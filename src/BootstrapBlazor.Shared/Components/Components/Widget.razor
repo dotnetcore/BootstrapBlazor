@@ -1,4 +1,6 @@
-﻿<DropdownWidget class="px-3 d-none d-sm-block">
+﻿@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<DropdownWidget class="px-3 d-none d-sm-block">
     <DropdownWidgetItem Icon="fa-regular fa-envelope" BadgeNumber="4">
         <HeaderTemplate>
             <span>您有 4 个未读消息</span>
@@ -8,7 +10,7 @@
             {
                 <a class="dropdown-item d-flex align-items-center" href="#" @onclick:preventDefault>
                     <div style="width: 40px; height: 40px;">
-                        <Avatar Url="./_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.Small" />
+                        <Avatar Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/Argo-C.png")" IsCircle="true" Size="Size.Small" />
                     </div>
                     <div class="ms-2">
                         <div class="d-flex position-relative">

@@ -88,10 +88,10 @@ public class WebsiteOptions
     public string? ContentRootPath { get; set; }
 
     /// <summary>
-    /// 获得/设置 资源文件根目录
+    /// 获得/设置 资源文件根目录 默认值为 "./_content/BootstrapBlazor.Shared/"
     /// </summary>
     [NotNull]
-    public string? AssetRootPath { get; set; }
+    public string? AssetRootPath { get; set; } = "./_content/BootstrapBlazor.Shared/";
 
     /// <summary>
     /// 获得/设置 脚本根路径
@@ -165,4 +165,11 @@ public class WebsiteOptions
             .AddJsonStream(res)
             .Build();
     }
+
+    /// <summary>
+    /// 拼接静态资源文件路径
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public string? GetAssetUrl(string url) => $"{AssetRootPath}{url}";
 }

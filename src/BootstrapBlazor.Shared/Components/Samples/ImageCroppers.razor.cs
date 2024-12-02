@@ -14,7 +14,7 @@ public partial class ImageCroppers
 
     private ImageCropper _roundCropper = default!;
 
-    private readonly string[] images = ["./_content/BootstrapBlazor.Shared/images/picture.jpg", "./_content/BootstrapBlazor.Shared/images/ImageList2.jpeg"];
+    private readonly List<string> _images = [];
 
     private int index = 0;
 
@@ -22,12 +22,26 @@ public partial class ImageCroppers
 
     private string? _base64String2;
 
-    private ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%" };
+    private readonly ImageCropperOption _roundOptions = new() { IsRound = true, Radius = "50%" };
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _images.AddRange(
+        [
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/picture.jpg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
+        ]);
+    }
 
     private async Task OnClickReplace()
     {
         index = index == 0 ? 1 : 0;
-        await _cropper.Replace(images[index]);
+        await _cropper.Replace(_images[index]);
     }
 
     private async Task Crop()

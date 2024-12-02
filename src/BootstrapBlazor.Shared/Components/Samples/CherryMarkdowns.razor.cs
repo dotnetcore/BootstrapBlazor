@@ -58,7 +58,7 @@ public partial class CherryMarkdowns
     {
         var url = Path.Combine("images", "uploader",
             $"{Path.GetFileNameWithoutExtension(arg.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(arg.FileName)}");
-        var fileName = Path.Combine(SiteOptions.CurrentValue.WebRootPath, url);
+        var fileName = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, url);
         var ret = await arg.SaveToFile(fileName);
         return ret ? url : "";
     }
@@ -67,7 +67,7 @@ public partial class CherryMarkdowns
     [NotNull]
     private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
 
-    private AttributeItem[] GetAttributes() =>
+    private static AttributeItem[] GetAttributes() =>
     [
         new()
         {

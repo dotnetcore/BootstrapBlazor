@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
@@ -10,6 +12,9 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// </summary>
 public partial class IntersectionObservers
 {
+    [Inject, NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
+
     private List<string> _images = default!;
 
     private List<string> _items = default!;
@@ -23,7 +28,7 @@ public partial class IntersectionObservers
     {
         base.OnInitialized();
 
-        _images = Enumerable.Range(1, 100).Select(i => "./_content/BootstrapBlazor.Shared/images/default.jpeg").ToList();
+        _images = Enumerable.Range(1, 100).Select(i => $"{WebSiteOptions.CurrentValue.AssetRootPath}images/default.jpeg").ToList();
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
