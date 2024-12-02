@@ -2,10 +2,6 @@
 @layout MainLayout
 @inject IStringLocalizer<BootstrapIcons> Localizer
 
-<HeadContent>
-    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css"]" />
-</HeadContent>
-
 <h3>@Localizer["Title"]</h3>
 
 <h4>@((MarkupString)Localizer["BaseUsageText"].Value)</h4>
