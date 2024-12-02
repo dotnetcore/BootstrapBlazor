@@ -359,7 +359,9 @@ coverage*.xml
 *.lutconfig
 
 # Upload Folder
-src/**/wwwroot/**/uploader
+src/**/wwwroot/**/uploader/*.*
+!src/**/wwwroot/**/uploader/readme.txt
+
 
 # Wasm
 **/Wasm/**/wwwroot/css/
