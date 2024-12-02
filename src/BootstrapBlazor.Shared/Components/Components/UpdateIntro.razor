@@ -1,6 +1,6 @@
 ﻿@inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<UpdateIntro> Localizer
-@attribute [JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Components/UpdateIntro.razor.js")]
+@attribute [JSModuleAutoLoader("Components/UpdateIntro.razor.js")]
 
 <div class="blazor-intro" id="@Id" data-bb-button=".blazor-intro-button" data-bb-version="@PackageVersionService.Version">
     <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">@PackageVersionService.Version</span></h5>

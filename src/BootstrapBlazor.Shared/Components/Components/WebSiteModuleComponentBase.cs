@@ -17,6 +17,6 @@ public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
     {
         base.OnLoadJSModule();
 
-        ModulePath = $"./Components/{ModulePath}";
+        ModulePath = $"./_content/BootstrapBlazor.Shared/Components/{ModulePath}";
     }
 }
