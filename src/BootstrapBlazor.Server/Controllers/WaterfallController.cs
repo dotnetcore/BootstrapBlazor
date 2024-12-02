@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Server.Controllers;
 
@@ -15,19 +16,19 @@ public class WaterfallController : Controller
     /// <summary>
     /// 获得图片方法
     /// </summary>
-    /// <param name="env"></param>
+    /// <param name="options"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    public async Task<IActionResult> Index([FromServices] IWebHostEnvironment env, [FromQuery] string? id)
+    public async Task<IActionResult> Index([FromServices] IOptions<WebsiteOptions> options, [FromQuery] string? id)
     {
         var interval = Random.Shared.Next(1, 2000);
         await Task.Delay(interval);
+
 #if DEBUG
-        var fileName = Path.Combine(env.WebRootPath, "../../");
+        var fileName = Path.Combine(options.Value.WebRootPath, "../../BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
 #else
-        var fileName = Path.Combine(AppContext.BaseDirectory, "_content");
+        var fileName = Path.Combine(options.Value.WebRootPath, "_content/BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
 #endif
-        fileName = Path.Combine(fileName, "BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
         return new PhysicalFileResult(fileName, "images/jpeg");
     }
 }

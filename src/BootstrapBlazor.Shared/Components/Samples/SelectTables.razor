@@ -1,4 +1,5 @@
 ﻿@page "/select-table"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -46,7 +47,7 @@
                 </div>
                 <Divider />
                 <div class="select-custom-body">
-                    <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
                     <div class="select-custom-detail">
                         <div class="d-flex">
                             <div class="flex-fill">

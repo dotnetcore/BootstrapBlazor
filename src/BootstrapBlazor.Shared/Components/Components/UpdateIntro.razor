@@ -1,6 +1,6 @@
 ﻿@inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<UpdateIntro> Localizer
-@attribute [JSModuleAutoLoader("../_content/BootstrapBlazor.Shared/Components/Components/UpdateIntro.razor.js")]
+@attribute [JSModuleAutoLoader("Components/UpdateIntro.razor.js")]
 
 <div class="blazor-intro" id="@Id" data-bb-button=".blazor-intro-button" data-bb-version="@PackageVersionService.Version">
     <h5><b>Bootstrap Blazor</b> @Localizer["H1"] <span class="version">@PackageVersionService.Version</span></h5>
@@ -10,15 +10,15 @@
             <p>
                 @Localizer["P1"] <span class="version">@PackageVersionService.Version</span> @Localizer["P2"] <a target="_blank" href="@UpdateLogUrl"><b>[@Localizer["P3"]]</b></a> @Localizer["P4"] <b>Star</b>
                 <a class="px-2" href="@WebsiteOption.CurrentValue.GithubRepositoryUrl" target="_blank">
-                    <img src="./_content/BootstrapBlazor.Shared/images/git.svg" alt="github" />
+                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/git.svg")" alt="github" />
                 </a>
                 <a href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">
-                    <img src="./_content/BootstrapBlazor.Shared/images/gitee.svg" alt="gitee" />
+                    <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/gitee.svg")" alt="gitee" />
                 </a>
             </p>
         </div>
         <div class="blazor-intro-barcode">
-            <img src="./_content/BootstrapBlazor.Shared/images/QQGroup@2x.png" alt="QQGroup" />
+            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/QQGroup@2x.png")" alt="QQGroup" />
             <div>QQ 795206915</div>
         </div>
     </div>

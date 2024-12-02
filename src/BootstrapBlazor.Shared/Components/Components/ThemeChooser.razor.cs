@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
@@ -25,10 +23,6 @@ public partial class ThemeChooser
     [NotNull]
     private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -38,14 +32,14 @@ public partial class ThemeChooser
 
         Title ??= Localizer[nameof(Title)];
         HeaderText ??= Localizer[nameof(HeaderText)];
-        Themes = SiteOptions.CurrentValue.Themes.Select(i => new SelectedItem { Text = i.Name, Value = i.Key });
-        SiteOptions.CurrentValue.CurrentTheme = "bootstrap";
+        Themes = WebsiteOption.CurrentValue.Themes.Select(i => new SelectedItem { Text = i.Name, Value = i.Key });
+        WebsiteOption.CurrentValue.CurrentTheme = "bootstrap";
     }
 
     private async Task OnClickTheme(SelectedItem item)
     {
-        SiteOptions.CurrentValue.CurrentTheme = item.Value;
-        var theme = SiteOptions.CurrentValue.Themes.Find(i => i.Key == item.Value);
+        WebsiteOption.CurrentValue.CurrentTheme = item.Value;
+        var theme = WebsiteOption.CurrentValue.Themes.Find(i => i.Key == item.Value);
         if (theme != null)
         {
             await InvokeVoidAsync("updateTheme", [theme.Files]);
@@ -53,6 +47,6 @@ public partial class ThemeChooser
     }
 
     private string? GetThemeItemClass(SelectedItem item) => CssBuilder.Default("theme-item")
-        .AddClass("active", SiteOptions.CurrentValue.CurrentTheme == item.Value)
+        .AddClass("active", WebsiteOption.CurrentValue.CurrentTheme == item.Value)
         .Build();
 }

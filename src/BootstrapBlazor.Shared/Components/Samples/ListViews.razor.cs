@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
@@ -25,7 +27,7 @@ public sealed partial class ListViews
 
         Products = Enumerable.Range(1, 8).Select(i => new Product()
         {
-            ImageUrl = $"./_content/BootstrapBlazor.Shared/images/Pic{i}.jpg",
+            ImageUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });

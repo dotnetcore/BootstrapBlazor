@@ -132,14 +132,6 @@ public class Foo
     /// <returns></returns>
     public static IEnumerable<SelectedItem> GenerateHobbies(IStringLocalizer<Foo> localizer) => localizer["Hobbies"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
 
-
-    /// <summary>
-    /// 通过 Id 获取头像链接
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public static string GetAvatarUrl(int id) => $"./_content/BootstrapBlazor.Shared/images/avatars/150-{Math.Max(1, id % 25)}.jpg";
-
     /// <summary>
     /// 获取 Complete 转化为 SelectedItem 方法
     /// </summary>

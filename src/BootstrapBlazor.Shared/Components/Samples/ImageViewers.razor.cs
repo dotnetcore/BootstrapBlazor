@@ -26,8 +26,8 @@ public partial class ImageViewers
 
         PreviewList.AddRange(
         [
-            "./_content/BootstrapBlazor.Shared/images/ImageList1.jpeg",
-            "./_content/BootstrapBlazor.Shared/images/ImageList2.jpeg"
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList1.jpeg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
         ]);
     }
 

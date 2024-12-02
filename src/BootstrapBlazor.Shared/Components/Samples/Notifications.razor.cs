@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
@@ -19,10 +21,8 @@ public partial class Notifications
 
     private bool Permission { get; set; }
 
-    private NotificationItem Model { get; set; } = new()
-    {
-        Icon = "./_content/BootstrapBlazor.Shared/images/Argo-C.png"
-    };
+    [NotNull]
+    private NotificationItem? Model { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,9 +30,14 @@ public partial class Notifications
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Model.Title ??= Localizer["NotificationsNormalTitleSampleText"];
-        Model.Message ??= Localizer["NotificationsNormalMessageSampleText"];
-        Model.OnClick = OnClickNotificationCallback;
+
+        Model = new()
+        {
+            Icon = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png",
+            Title = Localizer["NotificationsNormalTitleSampleText"],
+            Message = Localizer["NotificationsNormalMessageSampleText"],
+            OnClick = OnClickNotificationCallback
+        };
     }
 
     /// <summary>

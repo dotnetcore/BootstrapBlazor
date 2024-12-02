@@ -14,7 +14,7 @@
     <div class="bb-foundation">
         <div class="bb-foundation-content">本项目属于 <a href="https://www.dotnetfoundation.org/">.NET 基金会</a>，并根据其 <a href="https://www.dotnetfoundation.org/code-of-conduct">行为准则</a> 运作</div>
         <a class="bb-foundation-img d-none d-sm-block" href="https://www.dotnetfoundation.org/">
-            <img src="./_content/BootstrapBlazor.Shared/images/dotnet_foundation_v4.png" width="100" />
+            <img src="@WebsiteOption.CurrentValue.GetAssetUrl("images/dotnet_foundation_v4.png")" width="100" />
         </a>
     </div>
     <div class="footer-body">
@@ -79,7 +79,7 @@
             <a class="d-none d-lg-block me-3" href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备19015061号-4</a>
         </div>
         <div class="d-md-flex d-none">
-            <img alt="global" class="footer-lang" src="./_content/BootstrapBlazor.Shared/images/global.svg" />
+            <img alt="global" class="footer-lang" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/global.svg")" />
             <a @onclick:preventDefault @onclick="@(e => SetLang("zh-CN"))">简 体</a>
             <span class="mx-1">/</span>
             <a @onclick:preventDefault @onclick="@(e => SetLang("en-US"))">English</a>

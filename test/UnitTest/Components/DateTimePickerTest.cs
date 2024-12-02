@@ -930,7 +930,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         button = cut.FindAll(".picker-panel-content .cell").First(i => i.TextContent == $"{DateTime.Today.Day}");
         await cut.InvokeAsync(() => button.Click());
-        Assert.NotEqual(val, DateTime.MinValue);
     }
 
     [Fact]

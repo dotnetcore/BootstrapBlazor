@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Shared.Components.Components;
 
 /// <summary>
@@ -49,7 +51,7 @@ public partial class CustomWinBoxContent
     {
         if (Option != null)
         {
-            Option.Icon = "./_content/BootstrapBlazor.Shared/images/Argo-C.png";
+            Option.Icon = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png";
             await WinBoxService.SetIcon(Option);
         }
     }

@@ -13,15 +13,21 @@ public sealed partial class Carousels
     [NotNull]
     private ConsoleLogger? OnClickLogger { get; set; }
 
+    private readonly List<string> _images = [];
+
     /// <summary>
-    /// Images
+    /// <inheritdoc/>
     /// </summary>
-    private static List<string> Images =>
-    [
-        "./_content/BootstrapBlazor.Shared/images/Pic0.jpg",
-        "./_content/BootstrapBlazor.Shared/images/Pic1.jpg",
-        "./_content/BootstrapBlazor.Shared/images/Pic2.jpg"
-    ];
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _images.AddRange([
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic0.jpg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic1.jpg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic2.jpg"
+        ]);
+    }
 
     /// <summary>
     /// OnClick

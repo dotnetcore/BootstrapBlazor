@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
@@ -50,15 +48,11 @@ public partial class CherryMarkdowns
         }
     };
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
-
     private async Task<string> OnFileUpload(CherryMarkdownUploadFile arg)
     {
         var url = Path.Combine("images", "uploader",
             $"{Path.GetFileNameWithoutExtension(arg.FileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(arg.FileName)}");
-        var fileName = Path.Combine(SiteOptions.CurrentValue.WebRootPath, url);
+        var fileName = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, url);
         var ret = await arg.SaveToFile(fileName);
         return ret ? url : "";
     }
@@ -67,7 +61,7 @@ public partial class CherryMarkdowns
     [NotNull]
     private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
 
-    private AttributeItem[] GetAttributes() =>
+    private static AttributeItem[] GetAttributes() =>
     [
         new()
         {

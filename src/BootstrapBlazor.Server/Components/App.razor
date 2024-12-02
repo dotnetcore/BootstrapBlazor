@@ -1,5 +1,6 @@
 ﻿@inject IWebHostEnvironment Env
 @inject IStringLocalizer<BaseLayout> Localizer
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme='light'>
@@ -18,23 +19,13 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.png">
 
-    @if (Env.IsSupportAssets())
-    {
-        @this.RenderAssets()
-    }
-    else
-    {
-        <link rel="stylesheet" href="_content/BootstrapBlazor.AntDesignIcon/BootstrapBlazor.AntDesignIcon.bundle.scp.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.ElementIcon/BootstrapBlazor.ElementIcon.bundle.scp.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.IconPark/BootstrapBlazor.IconPark.bundle.scp.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/site.css" />
-    }
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.MaterialDesign/css/md.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.Shared/css/site.css"]" />
+
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
 </head>
 
@@ -53,7 +44,7 @@
     @if (Env.IsProduction())
     {
         <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js"></script>
-        <script type="text/javascript" src="./_content/BootstrapBlazor.Shared/lib/wwads/wwads.js"></script>
+        <script type="text/javascript" src="@WebsiteOption.Value.GetAssetUrl("lib/wwads/wwads.js")"></script>
         <script>
             var _hmt = _hmt || [];
             (function () {

@@ -1,8 +1,8 @@
 ﻿@page "/tutorials/drawing"
 @inject MessageService MessageService
 @inject DownloadService DownloadService
-@inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("../../_content/BootstrapBlazor.Shared/Components/Samples/Tutorials/DrawingApp.razor.js")]
+@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Samples/Tutorials/DrawingApp.razor.js")]
 
 <div>
     <canvas id="@Id" class="drawing-canvas"></canvas>
