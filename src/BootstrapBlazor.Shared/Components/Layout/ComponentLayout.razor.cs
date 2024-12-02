@@ -104,7 +104,7 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Shared/Components/Layout/ComponentLayout.razor.js");
+            Module = await JSRuntime.LoadModule($"{WebsiteOption.CurrentValue.AssetRootPath}Components/Layout/ComponentLayout.razor.js");
         }
         if (Module != null)
         {
