@@ -36,12 +36,8 @@ internal static class StaticFileResponseContextExtensions
             var v = pi.GetValue(component);
             if (v is ResourceAssetCollection assets)
             {
-                builder.RenderCss($"{assets["_content/BootstrapBlazor.AntDesignIcon/BootstrapBlazor.AntDesignIcon.bundle.scp.css"]}");
-                builder.RenderCss($"{assets["_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css"]}");
-                builder.RenderCss($"{assets["_content/BootstrapBlazor.ElementIcon/BootstrapBlazor.ElementIcon.bundle.scp.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor.MaterialDesign/css/md.min.css"]}");
-                builder.RenderCss($"{assets["_content/BootstrapBlazor.IconPark/BootstrapBlazor.IconPark.bundle.scp.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor/css/motronic.min.css"]}");
                 builder.RenderCss($"{assets["_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css"]}");
