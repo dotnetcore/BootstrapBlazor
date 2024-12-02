@@ -150,9 +150,11 @@ public class WebsiteOptions
         Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
         Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
 
-        AssetRootPath = "./_content/BootstrapBlazor.Shared/";
-        ContentRootPath = Path.Combine(AppContext.BaseDirectory, "../../../");
-        WebRootPath = Path.Combine(AppContext.BaseDirectory, "../../wwwroot/");
+#if DEBUG
+        IsDevelopment = true;
+#endif
+        ContentRootPath = IsDevelopment ? Path.Combine(AppContext.BaseDirectory, "../../../") : AppContext.BaseDirectory;
+        WebRootPath = Path.Combine(ContentRootPath, "wwwroot");
     }
 
     private IConfiguration GetConfiguration(string jsonFileName)
