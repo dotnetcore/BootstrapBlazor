@@ -37,8 +37,7 @@ internal class ClearTempFilesService : BackgroundService
     {
         TaskServicesManager.GetOrAdd("Clear Upload Files", (provider, token) =>
         {
-            var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
-            var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
+            var filePath = Path.Combine(_env.WebRootPath, "images", "uploader");
             if (Directory.Exists(filePath))
             {
                 Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file => DeleteFile(file, token));
