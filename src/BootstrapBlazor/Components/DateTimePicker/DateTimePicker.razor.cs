@@ -234,6 +234,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 年月改变时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnDateChanged { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
