@@ -13,9 +13,9 @@ namespace BootstrapBlazor.Shared.Components.Components;
 public sealed partial class ComponentCard
 {
     [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
 
-    private string ImageUrl => $"{WebSiteOptions.CurrentValue.AssetRootPath}images/{Image}";
+    private string ImageUrl => $"{WebsiteOption.CurrentValue.AssetRootPath}images/{Image}";
 
     private string? ClassString => CssBuilder.Default("col-12 col-sm-6 col-md-4 col-lg-3")
         .AddClass("d-none", IsHide)

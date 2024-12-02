@@ -1,5 +1,5 @@
 ﻿@page "/upload"
-@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<Uploads> Localizer
 @inject ToastService ToastService
 @implements IDisposable
@@ -144,7 +144,7 @@
         <div>@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleWasmSide"].Value)</div>
-        <div>@((MarkupString)Localizer["UploadPreCardStyleLink", SiteOptions.CurrentValue.VideoLibUrl].Value)</div>
+        <div>@((MarkupString)Localizer["UploadPreCardStyleLink", WebsiteOption.CurrentValue.VideoLibUrl].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
     </section>
     <div class="row g-3 mt-3">

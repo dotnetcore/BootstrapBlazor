@@ -16,9 +16,6 @@ public partial class Notifications
     [NotNull]
     private NotificationService? BrowserNotification { get; set; }
 
-    [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
@@ -36,7 +33,7 @@ public partial class Notifications
 
         Model = new()
         {
-            Icon = $"{WebSiteOptions.CurrentValue.AssetRootPath}images/Argo-C.png",
+            Icon = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png",
             Title = Localizer["NotificationsNormalTitleSampleText"],
             Message = Localizer["NotificationsNormalMessageSampleText"],
             OnClick = OnClickNotificationCallback

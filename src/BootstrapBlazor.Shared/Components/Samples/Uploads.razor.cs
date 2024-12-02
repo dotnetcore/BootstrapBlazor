@@ -13,9 +13,6 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// </summary>
 public sealed partial class Uploads
 {
-    [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
     [NotNull]
     private ConsoleLogger? Logger1 { get; set; }
 
@@ -64,7 +61,7 @@ public sealed partial class Uploads
 
         PreviewFileList.AddRange(new[]
         {
-            new UploadFile { PrevUrl = $"{WebSiteOptions.CurrentValue.AssetRootPath}images/Argo.png" }
+            new UploadFile { PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo.png" }
         });
     }
 
@@ -115,9 +112,9 @@ public sealed partial class Uploads
         // Web Assembly 模式下必须使用 WebApi 方式去保存文件到服务器或者数据库中
         // 生成写入文件名称
         var ret = false;
-        if (!string.IsNullOrEmpty(WebSiteOptions.CurrentValue.WebRootPath))
+        if (!string.IsNullOrEmpty(WebsiteOption.CurrentValue.WebRootPath))
         {
-            var uploaderFolder = Path.Combine(WebSiteOptions.CurrentValue.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
+            var uploaderFolder = Path.Combine(WebsiteOption.CurrentValue.WebRootPath, $"images{Path.DirectorySeparatorChar}uploader");
             file.FileName = $"{Path.GetFileNameWithoutExtension(file.OriginFileName)}-{DateTimeOffset.Now:yyyyMMddHHmmss}{Path.GetExtension(file.OriginFileName)}";
             var fileName = Path.Combine(uploaderFolder, file.FileName);
 
@@ -127,7 +124,7 @@ public sealed partial class Uploads
             if (ret)
             {
                 // 保存成功
-                file.PrevUrl = $"{WebSiteOptions.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
+                file.PrevUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/uploader/{file.FileName}";
             }
             else
             {

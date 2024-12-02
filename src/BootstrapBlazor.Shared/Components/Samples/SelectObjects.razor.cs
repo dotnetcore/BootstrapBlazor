@@ -12,9 +12,6 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// </summary>
 public partial class SelectObjects
 {
-    [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
     [NotNull]
     private IEnumerable<ListViews.Product>? Products { get; set; }
 
@@ -35,7 +32,7 @@ public partial class SelectObjects
 
         Products = Enumerable.Range(1, 8).Select(i => new ListViews.Product()
         {
-            ImageUrl = $"{WebSiteOptions.CurrentValue.AssetRootPath}images/Pic{i}.jpg",
+            ImageUrl = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });

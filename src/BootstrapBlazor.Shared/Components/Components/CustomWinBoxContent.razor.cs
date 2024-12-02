@@ -13,9 +13,6 @@ namespace BootstrapBlazor.Shared.Components.Components;
 public partial class CustomWinBoxContent
 {
     [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
-    [Inject, NotNull]
     private WinBoxService? WinBoxService { get; set; }
 
     /// <summary>
@@ -54,7 +51,7 @@ public partial class CustomWinBoxContent
     {
         if (Option != null)
         {
-            Option.Icon = $"{WebSiteOptions.CurrentValue.AssetRootPath}images/Argo-C.png";
+            Option.Icon = $"{WebsiteOption.CurrentValue.AssetRootPath}images/Argo-C.png";
             await WinBoxService.SetIcon(Option);
         }
     }

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Components.Components;
@@ -15,7 +14,7 @@ public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
-    private IOptions<WebsiteOptions>? Options { get; set; }
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -26,7 +25,7 @@ public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
 
         if (!string.IsNullOrEmpty(ModulePath))
         {
-            ModulePath = $"{Options.Value.JSModuleRootPath}{ModulePath}";
+            ModulePath = $"{WebsiteOption.Value.JSModuleRootPath}{ModulePath}";
         }
     }
 }

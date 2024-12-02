@@ -12,9 +12,6 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// </summary>
 public partial class IntersectionObservers
 {
-    [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
     private List<string> _images = default!;
 
     private List<string> _items = default!;
@@ -28,7 +25,7 @@ public partial class IntersectionObservers
     {
         base.OnInitialized();
 
-        _images = Enumerable.Range(1, 100).Select(i => $"{WebSiteOptions.CurrentValue.AssetRootPath}images/default.jpeg").ToList();
+        _images = Enumerable.Range(1, 100).Select(i => $"{WebsiteOption.CurrentValue.AssetRootPath}images/default.jpeg").ToList();
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 

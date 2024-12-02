@@ -3,8 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Shared.Components.Samples;
 
 /// <summary>
@@ -12,9 +10,6 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// </summary>
 public partial class ImageViewers
 {
-    [Inject, NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebSiteOptions { get; set; }
-
     private List<string> PreviewList { get; } = [];
 
     [NotNull]
@@ -31,8 +26,8 @@ public partial class ImageViewers
 
         PreviewList.AddRange(
         [
-            $"{WebSiteOptions.CurrentValue.AssetRootPath}images/ImageList1.jpeg",
-            $"{WebSiteOptions.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList1.jpeg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
         ]);
     }
 
