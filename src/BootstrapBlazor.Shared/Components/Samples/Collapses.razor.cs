@@ -26,7 +26,7 @@ public sealed partial class Collapses
         State = !State;
     }
 
-    private string Value { get; set; }
+    private string? Value { get; set; }
 
     private IEnumerable<SelectedItem> Items { get; set; } = new[]
     {

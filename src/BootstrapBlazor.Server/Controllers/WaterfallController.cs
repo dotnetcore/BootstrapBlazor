@@ -22,7 +22,12 @@ public class WaterfallController : Controller
     {
         var interval = Random.Shared.Next(1, 2000);
         await Task.Delay(interval);
-        var fileName = Path.Combine(env.WebRootPath, "images/waterfall", $"{id}.jpeg");
+#if DEBUG
+        var fileName = Path.Combine(env.WebRootPath, "../../");
+#else
+        var fileName = Path.Combine(AppContext.BaseDirectory, "_content");
+#endif
+        fileName = Path.Combine(fileName, "BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
         return new PhysicalFileResult(fileName, "images/jpeg");
     }
 }

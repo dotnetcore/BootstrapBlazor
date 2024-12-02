@@ -23,7 +23,7 @@ public partial class IntersectionObservers
     {
         base.OnInitialized();
 
-        _images = Enumerable.Range(1, 100).Select(i => "../../images/default.jpeg").ToList();
+        _images = Enumerable.Range(1, 100).Select(i => "./_content/BootstrapBlazor.Shared/images/default.jpeg").ToList();
         _items = Enumerable.Range(1, 20).Select(i => $"https://picsum.photos/160/160?random={i}").ToList();
     }
 
