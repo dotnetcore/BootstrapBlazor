@@ -172,4 +172,11 @@ public class WebsiteOptions
     /// <param name="url"></param>
     /// <returns></returns>
     public string? GetAssetUrl(string url) => $"{AssetRootPath}{url}";
+
+    /// <summary>
+    /// 获得头像地址字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public string GetAvatarUrl(int id) => $"{AssetRootPath}images/avatars/150-{Math.Max(1, id % 25)}.jpg";
 }

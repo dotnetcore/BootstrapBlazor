@@ -1,6 +1,7 @@
 ﻿@page "/select"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
@@ -289,7 +290,7 @@
                         </div>
                         <Divider />
                         <div class="select-custom-body">
-                            <img src="@Foo.GetAvatarUrl(foo.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(foo.Id)" class="bb-avatar" />
                             <div class="select-custom-detail">
                                 <div class="d-flex">
                                     <div class="flex-fill">
