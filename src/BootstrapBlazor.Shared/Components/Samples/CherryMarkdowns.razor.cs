@@ -50,10 +50,6 @@ public partial class CherryMarkdowns
         }
     };
 
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
-
     private async Task<string> OnFileUpload(CherryMarkdownUploadFile arg)
     {
         var url = Path.Combine("images", "uploader",
