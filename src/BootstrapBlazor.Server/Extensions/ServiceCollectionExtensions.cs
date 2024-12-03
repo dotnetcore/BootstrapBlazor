@@ -34,9 +34,6 @@ static class ServiceCollectionExtensions
         // 增加 SignalR 服务数据传输大小限制配置
         services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
-        // 增加错误日志
-        services.AddLogging(logging => logging.AddFileLogger());
-
         // 增加后台任务服务
         services.AddTaskServices();
         services.AddHostedService<ClearTempFilesService>();
