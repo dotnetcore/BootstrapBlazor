@@ -144,7 +144,6 @@ public static class ServicesCollectionExtensions
         services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
-        services.AddAuthorization();
         services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
