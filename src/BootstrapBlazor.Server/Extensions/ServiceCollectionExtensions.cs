@@ -5,6 +5,7 @@
 
 using BootstrapBlazor.Service.Services;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -17,8 +18,26 @@ static class ServiceCollectionExtensions
         // 增加中文编码支持网页源码显示汉字
         services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
+        // 增加错误日志
         services.AddLogging(logBuilder => logBuilder.AddFileLogger());
+
+        // 增加跨域服务
         services.AddCors();
+
+        // 增加多语言支持配置信息
+        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+        {
+            blazorOption.OnChange(Invoke);
+            Invoke(blazorOption.CurrentValue);
+            return;
+
+            void Invoke(BootstrapBlazorOptions option)
+            {
+                var supportedCultures = option.GetSupportedCultures();
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
+            }
+        });
 
 #if DEBUG
 #else

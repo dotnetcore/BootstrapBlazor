@@ -35,21 +35,6 @@ public static class ServicesCollectionExtensions
         // 增加 Baidu ORC 服务
         services.AddBootstrapBlazorBaiduOcr();
 
-        // 增加多语言支持配置信息
-        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
-        {
-            blazorOption.OnChange(Invoke);
-            Invoke(blazorOption.CurrentValue);
-            return;
-
-            void Invoke(BootstrapBlazorOptions option)
-            {
-                var supportedCultures = option.GetSupportedCultures();
-                localizerOption.SupportedCultures = supportedCultures;
-                localizerOption.SupportedUICultures = supportedCultures;
-            }
-        });
-
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
 
