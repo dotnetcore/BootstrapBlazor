@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+  </PropertyGroup>
+
   <ItemGroup>
     <Content Remove="docs.json" />
     <Content Remove="Locales\en-US.json" />
@@ -12,10 +16,6 @@
     <EmbeddedResource Include="Locales\en-US.json" />
     <EmbeddedResource Include="Locales\zh-CN.json" />
     <EmbeddedResource Include="topology.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <SupportedPlatform Include="browser" />
   </ItemGroup>
 
   <ItemGroup>
@@ -59,10 +59,11 @@
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.TagHelper" Version="9.0.0" />
+    <!--<PackageReference Include="BootstrapBlazor.TagHelper" Version="9.0.0" />-->
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

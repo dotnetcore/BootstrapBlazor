@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Service.Services;
+using BootstrapBlazorAuto.Services;
 using Microsoft.AspNetCore.SignalR;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -27,18 +27,34 @@ static class ServiceCollectionExtensions
 #endif
 
         services.AddControllers();
-        services.AddRazorComponents().AddInteractiveServerComponents();
+        services.AddRazorComponents().AddInteractiveServerComponents().AddInteractiveWebAssemblyComponents();
 
         // 增加 SignalR 服务数据传输大小限制配置
         services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
         // 增加错误日志
-        services.AddLogging(logging => logging.AddFileLogger());
+        //services.AddLogging(logging => logging.AddFileLogger());
 
         // 增加后台任务服务
-        services.AddTaskServices();
-        services.AddHostedService<ClearTempFilesService>();
+        //services.AddTaskServices();
+        //services.AddHostedService<ClearTempFilesService>();
+
         services.AddBootstrapBlazorServices();
+
+        // 增加多语言支持配置信息
+        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+        {
+            blazorOption.OnChange(Invoke);
+            Invoke(blazorOption.CurrentValue);
+            return;
+
+            void Invoke(BootstrapBlazorOptions option)
+            {
+                var supportedCultures = option.GetSupportedCultures();
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
+            }
+        });
 
         return services;
     }

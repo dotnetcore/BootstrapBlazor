@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <UserSecretsId>dd866c36-9a9b-4dda-bce0-44c91d3094cc</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
+    <PackageReference Include="Longbow.Logging" Version="9.0.0" />
+    <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazorAuto.Client\BootstrapBlazorAuto.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+</Project>

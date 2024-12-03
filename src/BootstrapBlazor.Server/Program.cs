@@ -34,11 +34,10 @@ if (!app.Environment.IsDevelopment())
     app.UseResponseCompression();
 }
 
-#if NET9_0_OR_GREATER
+app.UseAntiforgery();
+app.UseBootstrapBlazor();
+
 app.MapStaticAssets();
-#else
-app.UseStaticFiles();
-#endif
 
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
 if (cors?.Length > 0)
@@ -48,9 +47,6 @@ if (cors?.Length > 0)
         .AllowAnyMethod()
         .AllowCredentials());
 }
-
-app.UseBootstrapBlazor();
-app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddAdditionalAssemblies(typeof(MainLayout).Assembly);
