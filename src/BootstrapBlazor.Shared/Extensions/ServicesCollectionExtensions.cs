@@ -86,9 +86,6 @@ public static class ServicesCollectionExtensions
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExportService();
 
-        // 增加 脚本版本服务
-        services.AddBootstrapAppendVersionService();
-
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>
