@@ -5,6 +5,7 @@
 
 using BootstrapBlazor.Service.Services;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
 
@@ -17,8 +18,26 @@ static class ServiceCollectionExtensions
         // 增加中文编码支持网页源码显示汉字
         services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
+        // 增加错误日志
         services.AddLogging(logBuilder => logBuilder.AddFileLogger());
+
+        // 增加跨域服务
         services.AddCors();
+
+        // 增加多语言支持配置信息
+        services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
+        {
+            blazorOption.OnChange(Invoke);
+            Invoke(blazorOption.CurrentValue);
+            return;
+
+            void Invoke(BootstrapBlazorOptions option)
+            {
+                var supportedCultures = option.GetSupportedCultures();
+                localizerOption.SupportedCultures = supportedCultures;
+                localizerOption.SupportedUICultures = supportedCultures;
+            }
+        });
 
 #if DEBUG
 #else
@@ -34,8 +53,8 @@ static class ServiceCollectionExtensions
         // 增加 SignalR 服务数据传输大小限制配置
         services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
-        // 增加错误日志
-        services.AddLogging(logging => logging.AddFileLogger());
+        // 增加授权服务
+        services.AddAuthorization();
 
         // 增加后台任务服务
         services.AddTaskServices();
