@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using System.Net;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace BootstrapBlazor.Server.Controllers.Api;
+namespace BootstrapBlazor.Controllers.Api;
 
 /// <summary>
 /// 

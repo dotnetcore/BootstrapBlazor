@@ -6,7 +6,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Controllers;
+namespace BootstrapBlazor.Controllers;
 
 /// <summary>
 /// 瀑布流控制器

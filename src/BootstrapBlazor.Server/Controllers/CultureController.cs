@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace BootstrapBlazor.Server.Controllers;
+namespace BootstrapBlazor.Controllers;
 
 /// <summary>
 /// 文化 Controller

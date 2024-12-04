@@ -23,6 +23,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\CodeController.cs" Link="Controllers\Api\CodeController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\DispatchController.cs" Link="Controllers\Api\DispatchController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\GiteeController.cs" Link="Controllers\Api\GiteeController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\LoginController.cs" Link="Controllers\Api\LoginController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\CultureController.cs" Link="Controllers\CultureController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\WaterfallController.cs" Link="Controllers\WaterfallController.cs" />
     <Compile Include="..\..\BootstrapBlazor.Server\Extensions\ServiceCollectionExtensions.cs" Link="Extensions\ServiceCollectionExtensions.cs" />
     <Compile Include="..\..\BootstrapBlazor.Server\Services\ClearUploadFilesService.cs" Link="Services\ClearUploadFilesService.cs" />
   </ItemGroup>
