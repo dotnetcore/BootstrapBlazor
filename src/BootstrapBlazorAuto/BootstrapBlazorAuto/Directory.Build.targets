@@ -1,0 +1,9 @@
+<Project>
+
+  <Target Name="CopySettings" BeforeTargets="Build">
+    <Message Text="copy appsettings ..." Importance="high"></Message>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/appsettings.json" DestinationFiles="$(MSBuildThisFileDirectory)appsettings.json" SkipUnchangedFiles="true" ></Copy>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/appsettings.Development.json" DestinationFiles="$(MSBuildThisFileDirectory)appsettings.Development.json" SkipUnchangedFiles="true" ></Copy>
+  </Target>
+
+</Project>
