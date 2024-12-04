@@ -8,6 +8,10 @@ using BootstrapBlazorAuto.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
+
 builder.Services.AddBootstrapBlazorServerService();
 
 var app = builder.Build();

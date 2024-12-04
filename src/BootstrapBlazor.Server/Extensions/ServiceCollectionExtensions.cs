@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Service.Services;
+using Longbow.Tasks.Services;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Options;
 using System.Text.Encodings.Web;
@@ -19,10 +19,7 @@ static class ServiceCollectionExtensions
         services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 
         // 增加错误日志
-        services.AddLogging(logBuilder => logBuilder.AddFileLogger());
-
-        // 增加跨域服务
-        services.AddCors();
+        services.AddLogging(logging => logging.AddFileLogger());
 
         // 增加多语言支持配置信息
         services.AddRequestLocalization<IOptionsMonitor<BootstrapBlazorOptions>>((localizerOption, blazorOption) =>
@@ -48,14 +45,9 @@ static class ServiceCollectionExtensions
 #endif
 
         services.AddControllers();
-        services.AddRazorComponents()
-            .AddInteractiveServerComponents();
 
         // 增加 SignalR 服务数据传输大小限制配置 1G
         services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = 1024 * 1024 * 1024);
-
-        // 增加授权服务
-        services.AddAuthorization();
 
         // 增加后台任务服务
         services.AddTaskServices();

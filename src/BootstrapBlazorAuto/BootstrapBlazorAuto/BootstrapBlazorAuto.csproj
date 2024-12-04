@@ -6,6 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\BootstrapBlazor.Server\Extensions\ServiceCollectionExtensions.cs" Link="Extensions\ServiceCollectionExtensions.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Services\ClearUploadFilesService.cs" Link="Services\ClearUploadFilesService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
     <PackageReference Include="Longbow.Logging" Version="9.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
