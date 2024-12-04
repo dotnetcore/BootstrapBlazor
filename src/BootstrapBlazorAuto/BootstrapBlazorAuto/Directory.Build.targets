@@ -4,6 +4,10 @@
     <Message Text="copy appsettings ..." Importance="high"></Message>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/appsettings.json" DestinationFiles="$(MSBuildThisFileDirectory)appsettings.json" SkipUnchangedFiles="true" ></Copy>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/appsettings.Development.json" DestinationFiles="$(MSBuildThisFileDirectory)appsettings.Development.json" SkipUnchangedFiles="true" ></Copy>
+
+    <Message Text="copy favicon ..." Importance="high"></Message>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/wwwroot/favicon.ico" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/favicon.ico" SkipUnchangedFiles="true" ></Copy>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/wwwroot/favicon.png" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/favicon.png" SkipUnchangedFiles="true" ></Copy>
   </Target>
 
 </Project>
