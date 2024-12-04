@@ -48,10 +48,11 @@ static class ServiceCollectionExtensions
 #endif
 
         services.AddControllers();
-        services.AddRazorComponents().AddInteractiveServerComponents();
+        services.AddRazorComponents()
+            .AddInteractiveServerComponents();
 
-        // 增加 SignalR 服务数据传输大小限制配置
-        services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
+        // 增加 SignalR 服务数据传输大小限制配置 1G
+        services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = 1024 * 1024 * 1024);
 
         // 增加授权服务
         services.AddAuthorization();
@@ -59,6 +60,8 @@ static class ServiceCollectionExtensions
         // 增加后台任务服务
         services.AddTaskServices();
         services.AddHostedService<ClearTempFilesService>();
+
+        // 增加通用服务
         services.AddBootstrapBlazorServices();
 
         return services;

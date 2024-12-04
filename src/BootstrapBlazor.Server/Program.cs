@@ -49,6 +49,8 @@ if (cors?.Length > 0)
 }
 
 app.MapDefaultControllerRoute();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddAdditionalAssemblies(typeof(MainLayout).Assembly);
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode()
+    .AddAdditionalAssemblies(typeof(MainLayout).Assembly);
 
 app.Run();

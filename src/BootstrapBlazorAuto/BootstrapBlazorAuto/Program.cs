@@ -30,6 +30,6 @@ app.MapDefaultControllerRoute();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
-    .AddAdditionalAssemblies(typeof(BootstrapBlazorAuto.Client._Imports).Assembly, typeof(MainLayout).Assembly);
+    .AddAdditionalAssemblies(typeof(MainLayout).Assembly);
 
 app.Run();
