@@ -3,9 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Longbow.Tasks;
-
-namespace BootstrapBlazor.Service.Services;
+namespace Longbow.Tasks.Services;
 
 /// <summary>
 /// 后台任务服务类

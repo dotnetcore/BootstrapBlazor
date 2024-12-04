@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <UserSecretsId>dd866c36-9a9b-4dda-bce0-44c91d3094cc</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Middleware" Version="9.0.0" />
+    <PackageReference Include="Longbow.Logging" Version="9.0.0" />
+    <PackageReference Include="Longbow.Tasks" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazorAuto.Client\BootstrapBlazorAuto.Client.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="Microsoft.Extensions.Options" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\CodeController.cs" Link="Controllers\Api\CodeController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\DispatchController.cs" Link="Controllers\Api\DispatchController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\GiteeController.cs" Link="Controllers\Api\GiteeController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\Api\LoginController.cs" Link="Controllers\Api\LoginController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\CultureController.cs" Link="Controllers\CultureController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Controllers\WaterfallController.cs" Link="Controllers\WaterfallController.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Extensions\ServiceCollectionExtensions.cs" Link="Extensions\ServiceCollectionExtensions.cs" />
+    <Compile Include="..\..\BootstrapBlazor.Server\Services\ClearUploadFilesService.cs" Link="Services\ClearUploadFilesService.cs" />
+  </ItemGroup>
+
+</Project>

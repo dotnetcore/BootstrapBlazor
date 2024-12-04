@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.Options;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -20,8 +19,26 @@ public static class ServicesCollectionExtensions
     /// <param name="configureOptions"></param>
     public static IServiceCollection AddBootstrapBlazorServices(this IServiceCollection services, Action<BootstrapBlazorOptions>? configureOptions = null)
     {
-        // 增加演示网站服务
-        services.AddWebSiteServices();
+        services.AddSingleton<WeatherForecastService>();
+        services.AddSingleton<PackageVersionService>();
+        services.AddSingleton<CodeSnippetService>();
+        services.AddSingleton<DashboardService>();
+        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        services.AddSingleton<ILookupService, DemoLookupService>();
+        services.AddSingleton<MockDataTableDynamicService>();
+
+        services.AddSingleton<MenuService>();
+        services.AddScoped<FanControllerDataService>();
+
+        // 增加示例网站配置
+        services.AddOptionsMonitor<WebsiteOptions>();
+
+        // 增加模拟登录服务
+        services.AddCascadingAuthenticationState();
+        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
+
+        // 增加 MeiliSearch 服务
+        services.AddBootstrapBlazorMeiliSearch();
 
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor(configureOptions);
@@ -105,36 +122,6 @@ public static class ServicesCollectionExtensions
         //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
         //    option.UseSqlite(Configuration.GetConnectionString("bb"));
         //});
-        return services;
-    }
-
-    /// <summary>
-    /// 添加 Server Side 演示网站服务
-    /// </summary>
-    /// <param name="services"></param>
-    public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
-    {
-        services.AddSingleton<WeatherForecastService>();
-        services.AddSingleton<PackageVersionService>();
-        services.AddSingleton<CodeSnippetService>();
-        services.AddSingleton<DashboardService>();
-        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
-        services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
-        services.AddSingleton<MockDataTableDynamicService>();
-
-        services.AddSingleton<MenuService>();
-        services.AddScoped<FanControllerDataService>();
-
-        // 增加示例网站配置
-        services.AddOptionsMonitor<WebsiteOptions>();
-
-        // 增加模拟登录服务
-        services.AddCascadingAuthenticationState();
-        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
-
-        // 增加 MeiliSearch 服务
-        services.AddBootstrapBlazorMeiliSearch();
-
         return services;
     }
 }
