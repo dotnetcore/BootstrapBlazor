@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Shared.Services;
 /// </summary>
 class DashboardService
 {
-    private static readonly Random _random = new();
+    private static readonly Random _random = Random.Shared;
 
     /// <summary>
     /// 获取仪表盘数据

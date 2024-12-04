@@ -15,10 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <SupportedPlatform Include="browser" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="9.0.0" />

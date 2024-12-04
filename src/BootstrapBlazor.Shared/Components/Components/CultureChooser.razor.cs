@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 using System.Globalization;
 
 namespace BootstrapBlazor.Shared.Components.Components;
@@ -19,7 +20,7 @@ public partial class CultureChooser
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+    private IJSRuntime? JSRuntime { get; set; }
 
     [Inject]
     [NotNull]
@@ -33,7 +34,7 @@ public partial class CultureChooser
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string SelectedCulture { get; set; } = CultureInfo.CurrentUICulture.Name;
+    private string SelectedCulture { get; set; } = CultureInfo.CurrentCulture.Name;
 
     [NotNull]
     private string? Label { get; set; }
@@ -50,20 +51,7 @@ public partial class CultureChooser
 
     private async Task SetCulture(SelectedItem item)
     {
-        if (OperatingSystem.IsBrowser())
-        {
-            var cultureName = item.Value;
-            if (cultureName != CultureInfo.CurrentCulture.Name)
-            {
-                await JSRuntime.SetCulture(cultureName);
-                var culture = new CultureInfo(cultureName);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
-
-                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-            }
-        }
-        else
+        if (RendererInfo.Name == "Server")
         {
             // 使用 api 方式 适用于 Server-Side 模式
             if (SelectedCulture != item.Value)
@@ -76,12 +64,26 @@ public partial class CultureChooser
                 NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
             }
         }
+        else
+        {
+            if (SelectedCulture != item.Value)
+            {
+                var culture = item.Value;
+                await JSRuntime.InvokeVoidAsync("bbCulture.set", culture);
+
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            }
+        }
     }
 
-    private static string GetDisplayName(CultureInfo culture)
+    private string GetDisplayName(CultureInfo culture)
     {
         string? ret;
-        if (OperatingSystem.IsBrowser())
+        if (RendererInfo.Name == "Server")
+        {
+            ret = culture.NativeName;
+        }
+        else
         {
             ret = culture.Name switch
             {
@@ -89,10 +91,6 @@ public partial class CultureChooser
                 "en-US" => "English (United States)",
                 _ => ""
             };
-        }
-        else
-        {
-            ret = culture.NativeName;
         }
         return ret;
     }
