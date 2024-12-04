@@ -20,10 +20,6 @@ public partial class CultureChooser
 
     [Inject]
     [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<CultureChooser>? Localizer { get; set; }
 
     [Inject]
