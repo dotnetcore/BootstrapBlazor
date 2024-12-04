@@ -27,8 +27,4 @@
     <Compile Include="..\..\BootstrapBlazor.Server\Services\ClearUploadFilesService.cs" Link="Services\ClearUploadFilesService.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
 </Project>
