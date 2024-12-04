@@ -211,6 +211,8 @@ public class DialogTest : BootstrapBlazorTestBase
         };
         await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         // 点击关闭按钮
+        button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(closed);
 
@@ -245,13 +247,15 @@ public class DialogTest : BootstrapBlazorTestBase
         // edit dialog is tracking true
         editOption.IsTracking = true;
         await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
-        Assert.Empty(cut.FindAll(".bb-editor-footer .btn-secondary"));
+        button = cut.FindComponents<Button>().FirstOrDefault(b => b.Instance.Text == "关闭");
+        Assert.Null(button);
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // edit dialog is tracking false
         editOption.IsTracking = false;
         await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
-        Assert.NotNull(cut.Find(".bb-editor-footer .btn-secondary"));
+        button = cut.FindComponents<Button>().FirstOrDefault(b => b.Instance.Text == "关闭");
+        Assert.NotNull(button);
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // Edit Dialog FooterTemplate
