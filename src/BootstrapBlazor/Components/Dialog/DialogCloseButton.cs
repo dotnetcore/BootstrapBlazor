@@ -42,6 +42,8 @@ public partial class DialogCloseButton : Button
     /// <returns></returns>
     protected override async Task HandlerClick()
     {
+        await base.HandlerClick();
+
         if (OnCloseAsync != null)
         {
             await OnCloseAsync();
