@@ -314,7 +314,10 @@ public partial class MultiSelect<TValue>
 
         PreviousValue = CurrentValueAsString;
 
-        StateHasChanged();
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
