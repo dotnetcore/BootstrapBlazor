@@ -146,9 +146,12 @@ public partial class EditDialog<TModel>
             if (!IsTracking)
             {
                 builder.OpenComponent<DialogCloseButton>(20);
-                builder.AddAttribute(21, nameof(Button.Icon), CloseButtonIcon);
-                builder.AddAttribute(22, nameof(Button.Text), CloseButtonText);
-                builder.AddAttribute(23, nameof(Button.OnClickWithoutRender), OnCloseAsync);
+                builder.AddAttribute(21, nameof(DialogCloseButton.Icon), CloseButtonIcon);
+                builder.AddAttribute(22, nameof(DialogCloseButton.Text), CloseButtonText);
+                if (OnCloseAsync != null)
+                {
+                    builder.AddAttribute(22, nameof(DialogCloseButton.OnClickWithoutRender), OnCloseAsync);
+                }
                 builder.CloseComponent();
             }
             builder.OpenComponent<Button>(30);
