@@ -44,6 +44,12 @@
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"></script>
     <script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
+    <script>
+        window.bbCulture = {
+          get: () => window.localStorage['bb_culture'],
+          set: (value) => window.localStorage['bb_culture'] = value
+        };
+    </script>
     @if (Env.IsProduction())
     {
         <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js"></script>
