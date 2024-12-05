@@ -1,6 +1,4 @@
-﻿import { getTheme, switchTheme } from "../../../BootstrapBlazor/modules/utility.js"
-import { switchTheme as syncTheme } from "./Pre.razor.js"
-import Data from "../../../BootstrapBlazor/modules/data.js"
+﻿import { switchTheme as syncTheme } from "./Pre.razor.js"
 import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
@@ -17,23 +15,6 @@ export function init(id) {
         }
         prevScrollTop = currentScrollTop
     });
-
-    const themeElement = document.querySelector('.icon-theme');
-    if (themeElement) {
-        EventHandler.on(themeElement, 'click', async e => {
-            let theme = getTheme();
-            if (theme === 'dark') {
-                theme = 'light';
-            }
-            else {
-                theme = 'dark';
-            }
-            switchTheme(theme, window.innerWidth, window.innerHeight);
-            await updateTheme(theme);
-        });
-    }
-
-    Data.set(id, themeElement);
 }
 
 export async function updateTheme(theme) {
@@ -42,11 +23,4 @@ export async function updateTheme(theme) {
 
 export function dispose(id) {
     EventHandler.off(document, 'scroll');
-
-    const themeElement = Data.get(id);
-    Data.remove(id);
-
-    if (themeElement) {
-        EventHandler.off(themeElement, 'click');
-    }
 }
