@@ -607,7 +607,7 @@
     "NormalTitle": "Basic usage",
     "NormalIntro": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
     "NoRenderTitle": "Setting bound model part property does not show",
-    "NoRenderIntro": "By setting the <code>Ignore=true</code> of the <code>IEditorItem</code> instance, the editable pop-up window do not shown.",
+    "NoRenderIntro": "By setting the <b>Address</b> <b>Count</b> <code>Ignore=true</code> of the <code>IEditorItem</code> instance, the editable pop-up window do not shown.",
     "EditDialogOption": "EditDialogOption property",
     "LeftAlignedButton": "Edit popup (left-aligned)",
     "RightAlignedButton": "Edit popup (right aligned)",

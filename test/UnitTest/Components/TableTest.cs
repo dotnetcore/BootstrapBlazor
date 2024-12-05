@@ -5548,11 +5548,15 @@ public class TableTest : BootstrapBlazorTestBase
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(modal.Instance.CloseCallback);
 
+        // 弹窗
         await cut.InvokeAsync(() => button[0].Click());
-        var cancelButton = cut.Find(".bb-editor-footer .btn");
 
-        // 取消按钮
-        await cut.InvokeAsync(() => cancelButton.Click());
+        // 关闭按钮未设置 OnClickWithoutRender 回调
+        var cancelButton = cut.FindComponent<DialogCloseButton>();
+        Assert.Null(cancelButton.Instance.OnClickWithoutRender);
+
+        // 关闭弹窗
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
         Assert.True(afterCancelSave);
     }
 

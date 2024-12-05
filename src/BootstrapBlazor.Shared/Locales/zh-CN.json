@@ -607,7 +607,7 @@
     "NormalTitle": "基础用法",
     "NormalIntro": "通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的可编辑表单",
     "NoRenderTitle": "设置绑定模型部分属性不显示",
-    "NoRenderIntro": "通过设置 <code>IEditorItem</code> 实例的 <code>Ignore=true</code>, 实现编辑弹窗不显示",
+    "NoRenderIntro": "通过设置 <code>IEditorItem</code> 实例的 <b>地址</b> <b>数量</b> 参数 <code>Ignore=true</code>, 实现编辑弹窗不显示",
     "EditDialogOption": "EditDialogOption 属性",
     "LeftAlignedButton": "编辑弹窗(左对齐)",
     "RightAlignedButton": "编辑弹窗(右对齐)",
