@@ -841,7 +841,9 @@ form .table .table-cell > textarea {
     margin: 1rem -1rem -.5rem -1rem;
     padding: .5rem 1rem 0 1rem;
     border-top: 1px solid var(--bs-border-color);
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
 .modal-body .form-footer button:not(:last-child) {
