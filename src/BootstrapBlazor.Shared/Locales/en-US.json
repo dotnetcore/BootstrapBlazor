@@ -6629,7 +6629,7 @@
   "BootstrapBlazor.Shared.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>",
+    "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
@@ -6639,7 +6639,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6648,12 +6649,13 @@
     "SwitchButtonTextOn": "Show Copy Dialog",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
-    "CopiedTooltipText": "Copied"
+    "CopiedTooltipText": "Copied",
+    "Icons": "For icon list, please visit <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>",
+    "Icons": "For icon list, please visit <a href=\"https://pictogrammers.com/library/mdi\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
@@ -6663,7 +6665,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
@@ -6671,7 +6674,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Shared.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
@@ -6681,7 +6685,8 @@
     "SvgTitle": "Svg Icons",
     "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
     "ImageTitle": "Image",
-    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
+    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template",
+    "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Shared.Components.Samples.DriverDotnetJs": {
     "DriverJsPopoverTitleText": "Animated Tour Example",

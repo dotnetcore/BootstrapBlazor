@@ -6629,7 +6629,7 @@
   "BootstrapBlazor.Shared.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Bootstrap 免费开源图标库",
-    "Icons": "图标信息请通过 <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[传送门]</a> 查看",
+    "Icons": "图标列表请通过 <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
@@ -6639,7 +6639,8 @@
     "CopiedTooltipText": "拷贝成功",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
-    "P3": "请拷贝下方样式即可"
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6648,12 +6649,13 @@
     "SwitchButtonTextOn": "显示高级拷贝",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标",
-    "CopiedTooltipText": "拷贝成功"
+    "CopiedTooltipText": "拷贝成功",
+    "Icons": "图标列表请通过 <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design 图标简单、现代、友好",
-    "Icons": "图标信息请通过 <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[传送门]</a> 查看",
+    "Icons": "图标列表请通过 <a href=\"https://pictogrammers.com/library/mdi\" target=\"_blank\">[传送门]</a> 查看",
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
@@ -6663,7 +6665,8 @@
     "CopiedTooltipText": "拷贝成功",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
-    "P3": "请拷贝下方样式即可"
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Shared.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "蚂蚁图标库",
@@ -6671,7 +6674,8 @@
     "CopiedTooltipText": "拷贝成功",
     "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
-    "P3": "请拷贝下方样式即可"
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Shared.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",
@@ -6681,7 +6685,8 @@
     "SvgTitle": "矢量图标",
     "SvgIntro": "通过设置 <code>IsSvgSprites=\"true\"</code> <code>Url</code> 加载 <code>Svg</code> 雪碧图，通过 <code>Name</code> 指定其 <code>Id</code> 值",
     "ImageTitle": "图片",
-    "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容"
+    "ImageIntro": "通过 <code>ChildContent</code> 模板自定义显示内容",
+    "Icons": "图标列表请通过 <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Shared.Components.Samples.DriverDotnetJs": {
     "DriverJsPopoverTitleText": "高亮向导组件演示",
