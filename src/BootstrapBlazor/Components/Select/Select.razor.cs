@@ -212,6 +212,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private List<SelectedItem>? _itemsCache;
 
+    private ItemsProviderResult<SelectedItem> _result;
+
     private List<SelectedItem> Rows
     {
         get
@@ -317,7 +319,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
         TotalCount = data.TotalCount;
         var items = data.Items ?? [];
-        return new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        _result = new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        return _result;
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
@@ -488,12 +491,16 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             await OnClearAsync();
         }
 
+        SelectedItem? item;
         if (OnQueryAsync != null)
         {
             await VirtualizeElement.RefreshDataAsync();
+            item = _result.Items.FirstOrDefault();
         }
-
-        var item = Items.FirstOrDefault();
+        else
+        {
+            item = Items.FirstOrDefault();
+        }
         if (item != null)
         {
             await SelectedItemChanged(item);
