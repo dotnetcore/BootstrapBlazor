@@ -435,12 +435,11 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [JSInvokable]
     public async Task ConfirmSelectedItem(int index)
     {
-        var ds = string.IsNullOrEmpty(SearchText)
-            ? _dataSource
-            : OnSearchTextChanged(SearchText);
-        var item = ds.ElementAt(index);
-        await OnClickItem(item);
-        StateHasChanged();
+        if (index < Rows.Count)
+        {
+            await OnClickItem(Rows[index]);
+            StateHasChanged();
+        }
     }
 
     /// <summary>
