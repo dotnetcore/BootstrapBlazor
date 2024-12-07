@@ -18,11 +18,6 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
-    public string WasmUrl { get; set; } = "https://wasm.blazor.zone";
-
-    /// <summary>
-    /// 
-    /// </summary>
     public string AdminUrl { get; set; } = "https://admin.blazor.zone";
 
     /// <summary>
