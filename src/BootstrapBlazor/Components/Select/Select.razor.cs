@@ -292,6 +292,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
+
+        _itemsCache = null;
     }
 
     /// <summary>
