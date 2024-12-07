@@ -14,7 +14,7 @@ namespace UnitTest.Components;
 public class SelectTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void OnSearchTextChanged_Null()
+    public async Task OnSearchTextChanged_Null()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -30,7 +30,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
 
         var ctx = cut.FindComponent<Select<string>>();
-        ctx.InvokeAsync(async () =>
+        await ctx.InvokeAsync(async () =>
         {
             await ctx.Instance.ConfirmSelectedItem(0);
 
@@ -44,9 +44,28 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(false));
             pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
         });
-        ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
+        await ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
 
         ctx.Instance.ClearSearchText();
+
+        ctx.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnBeforeSelectedItemChange, null);
+            pb.Add(a => a.OnSelectedItemChanged, null);
+            pb.Add(a => a.OnSearchTextChanged, text =>
+            {
+                return new List<SelectedItem>()
+                {
+                    new("1", "Test1")
+                };
+            });
+        });
+
+        await ctx.InvokeAsync(() =>
+        {
+            ctx.Find(".search-text").Input("T");
+        });
+        cut.DoesNotContain("Test2");
     }
 
     [Fact]
