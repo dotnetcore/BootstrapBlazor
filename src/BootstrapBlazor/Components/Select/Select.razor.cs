@@ -60,8 +60,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private readonly List<SelectedItem> _children = [];
 
-    private readonly List<SelectedItem> _dataSource = [];
-
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
     /// </summary>
@@ -376,47 +374,47 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private void ResetSelectedItem()
     {
-        _dataSource.Clear();
+        //_dataSource.Clear();
 
-        if (string.IsNullOrEmpty(SearchText))
-        {
-            _dataSource.AddRange(Items);
-            _dataSource.AddRange(_children);
+        //if (string.IsNullOrEmpty(SearchText))
+        //{
+        //    _dataSource.AddRange(Items);
+        //    _dataSource.AddRange(_children);
 
-            if (VirtualItems != null)
-            {
-                _dataSource.AddRange(VirtualItems);
-            }
+        //    if (VirtualItems != null)
+        //    {
+        //        _dataSource.AddRange(VirtualItems);
+        //    }
 
-            SelectedItem = _dataSource.Find(Match)
-                ?? _dataSource.Find(i => i.Active)
-                ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
-                ?? GetVirtualizeItem();
+        //    SelectedItem = _dataSource.Find(Match)
+        //        ?? _dataSource.Find(i => i.Active)
+        //        ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
+        //        ?? GetVirtualizeItem();
 
-            if (SelectedItem != null)
-            {
-                if (_init && DisableItemChangedWhenFirstRender)
-                {
+        //    if (SelectedItem != null)
+        //    {
+        //        if (_init && DisableItemChangedWhenFirstRender)
+        //        {
 
-                }
-                else
-                {
-                    _ = SelectedItemChanged(SelectedItem);
-                    _init = false;
-                }
-            }
-        }
-        else if (IsVirtualize)
-        {
-            if (Items.Any())
-            {
-                VirtualItems = OnSearchTextChanged(SearchText);
-            }
-        }
-        else
-        {
-            _dataSource.AddRange(OnSearchTextChanged(SearchText));
-        }
+        //        }
+        //        else
+        //        {
+        //            _ = SelectedItemChanged(SelectedItem);
+        //            _init = false;
+        //        }
+        //    }
+        //}
+        //else if (IsVirtualize)
+        //{
+        //    if (Items.Any())
+        //    {
+        //        VirtualItems = OnSearchTextChanged(SearchText);
+        //    }
+        //}
+        //else
+        //{
+        //    _dataSource.AddRange(OnSearchTextChanged(SearchText));
+        //}
     }
 
     /// <summary>
