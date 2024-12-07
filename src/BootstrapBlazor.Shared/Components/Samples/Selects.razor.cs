@@ -67,7 +67,7 @@ public sealed partial class Selects
         var items = Foos;
         if (!string.IsNullOrEmpty(option.SearchText))
         {
-            items = items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            items = Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
         }
         return new QueryData<SelectedItem>
         {

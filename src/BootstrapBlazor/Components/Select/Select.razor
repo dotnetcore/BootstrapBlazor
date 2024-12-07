@@ -17,12 +17,12 @@
             @if (DisplayTemplate != null)
             {
                 <div id="@InputId" class="@InputClassString" tabindex="0">
-                    @DisplayTemplate(SelectedItem)
+                    @DisplayTemplate(SelectedRow)
                 </div>
             }
             else
             {
-                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedItem?.Text" @onchange="OnChange" readonly="@ReadonlyString" />
+                <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedRow?.Text" @onchange="OnChange" readonly="@ReadonlyString" />
             }
             <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
         </div>
@@ -56,7 +56,7 @@
                 @if (ShowSearch)
                 {
                     <div class="@SearchClassString">
-                        <input type="text" class="search-text form-control" autocomplete="off" @bind-value="@SearchText" @bind-value:event="oninput" aria-label="Search">
+                        <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" @oninput="EventCallback.Factory.CreateBinder<string>(this, async v => await SearchTextChanged(v), SearchText)" aria-label="Search">
                         <i class="@SearchIconString"></i>
                     </div>
                 }

@@ -71,7 +71,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -217,58 +216,59 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     {
         get
         {
-            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetItemsByItems() : GetItemsBySearch();
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
             return _itemsCache;
         }
     }
 
-    private List<SelectedItem> GetItemsByItems()
+    private SelectedItem? SelectedRow
+    {
+        get
+        {
+            SelectedItem ??= GetSelectedRow();
+            return SelectedItem;
+        }
+    }
+
+    private SelectedItem? GetSelectedRow()
+    {
+        var item = Rows.Find(Match)
+            ?? Rows.Find(i => i.Active)
+            ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
+            ?? GetVirtualizeItem();
+
+        if (item != null)
+        {
+            if (_init && DisableItemChangedWhenFirstRender)
+            {
+
+            }
+            else
+            {
+                _ = SelectedItemChanged(item);
+                _init = false;
+            }
+        }
+        return item;
+    }
+
+    private List<SelectedItem> GetRowsByItems()
     {
         var items = new List<SelectedItem>();
         items.AddRange(Items);
         items.AddRange(_children);
-
-        if (VirtualItems != null)
-        {
-            items.AddRange(VirtualItems);
-        }
-
-        //SelectedItem = items.Find(Match)
-        //    ?? items.Find(i => i.Active)
-        //    ?? items.Where(i => !i.IsDisabled).FirstOrDefault()
-        //    ?? GetVirtualizeItem();
-
-        //if (SelectedItem != null)
-        //{
-        //    if (_init && DisableItemChangedWhenFirstRender)
-        //    {
-
-        //    }
-        //    else
-        //    {
-        //        _ = SelectedItemChanged(SelectedItem);
-        //        _init = false;
-        //    }
-        //}
         return items;
     }
 
-    private List<SelectedItem> GetItemsBySearch()
+    private List<SelectedItem> GetRowsBySearch()
     {
-        var items = new List<SelectedItem>();
-        if (IsVirtualize)
-        {
-            if (Items.Any())
-            {
-                VirtualItems = OnSearchTextChanged(SearchText);
-            }
-        }
-        else
-        {
-            items.AddRange(OnSearchTextChanged(SearchText));
-        }
-        return items;
+        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
+        return items.ToList();
     }
+
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+        ? source
+        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// <inheritdoc/>
@@ -278,7 +278,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         base.OnParametersSet();
 
         Items ??= [];
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
@@ -292,6 +291,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         }
 
         _itemsCache = null;
+        SelectedItem = null;
     }
 
     /// <summary>
@@ -299,9 +299,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// </summary>
     private int TotalCount { get; set; }
 
-    private IEnumerable<SelectedItem>? VirtualItems { get; set; }
-
-    private List<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+    private List<SelectedItem> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -318,8 +316,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
-        VirtualItems = data.Items ?? [];
-        return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+        var items = data.Items ?? [];
+        return new ItemsProviderResult<SelectedItem>(items, TotalCount);
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
@@ -327,17 +325,13 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     private async Task SearchTextChanged(string val)
     {
         SearchText = val;
-        if (OnQueryAsync == null)
-        {
-            // 通过 Items 提供数据
-            VirtualItems = OnSearchTextChanged(SearchText);
-        }
-        else
+        _itemsCache = null;
+
+        if (OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
             await VirtualizeElement.RefreshDataAsync();
         }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -354,7 +348,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         SelectedItem = Items.FirstOrDefault(i => i.Value == value)
-            ?? VirtualItems?.FirstOrDefault(i => i.Value == value)
             ?? GetVirtualizeItem();
 
         // support SelectedItem? type
@@ -370,51 +363,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
             ? (SelectedItem)(object)Value
             : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
-    }
-
-    private void ResetSelectedItem()
-    {
-        //_dataSource.Clear();
-
-        //if (string.IsNullOrEmpty(SearchText))
-        //{
-        //    _dataSource.AddRange(Items);
-        //    _dataSource.AddRange(_children);
-
-        //    if (VirtualItems != null)
-        //    {
-        //        _dataSource.AddRange(VirtualItems);
-        //    }
-
-        //    SelectedItem = _dataSource.Find(Match)
-        //        ?? _dataSource.Find(i => i.Active)
-        //        ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
-        //        ?? GetVirtualizeItem();
-
-        //    if (SelectedItem != null)
-        //    {
-        //        if (_init && DisableItemChangedWhenFirstRender)
-        //        {
-
-        //        }
-        //        else
-        //        {
-        //            _ = SelectedItemChanged(SelectedItem);
-        //            _init = false;
-        //        }
-        //    }
-        //}
-        //else if (IsVirtualize)
-        //{
-        //    if (Items.Any())
-        //    {
-        //        VirtualItems = OnSearchTextChanged(SearchText);
-        //    }
-        //}
-        //else
-        //{
-        //    _dataSource.AddRange(OnSearchTextChanged(SearchText));
-        //}
     }
 
     /// <summary>
@@ -540,25 +488,12 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             await OnClearAsync();
         }
 
-        SelectedItem? item;
-        if (IsVirtualize)
+        if (OnQueryAsync != null)
         {
-            if (VirtualizeElement != null)
-            {
-                await VirtualizeElement.RefreshDataAsync();
-                item = VirtualItems!.FirstOrDefault();
-            }
-            else
-            {
-                VirtualItems = Items;
-                item = Items.FirstOrDefault();
-            }
-        }
-        else
-        {
-            item = Items.FirstOrDefault();
+            await VirtualizeElement.RefreshDataAsync();
         }
 
+        var item = Items.FirstOrDefault();
         if (item != null)
         {
             await SelectedItemChanged(item);
