@@ -213,6 +213,65 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private bool _init = true;
 
+    private List<SelectedItem>? _itemsCache;
+
+    private List<SelectedItem> Rows
+    {
+        get
+        {
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetItemsByItems() : GetItemsBySearch();
+            return _itemsCache;
+        }
+    }
+
+    private List<SelectedItem> GetItemsByItems()
+    {
+        var items = new List<SelectedItem>();
+        items.AddRange(Items);
+        items.AddRange(_children);
+
+        if (VirtualItems != null)
+        {
+            items.AddRange(VirtualItems);
+        }
+
+        //SelectedItem = items.Find(Match)
+        //    ?? items.Find(i => i.Active)
+        //    ?? items.Where(i => !i.IsDisabled).FirstOrDefault()
+        //    ?? GetVirtualizeItem();
+
+        //if (SelectedItem != null)
+        //{
+        //    if (_init && DisableItemChangedWhenFirstRender)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        _ = SelectedItemChanged(SelectedItem);
+        //        _init = false;
+        //    }
+        //}
+        return items;
+    }
+
+    private List<SelectedItem> GetItemsBySearch()
+    {
+        var items = new List<SelectedItem>();
+        if (IsVirtualize)
+        {
+            if (Items.Any())
+            {
+                VirtualItems = OnSearchTextChanged(SearchText);
+            }
+        }
+        else
+        {
+            items.AddRange(OnSearchTextChanged(SearchText));
+        }
+        return items;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
