@@ -738,12 +738,8 @@ public class SelectTest : BootstrapBlazorTestBase
                 return Task.FromResult(new QueryData<SelectedItem>()
                 {
                     Items = string.IsNullOrEmpty(searchText)
-                        ? new SelectedItem[]
-                        {
-                            new("", "All"),
-                            new("1", "Test1"),
-                            new("2", "Test2")
-                        } : [new("2", "Test2")],
+                        ? [new("", "All"), new("1", "Test1"), new("2", "Test2")]
+                        : [new("2", "Test2")],
                     TotalCount = string.IsNullOrEmpty(searchText) ? 2 : 1
                 });
             });
