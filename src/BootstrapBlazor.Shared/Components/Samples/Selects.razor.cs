@@ -61,18 +61,13 @@ public sealed partial class Selects
         Foos = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private IEnumerable<SelectedItem> OnSearchTextChanged(string searchText)
-    {
-        return Foos.Where(i => i.Name!.Contains(searchText, StringComparison.OrdinalIgnoreCase)).Select(i => new SelectedItem(i.Name!, i.Name!));
-    }
-
     private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
     {
         await Task.Delay(200);
         var items = Foos;
         if (!string.IsNullOrEmpty(option.SearchText))
         {
-            items = items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            items = Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
         }
         return new QueryData<SelectedItem>
         {
