@@ -29,7 +29,7 @@
                         }
                         @if (Menus != null)
                         {
-                            @RenderMenu(IsFullSide)
+                            @RenderMenu
                         }
                     </aside>
                     <section class="layout-right">
@@ -58,7 +58,7 @@
                             }
                             @if (Menus != null)
                             {
-                                @RenderMenu(IsFullSide)
+                                @RenderMenu
                             }
                         </aside>
                         @RenderMain
@@ -100,9 +100,9 @@
         @Header
     </header>;
 
-    RenderFragment<bool> RenderMenu => hasScroll =>
+    RenderFragment RenderMenu =>
     @<div class="layout-menu">
-        @if (hasScroll)
+        @if (IsFixedTabHeader || IsFullSide)
         {
             <Scroll>
                 <Menu Items="@Menus" IsVertical="true" IsAccordion="@IsAccordion" OnClick="ClickMenu"></Menu>
