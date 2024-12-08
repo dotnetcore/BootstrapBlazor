@@ -4096,7 +4096,7 @@
     "PrintDialogIntro": "Turn on printing by setting up the <code>ShowPrint</code>",
     "PrintDialogP": "In this example, the pop-up window content is a custom component <code>{0}</code> the <code>Footer</code> where the button itself is located is hidden, so the <code>Print</code> button built into the pop-up window cannot be displayed, and setting the <code>{1}</code> makes the <b>print</b>The button appears in the title bar",
     "PrintServiceTitle": "Print service",
-    "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b> directly print jobs. Printing Service <code>DialogService</code> Service Document <a href=\"/print-service\" target=\"_blank\">[Portal]</a>",
+    "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b> directly print jobs. Printing Service <code>PrintService</code> Service Document <a href=\"/print-service\" target=\"_blank\">[Portal]</a>",
     "PrintsDialogTitle": "The data query window"
   },
   "BootstrapBlazor.Shared.Components.Samples.Tags": {
