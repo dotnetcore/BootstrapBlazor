@@ -279,6 +279,10 @@
                     top: 0;
                     height: var(--bb-layout-height);
                 }
+
+                .layout-menu {
+                    height: calc(var(--bb-layout-height) - var(--bb-layout-header-height));
+                }
             }
         }
 
