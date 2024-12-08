@@ -40,7 +40,7 @@
            Introduction="@Localizer["LayoutsUpAndDownIntro"]"
            Name="UpAndDown">
     <div class="layout-demo">
-        <Layout ShowFooter="true">
+        <Layout ShowFooter="true" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
@@ -58,7 +58,7 @@
            Introduction="@Localizer["LayoutsMiddleLeftRightIntro"]"
            Name="MiddleLeftRight">
     <div class="layout-demo">
-        <Layout ShowFooter="true">
+        <Layout ShowFooter="true" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
@@ -79,7 +79,7 @@
            Introduction="@Localizer["LayoutsLeftRightIntro"]"
            Name="LeftRight">
     <div class="layout-demo">
-        <Layout ShowFooter="true" IsFullSide="true">
+        <Layout ShowFooter="true" IsFullSide="true" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
@@ -100,7 +100,7 @@
            Introduction="@Localizer["LayoutsCustomPercentIntro"]"
            Name="CustomPercent">
     <div class="layout-demo">
-        <Layout ShowFooter="true" SideWidth="200">
+        <Layout ShowFooter="true" SideWidth="200" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
@@ -140,7 +140,7 @@
         @((MarkupString)Localizer["LayoutsAppTips7"].Value)
     </Tips>
     <div class="layout-demo1">
-        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems1">
+        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems1" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
@@ -158,7 +158,7 @@
         @Localizer["LayoutsAppTips8"]
     </p>
     <div class="layout-demo2">
-        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems2">
+        <Layout ShowFooter="true" SideWidth="160px" Menus="IconSideMenuItems2" AdditionalAssemblies="[typeof(MainLayout).Assembly]">
             <Header>
                 <div>Header</div>
             </Header>
