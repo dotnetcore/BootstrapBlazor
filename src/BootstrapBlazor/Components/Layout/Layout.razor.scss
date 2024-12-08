@@ -233,6 +233,7 @@
     }
 
     &.is-fixed-tab {
+        .layout-menu,
         .tabs {
             height: calc(var(--bb-layout-height) - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
 
@@ -240,10 +241,6 @@
                 height: calc(100% - var(--bb-tabs-item-height));
                 overflow: auto;
             }
-        }
-
-        .layout-menu {
-            height: calc(var(--bb-layout-height) - var(--bb-layout-header-height) - var(--bb-layout-footer-height));
         }
     }
 }
