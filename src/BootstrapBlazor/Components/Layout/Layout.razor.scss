@@ -243,6 +243,14 @@
             }
         }
     }
+
+    .layout-right {
+        display: flex;
+        flex-flow: column;
+        flex: 1 1 auto;
+        width: 1%;
+        min-width: 0;
+    }
 }
 
 .has-sidebar {
@@ -262,14 +270,6 @@
             .layout-menu {
                 border-right: 1px solid var(--bs-border-color);
             }
-        }
-
-        .layout-right {
-            display: flex;
-            flex-flow: column;
-            flex: 1 1 auto;
-            width: 1%;
-            min-width: 0;
         }
 
         &.has-sidebar {
