@@ -5004,6 +5004,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(30, "IsPopover", false);
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
+                    builder.AddAttribute(33, "LookupService", new FooLookupService());
                     builder.CloseComponent();
                 });
             });
@@ -5039,6 +5040,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(1, column.Instance.GroupOrder);
         Assert.True(column.Instance.ShowSearchWhenSelect);
         Assert.False(column.Instance.IsPopover);
+        Assert.NotNull(column.Instance.LookupService);
 
         var col = column.Instance as ITableColumn;
         Assert.NotNull(col.Template);
@@ -8797,6 +8799,28 @@ public class TableTest : BootstrapBlazorTestBase
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+    }
+
+    class FooLookupService : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            await Task.Delay(300);
+
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "FooLookup")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("v1", "LookupService-Test-1-async"),
+                    new("v2", "LookupService-Test-2-async")
+                };
+            }
+            return ret;
         }
     }
 }
