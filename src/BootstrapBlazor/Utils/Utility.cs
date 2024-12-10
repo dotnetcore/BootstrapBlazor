@@ -459,8 +459,7 @@ public static class Utility
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <param name="isSearch"></param>
-    /// <param name="lookUpService"></param>
-    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookUpService = null)
+    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -469,7 +468,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey, item.LookupServiceData);
+        var lookup = item.Lookup;
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))

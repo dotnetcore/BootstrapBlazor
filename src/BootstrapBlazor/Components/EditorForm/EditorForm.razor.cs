@@ -301,7 +301,7 @@ public partial class EditorForm<TModel> : IShowLabel
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, LookupService);
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value);
         }
     };
 
