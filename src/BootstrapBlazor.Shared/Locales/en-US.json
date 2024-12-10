@@ -2597,7 +2597,7 @@
     "Att3": "Component height",
     "Att4": "Rich Text Box Toolbar Tool",
     "Att5": "Custom button",
-    "DoMethodAsync": "Instance Method",
+    "DoMethodAsyncTitle": "Instance Method",
     "DoMethodAsyncIntro": "Call the instance method, please refer <a href='https://summernote.org/deep-dive'>summernote api</a>",
     "DoMethodAsyncDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed",
     "EditorEmptyPlaceholder": "Customize the prompt message for empty values",
@@ -2615,6 +2615,7 @@
     "DoMethodAsyncButton1": "Insert Html",
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",
+    "DoMethodAsyncButton4": "Get Code",
     "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
   },
   "BootstrapBlazor.Shared.Components.Samples.EditorForms": {

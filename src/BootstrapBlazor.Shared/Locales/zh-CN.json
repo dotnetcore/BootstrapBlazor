@@ -2597,7 +2597,7 @@
     "Att3": "组件高度",
     "Att4": "富文本框工具栏工具",
     "Att5": "自定义按钮",
-    "DoMethodAsync": "实例方法",
+    "DoMethodAsyncTitle": "实例方法",
     "DoMethodAsyncIntro": "使用实例方法从外部操作 <code>Editor</code>，具体的参数参照 <a href='https://summernote.org/deep-dive'>summernote api</a>",
     "DoMethodAsyncDescription": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮",
     "EditorEmptyPlaceholder": "自定义空值的提示信息",
@@ -2615,6 +2615,7 @@
     "DoMethodAsyncButton1": "插入一段 Html",
     "DoMethodAsyncButton2": "将段落修改为 H2",
     "DoMethodAsyncButton3": "添加一张图片",
+    "DoMethodAsyncButton4": "获得组件内容",
     "DoMethodAsyncPasteHTML": "这里是外部按钮插入的内容"
   },
   "BootstrapBlazor.Shared.Components.Samples.EditorForms": {
