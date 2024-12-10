@@ -409,7 +409,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
             });
         });
         var editor = cut.Instance;
-        var itemsField = editor.GetType().GetField("_formItems", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetField);
+        var itemsField = editor.GetType().GetProperty("RenderItems", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         Assert.NotNull(itemsField);
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
@@ -418,7 +418,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void LookupServiceKey_Ok()
+    public async Task LookupServiceKey_Ok()
     {
         var foo = new Foo();
         var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
@@ -440,8 +440,9 @@ public class EditorFormTest : BootstrapBlazorTestBase
         });
         var select = cut.FindComponent<Select<string>>();
         var lookupService = Context.Services.GetRequiredService<ILookupService>();
-        var lookup = lookupService.GetItemsByKey("FooLookup");
-        Assert.Equal(lookup!.Count(), select.Instance.Items.Count());
+        var lookup = await lookupService.GetItemsAsync("FooLookup", "");
+        Assert.NotNull(lookup);
+        Assert.Equal(lookup.Count(), select.Instance.Items.Count());
     }
 
     [Theory]
