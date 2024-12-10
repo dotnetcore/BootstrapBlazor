@@ -52,7 +52,15 @@ public class LayoutTest : BootstrapBlazorTestBase
     [Fact]
     public void IsFixedTabHeader_OK()
     {
-        var cut = Context.RenderComponent<Layout>();
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.Side, new RenderFragment(builder =>
+            {
+                builder.AddContent(0, "test");
+            }));
+            pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
+
+        });
         Assert.DoesNotContain("is-fixed-tab", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsFixedTabHeader, true));

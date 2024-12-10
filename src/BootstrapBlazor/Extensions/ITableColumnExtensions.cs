@@ -50,6 +50,7 @@ public static class IEditItemExtensions
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
         if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
+        if (source.LookupService != null) dest.LookupService = source.LookupService;
         if (source.Readonly.HasValue) dest.Readonly = source.Readonly;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;

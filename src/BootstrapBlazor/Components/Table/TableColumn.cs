@@ -458,6 +458,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     [Parameter]

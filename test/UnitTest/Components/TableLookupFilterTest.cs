@@ -8,6 +8,31 @@ namespace UnitTest.Components;
 public class TableLookupFilterTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void Lookup_Ok()
+    {
+        var cut = Context.RenderComponent<LookupFilter>(pb =>
+        {
+            pb.Add(a => a.Type, typeof(string));
+            pb.Add(a => a.LookupServiceKey, "FooLookup");
+        });
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Equal(3, items.Count);
+        Assert.Contains("LookupService-Test-2", items[items.Count - 1].InnerHtml);
+
+        var lookupService = Context.Services.GetKeyedService<ILookupService>("FooLookupAsync");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.LookupService, lookupService);
+        });
+        cut.WaitForAssertion(() =>
+        {
+            items = cut.FindAll(".dropdown-item");
+            Assert.Equal(3, items.Count);
+            Assert.Contains("LookupService-Test-2-async", items[items.Count - 1].InnerHtml);
+        });
+    }
+
+    [Fact]
     public void Reset_Ok()
     {
         var cut = Context.RenderComponent<LookupFilter>(pb =>

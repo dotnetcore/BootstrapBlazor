@@ -328,6 +328,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    ILookupService? IEditorItem.LookupService { get; set; }
+
+    /// <summary>
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? ITableColumn.OnCellRender { get; set; }

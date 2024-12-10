@@ -200,6 +200,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
     /// 获得/设置 单元格回调方法
     /// </summary>
     public Action<TableCellArgs>? OnCellRender { get; set; }

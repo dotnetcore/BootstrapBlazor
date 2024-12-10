@@ -112,6 +112,11 @@ public interface IEditorItem
     object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    ILookupService? LookupService { get; set; }
+
+    /// <summary>
     /// 获得/设置 自定义验证集合
     /// </summary>
     List<IValidator>? ValidateRules { get; set; }

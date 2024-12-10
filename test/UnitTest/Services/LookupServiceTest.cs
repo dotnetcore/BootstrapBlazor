@@ -5,12 +5,17 @@
 
 namespace UnitTest.Services;
 
-public class LookupServiceTest : BootstrapBlazorTestBase
+public class LookupServiceTest
 {
     [Fact]
     public void LookupService_Null()
     {
-        var service = Context.Services.GetRequiredService<ILookupService>();
-        Assert.Null(service.GetItemsByKey(""));
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddBootstrapBlazor();
+
+        var provider = serviceCollection.BuildServiceProvider();
+        var service = provider.GetRequiredService<ILookupService>();
+        var data = service.GetItemsByKey("", "");
+        Assert.Null(data);
     }
 }

@@ -7,10 +7,7 @@
         @FieldItems?.Invoke(Model)
     </CascadingValue>
     <CascadingValue Value="this" Name="EditorForm">
-        <RenderTemplate OnRenderAsync="OnRenderAsync">
-            @{
-                ResetItems();
-            }
+        <RenderTemplate>
             @if (ShowUnsetGroupItemsOnTop)
             {
                 if (UnsetGroupItems.Any())
