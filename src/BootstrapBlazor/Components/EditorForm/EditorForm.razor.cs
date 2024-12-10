@@ -184,18 +184,24 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     private readonly List<IEditorItem> _editorItems = [];
 
-    /// <summary>
-    /// 获得/设置 渲染的编辑项集合
-    /// </summary>
-    [NotNull]
-    private List<IEditorItem>? _formItems = null;
+    private IEnumerable<IEditorItem> UnsetGroupItems => RenderItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
-
-    private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => _formItems
+    private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => RenderItems
         .Where(i => !string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value))
         .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
+
+    private bool _inited;
+    private List<IEditorItem>? _itemsCache;
+
+    private List<IEditorItem> RenderItems
+    {
+        get
+        {
+            _itemsCache ??= GetRenderItems();
+            return _itemsCache;
+        }
+    }
 
     /// <summary>
     /// OnInitialized 方法
@@ -217,7 +223,6 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 统一设置所有 IEditorItem 的 PlaceHolder
         PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
-
         IsSearch ??= false;
     }
 
@@ -230,66 +235,71 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
-        _formItems = null;
+        _itemsCache = null;
     }
 
-    private bool _inited;
-
-    private Task OnRenderAsync(bool firstRender)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
+            foreach (var item in RenderItems)
+            {
+                item.Lookup ??= await LookupService.GetItemsAsync(item.LookupServiceKey, item.LookupServiceData);
+            }
             _inited = true;
             StateHasChanged();
         }
-        return Task.CompletedTask;
     }
 
-    private void ResetItems()
+    private List<IEditorItem> GetRenderItems()
     {
-        if (_formItems == null)
+        var items = new List<IEditorItem>();
+        if (Items != null)
         {
-            _formItems = [];
-            if (Items != null)
+            items.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
+        }
+        else
+        {
+            // 如果 EditorItems 有值表示 用户自定义列
+            if (AutoGenerateAllItem)
             {
-                _formItems.AddRange(Items.Where(i => !i.GetIgnore() && !string.IsNullOrEmpty(i.GetFieldName())));
+                // 获取绑定模型所有属性
+                var columns = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
+
+                // 通过设定的 FieldItems 模板获取项进行渲染
+                foreach (var el in _editorItems)
+                {
+                    var item = columns.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
+                    if (item != null)
+                    {
+                        // 过滤掉不编辑与不可见的列
+                        if (el.GetIgnore() || !el.IsVisible(ItemChangedType, IsSearch.Value) || string.IsNullOrEmpty(el.GetFieldName()))
+                        {
+                            columns.Remove(item);
+                        }
+                        else
+                        {
+                            // 设置只读属性与列模板
+                            item.CopyValue(el);
+                        }
+                    }
+                }
+                items.AddRange(columns);
             }
             else
             {
-                // 如果 EditorItems 有值表示 用户自定义列
-                if (AutoGenerateAllItem)
-                {
-                    // 获取绑定模型所有属性
-                    var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
-
-                    // 通过设定的 FieldItems 模板获取项进行渲染
-                    foreach (var el in _editorItems)
-                    {
-                        var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
-                        if (item != null)
-                        {
-                            // 过滤掉不编辑与不可见的列
-                            if (el.GetIgnore() || !el.IsVisible(ItemChangedType, IsSearch.Value))
-                            {
-                                items.Remove(item);
-                            }
-                            else
-                            {
-                                // 设置只读属性与列模板
-                                item.CopyValue(el);
-                            }
-                        }
-                    }
-                    _formItems.AddRange(items.Where(i => !string.IsNullOrEmpty(i.GetFieldName())));
-                }
-                else
-                {
-                    _formItems.AddRange(_editorItems.Where(i => !i.GetIgnore()
-                        && !string.IsNullOrEmpty(i.GetFieldName())
-                        && i.IsVisible(ItemChangedType, IsSearch.Value)));
-                }
+                items.AddRange(_editorItems.Where(i => !i.GetIgnore()
+                    && !string.IsNullOrEmpty(i.GetFieldName())
+                    && i.IsVisible(ItemChangedType, IsSearch.Value)));
             }
         }
+        return items;
     }
 
     private RenderFragment AutoGenerateTemplate(IEditorItem item) => builder =>
