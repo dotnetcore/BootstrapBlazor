@@ -84,6 +84,7 @@ public class TableColumnTest
         SetValue("RequiredErrorMessage", "test");
         SetValue("IsRequiredWhenAdd", true);
         SetValue("IsRequiredWhenEdit", true);
+        SetValue("LookupService", null);
 
         void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }
