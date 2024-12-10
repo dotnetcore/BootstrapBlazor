@@ -250,7 +250,11 @@ public partial class EditorForm<TModel> : IShowLabel
         {
             foreach (var item in RenderItems)
             {
-                item.Lookup ??= await LookupService.GetItemsAsync(item.LookupServiceKey, item.LookupServiceData);
+                if (item.Lookup == null && !string.IsNullOrEmpty(item.LookupServiceKey))
+                {
+                    var lookupServcie = item.LookupService ?? LookupService;
+                    item.Lookup = await lookupServcie.GetItemsAsync(item.LookupServiceKey, item.LookupServiceData);
+                }
             }
             _inited = true;
             StateHasChanged();

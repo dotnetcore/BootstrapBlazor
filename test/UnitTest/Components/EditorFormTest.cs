@@ -445,6 +445,37 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Equal(lookup.Count(), select.Instance.Items.Count());
     }
 
+    [Fact]
+    public async Task LookupService_Ok()
+    {
+        var lookupService = new FooLookupService();
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupService), lookupService);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceKey), "FooLookup");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceData), true);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
+                builder.CloseComponent();
+            });
+        });
+        cut.WaitForElements(".select");
+        var select = cut.FindComponent<Select<string>>();
+        var lookup = await lookupService.GetItemsAsync("FooLookup", "");
+        Assert.NotNull(lookup);
+        Assert.Equal(lookup.Count(), select.Instance.Items.Count());
+        Assert.Equal("LookupService-Test-1-async", select.Instance.Items.First().Text);
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
@@ -660,6 +691,28 @@ public class EditorFormTest : BootstrapBlazorTestBase
             {
                 await FieldChanged.InvokeAsync();
             }
+        }
+    }
+
+    class FooLookupService : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            await Task.Delay(300);
+
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "FooLookup")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("v1", "LookupService-Test-1-async"),
+                    new("v2", "LookupService-Test-2-async")
+                };
+            }
+            return ret;
         }
     }
 }
