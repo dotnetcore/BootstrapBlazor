@@ -12,8 +12,10 @@ public class DialogCloseButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DialogCloseButton>();
         Assert.Equal("fa-solid fa-xmark", cut.Instance.Icon);
+        cut.Contains("fa-solid fa-xmark");
 
         cut.SetParametersAndRender(pb => pb.Add(p => p.Icon, "test-icon"));
         Assert.Equal("test-icon", cut.Instance.Icon);
+        cut.Contains("test-icon");
     }
 }
