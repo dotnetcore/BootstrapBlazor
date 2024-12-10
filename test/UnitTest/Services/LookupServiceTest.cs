@@ -8,9 +8,10 @@ namespace UnitTest.Services;
 public class LookupServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void LookupService_Null()
+    public async Task LookupService_Null()
     {
         var service = Context.Services.GetRequiredService<ILookupService>();
-        Assert.Null(service.GetItemsByKey(""));
+        var data = await service.GetItemsAsync("", "");
+        Assert.Null(data);
     }
 }
