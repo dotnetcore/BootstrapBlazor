@@ -17,12 +17,30 @@ public partial class LookupFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
@@ -33,9 +51,7 @@ public partial class LookupFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
@@ -50,17 +66,16 @@ public partial class LookupFilter
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        if (Lookup == null)
-        {
-            throw new InvalidOperationException("the Parameter Lookup must be set.");
-        }
 
         if (Type == null)
         {
@@ -76,19 +91,28 @@ public partial class LookupFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
-        if (Items == null)
-        {
-            var items = new List<SelectedItem>
+        var items = new List<SelectedItem>
             {
                 new("", Localizer["EnumFilter.AllText"].Value)
             };
+        if (Lookup != null)
+        {
             items.AddRange(Lookup);
-            Items = items;
         }
+        else if (!string.IsNullOrEmpty(LookupServiceKey))
+        {
+            var lookupService = LookupService ?? InjectLookupService;
+            var lookup = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
+            if (lookup != null)
+            {
+                items.AddRange(lookup);
+            }
+        }
+        Items = items;
     }
 
     /// <summary>

@@ -93,9 +93,7 @@ public partial class TableFilter : IFilter
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public ITableColumn? Column { get; set; }
 
     /// <summary>
@@ -132,19 +130,10 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    [Inject]
-    [NotNull]
-    private ILookupService? LookupService { get; set; }
-
     /// <summary>
     /// 组件步长
     /// </summary>
     private string? _step;
-
-    /// <summary>
-    /// 外键数据源集合
-    /// </summary>
-    private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -156,8 +145,6 @@ public partial class TableFilter : IFilter
         _title = Column.GetDisplayName();
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
-
-        _lookup = new(() => Column.Lookup ?? LookupService.GetItemsByKey(Column.LookupServiceKey, Column.LookupServiceData));
         _step = Column.Step;
     }
 
