@@ -223,6 +223,9 @@ public class AutoGenerateClassTest
         attrEditor.IsPopover = true;
         Assert.True(attrEditor.IsPopover);
 
+        attrEditor.LookupService = new LookupService();
+        Assert.NotNull(attrEditor.LookupService);
+
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
@@ -231,5 +234,10 @@ public class AutoGenerateClassTest
         Assert.True(attr.IsRequiredWhenEdit);
         Assert.True(attr.IsRequiredWhenAdd);
         Assert.Equal("test", attr.RequiredErrorMessage);
+    }
+
+    class LookupService : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
     }
 }
