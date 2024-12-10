@@ -195,6 +195,12 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
     /// 获得/设置 自定义验证集合
     /// </summary>
     [Parameter]
