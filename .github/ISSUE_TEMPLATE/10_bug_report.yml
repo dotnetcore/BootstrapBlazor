@@ -66,11 +66,15 @@ body:
     description: Include the exception you get when facing this issue.
   validations:
     required: false
-- type: input
+- type: dropdown
   attributes:
     label: .NET Version
-    description: |
-      Run `dotnet --version`
+    options:
+      - NET9.0
+      - NET8.0
+      - NET7.0
+      - NET6.0
+    default: 1
   validations:
     required: true
 - type: textarea
