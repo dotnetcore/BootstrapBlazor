@@ -86,6 +86,13 @@
             <table cellspacing="0" cellpadding="0" class="calendar-table table-week">
                 <thead>
                     <tr>
+                        @if (AdditionalHeaders != null)
+                        {
+                            foreach (var item in AdditionalHeaders)
+                            {
+                                @RenderAddHeader(item)
+                            }
+                        }
                         @for (var index = 0; index < 7; index++)
                         {
                             @RenderWeekHeader(index)
@@ -113,6 +120,13 @@
         <div class="@GetWeekDayClassString(index)">
             <div><span class="d-none d-sm-inline-block">@WeekHeaderText</span>@WeekLists.ElementAtOrDefault(index)</div>
             <div>@GetWeekDayString(index)</div>
+        </div>
+    </th>;
+
+    RenderFragment<string> RenderAddHeader => name =>
+    @<th>
+        <div class="week-header">
+            <div><span class="d-none d-sm-inline-block">@name</span></div> 
         </div>
     </th>;
 }
