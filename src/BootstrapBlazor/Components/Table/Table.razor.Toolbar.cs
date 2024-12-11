@@ -622,7 +622,7 @@ public partial class Table<TItem>
     /// 取消保存方法
     /// </summary>
     /// <returns></returns>
-    protected void CancelSave()
+    protected async Task CancelSave()
     {
         if (EditMode == EditMode.EditForm)
         {
@@ -634,6 +634,11 @@ public partial class Table<TItem>
             SelectedRows.Clear();
             AddInCell = false;
             EditInCell = false;
+        }
+
+        if (OnAfterCancelSaveAsync != null)
+        {
+            await OnAfterCancelSaveAsync();
         }
     }
 
