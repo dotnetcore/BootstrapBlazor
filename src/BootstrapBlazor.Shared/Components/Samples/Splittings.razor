@@ -39,13 +39,13 @@
            Introduction="@Localizer["SplittingColumnsIntro"]"
            Name="Columns">
     <div class="splitting-demo">
-        <p>
+        <section ignore>
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["SplittingColumnsText"]" />
                 <Slider @bind-Value="@_columns" Min="10" Max="50" />
                 <BootstrapInputNumber @bind-Value="@_columns" Min="10" Max="50"></BootstrapInputNumber>
             </BootstrapInputGroup>
-        </p>
+        </section>
         <Splitting Columns="@_columns" Text="@Localizer["SplittingText"]"></Splitting>
     </div>
 </DemoBlock>
