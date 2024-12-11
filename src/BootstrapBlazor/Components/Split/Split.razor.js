@@ -170,6 +170,13 @@ const getMax = split => {
     return ret;
 }
 
+export function setLeft(id, leftBasis) {
+    const split = Data.get(id)
+    if (split) {
+        split.splitLeft.style.setProperty('flex-basis', leftBasis);
+    }
+}
+
 const setLeftBasis = (split, triggerLeft) => {
     const { option, splitLeft, invoke, method } = split;
     let leftBasis = splitLeft.style.flexBasis;
