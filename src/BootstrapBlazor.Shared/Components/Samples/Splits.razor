@@ -122,4 +122,24 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SplitSetLeftTitle"]"
+           Introduction="@Localizer["SplitSetLeftIntro"]"
+           Name="SetLeft">
+    <section ignore>
+        <Button Text="25%" OnClickWithoutRender="@(async () => await OnSetLeft("25%"))"></Button>
+        <Button Text="50%" OnClickWithoutRender="@(async () => await OnSetLeft("50%"))"></Button>
+        <Button Text="100%" OnClickWithoutRender="@(async () => await OnSetLeft("100%"))"></Button>
+    </section>
+    <div class="border split-demo split-demo-horizontal">
+        <Split Basis="40%" IsCollapsible="true" @ref="Split1">
+            <FirstPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel1"]</div>
+            </FirstPaneTemplate>
+            <SecondPaneTemplate>
+                <div class="d-flex justify-content-center align-items-center h-100">@Localizer["SplitsPanel2"]</div>
+            </SecondPaneTemplate>
+        </Split>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
