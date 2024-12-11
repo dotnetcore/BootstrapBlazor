@@ -170,7 +170,7 @@ public static class ObjectExtensions
                 }
                 else if (source == string.Empty)
                 {
-                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.CurrentUICulture, out val);
+                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.CurrentCulture, out val);
                 }
                 else
                 {
