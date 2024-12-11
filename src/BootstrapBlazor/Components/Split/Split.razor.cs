@@ -125,6 +125,13 @@ public sealed partial class Split
     });
 
     /// <summary>
+    /// 设置左侧窗格宽度
+    /// </summary>
+    /// <param name="leftWidth">可以是百分比或者其他单位</param>
+    /// <returns></returns>
+    public Task SetLeftWidth(string leftWidth) => InvokeVoidAsync("setLeft", Id, leftWidth);
+
+    /// <summary>
     /// 窗格折叠时回调方法 由 JavaScript 调用   
     /// </summary>
     /// <returns></returns>
