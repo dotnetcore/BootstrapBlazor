@@ -176,7 +176,7 @@ public static class ObjectExtensions
                 {
                     var isBoolean = type == typeof(bool);
                     var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
-                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.CurrentUICulture, out val);
+                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.CurrentCulture, out val);
                 }
             }
             catch
