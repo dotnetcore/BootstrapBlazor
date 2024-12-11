@@ -1742,7 +1742,9 @@
     "SplitsCollapsibleTrue": "Collapse button shown",
     "SplitsCollapsibleFalse": "Collapse button hidden",
     "SplitsFirstPaneMinimumSize": "The minimum size of the first pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
-    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px."
+    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
+    "SplitSetLeftTitle": "Code to set panel width",
+    "SplitSetLeftIntro": "Use the component instance method <code>SetLeftWidth</code> to set the width of the left/top panel, and the width of the right/bottom panel will be adaptive"
   },
   "BootstrapBlazor.Shared.Components.Samples.Dropdowns": {
     "Title": "Dropdown",
