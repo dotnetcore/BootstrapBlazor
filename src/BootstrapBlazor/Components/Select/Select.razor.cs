@@ -532,7 +532,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
                     {
                         val = await TextConvertToValueCallback(v);
                     }
-                    item = new SelectedItem<TValue>() { Text = v, Value = val };
+                    item = new SelectedItem<TValue?>(val, v);
                 }
                 else
                 {

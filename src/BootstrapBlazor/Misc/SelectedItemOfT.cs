@@ -11,6 +11,17 @@ namespace BootstrapBlazor.Components;
 public class SelectedItem<T> : SelectedItem
 {
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="text"></param>
+    public SelectedItem(T value, string text)
+    {
+        Value = value;
+        Text = text;
+    }
+
+    /// <summary>
     /// 获得/设置 泛型值
     /// </summary>
     public new T? Value { get; set; }
