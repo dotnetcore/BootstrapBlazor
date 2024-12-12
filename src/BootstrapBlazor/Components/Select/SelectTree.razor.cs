@@ -179,6 +179,11 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
             // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
         }
+        else
+        {
+            // 组件已赋值 Value 通过 Value 设置默认值
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
     }
 
     /// <summary>
