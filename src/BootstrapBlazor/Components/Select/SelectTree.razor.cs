@@ -212,7 +212,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         }
     }
 
-    private IEnumerable<TreeViewItem<TValue>> GetExpandedItems()
+    private List<TreeViewItem<TValue>> GetExpandedItems()
     {
         if (ItemCache != Items)
         {
