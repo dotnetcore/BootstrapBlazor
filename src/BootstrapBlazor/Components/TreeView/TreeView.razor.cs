@@ -351,6 +351,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (IsReset)
             {
+                _rows = null;
                 TreeNodeStateCache.Reset();
             }
             else
