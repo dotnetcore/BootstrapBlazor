@@ -351,6 +351,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (IsReset)
             {
+                _rows = null;
                 TreeNodeStateCache.Reset();
             }
             else
@@ -822,35 +823,37 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         TouchStart = false;
     }
 
-    private List<TreeViewItem<TItem>> Rows => GetTreeRows(Items);
-
     private List<TreeViewItem<TItem>>? _rows = null;
 
-#if NET9_0_OR_GREATER
-    private readonly Lock _object = new();
-#else
-    private readonly object _object = new();
-#endif
-
-    private List<TreeViewItem<TItem>> GetTreeRows(List<TreeViewItem<TItem>> items)
+    private List<TreeViewItem<TItem>> Rows
     {
-        lock (_object)
+        get
         {
-            var rows = new List<TreeViewItem<TItem>>();
-            if (items != null)
+            _rows ??= GetTreeRows(Items);
+            return _rows;
+        }
+    }
+
+    /// <summary>
+    /// 将带层次结构的数据转换为扁平化数据
+    /// </summary>
+    /// <param name="items"></param>
+    /// <returns></returns>
+    private static List<TreeViewItem<TItem>> GetTreeRows(List<TreeViewItem<TItem>> items)
+    {
+        var rows = new List<TreeViewItem<TItem>>();
+        if (items != null)
+        {
+            foreach (var item in items)
             {
-                foreach (var item in items)
+                rows.Add(item);
+                if (item.IsExpand)
                 {
-                    rows.Add(item);
-                    if (item.IsExpand)
-                    {
-                        rows.AddRange(GetTreeRows(item.Items));
-                    }
+                    rows.AddRange(GetTreeRows(item.Items));
                 }
             }
-            _rows ??= rows;
-            return rows;
         }
+        return rows;
     }
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
