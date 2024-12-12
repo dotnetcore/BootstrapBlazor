@@ -191,6 +191,19 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
+    /// <summary>
+    /// 获得/设置 绑定数据集
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }

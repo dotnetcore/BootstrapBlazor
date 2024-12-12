@@ -17,13 +17,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定数据集
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示搜索框 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -53,12 +46,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
-
-    /// <summary>
-    /// 获得/设置 选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 分组项模板

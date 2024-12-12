@@ -37,6 +37,19 @@ public partial class MultiSelect<TValue>
         .Build();
 
     /// <summary>
+    /// 获得/设置 绑定数据集
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
     /// </summary>
     [Parameter]
