@@ -13,28 +13,28 @@
     <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Primary" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Success" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Success" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Danger" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Danger" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Warning" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Warning" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Info" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Info" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Secondary" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Secondary" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Dark" Items="Items" @bind-Value="Model.Name"></Select>
+            <SelectGeneric Color="Color.Dark" Items="Items" @bind-Value="Model.Name"></SelectGeneric>
         </div>
     </div>
     <ConsoleLogger @ref="Logger" />
@@ -45,31 +45,31 @@
            Name="Disable">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Primary" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Primary" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Success" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Success" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Danger" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Danger" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Warning" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Warning" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Info" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Info" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Secondary" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Secondary" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Dark" Items="Items" IsDisabled="true"></Select>
+            <SelectGeneric TValue="string" Color="Color.Dark" Items="Items" IsDisabled="true"></SelectGeneric>
         </div>
     </div>
     <p class="mt-3">@((MarkupString)Localizer["SelectsDisableOption"].Value)</p>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items4" />
+            <SelectGeneric TValue="string" Items="Items4" />
         </div>
     </div>
 </DemoBlock>
@@ -79,7 +79,7 @@
            Name="Binding">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="BindingModel.Name"></Select>
+            <SelectGeneric Color="Color.Primary" Items="Items" @bind-Value="BindingModel.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInput readonly @bind-Value="BindingModel.Name" />
@@ -92,23 +92,10 @@
            Name="IsClearable">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
+            <SelectGeneric Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["SelectsBindingSelectedItemTitle"]"
-           Introduction="@Localizer["SelectsBindingSelectedItemIntro"]"
-           Name="BindingSelectedItem">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="Item"></Select>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Display Value="@ItemString"></Display>
+            <SelectGeneric Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -118,10 +105,10 @@
            Name="Cascading">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
+            <SelectGeneric TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items2" />
+            <SelectGeneric TValue="string" Items="Items2" />
         </div>
         <div class="col-12">
             <Button Text="@Localizer["SelectsCascadingButtonText1"]" OnClickWithoutRender="OnShowDialog" />
@@ -135,14 +122,14 @@
     <ValidateForm Model="ValidateModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <Select @bind-Value="ValidateModel.Name">
+                <SelectGeneric @bind-Value="ValidateModel.Name">
                     <Options>
-                        <SelectOption Text="@Localizer["SelectsOption1"]" Value="" />
-                        <SelectOption Text="@Localizer["SelectsOption2"]" Value="1" />
-                        <SelectOption Text="@Localizer["SelectsOption3"]" Value="2" />
-                        <SelectOption Text="@Localizer["SelectsOption4"]" Value="3" />
+                        <SelectOptionGeneric Text="@Localizer["SelectsOption1"]" Value="4" />
+                        <SelectOptionGeneric Text="@Localizer["SelectsOption2"]" Value="1" />
+                        <SelectOptionGeneric Text="@Localizer["SelectsOption3"]" Value="2" />
+                        <SelectOptionGeneric Text="@Localizer["SelectsOption4"]" Value="3" />
                     </Options>
-                </Select>
+                </SelectGeneric>
             </div>
             <div class="col-12 col-sm-6 align-self-end">
                 <Button ButtonType="ButtonType.Submit">@Localizer["SelectsClientValidationButtonText2"]</Button>
@@ -156,8 +143,7 @@
            Name="Group">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Primary" Items="GroupItems">
-            </Select>
+            <SelectGeneric TValue="string" Color="Color.Primary" Items="GroupItems"></SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -167,7 +153,7 @@
            Name="Guid">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" Items="GuidItems" @bind-Value="CurrentGuid" />
+            <SelectGeneric Color="Color.Primary" Items="GuidItems" @bind-Value="CurrentGuid"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <div class="form-control">@CurrentGuid</div>
@@ -183,20 +169,20 @@
     <ValidateForm Model="LabelModel">
         <div class="row">
             <div class="col-12">
-                <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
+                <SelectGeneric Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
             </div>
         </div>
     </ValidateForm>
     <Divider Text="@Localizer["SelectsDisplayLabelDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <div class="row">
         <div class="col-12">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
+            <SelectGeneric Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
         </div>
     </div>
     <Divider Text="@Localizer["SelectsDisplayLabelDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <div class="row">
         <div class="col-12">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" DisplayText="@Localizer["SelectsDisplayLabelSelectText"]" ShowLabel="true" />
+            <SelectGeneric Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" DisplayText="@Localizer["SelectsDisplayLabelSelectText"]" ShowLabel="true" />
         </div>
     </div>
 </DemoBlock>
@@ -206,13 +192,13 @@
            Name="Static">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string">
+            <SelectGeneric TValue="string">
                 <Options>
                     <SelectOption Text="@Localizer["SelectsOption1"]" Value="1" />
                     <SelectOption Text="@Localizer["SelectsOption2"]" Value="2" Active="true" />
                     <SelectOption Text="@Localizer["SelectsOption3"]" Value="3" />
                 </Options>
-            </Select>
+            </SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -224,16 +210,16 @@
     <p>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["SelectsPlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
-            </Select>
+            <SelectGeneric @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["SelectsPlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
+            </SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem1" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
-            </Select>
+            <SelectGeneric @bind-Value="SelectedEnumItem1" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
+            </SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Select @bind-Value="SelectedEnumItem" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText2"]">
-            </Select>
+            <SelectGeneric @bind-Value="SelectedEnumItem" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText2"]">
+            </SelectGeneric>
         </div>
         <div class="col-12 col-sm-6 align-self-end">
             <div class="form-control">@SelectedEnumItem</div>
@@ -244,11 +230,10 @@
 <DemoBlock Title="@Localizer["SelectsNullableTitle"]"
            Introduction="@Localizer["SelectsNullableIntro"]"
            Name="Nullable">
-    <p>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Items="NullableIntItems" @bind-Value="NullableSelectedIntItem">
-            </Select>
+            <SelectGeneric Items="NullableIntItems" @bind-Value="NullableSelectedIntItem"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <div class="form-control">@GetSelectedIntItemString()</div>
@@ -259,12 +244,13 @@
 <DemoBlock Title="@Localizer["SelectsNullableBooleanTitle"]"
            Introduction="@Localizer["SelectsNullableBooleanIntro"]"
            Name="NullableBoolean">
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
+        <div>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
-            </Select>
+            <SelectGeneric Items="NullableBoolItems" @bind-Value="SelectedBoolItem"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <div class="form-control">@GetSelectedBoolItemString()</div>
@@ -277,10 +263,10 @@
            Name="CustomTemplate">
     <div class="row">
         <div class="col-12 col-sm-6 select-custom">
-            <Select @bind-Value="@_fooName" Items="VirtualItems">
+            <SelectGeneric @bind-Value="@_foo" Items="VirtualItems">
                 <ItemTemplate>
                     @{
-                        var foo = Foos.First(i => i.Name == context.Text);
+                        var foo = context.Value!;
                     }
                     <div class="dropdown-item-demo">
                         <div class="select-custom-header">
@@ -306,10 +292,10 @@
                         </div>
                     </div>
                 </ItemTemplate>
-            </Select>
+            </SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Display TValue="string" Value="@_fooName" />
+            <Display TValue="string" Value="@_foo.Name" />
         </div>
     </div>
 </DemoBlock>
@@ -329,10 +315,10 @@
     </section>
     <div class="row g-3 mt-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <SelectGeneric TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <SelectGeneric TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
         </div>
     </div>
 </DemoBlock>
@@ -342,8 +328,8 @@
            Name="ConfirmSelect">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
-                    SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]" />
+            <SelectGeneric TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
+                           SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]"></SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -353,12 +339,12 @@
            Name="DisplayTemplate">
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items">
+            <SelectGeneric TValue="string" Items="Items">
                 <DisplayTemplate>
                     <i class="fa-solid fa-flag"></i>
-                    <span>@context?.Text</span>
+                    <span>@context.Text</span>
                 </DisplayTemplate>
-            </Select>
+            </SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -368,7 +354,7 @@
            Name="TimeZone">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Value="@TimeZoneId" Items="TimeZoneItems" OnValueChanged="OnTimeZoneValueChanged" />
+            <SelectGeneric TValue="string" Value="@TimeZoneId" Items="TimeZoneItems" OnValueChanged="OnTimeZoneValueChanged" />
         </div>
         <div class="col-12 col-sm-6">
             <Display TValue="TimeSpan" Value="@TimeZoneValue" />
@@ -381,7 +367,7 @@
            Name="Popover">
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
-            <Select TValue="string" Items="Items" IsPopover="true" ShowSearch="true" />
+            <SelectGeneric TValue="string" Items="Items" IsPopover="true" ShowSearch="true" />
         </div>
     </div>
 </DemoBlock>
@@ -390,7 +376,7 @@
     <section ignore>@((MarkupString)Localizer["SelectsIsEditableDesc"].Value)</section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Color="Color.Primary" Items="Items" IsEditable="true" OnInputChangedCallback="OnInputChangedCallback"></Select>
+            <SelectGeneric TValue="string" Color="Color.Primary" Items="Items" IsEditable="true" OnInputChangedCallback="OnInputChangedCallback"></SelectGeneric>
         </div>
     </div>
 </DemoBlock>
@@ -418,20 +404,20 @@
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
         <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <SelectGeneric IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="_showSearch" IsClearable="_isClearable"></SelectGeneric>
         </div>
         <div class="col-6">
-            <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
+            <Display TValue="string" Value="@VirtualItem1.Name"></Display>
         </div>
     </div>
 
     <p class="code-label">2. 使用 Items 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <SelectGeneric IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" ShowSearch="_showSearch" IsClearable="_isClearable"></SelectGeneric>
         </div>
         <div class="col-6">
-            <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
+            <Display TValue="string" Value="@VirtualItem2.Name"></Display>
         </div>
     </div>
 </DemoBlock>
@@ -445,7 +431,7 @@
             <SelectGeneric Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
-            <Display Value="_selectedFoo?.Address"></Display>
+            <Display Value="_selectedFoo.Address"></Display>
         </div>
     </div>
 </DemoBlock>
