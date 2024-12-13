@@ -18,7 +18,11 @@ public class SelectedItem
     /// <summary>
     /// 构造函数
     /// </summary>
-    public SelectedItem(string value, string text) => (Value, Text) = (value, text);
+    public SelectedItem(string value, string text)
+    {
+        Value = value ?? "";
+        Text = text;
+    }
 
     /// <summary>
     /// 获得/设置 显示名称
