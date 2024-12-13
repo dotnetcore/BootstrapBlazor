@@ -50,7 +50,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", Match(item))
+        .AddClass("active", item.Value == CurrentValueAsString)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
@@ -288,7 +288,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private SelectedItem? GetSelectedRow()
     {
-        var item = Rows.Find(Match)
+        var item = Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
             ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
             ?? GetVirtualizeItem();
@@ -428,8 +428,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
 
-    private bool Match(SelectedItem i) => i is SelectedItem<TValue> d ? Equals(d.Value, Value) : i.Value.Equals(CurrentValueAsString, StringComparison);
-
     /// <summary>
     /// 客户端回车回调方法
     /// </summary>
@@ -507,13 +505,13 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     {
         if (_lastSelectedValueString != item.Value)
         {
-            _lastSelectedValueString = item.Value;
 
             item.Active = true;
             SelectedItem = item;
 
             // 触发 StateHasChanged
-            CurrentValueAsString = item.Value;
+            _lastSelectedValueString = item.Value ?? "";
+            CurrentValueAsString = _lastSelectedValueString;
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
@@ -572,41 +570,13 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
             if (item == null)
             {
-                // 判断是否为泛型 SelectedItem
-                var itemType = Items.GetType();
-                var isGeneric = false;
-                if (itemType.IsGenericType)
-                {
-                    isGeneric = itemType.GetGenericArguments()[0].IsGenericType;
-                }
-                if (isGeneric)
-                {
-                    TValue? val = default;
-                    if (TextConvertToValueCallback != null)
-                    {
-                        val = await TextConvertToValueCallback(v);
-                    }
-                    item = new SelectedItem<TValue?>(val, v);
-                }
-                else
-                {
-                    item = new SelectedItem(v, v);
-                }
+                item = new SelectedItem(v, v);
 
                 var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
-                CurrentValueAsString = v;
             }
-
-            if (item is SelectedItem<TValue> value)
-            {
-                CurrentValue = value.Value;
-            }
-            else
-            {
-                CurrentValueAsString = v;
-            }
+            CurrentValueAsString = v;
 
             if (OnInputChangedCallback != null)
             {
