@@ -12,6 +12,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+[CascadingTypeParameter(nameof(TValue))]
 public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqualityComparer<TValue>
 {
     [Inject]
