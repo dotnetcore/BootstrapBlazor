@@ -14,6 +14,13 @@ namespace UnitTest.Components;
 public class SelectTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public void SeletectedItem_Ok()
+    {
+        var item = new SelectedItem(null!, "Text");
+        Assert.Equal(item.Value, string.Empty);
+    }
+
+    [Fact]
     public async Task OnSearchTextChanged_Null()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -152,7 +159,7 @@ public class SelectTest : BootstrapBlazorTestBase
     [Fact]
     public void SelectOption_Ok()
     {
-        var cut = Context.RenderComponent<SelectOption>(pb =>
+        var cut = Context.RenderComponent<SelectOptionGeneric<string>>(pb =>
         {
             pb.Add(a => a.Text, "Test-SelectOption");
             pb.Add(a => a.GroupName, "Test-GroupName");
