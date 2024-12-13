@@ -257,7 +257,7 @@ public class SelectTest : BootstrapBlazorTestBase
     public async Task OnSelectedItemChanged_Generic()
     {
         Foo? selectedValue = null;
-        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem<Foo>[]
             {
@@ -966,7 +966,7 @@ public class SelectTest : BootstrapBlazorTestBase
             new() { Value = new Foo() { Id = 1, Address = "Foo1" }, Text = "test1" },
             new() { Value = new Foo() { Id = 2, Address = "Foo2" }, Text = "test2" }
         };
-        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, new Foo() { Id = 1, Address = "Foo1" });
@@ -1047,7 +1047,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 Text = "Foo2"
             }
         };
-        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        var cut = Context.RenderComponent<SelectGeneric<Foo>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });
