@@ -20,7 +20,7 @@ public class SelectedItem
     /// </summary>
     public SelectedItem(string value, string text)
     {
-        Value = value ?? "";
+        Value = value;
         Text = text;
     }
 
