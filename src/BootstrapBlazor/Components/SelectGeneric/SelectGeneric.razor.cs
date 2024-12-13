@@ -277,7 +277,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         }
     }
 
-    private SelectedItem<TValue>? SelectedRow
+    private SelectedItem<TValue> SelectedRow
     {
         get
         {
@@ -286,7 +286,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         }
     }
 
-    private SelectedItem<TValue>? GetSelectedRow()
+    private SelectedItem<TValue> GetSelectedRow()
     {
         var item = Rows.Find(i => Equals(i.Value, Value))
             ?? Rows.Find(i => i.Active)
