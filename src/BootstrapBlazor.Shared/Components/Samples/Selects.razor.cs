@@ -242,7 +242,7 @@ public sealed partial class Selects
         return Task.CompletedTask;
     }
 
-    private readonly List<SelectedItem<Foo>> _genericItems =
+    private readonly List<SelectedItem<Foo?>> _genericItems =
     [
         new() { Text = "Foo1", Value = new Foo() { Id = 1, Address = "Address_F001" } },
         new() { Text = "Foo2", Value = new Foo() { Id = 2, Address = "Address_F002" } },

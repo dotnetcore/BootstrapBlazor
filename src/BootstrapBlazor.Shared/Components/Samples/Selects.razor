@@ -442,7 +442,7 @@
     <section ignore>@((MarkupString)Localizer["SelectsGenericDesc"].Value)</section>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <Select Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></Select>
+            <SelectGeneric Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></SelectGeneric>
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="_selectedFoo?.Address"></Display>
