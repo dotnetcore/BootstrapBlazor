@@ -6,10 +6,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SelectOption 组件
+/// SelectOptionPro 组件
 /// </summary>
-[ExcludeFromCodeCoverage]
-public class SelectOption : ComponentBase
+public class SelectOptionGeneric<TValue> : ComponentBase
 {
     /// <summary>
     /// 获得/设置 显示名称
@@ -21,7 +20,7 @@ public class SelectOption : ComponentBase
     /// 获得/设置 选项值
     /// </summary>
     [Parameter]
-    public string? Value { get; set; }
+    public TValue? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 是否选中 默认 false
@@ -45,7 +44,7 @@ public class SelectOption : ComponentBase
     /// 父组件通过级联参数获得
     /// </summary>
     [CascadingParameter]
-    private ISelect? Container { get; set; }
+    private ISelectGeneric<TValue>? Container { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -57,12 +56,10 @@ public class SelectOption : ComponentBase
         Container?.Add(ToSelectedItem());
     }
 
-    private SelectedItem ToSelectedItem() => new()
+    private SelectedItem<TValue> ToSelectedItem() => new(Value, Text ?? "")
     {
         Active = Active,
         GroupName = GroupName ?? "",
-        Text = Text ?? "",
-        Value = Value ?? "",
         IsDisabled = IsDisabled
     };
 }

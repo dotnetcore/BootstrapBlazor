@@ -92,7 +92,7 @@
 </div>
 
 @code {
-    RenderFragment<SelectedItem> RenderRow => item =>
+    RenderFragment<SelectedItem<TValue>> RenderRow => item =>
     @<div class="@ActiveItem(item)" @onclick="() => OnClickItem(item)">
         @if (ItemTemplate != null)
         {

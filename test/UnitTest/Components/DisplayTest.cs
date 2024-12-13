@@ -226,6 +226,14 @@ public class DisplayTest : BootstrapBlazorTestBase
         Assert.Contains("中学", cut.Markup);
     }
 
+    [Fact]
+    public void Format_Test()
+    {
+        var cut = Context.RenderComponent<MockComponent>();
+        var result = cut.Instance.Test(new SelectedItem("1", "Test"));
+        Assert.Equal("1", result);
+    }
+
     class DisplayGenericValueMock<T>
     {
         [NotNull]
@@ -244,6 +252,14 @@ public class DisplayTest : BootstrapBlazorTestBase
         public override string ToString()
         {
             return Value.ToString();
+        }
+    }
+
+    class MockComponent : DisplayBase<SelectedItem>
+    {
+        public string? Test(SelectedItem v)
+        {
+            return base.FormatValueAsString(v);
         }
     }
 }
