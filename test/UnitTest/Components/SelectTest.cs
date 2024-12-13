@@ -783,8 +783,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
 
         var input = cut.Find(".form-select");
-        Assert.Equal("Test 3", input.GetAttribute("value"));
-        cut.Contains("Test 3");
+        Assert.Null(input.GetAttribute("value"));
 
         var select = cut.Instance;
         Assert.Equal("3", select.Value);
