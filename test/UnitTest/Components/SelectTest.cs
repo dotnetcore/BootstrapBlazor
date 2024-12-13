@@ -971,4 +971,44 @@ public class SelectTest : BootstrapBlazorTestBase
         await cut.Instance.Show();
         await cut.Instance.Hide();
     }
+
+    [Fact]
+    public async Task OnBeforeSelectedItemChange_OK()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Select<string>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2") { IsDisabled = true }
+                });
+                pb.Add(a => a.SwalCategory, SwalCategory.Question);
+                pb.Add(a => a.SwalTitle, "Swal-Title");
+                pb.Add(a => a.SwalContent, "Swal-Content");
+                pb.Add(a => a.OnBeforeSelectedItemChange, item => Task.FromResult(true));
+                pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
+                pb.Add(a => a.SwalFooter, "test-swal-footer");
+            });
+        });
+        var modals = cut.FindComponents<Modal>();
+        var modal = modals[modals.Count - 1];
+        _ = Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<Select<string>>().Instance.ConfirmSelectedItem(0)));
+        var tick = DateTime.Now;
+        while (!cut.Markup.Contains("test-swal-footer"))
+        {
+            Thread.Sleep(100);
+            if (DateTime.Now > tick.AddSeconds(2))
+            {
+                break;
+            }
+        }
+        var button = cut.Find(".btn-danger");
+        await cut.InvokeAsync(() =>
+        {
+            button.Click();
+        });
+        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+    }
 }
