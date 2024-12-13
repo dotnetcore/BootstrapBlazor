@@ -73,6 +73,33 @@ public static class EnumExtensions
     }
 
     /// <summary>
+    /// 获取指定枚举类型的枚举值集合，默认通过 DisplayAttribute DescriptionAttribute 标签显示 DisplayName 支持资源文件 回退机制显示字段名称
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="additionalItem"></param>
+    /// <returns></returns>
+    public static List<SelectedItem<TValue>> ToSelectList<TValue>(this Type type, SelectedItem<TValue>? additionalItem = null)
+    {
+        var ret = new List<SelectedItem<TValue>>();
+        if (additionalItem != null)
+        {
+            ret.Add(additionalItem);
+        }
+
+        if (type.IsEnum())
+        {
+            var t = Nullable.GetUnderlyingType(type) ?? type;
+            foreach (var field in Enum.GetNames(t))
+            {
+                var desc = Utility.GetDisplayName(t, field);
+                var val = (TValue)Enum.Parse(t, field);
+                ret.Add(new SelectedItem<TValue>(val, desc));
+            }
+        }
+        return ret;
+    }
+
+    /// <summary>
     /// 判断类型是否为枚举类型
     /// </summary>
     /// <param name="type"></param>
