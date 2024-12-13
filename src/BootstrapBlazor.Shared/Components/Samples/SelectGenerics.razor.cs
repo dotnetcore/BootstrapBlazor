@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// <summary>
 /// 下拉框操作类
 /// </summary>
-public sealed partial class Selects
+public sealed partial class SelectGenerics
 {
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
