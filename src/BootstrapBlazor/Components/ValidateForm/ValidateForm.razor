@@ -5,8 +5,7 @@
 @if (Model != null)
 {
     <CascadingValue Value="this" IsFixed="true">
-        <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" data-bb-dissubmit="@DisableAutoSubmitString" data-bb-invalid-result="@ShowAllInvalidResultString"
-                  OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
+        <EditForm Model="@Model" @attributes="@AdditionalAttributes" id="@Id" data-bb-dissubmit="@DisableAutoSubmitString" data-bb-invalid-result="@ShowAllInvalidResultString"             OnValidSubmit="@OnValidSubmitForm" OnInvalidSubmit="@OnInvalidSubmitForm">
             <BootstrapBlazorDataAnnotationsValidator @ref="Validator" />
             @ChildContent
         </EditForm>
