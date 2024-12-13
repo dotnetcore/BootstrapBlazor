@@ -8,6 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// SelectOption 组件
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class SelectOption : ComponentBase
 {
     /// <summary>

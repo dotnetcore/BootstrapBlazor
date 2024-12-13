@@ -12,6 +12,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
+[ExcludeFromCodeCoverage]
 public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 {
     [Inject]
