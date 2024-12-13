@@ -291,19 +291,12 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         var item = Rows.Find(i => Equals(i.Value, Value))
             ?? Rows.Find(i => i.Active)
             ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
-            ?? GetVirtualizeItem();
+            ?? new SelectedItem<TValue>(Value, DefaultVirtualizeItemText!);
 
-        if (item != null)
+        if (!_init || !DisableItemChangedWhenFirstRender)
         {
-            if (_init && DisableItemChangedWhenFirstRender)
-            {
-
-            }
-            else
-            {
-                _ = SelectedItemChanged(item);
-                _init = false;
-            }
+            _ = SelectedItemChanged(item);
+            _init = false;
         }
         return item;
     }
@@ -389,11 +382,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
             // 通过 ItemProvider 提供数据
             await VirtualizeElement.RefreshDataAsync();
         }
-    }
-
-    private SelectedItem<TValue>? GetVirtualizeItem()
-    {
-        return OnQueryAsync == null ? null : new SelectedItem<TValue>(Value, DefaultVirtualizeItemText ?? CurrentValueAsString);
     }
 
     /// <summary>
