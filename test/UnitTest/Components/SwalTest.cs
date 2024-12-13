@@ -212,9 +212,9 @@ public class SwalTest : BootstrapBlazorTestBase
         // 带确认框的 Select
         cut.SetParametersAndRender(pb =>
         {
-            pb.AddChildContent<SelectGeneric<string>>(pb =>
+            pb.AddChildContent<Select<string>>(pb =>
             {
-                pb.Add(a => a.Items, new List<SelectedItem<string>>()
+                pb.Add(a => a.Items, new List<SelectedItem>()
                 {
                     new("1", "Test1"),
                     new("2", "Test2") { IsDisabled = true }
@@ -228,7 +228,7 @@ public class SwalTest : BootstrapBlazorTestBase
             });
         });
 
-        Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<SelectGeneric<string>>().Instance.ConfirmSelectedItem(0)));
+        Task.Run(() => cut.InvokeAsync(() => cut.FindComponent<Select<string>>().Instance.ConfirmSelectedItem(0)));
         tick = DateTime.Now;
         while (!cut.Markup.Contains("test-swal-footer"))
         {

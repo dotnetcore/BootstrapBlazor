@@ -8,31 +8,31 @@ namespace BootstrapBlazor.Shared.Components.Samples;
 /// <summary>
 /// 下拉框操作类
 /// </summary>
-public sealed partial class Selects
+public sealed partial class SelectGenerics
 {
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
     private Foo Model { get; set; } = new Foo();
 
-    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    private IEnumerable<SelectedItem<string?>> Items { get; set; } = new List<SelectedItem<string?>>()
     {
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海") { Active = true },
+        new("Beijing", "北京"),
+        new("Shanghai", "上海") { Active = true },
     };
 
-    private IEnumerable<SelectedItem> ClearableItems { get; set; } = new[]
+    private IEnumerable<SelectedItem<string?>> ClearableItems { get; set; } = new List<SelectedItem<string?>>()
     {
-        new SelectedItem ("", "未选择"),
-        new SelectedItem ("Beijing", "北京"),
-        new SelectedItem ("Shanghai", "上海")
+        new("", "未选择"),
+        new("Beijing", "北京"),
+        new("Shanghai", "上海")
     };
 
-    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+    private IEnumerable<SelectedItem<Foo>> VirtualItems => Foos.Select(i => new SelectedItem<Foo>(i, i.Name!));
 
-    private SelectedItem? VirtualItem1 { get; set; }
+    private Foo VirtualItem1 { get; set; } = new();
 
-    private SelectedItem? VirtualItem2 { get; set; }
+    private Foo VirtualItem2 { get; set; } = new();
 
     [NotNull]
     private List<Foo>? Foos { get; set; }
@@ -47,7 +47,7 @@ public sealed partial class Selects
 
     private bool _isClearable;
 
-    private string? _fooName;
+    private Foo _foo = new();
 
     /// <summary>
     /// <inheritdoc/>
@@ -55,13 +55,13 @@ public sealed partial class Selects
     protected override void OnInitialized()
     {
         TimeZoneInfo.ClearCachedData();
-        TimeZoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem(i.Id, i.DisplayName));
+        TimeZoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem<string>(i.Id, i.DisplayName));
         TimeZoneId = TimeZoneInfo.Local.Id;
         TimeZoneValue = TimeZoneInfo.Local.BaseUtcOffset;
         Foos = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
+    private async Task<QueryData<SelectedItem<Foo>>> OnQueryAsync(VirtualizeQueryOption option)
     {
         await Task.Delay(200);
         var items = Foos;
@@ -69,21 +69,21 @@ public sealed partial class Selects
         {
             items = Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
         }
-        return new QueryData<SelectedItem>
+        return new QueryData<SelectedItem<Foo>>
         {
-            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem<Foo>(i, i.Name!)),
             TotalCount = items.Count
         };
     }
 
-    private Task OnItemChanged(SelectedItem item)
+    private Task OnItemChanged(SelectedItem<string?> item)
     {
         Logger.Log($"SelectedItem Text: {item.Text} Value: {item.Value} Selected");
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private readonly IEnumerable<SelectedItem> Items4 = new SelectedItem[]
+    private readonly IEnumerable<SelectedItem<string>> Items4 = new SelectedItem<string>[]
     {
         new("Beijing", "北京") { IsDisabled = true},
         new("Shanghai", "上海") { Active = true },
@@ -98,7 +98,7 @@ public sealed partial class Selects
 
     private string ItemString => Item == null ? "" : $"{Item.Text} ({Item.Value})";
 
-    private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
+    private readonly IEnumerable<SelectedItem<string>> Items3 = new SelectedItem<string>[]
     {
         new("", "请选择 ..."),
         new("Beijing", "北京") { Active = true },
@@ -106,7 +106,7 @@ public sealed partial class Selects
         new("Hangzhou", "杭州")
     };
 
-    private IEnumerable<SelectedItem>? Items2 { get; set; }
+    private IEnumerable<SelectedItem<string>>? Items2 { get; set; }
 
     private Task OnShowDialog() => Dialog.Show(new DialogOption()
     {
@@ -114,13 +114,13 @@ public sealed partial class Selects
         Component = BootstrapDynamicComponent.CreateComponent<CustomerSelectDialog>()
     });
 
-    private async Task OnCascadeBindSelectClick(SelectedItem item)
+    private async Task OnCascadeBindSelectClick(SelectedItem<string> item)
     {
         // 模拟异步通讯切换线程
         await Task.Delay(10);
         if (item.Value == "Beijing")
         {
-            Items2 = new SelectedItem[]
+            Items2 = new SelectedItem<string>[]
             {
                 new("1","朝阳区") { Active = true},
                 new("2","海淀区"),
@@ -128,7 +128,7 @@ public sealed partial class Selects
         }
         else if (item.Value == "Shanghai")
         {
-            Items2 = new SelectedItem[]
+            Items2 = new SelectedItem<string>[]
             {
                 new("1","静安区"),
                 new("2","黄浦区") { Active = true } ,
@@ -143,7 +143,7 @@ public sealed partial class Selects
 
     private Foo ValidateModel { get; set; } = new Foo() { Name = "" };
 
-    private readonly IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
+    private readonly IEnumerable<SelectedItem<string>> GroupItems = new SelectedItem<string>[]
     {
         new("Jilin", "吉林") { GroupName = "东北"},
         new("Liaoning", "辽宁") {GroupName = "东北", Active = true },
@@ -155,10 +155,10 @@ public sealed partial class Selects
 
     private Guid CurrentGuid { get; set; }
 
-    private readonly IEnumerable<SelectedItem> GuidItems = new SelectedItem[]
+    private readonly IEnumerable<SelectedItem<Guid>> GuidItems = new SelectedItem<Guid>[]
     {
-        new(Guid.NewGuid().ToString(), "Guid1"),
-        new(Guid.NewGuid().ToString(), "Guid2")
+        new(Guid.NewGuid(), "Guid1"),
+        new(Guid.NewGuid(), "Guid2")
     };
 
     private Foo LabelModel { get; set; } = new Foo();
@@ -174,7 +174,7 @@ public sealed partial class Selects
         var item = Items.FirstOrDefault(i => i.Text.Equals(v, StringComparison.OrdinalIgnoreCase));
         if (item == null)
         {
-            item = new SelectedItem() { Value = v, Text = v };
+            item = new SelectedItem<string?>() { Value = v, Text = v };
             var items = Items.ToList();
             items.Insert(0, item);
             Items = items;
@@ -187,11 +187,11 @@ public sealed partial class Selects
         return NullableSelectedIntItem.HasValue ? NullableSelectedIntItem.Value.ToString() : "null";
     }
 
-    private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
+    private IEnumerable<SelectedItem<int?>> NullableIntItems { get; set; } = new SelectedItem<int?>[]
     {
-        new() { Text = "Item 1", Value = "" },
-        new() { Text = "Item 2", Value = "2" },
-        new() { Text = "Item 3", Value = "3" }
+        new() { Text = "Item 1", Value = null },
+        new() { Text = "Item 2", Value = 2 },
+        new() { Text = "Item 3", Value = 3 }
     };
 
     private bool? SelectedBoolItem { get; set; }
@@ -201,14 +201,14 @@ public sealed partial class Selects
         return SelectedBoolItem.HasValue ? SelectedBoolItem.Value.ToString() : "null";
     }
 
-    private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
+    private IEnumerable<SelectedItem<bool?>> NullableBoolItems { get; set; } = new SelectedItem<bool?>[]
     {
-        new() { Text = "空值", Value = "" },
-        new() { Text = "True 值", Value = "true" },
-        new() { Text = "False 值", Value = "false" }
+        new() { Text = "空值", Value = null },
+        new() { Text = "True 值", Value = true },
+        new() { Text = "False 值", Value = false }
     };
 
-    private readonly SelectedItem[] StringItems =
+    private readonly SelectedItem<string>[] StringItems =
     [
         new("1", "1"),
         new("12", "12"),
@@ -221,13 +221,13 @@ public sealed partial class Selects
         new("abcde", "abcde")
     ];
 
-    private static Task<bool> OnBeforeSelectedItemChange(SelectedItem item)
+    private static Task<bool> OnBeforeSelectedItemChange(SelectedItem<string> item)
     {
         return Task.FromResult(true);
     }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? TimeZoneItems { get; set; }
+    private IEnumerable<SelectedItem<string>>? TimeZoneItems { get; set; }
 
     private string? TimeZoneId { get; set; }
 
@@ -241,6 +241,15 @@ public sealed partial class Selects
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private readonly List<SelectedItem<Foo>> _genericItems =
+    [
+        new() { Text = "Foo1", Value = new Foo() { Id = 1, Address = "Address_F001" } },
+        new() { Text = "Foo2", Value = new Foo() { Id = 2, Address = "Address_F002" } },
+        new() { Text = "Foo3", Value = new Foo() { Id = 3, Address = "Address_F003" } }
+    ];
+
+    private Foo _selectedFoo = new();
 
     /// <summary>
     /// 获得事件方法
