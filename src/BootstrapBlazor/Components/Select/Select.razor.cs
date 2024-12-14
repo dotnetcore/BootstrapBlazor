@@ -264,7 +264,7 @@ public partial class Select<TValue> : ISelect
         var item = Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
             ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
-            ?? GetVirtualizeItem();
+            ?? GetVirtualizeItem(CurrentValueAsString);
 
         if (item != null)
         {
@@ -376,8 +376,8 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = Items.FirstOrDefault(i => i.Value == value)
-            ?? GetVirtualizeItem();
+        SelectedItem = Rows.FirstOrDefault(i => i.Value == value)
+            ?? GetVirtualizeItem(value);
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
@@ -385,13 +385,14 @@ public partial class Select<TValue> : ISelect
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem()
+    private SelectedItem? GetVirtualizeItem(string value)
     {
-        return OnQueryAsync == null ? null : GetSelectedItem();
-
-        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
-            ? (SelectedItem)(object)Value
-            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+        SelectedItem? item = null;
+        if (_result.Items != null)
+        {
+            item = _result.Items.FirstOrDefault(i => i.Value == value);
+        }
+        return item ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
     }
 
     /// <summary>
