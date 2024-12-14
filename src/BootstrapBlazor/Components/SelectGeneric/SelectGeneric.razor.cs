@@ -3,8 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,7 +14,8 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Select<TValue> : ISelect
+[CascadingTypeParameter(nameof(TValue))]
+public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqualityComparer<TValue>
 {
     [Inject]
     [NotNull]
@@ -49,8 +52,8 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", item.Value == CurrentValueAsString)
+    private string? ActiveItem(SelectedItem<TValue> item) => CssBuilder.Default("dropdown-item")
+        .AddClass("active", Equals(item.Value, Value))
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
@@ -58,7 +61,7 @@ public partial class Select<TValue> : ISelect
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
-    private readonly List<SelectedItem> _children = [];
+    private readonly List<SelectedItem<TValue>> _children = [];
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -71,7 +74,7 @@ public partial class Select<TValue> : ISelect
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
-    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
+    public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
@@ -91,6 +94,13 @@ public partial class Select<TValue> : ISelect
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -120,7 +130,7 @@ public partial class Select<TValue> : ISelect
     /// 获得/设置 显示部分模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
+    public RenderFragment<SelectedItem<TValue>?>? DisplayTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置，设置初始值时请设置 <see cref="DefaultVirtualizeItemText"/>
@@ -161,33 +171,53 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
+
+    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
+    {
+        get => ValueEqualityComparer;
+        set => ValueEqualityComparer = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
+    /// </summary>
+    [Parameter]
     [NotNull]
-    private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
+    [NotNull]
+    private Virtualize<SelectedItem<TValue>>? VirtualizeElement { get; set; }
 
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
+    public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 选项模板
     /// </summary>
     [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+    public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变
     /// </summary>
     [Parameter]
-    public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
+    public Func<SelectedItem<TValue>, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
 
     /// <summary>
     /// SelectedItemChanged 回调方法
     /// </summary>
     [Parameter]
-    public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+    public Func<SelectedItem<TValue>, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 Swal 图标 默认 Question
@@ -228,20 +258,20 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    private string _lastSelectedValueString = string.Empty;
+    private TValue? _lastSelectedValue;
 
     private bool _init = true;
 
-    private List<SelectedItem>? _itemsCache;
+    private List<SelectedItem<TValue>>? _itemsCache;
 
-    private ItemsProviderResult<SelectedItem> _result;
+    private ItemsProviderResult<SelectedItem<TValue>> _result;
 
     /// <summary>
     /// 当前选择项实例
     /// </summary>
-    private SelectedItem? SelectedItem { get; set; }
+    private SelectedItem<TValue>? SelectedItem { get; set; }
 
-    private List<SelectedItem> Rows
+    private List<SelectedItem<TValue>> Rows
     {
         get
         {
@@ -250,7 +280,7 @@ public partial class Select<TValue> : ISelect
         }
     }
 
-    private SelectedItem? SelectedRow
+    private SelectedItem<TValue> SelectedRow
     {
         get
         {
@@ -259,43 +289,36 @@ public partial class Select<TValue> : ISelect
         }
     }
 
-    private SelectedItem? GetSelectedRow()
+    private SelectedItem<TValue> GetSelectedRow()
     {
-        var item = Rows.Find(i => i.Value == CurrentValueAsString)
+        var item = Rows.Find(i => Equals(i.Value, Value))
             ?? Rows.Find(i => i.Active)
             ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
-            ?? GetVirtualizeItem();
+            ?? new SelectedItem<TValue>(Value, DefaultVirtualizeItemText!);
 
-        if (item != null)
+        if (!_init || !DisableItemChangedWhenFirstRender)
         {
-            if (_init && DisableItemChangedWhenFirstRender)
-            {
-
-            }
-            else
-            {
-                _ = SelectedItemChanged(item);
-                _init = false;
-            }
+            _ = SelectedItemChanged(item);
+            _init = false;
         }
         return item;
     }
 
-    private List<SelectedItem> GetRowsByItems()
+    private List<SelectedItem<TValue>> GetRowsByItems()
     {
-        var items = new List<SelectedItem>();
+        var items = new List<SelectedItem<TValue>>();
         items.AddRange(Items);
         items.AddRange(_children);
         return items;
     }
 
-    private List<SelectedItem> GetRowsBySearch()
+    private List<SelectedItem<TValue>> GetRowsBySearch()
     {
         var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
         return items.ToList();
     }
 
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+    private IEnumerable<SelectedItem<TValue>> FilterBySearchText(IEnumerable<SelectedItem<TValue>> source) => string.IsNullOrEmpty(SearchText)
         ? source
         : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
@@ -316,7 +339,7 @@ public partial class Select<TValue> : ISelect
         if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
-            Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+            Items = ValueType.ToSelectList<TValue>(string.IsNullOrEmpty(item) ? null : new SelectedItem<TValue>(default!, item));
         }
 
         _itemsCache = null;
@@ -328,16 +351,16 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private int TotalCount { get; set; }
 
-    private List<SelectedItem> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
+    private List<SelectedItem<TValue>> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
     /// </summary>
     [Parameter]
     [NotNull]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem<TValue>>>>? OnQueryAsync { get; set; }
 
-    private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
+    private async ValueTask<ItemsProviderResult<SelectedItem<TValue>>> LoadItems(ItemsProviderRequest request)
     {
         // 有搜索条件时使用原生请求数量
         // 有总数时请求剩余数量
@@ -346,7 +369,7 @@ public partial class Select<TValue> : ISelect
 
         TotalCount = data.TotalCount;
         var items = data.Items ?? [];
-        _result = new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        _result = new ItemsProviderResult<SelectedItem<TValue>>(items, TotalCount);
         return _result;
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
@@ -354,8 +377,9 @@ public partial class Select<TValue> : ISelect
 
     private async Task SearchTextChanged(string val)
     {
-        _itemsCache = null;
         SearchText = val;
+        _itemsCache = null;
+
         if (OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
@@ -366,39 +390,8 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="value"></param>
-    /// <param name="result"></param>
-    /// <param name="validationErrorMessage"></param>
     /// <returns></returns>
-    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => ValueType == typeof(SelectedItem)
-        ? TryParseSelectItem(value, out result, out validationErrorMessage)
-        : base.TryParseValueFromString(value, out result, out validationErrorMessage);
-
-    private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
-    {
-        SelectedItem = Items.FirstOrDefault(i => i.Value == value)
-            ?? GetVirtualizeItem();
-
-        // support SelectedItem? type
-        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
-        validationErrorMessage = "";
-        return SelectedItem != null;
-    }
-
-    private SelectedItem? GetVirtualizeItem()
-    {
-        return OnQueryAsync == null ? null : GetSelectedItem();
-
-        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
-            ? (SelectedItem)(object)Value
-            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
 
     /// <summary>
     /// 客户端回车回调方法
@@ -416,21 +409,9 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
-    /// 客户端搜索栏回调方法
-    /// </summary>
-    /// <param name="searchText"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task TriggerOnSearch(string searchText)
-    {
-        await SearchTextChanged(searchText);
-        StateHasChanged();
-    }
-
-    /// <summary>
     /// 下拉框选项点击时调用此方法
     /// </summary>
-    private async Task OnClickItem(SelectedItem item)
+    private async Task OnClickItem(SelectedItem<TValue> item)
     {
         var ret = true;
         if (OnBeforeSelectedItemChange != null)
@@ -464,17 +445,38 @@ public partial class Select<TValue> : ISelect
         }
     }
 
-    private async Task SelectedItemChanged(SelectedItem item)
+    private async Task SelectedItemChanged(SelectedItem<TValue> item)
     {
-        if (_lastSelectedValueString != item.Value)
+        if (!Equals(item.Value, Value))
         {
+            item.Active = true;
+            SelectedItem = item;
+
+            CurrentValue = item.Value;
+
+            // 触发 SelectedItemChanged 事件
+            if (OnSelectedItemChanged != null)
+            {
+                await OnSelectedItemChanged(SelectedItem);
+            }
+        }
+        else
+        {
+            await ValueTypeChanged(item);
+        }
+    }
+
+    private async Task ValueTypeChanged(SelectedItem<TValue> item)
+    {
+        if (!Equals(_lastSelectedValue, item.Value))
+        {
+            _lastSelectedValue = item.Value;
 
             item.Active = true;
             SelectedItem = item;
 
             // 触发 StateHasChanged
-            _lastSelectedValueString = item.Value;
-            CurrentValueAsString = _lastSelectedValueString;
+            CurrentValue = item.Value;
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
@@ -488,7 +490,7 @@ public partial class Select<TValue> : ISelect
     /// 添加静态下拉项方法
     /// </summary>
     /// <param name="item"></param>
-    public void Add(SelectedItem item) => _children.Add(item);
+    public void Add(SelectedItem<TValue> item) => _children.Add(item);
 
     /// <summary>
     /// 清空搜索栏文本内容
@@ -506,7 +508,7 @@ public partial class Select<TValue> : ISelect
             await OnClearAsync();
         }
 
-        SelectedItem? item;
+        SelectedItem<TValue>? item;
         if (OnQueryAsync != null)
         {
             await VirtualizeElement.RefreshDataAsync();
@@ -533,13 +535,22 @@ public partial class Select<TValue> : ISelect
 
             if (item == null)
             {
-                item = new SelectedItem(v, v);
+                TValue? val = default;
+                if (TextConvertToValueCallback != null)
+                {
+                    val = await TextConvertToValueCallback(v);
+                }
+                item = new SelectedItem<TValue>(val, v);
 
-                var items = new List<SelectedItem>() { item };
+                var items = new List<SelectedItem<TValue>>() { item };
                 items.AddRange(Items);
                 Items = items;
+                CurrentValue = val;
             }
-            CurrentValueAsString = v;
+            else
+            {
+                CurrentValue = item.Value;
+            }
 
             if (OnInputChangedCallback != null)
             {
@@ -547,4 +558,12 @@ public partial class Select<TValue> : ISelect
             }
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

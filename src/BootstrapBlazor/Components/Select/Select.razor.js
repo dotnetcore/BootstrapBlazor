@@ -1,11 +1,11 @@
-﻿import { getHeight, getInnerHeight, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
+﻿import { debounce, getHeight, getInnerHeight, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id, invoke, method) {
+export function init(id, invoke, options) {
     const el = document.getElementById(id)
-
+    const { confirmMethodCallback, searchMethodCallback } = options;
     if (el == null) {
         return
     }
@@ -64,7 +64,7 @@ export function init(id, invoke, method) {
                 if (e.key === "Enter") {
                     popover.toggleMenu.classList.remove('show')
                     let index = indexOf(el, activeItem)
-                    invoke.invokeMethodAsync(method, index)
+                    invoke.invokeMethodAsync(confirmMethodCallback, index)
                 }
             }
         }
@@ -77,7 +77,27 @@ export function init(id, invoke, method) {
         el,
         popover
     }
-    Data.set(id, select)
+    Data.set(id, select);
+
+    const onSearch = debounce(v => invoke.invokeMethodAsync(searchMethodCallback, v));
+    let isComposing = false;
+
+    EventHandler.on(el, 'input', '.search-text', e => {
+        if (isComposing) {
+            return;
+        }
+
+        onSearch(e.delegateTarget.value);
+    });
+
+    EventHandler.on(el, 'compositionstart', '.search-text', e => {
+        isComposing = true;
+    });
+
+    EventHandler.on(el, 'compositionend', '.search-text', e => {
+        isComposing = false;
+        onSearch(e.delegateTarget.value);
+    });
 }
 
 export function show(id) {
@@ -108,7 +128,10 @@ export function dispose(id) {
 
     if (select) {
         EventHandler.off(select.el, 'shown.bs.dropdown')
-        EventHandler.off(select.el, 'keydown')
+        EventHandler.off(select.el, 'keydown');
+        EventHandler.off(select.el, 'input');
+        EventHandler.off(select.el, 'compositionstart');
+        EventHandler.off(select.el, 'compositionend')
         Popover.dispose(select.popover)
     }
 }
