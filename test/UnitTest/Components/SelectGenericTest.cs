@@ -665,8 +665,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 覆盖有搜索条件时，点击清空按钮
         // 期望 UI 显示值为默认值
         // 期望 下拉框为全数据
-        var input = cut.Find(".search-text");
-        await cut.InvokeAsync(() => input.Input("2"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
 
         // 下拉框仅显示一个选项 Test2
         var items = cut.FindAll(".dropdown-item");
@@ -723,8 +722,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 覆盖有搜索条件时，点击清空按钮
         // 期望 UI 显示值为默认值
         // 期望 下拉框为全数据
-        var input = cut.Find(".search-text");
-        await cut.InvokeAsync(() => input.Input("2"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
 
         // 下拉框仅显示一个选项 Test2
         var items = cut.FindAll(".dropdown-item");
