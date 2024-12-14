@@ -68,7 +68,7 @@ public partial class Dropdown<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     protected string? DisableItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("is-disabled", item.IsDisabled)
+        .AddClass("disabled", item.IsDisabled)
         .Build();
 
     /// <summary>

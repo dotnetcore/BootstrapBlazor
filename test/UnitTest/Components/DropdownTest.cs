@@ -233,7 +233,7 @@ public class DropdownTest : BootstrapBlazorTestBase
                 new("2", "Test2")
             });
         });
-        cut.Contains("<div class=\"dropdown-item is-disabled\">Test1</div>");
+        cut.Contains("<div class=\"dropdown-item disabled\">Test1</div>");
     }
 
     [Fact]

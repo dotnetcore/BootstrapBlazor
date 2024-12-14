@@ -35,7 +35,7 @@ public class SelectTest : BootstrapBlazorTestBase
             await ctx.Instance.ConfirmSelectedItem(0);
 
             // 搜索 T
-            ctx.Find(".search-text").Input("T");
+            await ctx.Instance.TriggerOnSearch("T");
             await ctx.Instance.ConfirmSelectedItem(0);
         });
 
@@ -61,9 +61,9 @@ public class SelectTest : BootstrapBlazorTestBase
             });
         });
 
-        await ctx.InvokeAsync(() =>
+        await ctx.InvokeAsync(async () =>
         {
-            ctx.Find(".search-text").Input("T");
+            await ctx.Instance.TriggerOnSearch("T");
         });
         cut.DoesNotContain("Test2");
     }
@@ -663,7 +663,7 @@ public class SelectTest : BootstrapBlazorTestBase
         // 期望 UI 显示值为默认值
         // 期望 下拉框为全数据
         var input = cut.Find(".search-text");
-        await cut.InvokeAsync(() => input.Input("2"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
 
         // 下拉框仅显示一个选项 Test2
         var items = cut.FindAll(".dropdown-item");
@@ -721,7 +721,7 @@ public class SelectTest : BootstrapBlazorTestBase
         // 期望 UI 显示值为默认值
         // 期望 下拉框为全数据
         var input = cut.Find(".search-text");
-        await cut.InvokeAsync(() => input.Input("2"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
 
         // 下拉框仅显示一个选项 Test2
         var items = cut.FindAll(".dropdown-item");
