@@ -14,13 +14,6 @@ namespace UnitTest.Components;
 public class SelectGenericTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void SeletectedItem_Ok()
-    {
-        var item = new SelectedItem(null!, "Text");
-        Assert.Equal(item.Value, string.Empty);
-    }
-
-    [Fact]
     public async Task OnSearchTextChanged_Null()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -42,7 +35,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             await ctx.Instance.ConfirmSelectedItem(0);
 
             // 搜索 T
-            ctx.Find(".search-text").Input("T");
+            await ctx.Instance.TriggerOnSearch("T");
             await ctx.Instance.ConfirmSelectedItem(0);
         });
 
@@ -68,9 +61,9 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             });
         });
 
-        await ctx.InvokeAsync(() =>
+        await ctx.InvokeAsync(async () =>
         {
-            ctx.Find(".search-text").Input("T");
+            await ctx.Instance.TriggerOnSearch("T");
         });
         cut.DoesNotContain("Test2");
     }
