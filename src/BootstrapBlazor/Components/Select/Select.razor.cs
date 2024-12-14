@@ -354,9 +354,8 @@ public partial class Select<TValue> : ISelect
 
     private async Task SearchTextChanged(string val)
     {
-        SearchText = val;
         _itemsCache = null;
-
+        SearchText = val;
         if (OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
@@ -399,7 +398,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
 
     /// <summary>
     /// 客户端回车回调方法
@@ -414,6 +413,18 @@ public partial class Select<TValue> : ISelect
             await OnClickItem(Rows[index]);
             StateHasChanged();
         }
+    }
+
+    /// <summary>
+    /// 客户端搜索栏回调方法
+    /// </summary>
+    /// <param name="searchText"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerOnSearch(string searchText)
+    {
+        await SearchTextChanged(searchText);
+        StateHasChanged();
     }
 
     /// <summary>
