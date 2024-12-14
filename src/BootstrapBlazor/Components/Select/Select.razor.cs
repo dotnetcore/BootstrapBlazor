@@ -266,17 +266,14 @@ public partial class Select<TValue> : ISelect
             ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
             ?? GetVirtualizeItem(CurrentValueAsString);
 
-        if (item != null)
+        if (_init && DisableItemChangedWhenFirstRender)
         {
-            if (_init && DisableItemChangedWhenFirstRender)
-            {
 
-            }
-            else
-            {
-                _ = SelectedItemChanged(item);
-                _init = false;
-            }
+        }
+        else
+        {
+            _ = SelectedItemChanged(item);
+            _init = false;
         }
         return item;
     }
@@ -380,12 +377,12 @@ public partial class Select<TValue> : ISelect
             ?? GetVirtualizeItem(value);
 
         // support SelectedItem? type
-        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
+        result = (TValue)(object)SelectedItem;
         validationErrorMessage = "";
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem(string value)
+    private SelectedItem GetVirtualizeItem(string value)
     {
         SelectedItem? item = null;
         if (_result.Items != null)
