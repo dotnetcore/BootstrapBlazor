@@ -390,9 +390,9 @@ public partial class Select<TValue> : ISelect
         SelectedItem? item = null;
         if (_result.Items != null)
         {
-            item = _result.Items.FirstOrDefault(i => i.Value == value);
+            item = _result.Items.FirstOrDefault(i => i.Value == value) ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
         }
-        return item ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
+        return item;
     }
 
     /// <summary>
