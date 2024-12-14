@@ -747,7 +747,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsVirtualize_BindValue()
+    public async Task IsVirtualize_BindValue()
     {
         var value = new SelectedItem("3", "Test 3");
         var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
@@ -772,24 +772,21 @@ public class SelectTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find(".form-select");
-            Assert.Equal("Test 3", input.GetAttribute("value"));
-        });
-        cut.Contains("Test 3");
+        var input = cut.Find(".form-select");
+        Assert.Null(input.GetAttribute("value"));
+
         var select = cut.Instance;
         Assert.Equal("3", select.Value?.Value);
 
-        cut.InvokeAsync(() =>
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() =>
         {
-            var item = cut.Find(".dropdown-item");
             item.Click();
-            Assert.Equal("1", value.Value);
-
-            var input = cut.Find(".form-select");
-            Assert.Equal("Test1", input.GetAttribute("value"));
         });
+        Assert.Equal("1", value.Value);
+
+        input = cut.Find(".form-select");
+        Assert.Equal("Test1", input.GetAttribute("value"));
     }
 
     [Fact]
