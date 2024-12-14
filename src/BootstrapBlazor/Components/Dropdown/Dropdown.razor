@@ -22,31 +22,28 @@
     {
         <button type="button" class="@ClassName" data-bs-toggle="@ToggleString" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>
     }
-    @if (!IsDisabled)
-    {
-        <div class="@MenuAlignmentClass">
-            @if (ItemsTemplate == null)
+    <div class="@MenuAlignmentClass">
+        @if (ItemsTemplate == null)
+        {
+            @foreach (var item in GetItems())
             {
-                @foreach (var item in GetItems())
+                if (ItemTemplate != null)
                 {
-                    if (ItemTemplate != null)
-                    {
-                        @ItemTemplate.Invoke(item)
-                    }
-                    else if (item.IsDisabled)
-                    {
-                        <div class="@ActiveItem(item)">@item.Text</div>
-                    }
-                    else
-                    {
-                        <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
-                    }
+                    @ItemTemplate.Invoke(item)
+                }
+                else if (item.IsDisabled)
+                {
+                    <div class="@DisableItem(item)">@item.Text</div>
+                }
+                else
+                {
+                    <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
                 }
             }
-            else
-            {
-                @ItemsTemplate
-            }
-        </div>
-    }
+        }
+        else
+        {
+            @ItemsTemplate
+        }
+    </div>
 </div>
