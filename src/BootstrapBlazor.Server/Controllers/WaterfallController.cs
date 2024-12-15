@@ -25,9 +25,9 @@ public class WaterfallController : Controller
         await Task.Delay(interval);
 
 #if DEBUG
-        var fileName = Path.Combine(options.Value.WebRootPath, "../../BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
+        var fileName = Path.Combine(options.Value.WebRootPath, "images/waterfall", $"{id}.jpeg");
 #else
-        var fileName = Path.Combine(options.Value.WebRootPath, "_content/BootstrapBlazor.Shared/wwwroot/images/waterfall", $"{id}.jpeg");
+        var fileName = Path.Combine(options.Value.WebRootPath, "images/waterfall", $"{id}.jpeg");
 #endif
         return new PhysicalFileResult(fileName, "images/jpeg");
     }
