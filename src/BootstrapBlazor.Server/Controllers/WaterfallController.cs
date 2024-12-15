@@ -24,11 +24,7 @@ public class WaterfallController : Controller
         var interval = Random.Shared.Next(1, 2000);
         await Task.Delay(interval);
 
-#if DEBUG
         var fileName = Path.Combine(options.Value.WebRootPath, "images/waterfall", $"{id}.jpeg");
-#else
-        var fileName = Path.Combine(options.Value.WebRootPath, "images/waterfall", $"{id}.jpeg");
-#endif
         return new PhysicalFileResult(fileName, "images/jpeg");
     }
 }
