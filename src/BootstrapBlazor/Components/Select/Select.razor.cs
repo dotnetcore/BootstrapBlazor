@@ -324,6 +324,21 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await RefreshVirtualizeElement();
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
     /// 获得/设置 数据总条目
     /// </summary>
     private int TotalCount { get; set; }
@@ -356,7 +371,12 @@ public partial class Select<TValue> : ISelect
     {
         _itemsCache = null;
         SearchText = val;
-        if (OnQueryAsync != null)
+        await RefreshVirtualizeElement();
+    }
+
+    private async Task RefreshVirtualizeElement()
+    {
+        if (IsVirtualize && OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
             await VirtualizeElement.RefreshDataAsync();
