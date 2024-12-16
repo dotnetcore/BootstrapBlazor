@@ -3,7 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using BootstrapBlazor.Shared.Extensions;
+using BootstrapBlazor.Server.Extensions;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel;
@@ -612,7 +612,7 @@ public class UtilityTest : BootstrapBlazorTestBase
                 "zh-CN.json"
             }
         };
-        var localizedStrings = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Data.Foo", "zh-CN", true);
+        var localizedStrings = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Server.Data.Foo", "zh-CN", true);
         var localizer = localizedStrings.First(i => i.Name == "Name");
         Assert.Equal("Test-Name", localizer.Value);
         Assert.False(localizer.ResourceNotFound);
@@ -652,7 +652,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         // 回落默认语言为 en 测试用例为 zh 找不到资源文件
         var option = new JsonLocalizationOptions();
-        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Data.Foo", "it-it", true);
+        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Server.Data.Foo", "it-it", true);
         Assert.Empty(configs);
     }
 
@@ -661,12 +661,12 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         // 回落默认语音为 en 测试用例为 en-US 找不到资源文件
         var option = new JsonLocalizationOptions();
-        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Data.Foo", "en-US", true);
+        var configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Server.Data.Foo", "en-US", true);
         Assert.NotEmpty(configs);
 
         var pi = option.GetType().GetProperty("EnableFallbackCulture", BindingFlags.NonPublic | BindingFlags.Instance);
         pi!.SetValue(option, false);
-        configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Shared.Data.Foo", "en", true);
+        configs = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "BootstrapBlazor.Server.Data.Foo", "en", true);
 
         // 禁用回落机制
         // UniTest 未提供 en 资源文件 断言为 Empty
