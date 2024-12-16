@@ -175,8 +175,13 @@ public static class IEditItemExtensions
 
     internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
     {
-        // 1.增加了一个从IEnumerable转化为List<object>方法
-        Func<IEnumerable, List<object>> GetEnumeratorDatas = (enumerableObj) =>
+        // 获取单元格数据
+        var val = col.GetItemValue(item);
+        // 当前类型是否为IEnumerable<>类型
+        var isEnumerableValue = (Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable;
+
+        // 将IEnumerable<>转换为List<object>方法
+        List<object> GetEnumeratorDatas(IEnumerable enumerableObj)
         {
             var enumerator = enumerableObj.GetEnumerator();
             var list = new List<object>();
@@ -185,29 +190,35 @@ public static class IEditItemExtensions
                 list.Add(enumerator.Current);
             }
             return list;
-        };
+        }
 
-        var val = col.GetItemValue(item);
         if (col.Lookup != null && val != null)
         {
+            // 如果存在Lookup数据转化 Lookup 数据源
             string? content = val.ToString();
-            // 转化 Lookup 数据源
-            if ((Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable v)
+
+            if (isEnumerableValue && val is IEnumerable v)
             {
-                // 2.如果是 IEnumerable 类型，则转化为 List<object> 类型 然后根据 List<object> 类型进行 Lookup 匹配
+                // 如果是 IEnumerable<> 类型数据，则先转化为 List<object> 类型
                 var enumeratorDatas = GetEnumeratorDatas(v);
+
+                // 根据 List<object> 数据获取匹配数据
                 var lookupVals = col.Lookup.Where(l => enumeratorDatas.Any(v1 => l.Value.Equals(v1?.ToString(), col.LookupStringComparison)));
+
                 if (lookupVals.Any())
                 {
+                    //如果有匹配到数据，则将匹配的文本用,连接显示
                     content = string.Join(",", lookupVals.Select(l => l.Text));
                 }
                 else
                 {
+                    //如果未匹配到数据，则直接将原数据用,连接显示
                     content = string.Join(",", enumeratorDatas);
                 }
             }
             else
             {
+                // 非IEnumerable<>类型数据直接通过ToString进行匹配
                 var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
                 if (lookupVal != null)
                 {
@@ -237,13 +248,9 @@ public static class IEditItemExtensions
             {
                 content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
             }
-            //else if(val is IEnumerable<object> v)
-            //{
-            //    content = string.Join(",", v);
-            //}
-            //3.这里的判断条件调整了一下,为了支持List<int>,List<string> 等等
-            else if ((Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable v)
+            else if (isEnumerableValue && val is IEnumerable v)
             {
+                // IEnumerable<>类型数据用,连接展示
                 content = string.Join(",", GetEnumeratorDatas(v));
             }
             else
