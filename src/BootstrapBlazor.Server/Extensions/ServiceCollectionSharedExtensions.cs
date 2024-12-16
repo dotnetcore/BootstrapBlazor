@@ -10,7 +10,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// 注册服务扩展方法
 /// </summary>
-public static class ServicesCollectionExtensions
+public static class ServiceCollectionSharedExtensions
 {
     /// <summary>
     /// 添加示例后台任务
