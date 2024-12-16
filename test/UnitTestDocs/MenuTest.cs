@@ -129,7 +129,7 @@ public partial class MenuTest
         var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
 
         var result = new List<string>();
-        source.Where(i => !target.Contains(i)).ToList().ForEach(i =>
+        source.Except(target).ToList().ForEach(i =>
         {
             result.Add(i);
             _logger.WriteLine(i);
