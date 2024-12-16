@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Collections;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -174,15 +175,46 @@ public static class IEditItemExtensions
 
     internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
     {
+        // 1.增加了一个从IEnumerable转化为List<object>方法
+        Func<IEnumerable, List<object>> GetEnumeratorDatas = (enumerableObj) =>
+        {
+            var enumerator = enumerableObj.GetEnumerator();
+            var list = new List<object>();
+            while (enumerator.MoveNext())
+            {
+                list.Add(enumerator.Current);
+            }
+            return list;
+        };
+
         var val = col.GetItemValue(item);
         if (col.Lookup != null && val != null)
         {
+            string? content = val.ToString();
             // 转化 Lookup 数据源
-            var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
-            if (lookupVal != null)
+            if ((Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable v)
             {
-                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
+                // 2.如果是 IEnumerable 类型，则转化为 List<object> 类型 然后根据 List<object> 类型进行 Lookup 匹配
+                var enumeratorDatas = GetEnumeratorDatas(v);
+                var lookupVals = col.Lookup.Where(l => enumeratorDatas.Any(v1 => l.Value.Equals(v1?.ToString(), col.LookupStringComparison)));
+                if (lookupVals.Any())
+                {
+                    content = string.Join(",", lookupVals.Select(l => l.Text));
+                }
+                else
+                {
+                    content = string.Join(",", enumeratorDatas);
+                }
             }
+            else
+            {
+                var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
+                if (lookupVal != null)
+                {
+                    content = lookupVal.Text;
+                }
+            }
+            builder.AddContent(10, col.RenderTooltip(content, item));
         }
         else if (val is bool v1)
         {
@@ -205,9 +237,14 @@ public static class IEditItemExtensions
             {
                 content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
             }
-            else if (val is IEnumerable<object> v)
+            //else if(val is IEnumerable<object> v)
+            //{
+            //    content = string.Join(",", v);
+            //}
+            //3.这里的判断条件调整了一下,为了支持List<int>,List<string> 等等
+            else if ((Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable v)
             {
-                content = string.Join(",", v);
+                content = string.Join(",", GetEnumeratorDatas(v));
             }
             else
             {
