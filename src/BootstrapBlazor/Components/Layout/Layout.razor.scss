@@ -95,10 +95,6 @@
         .layout-menu {
             height: 100%;
         }
-
-        .layout-main {
-            width: 100%;
-        }
     }
 
     .layout-menu {
@@ -129,6 +125,8 @@
         padding: 1rem;
         position: relative;
         flex: 1;
+        width: 1%;
+        min-width: 0;
 
         .tabs.tabs-border-card {
             box-shadow: none;
