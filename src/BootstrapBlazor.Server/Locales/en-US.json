@@ -4730,7 +4730,7 @@
     "CountButton": "CountButton",
     "Splitting": "Splitting",
     "QueryBuilder": "QueryBuilder",
-    "SerialService": "ISerialService",
+    "WebSerial": "ISerialService",
     "MindMap": "Mind Map",
     "Mermaid": "Mermaid",
     "Marquee": "Marquee",
@@ -6328,7 +6328,7 @@
     "MermaidTitle": "Mermaid",
     "MermaidDescription": "This component renders Markdown-inspired text definitions to dynamically create and modify diagrams.",
     "MermaidNormalTitle": "Basic usage",
-    "NormalIntro": "Mermaid basic style",
+    "MermaidNormalIntro": "Mermaid basic style",
     "MermaidStyleTitle": "Custom styles",
     "MermaidStyleIntro": "",
     "MermaidType": "Type"
