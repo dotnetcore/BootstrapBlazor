@@ -13,7 +13,7 @@ public partial class TablesFilter
     /// <summary>
     /// Foo 类为 Demo 测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -24,7 +24,7 @@ public partial class TablesFilter
 
     private string SortString { get; set; } = "DateTime desc, Address";
 
-    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/blob/main/src/BootstrapBlazor.Shared/Components/Components/CustomerFilter.razor";
+    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/blob/main/src/BootstrapBlazor.Server/Components/Components/CustomerFilter.razor";
 
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
