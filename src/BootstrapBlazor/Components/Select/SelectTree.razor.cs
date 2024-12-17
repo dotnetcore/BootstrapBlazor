@@ -120,6 +120,12 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [Parameter]
     public bool IsEditable { get; set; }
 
+    /// <summary>
+    /// 获得/设置 页面刷新是否重置已加载数据 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsReset { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
