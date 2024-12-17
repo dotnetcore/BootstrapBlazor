@@ -74,7 +74,7 @@ body:
       - NET8.0
       - NET7.0
       - NET6.0
-    default: 1
+    default: 0
   validations:
     required: true
 - type: textarea
