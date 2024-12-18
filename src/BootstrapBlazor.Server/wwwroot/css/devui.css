@@ -1,6 +1,76 @@
 ﻿:root {
-    /*    --bs-border-radius: 5px;
+    --bs-border-radius: 4px;
     --bb-font-size: .75rem;
-    --bs-nav-link-font-size: .875rem;
-*/
+    --bs-nav-link-font-size: .75rem;
+    --bb-sub-font-size: .75rem;
+    --bb-mb-3: .25rem;
+    --bb-space: .25rem;
+    --bb-row-control-padding: 4px;
+    --bb-header-font-size: 0.875rem;
+}
+
+p {
+    margin-bottom: var(--bb-mb-3);
+}
+
+code {
+    --bb-code-line-height: 1.2;
+}
+
+pre code.hljs {
+    padding: var(--bb-space);
+}
+
+.navbar-header {
+    --bs-nav-link-font-size: var(--bb-header-font-size);
+    --bb-font-size: var(--bb-header-font-size);
+    --bb-padding: 0.1875rem 0.375rem;
+}
+
+    .navbar-header .bb-g-search {
+        --bb-global-search-padding: var(--bb-padding);
+    }
+
+.mb-3 {
+    margin-bottom: var(--bb-mb-3) !important;
+}
+
+.card {
+    --bs-card-spacer-x: var(--bb-space);
+    --bs-card-spacer-y: var(--bb-space);
+    --bs-card-cap-padding-x: var(--bb-space);
+}
+
+.alert {
+    --bs-alert-margin-bottom: var(--bb-mb-3);
+}
+
+.demo-block {
+    --bb-demo-block-margin-top: .5rem;
+    --bb-demo-block-margin-bottom: .25rem;
+}
+
+.g-3, .gy-3 {
+    --bs-gutter-y: .5rem;
+}
+
+.g-3, .gx-3 {
+    --bs-gutter-x: .5rem;
+}
+
+.groupbox {
+    --bb-groupbox-padding: 1rem .5rem .5rem .5rem
+}
+
+.form-control {
+    --bb-form-control-padding: var(--bb-padding);
+}
+
+.select {
+    --bb-select-padding: var(--bb-padding);
+}
+
+.table-container {
+    --bb-table-td-padding-x: .25rem;
+    --bb-table-td-padding-y: .25rem;
 }

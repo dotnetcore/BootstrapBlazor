@@ -37,6 +37,7 @@
     --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
     --bb-code-bg: #e9ecef;
+    --bb-mb-3: 1rem;
 }
 
 html .search-dialog-mask {
@@ -54,7 +55,7 @@ html .search-dialog-mask {
 }
 
 h3, h4, h5 {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 #blazor-error-ui {
@@ -222,11 +223,11 @@ code {
 
 .code-label + img,
 .pre-code + img {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 .code-quest {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
     font-weight: bold;
 }
 
@@ -285,11 +286,11 @@ code {
 }
 
 .card-body > section:not(:first-child) {
-    margin-top: 1rem;
+    margin-top: var(--bb-mb-3);
 }
 
 .card-body > section:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 .custom-clock {
@@ -297,6 +298,15 @@ code {
     padding: .5rem;
     border-radius: var(--bs-border-radius);
     width: 320px;
+}
+
+.demo-block {
+    --bb-demo-block-margin-top: 1rem;
+    --bb-demo-block-margin-bottom: .5rem;
+}
+
+code {
+    --bb-code-line-height: 1.6;
 }
 
 @media (min-width: 768px) {
