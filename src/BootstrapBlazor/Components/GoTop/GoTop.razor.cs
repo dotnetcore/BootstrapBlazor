@@ -28,7 +28,7 @@ public partial class GoTop
     /// 获得/设置 滚动行为 默认 ScrollIntoViewBehavior.Smooth
     /// </summary>
     [Parameter]
-    public ScrollIntoViewBehavior Behavior { get; set; }
+    public ScrollIntoViewBehavior ScrollBehavior { get; set; }
 
     /// <summary>
     /// 获得/设置 鼠标悬停提示文字信息
@@ -45,7 +45,7 @@ public partial class GoTop
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? BehaviorString => Behavior == ScrollIntoViewBehavior.Smooth ? null : Behavior.ToString().ToLowerInvariant();
+    private string? ScrollBehaviorString => ScrollBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollBehavior.ToString().ToLowerInvariant();
 
     /// <summary>
     /// <inheritdoc/>
