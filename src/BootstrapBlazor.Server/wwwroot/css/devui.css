@@ -81,6 +81,11 @@ pre code.hljs {
     --bs-alert-margin-bottom: var(--bb-mb-3);
 }
 
+.datetime-picker {
+    --bb-dt-picker-input-padding: 3px 33px 3px 12px;
+    --bb-dt-picker-input-icon-padding: 3px 33px
+}
+
 .demo-block {
     --bb-demo-block-margin-top: .5rem;
     --bb-demo-block-margin-bottom: .25rem;
@@ -116,6 +121,10 @@ pre code.hljs {
 
 .input-group > .switch {
     --bb-switch-padding: 2px .5rem;
+}
+
+.popover {
+    --bs-popover-font-size: var(--bb-font-size);
 }
 
 .select {
