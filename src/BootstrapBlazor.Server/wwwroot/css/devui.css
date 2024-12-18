@@ -143,6 +143,10 @@ pre code.hljs {
     --bb-multi-select-max-height: 26px;
 }
 
+.radio-list {
+    --bb-radio-item-padding: 2px 0.75rem;
+}
+
 .table-container {
     --bb-table-td-padding-x: .25rem;
     --bb-table-td-padding-y: .25rem;
