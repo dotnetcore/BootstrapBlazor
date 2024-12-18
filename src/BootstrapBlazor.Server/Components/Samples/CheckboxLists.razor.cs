@@ -37,6 +37,11 @@ public partial class CheckboxLists
     [NotNull]
     private IEnumerable<SelectedItem>? Items5 { get; set; }
 
+    [NotNull]
+    private IEnumerable<SelectedItem<Foo>>? GenericItems { get; set; }
+
+    private List<Foo>? _selectedFoos;
+
     /// <summary>
     /// OnInitialized method
     /// </summary>
@@ -87,6 +92,22 @@ public partial class CheckboxLists
         Dummy = new Foo() { Name = Localizer["Foo"] };
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GenerateHobbies(LocalizerFoo);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        GenericItems = new List<SelectedItem<Foo>>()
+        {
+            new() { Text = Localizer["item1"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "001"] } },
+            new() { Text = Localizer["item2"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "002"] } },
+            new() { Text = Localizer["item3"], Value = new Foo() { Name = LocalizerFoo["Foo.Name", "003"] } },
+        };
     }
 
     [NotNull]
