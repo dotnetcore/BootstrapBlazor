@@ -49,11 +49,4 @@ public partial class GoTop
         TooltipText ??= Localizer[nameof(TooltipText)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.GoTopIcon);
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Target);
-
 }
