@@ -51,6 +51,7 @@ export function reset(id) {
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
     if (shim !== void 0) {
+        table.shim = shim;
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
@@ -102,13 +103,23 @@ export function reset(id) {
 
     table.pages = [...table.el.children].find(i => i.classList.contains('nav-pages'));
 
-    setBodyHeight(table)
 
     setColumnToolboxListener(table);
 
+    if (isVisible(table.el) === false) {
+        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
+        return;
+    }
+
+    observeHeight(table)
+}
+
+const observeHeight = table => {
+    setBodyHeight(table);
+
     const observer = new ResizeObserver(entries => {
         entries.forEach(entry => {
-            if (entry.target === shim) {
+            if (entry.target === table.shim) {
                 setTableDefaultWidth(table);
             }
             else if (entry.target === table.search || entry.target === table.toolbar || entry.target === table.pages) {
@@ -117,7 +128,7 @@ export function reset(id) {
         });
     });
     if (table.thead) {
-        observer.observe(shim);
+        observer.observe(table.shim);
     }
     if (table.search) {
         observer.observe(table.search);
@@ -280,18 +291,16 @@ const check = table => {
         table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
     }
     else {
-        delete table.loopCheckHeightHandler;
-        setBodyHeight(table);
+        if (table.loopCheckHeightHandler > 0) {
+            cancelAnimationFrame(table.loopCheckHeightHandler);
+            delete table.loopCheckHeightHandler;
+        }
+        observeHeight(table);
     }
 };
 
 const setBodyHeight = table => {
     const el = table.el
-    if (isVisible(el) === false) {
-        table.loopCheckHeightHandler = requestAnimationFrame(() => check(table));
-        return;
-    }
-
     const children = [...el.children]
     const search = children.find(i => i.classList.contains('table-search'))
     table.search = search;
