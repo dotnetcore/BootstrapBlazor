@@ -4,7 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using BootstrapBlazor.Server.Components;
-using BootstrapBlazor.Shared.Components.Layout;
+using BootstrapBlazor.Server.Components.Layout;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -53,7 +53,6 @@ if (cors?.Length > 0)
 
 app.MapDefaultControllerRoute();
 app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode()
-    .AddAdditionalAssemblies(typeof(MainLayout).Assembly);
+    .AddInteractiveServerRenderMode();
 
 app.Run();

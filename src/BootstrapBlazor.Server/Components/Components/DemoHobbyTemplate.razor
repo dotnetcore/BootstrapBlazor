@@ -1,0 +1,22 @@
+﻿@using BootstrapBlazor.Server.Components.Samples.Table
+@inject IStringLocalizer<Foo> LocalizerFoo
+
+<div class="col-12 col-sm-6">
+    <MultiSelect @bind-Value="Model.Hobby" Items="@Hobbies" />
+</div>
+
+@code {
+    [Parameter]
+    [NotNull]
+    public Foo? Model { get; set; }
+
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
+    }
+}
