@@ -21,6 +21,7 @@ export function init(id, target) {
     EventHandler.on(el, 'click', e => {
         e.preventDefault();
 
+        const target = el.getAttribute('data-bb-target');
         const element = (target && document.querySelector(target)) || getScrollElement(el)
         element.scrollTop = 0
         go.tip.hide()
