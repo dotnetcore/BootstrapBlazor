@@ -73,6 +73,10 @@ pre code.hljs {
     --bs-card-cap-padding-x: var(--bb-space);
 }
 
+.col-form-label {
+    padding: 4px 2px;
+}
+
 .alert {
     --bs-alert-margin-bottom: var(--bb-mb-3);
 }
@@ -82,8 +86,12 @@ pre code.hljs {
     --bb-demo-block-margin-bottom: .25rem;
 }
 
+.my-3 {
+    margin: .5rem !important;
+}
+
 .g-3, .gy-3 {
-    --bs-gutter-y: .5rem;
+    --bs-gutter-y: .25rem;
 }
 
 .g-3, .gx-3 {
@@ -96,6 +104,18 @@ pre code.hljs {
 
 .form-control {
     --bb-form-control-padding: var(--bb-padding);
+}
+
+.form-label {
+    margin-bottom: .25rem;
+}
+
+.input-group-text {
+    padding: var(--bb-padding);
+}
+
+.input-group > .switch {
+    --bb-switch-padding: 2px .5rem;
 }
 
 .select {
