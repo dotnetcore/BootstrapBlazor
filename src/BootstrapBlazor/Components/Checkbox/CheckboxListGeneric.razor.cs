@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CheckboxList 组件基类
 /// </summary>
-public partial class CheckboxListGeneric<TValue> : ValidateBase<TValue>
+public partial class CheckboxListGeneric<TValue>
 {
     /// <summary>
     /// 获得 组件样式
@@ -49,12 +49,6 @@ public partial class CheckboxListGeneric<TValue> : ValidateBase<TValue>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件值
-    /// </summary>
-    [Parameter]
-    public new List<TValue>? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为按钮样式 默认 false
@@ -168,6 +162,15 @@ public partial class CheckboxListGeneric<TValue> : ValidateBase<TValue>
         }
 
         _onBeforeStateChangedCallback = MaxSelectedCount > 0 ? new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged) : null;
+
+        // set item active
+        if (Value != null)
+        {
+            foreach (var item in Items)
+            {
+                item.Active = Value.Contains(item.Value);
+            }
+        }
     }
     private async Task<bool> OnBeforeStateChanged(CheckboxState state)
     {
@@ -197,19 +200,25 @@ public partial class CheckboxListGeneric<TValue> : ValidateBase<TValue>
             return;
         }
 
-        Value ??= [];
+        var vals = new List<TValue>();
+        if (Value != null)
+        {
+            vals.AddRange(Value);
+        }
         if (v)
         {
-            Value.Add(item.Value);
+            vals.Add(item.Value);
         }
         else
         {
-            Value.Remove(item.Value);
+            vals.Remove(item.Value);
         }
+
+        CurrentValue = vals;
 
         if (OnSelectedChanged != null)
         {
-            await OnSelectedChanged(Items, Value);
+            await OnSelectedChanged(Items, CurrentValue);
         }
     }
 
