@@ -54,6 +54,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
+            pb.Add(a => a.ShowGotoTop, true);
             pb.Add(a => a.Side, new RenderFragment(builder =>
             {
                 builder.AddContent(0, "test");
