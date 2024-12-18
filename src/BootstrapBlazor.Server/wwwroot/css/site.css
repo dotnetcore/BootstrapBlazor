@@ -38,6 +38,7 @@
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
     --bb-code-bg: #e9ecef;
     --bb-mb-3: 1rem;
+    --bb-pre-margin-bottom: 1rem;
 }
 
 html .search-dialog-mask {

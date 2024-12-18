@@ -7,6 +7,10 @@
     --bb-space: .25rem;
     --bb-row-control-padding: 4px;
     --bb-header-font-size: 0.875rem;
+    --bb-padding: 0.1875rem 0.375rem;
+    --bb-title-font-size: 0.875rem;
+    --bb-pre-margin-bottom: .5rem;
+    --bb-row-control-padding: 3px;
 }
 
 p {
@@ -14,7 +18,7 @@ p {
 }
 
 code {
-    --bb-code-line-height: 1.2;
+    --bb-code-line-height: 1.5;
 }
 
 pre code.hljs {
@@ -24,7 +28,6 @@ pre code.hljs {
 .navbar-header {
     --bs-nav-link-font-size: var(--bb-header-font-size);
     --bb-font-size: var(--bb-header-font-size);
-    --bb-padding: 0.1875rem 0.375rem;
 }
 
     .navbar-header .bb-g-search {
@@ -33,6 +36,34 @@ pre code.hljs {
 
 .mb-3 {
     margin-bottom: var(--bb-mb-3) !important;
+}
+
+.btn {
+    font-size: var(--bb-font-size);
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.1875rem;
+    --bs-btn-xs-padding-x: 0.3125rem;
+    --bs-btn-xs-padding-y: 0.0625rem;
+    --bs-btn-xs-font-size: 0.75rem;
+    --bs-btn-xl-padding-x: 1.25rem;
+    --bs-btn-xl-padding-y: 0.8rem;
+    --bs-btn-xl-font-size: 1.25rem;
+    --bs-btn-xxl-padding-x: 1.25rem;
+    --bs-btn-xxl-padding-y: 0.8rem;
+    --bs-btn-xxl-font-size: 1.5rem;
+}
+
+.btn-circle {
+    --bb-button-circle-width: 35px;
+    --bb-button-circle-height: 35px;
+}
+
+.form-check {
+    --bb-checkbox-label-padding-y: 3px;
+}
+
+.form-control-color {
+    height: 26px;
 }
 
 .card {
@@ -73,4 +104,9 @@ pre code.hljs {
 .table-container {
     --bb-table-td-padding-x: .25rem;
     --bb-table-td-padding-y: .25rem;
+}
+
+.tabs {
+    --bb-tabs-item-height: 29px;
+    --bb-tabs-body-padding: .5rem;
 }
