@@ -7,7 +7,7 @@
 }
 
     .pre-code:not(:last-child) {
-        margin-bottom: 1rem;
+        margin-bottom: var(--bb-pre-margin-bottom);
     }
 
     .pre-code .loading {
