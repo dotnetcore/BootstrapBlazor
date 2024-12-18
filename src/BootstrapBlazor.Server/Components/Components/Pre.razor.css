@@ -29,7 +29,7 @@
     }
 
 code {
-    line-height: 1.8;
+    line-height: var(--bb-code-line-height);
     font-size: 0.75rem;
     padding: 10px 65px 10px 16px;
     display: block;
