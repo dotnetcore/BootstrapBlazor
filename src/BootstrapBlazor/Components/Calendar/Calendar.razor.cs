@@ -174,6 +174,12 @@ public partial class Calendar
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 附加列
+    /// </summary>
+    [Parameter]
+    public string[]? AdditionalHeaders { get; set; }
+
+    /// <summary>
     /// 获得/设置 单元格模板
     /// </summary>
     [Parameter]
