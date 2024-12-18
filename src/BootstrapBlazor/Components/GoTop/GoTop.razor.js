@@ -22,8 +22,9 @@ export function init(id, target) {
         e.preventDefault();
 
         const target = el.getAttribute('data-bb-target');
+        const behavior = el.getAttribute('data-bb-behavior') || 'smooth';
         const element = (target && document.querySelector(target)) || getScrollElement(el)
-        element.scrollTop = 0
+        element.scrollTo({ top: 0, left: 0, behavior: behavior });
         go.tip.hide()
     })
 }
