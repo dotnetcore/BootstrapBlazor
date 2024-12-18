@@ -131,6 +131,18 @@ pre code.hljs {
     --bb-select-padding: var(--bb-padding);
 }
 
+.switch {
+    --bb-switch-padding: 3px 0;
+}
+
+.multiselect {
+    --bb-multi-select-item-margin-x: 1px;
+    --bb-multi-select-item-margin-y: 1px;
+    --bb-multi-select-item-padding: 1px 4px;
+    --bb-multi-select-min-height: 26px;
+    --bb-multi-select-max-height: 26px;
+}
+
 .table-container {
     --bb-table-td-padding-x: .25rem;
     --bb-table-td-padding-y: .25rem;
