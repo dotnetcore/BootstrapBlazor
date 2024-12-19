@@ -8669,10 +8669,10 @@ public class TableTest : BootstrapBlazorTestBase
             ParentId = parentId,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
@@ -8687,10 +8687,10 @@ public class TableTest : BootstrapBlazorTestBase
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
