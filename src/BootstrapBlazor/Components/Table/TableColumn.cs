@@ -574,10 +574,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 fields.Reverse();
                 FieldName = string.Join(".", fields);
             }
-            else
-            {
-                FieldName = _fieldIdentifier?.FieldName;
-            }
         }
         return FieldName ?? "";
     }
