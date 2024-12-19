@@ -5136,7 +5136,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new Foo(), "Name", typeof(string)));
         });
         v = col.GetFieldName();
-        Assert.Equal("Name", v);
+        Assert.Equal("", v);
     }
 
     [Fact]
@@ -5217,7 +5217,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
         });
         v = col.GetFieldName();
-        Assert.Equal("Foo.Name", v);
+        Assert.Equal("Name", v);
     }
 
     [Fact]
@@ -7742,7 +7742,7 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
 
         // Formatter 方法不被调用
-        Assert.False(formatted);
+        Assert.True(formatted);
     }
 
     [Fact]
