@@ -565,10 +565,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
             while (express is MemberExpression member)
             {
-                if (member.Expression is MemberExpression)
-                {
-                    fields.Add(member.Member.Name);
-                }
+                fields.Add(member.Member.Name);
                 express = member.Expression;
             }
 
