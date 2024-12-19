@@ -261,15 +261,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用同步方法 GetTooltipText；Deprecated, please use the synchronous method GetTooltipText")]
-    [ExcludeFromCodeCoverage]
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
-    public Func<object?, string?>? GetTooltipText { get; set; }
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置

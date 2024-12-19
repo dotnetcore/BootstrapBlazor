@@ -4916,7 +4916,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GetTooltipText_Ok()
+    public void GetTooltipTextCallback_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4934,8 +4934,9 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(3, "Editable", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(9, "ShowTips", true);
-                    builder.AddAttribute(10, "GetTooltipText", new Func<object, string?>(v =>
+                    builder.AddAttribute(10, "GetTooltipTextCallback", new Func<object, Task<string?>>(async v =>
                     {
+                        await Task.Delay(0);
                         return "test-tips-callback";
                     }));
                     builder.CloseComponent();

@@ -105,7 +105,7 @@ public static class IEditItemExtensions
         if (col.IsVisibleWhenEdit.HasValue) dest.IsVisibleWhenEdit = col.IsVisibleWhenEdit;
         if (col.IsReadonlyWhenAdd.HasValue) dest.IsReadonlyWhenAdd = col.IsReadonlyWhenAdd;
         if (col.IsReadonlyWhenEdit.HasValue) dest.IsReadonlyWhenEdit = col.IsReadonlyWhenEdit;
-        if (col.GetTooltipText != null) dest.GetTooltipText = col.GetTooltipText;
+        if (col.GetTooltipTextCallback != null) dest.GetTooltipTextCallback = col.GetTooltipTextCallback;
         if (col.CustomSearch != null) dest.CustomSearch = col.CustomSearch;
         if (col.ToolboxTemplate != null) dest.ToolboxTemplate = col.ToolboxTemplate;
         if (col.IsRequiredWhenAdd.HasValue) dest.IsRequiredWhenAdd = col.IsRequiredWhenAdd;
@@ -247,32 +247,36 @@ public static class IEditItemExtensions
     {
         if (col.GetShowTips())
         {
-            var tooltipText = text;
-            if (col.GetTooltipText != null)
-            {
-                tooltipText = col.GetTooltipText(item);
-            }
             pb.OpenComponent<Tooltip>(0);
-            pb.AddAttribute(1, nameof(Tooltip.Title), tooltipText);
-            pb.AddAttribute(2, "class", "text-truncate d-block");
-            if (col.IsMarkupString)
+            pb.SetKey(item);
+            var tooltipText = text;
+            if (col.GetTooltipTextCallback != null)
             {
-                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
-                pb.AddAttribute(4, nameof(Tooltip.IsHtml), true);
+                pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
             }
             else
             {
-                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+                pb.AddAttribute(11, nameof(Tooltip.Title), tooltipText);
+            }
+            pb.AddAttribute(12, "class", "text-truncate d-block");
+            if (col.IsMarkupString)
+            {
+                pb.AddAttribute(13, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
+                pb.AddAttribute(14, nameof(Tooltip.IsHtml), true);
+            }
+            else
+            {
+                pb.AddAttribute(15, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
             }
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)
         {
-            pb.AddMarkupContent(3, text);
+            pb.AddMarkupContent(20, text);
         }
         else
         {
-            pb.AddContent(4, text);
+            pb.AddContent(30, text);
         }
     };
 
