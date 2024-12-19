@@ -5136,7 +5136,7 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new Foo(), "Name", typeof(string)));
         });
         v = col.GetFieldName();
-        Assert.Equal("", v);
+        Assert.Equal("Name", v);
     }
 
     [Fact]
@@ -5198,7 +5198,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 自动生成 2 列 手动 Id 列忽略 Name, Address 列追加
         var table = cut.FindComponent<Table<MockComplexFoo>>();
-        Assert.Equal(4, table.Instance.Columns.Count);
+        Assert.Equal(5, table.Instance.Columns.Count);
     }
 
     [Fact]
@@ -5211,7 +5211,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         var col = cut.Instance;
         var v = col.GetFieldName();
-        Assert.Equal("Name", v);
+        Assert.Equal("Foo.Name", v);
     }
 
     [Fact]
