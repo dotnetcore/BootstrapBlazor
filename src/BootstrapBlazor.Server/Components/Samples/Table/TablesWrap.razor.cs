@@ -43,7 +43,7 @@ public partial class TablesWrap
         var ret = string.Empty;
         if (v is Foo foo)
         {
-            ret = $"{foo.Name}-{DateTime.Now}";
+            ret = $"{foo.Name}-{foo.Address}";
         }
         return ret;
     }
