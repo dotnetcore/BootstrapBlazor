@@ -41,9 +41,9 @@ public partial class TablesColumn
     /// </summary>
     /// <param name="d"></param>
     /// <returns></returns>
-    private static Task<string> IntFormatter(object? d)
+    private static Task<string?> IntFormatter(object d)
     {
-        var ret = "";
+        string? ret = null;
         if (d is TableColumnContext<Foo, object?> data && data.Value != null)
         {
             var val = (int)data.Value;
