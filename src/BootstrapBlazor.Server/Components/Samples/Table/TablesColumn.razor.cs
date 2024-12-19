@@ -36,6 +36,22 @@ public partial class TablesColumn
 
     private static bool ShowCheckbox(Foo foo) => foo.Complete;
 
+    /// <summary>
+    /// IntFormatter
+    /// </summary>
+    /// <param name="d"></param>
+    /// <returns></returns>
+    private static Task<string> IntFormatter(object? d)
+    {
+        var ret = "";
+        if (d is TableColumnContext<Foo, object?> data && data.Value != null)
+        {
+            var val = (int)data.Value;
+            ret = $"Sales: {val:0.00}";
+        }
+        return Task.FromResult(ret);
+    }
+
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         IEnumerable<Foo> items = Items;

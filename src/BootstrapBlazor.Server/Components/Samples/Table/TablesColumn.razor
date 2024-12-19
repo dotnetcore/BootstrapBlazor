@@ -165,7 +165,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" FormatString="0.00" />
+            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
         </TableColumns>
     </Table>
 </DemoBlock>
