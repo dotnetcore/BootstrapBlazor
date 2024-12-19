@@ -1823,7 +1823,7 @@ public class TableTest : BootstrapBlazorTestBase
 
     class MockTableColumn : AutoGenerateColumnAttribute
     {
-        public new string GetFieldName() => "Test";
+        public static new string GetFieldName() => "Test";
     }
 
     [Fact]
