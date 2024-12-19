@@ -7702,7 +7702,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Value_Formatter()
+    public async Task Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7723,16 +7723,20 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("010");
 
         var col = cut.FindComponent<TableColumn<Foo, int>>();
+        var formatted = false;
         col.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
+                formatted = true;
                 return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        // Formatter 方法不被调用
+        Assert.False(formatted);
     }
 
     [Fact]
