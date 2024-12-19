@@ -10,14 +10,28 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// </summary>
 internal class DemoLookupService(IServiceProvider provider) : LookupServiceBase
 {
-    private IServiceProvider Provider { get; } = provider;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
 
-    public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
     {
+        await Task.Delay(1);
+
         IEnumerable<SelectedItem>? items = null;
         if (key == "Foo.Complete")
         {
-            var localizer = Provider.GetRequiredService<IStringLocalizer<Foo>>();
+            var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
             items = new List<SelectedItem>()
             {
                 new() { Value = "True", Text = localizer["True"].Value },
