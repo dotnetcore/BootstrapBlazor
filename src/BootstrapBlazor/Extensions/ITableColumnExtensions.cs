@@ -172,7 +172,7 @@ public static class IEditItemExtensions
         return searches;
     }
 
-    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
+    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);
         if (col.Lookup != null && val != null)
@@ -191,12 +191,7 @@ public static class IEditItemExtensions
         else
         {
             string? content;
-            if (col.Formatter != null)
-            {
-                // 格式化回调委托
-                content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
-            }
-            else if (!string.IsNullOrEmpty(col.FormatString))
+            if (!string.IsNullOrEmpty(col.FormatString))
             {
                 // 格式化字符串
                 content = Utility.Format(val, col.FormatString);
