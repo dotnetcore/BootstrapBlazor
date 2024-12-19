@@ -353,6 +353,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (IsReset)
             {
+                _rows = null;
                 TreeNodeStateCache.Reset();
             }
             else
@@ -374,9 +375,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
                 }
             }
-
-            //重新计算节点
-            _rows = null;
 
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
