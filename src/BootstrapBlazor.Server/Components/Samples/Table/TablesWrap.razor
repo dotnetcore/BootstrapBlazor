@@ -71,7 +71,7 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["TablesWrapDataResizingColumHeaderText_DateTime"]" />
             <TableColumn @bind-Field="@context.Name" Text="@Localizer["TablesWrapDataResizingColumHeaderText_Name"]" />
-            <TableColumn @bind-Field="@context.Address" Text="@Localizer["TablesWrapDataResizingColumHeaderText_Address"]" Width="200" TextEllipsis="true" ShowTips="true" GetTooltipText="GetTooltipText" />
+            <TableColumn @bind-Field="@context.Address" Text="@Localizer["TablesWrapDataResizingColumHeaderText_Address"]" Width="200" TextEllipsis="true" ShowTips="true" GetTooltipTextCallback="GetTooltipTextCallback" />
             <TableColumn @bind-Field="@context.Education" />
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Complete" />

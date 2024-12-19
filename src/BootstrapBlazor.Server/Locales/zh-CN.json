@@ -5265,7 +5265,7 @@
     "TablesWrapDataResizingTips1": "可以拖动窗口大小，窗口过小时 <b>地址</b> 列自动进行省略处理",
     "TablesWrapDataResizingTips2": "通过设置 <code>TextEllipsis</code> 来开启文本超长省略功能",
     "TablesWrapDataResizingTips3": "<b>注意：</b>推荐使用 <code>Width</code> 对列宽度进行设置，如未设置列宽内部自动使用 200px 宽度",
-    "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>，通过设置 <code>GetTooltipText</code> 回调方法可以自定义 <code>Tooltip</code> 显示内容；注意异步方法 <code>GetTooltipTextCallback</code> 已弃用请勿使用",
+    "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>，通过设置 <code>GetTooltipTextCallback</code> 回调方法可以自定义 <code>Tooltip</code> 显示内容",
     "TablesWrapDataResizingTips5": "拖动地址列，单元格显示内容自动增加与减少",
     "TablesWrapCustomCellTitle": "自定义单元格内排版",
     "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局",
