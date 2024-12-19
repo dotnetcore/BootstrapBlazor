@@ -378,6 +378,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         }
+        else
+        {
+            _rows = null;
+        }
     }
 
     /// <summary>
