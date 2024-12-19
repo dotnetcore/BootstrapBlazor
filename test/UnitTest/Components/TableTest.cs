@@ -5206,11 +5206,17 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
         {
-            pb.Add(a => a.Field, "Foo.Name");
-            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+            pb.Add(a => a.Field, "");
         });
         var col = cut.Instance;
         var v = col.GetFieldName();
+        Assert.Equal("", v);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+        });
+        v = col.GetFieldName();
         Assert.Equal("Foo.Name", v);
     }
 
