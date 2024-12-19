@@ -58,7 +58,7 @@ public partial class TablesColumn
 
         // 先处理过滤再处理排序 提高性能
         var isFiltered = false;
-        if (options.Filters.Any())
+        if (options.Filters.Count != 0)
         {
             items = items.Where(options.Filters.GetFilterFunc<Foo>());
             isFiltered = true;
