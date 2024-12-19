@@ -5265,7 +5265,7 @@
     "TablesWrapDataResizingTips1": "You can drag the window size, and the <b>address</b> column will be automatically omitted if the window is too small",
     "TablesWrapDataResizingTips2": "Enable text ellipsis by setting <code>TextEllipsis</code>",
     "TablesWrapDataResizingTips3": "<b>Note:</b> It is recommended to use <code>Width</code> to set the column width. If the column width is not set, it will automatically use 200px width inside",
-    "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>, You can customize the display content of <code>Tooltip</code> by setting the <code>GetTooltipTextCallback</code> callback method",
+    "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>, You can customize the display content of <code>Tooltip</code> by setting the <code>GetTooltipText</code> callback method",
     "TablesWrapDataResizingTips5": "Drag the address column, the cell display content will automatically increase and decrease",
     "TablesWrapCustomCellTitle": "Custom in-cell typography",
     "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data",
