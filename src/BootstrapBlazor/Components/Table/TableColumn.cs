@@ -557,7 +557,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
             while (express is MemberExpression member)
             {
-                fields.Add(member.Member.Name);
+                if (member.Expression is MemberExpression)
+                {
+                    fields.Add(member.Member.Name);
+                }
                 express = member.Expression;
             }
 
@@ -565,6 +568,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
             {
                 fields.Reverse();
                 FieldName = string.Join(".", fields);
+            }
+            else
+            {
+                FieldName = _fieldIdentifier?.FieldName;
             }
         }
         return FieldName ?? "";
