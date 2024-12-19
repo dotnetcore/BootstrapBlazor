@@ -146,7 +146,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" Width="60" Align="Alignment.Right" />
+            <TableColumn @bind-Field="@context.Count" Width="60" Align="Alignment.Right" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -165,7 +165,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
+            <TableColumn @bind-Field="@context.Count" FormatString="0.00" />
         </TableColumns>
     </Table>
 </DemoBlock>

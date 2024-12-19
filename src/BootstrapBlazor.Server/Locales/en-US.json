@@ -5036,7 +5036,7 @@
     "FormatterTitle": "Custom column data format",
     "FormatterIntro": "Format the cell value by specifying the <code>FormatString</code> or <code>Formatter</code> callback delegate when the column is bound",
     "FormatterP1": "In this example the column <code>DateTime</code> values ​​are formatted according to <code>FormatString</code> to <code>yyyy-MM-dd</code> year month day format",
-    "FormatterP2": "In this example the column <code>Count</code> value is formatted according to <code>Formatter</code> to <code>0.00</code> with two decimal places",
+    "FormatterP2": "In this example the column <code>Count</code> value is formatted according to <code>FormatString</code> to <code>0.00</code> with two decimal places",
     "AlignTitle": "Column data alignment",
     "AlignIntro": "Set the alignment by specifying the <code>Align</code> attribute when the column is bound",
     "AlignP1": "In this example the column <code>DateTime</code> is set to center alignment <code>Alignment.Center</code>",
