@@ -6,7 +6,11 @@
 
 @if (Items == null)
 {
-    if (ShowSkeleton)
+    if (_init)
+    {
+        
+    }
+    else if (ShowSkeleton)
     {
         <SkeletonTree AdditionalAttributes="AdditionalAttributes"></SkeletonTree>
     }

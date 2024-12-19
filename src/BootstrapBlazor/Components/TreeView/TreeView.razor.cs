@@ -315,6 +315,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass(item.CssClass)
         .Build();
 
+    private bool _init;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -377,10 +379,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+            _init = true;
         }
         else
         {
             _rows = null;
+            TreeNodeStateCache.Reset();
+            ActiveItem = null;
         }
     }
 
