@@ -191,25 +191,35 @@ public static class IEditItemExtensions
         else
         {
             string? content;
-            if (!string.IsNullOrEmpty(col.FormatString))
+            if (col.Formatter != null)
             {
-                // 格式化字符串
-                content = Utility.Format(val, col.FormatString);
-            }
-            else if (col.PropertyType.IsDateTime())
-            {
-                content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-            }
-            else if (val is IEnumerable<object> v)
-            {
-                content = string.Join(",", v);
+                // 格式化回调委托
+                builder.OpenComponent<TableFormatContent>(40);
+                builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
+                builder.AddAttribute(46, nameof(TableFormatContent.Item), new TableColumnContext<TItem, object?>(item, val));
+                builder.CloseComponent();
             }
             else
             {
-                content = val?.ToString();
+                if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = Utility.Format(val, col.FormatString);
+                }
+                else if (col.PropertyType.IsDateTime())
+                {
+                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+                }
+                else if (val is IEnumerable<object> v)
+                {
+                    content = string.Join(",", v);
+                }
+                else
+                {
+                    content = val?.ToString();
+                }
+                builder.AddContent(30, col.RenderTooltip(content, item));
             }
-
-            builder.AddContent(30, col.RenderTooltip(content, item));
         }
     };
 
