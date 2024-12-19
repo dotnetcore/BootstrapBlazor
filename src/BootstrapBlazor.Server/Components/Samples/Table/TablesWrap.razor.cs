@@ -38,12 +38,14 @@ public partial class TablesWrap
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
     }
 
-    private static string? GetTooltipText(object? v)
+    private async Task<string?> GetTooltipTextCallback(object? v)
     {
+        await Task.Delay(0);
+
         var ret = string.Empty;
         if (v is Foo foo)
         {
-            ret = $"{foo.Name}-{foo.Address}";
+            ret = $"{foo.Name}-{DateTime.Now}";
         }
         return ret;
     }

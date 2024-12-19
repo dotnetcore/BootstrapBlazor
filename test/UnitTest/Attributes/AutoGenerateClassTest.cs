@@ -156,8 +156,8 @@ public class AutoGenerateClassTest
         attrInterface.IsReadonlyWhenEdit = true;
         Assert.True(attrInterface.IsReadonlyWhenEdit);
 
-        attrInterface.GetTooltipText = _ => "Test";
-        Assert.NotNull(attrInterface.GetTooltipText);
+        attrInterface.GetTooltipTextCallback = _ => Task.FromResult((string?)"Test");
+        Assert.NotNull(attrInterface.GetTooltipTextCallback);
 
         attrInterface.CustomSearch = (_, _) => new SearchFilterAction("test", "test");
         Assert.NotNull(attrInterface.CustomSearch);
