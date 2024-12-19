@@ -696,8 +696,12 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void GetTableColumns_Ok()
     {
-        var cols = Utility.GetTableColumns<Dog>().ToList();
-        Assert.Equal(2, cols.Count);
+        var columns = new InternalTableColumn[]
+        {
+            new("Name3", typeof(string)),
+        };
+        var cols = Utility.GetTableColumns<Dog>(columns).ToList();
+        Assert.Equal(3, cols.Count);
     }
 
     [Fact]

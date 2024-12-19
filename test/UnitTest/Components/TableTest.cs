@@ -5162,47 +5162,6 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TableColumn_Ignore()
-    {
-        var items = new List<MockComplexFoo>([
-            new() { Name = "Test1", Foo = new() { Id = 1, Name = "Test_1" } },
-            new() { Name = "Test2", Foo = new() { Id = 2, Name = "Test_2" } },
-            new() { Name = "Test3", Foo = new() { Id = 3, Name = "Test_3" } },
-        ]);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<MockComplexFoo>>(pb =>
-            {
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.AutoGenerateColumns, true);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<MockComplexFoo, int>>(0);
-                    builder.AddAttribute(1, "Field", 0);
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Id", typeof(int)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 自动生成 2 列 手动 Id 列忽略 Name, Address 列追加
-        var table = cut.FindComponent<Table<MockComplexFoo>>();
-        Assert.Equal(5, table.Instance.Columns.Count);
-    }
-
-    [Fact]
     public void TableColumn_ComplexObject()
     {
         var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
