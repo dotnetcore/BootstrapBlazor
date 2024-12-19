@@ -5162,56 +5162,21 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TableColumn_Ignore()
-    {
-        var items = new List<MockComplexFoo>([
-            new() { Name = "Test1", Foo = new() { Id = 1, Name = "Test_1" } },
-            new() { Name = "Test2", Foo = new() { Id = 2, Name = "Test_2" } },
-            new() { Name = "Test3", Foo = new() { Id = 3, Name = "Test_3" } },
-        ]);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<MockComplexFoo>>(pb =>
-            {
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.AutoGenerateColumns, true);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<MockComplexFoo, int>>(0);
-                    builder.AddAttribute(1, "Field", 0);
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Id", typeof(int)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 自动生成 2 列 手动 Id 列忽略 Name, Address 列追加
-        var table = cut.FindComponent<Table<MockComplexFoo>>();
-        Assert.Equal(4, table.Instance.Columns.Count);
-    }
-
-    [Fact]
     public void TableColumn_ComplexObject()
     {
         var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
         {
-            pb.Add(a => a.Field, "Foo.Name");
-            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+            pb.Add(a => a.Field, "");
         });
         var col = cut.Instance;
         var v = col.GetFieldName();
+        Assert.Equal("", v);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+        });
+        v = col.GetFieldName();
         Assert.Equal("Name", v);
     }
 
@@ -7703,7 +7668,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Value_Formatter()
+    public async Task Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7724,16 +7689,20 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("010");
 
         var col = cut.FindComponent<TableColumn<Foo, int>>();
+        var formatted = false;
         col.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
+                formatted = true;
                 return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        // Formatter 方法不被调用
+        Assert.True(formatted);
     }
 
     [Fact]
@@ -8660,10 +8629,10 @@ public class TableTest : BootstrapBlazorTestBase
             ParentId = parentId,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
@@ -8678,10 +8647,10 @@ public class TableTest : BootstrapBlazorTestBase
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 

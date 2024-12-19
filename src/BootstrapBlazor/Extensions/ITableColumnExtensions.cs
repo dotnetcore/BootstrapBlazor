@@ -172,7 +172,7 @@ public static class IEditItemExtensions
         return searches;
     }
 
-    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
+    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);
         if (col.Lookup != null && val != null)
@@ -194,27 +194,32 @@ public static class IEditItemExtensions
             if (col.Formatter != null)
             {
                 // 格式化回调委托
-                content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
-            }
-            else if (!string.IsNullOrEmpty(col.FormatString))
-            {
-                // 格式化字符串
-                content = Utility.Format(val, col.FormatString);
-            }
-            else if (col.PropertyType.IsDateTime())
-            {
-                content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-            }
-            else if (val is IEnumerable<object> v)
-            {
-                content = string.Join(",", v);
+                builder.OpenComponent<TableFormatContent>(40);
+                builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
+                builder.AddAttribute(46, nameof(TableFormatContent.Item), new TableColumnContext<TItem, object?>(item, val));
+                builder.CloseComponent();
             }
             else
             {
-                content = val?.ToString();
+                if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = Utility.Format(val, col.FormatString);
+                }
+                else if (col.PropertyType.IsDateTime())
+                {
+                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+                }
+                else if (val is IEnumerable<object> v)
+                {
+                    content = string.Join(",", v);
+                }
+                else
+                {
+                    content = val?.ToString();
+                }
+                builder.AddContent(30, col.RenderTooltip(content, item));
             }
-
-            builder.AddContent(30, col.RenderTooltip(content, item));
         }
     };
 

@@ -41,13 +41,13 @@ public partial class TablesColumn
     /// </summary>
     /// <param name="d"></param>
     /// <returns></returns>
-    private static Task<string> IntFormatter(object? d)
+    private static Task<string?> IntFormatter(object d)
     {
-        var ret = "";
+        string? ret = null;
         if (d is TableColumnContext<Foo, object?> data && data.Value != null)
         {
             var val = (int)data.Value;
-            ret = val.ToString("0.00");
+            ret = $"Sales: {val:0.00}";
         }
         return Task.FromResult(ret);
     }
@@ -58,7 +58,7 @@ public partial class TablesColumn
 
         // 先处理过滤再处理排序 提高性能
         var isFiltered = false;
-        if (options.Filters.Any())
+        if (options.Filters.Count != 0)
         {
             items = items.Where(options.Filters.GetFilterFunc<Foo>());
             isFiltered = true;
