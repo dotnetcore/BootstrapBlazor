@@ -133,7 +133,17 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool? ShowTips { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Obsolete("已弃用，请使用同步方法 GetTooltipText；Deprecated, please use the synchronous method GetTooltipText")]
+    [ExcludeFromCodeCoverage]
     public Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public Func<object?, string?>? GetTooltipText { get; set; }
 
     public Type PropertyType { get; } = fieldType;
 

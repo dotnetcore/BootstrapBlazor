@@ -203,7 +203,14 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    [Obsolete("已弃用，请使用同步方法 GetTooltipText；Deprecated, please use the synchronous method GetTooltipText")]
+    [ExcludeFromCodeCoverage]
     Func<object?, Task<string?>>? ITableColumn.GetTooltipTextCallback { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    Func<object?, string?>? ITableColumn.GetTooltipText { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
