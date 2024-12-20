@@ -37,6 +37,8 @@
     --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
     --bb-code-bg: #e9ecef;
+    --bb-header-select-width: 230px;
+    --bb-header-search-margin-bottom: .5rem;
 }
 
 html .search-dialog-mask {
@@ -302,6 +304,8 @@ code {
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
+        --bb-header-select-width: 130px;
+        --bb-header-search-margin-bottom: 0;
     }
 
     .header-img span {

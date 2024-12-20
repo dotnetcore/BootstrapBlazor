@@ -213,6 +213,24 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public string? SwalFooter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
+    /// </summary>
+    [Parameter]
+    public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
@@ -284,7 +302,10 @@ public partial class Select<TValue> : ISelect
     private List<SelectedItem> GetRowsByItems()
     {
         var items = new List<SelectedItem>();
-        items.AddRange(Items);
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
         items.AddRange(_children);
         return items;
     }
@@ -306,11 +327,20 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
-        Items ??= [];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        Items ??= await GetItemsAsync();
 
         // 内置对枚举类型的支持
         if (!Items.Any() && ValueType.IsEnum())
@@ -336,6 +366,16 @@ public partial class Select<TValue> : ISelect
             await RefreshVirtualizeElement();
             StateHasChanged();
         }
+    }
+
+    private async Task<IEnumerable<SelectedItem>> GetItemsAsync()
+    {
+        IEnumerable<SelectedItem>? items = null;
+        if (LookupService != null)
+        {
+            items = await LookupService.GetItemsByKeyAsync(LookupServiceKey, LookupServiceData);
+        }
+        return items ?? [];
     }
 
     /// <summary>
