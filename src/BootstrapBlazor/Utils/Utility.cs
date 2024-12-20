@@ -469,8 +469,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item.Lookup;
-        var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
+        var componentType = item.ComponentType ?? GenerateComponentType(item);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
         {
@@ -514,20 +513,22 @@ public static class Utility
         }
 
         // Nullable<bool?>
-        if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && lookup == null && item.Items == null)
+        if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && !item.IsLookup() && item.Items == null)
         {
             builder.AddAttribute(100, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
         }
 
         // Lookup
-        if (lookup != null && item.Items == null)
+        if (item.IsLookup() && item.Items == null)
         {
             builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
-            builder.AddAttribute(120, nameof(Select<SelectedItem>.Items), lookup.Clone());
+            builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), item.LookupService);
+            builder.AddAttribute(121, nameof(Select<SelectedItem>.LookupServiceKey), item.LookupServiceKey);
+            builder.AddAttribute(122, nameof(Select<SelectedItem>.LookupServiceData), item.LookupServiceData);
             builder.AddAttribute(130, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
         }
 
-        // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Data 有值 自动生成下拉框
+        // 增加非枚举类,手动设定 ComponentType 为 Select 并且 Items 有值 自动生成下拉框
         if (item.Items != null && item.ComponentType == typeof(Select<>).MakeGenericType(fieldType))
         {
             builder.AddAttribute(140, nameof(Select<SelectedItem>.Items), item.Items.Clone());
@@ -616,15 +617,13 @@ public static class Utility
     /// <summary>
     /// 通过指定类型生成组件类型
     /// </summary>
-    /// <param name="fieldType"></param>
-    /// <param name="hasRows">是否为 TextArea 组件</param>
-    /// <param name="lookup"></param>
-    /// <returns></returns>
-    private static Type GenerateComponentType(Type fieldType, bool hasRows, IEnumerable<SelectedItem>? lookup)
+    /// <param name="item"></param>
+    private static Type GenerateComponentType(IEditorItem item)
     {
+        var fieldType = item.PropertyType;
         Type? ret = null;
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
-        if (type.IsEnum || lookup != null)
+        if (type.IsEnum || item.IsLookup())
         {
             ret = typeof(Select<>).MakeGenericType(fieldType);
         }
@@ -650,7 +649,7 @@ public static class Utility
         }
         else if (fieldType == typeof(string))
         {
-            ret = hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
+            ret = item.Rows > 0 ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
     }
