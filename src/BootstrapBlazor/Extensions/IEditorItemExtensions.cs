@@ -110,4 +110,12 @@ public static class IEditorItemExtensions
     internal static bool GetIgnore(this IEditorItem col) => col.Ignore ?? false;
 
     internal static bool GetReadonly(this IEditorItem col) => col.Readonly ?? false;
+
+    /// <summary>
+    /// 获得 ILookupService 实例
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="service"></param>
+    /// <returns></returns>
+    public static ILookupService GetLookupService(this IEditorItem item, ILookupService service) => item.LookupService ?? service;
 }
