@@ -13,6 +13,13 @@ namespace BootstrapBlazor.Components;
 public static class IEditorItemExtensions
 {
     /// <summary>
+    /// 判断当前 IEditorItem 实例是否为 Lookup 类型
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    public static bool IsLookup(this IEditorItem item) => item.Lookup != null || item.LookupService != null || !string.IsNullOrEmpty(item.LookupServiceKey);
+
+    /// <summary>
     /// 判断当前 IEditorItem 实例是否可以编辑
     /// </summary>
     /// <param name="item"></param>
