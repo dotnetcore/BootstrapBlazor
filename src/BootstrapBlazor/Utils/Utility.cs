@@ -459,8 +459,8 @@ public static class Utility
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <param name="isSearch"></param>
-    /// <param name="lookUpService"></param>
-    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookUpService = null)
+    /// <param name="lookupService"></param>
+    public static void CreateComponentByFieldType(this RenderTreeBuilder builder, ComponentBase component, IEditorItem item, object model, ItemChangedType changedType = ItemChangedType.Update, bool isSearch = false, ILookupService? lookupService = null)
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
@@ -522,7 +522,7 @@ public static class Utility
         if (item.IsLookup() && item.Items == null)
         {
             builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
-            builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), item.LookupService);
+            builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), lookupService);
             builder.AddAttribute(121, nameof(Select<SelectedItem>.LookupServiceKey), item.LookupServiceKey);
             builder.AddAttribute(122, nameof(Select<SelectedItem>.LookupServiceData), item.LookupServiceData);
             builder.AddAttribute(130, nameof(Select<SelectedItem>.StringComparison), item.LookupStringComparison);
