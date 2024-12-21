@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Collections;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -12,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CheckboxList 组件基类
 /// </summary>
-public partial class CheckboxListGeneric<TValue>
+public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// 获得 组件样式
@@ -40,8 +39,22 @@ public partial class CheckboxListGeneric<TValue>
         .Build();
 
     private string? GetButtonItemClassString(SelectedItem<TValue> item) => CssBuilder.Default("btn")
-        .AddClass($"active bg-{Color.ToDescriptionString()}", item.Value != null && (Value?.Contains(item.Value) ?? false))
+        .AddClass($"active bg-{Color.ToDescriptionString()}", IsEquals(item.Value))
         .Build();
+
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
+
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
     /// 获得/设置 数据源
@@ -150,28 +163,23 @@ public partial class CheckboxListGeneric<TValue>
             Color = Color.Primary;
         }
 
-        if (Items == null)
-        {
-            var t = typeof(TValue);
-            var innerType = t.GetGenericArguments().FirstOrDefault();
-            if (innerType != null)
-            {
-                Items = innerType.ToSelectList<TValue>();
-            }
-            Items ??= [];
-        }
+        Items ??= [];
 
         _onBeforeStateChangedCallback = MaxSelectedCount > 0 ? new Func<CheckboxState, Task<bool>>(OnBeforeStateChanged) : null;
 
         // set item active
         if (Value != null)
         {
-            foreach (var item in Items)
+            var item = Items.FirstOrDefault(i => IsEquals(i.Value));
+            if (item != null)
             {
-                item.Active = Value.Contains(item.Value);
+                item.Active = true;
             }
         }
     }
+
+    private bool IsEquals(TValue? val) => Value != null && Value.Find(v => Equals(v, val)) != null;
+
     private async Task<bool> OnBeforeStateChanged(CheckboxState state)
     {
         var ret = true;
@@ -195,23 +203,21 @@ public partial class CheckboxListGeneric<TValue>
     /// <param name="v"></param>
     private async Task OnStateChanged(SelectedItem<TValue> item, bool v)
     {
-        if (item.Value == null)
-        {
-            return;
-        }
-
-        var vals = new List<TValue>();
+        item.Active = v;
+        var vals = new List<TValue?>();
         if (Value != null)
         {
             vals.AddRange(Value);
         }
-        if (v)
+
+        var val = vals.Find(i => IsEquals(item.Value));
+        if (v && val == null)
         {
             vals.Add(item.Value);
         }
         else
         {
-            vals.Remove(item.Value);
+            vals.Remove(val);
         }
 
         CurrentValue = vals;
@@ -220,10 +226,19 @@ public partial class CheckboxListGeneric<TValue>
         {
             await OnSelectedChanged(Items, CurrentValue);
         }
+        else
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
     /// 点击选择框方法
     /// </summary>
     private Task OnClick(SelectedItem<TValue> item) => OnStateChanged(item, !item.Active);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }
