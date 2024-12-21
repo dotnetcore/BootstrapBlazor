@@ -304,7 +304,7 @@ code {
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
-        --bb-header-select-width: 130px;
+        --bb-header-select-width: 196px;
         --bb-header-search-margin-bottom: 0;
     }
 
