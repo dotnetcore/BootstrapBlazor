@@ -125,6 +125,13 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["GenericTitle"]" Introduction="@Localizer["GenericIntro"]" Name="Generic">
+    <RadioListGeneric @bind-Value="@_selectedFoo" Items="@GenericItems" />
+    <section ignore>
+        <div>@_selectedFoo.Name</div>
+    </section>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
