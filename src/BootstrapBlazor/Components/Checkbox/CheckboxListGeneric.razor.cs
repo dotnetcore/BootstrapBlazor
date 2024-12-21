@@ -204,23 +204,23 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     private async Task OnStateChanged(SelectedItem<TValue> item, bool v)
     {
         item.Active = v;
-        var vals = new List<TValue?>();
+        var items = new List<TValue?>();
         if (Value != null)
         {
-            vals.AddRange(Value);
+            items.AddRange(Value);
         }
 
-        var val = vals.Find(i => IsEquals(item.Value));
+        var val = items.Find(i => IsEquals(item.Value));
         if (v && val == null)
         {
-            vals.Add(item.Value);
+            items.Add(item.Value);
         }
         else
         {
-            vals.Remove(val);
+            items.Remove(val);
         }
 
-        CurrentValue = vals;
+        CurrentValue = items;
 
         if (OnSelectedChanged != null)
         {
