@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-@* @if (IsButton)
+@if (IsButton)
 {
     <div @attributes="@AdditionalAttributes" class="radio-list-group">
         <div class="@ButtonClassString" role="group">
@@ -29,4 +29,3 @@ else
         }
     </div>
 }
- *@

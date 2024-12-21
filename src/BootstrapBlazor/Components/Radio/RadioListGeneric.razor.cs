@@ -8,8 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 单选框组合组件
 /// </summary>
-[ExcludeFromCodeCoverage]
-public partial class RadioListGeneric<TValue>
+public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
@@ -30,56 +29,106 @@ public partial class RadioListGeneric<TValue>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
-    //private string? GroupName => Id;
+    /// <summary>
+    /// 获得/设置 是否显示边框 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool ShowBorder { get; set; } = true;
 
-    //private string? ClassString => CssBuilder.Default("radio-list form-control")
-    //    .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
-    //    .AddClass("is-vertical", IsVertical)
-    //    .AddClass(CssClass).AddClass(ValidCss)
-    //    .Build();
+    /// <summary>
+    /// 获得/设置 是否为竖向排列 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsVertical { get; set; }
 
-    //private string? ButtonClassString => CssBuilder.Default("radio-list btn-group")
-    //    .AddClass("disabled", IsDisabled)
-    //    .AddClass("btn-group-vertical", IsVertical)
-    //    .AddClassFromAttributes(AdditionalAttributes)
-    //    .Build();
+    /// <summary>
+    /// 获得/设置 按钮颜色 默认为 None 未设置
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; }
 
-    //private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
-    //    .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
-    //    .Build();
+    /// <summary>
+    /// 获得/设置 数据源
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem<TValue>>? Items { get; set; }
 
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    //protected override void OnParametersSet()
-    //{
-    //    var t = NullableUnderlyingType ?? typeof(TValue);
-    //    if (t.IsEnum && Items == null)
-    //    {
-    //        Items = t.ToSelectList<TValue>((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem<TValue>(default, NullItemText) : null);
-    //    }
+    /// <summary>
+    /// 获得/设置 SelectedItemChanged 方法
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<SelectedItem<TValue>>, TValue, Task>? OnSelectedChanged { get; set; }
 
-    //    base.OnParametersSet();
-    //}
+    /// <summary>
+    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
 
-    ///// <summary>
-    ///// 点击选择框方法
-    ///// </summary>
-    //private async Task OnClick(SelectedItem<TValue> item)
-    //{
-    //    if (!IsDisabled)
-    //    {
-    //        if (OnSelectedChanged != null)
-    //        {
-    //            await OnSelectedChanged(Items, Value);
-    //        }
-    //        StateHasChanged();
-    //    }
-    //}
+    /// <summary>
+    /// 获得/设置 比较数据是否相同回调方法 默认为 null
+    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
+    /// </summary>
+    [Parameter]
+    public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
-    //private CheckboxState CheckState(SelectedItem<TValue> item) => this.Equals<TValue>(Value, item.Value) ? CheckboxState.Checked : CheckboxState.UnChecked;
+    private string? GroupName => Id;
 
-    //private RenderFragment? GetChildContent(SelectedItem<TValue> item) => ItemTemplate == null
-    //    ? null
-    //    : ItemTemplate(item);
+    private string? ClassString => CssBuilder.Default("radio-list form-control")
+        .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
+        .AddClass("is-vertical", IsVertical)
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
+
+    private string? ButtonClassString => CssBuilder.Default("radio-list btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        var t = NullableUnderlyingType ?? typeof(TValue);
+        if (t.IsEnum && Items == null)
+        {
+            Items = t.ToSelectList<TValue>((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem<TValue>(default, NullItemText) : null);
+        }
+
+        base.OnParametersSet();
+    }
+
+    /// <summary>
+    /// 点击选择框方法
+    /// </summary>
+    private async Task OnClick(SelectedItem<TValue> item)
+    {
+        if (!IsDisabled)
+        {
+            if (OnSelectedChanged != null)
+            {
+                await OnSelectedChanged(Items, Value);
+            }
+            StateHasChanged();
+        }
+    }
+
+    private CheckboxState CheckState(SelectedItem<TValue> item) => this.Equals<TValue>(Value, item.Value) ? CheckboxState.Checked : CheckboxState.UnChecked;
+
+    private RenderFragment? GetChildContent(SelectedItem<TValue> item) => ItemTemplate == null
+        ? null
+        : ItemTemplate(item);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }
