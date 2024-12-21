@@ -2426,7 +2426,9 @@
     "MaxSelectedCountIntro": "通过设置 <code>MaxSelectedCount</code> 属性控制最大可选数量，通过 <code>OnMaxSelectedCountExceed</code> 回调处理逻辑",
     "MaxSelectedCountDesc": "选中节点超过 2 个时，弹出 <code>Toast</code> 提示栏",
     "OnMaxSelectedCountExceedTitle": "可选最大数量提示",
-    "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项"
+    "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项",
+    "CheckboxListGenericTitle": "泛型支持",
+    "CheckboxListGenericIntro": "通过 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
   },
   "BootstrapBlazor.Server.Components.Samples.ColorPickers": {
     "Title": "ColorPicker 颜色拾取器",
