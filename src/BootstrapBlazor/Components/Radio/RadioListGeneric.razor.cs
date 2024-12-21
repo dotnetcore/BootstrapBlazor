@@ -120,7 +120,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
         var t = NullableUnderlyingType ?? typeof(TValue);
         if (t.IsEnum && Items == null)
         {
-            Items = t.ToSelectList<TValue>((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem<TValue>(default, NullItemText) : null);
+            Items = t.ToSelectList<TValue>((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem<TValue>(default!, NullItemText) : null);
         }
 
         Items ??= [];

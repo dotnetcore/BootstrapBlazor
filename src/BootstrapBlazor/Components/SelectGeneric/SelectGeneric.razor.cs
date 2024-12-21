@@ -566,7 +566,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
             if (item == null)
             {
-                TValue? val = default;
+                TValue val = default!;
                 if (TextConvertToValueCallback != null)
                 {
                     val = await TextConvertToValueCallback(v);

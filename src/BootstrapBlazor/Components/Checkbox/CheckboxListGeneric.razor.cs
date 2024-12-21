@@ -25,7 +25,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// <summary>
     /// 获得 组件内部 Checkbox 项目样式
     /// </summary>
-    protected string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
+    private string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
         .AddClass(CheckboxItemClass)
         .Build();
 
@@ -97,7 +97,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue?>, Task>? OnSelectedChanged { get; set; }
+    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue>, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 最多选中数量
@@ -204,23 +204,23 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     private async Task OnStateChanged(SelectedItem<TValue> item, bool v)
     {
         item.Active = v;
-        var vals = new List<TValue?>();
+        var items = new List<TValue>();
         if (Value != null)
         {
-            vals.AddRange(Value);
+            items.AddRange(Value);
         }
 
-        var val = vals.Find(i => IsEquals(item.Value));
+        var val = items.Find(i => Equals(item.Value, i));
         if (v && val == null)
         {
-            vals.Add(item.Value);
+            items.Add(item.Value);
         }
         else
         {
-            vals.Remove(val);
+            items.Remove(val!);
         }
 
-        CurrentValue = vals;
+        CurrentValue = items;
 
         if (OnSelectedChanged != null)
         {
