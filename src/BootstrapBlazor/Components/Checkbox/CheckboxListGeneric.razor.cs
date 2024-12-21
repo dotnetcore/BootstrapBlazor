@@ -25,7 +25,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// <summary>
     /// 获得 组件内部 Checkbox 项目样式
     /// </summary>
-    protected string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
+    private string? CheckboxItemClassString => CssBuilder.Default("checkbox-item")
         .AddClass(CheckboxItemClass)
         .Build();
 
@@ -210,7 +210,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
             items.AddRange(Value);
         }
 
-        var val = items.Find(i => IsEquals(item.Value));
+        var val = items.Find(i => Equals(item.Value, i));
         if (v && val == null)
         {
             items.Add(item.Value);
