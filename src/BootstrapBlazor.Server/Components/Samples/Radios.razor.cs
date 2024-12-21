@@ -91,9 +91,10 @@ public sealed partial class Radios
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GetCompleteItems(LocalizerFoo);
 
+        _selectedFoo.Name = LocalizerFoo["Foo.Name", "001"];
         GenericItems = new List<SelectedItem<Foo>>
         {
-            new() { Text = Localizer["Item1"], Value = new Foo { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] } },
+            new() { Text = Localizer["Item1"], Value = _selectedFoo },
             new() { Text = Localizer["Item2"], Value = new Foo { Id = 2, Name = LocalizerFoo["Foo.Name", "002"] } },
             new() { Text = Localizer["Item3"], Value = new Foo { Id = 3, Name = LocalizerFoo["Foo.Name", "003"] } },
         };
