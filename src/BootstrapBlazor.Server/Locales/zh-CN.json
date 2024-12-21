@@ -3026,7 +3026,9 @@
     "RadiosItem1": "选项一",
     "RadiosItem2": "选项二",
     "RadiosAdd1": "北京",
-    "RadiosAdd2": "上海"
+    "RadiosAdd2": "上海",
+    "RadioListGenericTitle": "泛型支持",
+    "RadioListGenericIntro": "通过 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate 评分",

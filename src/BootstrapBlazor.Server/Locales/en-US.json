@@ -3026,7 +3026,9 @@
     "RadiosItem1": "Option one",
     "RadiosItem2": "Option two",
     "RadiosAdd1": "Beijing",
-    "RadiosAdd2": "Shanghai"
+    "RadiosAdd2": "Shanghai",
+    "RadioListGenericTitle": "Generic List",
+    "RadioListGenericIntro": "Enable generic support through <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",
