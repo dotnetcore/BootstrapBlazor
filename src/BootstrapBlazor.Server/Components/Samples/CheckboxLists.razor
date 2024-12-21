@@ -120,6 +120,19 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["GenericTitle"]" Introduction="@Localizer["GenericIntro"]" Name="Generic">
+    <CheckboxListGeneric @bind-Value="@_selectedFoos" Items="@GenericItems" />
+    <section ignore>
+        @if (_selectedFoos != null)
+        {
+            foreach (var item in _selectedFoos)
+            {
+                <div>@item.Name</div>
+            }
+        }
+    </section>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
