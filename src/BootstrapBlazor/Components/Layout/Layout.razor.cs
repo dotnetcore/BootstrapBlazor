@@ -327,8 +327,6 @@ public partial class Layout : IHandlerException
 
     private bool _init { get; set; }
 
-    //private bool _isInteractive = true;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -343,10 +341,6 @@ public partial class Layout : IHandlerException
         }
 
         ErrorLogger?.Register(this);
-
-#if NET9_0_OR_GREATER
-        //_isInteractive = RendererInfo.IsInteractive;
-#endif
     }
 
     /// <summary>
@@ -504,6 +498,8 @@ public partial class Layout : IHandlerException
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private string? GetTargetString() => IsFixedTabHeader ? ".tabs-body" : null;
 
     /// <summary>
     /// <inheritdoc/>

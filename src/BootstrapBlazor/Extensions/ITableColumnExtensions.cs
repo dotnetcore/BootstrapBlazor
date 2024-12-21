@@ -173,7 +173,7 @@ public static class IEditItemExtensions
         return searches;
     }
 
-    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
+    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         // 获取单元格数据
         var val = col.GetItemValue(item);
@@ -237,28 +237,32 @@ public static class IEditItemExtensions
             if (col.Formatter != null)
             {
                 // 格式化回调委托
-                content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
-            }
-            else if (!string.IsNullOrEmpty(col.FormatString))
-            {
-                // 格式化字符串
-                content = Utility.Format(val, col.FormatString);
-            }
-            else if (col.PropertyType.IsDateTime())
-            {
-                content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-            }
-            else if (isEnumerableValue && val is IEnumerable v)
-            {
-                // IEnumerable<>类型数据用,连接展示
-                content = string.Join(",", GetEnumeratorDatas(v));
+                builder.OpenComponent<TableFormatContent>(40);
+                builder.AddAttribute(45, nameof(TableFormatContent.Formatter), col.Formatter);
+                builder.AddAttribute(46, nameof(TableFormatContent.Item), new TableColumnContext<TItem, object?>(item, val));
+                builder.CloseComponent();
             }
             else
             {
-                content = val?.ToString();
+                if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    // 格式化字符串
+                    content = Utility.Format(val, col.FormatString);
+                }
+                else if (col.PropertyType.IsDateTime())
+                {
+                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+                }
+                else if (val is IEnumerable<object> v)
+                {
+                    content = string.Join(",", v);
+                }
+                else
+                {
+                    content = val?.ToString();
+                }
+                builder.AddContent(30, col.RenderTooltip(content, item));
             }
-
-            builder.AddContent(30, col.RenderTooltip(content, item));
         }
     };
 
@@ -282,36 +286,40 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => async pb =>
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
     {
         if (col.GetShowTips())
         {
+            pb.OpenComponent<Tooltip>(0);
+            pb.SetKey(item);
             var tooltipText = text;
             if (col.GetTooltipTextCallback != null)
             {
-                tooltipText = await col.GetTooltipTextCallback(item);
-            }
-            pb.OpenComponent<Tooltip>(0);
-            pb.AddAttribute(1, nameof(Tooltip.Title), tooltipText);
-            pb.AddAttribute(2, "class", "text-truncate d-block");
-            if (col.IsMarkupString)
-            {
-                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
-                pb.AddAttribute(4, nameof(Tooltip.IsHtml), true);
+                pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
             }
             else
             {
-                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+                pb.AddAttribute(11, nameof(Tooltip.Title), tooltipText);
+            }
+            pb.AddAttribute(12, "class", "text-truncate d-block");
+            if (col.IsMarkupString)
+            {
+                pb.AddAttribute(13, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
+                pb.AddAttribute(14, nameof(Tooltip.IsHtml), true);
+            }
+            else
+            {
+                pb.AddAttribute(15, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
             }
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)
         {
-            pb.AddMarkupContent(3, text);
+            pb.AddMarkupContent(20, text);
         }
         else
         {
-            pb.AddContent(4, text);
+            pb.AddContent(30, text);
         }
     };
 

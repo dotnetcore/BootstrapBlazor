@@ -88,11 +88,6 @@ public class Foo
 
     #region Static methods
     /// <summary>
-    /// 随机数 Random 实例
-    /// </summary>
-    protected static readonly Random Random = new();
-
-    /// <summary>
     /// 生成Foo类,随机数据
     /// Generate Foo class, random data
     /// </summary>
@@ -103,10 +98,10 @@ public class Foo
         Id = 1,
         Name = localizer["Foo.Name", "1000"],
         DateTime = System.DateTime.Now,
-        Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-        Count = Random.Next(1, 100),
-        Complete = Random.Next(1, 100) > 50,
-        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+        Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+        Count = Random.Shared.Next(1, 100),
+        Complete = Random.Shared.Next(1, 100) > 50,
+        Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
     };
 
     /// <summary>
@@ -119,11 +114,11 @@ public class Foo
         Id = i,
         Name = localizer["Foo.Name", $"{i:d4}"],
         DateTime = System.DateTime.Now.AddDays(i - 1),
-        Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-        Count = Random.Next(1, 100),
-        Complete = Random.Next(1, 100) > 50,
-        Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle,
-        ReadonlyColumn = Random.Next(10, 50)
+        Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+        Count = Random.Shared.Next(1, 100),
+        Complete = Random.Shared.Next(1, 100) > 50,
+        Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle,
+        ReadonlyColumn = Random.Shared.Next(10, 50)
     }).ToList();
 
     /// <summary>
@@ -162,7 +157,7 @@ public class Foo
     /// 通过 Id 获取 Title
     /// </summary>
     /// <returns></returns>
-    private static string GetTitle() => Random.Next(1, 80) switch
+    private static string GetTitle() => Random.Shared.Next(1, 80) switch
     {
         >= 1 and < 10 => "Clerk",
         >= 10 and < 50 => "Engineer",

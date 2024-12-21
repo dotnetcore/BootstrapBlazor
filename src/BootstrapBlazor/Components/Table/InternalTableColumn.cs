@@ -127,7 +127,7 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// </summary>
     public string? PlaceHolder { get; set; }
 
-    public Func<object?, Task<string?>>? Formatter { get; set; }
+    public Func<object, Task<string?>>? Formatter { get; set; }
 
     public Alignment? Align { get; set; }
 

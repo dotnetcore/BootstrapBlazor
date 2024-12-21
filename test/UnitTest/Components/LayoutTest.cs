@@ -20,8 +20,14 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.Footer, CreateFooter());
+            pb.Add(a => a.ShowGotoTop, true);
         });
         Assert.Contains("Footer", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFixedTabHeader, true);
+        });
+        cut.Contains("data-bb-target=\".tabs-body\"");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFooter, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("Footer", cut.Markup));

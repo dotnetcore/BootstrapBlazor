@@ -697,7 +697,7 @@ internal class CacheManager : ICacheManager
         }
     }
 
-    public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
+    public static object GetFormatterInvoker(Type type, Func<object, Task<string?>> formatter)
     {
         var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
@@ -707,12 +707,12 @@ internal class CacheManager : ICacheManager
         });
         return invoker(formatter);
 
-        static Expression<Func<Func<object?, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
+        static Expression<Func<Func<object, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
         {
             var method = typeof(CacheManager).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
             var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
             var body = Expression.Call(null, method, exp_p1);
-            return Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1);
+            return Expression.Lambda<Func<Func<object, Task<string?>>, object>>(body, exp_p1);
         }
     }
 

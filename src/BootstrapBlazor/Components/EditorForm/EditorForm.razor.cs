@@ -191,7 +191,6 @@ public partial class EditorForm<TModel> : IShowLabel
         .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
 
-    private bool _inited;
     private List<IEditorItem>? _itemsCache;
 
     private List<IEditorItem> RenderItems
@@ -236,29 +235,6 @@ public partial class EditorForm<TModel> : IShowLabel
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
         _itemsCache = null;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            foreach (var item in RenderItems)
-            {
-                if (item.Lookup == null && !string.IsNullOrEmpty(item.LookupServiceKey))
-                {
-                    var lookupServcie = item.LookupService ?? LookupService;
-                    item.Lookup = await lookupServcie.GetItemsAsync(item.LookupServiceKey, item.LookupServiceData);
-                }
-            }
-            _inited = true;
-            StateHasChanged();
-        }
     }
 
     private List<IEditorItem> GetRenderItems()
@@ -315,7 +291,7 @@ public partial class EditorForm<TModel> : IShowLabel
         else
         {
             item.PlaceHolder ??= PlaceHolderText;
-            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value);
+            builder.CreateComponentByFieldType(this, item, Model, ItemChangedType, IsSearch.Value, item.GetLookupService(LookupService));
         }
     };
 
