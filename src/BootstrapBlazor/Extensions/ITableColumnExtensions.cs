@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using System.Collections;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -175,57 +174,15 @@ public static class IEditItemExtensions
 
     internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
-        // 获取单元格数据
         var val = col.GetItemValue(item);
-        // 当前类型是否为IEnumerable<>类型
-        var isEnumerableValue = (Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType).IsGenericType && val is IEnumerable;
-
-        // 将IEnumerable<>转换为List<object>方法
-        List<object> GetEnumeratorDatas(IEnumerable enumerableObj)
-        {
-            var enumerator = enumerableObj.GetEnumerator();
-            var list = new List<object>();
-            while (enumerator.MoveNext())
-            {
-                list.Add(enumerator.Current);
-            }
-            return list;
-        }
-
         if (col.Lookup != null && val != null)
         {
-            // 如果存在Lookup数据转化 Lookup 数据源
-            string? content = val.ToString();
-
-            if (isEnumerableValue && val is IEnumerable v)
+            // 转化 Lookup 数据源
+            var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
+            if (lookupVal != null)
             {
-                // 如果是 IEnumerable<> 类型数据，则先转化为 List<object> 类型
-                var enumeratorDatas = GetEnumeratorDatas(v);
-
-                // 根据 List<object> 数据获取匹配数据
-                var lookupVals = col.Lookup.Where(l => enumeratorDatas.Any(v1 => l.Value.Equals(v1?.ToString(), col.LookupStringComparison)));
-
-                if (lookupVals.Any())
-                {
-                    //如果有匹配到数据，则将匹配的文本用,连接显示
-                    content = string.Join(",", lookupVals.Select(l => l.Text));
-                }
-                else
-                {
-                    //如果未匹配到数据，则直接将原数据用,连接显示
-                    content = string.Join(",", enumeratorDatas);
-                }
+                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
             }
-            else
-            {
-                // 非IEnumerable<>类型数据直接通过ToString进行匹配
-                var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
-                if (lookupVal != null)
-                {
-                    content = lookupVal.Text;
-                }
-            }
-            builder.AddContent(10, col.RenderTooltip(content, item));
         }
         else if (val is bool v1)
         {
