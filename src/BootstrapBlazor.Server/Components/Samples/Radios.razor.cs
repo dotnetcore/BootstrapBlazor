@@ -3,9 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using DocumentFormat.OpenXml.Office2010.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
-
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -108,7 +105,6 @@ public sealed partial class Radios
         BindLogger.Log($"{Localizer["RadiosLog1"]} {value?.Value} {Localizer["RadiosLog1"]} {value?.Text}");
         return Task.CompletedTask;
     }
-
 
     class IconSelectedItem : SelectedItem
     {
