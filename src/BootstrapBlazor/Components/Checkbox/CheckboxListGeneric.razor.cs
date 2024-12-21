@@ -97,7 +97,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue>, Task>? OnSelectedChanged { get; set; }
+    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue?>, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 最多选中数量
