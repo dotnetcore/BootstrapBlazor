@@ -2376,9 +2376,7 @@
     "StatusText2": "Not selected",
     "StatusText3": "Indeterminate",
     "Checkbox2Text": "Two-way binding",
-    "Checkbox3Text": "Handwritten labels",
-    "RadioListGenericTitle": "Generic List",
-    "RadioListGenericIntro": "Enable generic support through <code>SelectedItem&lt;TValue&gt;</code>"
+    "Checkbox3Text": "Handwritten labels"
   },
   "BootstrapBlazor.Server.Components.Samples.CheckboxLists": {
     "Title": "CheckboxList",
@@ -2390,13 +2388,13 @@
     "NormalTips3": "Get the changed item instance through the <code>onSelectedChanged</code> callback method",
     "NormalTips4": "Enable label tooltip by <code>ShowLabelTooltip=\"true\"</code>",
     "ValidateFormTitle": "Client Validation",
-    "ValidateFormIntro": "Built in validateform",
+    "ValidateFormIntro": "Built in <code>ValidateForm</code>",
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
     "ValidateFormTips2": "In this example, the <code>Name</code> field of the binding model <code>binditem</code> is automatically changed by checking the option",
     "ValidateFormTips3": "Because it is built into the <code>ValidateForm</code> form, in this example, <code>RequiredAttribute</code> required for verification is added. When all options are cancelled, the verification result will be prompted",
     "ShowLabelTitle": "Bidirectional binding collection",
     "ShowLabelIntro": "Binding values are collections",
-    "ShowLabelTip": "Tvalue is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
+    "ShowLabelTip": "<code>TValue</code> is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
     "EnumTitle": "Bidirectional binding enumeration",
     "EnumIntro": "The binding value is enumeration",
     "EnumTip": "When <code>CheckboxList</code> binds an enumeration set, <code>Items</code> does not need to be specified, <code>Items</code> will be automatically set to all values in the enumeration. If you need to bind some values, please provide the enumeration set <code>Items</code>",
@@ -2428,7 +2426,9 @@
     "MaxSelectedCountIntro": "Control the maximum number of selectable items by setting the <code>MaxSelectedCount</code> property, and handle the logic through the <code>OnMaxSelectedCountExceed</code> callback",
     "MaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up",
     "OnMaxSelectedCountExceedTitle": "Maximum Info",
-    "OnMaxSelectedCountExceedContent": "You can select at most {0} items"
+    "OnMaxSelectedCountExceedContent": "You can select at most {0} items",
+    "CheckboxListGenericTitle": "Generic List",
+    "CheckboxListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.ColorPickers": {
     "Title": "ColorPicker",
@@ -2912,7 +2912,7 @@
     "MultiSelectIsSingleLineDescription": "When there are too many candidates, the component is laid out horizontally, and a horizontal scroll bar is displayed when the mouse is hovering over the component for data scrolling.",
     "MultiSelectBindingStringTitle": "A two-way binding value string",
     "MultiSelectBindingStringIntro": "Bind a comma string-splitting string",
-    "MultiSelectBindingStringDescription": "<div>The <code>mutltiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
+    "MultiSelectBindingStringDescription": "<div>The <code>MultiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
     "MultiSelectBindingCollectionTitle": "A collection of bidirectional binding values",
     "MultiSelectBindingCollectionIntro": "Bind a generic <code>a collection of IEnumerable<T></code>",
     "MultiSelectBindingCollectionDescription": "In this example, the <code>SelectArrayValues</code> collection variable by binding bidirectionally, and selects to change its value through the drop-down box",
@@ -3028,7 +3028,7 @@
     "RadiosAdd1": "Beijing",
     "RadiosAdd2": "Shanghai",
     "RadioListGenericTitle": "Generic List",
-    "RadioListGenericIntro": "Enable generic support through <code>SelectedItem&lt;TValue&gt;</code>"
+    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",
