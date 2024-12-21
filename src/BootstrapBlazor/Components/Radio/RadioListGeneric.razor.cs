@@ -110,13 +110,30 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     /// </summary>
     protected override void OnParametersSet()
     {
+        base.OnParametersSet();
+
+        if (IsButton && Color == Color.None)
+        {
+            Color = Color.Primary;
+        }
+
         var t = NullableUnderlyingType ?? typeof(TValue);
         if (t.IsEnum && Items == null)
         {
             Items = t.ToSelectList<TValue>((NullableUnderlyingType != null && IsAutoAddNullItem) ? new SelectedItem<TValue>(default, NullItemText) : null);
         }
 
-        base.OnParametersSet();
+        Items ??= [];
+
+        // set item active
+        if (Value != null)
+        {
+            var item = Items.FirstOrDefault(i => Equals(Value, i.Value));
+            if (item == null)
+            {
+                Value = default;
+            }
+        }
     }
 
     /// <summary>
