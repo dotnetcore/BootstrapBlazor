@@ -58,8 +58,7 @@ public sealed partial class Radios
     [NotNull]
     private IEnumerable<SelectedItem<Foo>>? GenericItems { get; set; }
 
-    [NotNull]
-    private Foo? _selectedFoo = default;
+    private Foo _selectedFoo = new() { Id = 1 };
 
     /// <summary>
     /// OnInitialized 方法
@@ -80,11 +79,11 @@ public sealed partial class Radios
             new("2", Localizer["RadiosItem2"]) { IsDisabled = true }
         };
 
-        Items = new SelectedItem[]
-        {
+        Items =
+        [
             new("1", Localizer["RadiosAdd1"]),
             new("2", Localizer["RadiosAdd2"])
-        };
+        ];
 
         IconDemoValues = new List<IconSelectedItem>()
         {
@@ -95,14 +94,12 @@ public sealed partial class Radios
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GetCompleteItems(LocalizerFoo);
 
-        GenericItems = new List<SelectedItem<Foo>>()
+        GenericItems = new List<SelectedItem<Foo>>
         {
-            new() { Text = Localizer["item1"], Value = new Foo() { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] } },
-            new() { Text = Localizer["item2"], Value = new Foo() { Id = 2, Name = LocalizerFoo["Foo.Name", "002"] } },
-            new() { Text = Localizer["item3"], Value = new Foo() { Id = 3, Name = LocalizerFoo["Foo.Name", "003"] } },
+            new() { Text = Localizer["Item1"], Value = new Foo { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] } },
+            new() { Text = Localizer["Item2"], Value = new Foo { Id = 2, Name = LocalizerFoo["Foo.Name", "002"] } },
+            new() { Text = Localizer["Item3"], Value = new Foo { Id = 3, Name = LocalizerFoo["Foo.Name", "003"] } },
         };
-
-        _selectedFoo = new Foo() { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] };
     }
 
     private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
@@ -115,7 +112,7 @@ public sealed partial class Radios
 
     class IconSelectedItem : SelectedItem
     {
-        public string? Icon { get; set; }
+        public string? Icon { get; init; }
     }
 
     private AttributeItem[] GetAttributes() =>
