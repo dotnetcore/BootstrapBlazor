@@ -78,12 +78,12 @@ public class CheckboxListGenericTest : BootstrapBlazorTestBase
     [Fact]
     public async Task NullItem_Ok()
     {
-        var items = new List<SelectedItem<Foo>>()
+        var items = new List<SelectedItem<Foo?>>()
         {
             new(null, "Select ..."),
             new(new Foo() { Id = 2, Name = "Test2" }, "Test 2")
         };
-        var cut = Context.RenderComponent<CheckboxListGeneric<Foo>>(pb =>
+        var cut = Context.RenderComponent<CheckboxListGeneric<Foo?>>(pb =>
         {
             pb.Add(a => a.Items, items);
         });

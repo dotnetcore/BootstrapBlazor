@@ -13,14 +13,14 @@ public class SelectedItem<T>
     /// <summary>
     /// 构造函数
     /// </summary>
-    public SelectedItem() { }
+    public SelectedItem() { Value = default!; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="value"></param>
     /// <param name="text"></param>
-    public SelectedItem(T? value, string text)
+    public SelectedItem(T value, string text)
     {
         Value = value;
         Text = text;
@@ -34,7 +34,7 @@ public class SelectedItem<T>
     /// <summary>
     /// 获得/设置 选项值
     /// </summary>
-    public T? Value { get; set; }
+    public T Value { get; set; }
 
     /// <summary>
     /// 获得/设置 是否选中

@@ -97,7 +97,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue?>, Task>? OnSelectedChanged { get; set; }
+    public Func<IEnumerable<SelectedItem<TValue>>, List<TValue>, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 最多选中数量
@@ -204,7 +204,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     private async Task OnStateChanged(SelectedItem<TValue> item, bool v)
     {
         item.Active = v;
-        var items = new List<TValue?>();
+        var items = new List<TValue>();
         if (Value != null)
         {
             items.AddRange(Value);
@@ -217,7 +217,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
         }
         else
         {
-            items.Remove(val);
+            items.Remove(val!);
         }
 
         CurrentValue = items;
