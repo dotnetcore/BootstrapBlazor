@@ -322,7 +322,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
             // 此处 context 为行数据
-            if (this is TableTemplateColumn<TItem> col)
+            if (this is TableTemplateColumn<TItem>)
             {
                 builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, default)));
             }

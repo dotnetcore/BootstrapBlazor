@@ -139,7 +139,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// 点击选择框方法
     /// </summary>
-    private async Task OnClick(SelectedItem<TValue?> item)
+    private async Task OnClick(SelectedItem<TValue> item)
     {
         if (!IsDisabled)
         {
