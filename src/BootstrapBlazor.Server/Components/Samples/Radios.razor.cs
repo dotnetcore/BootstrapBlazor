@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -52,6 +55,12 @@ public sealed partial class Radios
         return Task.CompletedTask;
     }
 
+    [NotNull]
+    private IEnumerable<SelectedItem<Foo>>? GenericItems { get; set; }
+
+    [NotNull]
+    private Foo? _selectedFoo = default;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -85,6 +94,15 @@ public sealed partial class Radios
 
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GetCompleteItems(LocalizerFoo);
+
+        GenericItems = new List<SelectedItem<Foo>>()
+        {
+            new() { Text = Localizer["item1"], Value = new Foo() { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] } },
+            new() { Text = Localizer["item2"], Value = new Foo() { Id = 2, Name = LocalizerFoo["Foo.Name", "002"] } },
+            new() { Text = Localizer["item3"], Value = new Foo() { Id = 3, Name = LocalizerFoo["Foo.Name", "003"] } },
+        };
+
+        _selectedFoo = new Foo() { Id = 1, Name = LocalizerFoo["Foo.Name", "001"] };
     }
 
     private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)

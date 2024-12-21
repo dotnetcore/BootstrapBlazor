@@ -30,6 +30,12 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示边框 默认为 true
     /// </summary>
     [Parameter]
@@ -58,7 +64,7 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<SelectedItem<TValue>>, TValue, Task>? OnSelectedChanged { get; set; }
+    public Func<TValue, Task>? OnSelectedChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/><code><br /></code>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ModelEqualityComparer"/> 参数自定义判断 <code><br /></code>数据模型支持联合主键
@@ -74,6 +80,13 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     [Parameter]
     public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
+    /// <summary>
+    /// 获得 当前选项是否被禁用
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    private bool GetDisabledState(SelectedItem<TValue> item) => IsDisabled || item.IsDisabled;
+
     private string? GroupName => Id;
 
     private string? ClassString => CssBuilder.Default("radio-list form-control")
@@ -88,8 +101,8 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
-        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
+    private string? GetButtonItemClassString(SelectedItem<TValue> item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", Equals(Value, item.Value))
         .Build();
 
     /// <summary>
@@ -109,13 +122,14 @@ public partial class RadioListGeneric<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// 点击选择框方法
     /// </summary>
-    private async Task OnClick(SelectedItem<TValue> item)
+    private async Task OnClick(SelectedItem<TValue?> item)
     {
         if (!IsDisabled)
         {
+            CurrentValue = item.Value;
             if (OnSelectedChanged != null)
             {
-                await OnSelectedChanged(Items, Value);
+                await OnSelectedChanged(Value);
             }
             StateHasChanged();
         }
