@@ -58,7 +58,7 @@ public class SelectOptionGeneric<TValue> : ComponentBase
         Container?.Add(ToSelectedItem());
     }
 
-    private SelectedItem<TValue> ToSelectedItem() => new(Value, Text ?? "")
+    private SelectedItem<TValue> ToSelectedItem() => new(Value!, Text ?? "")
     {
         Active = Active,
         GroupName = GroupName ?? "",

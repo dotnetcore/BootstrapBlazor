@@ -128,7 +128,7 @@ public interface ITableColumn : IEditorItem
     /// <summary>
     /// 获得/设置 列格式化回调委托 <see cref="TableColumnContext{TItem, TValue}"/>
     /// </summary>
-    Func<object?, Task<string?>>? Formatter { get; set; }
+    Func<object, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 文字对齐方式 默认为 null 使用 Alignment.None

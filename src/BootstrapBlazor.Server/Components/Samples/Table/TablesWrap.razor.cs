@@ -13,7 +13,7 @@ public partial class TablesWrap
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private IEnumerable<Foo>? CellItems { get; set; }
@@ -38,14 +38,14 @@ public partial class TablesWrap
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
     }
 
-    private async Task<string?> GetTooltipTextCallback(object? v)
+    private static async Task<string?> GetTooltipTextCallback(object? v)
     {
-        await Task.Delay(0);
+        await Task.Delay(5);
 
         var ret = string.Empty;
         if (v is Foo foo)
         {
-            ret = $"{foo.Name}-{DateTime.Now}";
+            ret = $"{foo.Name}-{foo.Address}";
         }
         return ret;
     }

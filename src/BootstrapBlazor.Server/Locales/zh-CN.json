@@ -2388,13 +2388,13 @@
     "NormalTips3": "通过 <code>OnSelectedChanged</code> 回调方法获取改变项实例",
     "NormalTips4": "通过 <code>ShowLabelTooltip=\"true\"</code> 开启标签提示功能",
     "ValidateFormTitle": "客户端验证",
-    "ValidateFormIntro": "内置于 ValidateForm 中使用",
+    "ValidateFormIntro": "内置于 <code>ValidateForm</code> 中使用",
     "ValidateFormTips1": "可以通过改变窗口大小，体验自适应布局",
     "ValidateFormTips2": "本例中绑定模型 <code>BindItem</code> 的 <code>Name</code> 字段，通过勾选项自动更改模型数据",
     "ValidateFormTips3": "由于内置于 <code>ValidateForm</code> 表单内，本例中增加了 <code>RequiredAttribute</code> 必选要求验证，当取消所有选项后提示验证结果",
     "ShowLabelTitle": "双向绑定集合",
     "ShowLabelIntro": "绑定值为集合",
-    "ShowLabelTip": "TValue 设置为 <code>IEnumerable&lt;int&gt;</code> 泛型集合，绑定集合的 <code>ValueField</code> 指定字段必须与泛型类型一致",
+    "ShowLabelTip": "<code>TValue</code> 设置为 <code>IEnumerable&lt;int&gt;</code> 泛型集合，绑定集合的 <code>ValueField</code> 指定字段必须与泛型类型一致",
     "EnumTitle": "双向绑定枚举",
     "EnumIntro": "绑定值为枚举",
     "EnumTip": "当 <code>CheckboxList</code> 绑定一个枚举集合时，<code>Items</code> 不需要指定，<code>Items</code> 会被自动设置成枚举里面所有的值，如果需要绑定部分值时，请自行提供枚举集合 <code>Items</code>",
@@ -2426,7 +2426,9 @@
     "MaxSelectedCountIntro": "通过设置 <code>MaxSelectedCount</code> 属性控制最大可选数量，通过 <code>OnMaxSelectedCountExceed</code> 回调处理逻辑",
     "MaxSelectedCountDesc": "选中节点超过 2 个时，弹出 <code>Toast</code> 提示栏",
     "OnMaxSelectedCountExceedTitle": "可选最大数量提示",
-    "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项"
+    "OnMaxSelectedCountExceedContent": "最多只能选择 {0} 项",
+    "CheckboxListGenericTitle": "泛型支持",
+    "CheckboxListGenericIntro": "通过 <code>CheckboxListGeneric</code> 组件和 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
   },
   "BootstrapBlazor.Server.Components.Samples.ColorPickers": {
     "Title": "ColorPicker 颜色拾取器",
@@ -2910,7 +2912,7 @@
     "MultiSelectIsSingleLineDescription": "候选项过多时，组件横向布局，鼠标悬浮组件上时显示横向滚动条进行数据滚动",
     "MultiSelectBindingStringTitle": "双向绑定值字符串",
     "MultiSelectBindingStringIntro": "绑定一个逗号字符串分割的字符串",
-    "MultiSelectBindingStringDescription": "<div><code>MutltiSelect</code> 组件数据源 <code>Items</code> 与 <b>选中值</b> <code>SelectedItemsValue</code> 均支持双向绑定；本例中通过双向绑定 <code>SelectedItemsValue</code> 变量，通过下拉框选择更改其值</div>",
+    "MultiSelectBindingStringDescription": "<div><code>MultiSelect</code> 组件数据源 <code>Items</code> 与 <b>选中值</b> <code>SelectedItemsValue</code> 均支持双向绑定；本例中通过双向绑定 <code>SelectedItemsValue</code> 变量，通过下拉框选择更改其值</div>",
     "MultiSelectBindingCollectionTitle": "双向绑定值集合",
     "MultiSelectBindingCollectionIntro": "绑定一个泛型 <code>IEnumerable<T></code> 集合",
     "MultiSelectBindingCollectionDescription": "本例中通过双向绑定 <code>SelectedArrayValues</code> 集合变量，通过下拉框选择更改其值",
@@ -3024,7 +3026,9 @@
     "RadiosItem1": "选项一",
     "RadiosItem2": "选项二",
     "RadiosAdd1": "北京",
-    "RadiosAdd2": "上海"
+    "RadiosAdd2": "上海",
+    "RadioListGenericTitle": "泛型支持",
+    "RadioListGenericIntro": "通过使用 <code>RadioListGeneric</code> 组件配合 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate 评分",
@@ -5139,7 +5143,7 @@
     "TablesEditDescription": "常用于单表维护，通过属性配置实现简单的增、删、改、查、排序、过滤、搜索等常用功能，通过 <code>Template</code> 的高级用法能实现非常复杂的业务需求功能",
     "TablesEditItemsTitle": "使用集合作为数据源实现编辑功能",
     "TablesEditItemsIntro": "设置 <code>Items</code> 作为数据源，无需设置 <code>OnSaveAsync</code> <code>OnDeleteAsync</code> 回调委托使用内置处理逻辑进行更新与删除功能",
-    "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，必须使用双向绑定 <code>@bind-Items</code> 否则内置编辑功能无法正常工作",
+    "TablesEditItemsDescription": "设置 <code>Items</code> 作为数据源，必须使用双向绑定 <code>@bind-Items</code>, 同时 <code>TItem</code> 泛型约束的类实例，如本例中的 <code>Foo</code> ，需要正确配置 <code>[Key]</code> 标签，否则内置编辑功能无法正常工作",
     "TablesEditTemplateTitle": "具有单表维护功能的表格",
     "TablesEditTemplateIntro": "通过设置 <code>EditTemplate</code> 自定义编辑弹窗，如果属性需要联动时必须像本例这样封装成一个独立的组件再放置到模板中",
     "TablesEditTemplateDescription": "本例中设置 <code>Count</code> 右侧对齐，<code>Complete</code> 列设置为居中对齐，布尔类型列自动渲染成 <code>Switch</code> 组件，点击 <code>学历</code> 下拉框时右侧只读组件描述信息联动更新，<b>此功能必须封装成独立组件</b>",

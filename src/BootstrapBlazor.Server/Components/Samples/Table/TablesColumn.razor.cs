@@ -13,7 +13,7 @@ public partial class TablesColumn
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -41,13 +41,13 @@ public partial class TablesColumn
     /// </summary>
     /// <param name="d"></param>
     /// <returns></returns>
-    private static Task<string> IntFormatter(object? d)
+    private static Task<string?> IntFormatter(object d)
     {
-        var ret = "";
+        string? ret = null;
         if (d is TableColumnContext<Foo, object?> data && data.Value != null)
         {
             var val = (int)data.Value;
-            ret = val.ToString("0.00");
+            ret = $"Sales: {val:0.00}";
         }
         return Task.FromResult(ret);
     }
@@ -58,7 +58,7 @@ public partial class TablesColumn
 
         // 先处理过滤再处理排序 提高性能
         var isFiltered = false;
-        if (options.Filters.Any())
+        if (options.Filters.Count != 0)
         {
             items = items.Where(options.Filters.GetFilterFunc<Foo>());
             isFiltered = true;

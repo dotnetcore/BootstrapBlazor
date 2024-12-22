@@ -15,7 +15,7 @@ public partial class TablesFooter
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private IEnumerable<Foo>? Items { get; set; }

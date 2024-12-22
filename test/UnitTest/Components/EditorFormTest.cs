@@ -443,6 +443,9 @@ public class EditorFormTest : BootstrapBlazorTestBase
         var lookup = await lookupService.GetItemsAsync("FooLookup", "");
         Assert.NotNull(lookup);
         Assert.Equal(lookup.Count(), select.Instance.Items.Count());
+
+        lookup = await lookupService.GetItemsAsync(null, "");
+        Assert.Null(lookup);
     }
 
     [Fact]

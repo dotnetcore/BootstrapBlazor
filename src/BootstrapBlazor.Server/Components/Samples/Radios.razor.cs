@@ -52,6 +52,11 @@ public sealed partial class Radios
         return Task.CompletedTask;
     }
 
+    [NotNull]
+    private IEnumerable<SelectedItem<Foo>>? GenericItems { get; set; }
+
+    private Foo _selectedFoo = new() { Id = 1 };
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -71,11 +76,11 @@ public sealed partial class Radios
             new("2", Localizer["RadiosItem2"]) { IsDisabled = true }
         };
 
-        Items = new SelectedItem[]
-        {
+        Items =
+        [
             new("1", Localizer["RadiosAdd1"]),
             new("2", Localizer["RadiosAdd2"])
-        };
+        ];
 
         IconDemoValues = new List<IconSelectedItem>()
         {
@@ -85,6 +90,14 @@ public sealed partial class Radios
 
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GetCompleteItems(LocalizerFoo);
+
+        _selectedFoo.Name = LocalizerFoo["Foo.Name", "001"];
+        GenericItems = new List<SelectedItem<Foo>>
+        {
+            new() { Text = Localizer["Item1"], Value = _selectedFoo },
+            new() { Text = Localizer["Item2"], Value = new Foo { Id = 2, Name = LocalizerFoo["Foo.Name", "002"] } },
+            new() { Text = Localizer["Item3"], Value = new Foo { Id = 3, Name = LocalizerFoo["Foo.Name", "003"] } },
+        };
     }
 
     private Task OnItemChanged(IEnumerable<SelectedItem> values, SelectedItem val)
@@ -94,10 +107,9 @@ public sealed partial class Radios
         return Task.CompletedTask;
     }
 
-
     class IconSelectedItem : SelectedItem
     {
-        public string? Icon { get; set; }
+        public string? Icon { get; init; }
     }
 
     private AttributeItem[] GetAttributes() =>

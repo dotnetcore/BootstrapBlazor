@@ -39,6 +39,8 @@
     --bb-code-bg: #e9ecef;
     --bb-mb-3: 1rem;
     --bb-pre-margin-bottom: 1rem;
+    --bb-header-select-width: 230px;
+    --bb-header-search-margin-bottom: .5rem;
 }
 
 html .search-dialog-mask {
@@ -313,6 +315,8 @@ code {
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
+        --bb-header-select-width: 196px;
+        --bb-header-search-margin-bottom: 0;
     }
 
     .header-img span {

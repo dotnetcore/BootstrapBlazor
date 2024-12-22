@@ -95,7 +95,7 @@ class CodeSnippetService
             var client = Factory.CreateClient();
             client.Timeout = TimeSpan.FromSeconds(5);
             client.BaseAddress = new Uri($"{ServerUrl}/api/");
-            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Components/Samples/{fileName}");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Server/Components/Samples/{fileName}");
         }
         else
         {
@@ -109,8 +109,8 @@ class CodeSnippetService
     {
         string? payload;
         var file = IsDevelopment
-            ? $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\Components\\Samples\\{fileName}"
-            : $"{SourceCodePath}BootstrapBlazor.Shared\\Components\\Samples\\{fileName}";
+            ? $"{ContentRootPath}\\..\\BootstrapBlazor.Server\\Components\\Samples\\{fileName}"
+            : $"{SourceCodePath}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
         if (!OperatingSystem.IsWindows())
         {
             file = file.Replace('\\', '/');

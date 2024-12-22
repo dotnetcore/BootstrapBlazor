@@ -115,7 +115,7 @@ public partial class Translator
         var path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor/Locales");
         Search(path);
 
-        path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor.Shared/Locales");
+        path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor.Server/Locales");
         Search(path);
 
         return ret;

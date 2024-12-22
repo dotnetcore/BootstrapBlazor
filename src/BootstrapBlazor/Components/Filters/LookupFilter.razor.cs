@@ -96,9 +96,9 @@ public partial class LookupFilter
         await base.OnParametersSetAsync();
 
         var items = new List<SelectedItem>
-            {
-                new("", Localizer["EnumFilter.AllText"].Value)
-            };
+        {
+            new("", Localizer["EnumFilter.AllText"].Value)
+        };
         if (Lookup != null)
         {
             items.AddRange(Lookup);

@@ -13,7 +13,7 @@ public partial class TablesColumnList
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
@@ -26,23 +26,6 @@ public partial class TablesColumnList
 
     [NotNull]
     private Table<Foo>? TableColumnVisible { get; set; }
-
-    /// <summary>
-    /// IntFormatter
-    /// </summary>
-    /// <param name = "d"></param>
-    /// <returns></returns>
-    private static Task<string> IntFormatter(object? d)
-    {
-        var ret = "";
-        if (d is TableColumnContext<Foo, object?> data && data.Value != null)
-        {
-            var val = (int)data.Value;
-            ret = val.ToString("0.00");
-        }
-
-        return Task.FromResult(ret);
-    }
 
     /// <summary>
     /// OnInitialized 方法
