@@ -4,7 +4,7 @@ echo "clean env"
 
 sudo rm -fr BootstrapBlazor
 
-sudo rm -fr /usr/local/ba
+sudo rm -fr /usr/local/ba/blazor
 
 echo "apt update"
 sudo apt update
