@@ -23,6 +23,8 @@ public partial class ThemeChooser
     [NotNull]
     private IStringLocalizer<ThemeChooser>? Localizer { get; set; }
 
+    private readonly List<string> _currentTheme = [];
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -36,13 +38,14 @@ public partial class ThemeChooser
         WebsiteOption.CurrentValue.CurrentTheme = "bootstrap";
     }
 
-    private async Task OnClickTheme(SelectedItem item)
+    private void OnClickTheme(SelectedItem item)
     {
+        _currentTheme.Clear();
         WebsiteOption.CurrentValue.CurrentTheme = item.Value;
         var theme = WebsiteOption.CurrentValue.Themes.Find(i => i.Key == item.Value);
-        if (theme != null)
+        if (theme is { Files: not null })
         {
-            await InvokeVoidAsync("updateTheme", [theme.Files]);
+            _currentTheme.AddRange(theme.Files);
         }
     }
 
