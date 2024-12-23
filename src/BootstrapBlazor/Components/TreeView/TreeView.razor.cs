@@ -838,31 +838,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            _rows ??= GetTreeRows(Items);
+            _rows ??= Items.ToFlat<TItem>().ToList();
             return _rows;
         }
-    }
-
-    /// <summary>
-    /// 将带层次结构的数据转换为扁平化数据
-    /// </summary>
-    /// <param name="items"></param>
-    /// <returns></returns>
-    private static List<TreeViewItem<TItem>> GetTreeRows(List<TreeViewItem<TItem>> items)
-    {
-        var rows = new List<TreeViewItem<TItem>>();
-        if (items != null)
-        {
-            foreach (var item in items)
-            {
-                rows.Add(item);
-                if (item.IsExpand)
-                {
-                    rows.AddRange(GetTreeRows(item.Items));
-                }
-            }
-        }
-        return rows;
     }
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
