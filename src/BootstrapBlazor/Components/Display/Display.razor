@@ -8,7 +8,7 @@
 }
 @if (ShowTooltip)
 {
-    <Tooltip Title="@CurrentTextAsString">
+    <Tooltip Title="@_displayText">
         @RenderContent
     </Tooltip>
 }
@@ -19,5 +19,5 @@ else
 
 @code {
     RenderFragment RenderContent =>
-    @<div @attributes="AdditionalAttributes" class="@ClassString">@CurrentTextAsString</div>;
+    @<div @attributes="AdditionalAttributes" class="@ClassString">@_displayText</div>;
 }

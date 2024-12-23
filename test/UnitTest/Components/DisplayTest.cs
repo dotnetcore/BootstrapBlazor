@@ -48,6 +48,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
+            pb.Add(a => a.LookupService, null);
             pb.Add(a => a.LookupServiceKey, "FooLookup");
             pb.Add(a => a.LookupServiceData, true);
             pb.Add(a => a.Value, ["v1", "v2"]);
