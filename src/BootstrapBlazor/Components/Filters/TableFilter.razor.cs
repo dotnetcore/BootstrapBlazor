@@ -256,6 +256,4 @@ public partial class TableFilter : IFilter
             _count--;
         }
     }
-
-    private bool IsLookup => Column.Lookup != null || !string.IsNullOrEmpty(Column.LookupServiceKey);
 }
