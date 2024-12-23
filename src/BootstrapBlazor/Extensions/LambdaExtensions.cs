@@ -817,4 +817,78 @@ public static class LambdaExtensions
         }
         return ret;
     }
+
+    /// <summary>
+    /// 数组转成字符串表达式
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <returns></returns>
+    /// <remarks><code><![CDATA[string.Join<T>(",", IEnumerable<T>)]]></code></remarks>
+    public static Expression<Func<TValue, string>> EnumerableConvertToStringLambda<TValue>()
+    {
+        var typeArguments = typeof(TValue).GenericTypeArguments;
+        var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
+
+        var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(typeArguments);
+        var body = Expression.Call(method, Expression.Constant(","), param);
+        return Expression.Lambda<Func<TValue, string>>(body, param);
+    }
+
+    /// <summary>
+    /// 泛型集合转换成 <![CDATA[IEnumerable<string>]]> 方法
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <remarks><code><![CDATA[IEnumerable<T>]]> to <![CDATA[IEnumerable<string>]]></code></remarks>
+    /// <returns></returns>
+    public static Expression<Func<TValue, IEnumerable<string>>> ConvertToStringEnumerableLambda<TValue>()
+    {
+        var typeArguments = typeof(TValue).GenericTypeArguments;
+        var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
+
+        var method = typeof(LambdaExtensions)
+            .GetMethod(nameof(Cast), BindingFlags.NonPublic | BindingFlags.Static)!
+            .MakeGenericMethod(typeArguments);
+        var body = Expression.Call(method, param);
+        return Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param);
+    }
+
+    private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
+
+    /// <summary>
+    /// 数组转成字符串表达式
+    /// </summary>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="typeResolver"></param>
+    /// <remarks><code><![CDATA[string.Join<T>(",", Array)]]></code></remarks>
+    public static Expression<Func<TValue, string>> ArrayConvertToStringLambda<TValue>(Func<Assembly?, string, bool, Type?>? typeResolver)
+    {
+        Expression<Func<TValue, string>> ret = _ => "";
+        var param = Expression.Parameter(typeof(Array));
+        var targetType = typeof(TValue).UnderlyingSystemType;
+        var methodType = ResolveArrayType(targetType, typeResolver);
+        if (methodType != null)
+        {
+            // 调用 string.Join<T>(",", IEnumerable<T>) 方法
+            var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(methodType);
+            var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param, targetType));
+            ret = Expression.Lambda<Func<TValue, string>>(body, param);
+        }
+        return ret;
+    }
+
+    private static Type? ResolveArrayType(Type targetType, Func<Assembly?, string, bool, Type?>? typeResolver)
+    {
+        Type? t = null;
+        var typeName = targetType.FullName;
+        if (!string.IsNullOrEmpty(typeName))
+        {
+            typeName = typeName.Replace("[]", "");
+            if (typeName.Contains('+'))
+            {
+                typeName = typeName.Split('+', StringSplitOptions.RemoveEmptyEntries).Last();
+            }
+            t = Type.GetType(typeName, null, typeResolver, false, true);
+        }
+        return t;
+    }
 }

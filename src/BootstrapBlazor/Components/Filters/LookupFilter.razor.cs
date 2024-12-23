@@ -105,7 +105,7 @@ public partial class LookupFilter
         }
         else if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            var lookupService = LookupService ?? InjectLookupService;
+            var lookupService = GetLookupService();
             var lookup = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
             if (lookup != null)
             {
@@ -114,6 +114,8 @@ public partial class LookupFilter
         }
         Items = items;
     }
+
+    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
 
     /// <summary>
     /// <inheritdoc/>
