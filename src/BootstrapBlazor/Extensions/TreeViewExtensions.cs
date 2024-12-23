@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 树状结构获取所有项目扩展方法类
 /// </summary>
-public static class TreeItemExtensions
+public static class TreeViewExtensions
 {
     /// <summary>
     /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
