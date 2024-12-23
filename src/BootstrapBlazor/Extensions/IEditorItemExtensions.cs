@@ -17,7 +17,7 @@ public static class IEditorItemExtensions
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    public static bool IsLookup(this IEditorItem item) => item.Lookup != null || item.LookupService != null || !string.IsNullOrEmpty(item.LookupServiceKey);
+    public static bool IsLookup(this IEditorItem item) => item.Lookup != null || !string.IsNullOrEmpty(item.LookupServiceKey);
 
     /// <summary>
     /// 判断当前 IEditorItem 实例是否可以编辑
