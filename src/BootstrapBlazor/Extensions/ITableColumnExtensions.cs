@@ -261,7 +261,7 @@ public static class IEditItemExtensions
             {
                 pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(async () =>
                 {
-                    var lookup = await col.GetLookupService(lookupService).GetItemsAsync(col.LookupServiceKey, col.LookupServiceData);
+                    var lookup = col.Lookup ?? await col.GetLookupService(lookupService).GetItemsAsync(col.LookupServiceKey, col.LookupServiceData);
                     return lookup?.FirstOrDefault(l => l.Value.Equals(text, col.LookupStringComparison))?.Text ?? text;
                 }));
             }
