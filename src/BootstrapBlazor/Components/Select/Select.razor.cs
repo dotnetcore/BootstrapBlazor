@@ -236,6 +236,13 @@ public partial class Select<TValue> : ISelect
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
+
+    /// <summary>
     /// 获得 input 组件 Id 方法
     /// </summary>
     /// <returns></returns>
@@ -371,12 +378,14 @@ public partial class Select<TValue> : ISelect
     private async Task<IEnumerable<SelectedItem>> GetItemsAsync()
     {
         IEnumerable<SelectedItem>? items = null;
-        if (LookupService != null)
+        if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            items = await LookupService.GetItemsByKeyAsync(LookupServiceKey, LookupServiceData);
+            items = await GetLookupService().GetItemsAsync(LookupServiceKey, LookupServiceData);
         }
         return items ?? [];
     }
+
+    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
 
     /// <summary>
     /// 获得/设置 数据总条目
