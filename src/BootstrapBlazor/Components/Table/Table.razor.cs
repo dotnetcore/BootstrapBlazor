@@ -1296,7 +1296,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else
         {
-            builder.AddContent(20, col.RenderValue(item));
+            builder.AddContent(20, col.RenderValue(item, LookupService));
         }
     };
     #endregion
