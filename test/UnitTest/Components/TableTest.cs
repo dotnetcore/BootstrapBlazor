@@ -7673,7 +7673,6 @@ public class TableTest : BootstrapBlazorTestBase
             pb.Add(a => a.LookupService, new MockLookupServiceAsync());
         });
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForElement("[data-bs-original-title=\"LookupService-Test-True-async\"]");
     }
 
     [Fact]

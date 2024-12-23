@@ -438,6 +438,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
+        cut.WaitForAssertion(() => cut.Contains("LookupService-Test-1"));
         var select = cut.FindComponent<Select<string>>();
         var lookupService = Context.Services.GetRequiredService<ILookupService>();
         var lookup = await lookupService.GetItemsAsync("FooLookup", "");
@@ -471,7 +472,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
-        cut.WaitForElements(".select");
+        cut.WaitForAssertion(() => cut.Contains("LookupService-Test-1-async"));
         var select = cut.FindComponent<Select<string>>();
         var lookup = await lookupService.GetItemsAsync("FooLookup", "");
         Assert.NotNull(lookup);

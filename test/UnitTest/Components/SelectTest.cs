@@ -107,6 +107,18 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void LookupService_Ok()
+    {
+        // 不给 Items 时走 LookupService
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.LookupServiceKey, "FooLookup");
+        });
+        cut.WaitForAssertion(() => cut.Contains("LookupService-Test-1"));
+        Assert.Equal(2, cut.Instance.Items.Count());
+    }
+
+    [Fact]
     public void IsClearable_Ok()
     {
         var val = "Test2";
