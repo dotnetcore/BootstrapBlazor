@@ -175,14 +175,9 @@ public static class IEditItemExtensions
     internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);
-        if (col.Lookup != null && val != null)
+        if (col.IsLookup() && val != null)
         {
-            // 转化 Lookup 数据源
-            var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
-            if (lookupVal != null)
-            {
-                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
-            }
+            builder.AddContent(10, col.RenderTooltip(val.ToString(), item));
         }
         else if (val is bool v1)
         {
@@ -253,6 +248,10 @@ public static class IEditItemExtensions
             if (col.GetTooltipTextCallback != null)
             {
                 pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
+            }
+            else if(col.IsLookup())
+            {
+
             }
             else
             {
