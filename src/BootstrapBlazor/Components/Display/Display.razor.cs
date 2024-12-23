@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Collections;
-using System.Linq.Expressions;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -18,10 +17,7 @@ public partial class Display<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得 显示文本
-    /// </summary>
-    protected string? CurrentTextAsString { get; set; }
+    private string? _displayText;
 
     /// <summary>
     /// 获得/设置 异步格式化字符串
@@ -56,15 +52,20 @@ public partial class Display<TValue>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
     [Inject]
     [NotNull]
-    private ILookupService? LookupService { get; set; }
+    private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
     /// 获得/设置 类型解析回调方法 组件泛型为 Array 时内部调用
     /// </summary>
     [Parameter]
-
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
 
     /// <summary>
@@ -76,30 +77,12 @@ public partial class Display<TValue>
     /// <summary>
     /// <inheritdoc/>>
     /// </summary>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    public override Task SetParametersAsync(ParameterView parameters)
-    {
-        parameters.SetParameterProperties(this);
-
-        if (!string.IsNullOrEmpty(LookupServiceKey))
-        {
-            Lookup ??= LookupService.GetItemsByKey(LookupServiceKey, LookupServiceData);
-        }
-
-        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-        return base.SetParametersAsync(ParameterView.Empty);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>>
-    /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
 
-        CurrentTextAsString = await FormatTextAsString(Value);
+        _displayText = await FormatDisplayText(Value);
     }
 
     /// <summary>
@@ -107,15 +90,15 @@ public partial class Display<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    private async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
+    private async Task<string?> FormatDisplayText(TValue value) => FormatterAsync != null
         ? await FormatterAsync(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
             : value == null
                 ? FormatValueString()
-                : FormatText(value));
+                : await FormatText(value));
 
-    private string FormatText([DisallowNull] TValue value)
+    private async Task<string> FormatText([DisallowNull] TValue value)
     {
         string ret;
         var type = typeof(TValue);
@@ -125,12 +108,12 @@ public partial class Display<TValue>
         }
         else if (type.IsArray)
         {
-            ret = ConvertArrayToString(value);
+            ret = ArrayConvertToString(value);
         }
         else if (type.IsGenericType && type.IsAssignableTo(typeof(IEnumerable)))
         {
             // 泛型集合 IEnumerable<TValue>
-            ret = ConvertEnumerableToString(value);
+            ret = await ConvertEnumerableToString(value);
         }
         else
         {
@@ -152,91 +135,51 @@ public partial class Display<TValue>
         return ret ?? valueString ?? string.Empty;
     }
 
-    private Func<TValue, string>? _converterArray;
-    /// <summary>
-    /// 获取属性方法 Lambda 表达式
-    /// </summary>
-    /// <returns></returns>
-    private string ConvertArrayToString(TValue value)
+    private Func<TValue, string>? _arrayConvertoString;
+    private string ArrayConvertToString(TValue value)
     {
-        return (_converterArray ??= ConvertArrayToStringLambda())(value);
-
-        Func<TValue, string> ConvertArrayToStringLambda()
-        {
-            Func<TValue, string> ret = _ => "";
-            var param = Expression.Parameter(typeof(Array));
-            var targetType = typeof(TValue).UnderlyingSystemType;
-            var methodType = ResolveArrayType();
-            if (methodType != null)
-            {
-                // 调用 string.Join<T>(",", IEnumerable<T>) 方法
-                var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(methodType);
-                var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param, targetType));
-                ret = Expression.Lambda<Func<TValue, string>>(body, param).Compile();
-            }
-            return ret;
-
-            Type? ResolveArrayType()
-            {
-                Type? t = null;
-                var typeName = targetType.FullName;
-                if (!string.IsNullOrEmpty(typeName))
-                {
-                    typeName = typeName.Replace("[]", "");
-                    if (typeName.Contains('+'))
-                    {
-                        typeName = typeName.Split('+', StringSplitOptions.RemoveEmptyEntries).Last();
-                    }
-                    t = Type.GetType(typeName, null, TypeResolver, false, true);
-                }
-                return t;
-            }
-        }
+        _arrayConvertoString ??= LambdaExtensions.ArrayConvertToStringLambda<TValue>(TypeResolver).Compile();
+        return _arrayConvertoString(value);
     }
 
-    private static Func<TValue, string>? _convertEnumerableToString;
-    private static Func<TValue, IEnumerable<string>>? _convertToEnumerableString;
-    /// <summary>
-    /// 获取属性方法 Lambda 表达式
-    /// </summary>
-    /// <returns></returns>
-    private string ConvertEnumerableToString(TValue value)
+    private static Func<TValue, string>? _enumerableConvertToString;
+    private async Task<string> ConvertEnumerableToString(TValue value)
     {
-        return Lookup == null
-            ? (_convertEnumerableToString ??= ConvertEnumerableToStringLambda())(value)
-            : GetTextByValue((_convertToEnumerableString ??= ConvertToEnumerableStringLambda())(value));
-
-        static Func<TValue, string> ConvertEnumerableToStringLambda()
-        {
-            var typeArguments = typeof(TValue).GenericTypeArguments;
-            var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
-            var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(typeArguments);
-            var body = Expression.Call(method, Expression.Constant(","), param);
-            return Expression.Lambda<Func<TValue, string>>(body, param).Compile();
-        }
-
-        static Func<TValue, IEnumerable<string>> ConvertToEnumerableStringLambda()
-        {
-            var typeArguments = typeof(TValue).GenericTypeArguments;
-            var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
-
-            var method = typeof(Display<>).MakeGenericType(typeof(TValue))
-                .GetMethod(nameof(Cast), BindingFlags.NonPublic | BindingFlags.Static)!
-                .MakeGenericMethod(typeArguments);
-            var body = Expression.Call(method, param);
-            return Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param).Compile();
-        }
+        _enumerableConvertToString ??= LambdaExtensions.EnumerableConvertToStringLambda<TValue>().Compile();
+        var lookup = await GetLookup();
+        return lookup == null
+            ? _enumerableConvertToString(value)
+            : GetTextByValue(lookup, value);
     }
 
-    private static IEnumerable<string> Cast<TType>(IEnumerable<TType> source) => source.Select(i => i?.ToString() ?? string.Empty);
-
-    private string GetTextByValue(IEnumerable<string> source) => string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
+    private static Func<TValue, IEnumerable<string>>? _convertToStringEnumerable;
+    private static string GetTextByValue(IEnumerable<SelectedItem> lookup, TValue value)
     {
-        var text = Lookup!.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
-        if (text != null)
+        _convertToStringEnumerable ??= LambdaExtensions.ConvertToStringEnumerableLambda<TValue>().Compile();
+        var source = _convertToStringEnumerable(value);
+        return string.Join(",", source.Aggregate(new List<string>(), (s, i) =>
         {
-            s.Add(text);
+            var text = lookup.FirstOrDefault(d => d.Value.Equals(i, StringComparison.OrdinalIgnoreCase))?.Text;
+            if (text != null)
+            {
+                s.Add(text);
+            }
+            return s;
+        }));
+    }
+
+    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
+
+    private IEnumerable<SelectedItem>? _lookupData;
+    private async Task<IEnumerable<SelectedItem>?> GetLookup()
+    {
+        if (Lookup != null)
+        {
+            return Lookup;
         }
-        return s;
-    }));
+
+        var lookupService = GetLookupService();
+        _lookupData ??= await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
+        return _lookupData;
+    }
 }

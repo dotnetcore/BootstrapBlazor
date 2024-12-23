@@ -172,17 +172,20 @@ public static class IEditItemExtensions
         return searches;
     }
 
-    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
+    /// <summary>
+    /// 当前单元格方法
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="col"></param>
+    /// <param name="item"></param>
+    /// <param name="lookupService"></param>
+    /// <returns></returns>
+    public static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item, ILookupService lookupService) => builder =>
     {
         var val = col.GetItemValue(item);
-        if (col.Lookup != null && val != null)
+        if (col.IsLookup() && val != null)
         {
-            // 转化 Lookup 数据源
-            var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
-            if (lookupVal != null)
-            {
-                builder.AddContent(10, col.RenderTooltip(lookupVal.Text, item));
-            }
+            builder.AddContent(10, col.RenderTooltip(val.ToString(), item, lookupService));
         }
         else if (val is bool v1)
         {
@@ -218,7 +221,7 @@ public static class IEditItemExtensions
                 {
                     content = val?.ToString();
                 }
-                builder.AddContent(30, col.RenderTooltip(content, item));
+                builder.AddContent(30, col.RenderTooltip(content, item, lookupService));
             }
         }
     };
@@ -243,7 +246,7 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item, ILookupService lookupService) => pb =>
     {
         if (col.GetShowTips())
         {
@@ -253,6 +256,14 @@ public static class IEditItemExtensions
             if (col.GetTooltipTextCallback != null)
             {
                 pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
+            }
+            else if (col.IsLookup())
+            {
+                pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(async () =>
+                {
+                    var lookup = col.Lookup ?? await col.GetLookupService(lookupService).GetItemsAsync(col.LookupServiceKey, col.LookupServiceData);
+                    return lookup?.FirstOrDefault(l => string.Equals(l.Value, text, col.LookupStringComparison))?.Text ?? text;
+                }));
             }
             else
             {
