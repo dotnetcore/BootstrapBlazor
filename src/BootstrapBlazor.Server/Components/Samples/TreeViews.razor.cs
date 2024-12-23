@@ -57,6 +57,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
+    private List<TreeViewItem<TreeFoo>> FlatItems { get; } = TreeFoo.GetFlatItems();
+
     private Foo Model => Foo.Generate(LocalizerFoo);
 
     private string? _selectedValue;

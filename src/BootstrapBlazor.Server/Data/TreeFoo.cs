@@ -73,6 +73,30 @@ class TreeFoo
         return ret;
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetFlatItems()
+    {
+        var items = new List<TreeViewItem<TreeFoo>>();
+        var foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 1" };
+        items.Add(foo);
+
+        foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 2", HasChildren = true };
+        items.Add(foo);
+
+        var sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 1", Id = "1040", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1001" };
+        foo.Items.Add(sub);
+
+        sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 2", Id = "1050", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1002" };
+        foo.Items.Add(sub);
+
+        sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 3", Id = "1060", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1003" };
+        foo.Items.Add(sub);
+
+        foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 2" };
+        items.Add(foo);
+
+        return items;
+    }
+
     /// <summary>
     /// TreeFoo 带选择框树状数据集
     /// </summary>
@@ -81,11 +105,13 @@ class TreeFoo
     {
         var node1 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{parentId}-101", ParentId = parentId })
         {
-            Text = "navigation one", HasChildren = true
+            Text = "navigation one",
+            HasChildren = true
         };
         var node2 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{parentId}-102", ParentId = parentId })
         {
-            Text = "navigation two", CheckedState = CheckboxState.Checked
+            Text = "navigation two",
+            CheckedState = CheckboxState.Checked
         };
         return [node1, node2];
     }

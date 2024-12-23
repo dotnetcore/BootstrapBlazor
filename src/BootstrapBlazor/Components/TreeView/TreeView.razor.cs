@@ -169,6 +169,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public List<TreeViewItem<TItem>>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
+    /// </summary>
+    [Parameter]
+    public List<TreeViewItem<TItem>>? FlatItems { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -838,7 +844,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            _rows ??= Items.ToFlat<TItem>().ToList();
+            _rows ??= FlatItems ?? Items.ToFlat<TItem>().ToList();
             return _rows;
         }
     }
