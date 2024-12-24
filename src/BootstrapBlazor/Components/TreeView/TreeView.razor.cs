@@ -345,6 +345,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
         ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewLoadingIcon);
+
+        if (IsReset)
+        {
+            _rows = null;
+        }
     }
 
     /// <summary>
@@ -353,7 +358,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        _rows = null;
         Items ??= [];
         if (Items.Count > 0)
         {
