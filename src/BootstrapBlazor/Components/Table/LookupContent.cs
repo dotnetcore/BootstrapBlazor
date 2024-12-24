@@ -4,12 +4,17 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Rendering;
-using System.ComponentModel;
 
 namespace BootstrapBlazor.Components;
 
 internal class LookupContent : ComponentBase
 {
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    [Parameter]
+    public IEnumerable<SelectedItem>? Lookup { get; set; }
+
     /// <summary>
     /// 获得/设置 <see cref="ILookupService"/> 服务实例
     /// </summary>
@@ -76,8 +81,16 @@ internal class LookupContent : ComponentBase
 
     private async Task<List<SelectedItem>> GetLookupItemsAsync()
     {
-        var lookupService = LookupService ?? InjectLookupService;
-        var items = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
+        IEnumerable<SelectedItem>? items;
+        if (Lookup != null)
+        {
+            items = Lookup;
+        }
+        else
+        {
+            var lookupService = LookupService ?? InjectLookupService;
+            items = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
+        }
         return items?.ToList() ?? [];
     }
 }
