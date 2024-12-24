@@ -435,7 +435,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InValidateForm_Ok()
+    public async Task InValidateForm_Ok()
     {
         var foo = new Dummy
         {
@@ -456,7 +456,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
 
         // 验证
         var validate = true;
-        cut.InvokeAsync(() => validate = cut.Instance.Validate());
+        await cut.InvokeAsync(() => validate = cut.Instance.Validate());
         Assert.False(validate);
 
         var range = cut.FindComponent<DateTimeRange>();
@@ -468,7 +468,21 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.ShowClearButton, true);
         });
-        clear.Click();
+        await cut.InvokeAsync(() => clear.Click());
+
+        foo.Value.Start = DateTime.Now;
+        foo.Value.End = DateTime.Now;
+        range.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, false);
+        });
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+        });
+        validate = false;
+        await cut.InvokeAsync(() => validate = cut.Instance.Validate());
+        Assert.True(validate);
     }
 
     [Fact]

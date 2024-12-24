@@ -18,6 +18,7 @@ public class TransferTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Value, "2");
+            pb.Add(a => a.OnSetItemClass, new Func<SelectedItem, string>(i => $"class-{i.Value}"));
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
                 new("1", "Test1"),

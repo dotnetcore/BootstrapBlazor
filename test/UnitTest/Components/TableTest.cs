@@ -7730,6 +7730,33 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
         cut.WaitForElement("[data-bs-original-title=\"True\"]");
     }
+
+    [Fact]
+    public async Task GetValue_LookupServiceKey_NullValue()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, bool>>(0);
+                    builder.AddAttribute(1, "Field", true);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(3, "LookupServiceKey", "null-value");
+                    builder.AddAttribute(4, "LookupServiceData", true);
+                    builder.AddAttribute(6, "LookupService", new MockLookupServiceAsync());
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+    }
+
     class MockLookupServiceAsync : LookupServiceBase
     {
         public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
@@ -7760,6 +7787,15 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     new("Fake-True", "Fake-True"),
                     new("Fake-False", "Fake-False")
+                };
+            }
+
+            if (key == "null-value")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("True", null!),
+                    new("False", null!)
                 };
             }
             return ret;

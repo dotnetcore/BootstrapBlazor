@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -111,10 +110,6 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     [Parameter]
     public Func<Task>? OnMaxSelectedCountExceed { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizerFactory? LocalizerFactory { get; set; }
-
     /// <summary>
     /// 获得 当前选项是否被禁用
     /// </summary>
@@ -132,23 +127,7 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
         base.OnInitialized();
 
         // 处理 Required 标签
-        if (EditContext != null && FieldIdentifier != null)
-        {
-            var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
-            if (pi != null)
-            {
-                var required = pi.GetCustomAttribute<RequiredAttribute>(true);
-                if (required != null)
-                {
-                    Rules.Add(new RequiredValidator()
-                    {
-                        LocalizerFactory = LocalizerFactory,
-                        ErrorMessage = required.ErrorMessage,
-                        AllowEmptyString = required.AllowEmptyStrings
-                    });
-                }
-            }
-        }
+        AddRequiredValidator();
     }
 
     /// <summary>

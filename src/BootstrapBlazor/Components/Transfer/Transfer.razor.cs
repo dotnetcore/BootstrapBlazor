@@ -188,13 +188,6 @@ public partial class Transfer<TValue>
     [Parameter]
     public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
 
-    /// <summary>
-    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
-    /// </summary>
-    [Inject]
-    [NotNull]
-    public IStringLocalizerFactory? LocalizerFactory { get; set; }
-
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -206,21 +199,8 @@ public partial class Transfer<TValue>
     {
         base.OnInitialized();
 
-        OnSetItemClass ??= _ => null;
-
         // 处理 Required 标签
-        if (FieldIdentifier != null)
-        {
-            var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
-            if (pi != null)
-            {
-                var required = pi.GetCustomAttribute<RequiredAttribute>(true);
-                if (required != null)
-                {
-                    Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
-                }
-            }
-        }
+        AddRequiredValidator();
     }
 
     /// <summary>

@@ -75,6 +75,10 @@ public class RequiredValidator : ValidatorBase
                 results.Add(new ValidationResult(errorMessage, memberNames));
             }
         }
+        else if (propertyValue is DateTimeRangeValue dv && dv is { NullStart: null, NullEnd: null })
+        {
+            results.Add(new ValidationResult(errorMessage, memberNames));
+        }
     }
 
     /// <summary>
