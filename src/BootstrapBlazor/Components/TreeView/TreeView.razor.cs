@@ -355,43 +355,31 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        if (Items != null)
+        _rows = null;
+        Items ??= [];
+        if (Items.Count > 0)
         {
-            if (IsReset)
-            {
-                _rows = null;
-                TreeNodeStateCache.Reset();
-            }
-            else
-            {
-                if (Items.Count > 0)
-                {
-                    await CheckExpand(Items);
-                }
+            await CheckExpand(Items);
+        }
 
-                if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
-                {
-                    // 开启 Checkbox 功能时初始化选中节点
-                    TreeNodeStateCache.IsChecked(Items);
-                }
+        if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
+        {
+            // 开启 Checkbox 功能时初始化选中节点
+            TreeNodeStateCache.IsChecked(Items);
+        }
 
-                // 从数据源中恢复当前 active 节点
-                if (ActiveItem != null)
-                {
-                    ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
-                }
-            }
+        // 从数据源中恢复当前 active 节点
+        if (ActiveItem != null)
+        {
+            ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
+        }
 
+        if (_init == false)
+        {
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
             _init = true;
-        }
-        else
-        {
-            _rows = null;
-            TreeNodeStateCache.Reset();
-            ActiveItem = null;
         }
     }
 
