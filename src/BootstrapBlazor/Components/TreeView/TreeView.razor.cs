@@ -11,9 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tree 组件
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
-#endif
 public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
     /// <summary>
@@ -58,7 +56,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .Build();
 
     private string? GetContentClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-content")
-        .AddClass("active", ActiveItem == item)
+        .AddClass("active", _activeItem == item)
         .Build();
 
     private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
@@ -74,7 +72,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// 获得/设置 选中节点 默认 null
     /// </summary>
-    private TreeViewItem<TItem>? ActiveItem { get; set; }
+    private TreeViewItem<TItem>? _activeItem;
 
     /// <summary>
     /// 获得/设置 是否禁用整个组件 默认 false
@@ -168,11 +166,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [NotNull]
     public List<TreeViewItem<TItem>>? Items { get; set; }
 
-    /// <summary>
-    /// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
-    /// </summary>
-    [Parameter]
-    public List<TreeViewItem<TItem>>? FlatItems { get; set; }
+    ///// <summary>
+    ///// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
+    ///// </summary>
+    //[Parameter]
+    //public List<TreeViewItem<TItem>>? FlatItems { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -347,6 +345,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
         ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewLoadingIcon);
+
+        if (IsReset)
+        {
+            _rows = null;
+        }
     }
 
     /// <summary>
@@ -355,8 +358,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        _rows = null;
-        Items ??= [];
+        if (Items == null)
+        {
+            // 未提供数据显示 loading
+            return;
+        }
+
         if (Items.Count > 0)
         {
             await CheckExpand(Items);
@@ -369,16 +376,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
 
         // 从数据源中恢复当前 active 节点
-        if (ActiveItem != null)
+        if (_activeItem != null)
         {
-            ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
+            _activeItem = TreeNodeStateCache.Find(Items, _activeItem.Value, out _);
         }
 
         if (_init == false)
         {
             // 设置 ActiveItem 默认值
-            ActiveItem ??= Items.FirstOrDefaultActiveItem();
-            ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+            _activeItem ??= Items.FirstOrDefaultActiveItem();
+            _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
             _init = true;
         }
     }
@@ -417,16 +424,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         // 通过 ActiveItem 找到兄弟节点
         // 如果兄弟节点没有时，找到父亲节点
-        if (ActiveItem != null)
+        if (_activeItem != null)
         {
             if (key == "ArrowUp" || key == "ArrowDown")
             {
                 _keyboardArrowUpDownTrigger = true;
-                await ActiveTreeViewItem(key, ActiveItem);
+                await ActiveTreeViewItem(key, _activeItem);
             }
             else if (key == "ArrowLeft" || key == "ArrowRight")
             {
-                await OnToggleNodeAsync(ActiveItem, true);
+                await OnToggleNodeAsync(_activeItem, true);
             }
         }
     }
@@ -574,7 +581,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private async Task OnClick(TreeViewItem<TItem> item)
     {
-        ActiveItem = item;
+        _activeItem = item;
         if (ClickToggleNode && CanTriggerClickNode(item))
         {
             await OnToggleNodeAsync(item);
@@ -622,21 +629,43 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// 设置选中节点
     /// </summary>
-    public void SetActiveItem(TreeViewItem<TItem> item)
+    public void SetActiveItem(TreeViewItem<TItem>? item)
     {
-        ActiveItem = item;
-        ActiveItem.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        _activeItem = item;
+        _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         StateHasChanged();
     }
+
+    /// <summary>
+    /// 重新设置 <see cref="Items"/> 数据源方法
+    /// </summary>
+    public void SetItems(List<TreeViewItem<TItem>> items)
+    {
+        //FlatItems = null;
+        Items = items;
+        _rows = null;
+        StateHasChanged();
+    }
+
+    ///// <summary>
+    ///// 重新设置 <see cref="FlatItems"/> 数据源方法
+    ///// </summary>
+    ///// <param name="flatItems"></param>
+    //public void SetFlatItems(List<TreeViewItem<TItem>> flatItems)
+    //{
+    //    Items = null;
+    //    FlatItems = flatItems;
+    //    _rows = null;
+    //    StateHasChanged();
+    //}
 
     /// <summary>
     /// 设置选中节点
     /// </summary>
     public void SetActiveItem(TItem item)
     {
-        ActiveItem = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
-        ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
-        StateHasChanged();
+        var val = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+        SetActiveItem(val);
     }
 
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
@@ -832,7 +861,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            _rows ??= FlatItems ?? Items.ToFlat<TItem>().ToList();
+            // 扁平化数据集合
+            _rows ??= Items.ToFlat<TItem>().ToList();
             return _rows;
         }
     }

@@ -8,7 +8,7 @@ namespace UnitTest.Components;
 public class TreeViewTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Items_Ok()
+    public async Task Items_Ok()
     {
         var cut = Context.RenderComponent<TreeView<TreeFoo>>();
         cut.DoesNotContain("tree-root");
@@ -25,7 +25,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
-        cut.Contains("li");
+        var items = cut.FindAll(".tree-content");
+        Assert.Equal(9, items.Count);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -33,7 +34,44 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSkeleton, false);
         });
         Assert.Equal("", cut.Markup);
+
+        // SetItems
+        await cut.InvokeAsync(() => cut.Instance.SetItems(
+        [
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Test1" }) { Text = "Test1" },
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Test2" }) { Text = "Test2" }
+        ]));
+
+        items = cut.FindAll(".tree-content");
+        Assert.Equal(2, items.Count);
     }
+
+    //[Fact]
+    //public void FlatItems_Ok()
+    //{
+    //    var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+    //    {
+    //        pb.Add(a => a.FlatItems, TreeFoo.GetFlatItems());
+    //    });
+    //    cut.WaitForElement(".tree-view");
+
+    //    // 验证树形结构正确生成
+    //    var nodes = cut.FindAll(".tree-content");
+    //    Assert.Equal(3, nodes.Count);
+
+    //    // 验证父子关系
+    //    var parentNode = cut.Find("[data-item-id='1']");
+    //    Assert.NotNull(parentNode);
+    //    var childNode = cut.Find("[data-item-id='2']");
+    //    Assert.NotNull(childNode);
+    //    Assert.Contains("tree-children", childNode.ParentElement?.ClassName);
+
+    //    cut.SetParametersAndRender(pb =>
+    //    {
+    //        pb.Add(a => a.FlatItems, null);
+    //    });
+    //    Assert.Equal("", cut.Markup);
+    //}
 
     [Fact]
     public void Items_Disabled()
