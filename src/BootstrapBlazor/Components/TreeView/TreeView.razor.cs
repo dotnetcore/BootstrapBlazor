@@ -166,11 +166,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [NotNull]
     public List<TreeViewItem<TItem>>? Items { get; set; }
 
-    /// <summary>
-    /// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
-    /// </summary>
-    [Parameter]
-    public List<TreeViewItem<TItem>>? FlatItems { get; set; }
+    ///// <summary>
+    ///// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
+    ///// </summary>
+    //[Parameter]
+    //public List<TreeViewItem<TItem>>? FlatItems { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -358,7 +358,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        Items ??= [];
+        if (Items == null)
+        {
+            // 未提供数据显示 loading
+            return;
+        }
+
         if (Items.Count > 0)
         {
             await CheckExpand(Items);
@@ -636,23 +641,23 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     public void SetItems(List<TreeViewItem<TItem>> items)
     {
-        FlatItems = null;
+        //FlatItems = null;
         Items = items;
         _rows = null;
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 重新设置 <see cref="FlatItems"/> 数据源方法
-    /// </summary>
-    /// <param name="flatItems"></param>
-    public void SetFlatItems(List<TreeViewItem<TItem>> flatItems)
-    {
-        Items = null;
-        FlatItems = flatItems;
-        _rows = null;
-        StateHasChanged();
-    }
+    ///// <summary>
+    ///// 重新设置 <see cref="FlatItems"/> 数据源方法
+    ///// </summary>
+    ///// <param name="flatItems"></param>
+    //public void SetFlatItems(List<TreeViewItem<TItem>> flatItems)
+    //{
+    //    Items = null;
+    //    FlatItems = flatItems;
+    //    _rows = null;
+    //    StateHasChanged();
+    //}
 
     /// <summary>
     /// 设置选中节点
@@ -856,7 +861,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            _rows ??= FlatItems ?? Items.ToFlat<TItem>().ToList();
+            // 扁平化数据集合
+            _rows ??= Items.ToFlat<TItem>().ToList();
             return _rows;
         }
     }
