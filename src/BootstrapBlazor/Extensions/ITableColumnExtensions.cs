@@ -184,7 +184,7 @@ public static class IEditItemExtensions
         var val = col.GetItemValue(item);
         if (col.IsLookup() && val != null)
         {
-            builder.AddContent(10, col.RenderTooltip(val.ToString(), item));
+            builder.AddContent(10, col.RenderLookupContent(val.ToString(), item));
         }
         else if (val is bool v1)
         {
@@ -220,7 +220,7 @@ public static class IEditItemExtensions
                 {
                     content = val?.ToString();
                 }
-                builder.AddContent(30, col.RenderTooltip(content, item));
+                builder.AddContent(30, col.RenderLookupContent(content, item));
             }
         }
     };
@@ -245,33 +245,37 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
+    private static RenderFragment RenderLookupContent<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
     {
         if (col.GetShowTips())
         {
-            pb.OpenComponent<Tooltip>(0);
-            pb.SetKey(item);
-            var tooltipText = text;
-            if (col.GetTooltipTextCallback != null)
-            {
-                pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
-            }
-            else
-            {
-                pb.AddAttribute(11, nameof(Tooltip.Title), tooltipText);
-            }
-            pb.AddAttribute(12, "class", "text-truncate d-block");
-            if (col.IsMarkupString)
-            {
-                pb.AddAttribute(13, nameof(Tooltip.IsHtml), true);
-            }
-            pb.AddAttribute(14, nameof(Tooltip.ChildContent), col.RenderContent(text));
-            pb.CloseComponent();
+            pb.AddContent(10, col.RenderTooltip(text, item));
         }
         else
         {
             pb.AddContent(20, col.RenderContent(text));
         }
+    };
+
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
+    {
+        pb.OpenComponent<Tooltip>(0);
+        pb.SetKey(item);
+        if (col.GetTooltipTextCallback != null)
+        {
+            pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
+        }
+        else
+        {
+            pb.AddAttribute(11, nameof(Tooltip.Title), text);
+        }
+        if (col.IsMarkupString)
+        {
+            pb.AddAttribute(12, nameof(Tooltip.IsHtml), true);
+        }
+        pb.AddAttribute(13, "class", "text-truncate d-block");
+        pb.AddAttribute(14, nameof(Tooltip.ChildContent), col.RenderContent(text));
+        pb.CloseComponent();
     };
 
     private static RenderFragment RenderContent(this ITableColumn col, string? text) => pb =>
