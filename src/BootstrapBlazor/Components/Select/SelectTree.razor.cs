@@ -228,7 +228,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         if (ItemCache != Items)
         {
             ItemCache = Items;
-            ExpandedItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+            ExpandedItemsCache = TreeViewExtensions.GetAllItems(ItemCache).ToList();
         }
         return ExpandedItemsCache;
     }

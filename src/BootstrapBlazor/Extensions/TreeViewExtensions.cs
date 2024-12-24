@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 树状结构获取所有项目扩展方法类
 /// </summary>
-public static class TreeItemExtensions
+public static class TreeViewExtensions
 {
     /// <summary>
     /// 在全部树状结构 <paramref name="source"/> 中寻找第一个 Active 节点/>
@@ -43,4 +43,27 @@ public static class TreeItemExtensions
     /// <param name="source"></param>
     /// <returns></returns>
     public static IEnumerable<TreeViewItem<TItem>> GetAllSubItems<TItem>(this IEnumerable<TreeViewItem<TItem>> source) => source.SelectMany(i => i.Items.Count > 0 ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items);
+
+    /// <summary>
+    /// 将带层次结构的树状数据转换为扁平数据集合
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
+    {
+        var rows = new List<TreeViewItem<TItem>>();
+        if (source != null)
+        {
+            foreach (var item in source)
+            {
+                rows.Add(item);
+                if (item.IsExpand)
+                {
+                    rows.AddRange(ToFlat(item.Items));
+                }
+            }
+        }
+        return rows;
+    }
 }
