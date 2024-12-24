@@ -159,8 +159,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 获得/设置 页面刷新是否重置已加载数据 默认 false
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，直接删除即可；Deprecated. Please delete it")]
-    [ExcludeFromCodeCoverage]
     public bool IsReset { get; set; }
 
     /// <summary>
