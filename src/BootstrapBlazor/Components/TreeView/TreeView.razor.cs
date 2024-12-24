@@ -11,9 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Tree 组件
 /// </summary>
-#if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TItem))]
-#endif
 public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
     /// <summary>
