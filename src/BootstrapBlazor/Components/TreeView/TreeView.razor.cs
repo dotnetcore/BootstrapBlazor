@@ -632,6 +632,29 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
+    /// 重新设置 <see cref="Items"/> 数据源方法
+    /// </summary>
+    public void SetItems(List<TreeViewItem<TItem>> items)
+    {
+        FlatItems = null;
+        Items = items;
+        _rows = null;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 重新设置 <see cref="FlatItems"/> 数据源方法
+    /// </summary>
+    /// <param name="flatItems"></param>
+    public void SetFlatItems(List<TreeViewItem<TItem>> flatItems)
+    {
+        Items = null;
+        FlatItems = flatItems;
+        _rows = null;
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// 设置选中节点
     /// </summary>
     public void SetActiveItem(TItem item)
