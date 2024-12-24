@@ -4,6 +4,8 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -32,4 +34,30 @@ public static class FieldIdentifierExtensions
     /// <param name="fieldIdentifier"></param>
     /// <returns></returns>
     public static RangeAttribute? GetRange(this FieldIdentifier fieldIdentifier) => Utility.GetRange(fieldIdentifier.Model, fieldIdentifier.FieldName);
+
+    /// <summary>
+    /// 获得 <see cref="RequiredValidator"/> 实例
+    /// </summary>
+    /// <param name="fieldIdentifier"></param>
+    /// <param name="localizerFactory"></param>
+    /// <returns></returns>
+    public static RequiredValidator? GetRequiredValidator(this FieldIdentifier fieldIdentifier, IStringLocalizerFactory localizerFactory)
+    {
+        RequiredValidator? validator = null;
+        var pi = fieldIdentifier.Model.GetType().GetPropertyByName(fieldIdentifier.FieldName);
+        if (pi != null)
+        {
+            var required = pi.GetCustomAttribute<RequiredAttribute>(true);
+            if (required != null)
+            {
+                validator = new RequiredValidator()
+                {
+                    LocalizerFactory = localizerFactory,
+                    ErrorMessage = required.ErrorMessage,
+                    AllowEmptyString = required.AllowEmptyStrings
+                };
+            }
+        }
+        return validator;
+    }
 }
