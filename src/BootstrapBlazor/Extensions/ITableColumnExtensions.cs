@@ -178,14 +178,13 @@ public static class IEditItemExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="col"></param>
     /// <param name="item"></param>
-    /// <param name="lookupService"></param>
     /// <returns></returns>
-    public static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item, ILookupService lookupService) => builder =>
+    public static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => builder =>
     {
         var val = col.GetItemValue(item);
         if (col.IsLookup() && val != null)
         {
-            builder.AddContent(10, col.RenderTooltip(val.ToString(), item, lookupService));
+            builder.AddContent(10, col.RenderTooltip(val.ToString(), item));
         }
         else if (val is bool v1)
         {
@@ -221,7 +220,7 @@ public static class IEditItemExtensions
                 {
                     content = val?.ToString();
                 }
-                builder.AddContent(30, col.RenderTooltip(content, item, lookupService));
+                builder.AddContent(30, col.RenderTooltip(content, item));
             }
         }
     };
@@ -246,7 +245,7 @@ public static class IEditItemExtensions
         builder.CloseElement();
     };
 
-    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item, ILookupService lookupService) => pb =>
+    private static RenderFragment RenderTooltip<TItem>(this ITableColumn col, string? text, TItem item) => pb =>
     {
         if (col.GetShowTips())
         {
@@ -257,14 +256,6 @@ public static class IEditItemExtensions
             {
                 pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(() => col.GetTooltipTextCallback(item)));
             }
-            else if (col.IsLookup())
-            {
-                pb.AddAttribute(10, nameof(Tooltip.GetTitleCallback), new Func<Task<string?>>(async () =>
-                {
-                    var lookup = col.Lookup ?? await col.GetLookupService(lookupService).GetItemsAsync(col.LookupServiceKey, col.LookupServiceData);
-                    return lookup?.FirstOrDefault(l => string.Equals(l.Value, text, col.LookupStringComparison))?.Text ?? text;
-                }));
-            }
             else
             {
                 pb.AddAttribute(11, nameof(Tooltip.Title), tooltipText);
@@ -272,32 +263,37 @@ public static class IEditItemExtensions
             pb.AddAttribute(12, "class", "text-truncate d-block");
             if (col.IsMarkupString)
             {
-                pb.AddAttribute(13, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
-                pb.AddAttribute(14, nameof(Tooltip.IsHtml), true);
+                pb.AddAttribute(13, nameof(Tooltip.IsHtml), true);
             }
-            else
-            {
-                pb.AddAttribute(15, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
-            }
+            pb.AddAttribute(14, nameof(Tooltip.ChildContent), col.RenderContent(text));
             pb.CloseComponent();
         }
-        else if (col.IsLookup())
+        else
         {
-            pb.OpenComponent<LookupContent>(20);
-            pb.AddAttribute(21, nameof(LookupContent.LookupService), col.LookupService);
-            pb.AddAttribute(22, nameof(LookupContent.LookupServiceKey), col.LookupServiceKey);
-            pb.AddAttribute(23, nameof(LookupContent.LookupServiceData), col.LookupServiceData);
-            pb.AddAttribute(24, nameof(LookupContent.LookupStringComparison), col.LookupStringComparison);
-            pb.AddAttribute(25, nameof(LookupContent.Value), text);
+            pb.AddContent(20, col.RenderContent(text));
+        }
+    };
+
+    private static RenderFragment RenderContent(this ITableColumn col, string? text) => pb =>
+    {
+        if (col.IsLookup())
+        {
+            pb.OpenComponent<LookupContent>(100);
+            pb.AddAttribute(101, nameof(LookupContent.LookupService), col.LookupService);
+            pb.AddAttribute(102, nameof(LookupContent.LookupServiceKey), col.LookupServiceKey);
+            pb.AddAttribute(103, nameof(LookupContent.LookupServiceData), col.LookupServiceData);
+            pb.AddAttribute(104, nameof(LookupContent.LookupStringComparison), col.LookupStringComparison);
+            pb.AddAttribute(105, nameof(LookupContent.Lookup), col.Lookup);
+            pb.AddAttribute(106, nameof(LookupContent.Value), text);
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)
         {
-            pb.AddMarkupContent(30, text);
+            pb.AddMarkupContent(110, text);
         }
         else
         {
-            pb.AddContent(40, text);
+            pb.AddContent(120, text);
         }
     };
 
