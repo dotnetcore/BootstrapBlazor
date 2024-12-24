@@ -285,9 +285,19 @@ public static class IEditItemExtensions
         {
             pb.AddMarkupContent(20, text);
         }
+        else if (col.IsLookup())
+        {
+            pb.OpenComponent<LookupContent>(30);
+            pb.AddAttribute(31, nameof(LookupContent.LookupService), col.LookupService);
+            pb.AddAttribute(32, nameof(LookupContent.LookupServiceKey), col.LookupServiceKey);
+            pb.AddAttribute(33, nameof(LookupContent.LookupServiceData), col.LookupServiceData);
+            pb.AddAttribute(34, nameof(LookupContent.LookupStringComparison), col.LookupStringComparison);
+            pb.AddAttribute(35, nameof(LookupContent.Value), text);
+            pb.CloseComponent();
+        }
         else
         {
-            pb.AddContent(30, text);
+            pb.AddContent(40, text);
         }
     };
 
