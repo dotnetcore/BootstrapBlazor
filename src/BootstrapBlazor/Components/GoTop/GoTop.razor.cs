@@ -25,6 +25,12 @@ public partial class GoTop
     public string? Target { get; set; }
 
     /// <summary>
+    /// 获得/设置 滚动行为 默认 ScrollIntoViewBehavior.Smooth
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollBehavior { get; set; }
+
+    /// <summary>
     /// 获得/设置 鼠标悬停提示文字信息
     /// </summary>
     [Parameter]
@@ -39,6 +45,8 @@ public partial class GoTop
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    private string? ScrollBehaviorString => ScrollBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollBehavior.ToString().ToLowerInvariant();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -49,11 +57,4 @@ public partial class GoTop
         TooltipText ??= Localizer[nameof(TooltipText)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.GoTopIcon);
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Target);
-
 }

@@ -44,7 +44,7 @@ else
         {
             <EnumFilter Type="Column.PropertyType" Count="_count"></EnumFilter>
         }
-        else if (IsLookup)
+        else if (Column.IsLookup())
         {
             <LookupFilter Lookup="Column.Lookup" LookupService="Column.LookupService" LookupServiceKey="Column.LookupServiceKey" LookupServiceData="Column.LookupServiceData" LookupStringComparison="Column.LookupStringComparison" Type="Column.PropertyType" IsShowSearch="Column.ShowSearchWhenSelect"></LookupFilter>
         }

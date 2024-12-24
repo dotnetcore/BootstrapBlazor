@@ -169,6 +169,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public List<TreeViewItem<TItem>>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
+    /// </summary>
+    [Parameter]
+    public List<TreeViewItem<TItem>>? FlatItems { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
     /// </summary>
     [Parameter]
@@ -315,6 +321,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass(item.CssClass)
         .Build();
 
+    private bool _init;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -347,36 +355,31 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        if (Items != null)
+        _rows = null;
+        Items ??= [];
+        if (Items.Count > 0)
         {
-            if (IsReset)
-            {
-                _rows = null;
-                TreeNodeStateCache.Reset();
-            }
-            else
-            {
-                if (Items.Count > 0)
-                {
-                    await CheckExpand(Items);
-                }
+            await CheckExpand(Items);
+        }
 
-                if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
-                {
-                    // 开启 Checkbox 功能时初始化选中节点
-                    TreeNodeStateCache.IsChecked(Items);
-                }
+        if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
+        {
+            // 开启 Checkbox 功能时初始化选中节点
+            TreeNodeStateCache.IsChecked(Items);
+        }
 
-                // 从数据源中恢复当前 active 节点
-                if (ActiveItem != null)
-                {
-                    ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
-                }
-            }
+        // 从数据源中恢复当前 active 节点
+        if (ActiveItem != null)
+        {
+            ActiveItem = TreeNodeStateCache.Find(Items, ActiveItem.Value, out _);
+        }
 
+        if (_init == false)
+        {
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+            _init = true;
         }
     }
 
@@ -829,31 +832,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            _rows ??= GetTreeRows(Items);
+            _rows ??= FlatItems ?? Items.ToFlat<TItem>().ToList();
             return _rows;
         }
-    }
-
-    /// <summary>
-    /// 将带层次结构的数据转换为扁平化数据
-    /// </summary>
-    /// <param name="items"></param>
-    /// <returns></returns>
-    private static List<TreeViewItem<TItem>> GetTreeRows(List<TreeViewItem<TItem>> items)
-    {
-        var rows = new List<TreeViewItem<TItem>>();
-        if (items != null)
-        {
-            foreach (var item in items)
-            {
-                rows.Add(item);
-                if (item.IsExpand)
-                {
-                    rows.AddRange(GetTreeRows(item.Items));
-                }
-            }
-        }
-        return rows;
     }
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)

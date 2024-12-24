@@ -96,16 +96,16 @@ public partial class LookupFilter
         await base.OnParametersSetAsync();
 
         var items = new List<SelectedItem>
-            {
-                new("", Localizer["EnumFilter.AllText"].Value)
-            };
+        {
+            new("", Localizer["EnumFilter.AllText"].Value)
+        };
         if (Lookup != null)
         {
             items.AddRange(Lookup);
         }
         else if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            var lookupService = LookupService ?? InjectLookupService;
+            var lookupService = GetLookupService();
             var lookup = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
             if (lookup != null)
             {
@@ -114,6 +114,8 @@ public partial class LookupFilter
         }
         Items = items;
     }
+
+    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
 
     /// <summary>
     /// <inheritdoc/>

@@ -15,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{EA765165
 	ProjectSection(SolutionItems) = preProject
 		scripts\linux\ba.blazor.service = scripts\linux\ba.blazor.service
 		scripts\linux\deploy-blazor.sh = scripts\linux\deploy-blazor.sh
+		scripts\linux\deploy.sh = scripts\linux\deploy.sh
 		scripts\linux\nginx.conf = scripts\linux\nginx.conf
+		scripts\linux\remove.sh = scripts\linux\remove.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A5226E2-8EBD-4DEA-A1F5-2DF374655FA9}"
@@ -64,6 +66,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 		README.zh-CN.md = README.zh-CN.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cert", "cert", "{C075C6C8-B9CB-4AC0-9BDF-B2002B4AB99C}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\linux\cert\blazor.zone.cer = scripts\linux\cert\blazor.zone.cer
+		scripts\linux\cert\blazor.zone.key = scripts\linux\cert\blazor.zone.key
+		scripts\linux\cert\www.blazor.zone.cer = scripts\linux\cert\www.blazor.zone.cer
+		scripts\linux\cert\www.blazor.zone.key = scripts\linux\cert\www.blazor.zone.key
 	EndProjectSection
 EndProject
 Global
@@ -115,6 +125,7 @@ Global
 		{6D73FED6-0086-460B-84FA-1FA78176BF59} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{01DA4687-0973-4CA6-97F5-04E0B8DD1B13} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
+		{C075C6C8-B9CB-4AC0-9BDF-B2002B4AB99C} = {EA765165-0542-41C8-93F2-85787FEDEDFF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

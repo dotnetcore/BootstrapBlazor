@@ -26,6 +26,13 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, TreeFoo.GetTreeItems());
         });
         cut.Contains("li");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+            pb.Add(a => a.ShowSkeleton, false);
+        });
+        Assert.Equal("", cut.Markup);
     }
 
     [Fact]

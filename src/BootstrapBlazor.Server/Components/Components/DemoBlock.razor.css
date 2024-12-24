@@ -85,8 +85,8 @@
     font-weight: var(--bb-font-weight);
     color: var(--bs-body-color);
     font-size: var(--bb-sub-font-size);
-    margin-top: 1rem;
-    margin-bottom: .5rem;
+    margin-top: var(--bb-demo-block-margin-top);
+    margin-bottom: var(--bb-demo-block-margin-bottom);
 }
 
 ::deep .table-cell .progress {

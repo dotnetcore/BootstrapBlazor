@@ -1141,12 +1141,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         Columns.Clear();
         Columns.AddRange(cols.OrderFunc());
 
-        // 准备 Lookup 数据
-        foreach (var column in Columns)
-        {
-            column.Lookup ??= await LookupService.GetItemsAsync(column.LookupServiceKey, column.LookupServiceData);
-        }
-
         // 查看是否开启列宽序列化
         _clientColumnWidths = await ReloadColumnWidthFromBrowserAsync();
         ResetColumnWidth();
@@ -1302,13 +1296,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else
         {
-            if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
-            {
-                // 未设置 Lookup
-                // 设置 LookupService 键值
-                col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey, col.LookupServiceData);
-            }
-            builder.AddContent(20, col.RenderValue(item));
+            builder.AddContent(20, col.RenderValue(item, LookupService));
         }
     };
     #endregion
@@ -1329,7 +1317,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             : col.Template(item);
 
         RenderFragment RenderEditTemplate() => col.EditTemplate == null
-            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, false))
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, col.GetLookupService(LookupService)))
             : col.EditTemplate(item);
     }
 
@@ -1371,7 +1359,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, changedType, false);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(LookupService));
             };
         }
 
