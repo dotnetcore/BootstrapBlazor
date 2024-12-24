@@ -40,9 +40,6 @@
     </section>
     <section ignore class="row form-inline">
         <div class="col-12 col-lg-auto">
-            <RadioList IsButton="true" @bind-Value="@IsReset" Items="@ResetItems" Color="Color.Success" ShowLabel="true" DisplayText="@Localizer["TreeViewNormalRadioListDisplayText"]"></RadioList>
-        </div>
-        <div class="col-12 col-lg-auto">
             <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
             <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
         </div>
@@ -50,7 +47,7 @@
             <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
         </div>
     </section>
-    <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
+    <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
     <ConsoleLogger @ref="Logger2"></ConsoleLogger>
 </DemoBlock>
 
