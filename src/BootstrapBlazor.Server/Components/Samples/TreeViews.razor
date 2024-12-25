@@ -173,26 +173,26 @@
 <DemoBlock Title="@Localizer["TreeViewShowSearchTitle"]"
            Introduction="@Localizer["TreeViewShowSearchIntro"]"
            Name="ShowSearch">
-    <TreeView TItem="TreeFoo" Items="@SearchItems" ShowSearch="true" OnSearchAsync="@OnSearchAsync"></TreeView>
+    <TreeView TItem="TreeFoo" Items="@SearchItems1" ShowSearch="true" OnSearchAsync="@OnSearch1Async"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewFixedSearchTitle"]"
            Introduction="@Localizer["TreeViewFixedSearchIntro"]"
            Name="IsFixedSearch">
-    <TreeView TItem="TreeFoo" Items="@SearchItems" ShowSearch="true" OnSearchAsync="@OnSearchAsync" IsFixedSearch="true" style="height: 180px;"></TreeView>
+    <TreeView TItem="TreeFoo" Items="@SearchItems2" ShowSearch="true" OnSearchAsync="@OnSearch2Async" IsFixedSearch="true" style="height: 180px;"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewMaxSelectedCountTitle"]"
            Introduction="@Localizer["TreeViewMaxSelectedCountIntro"]"
            Name="MaxSelectedCount">
     <section ignore>@((MarkupString)Localizer["TreeViewMaxSelectedCountDesc"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@SearchItems" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true"
+    <TreeView TItem="TreeFoo" Items="@MaxItems" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true"
               MaxSelectedCount="2" OnMaxSelectedCountExceed="OnMaxSelectedCountExceed"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewEnableKeyboardArrowUpDownTitle"]"
            Introduction="@Localizer["TreeViewEnableKeyboardArrowUpDownIntro"]"
-           Name="Normal">
+           Name="EnableKeyboard">
     <section ignore>@_selectedValue</section>
     <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
               EnableKeyboard="true" ClickToggleNode="false" ClickToggleCheck="false" ShowCheckbox="true" />

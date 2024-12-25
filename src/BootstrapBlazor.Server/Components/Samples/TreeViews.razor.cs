@@ -53,7 +53,11 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
-    private List<TreeViewItem<TreeFoo>>? SearchItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>>? MaxItems { get; set; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>>? SearchItems1 { get; set; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>>? SearchItems2 { get; set; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
@@ -226,12 +230,36 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private Task OnSearchAsync(string searchText)
+    private Task OnSearch1Async(string searchText)
     {
-        SearchItems =
-        [
-            new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
-        ];
+        if (string.IsNullOrEmpty(searchText))
+        {
+            SearchItems1 = TreeFoo.GetTreeItems();
+        }
+        else
+        {
+            SearchItems1 =
+            [
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
+            ];
+        }
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnSearch2Async(string searchText)
+    {
+        if (string.IsNullOrEmpty(searchText))
+        {
+            SearchItems1 = TreeFoo.GetTreeItems();
+        }
+        else
+        {
+            SearchItems2 =
+            [
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
+            ];
+        }
         StateHasChanged();
         return Task.CompletedTask;
     }
