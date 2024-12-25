@@ -89,6 +89,7 @@ public partial class SelectTables
 
     class SelectTableMode
     {
+        [Required]
         public Foo? Foo { get; set; }
     }
 
