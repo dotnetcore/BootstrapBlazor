@@ -93,14 +93,6 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private bool IsReset { get; set; }
-
-    private List<SelectedItem> ResetItems { get; } =
-    [
-        new("True", "Reset"),
-        new("False", "Keep")
-    ];
-
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
