@@ -13,7 +13,6 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.ShowIcon, true);
-            builder.Add(p => p.IsReset, false);
             builder.Add(p => p.ModelEqualityComparer, (s1, s2) => { return true; });
             builder.Add(p => p.OnExpandNodeAsync, (s) => { return Task.FromResult(new List<TreeViewItem<string>>().AsEnumerable()); });
             builder.Add(p => p.CustomKeyAttribute, typeof(string));

@@ -151,13 +151,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <remarks>通过设置 <see cref="ShowSearch"/> 开启</remarks>
     [Parameter]
-    public Func<string?, Task>? OnSearchAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 页面刷新是否重置已加载数据 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsReset { get; set; }
+    public Func<string?, Task<List<TreeViewItem<TItem>>?>>? OnSearchAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 带层次数据集合
@@ -345,11 +339,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
         ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewLoadingIcon);
-
-        if (IsReset)
-        {
-            _rows = null;
-        }
     }
 
     /// <summary>
@@ -358,35 +347,32 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        if (Items == null)
+        if (Items != null)
         {
-            // 未提供数据显示 loading
-            return;
-        }
+            if (Items.Count > 0)
+            {
+                await CheckExpand(Items);
+            }
 
-        if (Items.Count > 0)
-        {
-            await CheckExpand(Items);
-        }
+            if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
+            {
+                // 开启 Checkbox 功能时初始化选中节点
+                TreeNodeStateCache.IsChecked(Items);
+            }
 
-        if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
-        {
-            // 开启 Checkbox 功能时初始化选中节点
-            TreeNodeStateCache.IsChecked(Items);
-        }
+            // 从数据源中恢复当前 active 节点
+            if (_activeItem != null)
+            {
+                _activeItem = TreeNodeStateCache.Find(Items, _activeItem.Value, out _);
+            }
 
-        // 从数据源中恢复当前 active 节点
-        if (_activeItem != null)
-        {
-            _activeItem = TreeNodeStateCache.Find(Items, _activeItem.Value, out _);
-        }
-
-        if (_init == false)
-        {
-            // 设置 ActiveItem 默认值
-            _activeItem ??= Items.FirstOrDefaultActiveItem();
-            _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
-            _init = true;
+            if (_init == false)
+            {
+                // 设置 ActiveItem 默认值
+                _activeItem ??= Items.FirstOrDefaultActiveItem();
+                _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+                _init = true;
+            }
         }
     }
 
@@ -609,21 +595,25 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private Task OnEscAsync(string? searchText) => OnClickResetSearch();
 
+    private List<TreeViewItem<TItem>>? _searchItems;
+
     private async Task OnClickSearch()
     {
         if (OnSearchAsync != null)
         {
-            await OnSearchAsync(_searchText);
+            _searchItems = await OnSearchAsync(_searchText);
+            _rows = null;
+            StateHasChanged();
         }
     }
 
-    private async Task OnClickResetSearch()
+    private Task OnClickResetSearch()
     {
         _searchText = null;
-        if (OnSearchAsync != null)
-        {
-            await OnSearchAsync(_searchText);
-        }
+        _searchItems = null;
+        _rows = null;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -862,10 +852,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         get
         {
             // 扁平化数据集合
-            _rows ??= Items.ToFlat<TItem>().ToList();
+            _rows ??= GetItems().ToFlat<TItem>();
             return _rows;
         }
     }
+
+    private List<TreeViewItem<TItem>> GetItems() => _searchItems ?? Items;
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
     {
