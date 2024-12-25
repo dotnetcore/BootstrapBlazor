@@ -347,30 +347,32 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        Items ??= [];
-        if (Items.Count > 0)
+        if (Items != null)
         {
-            await CheckExpand(Items);
-        }
+            if (Items.Count > 0)
+            {
+                await CheckExpand(Items);
+            }
 
-        if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
-        {
-            // 开启 Checkbox 功能时初始化选中节点
-            TreeNodeStateCache.IsChecked(Items);
-        }
+            if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
+            {
+                // 开启 Checkbox 功能时初始化选中节点
+                TreeNodeStateCache.IsChecked(Items);
+            }
 
-        // 从数据源中恢复当前 active 节点
-        if (_activeItem != null)
-        {
-            _activeItem = TreeNodeStateCache.Find(Items, _activeItem.Value, out _);
-        }
+            // 从数据源中恢复当前 active 节点
+            if (_activeItem != null)
+            {
+                _activeItem = TreeNodeStateCache.Find(Items, _activeItem.Value, out _);
+            }
 
-        if (_init == false)
-        {
-            // 设置 ActiveItem 默认值
-            _activeItem ??= Items.FirstOrDefaultActiveItem();
-            _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
-            _init = true;
+            if (_init == false)
+            {
+                // 设置 ActiveItem 默认值
+                _activeItem ??= Items.FirstOrDefaultActiveItem();
+                _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+                _init = true;
+            }
         }
     }
 
@@ -679,12 +681,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (node.IsExpand)
             {
                 // 通过 item 找到父节点
-                var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
-                foreach (var n in nodes.Where(n => n != node))
+                var parentNode = TreeNodeStateCache.FindParentNode(Items, node)?.Items;
+                if (parentNode != null)
                 {
-                    // 收缩同级节点
-                    n.IsExpand = false;
-                    await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
+                    foreach (var n in parentNode.Where(n => n != node))
+                    {
+                        // 收缩同级节点
+                        n.IsExpand = false;
+                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
+                    }
                 }
             }
             _rows = null;
