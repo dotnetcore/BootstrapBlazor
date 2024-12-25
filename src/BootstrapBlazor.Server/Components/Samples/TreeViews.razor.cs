@@ -228,7 +228,10 @@ public sealed partial class TreeViews
 
     private Task OnSearchAsync(string searchText)
     {
-        SearchItems = string.IsNullOrEmpty(searchText) ? TreeFoo.GetTreeItems() : [];
+        SearchItems =
+        [
+            new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
+        ];
         StateHasChanged();
         return Task.CompletedTask;
     }
