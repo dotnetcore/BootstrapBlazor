@@ -75,6 +75,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private TreeViewItem<TItem>? _activeItem;
 
     /// <summary>
+    /// 获得/设置 是否显示正在加载动画 默认为 false
+    /// </summary>
+    [Obsolete("已弃用 直接删除即可；Deprecated Please remove it")]
+    [ExcludeFromCodeCoverage]
+    public bool IsReset { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否禁用整个组件 默认 false
     /// </summary>
     [Parameter]
