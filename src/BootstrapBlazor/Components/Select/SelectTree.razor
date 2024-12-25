@@ -20,7 +20,7 @@
         <span class="@AppendClassName"><i class="@DropdownIcon"></i></span>
     </div>
     <div class="dropdown-menu">
-        <TreeView TItem="TValue" Items="@Items" IsReset="IsReset" ShowIcon="ShowIcon" OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer" CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
+        <TreeView TItem="TValue" Items="@Items" ShowIcon="ShowIcon" OnTreeItemClick="OnItemClick" ModelEqualityComparer="@ModelEqualityComparer" CustomKeyAttribute="@CustomKeyAttribute" OnExpandNodeAsync="@OnExpandNodeAsync" />
     </div>
     @if (!IsPopover)
     {

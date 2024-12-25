@@ -154,12 +154,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public Func<string?, Task<List<TreeViewItem<TItem>>?>>? OnSearchAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 页面刷新是否重置已加载数据 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsReset { get; set; }
-
-    /// <summary>
     /// 获得/设置 带层次数据集合
     /// </summary>
     [Parameter]
