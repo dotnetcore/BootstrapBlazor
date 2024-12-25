@@ -53,7 +53,11 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
-    private List<TreeViewItem<TreeFoo>>? SearchItems { get; set; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>>? MaxItems { get; set; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>>? SearchItems1 { get; set; } = TreeFoo.GetTreeItems();
+
+    private List<TreeViewItem<TreeFoo>>? SearchItems2 { get; set; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
@@ -88,14 +92,6 @@ public sealed partial class TreeViews
         ret[1].Items[1].CheckedState = CheckboxState.Checked;
         return ret;
     }
-
-    private bool IsReset { get; set; }
-
-    private List<SelectedItem> ResetItems { get; } =
-    [
-        new("True", "Reset"),
-        new("False", "Keep")
-    ];
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
@@ -226,11 +222,19 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private Task OnSearchAsync(string searchText)
+    private static async Task<List<TreeViewItem<TreeFoo>>?> OnSearchAsync(string searchText)
     {
-        SearchItems = string.IsNullOrEmpty(searchText) ? TreeFoo.GetTreeItems() : [];
-        StateHasChanged();
-        return Task.CompletedTask;
+        await Task.Delay(20);
+
+        List<TreeViewItem<TreeFoo>>? items = null;
+        if (!string.IsNullOrEmpty(searchText))
+        {
+            items =
+            [
+                new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
+            ];
+        }
+        return items;
     }
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandVirtualNodeAsync(TreeViewItem<TreeFoo> node)

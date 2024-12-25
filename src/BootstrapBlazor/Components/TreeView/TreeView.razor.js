@@ -30,9 +30,9 @@ export function init(id, options) {
 
 export function scroll(id, options) {
     const el = document.getElementById(id);
-    const item = el.querySelector(".active .tree-node");
+    const item = el.querySelector(".tree-content.active");
     if (item) {
-        item.scrollIntoView(options ?? { behavior: 'smooth', block: 'start', inline: 'nearest' });
+        item.parentElement.scrollTo(0, item.offsetTop, options || { behavior: 'smooth' });
     }
 }
 

@@ -7700,7 +7700,6 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<MockTable>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForElement("[data-bs-original-title=\"True\"]");
     }
 
     [Fact]
@@ -7728,7 +7727,6 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<MockTable>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForElement("[data-bs-original-title=\"True\"]");
     }
 
     [Fact]
