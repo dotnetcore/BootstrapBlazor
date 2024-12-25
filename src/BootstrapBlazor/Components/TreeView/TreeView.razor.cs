@@ -681,15 +681,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             if (node.IsExpand)
             {
                 // 通过 item 找到父节点
-                var parentNode = TreeNodeStateCache.FindParentNode(Items, node)?.Items;
-                if (parentNode != null)
+                var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
+                foreach (var n in nodes.Where(n => n != node))
                 {
-                    foreach (var n in parentNode.Where(n => n != node))
-                    {
-                        // 收缩同级节点
-                        n.IsExpand = false;
-                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
-                    }
+                    // 收缩同级节点
+                    n.IsExpand = false;
+                    await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                 }
             }
             _rows = null;
