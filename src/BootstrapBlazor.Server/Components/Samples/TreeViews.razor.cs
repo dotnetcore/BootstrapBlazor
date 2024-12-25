@@ -230,38 +230,19 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private Task OnSearch1Async(string searchText)
+    private static async Task<List<TreeViewItem<TreeFoo>>?> OnSearchAsync(string searchText)
     {
-        if (string.IsNullOrEmpty(searchText))
-        {
-            SearchItems1 = TreeFoo.GetTreeItems();
-        }
-        else
-        {
-            SearchItems1 =
-            [
-                new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
-            ];
-        }
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
+        await Task.Delay(20);
 
-    private Task OnSearch2Async(string searchText)
-    {
-        if (string.IsNullOrEmpty(searchText))
+        List<TreeViewItem<TreeFoo>>? items = null;
+        if (!string.IsNullOrEmpty(searchText))
         {
-            SearchItems1 = TreeFoo.GetTreeItems();
-        }
-        else
-        {
-            SearchItems2 =
+            items =
             [
                 new TreeViewItem<TreeFoo>(new TreeFoo() { Text = searchText }) { Text = searchText },
             ];
         }
-        StateHasChanged();
-        return Task.CompletedTask;
+        return items;
     }
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandVirtualNodeAsync(TreeViewItem<TreeFoo> node)

@@ -151,7 +151,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <remarks>通过设置 <see cref="ShowSearch"/> 开启</remarks>
     [Parameter]
-    public Func<string?, Task<List<TreeViewItem<TItem>>>>? OnSearchAsync { get; set; }
+    public Func<string?, Task<List<TreeViewItem<TItem>>?>>? OnSearchAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 页面刷新是否重置已加载数据 默认 false
@@ -345,11 +345,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewSearchIcon);
         ClearSearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewResetSearchIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewLoadingIcon);
-
-        if (IsReset)
-        {
-            _rows = null;
-        }
     }
 
     /// <summary>
@@ -358,12 +353,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        if (Items == null)
-        {
-            // 未提供数据显示 loading
-            return;
-        }
-
+        Items ??= [];
         if (Items.Count > 0)
         {
             await CheckExpand(Items);
