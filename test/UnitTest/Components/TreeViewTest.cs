@@ -874,22 +874,22 @@ public class TreeViewTest : BootstrapBlazorTestBase
         ];
         nodes = TreeFoo.CascadingTree(items);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Items, nodes));
+        await cut.InvokeAsync(() => cut.Instance.SetItems(nodes));
         // 子节点
         bars = cut.FindAll(".fa-caret-right.visible");
         await cut.InvokeAsync(() => bars[0].Click());
 
-        //bars = cut.FindAll(".fa-caret-right.visible");
-        //Assert.Contains("fa-rotate-90", bars[0].ClassName);
+        bars = cut.FindAll(".fa-caret-right.visible");
+        Assert.Contains("fa-rotate-90", bars[0].ClassName);
 
-        //// 点击第三个节点箭头开展
-        //bars = cut.FindAll(".fa-caret-right.visible");
-        //await cut.InvokeAsync(() => bars[2].Click());
+        // 点击第三个节点箭头开展
+        bars = cut.FindAll(".fa-caret-right.visible");
+        await cut.InvokeAsync(() => bars[2].Click());
 
-        //bars = cut.FindAll(".fa-caret-right.visible");
-        //Assert.Contains("fa-rotate-90", bars[0].ClassName);
-        //Assert.DoesNotContain("fa-rotate-90", bars[1].ClassName);
-        //Assert.Contains("fa-rotate-90", bars[2].ClassName);
+        bars = cut.FindAll(".fa-caret-right.visible");
+        Assert.Contains("fa-rotate-90", bars[0].ClassName);
+        Assert.DoesNotContain("fa-rotate-90", bars[1].ClassName);
+        Assert.Contains("fa-rotate-90", bars[2].ClassName);
     }
 
     [Fact]
