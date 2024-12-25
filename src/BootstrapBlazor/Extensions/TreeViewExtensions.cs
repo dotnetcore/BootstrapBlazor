@@ -50,7 +50,7 @@ public static class TreeViewExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
+    public static List<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
     {
         var rows = new List<TreeViewItem<TItem>>();
         if (source != null)
