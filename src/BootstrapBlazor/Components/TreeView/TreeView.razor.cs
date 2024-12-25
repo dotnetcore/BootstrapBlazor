@@ -151,7 +151,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <remarks>通过设置 <see cref="ShowSearch"/> 开启</remarks>
     [Parameter]
-    public Func<string?, Task>? OnSearchAsync { get; set; }
+    public Func<string?, Task<List<TreeViewItem<TItem>>>>? OnSearchAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 页面刷新是否重置已加载数据 默认 false
@@ -609,21 +609,25 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private Task OnEscAsync(string? searchText) => OnClickResetSearch();
 
+    private List<TreeViewItem<TItem>>? _searchItems;
+
     private async Task OnClickSearch()
     {
         if (OnSearchAsync != null)
         {
-            await OnSearchAsync(_searchText);
+            _searchItems = await OnSearchAsync(_searchText);
+            _rows = null;
+            StateHasChanged();
         }
     }
 
-    private async Task OnClickResetSearch()
+    private Task OnClickResetSearch()
     {
         _searchText = null;
-        if (OnSearchAsync != null)
-        {
-            await OnSearchAsync(_searchText);
-        }
+        _searchItems = null;
+        _rows = null;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -862,10 +866,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         get
         {
             // 扁平化数据集合
-            _rows ??= Items.ToFlat<TItem>().ToList();
+            _rows ??= GetItems().ToFlat<TItem>();
             return _rows;
         }
     }
+
+    private List<TreeViewItem<TItem>> GetItems() => _searchItems ?? Items;
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
     {
