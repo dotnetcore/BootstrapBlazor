@@ -676,10 +676,24 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="node"></param>
     /// <param name="shouldRender"></param>
-    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender = false)
+    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender)
     {
         // 手风琴效果逻辑
         node.IsExpand = !node.IsExpand;
+
+        //// 如果节点设置有子节点但是当前没有时调用 GetChildrenRowAsync 方法
+        //if (node.IsExpand && node.HasChildren && node.Items.Count == 0)
+        //{
+        //    var items = await GetChildrenRowAsync(node);
+        //    if (items != null)
+        //    {
+        //        foreach (var item in items)
+        //        {
+        //            item.Parent = node;
+        //            node.Items.Add(item);
+        //        }
+        //    }
+        //}
         if (IsAccordion && !IsVirtualize)
         {
             await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);
@@ -859,8 +873,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         get
         {
             // 扁平化数据集合
-            _rows ??= GetItems().ToFlat<TItem>();
-            return _rows;
+            //_rows ??= GetItems().ToFlat<TItem>();
+            //return _rows;
+            return GetItems().ToFlat<TItem>();
         }
     }
 
