@@ -32,16 +32,11 @@ public partial class ExportPdfButtons
     [NotNull]
     private ToastService? ToastService { get; set; }
 
-    [Inject, NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
     private Task OnBeforeExport() => ToastService.Information(Localizer["ToastTitle"], Localizer["ToastContent"]);
 
     private static string PdfFileName => $"Pdf-{DateTime.Now:HHmmss}.pdf";
 
     private Task OnAfterDownload(string fileName) => ToastService.Success(Localizer["ToastDownloadTitle"], Localizer["ToastDownloadContent", fileName]);
-
-    private List<string> _styleTags = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -51,11 +46,6 @@ public partial class ExportPdfButtons
         Items = Foo.GenerateFoo(FooLocalizer);
         Hobbies = Foo.GenerateHobbies(FooLocalizer);
         Model = Foo.Generate(FooLocalizer);
-
-        _styleTags.AddRange([
-            $"{NavigationManager.BaseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
-            $"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"
-        ]);
     }
 
     private AttributeItem[] GetAttributes() =>

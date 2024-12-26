@@ -68,6 +68,9 @@ public class ExportPdfButton : Button
     private IHtml2Pdf? Html2PdfService { get; set; }
 
     [Inject, NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    [Inject, NotNull]
     private DownloadService? DownloadService { get; set; }
 
     private JSModule? _getHtmlModule;
@@ -114,8 +117,21 @@ public class ExportPdfButton : Button
                 </html>
                 """;
 
+            // 增加网页所需样式表文件
+            List<string> styles = [
+                $"{NavigationManager.BaseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
+                $"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"
+            ];
+            if (StyleTags != null)
+            {
+                styles.AddRange(StyleTags);
+            }
+
+            // 增加网页所需脚本文件
+            var scripts = ScriptTags ?? [];
+
             // 生成 Pdf 流
-            using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, StyleTags, ScriptTags);
+            using var stream = await Html2PdfService.PdfStreamFromHtmlAsync(htmlString, styles, scripts);
 
             if (OnBeforeDownload != null)
             {
