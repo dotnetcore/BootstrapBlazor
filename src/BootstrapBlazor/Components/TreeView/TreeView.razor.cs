@@ -354,6 +354,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
+        _rows = null;
+
         if (Items != null)
         {
             if (Items.Count > 0)
@@ -577,7 +579,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         _activeItem = item;
         if (ClickToggleNode && CanTriggerClickNode(item))
         {
-            await OnToggleNodeAsync(item);
+            await OnToggleNodeAsync(item, false);
         }
 
         if (OnTreeItemClick != null)
@@ -672,14 +674,28 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     };
 
     /// <summary>
-    /// 更改节点是否展开方法
+    /// 切换节点展开收缩状态方法
     /// </summary>
     /// <param name="node"></param>
     /// <param name="shouldRender"></param>
-    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender = false)
+    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender)
     {
         // 手风琴效果逻辑
         node.IsExpand = !node.IsExpand;
+
+        //// 如果节点设置有子节点但是当前没有时调用 GetChildrenRowAsync 方法
+        //if (node.IsExpand && node.HasChildren && node.Items.Count == 0)
+        //{
+        //    var items = await GetChildrenRowAsync(node);
+        //    if (items != null)
+        //    {
+        //        foreach (var item in items)
+        //        {
+        //            item.Parent = node;
+        //            node.Items.Add(item);
+        //        }
+        //    }
+        //}
         if (IsAccordion && !IsVirtualize)
         {
             await TreeNodeStateCache.ToggleNodeAsync(node, GetChildrenRowAsync);

@@ -133,7 +133,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
         var node = cut.Find(".active .tree-node-text");
-        Assert.Equal("navigation one", node.TextContent);
+        Assert.Equal("Navigation one", node.TextContent);
 
         var activeItem = items[1].Items[0].Value;
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
@@ -148,6 +148,23 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         activeItem = new TreeFoo();
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
+    }
+
+    [Fact]
+    public void AppendNode_Ok()
+    {
+        var items = TreeFoo.GetAccordionItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+        var contents = cut.FindAll(".tree-content");
+        Assert.Equal(2, contents.Count);
+
+        items.Add(new TreeViewItem<TreeFoo>(new TreeFoo()) { Text = "append-text" });
+        cut.SetParametersAndRender();
+        contents = cut.FindAll(".tree-content");
+        Assert.Equal(3, contents.Count);
     }
 
     [Fact]

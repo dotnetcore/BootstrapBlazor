@@ -25,7 +25,7 @@ class TreeFoo
 
     public static List<TreeFoo> GetItems() =>
     [
-        new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" },
 
@@ -57,6 +57,63 @@ class TreeFoo
 
         // 算法获取属性结构数据
         return CascadingTree(items);
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetAccordionItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "Node-01", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Node-02", Id = "1020", Icon = "fa-solid fa-font-awesome" }
+        ];
+
+        // 算法获取属性结构数据
+        var tree = CascadingTree(items);
+        tree[0].HasChildren = true;
+        tree[1].HasChildren = true;
+
+        return tree;
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetLazyItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "LazyNode-01", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "LazyNode-02", Id = "1020", Icon = "fa-solid fa-font-awesome" }
+        ];
+
+        // 算法获取属性结构数据
+        var tree = CascadingTree(items);
+        tree[0].HasChildren = true;
+        tree[1].HasChildren = true;
+        return tree;
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetTemplateItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomTreeItem>(new Dictionary<string, object?>() { [nameof(CustomTreeItem.Foo)] = foo }).Render();
+        return ret;
+    }
+
+    public static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandAccordionNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(200);
+        var item = node.Value;
+        return new List<TreeViewItem<TreeFoo>>
+        {
+            new(new TreeFoo() { Id = $"{item.Id}-1", ParentId = item.Id }) { Text = "懒加载子节点" }
+        };
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetColorItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].CssClass = "text-primary";
+        ret[1].CssClass = "text-success";
+        ret[2].CssClass = "text-danger";
+        return ret;
     }
 
     public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()

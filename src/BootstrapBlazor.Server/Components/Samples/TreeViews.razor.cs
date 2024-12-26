@@ -23,7 +23,10 @@ public sealed partial class TreeViews
     private ConsoleLogger? Logger3 { get; set; }
 
     private bool DisableCanExpand { get; set; }
+
     private bool IsDisabled { get; set; }
+
+    private List<TreeViewItem<TreeFoo>> NormalItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
 
@@ -33,15 +36,17 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
+    private List<TreeViewItem<TreeFoo>>? AccordionItems { get; } = TreeFoo.GetAccordionItems();
+
     private List<TreeViewItem<TreeFoo>> ExpandItems { get; } = GetExpandItems();
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
-    private static List<TreeViewItem<TreeFoo>> GetIconItems() => TreeFoo.GetTreeItems();
+    private static List<TreeViewItem<TreeFoo>> IconItems { get; set; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> GetClickExpandItems { get; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> ClickExpandItems { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> GetFormItems { get; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> FormItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; } = TreeFoo.GetTreeItems();
 
@@ -61,7 +66,11 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> FlatItems { get; } = TreeFoo.GetFlatItems();
+    private List<TreeViewItem<TreeFoo>> LazyItems { get; } = TreeFoo.GetLazyItems();
+
+    private List<TreeViewItem<TreeFoo>> ColorItems { get; } = TreeFoo.GetColorItems();
+
+    private List<TreeViewItem<TreeFoo>> TemplateItems { get; } = TreeFoo.GetTemplateItems();
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
@@ -83,6 +92,11 @@ public sealed partial class TreeViews
     private void OnRefresh()
     {
         CheckedItems = GetCheckedItems();
+    }
+
+    private void OnClickAddNode()
+    {
+        CheckedItems.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"Id-{DateTime.Now.Ticks}" }) { Text = DateTime.Now.ToString() });
     }
 
     private static List<TreeViewItem<TreeFoo>> GetCheckedItems()
@@ -114,33 +128,11 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private static List<TreeViewItem<TreeFoo>> GetAccordionItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[1].Items[0].HasChildren = true;
-        return ret;
-    }
-
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
     {
-        await Task.Delay(800);
+        await Task.Delay(200);
         var item = node.Value;
         return new TreeViewItem<TreeFoo>[] { new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id }) { Text = "懒加载子节点1", HasChildren = true }, new(new TreeFoo() { Id = $"{item.Id}-102", ParentId = item.Id }) { Text = "懒加载子节点2" } };
-    }
-
-    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> CustomCheckedNodeOnExpandNodeAsync(TreeViewItem<TreeFoo> node)
-    {
-        await Task.Delay(800);
-        var item = node.Value;
-        return TreeFoo.GetCheckedTreeItems(item.Id);
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetCustomCheckedItems()
-    {
-        var ret = TreeFoo.GetCheckedTreeItems();
-        ret[0].IsExpand = true;
-        ret[0].Items = TreeFoo.GetCheckedTreeItems();
-        return ret;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetExpandItems()
@@ -153,31 +145,6 @@ public sealed partial class TreeViews
     private static Task OnFormTreeItemClick(TreeViewItem<TreeFoo> item)
     {
         return Task.CompletedTask;
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetLazyItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[1].Items[0].IsExpand = true;
-        ret[2].Text = "懒加载延时";
-        ret[2].HasChildren = true;
-        return ret;
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetTemplateItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>() { [nameof(CustomerTreeItem.Foo)] = foo }).Render();
-        return ret;
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetColorItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[0].CssClass = "text-primary";
-        ret[1].CssClass = "text-success";
-        ret[2].CssClass = "text-danger";
-        return ret;
     }
 
     private Task OnTreeItemChecked2(List<TreeViewItem<TreeFoo>> items)
@@ -247,38 +214,6 @@ public sealed partial class TreeViews
             items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text, HasChildren = Random.Shared.Next(100) > 80 });
         });
         return items;
-    }
-
-    private class CustomerTreeItem : ComponentBase
-    {
-        [Inject]
-        [NotNull]
-        private ToastService? ToastService { get; set; }
-
-        [Parameter]
-        [NotNull]
-        public TreeFoo? Foo { get; set; }
-
-        /// <summary>
-        /// BuildRenderTree
-        /// </summary>
-        /// <param name="builder"></param>
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            builder.OpenElement(3, "span");
-            builder.AddAttribute(4, "class", "me-3");
-            builder.AddContent(5, Foo.Text);
-            builder.CloseElement();
-
-            builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-font-awesome");
-            builder.AddAttribute(2, nameof(Button.Text), "Click");
-            builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
-            {
-                ToastService.Warning("自定义 TreeViewItem", "测试 TreeViewItem 按钮点击事件");
-            }));
-            builder.CloseComponent();
-        }
     }
 
     /// <summary>
