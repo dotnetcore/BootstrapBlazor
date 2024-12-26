@@ -148,7 +148,9 @@
 <DemoBlock Title="@Localizer["TreeViewShowSkeletonTitle"]"
            Introduction="@Localizer["TreeViewShowSkeletonIntro"]"
            Name="ShowSkeleton">
-    <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="@OnLoadAsyncItems"></Button>
+    <section ignore>
+        <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="@OnLoadAsyncItems"></Button>
+    </section>
     <TreeView Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3"></TreeView>
 </DemoBlock>
 
