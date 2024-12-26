@@ -672,7 +672,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     };
 
     /// <summary>
-    /// 更改节点是否展开方法
+    /// 切换节点展开收缩状态方法
     /// </summary>
     /// <param name="node"></param>
     /// <param name="shouldRender"></param>
