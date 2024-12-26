@@ -25,7 +25,7 @@ class TreeFoo
 
     public static List<TreeFoo> GetItems() =>
     [
-        new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" },
 
