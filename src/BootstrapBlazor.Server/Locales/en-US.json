@@ -686,7 +686,7 @@
     "TreeViewCheckedItemsTitle": "Get all selected nodes",
     "TreeViewCheckedItemsIntro": "Get all nodes by setting the <code>OnTreeItemChecked</code> callback delegate",
     "TreeViewShowSkeletonTitle": "Loading skeleton screen",
-    "TreeViewShowSkeletonIntro": "By setting <code>ShowSkeleton</code>, the component displays the skeleton screen when the data is loaded asynchronously",
+    "TreeViewShowSkeletonIntro": "When the component <code>Items</code> is <code>null</code>, set <code>ShowSkeleton=\"true\"</code> to display the skeleton screen when asynchronously loading data. Set <code>ShowSkeleton=\"false\"</code> to display the default loading animation.",
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",

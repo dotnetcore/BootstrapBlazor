@@ -686,7 +686,7 @@
     "TreeViewCheckedItemsTitle": "获取所有选中节点",
     "TreeViewCheckedItemsIntro": "通过设置 <code>OnTreeItemChecked</code> 回调委托获取所有节点",
     "TreeViewShowSkeletonTitle": "加载骨架屏",
-    "TreeViewShowSkeletonIntro": "通过设置 <code>ShowSkeleton</code> 使异步加载数据时组件显示骨架屏",
+    "TreeViewShowSkeletonIntro": "当组件 <code>Items</code> 为 <code>null</code> 时，通过设置 <code>ShowSkeleton=\"true\"</code> 使异步加载数据时组件显示骨架屏，设置 <code>ShowSkeleton=\"false\"</code> 时显示默认正在加载动画",
     "TreeViewShowSkeletonButtonText": "异步加载",
     "TreeViewShowSearchTitle": "显示搜索栏",
     "TreeViewShowSearchIntro": "通过设置 <code>ShowSearch</code> 显示搜索栏，通过 <code>OnSearchAsync</code> 回调方法设置数据源刷新页面即可",
