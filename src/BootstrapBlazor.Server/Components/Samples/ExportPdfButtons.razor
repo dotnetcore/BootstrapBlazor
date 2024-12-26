@@ -25,13 +25,20 @@
 <DemoBlock Title="@Localizer["SelectorTitle"]" Introduction="@Localizer["SelectorIntro"]" Name="Selector">
     <section ignore class="table-9527-02">
         <GroupBox Title="@Localizer["GroupBoxTitle"]">
-            <ValidateForm Model="@Model">
-                <EditorForm TModel="Foo" ItemsPerRow="3">
-                    <FieldItems>
-                        <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
-                    </FieldItems>
-                </EditorForm>
-            </ValidateForm>
+            <div class="row g-2 form-inline">
+                <div class="col-12 col-sm-6">
+                    <Display Value="Model.Name" ShowLabel="true" DisplayText="Name"></Display>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <Display Value="Model.Address" ShowLabel="true" DisplayText="Address"></Display>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <Display Value="Model.DateTime" ShowLabel="true" DisplayText="DateTime"></Display>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <Display Value="Model.Education" ShowLabel="true" DisplayText="Education"></Display>
+                </div>
+            </div>
         </GroupBox>
     </section>
     <ExportPdfButton Selector=".table-9527-02" IsAsync="true" OnBeforeExport="OnBeforeExport" OnAfterDownload="OnAfterDownload" AutoDownload="true" FileName="@PdfFileName"></ExportPdfButton>
