@@ -193,16 +193,6 @@
     </div>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["TreeViewFlatTitle"]"
-           Introduction="@Localizer["TreeViewFlatIntro"]"
-           Name="FlatItems">
-    <section ignore>
-        @((MarkupString)Localizer["TreeViewFlatItemsDescription"].Value)
-    </section>
-    <TreeView Items="@FlatItems" ShowCheckbox="true"
-                AutoCheckChildren="true" AutoCheckParent="true"></TreeView>
-</DemoBlock>
- *@
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>
