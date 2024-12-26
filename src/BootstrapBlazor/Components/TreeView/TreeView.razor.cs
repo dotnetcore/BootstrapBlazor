@@ -354,6 +354,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
+        _rows = null;
+
         if (Items != null)
         {
             if (Items.Count > 0)
@@ -873,9 +875,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         get
         {
             // 扁平化数据集合
-            //_rows ??= GetItems().ToFlat<TItem>();
-            //return _rows;
-            return GetItems().ToFlat<TItem>();
+            _rows ??= GetItems().ToFlat<TItem>();
+            return _rows;
         }
     }
 
