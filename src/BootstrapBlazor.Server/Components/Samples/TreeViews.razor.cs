@@ -66,7 +66,9 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> VirtualizeItems { get; } = TreeFoo.GetVirtualizeTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> FlatItems { get; } = TreeFoo.GetFlatItems();
+    private List<TreeViewItem<TreeFoo>> LazyItems { get; } = TreeFoo.GetLazyItems();
+
+    private List<TreeViewItem<TreeFoo>> TemplateItems { get; } = TreeFoo.GetTemplateItems();
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
@@ -165,22 +167,6 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private static List<TreeViewItem<TreeFoo>> GetLazyItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[1].Items[0].IsExpand = true;
-        ret[2].Text = "懒加载延时";
-        ret[2].HasChildren = true;
-        return ret;
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetTemplateItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomerTreeItem>(new Dictionary<string, object?>() { [nameof(CustomerTreeItem.Foo)] = foo }).Render();
-        return ret;
-    }
-
     private static List<TreeViewItem<TreeFoo>> GetColorItems()
     {
         var ret = TreeFoo.GetTreeItems();
@@ -257,38 +243,6 @@ public sealed partial class TreeViews
             items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text, HasChildren = Random.Shared.Next(100) > 80 });
         });
         return items;
-    }
-
-    private class CustomerTreeItem : ComponentBase
-    {
-        [Inject]
-        [NotNull]
-        private ToastService? ToastService { get; set; }
-
-        [Parameter]
-        [NotNull]
-        public TreeFoo? Foo { get; set; }
-
-        /// <summary>
-        /// BuildRenderTree
-        /// </summary>
-        /// <param name="builder"></param>
-        protected override void BuildRenderTree(RenderTreeBuilder builder)
-        {
-            builder.OpenElement(3, "span");
-            builder.AddAttribute(4, "class", "me-3");
-            builder.AddContent(5, Foo.Text);
-            builder.CloseElement();
-
-            builder.OpenComponent<Button>(0);
-            builder.AddAttribute(1, nameof(Button.Icon), "fa-solid fa-font-awesome");
-            builder.AddAttribute(2, nameof(Button.Text), "Click");
-            builder.AddAttribute(3, nameof(Button.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
-            {
-                ToastService.Warning("自定义 TreeViewItem", "测试 TreeViewItem 按钮点击事件");
-            }));
-            builder.CloseComponent();
-        }
     }
 
     /// <summary>

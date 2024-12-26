@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Components\Components\CustomTreeItem.cs" Link="Misc\CustomTreeItem.cs" />
     <Compile Include="..\..\src\BootstrapBlazor.Server\Data\Foo.cs" Link="Misc\Foo.cs" />
     <Compile Include="..\..\src\BootstrapBlazor.Server\Data\TreeFoo.cs" Link="Misc\TreeFoo.cs" />
     <Compile Include="..\..\src\BootstrapBlazor.Server\Extensions\IpExtensions.cs" Link="Extensions\IpExtensions.cs" />

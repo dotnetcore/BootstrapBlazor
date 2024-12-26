@@ -112,13 +112,13 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewTreeLazyLoadingDescription"].Value)
     </section>
-    <TreeView ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync"></TreeView>
+    <TreeView ClickToggleNode="true" Items="@LazyItems" OnExpandNodeAsync="TreeFoo.OnExpandAccordionNodeAsync"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeCustomNodeTitle"]"
            Introduction="@Localizer["TreeViewTreeCustomNodeIntro"]"
            Name="TreeCustomNode">
-    <TreeView ClickToggleNode="true" Items="GetTemplateItems()"></TreeView>
+    <TreeView ClickToggleNode="true" Items="TemplateItems"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeNodeColorTitle"]"

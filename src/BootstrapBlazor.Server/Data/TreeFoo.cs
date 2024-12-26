@@ -75,6 +75,28 @@ class TreeFoo
         return tree;
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetLazyItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "LazyNode-01", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "LazyNode-02", Id = "1020", Icon = "fa-solid fa-font-awesome" }
+        ];
+
+        // 算法获取属性结构数据
+        var tree = CascadingTree(items);
+        tree[0].HasChildren = true;
+        tree[1].HasChildren = true;
+        return tree;
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetTemplateItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomTreeItem>(new Dictionary<string, object?>() { [nameof(CustomTreeItem.Foo)] = foo }).Render();
+        return ret;
+    }
+
     public static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandAccordionNodeAsync(TreeViewItem<TreeFoo> node)
     {
         await Task.Delay(200);
