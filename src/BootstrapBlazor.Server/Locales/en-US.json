@@ -652,7 +652,7 @@
     "TreeViewCheckboxTitle": "Checkbox",
     "TreeViewCheckboxIntro": "Suitable for use when you need to select a level",
     "TreeViewCheckboxTips1": "By setting the <code>OnTreeItemChecked</code> property to monitor the event when the tree control node is checked, when the check box in front of the tree control node is selected, the following log displays the data of the selected node",
-    "TreeViewCheckboxTips2": "<code>Tree</code> component data loading will keep the state of each node inside, change the node selected state and click the <b>refresh</b> button, the component node state will remain unchanged, you can pass the parameter <code>IsReset</code> Force data reset",
+    "TreeViewCheckboxTips2": "The <code>Tree</code> component will keep the status of each node when loading data. The <b>Refresh</b> button will update the data source <code>Items</code> and reinitialize the component. When you click the <code>Append Node</code> button, only the data inside the data source will be changed without reassigning values, so the status of each node will remain unchanged.",
     "TreeViewNormalRadioListDisplayText": "Whether to reset",
     "TreeViewCheckboxCheckBoxDisplayText1": "Automatically select child nodes",
     "TreeViewCheckboxCheckBoxDisplayText2": "Automatically select parent node",

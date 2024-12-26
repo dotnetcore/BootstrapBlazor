@@ -652,7 +652,7 @@
     "TreeViewCheckboxTitle": "多选框",
     "TreeViewCheckboxIntro": "适用于需要选择层级时使用",
     "TreeViewCheckboxTips1": "通过设置 <code>OnTreeItemChecked</code> 属性监控树形控件节点被勾选时的事件，选中树形控件节点前复选框时下面日志显示选中节点的数据",
-    "TreeViewCheckboxTips2": "<code>Tree</code> 组件数据加载内部将会保持各个节点状态，改变节点选中状态点击 <b>刷新</b> 按钮，组件节点状态保持不变，可通过参数 <code>IsReset</code> 强制数据重置",
+    "TreeViewCheckboxTips2": "<code>Tree</code> 组件数据加载内部将会保持各个节点状态，<b>刷新</b> 按钮将更新数据源 <code>Items</code>，组件重新初始化，点击 <code>追加节点</code> 按钮时，仅更改数据源内部数据未重新赋值，所以各个节点状态保持不变",
     "TreeViewNormalRadioListDisplayText": "是否重置",
     "TreeViewCheckboxCheckBoxDisplayText1": "自动选中子节点",
     "TreeViewCheckboxCheckBoxDisplayText2": "自动选中父节点",

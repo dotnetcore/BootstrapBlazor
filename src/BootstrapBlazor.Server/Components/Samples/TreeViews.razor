@@ -45,7 +45,7 @@
         </div>
         <div class="col-12 col-lg-auto">
             <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
-            <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode"></Button>
+            <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
         </div>
     </section>
     <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
