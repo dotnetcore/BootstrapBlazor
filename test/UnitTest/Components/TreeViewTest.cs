@@ -133,7 +133,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
         var node = cut.Find(".active .tree-node-text");
-        Assert.Equal("navigation one", node.TextContent);
+        Assert.Equal("Navigation one", node.TextContent);
 
         var activeItem = items[1].Items[0].Value;
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
