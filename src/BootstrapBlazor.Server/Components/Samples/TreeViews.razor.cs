@@ -68,6 +68,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> LazyItems { get; } = TreeFoo.GetLazyItems();
 
+    private List<TreeViewItem<TreeFoo>> ColorItems { get; } = TreeFoo.GetColorItems();
+
     private List<TreeViewItem<TreeFoo>> TemplateItems { get; } = TreeFoo.GetTemplateItems();
 
     private Foo Model => Foo.Generate(LocalizerFoo);
@@ -143,15 +145,6 @@ public sealed partial class TreeViews
     private static Task OnFormTreeItemClick(TreeViewItem<TreeFoo> item)
     {
         return Task.CompletedTask;
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetColorItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[0].CssClass = "text-primary";
-        ret[1].CssClass = "text-success";
-        ret[2].CssClass = "text-danger";
-        return ret;
     }
 
     private Task OnTreeItemChecked2(List<TreeViewItem<TreeFoo>> items)

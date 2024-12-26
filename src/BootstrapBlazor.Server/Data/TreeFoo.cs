@@ -107,6 +107,15 @@ class TreeFoo
         };
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetColorItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].CssClass = "text-primary";
+        ret[1].CssClass = "text-success";
+        ret[2].CssClass = "text-danger";
+        return ret;
+    }
+
     public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()
     {
         var ret = new List<TreeViewItem<TreeFoo>>();
