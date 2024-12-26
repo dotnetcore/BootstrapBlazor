@@ -42,7 +42,7 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
 
-    private static List<TreeViewItem<TreeFoo>> GetIconItems() => TreeFoo.GetTreeItems();
+    private static List<TreeViewItem<TreeFoo>> IconItems { get; set; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> GetClickExpandItems { get; } = TreeFoo.GetTreeItems();
 
