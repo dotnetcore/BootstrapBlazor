@@ -11,17 +11,17 @@ namespace BootstrapBlazor.Components;
 public class ScrollIntoViewOptions
 {
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认 5px
+    /// Determines whether scrolling is instant or animates smoothly
     /// </summary>
     public ScrollIntoViewBehavior Behavior { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条鼠标悬浮宽度 默认 5px
+    /// Defines the vertical alignment of the element within the scrollable ancestor container
     /// </summary>
     public ScrollIntoViewBlock Block { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条鼠标悬浮宽度 默认 5px
+    /// Defines the horizontal alignment of the element within the scrollable ancestor container
     /// </summary>
     public ScrollIntoViewInline Inline { get; set; }
 }
