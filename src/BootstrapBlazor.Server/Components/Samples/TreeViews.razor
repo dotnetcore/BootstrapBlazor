@@ -102,7 +102,7 @@
            Name="TreeValidationForm">
     <section ignore>@((MarkupString)Localizer["TreeViewTreeValidationFormDescription"].Value)</section>
     <ValidateForm Model="@Model">
-        <TreeView TItem="TreeFoo" Items="@GetFormItems" OnTreeItemClick="@OnFormTreeItemClick" ShowCheckbox="true"></TreeView>
+        <TreeView TItem="TreeFoo" Items="@FormItems" OnTreeItemClick="@OnFormTreeItemClick" ShowCheckbox="true"></TreeView>
     </ValidateForm>
 </DemoBlock>
 

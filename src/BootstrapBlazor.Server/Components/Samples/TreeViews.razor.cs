@@ -46,7 +46,7 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> ClickExpandItems { get; } = TreeFoo.GetTreeItems();
 
-    private List<TreeViewItem<TreeFoo>> GetFormItems { get; } = TreeFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> FormItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; } = TreeFoo.GetTreeItems();
 
