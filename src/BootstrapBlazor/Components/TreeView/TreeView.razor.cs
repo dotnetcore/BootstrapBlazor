@@ -577,7 +577,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         _activeItem = item;
         if (ClickToggleNode && CanTriggerClickNode(item))
         {
-            await OnToggleNodeAsync(item);
+            await OnToggleNodeAsync(item, false);
         }
 
         if (OnTreeItemClick != null)
