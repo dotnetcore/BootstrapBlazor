@@ -36,6 +36,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> DisabledItems { get; } = GetDisabledItems();
 
+    private List<TreeViewItem<TreeFoo>>? AccordionItems { get; } = TreeFoo.GetAccordionItems();
+
     private List<TreeViewItem<TreeFoo>> ExpandItems { get; } = GetExpandItems();
 
     private List<TreeViewItem<TreeFoo>> CheckedItems { get; set; } = GetCheckedItems();
@@ -131,7 +133,7 @@ public sealed partial class TreeViews
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
     {
-        await Task.Delay(800);
+        await Task.Delay(200);
         var item = node.Value;
         return new TreeViewItem<TreeFoo>[] { new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id }) { Text = "懒加载子节点1", HasChildren = true }, new(new TreeFoo() { Id = $"{item.Id}-102", ParentId = item.Id }) { Text = "懒加载子节点2" } };
     }

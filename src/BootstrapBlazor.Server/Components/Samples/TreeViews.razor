@@ -67,7 +67,7 @@
            Introduction="@Localizer["TreeViewAccordionModelIntro"]"
            Name="AccordionModel">
     <section ignore>@((MarkupString)Localizer["TreeViewAccordionModelDescription"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@GetAccordionItems()" OnExpandNodeAsync="OnExpandNodeAsync" ShowCheckbox="true" IsAccordion="true"></TreeView>
+    <TreeView TItem="TreeFoo" Items="@AccordionItems" OnExpandNodeAsync="TreeFoo.OnExpandAccordionNodeAsync" ShowCheckbox="true" IsAccordion="true"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewDefaultExpandTitle"]"
