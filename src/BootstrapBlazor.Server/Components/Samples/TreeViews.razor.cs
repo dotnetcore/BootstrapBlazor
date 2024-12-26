@@ -23,7 +23,10 @@ public sealed partial class TreeViews
     private ConsoleLogger? Logger3 { get; set; }
 
     private bool DisableCanExpand { get; set; }
+
     private bool IsDisabled { get; set; }
+
+    private List<TreeViewItem<TreeFoo>> NormalItems { get; } = TreeFoo.GetTreeItems();
 
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
 
