@@ -88,6 +88,11 @@ public sealed partial class TreeViews
         CheckedItems = GetCheckedItems();
     }
 
+    private void OnClickAddNode()
+    {
+        CheckedItems.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"Id-{DateTime.Now.Ticks}" }) { Text = DateTime.Now.ToString() });
+    }
+
     private static List<TreeViewItem<TreeFoo>> GetCheckedItems()
     {
         var ret = TreeFoo.GetTreeItems();
