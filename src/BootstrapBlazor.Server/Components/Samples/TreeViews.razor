@@ -27,7 +27,7 @@
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" />
+    <TreeView Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" />
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
@@ -48,7 +48,7 @@
             <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
         </div>
     </section>
-    <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
+    <TreeView Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
     <ConsoleLogger @ref="Logger2"></ConsoleLogger>
 </DemoBlock>
 
@@ -60,14 +60,14 @@
         <Checkbox DisplayText="@Localizer["TreeViewsDisableWholeTreeView"]" ShowAfterLabel="true" @bind-Value="@IsDisabled"></Checkbox>
         <Checkbox DisplayText="@Localizer["TreeViewsWhetherToExpandWhenDisable"]" ShowAfterLabel="true" @bind-Value="@DisableCanExpand" class="ms-3"></Checkbox>
     </div>
-    <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" IsDisabled="@IsDisabled" CanExpandWhenDisabled="@DisableCanExpand"></TreeView>
+    <TreeView Items="@DisabledItems" ShowCheckbox="true" IsDisabled="@IsDisabled" CanExpandWhenDisabled="@DisableCanExpand"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewAccordionModelTitle"]"
            Introduction="@Localizer["TreeViewAccordionModelIntro"]"
            Name="AccordionModel">
     <section ignore>@((MarkupString)Localizer["TreeViewAccordionModelDescription"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@AccordionItems" OnExpandNodeAsync="TreeFoo.OnExpandAccordionNodeAsync" ShowCheckbox="true" IsAccordion="true"></TreeView>
+    <TreeView Items="@AccordionItems" OnExpandNodeAsync="TreeFoo.OnExpandAccordionNodeAsync" ShowCheckbox="true" IsAccordion="true"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewDefaultExpandTitle"]"
@@ -76,7 +76,7 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewDefaultExpandDescription"].Value)
     </section>
-    <TreeView TItem="TreeFoo" Items="@ExpandItems" ShowCheckbox="true"></TreeView>
+    <TreeView Items="@ExpandItems" ShowCheckbox="true"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeDisplayIconTitle"]"
@@ -85,7 +85,7 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewTreeDisplayIconDescription"].Value)
     </section>
-    <TreeView TItem="TreeFoo" Items="@IconItems" ShowIcon="true" ShowCheckbox="true"></TreeView>
+    <TreeView Items="@IconItems" ShowIcon="true" ShowCheckbox="true"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeClickExpandTitle"]"
@@ -94,7 +94,7 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewTreeClickExpandDescription"].Value)
     </section>
-    <TreeView TItem="TreeFoo" Items="@ClickExpandItems" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true"></TreeView>
+    <TreeView Items="@ClickExpandItems" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeValidationFormTitle"]"
@@ -102,7 +102,7 @@
            Name="TreeValidationForm">
     <section ignore>@((MarkupString)Localizer["TreeViewTreeValidationFormDescription"].Value)</section>
     <ValidateForm Model="@Model">
-        <TreeView TItem="TreeFoo" Items="@FormItems" OnTreeItemClick="@OnFormTreeItemClick" ShowCheckbox="true"></TreeView>
+        <TreeView Items="@FormItems" OnTreeItemClick="@OnFormTreeItemClick" ShowCheckbox="true"></TreeView>
     </ValidateForm>
 </DemoBlock>
 
@@ -112,25 +112,25 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewTreeLazyLoadingDescription"].Value)
     </section>
-    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync"></TreeView>
+    <TreeView ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeCustomNodeTitle"]"
            Introduction="@Localizer["TreeViewTreeCustomNodeIntro"]"
            Name="TreeCustomNode">
-    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetTemplateItems()"></TreeView>
+    <TreeView ClickToggleNode="true" Items="GetTemplateItems()"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeNodeColorTitle"]"
            Introduction="@Localizer["TreeViewTreeNodeColorIntro"]"
            Name="TreeNodeColor">
-    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetColorItems()"></TreeView>
+    <TreeView ClickToggleNode="true" Items="GetColorItems()"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewCheckedItemsTitle"]"
            Introduction="@Localizer["TreeViewCheckedItemsIntro"]"
            Name="CheckedItems">
-    <TreeView TItem="TreeFoo" ShowCheckbox="true" Items="@CheckedItems2" OnTreeItemChecked="@OnTreeItemChecked2"></TreeView>
+    <TreeView ShowCheckbox="true" Items="@CheckedItems2" OnTreeItemChecked="@OnTreeItemChecked2"></TreeView>
     <ConsoleLogger @ref="Logger3"></ConsoleLogger>
 </DemoBlock>
 
@@ -146,7 +146,7 @@
             <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
         </div>
     </section>
-    <TreeView TItem="TreeFoo" ShowCheckbox="true" ClickToggleNode="true" ClickToggleCheck="false" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"
+    <TreeView ShowCheckbox="true" ClickToggleNode="true" ClickToggleCheck="false" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"
               Items="@GetCustomCheckedItems()" OnExpandNodeAsync="CustomCheckedNodeOnExpandNodeAsync"></TreeView>
 </DemoBlock>
 
@@ -158,33 +158,33 @@
             <Select TValue="string" Items="SelectedItems" OnSelectedItemChanged="SelectedItemOnChanged" ShowLabel="true" DisplayText="@Localizer["TreeViewSetActiveDisplayText"]"></Select>
         </div>
     </section>
-    <TreeView @ref="SetActiveTreeView" TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick"></TreeView>
+    <TreeView @ref="SetActiveTreeView" Items="@Items" OnTreeItemClick="@OnTreeItemClick"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewShowSkeletonTitle"]"
            Introduction="@Localizer["TreeViewShowSkeletonIntro"]"
            Name="ShowSkeleton">
     <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="@OnLoadAsyncItems"></Button>
-    <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3"></TreeView>
+    <TreeView Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewShowSearchTitle"]"
            Introduction="@Localizer["TreeViewShowSearchIntro"]"
            Name="ShowSearch">
-    <TreeView TItem="TreeFoo" Items="@SearchItems1" ShowSearch="true" OnSearchAsync="@OnSearchAsync"></TreeView>
+    <TreeView Items="@SearchItems1" ShowSearch="true" OnSearchAsync="@OnSearchAsync"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewFixedSearchTitle"]"
            Introduction="@Localizer["TreeViewFixedSearchIntro"]"
            Name="IsFixedSearch">
-    <TreeView TItem="TreeFoo" Items="@SearchItems2" ShowSearch="true" OnSearchAsync="@OnSearchAsync" IsFixedSearch="true" style="height: 180px;"></TreeView>
+    <TreeView Items="@SearchItems2" ShowSearch="true" OnSearchAsync="@OnSearchAsync" IsFixedSearch="true" style="height: 180px;"></TreeView>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewMaxSelectedCountTitle"]"
            Introduction="@Localizer["TreeViewMaxSelectedCountIntro"]"
            Name="MaxSelectedCount">
     <section ignore>@((MarkupString)Localizer["TreeViewMaxSelectedCountDesc"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@MaxItems" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true"
+    <TreeView Items="@MaxItems" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true"
               MaxSelectedCount="2" OnMaxSelectedCountExceed="OnMaxSelectedCountExceed"></TreeView>
 </DemoBlock>
 
@@ -192,7 +192,7 @@
            Introduction="@Localizer["TreeViewEnableKeyboardArrowUpDownIntro"]"
            Name="EnableKeyboard">
     <section ignore>@_selectedValue</section>
-    <TreeView TItem="TreeFoo" Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
+    <TreeView Items="@KeyboardItems" OnTreeItemClick="@OnTreeItemKeyboardClick" style="height: 160px;"
               EnableKeyboard="true" ClickToggleNode="false" ClickToggleCheck="false" ShowCheckbox="true" />
 </DemoBlock>
 
@@ -203,7 +203,7 @@
         @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
     </section>
     <div style="height: 400px">
-        <TreeView TItem="TreeFoo" Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+        <TreeView Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
                   AutoCheckChildren="true" AutoCheckParent="true"
                   OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
     </div>
@@ -215,7 +215,7 @@
     <section ignore>
         @((MarkupString)Localizer["TreeViewFlatItemsDescription"].Value)
     </section>
-    <TreeView TItem="TreeFoo" Items="@FlatItems" ShowCheckbox="true"
+    <TreeView Items="@FlatItems" ShowCheckbox="true"
                 AutoCheckChildren="true" AutoCheckParent="true"></TreeView>
 </DemoBlock>
  *@
