@@ -126,33 +126,11 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private static List<TreeViewItem<TreeFoo>> GetAccordionItems()
-    {
-        var ret = TreeFoo.GetTreeItems();
-        ret[1].Items[0].HasChildren = true;
-        return ret;
-    }
-
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeViewItem<TreeFoo> node)
     {
         await Task.Delay(200);
         var item = node.Value;
         return new TreeViewItem<TreeFoo>[] { new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id }) { Text = "懒加载子节点1", HasChildren = true }, new(new TreeFoo() { Id = $"{item.Id}-102", ParentId = item.Id }) { Text = "懒加载子节点2" } };
-    }
-
-    private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> CustomCheckedNodeOnExpandNodeAsync(TreeViewItem<TreeFoo> node)
-    {
-        await Task.Delay(800);
-        var item = node.Value;
-        return TreeFoo.GetCheckedTreeItems(item.Id);
-    }
-
-    private static List<TreeViewItem<TreeFoo>> GetCustomCheckedItems()
-    {
-        var ret = TreeFoo.GetCheckedTreeItems();
-        ret[0].IsExpand = true;
-        ret[0].Items = TreeFoo.GetCheckedTreeItems();
-        return ret;
     }
 
     private static List<TreeViewItem<TreeFoo>> GetExpandItems()
