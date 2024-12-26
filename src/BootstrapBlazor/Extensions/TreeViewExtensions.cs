@@ -49,18 +49,20 @@ public static class TreeViewExtensions
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="source"></param>
+    /// <param name="parent"></param>
     /// <returns></returns>
-    public static List<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source)
+    public static List<TreeViewItem<TItem>> ToFlat<TItem>(this IEnumerable<TreeViewItem<TItem>> source, TreeViewItem<TItem>? parent = null)
     {
         var rows = new List<TreeViewItem<TItem>>();
         if (source != null)
         {
             foreach (var item in source)
             {
+                item.Parent = parent;
                 rows.Add(item);
                 if (item.IsExpand)
                 {
-                    rows.AddRange(ToFlat(item.Items));
+                    rows.AddRange(ToFlat(item.Items, item));
                 }
             }
         }
