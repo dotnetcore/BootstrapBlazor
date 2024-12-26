@@ -28,6 +28,7 @@
     .tree-root {
         padding: var(--bb-tree-padding);
         margin: var(--bb-tree-margin);
+        position: relative;
     }
 
     .tree-content {
