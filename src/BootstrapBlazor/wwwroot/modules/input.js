@@ -1,33 +1,25 @@
 ﻿import EventHandler from "./event-handler.js"
 
 export default {
-    composition(id, invoke, callback) {
-        const el = document.getElementById(id)
+    composition(el, callback) {
         if (el) {
-            var isInputZh = false
+            let isComposing = false
             EventHandler.on(el, 'compositionstart', e => {
-                isInputZh = true
-            })
+                isComposing = true;
+            });
             EventHandler.on(el, 'compositionend', e => {
-                isInputZh = false
-            })
+                isComposing = false;
+                callback(el.value);
+            });
             EventHandler.on(el, 'input', e => {
-                if (isInputZh) {
-                    e.stopPropagation()
-                    e.preventDefault()
-                    const handler = setTimeout(() => {
-                        if (!isInputZh) {
-                            clearTimeout(handler)
-                            invoke.invokeMethodAsync(callback, el.value)
-                        }
-                    }, 15)
+                if (!isComposing) {
+                    callback(el.value);
                 }
-            })
+            });
         }
     },
 
-    dispose(id) {
-        const el = document.getElementById(id)
+    dispose(el) {
         if (el) {
             EventHandler.off(el, 'compositionstart')
             EventHandler.off(el, 'compositionend')
