@@ -79,6 +79,11 @@
     .modal-open .navbar-header {
         z-index: 1040;
     }
+
+    ::deep .bb-g-search {
+        margin-bottom: 0;
+        margin-inline-end: .5rem;
+    }
 }
 
 @media (min-width: 1140px) {
