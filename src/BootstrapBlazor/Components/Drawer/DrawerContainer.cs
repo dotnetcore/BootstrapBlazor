@@ -79,9 +79,10 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             parameters.Add(nameof(Drawer.Height), option.Height);
         }
-        if (option.ChildContent != null)
+        var content = option.GetContent();
+        if (content != null)
         {
-            parameters.Add(nameof(Drawer.ChildContent), option.ChildContent);
+            parameters.Add(nameof(Drawer.ChildContent), content);
         }
         if (option.OnClickBackdrop != null)
         {
