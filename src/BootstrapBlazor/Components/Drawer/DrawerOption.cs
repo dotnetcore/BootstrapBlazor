@@ -46,6 +46,11 @@ public class DrawerOption
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义组件
+    /// </summary>
+    public BootstrapDynamicComponent? Component { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否允许调整大小 默认 false
     /// </summary>
     public bool AllowResize { get; set; }
