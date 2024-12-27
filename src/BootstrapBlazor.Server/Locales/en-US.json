@@ -4468,9 +4468,12 @@
     "Label": "Language："
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
-    "SearchPlaceHolder": "search",
-    "SearchStatus": "Powered by BootstrapBlazor",
+    "SearchPlaceHolder": "Search",
+    "SearchingText": "Searching ...",
+    "SearchResultText": "Found {0} results in {1}ms",
+    "LogoText": "Powered by BootstrapBlazor",
     "SearchResultPlaceHolder": "Type something to search",
+    "EmptySearchResultPlaceHolder": "No match searches",
     "EnterKeyText": "to Select",
     "ArrowKeyText": "to Navigate",
     "EscKeyText": "to Close"

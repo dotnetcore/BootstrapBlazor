@@ -4469,8 +4469,11 @@
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
     "SearchPlaceHolder": "搜索",
-    "SearchStatus": "Powered by BootstrapBlazor",
+    "SearchingText": "正在搜索 ...",
+    "SearchResultText": "匹配到 {0} 条记录，耗时 {1} 毫秒",
+    "LogoText": "Powered by BootstrapBlazor",
     "SearchResultPlaceHolder": "键入要搜索的内容",
+    "EmptySearchResultPlaceHolder": "无匹配搜索",
     "EnterKeyText": "选择",
     "ArrowKeyText": "导航",
     "EscKeyText": "关闭"

@@ -1,11 +1,11 @@
 ﻿@inject IStringLocalizer<GlobalSearch> Localizer
 
 <MeiliSearchBox SearchBoxPlaceHolder="@Localizer["SearchPlaceHolder"]"
-                SearchStatus="@Localizer["SearchStatus"]"
-                EnterKeyText="@Localizer["EnterKeyText"]"
-                ArrowKeyText="@Localizer["ArrowKeyText"]"
-                EscKeyText="@Localizer["EscKeyText"]"
+                SearchingText="@Localizer["SearchingText"]" SearchResultText="@Localizer["SearchResultText"]"
+                LogoText="@Localizer["LogoText"]"
+                EnterKeyText="@Localizer["EnterKeyText"]" ArrowKeyText="@Localizer["ArrowKeyText"]" EscKeyText="@Localizer["EscKeyText"]"
                 SearchResultPlaceHolder="@Localizer["SearchResultPlaceHolder"]"
+                EmptySearchResultPlaceHolder="@Localizer["EmptySearchResultPlaceHolder"]"
                 SearchableColumns="SearchableColumns"></MeiliSearchBox>
 
 @code {
