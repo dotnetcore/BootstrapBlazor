@@ -36,6 +36,9 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
         button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
 
+        option.Component = null;
+        Assert.Null(option.GetContent());
+
         await service.Show<DrawerDemo>();
         button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
