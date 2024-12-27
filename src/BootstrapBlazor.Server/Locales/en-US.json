@@ -4470,7 +4470,10 @@
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
     "SearchPlaceHolder": "search",
     "SearchStatus": "Powered by BootstrapBlazor",
-    "SearchResultPlaceHolder": "Type something to search"
+    "SearchResultPlaceHolder": "Type something to search",
+    "EnterKeyText": "to Select",
+    "ArrowKeyText": "to Navigate",
+    "EscKeyText": "to Close"
   },
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
