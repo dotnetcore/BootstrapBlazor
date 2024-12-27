@@ -2,6 +2,7 @@
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
+import Input from "../../modules/input.js"
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id)
@@ -10,7 +11,7 @@ export function init(id, invoke, options) {
         return
     }
 
-    const search = el.querySelector("input.search-text")
+    const search = el.querySelector(".search-text")
     const popover = Popover.init(el)
 
     const shown = () => {
@@ -73,31 +74,17 @@ export function init(id, invoke, options) {
     EventHandler.on(el, 'shown.bs.dropdown', shown);
     EventHandler.on(el, 'keydown', keydown)
 
+    const onSearch = debounce(v => invoke.invokeMethodAsync(searchMethodCallback, v));
+    if (search) {
+        Input.composition(search, onSearch);
+    }
+
     const select = {
         el,
+        search,
         popover
     }
     Data.set(id, select);
-
-    const onSearch = debounce(v => invoke.invokeMethodAsync(searchMethodCallback, v));
-    let isComposing = false;
-
-    EventHandler.on(el, 'input', '.search-text', e => {
-        if (isComposing) {
-            return;
-        }
-
-        onSearch(e.delegateTarget.value);
-    });
-
-    EventHandler.on(el, 'compositionstart', '.search-text', e => {
-        isComposing = true;
-    });
-
-    EventHandler.on(el, 'compositionend', '.search-text', e => {
-        isComposing = false;
-        onSearch(e.delegateTarget.value);
-    });
 }
 
 export function show(id) {
@@ -129,13 +116,10 @@ export function dispose(id) {
     if (select) {
         EventHandler.off(select.el, 'shown.bs.dropdown')
         EventHandler.off(select.el, 'keydown');
-        EventHandler.off(select.el, 'input');
-        EventHandler.off(select.el, 'compositionstart');
-        EventHandler.off(select.el, 'compositionend')
         Popover.dispose(select.popover)
+        Input.dispose(select.search);
     }
 }
-
 
 function scrollToActive(el, activeItem) {
     if (!activeItem) {
