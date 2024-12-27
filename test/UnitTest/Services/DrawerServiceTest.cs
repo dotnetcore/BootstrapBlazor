@@ -30,11 +30,18 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
 
+        option.ChildContent = null;
+        option.Component = BootstrapDynamicComponent.CreateComponent<DialogCloseButton>();
+        await service.Show(option);
+        button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+
         await service.Show<DrawerDemo>();
         button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
 
-        await service.Show(typeof(DrawerDemo));
+        var type = typeof(DrawerDemo);
+        await service.Show(type);
         button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
     }
