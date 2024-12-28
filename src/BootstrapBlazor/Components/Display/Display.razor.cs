@@ -85,6 +85,7 @@ public partial class Display<TValue> : ILookup
     {
         await base.OnParametersSetAsync();
 
+        _lookupData = null;
         _displayText = await FormatDisplayText(Value);
     }
 
@@ -169,14 +170,10 @@ public partial class Display<TValue> : ILookup
         }));
     }
 
+    private IEnumerable<SelectedItem>? _lookupData;
     private async Task<IEnumerable<SelectedItem>?> GetLookup()
     {
-        if (Lookup != null)
-        {
-            return Lookup;
-        }
-
-        var lookupService = this.GetLookupService(InjectLookupService);
-        return await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
+        _lookupData ??= await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData);
+        return _lookupData;
     }
 }
