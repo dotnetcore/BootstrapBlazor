@@ -10,40 +10,36 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 枚举类型过滤组件
 /// </summary>
-public partial class LookupFilter
+public partial class LookupFilter : ILookup
 {
     private string? Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关枚举类型
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [NotNull]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [NotNull]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [NotNull]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -99,18 +95,10 @@ public partial class LookupFilter
         {
             new("", Localizer["EnumFilter.AllText"].Value)
         };
-        if (Lookup != null)
+        var lookup = await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData);
+        if (lookup != null)
         {
-            items.AddRange(Lookup);
-        }
-        else if (!string.IsNullOrEmpty(LookupServiceKey))
-        {
-            var lookupService = GetLookupService();
-            var lookup = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
-            if (lookup != null)
-            {
-                items.AddRange(lookup);
-            }
+            items.AddRange(lookup);
         }
         Items = items;
     }
