@@ -13,8 +13,18 @@ public static class ILooupExtensions
     /// <summary>
     /// 获得 ILookupService 实例
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="lookup"></param>
     /// <param name="service"></param>
     /// <returns></returns>
-    public static ILookupService GetLookupService(this ILookup item, ILookupService service) => item.LookupService ?? service;
+    public static ILookupService GetLookupService(this ILookup lookup, ILookupService service) => lookup.LookupService ?? service;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="lookup"></param>
+    /// <param name="service"></param>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookup lookup, ILookupService service, string? key, object? data) => lookup.Lookup ?? await lookup.GetLookupService(service).GetItemsAsync(key, data);
 }
