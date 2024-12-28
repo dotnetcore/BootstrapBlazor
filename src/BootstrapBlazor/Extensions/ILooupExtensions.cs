@@ -11,6 +11,13 @@ namespace BootstrapBlazor.Components;
 public static class ILooupExtensions
 {
     /// <summary>
+    /// 判断当前 <see cref="ILookup"/> 实例是否配置 Lookup 数据
+    /// </summary>
+    /// <param name="lookup"></param>
+    /// <returns></returns>
+    public static bool IsLookup(this ILookup lookup) => lookup.Lookup != null || !string.IsNullOrEmpty(lookup.LookupServiceKey);
+
+    /// <summary>
     /// 获得 ILookupService 实例
     /// </summary>
     /// <param name="lookup"></param>
