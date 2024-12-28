@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
+using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -100,6 +101,11 @@ public static class Utility
     /// <param name="fieldName"></param>
     /// <returns></returns>
     public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName);
+
+    /// <summary>
+    /// 获得 当前输入语言小数点分隔符
+    /// </summary>
+    private static string NumberDecimalSeparator => CultureInfo.CurrentCulture?.NumberFormat?.NumberDecimalSeparator ?? ".";
 
     /// <summary>
     /// 获取 指定对象的属性值
@@ -429,12 +435,10 @@ public static class Utility
             builder.OpenComponent(0, typeof(Display<>).MakeGenericType(fieldType));
             builder.AddAttribute(10, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(20, nameof(Display<string>.Value), fieldValue);
-            builder.AddAttribute(30, nameof(Display<string>.Lookup), item.Lookup);
-            builder.AddAttribute(30, nameof(Display<string>.LookupService), item.LookupService);
-            builder.AddAttribute(40, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(50, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
-            builder.AddAttribute(60, nameof(Display<string>.LookupStringComparison), item.LookupStringComparison);
-            builder.AddAttribute(65, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(30, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
+            builder.AddAttribute(40, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(50, nameof(Display<string>.Lookup), item.Lookup);
+            builder.AddAttribute(60, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
                 if (col.Formatter != null)
@@ -524,7 +528,6 @@ public static class Utility
         if (item.IsLookup() && item.Items == null)
         {
             builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
-            builder.AddAttribute(115, nameof(Select<SelectedItem>.Items), item.Lookup);
             builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), lookupService);
             builder.AddAttribute(121, nameof(Select<SelectedItem>.LookupServiceKey), item.LookupServiceKey);
             builder.AddAttribute(122, nameof(Select<SelectedItem>.LookupServiceData), item.LookupServiceData);
@@ -638,7 +641,7 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else if (fieldType.IsNumber())
+        else if (fieldType.IsNumber() && NumberDecimalSeparator == ".")
         {
             ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
         }
