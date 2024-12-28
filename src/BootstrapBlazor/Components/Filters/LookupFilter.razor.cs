@@ -103,8 +103,6 @@ public partial class LookupFilter : ILookup
         Items = items;
     }
 
-    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

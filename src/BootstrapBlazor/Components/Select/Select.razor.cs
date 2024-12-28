@@ -240,8 +240,7 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    [Parameter]
-    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+    StringComparison ILookup.LookupStringComparison { get; set; }
 
     [Inject]
     [NotNull]
