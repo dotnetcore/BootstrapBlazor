@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Display 组件
 /// </summary>
-public partial class Display<TValue>
+public partial class Display<TValue> : ILookup
 {
     private string? ClassString => CssBuilder.Default("form-control is-display")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -32,23 +32,26 @@ public partial class Display<TValue>
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据集用于 CheckboxList Select 组件 通过 Value 显示 Text 使用 默认 null
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>设置 <see cref="Lookup"/> 参收后，<see cref="LookupServiceKey"/> 和 <see cref="LookupServiceData"/> 两个参数均失效</remarks>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>未设置 <see cref="Lookup"/> 时生效</remarks>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>未设置 <see cref="Lookup"/> 时生效</remarks>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
@@ -56,7 +59,7 @@ public partial class Display<TValue>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public ILookupService? LookupService { get; set; }
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     [Inject]
     [NotNull]
@@ -95,7 +98,7 @@ public partial class Display<TValue>
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
             : value == null
-                ? FormatValueString()
+                ? await FormatValueString()
                 : await FormatText(value));
 
     private async Task<string> FormatText([DisallowNull] TValue value)
@@ -117,22 +120,20 @@ public partial class Display<TValue>
         }
         else
         {
-            ret = FormatValueString();
+            ret = await FormatValueString();
         }
         return ret;
     }
 
-    private string FormatValueString()
+    private async Task<string> FormatValueString()
     {
-        string? ret = null;
-
-        // 检查 数据源
-        var valueString = Value?.ToString();
-        if (Lookup != null)
+        string? ret = Value?.ToString() ?? string.Empty;
+        var lookup = await GetLookup();
+        if (lookup != null)
         {
-            ret = Lookup.FirstOrDefault(i => i.Value.Equals(valueString ?? "", StringComparison.OrdinalIgnoreCase))?.Text;
+            ret = lookup.FirstOrDefault(i => i.Value.Equals(ret, LookupStringComparison))?.Text;
         }
-        return ret ?? valueString ?? string.Empty;
+        return ret ?? string.Empty;
     }
 
     private Func<TValue, string>? _arrayConvertoString;
@@ -168,8 +169,6 @@ public partial class Display<TValue>
         }));
     }
 
-    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
-
     private IEnumerable<SelectedItem>? _lookupData;
     private async Task<IEnumerable<SelectedItem>?> GetLookup()
     {
@@ -178,7 +177,7 @@ public partial class Display<TValue>
             return Lookup;
         }
 
-        var lookupService = GetLookupService();
+        var lookupService = this.GetLookupService(InjectLookupService);
         _lookupData ??= await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
         return _lookupData;
     }

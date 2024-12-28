@@ -51,6 +51,7 @@ public class DisplayTest : BootstrapBlazorTestBase
             pb.Add(a => a.LookupService, null);
             pb.Add(a => a.LookupServiceKey, "FooLookup");
             pb.Add(a => a.LookupServiceData, true);
+            pb.Add(a => a.LookupStringComparison, StringComparison.OrdinalIgnoreCase);
             pb.Add(a => a.Value, ["v1", "v2"]);
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
