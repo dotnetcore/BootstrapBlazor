@@ -127,16 +127,16 @@ public partial class Display<TValue> : ILookup
 
     private async Task<string> FormatValueString()
     {
-        string? ret = null;
-
-        // 检查 数据源
-        var valueString = Value?.ToString();
-        var lookup = await GetLookup();
-        if (lookup != null)
+        string? ret = Value?.ToString();
+        if (!string.IsNullOrEmpty(ret))
         {
-            ret = lookup.FirstOrDefault(i => i.Value.Equals(valueString, LookupStringComparison))?.Text;
+            var lookup = await GetLookup();
+            if (lookup != null)
+            {
+                ret = lookup.FirstOrDefault(i => i.Value.Equals(ret, LookupStringComparison))?.Text;
+            }
         }
-        return ret ?? valueString ?? string.Empty;
+        return ret ?? string.Empty;
     }
 
     private Func<TValue, string>? _arrayConvertoString;
