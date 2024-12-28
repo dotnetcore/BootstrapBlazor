@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IEditorItem 接口
 /// </summary>
-public interface IEditorItem
+public interface IEditorItem : ILookup
 {
     /// <summary>
     /// 获得/设置 绑定列类型
@@ -82,11 +82,6 @@ public interface IEditorItem
     IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
-    /// </summary>
-    IEnumerable<SelectedItem>? Lookup { get; set; }
-
-    /// <summary>
     /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
     /// </summary>
     bool ShowSearchWhenSelect { get; set; }
@@ -95,26 +90,6 @@ public interface IEditorItem
     /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
     /// </summary>
     bool IsPopover { get; set; }
-
-    /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 <see cref="StringComparison.OrdinalIgnoreCase" /> 大小写不敏感 
-    /// </summary>
-    StringComparison LookupStringComparison { get; set; }
-
-    /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
-    /// </summary>
-    string? LookupServiceKey { get; set; }
-
-    /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
-    /// </summary>
-    object? LookupServiceData { get; set; }
-
-    /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务实例
-    /// </summary>
-    ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合
