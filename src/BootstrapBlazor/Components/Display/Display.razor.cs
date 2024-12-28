@@ -172,8 +172,6 @@ public partial class Display<TValue> : ILookup
         }));
     }
 
-    private ILookupService GetLookupService() => LookupService ?? InjectLookupService;
-
     private IEnumerable<SelectedItem>? _lookupData;
     private async Task<IEnumerable<SelectedItem>?> GetLookup()
     {
@@ -182,7 +180,7 @@ public partial class Display<TValue> : ILookup
             return Lookup;
         }
 
-        var lookupService = GetLookupService();
+        var lookupService = this.GetLookupService(InjectLookupService);
         _lookupData ??= await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
         return _lookupData;
     }
