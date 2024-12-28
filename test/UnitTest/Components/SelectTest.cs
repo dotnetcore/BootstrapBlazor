@@ -119,6 +119,21 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Select_Lookup()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.LookupServiceKey, "FooLookup");
+        });
+        ILookup lookup = cut.Instance;
+        lookup.Lookup = [new SelectedItem("", "test")];
+        Assert.Single(lookup.Lookup);
+
+        lookup.LookupStringComparison = StringComparison.Ordinal;
+        Assert.Equal(StringComparison.Ordinal, lookup.LookupStringComparison);
+    }
+
+    [Fact]
     public void IsClearable_Ok()
     {
         var val = "Test2";
