@@ -127,7 +127,7 @@ public partial class Display<TValue> : ILookup
 
     private async Task<string> FormatValueString()
     {
-        string? ret = Value?.ToString();
+        string? ret = Value?.ToString() ?? string.Empty;
         var lookup = await GetLookup();
         if (lookup != null)
         {
