@@ -217,12 +217,6 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public IEnumerable<SelectedItem>? Lookup { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
@@ -236,6 +230,11 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
