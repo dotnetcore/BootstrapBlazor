@@ -20,7 +20,7 @@ internal class DemoLookupService(IServiceProvider provider) : LookupServiceBase
     /// <returns></returns>
     public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
 
-    private static readonly ConcurrentDictionary<string, List<SelectedItem>> _cache = [];
+    private static readonly ConcurrentDictionary<string, List<SelectedItem>> Cache = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,28 +30,35 @@ internal class DemoLookupService(IServiceProvider provider) : LookupServiceBase
     /// <returns></returns>
     public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
     {
-        IEnumerable<SelectedItem>? items = null;
-        if (key == "Foo.Complete")
+       // 模拟异步延时实战中大概率从数据库中获得数据
+       await Task.Delay(1);
+
+       IEnumerable<SelectedItem>? items = null;
+        switch (key)
         {
             // 使用缓存技术防止多次调用提高应用性能
-            if (_cache.TryGetValue(key, out var value))
-            {
+            case "Foo.Complete" when Cache.TryGetValue(key, out var value):
                 items = value;
-            }
-            else
+                break;
+            case "Foo.Complete":
             {
-                // 模拟异步延时实战中大概率从数据库中获得数据
-                await Task.Delay(1);
-
                 var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
                 var v = new List<SelectedItem>()
                 {
                     new() { Value = "True", Text = localizer["True"].Value },
                     new() { Value = "False", Text = localizer["False"].Value }
                 };
-                _cache.TryAdd(key, v);
+                Cache.TryAdd(key, v);
                 items = v;
+                break;
             }
+            case "Display-Test":
+                items = [
+                    new SelectedItem() { Value = "1", Text = "Test DisplayName(1)" },
+                    new SelectedItem() { Value = "2", Text = "Test DisplayName(2)" },
+                    new SelectedItem() { Value = "3", Text = "Test DisplayName(3)" }
+                ];
+                break;
         }
         return items;
     }

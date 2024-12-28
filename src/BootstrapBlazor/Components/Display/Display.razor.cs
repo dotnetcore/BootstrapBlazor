@@ -169,7 +169,6 @@ public partial class Display<TValue> : ILookup
         }));
     }
 
-    private IEnumerable<SelectedItem>? _lookupData;
     private async Task<IEnumerable<SelectedItem>?> GetLookup()
     {
         if (Lookup != null)
@@ -178,7 +177,6 @@ public partial class Display<TValue> : ILookup
         }
 
         var lookupService = this.GetLookupService(InjectLookupService);
-        _lookupData ??= await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
-        return _lookupData;
+        return await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
     }
 }

@@ -3920,7 +3920,7 @@
     "EditorFormIntro": "The <code>Display</code> component is used in form components <code>EditorForm</code>, and is used in detail pages and is not editable",
     "FormatStringTitle": "Custom format",
     "FormatStringIntro": "When you set the <code>FormatString</code> property value to <code>yyyy-MM-dd</code>, the component displays a time format of the year and day",
-    "LookupTitle": "Automatically translated into Text",
+    "LookupTitle": "Lookup",
     "LookupIntro": "Set the <code>Lookup</code> value to <code>IEnumerable&lt;SelectedItem&gt;</code> collection, through which the component will perform translations through the <code>Value</code> display <code>Text</code>",
     "LookupP1": "In this example, the component <code>Value='@IntValue'</code> set <code>Lookup='@IntValueSource'</code> component to display the <code>Value</code> corresponding to the value of the <code>Text</code> Value",
     "ShowLabel": "Whether to display the front label",

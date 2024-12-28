@@ -52,11 +52,11 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
 
             if (key == "FooLookup")
             {
-                ret = new SelectedItem[]
-                {
-                    new("v1", "LookupService-Test-1"),
-                    new("v2", "LookupService-Test-2")
-                };
+                ret =
+                [
+                    new SelectedItem("v1", "LookupService-Test-1"),
+                    new SelectedItem("v2", "LookupService-Test-2")
+                ];
             }
             return ret;
         }
@@ -74,11 +74,11 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
 
             if (key == "FooLookup")
             {
-                ret = new SelectedItem[]
-                {
-                    new("v1", "LookupService-Test-1-async"),
-                    new("v2", "LookupService-Test-2-async")
-                };
+                ret =
+                [
+                    new SelectedItem("v1", "LookupService-Test-1-async"),
+                    new SelectedItem("v2", "LookupService-Test-2-async")
+                ];
             }
             return ret;
         }
