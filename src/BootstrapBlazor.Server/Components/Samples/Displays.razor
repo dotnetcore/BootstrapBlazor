@@ -105,11 +105,18 @@
 
 <DemoBlock Title="@Localizer["LookupTitle"]" Introduction="@Localizer["LookupIntro"]" Name="Lookup">
     <section ignore>
-        <div>@((MarkupString)Localizer["LookupP1"].Value)</div>
-        <div><b>InitValue</b>: 1,2,3</div>
+        <p>@((MarkupString)Localizer["LookupP1"].Value)</p>
+        <p><b>InitValue</b>: 1,2,3</p>
         <div><b>IntValueSource</b>: Text1,Text2,Text3</div>
     </section>
-    <Display Value="@IntValue" Lookup="@IntValueSource" />
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Display Value="@IntValue" Lookup="@IntValueSource" ShowLabel="true" DisplayText="Lookup" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@IntValue" LookupServiceKey="Display-Test" ShowLabel="true" DisplayText="LookupServiceKey" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowTooltipTitle"]" Introduction="@Localizer["ShowTooltipIntro"]" Name="ShowTooltip">
