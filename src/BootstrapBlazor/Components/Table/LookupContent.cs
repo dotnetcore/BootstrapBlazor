@@ -7,38 +7,37 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BootstrapBlazor.Components;
 
-internal class LookupContent : ComponentBase
+internal class LookupContent : ComponentBase, ILookup
 {
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    [EditorRequired]
     public string? LookupServiceKey { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 <see cref="StringComparison.OrdinalIgnoreCase" /> 大小写不敏感 
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public StringComparison LookupStringComparison { get; set; }
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// 获得/设置 显示值
@@ -52,7 +51,7 @@ internal class LookupContent : ComponentBase
 
     private string? _content;
 
-    private List<SelectedItem>? _items;
+    private IEnumerable<SelectedItem>? _items;
 
     /// <summary>
     /// <inheritdoc/>
@@ -62,8 +61,8 @@ internal class LookupContent : ComponentBase
     {
         await base.OnParametersSetAsync();
 
-        _items ??= await GetLookupItemsAsync();
-        var item = _items.Find(i => i.Value.Equals(Value, LookupStringComparison));
+        _items ??= await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData) ?? [];
+        var item = _items.FirstOrDefault(i => i.Value.Equals(Value, LookupStringComparison));
         _content = item?.Text ?? Value;
     }
 
@@ -77,20 +76,5 @@ internal class LookupContent : ComponentBase
         {
             builder.AddContent(0, _content);
         }
-    }
-
-    private async Task<List<SelectedItem>> GetLookupItemsAsync()
-    {
-        IEnumerable<SelectedItem>? items;
-        if (Lookup != null)
-        {
-            items = Lookup;
-        }
-        else
-        {
-            var lookupService = LookupService ?? InjectLookupService;
-            items = await lookupService.GetItemsAsync(LookupServiceKey, LookupServiceData);
-        }
-        return items?.ToList() ?? [];
     }
 }
