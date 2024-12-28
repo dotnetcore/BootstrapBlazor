@@ -27,4 +27,15 @@ public static class ILooupExtensions
     /// <param name="data"></param>
     /// <returns></returns>
     public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookup lookup, ILookupService service, string? key, object? data) => lookup.Lookup ?? await lookup.GetLookupService(service).GetItemsAsync(key, data);
+
+    /// <summary>
+    /// 根据指定键值获取 Lookup 集合扩展方法，先调用同步方法，如果返回 null 则调用异步方法
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="key"></param>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public static async Task<IEnumerable<SelectedItem>?> GetItemsAsync(this ILookupService service, string? key, object? data) => string.IsNullOrEmpty(key)
+        ? null
+        : service.GetItemsByKey(key, data) ?? await service.GetItemsByKeyAsync(key, data);
 }
