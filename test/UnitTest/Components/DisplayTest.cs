@@ -15,10 +15,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<string>>(pb =>
         {
-            pb.Add(a => a.FormatterAsync, new Func<string, Task<string?>>(v =>
-            {
-                return Task.FromResult<string?>("FormattedValue");
-            }));
+            pb.Add(a => a.FormatterAsync, v => Task.FromResult<string?>("FormattedValue"));
         });
         Assert.Contains("FormattedValue", cut.Markup);
     }
@@ -62,8 +59,8 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
-            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(Fish)));
+            pb.Add(a => a.Value, [new Fish { Value = "1" }]);
+            pb.Add(a => a.TypeResolver, (_, _, _) => typeof(Fish));
         });
         Assert.Equal("<div class=\"form-control is-display\">1</div>", cut.Markup);
     }
@@ -73,7 +70,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
+            pb.Add(a => a.Value, [new Fish { Value = "1" }]);
         });
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut.Markup);
     }
@@ -175,7 +172,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowToolip_Ok()
+    public void ShowTooltip_Ok()
     {
         var cut = Context.RenderComponent<Display<string>>(pb =>
         {
@@ -192,9 +189,9 @@ public class DisplayTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.AddChildContent<BootstrapInputGroup>(pb =>
+            pb.AddChildContent<BootstrapInputGroup>(b =>
             {
-                pb.Add(a => a.ChildContent, builder =>
+                b.Add(a => a.ChildContent, builder =>
                 {
                     builder.OpenComponent<Display<string>>(0);
                     builder.AddAttribute(1, "Value", foo.Name);
@@ -221,7 +218,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowLabel, true);
             pb.Add(a => a.Value, model.Education);
-            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Education", typeof(Nullable<EnumEducation>)));
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Education", typeof(EnumEducation?)));
         });
 
         // 获得中学 DisplayName
@@ -231,7 +228,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Format_Test()
     {
-        var cut = Context.RenderComponent<MockComponent>();
+        var cut = Context.RenderComponent<MockDisplayComponent>();
         var result = cut.Instance.Test(new SelectedItem("1", "Test"));
         Assert.Equal("1", result);
     }
@@ -239,7 +236,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     class DisplayGenericValueMock<T>
     {
         [NotNull]
-        public T? Value { get; set; }
+        public T? Value { get; init; }
 
         public override string? ToString()
         {
@@ -249,15 +246,15 @@ public class DisplayTest : BootstrapBlazorTestBase
 
     class Fish
     {
-        public string Value { get; set; } = "";
+        public string Value { get; init; } = "";
 
         public override string ToString()
         {
-            return Value.ToString();
+            return Value;
         }
     }
 
-    class MockComponent : DisplayBase<SelectedItem>
+    internal class MockDisplayComponent : DisplayBase<SelectedItem>
     {
         public string? Test(SelectedItem v)
         {
