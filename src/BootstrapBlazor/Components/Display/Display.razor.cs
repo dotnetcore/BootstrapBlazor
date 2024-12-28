@@ -128,13 +128,10 @@ public partial class Display<TValue> : ILookup
     private async Task<string> FormatValueString()
     {
         string? ret = Value?.ToString();
-        if (!string.IsNullOrEmpty(ret))
+        var lookup = await GetLookup();
+        if (lookup != null)
         {
-            var lookup = await GetLookup();
-            if (lookup != null)
-            {
-                ret = lookup.FirstOrDefault(i => i.Value.Equals(ret, LookupStringComparison))?.Text;
-            }
+            ret = lookup.FirstOrDefault(i => i.Value.Equals(ret, LookupStringComparison))?.Text;
         }
         return ret ?? string.Empty;
     }
