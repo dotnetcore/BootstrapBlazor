@@ -11,7 +11,10 @@
 {
     <div class="bb-clearable-input">
         @RenderInput
-        <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+        @if (!IsDisabled && !Readonly)
+        {
+            <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+        }
     </div>
 }
 else
