@@ -100,7 +100,11 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private List<string> _items = [];
+    /// <summary>
+    /// 获得/设置 UI 呈现数据集合
+    /// </summary>
+    [NotNull]
+    protected List<string>? FilterItems { get; set; }
 
     /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
@@ -139,13 +143,13 @@ public partial class AutoComplete
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        _items = Items?.ToList() ?? [];
+        FilterItems = Items?.ToList() ?? [];
     }
 
     /// <summary>
     /// 鼠标点击候选项时回调此方法
     /// </summary>
-    protected virtual async Task OnClickItem(string val)
+    protected async Task OnClickItem(string val)
     {
         CurrentValue = val;
         if (OnSelectedItemChanged != null)
@@ -164,7 +168,7 @@ public partial class AutoComplete
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _items = items.ToList();
+            FilterItems = items.ToList();
         }
         else
         {
@@ -172,12 +176,12 @@ public partial class AutoComplete
             var items = IsLikeMatch
                 ? Items.Where(s => s.Contains(val, comparison))
                 : Items.Where(s => s.StartsWith(val, comparison));
-            _items = items.ToList();
+            FilterItems = items.ToList();
         }
 
         if (DisplayCount != null)
         {
-            _items = _items.Take(DisplayCount.Value).ToList();
+            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
         }
 
         CurrentValue = val;
