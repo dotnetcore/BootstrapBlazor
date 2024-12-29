@@ -106,6 +106,8 @@ public class IconThemeOptions
 
         { ComponentIcons.ImageViewerFileIcon, "fa-regular fa-file-image" },
 
+        { ComponentIcons.InputClearIcon, "fa-regular fa-circle-xmark" },
+
         { ComponentIcons.InputNumberMinusIcon, "fa-solid fa-circle-minus" },
         { ComponentIcons.InputNumberPlusIcon, "fa-solid fa-circle-plus" },
 

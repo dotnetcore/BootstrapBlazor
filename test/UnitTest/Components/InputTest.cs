@@ -70,6 +70,42 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Clearable_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.Clearable, false));
+        cut.DoesNotContain("bb-clearable-input");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Clearable, true));
+        cut.Contains("bb-clearable-input");
+        cut.Contains("form-control-clear-icon");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Readonly, true));
+        cut.DoesNotContain("form-control-clear-icon");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Readonly, false));
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
+        cut.DoesNotContain("form-control-clear-icon");
+    }
+
+    [Fact]
+    public async Task OnClear_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Clearable, true);
+            builder.Add(a => a.OnClear, v =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+        });
+        var icon = cut.Find(".form-control-clear-icon");
+        await cut.InvokeAsync(() => icon.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
     public async Task OnInput_Ok()
     {
         var foo = new Foo() { Name = "Test" };
