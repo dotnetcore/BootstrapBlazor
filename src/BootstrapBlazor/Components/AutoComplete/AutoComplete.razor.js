@@ -20,15 +20,15 @@ export function init(id, invoke) {
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
-        EventHandler.on(input, 'keyup', debounce(async e => {
-            await handlerKeyup(ac, e);
+        EventHandler.on(input, 'keyup', debounce(e => {
+            handlerKeyup(ac, e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
-        EventHandler.on(input, 'keyup', async e => {
-            await handlerKeyup(ac, e);
+        EventHandler.on(input, 'keyup', e => {
+            handlerKeyup(ac, e);
         })
     }
 
@@ -54,13 +54,16 @@ export function init(id, invoke) {
     });
 }
 
-const handlerKeyup = async (ac, e) => {
+const handlerKeyup = (ac, e) => {
     const key = e.key;
-    const { el, input, menu, invoke } = ac;
+    const { el, input, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
-            //await invoke.invokeMethodAsync('TriggerOnChange', key);
+            const current = menu.querySelector('.active');
+            if(current !== null) {
+                current.click();
+            }
         }
     }
     else if (key === 'Escape') {
