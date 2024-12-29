@@ -105,6 +105,11 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
 
     /// <summary>
+    /// 获得 获得焦点自动显示下拉框设置字符串
+    /// </summary>
+    protected string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
+
+    /// <summary>
     /// 获得 CustomClass 字符串
     /// </summary>
     protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
