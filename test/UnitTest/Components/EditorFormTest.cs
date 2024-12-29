@@ -480,6 +480,30 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Equal("LookupService-Test-1-async", select.Instance.Items.First().Text);
     }
 
+    [Fact]
+    public void Lookup_Ok()
+    {
+        var foo = new Foo();
+        var lookup = new List<SelectedItem>() { new("v1", "test1"), new("v2", "test2") };
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, false);
+            pb.Add(a => a.FieldItems, f => builder =>
+            {
+                var index = 0;
+                builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Lookup), lookup);
+                builder.CloseComponent();
+            });
+        });
+        var select = cut.FindComponent<Select<string>>();
+        Assert.Equal(2, select.Instance.Items.Count());
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
