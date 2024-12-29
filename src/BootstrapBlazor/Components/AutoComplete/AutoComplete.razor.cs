@@ -15,7 +15,8 @@ public partial class AutoComplete
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected virtual string? ClassString => CssBuilder.Default("auto-complete")
+    private string? ClassString => CssBuilder.Default("auto-complete")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
