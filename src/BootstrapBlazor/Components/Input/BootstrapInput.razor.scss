@@ -1,0 +1,29 @@
+.bb-clearable-input {
+    display: inline-flex;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    position: relative;
+
+    > input {
+        width: 100%;
+        flex-grow: 1;
+        padding-right: 2rem;
+
+        + .form-control-clear-icon {
+            color: var(--bb-border-hover-color);
+            cursor: pointer;
+            position: absolute;
+            right: 11px;
+            display: none;
+        }
+
+        &:focus + .form-control-clear-icon {
+            display: block;
+        }
+    }
+
+    &:hover .form-control-clear-icon {
+        display: block;
+    }
+}

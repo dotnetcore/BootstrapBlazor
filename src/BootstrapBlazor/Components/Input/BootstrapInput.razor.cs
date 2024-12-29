@@ -22,7 +22,46 @@ public partial class BootstrapInput<TValue>
     [Parameter]
     public bool AutoSetDefaultWhenNull { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示清空小按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool Clearable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清空文本框时回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnClear { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清空小按钮图标 默认 null
+    /// </summary>
+    [Parameter]
+    public string? ClearableIcon { get; set; }
+
+    /// <summary>
+    /// 图标主题服务
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? ReadonlyString => Readonly ? "true" : null;
+
+    private string? ClearableIconString => CssBuilder.Default("form-control-clear-icon")
+        .AddClass(ClearableIcon)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        ClearableIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -46,5 +85,14 @@ public partial class BootstrapInput<TValue>
             ret = base.TryParseValueFromString(v, out result, out validationErrorMessage);
         }
         return ret;
+    }
+
+    private async Task OnClickClear()
+    {
+        if (OnClear != null)
+        {
+            await OnClear(Value);
+        }
+        CurrentValueAsString = "";
     }
 }

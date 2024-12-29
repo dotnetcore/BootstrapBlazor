@@ -7,4 +7,22 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 
-<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" readonly="@ReadonlyString" class="@ClassName" disabled="@Disabled" @bind-value="CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" @ref="FocusElement" />
+@if (Clearable)
+{
+    <div class="bb-clearable-input">
+        @RenderInput
+        <i class="@ClearableIconString" @onclick="OnClickClear"></i>
+    </div>
+}
+else
+{
+    @RenderInput
+}
+
+@code {
+    RenderFragment RenderInput =>
+    @<input @attributes="@AdditionalAttributes" type="@Type" id="@Id" class="@ClassName"
+            readonly="@ReadonlyString" disabled="@Disabled"
+            placeholder="@PlaceHolder"
+            @bind-value="CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" @ref="FocusElement" />;
+}
