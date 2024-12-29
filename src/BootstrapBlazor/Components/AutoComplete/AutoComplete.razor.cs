@@ -45,6 +45,25 @@ public partial class AutoComplete
     public string? LoadingIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 匹配数据时显示的数量
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public int? DisplayCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启模糊查询，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsLikeMatch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 匹配时是否忽略大小写，默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IgnoreCase { get; set; } = true;
+
+    /// <summary>
     /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]
