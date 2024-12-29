@@ -39,12 +39,6 @@ public partial class AutoComplete
     public bool IsLikeMatch { get; set; }
 
     /// <summary>
-    /// 获得/设置 OnFocus 时是否过滤选择 默认 false
-    /// </summary>
-    [Parameter]
-    public bool OnFocusFilter { get; set; }
-
-    /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true
     /// </summary>
     [Parameter]
@@ -105,9 +99,7 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private string CurrentSelectedItem { get; set; } = "";
-
-    private List<string>? _items;
+    private List<string> _items = [];
 
     private string? SkipEscString => SkipEsc ? "true" : null;
 
@@ -137,7 +129,7 @@ public partial class AutoComplete
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        _items = Items?.ToList();
+        _items = Items?.ToList() ?? [];
     }
 
     /// <summary>
@@ -151,77 +143,6 @@ public partial class AutoComplete
             await OnSelectedItemChanged(val);
         }
     }
-
-    /// <summary>
-    /// OnKeyUp 方法
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public virtual async Task OnKeyUp(string key)
-    {
-        await Task.Delay(0);
-
-        //var source = FilterItems;
-        //if (source.Count > 0)
-        //{
-        //    // 键盘向上选择
-        //    if (key == "ArrowUp")
-        //    {
-        //        var index = source.IndexOf(CurrentSelectedItem) - 1;
-        //        if (index < 0)
-        //        {
-        //            index = source.Count - 1;
-        //        }
-        //        CurrentSelectedItem = source[index];
-        //        CurrentItemIndex = index;
-        //    }
-        //    else if (key == "ArrowDown")
-        //    {
-        //        var index = source.IndexOf(CurrentSelectedItem) + 1;
-        //        if (index > source.Count - 1)
-        //        {
-        //            index = 0;
-        //        }
-        //        CurrentSelectedItem = source[index];
-        //        CurrentItemIndex = index;
-        //    }
-        //    else if (key == "Escape")
-        //    {
-        //        await OnBlur();
-        //        if (!SkipEsc && OnEscAsync != null)
-        //        {
-        //            await OnEscAsync(Value);
-        //        }
-        //    }
-        //    else if (IsEnterKey(key))
-        //    {
-        //        if (!string.IsNullOrEmpty(CurrentSelectedItem))
-        //        {
-        //            CurrentValueAsString = CurrentSelectedItem;
-        //            if (OnSelectedItemChanged != null)
-        //            {
-        //                await OnSelectedItemChanged(CurrentSelectedItem);
-        //            }
-        //        }
-
-        //        await OnBlur();
-        //        if (!SkipEnter && OnEnterAsync != null)
-        //        {
-        //            await OnEnterAsync(Value);
-        //        }
-        //    }
-        //}
-        //await CustomKeyUp(key);
-        //StateHasChanged();
-    }
-
-    /// <summary>
-    /// 自定义按键处理方法
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    protected virtual Task CustomKeyUp(string key) => Task.CompletedTask;
 
     /// <summary>
     /// TriggerOnChange 方法
