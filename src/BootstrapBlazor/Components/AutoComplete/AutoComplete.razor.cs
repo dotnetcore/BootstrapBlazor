@@ -19,12 +19,6 @@ public partial class AutoComplete
         .Build();
 
     /// <summary>
-    /// 获得 最终候选数据源
-    /// </summary>
-    [NotNull]
-    protected List<string>? FilterItems { get; private set; }
-
-    /// <summary>
     /// 获得/设置 通过输入字符串获得匹配数据集合
     /// </summary>
     [Parameter]
@@ -81,6 +75,12 @@ public partial class AutoComplete
     public bool SkipEsc { get; set; }
 
     /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
     /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
@@ -107,17 +107,20 @@ public partial class AutoComplete
 
     private string CurrentSelectedItem { get; set; } = "";
 
+    private List<string>? _items;
+
+    private string? SkipEscString => SkipEsc ? "true" : null;
+
+    private string? SkipEnterString => SkipEnter ? "true" : null;
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        NoDataTip ??= Localizer[nameof(NoDataTip)];
-        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        Items ??= [];
-        FilterItems ??= [];
 
         SkipRegisterEnterEscJSInvoke = true;
     }
@@ -129,8 +132,12 @@ public partial class AutoComplete
     {
         base.OnParametersSet();
 
+        NoDataTip ??= Localizer[nameof(NoDataTip)];
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+
+        _items = Items?.ToList();
     }
 
     /// <summary>
@@ -153,58 +160,60 @@ public partial class AutoComplete
     [JSInvokable]
     public virtual async Task OnKeyUp(string key)
     {
-        var source = FilterItems;
-        if (source.Count > 0)
-        {
-            // 键盘向上选择
-            if (key == "ArrowUp")
-            {
-                var index = source.IndexOf(CurrentSelectedItem) - 1;
-                if (index < 0)
-                {
-                    index = source.Count - 1;
-                }
-                CurrentSelectedItem = source[index];
-                CurrentItemIndex = index;
-            }
-            else if (key == "ArrowDown")
-            {
-                var index = source.IndexOf(CurrentSelectedItem) + 1;
-                if (index > source.Count - 1)
-                {
-                    index = 0;
-                }
-                CurrentSelectedItem = source[index];
-                CurrentItemIndex = index;
-            }
-            else if (key == "Escape")
-            {
-                await OnBlur();
-                if (!SkipEsc && OnEscAsync != null)
-                {
-                    await OnEscAsync(Value);
-                }
-            }
-            else if (IsEnterKey(key))
-            {
-                if (!string.IsNullOrEmpty(CurrentSelectedItem))
-                {
-                    CurrentValueAsString = CurrentSelectedItem;
-                    if (OnSelectedItemChanged != null)
-                    {
-                        await OnSelectedItemChanged(CurrentSelectedItem);
-                    }
-                }
+        await Task.Delay(0);
 
-                await OnBlur();
-                if (!SkipEnter && OnEnterAsync != null)
-                {
-                    await OnEnterAsync(Value);
-                }
-            }
-        }
-        await CustomKeyUp(key);
-        StateHasChanged();
+        //var source = FilterItems;
+        //if (source.Count > 0)
+        //{
+        //    // 键盘向上选择
+        //    if (key == "ArrowUp")
+        //    {
+        //        var index = source.IndexOf(CurrentSelectedItem) - 1;
+        //        if (index < 0)
+        //        {
+        //            index = source.Count - 1;
+        //        }
+        //        CurrentSelectedItem = source[index];
+        //        CurrentItemIndex = index;
+        //    }
+        //    else if (key == "ArrowDown")
+        //    {
+        //        var index = source.IndexOf(CurrentSelectedItem) + 1;
+        //        if (index > source.Count - 1)
+        //        {
+        //            index = 0;
+        //        }
+        //        CurrentSelectedItem = source[index];
+        //        CurrentItemIndex = index;
+        //    }
+        //    else if (key == "Escape")
+        //    {
+        //        await OnBlur();
+        //        if (!SkipEsc && OnEscAsync != null)
+        //        {
+        //            await OnEscAsync(Value);
+        //        }
+        //    }
+        //    else if (IsEnterKey(key))
+        //    {
+        //        if (!string.IsNullOrEmpty(CurrentSelectedItem))
+        //        {
+        //            CurrentValueAsString = CurrentSelectedItem;
+        //            if (OnSelectedItemChanged != null)
+        //            {
+        //                await OnSelectedItemChanged(CurrentSelectedItem);
+        //            }
+        //        }
+
+        //        await OnBlur();
+        //        if (!SkipEnter && OnEnterAsync != null)
+        //        {
+        //            await OnEnterAsync(Value);
+        //        }
+        //    }
+        //}
+        //await CustomKeyUp(key);
+        //StateHasChanged();
     }
 
     /// <summary>
@@ -224,7 +233,7 @@ public partial class AutoComplete
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            FilterItems = items.ToList();
+            _items = items.ToList();
         }
         else
         {
@@ -232,12 +241,12 @@ public partial class AutoComplete
             var items = IsLikeMatch
                 ? Items.Where(s => s.Contains(val, comparison))
                 : Items.Where(s => s.StartsWith(val, comparison));
-            FilterItems = items.ToList();
+            _items = items.ToList();
         }
 
         if (DisplayCount != null)
         {
-            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
+            _items = _items.Take(DisplayCount.Value).ToList();
         }
 
         CurrentValue = val;

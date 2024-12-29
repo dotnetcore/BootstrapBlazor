@@ -20,20 +20,20 @@ export function init(id, invoke) {
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
-        EventHandler.on(input, 'keyup', debounce(e => {
-            invoke.invokeMethodAsync('OnKeyUp', e.code)
+        EventHandler.on(input, 'keyup', debounce(async e => {
+            await handlerKeyup(ac, e);
         }, duration, e => {
-            return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
+            return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
         }))
     }
     else {
-        EventHandler.on(input, 'keyup', e => {
-            invoke.invokeMethodAsync('OnKeyUp', e.code)
+        EventHandler.on(input, 'keyup', async e => {
+            await handlerKeyup(ac, e);
         })
     }
 
     EventHandler.on(input, 'focus', e => {
-        const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
+        const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') !== 'false';
         if (showDropdownOnFocus) {
             if (ac.popover === void 0) {
                 el.classList.add('show');
@@ -54,31 +54,55 @@ export function init(id, invoke) {
     });
 }
 
-export function autoScroll(id, index) {
-    const ac = Data.get(id)
-    const menu = ac.menu
+const handlerKeyup = async (ac, e) => {
+    const key = e.key;
+    const { el, input, menu, invoke } = ac;
+    if (key === 'Enter' || key === 'NumpadEnter') {
+        const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
+        if (!skipEnter) {
+            //await invoke.invokeMethodAsync('TriggerOnChange', key);
+        }
+    }
+    else if (key === 'Escape') {
+        const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
+        if (!skipEsc) {
+            input.blur();
+        }
+    }
+    else if (key === 'ArrowUp' || key === 'ArrowDown') {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const items = [...menu.querySelectorAll('.dropdown-item')];
+        let current = menu.querySelector('.active');
+        if (current !== null) {
+            current.classList.remove('active');
+        }
+        let index = current === null ? -1 : items.indexOf(current);
+        index = key === 'ArrowUp' ? index - 1 : index + 1;
+        if (index < 0) {
+            index = items.length - 1;
+        }
+        else if (index > items.length - 1) {
+            index = 0;
+        }
+        items[index].classList.add('active');
+        const top = getTop(menu, index);
+        menu.scrollTo({ top: top, left: 0, behavior: 'smooth' });
+    }
+}
+
+const getTop = (menu, index) => {
     const styles = getComputedStyle(menu)
     const maxHeight = parseInt(styles.maxHeight) / 2
-    const itemHeight = getHeight(menu.querySelector('li'))
+    const itemHeight = getHeight(menu.querySelector('.dropdown-item'))
     const height = itemHeight * index
-    const count = Math.floor(maxHeight / itemHeight)
-
-    const active = menu.querySelector('.active')
-    if (active) {
-        active.classList.remove('active')
-    }
-
-    const len = menu.children.length
-    if (index < len) {
-        menu.children[index].classList.add('active')
-    }
-
+    const count = Math.floor(maxHeight / itemHeight);
+    let top = 0;
     if (height > maxHeight) {
-        menu.scrollTop = itemHeight * (index > count ? index - count : index)
+        top = itemHeight * (index > count ? index - count : index)
     }
-    else if (index <= count) {
-        menu.scrollTop = 0
-    }
+    return top;
 }
 
 export function triggerFocus(id) {

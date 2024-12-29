@@ -107,7 +107,7 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// 获得 获得焦点自动显示下拉框设置字符串
     /// </summary>
-    protected string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
+    protected string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? null : "false";
 
     /// <summary>
     /// 获得 CustomClass 字符串
