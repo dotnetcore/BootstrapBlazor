@@ -44,6 +44,18 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         Assert.Equal(expect, actual);
     }
 
+    [Fact]
+    public void IsNumber_Culture()
+    {
+        var culture = new CultureInfo("es-ES");
+        CultureInfo.CurrentCulture = culture;
+        Assert.False(typeof(long).IsNumber());
+
+        culture = new CultureInfo("en-US");
+        CultureInfo.CurrentCulture = culture;
+        Assert.True(typeof(long).IsNumber());
+    }
+
     [Theory]
     [InlineData(typeof(DateTime?), true)]
     [InlineData(typeof(DateTime), true)]

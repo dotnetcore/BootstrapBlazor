@@ -50,6 +50,12 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static bool IsNumber(this Type t)
     {
+        var separator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        if (separator != ".")
+        {
+            return false;
+        }
+
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
         return targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) ||
             targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal);
