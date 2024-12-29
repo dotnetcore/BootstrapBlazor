@@ -101,11 +101,20 @@ public partial class AutoComplete
 
     private List<string> _items = [];
 
-    private string? SkipEscString => SkipEsc ? "true" : null;
+    /// <summary>
+    /// 获得 是否跳过 ESC 按键字符串
+    /// </summary>
+    protected string? SkipEscString => SkipEsc ? "true" : null;
 
-    private string? SkipEnterString => SkipEnter ? "true" : null;
+    /// <summary>
+    /// 获得 是否跳过 Enter 按键字符串
+    /// </summary>
+    protected string? SkipEnterString => SkipEnter ? "true" : null;
 
-    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+    /// <summary>
+    /// 获得 滚动行为字符串
+    /// </summary>
+    protected string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// <inheritdoc/>
