@@ -6,7 +6,7 @@
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <p>@Localizer["NormalDescription"]</p>
+    <section ignore>@Localizer["NormalDescription"]</section>
 
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" IsSelectAllTextOnFocus="true" />
@@ -14,7 +14,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="LikeMatch">
-    <p>@Localizer["LikeMatchDescription"]</p>
+    <section ignore>@Localizer["LikeMatchDescription"]</section>
 
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
@@ -22,7 +22,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="NoDataTip">
-    <p>@((MarkupString)Localizer["NoDataTipDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["NoDataTipDescription"].Value)</section>
 
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />
@@ -30,7 +30,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValueChanged">
-    <p>@Localizer["ValueChangedDescription"]</p>
+    <section ignore>@Localizer["ValueChangedDescription"]</section>
 
     <div style="width: 200px;">
         <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
@@ -38,7 +38,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ShowLabel">
-    <p>@((MarkupString)Localizer["ShowLabelDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["ShowLabelDescription"].Value)</section>
 
     <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
@@ -51,7 +51,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DebounceTitle"]" Introduction="@Localizer["DebounceIntro"]" Name="Debounce">
-    <p>@Localizer["DebounceDescription"]</p>
+    <section ignore>@Localizer["DebounceDescription"]</section>
     <div style="width: 200px;">
         <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" Debounce="500" />
     </div>
@@ -59,7 +59,9 @@
 
 <DemoBlock Title="@Localizer["OnSelectedItemChangedTitle"]" Introduction="@Localizer["OnSelectedItemChangedIntro"]" Name="OnSelectedItemChanged">
     <AutoComplete Items="@StaticItems" OnSelectedItemChanged="OnSelectedItemChanged" Debounce="500"></AutoComplete>
-    <ConsoleLogger @ref="Logger" />
+    <section ignore>
+        <ConsoleLogger @ref="Logger" />
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
