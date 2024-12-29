@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
 using System.Data;
-using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -192,11 +191,6 @@ public static class Utility
     public static string? GetPlaceHolder(Type modelType, string fieldName) => modelType.Assembly.IsDynamic
         ? null
         : CacheManager.GetPlaceholder(modelType, fieldName);
-
-    /// <summary>
-    /// 获得 当前输入语言小数点分隔符
-    /// </summary>
-    private static string NumberDecimalSeparator => CultureInfo.CurrentCulture?.NumberFormat?.NumberDecimalSeparator ?? ".";
 
     /// <summary>
     /// 通过 数据类型与字段名称获取 PropertyInfo 实例方法
@@ -644,7 +638,7 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else if (fieldType.IsNumber() && NumberDecimalSeparator == ".")
+        else if (fieldType.IsNumber())
         {
             ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
         }
