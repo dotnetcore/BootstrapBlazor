@@ -32,11 +32,26 @@ export function init(id, invoke) {
         })
     }
 
+    EventHandler.on(input, 'focus', e => {
+        const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
+        if (showDropdownOnFocus) {
+            if (ac.popover === void 0) {
+                el.classList.add('show');
+            }
+        }
+    });
+
+    EventHandler.on(input, 'blur', e => {
+        el.classList.remove('show');
+        invoke.invokeMethodAsync('TriggerBlur');
+    });
+
     Input.composition(input, async v => {
         el.classList.add('is-loading');
+        el.classList.add('show');
         await invoke.invokeMethodAsync('TriggerOnChange', v);
         el.classList.remove('is-loading');
-    })
+    });
 }
 
 export function autoScroll(id, index) {

@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -13,19 +12,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoComplete
 {
-    private bool IsLoading { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前下拉框是否显示
-    /// </summary>
-    private bool _isShown;
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
-        .AddClass("is-loading", IsLoading)
-        .AddClass("show", _isShown && !IsPopover)
         .Build();
 
     /// <summary>
@@ -144,20 +134,6 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnBlur()
-    {
-        CurrentSelectedItem = "";
-        _isShown = false;
-
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
-        }
-    }
-
-    /// <summary>
     /// 鼠标点击候选项时回调此方法
     /// </summary>
     protected virtual async Task OnClickItem(string val)
@@ -170,32 +146,6 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// OnFocus 方法
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    protected virtual async Task OnFocus(FocusEventArgs args)
-    {
-        if (ShowDropdownListOnFocus)
-        {
-            if (OnFocusFilter)
-            {
-                await OnKeyUp("");
-            }
-            else
-            {
-                FilterItems = DisplayCount == null ? Items.ToList() : Items.Take(DisplayCount.Value).ToList();
-                _isShown = true;
-
-                if (IsPopover)
-                {
-                    await InvokeVoidAsync("triggerFocus", Id);
-                }
-            }
-        }
-    }
-
-    /// <summary>
     /// OnKeyUp 方法
     /// </summary>
     /// <param name="key"></param>
@@ -203,27 +153,6 @@ public partial class AutoComplete
     [JSInvokable]
     public virtual async Task OnKeyUp(string key)
     {
-        if (!IsLoading)
-        {
-            IsLoading = true;
-            if (OnCustomFilter != null)
-            {
-                var items = await OnCustomFilter(CurrentValueAsString);
-                FilterItems = items.ToList();
-            }
-            else
-            {
-                var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                var items = IsLikeMatch ?
-                    Items.Where(s => s.Contains(CurrentValueAsString, comparison)) :
-                    Items.Where(s => s.StartsWith(CurrentValueAsString, comparison));
-                FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
-            }
-            IsLoading = false;
-        }
-
-        _isShown = true;
-
         var source = FilterItems;
         if (source.Count > 0)
         {
@@ -290,8 +219,44 @@ public partial class AutoComplete
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public void TriggerOnChange(string val)
+    public async Task TriggerOnChange(string val)
     {
-        CurrentValueAsString = val;
+        if (OnCustomFilter != null)
+        {
+            var items = await OnCustomFilter(val);
+            FilterItems = items.ToList();
+        }
+        else
+        {
+            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var items = IsLikeMatch
+                ? Items.Where(s => s.Contains(val, comparison))
+                : Items.Where(s => s.StartsWith(val, comparison));
+            FilterItems = items.ToList();
+        }
+
+        if (DisplayCount != null)
+        {
+            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
+        }
+
+        CurrentValue = val;
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// 出发 OnBlur 回调方法 由 Javascript 触发
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
     }
 }
