@@ -75,6 +75,76 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public int Debounce { get; set; }
 
     /// <summary>
+    /// 获得/设置 匹配数据时显示的数量
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public int? DisplayCount { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启模糊查询，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsLikeMatch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 匹配时是否忽略大小写，默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IgnoreCase { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 下拉菜单选择回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEnter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEsc { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 UI 呈现数据集合
+    /// </summary>
+    [NotNull]
+    protected List<string>? FilterItems { get; set; }
+
+    /// <summary>
+    /// 获得 是否跳过 ESC 按键字符串
+    /// </summary>
+    protected string? SkipEscString => SkipEsc ? "true" : null;
+
+    /// <summary>
+    /// 获得 是否跳过 Enter 按键字符串
+    /// </summary>
+    protected string? SkipEnterString => SkipEnter ? "true" : null;
+
+    /// <summary>
+    /// 获得 滚动行为字符串
+    /// </summary>
+    protected string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+
+    /// <summary>
     /// 防抖时长字符串
     /// </summary>
     protected string? DurationString => Debounce > 0 ? $"{Debounce}" : null;
@@ -138,6 +208,18 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
         if (CurrentItemIndex.HasValue)
         {
             await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
+        }
+    }
+
+    /// <summary>
+    /// 鼠标点击候选项时回调此方法
+    /// </summary>
+    protected async Task OnClickItem(TValue val)
+    {
+        CurrentValue = val;
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(val);
         }
     }
 
