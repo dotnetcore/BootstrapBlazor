@@ -137,11 +137,11 @@ public partial class Display<TValue> : ILookup
         return ret ?? string.Empty;
     }
 
-    private Func<TValue, string>? _arrayConvertoString;
+    private Func<TValue, string>? _arrayConvertToString;
     private string ArrayConvertToString(TValue value)
     {
-        _arrayConvertoString ??= LambdaExtensions.ArrayConvertToStringLambda<TValue>(TypeResolver).Compile();
-        return _arrayConvertoString(value);
+        _arrayConvertToString ??= LambdaExtensions.ArrayConvertToStringLambda<TValue>(TypeResolver).Compile();
+        return _arrayConvertToString(value);
     }
 
     private static Func<TValue, string>? _enumerableConvertToString;
