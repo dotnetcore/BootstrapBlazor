@@ -9,7 +9,7 @@ export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const input = document.getElementById(`${id}_input`)
-    var ac = { el, invoke, menu, input }
+    const ac = { el, invoke, menu, input }
     Data.set(id, ac)
 
     if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
@@ -31,6 +31,12 @@ export function init(id, invoke) {
             invoke.invokeMethodAsync('OnKeyUp', e.code)
         })
     }
+
+    Input.composition(input, async v => {
+        el.classList.add('is-loading');
+        await invoke.invokeMethodAsync('TriggerOnChange', v);
+        el.classList.remove('is-loading');
+    })
 }
 
 export function autoScroll(id, index) {
@@ -47,7 +53,7 @@ export function autoScroll(id, index) {
         active.classList.remove('active')
     }
 
-    var len = menu.children.length
+    const len = menu.children.length
     if (index < len) {
         menu.children[index].classList.add('active')
     }
@@ -57,14 +63,6 @@ export function autoScroll(id, index) {
     }
     else if (index <= count) {
         menu.scrollTop = 0
-    }
-}
-
-export function composition(id) {
-    const ac = Data.get(id)
-    if (ac) {
-        ac.composition = true
-        Input.composition(`${id}_input`, ac.invoke, 'TriggerOnChange')
     }
 }
 
@@ -84,10 +82,8 @@ export function dispose(id) {
                 EventHandler.off(ac.input, 'focus')
             }
         }
-        if (ac.composition) {
-            Input.dispose(`${id}_input`)
-        }
         if (ac.input) {
+            Input.dispose(ac.input)
             EventHandler.off(ac.input, 'keyup')
         }
     }

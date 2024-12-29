@@ -134,15 +134,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
         {
             await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
         }
-
-        if (firstRender)
-        {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                await InvokeVoidAsync("composition", Id);
-            }
-        }
     }
 
     /// <summary>
