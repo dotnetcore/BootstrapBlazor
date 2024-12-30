@@ -2780,7 +2780,9 @@
     "InputsFormatStringSetting": "设置",
     "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
     "UseInputEvent": "是否在文本框输入值时触发",
-    "IsTrim": "是否自动去除空格"
+    "IsTrim": "是否自动去除空格",
+    "ClearableTitle": "清除",
+    "ClearableIntro": "通过设置 <code>Clearable=\"true\"</code> 参数，使组件获得焦点或者鼠标悬浮时显示一个 <b>清除</b> 小按钮"
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",
