@@ -89,7 +89,7 @@
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="AutoFill" />
                 <AutoFill TValue="Foo" Items="AufoFillItems" IsLikeMatch="true" OnGetDisplayText="@(foo => foo.Name ?? "")">
-                    <Template>
+                    <ItemTemplate>
                         <div class="d-flex">
                             <div>
                                 <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
@@ -99,7 +99,7 @@
                                 <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
                             </div>
                         </div>
-                    </Template>
+                    </ItemTemplate>
                 </AutoFill>
             </BootstrapInputGroup>
         </div>
