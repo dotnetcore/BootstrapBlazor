@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-///
+/// AutoComplete 组件示例
 /// </summary>
 public sealed partial class AutoCompletes
 {

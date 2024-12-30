@@ -11,19 +11,23 @@ namespace BootstrapBlazor.Server.Components.Samples;
 partial class AutoFills
 {
     [NotNull]
-    private Foo Model { get; set; } = new();
+    private Foo Model1 { get; set; } = new();
 
-    private Task OnSelectedItemChanged(Foo foo)
-    {
-        Model = Utility.Clone(foo);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
+    [NotNull]
+    private Foo Model2 { get; set; } = new();
+    [NotNull]
+    private Foo Model3 { get; set; } = new();
 
     private static string OnGetDisplayText(Foo foo) => foo.Name ?? "";
 
     [NotNull]
-    private IEnumerable<Foo>? Items { get; set; }
+    private IEnumerable<Foo>? Items1 { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? Items2 { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? Items3 { get; set; }
 
     [Inject]
     [NotNull]
@@ -34,13 +38,19 @@ partial class AutoFills
     {
         base.OnInitialized();
 
-        Items = Foo.GenerateFoo(LocalizerFoo);
-        Model = Items.First();
+        Items1 = Foo.GenerateFoo(LocalizerFoo);
+        Model1 = Items1.First();
+
+        Items2 = Foo.GenerateFoo(LocalizerFoo);
+        Model2 = Items2.First();
+
+        Items3 = Foo.GenerateFoo(LocalizerFoo);
+        Model3 = Items3.First();
     }
 
     private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
     {
-        var items = string.IsNullOrEmpty(searchText) ? Items : Items.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
+        var items = string.IsNullOrEmpty(searchText) ? Items2 : Items2.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
         return Task.FromResult(items);
     }
 
@@ -122,14 +132,14 @@ partial class AutoFills
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new()
-        {
-            Name = nameof(AutoFill<Foo>.ShowDropdownListOnFocus),
-            Description = Localizer["Att10"],
-            Type = "bool",
-            ValueList = "true/false",
-            DefaultValue = "true"
-        },
+        //new()
+        //{
+        //    Name = nameof(AutoFill<Foo>.ShowDropdownListOnFocus),
+        //    Description = Localizer["Att10"],
+        //    Type = "bool",
+        //    ValueList = "true/false",
+        //    DefaultValue = "true"
+        //},
         new()
         {
             Name = "Template",

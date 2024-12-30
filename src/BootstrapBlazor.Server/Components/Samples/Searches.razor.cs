@@ -13,50 +13,46 @@ public sealed partial class Searches
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
+    private Task<IEnumerable<string>> OnSearch(string searchText)
+    {
+        Logger.Log($"SearchText: {searchText}");
+        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
+    }
+
     [NotNull]
     private ConsoleLogger? ClearLogger { get; set; }
 
-    private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
-
-    private Task OnSearch(string searchText)
-    {
-        Logger.Log($"SearchText: {searchText}");
-        return Task.CompletedTask;
-    }
-
-    private Task OnClearSearch(string searchText)
+    private Task<IEnumerable<string>> OnClearSearch(string searchText)
     {
         ClearLogger.Log($"SearchText: {searchText}");
-        return Task.CompletedTask;
+        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
     [NotNull]
     private ConsoleLogger? DisplayLogger { get; set; }
 
-    private Task OnDisplaySearch(string searchText)
+    private Task<IEnumerable<string>> OnDisplaySearch(string searchText)
     {
         DisplayLogger.Log($"SearchText: {searchText}");
-        return Task.CompletedTask;
+        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
-    private Task OnClear(string searchText)
+    private Task<IEnumerable<string>> OnClear(string searchText)
     {
         DisplayLogger.Log($"OnClear: {searchText}");
-        return Task.CompletedTask;
+        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
     [NotNull]
     private ConsoleLogger? KeyboardLogger { get; set; }
 
-    private Task OnKeyboardSearch(string searchText)
+    private Task<IEnumerable<string>> OnKeyboardSearch(string searchText)
     {
         KeyboardLogger.Log($"SearchText: {searchText}");
-        return Task.CompletedTask;
+        return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
     private Foo Model { get; set; } = new Foo() { Name = "" };
-
-    private static List<string> StaticItems => ["1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG"];
 
     /// <summary>
     /// 获得属性方法

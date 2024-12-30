@@ -2107,7 +2107,7 @@
     "Description": "Auto-fill forms when selected via IntelliSense prompt option",
     "NormalTitle": "Basic usage",
     "NormalIntro": "fill the form",
-    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Space</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
+    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Esc</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
     "CustomFilterTitle": "custom filter",
     "CustomFilterIntro": "Filter data by setting custom filter condition callback delegate <code>OnCustomFilter</code>",
     "CustomFilterDesc": "Enter the <code>name</code> intelligent prompt, and delegate <code>OnCustomFilter</code> to filter data by setting a user-defined filter condition callback. The current filter condition is that <code>Name</code> contains the input string <code>Count</code> and the value is greater than <b>50</b>",
@@ -2178,7 +2178,9 @@
     "AutoText": "Custom city",
     "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
+    "BlockGroupSuffixLabel": "Suffix",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",

@@ -1,9 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits AutoComplete
+@inherits PopoverCompleteBase<string>
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
-        <input @attributes="AdditionalAttributes" id="@InputId" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" />
+        <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
+               data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
+               data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
+               data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
+               data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
+               data-bb-input="@UseInputString"
+               value="@CurrentValueAsString"
+               placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />
@@ -11,16 +18,20 @@
         <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search" />
     </div>
     <ul class="dropdown-menu">
-        @if (FilterItems.Any())
+        @foreach (var item in FilterItems)
         {
-            @foreach (var item in FilterItems)
-            {
-                <li class="dropdown-item" @onmousedown="() => OnClickItem(item)">
+            <li class="dropdown-item">
+                @if (ItemTemplate != null)
+                {
+                    @ItemTemplate(item)
+                }
+                else
+                {
                     <div>@item</div>
-                </li>
-            }
+                }
+            </li>
         }
-        else if (ShowNoDataTip)
+        @if (ShowNoDataTip && FilterItems.Count == 0)
         {
             <li class="dropdown-item">@NoDataTip</li>
         }
