@@ -21,13 +21,13 @@
         @foreach (var item in FilterItems)
         {
             <li class="dropdown-item">
-                @if (ItemTemplate == null)
+                @if (ItemTemplate != null)
                 {
-                    <div>@item</div>
+                    @ItemTemplate(item)
                 }
                 else
                 {
-                    @ItemTemplate(item)
+                    <div>@item</div>
                 }
             </li>
         }

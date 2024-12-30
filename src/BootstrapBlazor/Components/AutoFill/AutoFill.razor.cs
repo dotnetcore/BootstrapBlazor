@@ -46,12 +46,6 @@ public partial class AutoFill<TValue>
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 候选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TValue>? Template { get; set; }
-
-    /// <summary>
     /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
     /// </summary>
     [Parameter]

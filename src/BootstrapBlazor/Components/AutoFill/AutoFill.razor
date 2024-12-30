@@ -21,9 +21,9 @@
         @foreach (var item in FilterItems)
         {
             <li @key="@item" class="dropdown-item" @onclick="() => OnClickItem(item)">
-                @if (Template != null)
+                @if (ItemTemplate != null)
                 {
-                    @Template(item)
+                    @ItemTemplate(item)
                 }
                 else
                 {
