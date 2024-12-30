@@ -203,5 +203,5 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    protected bool IsEnterKey(string key) => key == "Enter" || key == "NumpadEnter";
+    protected bool IsEnterKey(string key) => key is "Enter" or "NumpadEnter";
 }
