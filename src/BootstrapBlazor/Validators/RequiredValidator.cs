@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.Collections;
 using System.Globalization;
+using System.Security.AccessControl;
 
 namespace BootstrapBlazor.Components;
 
@@ -53,17 +54,15 @@ public class RequiredValidator : ValidatorBase
                 ErrorMessage = l.Value;
             }
         }
-        var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
-        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
         if (propertyValue == null)
         {
-            results.Add(new ValidationResult(errorMessage, memberNames));
+            results.Add(CreateValidationResult(context));
         }
         else if (propertyValue is string val)
         {
             if (!AllowEmptyString && val == string.Empty)
             {
-                results.Add(new ValidationResult(errorMessage, memberNames));
+                results.Add(CreateValidationResult(context));
             }
         }
         else if (propertyValue is IEnumerable v)
@@ -72,14 +71,26 @@ public class RequiredValidator : ValidatorBase
             var valid = enumerator.MoveNext();
             if (!valid)
             {
-                results.Add(new ValidationResult(errorMessage, memberNames));
+                results.Add(CreateValidationResult(context));
             }
         }
         else if (propertyValue is DateTimeRangeValue dv && dv is { NullStart: null, NullEnd: null })
         {
-            results.Add(new ValidationResult(errorMessage, memberNames));
+            results.Add(CreateValidationResult(context));
         }
     }
+    /// <summary>
+    /// 生成错误提示信息。
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
+    private ValidationResult CreateValidationResult(ValidationContext context)
+    {
+        var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
+        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+        return new ValidationResult(errorMessage, memberNames);
+    }
+
 
     /// <summary>
     /// 获得当前验证规则资源文件中 Key 格式
