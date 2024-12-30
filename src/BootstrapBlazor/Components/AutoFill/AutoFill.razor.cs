@@ -74,7 +74,7 @@ public partial class AutoFill<TValue>
     /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
-    [Obsolete("已弃用，请使用 ItemTemplate 代替")]
+    [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
     [ExcludeFromCodeCoverage]
     public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
 
