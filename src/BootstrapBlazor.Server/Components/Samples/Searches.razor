@@ -35,6 +35,19 @@
     <ConsoleLogger @ref="DisplayLogger" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SearchesItemTemplateTitle"]"
+           Introduction="@Localizer["SearchesItemTemplateIntro"]"
+           Name="ItemTemplate">
+    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            OnGetDisplayText="GetDisplayText"
+            OnSearch="@OnSearchFoo">
+        <ItemTemplate>
+            <div>@context.Name</div>
+            <div>@context.Address</div>
+        </ItemTemplate>
+    </Search>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SearchesKeyboardsTitle"]"
            Introduction="@Localizer["SearchesKeyboardsIntro"]"
            Name="keyboards">

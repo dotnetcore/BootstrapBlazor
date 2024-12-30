@@ -14,9 +14,9 @@ public sealed partial class Coms
 
     private string? SearchText { get; set; }
 
-    private Task<IEnumerable<string>> OnSearch(string searchText)
+    private Task<IEnumerable<string?>> OnSearch(string searchText)
     {
         SearchText = searchText;
-        return Task.FromResult<IEnumerable<string>>(ComponentItems.Where(i => i.Contains(searchText, StringComparison.OrdinalIgnoreCase)));
+        return Task.FromResult<IEnumerable<string?>>(ComponentItems.Where(i => i.Contains(searchText, StringComparison.OrdinalIgnoreCase)).ToList());
     }
 }
