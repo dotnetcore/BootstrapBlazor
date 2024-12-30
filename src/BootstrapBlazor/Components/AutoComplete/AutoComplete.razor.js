@@ -106,8 +106,8 @@ const handlerKeyup = (ac, e) => {
     }
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
-        if (!skipEsc) {
-            input.blur();
+        if (skipEsc === false) {
+            EventHandler.trigger(menu, 'click');
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
