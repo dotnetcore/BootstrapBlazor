@@ -5,6 +5,10 @@ import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
 
+if (window.BootstrapBlazor === void 0) {
+    window.BootstrapBlazor = {};
+}
+
 export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
@@ -12,7 +16,8 @@ export function init(id, invoke) {
     const ac = { el, invoke, menu, input }
     Data.set(id, ac)
 
-    if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
+    const isPopover = input.getAttribute('data-bs-toggle') === 'bb.dropdown';
+    if (isPopover) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' });
     }
 
@@ -35,7 +40,7 @@ export function init(id, invoke) {
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
-            if (ac.popover === void 0) {
+            if (isPopover === false) {
                 el.classList.add('show');
             }
         }
@@ -51,10 +56,39 @@ export function init(id, invoke) {
 
     Input.composition(input, async v => {
         el.classList.add('is-loading');
-        el.classList.add('show');
+        if (isPopover === false) {
+            el.classList.add('show');
+        }
         await invoke.invokeMethodAsync('TriggerOnChange', v);
         el.classList.remove('is-loading');
     });
+
+    if (window.BootstrapBlazor.AutoComplete === void 0) {
+        window.BootstrapBlazor.AutoComplete = {
+            hooked: false,
+            registerCloseDropdownHandler: function () {
+                if (this.hooked === false) {
+                    this.hooked = true;
+
+                    EventHandler.on(document, 'click', e => {
+                        const container = e.target.closest('.auto-complete');
+                        if (container) {
+                            return;
+                        }
+
+                        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+                            const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
+                            if (el === null) {
+                                a.classList.remove('show');
+                            }
+                        });
+                    });
+                }
+            }
+        }
+    }
+
+    window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
 }
 
 const handlerKeyup = (ac, e) => {
@@ -128,9 +162,9 @@ export function dispose(id) {
                 EventHandler.off(input, 'focus')
             }
         }
-        Input.dispose(input);
         EventHandler.off(input, 'keyup');
         EventHandler.off(menu, 'click');
+        Input.dispose(input);
     }
 }
 
