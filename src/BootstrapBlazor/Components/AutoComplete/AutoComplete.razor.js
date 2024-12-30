@@ -55,11 +55,13 @@ export function init(id, invoke) {
     });
 
     Input.composition(input, async v => {
-        el.classList.add('is-loading');
-        if (isPopover === false) {
+        const useInput = input.getAttribute('data-bb-input') !== 'false';
+        if (isPopover === false && useInput) {
             el.classList.add('show');
         }
-        await invoke.invokeMethodAsync('TriggerOnChange', v);
+
+        el.classList.add('is-loading');
+        await invoke.invokeMethodAsync('TriggerOnChange', v, useInput);
         el.classList.remove('is-loading');
     });
 
