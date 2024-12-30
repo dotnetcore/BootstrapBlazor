@@ -88,7 +88,8 @@ const handlerKeyup = (ac, e) => {
         }
         items[index].classList.add('active');
         const top = getTop(menu, index);
-        menu.scrollTo({ top: top, left: 0, behavior: 'smooth' });
+        const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+        menu.scrollTo({ top: top, left: 0, behavior: hehavior });
     }
 }
 
