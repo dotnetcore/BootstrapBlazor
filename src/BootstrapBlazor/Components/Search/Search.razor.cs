@@ -146,7 +146,7 @@ public partial class Search<TValue>
         }
     }
 
-    private string? _displayText;
+    private string _displayText = "";
     private bool _show;
     /// <summary>
     /// 点击搜索按钮时触发此方法
