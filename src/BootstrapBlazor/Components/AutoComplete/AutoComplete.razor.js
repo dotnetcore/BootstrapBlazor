@@ -41,9 +41,12 @@ export function init(id, invoke) {
         }
     });
 
-    EventHandler.on(input, 'blur', e => {
+    EventHandler.on(menu, 'click', e => {
         el.classList.remove('show');
-        invoke.invokeMethodAsync('TriggerBlur');
+        if (el.triggerEnter !== true) {
+            invoke.invokeMethodAsync('TriggerBlur');
+        }
+        delete el.triggerEnter;
     });
 
     Input.composition(input, async v => {
@@ -62,6 +65,7 @@ const handlerKeyup = (ac, e) => {
         if (!skipEnter) {
             const current = menu.querySelector('.active');
             if (current !== null) {
+                el.triggerEnter = true;
                 current.click();
             }
         }
