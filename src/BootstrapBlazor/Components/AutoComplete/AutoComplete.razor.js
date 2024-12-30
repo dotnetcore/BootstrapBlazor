@@ -71,12 +71,12 @@ export function init(id, invoke) {
                     this.hooked = true;
 
                     EventHandler.on(document, 'click', e => {
-                        const container = e.target.closest('.auto-complete');
-                        if (container) {
-                            return;
-                        }
-
                         [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+                            const ac = e.target.closest('.auto-complete');
+                            if (ac === a) {
+                                return;
+                            }
+
                             const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
                             if (el === null) {
                                 a.classList.remove('show');
