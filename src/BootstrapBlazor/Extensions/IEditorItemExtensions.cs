@@ -1,5 +1,6 @@
-﻿// Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this
-// file to you under the Apache 2.0 License See the LICENSE file in the project root for more information.
+﻿// Licensed to the .NET Foundation under one or more agreements.
+// The .NET Foundation licenses this file to you under the Apache 2.0 License
+// See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using System.Reflection;
@@ -76,7 +77,7 @@ public static class IEditorItemExtensions
     /// <returns></returns>
     public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        return typeof(IDynamicObject).IsAssignableFrom(modelType) || ComplexCanWrite();
+        return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();
 
         bool ComplexCanWrite()
         {
