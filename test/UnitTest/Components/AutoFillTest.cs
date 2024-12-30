@@ -163,7 +163,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Value, Model);
             pb.Add(a => a.Items, Items);
-            pb.Add(a => a.OnGetDisplayText, foo => foo.Name ?? "");
+            pb.Add(a => a.OnGetDisplayText, foo => foo.Name);
         });
         var input = cut.Find("input");
         Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
