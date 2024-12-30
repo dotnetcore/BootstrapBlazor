@@ -140,11 +140,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string InputId => $"{Id}_input";
 
     /// <summary>
-    /// CurrentItemIndex 当前选中项索引
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
-
-    /// <summary>
     /// 弹窗位置字符串
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
@@ -164,21 +159,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
         base.OnParametersSet();
 
         Offset ??= "[0, 10]";
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
-        }
     }
 
     /// <summary>
