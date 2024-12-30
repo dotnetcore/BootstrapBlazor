@@ -96,7 +96,7 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment<string>? ItemTemplate { get; set; }
+    public RenderFragment<TValue>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
