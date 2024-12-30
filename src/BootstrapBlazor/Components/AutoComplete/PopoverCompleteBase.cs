@@ -205,6 +205,19 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     }
 
     /// <summary>
+    /// 出发 OnBlur 回调方法 由 Javascript 触发
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerBlur()
+    {
+        if (OnBlurAsync != null)
+        {
+            await OnBlurAsync(Value);
+        }
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>

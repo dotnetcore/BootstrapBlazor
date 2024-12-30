@@ -127,17 +127,4 @@ public partial class AutoComplete
             StateHasChanged();
         }
     }
-
-    /// <summary>
-    /// 出发 OnBlur 回调方法 由 Javascript 触发
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task TriggerBlur()
-    {
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
-        }
-    }
 }
