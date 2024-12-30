@@ -147,9 +147,16 @@ const getTop = (menu, index) => {
     return top;
 }
 
-export function triggerFocus(id) {
+export function showList(id) {
     const ac = Data.get(id)
-    ac.popover?.show();
+    if (ac) {
+        if (ac.popover) {
+            ac.popover.show();
+        }
+        else {
+            ac.el.classList.add('show');
+        }
+    }
 }
 
 export function dispose(id) {
