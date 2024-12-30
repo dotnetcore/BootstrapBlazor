@@ -34,6 +34,16 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Debounce_Ok()
+    {
+        var cut = Context.RenderComponent<AutoComplete>();
+        Assert.DoesNotContain("data-bb-debounce", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Debounce, 100));
+        cut.Contains("data-bb-debounce=\"100\"");
+    }
+
+    [Fact]
     public async Task OnCustomFilter_Test()
     {
         var items = new List<string> { "test1", "test2" };
