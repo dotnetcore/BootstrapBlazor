@@ -77,6 +77,7 @@ const handlerKeyup = (ac, e) => {
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
+        el.classList.add('show');
         const items = [...menu.querySelectorAll('.dropdown-item')];
         let current = menu.querySelector('.active');
         if (current !== null) {
