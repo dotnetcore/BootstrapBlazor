@@ -31,7 +31,7 @@
                 }
             </li>
         }
-        else if (ShowNoDataTip && FilterItems.Count == 0)
+        @if (ShowNoDataTip && FilterItems.Count == 0)
         {
             <li class="dropdown-item">@NoDataTip</li>
         }

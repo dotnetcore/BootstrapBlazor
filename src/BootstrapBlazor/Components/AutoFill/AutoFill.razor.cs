@@ -40,18 +40,6 @@ public partial class AutoFill<TValue>
     public int? DisplayCount { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启模糊查询，默认为 false
-    /// </summary>
-    [Parameter]
-    public bool IsLikeMatch { get; set; }
-
-    /// <summary>
-    /// 获得/设置 匹配时是否忽略大小写，默认为 true
-    /// </summary>
-    [Parameter]
-    public bool IgnoreCase { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
     /// </summary>
     [Parameter]
@@ -81,6 +69,12 @@ public partial class AutoFill<TValue>
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义集合过滤规则
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
     [Inject]
     [NotNull]
@@ -117,9 +111,32 @@ public partial class AutoFill<TValue>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
+        _displayText = OnGetDisplayText(val);
+
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
         }
+    }
+
+    /// <summary>
+    /// TriggerOnChange 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public async Task TriggerOnChange(string val)
+    {
+        if (OnCustomFilter != null)
+        {
+            var items = await OnCustomFilter(val);
+            FilterItems = items.ToList();
+        }
+        if (DisplayCount != null)
+        {
+            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
+        }
+
+        _displayText = val;
+        StateHasChanged();
     }
 }
