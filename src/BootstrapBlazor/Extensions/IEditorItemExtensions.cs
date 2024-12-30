@@ -77,7 +77,7 @@ public static class IEditorItemExtensions
     /// <returns></returns>
     public static bool CanWrite(this IEditorItem item, Type modelType)
     {
-        return modelType == typeof(DynamicObject) || modelType.IsSubclassOf(typeof(DynamicObject)) || ComplexCanWrite();
+        return typeof(IDynamicObject).IsAssignableFrom(modelType) || ComplexCanWrite();
 
         bool ComplexCanWrite()
         {
