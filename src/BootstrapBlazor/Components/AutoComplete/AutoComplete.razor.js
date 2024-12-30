@@ -73,9 +73,6 @@ const handlerKeyup = (ac, e) => {
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
-        e.preventDefault();
-        e.stopPropagation();
-
         const items = [...menu.querySelectorAll('.dropdown-item')];
         let current = menu.querySelector('.active');
         if (current !== null) {
