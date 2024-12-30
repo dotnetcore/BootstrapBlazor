@@ -2178,7 +2178,9 @@
     "AutoText": "自定义城市",
     "DebounceDescription": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能",
     "BlockGroupPrevLabel": "前置标签",
-    "BlockGroupSuffixLabel": "后置标签"
+    "BlockGroupSuffixLabel": "后置标签",
+    "PopoverTitle": "悬浮弹窗",
+    "PopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen 全屏",

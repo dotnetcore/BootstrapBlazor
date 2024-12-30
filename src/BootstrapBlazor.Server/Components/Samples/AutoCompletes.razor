@@ -7,7 +7,6 @@
 
 <DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
     <section ignore>@Localizer["NormalDescription"]</section>
-
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" IsSelectAllTextOnFocus="true" />
     </div>
@@ -15,7 +14,6 @@
 
 <DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="LikeMatch">
     <section ignore>@Localizer["LikeMatchDescription"]</section>
-
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
     </div>
@@ -23,7 +21,6 @@
 
 <DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="NoDataTip">
     <section ignore>@((MarkupString)Localizer["NoDataTipDescription"].Value)</section>
-
     <div style="width: 200px;">
         <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />
     </div>
@@ -31,7 +28,6 @@
 
 <DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValueChanged">
     <section ignore>@Localizer["ValueChangedDescription"]</section>
-
     <div style="width: 200px;">
         <AutoComplete Items="@Items" ValueChanged="@OnValueChanged" />
     </div>
@@ -39,7 +35,6 @@
 
 <DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="ShowLabel">
     <section ignore>@((MarkupString)Localizer["ShowLabelDescription"].Value)</section>
-
     <Divider Text="@Localizer["Divider1Text"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="@Model">
         <AutoComplete Items="@StaticItems" @bind-Value="@Model.Name" ShowLabel="true" />
@@ -98,6 +93,12 @@
         </div>
     </div>
     <ConsoleLogger @ref="GroupLogger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PopoverTitle"]"
+           Introduction="@Localizer["PopoverIntro"]"
+           Name="Popover">
+    <AutoComplete Items="@StaticItems" IsPopover="true"></AutoComplete>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

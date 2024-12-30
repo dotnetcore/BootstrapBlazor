@@ -2178,7 +2178,9 @@
     "AutoText": "Custom city",
     "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
+    "BlockGroupSuffixLabel": "Suffix",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
