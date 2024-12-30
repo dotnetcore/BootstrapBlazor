@@ -63,12 +63,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? Offset { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 防抖时间 默认为 0 即不开启
     /// </summary>
     [Parameter]
@@ -154,11 +148,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// 弹窗位置字符串
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
-
-    /// <summary>
-    /// 获得 获得焦点自动显示下拉框设置字符串
-    /// </summary>
-    protected string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? null : "false";
 
     /// <summary>
     /// 获得 CustomClass 字符串

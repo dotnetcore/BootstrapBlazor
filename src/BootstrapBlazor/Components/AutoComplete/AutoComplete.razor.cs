@@ -64,11 +64,22 @@ public partial class AutoComplete
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowDropdownListOnFocus { get; set; } = true;
+
+    /// <summary>
     /// IStringLocalizer 服务实例
     /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
+
+    /// <summary>
+    /// 获得 获得焦点自动显示下拉框设置字符串
+    /// </summary>
+    private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>

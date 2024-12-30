@@ -33,7 +33,7 @@ export function init(id, invoke) {
     }
 
     EventHandler.on(input, 'focus', e => {
-        const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') !== 'false';
+        const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
             if (ac.popover === void 0) {
                 el.classList.add('show');
@@ -61,7 +61,7 @@ const handlerKeyup = (ac, e) => {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
             const current = menu.querySelector('.active');
-            if(current !== null) {
+            if (current !== null) {
                 current.click();
             }
         }
