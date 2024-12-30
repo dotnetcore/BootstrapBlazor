@@ -115,15 +115,16 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
-        if (ac.popover) {
-            Popover.dispose(ac.popover)
-            if (ac.input) {
-                EventHandler.off(ac.input, 'focus')
+        const { popover, input } = ac;
+        if (popover) {
+            Popover.dispose(popover)
+            if (input) {
+                EventHandler.off(input, 'focus')
             }
         }
-        if (ac.input) {
-            Input.dispose(ac.input)
-            EventHandler.off(ac.input, 'keyup')
+        if (input) {
+            Input.dispose(input)
+            EventHandler.off(input, 'keyup')
         }
     }
 }
