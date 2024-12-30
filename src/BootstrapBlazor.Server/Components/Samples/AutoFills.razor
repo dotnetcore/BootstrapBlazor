@@ -10,7 +10,7 @@
         @((MarkupString)@Localizer["NormalDesc"].Value)
     </section>
     <AutoFill @bind-Value="Model1" Items="Items1" IsLikeMatch="true" OnGetDisplayText="OnGetDisplayText" class="mb-3" IsSelectAllTextOnFocus="true">
-        <Template>
+        <ItemTemplate>
             <div class="d-flex">
                 <div>
                     <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
@@ -20,7 +20,7 @@
                     <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
                 </div>
             </div>
-        </Template>
+        </ItemTemplate>
     </AutoFill>
     <section ignore>
         <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(Model1.Id)" class="shadow" style="width: 140px; margin-bottom: 1rem; border-radius: 6px;" />
@@ -32,7 +32,7 @@
     <section ignore>@((MarkupString)Localizer["CustomFilterDesc"].Value)</section>
     <AutoFill @bind-Value="Model2" Items="Items2" OnCustomFilter="OnCustomFilter"
               OnGetDisplayText="OnGetDisplayText" class="mb-3">
-        <Template>
+        <ItemTemplate>
             <div class="d-flex">
                 <div>
                     <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
@@ -42,7 +42,7 @@
                     <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
                 </div>
             </div>
-        </Template>
+        </ItemTemplate>
     </AutoFill>
     <section ignore>
         <EditorForm Model="@Model2" RowType="RowType.Inline" ItemsPerRow="2" />
@@ -54,7 +54,7 @@
         @((MarkupString)@Localizer["ShowDropdownListOnFocusDesc"].Value)
     </section>
     <AutoFill @bind-Value="Model3" Items="Items3" ShowDropdownListOnFocus="false" OnGetDisplayText="OnGetDisplayText" class="mb-3">
-        <Template>
+        <ItemTemplate>
             <div class="d-flex">
                 <div>
                     <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
@@ -64,7 +64,7 @@
                     <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
                 </div>
             </div>
-        </Template>
+        </ItemTemplate>
     </AutoFill>
     <section ignore>
         <EditorForm Model="@Model3" RowType="RowType.Inline" ItemsPerRow="2" />

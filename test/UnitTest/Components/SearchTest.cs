@@ -10,7 +10,7 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<Search>();
+        var cut = Context.RenderComponent<Search<string>>();
         Assert.Contains("<div class=\"search auto-complete\"", cut.Markup);
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
@@ -26,12 +26,12 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ItemTemplate_Ok()
     {
-        var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<Search>(pb =>
+        var items = new List<Foo>() { new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
+        var cut = Context.RenderComponent<Search<Foo>>(pb =>
         {
             pb.Add(a => a.ItemTemplate, item => builder =>
             {
-                builder.AddContent(0, $"Template-{item}");
+                builder.AddContent(0, $"Template-{item.Name}-{item.Address}");
             });
             pb.Add(a => a.OnSearch, async v =>
             {
@@ -43,14 +43,35 @@ public class SearchTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
         await Task.Delay(20);
 
-        Assert.Contains("Template-test1", cut.Markup);
-        Assert.Contains("Template-test2", cut.Markup);
+        Assert.Contains("Template-test1-Address 1", cut.Markup);
+        Assert.Contains("Template-test2-Address 2", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnGetDisplayText_Ok()
+    {
+        var items = new List<Foo?>() { null, new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
+        var cut = Context.RenderComponent<Search<Foo?>>(pb =>
+        {
+            pb.Add(a => a.OnSearch, async v =>
+            {
+                await Task.Delay(1);
+                return items;
+            });
+            pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await Task.Delay(20);
+
+        Assert.Contains("test1", cut.Markup);
+        Assert.Contains("test2", cut.Markup);
     }
 
     [Fact]
     public void IsOnInputTrigger_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder =>
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
             builder.Add(s => s.IsOnInputTrigger, true);
         });
@@ -65,7 +86,7 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         string? val = null;
         var items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<Search>(builder =>
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
             builder.Add(s => s.SearchButtonText, "SearchText");
@@ -82,10 +103,6 @@ public class SearchTest : BootstrapBlazorTestBase
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("test"));
-        Assert.Equal("test", val);
-        Assert.Empty(cut.Instance.Value);
-
         var button = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => button.Click());
         await Task.Delay(10);
@@ -98,7 +115,7 @@ public class SearchTest : BootstrapBlazorTestBase
     public async Task OnClearClick_Ok()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Search>(builder =>
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
             builder.Add(s => s.Value, "1");
             builder.Add(s => s.ShowClearButton, true);

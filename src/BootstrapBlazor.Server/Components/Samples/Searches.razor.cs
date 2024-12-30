@@ -54,6 +54,12 @@ public sealed partial class Searches
 
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
+    private static async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
+    {
+        await Task.Delay(100);
+        return Enumerable.Range(1, 10).Select(i => new Foo() { Name = $"{searchText}-{i}", Address = $"Address - 10{i}" }).ToList();
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits PopoverCompleteBase<string>
+@typeparam TValue
+@inherits PopoverCompleteBase<TValue>
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
@@ -27,7 +28,7 @@
                 }
                 else
                 {
-                    <div>@item</div>
+                    <div>@GetDisplayText(item)</div>
                 }
             </li>
         }

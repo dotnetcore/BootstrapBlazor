@@ -70,6 +70,14 @@ public partial class AutoFill<TValue>
     [Parameter]
     public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
+    [ExcludeFromCodeCoverage]
+    public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }

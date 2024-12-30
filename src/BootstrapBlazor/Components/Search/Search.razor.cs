@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Search 组件
 /// </summary>
-public partial class Search
+public partial class Search<TValue>
 {
     /// <summary>
     /// 获得/设置 是否显示清除按钮 默认为 false 不显示
@@ -77,17 +77,24 @@ public partial class Search
     /// 获得/设置 点击搜索按钮时回调委托
     /// </summary>
     [Parameter]
-    public Func<string, Task<IEnumerable<string>>>? OnSearch { get; set; }
+    public Func<string, Task<IEnumerable<TValue>>>? OnSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<TValue, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
     /// 获得/设置 点击清空按钮时回调委托
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnClear { get; set; }
+    public Func<string?, Task>? OnClear { get; set; }
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Search>? Localizer { get; set; }
+    private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -105,7 +112,7 @@ public partial class Search
     /// 获得/设置 UI 呈现数据集合
     /// </summary>
     [NotNull]
-    private List<string>? FilterItems { get; set; }
+    private List<TValue>? FilterItems { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -139,6 +146,7 @@ public partial class Search
         }
     }
 
+    private string _displayText = "";
     private bool _show;
     /// <summary>
     /// 点击搜索按钮时触发此方法
@@ -151,12 +159,12 @@ public partial class Search
             ButtonIcon = SearchButtonLoadingIcon;
             await Task.Yield();
 
-            var items = await OnSearch(Value);
+            var items = await OnSearch(_displayText);
             FilterItems = items.ToList();
             ButtonIcon = SearchButtonIcon;
             if (IsAutoClearAfterSearch)
             {
-                Value = "";
+                _displayText = "";
             }
             if (IsOnInputTrigger == false)
             {
@@ -174,10 +182,20 @@ public partial class Search
     {
         if (OnClear != null)
         {
-            await OnClear(Value);
+            await OnClear(_displayText);
         }
-        CurrentValue = "";
+        _displayText = "";
         FilterItems = [];
+    }
+
+    private string? GetDisplayText(TValue item)
+    {
+        var displayText = item?.ToString();
+        if (OnGetDisplayText != null)
+        {
+            displayText = OnGetDisplayText(item);
+        }
+        return displayText;
     }
 
     /// <summary>
@@ -188,7 +206,7 @@ public partial class Search
     [JSInvokable]
     public async Task TriggerOnChange(string val, bool search = true)
     {
-        CurrentValue = val;
+        _displayText = val;
 
         if (search)
         {
