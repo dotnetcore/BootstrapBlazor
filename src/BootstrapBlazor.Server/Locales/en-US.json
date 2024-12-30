@@ -2780,7 +2780,9 @@
     "InputsFormatStringSetting": "Set up",
     "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
     "UseInputEvent": "Whether use oninput event when bind-value",
-    "IsTrim": "automatically trim white space when entering content"
+    "IsTrim": "automatically trim white space when entering content",
+    "ClearableTitle": "Clearable",
+    "ClearableIntro": "By setting the <code>Clearable=\"true\"</code> parameter, a small <b>Clear</b> button will be displayed when the component gains focus or when the mouse hovers over it."
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
