@@ -124,6 +124,23 @@ public partial class Search
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_show)
+        {
+            _show = false;
+            await InvokeVoidAsync("showList", Id);
+        }
+    }
+
+    private bool _show;
+    /// <summary>
     /// 点击搜索按钮时触发此方法
     /// </summary>
     /// <returns></returns>
@@ -137,12 +154,15 @@ public partial class Search
             var items = await OnSearch(Value);
             FilterItems = items.ToList();
             ButtonIcon = SearchButtonIcon;
+            if (IsAutoClearAfterSearch)
+            {
+                Value = "";
+            }
+            if (IsOnInputTrigger == false)
+            {
+                _show = true;
+            }
             StateHasChanged();
-        }
-
-        if (IsAutoClearAfterSearch)
-        {
-            Value = "";
         }
     }
 
