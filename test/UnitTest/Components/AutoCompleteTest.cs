@@ -134,13 +134,13 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, items);
         });
-        cut.DoesNotContain("data-bb-auto-dropdown-focus");
+        cut.Contains("data-bb-auto-dropdown-focus=\"true\"");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowDropdownListOnFocus, false);
         });
-        cut.Contains("data-bb-auto-dropdown-focus=\"false\"");
+        cut.DoesNotContain("data-bb-auto-dropdown-focus");
     }
 
     [Fact]
