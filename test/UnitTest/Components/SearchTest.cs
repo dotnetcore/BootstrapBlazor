@@ -50,15 +50,15 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public async Task OnGetDisplayText_Ok()
     {
-        var items = new List<Foo>() { new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
-        var cut = Context.RenderComponent<Search<Foo>>(pb =>
+        var items = new List<Foo?>() { null, new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
+        var cut = Context.RenderComponent<Search<Foo?>>(pb =>
         {
             pb.Add(a => a.OnSearch, async v =>
             {
                 await Task.Delay(1);
                 return items;
             });
-            pb.Add(a => a.OnGetDisplayText, foo => foo.Name);
+            pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
 
         await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
