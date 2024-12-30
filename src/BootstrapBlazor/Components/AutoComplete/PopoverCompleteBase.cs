@@ -172,11 +172,5 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override string? GetInputId() => InputId;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 }
