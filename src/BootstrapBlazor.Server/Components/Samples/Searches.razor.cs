@@ -54,8 +54,6 @@ public sealed partial class Searches
 
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
-    private static string? GetDisplayText(Foo foo) => foo.Name;
-
     private static async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
     {
         await Task.Delay(100);
