@@ -107,6 +107,18 @@ public partial class AutoComplete
     }
 
     /// <summary>
+    /// 鼠标点击候选项时回调此方法
+    /// </summary>
+    private async Task OnClickItem(string val)
+    {
+        CurrentValue = val;
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>

@@ -162,18 +162,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     }
 
     /// <summary>
-    /// 鼠标点击候选项时回调此方法
-    /// </summary>
-    protected async Task OnClickItem(TValue val)
-    {
-        CurrentValue = val;
-        if (OnSelectedItemChanged != null)
-        {
-            await OnSelectedItemChanged(val);
-        }
-    }
-
-    /// <summary>
     /// 出发 OnBlur 回调方法 由 Javascript 触发
     /// </summary>
     /// <returns></returns>
