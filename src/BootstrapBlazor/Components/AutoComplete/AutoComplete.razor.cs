@@ -82,6 +82,12 @@ public partial class AutoComplete
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
     /// <summary>
+    /// 获得/设置 UI 呈现数据集合
+    /// </summary>
+    [NotNull]
+    private List<string>? FilterItems { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()

@@ -99,12 +99,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public RenderFragment<string>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 UI 呈现数据集合
-    /// </summary>
-    [NotNull]
-    protected List<string>? FilterItems { get; set; }
-
-    /// <summary>
     /// 获得 是否跳过 ESC 按键字符串
     /// </summary>
     protected string? SkipEscString => SkipEsc ? "true" : null;
