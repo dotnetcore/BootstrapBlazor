@@ -146,7 +146,8 @@
     "EmptyText": "No Data"
   },
   "BootstrapBlazor.Components.Search": {
-    "SearchButtonText": "Search"
+    "SearchButtonText": "Search",
+    "NoDataTip": "Type something to search"
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Please select ...",

@@ -126,7 +126,7 @@ public partial class Search<TValue>
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
-
+        NoDataTip ??= Localizer[nameof(NoDataTip)];
         FilterItems ??= [];
     }
 
