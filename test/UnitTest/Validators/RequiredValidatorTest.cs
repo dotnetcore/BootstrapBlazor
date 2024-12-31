@@ -37,6 +37,7 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
     [Fact]
     public void EnumerableValue_Ok()
     {
+        int[] value = [1, 2];
         var foo = new Foo();
         var validator = new RequiredValidator()
         {
@@ -45,7 +46,7 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         };
         var context = new ValidationContext(foo);
         var results = new List<ValidationResult>();
-        validator.Validate(new int[] { 1, 2 }, context, results);
+        validator.Validate(value, context, results);
         Assert.Empty(results);
 
         validator.Validate(Array.Empty<int>(), context, results);
@@ -76,6 +77,10 @@ public class RequiredValidatorTest : BootstrapBlazorTestBase
         validator.Validate("v1", context, results);
         Assert.Empty(results);
 
+        validator.Validate("", context, results);
+        Assert.Single(results);
+
+        results.Clear();
         var provider = Context.Services.GetRequiredService<IServiceProvider>();
         validator = new RequiredValidator();
         context = new ValidationContext(foo, provider, null);

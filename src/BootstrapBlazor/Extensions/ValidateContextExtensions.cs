@@ -30,4 +30,16 @@ public static class ValidationContextExtensions
         }
         return ret;
     }
+
+    /// <summary>
+    /// 获得 <see cref="ValidationResult"/> 实例
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="errorMessage"></param>
+    /// <returns></returns>
+    public static ValidationResult GetValidationResult(this ValidationContext context, string? errorMessage)
+    {
+        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
+        return new ValidationResult(errorMessage, memberNames);
+    }
 }
