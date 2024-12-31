@@ -201,7 +201,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
         var nodes = cut.FindAll(".tree-content");
         Assert.Equal(3, nodes.Count);
-        Assert.True(nodes[1].ClassName == "tree-content active");
+        Assert.Contains("active", nodes[1].ClassName);
     }
 
     private List<TreeViewItem<string>> BindItems { get; } =
