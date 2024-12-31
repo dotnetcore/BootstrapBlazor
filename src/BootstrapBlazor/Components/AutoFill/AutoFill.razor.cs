@@ -71,6 +71,12 @@ public partial class AutoFill<TValue>
     public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowNoDataTip { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
