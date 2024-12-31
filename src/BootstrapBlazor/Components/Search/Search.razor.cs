@@ -199,6 +199,20 @@ public partial class Search<TValue>
     }
 
     /// <summary>
+    /// 鼠标点击候选项时回调此方法
+    /// </summary>
+    private async Task OnClickItem(TValue val)
+    {
+        CurrentValue = val;
+        _displayText = GetDisplayText(val) ?? "";
+
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>

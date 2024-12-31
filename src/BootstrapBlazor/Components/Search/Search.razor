@@ -21,7 +21,7 @@
     <ul class="dropdown-menu">
         @foreach (var item in FilterItems)
         {
-            <li class="dropdown-item">
+            <li class="dropdown-item" @onclick="() => OnClickItem(item)">
                 @if (ItemTemplate != null)
                 {
                     @ItemTemplate(item)
