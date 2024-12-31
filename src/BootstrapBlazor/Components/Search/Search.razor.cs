@@ -96,9 +96,6 @@ public partial class Search<TValue>
     [NotNull]
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
