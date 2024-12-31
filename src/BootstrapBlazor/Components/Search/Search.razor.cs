@@ -102,6 +102,8 @@ public partial class Search<TValue>
 
     private string? UseInputString => IsOnInputTrigger ? null : "false";
 
+    private string? ShowDropdownListOnFocusString => IsOnInputTrigger ? "true" : null;
+
     [NotNull]
     private string? ButtonIcon { get; set; }
 
