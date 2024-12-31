@@ -6308,6 +6308,8 @@
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
     "MindMapNormalTitle": "Basic usage",
+    "MindMapLayout": "Layout",
+    "MindMapTheme": "Theme",
     "Sample1ButtonText": "Example 1",
     "Sample2ButtonText": "Example 2: week arrangement",
     "ExportButtonText": "Download as PNG",

@@ -6308,6 +6308,8 @@
     "MindMapTitle": "Mind Map 思维导图",
     "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
     "MindMapNormalTitle": "基本用法",
+    "MindMapLayout": "布局",
+    "MindMapTheme": "主题",
     "Sample1ButtonText": "例子1",
     "Sample2ButtonText": "一周安排",
     "ExportButtonText": "下载为PNG",
