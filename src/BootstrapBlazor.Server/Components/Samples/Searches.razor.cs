@@ -76,20 +76,6 @@ public sealed partial class Searches
     private AttributeItem[] GetAttributes() =>
     [
         new() {
-            Name = "ChildContent",
-            Description = Localizer["SearchesChildContent"],
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new() {
-            Name = "Items",
-            Description = Localizer["SearchesItems"],
-            Type = "IEnumerable<string>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new() {
             Name = "NoDataTip",
             Description = Localizer["SearchesNoDataTip"],
             Type = "string",
@@ -133,13 +119,6 @@ public sealed partial class Searches
             DefaultValue = "Primary"
         },
         new() {
-            Name = "IsLikeMatch",
-            Description = Localizer["SearchesIsLikeMatch"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new() {
             Name = "IsAutoFocus",
             Description = Localizer["SearchesIsAutoFocus"],
             Type = "bool",
@@ -154,19 +133,11 @@ public sealed partial class Searches
             DefaultValue = "false"
         },
         new() {
-            Name = "IsOnInputTrigger",
-            Description = Localizer["SearchesIsOnInputTrigger"],
+            Name = "IsTriggerSearchByInput",
+            Description = Localizer["SearchesIsTriggerSearchByInput"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IgnoreCase",
-            Description = Localizer["SearchesIgnoreCase"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
         },
         new()
         {

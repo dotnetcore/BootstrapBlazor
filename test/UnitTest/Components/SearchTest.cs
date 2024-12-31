@@ -62,7 +62,7 @@ public class SearchTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsOnInputTrigger_Ok()
+    public void IsTriggerSearchByInput_Ok()
     {
         var cut = Context.RenderComponent<Search<string>>(builder =>
         {
