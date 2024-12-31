@@ -14,11 +14,12 @@ public partial class MindMaps
     [NotNull]
     private MessageService? MessageService { get; set; }
 
-    private MindMap _mindMap = default!;
-
     private readonly MindMapOption _options = new();
 
-    private string _result = "";
+    private string? _result;
+
+    [NotNull]
+    private MindMap? MindMap { get; set; }
 
     /// <summary>
     /// 初始化数据
@@ -95,21 +96,21 @@ public partial class MindMaps
         return Task.CompletedTask;
     }
 
-    async Task Export()
+    async Task ExportImage()
     {
-        await _mindMap.Export();
+        await MindMap.Export();
         await ShowBottomMessage("下载Png");
     }
 
     async Task ExportJson()
     {
-        await _mindMap.Export("json", WithConfig: false);
+        await MindMap.Export("json", withConfig: false);
         await ShowBottomMessage("下载Json");
     }
 
     async Task ExportPng()
     {
-        await _mindMap.Export(IsDownload: false, WithConfig: false);
+        await MindMap.Export(download: false, withConfig: false);
         await ShowBottomMessage("已导出Png");
     }
 
@@ -119,16 +120,27 @@ public partial class MindMaps
         Icon = "fa-solid fa-circle-info",
     });
 
-    Task GetFullData() => _mindMap.GetData();
+    async Task GetFullData()
+    {
+        _result = await MindMap.GetData(true);
+    }
 
-    Task GetData() => _mindMap.GetData(false);
+    async Task GetData()
+    {
+        _result = await MindMap.GetData(false);
+    }
 
     async Task SetData()
     {
-        if (_result != null) await _mindMap.SetData(_result);
+        if (!string.IsNullOrEmpty(_result))
+        {
+            await MindMap.SetData(_result);
+        }
     }
 
-    Task Reset() => _mindMap.Reset();
+    Task Reset() => MindMap.Reset();
+
+    Task Fit() => MindMap.Fit();
 
     async Task Sample()
     {
@@ -216,22 +228,6 @@ public partial class MindMaps
         {
             Name = "Reset",
             Description = Localizer["Reset"],
-            Type = "Task",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(MindMap.SetTheme),
-            Description = Localizer[nameof(MindMap.SetTheme)],
-            Type = "Task",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(MindMap.SetLayout),
-            Description = Localizer[nameof(MindMap.SetTheme)],
             Type = "Task",
             ValueList = " — ",
             DefaultValue = " — "

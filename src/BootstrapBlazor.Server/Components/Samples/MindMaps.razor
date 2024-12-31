@@ -8,32 +8,37 @@
 <PackageTips Name="BootstrapBlazor.MindMap" />
 
 <DemoBlock Title="@Localizer["MindMapNormalTitle"]" Introduction="@Localizer["MindMapDescription"]" Name="MindMapNormal">
-    <MindMap @ref="_mindMap" Options="_options" Data="@Data" OnReceive="@OnReceive" OnError="@OnError" StyleCss="height: 55vh;" />
+    <section ignore>
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="_options.Layout" ShowLabel="true" DisplayText="@Localizer["MindMapLayout"]"></Select>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="_options.Theme" ShowLabel="true" DisplayText="@Localizer["MindMapTheme"]"></Select>
+            </div>
+        </div>
+    </section>
+    <MindMap Options="_options" Data="@Data" OnReceive="@OnReceive" @ref="MindMap"></MindMap>
     <div class="row g-3 mt-3">
         <div class="col-12">
-            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample" />
-            <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2" />
-            <Button Text="@Localizer["ExportButtonText"]" OnClick="Export" />
-            <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson" />
-            <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData" />
-            <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData" />
-            <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData" />
-            <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset" />
-        </div>
-        <div class="col-12 col-sm-3 mt-3">
-            <Select @bind-Value="_options.Layout" ShowLabel="true" />
-        </div>
-        <div class="col-12 col-sm-3 mt-3">
-            <Select @bind-Value="_options.Theme" ShowLabel="true" />
+            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample"></Button>
+            <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2"></Button>
+            <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
+            <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
+            <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData"></Button>
+            <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData"></Button>
+            <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData"></Button>
+            <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset"></Button>
+            <Button Text="@Localizer["FitButtonText"]" OnClick="Fit"></Button>
         </div>
         <div class="col-12">
-            <Textarea @bind-Value="_result" rows="10" />
+            <Textarea @bind-Value="@_result" rows="10"></Textarea>
         </div>
-    </div> 
+    </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
 
-<AttributeTable Title="@Localizer["OptionsText"]" Items="@GetOptionsAttributes()" />
+<AttributeTable Title="@Localizer["OptionsText"]" Items="@GetOptionsAttributes()"></AttributeTable>
 
-<AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()" />
+<AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()"></AttributeTable>
