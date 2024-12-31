@@ -2107,7 +2107,7 @@
     "Description": "Auto-fill forms when selected via IntelliSense prompt option",
     "NormalTitle": "Basic usage",
     "NormalIntro": "fill the form",
-    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Space</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
+    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Esc</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
     "CustomFilterTitle": "custom filter",
     "CustomFilterIntro": "Filter data by setting custom filter condition callback delegate <code>OnCustomFilter</code>",
     "CustomFilterDesc": "Enter the <code>name</code> intelligent prompt, and delegate <code>OnCustomFilter</code> to filter data by setting a user-defined filter condition callback. The current filter condition is that <code>Name</code> contains the input string <code>Count</code> and the value is greater than <b>50</b>",
@@ -2178,7 +2178,9 @@
     "AutoText": "Custom city",
     "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
+    "BlockGroupSuffixLabel": "Suffix",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
@@ -4180,11 +4182,9 @@
     "SearchesDisplayButtonTitle": "The Empty button is displayed",
     "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
     "SearchesKeyboardsTitle": "Keyboard input instant search",
-    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>the IsOnInputTrigger</code> parameter",
+    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>IsTriggerSearchByInput</code> parameter",
     "SearchesValidateFormTitle": "ValidateForm",
     "SearchesValidateFormIntro": "Inside <code>ValidateForm</code>",
-    "SearchesChildContent": "Content",
-    "SearchesItems": "Data source",
     "SearchesNoDataTip": "Auto-complete data prompts when there is no match",
     "SearchesNoDataTipDefaultValue": "No matching data",
     "SearchesButtonLoadingIcon": "Searching for button icon",
@@ -4192,14 +4192,14 @@
     "SearchesClearButtonText": "Empty the button text",
     "SearchesClearButtonColor": "Clear the button color",
     "SearchesButtonColor": "Search for button color",
-    "SearchesIsLikeMatch": "Whether fuzzy matching is turned on",
     "SearchesIsAutoFocus": "Whether to get the focus automatically",
     "SearchesIsAutoClearAfterSearch": "Click Search to automatically empty the search box",
-    "SearchesIsOnInputTrigger": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
-    "SearchesIgnoreCase": "Whether case is ignored when matching",
+    "SearchesIsTriggerSearchByInput": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
     "SearchesShowClearButton": "Whether the Clear button is displayed",
     "SearchesOnSearch": "Call back this delegate when you click Search",
-    "SearchesOnClear": "Click Recall this order when emptying"
+    "SearchesOnClear": "Click Recall this order when emptying",
+    "SearchesItemTemplateTitle": "Item Template",
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",

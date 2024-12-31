@@ -2107,7 +2107,7 @@
     "Description": "通过智能感应提示选项，选中后自动填充表单",
     "NormalTitle": "基本用法",
     "NormalIntro": "填充表单",
-    "NormalDesc": "录入 <code>Name</code> 姓名智能提示，选择提示项后自动填充下方表单 目前支持键盘 <kbd>Enter</kbd> <kbd>Space</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
+    "NormalDesc": "录入 <code>Name</code> 姓名智能提示，选择提示项后自动填充下方表单 目前支持键盘 <kbd>Enter</kbd> <kbd>Esc</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
     "CustomFilterTitle": "自定义过滤条件",
     "CustomFilterIntro": "通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据",
     "CustomFilterDesc": "录入 <code>Name</code> 姓名智能提示，通过设置自定义过滤条件回调委托 <code>OnCustomFilter</code> 过滤数据，当前过滤条件为 <code>Name</code> 包含输入字符串 <code>Count</code> 并且 值大于 50",
@@ -2178,7 +2178,9 @@
     "AutoText": "自定义城市",
     "DebounceDescription": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能",
     "BlockGroupPrevLabel": "前置标签",
-    "BlockGroupSuffixLabel": "后置标签"
+    "BlockGroupSuffixLabel": "后置标签",
+    "PopoverTitle": "悬浮弹窗",
+    "PopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen 全屏",
@@ -4180,11 +4182,9 @@
     "SearchesDisplayButtonTitle": "显示清空按钮",
     "SearchesDisplayButtonIntro": "通过设置 <code>ShowClearButton</code> 参数控制是否显示清空按钮",
     "SearchesKeyboardsTitle": "键盘输入即时搜索",
-    "SearchesKeyboardsIntro": "通过设置 <code>IsOnInputTrigger</code> 参数控制是否实时进行搜索操作",
+    "SearchesKeyboardsIntro": "通过设置 <code>IsTriggerSearchByInput</code> 参数控制是否实时进行搜索操作",
     "SearchesValidateFormTitle": "验证表单内使用",
     "SearchesValidateFormIntro": "内置于 <code>ValidateForm</code> 使用，输入中文时不会多次触发搜索功能",
-    "SearchesChildContent": "内容",
-    "SearchesItems": "数据源",
     "SearchesNoDataTip": "自动完成数据无匹配项时提示信息",
     "SearchesNoDataTipDefaultValue": "无匹配数据",
     "SearchesButtonLoadingIcon": "正在搜索按钮图标",
@@ -4192,14 +4192,14 @@
     "SearchesClearButtonText": "清空按钮文本",
     "SearchesClearButtonColor": "清空按钮颜色",
     "SearchesButtonColor": "搜索按钮颜色",
-    "SearchesIsLikeMatch": "是否开启模糊匹配",
     "SearchesIsAutoFocus": "是否自动获得焦点",
     "SearchesIsAutoClearAfterSearch": "点击搜索后是否自动清空搜索框",
-    "SearchesIsOnInputTrigger": "搜索模式是否为输入即触发,默认点击搜索按钮触发",
-    "SearchesIgnoreCase": "匹配时是否忽略大小写",
+    "SearchesIsTriggerSearchByInput": "搜索模式是否为输入即触发,默认点击搜索按钮触发",
     "SearchesShowClearButton": "是否显示清除按钮",
     "SearchesOnSearch": "点击搜索时回调此委托",
-    "SearchesOnClear": "点击清空时回调此委托"
+    "SearchesOnClear": "点击清空时回调此委托",
+    "SearchesItemTemplateTitle": "模板",
+    "SearchesItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 配合泛型数据可以做出自己想要的任何效果，本例中通过搜索任意关键字，后台调用任意第三方搜索结果并且进行展示，选中搜索项后通过 <code>OnSelectedItemChanged</code> 回调方法可以自行处理"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title 网站标题",

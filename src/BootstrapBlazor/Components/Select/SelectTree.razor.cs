@@ -232,6 +232,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         var currentItem = GetExpandedItems().FirstOrDefault(predicate);
         if (currentItem != null)
         {
+            currentItem.IsActive = true;
             await ItemChanged(currentItem);
         }
     }

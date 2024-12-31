@@ -4,8 +4,7 @@
 <div class="coms-search">
     <div class="row">
         <div class="col-12">
-            <Search PlaceHolder="@Localizer["Search"]" IsOnInputTrigger="true" IsAutoFocus="true"
-                    Items="@ComponentItems" IsLikeMatch="true" IgnoreCase="true" OnSearch="@OnSearch"></Search>
+            <Search @bind-Value="@SearchText" PlaceHolder="@Localizer["Search"]" IsTriggerSearchByInput="true" IsAutoFocus="true" OnSearch="@OnSearch"></Search>
         </div>
     </div>
     <div class="coms-search-filter">

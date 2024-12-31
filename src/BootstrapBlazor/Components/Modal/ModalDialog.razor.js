@@ -134,11 +134,17 @@ export function init(id) {
 }
 
 const update = el => {
-    const width = el.offsetWidth / 2;
-    const height = el.offsetHeight / 2;
 
+    const height = el.offsetHeight / 2;
+    const marginTop = parseFloat(getComputedStyle(el).marginTop);
+    const viewBoxHeight = window.innerHeight / 2;
+    if (viewBoxHeight - height - marginTop > 0) {
+        el.style.setProperty("margin-top", `calc(50vh - ${height}px)`);
+    }
+
+    const width = el.offsetWidth / 2;
     el.style.setProperty("margin-left", `calc(50vw - ${width}px)`);
-    el.style.setProperty("margin-top", `calc(50vh - ${height}px)`);
+
     el.classList.remove('is-draggable-center');
 }
 

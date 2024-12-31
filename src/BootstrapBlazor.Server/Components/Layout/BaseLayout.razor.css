@@ -3,7 +3,7 @@
     box-shadow: var(--bb-layout-button-shadow);
     transition: opacity .3s linear;
     position: fixed;
-    z-index: 45;
+    z-index: 1001;
 }
 
     ::deep .btn-fade:hover {

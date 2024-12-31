@@ -135,7 +135,7 @@ public class IconThemeOptions
 
         { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
 
-        { ComponentIcons.SearchClearButtonIcon, "fa-regular fa-trash-can" },
+        { ComponentIcons.SearchClearButtonIcon, "fa-solid fa-delete-left" },
         { ComponentIcons.SearchButtonIcon, "fa-solid fa-magnifying-glass" },
         { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-spin fa-spinner" },
 

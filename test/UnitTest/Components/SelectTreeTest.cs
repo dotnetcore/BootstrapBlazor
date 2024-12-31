@@ -190,6 +190,20 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
     }
 
+    [Fact]
+    public void IsActive_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        {
+            builder.Add(p => p.Items, items);
+            builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
+        });
+        var nodes = cut.FindAll(".tree-content");
+        Assert.Equal(3, nodes.Count);
+        Assert.Contains("active", nodes[1].ClassName);
+    }
+
     private List<TreeViewItem<string>> BindItems { get; } =
     [
         new TreeViewItem<string>("Test1")
