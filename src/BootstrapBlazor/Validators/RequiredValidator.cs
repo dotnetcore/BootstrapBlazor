@@ -56,13 +56,13 @@ public class RequiredValidator : ValidatorBase
         }
         if (propertyValue == null)
         {
-            results.Add(CreateValidationResult(context));
+            results.Add(GetValidationResult(context));
         }
         else if (propertyValue is string val)
         {
             if (!AllowEmptyString && val == string.Empty)
             {
-                results.Add(CreateValidationResult(context));
+                results.Add(GetValidationResult(context));
             }
         }
         else if (propertyValue is IEnumerable v)
@@ -71,26 +71,20 @@ public class RequiredValidator : ValidatorBase
             var valid = enumerator.MoveNext();
             if (!valid)
             {
-                results.Add(CreateValidationResult(context));
+                results.Add(GetValidationResult(context));
             }
         }
         else if (propertyValue is DateTimeRangeValue dv && dv is { NullStart: null, NullEnd: null })
         {
-            results.Add(CreateValidationResult(context));
+            results.Add(GetValidationResult(context));
         }
     }
-    /// <summary>
-    /// 生成错误提示信息。
-    /// </summary>
-    /// <param name="context"></param>
-    /// <returns></returns>
-    private ValidationResult CreateValidationResult(ValidationContext context)
+
+    private ValidationResult GetValidationResult(ValidationContext context)
     {
         var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
-        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
-        return new ValidationResult(errorMessage, memberNames);
+        return context.GetValidationResult(errorMessage);
     }
-
 
     /// <summary>
     /// 获得当前验证规则资源文件中 Key 格式
