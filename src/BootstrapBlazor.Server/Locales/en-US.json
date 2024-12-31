@@ -4201,7 +4201,9 @@
     "SearchesIgnoreCase": "Whether case is ignored when matching",
     "SearchesShowClearButton": "Whether the Clear button is displayed",
     "SearchesOnSearch": "Call back this delegate when you click Search",
-    "SearchesOnClear": "Click Recall this order when emptying"
+    "SearchesOnClear": "Click Recall this order when emptying",
+    "SearchesItemTemplateTitle": "Item Template",
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",

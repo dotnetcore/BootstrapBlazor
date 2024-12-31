@@ -1,5 +1,7 @@
 ﻿@page "/search"
 @inject IStringLocalizer<Searches> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["SearchesTitle"]</h3>
 
@@ -41,8 +43,18 @@
     <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
             OnSearch="@OnSearchFoo">
         <ItemTemplate>
-            <div>@context.Name</div>
-            <div>@context.Address</div>
+            <div class="search-result">
+                <div class="search-result-avatar">
+                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" />
+                </div>
+                <div class="search-result-main">
+                    <div class="search-result-name">@context.Name</div>
+                    <div class="search-result-address">@context.Address</div>
+                </div>
+                <div class="search-result-circle">
+                    <Circle Value="@context.Count" Color="Color.Info" StrokeWidth="4" Width="60" />
+                </div>
+            </div>
         </ItemTemplate>
     </Search>
 </DemoBlock>

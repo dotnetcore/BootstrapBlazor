@@ -54,10 +54,17 @@ public sealed partial class Searches
 
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
-    private static async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
+    private async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
     {
+        // 模拟异步延时
         await Task.Delay(100);
-        return Enumerable.Range(1, 10).Select(i => new Foo() { Name = $"{searchText}-{i}", Address = $"Address - 10{i}" }).ToList();
+        return Enumerable.Range(1, 10).Select(i => new Foo()
+        {
+            Id = i,
+            Name = LocalizerFoo["Foo.Name", $"{i:d4}"],
+            Address = LocalizerFoo["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100)
+        }).ToList();
     }
 
     /// <summary>
