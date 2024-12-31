@@ -52,12 +52,21 @@ public sealed partial class Searches
         return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
-    private Foo Model { get; set; } = new Foo() { Name = "" };
+    private Foo Model { get; } = new() { Name = "" };
 
-    private static async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
+    private string? OnGetDisplayText(Foo foo) => foo.Name;
+
+    private async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
     {
+        // 模拟异步延时
         await Task.Delay(100);
-        return Enumerable.Range(1, 10).Select(i => new Foo() { Name = $"{searchText}-{i}", Address = $"Address - 10{i}" }).ToList();
+        return Enumerable.Range(1, 10).Select(i => new Foo()
+        {
+            Id = i,
+            Name = LocalizerFoo["Foo.Name", $"{i:d4}"],
+            Address = LocalizerFoo["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100)
+        }).ToList();
     }
 
     /// <summary>
@@ -66,20 +75,6 @@ public sealed partial class Searches
     /// <returns></returns>
     private AttributeItem[] GetAttributes() =>
     [
-        new() {
-            Name = "ChildContent",
-            Description = Localizer["SearchesChildContent"],
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new() {
-            Name = "Items",
-            Description = Localizer["SearchesItems"],
-            Type = "IEnumerable<string>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
         new() {
             Name = "NoDataTip",
             Description = Localizer["SearchesNoDataTip"],
@@ -124,13 +119,6 @@ public sealed partial class Searches
             DefaultValue = "Primary"
         },
         new() {
-            Name = "IsLikeMatch",
-            Description = Localizer["SearchesIsLikeMatch"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new() {
             Name = "IsAutoFocus",
             Description = Localizer["SearchesIsAutoFocus"],
             Type = "bool",
@@ -145,19 +133,11 @@ public sealed partial class Searches
             DefaultValue = "false"
         },
         new() {
-            Name = "IsOnInputTrigger",
-            Description = Localizer["SearchesIsOnInputTrigger"],
+            Name = "IsTriggerSearchByInput",
+            Description = Localizer["SearchesIsTriggerSearchByInput"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IgnoreCase",
-            Description = Localizer["SearchesIgnoreCase"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
         },
         new()
         {

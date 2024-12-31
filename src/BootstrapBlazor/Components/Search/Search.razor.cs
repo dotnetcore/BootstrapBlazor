@@ -71,7 +71,7 @@ public partial class Search<TValue>
     /// 获得/设置 搜索模式是否为输入即触发 默认 true 值为 false 时需要点击搜索按钮触发
     /// </summary>
     [Parameter]
-    public bool IsOnInputTrigger { get; set; } = true;
+    public bool IsTriggerSearchByInput { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 点击搜索按钮时回调委托
@@ -96,14 +96,13 @@ public partial class Search<TValue>
     [NotNull]
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? UseInputString => IsOnInputTrigger ? null : "false";
+    private string? UseInputString => IsTriggerSearchByInput ? null : "false";
+
+    private string? ShowDropdownListOnFocusString => IsTriggerSearchByInput ? "true" : null;
 
     [NotNull]
     private string? ButtonIcon { get; set; }
@@ -126,28 +125,11 @@ public partial class Search<TValue>
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
-
+        NoDataTip ??= Localizer[nameof(NoDataTip)];
         FilterItems ??= [];
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (_show)
-        {
-            _show = false;
-            await InvokeVoidAsync("showList", Id);
-        }
-    }
-
     private string _displayText = "";
-    private bool _show;
     /// <summary>
     /// 点击搜索按钮时触发此方法
     /// </summary>
@@ -166,9 +148,10 @@ public partial class Search<TValue>
             {
                 _displayText = "";
             }
-            if (IsOnInputTrigger == false)
+
+            if (IsTriggerSearchByInput == false)
             {
-                _show = true;
+                await InvokeVoidAsync("showList", Id);
             }
             StateHasChanged();
         }
@@ -199,16 +182,29 @@ public partial class Search<TValue>
     }
 
     /// <summary>
+    /// 鼠标点击候选项时回调此方法
+    /// </summary>
+    private async Task OnClickItem(TValue val)
+    {
+        CurrentValue = val;
+        _displayText = GetDisplayText(val) ?? "";
+
+        if (OnSelectedItemChanged != null)
+        {
+            await OnSelectedItemChanged(val);
+        }
+    }
+
+    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
-    /// <param name="search"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val, bool search = true)
+    public async Task TriggerOnChange(string val)
     {
         _displayText = val;
 
-        if (search)
+        if (IsTriggerSearchByInput)
         {
             await OnSearchClick();
         }
