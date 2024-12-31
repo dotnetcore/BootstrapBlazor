@@ -61,7 +61,7 @@ export function init(id, invoke) {
         }
 
         el.classList.add('is-loading');
-        await invoke.invokeMethodAsync('TriggerOnChange', v, useInput);
+        await invoke.invokeMethodAsync('TriggerOnChange', v);
         el.classList.remove('is-loading');
     });
 

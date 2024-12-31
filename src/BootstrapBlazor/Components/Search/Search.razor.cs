@@ -215,13 +215,12 @@ public partial class Search<TValue>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
-    /// <param name="search"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val, bool search = true)
+    public async Task TriggerOnChange(string val)
     {
         _displayText = val;
 
-        if (search)
+        if (IsTriggerSearchByInput)
         {
             await OnSearchClick();
         }
