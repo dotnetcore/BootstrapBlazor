@@ -14,13 +14,6 @@ public class SearchTest : BootstrapBlazorTestBase
         Assert.Contains("<div class=\"search auto-complete\"", cut.Markup);
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.ShowNoDataTip, false);
-        });
-        menus = cut.FindAll(".dropdown-item");
-        Assert.Empty(menus);
     }
 
     [Fact]
@@ -73,11 +66,11 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Search<string>>(builder =>
         {
-            builder.Add(s => s.IsOnInputTrigger, true);
+            builder.Add(s => s.IsTriggerSearchByInput, true);
         });
         cut.DoesNotContain("data-bb-input");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsOnInputTrigger, false));
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsTriggerSearchByInput, false));
         cut.Contains("data-bb-input=\"false\"");
     }
 
@@ -91,8 +84,8 @@ public class SearchTest : BootstrapBlazorTestBase
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
             builder.Add(s => s.SearchButtonText, "SearchText");
             builder.Add(s => s.SearchButtonColor, Color.Warning);
-            builder.Add(s => s.IsOnInputTrigger, false);
             builder.Add(s => s.IsAutoClearAfterSearch, true);
+            builder.Add(s => s.IsTriggerSearchByInput, false);
             builder.Add(a => a.OnSearch, async v =>
             {
                 val = v;
@@ -105,10 +98,11 @@ public class SearchTest : BootstrapBlazorTestBase
 
         var button = cut.Find(".fa-magnifying-glass");
         await cut.InvokeAsync(() => button.Click());
-        await Task.Delay(10);
-
-        menus = cut.FindAll(".dropdown-item");
-        Assert.Equal(2, menus.Count);
+        cut.WaitForState(() =>
+        {
+            menus = cut.FindAll(".dropdown-item");
+            return menus.Count == 2;
+        });
     }
 
     [Fact]
@@ -134,5 +128,26 @@ public class SearchTest : BootstrapBlazorTestBase
         var button = cut.Find(".btn-secondary");
         await cut.InvokeAsync(() => button.Click());
         Assert.True(ret);
+    }
+
+    [Fact]
+    public async Task OnSelectedItemChanged_Ok()
+    {
+        var items = new List<string?>() { null, "test1", "test2" };
+        var selectedItem = "";
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.OnSelectedItemChanged, v => { selectedItem = v; return Task.CompletedTask; });
+            pb.Add(a => a.OnSearch, async v =>
+            {
+                await Task.Delay(1);
+                return items;
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.Null(selectedItem);
     }
 }

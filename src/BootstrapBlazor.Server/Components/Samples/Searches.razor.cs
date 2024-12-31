@@ -52,7 +52,9 @@ public sealed partial class Searches
         return Task.FromResult<IEnumerable<string>>([$"{searchText}1", $"{searchText}12", $"{searchText}123"]);
     }
 
-    private Foo Model { get; set; } = new Foo() { Name = "" };
+    private Foo Model { get; } = new() { Name = "" };
+
+    private string? OnGetDisplayText(Foo foo) => foo.Name;
 
     private async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
     {

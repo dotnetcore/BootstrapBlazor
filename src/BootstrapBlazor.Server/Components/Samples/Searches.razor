@@ -41,11 +41,12 @@
            Introduction="@Localizer["SearchesItemTemplateIntro"]"
            Name="ItemTemplate">
     <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            OnGetDisplayText="OnGetDisplayText"
             OnSearch="@OnSearchFoo">
         <ItemTemplate>
             <div class="search-result">
                 <div class="search-result-avatar">
-                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" />
+                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" alt="avatar" />
                 </div>
                 <div class="search-result-main">
                     <div class="search-result-name">@context.Name</div>
@@ -63,7 +64,7 @@
            Introduction="@Localizer["SearchesKeyboardsIntro"]"
            Name="keyboards">
     <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-            IsOnInputTrigger="false"
+            IsTriggerSearchByInput="false"
             OnSearch="@OnKeyboardSearch" />
     <ConsoleLogger @ref="KeyboardLogger" />
 </DemoBlock>
@@ -72,7 +73,7 @@
            Introduction="@Localizer["SearchesValidateFormIntro"]"
            Name="ValidateForm">
     <ValidateForm Model="@Model">
-        <Search IsOnInputTrigger="true" @bind-Value="Model.Name" />
+        <Search @bind-Value="Model.Name" />
     </ValidateForm>
 </DemoBlock>
 

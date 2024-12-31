@@ -71,7 +71,7 @@ public partial class Search<TValue>
     /// 获得/设置 搜索模式是否为输入即触发 默认 true 值为 false 时需要点击搜索按钮触发
     /// </summary>
     [Parameter]
-    public bool IsOnInputTrigger { get; set; } = true;
+    public bool IsTriggerSearchByInput { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 点击搜索按钮时回调委托
@@ -100,9 +100,9 @@ public partial class Search<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? UseInputString => IsOnInputTrigger ? null : "false";
+    private string? UseInputString => IsTriggerSearchByInput ? null : "false";
 
-    private string? ShowDropdownListOnFocusString => IsOnInputTrigger ? "true" : null;
+    private string? ShowDropdownListOnFocusString => IsTriggerSearchByInput ? "true" : null;
 
     [NotNull]
     private string? ButtonIcon { get; set; }
@@ -129,24 +129,7 @@ public partial class Search<TValue>
         FilterItems ??= [];
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (_show)
-        {
-            _show = false;
-            await InvokeVoidAsync("showList", Id);
-        }
-    }
-
     private string _displayText = "";
-    private bool _show;
     /// <summary>
     /// 点击搜索按钮时触发此方法
     /// </summary>
@@ -165,9 +148,10 @@ public partial class Search<TValue>
             {
                 _displayText = "";
             }
-            if (IsOnInputTrigger == false)
+
+            if (IsTriggerSearchByInput == false)
             {
-                _show = true;
+                await InvokeVoidAsync("showList", Id);
             }
             StateHasChanged();
         }
