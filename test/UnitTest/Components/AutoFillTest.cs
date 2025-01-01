@@ -170,18 +170,69 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task DisplayCount_Ok()
+    public async Task IgnoreCase_Ok()
     {
-        var items = new List<Foo>() { new() { Name = "task1" }, new() { Name = "Task2" }, new() { Name = "task3" }, new() { Name = "Task4" } };
+        var items = new List<Foo>() { new() { Name = "task1" }, new() { Name = "task2" }, new() { Name = "Task3" }, new() { Name = "Task4" } };
         var cut = Context.RenderComponent<AutoFill<Foo>>(builder =>
         {
             builder.Add(a => a.Items, items);
-            builder.Add(a => a.DisplayCount, 2);
+            builder.Add(a => a.IgnoreCase, true);
+            builder.Add(a => a.OnGetDisplayText, foo => foo.Name);
         });
 
         await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
         var menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(4, menus.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisplayCount, 2);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IgnoreCase, false);
+            pb.Add(a => a.DisplayCount, null);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, menus.Count);
+    }
+
+    [Fact]
+    public async Task IsLikeMatch_Ok()
+    {
+        var items = new List<Foo>() { new() { Name = "task1" }, new() { Name = "task2" }, new() { Name = "Task3" }, new() { Name = "Task4" } };
+        var cut = Context.RenderComponent<AutoFill<Foo>>(builder =>
+        {
+            builder.Add(a => a.Items, items);
+            builder.Add(a => a.IsLikeMatch, false);
+            builder.Add(a => a.OnGetDisplayText, foo => foo.Name);
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        var menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(4, menus.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisplayCount, 2);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, menus.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsLikeMatch, true);
+            pb.Add(a => a.DisplayCount, null);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("a"));
+        menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(4, menus.Count);
     }
 
     [Fact]
