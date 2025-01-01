@@ -3,10 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-#if NET8_0_OR_GREATER
-using System.Collections.Frozen;
-#endif
-
 namespace BootstrapBlazor.Components;
 
 internal static class FontAwesomeIcons
@@ -225,8 +221,4 @@ internal static class FontAwesomeIcons
         { ComponentIcons.ThemeProviderDarkModeIcon, "fa-solid fa-moon" },
         { ComponentIcons.ThemeProviderActiveModeIcon, "fa-solid fa-check" }
     };
-
-#if NET8_0_OR_GREATER
-    public static System.Collections.Frozen.FrozenDictionary<ComponentIcons, string> ToFrozenDictionary() => Icons.ToFrozenDictionary();
-#endif
 }
