@@ -157,16 +157,28 @@ public class AutoFillTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnGetDisplayText_Ok()
+    public async Task OnGetDisplayText_Ok()
     {
         var cut = Context.RenderComponent<AutoFill<Foo>>(pb =>
         {
             pb.Add(a => a.Value, Model);
-            pb.Add(a => a.Items, Items);
-            pb.Add(a => a.OnGetDisplayText, foo => foo.Name);
+            pb.Add(a => a.Items, new List<Foo> { null!, new() { Name = "Test" } });
+            pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
         var input = cut.Find("input");
         Assert.Equal("张三 1000", input.Attributes["value"]?.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnGetDisplayText, null!);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsLikeMatch, true);
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
     }
 
     [Fact]
