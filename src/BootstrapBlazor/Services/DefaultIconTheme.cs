@@ -22,7 +22,7 @@ class DefaultIconTheme(IOptions<IconThemeOptions> options) : IIconTheme
     {
         if (!_options.Value.Icons.TryGetValue(_options.Value.ThemeKey, out var icons))
         {
-            icons = new Dictionary<ComponentIcons, string>().ToFrozenDictionary();
+            icons = FrozenDictionary<ComponentIcons, string>.Empty;
         }
         return icons;
     }
