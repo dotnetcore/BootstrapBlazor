@@ -46,4 +46,20 @@ public class IconThemeOptions
 #endif
         ThemeKey = "fa";
     }
+
+#if NET8_0_OR_GREATER
+    /// <summary>
+    /// 尝试通过指定键值添加图标集合
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="icons"></param>
+    public void TryAddIcons(string key, FrozenDictionary<ComponentIcons, string> icons)
+    {
+        var originalIcons = Icons.ToDictionary();
+        if (originalIcons.TryAdd(key, icons))
+        {
+            Icons = originalIcons.ToFrozenDictionary();
+        }
+    }
+#endif
 }
