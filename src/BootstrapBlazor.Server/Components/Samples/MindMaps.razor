@@ -1,6 +1,10 @@
 ﻿@page "/mind-map"
 @inject IStringLocalizer<MindMaps> Localizer
 
+<HeadContent>
+    <script src="./Components/Samples/MindMaps.razor.js"></script>
+</HeadContent>
+
 <h3>@Localizer["MindMapTitle"]</h3>
 
 <h4>@Localizer["MindMapDescription"]</h4>
@@ -19,24 +23,37 @@
         </div>
     </section>
     <MindMap Layout="_layout" Theme="_theme" Data="@_data" @ref="MindMap"></MindMap>
-    <div class="row g-3 mt-3">
-        <div class="col-12">
-            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample1"></Button>
-            <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2"></Button>
-            <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
-            <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
-            <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData"></Button>
-            <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData"></Button>
-            <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData"></Button>
-            <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset"></Button>
-            <Button Text="@Localizer["FitButtonText"]" OnClick="Fit"></Button>
-            <Button Text="@Localizer["Scale1ButtonText"]" OnClick="() => Scale(-0.1f)"></Button>
-            <Button Text="@Localizer["Scale2ButtonText"]" OnClick="() => Scale(0.1f)"></Button>
+    <section ignore>
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample1"></Button>
+                <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2"></Button>
+                <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
+                <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
+                <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData"></Button>
+                <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData"></Button>
+                <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData"></Button>
+                <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset"></Button>
+                <Button Text="@Localizer["FitButtonText"]" OnClick="Fit"></Button>
+                <Button Text="@Localizer["Scale1ButtonText"]" OnClick="() => Scale(-0.1f)"></Button>
+                <Button Text="@Localizer["Scale2ButtonText"]" OnClick="() => Scale(0.1f)"></Button>
+                <Button Text="@Localizer["CustomButtonText"]" OnClick="ClickCustom"></Button>
+            </div>
+            <div class="col-12">
+                <Textarea @bind-Value="@_result" rows="10"></Textarea>
+            </div>
+            <div class="col-12">
+                <div>@((MarkupString)Localizer["MindMapExtensionDesc"].Value)</div>
+            </div>
         </div>
-        <div class="col-12">
-            <Textarea @bind-Value="@_result" rows="10"></Textarea>
-        </div>
-    </div>
+        <Pre>window.BootstrapBlazor.MindMap = {
+    callbacks: {
+        clickCustom: function (args) {
+            console.log(this, args);
+        }
+    }
+}</Pre>
+    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>

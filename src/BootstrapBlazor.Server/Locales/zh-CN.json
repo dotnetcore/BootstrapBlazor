@@ -6321,6 +6321,7 @@
     "FitButtonText": "自适应",
     "Scale1ButtonText": "缩小",
     "Scale2ButtonText": "放大",
+    "CustomButtonText": "自定义",
     "NodeDataText": "节点数据",
     "Data": "初始数据",
     "ShowUI": "显示内置UI",
@@ -6343,7 +6344,8 @@
     "NodeGeneralizationText": "概要",
     "NodeExpandText": "节点是否展开",
     "SetTheme": "切换主题",
-    "SetLayout": "切换布局"
+    "SetLayout": "切换布局",
+    "MindMapExtensionDesc": "由于 <code>MindMap</code> 封装的 <b>api</b> 方法比较多，组件库无法完全封装，所以提供了扩展方法。例如使用组件需要一个组合按钮，可以通过自己的代码调用自己的 <code>Javascript</code> 来控制 <code>MindMap</code>，完整示例如下："
   },
   "BootstrapBlazor.Server.Components.Samples.Mermaids": {
     "MermaidTitle": "Mermaid 构图工具",

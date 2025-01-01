@@ -70,6 +70,8 @@ public partial class MindMaps
         }
     }
 
+    Task ClickCustom() => MindMap.Execute("clickCustom", "args1");
+
     Task Reset() => MindMap.Reset();
 
     Task Fit() => MindMap.Fit();

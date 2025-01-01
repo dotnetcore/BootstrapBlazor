@@ -6321,6 +6321,7 @@
     "FitButtonText": "Fit",
     "Scale1ButtonText": "ZoomOut",
     "Scale2ButtonText": "ZoomIn",
+    "CustomButtonText": "Custom",
     "NodeDataText": "NodeData",
     "Data": "Data",
     "ShowUI": "Show default UI",
