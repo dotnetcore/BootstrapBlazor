@@ -142,9 +142,16 @@ public partial class MindMaps
 
     Task Fit() => MindMap.Fit();
 
-    async Task Sample()
+    private float _scale = 1.0f;
+    async Task Scale(float step)
     {
-        _result = SampleData;
+        _scale += step;
+        await MindMap.Scale(_scale);
+    }
+
+    async Task Sample1()
+    {
+        _result = SampleData1;
         await SetData();
     }
 

@@ -6319,6 +6319,8 @@
     "SetDataButtonText": "SetData",
     "ResetButtonText": "复位",
     "FitButtonText": "自适应",
+    "Scale1ButtonText": "缩小",
+    "Scale2ButtonText": "放大",
     "NodeDataText": "节点数据",
     "Data": "初始数据",
     "ShowUI": "显示内置UI",
@@ -6341,11 +6343,7 @@
     "NodeGeneralizationText": "概要",
     "NodeExpandText": "节点是否展开",
     "SetTheme": "切换主题",
-    "SetLayout": "切换布局",
-    "Options": "配置选项",
-    "OptionsText": "配置选项",
-    "Layout": "布局",
-    "Theme": "主题"
+    "SetLayout": "切换布局"
   },
   "BootstrapBlazor.Server.Components.Samples.Mermaids": {
     "MermaidTitle": "Mermaid 构图工具",

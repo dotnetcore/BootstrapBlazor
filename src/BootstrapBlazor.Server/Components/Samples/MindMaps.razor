@@ -30,6 +30,8 @@
             <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData"></Button>
             <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset"></Button>
             <Button Text="@Localizer["FitButtonText"]" OnClick="Fit"></Button>
+            <Button Text="@Localizer["Scale1ButtonText"]" OnClick="() => Scale(-0.1f)"></Button>
+            <Button Text="@Localizer["Scale2ButtonText"]" OnClick="() => Scale(0.1f)"></Button>
         </div>
         <div class="col-12">
             <Textarea @bind-Value="@_result" rows="10"></Textarea>

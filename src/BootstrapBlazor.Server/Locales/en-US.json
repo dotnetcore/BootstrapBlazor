@@ -6319,6 +6319,8 @@
     "SetDataButtonText": "SetData",
     "ResetButtonText": "Reset",
     "FitButtonText": "Fit",
+    "Scale1ButtonText": "ZoomOut",
+    "Scale2ButtonText": "ZoomIn",
     "NodeDataText": "NodeData",
     "Data": "Data",
     "ShowUI": "Show default UI",
@@ -6341,11 +6343,7 @@
     "NodeGeneralizationText": "Generalization",
     "NodeExpandText": "Node is expanded",
     "SetTheme": "switch themes",
-    "SetLayout": "switch layout",
-    "Options": "Options",
-    "OptionsText": "Options",
-    "Layout": "Layout",
-    "Theme": "Theme"
+    "SetLayout": "switch layout"
   },
   "BootstrapBlazor.Server.Components.Samples.Mermaids": {
     "MermaidTitle": "Mermaid",
