@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 
 internal static class FontAwesomeIcons
 {
-    public static Dictionary<ComponentIcons, string> Icons = new()
+    public static readonly Dictionary<ComponentIcons, string> Icons = new()
     {
         { ComponentIcons.AnchorLinkIcon, "fa-solid fa-link" },
         { ComponentIcons.AvatarIcon, "fa-solid fa-user" },
