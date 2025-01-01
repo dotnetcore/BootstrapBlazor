@@ -80,7 +80,7 @@ public static class ServiceCollectionSharedExtensions
         services.ConfigureBootstrapIconTheme();
 
         // 增加 FontAwesome 图标主题
-        services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
+        services.ConfigureIconThemeOptions();
 
         // 增加 BootstrapBlazor 假日服务
         services.AddBootstrapHolidayService();
