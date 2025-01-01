@@ -3,6 +3,10 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -14,5 +18,9 @@ public interface IIconTheme
     /// 获得所有图标
     /// </summary>
     /// <returns></returns>
+#if NET8_0_OR_GREATER
+    FrozenDictionary<ComponentIcons, string> GetIcons();
+#else
     Dictionary<ComponentIcons, string> GetIcons();
+#endif
 }
