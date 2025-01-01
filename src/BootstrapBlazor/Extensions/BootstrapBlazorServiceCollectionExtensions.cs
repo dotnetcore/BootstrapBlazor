@@ -217,7 +217,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
     /// <param name="services"></param>
     /// <param name="configureOptions"></param>
     /// <returns></returns>
-    public static IServiceCollection ConfigureIconThemeOptions(this IServiceCollection services, Action<IconThemeOptions> configureOptions = null)
+    public static IServiceCollection ConfigureIconThemeOptions(this IServiceCollection services, Action<IconThemeOptions>? configureOptions = null)
     {
         if (configureOptions != null)
         {
