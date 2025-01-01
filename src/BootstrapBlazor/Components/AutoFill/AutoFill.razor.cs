@@ -120,7 +120,7 @@ public partial class AutoFill<TValue>
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString();
-        _displayText = OnGetDisplayText(Value);
+        _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
         FilterItems ??= Items?.ToList() ?? [];
     }
