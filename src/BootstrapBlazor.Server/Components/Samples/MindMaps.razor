@@ -11,17 +11,17 @@
     <section ignore>
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
-                <Select @bind-Value="_options.Layout" ShowLabel="true" DisplayText="@Localizer["MindMapLayout"]"></Select>
+                <Select @bind-Value="_layout" ShowLabel="true" DisplayText="@Localizer["MindMapLayout"]"></Select>
             </div>
             <div class="col-12 col-sm-6">
-                <Select @bind-Value="_options.Theme" ShowLabel="true" DisplayText="@Localizer["MindMapTheme"]"></Select>
+                <Select @bind-Value="_theme" ShowLabel="true" DisplayText="@Localizer["MindMapTheme"]"></Select>
             </div>
         </div>
     </section>
-    <MindMap Options="_options" Data="@Data" OnReceive="@OnReceive" @ref="MindMap"></MindMap>
+    <MindMap Layout="_layout" Theme="_theme" Data="@_data" @ref="MindMap"></MindMap>
     <div class="row g-3 mt-3">
         <div class="col-12">
-            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample"></Button>
+            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample1"></Button>
             <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2"></Button>
             <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
             <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
@@ -40,7 +40,5 @@
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
-
-<AttributeTable Title="@Localizer["OptionsText"]" Items="@GetOptionsAttributes()"></AttributeTable>
 
 <AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()"></AttributeTable>
