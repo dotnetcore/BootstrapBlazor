@@ -40,6 +40,18 @@ public partial class AutoFill<TValue>
     public int? DisplayCount { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否开启模糊查询，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsLikeMatch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 匹配时是否忽略大小写，默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IgnoreCase { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
     /// </summary>
     [Parameter]
@@ -139,6 +151,14 @@ public partial class AutoFill<TValue>
             var items = await OnCustomFilter(val);
             FilterItems = items.ToList();
         }
+        else
+        {
+            var comparisionType = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            FilterItems = IsLikeMatch
+                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparisionType) ?? false).ToList()
+                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparisionType) ?? false).ToList();
+        }
+
         if (DisplayCount != null)
         {
             FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
