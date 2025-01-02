@@ -55,6 +55,7 @@ public partial class Select<TValue> : ISelect, ILookup
         .Build();
 
     private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("show", ShowSearch)
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 

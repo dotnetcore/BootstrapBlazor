@@ -212,6 +212,10 @@
     position: relative;
     border-block-end: var(--bs-border-width) solid var(--bb-select-search-border-color);
     margin-block-end: var(--bb-select-search-margin-bottom);
+
+    &:not(.show) {
+        display: none;
+    }
 }
 
 .dropdown-menu .search.is-fixed {
