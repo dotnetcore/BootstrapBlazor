@@ -59,6 +59,13 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
     private readonly List<SelectedItem> _children = [];
 
     /// <summary>

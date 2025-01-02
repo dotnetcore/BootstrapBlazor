@@ -216,6 +216,20 @@
     &:not(.show) {
         display: none;
     }
+
+    &.l {
+        .search-icon {
+            display: none;
+        }
+
+        .searching-icon {
+            display: block;
+        }
+    }
+
+    .searching-icon {
+        display: none;
+    }
 }
 
 .dropdown-menu .search.is-fixed {
