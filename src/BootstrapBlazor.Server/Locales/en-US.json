@@ -6306,7 +6306,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
-    "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
+    "MindMapDescription": "Used to display specific Json format data as a Web mind map",
     "MindMapNormalTitle": "Basic usage",
     "MindMapLayout": "Layout",
     "MindMapTheme": "Theme",
