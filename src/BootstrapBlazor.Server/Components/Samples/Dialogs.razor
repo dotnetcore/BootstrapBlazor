@@ -41,7 +41,7 @@ private async Task OnClick()
 <DemoBlock Title="@Localizer["KeyboardTitle"]" Introduction="@Localizer["KeyboardIntro"]" Name="Keyboard">
     <section ignore>@((MarkupString)Localizer["KeyboardTip"].Value)</section>
     <Button OnClick="@KeyboardOnClick">@Localizer["KeyboardOpenDialogButton"]</Button>
-    <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
+    <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ResizeTitle"]" Introduction="@Localizer["ResizeIntro"]" Name="Resize">
@@ -49,11 +49,11 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomerHeaderTitle"]" Introduction="@Localizer["CustomerHeaderIntro"]" Name="CustomerHeader">
-    <Button OnClick="@OnCustomerHeaderClick" Text="@Localizer["CustomerHeaderOpenDialogButton"]" />
+    <Button OnClick="@OnCustomerHeaderClick" Text="@Localizer["CustomerHeaderOpenDialogButton"]"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["HeaderToolbarTemplateTitle"]" Introduction="@Localizer["HeaderToolbarTemplateIntro"]" Name="HeaderToolbarTemplate">
-    <Button OnClick="@OnCustomerHeaderToolbarClick" Text="@Localizer["HeaderToolbarTemplateButtonText"]" />
+    <Button OnClick="@OnCustomerHeaderToolbarClick" Text="@Localizer["HeaderToolbarTemplateButtonText"]"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ComponentTitle"]" Introduction="@Localizer["ComponentIntro"]" Name="Component">
@@ -183,7 +183,7 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ErrorLoggerTitle"]" Introduction="@Localizer["ErrorLoggerIntro"]" Name="ErrorLogger">
-    <Button OnClick="@OnErrorDialog" Text="@Localizer["ErrorLoggerButton"]" Icon="fa-solid fa-bug" />
+    <Button OnClick="@OnErrorDialog" Text="@Localizer["ErrorLoggerButton"]" Icon="fa-solid fa-bug"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EmailTitle"]" Introduction="@Localizer["EmailIntro"]" Name="Email">
@@ -202,7 +202,7 @@ private async Task OnClick()
     </section>
     <div class="input-group">
         <BootstrapInput PlaceHolder="@Localizer["EmailInput"]" Value="@EmailInputValue" />
-        <Button Icon="fa-regular fa-address-card" OnClick="@OnEmailButtonClick" />
+        <Button Icon="fa-regular fa-address-card" OnClick="@OnEmailButtonClick"></Button>
     </div>
 </DemoBlock>
 
