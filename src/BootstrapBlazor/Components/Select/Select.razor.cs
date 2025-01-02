@@ -55,10 +55,20 @@ public partial class Select<TValue> : ISelect, ILookup
         .Build();
 
     private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("show", ShowSearch)
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
     private readonly List<SelectedItem> _children = [];
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -298,7 +308,7 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         var item = Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
             ?? GetVirtualizeItem(CurrentValueAsString);
 
         if (item != null)

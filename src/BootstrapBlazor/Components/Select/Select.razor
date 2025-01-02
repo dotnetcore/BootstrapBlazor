@@ -8,7 +8,7 @@
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-scroll-behavior="@ScrollIntoViewBehaviorString">
     <CascadingValue Value="this" IsFixed="true">
         @Options
     </CascadingValue>
@@ -31,13 +31,11 @@
             <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
         }
         <div class="dropdown-menu">
-            @if (ShowSearch)
-            {
-                <div class="@SearchClassString">
-                    <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" aria-label="Search">
-                    <i class="@SearchIconString"></i>
-                </div>
-            }
+            <div class="@SearchClassString">
+                <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" aria-label="Search">
+                <i class="@SearchIconString"></i>
+                <i class="@SearchLoadingIconString"></i>
+            </div>
             @if (IsVirtualize)
             {
                 <div class="dropdown-virtual">
@@ -93,7 +91,7 @@
         }
         else if (IsMarkupString)
         {
-            @((MarkupString)item.Text) 
+            @((MarkupString)item.Text)
         }
         else
         {

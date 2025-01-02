@@ -29,6 +29,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? SearchIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 设置正在搜索图标
+    /// </summary>
+    [Parameter]
+    public string? SearchLoadingIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
     /// </summary>
     [Parameter]
@@ -42,7 +48,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -52,6 +58,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment<string>? GroupItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
 
     /// <summary>
     /// 获得/设置 IIconTheme 服务实例
@@ -69,7 +81,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <summary>
     /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
     /// </summary>
-    protected string? SearchIconString => CssBuilder.Default("icon")
+    protected string? SearchIconString => CssBuilder.Default("icon search-icon")
         .AddClass(SearchIcon)
         .Build();
 
@@ -98,6 +110,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         base.OnParametersSet();
 
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectSearchIcon);
+        SearchLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
     }
 
     /// <summary>
