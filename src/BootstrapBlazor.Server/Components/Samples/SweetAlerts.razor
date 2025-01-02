@@ -63,7 +63,7 @@ await SwalService.Show(op);</Pre>
             <div class="text-warning">@Localizer["SweetAlertsNormalWarn"]</div>
         </div>
         <div class="col-4">
-            <div class="swal2-icon swal2-warning"></div>
+            <div class="swal2-icon swal2-warning"><div class="swal2-icon-content">!</div></div>
         </div>
         <div class="col-4 align-self-center text-center">
             <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
@@ -74,7 +74,7 @@ await SwalService.Show(op);</Pre>
             <div class="text-info">@Localizer["SweetAlertsNormalHint"]</div>
         </div>
         <div class="col-4">
-            <div class="swal2-icon swal2-info"></div>
+            <div class="swal2-icon swal2-info"><div class="swal2-icon-content">i</div></div>
         </div>
         <div class="col-4 align-self-center text-center">
             <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
@@ -85,7 +85,7 @@ await SwalService.Show(op);</Pre>
             <div class="text-secondary">@Localizer["SweetAlertsNormalDoubt"]</div>
         </div>
         <div class="col-4">
-            <div class="swal2-icon swal2-question"></div>
+            <div class="swal2-icon swal2-question"><div class="swal2-icon-content">?</div></div>
         </div>
         <div class="col-4 align-self-center text-center">
             <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
