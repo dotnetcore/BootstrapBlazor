@@ -26,47 +26,39 @@ export function init(id, invoke, options) {
     }
 
     const keydown = e => {
-        if (popover.toggleElement.classList.contains('show')) {
-            const items = popover.toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
-            let activeItem = popover.toggleMenu.querySelector('.dropdown-item.preActive')
-            if (activeItem == null) activeItem = popover.toggleMenu.querySelector('.dropdown-item.active')
+        const menu = popover.toggleMenu;
+        const key = e.key;
+        if (key === "Enter" || key === 'NumpadEnter') {
+            menu.classList.remove('show')
+            let index = indexOf(el, activeItem)
+            invoke.invokeMethodAsync(confirmMethodCallback, index)
+        }
+        else if (key === 'ArrowUp' || key === 'ArrowDown') {
+            e.preventDefault();
 
-            if (activeItem) {
-                if (items.length > 1) {
-                    activeItem.classList.remove('preActive')
-                    if (e.key === "ArrowUp") {
-                        do {
-                            activeItem = activeItem.previousElementSibling
-                        }
-                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                        if (!activeItem) {
-                            activeItem = items[items.length - 1]
-                        }
-                        activeItem.classList.add('preActive')
-                        scrollToActive(popover.toggleMenu, activeItem)
-                        e.preventDefault()
-                        e.stopPropagation()
-                    }
-                    else if (e.key === "ArrowDown") {
-                        do {
-                            activeItem = activeItem.nextElementSibling
-                        }
-                        while (activeItem && !activeItem.classList.contains('dropdown-item'))
-                        if (!activeItem) {
-                            activeItem = items[0]
-                        }
-                        activeItem.classList.add('preActive')
-                        scrollToActive(popover.toggleMenu, activeItem)
-                        e.preventDefault()
-                        e.stopPropagation()
-                    }
+            if (menu.querySelector('.dropdown-virtual')) {
+                return;
+            }
+
+            const items = [...menu.querySelectorAll('.dropdown-item:not(.disabled)')];
+            if (items.length > 0) {
+                let current = menu.querySelector('.active');
+                if (current !== null) {
+                    current.classList.remove('active');
                 }
 
-                if (e.key === "Enter") {
-                    popover.toggleMenu.classList.remove('show')
-                    let index = indexOf(el, activeItem)
-                    invoke.invokeMethodAsync(confirmMethodCallback, index)
+                let index = current === null ? -1 : items.indexOf(current);
+                index = key === 'ArrowUp' ? index - 1 : index + 1;
+                if (index < 0) {
+                    index = items.length - 1;
                 }
+                else if (index > items.length - 1) {
+                    index = 0;
+                }
+                items[index].classList.add('active');
+                const top = getTop(menu, index);
+                const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+                menu.scrollTo({ top: top, left: 0, behavior: hehavior });
             }
         }
     }
@@ -89,6 +81,19 @@ export function init(id, invoke, options) {
         popover
     }
     Data.set(id, select);
+}
+
+const getTop = (menu, index) => {
+    const styles = getComputedStyle(menu)
+    const maxHeight = parseInt(styles.maxHeight) / 2
+    const itemHeight = getHeight(menu.querySelector('.dropdown-item'))
+    const height = itemHeight * index
+    const count = Math.floor(maxHeight / itemHeight);
+    let top = 0;
+    if (height > maxHeight) {
+        top = itemHeight * (index > count ? index - count : index)
+    }
+    return top;
 }
 
 export function show(id) {
@@ -126,20 +131,26 @@ export function dispose(id) {
 }
 
 function scrollToActive(el, activeItem) {
-    if (!activeItem) {
-        activeItem = el.querySelector('.dropdown-item.active')
-    }
+    const virtualEl = el.querySelector('.dropdown-virtual');
+
+    activeItem ??= el.querySelector('.dropdown-item.active')
 
     if (activeItem) {
         const innerHeight = getInnerHeight(el)
         const itemHeight = getHeight(activeItem);
         const index = indexOf(el, activeItem)
         const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
+        const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+
+        const search = el.querySelector('.search');
+        if (search.classList.contains('show')) {
+
+        }
         if (margin >= 0) {
-            el.scrollTo(0, margin);
+            el.scrollTo({ top: margin, left: 0, behavior: hehavior });
         }
         else {
-            el.scrollTo(0, 0);
+            el.scrollTo({ top: margin, left: 0, behavior: hehavior });
         }
     }
 }
