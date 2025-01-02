@@ -74,7 +74,11 @@ export function init(id, invoke, options) {
     EventHandler.on(el, 'shown.bs.dropdown', shown);
     EventHandler.on(el, 'keydown', keydown)
 
-    const onSearch = debounce(v => invoke.invokeMethodAsync(searchMethodCallback, v));
+    const onSearch = debounce(async v => {
+        search.parentElement.classList.add('l');
+        await invoke.invokeMethodAsync(searchMethodCallback, v);
+        search.parentElement.classList.remove('l');
+    });
     if (search) {
         Input.composition(search, onSearch);
     }
