@@ -126,9 +126,9 @@ public partial class SweetAlertBody
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? IconClassString => CssBuilder.Default("swal2-icon")
-        .AddClass("swal2-success swal2-animate-success-icon", Category == SwalCategory.Success)
-        .AddClass("swal2-error swal2-animate-error-icon", Category == SwalCategory.Error)
+    private string? IconClassString => CssBuilder.Default("swal2-icon swal2-icon-show")
+        .AddClass("swal2-success", Category == SwalCategory.Success)
+        .AddClass("swal2-error", Category == SwalCategory.Error)
         .AddClass("swal2-info", Category == SwalCategory.Information)
         .AddClass("swal2-question", Category == SwalCategory.Question)
         .AddClass("swal2-warning", Category == SwalCategory.Warning)

@@ -4,6 +4,70 @@
     z-index: var(--bb-swal-zindex);
 }
 
+.swal2-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.swal2-icon {
+    position: relative;
+    box-sizing: content-box;
+    justify-content: center;
+    width: 5em;
+    height: 5em;
+    margin: 1.25em auto 1.875em;
+    zoom: normal;
+    border: .25em solid transparent;
+    border-radius: 50%;
+    line-height: 5em;
+    cursor: default;
+    user-select: none;
+}
+
+.swal2-title {
+    position: relative;
+    max-width: 100%;
+    margin: 0 0 .4em;
+    padding: 0;
+    color: #595959;
+    font-size: 1.875em;
+    font-weight: 600;
+    text-align: center;
+    text-transform: none;
+    word-wrap: break-word;
+}
+
+.swal2-content {
+    z-index: 1;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    color: #545454;
+    font-size: 1.125em;
+    font-weight: 300;
+    line-height: normal;
+    word-wrap: break-word;
+}
+
+.swal2-actions {
+    z-index: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 1.25em auto 0;
+}
+
+.swal2-footer {
+    justify-content: center;
+    margin: 1.25em 0 0;
+    padding: 1em 0 0;
+    border-top: 1px solid #eee;
+    color: #545454;
+    font-size: 1em;
+}
+
 .swal2-icon,
 .swal2-actions {
     display: flex;
