@@ -23,27 +23,16 @@ public partial class MindMaps
     [NotNull]
     private MindMap? MindMap { get; set; }
 
-    /// <summary>
-    /// 初始化数据
-    /// </summary>
-    public string _data = SampleData1;
-
     async Task ExportImage()
     {
         await MindMap.Export();
-        await ShowBottomMessage("下载Png");
+        await ShowBottomMessage("下载 Png");
     }
 
     async Task ExportJson()
     {
         await MindMap.Export("json", withConfig: false);
-        await ShowBottomMessage("下载Json");
-    }
-
-    async Task ExportPng()
-    {
-        await MindMap.Export(download: false, withConfig: false);
-        await ShowBottomMessage("已导出Png");
+        await ShowBottomMessage("下载 Json");
     }
 
     private Task ShowBottomMessage(string message) => MessageService.Show(new MessageOption()
@@ -59,7 +48,7 @@ public partial class MindMaps
 
     async Task GetData()
     {
-        _result = await MindMap.GetData(false);
+        _result = await MindMap.GetData();
     }
 
     async Task SetData()
@@ -83,13 +72,13 @@ public partial class MindMaps
         await MindMap.Scale(_scale);
     }
 
-    async Task Sample1()
+    async Task SetSample1()
     {
         _result = SampleData1;
         await SetData();
     }
 
-    async Task Sample2()
+    async Task SetSample2()
     {
         _result = SampleData2;
         await SetData();

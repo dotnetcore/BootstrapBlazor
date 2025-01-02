@@ -6,10 +6,14 @@
 </HeadContent>
 
 <h3>@Localizer["MindMapTitle"]</h3>
-
 <h4>@Localizer["MindMapDescription"]</h4>
 
 <PackageTips Name="BootstrapBlazor.MindMap" />
+
+<p><code>MindMap</code> 是对 <code>Javascript</code> <a href="https://github.com/wanglin2/mind-map?wt.mc_id=DT-MVP-5004174">MindMap</a> 仓库的封装，使其更加符合 <code>Blazor</code> 使用习惯</p>
+<p class="code-label">1. 画图</p>
+<p>通过 <a href="https://wanglin2.github.io/mind-map/#/">在线工具地址</a> 绘制或者导入进行修改后导出 <code>Json</code> 格式数据</p>
+<div class="code-label">2. 对组件 <code>Data</code> 参数赋值即可呈现</div>
 
 <DemoBlock Title="@Localizer["MindMapNormalTitle"]" Introduction="@Localizer["MindMapDescription"]" Name="MindMapNormal">
     <section ignore>
@@ -22,12 +26,12 @@
             </div>
         </div>
     </section>
-    <MindMap Layout="_layout" Theme="_theme" Data="@_data" @ref="MindMap"></MindMap>
+    <MindMap Layout="_layout" Theme="_theme" Data="@SampleData1" @ref="MindMap"></MindMap>
     <section ignore>
         <div class="row g-3 mt-3">
             <div class="col-12">
-                <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample1"></Button>
-                <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2"></Button>
+                <Button Text="@Localizer["Sample1ButtonText"]" OnClick="SetSample1"></Button>
+                <Button Text="@Localizer["Sample2ButtonText"]" OnClick="SetSample2"></Button>
                 <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
                 <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
                 <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData"></Button>
