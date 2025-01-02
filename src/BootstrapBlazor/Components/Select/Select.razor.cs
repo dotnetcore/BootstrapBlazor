@@ -306,7 +306,7 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         var item = Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
             ?? GetVirtualizeItem(CurrentValueAsString);
 
         if (item != null)
