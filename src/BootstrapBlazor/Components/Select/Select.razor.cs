@@ -68,6 +68,8 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private readonly List<SelectedItem> _children = [];
 
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
     /// </summary>

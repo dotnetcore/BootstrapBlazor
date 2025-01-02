@@ -60,6 +60,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public RenderFragment<string>? GroupItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
     /// 获得/设置 IIconTheme 服务实例
     /// </summary>
     [Inject]
