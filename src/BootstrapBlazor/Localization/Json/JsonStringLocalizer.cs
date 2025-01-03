@@ -9,6 +9,10 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -97,14 +101,19 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
-    private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
+#if NET8_0_OR_GREATER
+    private string? GetValueFromCache(FrozenSet<LocalizedString>? localizerStrings, string name)
+#else
+    private string? GetValueFromCache(HashSet<LocalizedString>? localizerStrings, string name)
+#endif
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
         var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
-            var l = GetLocalizedString();
+            var l = localizerStrings?.FirstOrDefault(i => i.Name == name)
+                ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
             if (l is { ResourceNotFound: false })
             {
                 ret = l.Value;
@@ -116,16 +125,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
         }
         return ret;
-
-        LocalizedString? GetLocalizedString()
-        {
-            LocalizedString? localizer = null;
-            if (localizerStrings != null)
-            {
-                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
-            }
-            return localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
-        }
     }
 
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)

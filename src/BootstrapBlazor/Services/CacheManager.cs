@@ -12,6 +12,10 @@ using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -206,8 +210,12 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
-    /// <returns></returns>
-    public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName) => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
+#if NET8_0_OR_GREATER
+    public static FrozenSet<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
+#else
+    public static HashSet<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
+#endif
+        => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
@@ -218,7 +226,11 @@ internal class CacheManager : ICacheManager
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
+#if NET8_0_OR_GREATER
+    public static FrozenSet<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
+#else
+    public static HashSet<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
+#endif
     {
         if (assembly.IsDynamic)
         {
@@ -236,9 +248,14 @@ internal class CacheManager : ICacheManager
         return Instance.GetOrCreate(typeKey, entry =>
         {
             var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
-            return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+            var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
+#if NET8_0_OR_GREATER
+            return items?.ToFrozenSet();
+#else
+            return items?.ToHashSet();
+#endif
         });
     }
 
@@ -247,7 +264,11 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+#if NET8_0_OR_GREATER
+    public static FrozenSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToFrozenSet());
+#else
+    public static HashSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToHashSet());
+#endif
 
     /// <summary>
     /// 查询缺失本地化资源项目

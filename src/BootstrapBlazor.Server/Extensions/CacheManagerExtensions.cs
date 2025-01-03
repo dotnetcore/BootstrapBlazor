@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections.Frozen;
 using System.Globalization;
 
 namespace BootstrapBlazor.Server.Extensions;
@@ -20,7 +21,7 @@ internal static class CacheManagerExtensions
     /// <param name="typeName"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
+    public static FrozenSet<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
     {
         var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{typeName}";
         return cache.GetOrCreate(key, entry =>

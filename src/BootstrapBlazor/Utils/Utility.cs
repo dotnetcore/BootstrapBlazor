@@ -10,6 +10,10 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -156,8 +160,11 @@ public static class Utility
     /// <param name="typeName">类名称</param>
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
-    /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
+#if NET8_0_OR_GREATER
+    public static FrozenSet<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? FrozenSet<LocalizedString>.Empty;
+#else
+    public static HashSet<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? new HashSet<LocalizedString>();
+#endif
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例
@@ -367,7 +374,7 @@ public static class Utility
         return defaultOrderCallback?.Invoke(cols) ?? cols;
     }
 
-    internal static IEnumerable<ITableColumn> OrderFunc(this IEnumerable<ITableColumn> cols) => cols
+    internal static IEnumerable<ITableColumn> OrderFunc(this List<ITableColumn> cols) => cols
         .Where(a => a.Order > 0).OrderBy(a => a.Order)
         .Concat(cols.Where(a => a.Order == 0))
         .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
@@ -404,7 +411,6 @@ public static class Utility
                 builder.AddAttribute(50, "class", col.CssClass);
             }
             builder.AddMultipleAttributes(60, item.ComponentParameters);
-            builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea) || item.Rows > 0)
         {
@@ -422,7 +428,6 @@ public static class Utility
                 builder.AddAttribute(60, "class", col.CssClass);
             }
             builder.AddMultipleAttributes(70, item.ComponentParameters);
-            builder.CloseComponent();
         }
         else
         {
@@ -448,8 +453,9 @@ public static class Utility
                 builder.AddAttribute(90, "class", col.CssClass);
             }
             builder.AddMultipleAttributes(100, item.ComponentParameters);
-            builder.CloseComponent();
         }
+
+        builder.CloseComponent();
     }
 
     /// <summary>
