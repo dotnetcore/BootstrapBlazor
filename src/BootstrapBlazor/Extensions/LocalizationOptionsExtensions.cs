@@ -27,16 +27,14 @@ internal static class LocalizationOptionsExtensions
         var builder = new ConfigurationBuilder();
 
         // 获取程序集中的资源文件
-        var assemblies = new List<Assembly>()
-        {
-            assembly
-        };
+        var assemblies = new List<Assembly>() { assembly };
 
         var entryAssembly = GetAssembly();
         if (assembly != entryAssembly)
         {
             assemblies.Add(entryAssembly);
         }
+
         if (option.AdditionalJsonAssemblies != null)
         {
             assemblies.AddRange(option.AdditionalJsonAssemblies);
@@ -120,16 +118,17 @@ internal static class LocalizationOptionsExtensions
 
         // 开启回落机制并且当前文化信息与回落语言相同
         bool EqualFallbackCulture(string name) => option.EnableFallbackCulture && option.FallbackCulture == name;
+    }
 
-        StringSegment GetParentCultureName(StringSegment cultureInfoName)
+    static StringSegment GetParentCultureName(StringSegment cultureInfoName)
+    {
+        var ret = new StringSegment();
+        var index = cultureInfoName.IndexOf('-');
+        if (index > 0)
         {
-            var ret = new StringSegment();
-            var index = cultureInfoName.IndexOf('-');
-            if (index > 0)
-            {
-                ret = cultureInfoName.Subsegment(0, index);
-            }
-            return ret;
+            ret = cultureInfoName.Subsegment(0, index);
         }
+
+        return ret;
     }
 }
