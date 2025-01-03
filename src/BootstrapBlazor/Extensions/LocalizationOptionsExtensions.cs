@@ -42,7 +42,7 @@ internal static class LocalizationOptionsExtensions
             assemblies.AddRange(option.AdditionalJsonAssemblies);
         }
 
-        var streams = assemblies.SelectMany(i => option.GetResourceStream(i, cultureName));
+        var streams = assemblies.SelectMany(i => option.GetResourceStream(i, cultureName)).ToList();
 
         // 添加 Json 文件流到配置
         foreach (var s in streams)
