@@ -638,7 +638,7 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else if (fieldType.ShouldRenderInputNumber())
+        else if (fieldType.IsNumberWithDotSeparator())
         {
             ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
         }
@@ -704,7 +704,7 @@ public static class Utility
                 ret.Add("rows", item.Rows);
             }
         }
-        else if (type.ShouldRenderInputNumber())
+        else if (type.IsNumberWithDotSeparator())
         {
             if (!string.IsNullOrEmpty(item.Step))
             {

@@ -60,7 +60,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <param name="t"></param>
     /// <returns></returns>
-    public static bool ShouldRenderInputNumber(this Type t)
+    public static bool IsNumberWithDotSeparator(this Type t)
     {
         var separator = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
         if (separator != ".")

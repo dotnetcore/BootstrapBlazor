@@ -49,11 +49,13 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     {
         var culture = new CultureInfo("es-ES");
         CultureInfo.CurrentCulture = culture;
-        Assert.False(typeof(long).IsNumber());
+        Assert.True(typeof(long).IsNumber());
+        Assert.False(typeof(long).IsNumberWithDotSeparator());
 
         culture = new CultureInfo("en-US");
         CultureInfo.CurrentCulture = culture;
         Assert.True(typeof(long).IsNumber());
+        Assert.True(typeof(long).IsNumberWithDotSeparator());
     }
 
     [Theory]
