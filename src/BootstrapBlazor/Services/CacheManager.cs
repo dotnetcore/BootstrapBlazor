@@ -223,26 +223,26 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
-        return assembly.IsDynamic ? null : GetJsonStringByTypeName();
-
-        IEnumerable<LocalizedString>? GetJsonStringByTypeName()
+        if (assembly.IsDynamic)
         {
-            cultureName ??= CultureInfo.CurrentUICulture.Name;
-            var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
-            var typeKey = $"{key}-{typeName}";
-            if (forceLoad)
-            {
-                Instance.Cache.Remove(key);
-                Instance.Cache.Remove(typeKey);
-            }
-            return Instance.GetOrCreate(typeKey, entry =>
-            {
-                var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
-                return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                    .GetChildren()
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
-            });
+            return null;
         }
+
+        cultureName ??= CultureInfo.CurrentUICulture.Name;
+        var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
+        var typeKey = $"{key}-{typeName}";
+        if (forceLoad)
+        {
+            Instance.Cache.Remove(key);
+            Instance.Cache.Remove(typeKey);
+        }
+        return Instance.GetOrCreate(typeKey, entry =>
+        {
+            var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+            return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                .GetChildren()
+                .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
+        });
     }
 
     /// <summary>
