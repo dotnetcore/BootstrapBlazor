@@ -51,17 +51,23 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         get
         {
-            string? value = null;
-            try
-            {
-                var format = GetStringSafely(name);
-                value = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{typeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
-            }
+            var value = SafeFormat();
             return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
+
+            string? SafeFormat()
+            {
+                string? ret = null;
+                try
+                {
+                    var format = GetStringSafely(name);
+                    ret = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{typeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
+                }
+                return ret;
+            }
         }
     }
 
@@ -98,13 +104,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
-            LocalizedString? localizer = null;
-            if (localizerStrings != null)
-            {
-                // perf: 性能问题，这里需要优化
-                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
-            }
-            var l = localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
+            var l = GetLocalizedString();
             if (l is { ResourceNotFound: false })
             {
                 ret = l.Value;
@@ -116,6 +116,16 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
         }
         return ret;
+
+        LocalizedString? GetLocalizedString()
+        {
+            LocalizedString? localizer = null;
+            if (localizerStrings != null)
+            {
+                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
+            }
+            return localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
+        }
     }
 
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
