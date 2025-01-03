@@ -118,7 +118,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
+        GetOrCreate("BootstrapBlazor_StartTime", _ => startDateTimeOffset);
     }
 
     /// <summary>
@@ -159,7 +159,7 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    /// 
+    /// 通过 Type 获得 <see cref="IStringLocalizer"/> 实例
     /// </summary>
     /// <param name="resourceSource"></param>
     /// <returns></returns>
@@ -168,10 +168,10 @@ internal class CacheManager : ICacheManager
         : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
     /// <summary>
-    /// 
+    /// 获得 <see cref="JsonLocalizationOptions"/> 值
     /// </summary>
     /// <returns></returns>
-    public static JsonLocalizationOptions GetJsonLocalizationOption()
+    private static JsonLocalizationOptions GetJsonLocalizationOption()
     {
         var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         return localizationOptions.Value;
@@ -185,20 +185,17 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
-        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", entry =>
+        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", _ =>
     {
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-        if (factories != null)
+        var factory = factories?.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+        if (factory != null)
         {
-            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-            if (factory != null)
+            var type = assembly.GetType(typeName);
+            if (type != null)
             {
-                var type = assembly.GetType(typeName);
-                if (type != null)
-                {
-                    ret = factory.Create(type);
-                }
+                ret = factory.Create(type);
             }
         }
         return ret;
