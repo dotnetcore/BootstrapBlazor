@@ -29,8 +29,14 @@ export function init(id, invoke, options) {
         const menu = popover.toggleMenu;
         const key = e.key;
         if (key === "Enter" || key === 'NumpadEnter') {
-            menu.classList.remove('show')
-            let index = indexOf(el, activeItem)
+            if (popover.isPopover) {
+                popover.hide();
+            }
+            else {
+                menu.classList.remove('show');
+            }
+            const activeItem = menu.querySelector('.active');
+            let index = indexOf(menu, activeItem)
             invoke.invokeMethodAsync(confirmMethodCallback, index)
         }
         else if (key === 'ArrowUp' || key === 'ArrowDown') {
@@ -64,7 +70,9 @@ export function init(id, invoke, options) {
     }
 
     EventHandler.on(el, 'shown.bs.dropdown', shown);
-    EventHandler.on(el, 'keydown', keydown)
+
+    const input = el.querySelector(`#${id}_input`);
+    EventHandler.on(input, 'keydown', keydown)
 
     const onSearch = debounce(async v => {
         search.parentElement.classList.add('l');
@@ -73,6 +81,7 @@ export function init(id, invoke, options) {
     });
     if (search) {
         Input.composition(search, onSearch);
+        EventHandler.on(search, 'keydown', keydown);
     }
 
     const select = {
@@ -123,10 +132,15 @@ export function dispose(id) {
     Data.remove(id)
 
     if (select) {
-        EventHandler.off(select.el, 'shown.bs.dropdown')
-        EventHandler.off(select.el, 'keydown');
-        Popover.dispose(select.popover)
-        Input.dispose(select.search);
+        const { el, popover, search } = select
+        EventHandler.off(el, 'shown.bs.dropdown')
+        EventHandler.off(el, 'keydown');
+        Popover.dispose(popover);
+
+        if (search) {
+            Input.dispose(search);
+            EventHandler.off(search, 'keydown');
+        }
     }
 }
 
