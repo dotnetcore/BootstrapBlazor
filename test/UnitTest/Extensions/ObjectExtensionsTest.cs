@@ -48,12 +48,12 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     public void IsNumber_Culture()
     {
         var culture = new CultureInfo("es-ES");
-        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
         Assert.True(typeof(long).IsNumber());
         Assert.False(typeof(long).IsNumberWithDotSeparator());
 
         culture = new CultureInfo("en-US");
-        CultureInfo.CurrentCulture = culture;
+        CultureInfo.CurrentUICulture = culture;
         Assert.True(typeof(long).IsNumber());
         Assert.True(typeof(long).IsNumberWithDotSeparator());
     }
