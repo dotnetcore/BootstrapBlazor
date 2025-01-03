@@ -285,7 +285,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public Func<object, Task<string?>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
