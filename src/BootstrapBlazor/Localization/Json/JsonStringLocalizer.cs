@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -27,6 +28,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
 
     private ILogger Logger { get; } = logger;
 
+    private readonly ConcurrentDictionary<string, LocalizedString> _cache = [];
+
     /// <summary>
     /// 通过指定键值获取多语言值信息索引
     /// </summary>
@@ -36,8 +39,13 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         get
         {
-            var value = GetStringSafely(name);
-            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
+            if (_cache.TryGetValue(name, out var result) == false)
+            {
+                var value = GetStringSafely(name);
+                result = new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
+                _cache.TryAdd(name, result);
+            }
+            return result;
         }
     }
 
@@ -51,23 +59,22 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     {
         get
         {
-            var value = SafeFormat();
-            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
-
-            string? SafeFormat()
+            if (_cache.TryGetValue(name, out var result) == false)
             {
-                string? ret = null;
+                string? value = null;
                 try
                 {
                     var format = GetStringSafely(name);
-                    ret = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
+                    value = string.Format(CultureInfo.CurrentCulture, format ?? name, arguments);
                 }
                 catch (Exception ex)
                 {
                     Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{typeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
                 }
-                return ret;
+                result = new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
+                _cache.TryAdd(name, result);
             }
+            return result;
         }
     }
 
@@ -100,11 +107,11 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
     {
         string? ret = null;
-        var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={CultureInfo.CurrentUICulture.Name}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
-            var l = GetLocalizedString();
+            var l = localizerStrings?.FirstOrDefault(i => i.Name == name)
+                ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
             if (l is { ResourceNotFound: false })
             {
                 ret = l.Value;
@@ -116,23 +123,12 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
         }
         return ret;
-
-        LocalizedString? GetLocalizedString()
-        {
-            LocalizedString? localizer = null;
-            if (localizerStrings != null)
-            {
-                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
-            }
-            return localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
-        }
     }
 
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
     {
         string? ret = null;
-        var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
+        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={CultureInfo.CurrentUICulture.Name}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = localizer[name];
