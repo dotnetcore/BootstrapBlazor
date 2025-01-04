@@ -1,7 +1,11 @@
-﻿.select-tree {
+.select-tree {
     --bb-select-tree-dropdown-max-height: var(--bb-dropdown-max-height);
-}
 
-    .select-tree .dropdown-menu {
+    .dropdown-menu {
         max-height: var(--bb-select-tree-dropdown-max-height);
+
+        .tree-view {
+            max-height: calc(var(--bb-select-tree-dropdown-max-height) - var(--bs-dropdown-padding-y) * 2 - 2px);
+        }
     }
+}
