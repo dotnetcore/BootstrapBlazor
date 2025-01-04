@@ -193,7 +193,7 @@ internal class CacheManager : ICacheManager
     {
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-        var factory = factories?.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+        var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
         if (factory != null)
         {
             var type = assembly.GetType(typeName);
