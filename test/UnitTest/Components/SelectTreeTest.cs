@@ -204,6 +204,31 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         Assert.Contains("active", nodes[1].ClassName);
     }
 
+    [Fact]
+    public void ShowSearch_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        {
+            builder.Add(p => p.Items, items);
+            builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
+            builder.Add(p => p.ShowSearch, true);
+        });
+        cut.Contains("tree-search");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowResetSearchButton, true);
+        });
+        cut.Contains("tree-search-reset");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFixedSearch, true);
+        });
+        cut.Contains("is-fixed-search");
+    }
+
     private List<TreeViewItem<string>> BindItems { get; } =
     [
         new TreeViewItem<string>("Test1")
