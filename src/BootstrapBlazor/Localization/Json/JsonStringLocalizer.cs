@@ -104,7 +104,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
-            var l = GetLocalizedString();
+            var l = localizerStrings?.FirstOrDefault(i => i.Name == name)
+                ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
             if (l is { ResourceNotFound: false })
             {
                 ret = l.Value;
@@ -116,16 +117,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             }
         }
         return ret;
-
-        LocalizedString? GetLocalizedString()
-        {
-            LocalizedString? localizer = null;
-            if (localizerStrings != null)
-            {
-                localizer = localizerStrings.FirstOrDefault(i => i.Name == name);
-            }
-            return localizer ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
-        }
     }
 
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
