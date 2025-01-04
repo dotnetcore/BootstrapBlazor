@@ -18,11 +18,15 @@
     height: 100%;
 
     .tree-search {
-        margin-block-end: .5rem;
+        padding: var(--bb-tree-padding);
+        padding-bottom: .5rem;
+        background-color: var(--bs-body-bg);
     }
 
-    &.is-fixed-search .tree-root {
-        height: calc(100% - var(--bb-tree-search-height));
+    &.is-fixed-search .tree-search {
+        position: sticky;
+        top: 0;
+        z-index: 5;
     }
 
     .tree-root {
