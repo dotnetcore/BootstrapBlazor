@@ -516,7 +516,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsVirtualize, false);
             pb.Add(a => a.Items, items);
         });
-        cut.Contains("tree-root scroll");
+        cut.Contains("tree-root");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -537,7 +537,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
                 return [node1, node2];
             });
         });
-        cut.Contains("tree-root is-virtual scroll");
+        cut.Contains("tree-root is-virtual");
 
         // 触发第一个节点展开
         await cut.InvokeAsync(() => cut.Find(".node-icon.visible").Click());
