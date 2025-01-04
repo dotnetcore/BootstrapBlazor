@@ -10,10 +10,6 @@ using System.Data;
 using System.Linq.Expressions;
 using System.Reflection;
 
-#if NET8_0_OR_GREATER
-using System.Collections.Frozen;
-#endif
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -160,11 +156,7 @@ public static class Utility
     /// <param name="typeName">类名称</param>
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
-#if NET8_0_OR_GREATER
-    public static FrozenSet<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? FrozenSet<LocalizedString>.Empty;
-#else
-    public static HashSet<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? new HashSet<LocalizedString>();
-#endif
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例

@@ -21,7 +21,7 @@ internal static class CacheManagerExtensions
     /// <param name="typeName"></param>
     /// <param name="options"></param>
     /// <returns></returns>
-    public static FrozenSet<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
+    public static IEnumerable<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
     {
         var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{typeName}";
         return cache.GetOrCreate(key, entry =>

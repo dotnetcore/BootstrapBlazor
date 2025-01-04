@@ -210,11 +210,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
-#if NET8_0_OR_GREATER
-    public static FrozenSet<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
-#else
-    public static HashSet<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
-#endif
+    public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
@@ -226,11 +222,7 @@ internal class CacheManager : ICacheManager
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-#if NET8_0_OR_GREATER
-    public static FrozenSet<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
-#else
-    public static HashSet<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
-#endif
+    public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
         if (assembly.IsDynamic)
         {

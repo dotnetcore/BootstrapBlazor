@@ -9,10 +9,6 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-#if NET8_0_OR_GREATER
-using System.Collections.Frozen;
-#endif
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -101,11 +97,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
-#if NET8_0_OR_GREATER
-    private string? GetValueFromCache(FrozenSet<LocalizedString>? localizerStrings, string name)
-#else
-    private string? GetValueFromCache(HashSet<LocalizedString>? localizerStrings, string name)
-#endif
+    private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
