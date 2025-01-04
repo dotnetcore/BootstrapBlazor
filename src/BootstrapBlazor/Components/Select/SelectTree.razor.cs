@@ -120,6 +120,24 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [Parameter]
     public bool IsEditable { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定搜索栏 默认 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowResetSearchButton { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
@@ -148,6 +166,10 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? SelectTreeCustomClassString => CssBuilder.Default(CustomClassString)
+        .AddClass("select-tree", IsPopover)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
