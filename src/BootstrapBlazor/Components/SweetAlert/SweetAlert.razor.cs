@@ -88,6 +88,7 @@ public partial class SweetAlert : IAsyncDisposable
                 {
                     if (DelayToken.IsCancellationRequested)
                     {
+                        DelayToken.Dispose();
                         DelayToken = new();
                     }
                     await Task.Delay(Delay, DelayToken.Token);
