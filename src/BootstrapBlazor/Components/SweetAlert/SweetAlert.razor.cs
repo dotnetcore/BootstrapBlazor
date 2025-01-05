@@ -88,10 +88,16 @@ public partial class SweetAlert : IAsyncDisposable
                 {
                     if (DelayToken.IsCancellationRequested)
                     {
+                        DelayToken.Dispose();
                         DelayToken = new();
                     }
                     await Task.Delay(Delay, DelayToken.Token);
                     await ModalContainer.Close();
+
+                    if (OnCloseCallbackAsync != null)
+                    {
+                        await OnCloseCallbackAsync();
+                    }
                 }
                 catch (TaskCanceledException) { }
             }
@@ -99,6 +105,8 @@ public partial class SweetAlert : IAsyncDisposable
     }
 
     private bool AutoHideCheck() => IsAutoHide && Delay > 0;
+
+    private Func<Task>? OnCloseCallbackAsync = null;
 
     private async Task Show(SwalOption option)
     {
@@ -120,6 +128,8 @@ public partial class SweetAlert : IAsyncDisposable
             parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
 
             DialogParameter = parameters;
+
+            OnCloseCallbackAsync = AutoHideCheck() ? option.OnCloseAsync : null;
 
             // 渲染 UI 准备弹窗 Dialog
             await InvokeAsync(StateHasChanged);

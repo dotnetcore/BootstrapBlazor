@@ -16,9 +16,5 @@ internal class SweetContext
     /// 获得/设置 弹窗任务上下文
     /// </summary>
     [NotNull]
-#if NET7_0_OR_GREATER
-    public required TaskCompletionSource<bool>? ConfirmTask { get; init; }
-#else
-    public TaskCompletionSource<bool>? ConfirmTask { get; set; }
-#endif
+    public TaskCompletionSource<bool>? ConfirmTask { get; init; }
 }

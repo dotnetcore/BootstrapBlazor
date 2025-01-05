@@ -102,7 +102,7 @@ public class SwalOption : PopupOptionBase
     public Func<Task>? OnConfirmAsync { get; set; }
 
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     public SwalOption()
     {

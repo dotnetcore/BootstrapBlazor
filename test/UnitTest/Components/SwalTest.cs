@@ -271,7 +271,11 @@ public class SwalTest : BootstrapBlazorTestBase
             Content = "I am auto hide",
             IsAutoHide = true,
             ForceDelay = true,
-            Delay = 500
+            Delay = 500,
+            OnCloseAsync = () =>
+            {
+                return Task.CompletedTask;
+            }
         }));
         Thread.Sleep(150);
         // 弹窗显示
