@@ -18,11 +18,10 @@ export function init(id, invoke, options) {
         if (search) {
             search.focus();
         }
-        const prev = popover.toggleMenu.querySelector('.dropdown-item.preActive')
-        if (prev) {
-            prev.classList.remove('preActive')
+        const active = popover.toggleMenu.querySelector('.dropdown-item.active');
+        if (active) {
+            scrollIntoView(el, active);
         }
-        scrollToActive(popover.toggleMenu, prev)
     }
 
     const keydown = e => {
@@ -61,15 +60,19 @@ export function init(id, invoke, options) {
                 else if (index > items.length - 1) {
                     index = 0;
                 }
-                items[index].classList.add('active');
-                const top = getTop(menu, index);
-                const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
-                menu.scrollTo({ top: top, left: 0, behavior: hehavior });
+                current = items[index];
+                current.classList.add('active');
+                scrollIntoView(el, current);
             }
         }
     }
 
-    EventHandler.on(el, 'shown.bs.dropdown', shown);
+    if (popover.isPopover) {
+        EventHandler.on(el, 'shown.bs.popover', shown);
+    }
+    else {
+        EventHandler.on(el, 'shown.bs.dropdown', shown);
+    }
 
     const input = el.querySelector(`#${id}_input`);
     EventHandler.on(input, 'keydown', keydown)
@@ -90,19 +93,6 @@ export function init(id, invoke, options) {
         popover
     }
     Data.set(id, select);
-}
-
-const getTop = (menu, index) => {
-    const styles = getComputedStyle(menu)
-    const maxHeight = parseInt(styles.maxHeight) / 2
-    const itemHeight = getHeight(menu.querySelector('.dropdown-item'))
-    const height = itemHeight * index
-    const count = Math.floor(maxHeight / itemHeight);
-    let top = 0;
-    if (height > maxHeight) {
-        top = itemHeight * (index > count ? index - count : index)
-    }
-    return top;
 }
 
 export function show(id) {
@@ -144,32 +134,12 @@ export function dispose(id) {
     }
 }
 
-function scrollToActive(el, activeItem) {
-    const virtualEl = el.querySelector('.dropdown-virtual');
-
-    activeItem ??= el.querySelector('.dropdown-item.active')
-
-    if (activeItem) {
-        const innerHeight = getInnerHeight(el)
-        const itemHeight = getHeight(activeItem);
-        const index = indexOf(el, activeItem)
-        const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
-        const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
-
-        const search = el.querySelector('.search');
-        if (search.classList.contains('show')) {
-
-        }
-        if (margin >= 0) {
-            el.scrollTo({ top: margin, left: 0, behavior: hehavior });
-        }
-        else {
-            el.scrollTo({ top: margin, left: 0, behavior: hehavior });
-        }
-    }
-}
-
 function indexOf(el, element) {
     const items = el.querySelectorAll('.dropdown-item')
     return Array.prototype.indexOf.call(items, element)
+}
+
+const scrollIntoView = (el, item) => {
+    const behavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+    item.scrollIntoView({ behavior: behavior, block: "center", inline: "nearest" });
 }
