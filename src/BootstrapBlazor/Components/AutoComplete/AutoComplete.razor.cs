@@ -115,7 +115,7 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
 
-        FilterItems ??= Items?.ToList() ?? [];
+        Items ??= [];
     }
 
     /// <summary>
@@ -130,6 +130,8 @@ public partial class AutoComplete
         }
     }
 
+    private List<string> Rows => FilterItems ?? Items.ToList();
+
     /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
@@ -142,14 +144,16 @@ public partial class AutoComplete
             var items = await OnCustomFilter(val);
             FilterItems = items.ToList();
         }
+        else if (string.IsNullOrEmpty(val))
+        {
+            FilterItems = Items.ToList();
+        }
         else
         {
             var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = string.IsNullOrEmpty(val)
-                ? Items
-                : IsLikeMatch
-                    ? Items.Where(s => s.Contains(val, comparison))
-                    : Items.Where(s => s.StartsWith(val, comparison));
+            var items = IsLikeMatch
+                ? Items.Where(s => s.Contains(val, comparison))
+                : Items.Where(s => s.StartsWith(val, comparison));
             FilterItems = items.ToList();
         }
 
