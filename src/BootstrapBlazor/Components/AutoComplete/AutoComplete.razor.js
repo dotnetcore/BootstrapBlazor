@@ -26,7 +26,6 @@ export function init(id, invoke) {
     if (duration > 0) {
         ac.debounce = true
         EventHandler.on(input, 'keyup', debounce(e => {
-            e.preventDefault();
             handlerKeyup(ac, e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
@@ -34,8 +33,6 @@ export function init(id, invoke) {
     }
     else {
         EventHandler.on(input, 'keyup', e => {
-            e.stopPropagation();
-            e.preventDefault();
             handlerKeyup(ac, e);
         })
     }
