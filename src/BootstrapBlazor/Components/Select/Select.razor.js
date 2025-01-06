@@ -141,5 +141,5 @@ function indexOf(el, element) {
 
 const scrollIntoView = (el, item) => {
     const behavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
-    item.scrollIntoView({ behavior: behavior, block: "center", inline: "nearest" });
+    item.scrollIntoView({ behavior: behavior, block: "nearest", inline: "start" });
 }

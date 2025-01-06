@@ -32,7 +32,7 @@ export function scroll(id, options) {
     const el = document.getElementById(id);
     const item = el.querySelector(".tree-content.active");
     if (item) {
-        item.scrollIntoView(options ?? { behavior: 'smooth', block: 'start', inline: 'nearest' });
+        item.scrollIntoView(options ?? { behavior: 'smooth', block: 'nearest', inline: 'start' });
     }
 }
 
