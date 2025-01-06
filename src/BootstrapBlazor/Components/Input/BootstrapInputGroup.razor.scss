@@ -54,6 +54,10 @@
             border-bottom-right-radius: 0;
         }
     }
+
+    > .form-label {
+        display: none;
+    }
 }
 
 .input-group-xs {

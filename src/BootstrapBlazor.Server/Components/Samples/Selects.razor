@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
@@ -215,13 +215,15 @@
             </Select>
         </div>
     </div>
-</DemoBlock>
+</DemoBlock> 
 
 <DemoBlock Title="@Localizer["SelectsEnumTitle"]"
            Introduction="@Localizer["SelectsEnumIntro"]"
            Name="Enum">
-    <p>@((MarkupString)Localizer["SelectsEnumDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsEnumDescription1"].Value)</p>
+        <div>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["SelectsPlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
@@ -244,7 +246,7 @@
 <DemoBlock Title="@Localizer["SelectsNullableTitle"]"
            Introduction="@Localizer["SelectsNullableIntro"]"
            Name="Nullable">
-    <p>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableIntItems" @bind-Value="NullableSelectedIntItem">
@@ -259,8 +261,10 @@
 <DemoBlock Title="@Localizer["SelectsNullableBooleanTitle"]"
            Introduction="@Localizer["SelectsNullableBooleanIntro"]"
            Name="NullableBoolean">
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
+        <div>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
