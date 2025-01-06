@@ -258,7 +258,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool EnableKeyboard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "center", inline: "nearest" }
+    /// 获得/设置 是否键盘上下键操作当前选中节点与视窗关系配置 默认 null 使用 { behavior: "smooth", block: "nearest", inline: "nearest" }
     /// </summary>
     [Parameter]
     public ScrollIntoViewOptions? ScrollIntoViewOptions { get; set; }
