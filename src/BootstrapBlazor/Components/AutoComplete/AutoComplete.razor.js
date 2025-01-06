@@ -26,6 +26,7 @@ export function init(id, invoke) {
     if (duration > 0) {
         ac.debounce = true
         EventHandler.on(input, 'keyup', debounce(e => {
+            e.preventDefault();
             handlerKeyup(ac, e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
@@ -33,6 +34,8 @@ export function init(id, invoke) {
     }
     else {
         EventHandler.on(input, 'keyup', e => {
+            e.stopPropagation();
+            e.preventDefault();
             handlerKeyup(ac, e);
         })
     }
@@ -127,24 +130,10 @@ const handlerKeyup = (ac, e) => {
         else if (index > items.length - 1) {
             index = 0;
         }
-        items[index].classList.add('active');
-        const top = getTop(menu, index);
-        const hehavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
-        menu.scrollTo({ top: top, left: 0, behavior: hehavior });
+        current = items[index];
+        current.classList.add('active');
+        scrollIntoView(el, current);
     }
-}
-
-const getTop = (menu, index) => {
-    const styles = getComputedStyle(menu)
-    const maxHeight = parseInt(styles.maxHeight) / 2
-    const itemHeight = getHeight(menu.querySelector('.dropdown-item'))
-    const height = itemHeight * index
-    const count = Math.floor(maxHeight / itemHeight);
-    let top = 0;
-    if (height > maxHeight) {
-        top = itemHeight * (index > count ? index - count : index)
-    }
-    return top;
 }
 
 export function showList(id) {
@@ -175,6 +164,11 @@ export function dispose(id) {
         EventHandler.off(menu, 'click');
         Input.dispose(input);
     }
+}
+
+const scrollIntoView = (el, item) => {
+    const behavior = el.getAttribute('data-bb-scroll-behavior') ?? 'smooth';
+    item.scrollIntoView({ behavior: behavior, block: "nearest", inline: "start" });
 }
 
 export { handleKeyUp, select, selectAllByFocus, selectAllByEnter }
