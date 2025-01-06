@@ -200,11 +200,6 @@
             transform: translateX(0);
         }
 
-        .layout-right {
-            overflow: hidden;
-            height: var(--bb-layout-height);
-        }
-
         .layout-footer {
             display: none;
         }
@@ -257,6 +252,13 @@
 .has-sidebar {
     flex-direction: row;
     display: flex;
+}
+
+@media (max-width: 767.99px) {
+    .layout.is-collapsed .layout-right {
+        overflow: hidden;
+        height: var(--bb-layout-height);
+    }
 }
 
 @media(min-width: 768px) {
