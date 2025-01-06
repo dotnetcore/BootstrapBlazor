@@ -204,8 +204,8 @@ public sealed partial class Selects
     private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
     {
         new() { Text = "空值", Value = "" },
-        new() { Text = "True 值", Value = "true" },
-        new() { Text = "False 值", Value = "false" }
+        new() { Text = "True 值", Value = "True" },
+        new() { Text = "False 值", Value = "False" }
     };
 
     private readonly SelectedItem[] StringItems =
