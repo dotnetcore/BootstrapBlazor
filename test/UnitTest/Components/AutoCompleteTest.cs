@@ -77,8 +77,16 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsLikeMatch, true);
         });
-        menus = cut.FindAll(".dropdown-item");
         await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("as"));
+        menus = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, menus.Count);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("k1"));
+        menus = cut.FindAll(".dropdown-item");
+        Assert.Single(menus);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange(""));
+        menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
     }
 
@@ -102,6 +110,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IgnoreCase, true);
         });
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
     }
