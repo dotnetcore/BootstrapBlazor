@@ -115,7 +115,7 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
 
-        FilterItems = Items?.ToList() ?? [];
+        FilterItems ??= Items?.ToList() ?? [];
     }
 
     /// <summary>
@@ -145,9 +145,11 @@ public partial class AutoComplete
         else
         {
             var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = IsLikeMatch
-                ? Items.Where(s => s.Contains(val, comparison))
-                : Items.Where(s => s.StartsWith(val, comparison));
+            var items = string.IsNullOrEmpty(val)
+                ? Items
+                : IsLikeMatch
+                    ? Items.Where(s => s.Contains(val, comparison))
+                    : Items.Where(s => s.StartsWith(val, comparison));
             FilterItems = items.ToList();
         }
 
