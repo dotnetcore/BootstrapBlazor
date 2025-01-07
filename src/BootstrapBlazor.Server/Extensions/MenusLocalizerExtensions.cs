@@ -694,6 +694,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["RDKit"],
+                    Url = "rdkit"
+                },
+                new()
+                {
                     Text = Localizer["Search"],
                     Url = "search"
                 },
