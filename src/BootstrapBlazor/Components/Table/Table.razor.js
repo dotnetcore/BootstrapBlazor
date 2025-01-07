@@ -416,21 +416,24 @@ const setExcelKeyboardListener = table => {
                     break;
                 }
             }
-        } else if (keyCode === KeyCodes.RIGHT_ARROW) {
+        }
+        else if (keyCode === KeyCodes.RIGHT_ARROW) {
             while (++index < cells.length) {
                 if (activeCell(cells, index)) {
                     break;
                 }
             }
-        } else if (keyCode === KeyCodes.UP_ARROW) {
-            cells = tr.previousElementSibling.children;
+        }
+        else if (keyCode === KeyCodes.UP_ARROW) {
+            cells = tr.previousElementSibling?.children;
             while (index < cells.length) {
                 if (activeCell(cells, index)) {
                     break;
                 }
             }
-        } else if (keyCode === KeyCodes.DOWN_ARROW) {
-            cells = tr.nextElementSibling.children;
+        }
+        else if (keyCode === KeyCodes.DOWN_ARROW) {
+            cells = tr.nextElementSibling?.children;
             while (index < cells.length) {
                 if (activeCell(cells, index)) {
                     break;

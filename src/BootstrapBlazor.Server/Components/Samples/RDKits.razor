@@ -1,0 +1,14 @@
+﻿@page "/rdkit"
+@inject IStringLocalizer<RDKits> Localizer
+
+<h3>@Localizer["RDKitTitle"]</h3>
+
+<h4>@Localizer["RDKitDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.RDKit" />
+
+<DemoBlock Title="@Localizer["RDKitNormalTitle"]"
+           Introduction="@Localizer["RDKitNormalIntro"]"
+           Name="Normal">
+    <RDKit Value="CC(=O)Oc1ccccc1C(=O)O"></RDKit>
+</DemoBlock>
