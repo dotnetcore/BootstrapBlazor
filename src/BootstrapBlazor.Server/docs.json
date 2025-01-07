@@ -220,7 +220,8 @@
     "barcode-generator": "BarcodeGenerators",
     "sortable-list": "SortableLists",
     "win-box": "WinBoxes",
-    "player": "Players"
+    "player": "Players",
+    "rdkit": "Rdkits"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
