@@ -4778,7 +4778,8 @@
     "DrawerService": "抽屉服务 DrawerService",
     "SortableList": "拖拽组件 SortableList",
     "WinBox": "窗口 WinBox",
-    "Player": "播放器 Player"
+    "Player": "播放器 Player",
+    "RDKit": "分子图组件 RDKit"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6837,5 +6838,11 @@
     "AttributeSrc": "Frame 加载网页路径",
     "AttributeData": "传递的数据",
     "AttributeOnPostDataAsync": "Frame 加载页面传递过来的数据"
+  },
+  "BootstrapBlazor.Server.Components.Samples.RDKits": {
+    "RDKitTitle": "分子图组件",
+    "RDKitDescription": "RDKit 是一个开源的化学信息学工具包，用于分子建模和化学信息学",
+    "RDKitNormalTitle": "基础用法",
+    "RDKitNormalIntro": "通过 <code>Value</code> 设置分子式，组件画图"
   }
 }
