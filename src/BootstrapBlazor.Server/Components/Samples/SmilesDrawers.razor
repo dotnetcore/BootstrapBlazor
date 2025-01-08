@@ -1,0 +1,20 @@
+﻿@page "/smiles-drawer"
+@inject IStringLocalizer<SmilesDrawers> Localizer
+
+<h3>@Localizer["SmilesDrawerTitle"]</h3>
+
+<h4>@Localizer["SmilesDrawerDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.SmilesDrawer" />
+
+<DemoBlock Title="@Localizer["SmilesDrawerNormalTitle"]"
+           Introduction="@Localizer["SmilesDrawerNormalIntro"]"
+           Name="Normal">
+    <SmilesDrawer SmilesValue="CC(=O)Oc1ccccc1C(=O)O"></SmilesDrawer>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SmilesDrawerSizeTitle"]"
+           Introduction="@Localizer["SmilesDrawerSizeIntro"]"
+           Name="Size">
+    <SmilesDrawer SmilesValue="CC(=O)Oc1ccccc1C(=O)O" Theme="light" Width="120" Height="120"></SmilesDrawer>
+</DemoBlock>

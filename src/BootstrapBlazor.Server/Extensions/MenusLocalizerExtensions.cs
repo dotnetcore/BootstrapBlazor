@@ -709,8 +709,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["SmileDrawer"],
-                    Url = "smile-drawer"
+                    Text = Localizer["SmilesDrawer"],
+                    Url = "smiles-drawer"
                 },
                 new()
                 {

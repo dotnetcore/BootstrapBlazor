@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// <summary>
 /// SmileDrawer 组件示例
 /// </summary>
-public partial class SmileDrawers
+public partial class SmilesDrawers
 {
 
 }

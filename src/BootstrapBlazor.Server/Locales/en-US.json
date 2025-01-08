@@ -6844,11 +6844,19 @@
     "RDKitTitle": "RDKit",
     "RDKitDescription": "A powerful cheminformatics and molecule rendering toolbelt for Blazor, Powered by RDKit",
     "RDKitNormalTitle": "Basic usage",
-    "RDKitNormalIntro": "Set the molecular formula through <code>Value</code> and draw the component",
+    "RDKitNormalIntro": "Set the molecular formula through <code>Smiles</code> and draw the component",
     "RDKitSmartsTitle": "Smarts",
     "RDKitSmartsIntro": "By setting the <code>Smarts</code> value, parts of the molecular formula can be highlighted",
     "RDKitSmartsLabel": "Show Smarts",
     "RDKitSizeTitle": "Size",
     "RDKitSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SmilesDrawers": {
+    "SmilesDrawerTitle": "SmilesDrawer",
+    "SmilesDrawerDescription": "A small, highly performant JavaScript component for parsing and drawing SMILES strings",
+    "SmilesDrawerNormalTitle": "Basic usage",
+    "SmilesDrawerNormalIntro": "Set the molecular formula through <code>Smiles</code> and draw the component",
+    "SmilesDrawerSizeTitle": "Size",
+    "SmilesDrawerSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
   }
 }
