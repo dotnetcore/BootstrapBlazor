@@ -4779,7 +4779,8 @@
     "SortableList": "拖拽组件 SortableList",
     "WinBox": "窗口 WinBox",
     "Player": "播放器 Player",
-    "RDKit": "分子图组件 RDKit"
+    "RDKit": "分子式组件 RDKit",
+    "SmileDrawer": "分子式组件 SmileDrawer"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
