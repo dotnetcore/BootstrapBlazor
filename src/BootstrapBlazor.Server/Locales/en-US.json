@@ -6843,6 +6843,8 @@
     "RDKitTitle": "RDKit",
     "RDKitDescription": "A powerful cheminformatics and molecule rendering toolbelt for Blazor, Powered by RDKit",
     "RDKitNormalTitle": "Basic usage",
-    "RDKitNormalIntro": "Set the molecular formula through <code>Value</code> and draw the component"
+    "RDKitNormalIntro": "Set the molecular formula through <code>Value</code> and draw the component",
+    "RDKitSmartsTitle": "Smarts",
+    "RDKitSmartsIntro": "By setting the <code>Smarts</code> value, parts of the molecular formula can be highlighted"
   }
 }
