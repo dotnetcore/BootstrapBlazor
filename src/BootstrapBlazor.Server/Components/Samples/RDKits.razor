@@ -16,5 +16,15 @@
 <DemoBlock Title="@Localizer["RDKitSmartsTitle"]"
            Introduction="@Localizer["RDKitSmartsIntro"]"
            Name="Smarts">
-    <RDKit Value="CC(=O)Oc1ccccc1C(=O)O" Smarts="Oc1[c,n]cccc1"></RDKit>
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["RDKitSmartsLabel"]" />
+                    <Checkbox @bind-Value="_showSmarts"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <RDKit Value="CC(=O)Oc1ccccc1C(=O)O" Smarts="@Smarts"></RDKit>
 </DemoBlock>
