@@ -6846,6 +6846,8 @@
     "RDKitNormalIntro": "Set the molecular formula through <code>Value</code> and draw the component",
     "RDKitSmartsTitle": "Smarts",
     "RDKitSmartsIntro": "By setting the <code>Smarts</code> value, parts of the molecular formula can be highlighted",
-    "RDKitSmartsLabel": "Show Smarts"
+    "RDKitSmartsLabel": "Show Smarts",
+    "RDKitSizeTitle": "Size",
+    "RDKitSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
   }
 }

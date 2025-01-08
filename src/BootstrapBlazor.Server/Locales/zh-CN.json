@@ -6846,6 +6846,8 @@
     "RDKitNormalIntro": "通过 <code>Value</code> 设置分子式，组件画图",
     "RDKitSmartsTitle": "Smarts",
     "RDKitSmartsIntro": "通过设置 <code>Smarts</code> 值，高亮显示部分分子式",
-    "RDKitSmartsLabel": "显示 Smarts"
+    "RDKitSmartsLabel": "显示 Smarts",
+    "RDKitSizeTitle": "尺寸",
+    "RDKitSizeIntro": "通过设置 <code>Width</code> <code>Height</code> 值设置分子式宽高"
   }
 }
