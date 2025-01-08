@@ -10,5 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class RDKits
 {
+    private string? Smarts => _showSmarts ? "Oc1[c,n]cccc1" : "";
 
+    private bool _showSmarts;
 }
