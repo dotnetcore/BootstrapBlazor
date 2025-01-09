@@ -10,5 +10,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class SmilesDrawers
 {
+    private SmilesDrawerOptions _options = new() { Theme = "light", Width = 120, Height = 120 };
 
+    private void OnClickUpdateSize()
+    {
+        _options = new SmilesDrawerOptions { Theme = "light", Width = 200, Height = 200 };
+    }
 }

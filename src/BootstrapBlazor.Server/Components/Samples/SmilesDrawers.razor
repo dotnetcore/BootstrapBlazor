@@ -10,11 +10,14 @@
 <DemoBlock Title="@Localizer["SmilesDrawerNormalTitle"]"
            Introduction="@Localizer["SmilesDrawerNormalIntro"]"
            Name="Normal">
-    <SmilesDrawer SmilesValue="CC(=O)Oc1ccccc1C(=O)O"></SmilesDrawer>
+    <SmilesDrawer Smiles="CC(=O)Oc1ccccc1C(=O)O"></SmilesDrawer>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SmilesDrawerSizeTitle"]"
            Introduction="@Localizer["SmilesDrawerSizeIntro"]"
            Name="Size">
-    <SmilesDrawer SmilesValue="CC(=O)Oc1ccccc1C(=O)O" Theme="light" Width="120" Height="120"></SmilesDrawer>
+    <section ignore>
+        <Button Text="Update Size" OnClick="OnClickUpdateSize"></Button>
+    </section>
+    <SmilesDrawer Smiles="CC(=O)Oc1ccccc1C(=O)O" Options="_options"></SmilesDrawer>
 </DemoBlock>
