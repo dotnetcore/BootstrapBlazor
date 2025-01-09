@@ -62,7 +62,7 @@ class CodeSnippetService
         {
             // codeFile = ajax.razor.cs
             var segs = codeFile.Split('.');
-            var key = segs[0];
+            var key = segs[0].ToLowerInvariant();
             var typeName = SourceCodes.TryGetValue(key, out var value) ? value : string.Empty;
             if (!string.IsNullOrEmpty(typeName))
             {
