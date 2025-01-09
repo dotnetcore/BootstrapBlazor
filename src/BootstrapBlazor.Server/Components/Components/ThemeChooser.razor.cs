@@ -42,7 +42,7 @@ public partial class ThemeChooser
     {
         _currentTheme.Clear();
         WebsiteOption.CurrentValue.CurrentTheme = item.Value;
-        var theme = WebsiteOption.CurrentValue.Themes.Find(i => i.Key == item.Value);
+        var theme = WebsiteOption.CurrentValue.Themes.FirstOrDefault(i => i.Key == item.Value);
         if (theme is { Files: not null })
         {
             _currentTheme.AddRange(theme.Files);
