@@ -37,6 +37,37 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsClearable_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+            });
+        });
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        Assert.DoesNotContain("clear-icon", table.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.Value, items[0]);
+        });
+        Assert.Contains("clear-icon", table.Markup);
+        var input = table.Find(".form-select");
+        Assert.Equal("张三 0001", input.GetAttribute("value"));
+
+        var span = table.Find(".clear-icon");
+        await table.InvokeAsync(() => span.Click());
+        input = table.Find(".form-select");
+        Assert.Null(input.GetAttribute("value"));
+    }
+
+    [Fact]
     public void TableMinWidth_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
