@@ -6567,6 +6567,7 @@
     "Intro": "下拉框为表格用于展示复杂类型的选择需求",
     "NormalTitle": "基本功能",
     "NormalIntro": "适用于候选项信息量比较大，用 <code>Table</code> 呈现信息量",
+    "NormalDesc": "可通过 <code>IsClearable</code> 控制是否显示清除小按钮，默认值 <code>false</code>",
     "ColorTitle": "颜色",
     "ColorIntro": "通过设置 <code>Color</code> 改变组件边框颜色",
     "IsDisabledTitle": "禁用",
