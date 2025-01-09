@@ -3,10 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Collections.Frozen;
+
 namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
-/// 
+/// WebsiteOptions 网站配置类
 /// </summary>
 public class WebsiteOptions
 {
@@ -102,12 +104,12 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    public Dictionary<string, string?> SourceCodes { get; private set; }
+    public FrozenDictionary<string, string?> SourceCodes { get; private set; }
 
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    public Dictionary<string, string?> Videos { get; private set; }
+    public FrozenDictionary<string, string?> Videos { get; private set; }
 
     /// <summary>
     /// 获得/设置 当前主题
@@ -127,13 +129,13 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 当前网站友联集合
     /// </summary>
-    public Dictionary<string, string?> Links { get; set; }
+    public FrozenDictionary<string, string?> Links { get; set; }
 
     /// <summary>
     /// 获得/设置 网站主题配置集合
     /// </summary>
     [NotNull]
-    public List<ThemeOption>? Themes { get; set; }
+    public HashSet<ThemeOption>? Themes { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -141,9 +143,9 @@ public class WebsiteOptions
     public WebsiteOptions()
     {
         var config = GetConfiguration("docs.json");
-        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
-        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
+        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
+        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
 
 #if DEBUG
         IsDevelopment = true;

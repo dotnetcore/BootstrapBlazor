@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Options;
+using System.Collections.Frozen;
 
 namespace BootstrapBlazor.Server.Services;
 
@@ -15,7 +16,7 @@ class CodeSnippetService
 
     private string SourceCodePath { get; set; }
 
-    private Dictionary<string, string?> SourceCodes { get; set; }
+    private FrozenDictionary<string, string?> SourceCodes { get; set; }
 
     private bool IsDevelopment { get; }
 
