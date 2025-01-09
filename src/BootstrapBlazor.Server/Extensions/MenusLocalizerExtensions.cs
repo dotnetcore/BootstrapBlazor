@@ -709,6 +709,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["SmilesDrawer"],
+                    Url = "smiles-drawer"
+                },
+                new()
+                {
                     Text = Localizer["SignaturePad"],
                     Url = "signature-pad",
                 },
