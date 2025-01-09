@@ -146,7 +146,25 @@
 <DemoBlock Title="@Localizer["RowTemplateTitle"]"
            Introduction="@Localizer["RowTemplateIntro"]"
            Name="RowTemplate">
-    <section ignore>@((MarkupString)Localizer["RowTemplateDesc"].Value)</section>
+    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" class="table-row-template"
+           IsStriped="true" IsBordered="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <RowTemplate>
+            <MergeTableRow Context="@context"></MergeTableRow>
+        </RowTemplate>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RowContentTemplateTitle"]"
+           Introduction="@Localizer["RowContentTemplateIntro"]"
+           Name="RowContentTemplate">
+    <section ignore>@((MarkupString)Localizer["RowContentTemplateDesc"].Value)</section>
 
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource" class="table-row-template"
            IsStriped="true" IsBordered="true"
