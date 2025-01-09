@@ -7,7 +7,10 @@
 <h4>@Localizer["Intro"]</h4>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback">
+    <section ignore>
+        @((MarkupString)Localizer["NormalDesc"].Value)
+    </section>
+    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" IsClearable>
         <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
             <BodyTemplate Context="value">
                 <Card>

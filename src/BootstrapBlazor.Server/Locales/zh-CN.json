@@ -6599,6 +6599,7 @@
     "Intro": "下拉框为任意组件用于展示复杂类型的选择需求",
     "NormalTitle": "基本功能",
     "NormalIntro": "内置 <code>ListView</code> 组件选择图片",
+    "NormalDesc": "可通过 <code>IsClearable</code> 控制是否显示清除小按钮，默认值 <code>false</code>",
     "MinWidthTitle": "设置最小宽度",
     "MinWidthIntro": "通过设置 <code>DropdownMinWidth</code> 值，来改变下拉框最小宽度",
     "HeightTitle": "设置高度",

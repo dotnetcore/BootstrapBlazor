@@ -6599,6 +6599,7 @@
     "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Use built in <code>ListView</code> component to select images",
+    "NormalDesc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
     "MinWidthTitle": "Min-Width",
     "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
     "HeightTitle": "Height",

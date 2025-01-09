@@ -48,6 +48,24 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => item.Click());
         Assert.NotNull(v);
         Assert.Equal(url, v.ImageUrl);
+
+        var isClear = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnClearAsync, () =>
+            {
+                isClear = true;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Contains("clear-icon", cut.Markup);
+
+        var span = cut.Find(".clear-icon");
+        await cut.InvokeAsync(() => span.Click());
+        var input = cut.Find(".form-select");
+        Assert.Null(input.GetAttribute("value"));
+        Assert.True(isClear);
     }
 
     [Fact]
@@ -61,8 +79,12 @@ public class SelectObjectTest : BootstrapBlazorTestBase
             {
                 pb.AddContent(0, "test");
             });
+            pb.Add(a => a.IsClearable, true);
         });
         cut.Contains("border-danger");
+
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-danger"));
     }
 
     [Fact]
@@ -182,6 +204,7 @@ public class SelectObjectTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, model);
             builder.AddChildContent<SelectObject<string>>(pb =>
             {
+                pb.Add(a => a.IsClearable, true);
                 pb.Add(a => a.Value, model.Name);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Name", typeof(string)));
                 pb.Add(a => a.OnValueChanged, v =>
@@ -205,6 +228,9 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         });
         Assert.True(valid);
 
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-success"));
+
         model.Name = null;
         var table = cut.FindComponent<SelectObject<string>>();
         table.SetParametersAndRender();
@@ -214,6 +240,9 @@ public class SelectObjectTest : BootstrapBlazorTestBase
             form.Submit();
         });
         Assert.True(invalid);
+
+        span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-danger"));
     }
 
     class Product
