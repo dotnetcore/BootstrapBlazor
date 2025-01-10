@@ -5,17 +5,6 @@
 
 <h4>@Localizer["MultiSelectsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["MultiSelectIsEditableTitle"]" Introduction="@Localizer["MultiSelectIsEditableIntro"]" Name="IsEditable">
-    <section ignore>
-        @((MarkupString)Localizer["MultiSelectIsEditableDescription"].Value)
-    </section>
-    <div class="row g-3">
-        <div class="col-12">
-            <MultiSelect TValue="string" Items="@EditableItems" IsEditable="true" EditSubmitKey="EditSubmitKey.Space" />
-        </div>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
@@ -249,6 +238,17 @@
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
             <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiSelectIsEditableTitle"]" Introduction="@Localizer["MultiSelectIsEditableIntro"]" Name="IsEditable">
+    <section ignore>
+        @((MarkupString)Localizer["MultiSelectIsEditableDescription"].Value)
+    </section>
+    <div class="row g-3">
+        <div class="col-12">
+            <MultiSelect TValue="string" Items="@EditableItems" IsEditable="true" Max="2" EditSubmitKey="EditSubmitKey.Space" />
         </div>
     </div>
 </DemoBlock>
