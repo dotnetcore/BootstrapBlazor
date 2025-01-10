@@ -62,7 +62,7 @@
 <DemoBlock Title="@Localizer["Block3Title"]" Introduction="@Localizer["Block3Intro"]" Name="Bind">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Cascader Color="Color.Primary" Items="@_items" @bind-Value="@Value" />
+            <Cascader Color="Color.Primary" Items="@_items" @bind-Value="@Value" IsClearable="true" />
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInput readonly @bind-Value="@Value" />
