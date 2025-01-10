@@ -79,6 +79,25 @@ public partial class Cascader<TValue>
     public string? SubMenuIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否可清除 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 失去焦点回调方法 默认 null
     /// </summary>
     [Parameter]
@@ -98,6 +117,12 @@ public partial class Cascader<TValue>
         .AddClass(SubMenuIcon, !string.IsNullOrEmpty(SubMenuIcon))
         .Build();
 
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -107,6 +132,7 @@ public partial class Cascader<TValue>
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
         SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         Items ??= [];
 
@@ -196,6 +222,8 @@ public partial class Cascader<TValue>
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .Build();
 
+    private bool GetClearable() => IsClearable && !IsDisabled;
+
     /// <summary>
     /// 选择项是否 Active 方法
     /// </summary>
@@ -251,5 +279,15 @@ public partial class Cascader<TValue>
             SetSelectedNodeWithParent(item.Parent, list);
             list.Add(item);
         }
+    }
+
+    private async Task OnClearValue()
+    {
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+
+        CurrentValue = default;
     }
 }
