@@ -193,6 +193,8 @@ public partial class MultiSelect<TValue>
 
     private string? PreviousValue { get; set; }
 
+    private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
