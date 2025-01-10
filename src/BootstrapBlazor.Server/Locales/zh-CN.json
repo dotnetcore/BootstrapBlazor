@@ -2284,6 +2284,7 @@
     "Block2Intro": "级联选择不可用状态",
     "Block3Title": "Cascader 双向绑定",
     "Block3Intro": "通过 <code>Select</code> 组件绑定 <code>Value</code> 属性，改变级联选择选项时，文本框内的数值随之改变。",
+    "Block3Desc": "通过设置 <code>Clearable=\"true\"</code> 参数，使组件获得焦点或者鼠标悬浮时显示一个 <b>清除</b> 小按钮",
     "Block4Title": "Cascader 客户端验证",
     "Block4Intro": "级联选择未选择时，点击提交按钮时拦截。",
     "Block5Title": "绑定泛型为 Guid 结构",
