@@ -207,7 +207,7 @@ public partial class SelectObject<TItem>
             await OnClearAsync();
         }
 
-        Value = default;
+        CurrentValue = default;
         await CloseAsync();
     }
 }
