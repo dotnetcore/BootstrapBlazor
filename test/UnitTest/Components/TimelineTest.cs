@@ -62,4 +62,31 @@ public class TimelineTest : BootstrapBlazorTestBase
         Assert.Contains("card-body", html);
         Assert.Matches("bg-dark(.*?)text-danger", html.Replace("\r", "").Replace("\n", ""));
     }
+
+    [Fact]
+    public void ItemDescriptionTemplate_Ok()
+    {
+        var items = new List<TimelineItem>()
+        {
+            new()
+            {
+                Color = Color.Danger, Content = "first item", Icon = "fa-solid fa-house", DescriptionTemplate = pb =>
+                {
+                    pb.OpenElement(0, "div");
+                    pb.AddContent(1, "first description template");
+                    pb.CloseElement();
+                }
+            },
+            new()
+            {
+                Color = Color.None, Content = "no color item", Description = "first description", Icon = "fa-solid fa-house"
+            }
+        };
+
+        var cut = Context.RenderComponent<Timeline>(pb =>
+        {
+            pb.Add(x => x.Items, items);
+        });
+        Assert.Contains("first description template", cut.Markup);
+    }
 }
