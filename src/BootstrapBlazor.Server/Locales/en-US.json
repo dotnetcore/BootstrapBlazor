@@ -2990,7 +2990,10 @@
     "MultiSelectMaxMinMin": "Select at least two options",
     "MultiSelectSearchLog": "Search for text",
     "MultiSelectVeryLongTextDisplayText": "Extra long text",
-    "MultiSelectOptionChangeLog": "Select the collection of items"
+    "MultiSelectOptionChangeLog": "Select the collection of items",
+    "MultiSelectIsEditableTitle": "Editable",
+    "MultiSelectIsEditableIntro": "Make the component editable by setting the <code>IsEditable</code> parameter",
+    "MultiSelectIsEditableDescription": "By setting the <code>EditSubmitKey</code> parameter, you can specify whether to submit via <kbd>Enter</kbd> or <kbd>Space</kbd>"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",

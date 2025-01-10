@@ -9,7 +9,10 @@
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" data-bs-custom-class="@CustomClassString" tabindex="0">
-        <div class="@PlaceHolderClassString">@PlaceHolder</div>
+        @if(!CheckCanEdit())
+        {
+            <div class="@PlaceHolderClassString">@PlaceHolder</div>
+        }
         <div class="multi-select-items">
             @if (DisplayTemplate != null)
             {
@@ -34,6 +37,10 @@
                         <span class="multi-select-item">@item.Text</span>
                     }
                 }
+            }
+            @if (CheckCanEdit())
+            {
+                <input type="text" class="multi-select-input" autocomplete="off" tabindex="0" placeholder="@PlaceholderString" data-bb-trigger-key="@EditSubmitKeyString" />
             }
         </div>
         @if (!IsSingleLine)

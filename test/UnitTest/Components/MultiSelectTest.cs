@@ -34,6 +34,54 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsEditable_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Max, 2);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test 1"),
+                new("2", "Test 2"),
+                new("3", "Test 3"),
+                new("4", "Test 4"),
+            });
+        });
+        Assert.DoesNotContain("class=\"multi-select-input\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+        });
+        Assert.Contains("class=\"multi-select-input\"", cut.Markup);
+        Assert.DoesNotContain("data-bb-trigger-key", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.EditSubmitKey, EditSubmitKey.Space);
+        });
+        Assert.Contains("data-bb-trigger-key=\"space\"", cut.Markup);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerEditTag("123"));
+        Assert.Equal("123", cut.Instance.Value);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerEditTag("123"));
+        Assert.Equal("123", cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnEditCallback, async v =>
+            {
+                await Task.Delay(10);
+                return new SelectedItem("test", "456");
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerEditTag("456"));
+        Assert.Equal("123,test", cut.Instance.Value);
+        Assert.DoesNotContain("class=\"multi-select-input\"", cut.Markup);
+    }
+
+    [Fact]
     public void IsFixedHeight_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<EnumEducation>>(pb =>

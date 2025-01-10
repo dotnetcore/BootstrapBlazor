@@ -5,8 +5,8 @@
     --bb-multi-select-button-hover-bg-color: rgba(var(--bs-body-color-rgb), .3);
     --bb-multi-select-item-margin-x: 3px;
     --bb-multi-select-item-margin-y: 3px;
-    --bb-multi-select-item-padding: 2px 6px;
     --bb-multi-select-item-max-width: 130px;
+    --bb-multi-select-item-padding: 2px 6px;
     width: 100%;
     position: relative;
 
@@ -81,6 +81,10 @@
         .multi-select-item-group {
             display: inline-flex;
             position: relative;
+
+            + .multi-select-input {
+                padding: 3px 6px;
+            }
         }
 
         .multi-select-close {
@@ -100,6 +104,18 @@
         color: #c0c4cc;
         line-height: var(--bb-height);
         position: absolute;
+    }
+
+    .multi-select-input {
+        border: none;
+        outline: none;
+        appearance: none;
+        padding: 3px 12px;
+        background-color: transparent;
+        flex: 1;
+        width: 1%;
+        min-width: 1rem;
+        margin-block-end: var(--bb-multi-select-item-margin-y);
     }
 }
 

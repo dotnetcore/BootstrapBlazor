@@ -2990,7 +2990,10 @@
     "MultiSelectMaxMinMin": "最少选择两个选项",
     "MultiSelectSearchLog": "搜索文字",
     "MultiSelectVeryLongTextDisplayText": "超长文字",
-    "MultiSelectOptionChangeLog": "选中项集合"
+    "MultiSelectOptionChangeLog": "选中项集合",
+    "MultiSelectIsEditableTitle": "可编辑",
+    "MultiSelectIsEditableIntro": "通过设置 <code>IsEditable</code> 参数，使组件可编辑",
+    "MultiSelectIsEditableDescription": "通过设置 <code>EditSubmitKey</code> 参数可以指定通过 <kbd>Enter</kbd> 还是 <kbd>Space</kbd> 进行提交"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio 单选框",

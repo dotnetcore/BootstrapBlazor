@@ -20,6 +20,9 @@ public partial class MultiSelects
     private Foo Foo { get; set; } = new Foo();
 
     [NotNull]
+    private List<SelectedItem>? EditableItems { get; set; }
+
+    [NotNull]
     private List<SelectedItem>? Items1 { get; set; }
 
     [NotNull]
@@ -129,6 +132,7 @@ public partial class MultiSelects
         Items7 = GenerateItems();
         Items8 = GenerateItems();
         TemplateItems = GenerateItems();
+        EditableItems = GenerateItems();
 
         // 初始化数据
         DataSource =
