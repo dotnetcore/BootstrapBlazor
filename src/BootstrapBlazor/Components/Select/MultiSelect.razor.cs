@@ -298,14 +298,15 @@ public partial class MultiSelect<TValue>
         else if (!string.IsNullOrEmpty(val))
         {
             ret = GetData().Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
+        }
+        if (ret != null)
+        {
             if (SelectedItems.Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) == null)
             {
                 SelectedItems.Add(ret);
             }
-        }
-        if (ret != null)
-        {
             // 更新选中值
+            _isToggle = true;
             await SetValue();
         }
         return ret != null;
@@ -440,6 +441,21 @@ public partial class MultiSelect<TValue>
             ret = CheckCanTrigger(item);
         }
         return !ret;
+    }
+
+    private bool CheckCanEdit()
+    {
+        var ret = IsEditable;
+        if (ret == false)
+        {
+            return false;
+        }
+
+        if (Max > 0)
+        {
+            ret = SelectedItems.Count < Max;
+        }
+        return ret;
     }
 
     private List<SelectedItem> GetData()

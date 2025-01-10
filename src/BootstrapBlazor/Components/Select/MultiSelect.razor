@@ -35,7 +35,7 @@
                     }
                 }
             }
-            @if (IsEditable)
+            @if (CheckCanEdit())
             {
                 <input type="text" class="multi-select-input" autocomplete="off" tabindex="0" data-bb-trigger-key="@EditSubmitKeyString" />
             }

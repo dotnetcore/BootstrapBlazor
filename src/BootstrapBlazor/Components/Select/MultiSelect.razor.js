@@ -33,8 +33,10 @@ export function init(id, invoke, method) {
     EventHandler.on(itemsElement, 'keyup', '.multi-select-input', async e => {
         const triggerSpace = e.target.getAttribute('data-bb-trigger-key') === 'space';
         let submit = false;
-        if (triggerSpace && e.code === 'Space') {
-            submit = true;
+        if (triggerSpace) {
+            if (e.code === 'Space') {
+                submit = true;
+            }
         }
         else if (e.code === 'Enter' || e.code === 'NumPadEnter') {
             submit = true;
