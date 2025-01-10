@@ -18,6 +18,8 @@ public partial class MultiSelect<TValue>
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
 
+    private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
+
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
@@ -85,6 +87,26 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public bool IsSingleLine { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑模式下输入选项更新后回调方法 默认 null
+    /// <para>返回 true 时输入选项生效，返回 false 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task<bool>>? OnEditCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑提交按键 默认 Enter
+    /// </summary>
+    [Parameter]
+    public EditSubmitKey EditSubmitKey { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮模板
@@ -254,6 +276,27 @@ public partial class MultiSelect<TValue>
             }
 
             _isToggle = true;
+            // 更新选中值
+            await SetValue();
+        }
+    }
+
+    /// <summary>
+    /// 客户端编辑提交数据回调方法
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerEditTag(string val)
+    {
+        var ret = true;
+        if (OnEditCallback != null)
+        {
+            ret = await OnEditCallback.Invoke(val);
+        }
+
+        if (ret)
+        {
             // 更新选中值
             await SetValue();
         }

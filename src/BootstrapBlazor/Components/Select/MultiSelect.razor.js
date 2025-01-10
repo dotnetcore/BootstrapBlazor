@@ -10,20 +10,39 @@ export function init(id, invoke, method) {
         return
     }
 
+    const itemsElement = el.querySelector('.multi-select-items');
     const popover = Popover.init(el, {
-        itemsElement: el.querySelector('.multi-select-items'),
+        itemsElement,
         closeButtonSelector: '.multi-select-close'
     })
 
     const ms = {
         el, invoke, method,
-        itemsElement: el.querySelector('.multi-select-items'),
+        itemsElement,
         closeButtonSelector: '.multi-select-close',
         popover
     }
 
+    EventHandler.on(itemsElement, 'change', '.multi-select-input', e => {
+        invoke.invokeMethodAsync('TriggerEditTag', e.target.value)
+    });
+
+    EventHandler.on(itemsElement, 'click', '.multi-select-input', e => {
+        const handler = setTimeout(() => {
+            clearTimeout(handler);
+            e.target.focus();
+        }, 50);
+    });
+
+    EventHandler.on(itemsElement, 'keyup', '.multi-select-input', e => {
+        const key = e.target.getAttribute('data-bb-trigger-key');
+        if (key === 'space') {
+            invoke.invokeMethodAsync('TriggerEditTag', e.target.value)
+        }
+    });
+
     if (!ms.popover.isPopover) {
-        EventHandler.on(ms.itemsElement, 'click', ms.closeButtonSelector, () => {
+        EventHandler.on(itemsElement, 'click', ms.closeButtonSelector, () => {
             const dropdown = bootstrap.Dropdown.getInstance(popover.toggleElement)
             if (dropdown && dropdown._isShown()) {
                 dropdown.hide()

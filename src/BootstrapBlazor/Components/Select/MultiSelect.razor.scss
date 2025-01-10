@@ -101,6 +101,18 @@
         line-height: var(--bb-height);
         position: absolute;
     }
+
+    .multi-select-input {
+        border: none;
+        outline: none;
+        appearance: none;
+        padding: 0;
+        background-color: transparent;
+        flex: 1;
+        width: 1%;
+        min-width: 1rem;
+        margin-block-end: var(--bb-multi-select-item-margin-y);
+    }
 }
 
 .dropdown-menu .toolbar {
