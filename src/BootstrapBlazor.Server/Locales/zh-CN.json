@@ -490,7 +490,9 @@
     "LightsColorIntro": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
     "LightsTooltipTextTitle": "提示文字",
     "LightsTooltipTextIntro": "通过设置属性 <code>TooltipText</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字",
-    "TooltipText": "我是提示文字信息"
+    "TooltipText": "我是提示文字信息",
+    "LightsFlatTitle": "扁平化",
+    "LightsFlatIntro": "通过设置属性 <code>IsFlat</code> 使指示灯扁平化"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Index": {
     "Chart": "Chart 图表",
@@ -2282,6 +2284,7 @@
     "Block2Intro": "级联选择不可用状态",
     "Block3Title": "Cascader 双向绑定",
     "Block3Intro": "通过 <code>Select</code> 组件绑定 <code>Value</code> 属性，改变级联选择选项时，文本框内的数值随之改变。",
+    "Block3Desc": "通过设置 <code>Clearable=\"true\"</code> 参数，使组件获得焦点或者鼠标悬浮时显示一个 <b>清除</b> 小按钮",
     "Block4Title": "Cascader 客户端验证",
     "Block4Intro": "级联选择未选择时，点击提交按钮时拦截。",
     "Block5Title": "绑定泛型为 Guid 结构",

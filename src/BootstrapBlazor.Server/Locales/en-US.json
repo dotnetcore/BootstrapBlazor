@@ -485,12 +485,14 @@
     "LightsNormalTitle": "common usage",
     "LightsNormalIntro": "for status indication",
     "LightsFlashingTitle": "flicker",
-    "LightsFlashingIntro": "Flash the light by setting the property <code>IsFlash</code>",
+    "LightsFlashingIntro": "Flash the light by setting the parameter <code>IsFlash</code>",
     "LightsColorTitle": "discoloration",
-    "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
+    "LightsColorIntro": "Color the light by setting the value of the parameter <code>Color</code>",
     "LightsTooltipTextTitle": "prompt text",
     "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
-    "TooltipText": "I am prompt text message"
+    "TooltipText": "I am prompt text message",
+    "LightsFlatTitle": "Flat",
+    "LightsFlatIntro": "Make the indicator light flat by setting the parameter <code>IsFlat</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Index": {
     "Chart": "Chart",
@@ -2282,6 +2284,7 @@
     "Block2Intro": "Cascading selection is not available",
     "Block3Title": "Two-way binding",
     "Block3Intro": "The values in the text box change when you change the cascading selection option by binding the <code>Value</code> property with the <code>Select</code> component.",
+    "Block3Desc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
     "Block4Title": "Client validation",
     "Block4Intro": "When cascading selection is not selected, click the submit button to block.",
     "Block5Title": "The binding generic is the Guid structure",

@@ -8,19 +8,68 @@ namespace UnitTest.Components;
 public class CascaderTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ValidateForm_OK()
+    public async Task ValidateForm_OK()
     {
-        var foo = new Foo();
+        var foo = new Foo() { Name = "test1" };
+        var valid = false;
+        var invalid = false;
+        var items = new List<CascaderItem>()
+        {
+            new() { Text = "Test1", Value = "test1" },
+            new() { Text = "Test2", Value = "test2" }
+        };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
+            pb.Add(a => a.OnValidSubmit, context =>
+            {
+                valid = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<Cascader<string>>(pb =>
             {
+                pb.Add(a => a.Items, items);
                 pb.Add(a => a.DisplayText, "Test_DisplayText");
                 pb.Add(a => a.ShowLabel, true);
+                pb.Add(a => a.IsClearable, true);
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                pb.Add(a => a.OnValueChanged, v =>
+                {
+                    foo.Name = v;
+                    return Task.CompletedTask;
+                });
             });
         });
         cut.Contains("Test_DisplayText");
+
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(valid);
+
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-success"));
+
+        foo.Name = null;
+        var cascader = cut.FindComponent<Cascader<string>>();
+        cascader.SetParametersAndRender();
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(invalid);
+
+        span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-danger"));
     }
 
     [Fact]
@@ -29,8 +78,12 @@ public class CascaderTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Cascader<string>>(pb =>
         {
             pb.Add(a => a.Color, Color.Success);
+            pb.Add(a => a.IsClearable, true);
         });
         cut.Contains("border-success");
+
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-success"));
     }
 
     [Fact]
@@ -129,10 +182,30 @@ public class CascaderTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Cascader<string>>(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
+            pb.Add(a => a.IsClearable, true);
         });
 
         var input = cut.Find(".dropdown > input");
         Assert.True(input.HasAttribute("disabled"));
+    }
+
+    [Fact]
+    public async Task IsClearable_Ok()
+    {
+        var isClear = false;
+        var cut = Context.RenderComponent<Cascader<string>>(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.OnClearAsync, () =>
+            {
+                isClear = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var clearButton = cut.Find(".clear-icon");
+        await cut.InvokeAsync(() => clearButton.Click());
+        Assert.True(isClear);
     }
 
     [Fact]
