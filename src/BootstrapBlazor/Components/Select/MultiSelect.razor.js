@@ -23,10 +23,6 @@ export function init(id, invoke, method) {
         popover
     }
 
-    EventHandler.on(itemsElement, 'change', '.multi-select-input', e => {
-        invoke.invokeMethodAsync('TriggerEditTag', e.target.value)
-    });
-
     EventHandler.on(itemsElement, 'click', '.multi-select-input', e => {
         const handler = setTimeout(() => {
             clearTimeout(handler);
@@ -34,10 +30,21 @@ export function init(id, invoke, method) {
         }, 50);
     });
 
-    EventHandler.on(itemsElement, 'keyup', '.multi-select-input', e => {
-        const key = e.target.getAttribute('data-bb-trigger-key');
-        if (key === 'space') {
-            invoke.invokeMethodAsync('TriggerEditTag', e.target.value)
+    EventHandler.on(itemsElement, 'keyup', '.multi-select-input', async e => {
+        const triggerSpace = e.target.getAttribute('data-bb-trigger-key') === 'space';
+        let submit = false;
+        if (triggerSpace && e.code === 'Space') {
+            submit = true;
+        }
+        else if (e.code === 'Enter' || e.code === 'NumPadEnter') {
+            submit = true;
+        }
+
+        if (submit) {
+            const ret = await invoke.invokeMethodAsync('TriggerEditTag', e.target.value);
+            if (ret) {
+                e.target.value = '';
+            }
         }
     });
 

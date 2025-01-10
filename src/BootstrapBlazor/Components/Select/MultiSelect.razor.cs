@@ -96,11 +96,11 @@ public partial class MultiSelect<TValue>
 
     /// <summary>
     /// 获得/设置 编辑模式下输入选项更新后回调方法 默认 null
-    /// <para>返回 true 时输入选项生效，返回 false 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
+    /// <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
     /// </summary>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
-    public Func<string, Task<bool>>? OnEditCallback { get; set; }
+    public Func<string, Task<SelectedItem>>? OnEditCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑提交按键 默认 Enter
@@ -287,19 +287,28 @@ public partial class MultiSelect<TValue>
     /// <param name="val"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerEditTag(string val)
+    public async Task<bool> TriggerEditTag(string val)
     {
-        var ret = true;
+        SelectedItem? ret = null;
+        val = val.Trim();
         if (OnEditCallback != null)
         {
             ret = await OnEditCallback.Invoke(val);
         }
-
-        if (ret)
+        else if (!string.IsNullOrEmpty(val))
+        {
+            ret = GetData().Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
+            if (SelectedItems.Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) == null)
+            {
+                SelectedItems.Add(ret);
+            }
+        }
+        if (ret != null)
         {
             // 更新选中值
             await SetValue();
         }
+        return ret != null;
     }
 
     private string? GetValueString(SelectedItem item) => IsPopover ? item.Value : null;
@@ -433,14 +442,14 @@ public partial class MultiSelect<TValue>
         return !ret;
     }
 
-    private IEnumerable<SelectedItem> GetData()
+    private List<SelectedItem> GetData()
     {
         var data = Items;
         if (ShowSearch && !string.IsNullOrEmpty(SearchText))
         {
             data = OnSearchTextChanged(SearchText);
         }
-        return data;
+        return data.ToList();
     }
 
     /// <summary>
