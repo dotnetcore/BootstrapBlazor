@@ -10,7 +10,7 @@
     <section ignore>
         @((MarkupString)Localizer["NormalDesc"].Value)
     </section>
-    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" IsClearable>
+    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" IsClearable="true">
         <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
             <BodyTemplate Context="value">
                 <Card>
