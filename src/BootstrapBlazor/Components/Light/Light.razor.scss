@@ -76,6 +76,9 @@
             height: 100%;
             border-radius: 50%;
             border: 1px solid var(--bb-light-bg);
+        }
+
+        &.is-flat-flash:after {
             animation: light-flat 1.2s infinite ease-in-out;
         }
     }
@@ -196,7 +199,7 @@
 @include animation(light-danger, #e17777, #892726);
 @include animation(light-success, #5cb85c, #116811);
 @include animation(light-info, #5bc0de, #1d7792);
-@include animation(light-light-warning, #ffc107, #cc9f18);
+@include animation(light-warning, #ffc107, #cc9f18);
 @include animation(light-primary, #007bff, #0f5fb5);
 @include animation(light-secondary, #6c757d, #4b5054);
 @include animation(light-dark, #6061e2, #3232a0);
