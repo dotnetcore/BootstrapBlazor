@@ -204,6 +204,7 @@ public partial class Cascader<TValue>
 
     private string? ClassString => CssBuilder.Default("select cascade menu dropdown")
         .AddClass("disabled", IsDisabled)
+        .AddClass("cls", IsClearable)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
