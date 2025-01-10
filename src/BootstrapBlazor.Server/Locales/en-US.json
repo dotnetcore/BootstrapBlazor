@@ -485,12 +485,14 @@
     "LightsNormalTitle": "common usage",
     "LightsNormalIntro": "for status indication",
     "LightsFlashingTitle": "flicker",
-    "LightsFlashingIntro": "Flash the light by setting the property <code>IsFlash</code>",
+    "LightsFlashingIntro": "Flash the light by setting the parameter <code>IsFlash</code>",
     "LightsColorTitle": "discoloration",
-    "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
+    "LightsColorIntro": "Color the light by setting the value of the parameter <code>Color</code>",
     "LightsTooltipTextTitle": "prompt text",
     "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
-    "TooltipText": "I am prompt text message"
+    "TooltipText": "I am prompt text message",
+    "LightsFlatTitle": "Flat",
+    "LightsFlatIntro": "Make the indicator light flat by setting the parameter <code>IsFlat</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Index": {
     "Chart": "Chart",
