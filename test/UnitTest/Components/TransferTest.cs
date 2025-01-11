@@ -29,6 +29,16 @@ public class TransferTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Height_Ok()
+    {
+        var cut = Context.RenderComponent<Transfer<string>>(pb =>
+        {
+            pb.Add(a => a.Height, "200px");
+        });
+        cut.Contains("--bb-transfer-height: 200px;");
+    }
+
+    [Fact]
     public async Task EnumerableString_Value()
     {
         var cut = Context.RenderComponent<Transfer<IEnumerable<string>>>(pb =>

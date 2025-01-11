@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -50,9 +49,7 @@ public partial class Transfer<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
@@ -188,9 +185,25 @@ public partial class Transfer<TValue>
     [Parameter]
     public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组件高度 默认值 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ClassString => CssBuilder.Default("transfer")
+        .AddClass("has-height", !string.IsNullOrEmpty(Height))
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-transfer-height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// OnInitialized 方法
