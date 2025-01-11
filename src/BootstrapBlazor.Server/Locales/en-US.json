@@ -4786,7 +4786,8 @@
     "WinBox": "WinBox",
     "Player": "Player",
     "RDKit": "RDKit",
-    "SmilesDrawer": "SmilesDrawer"
+    "SmilesDrawer": "SmilesDrawer",
+    "Affix": "Affix"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6868,5 +6869,14 @@
     "SmilesDrawerNormalIntro": "Set the molecular formula through <code>Smiles</code> and draw the component",
     "SmilesDrawerSizeTitle": "Size",
     "SmilesDrawerSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Affixs": {
+    "AffixTitle": "Affix",
+    "AffixIntro": "Fix the element to a specific visible area",
+    "AffixNormalTitle": "Basic usage",
+    "AffixNormalIntro": "Affix is fixed at the top of the page by default",
+    "AffixPositionTitle": "Position",
+    "AffixPositionIntro": "Use the parameter <code>Position</code> to control whether the top or bottom is fixed",
+    "AffixOffsetDesc": "The parameter <code>Position</code> controls whether the top or bottom is fixed, and the <code>Offset</code> value sets the offset to the top or bottom"
   }
 }
