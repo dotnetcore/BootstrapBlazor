@@ -4786,7 +4786,8 @@
     "WinBox": "窗口 WinBox",
     "Player": "播放器 Player",
     "RDKit": "分子式组件 RDKit",
-    "SmilesDrawer": "分子式组件 SmilesDrawer"
+    "SmilesDrawer": "分子式组件 SmilesDrawer",
+    "Affix": "固钉组件 Affix"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6868,5 +6869,13 @@
     "SmilesDrawerNormalIntro": "通过 <code>Smiles</code> 设置分子式，组件画图",
     "SmilesDrawerSizeTitle": "尺寸",
     "SmilesDrawerSizeIntro": "通过设置 <code>Width</code> <code>Height</code> 值设置分子式宽高"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Affixs": {
+    "AffixTitle": "Affix 固钉组件",
+    "AffixIntro": "将页面元素钉在可视范围",
+    "AffixNormalTitle": "基础用法",
+    "AffixNormalIntro": "固钉默认固定在页面顶部",
+    "AffixPositionTitle": "位置与距离",
+    "AffixPositionIntro": "通过参数 <code>Position</code> 控制固定顶端还是底端，通过 <code>Offset</code> 值设置到顶端或者底端距离偏移量"
   }
 }
