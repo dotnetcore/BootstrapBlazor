@@ -108,7 +108,7 @@ public partial class ComponentLayout : IAsyncDisposable
         }
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("init");
+            await Module.InvokeVoidAsync("scrollToAnchor");
         }
     }
 

@@ -1,4 +1,4 @@
-﻿export function init() {
+﻿export function scrollToAnchor() {
     const hash = decodeURI(location.hash)
     if (hash) {
         const anchor = hash.split('-')[0]
