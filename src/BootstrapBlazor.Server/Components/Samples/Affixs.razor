@@ -1,0 +1,31 @@
+﻿@page "/affix"
+
+<h3>@Localizer["AffixTitle"]</h3>
+
+<h4>@Localizer["AffixIntro"]</h4>
+
+<DemoBlock Title="@Localizer["AffixNormalTitle"]" Introduction="@Localizer["AffixNormalIntro"]" Name="Normal">
+    <div style="overflow: auto; height: 200px;">
+        <div style="height: 50px;">标题栏 Header</div>
+        <Affix>
+            <div style="line-height: 50px;">固定行 Affix</div>
+        </Affix>
+        <div style="height: 300px;">
+            <p>向下滚动查看效果</p>
+            <div>Scroll down to see the affix effect</div>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AffixPositionTitle"]" Introduction="@Localizer["AffixPositionIntro"]" Name="Position">
+    <div style="overflow: auto; height: 200px;">
+        <div style="height: 50px;">标题栏 Header</div>
+        <div style="height: 300px;">
+            <p>上下滚动查看效果</p>
+            <div>Scroll up and down to see the effect</div>
+        </div>
+        <Affix Position="AffixPosition.Bottom" Offset="10">
+            <div>底部固定行 Affix</div>
+        </Affix>
+    </div>
+</DemoBlock>
