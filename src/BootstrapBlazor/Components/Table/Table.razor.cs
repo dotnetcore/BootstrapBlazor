@@ -1387,7 +1387,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
-        _pageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
+        _pageItems = request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
