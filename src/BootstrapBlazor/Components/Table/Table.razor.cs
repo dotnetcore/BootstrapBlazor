@@ -1387,8 +1387,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
-        //有搜索条件使用原始分页数
-        _pageItems = (!string.IsNullOrEmpty(SearchText) && TotalCount > 0) ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
+        _pageItems = request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
