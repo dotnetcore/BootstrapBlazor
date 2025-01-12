@@ -223,7 +223,8 @@
     "player": "Players",
     "rdkit": "Rdkits",
     "smiles-drawer": "SmilesDrawers",
-    "affix": "Affixs"
+    "affix": "Affixs",
+    "watermark": "Watermarks"
   },
   "video": {
     "table": "BV1ap4y1x7Qn?p=1",
