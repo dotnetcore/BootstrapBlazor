@@ -72,9 +72,6 @@ public partial class MultiSelects
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    [NotNull]
-    private ConsoleLogger? OptionLogger { get; set; }
-
     private List<SelectedItem>? SearchItemsSource { get; set; }
 
     private string SelectedSearchItemsValue { get; set; } = "Beijing";
@@ -97,6 +94,21 @@ public partial class MultiSelects
     private IEnumerable<SelectedItem>? TemplateItems { get; set; }
 
     private List<SelectedItem> CascadingItems1 { get; set; } = [];
+
+    private string? _editString;
+
+    private async Task<SelectedItem> OnEditCallback(string value)
+    {
+        await Task.Delay(100);
+
+        var item = EditableItems.Find(i => i.Text.Equals(value, System.StringComparison.OrdinalIgnoreCase));
+        if (item == null)
+        {
+            item = new SelectedItem(value, value);
+            EditableItems.Add(item);
+        }
+        return item;
+    }
 
     private SelectedItem[] GroupItems { get; } =
     [
