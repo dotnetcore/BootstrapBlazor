@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../modules/event-handler.js"
+﻿import Data from "../../modules/data.js"
 
 export function init(id, options) {
     const el = document.getElementById(id);
@@ -7,10 +7,41 @@ export function init(id, options) {
     }
 
     createWatermark(el, options);
+
+    const ob = new MutationObserver(records => updateWatermark(el, records, options));
+    ob.observe(el, {
+        childList: true,
+        attributes: true,
+        subtree: true
+    });
+
+    Data.set(id, { el, ob });
 }
 
 export function dispose(id) {
+    const watermark = Data.get(id);
+    Data.remove(id);
 
+    if (watermark) {
+        const { ob } = watermark;
+        ob.disconnect();
+    }
+}
+
+const updateWatermark = (el, records, options) => {
+    for (const record of records) {
+        for (const dom of record.removedNodes) {
+            if (dom.classList.contains('bb-watermark-bg')) {
+                createWatermark(el, options);
+                return;
+            }
+        }
+
+        if (record.target.classList.contains('bb-watermark-bg')) {
+            createWatermark(el, options);
+            return;
+        }
+    }
 }
 
 const createWatermark = (el, options) => {
@@ -21,18 +52,23 @@ const createWatermark = (el, options) => {
         rotate: -40
     };
 
-    for(const key in options) {
-        if(options[key] === void 0 || options[key] === null) {
+    for (const key in options) {
+        if (options[key] === void 0 || options[key] === null) {
             delete options[key];
         }
     }
 
-    const bg = getWatermark({... defaults, ...options });
+    const bg = getWatermark({ ...defaults, ...options });
     const div = document.createElement('div');
     const { base64, styleSize } = bg;
     div.style.backgroundImage = `url(${base64})`;
     div.style.backgroundSize = `${styleSize}px ${styleSize}px`;
     div.classList.add("bb-watermark-bg");
+
+    const mark = el.querySelector('.bb-watermark-bg');
+    if (mark) {
+        mark.remove();
+    }
     el.appendChild(div);
 }
 
