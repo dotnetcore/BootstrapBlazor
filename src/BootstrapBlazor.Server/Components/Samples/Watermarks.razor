@@ -6,7 +6,35 @@
 <h4>@Localizer["Watermarkntro"]</h4>
 
 <DemoBlock Title="@Localizer["WatermarkNormalTitle"]" Introduction="@Localizer["WatermarkNormalIntro"]" Name="Normal">
-    <Watermark Text="BootstrapBlazor">
+    <section ignore>
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Text"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_text"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="FontSize"></BootstrapInputGroupLabel>
+                    <Slider @bind-Value="@_fontSize" Min="12" Max="20"></Slider>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Color"></BootstrapInputGroupLabel>
+                    <ColorPicker @bind-Value="@_color" IsSupportOpacity="true"></ColorPicker>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Rotate"></BootstrapInputGroupLabel>
+                    <Slider @bind-Value="@_rotate" Min="-180" Max="180"></Slider>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <Watermark Text="@_text" FontSize="@_fontSizeString" Color="@_color">
         <div style="height: 500px;"></div>
     </Watermark>
 </DemoBlock>

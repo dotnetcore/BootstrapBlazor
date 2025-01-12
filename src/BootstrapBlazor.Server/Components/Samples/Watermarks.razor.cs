@@ -10,5 +10,15 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Watermarks
 {
+    private string _text = "BootstrapBlazor";
 
+    private int _fontSize = 16;
+
+    private string _fontSizeString => _fontSize.ToString();
+
+    private int _gap;
+
+    private int _rotate = -40;
+
+    private string? _color;
 }
