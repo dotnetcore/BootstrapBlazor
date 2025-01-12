@@ -5,8 +5,8 @@ export function init(id, options) {
     if (el === null) {
         return;
     }
-
-    createWatermark(el, options);
+    const watermark = { el, options };
+    createWatermark(watermark);
 
     const observer = ob => {
         ob.observe(el, {
@@ -18,14 +18,22 @@ export function init(id, options) {
 
     const observerCallback = records => {
         ob.disconnect();
-        updateWatermark(el, records, options);
+        updateWatermark(records, watermark);
         observer(ob);
     };
 
     const ob = new MutationObserver(observerCallback);
     observer(ob);
+    watermark.ob = ob;
 
-    Data.set(id, { el, ob });
+    Data.set(id, watermark);
+}
+
+export function update(id, options) {
+    const watermark = Data.get(id);
+    watermark.options = options;
+
+    createWatermark(watermark);
 }
 
 export function dispose(id) {
@@ -40,23 +48,24 @@ export function dispose(id) {
     }
 }
 
-const updateWatermark = (el, records, options) => {
+const updateWatermark = (records, watermark) => {
     for (const record of records) {
         for (const dom of record.removedNodes) {
             if (dom.classList.contains('bb-watermark-bg')) {
-                createWatermark(el, options);
+                createWatermark(watermark);
                 return;
             }
         }
 
         if (record.target.classList.contains('bb-watermark-bg')) {
-            createWatermark(el, options);
+            createWatermark(watermark);
             return;
         }
     }
 }
 
-const createWatermark = (el, options) => {
+const createWatermark = watermark => {
+    const { el, options } = watermark;
     const defaults = {
         gap: 40,
         fontSize: 16,

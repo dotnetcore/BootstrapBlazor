@@ -64,6 +64,28 @@ public partial class Watermark
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id, new
+            {
+                Text,
+                FontSize,
+                Color,
+                Rotate,
+                ZIndex
+            });
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
     {
