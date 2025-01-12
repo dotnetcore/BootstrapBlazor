@@ -20,5 +20,7 @@ public partial class Watermarks
 
     private int _rotate = -40;
 
-    private string? _color;
+    private string _rotateString => _rotate.ToString();
+
+    private string _color = "#0000004d";
 }
