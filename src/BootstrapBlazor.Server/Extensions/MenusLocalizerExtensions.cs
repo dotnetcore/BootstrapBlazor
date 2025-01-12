@@ -774,6 +774,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Waterfall"],
                     Url = "tutorials/waterfall"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Watermark"],
+                    Url = "watermark"
                 }
             };
             AddBadge(item);
