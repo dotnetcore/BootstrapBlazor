@@ -47,6 +47,12 @@ public partial class Watermark
     [Parameter]
     public int? ZIndex { get; set; }
 
+    /// <summary>
+    /// 获得/设置 水印之间的间距 值 默认 null
+    /// </summary>
+    [Parameter]
+    public int? Gap { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-watermark")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -72,14 +78,7 @@ public partial class Watermark
 
         if (!firstRender)
         {
-            await InvokeVoidAsync("update", Id, new
-            {
-                Text,
-                FontSize,
-                Color,
-                Rotate,
-                ZIndex
-            });
+            await InvokeVoidAsync("update", Id, GetOptions());
         }
     }
 
@@ -87,12 +86,15 @@ public partial class Watermark
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, new
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, GetOptions());
+
+    private object GetOptions() => new
     {
         Text,
         FontSize,
         Color,
         Rotate,
+        Gap,
         ZIndex
-    });
+    };
 }
