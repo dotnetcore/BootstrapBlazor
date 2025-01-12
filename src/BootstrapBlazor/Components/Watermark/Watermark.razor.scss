@@ -1,0 +1,10 @@
+.bb-watermark {
+    position: relative;
+
+    .bb-watermark-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 9999;
+        pointer-events: none;
+    }
+}
