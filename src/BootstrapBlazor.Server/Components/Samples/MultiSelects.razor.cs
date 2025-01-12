@@ -72,9 +72,6 @@ public partial class MultiSelects
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    [NotNull]
-    private ConsoleLogger? OptionLogger { get; set; }
-
     private List<SelectedItem>? SearchItemsSource { get; set; }
 
     private string SelectedSearchItemsValue { get; set; } = "Beijing";
