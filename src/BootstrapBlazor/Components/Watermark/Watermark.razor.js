@@ -8,12 +8,22 @@ export function init(id, options) {
 
     createWatermark(el, options);
 
-    const ob = new MutationObserver(records => updateWatermark(el, records, options));
-    ob.observe(el, {
-        childList: true,
-        attributes: true,
-        subtree: true
-    });
+    const observer = ob => {
+        ob.observe(el, {
+            childList: true,
+            attributes: true,
+            subtree: true
+        });
+    }
+
+    const observerCallback = records => {
+        ob.disconnect();
+        updateWatermark(el, records, options);
+        observer(ob);
+    };
+
+    const ob = new MutationObserver(observerCallback);
+    observer(ob);
 
     Data.set(id, { el, ob });
 }
@@ -25,6 +35,8 @@ export function dispose(id) {
     if (watermark) {
         const { ob } = watermark;
         ob.disconnect();
+
+        delete watermark.ob;
     }
 }
 
@@ -63,6 +75,12 @@ const createWatermark = (el, options) => {
     const { base64, styleSize } = bg;
     div.style.backgroundImage = `url(${base64})`;
     div.style.backgroundSize = `${styleSize}px ${styleSize}px`;
+    div.style.backgroundRepeat = 'repeat';
+    div.style.pointerEvents = 'none';
+    div.style.opacity = '1';
+    div.style.position = 'absolute';
+    div.style.inset = '0';
+    div.style.zIndex = 999;
     div.classList.add("bb-watermark-bg");
 
     const mark = el.querySelector('.bb-watermark-bg');
