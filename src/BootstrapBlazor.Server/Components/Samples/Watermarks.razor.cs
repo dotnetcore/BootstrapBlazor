@@ -16,7 +16,7 @@ public partial class Watermarks
 
     private string _fontSizeString => _fontSize.ToString();
 
-    private int _gap;
+    private int _gap = 40;
 
     private int _rotate = -40;
 
