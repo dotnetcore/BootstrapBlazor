@@ -95,6 +95,21 @@ public partial class MultiSelects
 
     private List<SelectedItem> CascadingItems1 { get; set; } = [];
 
+    private string? _editString;
+
+    private async Task<SelectedItem> OnEditCallback(string value)
+    {
+        await Task.Delay(100);
+
+        var item = EditableItems.Find(i => i.Text.Equals(value, System.StringComparison.OrdinalIgnoreCase));
+        if (item == null)
+        {
+            item = new SelectedItem(value, value);
+            EditableItems.Add(item);
+        }
+        return item;
+    }
+
     private SelectedItem[] GroupItems { get; } =
     [
         new("Jilin", "吉林") { GroupName = "东北"},
