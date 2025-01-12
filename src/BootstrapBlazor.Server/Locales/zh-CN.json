@@ -6878,5 +6878,11 @@
     "AffixNormalIntro": "固钉默认固定在页面顶部",
     "AffixPositionTitle": "位置与距离",
     "AffixPositionIntro": "通过参数 <code>Position</code> 控制固定顶端还是底端，通过 <code>Offset</code> 值设置到顶端或者底端距离偏移量"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Watermarks": {
+    "WatermarkTitle": "Watermark 水印组件",
+    "Watermarkntro": "在页面上添加文本或图片等水印信息",
+    "WatermarkNormalTitle": "基础用法",
+    "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容"
   }
 }
