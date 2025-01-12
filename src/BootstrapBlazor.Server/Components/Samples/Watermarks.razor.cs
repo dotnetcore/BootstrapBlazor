@@ -14,13 +14,9 @@ public partial class Watermarks
 
     private int _fontSize = 16;
 
-    private string _fontSizeString => _fontSize.ToString();
-
     private int _gap = 40;
 
     private int _rotate = -40;
-
-    private string _rotateString => _rotate.ToString();
 
     private string _color = "#0000004d";
 }
