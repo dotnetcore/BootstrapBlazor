@@ -70,7 +70,8 @@ const createWatermark = watermark => {
         gap: 40,
         fontSize: 16,
         text: 'BootstrapBlazor',
-        rotate: -40
+        rotate: -40,
+        color: '#0000004d'
     };
 
     for (const key in options) {
@@ -89,7 +90,7 @@ const createWatermark = watermark => {
     div.style.opacity = '1';
     div.style.position = 'absolute';
     div.style.inset = '0';
-    div.style.zIndex = 999;
+    div.style.zIndex = '999';
     div.classList.add("bb-watermark-bg");
 
     const mark = el.querySelector('.bb-watermark-bg');
@@ -115,7 +116,7 @@ const getWatermark = props => {
     ctx.translate(canvas.width / 2, canvas.height / 2);
 
     ctx.rotate((Math.PI / 180) * props.rotate);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.fillStyle = props.color;
     ctx.font = font;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
