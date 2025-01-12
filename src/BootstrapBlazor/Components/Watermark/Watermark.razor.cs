@@ -24,10 +24,10 @@ public partial class Watermark
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 字体大小 如 1rem 12px 默认 null 未设置
+    /// 获得/设置 字体大小 默认 null 未设置 默认使用 16px 字体大小 单位 px
     /// </summary>
     [Parameter]
-    public string? FontSize { get; set; }
+    public int? FontSize { get; set; }
 
     /// <summary>
     /// 获得/设置 颜色 默认 null 未设置
@@ -39,7 +39,7 @@ public partial class Watermark
     /// 获得/设置 水印的旋转角度 默认 null 45°
     /// </summary>
     [Parameter]
-    public string? Rotate { get; set; }
+    public int? Rotate { get; set; }
 
     /// <summary>
     /// 获得/设置 水印元素的 z-index 值 默认 null
