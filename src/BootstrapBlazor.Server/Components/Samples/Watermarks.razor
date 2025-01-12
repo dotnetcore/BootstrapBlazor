@@ -1,0 +1,12 @@
+﻿@page "/watermark"
+@inject IStringLocalizer<Watermarks> Localizer
+
+<h3>@Localizer["WatermarkTitle"]</h3>
+
+<h4>@Localizer["Watermarkntro"]</h4>
+
+<DemoBlock Title="@Localizer["WatermarkNormalTitle"]" Introduction="@Localizer["WatermarkNormalIntro"]" Name="Normal">
+    <Watermark Text="BootstrapBlazor">
+        <div style="height: 500px;"></div>
+    </Watermark>
+</DemoBlock>
