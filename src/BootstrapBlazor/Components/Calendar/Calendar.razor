@@ -35,27 +35,41 @@
         <div class="calendar-body">
             <table cellspacing="0" cellpadding="0" class="calendar-table">
                 <thead>
-                    <tr>
-                        @foreach (var w in WeekLists)
-                        {
-                            <th>@w</th>
-                        }
-                    </tr>
+                    @if (HeaderTemplate != null)
+                    {
+                        @HeaderTemplate
+                    }
+                    else
+                    {
+                        <tr>
+                            @foreach (var w in WeekLists)
+                            {
+                                <th>@w</th>
+                            }
+                        </tr>
+                    }
                 </thead>
                 <tbody>
                     @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
                     {
                         <tr class="calendar-table-row">
-                            @for (var index = 0; index < 7; index++)
+                            @if (BodyTemplate != null)
                             {
-                                var cellValue = CreateCellValue(week.AddDays(index));
-                                if (CellTemplate == null)
+                                @BodyTemplate(week)
+                            }
+                            else
+                            {
+                                @for (var index = 0; index < 7; index++)
                                 {
-                                    @RenderCell(cellValue)
-                                }
-                                else
-                                {
-                                    @CellTemplate(cellValue)
+                                    var cellValue = CreateCellValue(week.AddDays(index));
+                                    if (CellTemplate == null)
+                                    {
+                                        @RenderCell(cellValue)
+                                    }
+                                    else
+                                    {
+                                        @CellTemplate(cellValue)
+                                    }
                                 }
                             }
                         </tr>
@@ -85,19 +99,19 @@
         <div class="calendar-body">
             <table cellspacing="0" cellpadding="0" class="calendar-table table-week">
                 <thead>
-                    <tr>
-                        @if (AdditionalHeaders != null)
-                        {
-                            foreach (var item in AdditionalHeaders)
+                    @if (HeaderTemplate != null)
+                    {
+                        @HeaderTemplate
+                    }
+                    else
+                    {
+                        <tr>
+                            @for (var index = 0; index < 7; index++)
                             {
-                                @RenderAddHeader(item)
+                                @RenderWeekHeader(index)
                             }
-                        }
-                        @for (var index = 0; index < 7; index++)
-                        {
-                            @RenderWeekHeader(index)
-                        }
-                    </tr>
+                        </tr>
+                    }
                 </thead>
                 <tbody>
                     @ChildContent
@@ -120,13 +134,6 @@
         <div class="@GetWeekDayClassString(index)">
             <div><span class="d-none d-sm-inline-block">@WeekHeaderText</span>@WeekLists.ElementAtOrDefault(index)</div>
             <div>@GetWeekDayString(index)</div>
-        </div>
-    </th>;
-
-    RenderFragment<string> RenderAddHeader => name =>
-    @<th>
-        <div class="week-header">
-            <div><span class="d-none d-sm-inline-block">@name</span></div> 
         </div>
     </th>;
 }
