@@ -55,7 +55,7 @@
                         <tr class="calendar-table-row">
                             @if (BodyTemplate != null)
                             {
-                                @BodyTemplate(week)
+                                @BodyTemplate(GetBodyTemplateContext(week))
                             }
                             else
                             {
