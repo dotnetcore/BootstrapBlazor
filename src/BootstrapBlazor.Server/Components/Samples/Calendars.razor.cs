@@ -22,6 +22,8 @@ public sealed partial class Calendars
 
     private DateTime BindValue { get; set; } = DateTime.Today;
 
+    private CalendarViewMode HeaderTemplateViewMode { get; set; }
+
     private static string Formatter(DateTime ts) => ts.ToString("yyyy-MM-dd");
 
     private ConcurrentDictionary<DateTime, List<Crew>> Data { get; } = new();
