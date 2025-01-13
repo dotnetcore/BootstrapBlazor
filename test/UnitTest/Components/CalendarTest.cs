@@ -58,6 +58,33 @@ public class CalendarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeaderTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Calendar>(builder =>
+        {
+            builder.Add(a => a.ViewMode, CalendarViewMode.Month);
+            builder.Add(a => a.HeaderTemplate, builder =>
+            {
+                builder.AddContent(0, "HeaderTemplate");
+            });
+            builder.Add(a => a.BodyTemplate, context => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "data-bb-value", context.Values.Count);
+                builder.CloseElement();
+            });
+        });
+
+        Assert.Contains("HeaderTemplate", cut.Markup);
+        Assert.Contains("data-bb-value=\"7\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, CalendarViewMode.Week);
+        });
+    }
+
+    [Fact]
     public async Task ButtonClick_Ok()
     {
         var v = DateTime.MinValue;
