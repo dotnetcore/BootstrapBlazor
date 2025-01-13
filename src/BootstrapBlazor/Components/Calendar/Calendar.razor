@@ -35,27 +35,41 @@
         <div class="calendar-body">
             <table cellspacing="0" cellpadding="0" class="calendar-table">
                 <thead>
-                    <tr>
-                        @foreach (var w in WeekLists)
-                        {
-                            <th>@w</th>
-                        }
-                    </tr>
+                    @if (HeaderTemplate != null)
+                    {
+                        @HeaderTemplate
+                    }
+                    else
+                    {
+                        <tr>
+                            @foreach (var w in WeekLists)
+                            {
+                                <th>@w</th>
+                            }
+                        </tr>
+                    }
                 </thead>
                 <tbody>
                     @for (var week = StartDate; week < EndDate; week = week.AddDays(7))
                     {
                         <tr class="calendar-table-row">
-                            @for (var index = 0; index < 7; index++)
+                            @if (BodyTemplate != null)
                             {
-                                var cellValue = CreateCellValue(week.AddDays(index));
-                                if (CellTemplate == null)
+                                @BodyTemplate(GetBodyTemplateContext(week))
+                            }
+                            else
+                            {
+                                @for (var index = 0; index < 7; index++)
                                 {
-                                    @RenderCell(cellValue)
-                                }
-                                else
-                                {
-                                    @CellTemplate(cellValue)
+                                    var cellValue = CreateCellValue(week.AddDays(index));
+                                    if (CellTemplate == null)
+                                    {
+                                        @RenderCell(cellValue)
+                                    }
+                                    else
+                                    {
+                                        @CellTemplate(cellValue)
+                                    }
                                 }
                             }
                         </tr>
@@ -85,12 +99,19 @@
         <div class="calendar-body">
             <table cellspacing="0" cellpadding="0" class="calendar-table table-week">
                 <thead>
-                    <tr>
-                        @for (var index = 0; index < 7; index++)
-                        {
-                            @RenderWeekHeader(index)
-                        }
-                    </tr>
+                    @if (HeaderTemplate != null)
+                    {
+                        @HeaderTemplate
+                    }
+                    else
+                    {
+                        <tr>
+                            @for (var index = 0; index < 7; index++)
+                            {
+                                @RenderWeekHeader(index)
+                            }
+                        </tr>
+                    }
                 </thead>
                 <tbody>
                     @ChildContent

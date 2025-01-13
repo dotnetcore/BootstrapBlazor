@@ -162,16 +162,28 @@ public partial class Calendar
     public Func<DateTime, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示周视图 默认为 CalendarVieModel.Month 月视图
+    /// 获得/设置 是否显示周视图 默认为 <see cref="CalendarViewMode.Month"/> 月视图
     /// </summary>
     [Parameter]
     public CalendarViewMode ViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 周内容
+    /// 获得/设置 周内容 <see cref="CalendarViewMode.Week"/> 时有效
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列头模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Body 模板仅 <see cref="CalendarViewMode.Month"/> 有效
+    /// </summary>
+    [Parameter]
+    public RenderFragment<BodyTemplateContext>? BodyTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格模板
@@ -277,5 +289,12 @@ public partial class Calendar
         };
         val.DefaultCss = GetCalendarCellString(val);
         return val;
+    }
+
+    private BodyTemplateContext GetBodyTemplateContext(DateTime week)
+    {
+        var context = new BodyTemplateContext();
+        context.Values.AddRange(Enumerable.Range(0, 7).Select(i => CreateCellValue(week.AddDays(i))));
+        return context;
     }
 }

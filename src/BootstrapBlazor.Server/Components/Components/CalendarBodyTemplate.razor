@@ -1,0 +1,18 @@
+﻿<td>
+    <div class="calendar-day text-center">
+        总结
+    </div>
+</td>
+@foreach (var value in Context.Values)
+{
+    <td class="@value.DefaultCss">
+        <div class="calendar-day">
+            <span>@value.CellValue.Day</span>
+        </div>
+    </td>
+}
+<td>
+    <div class="calendar-day text-center">
+        结算
+    </div>  
+</td>

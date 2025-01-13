@@ -31,6 +31,36 @@
     <Calendar ViewMode="CalendarViewMode.Week" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["HeaderTemplateTitle"]" Introduction="@Localizer["HeaderTemplateIntro"]" Name="HeaderTemplate">
+    <section ignore>
+        <div class="row form-inline g-3">
+            <div class="col-12">
+                @((MarkupString)Localizer["HeaderTemplateDesc"].Value)
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ViewMode"></BootstrapInputGroupLabel>
+                    <Segmented @bind-Value="HeaderTemplateViewMode">
+                        <SegmentedItem Value="CalendarViewMode.Month" Text="Month"></SegmentedItem>
+                        <SegmentedItem Value="CalendarViewMode.Week" Text="Week"></SegmentedItem>
+                    </Segmented>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <Calendar ViewMode="HeaderTemplateViewMode">
+        <HeaderTemplate>
+            <CalendarHeaderTemplate ViewMode="HeaderTemplateViewMode"></CalendarHeaderTemplate>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <CalendarBodyTemplate Context="@context"></CalendarBodyTemplate>
+        </BodyTemplate>
+        <ChildContent>
+            <CalendarChildContent></CalendarChildContent>
+        </ChildContent>
+    </Calendar>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["AppTitle"]" Introduction="@Localizer["AppIntro"]" Name="App">
     <p>@((MarkupString)Localizer["AppText"].Value)</p>
     <Calendar ViewMode="CalendarViewMode.Week">
