@@ -11,9 +11,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class CodeEditors
 {
     [NotNull]
-    private ConsoleLogger? Logger { get; set; }
-
-    [NotNull]
     private string? Code { get; set; }
 
     [NotNull]
@@ -76,15 +73,6 @@ void Main()
         return Task.CompletedTask;
     }
 
-    private Task OnValueChanged(string? value)
-    {
-        if (!string.IsNullOrEmpty(value))
-        {
-            Logger.Log(value);
-        }
-        return Task.CompletedTask;
-    }
-
     private Task OnThemeSelectedItemChanged(SelectedItem item)
     {
         if (item.Value == "vs-dark")
@@ -105,45 +93,44 @@ void Main()
         return Task.CompletedTask;
     }
 
-    private IEnumerable<AttributeItem> GetAttributeItems()
+    private static List<AttributeItem> GetAttributeItems()
     {
-        return new List<AttributeItem>()
-        {
-            new AttributeItem()
-            {
-                Name = nameof(CodeEditor.Value),
-                Type = "string",
-                DefaultValue = "-",
-                Description = Localizer["Value"]
-            },
-            new AttributeItem()
-            {
-                Name = nameof(CodeEditor.Theme),
-                Type = "string",
-                DefaultValue = "vs",
-                Description = Localizer["Theme"]
-            },
-            new AttributeItem()
-            {
-                Name = nameof(CodeEditor.Language),
-                Type = "string",
-                DefaultValue = "csharp",
-                Description = Localizer["Language"]
-            },
-            new AttributeItem()
-            {
-                Name = nameof(CodeEditor.ValueChanged),
-                Type = "EventCallback<string?>",
-                DefaultValue = "-",
-                Description = Localizer["ValueChanged"]
-            },
-            new AttributeItem()
-            {
-                Name = nameof(CodeEditor.OnValueChanged),
-                Type = "Func<string?,Task>",
-                DefaultValue = "-",
-                Description = Localizer["ValueChanged"]
-            },
-        };
+        return [
+            //new()
+            //{
+            //    Name = nameof(CodeEditor.Value),
+            //    Type = "string",
+            //    DefaultValue = "-",
+            //    Description = Localizer["Value"]
+            //},
+            //new()
+            //{
+            //    Name = nameof(CodeEditor.Theme),
+            //    Type = "string",
+            //    DefaultValue = "vs",
+            //    Description = Localizer["Theme"]
+            //},
+            //new()
+            //{
+            //    Name = nameof(CodeEditor.Language),
+            //    Type = "string",
+            //    DefaultValue = "csharp",
+            //    Description = Localizer["Language"]
+            //},
+            //new()
+            //{
+            //    Name = nameof(CodeEditor.ValueChanged),
+            //    Type = "EventCallback<string?>",
+            //    DefaultValue = "-",
+            //    Description = Localizer["ValueChanged"]
+            //},
+            //new()
+            //{
+            //    Name = nameof(CodeEditor.OnValueChanged),
+            //    Type = "Func<string?,Task>",
+            //    DefaultValue = "-",
+            //    Description = Localizer["ValueChanged"]
+            //}
+        ];
     }
 }

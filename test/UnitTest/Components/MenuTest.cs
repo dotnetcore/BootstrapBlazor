@@ -217,23 +217,6 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsCollapsed_Ok()
-    {
-        var cut = Context.RenderComponent<Menu>(pb =>
-        {
-            pb.Add(m => m.Items, Items);
-            pb.Add(m => m.IsCollapsed, true);
-        });
-        Assert.DoesNotContain("is-collapsed", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(m => m.IsVertical, true);
-        });
-        Assert.Contains("is-collapsed", cut.Markup);
-    }
-
-    [Fact]
     public void IsDisabled_Ok()
     {
         var items = new List<MenuItem>()

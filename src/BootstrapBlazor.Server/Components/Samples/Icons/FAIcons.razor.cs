@@ -10,7 +10,5 @@ namespace BootstrapBlazor.Server.Components.Samples.Icons;
 /// </summary>
 public partial class FAIcons
 {
-    private bool ShowCopyDialog { get; set; }
 
-    private string DisplayText => ShowCopyDialog ? Localizer["SwitchButtonTextOn"] : Localizer["SwitchButtonTextOff"];
 }

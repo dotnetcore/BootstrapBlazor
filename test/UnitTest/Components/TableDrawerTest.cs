@@ -44,7 +44,7 @@ public class TableDrawerTest : TableDialogTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         // 编辑弹窗逻辑
@@ -55,8 +55,8 @@ public class TableDrawerTest : TableDialogTestBase
         await cut.InvokeAsync(() => table.Instance.EditAsync());
 
         // 获得关闭按钮直接关闭抽屉
-        var closeButton = cut.FindComponent<DialogCloseButton>();
-        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
+        var closeButton = cut.Find(".bb-editor-footer .btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
@@ -64,13 +64,13 @@ public class TableDrawerTest : TableDialogTestBase
             pb.Add(a => a.DataService, new MockEFCoreDataService(localizer));
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
-        closeButton = cut.FindComponent<DialogCloseButton>();
-        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
+        closeButton = cut.Find(".bb-editor-footer .btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
 
         // Add 弹窗
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        closeButton = cut.FindComponent<DialogCloseButton>();
-        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
+        closeButton = cut.Find(".bb-editor-footer .btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
 
         // 自定义数据服务取消回调测试
         table.SetParametersAndRender(pb =>
@@ -78,8 +78,8 @@ public class TableDrawerTest : TableDialogTestBase
             pb.Add(a => a.EditDialogFullScreenSize, FullScreenSize.Always);
         });
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        closeButton = cut.FindComponent<DialogCloseButton>();
-        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
+        closeButton = cut.Find(".bb-editor-footer .btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
 
         var closed = false;
         // 测试 CloseCallback
@@ -92,8 +92,8 @@ public class TableDrawerTest : TableDialogTestBase
             });
         });
         await cut.InvokeAsync(() => table.Instance.AddAsync());
-        closeButton = cut.FindComponent<DialogCloseButton>();
-        await cut.InvokeAsync(() => closeButton.Instance.OnClickWithoutRender!());
+        closeButton = cut.Find(".bb-editor-footer .btn-secondary");
+        await cut.InvokeAsync(() => closeButton.Click());
         Assert.True(closed);
 
         // 保存失败，不关闭抽屉
@@ -103,7 +103,7 @@ public class TableDrawerTest : TableDialogTestBase
             pb.Add(a => a.OnSaveAsync, (foo, itemType) => Task.FromResult(false));
         });
         checkbox = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(checkbox.Instance.TriggerClick);
+        await cut.InvokeAsync(checkbox.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         form = cut.Find("form");
         await cut.InvokeAsync(() => form.Submit());

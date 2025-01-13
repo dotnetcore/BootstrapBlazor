@@ -4,8 +4,7 @@
 <div class="coms-search">
     <div class="row">
         <div class="col-12">
-            <Search PlaceHolder="@Localizer["Search"]" IsOnInputTrigger="true" IsAutoFocus="true"
-                    Items="@ComponentItems" IsLikeMatch="true" IgnoreCase="true" OnSearch="@OnSearch"></Search>
+            <Search @bind-Value="@SearchText" PlaceHolder="@Localizer["Search"]" OnSearch="@OnSearch"></Search>
         </div>
     </div>
     <div class="coms-search-filter">
@@ -111,7 +110,6 @@
             <ComponentCard Text="@Localizer["TagText"]" Image="Tag.svg" Url="tag"></ComponentCard>
             <ComponentCard Text="@Localizer["TimelineText"]" Image="Timeline.svg" Url="timeline"></ComponentCard>
             <ComponentCard Text="@Localizer["TitleText"]" Image="Title.jpg" Url="title"></ComponentCard>
-            <ComponentCard Text="@Localizer["TreeText"]" Image="Tree.svg" Url="tree"></ComponentCard>
             <ComponentCard Text="@Localizer["TreeViewText"]" Image="Tree.svg" Url="tree-view"></ComponentCard>
             <ComponentCard Text="@Localizer["TransitionText"]" Image="Transition.jpg" Url="transition"></ComponentCard>
             <ComponentCard Text="@Localizer["VideoPlayerText"]" Image="VideoPlayer.jpg" Url="video-player"></ComponentCard>
@@ -120,6 +118,7 @@
             <ComponentCard Text="@Localizer["WebSpeechText"]" Image="WebSpeech.jpg" Url="web-speech"></ComponentCard>
             <ComponentCard Text="@Localizer["ImageCropperText"]" Image="ImageCropper.jpg" Url="image-cropper"></ComponentCard>
             <ComponentCard Text="@Localizer["BarcodeGeneratorText"]" Image="BarcodeGenerator.jpg" Url="barcode-generator"></ComponentCard>
+            <ComponentCard Text="@Localizer["MermaidText"]" Image="Mermaid.png" Url="mermaid"></ComponentCard>
         </ComponentCategory>
 
         <ComponentCategory Text="@Localizer["Text6"]">

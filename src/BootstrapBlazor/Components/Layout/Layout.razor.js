@@ -10,7 +10,7 @@ export function init(id, invoke, callback) {
     }
     Data.set(id, layout)
 
-    const tooltip = document.querySelector('.layout-header [data-bs-toggle="tooltip"]')
+    const tooltip = document.querySelector('.layout-header-bar')
     if (tooltip) {
         layout.tooltip = bootstrap.Tooltip.getOrCreateInstance(tooltip)
     }

@@ -1,0 +1,31 @@
+﻿.search-result {
+    border: solid 1px var(--bs-boder-color);
+    display: flex;
+    border-radius: 10px;
+    padding: .5rem;
+    border: 1px dashed var(--bs-border-color);
+}
+
+.search-result-avatar {
+    flex-basis: 60px;
+    border-radius: 10px;
+    border: 2px solid var(--bb-primary-color);
+    overflow: hidden;
+    margin-inline-end: 1rem;
+}
+
+    .search-result-avatar img {
+        width: 100%;
+    }
+
+.search-result-main {
+    flex-grow: 1;
+    width: 1%;
+    min-width: 0;
+}
+
+.search-result-address {
+    margin-top: .25rem;
+    font-size: 86%;
+    color: #c0c4cc;
+}

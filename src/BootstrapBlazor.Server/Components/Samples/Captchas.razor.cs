@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -10,6 +12,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Captchas
 {
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+
     private static Random ImageRandomer { get; set; } = new Random();
 
     /// <summary>
@@ -28,18 +34,29 @@ public sealed partial class Captchas
     /// <summary>
     /// 获得/设置 图床路径 默认值为 Pic.jpg 通过设置 Max 取 Pic0.jpg ... Pic8.jpg
     /// </summary>
-    public string ImagesName { get; set; } = "Pic.jpg";
+    private string ImagesName { get; set; } = "Pic.jpg";
 
     /// <summary>
     /// 获得/设置 图床路径 默认值为 images
     /// </summary>
-    public string ImagesPath { get; set; } = "./images";
+    [NotNull]
+    private string? ImagesPath { get; set; }
 
     [NotNull]
     private Captcha? NormalCaptcha { get; set; }
 
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ImagesPath = $"{WebsiteOption.Value.AssetRootPath}images";
+    }
 
     private async Task OnValidAsync(bool ret)
     {

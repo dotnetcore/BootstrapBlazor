@@ -35,7 +35,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public Placement Placement { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗触发方式 默认 click
+    /// 获得/设置 弹窗触发方式 默认 click 可设置 hover focus
     /// </summary>
     [Parameter]
     public string? Trigger { get; set; }

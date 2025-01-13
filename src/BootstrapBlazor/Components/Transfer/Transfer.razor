@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="transfer">
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
     <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
                    ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"

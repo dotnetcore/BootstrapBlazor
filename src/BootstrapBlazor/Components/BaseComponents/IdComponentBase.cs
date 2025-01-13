@@ -15,10 +15,10 @@ public abstract class IdComponentBase : BootstrapComponentBase
     /// </summary>
     [Parameter]
     [NotNull]
-    public virtual string? Id { get; set; }
+    public string? Id { get; set; }
 
     /// <summary>
-    /// 获得 IComponentIdGenerator 实例
+    /// 获得 <see cref="IComponentIdGenerator"/> 实例
     /// </summary>
     [Inject]
     [NotNull]

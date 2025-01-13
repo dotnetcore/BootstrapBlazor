@@ -1,5 +1,6 @@
 ﻿@page "/image-viewer"
 @inject IStringLocalizer<ImageViewers> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["ImageViewerTitle"]</h3>
 
@@ -18,23 +19,23 @@
     <div class="images mt-3">
         <div class="images-item">
             <div>Fill</div>
-            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" FitMode="ObjectFitMode.Fill" />
         </div>
         <div class="images-item">
             <div>Contain</div>
-            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Contain" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" FitMode="ObjectFitMode.Contain" />
         </div>
         <div class="images-item">
             <div>Cover</div>
-            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Cover" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" FitMode="ObjectFitMode.Cover" />
         </div>
         <div class="images-item">
             <div>None</div>
-            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.None" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" FitMode="ObjectFitMode.None" />
         </div>
         <div class="images-item">
             <div>ScaleDown</div>
-            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.ScaleDown" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" FitMode="ObjectFitMode.ScaleDown" />
         </div>
     </div>
 </DemoBlock>
@@ -46,11 +47,11 @@
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>@Localizer["ImageViewerPlaceHolderDefault"]</div>
-            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/image-ph.jpeg")" ShowPlaceHolder="true" />
         </div>
         <div class="images-item">
             <div>@Localizer["ImageViewerPlaceHolderCustom"]</div>
-            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true">
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/image-ph.jpeg")" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">@Localizer["ImageViewerPlaceHolderLoading"]</div>
@@ -78,7 +79,7 @@
         </div>
         <div class="images-item">
             <div>@Localizer["ImageViewerPlaceHolderTemplateLoadingShow"]</div>
-            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true">
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/image-ph.jpeg")" ShowPlaceHolder="true">
                 <PlaceHolderTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">@Localizer["ImageViewerPlaceHolderTemplatePlaceholder"]</div>
@@ -95,11 +96,11 @@
     <div class="images img-ph mt-3">
         <div class="images-item">
             <div>@Localizer["ImageViewerErrorTemplateUrlError"]</div>
-            <ImageViewer Url="./images/error-image.jpeg" HandleError="true" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/error-image.jpeg")" HandleError="true" />
         </div>
         <div class="images-item">
             <div>@Localizer["ImageViewerErrorTemplateCustom"]</div>
-            <ImageViewer Url="./images/error-image.jpeg">
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/error-image.jpeg")">
                 <ErrorTemplate>
                     <div class="bb-img-holder">
                         <div class="bb-img-loading">@Localizer["ImageViewerErrorTemplateLoadFailed"]</div>
@@ -115,7 +116,7 @@
            Name="PreviewList">
     <div class="images img-ph mt-3">
         <div class="images-item">
-            <ImageViewer Url="./images/bird.jpeg" PreviewList="PreviewList" />
+            <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/bird.jpeg")" PreviewList="PreviewList" />
         </div>
     </div>
 </DemoBlock>
@@ -130,7 +131,7 @@
 <DemoBlock Title="@Localizer["IntersectionObserverTitle"]"
            Introduction="@Localizer["IntersectionObserverIntro"]"
            Name="IsIntersectionObserver">
-    <ImageViewer Url="./images/tutorials/waterfall.png" IsIntersectionObserver="true" IsAsync="true" style="height: 400px;"></ImageViewer>
+    <ImageViewer Url="@WebsiteOption.CurrentValue.GetAssetUrl("images/tutorials/waterfall.png")" IsIntersectionObserver="true" IsAsync="true" style="height: 400px;"></ImageViewer>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

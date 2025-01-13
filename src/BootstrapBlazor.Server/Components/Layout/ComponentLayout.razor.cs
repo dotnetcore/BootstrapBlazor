@@ -104,11 +104,11 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./Components/Layout/ComponentLayout.razor.js");
+            Module = await JSRuntime.LoadModule($"{WebsiteOption.CurrentValue.AssetRootPath}Components/Layout/ComponentLayout.razor.js");
         }
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("init");
+            await Module.InvokeVoidAsync("scrollToAnchor");
         }
     }
 

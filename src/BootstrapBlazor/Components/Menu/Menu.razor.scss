@@ -99,14 +99,15 @@
     transform: rotate(-90deg);
 }
 
-.menu .text {
+.menu .menu-text {
     overflow: hidden;
     vertical-align: top;
     display: inline-block;
-    transition: width .3s linear;
+    opacity: 1;
+    transition: opacity .3s linear;
 }
 
-.menu .nav .nav-link .text {
+.menu .nav .nav-link .menu-text {
     margin-left: 4px;
 }
 
@@ -162,7 +163,7 @@
     transform: rotate(-90deg);
 }
 
-.menu .submenu .nav-link .text,
+.menu .submenu .nav-link .menu-text,
 .menu .submenu .nav-link .widget {
     margin: 0 4px;
 }
@@ -177,12 +178,6 @@
 
 .cascade .form-select {
     background-image: none;
-}
-
-@media (min-width: 768px) {
-    .layout-side.is-collapsed:not(:hover) .menu.is-collapsed .submenu .text {
-        width: 0;
-    }
 }
 
 .menu.is-bottom {

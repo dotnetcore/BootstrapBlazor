@@ -26,10 +26,14 @@ public sealed partial class Collapses
         State = !State;
     }
 
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
+    private string? Value { get; set; }
+
+    private IEnumerable<SelectedItem> Items { get; set; } = new[]
+    {
+        new SelectedItem ("Beijing", "北京"),
+        new SelectedItem ("Shanghai", "上海") { Active = true },
+    };
+
     private AttributeItem[] GetAttributes() =>
     [
         new()
@@ -55,6 +59,66 @@ public sealed partial class Collapses
             Type = "Func<CollapseItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        }
+    ];
+
+    private AttributeItem[] GetCollapseItemAttributes() =>
+    [
+        new()
+        {
+            Name = "Text",
+            Description = Localizer["CollapseItemAttributeText"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Icon",
+            Description = Localizer["CollapseItemAttributeIcon"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "TitleColor",
+            Description = Localizer["CollapseItemAttributeTitleColor"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Class",
+            Description = Localizer["CollapseItemAttributeClass"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "HeaderClass",
+            Description = Localizer["CollapseItemAttributeHeaderClass"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "HeaderTemplate",
+            Description = Localizer["CollapseItemAttributeHeaderTemplate"],
+            Type = "Func<CollapseItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsCollapsed",
+            Description = Localizer["CollapseItemAttributeIsCollapsed"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }

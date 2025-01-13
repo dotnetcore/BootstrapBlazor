@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -13,21 +12,18 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class AutoFill<TValue>
 {
-    private bool _isLoading;
-    private bool _isShown;
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
-        .AddClass("is-loading", _isLoading)
-        .AddClass("show", _isShown && !IsPopover)
+    private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
     /// 获得 最终候选数据源
     /// </summary>
-    private List<TValue> _filterItems = [];
+    [NotNull]
+    private List<TValue>? FilterItems { get; set; }
 
     /// <summary>
     /// 获得/设置 组件数据集合
@@ -56,41 +52,17 @@ public partial class AutoFill<TValue>
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 自定义集合过滤规则
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
     /// </summary>
     [Parameter]
-    public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 候选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TValue>? Template { get; set; }
+    public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
     /// </summary>
     [Parameter]
     [NotNull]
-    public Func<TValue, string>? OnGetDisplayText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
-    /// </summary>
-    [Parameter]
-    public bool SkipEnter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
-    /// </summary>
-    [Parameter]
-    public bool SkipEsc { get; set; }
-
-    /// <summary>
-    /// 获得/设置 选项改变回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
+    public Func<TValue, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
     /// 图标
@@ -104,25 +76,36 @@ public partial class AutoFill<TValue>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 自定义集合过滤规则
+    /// </summary>
+    [Parameter]
+    public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowNoDataTip { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
+    [ExcludeFromCodeCoverage]
+    public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private string _inputString = "";
-
-    private TValue? ActiveSelectedItem { get; set; }
-
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得 获得焦点自动显示下拉框设置字符串
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+    private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
-        NoDataTip ??= Localizer[nameof(NoDataTip)];
-        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        Items ??= [];
-    }
+    private string? _displayText;
 
     /// <summary>
     /// <inheritdoc/>
@@ -131,40 +114,25 @@ public partial class AutoFill<TValue>
     {
         base.OnParametersSet();
 
+        NoDataTip ??= Localizer[nameof(NoDataTip)];
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        OnGetDisplayText ??= v => v?.ToString() ?? "";
-        _inputString = Value == null ? string.Empty : OnGetDisplayText(Value);
-    }
+        OnGetDisplayText ??= v => v?.ToString();
+        _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnBlur()
-    {
-        _isShown = false;
-        if (OnSelectedItemChanged != null && ActiveSelectedItem != null)
-        {
-            await OnSelectedItemChanged(ActiveSelectedItem);
-            ActiveSelectedItem = default;
-        }
-
-        if (OnBlurAsync != null)
-        {
-            await OnBlurAsync(Value);
-        }
+        FilterItems ??= Items?.ToList() ?? [];
     }
 
     /// <summary>
     /// 鼠标点击候选项时回调此方法
     /// </summary>
-    protected virtual async Task OnClickItem(TValue val)
+    private async Task OnClickItem(TValue val)
     {
-        _isShown = false;
         CurrentValue = val;
-        _inputString = OnGetDisplayText(val);
-        ActiveSelectedItem = default;
+        _displayText = OnGetDisplayText(val);
+
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
@@ -172,115 +140,31 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// OnFocus 方法
-    /// </summary>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    private async Task OnFocus(FocusEventArgs args)
-    {
-        if (ShowDropdownListOnFocus)
-        {
-            await OnKeyUp("");
-        }
-    }
-
-    private static readonly List<string> HandlerKeys = ["ArrowUp", "ArrowDown", "Escape", "Enter"];
-
-    /// <summary>
-    /// OnKeyUp 方法
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public virtual async Task OnKeyUp(string key)
-    {
-        if (!HandlerKeys.Contains(key))
-        {
-            // 非功能按键时触发过滤
-            if (!_isLoading)
-            {
-                _isLoading = true;
-                if (OnCustomFilter != null)
-                {
-                    var items = await OnCustomFilter(_inputString);
-                    _filterItems = items.ToList();
-                }
-                else
-                {
-                    var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                    var items = IsLikeMatch ?
-                        Items.Where(s => OnGetDisplayText(s).Contains(_inputString, comparison)) :
-                        Items.Where(s => OnGetDisplayText(s).StartsWith(_inputString, comparison));
-                    _filterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
-                }
-                _isLoading = false;
-            }
-        }
-
-        if (_filterItems.Count > 0)
-        {
-            _isShown = true;
-            // 键盘向上选择
-            if (key == "ArrowUp")
-            {
-                var index = 0;
-                if (ActiveSelectedItem != null)
-                {
-                    index = _filterItems.IndexOf(ActiveSelectedItem) - 1;
-                    if (index < 0)
-                    {
-                        index = _filterItems.Count - 1;
-                    }
-                }
-                ActiveSelectedItem = _filterItems[index];
-                CurrentItemIndex = index;
-            }
-            else if (key == "ArrowDown")
-            {
-                var index = 0;
-                if (ActiveSelectedItem != null)
-                {
-                    index = _filterItems.IndexOf(ActiveSelectedItem) + 1;
-                    if (index > _filterItems.Count - 1)
-                    {
-                        index = 0;
-                    }
-                }
-                ActiveSelectedItem = _filterItems[index];
-                CurrentItemIndex = index;
-            }
-            else if (key == "Escape")
-            {
-                await OnBlur();
-                if (!SkipEsc && OnEscAsync != null)
-                {
-                    await OnEscAsync(Value);
-                }
-            }
-            else if (IsEnterKey(key))
-            {
-                ActiveSelectedItem ??= _filterItems.FirstOrDefault();
-                if (ActiveSelectedItem != null)
-                {
-                    _inputString = OnGetDisplayText(ActiveSelectedItem);
-                }
-                await OnBlur();
-                if (!SkipEnter && OnEnterAsync != null)
-                {
-                    await OnEnterAsync(Value);
-                }
-            }
-        }
-        StateHasChanged();
-    }
-
-    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public void TriggerOnChange(string val)
+    public async Task TriggerOnChange(string val)
     {
-        _inputString = val;
+        if (OnCustomFilter != null)
+        {
+            var items = await OnCustomFilter(val);
+            FilterItems = items.ToList();
+        }
+        else
+        {
+            var comparisionType = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            FilterItems = IsLikeMatch
+                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparisionType) ?? false).ToList()
+                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparisionType) ?? false).ToList();
+        }
+
+        if (DisplayCount != null)
+        {
+            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
+        }
+
+        _displayText = val;
+        StateHasChanged();
     }
 }

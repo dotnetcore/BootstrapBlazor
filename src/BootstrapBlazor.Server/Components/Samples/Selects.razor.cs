@@ -61,18 +61,13 @@ public sealed partial class Selects
         Foos = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private IEnumerable<SelectedItem> OnSearchTextChanged(string searchText)
-    {
-        return Foos.Where(i => i.Name!.Contains(searchText, StringComparison.OrdinalIgnoreCase)).Select(i => new SelectedItem(i.Name!, i.Name!));
-    }
-
     private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
     {
         await Task.Delay(200);
         var items = Foos;
         if (!string.IsNullOrEmpty(option.SearchText))
         {
-            items = items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+            items = Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
         }
         return new QueryData<SelectedItem>
         {
@@ -209,8 +204,8 @@ public sealed partial class Selects
     private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
     {
         new() { Text = "空值", Value = "" },
-        new() { Text = "True 值", Value = "true" },
-        new() { Text = "False 值", Value = "false" }
+        new() { Text = "True 值", Value = "True" },
+        new() { Text = "False 值", Value = "False" }
     };
 
     private readonly SelectedItem[] StringItems =
@@ -246,15 +241,6 @@ public sealed partial class Selects
         StateHasChanged();
         return Task.CompletedTask;
     }
-
-    private readonly List<SelectedItem<Foo>> _genericItems =
-    [
-        new() { Text = "Foo1", Value = new Foo() { Id = 1, Address = "Address_F001" } },
-        new() { Text = "Foo2", Value = new Foo() { Id = 2, Address = "Address_F002" } },
-        new() { Text = "Foo3", Value = new Foo() { Id = 3, Address = "Address_F003" } }
-    ];
-
-    private Foo? _selectedFoo;
 
     /// <summary>
     /// 获得事件方法

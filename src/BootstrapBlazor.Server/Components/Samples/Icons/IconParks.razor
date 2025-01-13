@@ -2,6 +2,10 @@
 @layout MainLayout
 @inject IStringLocalizer<IconParks> Localizer
 
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.IconPark/BootstrapBlazor.IconPark.bundle.scp.css"]" />
+</HeadContent>
+
 <h3>@Localizer["IconParkTitle"]</h3>
 
 <h4>@Localizer["IconParkDescription"]</h4>
@@ -20,4 +24,4 @@
 
 <Pre>&lt;ByteDanceIcon Name="abdominal"&gt;&lt;ByteDanceIcon&gt;</Pre>
 
-<IconParkList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />
+<div>@((MarkupString)Localizer["Icons"].Value)</div>

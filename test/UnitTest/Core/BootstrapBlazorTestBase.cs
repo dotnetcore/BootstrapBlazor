@@ -29,6 +29,7 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
             op.IgnoreLocalizerMissing = false;
         });
         services.AddSingleton<ILookupService, FooLookupService>();
+        services.AddKeyedSingleton<ILookupService, FooLookupServiceAsync>("FooLookupAsync");
     }
 
     protected virtual void ConfigureConfiguration(IServiceCollection services)
@@ -51,11 +52,33 @@ public class BootstrapBlazorTestBase : TestBase, IDisposable
 
             if (key == "FooLookup")
             {
-                ret = new SelectedItem[]
-                {
-                    new("v1", "LookupService-Test-1"),
-                    new("v2", "LookupService-Test-2")
-                };
+                ret =
+                [
+                    new SelectedItem("v1", "LookupService-Test-1"),
+                    new SelectedItem("v2", "LookupService-Test-2")
+                ];
+            }
+            return ret;
+        }
+    }
+
+    class FooLookupServiceAsync : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            await Task.Delay(300);
+
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "FooLookup")
+            {
+                ret =
+                [
+                    new SelectedItem("v1", "LookupService-Test-1-async"),
+                    new SelectedItem("v2", "LookupService-Test-2-async")
+                ];
             }
             return ret;
         }

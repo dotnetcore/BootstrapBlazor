@@ -42,13 +42,13 @@ public partial class Table<TItem>
         var filterRows = ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback);
         if (filterRows.Any())
         {
-            if (filterRows.All(AnyRow))
+            if (!filterRows.Except(SelectedRows).Any())
             {
                 // 所有行被选中
                 // all rows are selected
                 ret = CheckboxState.Checked;
             }
-            else if (filterRows.Any(AnyRow))
+            else if (filterRows.Any(row => SelectedRows.Any(i => Equals(i, row))))
             {
                 // 任意一行被选中
                 // any one row is selected
@@ -56,8 +56,6 @@ public partial class Table<TItem>
             }
         }
         return ret;
-
-        bool AnyRow(TItem row) => SelectedRows.Any(i => Equals(i, row));
     }
 
     /// <summary>
@@ -104,7 +102,7 @@ public partial class Table<TItem>
     /// <param name="val"></param>
     protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
     {
-        SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
+        SelectedRows.RemoveAll(Rows.Intersect(SelectedRows).Contains);
         if (state == CheckboxState.Checked)
         {
             SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));

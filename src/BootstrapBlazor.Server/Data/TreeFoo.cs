@@ -25,7 +25,7 @@ class TreeFoo
 
     public static List<TreeFoo> GetItems() =>
     [
-        new() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+        new() { Text = "Navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
         new() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" },
 
@@ -59,6 +59,63 @@ class TreeFoo
         return CascadingTree(items);
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetAccordionItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "Node-01", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "Node-02", Id = "1020", Icon = "fa-solid fa-font-awesome" }
+        ];
+
+        // 算法获取属性结构数据
+        var tree = CascadingTree(items);
+        tree[0].HasChildren = true;
+        tree[1].HasChildren = true;
+
+        return tree;
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetLazyItems()
+    {
+        List<TreeFoo> items =
+        [
+            new() { Text = "LazyNode-01", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "LazyNode-02", Id = "1020", Icon = "fa-solid fa-font-awesome" }
+        ];
+
+        // 算法获取属性结构数据
+        var tree = CascadingTree(items);
+        tree[0].HasChildren = true;
+        tree[1].HasChildren = true;
+        return tree;
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetTemplateItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].Template = foo => BootstrapDynamicComponent.CreateComponent<CustomTreeItem>(new Dictionary<string, object?>() { [nameof(CustomTreeItem.Foo)] = foo }).Render();
+        return ret;
+    }
+
+    public static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandAccordionNodeAsync(TreeViewItem<TreeFoo> node)
+    {
+        await Task.Delay(200);
+        var item = node.Value;
+        return new List<TreeViewItem<TreeFoo>>
+        {
+            new(new TreeFoo() { Id = $"{item.Id}-1", ParentId = item.Id }) { Text = "懒加载子节点" }
+        };
+    }
+
+    public static List<TreeViewItem<TreeFoo>> GetColorItems()
+    {
+        var ret = TreeFoo.GetTreeItems();
+        ret[0].CssClass = "text-primary";
+        ret[1].CssClass = "text-success";
+        ret[2].CssClass = "text-danger";
+        return ret;
+    }
+
     public static List<TreeViewItem<TreeFoo>> GetVirtualizeTreeItems()
     {
         var ret = new List<TreeViewItem<TreeFoo>>();
@@ -73,6 +130,30 @@ class TreeFoo
         return ret;
     }
 
+    public static List<TreeViewItem<TreeFoo>> GetFlatItems()
+    {
+        var items = new List<TreeViewItem<TreeFoo>>();
+        var foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 1" };
+        items.Add(foo);
+
+        foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 2", HasChildren = true };
+        items.Add(foo);
+
+        var sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 1", Id = "1040", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1001" };
+        foo.Items.Add(sub);
+
+        sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 2", Id = "1050", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1002" };
+        foo.Items.Add(sub);
+
+        sub = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Sub menu 3", Id = "1060", ParentId = "1020", Icon = "fa-solid fa-font-awesome" }) { Parent = foo, Text = "TreeNode 1003" };
+        foo.Items.Add(sub);
+
+        foo = new TreeViewItem<TreeFoo>(new TreeFoo() { Text = "Navigation three", Id = "1030", Icon = "fa-solid fa-font-awesome" }) { Text = "TreeNode 2" };
+        items.Add(foo);
+
+        return items;
+    }
+
     /// <summary>
     /// TreeFoo 带选择框树状数据集
     /// </summary>
@@ -81,11 +162,13 @@ class TreeFoo
     {
         var node1 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{parentId}-101", ParentId = parentId })
         {
-            Text = "navigation one", HasChildren = true
+            Text = "navigation one",
+            HasChildren = true
         };
         var node2 = new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{parentId}-102", ParentId = parentId })
         {
-            Text = "navigation two", CheckedState = CheckboxState.Checked
+            Text = "navigation two",
+            CheckedState = CheckboxState.Checked
         };
         return [node1, node2];
     }

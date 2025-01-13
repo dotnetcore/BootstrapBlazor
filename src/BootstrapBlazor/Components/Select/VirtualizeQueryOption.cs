@@ -13,15 +13,15 @@ public class VirtualizeQueryOption
     /// <summary>
     /// 请求记录开始索引
     /// </summary>
-    public int StartIndex { get; internal set; }
+    public int StartIndex { get; set; }
 
     /// <summary>
     /// 请求记录总数
     /// </summary>
-    public int Count { get; internal set; }
+    public int Count { get; set; }
 
     /// <summary>
     /// Select 组件搜索文本
     /// </summary>
-    public string? SearchText { get; internal set; }
+    public string? SearchText { get; set; }
 }

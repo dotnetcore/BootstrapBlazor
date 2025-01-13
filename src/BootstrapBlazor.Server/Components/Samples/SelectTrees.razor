@@ -39,7 +39,7 @@
     <ValidateForm Model="BindModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
-                <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" />
+                <SelectTree TValue="string" @bind-Value="BindModel.Text" ShowIcon="true" Items="BindItems" OnExpandNodeAsync="OnExpandNodeAsync" />
             </div>
             <div class="col-12 col-sm-6 align-self-end">
                 <Button ButtonType="ButtonType.Submit">@Localizer["SelectTreesClientValidationButtonText"]</Button>

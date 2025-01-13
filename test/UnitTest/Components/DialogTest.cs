@@ -210,9 +210,11 @@ public class DialogTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         };
         await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+
         // 点击关闭按钮
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        // 关闭按钮未设置 OnClickWithoutRender 事件
+        Assert.Null(button.Instance.OnClickWithoutRender);
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(closed);
 

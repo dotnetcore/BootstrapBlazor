@@ -8,20 +8,12 @@ using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
 
-#if NET5_0
-/// <summary>
-/// 表头组件
-/// </summary>
-/// <typeparam name="TType">绑定字段值类型</typeparam>
-public class TableColumn<TType> : BootstrapComponentBase, ITableColumn
-#elif NET6_0_OR_GREATER
 /// <summary>
 /// 表头组件
 /// </summary>
 /// <typeparam name="TItem">模型泛型</typeparam>
 /// <typeparam name="TType">绑定字段值类型</typeparam>
 public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
-#endif
 {
     /// <summary>
     /// 获得/设置 相关过滤器
@@ -290,7 +282,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Func<object?, Task<string?>>? Formatter { get; set; }
@@ -330,7 +322,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         get => Template == null ? null : new RenderFragment<object>(context => builder =>
         {
             // 此处 context 为行数据
-            if (this is TableTemplateColumn<TItem> col)
+            if (this is TableTemplateColumn<TItem>)
             {
                 builder.AddContent(0, Template.Invoke(new TableColumnContext<TItem, TType?>((TItem)context, default)));
             }
@@ -456,6 +448,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>>

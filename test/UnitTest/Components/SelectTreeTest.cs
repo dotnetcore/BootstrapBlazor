@@ -109,7 +109,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ItemChanged_Ok()
+    public async Task ItemChanged_Ok()
     {
         var changed = 0;
         var cut = Context.RenderComponent<SelectTree<string>>(builder =>
@@ -123,13 +123,14 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
         Assert.Equal(1, changed);
 
-        // 选择第一个候选项
-        var node = cut.Find(".tree-node");
-        cut.InvokeAsync(() => node.Click());
-        Assert.NotEqual(2, changed);
+        // 展开第一个候选项
+        var icon = cut.Find(".node-icon");
+        await cut.InvokeAsync(() => icon.Click());
+        Assert.Equal(1, changed);
 
-        node = cut.FindAll(".tree-node").Skip(1).Take(1).First();
-        cut.InvokeAsync(() => node.Click());
+        // 点击第二个节点
+        var nodes = cut.FindAll(".tree-node");
+        await cut.InvokeAsync(() => nodes[1].Click());
         Assert.Equal(2, changed);
     }
 
@@ -187,6 +188,45 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsPopover, true);
         });
         cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
+    }
+
+    [Fact]
+    public void IsActive_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        {
+            builder.Add(p => p.Items, items);
+            builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
+        });
+        var nodes = cut.FindAll(".tree-content");
+        Assert.Equal(3, nodes.Count);
+        Assert.Contains("active", nodes[1].ClassName);
+    }
+
+    [Fact]
+    public void ShowSearch_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<SelectTree<TreeFoo>>(builder =>
+        {
+            builder.Add(p => p.Items, items);
+            builder.Add(p => p.Value, new TreeFoo() { Id = "1020", Text = "Navigation Two" });
+            builder.Add(p => p.ShowSearch, true);
+        });
+        cut.Contains("tree-search");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowResetSearchButton, true);
+        });
+        cut.Contains("tree-search-reset");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFixedSearch, true);
+        });
+        cut.Contains("is-fixed-search");
     }
 
     private List<TreeViewItem<string>> BindItems { get; } =

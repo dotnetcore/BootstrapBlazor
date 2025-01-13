@@ -14,103 +14,25 @@ public partial class MindMaps
     [NotNull]
     private MessageService? MessageService { get; set; }
 
-    private MindMap _mindMap = default!;
+    private EnumMindMapLayout _layout = EnumMindMapLayout.LogicalStructure;
 
-    private readonly MindMapOption _options = new();
+    private EnumMindMapTheme _theme = EnumMindMapTheme.DefaultTheme;
 
-    private string _result = "";
+    private string? _result;
 
-    /// <summary>
-    /// 初始化数据
-    /// </summary>
-    public MindMapNode Data { get; set; } = new MindMapNode
+    [NotNull]
+    private MindMap? MindMap { get; set; }
+
+    async Task ExportImage()
     {
-        Data = new NodeData
-        {
-            Text = "根节点",
-            Generalization = new Generalization
-            {
-                Text = "概要的内容"
-            }
-        },
-        Children =
-        [
-            new MindMapNode
-            {
-                Data = new NodeData
-                {
-                    Text = "二级节点1",
-                },
-                Children =
-                [
-                    new MindMapNode
-                    {
-                        Data = new NodeData
-                        {
-                            Text = "分支主题1",
-                        },
-                    },
-                    new MindMapNode
-                    {
-                        Data = new NodeData
-                        {
-                            Text = "分支主题2",
-                        },
-                    },
-                    new MindMapNode
-                    {
-                        Data = new NodeData
-                        {
-                            Text = "分支主题3",
-                        },
-                    }
-                ]
-            },
-            new MindMapNode
-            {
-                Data = new NodeData
-                {
-                    Text = "二级节点2",
-                },
-            },
-            new MindMapNode
-            {
-                Data = new NodeData
-                {
-                    Text = "二级节点3",
-                },
-            }
-        ]
-    };
-
-    private Task OnReceive(string message)
-    {
-        _result = message;
-        return Task.CompletedTask;
-    }
-
-    private Task OnError(string message)
-    {
-        _result = message;
-        return Task.CompletedTask;
-    }
-
-    async Task Export()
-    {
-        await _mindMap.Export();
-        await ShowBottomMessage("下载Png");
+        await MindMap.Export();
+        await ShowBottomMessage("下载 Png");
     }
 
     async Task ExportJson()
     {
-        await _mindMap.Export("json", WithConfig: false);
-        await ShowBottomMessage("下载Json");
-    }
-
-    async Task ExportPng()
-    {
-        await _mindMap.Export(IsDownload: false, WithConfig: false);
-        await ShowBottomMessage("已导出Png");
+        await MindMap.Export("json", withConfig: false);
+        await ShowBottomMessage("下载 Json");
     }
 
     private Task ShowBottomMessage(string message) => MessageService.Show(new MessageOption()
@@ -119,24 +41,44 @@ public partial class MindMaps
         Icon = "fa-solid fa-circle-info",
     });
 
-    Task GetFullData() => _mindMap.GetData();
+    async Task GetFullData()
+    {
+        _result = await MindMap.GetData(true);
+    }
 
-    Task GetData() => _mindMap.GetData(false);
+    async Task GetData()
+    {
+        _result = await MindMap.GetData();
+    }
 
     async Task SetData()
     {
-        if (_result != null) await _mindMap.SetData(_result);
+        if (!string.IsNullOrEmpty(_result))
+        {
+            await MindMap.SetData(_result);
+        }
     }
 
-    Task Reset() => _mindMap.Reset();
+    Task ClickCustom() => MindMap.Execute("clickCustom", "args1");
 
-    async Task Sample()
+    Task Reset() => MindMap.Reset();
+
+    Task Fit() => MindMap.Fit();
+
+    private float _scale = 1.0f;
+    async Task Scale(float step)
     {
-        _result = SampleData;
+        _scale += step;
+        await MindMap.Scale(_scale);
+    }
+
+    async Task SetSample1()
+    {
+        _result = SampleData1;
         await SetData();
     }
 
-    async Task Sample2()
+    async Task SetSample2()
     {
         _result = SampleData2;
         await SetData();
@@ -153,38 +95,6 @@ public partial class MindMaps
             Name = "Data",
             Description = Localizer["Data"],
             Type = "MindMapNode",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "ShowUI",
-            Description = Localizer["ShowUI"],
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "true"
-        },
-        new()
-        {
-            Name = "StyleCss",
-            Description = Localizer["StyleCss"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "OnReceive",
-            Description = Localizer["OnReceive"],
-            Type = "Func<string?, Task>",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "OnError",
-            Description = Localizer["OnError"],
-            Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -219,150 +129,6 @@ public partial class MindMaps
             Type = "Task",
             ValueList = " — ",
             DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(MindMap.SetTheme),
-            Description = Localizer[nameof(MindMap.SetTheme)],
-            Type = "Task",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(MindMap.SetLayout),
-            Description = Localizer[nameof(MindMap.SetTheme)],
-            Type = "Task",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(MindMap.Options),
-            Description = Localizer[nameof(MindMap.Options)],
-            Type = "MindMapOption",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    ];
-
-    /// <summary>
-    /// Options
-    /// </summary>
-    /// <returns></returns>
-    private List<AttributeItem> GetOptionsAttributes() =>
-    [
-        new()
-        {
-            Name = nameof(MindMapOption.Layout),
-            Description = Localizer[nameof(MindMapOption.Layout)],
-            Type = "Enum",
-            ValueList = "逻辑结构图 / 思维导图 / 组织结构图 / 目录组织图 / 时间轴 / 时间轴2 / 鱼骨图 / 竖向时间轴",
-            DefaultValue = "逻辑结构图"
-        },
-        new()
-        {
-            Name = nameof(MindMapOption.Theme),
-            Description = Localizer[nameof(MindMapOption.Theme)],
-            Type = "Enum",
-            ValueList = "默认 / 经典 / 黑色 / 天蓝 / ... ",
-            DefaultValue = "默认"
-        }
-    ];
-
-    /// <summary>
-    /// NodeData
-    /// </summary>
-    /// <returns></returns>
-    private List<AttributeItem> GetNodeDataAttributes() =>
-    [
-        new()
-        {
-            Name = "Text",
-            Description = Localizer["NodeTextText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Image",
-            Description = Localizer["NodeImageText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "ImageTitle",
-            Description = Localizer["NodeImageTitleText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "ImageSize",
-            Description = Localizer["NodeImageSizeText"],
-            Type = "ImageSize",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Icon",
-            Description = Localizer["NodeIconText"],
-            Type = "List<string>",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Tag",
-            Description = Localizer["NodeTagText"],
-            Type = "List<string>",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Hyperlink",
-            Description = Localizer["NodeHyperlinkText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "HyperlinkTitle",
-            Description = Localizer["NodeHyperlinkTitleText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Note",
-            Description = Localizer["NodeNoteText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Generalization",
-            Description = Localizer["NodeGeneralizationText"],
-            Type = "Generalization",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new()
-        {
-            Name = "Expand",
-            Description = Localizer["NodeExpandText"],
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "false"
         }
     ];
 }

@@ -13,8 +13,8 @@
         <p class="d-flex flex-wrap drawer-demo">
             <RadioList TValue="SelectedItem" Items="@DrawerDirection" OnSelectedChanged="@OnStateChanged" />
         </p>
+        <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">@Localizer["Open"]</button>
     </section>
-    <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">@Localizer["Open"]</button>
 
     <Drawer Placement="@DrawerAlign" IsOpen="@IsOpen" AllowResize="true">
         <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
@@ -25,7 +25,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PlacementTitle"]" Introduction="@Localizer["PlacementIntro"]" Name="Placement">
-    <button type="button" class="btn btn-primary" @onclick="@OpenDrawer">@Localizer["Open"]</button>
+    <section ignore>
+        <button type="button" class="btn btn-primary" @onclick="@OpenDrawer">@Localizer["Open"]</button>
+    </section>
     <Drawer Placement="Placement.Left" @bind-IsOpen="@IsBackdropOpen" IsBackdrop="true">
         <p class="mt-3 text-center">
             @Localizer["PlacementContent"]
@@ -33,8 +35,10 @@
     </Drawer>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["NoBackdropTitle"]" Introduction="@Localizer["NoBackdropIntro"]">
-    <button type="button" class="btn btn-primary" @onclick="@OpenNoBackdropDrawer">@Localizer["Open"]</button>
+<DemoBlock Title="@Localizer["NoBackdropTitle"]" Introduction="@Localizer["NoBackdropIntro"]" Name="IsOpen">
+    <section ignore>
+        <button type="button" class="btn btn-primary" @onclick="@OpenNoBackdropDrawer">@Localizer["Open"]</button>
+    </section>
     <Drawer Placement="Placement.Left" @bind-IsOpen="@IsShowBackdropOpen" ShowBackdrop="false">
         <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
             <p>@Localizer["Content"]</p>
@@ -43,7 +47,7 @@
     </Drawer>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DrawerServiceTitle"]" Introduction="@Localizer["DrawerServiceIntro"]">
+<DemoBlock Title="@Localizer["DrawerServiceTitle"]" Introduction="@Localizer["DrawerServiceIntro"]" Name="DrawerService">
     <Button OnClickWithoutRender="@DrawerServiceShow" Text="@Localizer["Open"]"></Button>
 </DemoBlock>
 

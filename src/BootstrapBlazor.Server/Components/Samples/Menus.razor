@@ -62,15 +62,15 @@
     </Tips>
     <p>@((MarkupString)Localizer["MenusClickShrinkDescription"].Value)</p>
     <div class="layout-menu-demo">
-        <Layout SideWidth="0" IsFullSide="true" ShowFooter="true" ShowCollapseBar="true" Menus="IconSideMenuItems">
+        <Layout IsFullSide="true" ShowFooter="true" ShowCollapseBar="true" Menus="IconSideMenuItems">
             <Header>
-                <div class="menu-demo-header">
+                <div class="ms-3">
                     @Localizer["MenusClickShrinkSpanSpan"]
                 </div>
             </Header>
             <Side>
                 <div class="layout-banner">
-                    <img class="layout-logo" src="./images/logo.png" />
+                    <img class="layout-logo" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/logo.png")" />
                     <div class="layout-title">
                         <span>@Localizer["MenusClickShrinkMenuTitle"]</span>
                     </div>
@@ -80,7 +80,9 @@
                 <div style="padding: 10rem 1rem;">Main</div>
             </Main>
             <Footer>
-                <a href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                <div class="text-center flex-fill">
+                    <a href="@WebsiteOption.CurrentValue.BootstrapAdminLink" target="_blank">Bootstrap Admin</a>
+                </div>
             </Footer>
         </Layout>
     </div>

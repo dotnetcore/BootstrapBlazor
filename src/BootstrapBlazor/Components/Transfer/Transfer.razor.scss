@@ -13,6 +13,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+
+    &.has-height {
+        height: var(--bb-transfer-height);
+
+        .transfer-panel {
+            height: 100%;
+
+            .transfer-panel-body {
+                height: calc(100% - var(--bb-transfer-panel-header-height));
+            }
+        }
+    }
 }
 
 .transfer-panel {

@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Server.Components.Layout;
@@ -24,6 +25,10 @@ public partial class DockLayout : IAsyncDisposable
     [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -33,7 +38,7 @@ public partial class DockLayout : IAsyncDisposable
     {
         if (firstRender)
         {
-            Module = await JSRuntime.LoadModule("./Components/Layout/DockLayout.razor.js");
+            Module = await JSRuntime.LoadModule($"{WebsiteOption.CurrentValue.AssetRootPath}Components/Layout/DockLayout.razor.js");
             await Module.InvokeVoidAsync("init");
         }
     }

@@ -62,6 +62,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否可清除 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
     /// 获得/设置 IIconTheme 服务实例
     /// </summary>
     [Inject]
@@ -78,6 +84,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)
+        .AddClass("cls", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -100,6 +107,15 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
+
+    private bool GetClearable() => IsClearable && !IsDisabled;
+
+    /// <summary>
+    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// 获得 PlaceHolder 属性
@@ -174,16 +190,15 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     [Parameter]
     public bool AutoGenerateColumns { get; set; }
 
+    /// <summary>
+    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
-
-    /// <summary>
-    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
-    /// </summary>
-    [Inject]
-    [NotNull]
-    public IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -198,6 +213,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private string GetStyleString => $"height: {Height}px;";
 
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -205,10 +226,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     {
         base.OnInitialized();
 
-        if (ValidateForm != null)
-        {
-            Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = "{0} is required." });
-        }
+        AddRequiredValidator();
     }
 
     /// <summary>
@@ -230,6 +248,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
     }
 
     /// <summary>
@@ -248,5 +267,15 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     {
         CurrentValue = item;
         await InvokeVoidAsync("close", Id);
+    }
+
+    private async Task OnClearValue()
+    {
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+
+        await OnClickRowCallback(default!);
     }
 }

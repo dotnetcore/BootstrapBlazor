@@ -120,7 +120,6 @@
 
 <DemoBlock Title="@Localizer["MultiSelectOptionChangeTitle"]" Introduction="@Localizer["MultiSelectOptionChangeIntro"]" Name="OptionChange">
     <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedOptionItemsValue" />
-    <ConsoleLogger @ref="OptionLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectClientValidationTitle"]" Introduction="@Localizer["MultiSelectClientValidationIntro"]" Name="ClientValidation">
@@ -238,6 +237,20 @@
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
             <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiSelectIsEditableTitle"]" Introduction="@Localizer["MultiSelectIsEditableIntro"]" Name="IsEditable">
+    <section ignore>
+        @((MarkupString)Localizer["MultiSelectIsEditableDescription"].Value)
+    </section>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <MultiSelect @bind-Value="@_editString" Items="@EditableItems" IsEditable="true" Max="2" EditSubmitKey="EditSubmitKey.Enter" OnEditCallback="OnEditCallback" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@_editString"></Display>
         </div>
     </div>
 </DemoBlock>

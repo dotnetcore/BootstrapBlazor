@@ -7,30 +7,21 @@ export function init(id, invoke, method) {
         return;
     }
 
-    EventHandler.on(el, 'click', async e => {
-        const stopPropagation = el.getAttribute("data-bb-stop-propagation");
-        if (stopPropagation === "true") {
-            e.stopPropagation();
-        }
-
-        const state = el.getAttribute("data-bb-state");
-        let val = null;
-        if (state) {
-            val = state == "1" ? 0 : 1;
-            el.removeAttribute('data-bb-state');
-
-            if (state === "1") {
-                el.parentElement.classList.remove('is-checked');
-            }
-            else {
-                el.parentElement.classList.add('is-checked');
-            }
-        }
-        const result = await invoke.invokeMethodAsync(method, val);
-        if (result === false) {
-            e.preventDefault();
-        }
+    EventHandler.on(el, 'statechange.bb.checkbox', e => {
+        invoke.invokeMethodAsync(method, e.state);
     });
+}
+
+export function update(id, state, val) {
+    const el = document.getElementById(id);
+    if (el === null) {
+        return;
+    }
+
+    setIndeterminate(id, state);
+    if (state === false && el.checked !== val) {
+        el.checked = val;
+    }
 }
 
 export function dispose(id) {
@@ -39,7 +30,5 @@ export function dispose(id) {
         return;
     }
 
-    EventHandler.off(el, 'click');
+    EventHandler.off(el, 'statechange.bb.checkbox');
 }
-
-export { setIndeterminate }

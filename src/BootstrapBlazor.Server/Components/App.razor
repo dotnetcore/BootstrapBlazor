@@ -1,5 +1,6 @@
 ﻿@inject IWebHostEnvironment Env
-@inject IStringLocalizer<App> Localizer
+@inject IStringLocalizer<BaseLayout> Localizer
+@inject IOptions<WebsiteOptions> WebsiteOption
 
 <!DOCTYPE html>
 <html lang="en" data-bs-theme='light'>
@@ -9,29 +10,26 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="keywords" content="bootstrap,blazor,wasm,webassembly,UI,netcore,web,assembly">
+    <meta name="keywords" content="bootstrapblazor,bootstrap,blazor,wasm,webassembly,UI,netcore,web,assembly">
     <meta name="description" content="基于 Bootstrap 风格的 Blazor UI 组件库，用于研发企业级中后台产品。">
     <meta name="author" content="argo (argo@live.ca)">
-    <title>@Localizer["Title"]</title>
+    <meta name="theme-color" content="#712cf9">
+    <title>@Localizer["SiteTitle"]</title>
     <base href="/" />
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.png">
 
-    @if (Env.IsSupportAssets())
-    {
-        @this.RenderAssets()
-    }
-    else
-    {
-        <link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
-        <link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css" />
-        <link rel="stylesheet" href="BootstrapBlazor.Server.styles.css" />
-        <link rel="stylesheet" href="css/site.css" />
-    }
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.MaterialDesign/css/md.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.BootstrapIcon/css/bootstrap.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css"]" />
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor/css/motronic.min.css"]" />
+    <link rel="stylesheet" href="@Assets["BootstrapBlazor.Server.styles.css"]" />
+    <link rel="stylesheet" href="@Assets["css/site.css"]" />
+
+    <ImportMap></ImportMap>
+
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
 </head>
 
@@ -45,12 +43,12 @@
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.6.0.min.js"></script>
-    <script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_framework/blazor.web.js"></script>
     @if (Env.IsProduction())
     {
         <script type="text/javascript" src="https://cdn.wwads.cn/js/makemoney.js"></script>
-        <script type="text/javascript" src="lib/wwads/wwads.js"></script>
+        <script type="text/javascript" src="@WebsiteOption.Value.GetAssetUrl("lib/wwads/wwads.js")"></script>
         <script>
             var _hmt = _hmt || [];
             (function () {

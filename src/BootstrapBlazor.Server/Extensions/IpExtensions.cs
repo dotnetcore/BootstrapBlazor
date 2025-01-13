@@ -12,12 +12,9 @@ internal static class IpExtensions
         var ret = ip;
         if (!string.IsNullOrEmpty(ip))
         {
-            var index = ip.LastIndexOf('.');
-            if (index > -1)
-            {
-                var mask = ip[index..];
-                ret = ip.Replace(mask, ".###");
-            }
+            var segments = ip.Split('.');
+            segments[^1] = "###";
+            ret = string.Join('.', segments);
         }
         return ret;
     }

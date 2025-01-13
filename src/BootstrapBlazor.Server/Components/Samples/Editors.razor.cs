@@ -111,6 +111,13 @@ public sealed partial class Editors
         await Editor.DoMethodAsync("pasteHTML", $"<h1>{Localizer["DoMethodAsyncPasteHTML"]}</h1>");
     }
 
+    private string? _editorCode;
+
+    private async Task OnGetCode()
+    {
+        _editorCode = await Editor.GetCode();
+    }
+
     private AttributeItem[] GetAttributes() =>
     [
         new()

@@ -10,22 +10,36 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 枚举类型过滤组件
 /// </summary>
-public partial class LookupFilter
+public partial class LookupFilter : ILookup
 {
     private string? Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关枚举类型
+    /// <inheritdoc/>
     /// </summary>
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     [Parameter]
-    [NotNull]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -33,9 +47,7 @@ public partial class LookupFilter
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
@@ -50,17 +62,16 @@ public partial class LookupFilter
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        if (Lookup == null)
-        {
-            throw new InvalidOperationException("the Parameter Lookup must be set.");
-        }
 
         if (Type == null)
         {
@@ -76,19 +87,20 @@ public partial class LookupFilter
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnParametersSet();
+        await base.OnParametersSetAsync();
 
-        if (Items == null)
+        var items = new List<SelectedItem>
         {
-            var items = new List<SelectedItem>
-            {
-                new("", Localizer["EnumFilter.AllText"].Value)
-            };
-            items.AddRange(Lookup);
-            Items = items;
+            new("", Localizer["EnumFilter.AllText"].Value)
+        };
+        var lookup = await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData);
+        if (lookup != null)
+        {
+            items.AddRange(lookup);
         }
+        Items = items;
     }
 
     /// <summary>

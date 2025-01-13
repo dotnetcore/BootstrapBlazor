@@ -16,7 +16,7 @@ public partial class TutorialsNavMenu
 {
     [Inject]
     [NotNull]
-    private IStringLocalizer<App>? AppLocalizer { get; set; }
+    private IStringLocalizer<BaseLayout>? AppLocalizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -118,7 +118,7 @@ public partial class TutorialsNavMenu
     {
         if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
         {
-            await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
+            await TitleService.SetTitle($"{item.Text} - {AppLocalizer["SiteTitle"]}");
         }
     }
 

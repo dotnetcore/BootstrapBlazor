@@ -166,6 +166,30 @@ public sealed partial class PopoverConfirms
             Type = "string",
             ValueList = "",
             DefaultValue = " "
+        },
+        new()
+        {
+            Name = nameof(PopConfirmButton.Trigger),
+            Description = "How pop confirm is triggered",
+            Type = "string",
+            ValueList = "click|hover|focus",
+            DefaultValue = "click"
+        },
+        new()
+        {
+            Name = nameof(PopConfirmButton.ShowCloseButton),
+            Description = "Whether to display the close button",
+            Type = "string",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(PopConfirmButton.ShowConfirmButton),
+            Description = "Whether to display the confirm button",
+            Type = "string",
+            ValueList = "true/false",
+            DefaultValue = "true"
         }
     ];
 

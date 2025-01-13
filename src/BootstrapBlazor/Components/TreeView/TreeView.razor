@@ -6,7 +6,11 @@
 
 @if (Items == null)
 {
-    if (ShowSkeleton)
+    if (_init)
+    {
+        
+    }
+    else if (ShowSkeleton)
     {
         <SkeletonTree AdditionalAttributes="AdditionalAttributes"></SkeletonTree>
     }
@@ -40,7 +44,7 @@ else
         }
         @if (IsVirtualize)
         {
-            <div class="tree-root is-virtual scroll" tabindex="0">
+            <div class="tree-root is-virtual" tabindex="0">
                 <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Rows">
                     <ItemContent>
                         @RenderTreeRow(context)
@@ -50,58 +54,44 @@ else
         }
         else
         {
-            <ul class="tree-root scroll" tabindex="0">
-                @foreach (var item in Items)
+            <div class="tree-root" tabindex="0">
+                @foreach (var item in Rows)
                 {
-                    @RenderTreeItem(item)
+                    @RenderTreeRow(item)
                 }
-            </ul>
+            </div>
         }
     </div>
 }
 
 @code {
-    private RenderFragment<TreeViewItem<TItem>> RenderTreeNode => item =>
-    @<ul class="@GetTreeClassString(item)">
-        @foreach (var node in item.Items)
-        {
-            @RenderTreeItem(node)
-        }
-    </ul>;
-
-    private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
-    @<li class="@GetItemClassString(item)">
-        @RenderTreeRow(item)
-        @if (item.Items.Any())
-        {
-            @RenderTreeNode(item)
-        }
-    </li>;
-
     private RenderFragment<TreeViewItem<TItem>> RenderTreeRow => item =>
-    @<div @key="item" class="tree-content" data-bb-tree-view-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
-        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
-        <i class="@NodeLoadingClassString"></i>
-        @if (ShowCheckbox)
-        {
-            <Checkbox Value="@item" IsDisabled="GetItemDisabledState(item)"
-                      SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
-                      State="@item.CheckedState" OnStateChanged="(state, v) => OnCheckStateChanged(item, state)"
-                      OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)" ></Checkbox>
-        }
-        <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
-            @if (ShowIcon)
+    @<div @key="item" class="@GetContentClassString(item)" data-bb-tree-view-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
+        <div class="tree-content-header"></div>
+        <div class="tree-content-body">
+            <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="CanTriggerClickNode(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
+            <i class="@NodeLoadingClassString"></i>
+            @if (ShowCheckbox)
             {
-                <i class="@GetIconClassString(item)"></i>
+                <Checkbox Value="@item" IsDisabled="GetItemDisabledState(item)"
+                          SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
+                          State="@item.CheckedState" OnStateChanged="(state, v) => OnCheckStateChanged(item, state)"
+                          OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)" ></Checkbox>
             }
-            @if (item.Template == null)
-            {
-                <span class="@GetItemTextClassString(item)">@item.Text</span>
-            }
-            else
-            {
-                @item.Template(item.Value)
-            }
-        </DynamicElement>
+            <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
+                @if (ShowIcon)
+                {
+                    <i class="@GetIconClassString(item)"></i>
+                }
+                @if (item.Template == null)
+                {
+                    <span class="@GetItemTextClassString(item)">@item.Text</span>
+                }
+                else
+                {
+                    @item.Template(item.Value)
+                }
+            </DynamicElement>
+        </div>
     </div>;
 }

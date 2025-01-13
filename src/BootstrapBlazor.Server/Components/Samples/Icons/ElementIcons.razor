@@ -2,6 +2,10 @@
 @layout MainLayout
 @inject IStringLocalizer<ElementIcons> Localizer
 
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.ElementIcon/BootstrapBlazor.ElementIcon.bundle.scp.css"]" />
+</HeadContent>
+
 <h3>@Localizer["ElementIconTitle"]</h3>
 
 <h4>@Localizer["ElementIconDescription"]</h4>
@@ -20,4 +24,4 @@
 
 <Pre>&lt;ElementIcon Name="add-location"&gt;&lt;ElementIcon&gt;</Pre>
 
-<ElementIconList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />
+<div>@((MarkupString)Localizer["Icons"].Value)</div>

@@ -1,0 +1,36 @@
+﻿@page "/rdkit"
+@inject IStringLocalizer<RDKits> Localizer
+
+<h3>@Localizer["RDKitTitle"]</h3>
+
+<h4>@Localizer["RDKitDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.RDKit" />
+
+<DemoBlock Title="@Localizer["RDKitNormalTitle"]"
+           Introduction="@Localizer["RDKitNormalIntro"]"
+           Name="Normal">
+    <RDKit Smiles="CC(=O)Oc1ccccc1C(=O)O"></RDKit>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RDKitSizeTitle"]"
+           Introduction="@Localizer["RDKitSizeIntro"]"
+           Name="Size">
+    <RDKit Smiles="CC(=O)Oc1ccccc1C(=O)O" Width="200" Height="100"></RDKit>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RDKitSmartsTitle"]"
+           Introduction="@Localizer["RDKitSmartsIntro"]"
+           Name="Smarts">
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="@Localizer["RDKitSmartsLabel"]" />
+                    <Checkbox @bind-Value="_showSmarts"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+    <RDKit Smiles="CC(=O)Oc1ccccc1C(=O)O" Smarts="@Smarts"></RDKit>
+</DemoBlock>

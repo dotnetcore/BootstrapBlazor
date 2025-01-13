@@ -1,10 +1,6 @@
-﻿import { addLink } from '../../_content/BootstrapBlazor/modules/utility.js'
-
-export async function init(id, options) {
+﻿export function init(id, options) {
     var el = document.getElementById(id)
     if (el) {
-        await addLink("../../css/wwads.css");
-
         const { isVertical, isDebug } = options;
 
         if (isDebug === false) {
@@ -13,11 +9,6 @@ export async function init(id, options) {
             ad.classList.add("wwads-cn")
             ad.classList.add(isVertical ? "wwads-vertical" : "wwads-horizontal");
             el.appendChild(ad);
-
-            //    const cc = document.createElement('div');
-            //    cc.classList.add("cc-ad")
-            //    cc.innerHTML = `<a href="https://ccbpm.cn/index.html?Frm=argo" target="_blank"><img src='https://ccbpm.cn/img/GenerAD.png?Frm=argo' /></a>`
-            //    el.appendChild(cc);
         }
     }
 }

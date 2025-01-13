@@ -16,9 +16,14 @@ public class TimelineItem
     public string? Content { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间线时间
+    /// 获得/设置 时间线描述
     /// </summary>
     public string? Description { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间线描述模板
+    /// </summary>
+    public RenderFragment? DescriptionTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 时间线颜色

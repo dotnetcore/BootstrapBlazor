@@ -190,11 +190,10 @@ internal static class MenusDataGenerator
         })
     });
 
-    public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
+    public static async Task<List<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
-        return new List<MenuItem>
-        {
+        return [
             new(localizer["System"].Value, icon: "fa-solid fa-gears")
             {
                 IsActive = true,
@@ -204,6 +203,7 @@ internal static class MenusDataGenerator
                     new(localizer["Task"].Value, icon: "fa-solid fa-bars-progress")
                 }
             },
+
             new(localizer["Authorize"].Value, icon: "fa-solid fa-users")
             {
                 Items = new List<MenuItem>
@@ -213,6 +213,7 @@ internal static class MenusDataGenerator
                     new(localizer["Role"].Value, icon: "fa-solid fa-sitemap")
                 }
             },
+
             new(localizer["Log"].Value, icon: "fa-solid fa-database")
             {
                 Items = new List<MenuItem>
@@ -222,7 +223,7 @@ internal static class MenusDataGenerator
                     new(localizer["Operation"].Value, icon: "fa-solid fa-pen")
                 }
             }
-        };
+        ];
     }
 
     public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)

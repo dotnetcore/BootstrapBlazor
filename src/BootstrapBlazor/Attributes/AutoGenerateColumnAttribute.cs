@@ -156,7 +156,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托
+    /// <inheritdoc/>
     /// </summary>
     public Func<object?, Task<string?>>? Formatter { get; set; }
 
@@ -298,11 +298,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     internal string? FieldName { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
-    /// </summary>
-    IEnumerable<SelectedItem>? IEditorItem.Lookup { get; set; }
-
-    /// <summary>
     /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
     /// </summary>
     public bool ShowSearchWhenSelect { get; set; }
@@ -313,9 +308,14 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>>
+    /// <inheritdoc/>
     /// </summary>
-    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+    IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    ILookupService? ILookup.LookupService { get; set; }
 
     /// <summary>
     /// <inheritdoc/>>
@@ -326,6 +326,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <inheritdoc/>>
     /// </summary>
     public object? LookupServiceData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// 获得/设置 单元格回调方法

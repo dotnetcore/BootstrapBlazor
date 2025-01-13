@@ -120,6 +120,24 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [Parameter]
     public bool IsEditable { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定搜索栏 默认 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示重置搜索栏按钮 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowResetSearchButton { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
@@ -149,6 +167,21 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    private string? SelectTreeCustomClassString => CssBuilder.Default(CustomClassString)
+        .AddClass("select-tree", IsPopover)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // 处理 Required 标签
+        AddRequiredValidator();
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -165,12 +198,20 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
-        await base.OnParametersSetAsync();
+        base.OnParametersSet();
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
 
         Items ??= [];
 
@@ -178,6 +219,11 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         {
             // 组件未赋值 Value 通过 IsActive 设置默认值
             await TriggerItemChanged(s => s.IsActive);
+        }
+        else
+        {
+            // 组件已赋值 Value 通过 Value 设置默认值
+            await TriggerItemChanged(s => Equals(s.Value, Value));
         }
     }
 
@@ -208,16 +254,17 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         var currentItem = GetExpandedItems().FirstOrDefault(predicate);
         if (currentItem != null)
         {
+            currentItem.IsActive = true;
             await ItemChanged(currentItem);
         }
     }
 
-    private IEnumerable<TreeViewItem<TValue>> GetExpandedItems()
+    private List<TreeViewItem<TValue>> GetExpandedItems()
     {
         if (ItemCache != Items)
         {
             ItemCache = Items;
-            ExpandedItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+            ExpandedItemsCache = TreeViewExtensions.GetAllItems(ItemCache).ToList();
         }
         return ExpandedItemsCache;
     }

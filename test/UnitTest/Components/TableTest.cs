@@ -759,10 +759,10 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("Test_Column_List");
 
         var item = cut.FindComponents<Checkbox<bool>>()[0];
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(show);
 
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.False(show);
     }
 
@@ -1823,7 +1823,7 @@ public class TableTest : BootstrapBlazorTestBase
 
     class MockTableColumn : AutoGenerateColumnAttribute
     {
-        public new string GetFieldName() => "Test";
+        public static new string GetFieldName() => "Test";
     }
 
     [Fact]
@@ -2481,7 +2481,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中一行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -2541,7 +2541,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中一行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        cut.InvokeAsync(input.Instance.TriggerClick);
+        cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.False(button.Instance.IsDisabled);
     }
 
@@ -3395,7 +3395,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<FooTree>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
@@ -3683,7 +3683,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
         cut.Contains("is-node");
         var input = cut.FindComponents<Checkbox<FooNoKeyTree>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<Table<FooNoKeyTree>>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
@@ -4464,20 +4464,21 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[0];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs.Count);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
     }
 
     [Fact]
@@ -4502,15 +4503,16 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
     }
 
     [Fact]
@@ -4543,59 +4545,60 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
 
-        var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        var inputs = cut.FindComponents<Checkbox<Foo>>();
+        var input = inputs[1];
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
-        var checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        var checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击下页按钮翻页
         var nextBtn = cut.Find(".fa-angle-right");
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //选中行数为空
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击下页按钮翻页
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //点击表头CheckBox
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         //加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
 
         //点击向前按钮翻页
         var prevBtn = cut.Find("i.fa-angle-left");
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向前按钮翻页
         await cut.InvokeAsync(() => prevBtn.Click());
 
         //恢复选中行数为1
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Single(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(1, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为0
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Empty(checkboxs);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(0, checkboxs);
 
         //点击向后翻页按钮
         await cut.InvokeAsync(() => nextBtn.Click());
 
         //恢复选中行数为2，加上表头的复选框选中，结果有3项
-        checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(3, checkboxs?.Count);
+        checkboxs = inputs.Count(i => i.Instance.State == CheckboxState.Checked);
+        Assert.Equal(3, checkboxs);
     }
 
     [Fact]
@@ -5001,6 +5004,7 @@ public class TableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(30, "IsPopover", false);
                     builder.AddAttribute(31, "IsVisibleWhenAdd", false);
                     builder.AddAttribute(32, "IsVisibleWhenEdit", false);
+                    builder.AddAttribute(33, "LookupService", new FooLookupService());
                     builder.CloseComponent();
                 });
             });
@@ -5036,6 +5040,7 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal(1, column.Instance.GroupOrder);
         Assert.True(column.Instance.ShowSearchWhenSelect);
         Assert.False(column.Instance.IsPopover);
+        Assert.NotNull(column.Instance.LookupService);
 
         var col = column.Instance as ITableColumn;
         Assert.NotNull(col.Template);
@@ -5157,56 +5162,21 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TableColumn_Ignore()
-    {
-        var items = new List<MockComplexFoo>([
-            new() { Name = "Test1", Foo = new() { Id = 1, Name = "Test_1" } },
-            new() { Name = "Test2", Foo = new() { Id = 2, Name = "Test_2" } },
-            new() { Name = "Test3", Foo = new() { Id = 3, Name = "Test_3" } },
-        ]);
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<MockComplexFoo>>(pb =>
-            {
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.AutoGenerateColumns, true);
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<MockComplexFoo, int>>(0);
-                    builder.AddAttribute(1, "Field", 0);
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Id", typeof(int)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Name", typeof(string)));
-                    builder.CloseComponent();
-
-                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Test");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Foo.Address", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 自动生成 2 列 手动 Id 列忽略 Name, Address 列追加
-        var table = cut.FindComponent<Table<MockComplexFoo>>();
-        Assert.Equal(4, table.Instance.Columns.Count);
-    }
-
-    [Fact]
     public void TableColumn_ComplexObject()
     {
         var cut = Context.RenderComponent<TableColumn<MockComplexFoo, string>>(pb =>
         {
-            pb.Add(a => a.Field, "Foo.Name");
-            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+            pb.Add(a => a.Field, "");
         });
         var col = cut.Instance;
         var v = col.GetFieldName();
+        Assert.Equal("", v);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.FieldExpression, Utility.GenerateValueExpression(new MockComplexFoo(), "Foo.Name", typeof(string)));
+        });
+        v = col.GetFieldName();
         Assert.Equal("Name", v);
     }
 
@@ -5240,10 +5210,10 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Empty(selectedRows);
 
         var input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.Equal(2, selectedRows.Count);
 
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.Empty(selectedRows);
     }
 
@@ -5355,7 +5325,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5405,7 +5375,7 @@ public class TableTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
@@ -5500,6 +5470,192 @@ public class TableTest : BootstrapBlazorTestBase
 
         Assert.True(afterSave);
         Assert.True(afterModify);
+    }
+
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_EditForm()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 取消按钮
+        var cancelButton = cut.Find(".form-footer .btn-secondary");
+        await cut.InvokeAsync(() => cancelButton.Click());
+        Assert.True(afterCancelSave);
+    }
+
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_InCell()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.EditForm);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 取消按钮
+        button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[1].Click());
+        Assert.True(afterCancelSave);
+    }
+
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_Popup()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.Popup);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 保存按钮
+        var saveButton = cut.Find(".bb-editor-footer .btn-primary");
+        await cut.InvokeAsync(() => saveButton.Click());
+        Assert.False(afterCancelSave);
+
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
+
+        // 弹窗
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 关闭按钮未设置 OnClickWithoutRender 回调
+        var cancelButton = cut.FindComponent<DialogCloseButton>();
+        Assert.Null(cancelButton.Instance.OnClickWithoutRender);
+
+        // 关闭弹窗
+        await cut.InvokeAsync(modal.Instance.CloseCallback);
+        Assert.True(afterCancelSave);
+    }
+
+    [Fact]
+    public async Task OnAfterCancelSaveAsync_Drawer()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var afterCancelSave = false;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.EditMode, EditMode.Drawer);
+                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
+                {
+                    afterCancelSave = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // test edit button
+        var button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        // 保存按钮
+        var saveButton = cut.Find(".bb-editor-footer .btn-primary");
+        await cut.InvokeAsync(() => saveButton.Click());
+        Assert.False(afterCancelSave);
+
+        // 取消按钮
+        button = cut.FindAll("tbody tr button");
+        await cut.InvokeAsync(() => button[0].Click());
+
+        var cancelButton = cut.Find(".bb-editor-footer .btn");
+        await cut.InvokeAsync(() => cancelButton.Click());
+        Assert.True(afterCancelSave);
     }
 
     [Theory]
@@ -5878,7 +6034,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中行
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var button = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-arrows-rotate");
         await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
@@ -6019,7 +6175,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中行
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         Assert.True(compared);
     }
 
@@ -6065,7 +6221,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选中第一行数据
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         var selectedRow = table.Instance.SelectedRows.FirstOrDefault();
         Assert.NotNull(selectedRow);
 
@@ -6091,7 +6247,7 @@ public class TableTest : BootstrapBlazorTestBase
         });
 
         var input = cut.FindComponents<Checkbox<DynamicObject>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
 
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
@@ -6650,7 +6806,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         var modal = cut.FindComponent<Modal>();
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
@@ -6664,7 +6820,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选两个
         input = cut.FindComponents<Checkbox<Foo>>()[0];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
     }
@@ -6740,7 +6896,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         table.SetParametersAndRender(pb =>
@@ -6779,7 +6935,7 @@ public class TableTest : BootstrapBlazorTestBase
         var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        cut.InvokeAsync(input.Instance.TriggerClick);
+        cut.InvokeAsync(input.Instance.OnToggleClick);
         cut.InvokeAsync(() => deleteButton.Instance.OnConfirm());
 
         table.SetParametersAndRender(pb =>
@@ -6879,7 +7035,7 @@ public class TableTest : BootstrapBlazorTestBase
         var table = cut.FindComponent<Table<Foo>>();
         // 选一个
         var input = cut.FindComponents<Checkbox<Foo>>()[1];
-        await cut.InvokeAsync(input.Instance.TriggerClick);
+        await cut.InvokeAsync(input.Instance.OnToggleClick);
         await cut.InvokeAsync(() => table.Instance.EditAsync());
     }
 
@@ -7509,10 +7665,143 @@ public class TableTest : BootstrapBlazorTestBase
 
         var table = cut.FindComponent<MockTable>();
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        col.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowTips, true);
+            pb.Add(a => a.Lookup, null);
+            pb.Add(a => a.LookupService, new MockLookupServiceAsync());
+        });
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
     [Fact]
-    public void Value_Formatter()
+    public async Task GetValue_LookupServiceKey_Null()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, bool>>(0);
+                    builder.AddAttribute(1, "Field", true);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(3, "LookupServiceKey", "null");
+                    builder.AddAttribute(4, "LookupServiceData", true);
+                    builder.AddAttribute(5, "ShowTips", true);
+                    builder.AddAttribute(6, "LookupService", new MockLookupServiceAsync());
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+    }
+
+    [Fact]
+    public async Task GetValue_LookupServiceKey_NullText()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, bool>>(0);
+                    builder.AddAttribute(1, "Field", true);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(3, "LookupServiceKey", "null-text");
+                    builder.AddAttribute(4, "LookupServiceData", true);
+                    builder.AddAttribute(5, "ShowTips", true);
+                    builder.AddAttribute(6, "LookupService", new MockLookupServiceAsync());
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+    }
+
+    [Fact]
+    public async Task GetValue_LookupServiceKey_NullValue()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockTable>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, bool>>(0);
+                    builder.AddAttribute(1, "Field", true);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
+                    builder.AddAttribute(3, "LookupServiceKey", "null-value");
+                    builder.AddAttribute(4, "LookupServiceData", true);
+                    builder.AddAttribute(6, "LookupService", new MockLookupServiceAsync());
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<MockTable>();
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+    }
+
+    class MockLookupServiceAsync : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            await Task.Delay(300);
+
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "test")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("True", "LookupService-Test-True-async"),
+                    new("False", "LookupService-Test-False-async")
+                };
+            }
+
+            if (key == "null")
+            {
+                ret = null;
+            }
+
+            if (key == "null-text")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("Fake-True", "Fake-True"),
+                    new("Fake-False", "Fake-False")
+                };
+            }
+
+            if (key == "null-value")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("True", null!),
+                    new("False", null!)
+                };
+            }
+            return ret;
+        }
+    }
+
+    [Fact]
+    public async Task Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -7533,16 +7822,20 @@ public class TableTest : BootstrapBlazorTestBase
         cut.Contains("010");
 
         var col = cut.FindComponent<TableColumn<Foo, int>>();
+        var formatted = false;
         col.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
+                formatted = true;
                 return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        // Formatter 方法不被调用
+        Assert.True(formatted);
     }
 
     [Fact]
@@ -7979,7 +8272,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         // click header 第二行不可选择
         var header = table.FindComponents<Checkbox<Foo>>()[0];
-        table.InvokeAsync(header.Instance.TriggerClick);
+        table.InvokeAsync(header.Instance.OnToggleClick);
         Assert.Single(table.Instance.SelectedRows);
     }
 
@@ -8469,10 +8762,10 @@ public class TableTest : BootstrapBlazorTestBase
             ParentId = parentId,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
@@ -8487,10 +8780,10 @@ public class TableTest : BootstrapBlazorTestBase
             Id = i + seed,
             Name = localizer["Foo.Name", $"{seed:d2}{(i + seed):d2}"],
             DateTime = System.DateTime.Now.AddDays(i - 1),
-            Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
-            Count = Random.Next(1, 100),
-            Complete = Random.Next(1, 100) > 50,
-            Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
+            Address = localizer["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
+            Count = Random.Shared.Next(1, 100),
+            Complete = Random.Shared.Next(1, 100) > 50,
+            Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
         }).ToList();
     }
 
@@ -8690,6 +8983,28 @@ public class TableTest : BootstrapBlazorTestBase
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+    }
+
+    class FooLookupService : LookupServiceBase
+    {
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+
+        public override async Task<IEnumerable<SelectedItem>?> GetItemsByKeyAsync(string? key, object? data)
+        {
+            await Task.Delay(300);
+
+            IEnumerable<SelectedItem>? ret = null;
+
+            if (key == "FooLookup")
+            {
+                ret = new SelectedItem[]
+                {
+                    new("v1", "LookupService-Test-1-async"),
+                    new("v2", "LookupService-Test-2-async")
+                };
+            }
+            return ret;
         }
     }
 }

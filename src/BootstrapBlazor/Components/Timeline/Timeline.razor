@@ -24,7 +24,14 @@
                     @item.Component.Render()
                 }
                 <div class="timeline-item-timestamp">
-                    @item.Description
+                    @if(item.DescriptionTemplate != null)
+                    {
+                        @item.DescriptionTemplate
+                    }
+                    else
+                    {
+                        @item.Description
+                    }
                 </div>
             </div>
         </li>

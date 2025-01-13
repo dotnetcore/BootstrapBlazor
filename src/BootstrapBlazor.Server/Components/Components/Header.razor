@@ -34,12 +34,12 @@
     <ul class="navbar-nav nav-repo ms-3">
         <li class="nav-item">
             <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.GithubRepositoryUrl" target="_blank">
-                <img alt="git" src="./images/git.svg" />
+                <img alt="git" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/git.svg")" />
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link p-2" href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">
-                <img alt="gitee" src="./images/gitee.svg" />
+                <img alt="gitee" src="@WebsiteOption.CurrentValue.GetAssetUrl("images/gitee.svg")" />
             </a>
         </li>
         <li class="nav-item">

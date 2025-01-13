@@ -3,10 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Collections.Frozen;
+
 namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
-/// 
+/// WebsiteOptions 网站配置类
 /// </summary>
 public class WebsiteOptions
 {
@@ -14,11 +16,6 @@ public class WebsiteOptions
     /// 
     /// </summary>
     public string ServerUrl { get; set; } = "https://www.blazor.zone";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public string WasmUrl { get; set; } = "https://wasm.blazor.zone";
 
     /// <summary>
     /// 
@@ -88,6 +85,18 @@ public class WebsiteOptions
     public string? ContentRootPath { get; set; }
 
     /// <summary>
+    /// 获得/设置 资源文件根目录 默认值为 "./"
+    /// </summary>
+    [NotNull]
+    public string? AssetRootPath { get; set; } = "./";
+
+    /// <summary>
+    /// 获得/设置 脚本根路径
+    /// </summary>
+    [NotNull]
+    public string JSModuleRootPath { get; set; } = "./Components/";
+
+    /// <summary>
     /// 获得/设置 视频地址
     /// </summary>
     public string VideoUrl { get; set; } = "https://www.bilibili.com/video/";
@@ -95,12 +104,12 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    public Dictionary<string, string?> SourceCodes { get; private set; }
+    public FrozenDictionary<string, string?> SourceCodes { get; private set; }
 
     /// <summary>
     /// 获得/设置 资源配置集合
     /// </summary>
-    public Dictionary<string, string?> Videos { get; private set; }
+    public FrozenDictionary<string, string?> Videos { get; private set; }
 
     /// <summary>
     /// 获得/设置 当前主题
@@ -120,13 +129,13 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 当前网站友联集合
     /// </summary>
-    public Dictionary<string, string?> Links { get; set; }
+    public FrozenDictionary<string, string?> Links { get; set; }
 
     /// <summary>
     /// 获得/设置 网站主题配置集合
     /// </summary>
     [NotNull]
-    public List<ThemeOption>? Themes { get; set; }
+    public HashSet<ThemeOption>? Themes { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -134,9 +143,15 @@ public class WebsiteOptions
     public WebsiteOptions()
     {
         var config = GetConfiguration("docs.json");
-        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
-        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
+        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
+        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToFrozenDictionary(item => item.Key, item => item.Value);
+
+#if DEBUG
+        IsDevelopment = true;
+#endif
+        ContentRootPath = IsDevelopment ? Path.Combine(AppContext.BaseDirectory, "../../../") : AppContext.BaseDirectory;
+        WebRootPath = Path.Combine(ContentRootPath, "wwwroot");
     }
 
     private IConfiguration GetConfiguration(string jsonFileName)
@@ -149,4 +164,18 @@ public class WebsiteOptions
             .AddJsonStream(res)
             .Build();
     }
+
+    /// <summary>
+    /// 拼接静态资源文件路径
+    /// </summary>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public string? GetAssetUrl(string url) => $"{AssetRootPath}{url}";
+
+    /// <summary>
+    /// 获得头像地址字符串
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public string GetAvatarUrl(int id) => $"{AssetRootPath}images/avatars/150-{Math.Max(1, id % 25)}.jpg";
 }

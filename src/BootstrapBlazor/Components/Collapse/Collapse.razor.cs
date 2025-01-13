@@ -10,8 +10,19 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Collapse
 {
-    private static string? GetButtonClassString(CollapseItem item) => CssBuilder.Default("accordion-button")
+    private static string? GetHeaderButtonClassString(CollapseItem item) => CssBuilder.Default("accordion-button")
         .AddClass("collapsed", item.IsCollapsed)
+        .AddClass($"bg-{item.TitleColor.ToDescriptionString()}", item.TitleColor != Color.None)
+        .Build();
+
+    private static string? GetItemIconString(CollapseItem item) => CssBuilder.Default("accordion-item-icon")
+        .AddClass(item.Icon)
+        .Build();
+
+    private static string? GetHeaderClassString(CollapseItem item) => CssBuilder.Default("accordion-header")
+        .AddClass("collapsed", item.IsCollapsed)
+        .AddClass($"bg-{item.TitleColor.ToDescriptionString()}", item.TitleColor != Color.None)
+        .AddClass(item.HeaderClass)
         .Build();
 
     private static string? GetClassString(bool collapsed) => CssBuilder.Default("accordion-collapse collapse")

@@ -20,9 +20,23 @@
             </span>
         </div>
     }
-    else
+    else if (Category == SwalCategory.Warning)
     {
-        <div class="@IconClassString"></div>
+        <div class="@IconClassString">
+            <div class="swal2-icon-content">!</div>
+        </div>
+    }
+    else if (Category == SwalCategory.Question)
+    {
+        <div class="@IconClassString">
+            <div class="swal2-icon-content">?</div>
+        </div>
+    }
+    else if (Category == SwalCategory.Information)
+    {
+        <div class="@IconClassString">
+            <div class="swal2-icon-content">i</div>
+        </div>
     }
     @if (!string.IsNullOrEmpty(Title))
     {

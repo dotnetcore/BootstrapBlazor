@@ -12,6 +12,10 @@ using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 
+#if NET8_0_OR_GREATER
+using System.Collections.Frozen;
+#endif
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -118,7 +122,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
+        GetOrCreate("BootstrapBlazor_StartTime", _ => startDateTimeOffset);
     }
 
     /// <summary>
@@ -159,7 +163,7 @@ internal class CacheManager : ICacheManager
 
     #region Localizer
     /// <summary>
-    /// 
+    /// 通过 Type 获得 <see cref="IStringLocalizer"/> 实例
     /// </summary>
     /// <param name="resourceSource"></param>
     /// <returns></returns>
@@ -168,10 +172,10 @@ internal class CacheManager : ICacheManager
         : Instance.Provider.GetRequiredService<IStringLocalizerFactory>().Create(resourceSource);
 
     /// <summary>
-    /// 
+    /// 获得 <see cref="JsonLocalizationOptions"/> 值
     /// </summary>
     /// <returns></returns>
-    public static JsonLocalizationOptions GetJsonLocalizationOption()
+    private static JsonLocalizationOptions GetJsonLocalizationOption()
     {
         var localizationOptions = Instance.Provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         return localizationOptions.Value;
@@ -185,20 +189,17 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
-        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", entry =>
+        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", _ =>
     {
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
-        if (factories != null)
+        var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
+        if (factory != null)
         {
-            var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
-            if (factory != null)
+            var type = assembly.GetType(typeName);
+            if (type != null)
             {
-                var type = assembly.GetType(typeName);
-                if (type != null)
-                {
-                    ret = factory.Create(type);
-                }
+                ret = factory.Create(type);
             }
         }
         return ret;
@@ -209,8 +210,8 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="assembly"></param>
     /// <param name="typeName"></param>
-    /// <returns></returns>
-    public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName) => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
+    public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
+        => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
@@ -223,26 +224,31 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static IEnumerable<LocalizedString>? GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false)
     {
-        return assembly.IsDynamic ? null : GetJsonStringByTypeName();
-
-        IEnumerable<LocalizedString>? GetJsonStringByTypeName()
+        if (assembly.IsDynamic)
         {
-            cultureName ??= CultureInfo.CurrentUICulture.Name;
-            var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
-            var typeKey = $"{key}-{typeName}";
-            if (forceLoad)
-            {
-                Instance.Cache.Remove(key);
-                Instance.Cache.Remove(typeKey);
-            }
-            return Instance.GetOrCreate(typeKey, entry =>
-            {
-                var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
-                return sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                    .GetChildren()
-                    .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
-            });
+            return null;
         }
+
+        cultureName ??= CultureInfo.CurrentUICulture.Name;
+        var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
+        var typeKey = $"{key}-{typeName}";
+        if (forceLoad)
+        {
+            Instance.Cache.Remove(key);
+            Instance.Cache.Remove(typeKey);
+        }
+        return Instance.GetOrCreate(typeKey, entry =>
+        {
+            var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+            var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
+                .GetChildren()
+                .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
+#if NET8_0_OR_GREATER
+            return items?.ToFrozenSet();
+#else
+            return items?.ToHashSet();
+#endif
+        });
     }
 
     /// <summary>
@@ -250,7 +256,11 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+#if NET8_0_OR_GREATER
+    public static FrozenSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToFrozenSet());
+#else
+    public static HashSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToHashSet());
+#endif
 
     /// <summary>
     /// 查询缺失本地化资源项目
@@ -697,7 +707,7 @@ internal class CacheManager : ICacheManager
         }
     }
 
-    public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
+    public static object GetFormatterInvoker(Type type, Func<object, Task<string?>> formatter)
     {
         var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
@@ -707,12 +717,12 @@ internal class CacheManager : ICacheManager
         });
         return invoker(formatter);
 
-        static Expression<Func<Func<object?, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
+        static Expression<Func<Func<object, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
         {
             var method = typeof(CacheManager).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
             var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
             var body = Expression.Call(null, method, exp_p1);
-            return Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1);
+            return Expression.Lambda<Func<Func<object, Task<string?>>, object>>(body, exp_p1);
         }
     }
 

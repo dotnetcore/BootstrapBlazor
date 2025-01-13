@@ -177,7 +177,7 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -193,6 +193,12 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// </summary>
     [Parameter]
     public object? LookupServiceData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合

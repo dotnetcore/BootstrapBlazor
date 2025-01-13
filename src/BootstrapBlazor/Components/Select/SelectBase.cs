@@ -17,13 +17,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定数据集
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示搜索框 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -34,6 +27,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 设置正在搜索图标
+    /// </summary>
+    [Parameter]
+    public string? SearchLoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -49,22 +48,22 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
-
-    /// <summary>
-    /// 获得/设置 选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 分组项模板
     /// </summary>
     [Parameter]
     public RenderFragment<string>? GroupItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
 
     /// <summary>
     /// 获得/设置 IIconTheme 服务实例
@@ -82,7 +81,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <summary>
     /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
     /// </summary>
-    protected string? SearchIconString => CssBuilder.Default("icon")
+    protected string? SearchIconString => CssBuilder.Default("icon search-icon")
         .AddClass(SearchIcon)
         .Build();
 
@@ -111,6 +110,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         base.OnParametersSet();
 
         SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectSearchIcon);
+        SearchLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
     }
 
     /// <summary>

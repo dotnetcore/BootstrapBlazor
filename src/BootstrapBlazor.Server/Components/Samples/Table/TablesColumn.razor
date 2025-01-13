@@ -146,7 +146,7 @@
             <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" Width="60" Align="Alignment.Right" />
+            <TableColumn @bind-Field="@context.Count" Width="60" Align="Alignment.Right" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -166,6 +166,31 @@
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BindComplexObjectTitle"]" Introduction="@Localizer["BindComplexObjectIntro"]" Name="BindComplexObject">
+    <section ignore>
+        <p>@((MarkupString)Localizer["BindComplexObjectP1"].Value)</p>
+        <p>@((MarkupString)Localizer["BindComplexObjectP2"].Value)</p>
+        <Button OnClick="@OnClickCompanyButton" Text="@Localizer["BindComplexObjectButtonText"]"></Button>
+    </section>
+    <Table TItem="ComplexFoo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" CreateItemCallback="@CreateComplexFoo"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryComplexFooAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["ComplexFooDateTime"]" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Text="@Localizer["ComplexFooName"]" Width="100" />
+            <TableColumn @bind-Field="@context.Address" Text="@Localizer["ComplexFooAddress"]" />
+            <TableColumn @bind-Field="@context.Age" Text="@Localizer["ComplexFooAge"]" />
+            <TableColumn @bind-Field="@context.Company" Text="@Localizer["ComplexFooCompany"]">
+                <Template Context="v">
+                    <div>@v.Row.Company?.Name</div>
+                </Template>
+            </TableColumn>
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -201,7 +226,7 @@
                 <Template Context="value">
                     <div class="d-flex">
                         <div>
-                            <img src="@Foo.GetAvatarUrl(value.Row.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(value.Row.Id)" class="bb-avatar" />
                         </div>
                         <div class="ps-2">
                             <div>@value.Value</div>

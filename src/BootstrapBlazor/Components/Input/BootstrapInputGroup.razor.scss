@@ -2,6 +2,7 @@
     > .datetime-picker,
     > .select,
     > .switch,
+    > .bb-clearable-input,
     > .auto-complete {
         width: 1%;
         flex: 1 1 auto;
@@ -38,6 +39,24 @@
                 border-bottom-left-radius: 0;
             }
         }
+    }
+
+    > .bb-clearable-input:not(:first-child) {
+        > input {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+    }
+
+    > .bb-clearable-input:not(:last-child) {
+        > input {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    > .form-label {
+        display: none;
     }
 }
 

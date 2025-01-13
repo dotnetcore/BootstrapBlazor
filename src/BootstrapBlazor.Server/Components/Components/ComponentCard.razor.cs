@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
@@ -10,7 +12,10 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public sealed partial class ComponentCard
 {
-    private string ImageUrl => $"./images/{Image}";
+    [Inject, NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
+    private string ImageUrl => $"{WebsiteOption.CurrentValue.AssetRootPath}images/{Image}";
 
     private string? ClassString => CssBuilder.Default("col-12 col-sm-6 col-md-4 col-lg-3")
         .AddClass("d-none", IsHide)

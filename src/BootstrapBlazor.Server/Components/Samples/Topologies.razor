@@ -3,6 +3,7 @@
 @inject IStringLocalizer<Topologies> Localizer
 @inject FanControllerDataService DataService
 @inject SwalService SwalService
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @attribute [JSModuleAutoLoader("Samples/Topologies.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <h3>@Localizer["TopologiesTitle"]</h3>

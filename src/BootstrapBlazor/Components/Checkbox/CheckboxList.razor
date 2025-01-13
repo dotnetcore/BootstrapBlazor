@@ -25,7 +25,7 @@ else
     <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" tabindex="0" hidefocus="true">
         @foreach (var item in Items)
         {
-            <div class="@CheckboxItemClassString">
+            <div @key="item" class="@CheckboxItemClassString">
                 <Checkbox TValue="bool" IsDisabled="GetDisabledState(item)"
                           ShowAfterLabel="true" ShowLabel="false" ShowLabelTooltip="ShowLabelTooltip"
                           DisplayText="@item.Text" OnBeforeStateChanged="_onBeforeStateChangedCallback!"

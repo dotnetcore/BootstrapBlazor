@@ -53,17 +53,15 @@ public class RequiredValidator : ValidatorBase
                 ErrorMessage = l.Value;
             }
         }
-        var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
-        var memberNames = string.IsNullOrEmpty(context.MemberName) ? null : new string[] { context.MemberName };
         if (propertyValue == null)
         {
-            results.Add(new ValidationResult(errorMessage, memberNames));
+            results.Add(GetValidationResult(context));
         }
         else if (propertyValue is string val)
         {
             if (!AllowEmptyString && val == string.Empty)
             {
-                results.Add(new ValidationResult(errorMessage, memberNames));
+                results.Add(GetValidationResult(context));
             }
         }
         else if (propertyValue is IEnumerable v)
@@ -72,9 +70,19 @@ public class RequiredValidator : ValidatorBase
             var valid = enumerator.MoveNext();
             if (!valid)
             {
-                results.Add(new ValidationResult(errorMessage, memberNames));
+                results.Add(GetValidationResult(context));
             }
         }
+        else if (propertyValue is DateTimeRangeValue dv && dv is { NullStart: null, NullEnd: null })
+        {
+            results.Add(GetValidationResult(context));
+        }
+    }
+
+    private ValidationResult GetValidationResult(ValidationContext context)
+    {
+        var errorMessage = GetLocalizerErrorMessage(context, LocalizerFactory, Options);
+        return context.GetValidationResult(errorMessage);
     }
 
     /// <summary>

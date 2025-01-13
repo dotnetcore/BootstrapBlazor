@@ -11,11 +11,11 @@
 </Tips>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <div>
-        <Button Text="@Localizer["LeftAlignedButton"]" OnClickWithoutRender="@NormalShowDialog" />
-        <Button Text="@Localizer["RightAlignedButton"]" OnClickWithoutRender="@NormalShowAlignDialog" />
+    <Button Text="@Localizer["LeftAlignedButton"]" OnClickWithoutRender="@NormalShowDialog" />
+    <Button Text="@Localizer["RightAlignedButton"]" OnClickWithoutRender="@NormalShowAlignDialog" />
+    <section ignore>
         <ConsoleLogger @ref="NormalLogger" />
-    </div>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NoRenderTitle"]" Introduction="@Localizer["NoRenderIntro"]" Name="NoRender">

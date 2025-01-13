@@ -148,8 +148,7 @@ public partial class TablesSearch
     {
         // 使用内置扩展方法 ToFilter 获得过滤条件
         // 目前 ToFilterFunc 无法解决大小写敏感问题
-        // var items = Items.Where(options.ToFilterFunc<Foo>());
-        IEnumerable<Foo> items = Items;
+        var items = Items.Where(options.ToFilterFunc<Foo>());
         if (!string.IsNullOrEmpty(options.SearchText))
         {
             // 使用 Linq 处理

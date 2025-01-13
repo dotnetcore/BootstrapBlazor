@@ -11,7 +11,7 @@ public class ModelEqualityComparerTest
     public void Equals_Ok()
     {
         Assert.True(IModelEqualityComparerExtensions.Equals<Foo>(null!, null, null));
-        Assert.False(IModelEqualityComparerExtensions.Equals<Foo>(null!, null, new Foo()));
-        Assert.False(IModelEqualityComparerExtensions.Equals<Foo>(null!, new Foo(), null));
+        Assert.False(IModelEqualityComparerExtensions.Equals(null!, null, new Foo()));
+        Assert.False(IModelEqualityComparerExtensions.Equals(null!, new Foo(), null));
     }
 }

@@ -6,11 +6,11 @@
     <CascadingValue Value="this" IsFixed="true">
         @if (IsVertical)
         {
-            <SideMenu Items="@Items" Id="@SideMenuId" class="@SideMenuClassString" OnClick="@OnClickMenu" IsScrollToView="@IsScrollIntoView" />
+            <SideMenu Items="@Items" Id="@SideMenuId" class="@SideMenuClassString" OnClick="@OnClickMenu"></SideMenu>
         }
         else
         {
-            <TopMenu Items="@Items" OnClick="@OnClickMenu" />
+            <TopMenu Items="@Items" OnClick="@OnClickMenu"></TopMenu>
         }
     </CascadingValue>
 </nav>

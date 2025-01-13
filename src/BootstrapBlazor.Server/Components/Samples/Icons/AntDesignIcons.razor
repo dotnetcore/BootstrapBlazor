@@ -2,6 +2,10 @@
 @layout MainLayout
 @inject IStringLocalizer<AntDesignIcons> Localizer
 
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.AntDesignIcon/BootstrapBlazor.AntDesignIcon.bundle.scp.css"]" />
+</HeadContent>
+
 <h3>@Localizer["AntDesignIconTitle"]</h3>
 
 <h4>@Localizer["AntDesignIconDescription"]</h4>
@@ -20,4 +24,4 @@
 
 <Pre>&lt;AntDesignIcon Category="AntDesignIconCategory.Outlined" Name="account-book"&gt;&lt;AntDesignIcon&gt;</Pre>
 
-<AntDesignIconList CopiedTooltipText="@Localizer["CopiedTooltipText"]" />
+<div>@((MarkupString)Localizer["Icons"].Value)</div>

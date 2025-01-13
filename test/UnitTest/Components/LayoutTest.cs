@@ -20,8 +20,14 @@ public class LayoutTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.Footer, CreateFooter());
+            pb.Add(a => a.ShowGotoTop, true);
         });
         Assert.Contains("Footer", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFixedTabHeader, true);
+        });
+        cut.Contains("data-bb-target=\".tabs-body\"");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowFooter, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("Footer", cut.Markup));
@@ -47,6 +53,43 @@ public class LayoutTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsFixedFooter, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("is-fixed", cut.Markup));
+    }
+
+    [Fact]
+    public void IsFixedTabHeader_OK()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.Side, new RenderFragment(builder =>
+            {
+                builder.AddContent(0, "test");
+            }));
+            pb.Add(a => a.Menus, new MenuItem[] { new() { Url = "/" } });
+
+        });
+        Assert.DoesNotContain("is-fixed-tab", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsFixedTabHeader, true));
+        Assert.DoesNotContain("is-fixed-tab", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.UseTabSet, true));
+        Assert.Contains("is-fixed-tab", cut.Markup);
+    }
+
+    [Fact]
+    public void IsPage_OK()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.IsPage, true);
+        });
+        Assert.Contains("is-page", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPage, false);
+        });
+        Assert.DoesNotContain("is-page", cut.Markup);
     }
 
     [Fact]
@@ -89,27 +132,15 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
         });
 
+        var bar = cut.Find(".layout-header-bar");
         await cut.InvokeAsync(() =>
         {
-            cut.Find("header > a").Click();
+            bar.Click();
         });
         Assert.True(collapsed);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowCollapseBar, false));
         cut.WaitForAssertion(() => Assert.DoesNotContain("<i class=\"fa-solid fa-bars\"></i>", cut.Markup));
-    }
-
-    [Fact]
-    public void IsPage_OK()
-    {
-        var cut = Context.RenderComponent<Layout>(pb =>
-        {
-            pb.Add(a => a.IsPage, true);
-        });
-        Assert.Contains("is-page", cut.Markup);
-
-        cut.SetParametersAndRender(pb => pb.Add(a => a.IsPage, false));
-        cut.WaitForAssertion(() => Assert.DoesNotContain("is-page", cut.Markup));
     }
 
     [Fact]

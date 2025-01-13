@@ -56,6 +56,12 @@ public partial class Tooltip : ITooltip
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 获得显示内容异步回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task<string>>? GetTitleCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 显示文字是否为 Html 默认为 false
     /// </summary>
     [Parameter]
@@ -117,6 +123,20 @@ public partial class Tooltip : ITooltip
         base.OnParametersSet();
 
         Trigger ??= "focus hover";
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (string.IsNullOrEmpty(Title) && GetTitleCallback != null)
+        {
+            Title ??= await GetTitleCallback();
+        }
     }
 
     /// <summary>

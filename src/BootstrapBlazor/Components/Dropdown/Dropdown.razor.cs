@@ -63,6 +63,15 @@ public partial class Dropdown<TValue>
         .Build();
 
     /// <summary>
+    /// 获得/设置 设置当前项是否 Active 方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected string? DisableItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
+        .AddClass("disabled", item.IsDisabled)
+        .Build();
+
+    /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
     /// </summary>
     [Parameter]

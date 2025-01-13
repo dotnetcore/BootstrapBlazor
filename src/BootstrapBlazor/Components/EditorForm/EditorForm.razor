@@ -7,10 +7,7 @@
         @FieldItems?.Invoke(Model)
     </CascadingValue>
     <CascadingValue Value="this" Name="EditorForm">
-        <RenderTemplate OnRenderAsync="OnRenderAsync">
-            @{
-                ResetItems();
-            }
+        <RenderTemplate>
             @if (ShowUnsetGroupItemsOnTop)
             {
                 if (UnsetGroupItems.Any())
@@ -40,13 +37,6 @@
     {
         <div class="bb-editor-footer form-footer">
             @Buttons
-        </div>
-    }
-
-    @if (!_inited)
-    {
-        <div class="ef-loading">
-            <Spinner Color="Color.Primary" />
         </div>
     }
 </div>

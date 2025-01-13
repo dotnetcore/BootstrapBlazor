@@ -258,10 +258,6 @@ public partial class DateTimeRange
 
     [Inject]
     [NotNull]
-    private IStringLocalizerFactory? LocalizerFactory { get; set; }
-
-    [Inject]
-    [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
@@ -280,24 +276,7 @@ public partial class DateTimeRange
     {
         base.OnInitialized();
 
-        if (FieldIdentifier != null)
-        {
-            var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
-            if (pi != null)
-            {
-                var required = pi.GetCustomAttribute<RequiredAttribute>(true);
-                if (required != null)
-                {
-                    Rules.Add(new DateTimeRangeRequiredValidator()
-                    {
-                        LocalizerFactory = LocalizerFactory,
-                        ErrorMessage = required.ErrorMessage,
-                        AllowEmptyString = required.AllowEmptyStrings
-                    });
-                }
-            }
-        }
-
+        AddRequiredValidator();
         _showLeftButtons = RenderMode == DateTimeRangeRenderMode.Single;
     }
 

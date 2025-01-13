@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace BootstrapBlazor.Server.Controllers.Api;
+namespace BootstrapBlazor.Controllers.Api;
 
 /// <summary>
 /// 登录控制器

@@ -44,13 +44,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? NoDataTip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public bool ShowNoDataTip { get; set; } = true;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
@@ -63,16 +56,55 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? Offset { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 防抖时间 默认为 0 即不开启
     /// </summary>
     [Parameter]
     public int Debounce { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉菜单选择回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Enter 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEnter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否跳过 Esc 按键处理 默认 false
+    /// </summary>
+    [Parameter]
+    public bool SkipEsc { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// </summary>
+    [Parameter]
+    public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
+
+    /// <summary>
+    /// 获得/设置 候选项模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TValue>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得 是否跳过 ESC 按键字符串
+    /// </summary>
+    protected string? SkipEscString => SkipEsc ? "true" : null;
+
+    /// <summary>
+    /// 获得 是否跳过 Enter 按键字符串
+    /// </summary>
+    protected string? SkipEnterString => SkipEnter ? "true" : null;
+
+    /// <summary>
+    /// 获得 滚动行为字符串
+    /// </summary>
+    protected string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// 防抖时长字符串
@@ -93,11 +125,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// 输入框 Id
     /// </summary>
     protected string InputId => $"{Id}_input";
-
-    /// <summary>
-    /// CurrentItemIndex 当前选中项索引
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// 弹窗位置字符串
@@ -122,26 +149,15 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 出发 OnBlur 回调方法 由 Javascript 触发
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    [JSInvokable]
+    public async Task TriggerBlur()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
+        if (OnBlurAsync != null)
         {
-            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                await InvokeVoidAsync("composition", Id);
-            }
+            await OnBlurAsync(Value);
         }
     }
 
@@ -149,18 +165,5 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override string? GetInputId() => InputId;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
-
-    /// <summary>
-    /// 判断是否为回车键
-    /// </summary>
-    /// <param name="key"></param>
-    /// <returns></returns>
-    protected bool IsEnterKey(string key) => key == "Enter" || key == "NumpadEnter";
 }

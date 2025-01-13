@@ -1,6 +1,158 @@
 ﻿:root {
-    /*    --bs-border-radius: 5px;
+    --bs-border-radius: 4px;
     --bb-font-size: .75rem;
-    --bs-nav-link-font-size: .875rem;
-*/
+    --bs-nav-link-font-size: .75rem;
+    --bb-sub-font-size: .75rem;
+    --bb-mb-3: .25rem;
+    --bb-space: .25rem;
+    --bb-row-control-padding: 4px;
+    --bb-header-font-size: 0.875rem;
+    --bb-padding: 0.1875rem 0.375rem;
+    --bb-title-font-size: 0.875rem;
+    --bb-pre-margin-bottom: .5rem;
+    --bb-row-control-padding: 3px;
+    --bb-height: 26px;
+}
+
+p {
+    margin-bottom: var(--bb-mb-3);
+}
+
+code {
+    --bb-code-line-height: 1.5;
+}
+
+pre code.hljs {
+    padding: var(--bb-space);
+}
+
+.navbar-header {
+    --bs-nav-link-font-size: var(--bb-header-font-size);
+    --bb-font-size: var(--bb-header-font-size);
+}
+
+    .navbar-header .bb-g-search {
+        --bb-global-search-padding: var(--bb-padding);
+    }
+
+.mb-3 {
+    margin-bottom: var(--bb-mb-3) !important;
+}
+
+.btn {
+    font-size: var(--bb-font-size);
+    --bs-btn-padding-x: 0.5rem;
+    --bs-btn-padding-y: 0.1875rem;
+    --bs-btn-xs-padding-x: 0.3125rem;
+    --bs-btn-xs-padding-y: 0.0625rem;
+    --bs-btn-xs-font-size: 0.75rem;
+    --bs-btn-xl-padding-x: 1.25rem;
+    --bs-btn-xl-padding-y: 0.8rem;
+    --bs-btn-xl-font-size: 1.25rem;
+    --bs-btn-xxl-padding-x: 1.25rem;
+    --bs-btn-xxl-padding-y: 0.8rem;
+    --bs-btn-xxl-font-size: 1.5rem;
+}
+
+.btn-circle {
+    --bb-button-circle-width: 35px;
+    --bb-button-circle-height: 35px;
+}
+
+.form-check {
+    --bb-checkbox-label-padding-y: 3px;
+}
+
+.form-control-color {
+    height: 26px;
+}
+
+.card {
+    --bs-card-spacer-x: var(--bb-space);
+    --bs-card-spacer-y: var(--bb-space);
+    --bs-card-cap-padding-x: var(--bb-space);
+}
+
+.col-form-label {
+    padding: 4px 2px;
+}
+
+.alert {
+    --bs-alert-margin-bottom: var(--bb-mb-3);
+}
+
+.datetime-picker {
+    --bb-dt-picker-input-padding: 3px 33px 3px 12px;
+    --bb-dt-picker-input-icon-padding: 3px 33px
+}
+
+.demo-block {
+    --bb-demo-block-margin-top: .5rem;
+    --bb-demo-block-margin-bottom: .25rem;
+}
+
+.my-3 {
+    margin: .5rem !important;
+}
+
+.g-3, .gy-3 {
+    --bs-gutter-y: .25rem;
+}
+
+.g-3, .gx-3 {
+    --bs-gutter-x: .5rem;
+}
+
+.groupbox {
+    --bb-groupbox-padding: 1rem .5rem .5rem .5rem
+}
+
+.form-control {
+    --bb-form-control-padding: var(--bb-padding);
+}
+
+.form-label {
+    margin-bottom: .25rem;
+}
+
+.input-group-text {
+    padding: var(--bb-padding);
+}
+
+.input-group > .switch {
+    --bb-switch-padding: 2px .5rem;
+}
+
+.popover {
+    --bs-popover-font-size: var(--bb-font-size);
+}
+
+.select {
+    --bb-select-padding: var(--bb-padding);
+}
+
+.switch {
+    --bb-switch-padding: 3px 0;
+}
+
+.multiselect {
+    --bb-multi-select-item-margin-x: 1px;
+    --bb-multi-select-item-margin-y: 1px;
+    --bb-multi-select-item-padding: 1px 4px;
+    --bb-multi-select-min-height: 26px;
+    --bb-multi-select-max-height: 26px;
+}
+
+.radio-list {
+    --bb-radio-item-padding: 2px 0.75rem;
+}
+
+.table-container {
+    --bb-table-td-padding-x: .25rem;
+    --bb-table-td-padding-y: .25rem;
+}
+
+.tabs {
+    --bb-tabs-item-height: 29px;
+    --bb-tabs-body-padding: .5rem;
 }

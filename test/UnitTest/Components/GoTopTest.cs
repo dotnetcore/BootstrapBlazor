@@ -17,6 +17,7 @@ public class GoTopTest : BootstrapBlazorTestBase
             pb.Add(c => c.Target, "#top");
         });
         Assert.Equal("#top", cut.Instance.Target);
+        Assert.Contains("data-bb-target", cut.Markup);
     }
 
     [Fact]
@@ -30,5 +31,21 @@ public class GoTopTest : BootstrapBlazorTestBase
             pb.Add(c => c.TooltipText, "TooltipText");
         });
         Assert.Contains("TooltipText", cut.Markup);
+    }
+
+    [Fact]
+    public void Behavior_Ok()
+    {
+        var cut = Context.RenderComponent<GoTop>(pb =>
+        {
+            pb.Add(c => c.ScrollBehavior, ScrollIntoViewBehavior.Smooth);
+        });
+        Assert.DoesNotContain("data-bb-behavior", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ScrollBehavior, ScrollIntoViewBehavior.Auto);
+        });
+        Assert.Contains("data-bb-behavior=\"auto\"", cut.Markup);
     }
 }

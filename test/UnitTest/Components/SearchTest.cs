@@ -8,234 +8,146 @@ namespace UnitTest.Components;
 public class SearchTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ShowClearButton_Ok()
+    public void Items_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder => builder.Add(s => s.ShowClearButton, true));
-        cut.Contains("btn-secondary");
+        var cut = Context.RenderComponent<Search<string>>();
+        Assert.Contains("<div class=\"search auto-complete\"", cut.Markup);
+        var menus = cut.FindAll(".dropdown-item");
+        Assert.Single(menus);
     }
 
     [Fact]
-    public void ClearButtonIcon_Ok()
+    public async Task ItemTemplate_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder =>
+        var items = new List<Foo>() { new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
+        var cut = Context.RenderComponent<Search<Foo>>(pb =>
         {
-            builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.ClearButtonIcon, "fa-fw fa-solid fa-trash");
+            pb.Add(a => a.ItemTemplate, item => builder =>
+            {
+                builder.AddContent(0, $"Template-{item.Name}-{item.Address}");
+            });
+            pb.Add(a => a.OnSearch, async v =>
+            {
+                await Task.Delay(1);
+                return items;
+            });
         });
-        Assert.Contains("fa-trash", cut.Markup);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await Task.Delay(20);
+
+        Assert.Contains("Template-test1-Address 1", cut.Markup);
+        Assert.Contains("Template-test2-Address 2", cut.Markup);
     }
 
     [Fact]
-    public void ClearButtonText_Ok()
+    public async Task OnGetDisplayText_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder =>
+        var items = new List<Foo?>() { null, new() { Name = "test1", Address = "Address 1" }, new() { Name = "test2", Address = "Address 2" } };
+        var cut = Context.RenderComponent<Search<Foo?>>(pb =>
         {
-            builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.ClearButtonText, "Clear button");
+            pb.Add(a => a.OnSearch, async v =>
+            {
+                await Task.Delay(1);
+                return items;
+            });
+            pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
-        Assert.Contains("Clear button", cut.Markup);
+
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await Task.Delay(20);
+
+        Assert.Contains("test1", cut.Markup);
+        Assert.Contains("test2", cut.Markup);
     }
 
     [Fact]
-    public void ClearButtonColor_Ok()
+    public void IsTriggerSearchByInput_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder =>
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
-            builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.ClearButtonColor, Color.Secondary);
+            builder.Add(s => s.IsTriggerSearchByInput, true);
         });
-        var ele = cut.Find(".btn-secondary");
-        Assert.NotNull(ele);
+        cut.DoesNotContain("data-bb-input");
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsTriggerSearchByInput, false));
+        cut.Contains("data-bb-input=\"false\"");
     }
 
     [Fact]
-    public void SearchButtonColor_Ok()
+    public async Task OnSearchClick_Ok()
     {
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.SearchButtonColor, Color.Secondary);
-        });
-        var ele = cut.Find(".btn-secondary");
-        Assert.NotNull(ele);
-    }
-
-    [Fact]
-    public void SearchButtonIcon_Ok()
-    {
-        var cut = Context.RenderComponent<Search>(builder =>
+        string? val = null;
+        var items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
-        });
-        var ele = cut.Find(".fa-magnifying-glass");
-        Assert.NotNull(ele);
-    }
-
-    [Fact]
-    public void SearchButtonLoadingIcon_Ok()
-    {
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.SearchButtonLoadingIcon, "fa-fw fa-spin fa-solid fa-spinner");
-        });
-    }
-
-    [Fact]
-    public void IsAutoClearAfterSearch_Ok()
-    {
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Value, "Test");
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
+            builder.Add(s => s.SearchButtonText, "SearchText");
+            builder.Add(s => s.SearchButtonColor, Color.Warning);
             builder.Add(s => s.IsAutoClearAfterSearch, true);
-        });
-        cut.Find(".btn-primary").Click();
-    }
-
-    [Fact]
-    public async Task IsOnInputTrigger_Ok()
-    {
-        var clicked = false;
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Value, "");
-            builder.Add(s => s.IsOnInputTrigger, true);
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.OnSearch, v =>
+            builder.Add(s => s.IsTriggerSearchByInput, false);
+            builder.Add(a => a.OnSearch, async v =>
             {
-                clicked = true;
-                return Task.CompletedTask;
+                val = v;
+                await Task.Delay(1);
+                return items;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.OnKeyUp("1"));
-        var item = cut.Find(".dropdown-item");
-        await cut.InvokeAsync(() => item.MouseDown());
-        Assert.True(clicked);
-    }
+        var menus = cut.FindAll(".dropdown-item");
+        Assert.Single(menus);
 
-    [Fact]
-    public void SearchButtonText_Ok()
-    {
-        var cut = Context.RenderComponent<Search>(builder =>
+        var button = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => button.Click());
+        cut.WaitForState(() =>
         {
-            builder.Add(s => s.SearchButtonText, "Search Text");
+            menus = cut.FindAll(".dropdown-item");
+            return menus.Count == 2;
         });
-        Assert.Contains("Search Text", cut.Markup);
     }
 
     [Fact]
-    public void OnSearch_Ok()
+    public async Task OnClearClick_Ok()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.OnSearch, v =>
-            {
-                ret = true;
-                return Task.CompletedTask;
-            });
-        });
-        cut.Find(".btn-primary").Click();
-        Assert.True(ret);
-    }
-
-    [Fact]
-    public void OnClickItem_Ok()
-    {
-        var clicked = false;
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Value, "1");
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.OnSearch, v =>
-            {
-                clicked = true;
-                return Task.CompletedTask;
-            });
-        });
-        cut.InvokeAsync(() => cut.Find(".btn-primary").Click());
-        Assert.True(clicked);
-    }
-
-    [Fact]
-    public void OnClearClick_Ok()
-    {
-        var ret = false;
-        var cut = Context.RenderComponent<Search>(builder =>
+        var cut = Context.RenderComponent<Search<string>>(builder =>
         {
             builder.Add(s => s.Value, "1");
             builder.Add(s => s.ShowClearButton, true);
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
+            builder.Add(s => s.ClearButtonColor, Color.Secondary);
+            builder.Add(s => s.ClearButtonIcon, "test-icon");
+            builder.Add(s => s.ClearButtonText, "Clear");
             builder.Add(s => s.OnClear, v =>
             {
                 ret = true;
                 return Task.CompletedTask;
             });
         });
-        cut.Find(".btn-secondary").Click();
+        cut.Contains("test-icon");
+        cut.Contains("Clear");
+
+        var button = cut.Find(".btn-secondary");
+        await cut.InvokeAsync(() => button.Click());
         Assert.True(ret);
     }
 
     [Fact]
-    public void OnEnterAsync_Ok()
+    public async Task OnSelectedItemChanged_Ok()
     {
-        var ret = false;
-        var cut = Context.RenderComponent<Search>(builder =>
+        var items = new List<string?>() { null, "test1", "test2" };
+        var selectedItem = "";
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
         {
-            builder.Add(s => s.Value, "1");
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.OnEnterAsync, v =>
+            pb.Add(a => a.OnSelectedItemChanged, v => { selectedItem = v; return Task.CompletedTask; });
+            pb.Add(a => a.OnSearch, async v =>
             {
-                ret = true;
-                return Task.CompletedTask;
+                await Task.Delay(1);
+                return items;
             });
         });
-        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
-        Assert.True(ret);
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
 
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.IsOnInputTrigger, true);
-        });
-        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
-    }
-
-    [Fact]
-    public void OnEscAsync_Ok()
-    {
-        var ret = false;
-        var cut = Context.RenderComponent<Search>(builder =>
-        {
-            builder.Add(s => s.Value, "1");
-            builder.Add(s => s.Items, new string[] { "1", "12", "123", "1234" });
-            builder.Add(s => s.OnEscAsync, v =>
-            {
-                ret = true;
-                return Task.CompletedTask;
-            });
-        });
-        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Escape"));
-        Assert.True(ret);
-    }
-
-    [Fact]
-    public void ValidateForm_Ok()
-    {
-        IEnumerable<string> items = new List<string>() { "test1", "test2" };
-        var cut = Context.RenderComponent<ValidateForm>(pb =>
-        {
-            pb.Add(a => a.Model, new Foo());
-            pb.AddChildContent<Search>(pb =>
-            {
-                pb.Add(a => a.Items, items);
-            });
-        });
-
-        // Trigger js invoke
-        var comp = cut.FindComponent<Search>().Instance;
-        comp.TriggerOnChange("v");
-
-        Assert.Equal("v", comp.Value);
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() => item.Click());
+        Assert.Null(selectedItem);
     }
 }

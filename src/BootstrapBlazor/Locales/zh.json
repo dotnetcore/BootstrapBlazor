@@ -146,7 +146,8 @@
     "EmptyText": "无数据"
   },
   "BootstrapBlazor.Components.Search": {
-    "SearchButtonText": "搜索"
+    "SearchButtonText": "搜索",
+    "NoDataTip": "请输入 ..."
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "请选择 ...",

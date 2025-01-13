@@ -1,5 +1,7 @@
 ﻿@page "/search"
 @inject IStringLocalizer<Searches> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["SearchesTitle"]</h3>
 
@@ -8,12 +10,9 @@
 <DemoBlock Title="@Localizer["SearchesNormalTitle"]"
            Introduction="@Localizer["SearchesNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["SearchesNormalDescription"].Value)</p>
-    <Search IgnoreCase="true"
-            IsLikeMatch="true"
-            IsAutoFocus="true"
+    <section ignore>@((MarkupString)Localizer["SearchesNormalDescription"].Value)</section>
+    <Search IsAutoFocus="true"
             PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-            Items="@Items"
             OnSearch="@OnSearch"
             IsSelectAllTextOnFocus="true" />
     <ConsoleLogger @ref="Logger" />
@@ -22,11 +21,8 @@
 <DemoBlock Title="@Localizer["SearchesClearValueTitle"]"
            Introduction="@Localizer["SearchesClearValueIntro"]"
            Name="ClearValue">
-    <Search IgnoreCase="true"
-            IsLikeMatch="true"
-            IsAutoClearAfterSearch="true"
+    <Search IsAutoClearAfterSearch="true"
             PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-            Items="@Items"
             OnSearch="@OnClearSearch" />
     <ConsoleLogger @ref="ClearLogger" />
 </DemoBlock>
@@ -34,24 +30,41 @@
 <DemoBlock Title="@Localizer["SearchesDisplayButtonTitle"]"
            Introduction="@Localizer["SearchesDisplayButtonIntro"]"
            Name="DisplayButton">
-    <Search IgnoreCase="true"
-            IsLikeMatch="true"
-            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
             ShowClearButton="true"
-            Items="@Items"
             OnSearch="@OnDisplaySearch"
             OnClear="@OnClear"></Search>
     <ConsoleLogger @ref="DisplayLogger" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SearchesItemTemplateTitle"]"
+           Introduction="@Localizer["SearchesItemTemplateIntro"]"
+           Name="ItemTemplate">
+    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            OnGetDisplayText="OnGetDisplayText"
+            OnSearch="@OnSearchFoo">
+        <ItemTemplate>
+            <div class="search-result">
+                <div class="search-result-avatar">
+                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" alt="avatar" />
+                </div>
+                <div class="search-result-main">
+                    <div class="search-result-name">@context.Name</div>
+                    <div class="search-result-address">@context.Address</div>
+                </div>
+                <div class="search-result-circle">
+                    <Circle Value="@context.Count" Color="Color.Info" StrokeWidth="4" Width="60" />
+                </div>
+            </div>
+        </ItemTemplate>
+    </Search>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SearchesKeyboardsTitle"]"
            Introduction="@Localizer["SearchesKeyboardsIntro"]"
            Name="keyboards">
-    <Search IgnoreCase="true"
-            IsLikeMatch="true"
-            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-            IsOnInputTrigger="true"
-            Items="@Items"
+    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            IsTriggerSearchByInput="false"
             OnSearch="@OnKeyboardSearch" />
     <ConsoleLogger @ref="KeyboardLogger" />
 </DemoBlock>
@@ -60,7 +73,7 @@
            Introduction="@Localizer["SearchesValidateFormIntro"]"
            Name="ValidateForm">
     <ValidateForm Model="@Model">
-        <Search Items="StaticItems" IsOnInputTrigger="true" @bind-Value="Model.Name" />
+        <Search @bind-Value="Model.Name" />
     </ValidateForm>
 </DemoBlock>
 

@@ -1,47 +1,13 @@
-﻿@inherits WebSiteModuleComponentBase
-@attribute [JSModuleAutoLoader("Components/GlobalSearch.razor.js")]
-@inject IStringLocalizer<GlobalSearch> Localizer
+﻿@inject IStringLocalizer<GlobalSearch> Localizer
 
-<div id="@Id" class="bb-g-search">
-    <i class="fa-solid fa-search"></i>
-    <input type="text" readonly placeholder="@Localizer["SearchPlaceHolder"]" />
-    <div class="search-dialog-mask">
-    </div>
-    <div class="search-dialog shadow-lg">
-        <div class="search-dialog-input">
-            <i class="fa-solid fa-search"></i>
-            <input type="text" placeholder="@Localizer["SearchPlaceHolder"]" />
-            <i class="fa-solid fa-times search-dialog-clear"></i>
-        </div>
-        <div class="search-dialog-status">
-            @Localizer["SearchStatus"]
-        </div>
-        <div class="search-dialog-main">
-            <div class="search-dialog-list scroll">
-            </div>
-            <div class="search-dialog-menu scroll">
-            </div>
-        </div>
-        <template>
-            <div class="search-dialog-item-template">
-                <div class="search-dialog-item">
-                    <a href="{url}" target="_blank">
-                        <div class="search-dialog-item-title"><span>{title}</span><span class="badge text-bg-warning">{count}</span></div>
-                        <div class="search-dialog-item-sub">{sub-title}</div>
-                    </a>
-                </div>
-            </div>
-            <ul class="search-dialog-block-template">
-                <li>
-                    <a href="{url}" target="_blank">
-                        <div class="search-dialog-block-title"><span>{title}</span></div>
-                        <div class="search-dialog-block-intro">{intro}</div>
-                    </a>
-                </li>
-            </ul>
-            <div class="search-dialog-empty-template">
-                @Localizer["SearchResultPlaceHolder"]
-            </div>
-        </template>
-    </div>
-</div>
+<MeiliSearchBox SearchBoxPlaceHolder="@Localizer["SearchPlaceHolder"]"
+                SearchingText="@Localizer["SearchingText"]" SearchResultText="@Localizer["SearchResultText"]"
+                LogoText="@Localizer["LogoText"]"
+                EnterKeyText="@Localizer["EnterKeyText"]" ArrowKeyText="@Localizer["ArrowKeyText"]" EscKeyText="@Localizer["EscKeyText"]"
+                SearchResultPlaceHolder="@Localizer["SearchResultPlaceHolder"]"
+                EmptySearchResultPlaceHolder="@Localizer["EmptySearchResultPlaceHolder"]"
+                SearchableColumns="SearchableColumns"></MeiliSearchBox>
+
+@code {
+    private List<string> SearchableColumns { get; set; } = new List<string> { "menu", "title", "introlText", "demos.title", "demos.detail" };
+}

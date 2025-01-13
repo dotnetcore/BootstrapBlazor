@@ -192,6 +192,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     [Inject, NotNull]
     private IStringLocalizer<ValidateBase<string>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IStringLocalizerFactory? LocalizerFactory { get; set; }
+
     /// <summary>
     /// Parses a string to create an instance of <typeparamref name="TValue"/>. Derived classes can override this to change how
     /// <see cref="CurrentValueAsString"/> interprets incoming values.
@@ -542,6 +546,21 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
 
         await base.DisposeAsync(disposing);
+    }
+
+    /// <summary>
+    /// 增加 <see cref="RequiredValidator"/> 方法
+    /// </summary>
+    protected virtual void AddRequiredValidator()
+    {
+        if (EditContext != null && FieldIdentifier != null)
+        {
+            var validator = FieldIdentifier.Value.GetRequiredValidator(LocalizerFactory);
+            if (validator != null)
+            {
+                Rules.Add(validator);
+            }
+        }
     }
     #endregion
 

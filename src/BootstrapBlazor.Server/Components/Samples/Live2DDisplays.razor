@@ -1,5 +1,18 @@
 ﻿@page "/live2d-display"
 @inject IStringLocalizer<Live2DDisplays> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<HeadContent>
+    <style>
+        .label-width {
+            width: 150px;
+        }
+
+        .pick-radius :first-child {
+            border-radius: 0px;
+        }
+    </style>
+</HeadContent>
 
 <h3>@Localizer["Live2DDisplayTitle"]</h3>
 
@@ -21,7 +34,7 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</P
             <RadioList @bind-Value="@position" />
             <h4>Models</h4>
             <p>所有模型均来自 github 开源项目，仅供展示之用，本组件并不包含任何模型。</p>
-            <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
+            <RadioList Items="@_srcItems" @bind-Value="@BindSrcItem" />
         </div>
         <div class="col-12">
             <div class="row g-3 mb-3">
@@ -51,19 +64,19 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</P
                     <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="IsDraggable" />
-                            <Checkbox TValue="bool" @bind-Value="@IsDraggable" />
+                            <Checkbox @bind-Value="@IsDraggable" />
                         </BootstrapInputGroup>
                     </p>
                     <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="HitAreaFrames" />
-                            <Checkbox TValue="bool" @bind-Value="@AddHitAreaFrames" />
+                            <Checkbox @bind-Value="@AddHitAreaFrames" />
                         </BootstrapInputGroup>
                     </p>
                     <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="BackgroundAlpha" />
-                            <Checkbox TValue="bool" @bind-Value="@BackgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+                            <Checkbox @bind-Value="@BackgroundAlpha" />
                         </BootstrapInputGroup>
                     </p>
                     <p>
@@ -86,15 +99,4 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</P
 
 </DemoBlock>
 
-
 <AttributeTable Items="@GetAttributes()" />
-
-<style>
-    .label-width {
-        width: 150px;
-    }
-
-    .pick-radius :first-child {
-        border-radius: 0px;
-    }
-</style>

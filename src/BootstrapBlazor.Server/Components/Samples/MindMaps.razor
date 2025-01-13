@@ -1,39 +1,63 @@
 ﻿@page "/mind-map"
 @inject IStringLocalizer<MindMaps> Localizer
 
-<h3>@Localizer["MindMapTitle"]</h3>
+<HeadContent>
+    <script src="./Components/Samples/MindMaps.razor.js"></script>
+</HeadContent>
 
+<h3>@Localizer["MindMapTitle"]</h3>
 <h4>@Localizer["MindMapDescription"]</h4>
 
 <PackageTips Name="BootstrapBlazor.MindMap" />
 
+<p><code>MindMap</code> 是对 <code>Javascript</code> <a href="https://github.com/wanglin2/mind-map?wt.mc_id=DT-MVP-5004174">MindMap</a> 仓库的封装，使其更加符合 <code>Blazor</code> 使用习惯</p>
+<p class="code-label">1. 画图</p>
+<p>通过 <a href="https://wanglin2.github.io/mind-map/#/">在线工具地址</a> 绘制或者导入进行修改后导出 <code>Json</code> 格式数据</p>
+<div class="code-label">2. 对组件 <code>Data</code> 参数赋值即可呈现</div>
+
 <DemoBlock Title="@Localizer["MindMapNormalTitle"]" Introduction="@Localizer["MindMapDescription"]" Name="MindMapNormal">
-    <MindMap @ref="_mindMap" Options="_options" Data="@Data" OnReceive="@OnReceive" OnError="@OnError" StyleCss="height: 55vh;" />
-    <div class="row g-3 mt-3">
-        <div class="col-12">
-            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample" />
-            <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2" />
-            <Button Text="@Localizer["ExportButtonText"]" OnClick="Export" />
-            <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson" />
-            <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData" />
-            <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData" />
-            <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData" />
-            <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset" />
+    <section ignore>
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="_layout" ShowLabel="true" DisplayText="@Localizer["MindMapLayout"]"></Select>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="_theme" ShowLabel="true" DisplayText="@Localizer["MindMapTheme"]"></Select>
+            </div>
         </div>
-        <div class="col-12 col-sm-3 mt-3">
-            <Select @bind-Value="_options.Layout" ShowLabel="true" />
+    </section>
+    <MindMap Layout="_layout" Theme="_theme" Data="@SampleData1" @ref="MindMap"></MindMap>
+    <section ignore>
+        <div class="row g-3 mt-3">
+            <div class="col-12">
+                <Button Text="@Localizer["Sample1ButtonText"]" OnClick="SetSample1"></Button>
+                <Button Text="@Localizer["Sample2ButtonText"]" OnClick="SetSample2"></Button>
+                <Button Text="@Localizer["ExportButtonText"]" OnClick="ExportImage"></Button>
+                <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson"></Button>
+                <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData"></Button>
+                <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData"></Button>
+                <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData"></Button>
+                <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset"></Button>
+                <Button Text="@Localizer["FitButtonText"]" OnClick="Fit"></Button>
+                <Button Text="@Localizer["Scale1ButtonText"]" OnClick="() => Scale(-0.1f)"></Button>
+                <Button Text="@Localizer["Scale2ButtonText"]" OnClick="() => Scale(0.1f)"></Button>
+                <Button Text="@Localizer["CustomButtonText"]" OnClick="ClickCustom"></Button>
+            </div>
+            <div class="col-12">
+                <Textarea @bind-Value="@_result" rows="10"></Textarea>
+            </div>
+            <div class="col-12">
+                <div>@((MarkupString)Localizer["MindMapExtensionDesc"].Value)</div>
+            </div>
         </div>
-        <div class="col-12 col-sm-3 mt-3">
-            <Select @bind-Value="_options.Theme" ShowLabel="true" />
-        </div>
-        <div class="col-12">
-            <Textarea @bind-Value="_result" rows="10" />
-        </div>
-    </div> 
+        <Pre class="mt-3">window.BootstrapBlazor.MindMap = {
+    callbacks: {
+        clickCustom: function (args) {
+            console.log(this, args);
+        }
+    }
+}</Pre>
+    </section>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
-
-<AttributeTable Title="@Localizer["OptionsText"]" Items="@GetOptionsAttributes()" />
-
-<AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()" />
+<AttributeTable Items="@GetAttributes()"></AttributeTable>

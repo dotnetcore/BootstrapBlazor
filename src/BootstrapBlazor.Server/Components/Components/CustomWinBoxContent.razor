@@ -1,4 +1,6 @@
-﻿<div class="bb-winbox-body">
+﻿@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<div class="bb-winbox-body">
     <h3>Custom WinBox Content Create @DateTime.Now</h3>
 </div>
 
@@ -8,9 +10,10 @@
         <Button Text="Stack" OnClickWithoutRender="StackWinBox"></Button>
         <Button Text="Minimize" OnClickWithoutRender="MinWinBox"></Button>
         <Button Text="Maximize" OnClickWithoutRender="MaxWinBox"></Button>
-        <Button Text="Restore" OnClickWithoutRender="RestoreWinBox"></Button>
+        <Button Text="Restore" OnClickWithoutRender="RestoreWinBox" class="me-2"></Button>
     }
+
     <Button Text="SetTitle" OnClickWithoutRender="SetTitleWinBox"></Button>
-    <Button Text="SetIcon" OnClickWithoutRender="SetIconWinBox"></Button>
+    <Button Text="SetIcon" OnClickWithoutRender="SetIconWinBox" class="me-2"></Button>
     <WinBoxCloseButton />
 </div>

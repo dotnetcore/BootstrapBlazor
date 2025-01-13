@@ -18,6 +18,8 @@ public partial class MultiSelect<TValue>
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
 
+    private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
+
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass("is-fixed", IsFixedHeight)
@@ -35,6 +37,19 @@ public partial class MultiSelect<TValue>
     private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
         .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
+
+    /// <summary>
+    /// 获得/设置 绑定数据集
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
@@ -72,6 +87,26 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public bool IsSingleLine { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑模式下输入选项更新后回调方法 默认 null
+    /// <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task<SelectedItem>>? OnEditCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑提交按键 默认 Enter
+    /// </summary>
+    [Parameter]
+    public EditSubmitKey EditSubmitKey { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮模板
@@ -157,6 +192,8 @@ public partial class MultiSelect<TValue>
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
     private string? PreviousValue { get; set; }
+
+    private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
     /// <summary>
     /// OnParametersSet 方法
@@ -244,6 +281,37 @@ public partial class MultiSelect<TValue>
             // 更新选中值
             await SetValue();
         }
+    }
+
+    /// <summary>
+    /// 客户端编辑提交数据回调方法
+    /// </summary>
+    /// <param name="val"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task<bool> TriggerEditTag(string val)
+    {
+        SelectedItem? ret = null;
+        val = val.Trim();
+        if (OnEditCallback != null)
+        {
+            ret = await OnEditCallback.Invoke(val);
+        }
+        else if (!string.IsNullOrEmpty(val))
+        {
+            ret = GetData().Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
+        }
+        if (ret != null)
+        {
+            if (SelectedItems.Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) == null)
+            {
+                SelectedItems.Add(ret);
+            }
+            // 更新选中值
+            _isToggle = true;
+            await SetValue();
+        }
+        return ret != null;
     }
 
     private string? GetValueString(SelectedItem item) => IsPopover ? item.Value : null;
@@ -377,14 +445,29 @@ public partial class MultiSelect<TValue>
         return !ret;
     }
 
-    private IEnumerable<SelectedItem> GetData()
+    private bool CheckCanEdit()
+    {
+        var ret = IsEditable;
+        if (ret == false)
+        {
+            return false;
+        }
+
+        if (Max > 0)
+        {
+            ret = SelectedItems.Count < Max;
+        }
+        return ret;
+    }
+
+    private List<SelectedItem> GetData()
     {
         var data = Items;
         if (ShowSearch && !string.IsNullOrEmpty(SearchText))
         {
             data = OnSearchTextChanged(SearchText);
         }
-        return data;
+        return data.ToList();
     }
 
     /// <summary>

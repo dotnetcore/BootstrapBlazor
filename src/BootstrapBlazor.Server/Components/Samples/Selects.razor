@@ -1,6 +1,7 @@
 ﻿@page "/select"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
@@ -9,7 +10,7 @@
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
@@ -214,13 +215,15 @@
             </Select>
         </div>
     </div>
-</DemoBlock>
+</DemoBlock> 
 
 <DemoBlock Title="@Localizer["SelectsEnumTitle"]"
            Introduction="@Localizer["SelectsEnumIntro"]"
            Name="Enum">
-    <p>@((MarkupString)Localizer["SelectsEnumDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsEnumDescription1"].Value)</p>
+        <div>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["SelectsPlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
@@ -243,7 +246,7 @@
 <DemoBlock Title="@Localizer["SelectsNullableTitle"]"
            Introduction="@Localizer["SelectsNullableIntro"]"
            Name="Nullable">
-    <p>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</p>
+    <section ignore>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableIntItems" @bind-Value="NullableSelectedIntItem">
@@ -258,8 +261,10 @@
 <DemoBlock Title="@Localizer["SelectsNullableBooleanTitle"]"
            Introduction="@Localizer["SelectsNullableBooleanIntro"]"
            Name="NullableBoolean">
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
+        <div>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</div>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
@@ -289,7 +294,7 @@
                         </div>
                         <Divider />
                         <div class="select-custom-body">
-                            <img src="@Foo.GetAvatarUrl(foo.Id)" class="bb-avatar" />
+                            <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(foo.Id)" class="bb-avatar" />
                             <div class="select-custom-detail">
                                 <div class="d-flex">
                                     <div class="flex-fill">
@@ -431,20 +436,6 @@
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["SelectsGenericTitle"]"
-           Introduction="@Localizer["SelectsGenericIntro"]"
-           Name="Generic">
-    <section ignore>@((MarkupString)Localizer["SelectsGenericDesc"].Value)</section>
-    <div class="row">
-        <div class="col-12 col-sm-6">
-            <Select Items="_genericItems" @bind-Value="_selectedFoo" IsEditable="true"></Select>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Display Value="_selectedFoo?.Address"></Display>
         </div>
     </div>
 </DemoBlock>

@@ -1,0 +1,39 @@
+﻿@if (Context.Row.Id == 1)
+{
+    <tr>
+        <td rowspan="4">@Context.Row.DateTime</td>
+        <td>@Context.Row.Name</td>
+        <td>@Context.Row.Address</td>
+        <td>@Context.Row.Count</td>
+    </tr>
+}
+else if (Context.Row.Id == 2)
+{
+    <tr>
+        <td rowspan="3">@Context.Row.Name</td>
+        <td>@Context.Row.Address</td>
+        <td>@Context.Row.Count</td>
+    </tr>
+}
+else if (Context.Row.Id == 3)
+{
+    <tr>
+        <td rowspan="2">@Context.Row.Address</td>
+        <td>@Context.Row.Count</td>
+    </tr>
+}
+else if (Context.Row.Id == 4)
+{
+    <tr>
+        <td>@Context.Row.Count</td>
+    </tr>
+}
+else
+{
+    <tr>
+        <td>@Context.Row.DateTime</td>
+        <td>@Context.Row.Name</td>
+        <td>@Context.Row.Address</td>
+        <td>@Context.Row.Count</td>
+    </tr>
+}

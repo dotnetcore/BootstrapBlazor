@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
+public partial class Select<TValue> : ISelect, ILookup
 {
     [Inject]
     [NotNull]
@@ -50,17 +50,25 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// <param name="item"></param>
     /// <returns></returns>
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", Match(item))
+        .AddClass("active", item.Value == CurrentValueAsString)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
     private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("show", ShowSearch)
         .AddClass("is-fixed", IsFixedSearch)
+        .Build();
+
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
         .Build();
 
     private readonly List<SelectedItem> _children = [];
 
-    private readonly List<SelectedItem> _dataSource = [];
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
@@ -73,7 +81,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
-    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -94,13 +101,6 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 选项输入更新后转换为 Value 回调方法 默认 null
-    /// </summary>
-    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
-    [Parameter]
-    public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -171,32 +171,96 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
-    /// <summary>
-    /// 获得/设置 比较数据是否相同回调方法 默认为 null
-    /// <para>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</para>
-    /// </summary>
-    [Parameter]
-    public Func<TValue, TValue, bool>? ValueEqualityComparer { get; set; }
-
-    Func<TValue, TValue, bool>? IModelEqualityComparer<TValue>.ModelEqualityComparer
-    {
-        get => ValueEqualityComparer;
-        set => ValueEqualityComparer = value;
-    }
-
-    /// <summary>
-    /// 获得/设置 数据主键标识标签 默认为 <see cref="KeyAttribute"/>用于判断数据主键标签，如果模型未设置主键时可使用 <see cref="ValueEqualityComparer"/> 参数自定义判断数据模型支持联合主键
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Type? CustomKeyAttribute { get; set; } = typeof(KeyAttribute);
-
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
+
+    /// <summary>
+    /// 获得/设置 绑定数据集
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
+
+    /// <summary>
+    /// SelectedItemChanged 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Swal 图标 默认 Question
+    /// </summary>
+    [Parameter]
+    public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
+
+    /// <summary>
+    /// 获得/设置 Swal 标题 默认 null
+    /// </summary>
+    [Parameter]
+    public string? SwalTitle { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Swal 内容 默认 null
+    /// </summary>
+    [Parameter]
+    public string? SwalContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Footer 默认 null
+    /// </summary>
+    [Parameter]
+    public string? SwalFooter { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public ILookupService? LookupService { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    StringComparison ILookup.LookupStringComparison { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -213,6 +277,76 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private bool _init = true;
 
+    private List<SelectedItem>? _itemsCache;
+
+    private ItemsProviderResult<SelectedItem> _result;
+
+    /// <summary>
+    /// 当前选择项实例
+    /// </summary>
+    private SelectedItem? SelectedItem { get; set; }
+
+    private List<SelectedItem> Rows
+    {
+        get
+        {
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
+            return _itemsCache;
+        }
+    }
+
+    private SelectedItem? SelectedRow
+    {
+        get
+        {
+            SelectedItem ??= GetSelectedRow();
+            return SelectedItem;
+        }
+    }
+
+    private SelectedItem? GetSelectedRow()
+    {
+        var item = Rows.Find(i => i.Value == CurrentValueAsString)
+            ?? Rows.Find(i => i.Active)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
+            ?? GetVirtualizeItem(CurrentValueAsString);
+
+        if (item != null)
+        {
+            if (_init && DisableItemChangedWhenFirstRender)
+            {
+
+            }
+            else
+            {
+                _ = SelectedItemChanged(item);
+                _init = false;
+            }
+        }
+        return item;
+    }
+
+    private List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        items.AddRange(_children);
+        return items;
+    }
+
+    private List<SelectedItem> GetRowsBySearch()
+    {
+        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
+        return items.ToList();
+    }
+
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+        ? source
+        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -220,18 +354,44 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     {
         base.OnParametersSet();
 
-        Items ??= [];
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        Items ??= await this.GetItemsAsync(InjectLookupService, LookupServiceKey, LookupServiceData) ?? [];
 
         // 内置对枚举类型的支持
         if (!Items.Any() && ValueType.IsEnum())
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+        }
+
+        _itemsCache = null;
+        SelectedItem = null;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            await RefreshVirtualizeElement();
+            StateHasChanged();
         }
     }
 
@@ -240,9 +400,7 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     /// </summary>
     private int TotalCount { get; set; }
 
-    private IEnumerable<SelectedItem>? VirtualItems { get; set; }
-
-    private List<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+    private List<SelectedItem> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -259,26 +417,27 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
-        VirtualItems = data.Items ?? [];
-        return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+        var items = data.Items ?? [];
+        _result = new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        return _result;
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
     private async Task SearchTextChanged(string val)
     {
+        _itemsCache = null;
         SearchText = val;
-        if (OnQueryAsync == null)
-        {
-            // 通过 Items 提供数据
-            VirtualItems = OnSearchTextChanged(SearchText);
-        }
-        else
+        await RefreshVirtualizeElement();
+    }
+
+    private async Task RefreshVirtualizeElement()
+    {
+        if (IsVirtualize && OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
             await VirtualizeElement.RefreshDataAsync();
         }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -294,9 +453,8 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = Items.FirstOrDefault(i => i.Value == value)
-            ?? VirtualItems?.FirstOrDefault(i => i.Value == value)
-            ?? GetVirtualizeItem();
+        SelectedItem = Rows.FirstOrDefault(i => i.Value == value)
+            ?? GetVirtualizeItem(value);
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
@@ -304,67 +462,21 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem()
+    private SelectedItem? GetVirtualizeItem(string value)
     {
-        return OnQueryAsync == null ? null : GetSelectedItem();
-
-        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
-            ? (SelectedItem)(object)Value
-            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
-    }
-
-    private void ResetSelectedItem()
-    {
-        _dataSource.Clear();
-
-        if (string.IsNullOrEmpty(SearchText))
+        SelectedItem? item = null;
+        if (_result.Items != null)
         {
-            _dataSource.AddRange(Items);
-            _dataSource.AddRange(_children);
-
-            if (VirtualItems != null)
-            {
-                _dataSource.AddRange(VirtualItems);
-            }
-
-            SelectedItem = _dataSource.Find(Match)
-                ?? _dataSource.Find(i => i.Active)
-                ?? _dataSource.Where(i => !i.IsDisabled).FirstOrDefault()
-                ?? GetVirtualizeItem();
-
-            if (SelectedItem != null)
-            {
-                if (_init && DisableItemChangedWhenFirstRender)
-                {
-
-                }
-                else
-                {
-                    _ = SelectedItemChanged(SelectedItem);
-                    _init = false;
-                }
-            }
+            item = _result.Items.FirstOrDefault(i => i.Value == value) ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
         }
-        else if (IsVirtualize)
-        {
-            if (Items.Any())
-            {
-                VirtualItems = OnSearchTextChanged(SearchText);
-            }
-        }
-        else
-        {
-            _dataSource.AddRange(OnSearchTextChanged(SearchText));
-        }
+        return item;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
-
-    private bool Match(SelectedItem i) => i is SelectedItem<TValue> d ? Equals(d.Value, Value) : i.Value.Equals(CurrentValueAsString, StringComparison);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
 
     /// <summary>
     /// 客户端回车回调方法
@@ -374,11 +486,22 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
     [JSInvokable]
     public async Task ConfirmSelectedItem(int index)
     {
-        var ds = string.IsNullOrEmpty(SearchText)
-            ? _dataSource
-            : OnSearchTextChanged(SearchText);
-        var item = ds.ElementAt(index);
-        await OnClickItem(item);
+        if (index < Rows.Count)
+        {
+            await OnClickItem(Rows[index]);
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// 客户端搜索栏回调方法
+    /// </summary>
+    /// <param name="searchText"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerOnSearch(string searchText)
+    {
+        await SearchTextChanged(searchText);
         StateHasChanged();
     }
 
@@ -421,36 +544,15 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
     private async Task SelectedItemChanged(SelectedItem item)
     {
-        if (item is SelectedItem<TValue> d && !Equals(d.Value, Value))
-        {
-            item.Active = true;
-            SelectedItem = item;
-
-            CurrentValue = d.Value;
-
-            // 触发 SelectedItemChanged 事件
-            if (OnSelectedItemChanged != null)
-            {
-                await OnSelectedItemChanged(SelectedItem);
-            }
-        }
-        else
-        {
-            await ValueTypeChanged(item);
-        }
-    }
-
-    private async Task ValueTypeChanged(SelectedItem item)
-    {
         if (_lastSelectedValueString != item.Value)
         {
-            _lastSelectedValueString = item.Value;
 
             item.Active = true;
             SelectedItem = item;
 
             // 触发 StateHasChanged
-            CurrentValueAsString = item.Value;
+            _lastSelectedValueString = item.Value;
+            CurrentValueAsString = _lastSelectedValueString;
 
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
@@ -483,24 +585,15 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
         }
 
         SelectedItem? item;
-        if (IsVirtualize)
+        if (OnQueryAsync != null)
         {
-            if (VirtualizeElement != null)
-            {
-                await VirtualizeElement.RefreshDataAsync();
-                item = VirtualItems!.FirstOrDefault();
-            }
-            else
-            {
-                VirtualItems = Items;
-                item = Items.FirstOrDefault();
-            }
+            await VirtualizeElement.RefreshDataAsync();
+            item = _result.Items.FirstOrDefault();
         }
         else
         {
             item = Items.FirstOrDefault();
         }
-
         if (item != null)
         {
             await SelectedItemChanged(item);
@@ -518,41 +611,13 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
 
             if (item == null)
             {
-                // 判断是否为泛型 SelectedItem
-                var itemType = Items.GetType();
-                var isGeneric = false;
-                if (itemType.IsGenericType)
-                {
-                    isGeneric = itemType.GetGenericArguments()[0].IsGenericType;
-                }
-                if (isGeneric)
-                {
-                    TValue? val = default;
-                    if (TextConvertToValueCallback != null)
-                    {
-                        val = await TextConvertToValueCallback(v);
-                    }
-                    item = new SelectedItem<TValue>() { Text = v, Value = val };
-                }
-                else
-                {
-                    item = new SelectedItem(v, v);
-                }
+                item = new SelectedItem(v, v);
 
                 var items = new List<SelectedItem>() { item };
                 items.AddRange(Items);
                 Items = items;
-                CurrentValueAsString = v;
             }
-
-            if (item is SelectedItem<TValue> value)
-            {
-                CurrentValue = value.Value;
-            }
-            else
-            {
-                CurrentValueAsString = v;
-            }
+            CurrentValueAsString = v;
 
             if (OnInputChangedCallback != null)
             {
@@ -560,12 +625,4 @@ public partial class Select<TValue> : ISelect, IModelEqualityComparer<TValue>
             }
         }
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <returns></returns>
-    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
@@ -10,6 +12,10 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
 {
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOption { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -17,6 +23,9 @@ public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
     {
         base.OnLoadJSModule();
 
-        ModulePath = $"./Components/{ModulePath}";
+        if (!string.IsNullOrEmpty(ModulePath))
+        {
+            ModulePath = $"{WebsiteOption.Value.JSModuleRootPath}{ModulePath}";
+        }
     }
 }

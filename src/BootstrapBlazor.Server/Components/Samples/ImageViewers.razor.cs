@@ -26,8 +26,8 @@ public partial class ImageViewers
 
         PreviewList.AddRange(
         [
-            "./images/ImageList1.jpeg",
-            "./images/ImageList2.jpeg"
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList1.jpeg",
+            $"{WebsiteOption.CurrentValue.AssetRootPath}images/ImageList2.jpeg"
         ]);
     }
 

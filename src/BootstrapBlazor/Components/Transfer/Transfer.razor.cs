@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -50,9 +49,7 @@ public partial class Transfer<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
@@ -189,15 +186,24 @@ public partial class Transfer<TValue>
     public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
+    /// 获得/设置 组件高度 默认值 null 未设置
     /// </summary>
-    [Inject]
-    [NotNull]
-    public IStringLocalizerFactory? LocalizerFactory { get; set; }
+    [Parameter]
+    public string? Height { get; set; }
 
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private string? ClassString => CssBuilder.Default("transfer")
+        .AddClass("has-height", !string.IsNullOrEmpty(Height))
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-transfer-height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// OnInitialized 方法
@@ -206,21 +212,8 @@ public partial class Transfer<TValue>
     {
         base.OnInitialized();
 
-        OnSetItemClass ??= _ => null;
-
         // 处理 Required 标签
-        if (FieldIdentifier != null)
-        {
-            var pi = FieldIdentifier.Value.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName);
-            if (pi != null)
-            {
-                var required = pi.GetCustomAttribute<RequiredAttribute>(true);
-                if (required != null)
-                {
-                    Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = required.ErrorMessage, AllowEmptyString = required.AllowEmptyStrings });
-                }
-            }
-        }
+        AddRequiredValidator();
     }
 
     /// <summary>

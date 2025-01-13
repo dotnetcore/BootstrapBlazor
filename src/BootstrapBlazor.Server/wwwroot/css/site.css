@@ -36,9 +36,19 @@
     --bb-main-pading: 1rem;
     --bb-sidebar-body-hover-bg: rgba(175, 184, 193, 0.2);
     --bb-sidebar-body-drag-hover-bg: rgb(9, 105, 218);
-    --bb-global-search-placeholder-color: #a88dbc;
-    --bb-global-search-item-bg: #6522cc;
     --bb-code-bg: #e9ecef;
+    --bb-mb-3: 1rem;
+    --bb-pre-margin-bottom: 1rem;
+    --bb-header-select-width: 230px;
+    --bb-header-search-margin-bottom: .5rem;
+}
+
+html .search-dialog-mask {
+    --bb-global-search-item-active-bg: rgba(var(--bb-primary-color-rgb), 0.5);
+    --bb-global-search-item-hover-bg: rgba(var(--bb-primary-color-rgb), 0.4);
+    --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
+    --bb-global-search-highlight-color: var(--bb-primary-color);
+    --bb-global-search-footer-kbd-bg: #6522cc;
 }
 
 .navbar {
@@ -47,7 +57,7 @@
 }
 
 h3, h4, h5 {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 #blazor-error-ui {
@@ -70,23 +80,8 @@ h3, h4, h5 {
     }
 
 .layout {
-    --bb-footer-height: 0px;
+    --bb-layout-menu-item-hover-bg: var(--bb-primary-color);
 }
-
-    .layout.has-footer {
-        --bb-footer-height: 40px;
-    }
-
-.is-fixed-tab .tabs-body {
-    height: calc(100vh - var(--bb-layout-header-height) - var(--bb-tabs-item-height) - var(--bb-footer-height));
-    overflow: auto;
-    flex: initial;
-}
-
-    .is-fixed-tab .tabs-body .tabs-body-content {
-        height: auto;
-        min-height: 100%;
-    }
 
 .bb-sub {
     margin-top: .25rem;
@@ -230,11 +225,11 @@ code {
 
 .code-label + img,
 .pre-code + img {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 .code-quest {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
     font-weight: bold;
 }
 
@@ -289,26 +284,15 @@ code {
 
 .layout-demo {
     --bb-layout-sidebar-banner-background: var(--bb-primary-color);
-    --bb-layout-title-color: #fff;
     --bb-layout-header-background: var(--bb-primary-color);
-    --bb-layout-header-color: #fff;
 }
 
-    .layout-demo .widget {
-        --bb-widget-toggle-color: #fff;
-        margin-inline-end: 1rem;
-    }
-
-    .layout-demo .layout-avatar-right {
-        border-radius: 50%;
-    }
-
 .card-body > section:not(:first-child) {
-    margin-top: 1rem;
+    margin-top: var(--bb-mb-3);
 }
 
 .card-body > section:not(:last-child) {
-    margin-bottom: 1rem;
+    margin-bottom: var(--bb-mb-3);
 }
 
 .custom-clock {
@@ -318,9 +302,20 @@ code {
     width: 320px;
 }
 
+.demo-block {
+    --bb-demo-block-margin-top: 1rem;
+    --bb-demo-block-margin-bottom: .5rem;
+}
+
+code {
+    --bb-code-line-height: 1.6;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
+        --bb-header-select-width: 196px;
+        --bb-header-search-margin-bottom: 0;
     }
 
     .header-img span {

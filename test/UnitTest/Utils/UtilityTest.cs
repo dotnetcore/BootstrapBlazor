@@ -114,7 +114,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void GetPlaceHolder_Ok()
     {
-        var ph = Utility.GetPlaceHolder(typeof(Foo), "Name");
+        var ph = Utility.GetPlaceHolder<Foo>("Name");
         Assert.Equal("不可为空", ph);
 
         // 动态类型
@@ -353,7 +353,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         dn = Utility.GetDisplayName<TestEnum>(nameof(TestEnum.Address));
         Assert.Equal("Test-Enum-Address", dn);
 
-        dn = Utility.GetDisplayName(typeof(Nullable<TestEnum>), nameof(TestEnum.Name));
+        dn = Utility.GetDisplayName<TestEnum?>(nameof(TestEnum.Name));
         Assert.Equal("Test-Enum-Name", dn);
     }
 
@@ -696,8 +696,12 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void GetTableColumns_Ok()
     {
-        var cols = Utility.GetTableColumns<Dog>().ToList();
-        Assert.Equal(2, cols.Count);
+        var columns = new InternalTableColumn[]
+        {
+            new("Name3", typeof(string)),
+        };
+        var cols = Utility.GetTableColumns<Dog>(columns).ToList();
+        Assert.Equal(3, cols.Count);
     }
 
     [Fact]

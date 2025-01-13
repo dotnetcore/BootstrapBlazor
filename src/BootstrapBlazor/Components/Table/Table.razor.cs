@@ -381,7 +381,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     [Inject]
     [NotNull]
-    private ILookupService? LookupService { get; set; }
+    private ILookupService? InjectLookupService { get; set; }
 
     private bool _breakPointChanged;
 
@@ -761,7 +761,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         base.OnInitialized();
 
         // 初始化节点缓存
-        TreeNodeCache ??= new(Equals);
+        TreeNodeCache ??= new(this);
         OnInitLocalization();
 
         // 设置 OnSort 回调方法
@@ -1296,12 +1296,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         else
         {
-            if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
-            {
-                // 未设置 Lookup
-                // 设置 LookupService 键值
-                col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey, col.LookupServiceData);
-            }
             builder.AddContent(20, col.RenderValue(item));
         }
     };
@@ -1323,7 +1317,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             : col.Template(item);
 
         RenderFragment RenderEditTemplate() => col.EditTemplate == null
-            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService))
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, col.GetLookupService(InjectLookupService)))
             : col.EditTemplate(item);
     }
 
@@ -1365,7 +1359,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
-                builder.CreateComponentByFieldType(this, col, row, changedType, false, LookupService);
+                builder.CreateComponentByFieldType(this, col, row, changedType, false, col.GetLookupService(InjectLookupService));
             };
         }
 
@@ -1393,7 +1387,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = _isFilterTrigger ? 0 : request.StartIndex;
-        _pageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
+        _pageItems = request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }

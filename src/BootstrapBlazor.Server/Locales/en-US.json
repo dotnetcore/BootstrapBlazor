@@ -23,11 +23,6 @@
     "DrawingSummary": "Drawing",
     "AdminSummary": "Admin"
   },
-  "BootstrapBlazor.Server.Components.App": {
-    "Title": "Bootstrap Blazor enterprise-level UI component library",
-    "Reload": "Reload",
-    "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."
-  },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",
     "TooltipTitle": "Copy",
@@ -320,7 +315,9 @@
     "PopoverConfirmsShowButtonsTitle": "Custom Component",
     "PopoverConfirmsShowButtonsIntro": "By setting <code>ShowCloseButton=\"false\"</code> <code>ShowConfirmButton=\"false\"</code>, you don't display the built-in function buttons, and customize an <b>Approve</b> button in the custom component.",
     "PopoverConfirmsShowButtonsButtonText": "Custom Component",
-    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters"
+    "PopoverConfirmsShowButtonsDesc": "In a custom component, you can call the <code>Close</code> or <code>Confirm</code> method inside the component through cascading parameters",
+    "PopoverConfirmsTriggerTitle": "Trigger",
+    "PopoverConfirmsTriggerIntro": "By setting the <code>Trigger</code> parameter, you can set the way the component pops up the confirmation box. The default value is <code>click</code>. You can also set <code>hover focus</code> to use in combination."
   },
   "BootstrapBlazor.Server.Components.Components.CustomPopConfirmContent": {
     "CustomPopConfirmContentText": "Custom content",
@@ -488,12 +485,14 @@
     "LightsNormalTitle": "common usage",
     "LightsNormalIntro": "for status indication",
     "LightsFlashingTitle": "flicker",
-    "LightsFlashingIntro": "Flash the light by setting the property <code>IsFlash</code>",
+    "LightsFlashingIntro": "Flash the light by setting the parameter <code>IsFlash</code>",
     "LightsColorTitle": "discoloration",
-    "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
+    "LightsColorIntro": "Color the light by setting the value of the parameter <code>Color</code>",
     "LightsTooltipTextTitle": "prompt text",
     "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
-    "TooltipText": "I am prompt text message"
+    "TooltipText": "I am prompt text message",
+    "LightsFlatTitle": "Flat",
+    "LightsFlatIntro": "Make the indicator light flat by setting the parameter <code>IsFlat</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Charts.Index": {
     "Chart": "Chart",
@@ -610,7 +609,7 @@
     "NormalTitle": "Basic usage",
     "NormalIntro": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
     "NoRenderTitle": "Setting bound model part property does not show",
-    "NoRenderIntro": "By setting the <code>Ignore=true</code> of the <code>IEditorItem</code> instance, the editable pop-up window do not shown.",
+    "NoRenderIntro": "By setting the <b>Address</b> <b>Count</b> <code>Ignore=true</code> of the <code>IEditorItem</code> instance, the editable pop-up window do not shown.",
     "EditDialogOption": "EditDialogOption property",
     "LeftAlignedButton": "Edit popup (left-aligned)",
     "RightAlignedButton": "Edit popup (right aligned)",
@@ -655,11 +654,12 @@
     "TreeViewCheckboxTitle": "Checkbox",
     "TreeViewCheckboxIntro": "Suitable for use when you need to select a level",
     "TreeViewCheckboxTips1": "By setting the <code>OnTreeItemChecked</code> property to monitor the event when the tree control node is checked, when the check box in front of the tree control node is selected, the following log displays the data of the selected node",
-    "TreeViewCheckboxTips2": "<code>Tree</code> component data loading will keep the state of each node inside, change the node selected state and click the <b>refresh</b> button, the component node state will remain unchanged, you can pass the parameter <code>IsReset</code> Force data reset",
+    "TreeViewCheckboxTips2": "The <code>Tree</code> component will keep the status of each node when loading data. The <b>Refresh</b> button will update the data source <code>Items</code> and reinitialize the component. When you click the <code>Append Node</code> button, only the data inside the data source will be changed without reassigning values, so the status of each node will remain unchanged.",
     "TreeViewNormalRadioListDisplayText": "Whether to reset",
     "TreeViewCheckboxCheckBoxDisplayText1": "Automatically select child nodes",
     "TreeViewCheckboxCheckBoxDisplayText2": "Automatically select parent node",
-    "TreeViewCheckboxButtonText": "refresh",
+    "TreeViewCheckboxButtonText": "Refresh",
+    "TreeViewCheckboxAddButtonText": "Add",
     "TreeViewTreeDisableTitle": "Disabled state",
     "TreeViewTreeDisableIntro": "Some nodes of the Tree can be set to disabled state",
     "TreeViewTreeDisableDescription": "By setting the <code>Disabled</code> property of the data source <code>TreeViewItem</code> object, you can control whether this node can be checked or not. When set to <code>false</code>, it will not affect the node expansion. /shrink function",
@@ -687,11 +687,8 @@
     "TreeViewTreeNodeColorIntro": "Implement your own node style by setting <code>TreeViewItem</code> <code>CssClass</code>",
     "TreeViewCheckedItemsTitle": "Get all selected nodes",
     "TreeViewCheckedItemsIntro": "Get all nodes by setting the <code>OnTreeItemChecked</code> callback delegate",
-    "TreeViewCustomCheckedItemsTitle": "Customize the selected node",
-    "TreeViewCustomCheckedItemsIntro": "By setting the node <code>CheckedState</code> to check node status",
-    "TreeViewCustomCheckedItemsTips1": "Automatic/manual switchover of node selected status control by enabling/disabling <code>AutoCheckChildren</code> parameter",
     "TreeViewShowSkeletonTitle": "Loading skeleton screen",
-    "TreeViewShowSkeletonIntro": "By setting <code>ShowSkeleton</code>, the component displays the skeleton screen when the data is loaded asynchronously",
+    "TreeViewShowSkeletonIntro": "When the component <code>Items</code> is <code>null</code>, set <code>ShowSkeleton=\"true\"</code> to display the skeleton screen when asynchronously loading data. Set <code>ShowSkeleton=\"false\"</code> to display the default loading animation.",
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewShowSearchTitle": "Show search",
     "TreeViewShowSearchIntro": "By setting <code>ShowSearch</code> to display the search bar, and using the <code>OnSearchAsync</code> callback method to set the data source to refresh the page",
@@ -713,51 +710,6 @@
     "TreeViewVirtualizeTitle": "Virtualize",
     "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
     "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data."
-  },
-  "BootstrapBlazor.Server.Components.Samples.Trees": {
-    "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
-    "TreesTitle": "Tree tree control",
-    "TreesDescription": "Present information in a clear hierarchy that can be expanded or collapsed",
-    "TreesNormalTitle": "Basic usage",
-    "TreesNormalIntro": "Basic tree structure display",
-    "TreesNormalDescription": "By setting the <code>OnTreeItemClick</code> property to monitor the event when the tree control node is clicked, the following log displays the data of the selected node when the tree control node is clicked",
-    "TreesCheckboxTitle": "Checkbox",
-    "TreesCheckboxIntro": "Suitable for use when you need to select a level",
-    "TreesCheckboxDescription": "By setting the <code>OnTreeItemChecked</code> property to monitor the event when the tree control node is checked, when the check box in front of the tree control node is selected, the following log displays the data of the selected node",
-    "TreesShowRadioTitle": "Single box",
-    "TreesShowRadioIntro": "For single-select nodes",
-    "TreesShowRadioDescription": "Show the <code>Radio</code> component in front of the node by setting the <code>ShowRadio</code> property",
-    "TreesDisableTitle": "disabled state",
-    "TreesDisableIntro": "Some nodes of the Tree can be set to disabled state",
-    "TreesDisableDescription": "By setting the <code>Disabled</code> property of the data source <code>TreeItem</code> object, you can control whether this node can be checked or not. When set to <code>false</code>, it will not affect the node expansion. /shrink function",
-    "TreesAccordionModelTitle": "Accordion mode",
-    "TreesAccordionModelIntro": "For nodes of the same level, only one can be expanded at a time",
-    "TreesAccordionModelDescription": "Enable the accordion effect by setting the <code>IsAccordion</code> property of the <code>Tree</code> component",
-    "TreesDefaultExpandTitle": "Expanded by default and selected by default",
-    "TreesDefaultExpandIntro": "Some nodes of <code>Tree</code> can be set to be expanded or selected by default",
-    "TreesDefaultExpandDescription": "By setting the <code>IsCollapsed</code> property of the <code>TreeItem</code> object, you can control whether this node is in the expanded state by default. In this example, <b>navigation two</b> is in the expanded state by default, and the rest Node defaults to contracted state",
-    "TreesDisplayIconTitle": "show icon",
-    "TreesDisplayIconIntro": "Control whether the component displays the icon by setting <code>ShowIcon</code>",
-    "TreesDisplayIconDescription": "By setting the <code>ShowIcon</code> property of the <code>TreeItem</code> object, you can control whether this node displays the icon or not",
-    "TreesClickExpandTitle": "Click on the node to expand and contract",
-    "TreesClickExpandIntro": "By setting <code>ClickToggleNode</code> to control whether to expand and contract when the node is clicked",
-    "TreesClickExpandDescription": "By setting the <code>ClickToggleNode</code> property of the <code>TreeItem</code> object, you can control whether this node can be expanded and contracted by clicking",
-    "TreesValidationFormTitle": "The Tree component is built into the validation form",
-    "TreesValidationFormIntro": "<code>Tree</code> can be enabled inside the component <code>Checkbox</code> will be displayed when it is built into the validation form <code>DisplayName</code> This function needs to be disabled in the tree component",
-    "TreesValidationFormDescription": "Show <code>Checkbox</code> built into validation component <code>ValidateForm</code> by setting <code>ShowCheckbox</code> property does not show <code>DisplayName</code>",
-    "TreesLazyLoadingTitle": "lazy loading",
-    "TreesLazyLoadingIntro": "Dynamically add child nodes when expanding a node",
-    "TreesLazyLoadingDescription": "By setting the node <code>HasChildNode</code> to control whether to display the small arrow picture of the node. Add nodes through Tree's <code>OnExpandNode</code> delegate",
-    "TreesCustomNodeTitle": "custom node",
-    "TreesCustomNodeIntro": "Implement your own node template by setting <code>TreeItem</code> <code>Template</code>",
-    "TreesNodeColorTitle": "node color",
-    "TreesNodeColorIntro": "Implement your own node style by setting <code>TreeItem</code> <code>CssClass</code>",
-    "TreesCheckedItemsTitle": "Get all selected nodes",
-    "TreesCheckedItemsIntro": "Get all nodes by setting the <code>OnTreeItemChecked</code> callback delegate",
-    "TreesShowSkeletonTitle": "loading skeleton screen",
-    "TreesShowSkeletonIntro": "By setting <code>ShowSkeleton</code>, the component displays the skeleton screen when the data is loaded asynchronously",
-    "TreesShowSkeletonButtonText": "Asynchronous loading",
-    "TreeItem": "TreeItem property"
   },
   "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
     "SwitchButtonsTitle": "Switch Button state switch button",
@@ -1085,7 +1037,7 @@
     "NugetP1": "Use <a href='https://www.nuget.org/packages?q=BootstrapBlazor' target='_blank'>nuget.org</a> to install BootstrapBlazor components",
     "EnvBuildTitle": "Project Environment Construction",
     "EnvLi1": "Install .net core sdk <a href='https://www.microsoft.com/net/download' target='_blank'>Official Website</a>",
-    "EnvLi2": "Install Visual Studio 2022 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
+    "EnvLi2": "Install Visual Studio and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
     "EnvLi3": "Pull the project code BootstrapBlazor <a href='{0}' target='_blank'>Warehouse URL</a>"
   },
   "BootstrapBlazor.Server.Components.Components.Video": {
@@ -1114,7 +1066,6 @@
     "T2": "Microsoft Official Documentation",
     "T3": "because",
     "T4": "The mode cannot obtain the system language and culture information, the default culture information is",
-    "T5": "Please refer to the Change Default Language section at the end of the article",
     "N1": "How localization works in components",
     "N2": "Components additionally support the use of",
     "N3": "Type key-value information as a resource file, which is parsed as",
@@ -1178,7 +1129,7 @@
     "N61": "Configure whether to display missing localized resource information",
     "N62": "Add BootstrapBlazor service",
     "N63": "Ignore the loss of localized key-value culture information",
-    "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"./images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service",
     "AdditionalJsonFile": "Additional <code>json</code> localization file",
     "ES": "Spanish (es)",
     "TW": "中國台灣 (zh-TW)"
@@ -1194,7 +1145,7 @@
     "P6": "The dotnet new update option checks if there are updates available for the template packages that are currently installed and installs them.",
     "P7": "3. Uninstall project template",
     "SubTitle1": "Bootstrap Blazor App Extension",
-    "P8": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio 2022 IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <cide>wasm</cide> project",
+    "P8": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <code>wasm</code> project",
     "P9": "Download Project template",
     "P10": "able to pass",
     "P11": "Built-in plugin extensions",
@@ -1223,7 +1174,7 @@
     "P8": "After downloading and installing the extension, create a project through the extension",
     "P9": "Create a project with Visual Studio",
     "P10": "Step 1. Create a project",
-    "P11": "Open Visual Studio 2022",
+    "P11": "Open Visual Studio",
     "P12": "Create a new project",
     "P13": "Choose",
     "P14": "and click",
@@ -1418,7 +1369,7 @@
     "P23": "fixed footer",
     "P24": "Shrink adjustment",
     "P25": "Please click",
-    "P26": "small green button in",
+    "P26": "small <b>button</b>",
     "P27": "height adjustment",
     "P28": "view height",
     "P29": "Tab Test",
@@ -1440,12 +1391,12 @@
     "LayoutsDescription2": "Component overview",
     "LayoutsDescription2_Layout": "Layout container, <code>Header</code> <code>Sider</code> <code>Main</code> <code>Footer</code> or <code>Layout</code> itself can be nested under it , Can be placed in any parent container",
     "LayoutsDescription2_Header": "Top layout, with default style, any elements can be nested under it",
-    "LayoutsDescription2_Sider": "Sidebar, with default style and basic functions, any elements can be nested under it",
+    "LayoutsDescription2_Side": "Sidebar, with default style and basic functions, any elements can be nested under it",
     "LayoutsDescription2_Main": "The content part, with its own default style, any element can be nested under it",
     "LayoutsDescription2_Footer": "Bottom layout, with default style, any element can be nested under it",
     "LayoutsTips1": "The above components adopt flex layout, please make sure the target browser is compatible before using. In addition, the child element of <code>Layout</code> can only be the latter four, and the parent element of the latter four can only be <code>Layout</code>",
     "LayoutsTips2": "Matters needing attention",
-    "LayoutsTips3": "In order to make it easy for everyone to use this set of components to quickly build projects, the author has created <b>Project Templates</code></b>, using the <code>dotnet new</code> command line, and <code>Bootstrap Blazor App Extension extension plug-in</code> Create a new project through <code>Visual Studio 2022</code>. For specific usage and steps, please click <a href='template' target='_blank'>Portal</a>",
+    "LayoutsTips3": "In order to make it easy for everyone to use this set of components to quickly build projects, the author has created <b>Project Templates</code></b>, using the <code>dotnet new</code> command line, and <code>Bootstrap Blazor App Extension extension plug-in</code> Create a new project through <code>Visual Studio</code>. For specific usage and steps, please click <a href='template' target='_blank'>Portal</a>",
     "LayoutsDemosTitle": "Common page layout",
     "LayoutsUpAndDownTitle": "Top, middle and bottom layout",
     "LayoutsUpAndDownIntro": "Commonly found in Internet website layout",
@@ -1475,6 +1426,7 @@
     "Layouts_ShowFooter_Description": "Whether to show Footer template",
     "Layouts_ShowGotoTop_Description": "Whether to display the back to top button",
     "Layouts_UseTabSet_Description": "Whether to open multi-label mode",
+    "Layouts_IsFixedTabHeader_Description": "Whether to fix the Header of Tabset",
     "Layouts_AdditionalAssemblies_Description": "Collection of additional programs, passed to the Tab component for use",
     "Layouts_OnCollapsed_Description": "Contract expand callback delegate",
     "Layouts_OnClickMenu_Description": "Call back the delegate when the menu item is clicked",
@@ -1652,7 +1604,6 @@
     "TagText": "Tag",
     "TimelineText": "Timeline",
     "TooltipText": "Tooltip",
-    "TreeText": "Tree",
     "TreeViewText": "TreeView",
     "BarcodeReaderText": "BarcodeReader",
     "BlockText": "Block",
@@ -1695,6 +1646,7 @@
     "FileViewerText": "FileViewer",
     "WebSerialText": "SerialService",
     "MindMapText": "MindMap",
+    "MermaidText": "Mermaid",
     "WebSpeechText": "WebSpeech",
     "ImageCropperText": "ImageCropper",
     "BarcodeGeneratorText": "BarcodeGenerator"
@@ -1790,7 +1742,9 @@
     "SplitsCollapsibleTrue": "Collapse button shown",
     "SplitsCollapsibleFalse": "Collapse button hidden",
     "SplitsFirstPaneMinimumSize": "The minimum size of the first pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
-    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px."
+    "SplitsSecondPaneMinimumSize": "The minimum size of the second pane supports any unit such as 10px 20% 5em 1rem. If no unit is provided, it defaults to px.",
+    "SplitSetLeftTitle": "Code to set panel width",
+    "SplitSetLeftIntro": "Use the component instance method <code>SetLeftWidth</code> to set the width of the left/top panel, and the width of the right/bottom panel will be adaptive"
   },
   "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",
@@ -2034,7 +1988,7 @@
     "TabsTipsTitle": "<code>Tab</code> components are generally used in two ways:",
     "TabsTips1": "Split as data",
     "TabsTips2": "Page navigation",
-    "TabsTips3": "The default behavior of this component is data segmentation,Clicking on the <code>TabItem</code> title does not navigate, and if you need to navigate the address bar, set the <code>ClickTabToNavigation</code> property to <code>true</code>，When you click on the <code>TabItem</code> title, the address bar redirects navigation, mostly for the background management system to be used in conjunction with the <code>Menu</code> components，The actual combat can refer to the <code>multi-label</code> mode in the <a href='layout-page' target='_blank'>background template simulator</a>,  When you have <code>Razor Component</code> in the additional Assemblies, set the <code>AdditionalAssemblies</code> property value correctly so that the route within the label component is resolved correctly, and the relevant documentation <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/fundamentals/routing?WT.mc_id-DT-MVP-5004174-view-aspnetcore-3.1-route-to-components-from-multiple-assemblies' target='_blank'>[Portal]</a>",
+    "TabsTips3": "The default behavior of this component is data segmentation,Clicking on the <code>TabItem</code> title does not navigate, and if you need to navigate the address bar, set the <code>ClickTabToNavigation</code> property to <code>true</code>，When you click on the <code>TabItem</code> title, the address bar redirects navigation, mostly for the background management system to be used in conjunction with the <code>Menu</code> components，The actual combat can refer to the <code>multi-label</code> mode in the <a href='layout-page' target='_blank'>background template simulator</a>,  When you have <code>Razor Component</code> in the additional Assemblies, set the <code>AdditionalAssemblies</code> property value correctly so that the route within the label component is resolved correctly, and the relevant documentation <a href='https://learn.microsoft.com/aspnet/core/blazor/fundamentals/routing?wt.mc_id=DT-MVP-5004174' target='_blank'>[Portal]</a>",
     "TabsTips4": "This component adapts to width height, etc., and scroll arrows can appear left and right or up and down when appropriate",
     "TabsInfoTitle": "Set additional information during tab navigation",
     "TabsItemMenuTitle": "Configure Tab and Menu linked dictionary, this method can automatically obtain tab page properties without separately setting TabItemOption.",
@@ -2155,7 +2109,7 @@
     "Description": "Auto-fill forms when selected via IntelliSense prompt option",
     "NormalTitle": "Basic usage",
     "NormalIntro": "fill the form",
-    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Space</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
+    "NormalDesc": "input <code>Name</code> Name smart prompt, automatically fill in the form below after selecting the prompt item Currently supports keyboard <kbd>Enter</kbd> <kbd>Esc</kbd> <kbd><i class=\"fa-solid fa-arrow-up\"></i></kbd> <kbd><i class=\"fa-solid fa-arrow-down\"></i></kbd>",
     "CustomFilterTitle": "custom filter",
     "CustomFilterIntro": "Filter data by setting custom filter condition callback delegate <code>OnCustomFilter</code>",
     "CustomFilterDesc": "Enter the <code>name</code> intelligent prompt, and delegate <code>OnCustomFilter</code> to filter data by setting a user-defined filter condition callback. The current filter condition is that <code>Name</code> contains the input string <code>Count</code> and the value is greater than <b>50</b>",
@@ -2226,7 +2180,9 @@
     "AutoText": "Custom city",
     "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
+    "BlockGroupSuffixLabel": "Suffix",
+    "PopoverTitle": "Popover dropdown menu",
+    "PopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
@@ -2328,6 +2284,7 @@
     "Block2Intro": "Cascading selection is not available",
     "Block3Title": "Two-way binding",
     "Block3Intro": "The values in the text box change when you change the cascading selection option by binding the <code>Value</code> property with the <code>Select</code> component.",
+    "Block3Desc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
     "Block4Title": "Client validation",
     "Block4Intro": "When cascading selection is not selected, click the submit button to block.",
     "Block5Title": "The binding generic is the Guid structure",
@@ -2434,13 +2391,13 @@
     "NormalTips3": "Get the changed item instance through the <code>onSelectedChanged</code> callback method",
     "NormalTips4": "Enable label tooltip by <code>ShowLabelTooltip=\"true\"</code>",
     "ValidateFormTitle": "Client Validation",
-    "ValidateFormIntro": "Built in validateform",
+    "ValidateFormIntro": "Built in <code>ValidateForm</code>",
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
     "ValidateFormTips2": "In this example, the <code>Name</code> field of the binding model <code>binditem</code> is automatically changed by checking the option",
     "ValidateFormTips3": "Because it is built into the <code>ValidateForm</code> form, in this example, <code>RequiredAttribute</code> required for verification is added. When all options are cancelled, the verification result will be prompted",
     "ShowLabelTitle": "Bidirectional binding collection",
     "ShowLabelIntro": "Binding values are collections",
-    "ShowLabelTip": "Tvalue is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
+    "ShowLabelTip": "<code>TValue</code> is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
     "EnumTitle": "Bidirectional binding enumeration",
     "EnumIntro": "The binding value is enumeration",
     "EnumTip": "When <code>CheckboxList</code> binds an enumeration set, <code>Items</code> does not need to be specified, <code>Items</code> will be automatically set to all values in the enumeration. If you need to bind some values, please provide the enumeration set <code>Items</code>",
@@ -2472,7 +2429,9 @@
     "MaxSelectedCountIntro": "Control the maximum number of selectable items by setting the <code>MaxSelectedCount</code> property, and handle the logic through the <code>OnMaxSelectedCountExceed</code> callback",
     "MaxSelectedCountDesc": "When more than 2 nodes are selected, a <code>Toast</code> prompt bar will pop up",
     "OnMaxSelectedCountExceedTitle": "Maximum Info",
-    "OnMaxSelectedCountExceedContent": "You can select at most {0} items"
+    "OnMaxSelectedCountExceedContent": "You can select at most {0} items",
+    "CheckboxListGenericTitle": "Generic List",
+    "CheckboxListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.ColorPickers": {
     "Title": "ColorPicker",
@@ -2645,7 +2604,7 @@
     "Att3": "Component height",
     "Att4": "Rich Text Box Toolbar Tool",
     "Att5": "Custom button",
-    "DoMethodAsync": "Instance Method",
+    "DoMethodAsyncTitle": "Instance Method",
     "DoMethodAsyncIntro": "Call the instance method, please refer <a href='https://summernote.org/deep-dive'>summernote api</a>",
     "DoMethodAsyncDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed",
     "EditorEmptyPlaceholder": "Customize the prompt message for empty values",
@@ -2663,6 +2622,7 @@
     "DoMethodAsyncButton1": "Insert Html",
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",
+    "DoMethodAsyncButton4": "Get Code",
     "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
   },
   "BootstrapBlazor.Server.Components.Samples.EditorForms": {
@@ -2825,7 +2785,9 @@
     "InputsFormatStringSetting": "Set up",
     "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
     "UseInputEvent": "Whether use oninput event when bind-value",
-    "IsTrim": "automatically trim white space when entering content"
+    "IsTrim": "automatically trim white space when entering content",
+    "ClearableTitle": "Clearable",
+    "ClearableIntro": "By setting the <code>Clearable=\"true\"</code> parameter, a small <b>Clear</b> button will be displayed when the component gains focus or when the mouse hovers over it."
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
@@ -2955,7 +2917,7 @@
     "MultiSelectIsSingleLineDescription": "When there are too many candidates, the component is laid out horizontally, and a horizontal scroll bar is displayed when the mouse is hovering over the component for data scrolling.",
     "MultiSelectBindingStringTitle": "A two-way binding value string",
     "MultiSelectBindingStringIntro": "Bind a comma string-splitting string",
-    "MultiSelectBindingStringDescription": "<div>The <code>mutltiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
+    "MultiSelectBindingStringDescription": "<div>The <code>MultiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
     "MultiSelectBindingCollectionTitle": "A collection of bidirectional binding values",
     "MultiSelectBindingCollectionIntro": "Bind a generic <code>a collection of IEnumerable<T></code>",
     "MultiSelectBindingCollectionDescription": "In this example, the <code>SelectArrayValues</code> collection variable by binding bidirectionally, and selects to change its value through the drop-down box",
@@ -3028,7 +2990,10 @@
     "MultiSelectMaxMinMin": "Select at least two options",
     "MultiSelectSearchLog": "Search for text",
     "MultiSelectVeryLongTextDisplayText": "Extra long text",
-    "MultiSelectOptionChangeLog": "Select the collection of items"
+    "MultiSelectOptionChangeLog": "Select the collection of items",
+    "MultiSelectIsEditableTitle": "Editable",
+    "MultiSelectIsEditableIntro": "Make the component editable by setting the <code>IsEditable</code> parameter",
+    "MultiSelectIsEditableDescription": "By setting the <code>EditSubmitKey</code> parameter, you can specify whether to submit via <kbd>Enter</kbd> or <kbd>Space</kbd>"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
@@ -3069,7 +3034,9 @@
     "RadiosItem1": "Option one",
     "RadiosItem2": "Option two",
     "RadiosAdd1": "Beijing",
-    "RadiosAdd2": "Shanghai"
+    "RadiosAdd2": "Shanghai",
+    "RadioListGenericTitle": "Generic List",
+    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",
@@ -3906,7 +3873,16 @@
     "Controllability": "Controllability",
     "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
     "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
-    "ButtonText": "Toggle"
+    "ButtonText": "Toggle",
+    "HeaderTemplateTitle": "Header Template",
+    "HeaderTemplateIntro": "Customize the <b>Header</b> display content by setting <code>HeaderTemplate</code>",
+    "CollapseItemAttributeText": "The title of header",
+    "CollapseItemAttributeIcon": "The icon of header",
+    "CollapseItemAttributeTitleColor": "The color of header",
+    "CollapseItemAttributeClass": "The class of item",
+    "CollapseItemAttributeHeaderClass": "The class of header",
+    "CollapseItemAttributeHeaderTemplate": "Header template",
+    "CollapseItemAttributeIsCollapsed": "The item status collapsed"
   },
   "BootstrapBlazor.Server.Components.Samples.DateTimeRanges": {
     "Title": "Date Time Range Picker",
@@ -3954,7 +3930,7 @@
     "EditorFormIntro": "The <code>Display</code> component is used in form components <code>EditorForm</code>, and is used in detail pages and is not editable",
     "FormatStringTitle": "Custom format",
     "FormatStringIntro": "When you set the <code>FormatString</code> property value to <code>yyyy-MM-dd</code>, the component displays a time format of the year and day",
-    "LookupTitle": "Automatically translated into Text",
+    "LookupTitle": "Lookup",
     "LookupIntro": "Set the <code>Lookup</code> value to <code>IEnumerable&lt;SelectedItem&gt;</code> collection, through which the component will perform translations through the <code>Value</code> display <code>Text</code>",
     "LookupP1": "In this example, the component <code>Value='@IntValue'</code> set <code>Lookup='@IntValueSource'</code> component to display the <code>Value</code> corresponding to the value of the <code>Text</code> Value",
     "ShowLabel": "Whether to display the front label",
@@ -4135,7 +4111,7 @@
     "PrintDialogIntro": "Turn on printing by setting up the <code>ShowPrint</code>",
     "PrintDialogP": "In this example, the pop-up window content is a custom component <code>{0}</code> the <code>Footer</code> where the button itself is located is hidden, so the <code>Print</code> button built into the pop-up window cannot be displayed, and setting the <code>{1}</code> makes the <b>print</b>The button appears in the title bar",
     "PrintServiceTitle": "Print service",
-    "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b> directly print jobs. Printing Service <code>DialogService</code> Service Document <a href=\"/print-service\" target=\"_blank\">[Portal]</a>",
+    "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b> directly print jobs. Printing Service <code>PrintService</code> Service Document <a href=\"/print-service\" target=\"_blank\">[Portal]</a>",
     "PrintsDialogTitle": "The data query window"
   },
   "BootstrapBlazor.Server.Components.Samples.Tags": {
@@ -4212,11 +4188,9 @@
     "SearchesDisplayButtonTitle": "The Empty button is displayed",
     "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
     "SearchesKeyboardsTitle": "Keyboard input instant search",
-    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>the IsOnInputTrigger</code> parameter",
+    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>IsTriggerSearchByInput</code> parameter",
     "SearchesValidateFormTitle": "ValidateForm",
     "SearchesValidateFormIntro": "Inside <code>ValidateForm</code>",
-    "SearchesChildContent": "Content",
-    "SearchesItems": "Data source",
     "SearchesNoDataTip": "Auto-complete data prompts when there is no match",
     "SearchesNoDataTipDefaultValue": "No matching data",
     "SearchesButtonLoadingIcon": "Searching for button icon",
@@ -4224,14 +4198,14 @@
     "SearchesClearButtonText": "Empty the button text",
     "SearchesClearButtonColor": "Clear the button color",
     "SearchesButtonColor": "Search for button color",
-    "SearchesIsLikeMatch": "Whether fuzzy matching is turned on",
     "SearchesIsAutoFocus": "Whether to get the focus automatically",
     "SearchesIsAutoClearAfterSearch": "Click Search to automatically empty the search box",
-    "SearchesIsOnInputTrigger": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
-    "SearchesIgnoreCase": "Whether case is ignored when matching",
+    "SearchesIsTriggerSearchByInput": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
     "SearchesShowClearButton": "Whether the Clear button is displayed",
     "SearchesOnSearch": "Call back this delegate when you click Search",
-    "SearchesOnClear": "Click Recall this order when emptying"
+    "SearchesOnClear": "Click Recall this order when emptying",
+    "SearchesItemTemplateTitle": "Item Template",
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",
@@ -4502,9 +4476,15 @@
     "Label": "Language："
   },
   "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
-    "SearchPlaceHolder": "search",
-    "SearchStatus": "Powered by BootstrapBlazor",
-    "SearchResultPlaceHolder": "Type something to search"
+    "SearchPlaceHolder": "Search",
+    "SearchingText": "Searching ...",
+    "SearchResultText": "Found {0} results in {1}ms",
+    "LogoText": "Powered by BootstrapBlazor",
+    "SearchResultPlaceHolder": "Type something to search",
+    "EmptySearchResultPlaceHolder": "No match searches",
+    "EnterKeyText": "to Select",
+    "ArrowKeyText": "to Navigate",
+    "EscKeyText": "to Close"
   },
   "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
@@ -4514,6 +4494,7 @@
     "TutorialsText": "Tutorials"
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
+    "SiteTitle": "Bootstrap Blazor enterprise-level UI component library",
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
@@ -4765,8 +4746,9 @@
     "CountButton": "CountButton",
     "Splitting": "Splitting",
     "QueryBuilder": "QueryBuilder",
-    "SerialService": "ISerialService",
+    "WebSerial": "ISerialService",
     "MindMap": "Mind Map",
+    "Mermaid": "Mermaid",
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Segmented": "Segmented",
@@ -4802,7 +4784,11 @@
     "DrawerService": "DrawerService",
     "SortableList": "SortableList",
     "WinBox": "WinBox",
-    "Player": "Player"
+    "Player": "Player",
+    "RDKit": "RDKit",
+    "SmilesDrawer": "SmilesDrawer",
+    "Affix": "Affix",
+    "Watermark": "Watermark"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5080,6 +5066,16 @@
     "ShowCopyColumnDesc": "You can fine-tune the <code>Tooltip</code> related parameters of the copy column data icon by setting <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> and other settings",
     "ShowColumnToolboxTitle": "Column Toolbox",
     "ShowColumnToolboxIntro": "Enable the column toolbar button by setting the <code>ToolboxTemplate</code> parameter",
+    "BindComplexObjectTitle": "Bind Complex Types and Expressions",
+    "BindComplexObjectIntro": "When binding a complex type, whether the bound object collection is empty or not, the <code>TItem</code> must provide a parameterless constructor. Otherwise, it is required to provide a construction callback through <code>CreateItemCallback</code>. When binding a complex expression, the bound expression must not throw a <code>NullReferenceException</code> exception. If the business logic cannot avoid this issue, it is recommended to handle it using a <code>Template</code>",
+    "BindComplexObjectP1": "In this example, the complex type <code>ComplexFoo</code> does not have a parameterless constructor, so a construction callback for <code>ComplexFoo</code> should be provided through <code>CreateItemCallback</code>",
+    "BindComplexObjectP2": "In this example, we want to bind a complex expression <code>context.Company.Name</code> to the column <code>CompanyName</code>, but the business logic cannot ensure that the value of the <code>Company</code> property is not <code>null</code> at the time of binding. Therefore, we can first bind a simple expression and then handle it using the column template <code>Template</code>",
+    "BindComplexObjectButtonText": "Set company",
+    "ComplexFooDateTime": "DateTime",
+    "ComplexFooName": "Name",
+    "ComplexFooAddress": "Address",
+    "ComplexFooAge": "Age",
+    "ComplexFooCompany": "Company",
     "OnColumnCreatingTitle": "Set current column properties",
     "OnColumnCreatingIntro": "By specifying <code>OnColumnCreating</code> callback, make secondary data changes to the column collection",
     "OnColumnCreatingP1": "Existing columns can be extended through the parameters in the <code>OnColumnCreating</code> callback method:",
@@ -5173,7 +5169,7 @@
     "TablesEditDescription": "Commonly used in single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex business requirements can be realized through advanced usage of <code>Template</code>",
     "TablesEditItemsTitle": "Use collection as data source to realize editing function",
     "TablesEditItemsIntro": "Set <code>Items</code> as the data source, without setting <code>OnSaveAsync</code> <code>OnDeleteAsync</code> callback delegate to use built-in processing logic to update and delete functions",
-    "TablesEditItemsDescription": "Setting <code>Items</code> as the data source eliminates the need to set <code>OnSaveAsync</code> <code>OnDeleteAsync</code> callback delegates to use built-in processing logic for updates and deletes",
+    "TablesEditItemsDescription": "Setting <code>Items</code> as the data source eliminates the need to set <code>OnSaveAsync</code> <code>OnDeleteAsync</code> callback delegates to use built-in processing logic for updates and deletes. Meanwhile, it should be noted that the <code>[Key]</code> tag of the <code>Foo</code> attribute of the class instance <code>Foo</code> of the generic constraint of <code>TItem</code> should be configured correctly",
     "TablesEditTemplateTitle": "Tables with single table maintenance",
     "TablesEditTemplateIntro": "Set <code>ShowSearch</code> to show the query component",
     "TablesEditTemplateDescription": "In this example, the right alignment of <code>Count</code> is set, the <code>Complete</code> column is set to center alignment, and the Boolean column is automatically rendered as a <code>Switch</code> component",
@@ -5540,9 +5536,11 @@
     "ClickToSelectP3": "Currently selected row:",
     "ClickToSelectNoneText": "None",
     "PlaceHolder": "Cannot be empty, within 50 characters",
+    "RowContentTemplateTitle": "Row Content Template",
+    "RowContentTemplateIntro": "By setting the <code>RowContentTemplate</code> template, you can implement custom row cell linkage logic by sub-packaging components to achieve performance optimization and avoid the problem of refreshing the entire table component after linkage due to cell data refresh.",
+    "RowContentTemplateDesc": "In this example, a custom component is used to select a date, link the quantity column, randomly generate a random number, and save it to the original data, so there is no need to refresh the entire <code>Table</code> component.",
     "RowTemplateTitle": "Row Template",
-    "RowTemplateIntro": "By setting the <code>RowTemplate</code> template, you can implement custom row cell linkage logic by sub-packaging components to achieve performance optimization and avoid the problem of refreshing the entire table component after linkage due to cell data refresh.",
-    "RowTemplateDesc": "In this example, a custom component is used to select a date, link the quantity column, randomly generate a random number, and save it to the original data, so there is no need to refresh the entire <code>Table</code> component."
+    "RowTemplateIntro": "By setting the <code>RowTemplate</code> template, you can implement the row merging function according to your own business logic"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",
@@ -6320,43 +6318,39 @@
   },
   "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
-    "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
+    "MindMapDescription": "Used to display specific Json format data as a Web mind map",
     "MindMapNormalTitle": "Basic usage",
+    "MindMapLayout": "Layout",
+    "MindMapTheme": "Theme",
     "Sample1ButtonText": "Example 1",
     "Sample2ButtonText": "Example 2: week arrangement",
-    "ExportButtonText": "Download as PNG",
-    "ExportJsonButtonText": "Download as JSON",
-    "GetFullDataButtonText": "Export object",
-    "GetDataButtonText": "Export the JSON object",
-    "SetDataButtonText": "Import data (JSON)",
+    "ExportButtonText": "ExportPng",
+    "ExportJsonButtonText": "ExportJSON",
+    "GetFullDataButtonText": "GetFullData",
+    "GetDataButtonText": "GetData",
+    "SetDataButtonText": "SetData",
     "ResetButtonText": "Reset",
-    "NodeDataText": "NodeData",
+    "FitButtonText": "Fit",
+    "Scale1ButtonText": "ZoomOut",
+    "Scale2ButtonText": "ZoomIn",
+    "CustomButtonText": "Custom",
     "Data": "Data",
-    "ShowUI": "Show default UI",
-    "StyleCss": "Custom CSS",
-    "OnReceive": "Data received callback method",
-    "OnError": "Error callback method",
     "Export": "Download as file",
     "GetData": "Get data",
     "SetData": "Import data",
     "Reset": "Reset",
-    "NodeTextText": "Node text",
-    "NodeImageText": "Image",
-    "NodeImageTitleText": "Image text",
-    "NodeImageSizeText": "Image Size",
-    "NodeIconText": "Icon",
-    "NodeTagText": "Tag",
-    "NodeHyperlinkText": "Link",
-    "NodeHyperlinkTitleText": "Link Text",
-    "NodeNoteText": "Note Content",
-    "NodeGeneralizationText": "Generalization",
-    "NodeExpandText": "Node is expanded",
     "SetTheme": "switch themes",
     "SetLayout": "switch layout",
-    "Options": "Options",
-    "OptionsText": "Options",
-    "Layout": "Layout",
-    "Theme": "Theme"
+    "MindMapExtensionDesc": "<p>Because <code>MindMap</code> encapsulates many <b>api</b> methods, the component library cannot fully encapsulate them, so extension methods are provided. For example, if you need a combination button to use the component, you can call your own <code>Javascript</code> through your own code to control <code>MindMap</code></p><ul><li>The custom button calls the component instance method <code>MindMap.Execute(\"clickCustom\", \"args1\")</code>, assuming the parameter is <code>args1</code></li><li>Your own <code>Javascript</code> is responsible for handling the <code>clickCustom</code> event</li><li><code>this</code> in the <code>clickCustom</code> method is the current <code>MindMap</code> instance, and you can call any of its methods to develop your own business</li></ul><p>The complete example is as follows:</p>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Mermaids": {
+    "MermaidTitle": "Mermaid",
+    "MermaidDescription": "This component renders Markdown-inspired text definitions to dynamically create and modify diagrams.",
+    "MermaidNormalTitle": "Basic usage",
+    "MermaidNormalIntro": "Mermaid basic style",
+    "MermaidStyleTitle": "Custom styles",
+    "MermaidStyleIntro": "",
+    "MermaidType": "Type"
   },
   "BootstrapBlazor.Server.Components.Samples.Speeches.WebSpeeches": {
     "WebSpeechTitle": "Web Speech Api",
@@ -6583,6 +6577,7 @@
     "Intro": "The dropdown box is a table used to display the selection requirements for complex types",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
+    "NormalDesc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
     "ColorTitle": "Color",
     "ColorIntro": "Change component border color by setting <code>Color</code>",
     "IsDisabledTitle": "Disabled",
@@ -6614,6 +6609,7 @@
     "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Use built in <code>ListView</code> component to select images",
+    "NormalDesc": "You can use <code>IsClearable</code> to control whether to display the clear button. The default value is <code>false</code>",
     "MinWidthTitle": "Min-Width",
     "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
     "HeightTitle": "Height",
@@ -6657,7 +6653,7 @@
   "BootstrapBlazor.Server.Components.Samples.Icons.BootstrapIcons": {
     "Title": "Bootstrap Icons",
     "BaseUsageText": "Free, high quality, open source icon library",
-    "Icons": "For icon information, please visit <a href=\"https://icons.getbootstrap.com/\" target=\"_blank\">[portal]</a>",
+    "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
@@ -6667,7 +6663,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://element.eleme.cn/#/zh-CN/component/icon\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.FAIcons": {
     "Title": "Font Awesome Icons",
@@ -6676,12 +6673,13 @@
     "SwitchButtonTextOn": "Show Copy Dialog",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon",
-    "CopiedTooltipText": "Copied"
+    "CopiedTooltipText": "Copied",
+    "Icons": "For icon list, please visit <a href=\"https://fontawesome.com/icons\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.MaterialDesignIcons": {
     "Title": "MaterialDesign Icons",
     "BaseUsageText": "Material Design system icons are simple, modern and user-friendly",
-    "Icons": "For icon information, please visit <a href=\"https://pictogrammers.com/library/mdi/\" target=\"_blank\">[portal]</a>",
+    "Icons": "For icon list, please visit <a href=\"https://pictogrammers.com/library/mdi\" target=\"_blank\">[portal]</a>",
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
@@ -6691,7 +6689,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
@@ -6699,7 +6698,8 @@
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
-    "P3": "Please copy the following code segement"
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
@@ -6709,7 +6709,8 @@
     "SvgTitle": "Svg Icons",
     "SvgIntro": "Load the <code>Svg</code> sprite image by setting <code>IsSvgSprites=\"true\"</code> <code>Url</code> and specify its <code>Id</code> value by <code>Name</code>",
     "ImageTitle": "Image",
-    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template"
+    "ImageIntro": "Customize the displayed content through the <code>ChildContent</code> template",
+    "Icons": "For icon list, please visit <a href=\"https://icons.getbootstrap.com\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.DriverDotnetJs": {
     "DriverJsPopoverTitleText": "Animated Tour Example",
@@ -6789,7 +6790,11 @@
     "SortableListSwapTitle": "Swap",
     "SortableListSwapIntro": "By setting the <code>Swap</code> parameter of <code>SortableListOption</code>, the drag item and the target item are swapped.",
     "SortableListOnAddTitle": "Multiple SortableList",
-    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily"
+    "SortableListOnAddIntro": "Get the <code>SortableList</code> to which the dragged item belongs by setting the <code>FromId</code> parameter of the <code>SortableEvent</code>. In this example, the elements in the three areas can be dragged arbitrarily",
+    "AttributeSortableListOption": "SortableListOption instance",
+    "AttributeOnAdd": "Callback method when adding elements",
+    "AttributeOnUpdate": "Callback method when updating elements",
+    "AttributeOnRemove": "Callback method when deleting elements"
   },
   "BootstrapBlazor.Server.Components.Samples.WinBoxes": {
     "WinBoxTitle": "WinBox",
@@ -6846,5 +6851,39 @@
     "AttributeSrc": "Frame load url",
     "AttributeData": "Data passed",
     "AttributeOnPostDataAsync": "Passed back data"
+  },
+  "BootstrapBlazor.Server.Components.Samples.RDKits": {
+    "RDKitTitle": "RDKit",
+    "RDKitDescription": "A powerful cheminformatics and molecule rendering toolbelt for Blazor, Powered by RDKit",
+    "RDKitNormalTitle": "Basic usage",
+    "RDKitNormalIntro": "Set the molecular formula through <code>Smiles</code> and draw the component",
+    "RDKitSmartsTitle": "Smarts",
+    "RDKitSmartsIntro": "By setting the <code>Smarts</code> value, parts of the molecular formula can be highlighted",
+    "RDKitSmartsLabel": "Show Smarts",
+    "RDKitSizeTitle": "Size",
+    "RDKitSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SmilesDrawers": {
+    "SmilesDrawerTitle": "SmilesDrawer",
+    "SmilesDrawerDescription": "A small, highly performant JavaScript component for parsing and drawing SMILES strings",
+    "SmilesDrawerNormalTitle": "Basic usage",
+    "SmilesDrawerNormalIntro": "Set the molecular formula through <code>Smiles</code> and draw the component",
+    "SmilesDrawerSizeTitle": "Size",
+    "SmilesDrawerSizeIntro": "Set the width and height of the molecular formula by setting the <code>Width</code> and <code>Height</code> values"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Affixs": {
+    "AffixTitle": "Affix",
+    "AffixIntro": "Fix the element to a specific visible area",
+    "AffixNormalTitle": "Basic usage",
+    "AffixNormalIntro": "Affix is fixed at the top of the page by default",
+    "AffixPositionTitle": "Position",
+    "AffixPositionIntro": "Use the parameter <code>Position</code> to control whether the top or bottom is fixed",
+    "AffixOffsetDesc": "The parameter <code>Position</code> controls whether the top or bottom is fixed, and the <code>Offset</code> value sets the offset to the top or bottom"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Watermarks": {
+    "WatermarkTitle": "Watermark",
+    "Watermarkntro": "Add specific text or patterns to the page",
+    "WatermarkNormalTitle": "Basic usage",
+    "WatermarkNormalIntro": "Use the <code>Text</code> property to set a string to specify the watermark text"
   }
 }

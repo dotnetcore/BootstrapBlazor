@@ -1,12 +1,13 @@
 ﻿@page "/image-cropper"
 @inject IStringLocalizer<ImageCroppers> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
 <PackageTips Name="BootstrapBlazor.ImageCropper" />
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper @ref="_cropper" Url="@images[0]"></ImageCropper>
+    <ImageCropper @ref="_cropper" Url="@_images[0]"></ImageCropper>
     <section ignore>
         <BootstrapInputGroup>
             <Button Text="OK" OnClick="Crop" />
@@ -26,7 +27,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
-    <ImageCropper @ref="_roundCropper" Url="@images[0]" CropperShape="ImageCropperShape.Round" Options="_roundOptions" />
+    <ImageCropper @ref="_roundCropper" Url="@_images[0]" CropperShape="ImageCropperShape.Round" Options="_roundOptions" />
     <section ignore>
         <BootstrapInputGroup>
             <Button Text="OK" OnClick="RoundCrop" />

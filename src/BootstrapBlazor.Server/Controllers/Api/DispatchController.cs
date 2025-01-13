@@ -8,7 +8,7 @@ using System.Security.Cryptography;
 using System.Text;
 using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
-namespace BootstrapBlazor.Server.Controllers.Api;
+namespace BootstrapBlazor.Controllers.Api;
 
 /// <summary>
 /// Dispatch 接口
@@ -36,7 +36,7 @@ public class DispatchController : ControllerBase
                 Name = "Reboot"
             });
         }
-        else if(data == "57D2EADDEC65BE22E104ADB97778E6B0")
+        else if (data == "57D2EADDEC65BE22E104ADB97778E6B0")
         {
             dispatchService.Dispatch(new DispatchEntry<bool>()
             {

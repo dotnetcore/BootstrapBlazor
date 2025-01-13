@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -11,17 +13,17 @@ namespace BootstrapBlazor.Components;
 public class ScrollIntoViewOptions
 {
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认 5px
+    /// Determines whether scrolling is instant or animates smoothly
     /// </summary>
     public ScrollIntoViewBehavior Behavior { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条鼠标悬浮宽度 默认 5px
+    /// Defines the vertical alignment of the element within the scrollable ancestor container
     /// </summary>
     public ScrollIntoViewBlock Block { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条鼠标悬浮宽度 默认 5px
+    /// Defines the horizontal alignment of the element within the scrollable ancestor container
     /// </summary>
     public ScrollIntoViewInline Inline { get; set; }
 }
@@ -35,16 +37,19 @@ public enum ScrollIntoViewBehavior
     /// <summary>
     /// scrolling should animate smoothly
     /// </summary>
+    [Description("smooth")]
     Smooth,
 
     /// <summary>
     /// scrolling should happen instantly in a single jump
     /// </summary>
+    [Description("instant")]
     Instant,
 
     /// <summary>
     /// scroll behavior is determined by the computed value of scroll-behavior
     /// </summary>
+    [Description("auto")]
     Auto
 }
 
@@ -57,21 +62,25 @@ public enum ScrollIntoViewBlock
     /// <summary>
     /// Start
     /// </summary>
+    [Description("start")]
     Start,
 
     /// <summary>
     /// Center
     /// </summary>
+    [Description("center")]
     Center,
 
     /// <summary>
     /// End
     /// </summary>
+    [Description("end")]
     End,
 
     /// <summary>
     /// Nearest
     /// </summary>
+    [Description("nearest")]
     Nearest
 }
 
@@ -84,20 +93,24 @@ public enum ScrollIntoViewInline
     /// <summary>
     /// Start
     /// </summary>
+    [Description("start")]
     Start,
 
     /// <summary>
     /// Center
     /// </summary>
+    [Description("center")]
     Center,
 
     /// <summary>
     /// End
     /// </summary>
+    [Description("end")]
     End,
 
     /// <summary>
     /// Nearest
     /// </summary>
+    [Description("nearest")]
     Nearest
 }

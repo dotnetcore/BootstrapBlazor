@@ -33,7 +33,7 @@
 .tabs-coms ::deep > .tabs > .tabs-header {
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 11;
 }
 
 ::deep :is(.code-razor, .code-cs) pre {

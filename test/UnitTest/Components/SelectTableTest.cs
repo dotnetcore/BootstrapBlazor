@@ -5,6 +5,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
 
@@ -36,6 +37,44 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsClearable_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+            });
+        });
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        Assert.DoesNotContain("clear-icon", table.Markup);
+
+        var isClear = false;
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.Value, items[0]);
+            pb.Add(a => a.OnClearAsync, () =>
+            {
+                isClear = true;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Contains("clear-icon", table.Markup);
+        var input = table.Find(".form-select");
+        Assert.Equal("张三 0001", input.GetAttribute("value"));
+
+        var span = table.Find(".clear-icon");
+        await table.InvokeAsync(() => span.Click());
+        input = table.Find(".form-select");
+        Assert.Null(input.GetAttribute("value"));
+        Assert.True(isClear);
+    }
+
+    [Fact]
     public void TableMinWidth_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -64,9 +103,13 @@ public class SelectTableTest : BootstrapBlazorTestBase
                 pb.Add(a => a.Color, Color.Danger);
                 pb.Add(a => a.GetTextCallback, foo => foo.Name);
                 pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.IsClearable, true);
             });
         });
         cut.Contains("border-danger");
+
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-danger"));
     }
 
     [Fact]
@@ -270,6 +313,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, model);
             builder.AddChildContent<SelectTable<Foo>>(pb =>
             {
+                pb.Add(a => a.IsClearable, true);
                 pb.Add(a => a.Value, model.Foo);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Foo", typeof(Foo)));
                 pb.Add(a => a.OnValueChanged, v =>
@@ -301,6 +345,9 @@ public class SelectTableTest : BootstrapBlazorTestBase
         });
         Assert.True(valid);
 
+        var span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-success"));
+
         model.Foo = null;
         var table = cut.FindComponent<SelectTable<Foo>>();
         table.SetParametersAndRender();
@@ -310,6 +357,9 @@ public class SelectTableTest : BootstrapBlazorTestBase
             form.Submit();
         });
         Assert.True(invalid);
+
+        span = cut.Find(".clear-icon");
+        Assert.True(span.ClassList.Contains("text-danger"));
     }
 
     [Fact]
@@ -513,6 +563,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
 
     class SelectTableModel()
     {
+        [Required]
         public Foo? Foo { get; set; }
     }
 

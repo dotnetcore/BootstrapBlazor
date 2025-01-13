@@ -26,5 +26,5 @@
 
     <ThemeChooser></ThemeChooser>
 
-    <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="./images/log.svg"></LinkButton>
+    <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="@WebsiteOption.CurrentValue.GetAssetUrl("images/log.svg")"></LinkButton>
 </section>

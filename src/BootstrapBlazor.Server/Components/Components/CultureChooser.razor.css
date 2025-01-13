@@ -14,7 +14,7 @@
     }
 
     .culture-selector ::deep .select {
-        width: 210px;
+        width: var(--bb-header-select-width);
     }
 
 ::deep .form-control {

@@ -28,23 +28,6 @@ public partial class TablesColumnList
     private Table<Foo>? TableColumnVisible { get; set; }
 
     /// <summary>
-    /// IntFormatter
-    /// </summary>
-    /// <param name = "d"></param>
-    /// <returns></returns>
-    private static Task<string> IntFormatter(object? d)
-    {
-        var ret = "";
-        if (d is TableColumnContext<Foo, object?> data && data.Value != null)
-        {
-            var val = (int)data.Value;
-            ret = val.ToString("0.00");
-        }
-
-        return Task.FromResult(ret);
-    }
-
-    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

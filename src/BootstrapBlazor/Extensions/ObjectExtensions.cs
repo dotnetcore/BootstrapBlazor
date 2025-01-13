@@ -56,6 +56,21 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// 检查是否应该渲染成 <see cref="BootstrapInputNumber{TValue}"/>
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsNumberWithDotSeparator(this Type t)
+    {
+        var separator = CultureInfo.CurrentUICulture.NumberFormat.NumberDecimalSeparator;
+        if (separator != ".")
+        {
+            return false;
+        }
+        return t.IsNumber();
+    }
+
+    /// <summary>
     /// 检查是否为 Boolean 数据类型
     /// </summary>
     /// <param name="t"></param>
@@ -170,13 +185,13 @@ public static class ObjectExtensions
                 }
                 else if (source == string.Empty)
                 {
-                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.InvariantCulture, out val);
+                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.CurrentCulture, out val);
                 }
                 else
                 {
                     var isBoolean = type == typeof(bool);
                     var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
-                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.InvariantCulture, out val);
+                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.CurrentCulture, out val);
                 }
             }
             catch

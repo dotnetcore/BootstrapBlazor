@@ -65,6 +65,11 @@ public static class ExpandableNodeExtensions
     /// </summary>
     public static void SetChildrenCheck<TNode, TItem>(this TNode node, TreeNodeCache<TNode, TItem> cache) where TNode : ICheckableNode<TItem>
     {
+        if (node.CheckedState == CheckboxState.Indeterminate)
+        {
+            return;
+        }
+
         foreach (var item in node.Items.OfType<TNode>())
         {
             item.CheckedState = node.CheckedState;

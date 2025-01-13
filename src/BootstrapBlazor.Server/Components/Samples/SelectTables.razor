@@ -1,11 +1,15 @@
 ﻿@page "/select-table"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["Intro"]</h4>
 
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
-    <SelectTable TItem="Foo" @bind-Value="@_foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" TableMinWidth="300">
+    <section ignore>
+        @((MarkupString)Localizer["NormalDesc"].Value)
+    </section>
+    <SelectTable TItem="Foo" @bind-Value="@_foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" TableMinWidth="300" IsClearable>
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
@@ -46,7 +50,7 @@
                 </div>
                 <Divider />
                 <div class="select-custom-body">
-                    <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <img src="@WebsiteOption.CurrentValue.GetAvatarUrl(context.Id)" class="bb-avatar" />
                     <div class="select-custom-detail">
                         <div class="d-flex">
                             <div class="flex-fill">

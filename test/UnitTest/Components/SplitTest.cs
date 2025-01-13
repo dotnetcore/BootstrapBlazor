@@ -109,6 +109,17 @@ public class SplitTest : BootstrapBlazorTestBase
         Assert.False(state.IsCollapsed);
     }
 
+    [Fact]
+    public async Task SetLeft_Ok()
+    {
+        var cut = Context.RenderComponent<Split>(pb =>
+        {
+            pb.Add(b => b.FirstPaneTemplate, RenderSplitView("I am Pane1"));
+            pb.Add(b => b.SecondPaneTemplate, RenderSplitView("I am Pane2"));
+        });
+        await cut.InvokeAsync(() => cut.Instance.SetLeftWidth("25%"));
+    }
+
     static RenderFragment RenderSplitView(string name = "I am Pane1") => builder =>
     {
         builder.OpenElement(1, "div");

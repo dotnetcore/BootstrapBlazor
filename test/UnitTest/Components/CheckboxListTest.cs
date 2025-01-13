@@ -34,7 +34,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.StopPropagation, true);
         });
-        Assert.Contains("data-bb-stop-propagation=\"true\"", cut.Markup);
+        Assert.Contains("blazor:onclick:stopPropagation", cut.Markup);
     }
 
     [Fact]
@@ -69,11 +69,11 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         });
         Assert.False(cut.Instance.Value);
 
-        await cut.InvokeAsync(cut.Instance.TriggerClick);
+        await cut.InvokeAsync(cut.Instance.OnToggleClick);
         Assert.True(cut.Instance.Value);
 
         confirm = false;
-        await cut.InvokeAsync(cut.Instance.TriggerClick);
+        await cut.InvokeAsync(cut.Instance.OnToggleClick);
         Assert.True(cut.Instance.Value);
     }
 
@@ -83,36 +83,12 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Checkbox<bool>>();
         Assert.False(cut.Instance.Value);
 
-        // JavaScript 调用 OnTriggerClickAsync 方法
-        var val = await cut.Instance.OnTriggerClickAsync(CheckboxState.UnChecked);
-
-        Assert.True(val);
+        // JavaScript 调用 OnStateChangedAsync 方法
+        await cut.Instance.OnStateChangedAsync(CheckboxState.UnChecked);
         Assert.Equal(CheckboxState.UnChecked, cut.Instance.State);
 
-        val = await cut.Instance.OnTriggerClickAsync(CheckboxState.Checked);
-        Assert.True(val);
+        await cut.Instance.OnStateChangedAsync(CheckboxState.Checked);
         Assert.Equal(CheckboxState.Checked, cut.Instance.State);
-    }
-
-    [Fact]
-    public async Task Bool_TriggerStateChanged_Ok()
-    {
-        bool value = false;
-        // 测试 bool 值改变值时触发 StateChanged 回调方法
-        var cut = Context.RenderComponent<Checkbox<bool>>(pb =>
-        {
-            pb.Add(a => a.Value, false);
-            pb.Add(a => a.OnStateChanged, (state, v) =>
-            {
-                value = v;
-                return Task.CompletedTask;
-            });
-        });
-
-        // JavaScript 调用 OnTriggerClickAsync 方法
-        await cut.InvokeAsync(() => cut.Instance.OnTriggerClickAsync());
-        Assert.Equal(CheckboxState.Checked, cut.Instance.State);
-        Assert.True(value);
     }
 
     [Fact]
@@ -285,7 +261,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         });
         // 字符串值选中事件
         var item = cut.FindComponent<Checkbox<bool>>();
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(selected);
     }
 
@@ -306,7 +282,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         });
 
         var item = cut.FindComponent<Checkbox<bool>>();
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
         Assert.True(selected);
     }
 
@@ -341,7 +317,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             });
         });
         var item = cut.FindComponent<Checkbox<bool>>();
-        await cut.InvokeAsync(item.Instance.TriggerClick);
+        await cut.InvokeAsync(item.Instance.OnToggleClick);
 
         // 选中 2 
         Assert.Equal(2, ret.First());
@@ -435,20 +411,20 @@ public class CheckboxListTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerClick();
+            await checkboxes[0].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
 
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[1].Instance.TriggerClick();
+            await checkboxes[1].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
 
         // 选中第三个由于限制无法选中
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[2].Instance.TriggerClick();
+            await checkboxes[2].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
@@ -459,7 +435,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         max = false;
         await cut.InvokeAsync(async () =>
         {
-            await checkboxes[0].Instance.TriggerClick();
+            await checkboxes[0].Instance.OnToggleClick();
         });
         Assert.Equal(CheckboxState.UnChecked, checkboxes[0].Instance.State);
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
