@@ -168,7 +168,7 @@ public partial class Calendar
     public CalendarViewMode ViewMode { get; set; }
 
     /// <summary>
-    /// 获得/设置 周内容
+    /// 获得/设置 周内容 <see cref="CalendarViewMode.Week"/> 时有效
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
