@@ -27,6 +27,7 @@ public partial class BootstrapInput<TValue>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 IsClearable 参数；Deprecated use the IsClearable parameter")]
+    [ExcludeFromCodeCoverage]
     public bool Clearable { get => IsClearable; set => IsClearable = value; }
 
     /// <summary>
@@ -46,6 +47,7 @@ public partial class BootstrapInput<TValue>
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ClearIcon 参数；Deprecated use the ClearIcon parameter")]
+    [ExcludeFromCodeCoverage]
     public string? ClearableIcon { get => ClearIcon; set => ClearIcon = value; }
 
     /// <summary>
