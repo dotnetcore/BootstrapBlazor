@@ -72,10 +72,10 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Clearable_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.Clearable, false));
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder => builder.Add(a => a.IsClearable, false));
         cut.DoesNotContain("bb-clearable-input");
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.Clearable, true));
+        cut.SetParametersAndRender(pb => pb.Add(a => a.IsClearable, true));
         cut.Contains("bb-clearable-input");
         cut.Contains("form-control-clear-icon");
 
@@ -93,7 +93,7 @@ public class InputTest : BootstrapBlazorTestBase
         var clicked = false;
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
-            builder.Add(a => a.Clearable, true);
+            builder.Add(a => a.IsClearable, true);
             builder.Add(a => a.OnClear, v =>
             {
                 clicked = true;
