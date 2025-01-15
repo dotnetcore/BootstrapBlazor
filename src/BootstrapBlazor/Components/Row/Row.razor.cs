@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Row 组件
 /// </summary>
 public partial class Row
 {
@@ -33,4 +33,8 @@ public partial class Row
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    private string? ClassString => CssBuilder.Default("d-none")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }
