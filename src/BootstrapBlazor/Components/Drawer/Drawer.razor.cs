@@ -114,6 +114,12 @@ public partial class Drawer
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 抽屉内容相关数据 多用于传值
+    /// </summary>
+    [Parameter]
+    public object? BodyContext { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
