@@ -246,7 +246,7 @@ internal class CacheManager : ICacheManager
                     {
                         value = kv.Key;
                     }
-                    return new LocalizedString(kv.Key, value!, false, typeName);
+                    return new LocalizedString(kv.Key, value ?? "", false, typeName);
                 });
 #if NET8_0_OR_GREATER
             return items?.ToFrozenSet();
