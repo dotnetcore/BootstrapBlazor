@@ -227,3 +227,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 如果这个项目对您有所帮助，请扫下方二维码打赏一杯咖啡。
 
 <img src="https://gitee.com/Longbow/Pictures/raw/master/WeChat/BarCode@2x.png" width="382px;" />
+
+## 赞助商
+感谢 [JetBrains](https://jb.gg/OpenSourceSupport) 提供的免费开源 License
+<img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" width="100px" align="right" />
