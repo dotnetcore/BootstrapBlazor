@@ -239,7 +239,15 @@ internal class CacheManager : ICacheManager
             var sections = Instance.GetOrCreate(key, _ => option.GetJsonStringFromAssembly(assembly, cultureName));
             var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
-                .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value?? kv.Key, false, typeName) });
+                .Select(kv =>
+                {
+                    var value = kv.Value;
+                    if (value == null && option.UseKeyWhenValueIsNull == true)
+                    {
+                        value = kv.Key;
+                    }
+                    return new LocalizedString(kv.Key, value!, false, typeName);
+                });
 #if NET8_0_OR_GREATER
             return items?.ToFrozenSet();
 #else
