@@ -107,6 +107,25 @@ public class DrawerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void BodyContext_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.BodyContext, "test-body-context");
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<MockContent>(0);
+                s.CloseComponent();
+            });
+        });
+
+        var component = cut.FindComponent<MockContent>();
+        Assert.NotNull(component);
+
+        Assert.Equal("test-body-context", component.Instance.GetBodyContext());
+    }
+
+    [Fact]
     public void ShowBackdrop_Ok()
     {
         var cut = Context.RenderComponent<Drawer>(builder =>
@@ -140,5 +159,14 @@ public class DrawerTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("--bb-drawer-position: absolute;");
+    }
+
+    class MockContent : ComponentBase
+    {
+        [CascadingParameter(Name = "BodyContext")]
+        [NotNull]
+        private object? BodyContext { get; set; }
+
+        public string? GetBodyContext() => BodyContext.ToString();
     }
 }
