@@ -25,5 +25,9 @@
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middle": "Middle"
+  },
+  "UnitTest.Utils.UtilityTest": {
+    "Test-Null": null,
+    "Test-Key:": ""
   }
 }

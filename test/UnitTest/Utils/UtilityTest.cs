@@ -379,6 +379,23 @@ public class UtilityTest : BootstrapBlazorTestBase
         Utility.GetJsonStringByTypeName(option, dynamicType!.Assembly, "Test");
     }
 
+    [Fact]
+    public void GetJsonStringByTypeName_Exception()
+    {
+        // improve code coverage
+        var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
+        option.UseKeyWhenValueIsNull = true;
+        var items = Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest", "en-US", true);
+
+        var test1 = items.FirstOrDefault(i => i.Name == "Test-Null");
+        Assert.NotNull(test1);
+        Assert.Equal("", test1.Value);
+
+        var test2 = items.FirstOrDefault(i => i.Name == "Test-Key");
+        Assert.NotNull(test2);
+        Assert.Equal("Test-Key", test2.Value);
+    }
+
     private class MockDynamicObject : IDynamicObject
     {
         public Guid DynamicObjectPrimaryKey { get; set; }
