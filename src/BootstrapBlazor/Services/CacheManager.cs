@@ -234,9 +234,9 @@ internal class CacheManager : ICacheManager
             Instance.Cache.Remove(key);
             Instance.Cache.Remove(typeKey);
         }
-        return Instance.GetOrCreate(typeKey, entry =>
+        return Instance.GetOrCreate(typeKey, _ =>
         {
-            var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+            var sections = Instance.GetOrCreate(key, _ => option.GetJsonStringFromAssembly(assembly, cultureName));
             var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
                 .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value?? kv.Key, false, typeName) });
