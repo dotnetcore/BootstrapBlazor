@@ -22,7 +22,8 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
             OnClickBackdrop = () => Task.CompletedTask,
             OnCloseAsync = () => Task.CompletedTask,
             Placement = Placement.Bottom,
-            ShowBackdrop = true
+            ShowBackdrop = true,
+            BodyContext = "test-body-context"
         };
         var service = Context.Services.GetRequiredService<DrawerService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
