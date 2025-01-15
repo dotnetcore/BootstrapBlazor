@@ -14,9 +14,14 @@ public class RowTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.RowType, RowType.Normal);
             pb.Add(a => a.ChildContent, CreateContent());
+            pb.Add(a => a.AdditionalAttributes, new Dictionary<string, object>()
+            {
+                { "class", "test-row" }
+            });
         });
 
         Assert.Contains("data-bb-type=\"row\"", cut.Markup);
+        Assert.Contains("class=\"d-none test-row\"", cut.Markup);
     }
 
     [Fact]
