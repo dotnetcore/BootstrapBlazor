@@ -152,10 +152,7 @@ internal class CacheManager : ICacheManager
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.CountLambda(type).Compile();
             });
-            if (invoker != null)
-            {
-                ret = invoker(value);
-            }
+            ret = invoker(value);
         }
         return ret;
     }
