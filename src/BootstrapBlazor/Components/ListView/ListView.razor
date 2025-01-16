@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits BootstrapComponentBase
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     @if (HeaderTemplate != null)
@@ -14,12 +15,18 @@
         {
             if (GroupName == null)
             {
-                foreach (var item in Rows)
+                if (IsVirtualize)
                 {
-                    <div class="listview-item" @onclick="@(e => OnClick(item))">
-                        @BodyTemplate(item)
-                    </div>
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="Rows.ToList()" ChildContent="RenderBody" />
                 }
+                else
+                {
+                    foreach (var item in Rows)
+                    {
+                        @RenderBody(item)
+                    }
+                }
+
             }
             else if (Collapsible)
             {
@@ -31,19 +38,17 @@
             }
             else
             {
-                foreach (var key in GetGroupItems(GroupName))
+                if (IsVirtualize)
                 {
-                    <div @key="@key.GroupName" class="accordion-item">
-                        <div class="accordion-header">@key.GroupName</div>
-                        <div class="accordion-body">
-                            @foreach (var item in key.Items)
-                            {
-                                <div class="listview-item" @onclick="@(e => OnClick(item))">
-                                    @BodyTemplate(item)
-                                </div>
-                            }
-                        </div>
-                    </div>
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="GetGroupItems(GroupName).ToList()" ChildContent="RenderGroup" />
+                }
+                else
+                {
+
+                    foreach (var key in GetGroupItems(GroupName))
+                    {
+                        @RenderGroup(key);
+                    }
                 }
             }
         }
@@ -64,16 +69,41 @@
 </div>
 
 @code {
-    RenderFragment RenderItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
-    @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
-        @foreach (var item in key.Items)
-        {
-            <div class="listview-item" @onclick="@(e => OnClick(item))">
-                @if(BodyTemplate != null)
+    RenderFragment RenderItem(ListViewCollapsedGroup<TItem> collapseditem) =>
+        @<CollapseItem Text="@GetGroupName(collapseditem.Key?.GroupName)" IsCollapsed="IsCollapsed(collapseditem.Index, collapseditem.Key?.GroupName)">
+            @if (collapseditem.Key?.Items != null)
+            {
+                if (IsVirtualize)
                 {
-                    @BodyTemplate(item)
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="collapseditem.Key.Items.ToList()" ChildContent="RenderBody" />
                 }
-            </div>
+                else
+                {
+                    foreach (var item in collapseditem.Key.Items)
+                    {
+                        @RenderBody(item)
+                    }
+                }
+            }
+        </CollapseItem>;
+
+RenderFragment RenderBody(TItem item) =>@<div class="listview-item" @onclick="@(e => OnClick(item))">
+    @if (BodyTemplate != null)
+    {
+        @BodyTemplate(item)
+    }
+</div>;
+
+RenderFragment RenderGroup(ListViewItem<TItem> key) =>@<div @key="@key.GroupName" class="accordion-item">
+    <div class="accordion-header">@key.GroupName</div>
+    <div class="accordion-body">
+        @if (key.Items != null)
+        {
+            foreach (var item in key.Items)
+            {
+                @RenderBody(item)
+            }
         }
-    </CollapseItem>;
+    </div>
+</div>;
 }

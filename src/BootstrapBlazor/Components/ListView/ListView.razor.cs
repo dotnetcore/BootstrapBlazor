@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -211,18 +214,45 @@ public partial class ListView<TItem> : BootstrapComponentBase
         foreach (var key in GetGroupItems(groupFunc))
         {
             var i = index++;
-            builder.AddContent(i, RenderItem(key, i));
+            builder.AddContent(i, RenderItem(new ListViewCollapsedGroup<TItem>() { Key = key, Index = i }));
         }
     };
 
-    private IEnumerable<(object? GroupName, IOrderedEnumerable<TItem> Items)> GetGroupItems(Func<TItem, object?> groupFunc)
+    private IEnumerable<ListViewItem<TItem>> GetGroupItems(Func<TItem, object?> groupFunc)
     {
         var groupItems = Rows.GroupBy(groupFunc);
         var groupOrderItems = GroupOrderCallback == null ? groupItems.OrderBy(i => i.Key) : GroupOrderCallback(groupItems);
-        return GroupItemOrderCallback == null
+        var groupOrderItemsList = GroupItemOrderCallback == null
             ? groupOrderItems.Select(i => (i.Key, i.OrderBy(g => i.Key)))
             : groupOrderItems.Select(i => (i.Key, GroupItemOrderCallback(i)));
+        return groupOrderItemsList.Select(i => new ListViewItem<TItem>() { GroupName = i.Key, Items = i.Item2 });
     }
 
     private string? GetGroupName(object? key) => GroupHeaderTextCallback?.Invoke(key) ?? key?.ToString();
+
+    /// <summary>
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启  
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// 获得/设置 虚拟滚动行高 默认为 50
+    /// </summary>
+    /// <remarks>需要设置 <see cref="ScrollMode"/> 值为 Virtual 时生效</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 50f;
+
+    /// <summary>
+    /// 获得/设置 过载阈值数 默认为 4
+    /// </summary>
+    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 10;
+
+    /// <summary>
+    /// 获得/设置 内置虚拟化组件实例
+    /// </summary>
+    protected Virtualize<TItem>? VirtualizeElement { get; set; }
+
 }
