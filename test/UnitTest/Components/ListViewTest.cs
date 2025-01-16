@@ -18,6 +18,16 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Height_Ok()
+    {
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.Height, "50vh");
+        });
+        cut.Markup.Contains("style=\"height: 50vh;\"");
+    }
+
+    [Fact]
     public async Task ListView_Ok()
     {
         var clicked = false;
