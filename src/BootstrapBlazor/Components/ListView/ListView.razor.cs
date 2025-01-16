@@ -125,17 +125,17 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
-    private int PageIndex { get; set; }
+    private int _pageIndex;
 
     /// <summary>
     /// 获得/设置 数据总条目
     /// </summary>
-    protected int TotalCount { get; set; }
+    private int _totalCount;
 
     /// <summary>
     /// 数据集合内部使用
     /// </summary>
-    protected IEnumerable<TItem> Rows => Items ?? [];
+    private List<TItem> Rows => Items?.ToList() ?? [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -162,7 +162,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <returns></returns>
     public async Task QueryAsync(int pageIndex = 1)
     {
-        PageIndex = pageIndex;
+        _pageIndex = pageIndex;
         await QueryData();
         StateHasChanged();
     }
@@ -177,18 +177,18 @@ public partial class ListView<TItem> : BootstrapComponentBase
         {
             queryData = await OnQueryAsync(new QueryPageOptions()
             {
-                PageIndex = PageIndex,
+                PageIndex = _pageIndex,
                 PageItems = PageItems,
             });
         }
         if (queryData != null)
         {
             Items = queryData.Items;
-            TotalCount = queryData.TotalCount;
+            _totalCount = queryData.TotalCount;
         }
     }
 
-    private int PageCount => (int)Math.Ceiling(TotalCount * 1.0 / PageItems);
+    private int PageCount => (int)Math.Ceiling(_totalCount * 1.0 / PageItems);
 
     /// <summary>
     /// 点击元素事件
