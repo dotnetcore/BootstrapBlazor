@@ -1,12 +1,8 @@
-﻿.lv-demo ::deep .listview {
-    height: 626px;
+﻿img {
+    margin-bottom: 1rem;
+    border-radius: var(--bs-border-radius);
 }
 
-    .lv-demo ::deep .listview img {
-        margin-bottom: 1rem;
-        border-radius: var(--bs-border-radius);
-    }
-
-    .lv-demo ::deep .listview .listview-demo-desc {
-        text-align: center;
-    }
+.lv-demo-desc {
+    text-align: center;
+}
