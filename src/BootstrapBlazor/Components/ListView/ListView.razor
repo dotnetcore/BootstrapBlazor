@@ -2,7 +2,7 @@
 @typeparam TItem
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
     @if (HeaderTemplate != null)
     {
         <div class="listview-header">
@@ -57,7 +57,7 @@
             }
             else if (Pageable)
             {
-                <Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"></Pagination>
+                <Pagination PageCount="@PageCount" PageIndex="@_pageIndex" OnPageLinkClick="@OnPageLinkClick"></Pagination>
             }
         </div>
     }

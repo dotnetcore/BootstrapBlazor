@@ -34,6 +34,8 @@
     flex-flow: row wrap;
     flex: 1;
     align-content: flex-start;
+    height: 1%;
+    min-height: 0;
 }
 
 .listview .listview-body.is-group {
@@ -83,6 +85,10 @@
     display: flex;
     flex-wrap: wrap;
     padding: var(--bb-lv-body-padding);
+}
+
+.listview .listview-body .accordion-item {
+    width: 100%;
 }
 
 .listview .listview-body .accordion-item:last-child .accordion-header {

@@ -6,105 +6,103 @@
 
 <h4>@Localizer["ListViewsSubTitle"]</h4>
 
-<div class="lv-demo">
-    <DemoBlock Title="@Localizer["BasicUsageTitle"]"
-               Introduction="@Localizer["BasicUsageIntro"]"
-               Name="Normal">
-        <p>@((MarkupString)Localizer["BasicUsageP1"].Value)</p>
-        <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
-            <HeaderTemplate>
-                <div>@Localizer["ProductListText"]</div>
-            </HeaderTemplate>
-            <BodyTemplate>
-                <Card>
-                    <BodyTemplate>
-                        <img src="@context.ImageUrl" />
-                        <div class="lv-demo-desc">@context.Description</div>
-                    </BodyTemplate>
-                </Card>
-            </BodyTemplate>
-            <FooterTemplate>
-                <div class="text-end">
-                    Copyright Bootstrap Blazor
-                </div>
-            </FooterTemplate>
-        </ListView>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]"
+           Introduction="@Localizer["BasicUsageIntro"]"
+           Name="Normal">
+    <section ignore>@((MarkupString)Localizer["BasicUsageP1"].Value)</section>
+    <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick" Height="620px">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="lv-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+        <FooterTemplate>
+            <div class="text-end">
+                Copyright Bootstrap Blazor
+            </div>
+        </FooterTemplate>
+    </ListView>
 
-        <ConsoleLogger @ref="Logger" />
-    </DemoBlock>
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["PaginationTitle"]"
-               Introduction="@Localizer["PaginationIntro"]"
-               Name="Pagination">
-        <ListView TItem="Product" Pageable="true" PageItems="4" OnQueryAsync="@OnQueryAsync">
-            <HeaderTemplate>
-                <div>@Localizer["ProductListText"]</div>
-            </HeaderTemplate>
-            <BodyTemplate>
-                <Card>
-                    <BodyTemplate>
-                        <img src="@context.ImageUrl" />
-                        <div class="lv-demo-desc">@context.Description</div>
-                    </BodyTemplate>
-                </Card>
-            </BodyTemplate>
-        </ListView>
-    </DemoBlock>
+<DemoBlock Title="@Localizer["PaginationTitle"]"
+           Introduction="@Localizer["PaginationIntro"]"
+           Name="Pagination">
+    <ListView TItem="Product" Pageable="true" PageItems="4" OnQueryAsync="@OnQueryAsync" Height="620px">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="lv-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+    </ListView>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["GroupTitle"]"
-               Introduction="@Localizer["GroupIntro"]"
-               Name="Group">
-        <ListView TItem="Product" GroupName="p => p.Category" GroupOrderCallback="GroupOrderCallback" GroupItemOrderCallback="GroupItemOrderCallback" OnQueryAsync="@OnQueryAsync">
-            <HeaderTemplate>
-                <div>@Localizer["ProductListText"]</div>
-            </HeaderTemplate>
-            <BodyTemplate>
-                <Card>
-                    <BodyTemplate>
-                        <img src="@context.ImageUrl" />
-                        <div class="lv-demo-desc">@context.Description</div>
-                    </BodyTemplate>
-                </Card>
-            </BodyTemplate>
-        </ListView>
-    </DemoBlock>
+<DemoBlock Title="@Localizer["GroupTitle"]"
+           Introduction="@Localizer["GroupIntro"]"
+           Name="Group">
+    <ListView TItem="Product" GroupName="p => p.Category" GroupOrderCallback="GroupOrderCallback" GroupItemOrderCallback="GroupItemOrderCallback" OnQueryAsync="@OnQueryAsync" Height="620px">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="lv-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+    </ListView>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["CollapseTitle"]"
-               Introduction="@Localizer["CollapseIntro"]"
-               Name="Collapse">
-        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" CollapsedGroupCallback="CollapsedGroupCallback">
-            <HeaderTemplate>
-                <div>@Localizer["ProductListText"]</div>
-            </HeaderTemplate>
-            <BodyTemplate>
-                <Card>
-                    <BodyTemplate>
-                        <img src="@context.ImageUrl" />
-                        <div class="lv-demo-desc">@context.Description</div>
-                    </BodyTemplate>
-                </Card>
-            </BodyTemplate>
-        </ListView>
-    </DemoBlock>
+<DemoBlock Title="@Localizer["CollapseTitle"]"
+           Introduction="@Localizer["CollapseIntro"]"
+           Name="Collapse">
+    <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" CollapsedGroupCallback="CollapsedGroupCallback" Height="620px">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="lv-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+    </ListView>
+</DemoBlock>
 
-    <DemoBlock Title="@Localizer["IsAccordionTitle"]"
-               Introduction="@Localizer["IsAccordionIntro"]"
-               Name="IsAccordion">
-        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" IsAccordion="true">
-            <HeaderTemplate>
-                <div>@Localizer["ProductListText"]</div>
-            </HeaderTemplate>
-            <BodyTemplate>
-                <Card>
-                    <BodyTemplate>
-                        <img src="@context.ImageUrl" />
-                        <div class="lv-demo-desc">@context.Description</div>
-                    </BodyTemplate>
-                </Card>
-            </BodyTemplate>
-        </ListView>
-    </DemoBlock>
-</div>
+<DemoBlock Title="@Localizer["IsAccordionTitle"]"
+           Introduction="@Localizer["IsAccordionIntro"]"
+           Name="IsAccordion">
+    <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" IsAccordion="true" Height="620px">
+        <HeaderTemplate>
+            <div>@Localizer["ProductListText"]</div>
+        </HeaderTemplate>
+        <BodyTemplate>
+            <Card>
+                <BodyTemplate>
+                    <img src="@context.ImageUrl" />
+                    <div class="lv-demo-desc">@context.Description</div>
+                </BodyTemplate>
+            </Card>
+        </BodyTemplate>
+    </ListView>
+</DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
 
