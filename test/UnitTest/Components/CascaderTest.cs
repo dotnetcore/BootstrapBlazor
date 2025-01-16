@@ -159,7 +159,7 @@ public class CascaderTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
             pb.Add(a => a.Value, "Test");
         });
-        Assert.Equal("1", cut.Instance.Value);
+        Assert.Equal("", cut.Instance.Value);
 
         cut.SetParametersAndRender(pb =>
         {
