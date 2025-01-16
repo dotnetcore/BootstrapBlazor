@@ -47,9 +47,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 BodyTemplate
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
