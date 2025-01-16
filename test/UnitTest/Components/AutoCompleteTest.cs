@@ -210,7 +210,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
 
         // Trigger js invoke
         var comp = cut.FindComponent<AutoComplete>().Instance;
-        await cut.InvokeAsync(() => comp.TriggerFilter("v"));
+        await cut.InvokeAsync(() => comp.TriggerChange("v"));
 
         Assert.Equal("v", comp.Value);
     }
