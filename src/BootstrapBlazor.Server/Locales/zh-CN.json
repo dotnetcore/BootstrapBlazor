@@ -2306,6 +2306,7 @@
     "Att7": "数据集合",
     "Event1": "级联选择选项改变时触发此事件",
     "SubmitButtonText": "提交",
+    "ValidateButtonText": "验证",
     "item1": "北京",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
