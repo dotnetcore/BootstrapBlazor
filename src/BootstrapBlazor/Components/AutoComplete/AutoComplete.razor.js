@@ -54,6 +54,10 @@ export function init(id, invoke) {
         delete el.triggerEnter;
     });
 
+    EventHandler.on(input, 'change', e => {
+        invoke.invokeMethodAsync('TriggerChange', e.target.value);
+    });
+
     Input.composition(input, async v => {
         const useInput = input.getAttribute('data-bb-input') !== 'false';
         if (isPopover === false && useInput) {
@@ -61,7 +65,7 @@ export function init(id, invoke) {
         }
 
         el.classList.add('is-loading');
-        await invoke.invokeMethodAsync('TriggerOnChange', v);
+        await invoke.invokeMethodAsync('TriggerFilter', v);
         el.classList.remove('is-loading');
     });
 

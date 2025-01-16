@@ -133,11 +133,11 @@ public partial class AutoComplete
     private List<string> Rows => FilterItems ?? Items.ToList();
 
     /// <summary>
-    /// TriggerOnChange 方法
+    /// TriggerFilter 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public async Task TriggerFilter(string val)
     {
         if (OnCustomFilter != null)
         {
@@ -161,11 +161,21 @@ public partial class AutoComplete
         {
             FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
         }
+        StateHasChanged();
+    }
 
+    /// <summary>
+    /// TriggerChange 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public Task TriggerChange(string val)
+    {
         CurrentValue = val;
         if (!ValueChanged.HasDelegate)
         {
             StateHasChanged();
         }
+        return Task.CompletedTask;
     }
 }

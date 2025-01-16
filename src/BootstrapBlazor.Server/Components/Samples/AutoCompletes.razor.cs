@@ -18,6 +18,8 @@ public sealed partial class AutoCompletes
 
     private IEnumerable<string> Items => _items;
 
+    private string Value { get; set; } = "";
+
     private Task OnValueChanged(string val)
     {
         _items.Clear();

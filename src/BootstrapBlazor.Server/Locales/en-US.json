@@ -2306,6 +2306,7 @@
     "Att7": "The data collection",
     "Event1": "This event is triggered when the cascading selection option changes",
     "SubmitButtonText": "Submit",
+    "ValidateButtonText": "Validate",
     "item1": "Melbourne",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
@@ -6087,7 +6088,7 @@
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu",
     "ContextMenuCallbackTitle": "ContextMenu Callback",
-    "ContextMenuCallbackIntro": "By setting the <code>ContextMenu</code> component parameter <code>OnBeforeShowCallback</code>, you can get the callback event before the right-click menu pops up, which can be used for data preparation",
+    "ContextMenuCallbackIntro": "By setting the <code>ContextMenu</code> component parameter <code>OnBeforeShowCallback</code>, you can get the callback event before the right-click menu pops up, which can be used for data preparation or render menus based on conditions",
     "ContextMenuDisabledTitle": "OnDisabledCallback",
     "ContextMenuDisabledIntro": "By setting the <code>ContextMenuItem</code> component parameter <code>OnDisabledCallback</code> callback method, you can set whether the current right-click option is disabled."
   },

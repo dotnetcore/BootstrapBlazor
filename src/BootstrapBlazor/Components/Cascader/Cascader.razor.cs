@@ -170,7 +170,7 @@ public partial class Cascader<TValue>
         }
         else
         {
-            CurrentValueAsString = Items.FirstOrDefault()?.Value ?? string.Empty;
+            CurrentValueAsString = string.Empty;
         }
         RefreshDisplayText();
     }

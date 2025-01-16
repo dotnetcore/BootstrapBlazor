@@ -58,8 +58,15 @@
     <ContextMenuZone>
         <TreeView TItem="TreeFoo" Items="@TreeItems" />
         <ContextMenu OnBeforeShowCallback="OnBeforeShowCallback">
-            <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
-            <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
+            @if (SelectModel?.Id == "1020")
+            {
+                <ContextMenuItem Icon="fa-solid fa-copy" Text="@Localizer["ContextMenuItemCopy"]" OnClick="OnCopy"></ContextMenuItem>
+                <ContextMenuItem Icon="fa-solid fa-paste" Text="@Localizer["ContextMenuItemPast"]" OnClick="OnPaste"></ContextMenuItem>
+            }
+            else
+            {
+                <ContextMenuItem Icon="fa-solid fa-copy" Text="CopySub" OnClick="OnCopySub"></ContextMenuItem>
+            }
         </ContextMenu>
     </ContextMenuZone>
     <ConsoleLogger @ref="_callbackLogger"></ConsoleLogger>

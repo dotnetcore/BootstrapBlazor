@@ -74,13 +74,14 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["Block4Title"]" Introduction="@Localizer["Block4Intro"]" Name="ValidateForm">
-    <ValidateForm Model="@Model">
+    <ValidateForm Model="@Model" @ref="ValidateForm1">
         <div class="row g-3 form-inline">
             <div class="col-12 col-sm-6">
-                <Cascader Items="@_items" @bind-Value="@Model.Address" />
+                <Cascader Items="@_items" @bind-Value="@Model.Address" IsClearable="true" />
             </div>
             <div class="col-12 col-sm-6">
                 <Button ButtonType="ButtonType.Submit">@Localizer["SubmitButtonText"]</Button>
+                <Button OnClick="OnValidate" class="ms-3">@Localizer["ValidateButtonText"]</Button>
             </div>
         </div>
     </ValidateForm>

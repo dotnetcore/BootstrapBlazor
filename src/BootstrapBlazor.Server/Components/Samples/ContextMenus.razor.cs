@@ -41,15 +41,22 @@ public partial class ContextMenus
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
+    TreeFoo? SelectModel = default;
     private Task OnBeforeShowCallback(object? item)
     {
         if (item is TreeFoo foo)
         {
             _callbackLogger.Log($"{foo.Text} trigger");
+            SelectModel = foo;
         }
         return Task.CompletedTask;
     }
 
+
+    Task OnCopySub(ContextMenuItem item, object value)
+    {
+        return Task.CompletedTask;
+    }
     private bool OnDisabledCallback(ContextMenuItem item, object? context)
     {
         var ret = false;
