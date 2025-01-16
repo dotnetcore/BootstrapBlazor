@@ -64,4 +64,9 @@ public class DrawerOption
     /// 获得/设置 关闭当前 Drawer 回调委托 默认 null
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 相关连数据，多用于传值使用
+    /// </summary>
+    public object? BodyContext { get; set; }
 }

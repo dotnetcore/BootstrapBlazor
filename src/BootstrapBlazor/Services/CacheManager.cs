@@ -152,10 +152,7 @@ internal class CacheManager : ICacheManager
                 entry.SetDynamicAssemblyPolicy(type);
                 return LambdaExtensions.CountLambda(type).Compile();
             });
-            if (invoker != null)
-            {
-                ret = invoker(value);
-            }
+            ret = invoker(value);
         }
         return ret;
     }
@@ -237,12 +234,20 @@ internal class CacheManager : ICacheManager
             Instance.Cache.Remove(key);
             Instance.Cache.Remove(typeKey);
         }
-        return Instance.GetOrCreate(typeKey, entry =>
+        return Instance.GetOrCreate(typeKey, _ =>
         {
-            var sections = Instance.GetOrCreate(key, entry => option.GetJsonStringFromAssembly(assembly, cultureName));
+            var sections = Instance.GetOrCreate(key, _ => option.GetJsonStringFromAssembly(assembly, cultureName));
             var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
                 .GetChildren()
-                .SelectMany(kv => new[] { new LocalizedString(kv.Key, kv.Value!, false, typeName) });
+                .Select(kv =>
+                {
+                    var value = kv.Value;
+                    if (value == null && option.UseKeyWhenValueIsNull == true)
+                    {
+                        value = kv.Key;
+                    }
+                    return new LocalizedString(kv.Key, value ?? "", false, typeName);
+                });
 #if NET8_0_OR_GREATER
             return items?.ToFrozenSet();
 #else

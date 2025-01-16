@@ -26,7 +26,15 @@ public partial class BootstrapInput<TValue>
     /// 获得/设置 是否显示清空小按钮 默认 false
     /// </summary>
     [Parameter]
-    public bool Clearable { get; set; }
+    [Obsolete("已弃用，请使用 IsClearable 参数；Deprecated use the IsClearable parameter")]
+    [ExcludeFromCodeCoverage]
+    public bool Clearable { get => IsClearable; set => IsClearable = value; }
+
+    /// <summary>
+    /// 获得/设置 是否显示清空小按钮 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
 
     /// <summary>
     /// 获得/设置 清空文本框时回调方法 默认 null
@@ -38,7 +46,15 @@ public partial class BootstrapInput<TValue>
     /// 获得/设置 清空小按钮图标 默认 null
     /// </summary>
     [Parameter]
-    public string? ClearableIcon { get; set; }
+    [Obsolete("已弃用，请使用 ClearIcon 参数；Deprecated use the ClearIcon parameter")]
+    [ExcludeFromCodeCoverage]
+    public string? ClearableIcon { get => ClearIcon; set => ClearIcon = value; }
+
+    /// <summary>
+    /// 获得/设置 清空小按钮图标 默认 null
+    /// </summary>
+    [Parameter]
+    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// 图标主题服务
@@ -50,7 +66,7 @@ public partial class BootstrapInput<TValue>
     private string? ReadonlyString => Readonly ? "true" : null;
 
     private string? ClearableIconString => CssBuilder.Default("form-control-clear-icon")
-        .AddClass(ClearableIcon)
+        .AddClass(ClearIcon)
         .Build();
 
     /// <summary>
@@ -60,7 +76,7 @@ public partial class BootstrapInput<TValue>
     {
         base.OnParametersSet();
 
-        ClearableIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
     }
 
     /// <summary>
