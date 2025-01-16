@@ -123,6 +123,12 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public int PageItems { get; set; } = 20;
 
     /// <summary>
+    /// 获得/设置 组件高度 默认 null 未设置高度 如：50% 100px 10rem 10vh 等
+    /// </summary>
+    [Parameter]
+    public string? Height { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
     private int _pageIndex;
@@ -136,6 +142,11 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 数据集合内部使用
     /// </summary>
     private List<TItem> Rows => Items?.ToList() ?? [];
+
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddStyleFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <summary>
     /// <inheritdoc/>
