@@ -30,6 +30,9 @@ public sealed partial class Cascaders
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
+    [NotNull]
+    private ValidateForm? ValidateForm1 { get; set; }
+
     private List<CascaderItem> _items = [];
 
     /// <summary>
@@ -84,6 +87,11 @@ public sealed partial class Cascaders
             Type ="Func<CascaderItem[], Task>"
         }
     ];
+
+    private void OnValidate()
+    {
+        ValidateForm1.Validate();
+    }
 
     /// <summary>
     /// 获得属性方法
