@@ -84,7 +84,7 @@ const createWatermark = watermark => {
     const div = document.createElement('div');
     const { base64, styleSize } = bg;
     div.style.backgroundImage = `url(${base64})`;
-    div.style.backgroundSize = `${styleSize}px ${styleSize}px`;
+    div.style.backgroundSize = `${styleSize.toFixed(3)}px ${styleSize.toFixed(3)}px`;
     div.style.backgroundRepeat = 'repeat';
     div.style.pointerEvents = 'none';
     div.style.opacity = '1';
@@ -98,6 +98,77 @@ const createWatermark = watermark => {
         mark.remove();
     }
     el.appendChild(div);
+
+    options.bg = bg;
+    requestAnimationFrame(() => monitor(watermark));
+}
+
+const monitor = watermark => {
+    const { el, options, ob } = watermark;
+    if (el === null) {
+        return;
+    }
+
+    if (el.children.length !== 2) {
+        clearWatermark(watermark);
+        return;
+    }
+
+    const mark = el.children[1];
+    if (mark.className !== 'bb-watermark-bg') {
+        clearWatermark(watermark);
+        return;
+    }
+
+    const style = getComputedStyle(mark);
+    const { display, opacity, position, inset, zIndex, zoom, transform, backgroundRepeat, backgroundImage, backgroundSize } = style;
+    if (display !== 'block') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (opacity !== '1') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (position !== 'absolute') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (inset !== '0px') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (zIndex !== '999') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (zoom !== '1') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (transform !== 'none') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundRepeat !== 'repeat') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundImage !== `url("${options.bg.base64}")`) {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundSize !== `${options.bg.styleSize.toFixed(3)}px ${options.bg.styleSize.toFixed(3)}px`) {
+        clearWatermark(watermark);
+        return;
+    }
+    requestAnimationFrame(() => monitor(watermark));
+}
+
+const clearWatermark = watermark => {
+    const { el, ob } = watermark;
+    ob.disconnect();
+    el.innerHTML = '';
 }
 
 const getWatermark = props => {
