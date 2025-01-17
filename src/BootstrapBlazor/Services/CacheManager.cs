@@ -181,8 +181,8 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 通过 程序集与类型获得 IStringLocalizer 实例
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类型名称</param>
     /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
@@ -205,8 +205,8 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 获取指定文化本地化资源集合
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类型名称</param>
     public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
