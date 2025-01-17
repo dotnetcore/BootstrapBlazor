@@ -210,6 +210,12 @@ internal class CacheManager : ICacheManager
     public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
+#if NET9_0_OR_GREATER
+    private static readonly Lock _locker = new();
+#else
+    private static readonly object _locker = new();
+#endif
+
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
     /// </summary>
@@ -234,7 +240,7 @@ internal class CacheManager : ICacheManager
             Instance.Cache.Remove(key);
         }
 
-        lock (assembly)
+        lock (_locker)
         {
             localizedItems = Instance.GetOrCreate(key, _ =>
             {
