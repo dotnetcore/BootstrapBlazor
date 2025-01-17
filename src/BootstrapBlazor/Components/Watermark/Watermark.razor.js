@@ -84,7 +84,7 @@ const createWatermark = watermark => {
     const div = document.createElement('div');
     const { base64, styleSize } = bg;
     div.style.backgroundImage = `url(${base64})`;
-    div.style.backgroundSize = `${styleSize.toFixed(3)}px ${styleSize.toFixed(3)}px`;
+    div.style.backgroundSize = `${styleSize.toFixed(2)}px ${styleSize.toFixed(2)}px`;
     div.style.backgroundRepeat = 'repeat';
     div.style.pointerEvents = 'none';
     div.style.opacity = '1';
@@ -158,7 +158,9 @@ const monitor = watermark => {
         clearWatermark(watermark);
         return;
     }
-    if (backgroundSize !== `${options.bg.styleSize.toFixed(3)}px ${options.bg.styleSize.toFixed(3)}px`) {
+
+    const size = parseFloat(backgroundSize);
+    if (Math.abs(size - options.bg.styleSize) > 1) {
         clearWatermark(watermark);
         return;
     }
