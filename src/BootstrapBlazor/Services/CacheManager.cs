@@ -226,34 +226,36 @@ internal class CacheManager : ICacheManager
             return null;
         }
 
+        IEnumerable<LocalizedString>? localizedItems = null;
         cultureName ??= CultureInfo.CurrentUICulture.Name;
         var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
-        var typeKey = $"{key}-{typeName}";
         if (forceLoad)
         {
             Instance.Cache.Remove(key);
-            Instance.Cache.Remove(typeKey);
         }
-        return Instance.GetOrCreate(typeKey, _ =>
+
+        lock (assembly)
         {
-            var sections = Instance.GetOrCreate(key, _ => option.GetJsonStringFromAssembly(assembly, cultureName));
-            var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .Select(kv =>
+            localizedItems = Instance.GetOrCreate(key, _ =>
+            {
+                var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
+                var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
                 {
                     var value = kv.Value;
                     if (value == null && option.UseKeyWhenValueIsNull == true)
                     {
                         value = kv.Key;
                     }
-                    return new LocalizedString(kv.Key, value ?? "", false, typeName);
-                });
+                    return new LocalizedString(kv.Key, value ?? "", false, section.Key);
+                }));
 #if NET8_0_OR_GREATER
-            return items?.ToFrozenSet();
+                return items.ToFrozenSet();
 #else
-            return items?.ToHashSet();
+                return items.ToHashSet();
 #endif
-        });
+            });
+        }
+        return localizedItems.Where(item => item.SearchedLocation!.Equals(typeName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
