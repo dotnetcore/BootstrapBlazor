@@ -9,5 +9,18 @@ namespace BootstrapBlazor.Components;
 
 internal class NullLocalizationResolve : ILocalizationResolve
 {
+    /// <summary>
+    /// 获得所有文化信息集合
+    /// </summary>
+    /// <param name="includeParentCultures"></param>
+    /// <returns></returns>
     public IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures) => [];
+
+    /// <summary>
+    /// 获得指定类型文化信息集合
+    /// </summary>
+    /// <param name="typeName">类型名称</param>
+    /// <param name="includeParentCultures"></param>
+    /// <returns></returns>
+    public IEnumerable<LocalizedString> GetAllStringsByType(string typeName, bool includeParentCultures) => [];
 }
