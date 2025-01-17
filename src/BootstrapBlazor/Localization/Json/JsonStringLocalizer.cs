@@ -172,8 +172,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         {
             var items = GetAllStringsFromService()
                 ?? GetAllStringsFromBase()
-                ?? GetAllStringsFromJson()
-                ?? [];
+                ?? GetAllStringsFromJson();
 
             _allLocalizerdStrings = MegerResolveLocalizers(items);
         }
