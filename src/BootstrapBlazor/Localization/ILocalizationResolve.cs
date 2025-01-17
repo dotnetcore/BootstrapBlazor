@@ -18,4 +18,12 @@ public interface ILocalizationResolve
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     IEnumerable<LocalizedString> GetAllStringsByCulture(bool includeParentCultures);
+
+    /// <summary>
+    /// 获得所有文化信息集合
+    /// </summary>
+    /// <param name="includeParentCultures"></param>
+    /// <param name="typeName">类型名称</param>
+    /// <returns></returns>
+    IEnumerable<LocalizedString> GetAllStringsByType(bool includeParentCultures, string typeName);
 }
