@@ -267,17 +267,6 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 通过 ILocalizationResolve 接口实现类获得本地化键值集合
     /// </summary>
-    /// <param name="includeParentCultures"></param>
-    /// <returns></returns>
-#if NET8_0_OR_GREATER
-    public static FrozenSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToFrozenSet());
-#else
-    public static HashSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToHashSet());
-#endif
-
-    /// <summary>
-    /// 通过 ILocalizationResolve 接口实现类获得本地化键值集合
-    /// </summary>
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
