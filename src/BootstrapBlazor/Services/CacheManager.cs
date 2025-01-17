@@ -276,18 +276,8 @@ internal class CacheManager : ICacheManager
 #endif
 
     /// <summary>
-    /// 查询缺失本地化资源项目
     /// </summary>
-    /// <param name="key"></param>
     /// <returns></returns>
-    public static bool GetMissingLocalizerByKey(string key) => Instance.TryGetValue(key, out string? _);
-
-    /// <summary>
-    /// 添加缺失本地化资源项目
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="name"></param>
-    public static void AddMissingLocalizerByKey(string key, string name) => Instance.GetOrCreate(key, entry => name);
     #endregion
 
     #region DisplayName

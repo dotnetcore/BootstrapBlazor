@@ -97,12 +97,12 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
+    private readonly HashSet<string> _missingLocalizerCache = [];
+
     private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
     {
         string? ret = null;
-        var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
-        if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
+        if (!_missingLocalizerCache.Contains(name))
         {
             var l = localizerStrings?.FirstOrDefault(i => i.Name == name)
                 ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
@@ -113,7 +113,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 HandleMissingResourceItem(name);
-                CacheManager.AddMissingLocalizerByKey(cacheKey, name);
+                _missingLocalizerCache.Add(name);
             }
         }
         return ret;
@@ -122,9 +122,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
     {
         string? ret = null;
-        var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetUniqueName()}&type={typeName}&culture={cultureName}";
-        if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
+        if (!_missingLocalizerCache.Contains(name))
         {
             var l = localizer[name];
             if (!l.ResourceNotFound)
@@ -134,7 +132,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 HandleMissingResourceItem(name);
-                CacheManager.AddMissingLocalizerByKey(cacheKey, name);
+                _missingLocalizerCache.Add(name);
             }
         }
         return ret;
