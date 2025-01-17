@@ -71,7 +71,7 @@ const createWatermark = watermark => {
         fontSize: 16,
         text: 'BootstrapBlazor',
         rotate: -40,
-        color: '#0000004d',
+        color: '#0000004d'
     };
 
     for (const key in options) {
