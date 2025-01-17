@@ -115,6 +115,18 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetAllStrings_Dynamic()
+    {
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new InternalTableColumn[] { new("Name", typeof(string)) });
+        Assert.NotNull(dynamicType);
+
+        var factory = Context.Services.GetRequiredService<IStringLocalizerFactory>();
+        var localizer = factory.Create(dynamicType);
+        var items = localizer.GetAllStrings();
+        Assert.Empty(items);
+    }
+
+    [Fact]
     public void GetAllStrings_FromInject()
     {
         var sc = new ServiceCollection();
@@ -199,6 +211,9 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var items = localizer.GetAllStrings(false);
         Assert.Equal("姓名", items.First(i => i.Name == "Name").Value);
         Assert.DoesNotContain("Test-JsonName", items.Select(i => i.Name));
+
+        var resolve = provider.GetRequiredService<ILocalizationResolve>();
+        Assert.Empty(resolve.GetAllStringsByCulture(true));
     }
 
     [Fact]
@@ -211,6 +226,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         var provider = sc.BuildServiceProvider();
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
+
+        // test-localizer-name 通过 MockLocalizationResolve 获得
         Assert.Equal("name", localizer["test-localizer-name"]);
         Assert.Equal("test-name", localizer["test-name"]);
     }
