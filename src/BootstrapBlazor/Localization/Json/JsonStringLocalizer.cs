@@ -159,6 +159,8 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
+    private List<LocalizedString>? _allLocalizerdStrings;
+
     /// <summary>
     /// 获取当前语言的所有资源信息
     /// </summary>
@@ -166,15 +168,20 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     /// <returns></returns>
     public override IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
     {
-        var ret = GetAllStringsFromService(includeParentCultures)
-            ?? GetAllStringsFromBase(includeParentCultures)
-            ?? GetAllStringsFromJson(includeParentCultures);
+        if (_allLocalizerdStrings == null)
+        {
+            var items = GetAllStringsFromService()
+                ?? GetAllStringsFromBase()
+                ?? GetAllStringsFromJson()
+                ?? [];
 
-        return ret;
+            _allLocalizerdStrings = MegerResolveLocalizers(items);
+        }
+        return _allLocalizerdStrings;
 
         // 1. 从注入服务中获取所有资源信息
         // get all strings from the other inject service
-        IEnumerable<LocalizedString>? GetAllStringsFromService(bool includeParentCultures)
+        IEnumerable<LocalizedString>? GetAllStringsFromService()
         {
             IEnumerable<LocalizedString>? ret = null;
             var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
@@ -187,7 +194,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
 
         // 2. 从父类 ResourceManagerStringLocalizer 中获取微软格式资源信息
         // get all strings from base json localization factory
-        IEnumerable<LocalizedString>? GetAllStringsFromBase(bool includeParentCultures)
+        IEnumerable<LocalizedString>? GetAllStringsFromBase()
         {
             IEnumerable<LocalizedString>? ret = base.GetAllStrings(includeParentCultures);
             try
@@ -206,7 +213,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
 
         // 3. 从 Json 文件中获取资源信息
         // get all strings from json localization file
-        IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures) => CacheManager.GetAllStringsByTypeName(Assembly, typeName)
-            ?? CacheManager.GetAllStringsFromResolve(includeParentCultures);
+        IEnumerable<LocalizedString>? GetAllStringsFromJson() => CacheManager.GetAllStringsByTypeName(Assembly, typeName);
     }
 }
