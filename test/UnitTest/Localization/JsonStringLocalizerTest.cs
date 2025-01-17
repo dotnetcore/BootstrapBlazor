@@ -403,6 +403,12 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
             new("test-localizer-name", "name"),
             new("test-localizer-age", "age")
         };
+
+        public IEnumerable<LocalizedString> GetAllStringsByType(string typeName, bool includeParentCultures) => new LocalizedString[]
+        {
+            new("test-localizer-name", "name"),
+            new("test-localizer-age", "age")
+        };
     }
 
     internal class MockLocalizationMissingItemHandler : ILocalizationMissingItemHandler

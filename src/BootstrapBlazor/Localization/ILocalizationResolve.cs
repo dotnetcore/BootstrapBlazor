@@ -25,5 +25,5 @@ public interface ILocalizationResolve
     /// <param name="includeParentCultures"></param>
     /// <param name="typeName">类型名称</param>
     /// <returns></returns>
-    IEnumerable<LocalizedString> GetAllStringsByType(bool includeParentCultures, string typeName);
+    IEnumerable<LocalizedString> GetAllStringsByType(string typeName, bool includeParentCultures);
 }
