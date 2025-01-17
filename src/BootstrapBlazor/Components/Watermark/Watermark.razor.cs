@@ -53,12 +53,6 @@ public partial class Watermark
     [Parameter]
     public int? Gap { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否保护 默认 false 开启后水印遭到破坏时内容也会被破坏
-    /// </summary>
-    [Parameter]
-    public bool Protected { get; set; }
-
     private string? ClassString => CssBuilder.Default("bb-watermark")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -101,7 +95,6 @@ public partial class Watermark
         Color,
         Rotate,
         Gap,
-        ZIndex,
-        Protected
+        ZIndex
     };
 }

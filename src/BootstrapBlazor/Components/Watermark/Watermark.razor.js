@@ -71,7 +71,7 @@ const createWatermark = watermark => {
         fontSize: 16,
         text: 'BootstrapBlazor',
         rotate: -40,
-        color: '#0000004d'
+        color: '#0000004d',
     };
 
     for (const key in options) {
@@ -99,74 +99,70 @@ const createWatermark = watermark => {
     }
     el.appendChild(div);
 
-    if (options.protected) {
-        options.bg = bg;
-        requestAnimationFrame(() => monitor(watermark));
-    }
+    options.bg = bg;
+    requestAnimationFrame(() => monitor(watermark));
 }
 
 const monitor = watermark => {
     const { el, options, ob } = watermark;
-    if (options.protected) {
-        if (el === null) {
-            return;
-        }
-
-        if (el.children.length !== 2) {
-            clearWatermark(watermark);
-            return;
-        }
-
-        const mark = el.children[1];
-        if (mark.className !== 'bb-watermark-bg') {
-            clearWatermark(watermark);
-            return;
-        }
-
-        const style = getComputedStyle(mark);
-        const { display, opacity, position, inset, zIndex, zoom, transform, backgroundRepeat, backgroundImage, backgroundSize } = style;
-        if (display !== 'block') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (opacity !== '1') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (position !== 'absolute') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (inset !== '0px') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (zIndex !== '999') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (zoom !== '1') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (transform !== 'none') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (backgroundRepeat !== 'repeat') {
-            clearWatermark(watermark);
-            return;
-        }
-        if (backgroundImage !== `url("${options.bg.base64}")`) {
-            clearWatermark(watermark);
-            return;
-        }
-        if (backgroundSize !== `${options.bg.styleSize.toFixed(3)}px ${options.bg.styleSize.toFixed(3)}px`) {
-            clearWatermark(watermark);
-            return;
-        }
-        requestAnimationFrame(() => monitor(watermark));
+    if (el === null) {
+        return;
     }
+
+    if (el.children.length !== 2) {
+        clearWatermark(watermark);
+        return;
+    }
+
+    const mark = el.children[1];
+    if (mark.className !== 'bb-watermark-bg') {
+        clearWatermark(watermark);
+        return;
+    }
+
+    const style = getComputedStyle(mark);
+    const { display, opacity, position, inset, zIndex, zoom, transform, backgroundRepeat, backgroundImage, backgroundSize } = style;
+    if (display !== 'block') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (opacity !== '1') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (position !== 'absolute') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (inset !== '0px') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (zIndex !== '999') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (zoom !== '1') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (transform !== 'none') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundRepeat !== 'repeat') {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundImage !== `url("${options.bg.base64}")`) {
+        clearWatermark(watermark);
+        return;
+    }
+    if (backgroundSize !== `${options.bg.styleSize.toFixed(3)}px ${options.bg.styleSize.toFixed(3)}px`) {
+        clearWatermark(watermark);
+        return;
+    }
+    requestAnimationFrame(() => monitor(watermark));
 }
 
 const clearWatermark = watermark => {
