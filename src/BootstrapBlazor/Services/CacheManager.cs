@@ -49,7 +49,7 @@ internal class CacheManager : ICacheManager
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
+        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
 
         if (key is not string)
