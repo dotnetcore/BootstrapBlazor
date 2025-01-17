@@ -92,20 +92,32 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         // get string from json localization file
         string? GetStringSafelyFromJson(string name)
         {
-            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, typeName);
+            var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
             return GetValueFromCache(localizerStrings, name);
         }
     }
 
+    private List<LocalizedString> MegerResolveLocalizers(IEnumerable<LocalizedString>? localizerStrings)
+    {
+        var localizers = new List<LocalizedString>();
+        var resolveLocalizers = CacheManager.GetTypeStringsFromResolve(typeName);
+        localizers.AddRange(resolveLocalizers);
+
+        if (localizerStrings != null)
+        {
+            localizers.AddRange(localizerStrings);
+        }
+        return localizers;
+    }
+
     private readonly HashSet<string> _missingLocalizerCache = [];
 
-    private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
+    private string? GetValueFromCache(List<LocalizedString> localizerStrings, string name)
     {
         string? ret = null;
         if (!_missingLocalizerCache.Contains(name))
         {
-            var l = localizerStrings?.FirstOrDefault(i => i.Name == name)
-                ?? CacheManager.GetAllStringsFromResolve().FirstOrDefault(i => i.Name == name);
+            var l = localizerStrings.Find(i => i.Name == name);
             if (l is { ResourceNotFound: false })
             {
                 ret = l.Value;
