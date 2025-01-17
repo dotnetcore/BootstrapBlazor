@@ -38,9 +38,6 @@ public partial class BaseLayout : IDisposable
     [NotNull]
     private string? CancelText { get; set; }
 
-    [NotNull]
-    private string? ThemeTooltip { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -52,7 +49,6 @@ public partial class BaseLayout : IDisposable
         InstallAppText ??= Localizer[nameof(InstallAppText)];
         InstallText ??= Localizer[nameof(InstallText)];
         CancelText ??= Localizer[nameof(CancelText)];
-        ThemeTooltip ??= Localizer[nameof(ThemeTooltip)];
 
         CommitDispatchService.Subscribe(NotifyCommit);
         RebootDispatchService.Subscribe(NotifyReboot);

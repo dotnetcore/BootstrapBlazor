@@ -49,7 +49,7 @@ internal class CacheManager : ICacheManager
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
 #if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(500000);
+        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
 #endif
 
         if (key is not string)
@@ -181,8 +181,8 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 通过 程序集与类型获得 IStringLocalizer 实例
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类型名称</param>
     /// <returns></returns>
     public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
         ? null
@@ -205,10 +205,16 @@ internal class CacheManager : ICacheManager
     /// <summary>
     /// 获取指定文化本地化资源集合
     /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
+    /// <param name="assembly">Assembly 程序集实例</param>
+    /// <param name="typeName">类型名称</param>
     public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
+
+#if NET9_0_OR_GREATER
+    private static readonly Lock _locker = new();
+#else
+    private static readonly object _locker = new();
+#endif
 
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
@@ -226,60 +232,49 @@ internal class CacheManager : ICacheManager
             return null;
         }
 
+        IEnumerable<LocalizedString>? localizedItems = null;
         cultureName ??= CultureInfo.CurrentUICulture.Name;
         var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
-        var typeKey = $"{key}-{typeName}";
         if (forceLoad)
         {
             Instance.Cache.Remove(key);
-            Instance.Cache.Remove(typeKey);
         }
-        return Instance.GetOrCreate(typeKey, _ =>
+
+        lock (_locker)
         {
-            var sections = Instance.GetOrCreate(key, _ => option.GetJsonStringFromAssembly(assembly, cultureName));
-            var items = sections.FirstOrDefault(kv => typeName.Equals(kv.Key, StringComparison.OrdinalIgnoreCase))?
-                .GetChildren()
-                .Select(kv =>
+            localizedItems = Instance.GetOrCreate(key, _ =>
+            {
+                var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
+                var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
                 {
                     var value = kv.Value;
                     if (value == null && option.UseKeyWhenValueIsNull == true)
                     {
                         value = kv.Key;
                     }
-                    return new LocalizedString(kv.Key, value ?? "", false, typeName);
-                });
+                    return new LocalizedString(kv.Key, value ?? "", false, section.Key);
+                }));
 #if NET8_0_OR_GREATER
-            return items?.ToFrozenSet();
+                return items.ToFrozenSet();
 #else
-            return items?.ToHashSet();
+                return items.ToHashSet();
 #endif
-        });
+            });
+        }
+        return localizedItems.Where(item => item.SearchedLocation!.Equals(typeName, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
     /// 通过 ILocalizationResolve 接口实现类获得本地化键值集合
     /// </summary>
+    /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-#if NET8_0_OR_GREATER
-    public static FrozenSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToFrozenSet());
-#else
-    public static HashSet<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures).ToHashSet());
-#endif
+    public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
 
     /// <summary>
-    /// 查询缺失本地化资源项目
     /// </summary>
-    /// <param name="key"></param>
     /// <returns></returns>
-    public static bool GetMissingLocalizerByKey(string key) => Instance.TryGetValue(key, out string? _);
-
-    /// <summary>
-    /// 添加缺失本地化资源项目
-    /// </summary>
-    /// <param name="key"></param>
-    /// <param name="name"></param>
-    public static void AddMissingLocalizerByKey(string key, string name) => Instance.GetOrCreate(key, entry => name);
     #endregion
 
     #region DisplayName
