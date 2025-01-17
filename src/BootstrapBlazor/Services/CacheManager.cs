@@ -270,11 +270,7 @@ internal class CacheManager : ICacheManager
     /// <param name="typeName"></param>
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
-#if NET8_0_OR_GREATER
     public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
-#else
-    public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
-#endif
 
     /// <summary>
     /// </summary>
