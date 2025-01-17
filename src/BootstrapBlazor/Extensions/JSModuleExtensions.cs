@@ -31,7 +31,17 @@ public static class JSModuleExtensions
             fileName = $"{fileName}?v={version}";
         }
 
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
+        IJSObjectReference? jSObjectReference = null;
+        try
+        {
+            jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
+        }
+        catch (JSException)
+        {
+#if DEBUG
+            throw;
+#endif
+        }
         return new JSModule(jSObjectReference);
     }
 
