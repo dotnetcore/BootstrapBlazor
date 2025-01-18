@@ -1,12 +1,9 @@
 ﻿@inherits LayoutComponentBase
-@implements IDisposable
 @layout BaseLayout
 @inject NavigationManager NavigationManager
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<HomeLayout> Localizer
 @inject PackageVersionService VersionService
-@inject ICacheManager Cache
-@inject IConnectionService ConnectionService
 
 @Body
 
@@ -65,14 +62,7 @@
         <div class="d-flex">
             <div>Powered by .NET @Version on @OS</div>
             <div class="ms-1">BB @VersionService.Version</div>
-            <div class="d-none d-sm-block ms-2">Run @Runtime</div>
-            @if (_options.Enable)
-            {
-                <div class="footer-online ms-2">
-                    <i class="fa-solid fa-people-group"></i>
-                    <a href="./online" target="_blank">@ConnectionService.Count</a>
-                </div>
-            }
+            <FooterCounter></FooterCounter>
         </div>
         <div class="d-flex flex-fill align-items-center justify-content-center">
             <a class="d-none d-md-block me-3" href="@WebsiteOption.CurrentValue.GiteeRepositoryUrl" target="_blank">@Localizer["Footer"]</a>

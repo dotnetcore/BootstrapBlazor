@@ -59,10 +59,6 @@
         margin-inline-end: 6px;
     }
 
-    .footer-info .footer-online i {
-        color: var(--bs-success)
-    }
-
 .bb-foundation {
     display: flex;
     align-items: center;

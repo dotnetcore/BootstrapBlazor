@@ -1,0 +1,11 @@
+﻿@inject ICacheManager Cache
+@inject IConnectionService ConnectionService
+
+<div class="d-none d-sm-block ms-2">Run @Runtime</div>
+@if (_options.Enable)
+{
+    <div class="footer-online ms-2">
+        <i class="fa-solid fa-people-group"></i>
+        <a href="./online" target="_blank">@ConnectionService.Count</a>
+    </div>
+}
