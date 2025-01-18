@@ -14,8 +14,9 @@ public static class JSModuleExtensions
     /// 导入 utility js 模块
     /// </summary>
     /// <param name="jsRuntime"></param>
+    /// <param name="version"></param>
     /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
-    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime) => jsRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime, string? version = null) => LoadModule(jsRuntime, "./_content/BootstrapBlazor/modules/utility.js", version);
 
     /// <summary>
     /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
