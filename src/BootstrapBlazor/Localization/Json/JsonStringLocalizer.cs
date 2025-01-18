@@ -5,6 +5,7 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -71,30 +72,37 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
-    private string? GetStringSafely(string name)
+    private string? GetStringSafely(string name) => GetStringFromService(name) ?? GetStringSafely(name, null) ?? GetStringSafelyFromJson(name);
+
+    private string? GetStringFromService(string name)
     {
-        return GetStringFromService(name)
-            ?? GetStringSafely(name, null)
-            ?? GetStringSafelyFromJson(name);
-
         // get string from inject service
-        string? GetStringFromService(string name)
+        string? ret = null;
+        var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
+        if (localizer != null && localizer is not JsonStringLocalizer)
         {
-            string? ret = null;
-            var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
-            if (localizer != null && localizer is not JsonStringLocalizer)
+            var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
+            if (!_missingManifestCache.ContainsKey(cacheKey))
             {
-                ret = GetLocalizerValueFromCache(localizer, name);
+                var l = localizer[name];
+                if (!l.ResourceNotFound)
+                {
+                    ret = l.Value;
+                }
+                else
+                {
+                    HandleMissingResourceItem(name);
+                }
             }
-            return ret;
         }
+        return ret;
+    }
 
+    private string? GetStringSafelyFromJson(string name)
+    {
         // get string from json localization file
-        string? GetStringSafelyFromJson(string name)
-        {
-            var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
-            return GetValueFromCache(localizerStrings, name);
-        }
+        var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
+        return GetValueFromCache(localizerStrings, name);
     }
 
     private List<LocalizedString> MegerResolveLocalizers(IEnumerable<LocalizedString>? localizerStrings)
@@ -110,12 +118,13 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         return localizers;
     }
 
-    private readonly HashSet<string> _missingLocalizerCache = [];
+    private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
 
     private string? GetValueFromCache(List<LocalizedString> localizerStrings, string name)
     {
         string? ret = null;
-        if (!_missingLocalizerCache.Contains(name))
+        var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
+        if (!_missingManifestCache.ContainsKey(cacheKey))
         {
             var l = localizerStrings.Find(i => i.Name == name);
             if (l is { ResourceNotFound: false })
@@ -125,26 +134,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 HandleMissingResourceItem(name);
-                //_missingLocalizerCache.Add(name);
-            }
-        }
-        return ret;
-    }
-
-    private string? GetLocalizerValueFromCache(IStringLocalizer localizer, string name)
-    {
-        string? ret = null;
-        if (!_missingLocalizerCache.Contains(name))
-        {
-            var l = localizer[name];
-            if (!l.ResourceNotFound)
-            {
-                ret = l.Value;
-            }
-            else
-            {
-                HandleMissingResourceItem(name);
-                //_missingLocalizerCache.Add(name);
             }
         }
         return ret;
@@ -157,6 +146,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         {
             Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
         }
+        _missingManifestCache.TryAdd($"name={name}&culture={CultureInfo.CurrentUICulture.Name}", null);
     }
 
     private List<LocalizedString>? _allLocalizerdStrings;
