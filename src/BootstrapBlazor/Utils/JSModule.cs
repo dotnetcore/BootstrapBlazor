@@ -47,28 +47,23 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         {
             paras.AddRange(args);
         }
-        await InvokeVoidAsync();
-
-        async ValueTask InvokeVoidAsync()
+        try
         {
-            try
+            if (jSObjectReference != null)
             {
-                if (jSObjectReference != null)
-                {
-                    await jSObjectReference.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
-                }
+                await jSObjectReference.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
-            catch (JSException)
-            {
-#if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
-                throw;
-#endif
-            }
-            catch (JSDisconnectedException) { }
-            catch (OperationCanceledException) { }
-            catch (ObjectDisposedException) { }
         }
+        catch (JSException)
+        {
+#if DEBUG
+            System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+            throw;
+#endif
+        }
+        catch (JSDisconnectedException) { }
+        catch (OperationCanceledException) { }
+        catch (ObjectDisposedException) { }
     }
 
     /// <summary>
@@ -107,31 +102,27 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         {
             paras.AddRange(args!);
         }
-        return await InvokeAsync();
 
-        async ValueTask<TValue?> InvokeAsync()
+        TValue? ret = default;
+        try
         {
-            TValue? ret = default;
-            try
+            if (jSObjectReference != null)
             {
-                if (jSObjectReference != null)
-                {
-                    ret = await jSObjectReference.InvokeAsync<TValue?>(identifier, cancellationToken, [.. paras]);
-                }
+                ret = await jSObjectReference.InvokeAsync<TValue?>(identifier, cancellationToken, [.. paras]);
             }
-            catch (JSException)
-            {
-#if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
-                throw;
-#endif
-            }
-            catch (JSDisconnectedException) { }
-            catch (OperationCanceledException) { }
-            catch (ObjectDisposedException) { }
-
-            return ret;
         }
+        catch (JSException)
+        {
+#if DEBUG
+            System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+            throw;
+#endif
+        }
+        catch (JSDisconnectedException) { }
+        catch (OperationCanceledException) { }
+        catch (ObjectDisposedException) { }
+
+        return ret;
     }
 
     /// <summary>
