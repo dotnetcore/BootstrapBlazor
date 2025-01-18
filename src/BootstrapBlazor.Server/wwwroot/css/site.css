@@ -49,12 +49,22 @@ html .search-dialog-mask {
     --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
     --bb-global-search-highlight-color: var(--bb-primary-color);
     --bb-global-search-footer-kbd-bg: #6522cc;
-    --bb-global-search-main-max-height: calc(100vh - 360px);
+    --bb-global-search-main-max-height: calc(100vh - 310px);
 }
 
     html .search-dialog-mask .search-dialog {
         width: calc(100vw - 4rem);
     }
+
+    html .search-dialog-mask .search-dialog-logo {
+        display: none;
+    }
+
+@media(min-width: 576px) {
+    html .search-dialog-mask .search-dialog-logo {
+        display: block;
+    }
+}
 
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
