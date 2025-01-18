@@ -36,14 +36,6 @@ static class ServiceCollectionExtensions
             }
         });
 
-#if DEBUG
-#else
-        services.AddResponseCompression(options =>
-        {
-            options.EnableForHttps = true;
-        });
-#endif
-
         services.AddControllers();
 
         // 增加 SignalR 服务数据传输大小限制配置
