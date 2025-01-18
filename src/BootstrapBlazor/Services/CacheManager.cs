@@ -149,7 +149,7 @@ internal class CacheManager : ICacheManager
             var cacheKey = $"Lambda-Count-{type.GetUniqueTypeName()}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetDynamicAssemblyPolicy(type);
+                entry.SetSlidingExpirationByType(type);
                 return LambdaExtensions.CountLambda(type).Compile();
             });
             ret = invoker(value);
@@ -271,10 +271,6 @@ internal class CacheManager : ICacheManager
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
-
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     #endregion
 
     #region DisplayName
@@ -310,7 +306,7 @@ internal class CacheManager : ICacheManager
                 dn = FindDisplayAttribute(propertyInfo);
             }
 
-            entry.SetDynamicAssemblyPolicy(modelType);
+            entry.SetSlidingExpirationByType(modelType);
 
             return dn;
         });
@@ -427,7 +423,7 @@ internal class CacheManager : ICacheManager
                 dn = propertyInfo.GetCustomAttribute<RangeAttribute>(true);
             }
 
-            entry.SetDynamicAssemblyPolicy(modelType);
+            entry.SetSlidingExpirationByType(modelType);
             return dn;
         });
     }
@@ -458,7 +454,7 @@ internal class CacheManager : ICacheManager
                     }
                 }
 
-                entry.SetDynamicAssemblyPolicy(modelType);
+                entry.SetSlidingExpirationByType(modelType);
             }
             return ret;
         });
@@ -482,7 +478,7 @@ internal class CacheManager : ICacheManager
 
             var pi = props.FirstOrDefault(p => p.Name == fieldName);
 
-            entry.SetDynamicAssemblyPolicy(modelType);
+            entry.SetSlidingExpirationByType(modelType);
 
             return pi;
         });
@@ -506,7 +502,7 @@ internal class CacheManager : ICacheManager
             var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetDynamicAssemblyPolicy(type);
+                entry.SetSlidingExpirationByType(type);
                 return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
             })!;
             return invoker(model);
@@ -535,7 +531,7 @@ internal class CacheManager : ICacheManager
             var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetDynamicAssemblyPolicy(type);
+                entry.SetSlidingExpirationByType(type);
                 return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
             })!;
             invoker(model, value);
@@ -559,7 +555,7 @@ internal class CacheManager : ICacheManager
             var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.GetUniqueTypeName()}", typeof(TModel));
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetDynamicAssemblyPolicy(type);
+                entry.SetSlidingExpirationByType(type);
 
                 return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
             })!;
@@ -575,7 +571,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(typeof(T));
+            entry.SetSlidingExpirationByType(typeof(T));
             return LambdaExtensions.GetSortLambda<T>().Compile();
         })!;
     }
@@ -585,7 +581,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(typeof(T));
+            entry.SetSlidingExpirationByType(typeof(T));
             return LambdaExtensions.GetSortListLambda<T>().Compile();
         })!;
     }
@@ -605,7 +601,7 @@ internal class CacheManager : ICacheManager
             var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
             var body = Expression.Call(method, convert);
 
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
         })!;
     }
@@ -627,7 +623,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(fieldType);
+            entry.SetSlidingExpirationByType(fieldType);
             return Utility.CreateOnValueChanged<TModel>(fieldType).Compile();
         })!;
     }
@@ -639,7 +635,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"{nameof(GetFormatInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return GetFormatLambda(type).Compile();
         })!;
 
@@ -681,7 +677,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return GetFormatProviderLambda(type).Compile();
         })!;
 
@@ -712,7 +708,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
         var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return GetFormatterInvokerLambda(type).Compile();
         });
         return invoker(formatter);
@@ -741,7 +737,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"{nameof(GetRuntimeProperties)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return type.GetRuntimeProperties().ToList();
         });
     }
@@ -756,7 +752,7 @@ internal class CacheManager : ICacheManager
         var cacheKey = $"{nameof(GetRuntimeFields)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
-            entry.SetDynamicAssemblyPolicy(type);
+            entry.SetSlidingExpirationByType(type);
             return type.GetRuntimeFields().ToList();
         })!;
     }

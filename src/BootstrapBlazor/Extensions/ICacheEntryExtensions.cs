@@ -10,31 +10,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ICacheEntry 扩展类
 /// </summary>
-[ExcludeFromCodeCoverage]
-internal static class ICacheEntryExtensions
+public static class ICacheEntryExtensions
 {
-    /// <summary>
-    /// 设置滑动过期时间
-    /// </summary>
-    /// <param name="entry"></param>
-    /// <param name="offset">默认 null 内部设置为 10 秒</param>
-    /// <returns></returns>
-    public static ICacheEntry SetSlidingExpirationForDynamicAssembly(this ICacheEntry entry, TimeSpan? offset = null)
-    {
-        entry.SlidingExpiration = offset ?? TimeSpan.FromSeconds(10);
-        return entry;
-    }
-
     /// <summary>
     /// 设置 动态程序集滑动过期时间 10 秒
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="type"></param>
-    public static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+    /// <param name="offset">默认 null 内部设置为 10 秒</param>
+    public static void SetSlidingExpirationByType(this ICacheEntry entry, Type type, TimeSpan? offset = null)
     {
-        if (type?.Assembly.IsDynamic ?? false)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
-        }
+        offset ??= type.Assembly.IsDynamic ? TimeSpan.FromSeconds(10) : TimeSpan.FromMinutes(5);
+        entry.SlidingExpiration = offset.Value;
     }
 }
