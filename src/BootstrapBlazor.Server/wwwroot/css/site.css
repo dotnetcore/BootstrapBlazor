@@ -52,6 +52,10 @@ html .search-dialog-mask {
     --bb-global-search-main-max-height: calc(100vh - 360px);
 }
 
+    html .search-dialog-mask .search-dialog {
+        width: calc(100vw - 4rem);
+    }
+
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
