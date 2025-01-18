@@ -52,20 +52,6 @@ html .search-dialog-mask {
     --bb-global-search-main-max-height: calc(100vh - 310px);
 }
 
-    html .search-dialog-mask .search-dialog {
-        width: calc(100vw - 4rem);
-    }
-
-    html .search-dialog-mask .search-dialog-logo {
-        display: none;
-    }
-
-@media(min-width: 576px) {
-    html .search-dialog-mask .search-dialog-logo {
-        display: block;
-    }
-}
-
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
