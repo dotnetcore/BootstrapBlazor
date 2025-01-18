@@ -49,6 +49,7 @@ html .search-dialog-mask {
     --bb-global-search-dialog-input-focus-border-color: var(--bb-primary-color);
     --bb-global-search-highlight-color: var(--bb-primary-color);
     --bb-global-search-footer-kbd-bg: #6522cc;
+    --bb-global-search-main-max-height: calc(100vh - 360px);
 }
 
 .navbar {
