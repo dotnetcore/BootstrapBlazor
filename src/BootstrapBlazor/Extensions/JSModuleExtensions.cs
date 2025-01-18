@@ -40,6 +40,7 @@ public static class JSModuleExtensions
         catch (JSException)
         {
 #if DEBUG
+            System.Console.WriteLine($"{nameof(LoadModule)} throw {nameof(JSException)}. import {fileName} failed");
             throw;
 #endif
         }
