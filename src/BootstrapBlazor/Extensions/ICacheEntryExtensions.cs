@@ -30,11 +30,16 @@ internal static class ICacheEntryExtensions
     /// </summary>
     /// <param name="entry"></param>
     /// <param name="type"></param>
-    public static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type? type)
+    /// <param name="offset">默认 null 内部设置为 10 秒</param>
+    public static void SetDynamicAssemblyPolicy(this ICacheEntry entry, Type type, TimeSpan? offset = null)
     {
-        if (type?.Assembly.IsDynamic ?? false)
+        if (type.Assembly.IsDynamic)
         {
-            entry.SetSlidingExpiration(TimeSpan.FromSeconds(10));
+            entry.SetSlidingExpirationForDynamicAssembly(offset);
+        }
+        else
+        {
+            entry.SetSlidingExpiration(offset ?? TimeSpan.FromMinutes(5));
         }
     }
 }
