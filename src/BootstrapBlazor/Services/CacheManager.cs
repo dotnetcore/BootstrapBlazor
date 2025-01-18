@@ -271,10 +271,6 @@ internal class CacheManager : ICacheManager
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     public static IEnumerable<LocalizedString> GetTypeStringsFromResolve(string typeName, bool includeParentCultures = true) => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByType(typeName, includeParentCultures);
-
-    /// <summary>
-    /// </summary>
-    /// <returns></returns>
     #endregion
 
     #region DisplayName
