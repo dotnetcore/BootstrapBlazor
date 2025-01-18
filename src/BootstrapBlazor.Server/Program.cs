@@ -33,8 +33,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = Forward
 
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
-    app.UseResponseCompression();
+    app.UseExceptionHandler("/Error", createScopeForErrors: true);
 }
 
 app.UseAntiforgery();
