@@ -125,7 +125,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 HandleMissingResourceItem(name);
-                _missingLocalizerCache.Add(name);
+                //_missingLocalizerCache.Add(name);
             }
         }
         return ret;
@@ -144,7 +144,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
             else
             {
                 HandleMissingResourceItem(name);
-                _missingLocalizerCache.Add(name);
+                //_missingLocalizerCache.Add(name);
             }
         }
         return ret;
