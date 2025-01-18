@@ -6889,5 +6889,17 @@
     "Watermarkntro": "Add specific text or patterns to the page",
     "WatermarkNormalTitle": "Basic usage",
     "WatermarkNormalIntro": "Use the <code>Text</code> property to set a string to specify the watermark text"
+  },
+  "BootstrapBlazor.Server.Data.AttributeItem": {
+    "Name": "Name",
+    "Description": "Description",
+    "Type": "Type",
+    "ValueList": "ValueList",
+    "DefaultValue": "DefaultValue"
+  },
+  "BootstrapBlazor.Server.Data.EventItem": {
+    "Name": "Name",
+    "Description": "Description",
+    "Type": "Type"
   }
 }

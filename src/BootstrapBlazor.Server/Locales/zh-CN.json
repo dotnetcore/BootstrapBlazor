@@ -6888,5 +6888,17 @@
     "Watermarkntro": "在页面上添加文本或图片等水印信息",
     "WatermarkNormalTitle": "基础用法",
     "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容"
+  },
+  "BootstrapBlazor.Server.Data.AttributeItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "ValueList": "可选值",
+    "DefaultValue": "默认值"
+  },
+  "BootstrapBlazor.Server.Data.EventItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型"
   }
 }
