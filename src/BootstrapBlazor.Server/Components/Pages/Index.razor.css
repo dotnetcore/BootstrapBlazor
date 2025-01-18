@@ -30,6 +30,7 @@
 
     .bd-masthead .bb-logo {
         width: 200px;
+        height: 200px;
     }
 
 .bd-gutter {
@@ -82,6 +83,7 @@
 
     .donate .barcode {
         width: 280px;
+        height: 178.84px;
     }
 
 @media (min-width: 768px) {
@@ -96,5 +98,6 @@
 
     .donate .barcode {
         width: 480px;
+        height: 306.59px;
     }
 }
