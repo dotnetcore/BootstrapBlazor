@@ -35,6 +35,12 @@ public partial class CacheList
         UpdateCacheList();
     }
 
+    private void DeleteAll()
+    {
+        CacheManager.Clear();
+        UpdateCacheList();
+    }
+
     private void UpdateCacheList()
     {
         _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).ToList();
