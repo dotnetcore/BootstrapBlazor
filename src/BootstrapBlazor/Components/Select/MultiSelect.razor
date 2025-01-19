@@ -7,7 +7,7 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-scroll-behavior="@ScrollIntoViewBehaviorString">
     <div class="@ToggleClassString" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-auto-close="outside" data-bs-custom-class="@CustomClassString" tabindex="0">
         @if(!CheckCanEdit())
         {
@@ -49,13 +49,11 @@
         }
     </div>
     <div class="dropdown-menu">
-        @if (ShowSearch)
-        {
-            <div class="search">
-                <input type="text" class="form-control" @bind="@SearchText" @bind:event="oninput" />
-                <i class="@SearchIconString"></i>
-            </div>
-        }
+        <div class="@SearchClassString">
+            <input type="text" class="form-control search-text" autocomplete="off" value="@SearchText" aria-label="search" />
+            <i class="@SearchIconString"></i>
+            <i class="@SearchLoadingIconString"></i>
+        </div>
         @if (ShowToolbar)
         {
             <div class="toolbar">

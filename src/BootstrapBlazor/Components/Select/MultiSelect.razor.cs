@@ -38,6 +38,17 @@ public partial class MultiSelect<TValue>
         .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
+    private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("show", ShowSearch)
+        .Build();
+
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
@@ -195,6 +206,8 @@ public partial class MultiSelect<TValue>
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -241,7 +254,7 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleRow));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch), ToggleRow = nameof(ToggleRow) });
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -253,6 +266,22 @@ public partial class MultiSelect<TValue>
         : Utility.ConvertValueToString(value);
 
     private bool _isToggle;
+
+    /// <summary>
+    /// 客户端回车回调方法
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task ConfirmSelectedItem(int index)
+    {
+        var rows = GetData();
+        if (index < rows.Count)
+        {
+            await ToggleRow(rows[index].Value);
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// 切换当前选项方法
@@ -507,5 +536,18 @@ public partial class MultiSelect<TValue>
                 Items = [];
             }
         }
+    }
+
+    /// <summary>
+    /// 客户端搜索栏回调方法
+    /// </summary>
+    /// <param name="searchText"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerOnSearch(string searchText)
+    {
+        SearchText = searchText;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }
