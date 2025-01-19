@@ -139,6 +139,40 @@ internal class CacheManager : ICacheManager
         return ret;
     }
 
+    /// <summary>
+    /// 获得 缓存数量
+    /// </summary>
+    public long Count
+    {
+        get
+        {
+            var count = 0;
+            if (Cache is MemoryCache c)
+            {
+                count = c.Count;
+            }
+            return count;
+        }
+    }
+
+#if NET9_0_OR_GREATER
+    /// <summary>
+    /// 获得 缓存键集合
+    /// </summary>
+    public IEnumerable<object> Keys
+    {
+        get
+        {
+            var keys = Enumerable.Empty<object>();
+            if (Cache is MemoryCache c)
+            {
+                keys = c.Keys;
+            }
+            return keys;
+        }
+    }
+#endif
+
     #region Count
     public static int ElementCount(object? value)
     {
