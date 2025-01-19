@@ -218,10 +218,12 @@ internal class CacheManager : ICacheManager
     /// <param name="assembly">Assembly 程序集实例</param>
     /// <param name="typeName">类型名称</param>
     /// <returns></returns>
-    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName) => assembly.IsDynamic
-        ? null
-        : Instance.GetOrCreate($"{nameof(GetStringLocalizerFromService)}-{CultureInfo.CurrentUICulture.Name}-{assembly.GetUniqueName()}-{typeName}", _ =>
+    public static IStringLocalizer? GetStringLocalizerFromService(Assembly assembly, string typeName)
     {
+        if (assembly.IsDynamic)
+        {
+            return null;
+        }
         IStringLocalizer? ret = null;
         var factories = Instance.Provider.GetServices<IStringLocalizerFactory>();
         var factory = factories.LastOrDefault(a => a is not JsonStringLocalizerFactory);
@@ -234,7 +236,7 @@ internal class CacheManager : ICacheManager
             }
         }
         return ret;
-    });
+    }
 
     /// <summary>
     /// 获取指定文化本地化资源集合
