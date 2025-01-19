@@ -73,7 +73,6 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     /// </summary>
     /// <param name="typeInfo"></param>
     /// <returns></returns>
-    /// <exception cref="InvalidOperationException"></exception>
     protected override string GetResourcePrefix(TypeInfo typeInfo)
     {
         var typeName = typeInfo.FullName;

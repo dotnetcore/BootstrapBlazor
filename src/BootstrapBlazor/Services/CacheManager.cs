@@ -210,12 +210,6 @@ internal class CacheManager : ICacheManager
     public static IEnumerable<LocalizedString>? GetAllStringsByTypeName(Assembly assembly, string typeName)
         => GetJsonStringByTypeName(GetJsonLocalizationOption(), assembly, typeName, CultureInfo.CurrentUICulture.Name);
 
-#if NET9_0_OR_GREATER
-    private static readonly Lock _locker = new();
-#else
-    private static readonly object _locker = new();
-#endif
-
     /// <summary>
     /// 通过指定程序集获取所有本地化信息键值集合
     /// </summary>
@@ -240,27 +234,24 @@ internal class CacheManager : ICacheManager
             Instance.Cache.Remove(key);
         }
 
-        lock (_locker)
+        localizedItems = Instance.GetOrCreate(key, _ =>
         {
-            localizedItems = Instance.GetOrCreate(key, _ =>
+            var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
+            var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
             {
-                var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
-                var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
+                var value = kv.Value;
+                if (value == null && option.UseKeyWhenValueIsNull == true)
                 {
-                    var value = kv.Value;
-                    if (value == null && option.UseKeyWhenValueIsNull == true)
-                    {
-                        value = kv.Key;
-                    }
-                    return new LocalizedString(kv.Key, value ?? "", false, section.Key);
-                }));
+                    value = kv.Key;
+                }
+                return new LocalizedString(kv.Key, value ?? "", false, section.Key);
+            }));
 #if NET8_0_OR_GREATER
-                return items.ToFrozenSet();
+            return items.ToFrozenSet();
 #else
-                return items.ToHashSet();
+            return items.ToHashSet();
 #endif
-            });
-        }
+        });
         return localizedItems.Where(item => item.SearchedLocation!.Equals(typeName, StringComparison.OrdinalIgnoreCase));
     }
 
