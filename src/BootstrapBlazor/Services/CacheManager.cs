@@ -422,30 +422,6 @@ internal class CacheManager : ICacheManager
     }
     #endregion
 
-    #region Range
-    /// <summary>
-    /// 获得类型属性的描述信息
-    /// </summary>
-    /// <param name="modelType"></param>
-    /// <param name="fieldName"></param>
-    /// <returns></returns>
-    public static RangeAttribute? GetRange(Type modelType, string fieldName)
-    {
-        var cacheKey = $"{nameof(GetRange)}-{modelType.GetUniqueTypeName()}-{fieldName}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            RangeAttribute? dn = null;
-            if (TryGetProperty(modelType, fieldName, out var propertyInfo))
-            {
-                dn = propertyInfo.GetCustomAttribute<RangeAttribute>(true);
-            }
-
-            entry.SetSlidingExpirationByType(modelType);
-            return dn;
-        });
-    }
-    #endregion
-
     #region Placeholder
     public static string? GetPlaceholder(Type modelType, string fieldName)
     {

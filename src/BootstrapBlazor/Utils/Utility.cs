@@ -52,18 +52,28 @@ public static class Utility
     /// <summary>
     /// 获得 RangeAttribute 标签值
     /// </summary>
-    /// <param name="modelType">模型类型</param>
-    /// <param name="fieldName">字段名称</param>
-    /// <returns></returns>
-    public static RangeAttribute? GetRange(Type modelType, string fieldName) => CacheManager.GetRange(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
-
-    /// <summary>
-    /// 获得 RangeAttribute 标签值
-    /// </summary>
     /// <typeparam name="TModel">模型</typeparam>
     /// <param name="fieldName">字段名称</param>
     /// <returns></returns>
     public static RangeAttribute? GetRange<TModel>(string fieldName) => GetRange(typeof(TModel), fieldName);
+
+    /// <summary>
+    /// 获得 RangeAttribute 标签值
+    /// </summary>
+    /// <param name="modelType">模型类型</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(Type modelType, string fieldName)
+    {
+        var type = Nullable.GetUnderlyingType(modelType) ?? modelType;
+
+        RangeAttribute? dn = null;
+        if (TryGetProperty(type, fieldName, out var propertyInfo))
+        {
+            dn = propertyInfo.GetCustomAttribute<RangeAttribute>(true);
+        }
+        return dn;
+    }
 
     /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
