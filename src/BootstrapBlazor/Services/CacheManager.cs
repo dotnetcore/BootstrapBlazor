@@ -459,32 +459,26 @@ internal class CacheManager : ICacheManager
     #region Placeholder
     public static string? GetPlaceholder(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetPlaceholder)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
-        return Instance.GetOrCreate(cacheKey, entry =>
+        // 通过资源文件查找 FieldName 项
+        string? ret = null;
+        var localizer = CreateLocalizerByType(modelType);
+        if (localizer != null)
         {
-            // 通过资源文件查找 FieldName 项
-            string? ret = null;
-            var localizer = CreateLocalizerByType(modelType);
-            if (localizer != null)
+            var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
+            if (!stringLocalizer.ResourceNotFound)
             {
-                var stringLocalizer = localizer[$"{fieldName}.PlaceHolder"];
-                if (!stringLocalizer.ResourceNotFound)
-                {
-                    ret = stringLocalizer.Value;
-                }
-                else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
-                {
-                    var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
-                    if (placeHolderAttribute != null)
-                    {
-                        ret = placeHolderAttribute.Text;
-                    }
-                }
-
-                entry.SetSlidingExpirationByType(modelType);
+                ret = stringLocalizer.Value;
             }
-            return ret;
-        });
+            else if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+            {
+                var placeHolderAttribute = propertyInfo.GetCustomAttribute<PlaceHolderAttribute>(true);
+                if (placeHolderAttribute != null)
+                {
+                    ret = placeHolderAttribute.Text;
+                }
+            }
+        }
+        return ret;
     }
     #endregion
 
