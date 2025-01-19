@@ -6907,7 +6907,9 @@
     "CacheListKey": "键",
     "CacheListValue": "值",
     "CacheListAction": "操作",
+    "CacheListRefresh": "刷新",
     "CacheListDelete": "删除",
-    "CacheListDeleteAll": "清除全部"
+    "CacheListDeleteAll": "清除全部",
+    "CacheListCount": "共 {0} 个键值"
   }
 }

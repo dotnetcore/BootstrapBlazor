@@ -5,7 +5,8 @@
 <h4>@((MarkupString)Localizer["CacheListIntro"].Value)</h4>
 
 <div class="table-cache-list">
-    <Table Items="_cacheList" IsBordered="true" IsStriped="true" IsFixedHeader="true" ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false">
+    <Table Items="_cacheList" IsBordered="true" IsStriped="true" IsFixedHeader="true"
+           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false" ShowRefresh="false">
         <TableColumns>
             <TableTemplateColumn Text="@Localizer["CacheListKey"]" TextWrap="true">
                 <Template Context="v">
@@ -24,7 +25,13 @@
             </TableTemplateColumn>
         </TableColumns>
         <TableToolbarBeforeTemplate>
-            <Button Text="@Localizer["CacheListDeleteAll"]" OnClick="DeleteAll"></Button>
+            <Button Text="@Localizer["CacheListDeleteAll"]" Icon="fa-solid fa-xmark" OnClick="OnDeleteAll"></Button>
         </TableToolbarBeforeTemplate>
+        <TableExtensionToolbarTemplate>
+            <Button Text="@Localizer["CacheListRefresh"]" Icon="fa-solid fa-refresh" OnClick="OnRefresh"></Button>
+        </TableExtensionToolbarTemplate>
     </Table>
+</div>
+<div class="mt-2">
+    @Localizer["CacheListCount", CacheManager.Count]
 </div>

@@ -6908,7 +6908,9 @@
     "CacheListKey": "Key",
     "CacheListValue": "Value",
     "CacheListAction": "Action",
+    "CacheListRefresh": "Refresh",
     "CacheListDelete": "Delete",
-    "CacheListDeleteAll": "Clear"
+    "CacheListDeleteAll": "Clear",
+    "CacheListCount": "Total {0} Entry"
   }
 }

@@ -36,9 +36,14 @@ public partial class CacheList
         UpdateCacheList();
     }
 
-    private void DeleteAll()
+    private void OnDeleteAll()
     {
         CacheManager.Clear();
+        UpdateCacheList();
+    }
+
+    private void OnRefresh()
+    {
         UpdateCacheList();
     }
 
