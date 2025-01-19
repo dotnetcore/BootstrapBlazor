@@ -6904,7 +6904,9 @@
   "BootstrapBlazor.Server.Components.Pages.CacheList": {
     "CacheListTitle": "缓存管理",
     "CacheListIntro": "通过 <code>ICacheManager</code> 接口方法管理组件库内部缓存",
-    "CacheListKey": "键值",
+    "CacheListKey": "键",
+    "CacheListValue": "值",
+    "CacheListAction": "操作",
     "CacheListDelete": "删除",
     "CacheListDeleteAll": "清除全部"
   }

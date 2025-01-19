@@ -6906,6 +6906,8 @@
     "CacheListTitle": "CacheManager",
     "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
     "CacheListKey": "Key",
+    "CacheListValue": "Value",
+    "CacheListAction": "Action",
     "CacheListDelete": "Delete",
     "CacheListDeleteAll": "Clear"
   }

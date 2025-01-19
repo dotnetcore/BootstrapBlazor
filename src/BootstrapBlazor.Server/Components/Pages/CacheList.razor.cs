@@ -45,4 +45,29 @@ public partial class CacheList
     {
         _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).ToList();
     }
+
+    private string GetValue(object key)
+    {
+        string ret = "-";
+        if (CacheManager.TryGetValue(key, out object? value))
+        {
+            if (value is string stringValue)
+            {
+                ret = stringValue;
+                return ret;
+            }
+
+            var type = value.GetType();
+            if (type.IsGenericType || type.IsArray)
+            {
+                ret = $"{LambdaExtensions.ElementCount(value)}";
+            }
+            else
+            {
+                ret = value?.ToString();
+            }
+        }
+
+        return ret;
+    }
 }

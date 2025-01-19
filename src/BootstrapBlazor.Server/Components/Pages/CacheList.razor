@@ -12,6 +12,11 @@
                     @v.Row.ToString()
                 </Template>
             </TableTemplateColumn>
+            <TableTemplateColumn Text="@Localizer["CacheListValue"]" TextWrap="true" Width="220">
+                <Template Context="v">
+                    @GetValue(v.Row)
+                </Template>
+            </TableTemplateColumn>
             <TableTemplateColumn Text="@Localizer["CacheListAction"]" Width="80">
                 <Template Context="v">
                     <Button Size="Size.ExtraSmall" Color="Color.Danger" OnClick="() => OnDelete(v.Row)" Icon="fa-solid fa-xmark" Text="@Localizer["CacheListDelete"]"></Button>
