@@ -479,11 +479,7 @@ internal class CacheManager : ICacheManager
         {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
-            var invoker = Instance.GetOrCreate(cacheKey, entry =>
-            {
-                entry.SetSlidingExpirationByType(type);
-                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-            })!;
+            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile());
             return invoker(model);
         }
     }
@@ -508,11 +504,7 @@ internal class CacheManager : ICacheManager
         {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
-            var invoker = Instance.GetOrCreate(cacheKey, entry =>
-            {
-                entry.SetSlidingExpirationByType(type);
-                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
-            })!;
+            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile());
             invoker(model, value);
         }
     }
@@ -532,12 +524,7 @@ internal class CacheManager : ICacheManager
         {
             var type = model.GetType();
             var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.GetUniqueTypeName()}", typeof(TModel));
-            var invoker = Instance.GetOrCreate(cacheKey, entry =>
-            {
-                entry.SetSlidingExpirationByType(type);
-
-                return LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile();
-            })!;
+            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile());
             ret = invoker(model);
         }
         return ret;
@@ -548,21 +535,13 @@ internal class CacheManager : ICacheManager
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
     {
         var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(typeof(T));
-            return LambdaExtensions.GetSortLambda<T>().Compile();
-        })!;
+        return Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortLambda<T>().Compile());
     }
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
     {
         var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(typeof(T));
-            return LambdaExtensions.GetSortListLambda<T>().Compile();
-        })!;
+        return Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortListLambda<T>().Compile());
     }
     #endregion
 
@@ -579,10 +558,8 @@ internal class CacheManager : ICacheManager
             var para_exp = Expression.Parameter(typeof(object));
             var convert = Expression.Convert(para_exp, typeof(List<>).MakeGenericType(type));
             var body = Expression.Call(method, convert);
-
-            entry.SetSlidingExpirationByType(type);
             return Expression.Lambda<Func<object, IEnumerable<string?>>>(body, para_exp).Compile();
-        })!;
+        });
     }
 
     private static IEnumerable<string?> ConvertToString<TSource>(List<TSource> source) => source is List<SelectedItem> list
@@ -600,11 +577,7 @@ internal class CacheManager : ICacheManager
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
         var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(fieldType);
-            return Utility.CreateOnValueChanged<TModel>(fieldType).Compile();
-        })!;
+        return Instance.GetOrCreate(cacheKey, entry => Utility.CreateOnValueChanged<TModel>(fieldType).Compile());
     }
     #endregion
 
@@ -612,11 +585,7 @@ internal class CacheManager : ICacheManager
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
         var cacheKey = $"{nameof(GetFormatInvoker)}-{type.GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(type);
-            return GetFormatLambda(type).Compile();
-        })!;
+        return Instance.GetOrCreate(cacheKey, entry => GetFormatLambda(type).Compile());
 
         static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(Type type)
         {
@@ -654,11 +623,7 @@ internal class CacheManager : ICacheManager
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
         var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(type);
-            return GetFormatProviderLambda(type).Compile();
-        })!;
+        return Instance.GetOrCreate(cacheKey, entry => GetFormatProviderLambda(type).Compile());
 
         static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(Type type)
         {
@@ -685,11 +650,7 @@ internal class CacheManager : ICacheManager
     public static object GetFormatterInvoker(Type type, Func<object, Task<string?>> formatter)
     {
         var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
-        var invoker = Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(type);
-            return GetFormatterInvokerLambda(type).Compile();
-        });
+        var invoker = Instance.GetOrCreate(cacheKey, entry => GetFormatterInvokerLambda(type).Compile());
         return invoker(formatter);
 
         static Expression<Func<Func<object, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
