@@ -6,11 +6,11 @@ import Input from "../../modules/input.js"
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id)
-    const { confirmMethodCallback, searchMethodCallback } = options;
-    if (el == null) {
+    if (el === null) {
         return
     }
 
+    const { confirmMethodCallback, searchMethodCallback } = options;
     const search = el.querySelector(".search-text")
     const popover = Popover.init(el)
 
