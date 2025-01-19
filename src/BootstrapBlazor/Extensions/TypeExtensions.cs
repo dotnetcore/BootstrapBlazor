@@ -46,9 +46,8 @@ internal static class TypeExtensions
             // It's not meaningful to specify a nonempty scheme, since by the time Components
             // authorization runs, we already have a specific ClaimsPrincipal (we're stateful).
             // To avoid any confusion, ensure the developer isn't trying to specify a scheme.
-            for (var i = 0; i < authorizeData.Length; i++)
+            foreach (var entry in authorizeData)
             {
-                var entry = authorizeData[i];
                 if (!string.IsNullOrEmpty(entry.AuthenticationSchemes))
                 {
                     throw new NotSupportedException($"The authorization data specifies an authentication scheme with value '{entry.AuthenticationSchemes}'. Authentication schemes cannot be specified for components.");
