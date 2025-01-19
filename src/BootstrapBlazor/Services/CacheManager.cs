@@ -485,24 +485,16 @@ internal class CacheManager : ICacheManager
     #region Lambda Property
     public static bool TryGetProperty(Type modelType, string fieldName, [NotNullWhen(true)] out PropertyInfo? propertyInfo)
     {
-        var cacheKey = $"{nameof(TryGetProperty)}-{modelType.GetUniqueTypeName()}-{fieldName}";
-        propertyInfo = Instance.GetOrCreate(cacheKey, entry =>
+        var props = modelType.GetRuntimeProperties();
+
+        // 支持 MetadataType
+        var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
+        if (metadataType != null)
         {
-            var props = modelType.GetRuntimeProperties().AsEnumerable();
+            props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());
+        }
 
-            // 支持 MetadataType
-            var metadataType = modelType.GetCustomAttribute<MetadataTypeAttribute>(false);
-            if (metadataType != null)
-            {
-                props = props.Concat(metadataType.MetadataClassType.GetRuntimeProperties());
-            }
-
-            var pi = props.FirstOrDefault(p => p.Name == fieldName);
-
-            entry.SetSlidingExpirationByType(modelType);
-
-            return pi;
-        });
+        propertyInfo = props.FirstOrDefault(p => p.Name == fieldName);
         return propertyInfo != null;
     }
 
