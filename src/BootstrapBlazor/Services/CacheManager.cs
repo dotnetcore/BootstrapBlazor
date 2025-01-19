@@ -174,7 +174,6 @@ internal class CacheManager : ICacheManager
             var cacheKey = $"Lambda-Count-{type.GetUniqueTypeName()}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
-                entry.SetSlidingExpirationByType(type);
                 return LambdaExtensions.CountLambda(type).Compile();
             });
             ret = invoker(value);
