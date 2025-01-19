@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Caching.Memory;
+using System.Collections;
 
 namespace BootstrapBlazor.Server.Components.Pages;
 
@@ -57,14 +58,13 @@ public partial class CacheList
                 return ret;
             }
 
-            var type = value.GetType();
-            if (type.IsGenericType || type.IsArray)
+            if (value is IEnumerable)
             {
                 ret = $"{LambdaExtensions.ElementCount(value)}";
             }
             else
             {
-                ret = value?.ToString();
+                ret = value?.ToString() ?? "-";
             }
         }
 
