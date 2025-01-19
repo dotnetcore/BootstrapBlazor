@@ -24,6 +24,9 @@ public class CacheManagerTest : BootstrapBlazorTestBase
         Cache.Clear("BootstrapBlazor_StartTime");
         Cache.SetStartTime();
         Assert.True(DateTime.Now > Cache.GetStartTime());
+
+        Assert.Equal(1, Cache.Count);
+        Assert.Single(Cache.Keys);
     }
 
     [Fact]
