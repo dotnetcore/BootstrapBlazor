@@ -6901,5 +6901,12 @@
     "Name": "Name",
     "Description": "Description",
     "Type": "Type"
+  },
+  "BootstrapBlazor.Server.Components.Pages.CacheList": {
+    "CacheListTitle": "CacheManager",
+    "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
+    "CacheListKey": "Key",
+    "CacheListDelete": "Delete",
+    "CacheListDeleteAll": "Clear"
   }
 }

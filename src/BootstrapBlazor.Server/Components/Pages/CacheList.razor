@@ -2,24 +2,24 @@
 
 <h3>@Localizer["CacheListTitle"]</h3>
 
-<h4>@Localizer["CacheListIntro"]</h4>
+<h4>@((MarkupString)Localizer["CacheListIntro"].Value)</h4>
 
 <div class="table-cache-list">
     <Table Items="_cacheList" IsBordered="true" IsStriped="true" IsFixedHeader="true" ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false">
         <TableColumns>
-            <TableTemplateColumn Text="@Localizer["Key"]" TextWrap="true">
+            <TableTemplateColumn Text="@Localizer["CacheListKey"]" TextWrap="true">
                 <Template Context="v">
                     @v.Row.ToString()
                 </Template>
             </TableTemplateColumn>
-            <TableTemplateColumn Text="@Localizer["Action"]" Width="80">
+            <TableTemplateColumn Text="@Localizer["CacheListAction"]" Width="80">
                 <Template Context="v">
-                    <Button Size="Size.ExtraSmall" Color="Color.Danger" OnClick="() => OnDelete(v.Row)" Icon="fa-solid fa-xmark" Text="@Localizer["Delete"]"></Button>
+                    <Button Size="Size.ExtraSmall" Color="Color.Danger" OnClick="() => OnDelete(v.Row)" Icon="fa-solid fa-xmark" Text="@Localizer["CacheListDelete"]"></Button>
                 </Template>
             </TableTemplateColumn>
         </TableColumns>
         <TableToolbarBeforeTemplate>
-            <Button Text="@Localizer["DeleteAll"]" OnClick="DeleteAll"></Button>
+            <Button Text="@Localizer["CacheListDeleteAll"]" OnClick="DeleteAll"></Button>
         </TableToolbarBeforeTemplate>
     </Table>
 </div>
