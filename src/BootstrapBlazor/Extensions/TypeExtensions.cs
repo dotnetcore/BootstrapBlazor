@@ -12,9 +12,9 @@ namespace BootstrapBlazor.Components;
 
 internal static class TypeExtensions
 {
-    public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => CacheManager.GetRuntimeProperties(type).Find(p => p.Name == propertyName);
+    public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => type.GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
 
-    public static FieldInfo? GetFieldByName(this Type type, string fieldName) => CacheManager.GetRuntimeFields(type).Find(p => p.Name == fieldName);
+    public static FieldInfo? GetFieldByName(this Type type, string fieldName) => type.GetRuntimeFields().FirstOrDefault(p => p.Name == fieldName);
 
     public static async Task<bool> IsAuthorizedAsync(this Type type, IServiceProvider serviceProvider, Task<AuthenticationState>? authenticateState, object? resource = null)
     {

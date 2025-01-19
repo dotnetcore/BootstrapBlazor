@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel;
@@ -727,38 +726,5 @@ internal class CacheManager : ICacheManager
     }
 
     private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter) => new(v => formatter(v));
-
-    #endregion
-
-    #region TypeExtensions
-    /// <summary>
-    /// 通过指定类型获得所有属性信息
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public static List<PropertyInfo> GetRuntimeProperties(Type type)
-    {
-        var cacheKey = $"{nameof(GetRuntimeProperties)}-{type.GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(type);
-            return type.GetRuntimeProperties().ToList();
-        });
-    }
-
-    /// <summary>
-    /// 通过指定类型获得所有字段信息
-    /// </summary>
-    /// <param name="type"></param>
-    /// <returns></returns>
-    public static List<FieldInfo> GetRuntimeFields(Type type)
-    {
-        var cacheKey = $"{nameof(GetRuntimeFields)}-{type.GetUniqueTypeName()}";
-        return Instance.GetOrCreate(cacheKey, entry =>
-        {
-            entry.SetSlidingExpirationByType(type);
-            return type.GetRuntimeFields().ToList();
-        })!;
-    }
     #endregion
 }
