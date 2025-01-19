@@ -47,10 +47,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
-#endif
-
         if (key is not string)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
@@ -63,10 +59,6 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
-#if DEBUG
-        entry.SlidingExpiration = TimeSpan.FromSeconds(5);
-#endif
-
         if (key is not string)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
