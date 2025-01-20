@@ -261,6 +261,8 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         .AddClass(SearchLoadingIcon)
         .Build();
 
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
+
     /// <summary>
     /// 当前选择项实例
     /// </summary>
