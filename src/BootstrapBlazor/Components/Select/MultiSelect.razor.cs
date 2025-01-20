@@ -195,6 +195,17 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
+    private List<SelectedItem>? _itemsCache;
+
+    private List<SelectedItem> Rows
+    {
+        get
+        {
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
+            return _itemsCache;
+        }
+    }
+
     private string? PreviousValue { get; set; }
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
@@ -220,7 +231,6 @@ public partial class MultiSelect<TValue>
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
 
         ResetItems();
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
         ResetRules();
 
         // 通过 Value 对集合进行赋值
@@ -249,6 +259,26 @@ public partial class MultiSelect<TValue>
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch), TriggerEditTag = nameof(TriggerEditTag), ToggleRow = nameof(ToggleRow) });
+
+    private List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        return items;
+    }
+
+    private List<SelectedItem> GetRowsBySearch()
+    {
+        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
+        return items.ToList();
+    }
+
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+        ? source
+        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -540,6 +570,7 @@ public partial class MultiSelect<TValue>
     [JSInvokable]
     public Task TriggerOnSearch(string searchText)
     {
+        _itemsCache = null;
         SearchText = searchText;
         StateHasChanged();
         return Task.CompletedTask;

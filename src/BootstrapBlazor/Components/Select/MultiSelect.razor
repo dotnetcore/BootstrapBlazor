@@ -66,7 +66,7 @@
                 @ButtonTemplate
             </div>
         }
-        @foreach (var itemGroup in GetData().GroupBy(i => i.GroupName))
+        @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
         {
             if (!string.IsNullOrEmpty(itemGroup.Key))
             {
@@ -102,7 +102,7 @@
                 </DynamicElement>
             }
         }
-        @if (GetData().Count == 0)
+        @if (Rows.Count == 0)
         {
             <div class="dropdown-item">@NoSearchDataText</div>
         }
