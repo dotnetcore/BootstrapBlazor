@@ -51,6 +51,8 @@ public class JsonLocalizationOptions : LocalizationOptions
     /// <summary>
     /// 获得/设置 资源文件是否热加载 默认 false
     /// </summary>
+    [Obsolete("已弃用 Deprecated")]
+    [ExcludeFromCodeCoverage]
     public bool ReloadOnChange { get; set; }
 
     /// <summary>

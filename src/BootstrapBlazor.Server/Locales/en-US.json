@@ -6881,12 +6881,11 @@
     "AffixNormalTitle": "Basic usage",
     "AffixNormalIntro": "Affix is fixed at the top of the page by default",
     "AffixPositionTitle": "Position",
-    "AffixPositionIntro": "Use the parameter <code>Position</code> to control whether the top or bottom is fixed",
-    "AffixOffsetDesc": "The parameter <code>Position</code> controls whether the top or bottom is fixed, and the <code>Offset</code> value sets the offset to the top or bottom"
+    "AffixPositionIntro": "The parameter <code>Position</code> controls whether the top or bottom is fixed, and the <code>Offset</code> value sets the offset to the top or bottom"
   },
   "BootstrapBlazor.Server.Components.Samples.Watermarks": {
     "WatermarkTitle": "Watermark",
-    "Watermarkntro": "Add specific text or patterns to the page",
+    "WatermarkIntro": "Add specific text or patterns to the page",
     "WatermarkNormalTitle": "Basic usage",
     "WatermarkNormalIntro": "Use the <code>Text</code> property to set a string to specify the watermark text"
   },
@@ -6901,5 +6900,16 @@
     "Name": "Name",
     "Description": "Description",
     "Type": "Type"
+  },
+  "BootstrapBlazor.Server.Components.Pages.CacheList": {
+    "CacheListTitle": "CacheManager",
+    "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
+    "CacheListKey": "Key",
+    "CacheListValue": "Value",
+    "CacheListAction": "Action",
+    "CacheListRefresh": "Refresh",
+    "CacheListDelete": "Delete",
+    "CacheListDeleteAll": "Clear",
+    "CacheListCount": "Total {0} Entry"
   }
 }

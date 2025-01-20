@@ -81,28 +81,35 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
         if (localizer != null && localizer is not JsonStringLocalizer)
         {
-            var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
-            if (!_missingManifestCache.ContainsKey(cacheKey))
+            var l = localizer[name];
+            if (!l.ResourceNotFound)
             {
-                var l = localizer[name];
-                if (!l.ResourceNotFound)
-                {
-                    ret = l.Value;
-                }
-                else
-                {
-                    HandleMissingResourceItem(name);
-                }
+                ret = l.Value;
             }
         }
         return ret;
     }
 
+    private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
     private string? GetStringSafelyFromJson(string name)
     {
         // get string from json localization file
         var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
-        return GetValueFromCache(localizerStrings, name);
+        var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
+        string? ret = null;
+        if (!_missingManifestCache.ContainsKey(cacheKey))
+        {
+            var l = localizerStrings.Find(i => i.Name == name);
+            if (l is { ResourceNotFound: false })
+            {
+                ret = l.Value;
+            }
+            else
+            {
+                HandleMissingResourceItem(name);
+            }
+        }
+        return ret;
     }
 
     private List<LocalizedString> MegerResolveLocalizers(IEnumerable<LocalizedString>? localizerStrings)
@@ -118,26 +125,6 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         return localizers;
     }
 
-    private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
-
-    private string? GetValueFromCache(List<LocalizedString> localizerStrings, string name)
-    {
-        string? ret = null;
-        var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
-        if (!_missingManifestCache.ContainsKey(cacheKey))
-        {
-            var l = localizerStrings.Find(i => i.Name == name);
-            if (l is { ResourceNotFound: false })
-            {
-                ret = l.Value;
-            }
-            else
-            {
-                HandleMissingResourceItem(name);
-            }
-        }
-        return ret;
-    }
 
     private void HandleMissingResourceItem(string name)
     {

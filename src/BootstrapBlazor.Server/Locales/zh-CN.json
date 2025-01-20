@@ -6885,7 +6885,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Watermarks": {
     "WatermarkTitle": "Watermark 水印组件",
-    "Watermarkntro": "在页面上添加文本或图片等水印信息",
+    "WatermarkIntro": "在页面上添加文本或图片等水印信息",
     "WatermarkNormalTitle": "基础用法",
     "WatermarkNormalIntro": "使用 <code>Text</code> 属性设置一个字符串指定水印内容"
   },
@@ -6900,5 +6900,16 @@
     "Name": "参数",
     "Description": "说明",
     "Type": "类型"
+  },
+  "BootstrapBlazor.Server.Components.Pages.CacheList": {
+    "CacheListTitle": "缓存管理",
+    "CacheListIntro": "通过 <code>ICacheManager</code> 接口方法管理组件库内部缓存",
+    "CacheListKey": "键",
+    "CacheListValue": "值",
+    "CacheListAction": "操作",
+    "CacheListRefresh": "刷新",
+    "CacheListDelete": "删除",
+    "CacheListDeleteAll": "清除全部",
+    "CacheListCount": "共 {0} 个键值"
   }
 }

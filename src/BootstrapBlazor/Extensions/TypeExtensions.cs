@@ -12,9 +12,9 @@ namespace BootstrapBlazor.Components;
 
 internal static class TypeExtensions
 {
-    public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => CacheManager.GetRuntimeProperties(type).Find(p => p.Name == propertyName);
+    public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => type.GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
 
-    public static FieldInfo? GetFieldByName(this Type type, string fieldName) => CacheManager.GetRuntimeFields(type).Find(p => p.Name == fieldName);
+    public static FieldInfo? GetFieldByName(this Type type, string fieldName) => type.GetRuntimeFields().FirstOrDefault(p => p.Name == fieldName);
 
     public static async Task<bool> IsAuthorizedAsync(this Type type, IServiceProvider serviceProvider, Task<AuthenticationState>? authenticateState, object? resource = null)
     {
@@ -46,9 +46,8 @@ internal static class TypeExtensions
             // It's not meaningful to specify a nonempty scheme, since by the time Components
             // authorization runs, we already have a specific ClaimsPrincipal (we're stateful).
             // To avoid any confusion, ensure the developer isn't trying to specify a scheme.
-            for (var i = 0; i < authorizeData.Length; i++)
+            foreach (var entry in authorizeData)
             {
-                var entry = authorizeData[i];
                 if (!string.IsNullOrEmpty(entry.AuthenticationSchemes))
                 {
                     throw new NotSupportedException($"The authorization data specifies an authentication scheme with value '{entry.AuthenticationSchemes}'. Authentication schemes cannot be specified for components.");
