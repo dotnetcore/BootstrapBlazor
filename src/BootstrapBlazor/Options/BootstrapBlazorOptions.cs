@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -57,6 +58,16 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     /// <remarks>使用 <see cref="JsonLocalizationOptions.IgnoreLocalizerMissing"/> 默认值</remarks>
     public bool? IgnoreLocalizerMissing { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用从服务中获取本地化资源 默认 false 未禁用
+    /// </summary>
+    public bool? DisableGetLocalizerFromService { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用获取 <see cref="ResourceManagerStringLocalizer"/> 类型本地化资源 默认 false 未禁用
+    /// </summary>
+    public bool? DisableGetLocalizerFromResourceManager { get; set; }
 
     /// <summary>
     /// 获得/设置 默认文化信息

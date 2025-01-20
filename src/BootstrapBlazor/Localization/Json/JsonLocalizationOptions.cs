@@ -49,6 +49,16 @@ public class JsonLocalizationOptions : LocalizationOptions
     public bool UseKeyWhenValueIsNull { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否禁用从服务中获取本地化资源 默认 false 未禁用
+    /// </summary>
+    public bool DisableGetLocalizerFromService { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用获取 <see cref="ResourceManagerStringLocalizer"/> 类型本地化资源 默认 false 未禁用
+    /// </summary>
+    public bool DisableGetLocalizerFromResourceManager { get; set; }
+
+    /// <summary>
     /// 获得/设置 资源文件是否热加载 默认 false
     /// </summary>
     [Obsolete("已弃用 Deprecated")]
