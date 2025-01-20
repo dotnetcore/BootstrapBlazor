@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
@@ -176,6 +177,27 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void DisableGetLocalizerFromResourceManager_Ok()
+    {
+        var sc = new ServiceCollection();
+        var builder = new ConfigurationBuilder();
+        builder.AddJsonFile("appsettings.json");
+        builder.AddInMemoryCollection(new Dictionary<string, string?>()
+        {
+            ["BootstrapBlazorOptions:DisableGetLocalizerFromService"] = "true",
+            ["BootstrapBlazorOptions:DisableGetLocalizerFromResourceManager"] = "true"
+        });
+        var config = builder.Build();
+        sc.AddSingleton<IConfiguration>(config);
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
+        var items = localizer.GetAllStrings(false);
+        Assert.Empty(items);
+    }
+
+    [Fact]
     public void GetAllStrings_FromResource()
     {
         var sc = new ServiceCollection();
@@ -243,6 +265,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var provider = sc.BuildServiceProvider();
         var localizer = provider.GetRequiredService<IStringLocalizer<Foo>>();
         var val = localizer["missing-item"];
+        Assert.True(val.ResourceNotFound);
 
         var handler = provider.GetRequiredService<ILocalizationMissingItemHandler>();
         MockLocalizationMissingItemHandler? mockHandler = null;

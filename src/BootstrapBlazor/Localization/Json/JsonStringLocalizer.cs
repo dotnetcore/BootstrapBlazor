@@ -18,11 +18,11 @@ namespace BootstrapBlazor.Components;
 /// <param name="assembly"></param>
 /// <param name="typeName"></param>
 /// <param name="baseName"></param>
-/// <param name="ignoreLocalizerMissing"></param>
+/// <param name="jsonLocalizationOptions"></param>
 /// <param name="logger"></param>
 /// <param name="resourceNamesCache"></param>
 /// <param name="localizationMissingItemHandler"></param>
-internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache, ILocalizationMissingItemHandler localizationMissingItemHandler) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
+internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, JsonLocalizationOptions jsonLocalizationOptions, ILogger logger, IResourceNamesCache resourceNamesCache, ILocalizationMissingItemHandler localizationMissingItemHandler) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
 {
     private Assembly Assembly { get; } = assembly;
 
@@ -72,26 +72,39 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
-    private string? GetStringSafely(string name) => GetStringFromService(name) ?? GetStringSafely(name, null) ?? GetStringSafelyFromJson(name);
+    private string? GetStringSafely(string name) => GetStringFromService(name) ?? GetStringFromResourceManager(name) ?? GetStringFromJson(name);
 
     private string? GetStringFromService(string name)
     {
         // get string from inject service
         string? ret = null;
-        var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
-        if (localizer != null && localizer is not JsonStringLocalizer)
+        if (jsonLocalizationOptions.DisableGetLocalizerFromService == false)
         {
-            var l = localizer[name];
-            if (!l.ResourceNotFound)
+            var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
+            if (localizer != null && localizer is not JsonStringLocalizer)
             {
-                ret = l.Value;
+                var l = localizer[name];
+                if (!l.ResourceNotFound)
+                {
+                    ret = l.Value;
+                }
             }
         }
         return ret;
     }
 
+    private string? GetStringFromResourceManager(string name)
+    {
+        string? ret = null;
+        if (jsonLocalizationOptions.DisableGetLocalizerFromResourceManager == false)
+        {
+            ret = GetStringSafely(name, CultureInfo.CurrentUICulture);
+        }
+        return ret;
+    }
+
     private readonly ConcurrentDictionary<string, object?> _missingManifestCache = [];
-    private string? GetStringSafelyFromJson(string name)
+    private string? GetStringFromJson(string name)
     {
         // get string from json localization file
         var localizerStrings = MegerResolveLocalizers(CacheManager.GetAllStringsByTypeName(Assembly, typeName));
@@ -114,10 +127,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
 
     private List<LocalizedString> MegerResolveLocalizers(IEnumerable<LocalizedString>? localizerStrings)
     {
-        var localizers = new List<LocalizedString>();
-        var resolveLocalizers = CacheManager.GetTypeStringsFromResolve(typeName);
-        localizers.AddRange(resolveLocalizers);
-
+        var localizers = new List<LocalizedString>(CacheManager.GetTypeStringsFromResolve(typeName));
         if (localizerStrings != null)
         {
             localizers.AddRange(localizerStrings);
@@ -125,11 +135,10 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         return localizers;
     }
 
-
     private void HandleMissingResourceItem(string name)
     {
         localizationMissingItemHandler.HandleMissingItem(name, typeName, CultureInfo.CurrentUICulture.Name);
-        if (!ignoreLocalizerMissing)
+        if (jsonLocalizationOptions.IgnoreLocalizerMissing == false)
         {
             Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
         }
@@ -160,10 +169,13 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         IEnumerable<LocalizedString>? GetAllStringsFromService()
         {
             IEnumerable<LocalizedString>? ret = null;
-            var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
-            if (localizer != null && localizer is not JsonStringLocalizer)
+            if (jsonLocalizationOptions.DisableGetLocalizerFromService == false)
             {
-                ret = localizer.GetAllStrings(includeParentCultures);
+                var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
+                if (localizer != null && localizer is not JsonStringLocalizer)
+                {
+                    ret = localizer.GetAllStrings(includeParentCultures);
+                }
             }
             return ret;
         }
@@ -172,14 +184,18 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         // get all strings from base json localization factory
         IEnumerable<LocalizedString>? GetAllStringsFromBase()
         {
-            IEnumerable<LocalizedString>? ret = base.GetAllStrings(includeParentCultures);
-            try
+            IEnumerable<LocalizedString>? ret = null;
+            if (jsonLocalizationOptions.DisableGetLocalizerFromResourceManager == false)
             {
-                CheckMissing();
-            }
-            catch (MissingManifestResourceException)
-            {
-                ret = null;
+                ret = base.GetAllStrings(includeParentCultures);
+                try
+                {
+                    CheckMissing();
+                }
+                catch (MissingManifestResourceException)
+                {
+                    ret = null;
+                }
             }
             return ret;
 
