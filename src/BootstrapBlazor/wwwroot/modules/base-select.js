@@ -1,4 +1,30 @@
 ﻿import { debounce } from "./utility.js"
+import Input from "./input.js"
+import EventHandler from "./event-handler.js"
+
+export function registerSearch(el, options) {
+    Input.composition(search, onSearch);
+    EventHandler.on(search, 'keydown', keydown);
+
+    if (popover.isPopover) {
+        EventHandler.on(el, 'shown.bs.popover', shown);
+    }
+    else {
+        EventHandler.on(el, 'shown.bs.dropdown', shown);
+    }
+}
+
+export function unregisterSearch(el) {
+    Input.dispose(search);
+    EventHandler.off(search, 'keydown');
+
+    if (popover.isPopover) {
+        EventHandler.off(el, 'shown.bs.popover');
+    }
+    else {
+        EventHandler.off(el, 'shown.bs.dropdown');
+    }
+}
 
 const onSearch = debounce(async v => {
     search.parentElement.classList.add('l');

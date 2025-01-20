@@ -26,16 +26,6 @@ export function init(id, invoke, options) {
         popover
     }
 
-    Input.composition(search, onSearch);
-    EventHandler.on(search, 'keydown', keydown);
-
-    if (popover.isPopover) {
-        EventHandler.on(el, 'shown.bs.popover', shown);
-    }
-    else {
-        EventHandler.on(el, 'shown.bs.dropdown', shown);
-    }
-
     EventHandler.on(itemsElement, 'click', '.multi-select-input', e => {
         const handler = setTimeout(() => {
             clearTimeout(handler);
@@ -117,9 +107,4 @@ export function dispose(id) {
         EventHandler.off(ms.itemsElement, 'click', ms.closeButtonSelector)
     }
     Popover.dispose(ms.popover);
-
-    if (search) {
-        Input.dispose(search);
-        EventHandler.off(search, 'keydown');
-    }
 }
