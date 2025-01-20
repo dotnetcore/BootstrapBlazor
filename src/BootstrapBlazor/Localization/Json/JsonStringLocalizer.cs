@@ -18,11 +18,11 @@ namespace BootstrapBlazor.Components;
 /// <param name="assembly"></param>
 /// <param name="typeName"></param>
 /// <param name="baseName"></param>
-/// <param name="ignoreLocalizerMissing"></param>
+/// <param name="jsonLocalizationOptions"></param>
 /// <param name="logger"></param>
 /// <param name="resourceNamesCache"></param>
 /// <param name="localizationMissingItemHandler"></param>
-internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache, ILocalizationMissingItemHandler localizationMissingItemHandler) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
+internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, JsonLocalizationOptions jsonLocalizationOptions, ILogger logger, IResourceNamesCache resourceNamesCache, ILocalizationMissingItemHandler localizationMissingItemHandler) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
 {
     private Assembly Assembly { get; } = assembly;
 
@@ -72,7 +72,24 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         }
     }
 
-    private string? GetStringSafely(string name) => GetStringFromService(name) ?? GetStringSafely(name, null) ?? GetStringSafelyFromJson(name);
+    private string? GetStringSafely(string name)
+    {
+        string? val = null;
+        if (jsonLocalizationOptions.DisableGetLocalizerFromService == false)
+        {
+            val = GetStringFromService(name);
+            if (val != null)
+            {
+                return val;
+            }
+        }
+
+        if (jsonLocalizationOptions.DisableGetLocalizerFromResourceManager == false)
+        {
+            val = GetStringSafely(name, CultureInfo.CurrentUICulture);
+        }
+        return val ?? GetStringSafelyFromJson(name);
+    }
 
     private string? GetStringFromService(string name)
     {
@@ -129,7 +146,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
     private void HandleMissingResourceItem(string name)
     {
         localizationMissingItemHandler.HandleMissingItem(name, typeName, CultureInfo.CurrentUICulture.Name);
-        if (!ignoreLocalizerMissing)
+        if (jsonLocalizationOptions.IgnoreLocalizerMissing == false)
         {
             Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
         }
