@@ -103,18 +103,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 无搜索结果时显示文字
-    /// </summary>
-    [Parameter]
-    public string? NoSearchDataText { get; set; }
-
-    /// <summary>
-    /// 获得 PlaceHolder 属性
-    /// </summary>
-    [Parameter]
-    public string? PlaceHolder { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否可清除 默认 false
     /// </summary>
     [Parameter]

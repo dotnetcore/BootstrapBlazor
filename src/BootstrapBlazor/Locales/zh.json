@@ -129,7 +129,8 @@
     "ReverseSelectText": "反选",
     "ClearText": "清除",
     "MinErrorMessage": "最少请选择 {0} 项",
-    "MaxErrorMessage": "最多可以选择 {0} 项"
+    "MaxErrorMessage": "最多可以选择 {0} 项",
+    "NoSearchDataText": "无数据"
   },
   "BootstrapBlazor.Components.Pagination": {
     "GotoNavigatorLabelText": "导航到"

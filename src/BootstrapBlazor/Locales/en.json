@@ -129,7 +129,8 @@
     "ReverseSelectText": "Reverse",
     "ClearText": "Clear",
     "MinErrorMessage": "Select at least {0} items",
-    "MaxErrorMessage": "At most {0} items can be selected"
+    "MaxErrorMessage": "At most {0} items can be selected",
+    "NoSearchDataText": "No Result"
   },
   "BootstrapBlazor.Components.Pagination": {
     "GotoNavigatorLabelText": "Goto"

@@ -35,6 +35,18 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? SearchLoadingIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 搜索框文本
+    /// </summary>
+    [NotNull]
+    protected string? SearchText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 无搜索结果时显示文字
+    /// </summary>
+    [Parameter]
+    public string? NoSearchDataText { get; set; }
+
+    /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
     /// </summary>
     [Parameter]
@@ -73,10 +85,10 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框文本
+    /// 获得 PlaceHolder 属性
     /// </summary>
-    [NotNull]
-    protected string? SearchText { get; set; }
+    [Parameter]
+    public string? PlaceHolder { get; set; }
 
     /// <summary>
     /// 获得 SearchIcon 图标字符串 默认增加 icon 样式

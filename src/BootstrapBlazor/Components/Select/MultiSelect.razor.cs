@@ -63,13 +63,6 @@ public partial class MultiSelect<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlaceHolder { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
     /// </summary>
     [Parameter]
@@ -221,6 +214,7 @@ public partial class MultiSelect<TValue>
         ClearText ??= Localizer[nameof(ClearText)];
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
+        NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
