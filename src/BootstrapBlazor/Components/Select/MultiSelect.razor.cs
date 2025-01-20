@@ -233,13 +233,14 @@ public partial class MultiSelect<TValue>
         ResetItems();
         ResetRules();
 
+        _itemsCache = null;
         // 通过 Value 对集合进行赋值
         if (PreviousValue != CurrentValueAsString)
         {
             PreviousValue = CurrentValueAsString;
             var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
             SelectedItems.Clear();
-            SelectedItems.AddRange(GetData().Where(item => list.Any(i => i == item.Value)));
+            SelectedItems.AddRange(Rows.Where(item => list.Any(i => i == item.Value)));
         }
     }
 
@@ -276,9 +277,7 @@ public partial class MultiSelect<TValue>
         return items.ToList();
     }
 
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
-        ? source
-        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -299,7 +298,7 @@ public partial class MultiSelect<TValue>
     [JSInvokable]
     public async Task ConfirmSelectedItem(int index)
     {
-        var rows = GetData();
+        var rows = Rows;
         if (index < rows.Count)
         {
             await ToggleRow(rows[index].Value);
@@ -323,7 +322,7 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                var d = GetData().FirstOrDefault(i => i.Value == val);
+                var d = Rows.FirstOrDefault(i => i.Value == val);
                 if (d != null)
                 {
                     SelectedItems.Add(d);
@@ -352,7 +351,7 @@ public partial class MultiSelect<TValue>
         }
         else if (!string.IsNullOrEmpty(val))
         {
-            ret = GetData().Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
+            ret = Rows.Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
         }
         if (ret != null)
         {
@@ -458,7 +457,7 @@ public partial class MultiSelect<TValue>
     public async Task SelectAll()
     {
         SelectedItems.Clear();
-        SelectedItems.AddRange(GetData());
+        SelectedItems.AddRange(Rows);
         await SetValue();
     }
 
@@ -468,7 +467,7 @@ public partial class MultiSelect<TValue>
     /// <returns></returns>
     public async Task InvertSelect()
     {
-        var items = GetData().Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
+        var items = Rows.Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
         SelectedItems.Clear();
         SelectedItems.AddRange(items);
         await SetValue();
@@ -511,16 +510,6 @@ public partial class MultiSelect<TValue>
             ret = SelectedItems.Count < Max;
         }
         return ret;
-    }
-
-    private List<SelectedItem> GetData()
-    {
-        var data = Items;
-        if (ShowSearch && !string.IsNullOrEmpty(SearchText))
-        {
-            data = OnSearchTextChanged(SearchText);
-        }
-        return data.ToList();
     }
 
     /// <summary>
