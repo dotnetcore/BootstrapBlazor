@@ -8,6 +8,50 @@ namespace UnitTest.Components;
 public class MultiSelectTest : BootstrapBlazorTestBase
 {
     [Fact]
+    public async Task OnSearchTextChanged_Null()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MultiSelect<string>>(pb =>
+            {
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.Items, new List<SelectedItem>()
+                {
+                    new("1", "Test1"),
+                    new("2", "Test2") { IsDisabled = true }
+                });
+            });
+        });
+
+        var ctx = cut.FindComponent<MultiSelect<string>>();
+        await ctx.InvokeAsync(async () =>
+        {
+            await ctx.Instance.ConfirmSelectedItem(0);
+
+            // 搜索 T
+            await ctx.Instance.TriggerOnSearch("T");
+            await ctx.Instance.ConfirmSelectedItem(0);
+        });
+
+        ctx.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnSearchTextChanged, text =>
+            {
+                return new List<SelectedItem>()
+                {
+                    new("1", "Test1")
+                };
+            });
+        });
+
+        await ctx.InvokeAsync(async () =>
+        {
+            await ctx.Instance.TriggerOnSearch("T");
+        });
+        cut.DoesNotContain("Test2");
+    }
+
+    [Fact]
     public void MinMax_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
@@ -190,7 +234,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnSearchTextChanged_Ok()
+    public async Task OnSearchTextChanged_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
@@ -202,23 +246,30 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("2", "Test2")
             });
         });
-        cut.Find(".form-control").Input("T");
-        Assert.Contains("multi-select", cut.Markup);
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("a"));
+        cut.Contains("<div class=\"dropdown-item\">无数据</div>");
     }
 
     [Fact]
-    public void OnParameterSet_Ok()
+    public void ScrollIntoViewBehavior_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
-            pb.Add(a => a.Value, "1,2");
-            pb.Add(a => a.Items, new List<SelectedItem>
+            pb.Add(a => a.Items, new SelectedItem[]
             {
                 new("1", "Test1"),
                 new("2", "Test2")
             });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
         });
-        Assert.Contains("multi-select", cut.Markup);
+        Assert.Contains("data-bb-scroll-behavior=\"auto\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
+        });
+        Assert.DoesNotContain("data-bb-scroll-behavior", cut.Markup);
     }
 
     [Fact]

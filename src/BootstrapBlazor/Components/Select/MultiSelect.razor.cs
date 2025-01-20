@@ -38,6 +38,17 @@ public partial class MultiSelect<TValue>
         .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
+    private string? SearchClassString => CssBuilder.Default("search")
+        .AddClass("show", ShowSearch)
+        .Build();
+
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
@@ -50,13 +61,6 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件 PlaceHolder 文字 默认为 点击进行多选 ...
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlaceHolder { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
@@ -191,9 +195,22 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
+    private List<SelectedItem>? _itemsCache;
+
+    private List<SelectedItem> Rows
+    {
+        get
+        {
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
+            return _itemsCache;
+        }
+    }
+
     private string? PreviousValue { get; set; }
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// OnParametersSet 方法
@@ -208,21 +225,22 @@ public partial class MultiSelect<TValue>
         ClearText ??= Localizer[nameof(ClearText)];
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
+        NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
 
         ResetItems();
-        OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
         ResetRules();
 
+        _itemsCache = null;
         // 通过 Value 对集合进行赋值
         if (PreviousValue != CurrentValueAsString)
         {
             PreviousValue = CurrentValueAsString;
             var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
             SelectedItems.Clear();
-            SelectedItems.AddRange(GetData().Where(item => list.Any(i => i == item.Value)));
+            SelectedItems.AddRange(Rows.Where(item => list.Any(i => i == item.Value)));
         }
     }
 
@@ -241,7 +259,25 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleRow));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch), TriggerEditTag = nameof(TriggerEditTag), ToggleRow = nameof(ToggleRow) });
+
+    private List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        return items;
+    }
+
+    private List<SelectedItem> GetRowsBySearch()
+    {
+        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
+        return items.ToList();
+    }
+
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -253,6 +289,22 @@ public partial class MultiSelect<TValue>
         : Utility.ConvertValueToString(value);
 
     private bool _isToggle;
+
+    /// <summary>
+    /// 客户端回车回调方法
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task ConfirmSelectedItem(int index)
+    {
+        var rows = Rows;
+        if (index < rows.Count)
+        {
+            await ToggleRow(rows[index].Value);
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// 切换当前选项方法
@@ -270,7 +322,7 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                var d = GetData().FirstOrDefault(i => i.Value == val);
+                var d = Rows.FirstOrDefault(i => i.Value == val);
                 if (d != null)
                 {
                     SelectedItems.Add(d);
@@ -299,7 +351,7 @@ public partial class MultiSelect<TValue>
         }
         else if (!string.IsNullOrEmpty(val))
         {
-            ret = GetData().Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
+            ret = Rows.Find(i => i.Text.Equals(val, StringComparison.OrdinalIgnoreCase)) ?? new SelectedItem(val, val);
         }
         if (ret != null)
         {
@@ -405,7 +457,7 @@ public partial class MultiSelect<TValue>
     public async Task SelectAll()
     {
         SelectedItems.Clear();
-        SelectedItems.AddRange(GetData());
+        SelectedItems.AddRange(Rows);
         await SetValue();
     }
 
@@ -415,7 +467,7 @@ public partial class MultiSelect<TValue>
     /// <returns></returns>
     public async Task InvertSelect()
     {
-        var items = GetData().Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
+        var items = Rows.Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
         SelectedItems.Clear();
         SelectedItems.AddRange(items);
         await SetValue();
@@ -460,16 +512,6 @@ public partial class MultiSelect<TValue>
         return ret;
     }
 
-    private List<SelectedItem> GetData()
-    {
-        var data = Items;
-        if (ShowSearch && !string.IsNullOrEmpty(SearchText))
-        {
-            data = OnSearchTextChanged(SearchText);
-        }
-        return data.ToList();
-    }
-
     /// <summary>
     /// 客户端检查完成时调用此方法
     /// </summary>
@@ -507,5 +549,19 @@ public partial class MultiSelect<TValue>
                 Items = [];
             }
         }
+    }
+
+    /// <summary>
+    /// 客户端搜索栏回调方法
+    /// </summary>
+    /// <param name="searchText"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerOnSearch(string searchText)
+    {
+        _itemsCache = null;
+        SearchText = searchText;
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }

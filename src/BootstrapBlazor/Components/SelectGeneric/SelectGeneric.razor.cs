@@ -103,18 +103,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 无搜索结果时显示文字
-    /// </summary>
-    [Parameter]
-    public string? NoSearchDataText { get; set; }
-
-    /// <summary>
-    /// 获得 PlaceHolder 属性
-    /// </summary>
-    [Parameter]
-    public string? PlaceHolder { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否可清除 默认 false
     /// </summary>
     [Parameter]
@@ -265,6 +253,15 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     private List<SelectedItem<TValue>>? _itemsCache;
 
     private ItemsProviderResult<SelectedItem<TValue>> _result;
+
+    /// <summary>
+    /// 获得 SearchLoadingIcon 图标字符串
+    /// </summary>
+    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
+    private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
     /// 当前选择项实例
