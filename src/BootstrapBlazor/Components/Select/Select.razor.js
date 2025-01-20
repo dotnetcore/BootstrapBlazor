@@ -134,7 +134,7 @@ export function dispose(id) {
     }
 }
 
-function indexOf(el, element) {
+const indexOf = (el, element) => {
     const items = el.querySelectorAll('.dropdown-item')
     return Array.prototype.indexOf.call(items, element)
 }
