@@ -13,7 +13,6 @@ namespace UnitTest.Components;
 
 public class SelectGenericTest : BootstrapBlazorTestBase
 {
-
     [Fact]
     public void ScrollIntoViewBehavior_Ok()
     {
