@@ -17,13 +17,12 @@ export function init(id, invoke, options) {
         itemsElement,
         closeButtonSelector: '.multi-select-close'
     })
-
     const ms = {
         el, invoke, options,
         itemsElement,
         closeButtonSelector: '.multi-select-close',
         search,
-        keydownEl: [search],
+        keydownEl: [search, itemsElement],
         popover
     }
 
