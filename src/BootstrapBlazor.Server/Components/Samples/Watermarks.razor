@@ -3,38 +3,38 @@
 
 <h3>@Localizer["WatermarkTitle"]</h3>
 
-<h4>@Localizer["Watermarkntro"]</h4>
+<h4>@Localizer["WatermarkIntro"]</h4>
 
 <DemoBlock Title="@Localizer["WatermarkNormalTitle"]" Introduction="@Localizer["WatermarkNormalIntro"]" Name="Normal">
     <section ignore>
         <div class="row form-inline g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="Text"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="Text" Width="76"></BootstrapInputGroupLabel>
                     <BootstrapInput @bind-Value="@_text"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="FontSize"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="FontSize" Width="76"></BootstrapInputGroupLabel>
                     <Slider @bind-Value="@_fontSize" Min="12" Max="20"></Slider>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="Color"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="Color" Width="76"></BootstrapInputGroupLabel>
                     <ColorPicker @bind-Value="@_color" IsSupportOpacity="true"></ColorPicker>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="Rotate"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="Rotate" Width="76"></BootstrapInputGroupLabel>
                     <Slider @bind-Value="@_rotate" Min="-180" Max="180"></Slider>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="Gap"></BootstrapInputGroupLabel>
+                    <BootstrapInputGroupLabel DisplayText="Gap" Width="76"></BootstrapInputGroupLabel>
                     <Slider @bind-Value="@_gap" Min="0" Max="100"></Slider>
                 </BootstrapInputGroup>
             </div>
