@@ -81,18 +81,10 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
         if (localizer != null && localizer is not JsonStringLocalizer)
         {
-            var cacheKey = $"name={name}&culture={CultureInfo.CurrentUICulture.Name}";
-            if (!_missingManifestCache.ContainsKey(cacheKey))
+            var l = localizer[name];
+            if (!l.ResourceNotFound)
             {
-                var l = localizer[name];
-                if (!l.ResourceNotFound)
-                {
-                    ret = l.Value;
-                }
-                else
-                {
-                    HandleMissingResourceItem(name);
-                }
+                ret = l.Value;
             }
         }
         return ret;
