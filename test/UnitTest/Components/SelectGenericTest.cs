@@ -13,6 +13,29 @@ namespace UnitTest.Components;
 
 public class SelectGenericTest : BootstrapBlazorTestBase
 {
+
+    [Fact]
+    public void ScrollIntoViewBehavior_Ok()
+    {
+        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem<string>>()
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
+        });
+        Assert.Contains("data-bb-scroll-behavior=\"auto\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Smooth);
+        });
+        Assert.DoesNotContain("data-bb-scroll-behavior", cut.Markup);
+    }
+
     [Fact]
     public async Task OnSearchTextChanged_Null()
     {
