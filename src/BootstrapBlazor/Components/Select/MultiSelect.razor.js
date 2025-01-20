@@ -1,8 +1,8 @@
-﻿import { debounce, isDisabled, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
+﻿import { isDisabled, getTransitionDelayDurationFromElement } from "../../modules/utility.js"
+import { registerSelect, unregisterSelect } from "../../modules/base-select.js"
 import Data from "../../modules/data.js"
 import Popover from "../../modules/base-popover.js"
 import EventHandler from "../../modules/event-handler.js"
-import Input from "../../modules/input.js"
 
 export function init(id, invoke, options) {
     const el = document.getElementById(id)
@@ -10,7 +10,7 @@ export function init(id, invoke, options) {
         return
     }
 
-    const { confirmMethodCallback, searchMethodCallback, toggleRow } = options;
+    const { toggleRow, triggerEditTag } = options;
     const search = el.querySelector(".search-text");
     const itemsElement = el.querySelector('.multi-select-items');
     const popover = Popover.init(el, {
@@ -19,10 +19,11 @@ export function init(id, invoke, options) {
     })
 
     const ms = {
-        el, invoke,
+        el, invoke, options,
         itemsElement,
         closeButtonSelector: '.multi-select-close',
         search,
+        keydownEl: [search],
         popover
     }
 
@@ -46,7 +47,7 @@ export function init(id, invoke, options) {
         }
 
         if (submit) {
-            const ret = await invoke.invokeMethodAsync('TriggerEditTag', e.target.value);
+            const ret = await invoke.invokeMethodAsync(triggerEditTag, e.target.value);
             if (ret) {
                 e.target.value = '';
             }
@@ -73,7 +74,8 @@ export function init(id, invoke, options) {
         return isDisabled(ms.popover.toggleElement)
     }
 
-    Data.set(id, ms)
+    Data.set(id, ms);
+    registerSelect(ms);
 }
 
 export function show(id) {
@@ -102,9 +104,9 @@ export function dispose(id) {
     const ms = Data.get(id)
     Data.remove(id)
 
-    const { search, popover } = ms;
+    const { popover } = ms;
     if (!popover.isPopover) {
         EventHandler.off(ms.itemsElement, 'click', ms.closeButtonSelector)
     }
-    Popover.dispose(ms.popover);
+    unregisterSelect(ms);
 }

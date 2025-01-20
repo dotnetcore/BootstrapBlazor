@@ -19,7 +19,6 @@ export function init(id, invoke, options) {
         popover
     }
     Data.set(id, select);
-
     registerSelect(select);
 }
 
