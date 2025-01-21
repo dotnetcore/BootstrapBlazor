@@ -46,11 +46,13 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
-        if (key is not string)
+        var item = factory(entry);
+
+        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
-        return factory(entry);
+        return item;
     })!;
 
     /// <summary>
