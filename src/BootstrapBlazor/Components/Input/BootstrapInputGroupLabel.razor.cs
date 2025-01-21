@@ -41,12 +41,6 @@ public partial class BootstrapInputGroupLabel
     [Parameter]
     public bool ShowRequiredMark { get; set; }
 
-    /// <summary>
-    /// 获得 InputGroup 实例
-    /// </summary>
-    [CascadingParameter]
-    protected BootstrapInputGroup? InputGroup { get; set; }
-
     private string? Required => ShowRequiredMark ? "true" : null;
 
     private bool IsInputGroupLabel => InputGroup != null;
