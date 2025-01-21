@@ -62,6 +62,7 @@
             <TableColumn @bind-Field="@context.Name" Width="100" />
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
         </TableColumns>
     </Table>
 </DemoBlock>
