@@ -36,7 +36,6 @@ internal class CacheManager : ICacheManager
     /// <param name="memoryCache"></param>
     public CacheManager(IServiceProvider provider, IMemoryCache memoryCache)
     {
-        // 为了避免依赖导致的报错，构造函数避免使用其他服务
         Provider = provider;
         Cache = memoryCache;
         Instance = this;
@@ -47,11 +46,13 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public TItem GetOrCreate<TItem>(object key, Func<ICacheEntry, TItem> factory) => Cache.GetOrCreate(key, entry =>
     {
-        if (key is not string)
+        var item = factory(entry);
+
+        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
-        return factory(entry);
+        return item;
     })!;
 
     /// <summary>
@@ -90,6 +91,10 @@ internal class CacheManager : ICacheManager
     /// <param name="key"></param>
     public void Clear(object? key)
     {
+        if (key is "BootstrapBlazor_StartTime")
+        {
+            return;
+        }
         if (key is not null)
         {
             Cache.Remove(key);
@@ -97,9 +102,6 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
-
-            var dtm = GetStartTime();
-            SetStartTime(dtm);
         }
     }
 
@@ -113,7 +115,11 @@ internal class CacheManager : ICacheManager
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", _ => startDateTimeOffset);
+        GetOrCreate("BootstrapBlazor_StartTime", entry =>
+        {
+            entry.Priority = CacheItemPriority.NeverRemove;
+            return startDateTimeOffset;
+        });
     }
 
     /// <summary>
@@ -470,7 +476,15 @@ internal class CacheManager : ICacheManager
         {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
-            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile());
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                if (type.Assembly.IsDynamic)
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                }
+
+                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
+            });
             return invoker(model);
         }
     }
@@ -488,14 +502,16 @@ internal class CacheManager : ICacheManager
         }
         else
         {
-            SetValue();
-        }
-
-        void SetValue()
-        {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
-            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile());
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                if (type.Assembly.IsDynamic)
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                }
+                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
+            });
             invoker(model, value);
         }
     }
