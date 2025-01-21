@@ -41,7 +41,7 @@ public class CacheManagerTest : BootstrapBlazorTestBase
 
         var v2 = cache.GetStartTime();
         Assert.Equal(DateTimeOffset.MinValue, v2);
-        Assert.Single(Cache.Keys);
+        Assert.Empty(Cache.Keys);
     }
 
     [Fact]
