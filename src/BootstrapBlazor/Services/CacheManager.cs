@@ -475,7 +475,15 @@ internal class CacheManager : ICacheManager
         {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
-            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile());
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                if (type.Assembly.IsDynamic)
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                }
+
+                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
+            });
             return invoker(model);
         }
     }
@@ -493,14 +501,16 @@ internal class CacheManager : ICacheManager
         }
         else
         {
-            SetValue();
-        }
-
-        void SetValue()
-        {
             var type = model.GetType();
             var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
-            var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile());
+            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            {
+                if (type.Assembly.IsDynamic)
+                {
+                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                }
+                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
+            });
             invoker(model, value);
         }
     }
