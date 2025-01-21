@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits DisplayBase<string>
 
-@if (IsInnerLabel)
+@if (IsInputGroupLabel)
 {
-    <div @attributes="@AdditionalAttributes" class="@ClassString" required="@Required" style="@StyleString">
+    <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" required="@Required">
         <span>@DisplayText</span>
     </div>
 }
 else
 {
-    <label @attributes="@AdditionalAttributes" class="@ClassString" required="@Required">@DisplayText</label>
+    <label @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" required="@Required">@DisplayText</label>
 }
