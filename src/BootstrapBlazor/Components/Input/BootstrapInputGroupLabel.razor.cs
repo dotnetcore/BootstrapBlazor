@@ -19,9 +19,9 @@ public partial class BootstrapInputGroupLabel
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-    .AddClass($"--bb-input-group-label-width: {Width}px;", Width.HasValue)
-    .AddClassFromAttributes(AdditionalAttributes)
-    .Build();
+        .AddClass($"--bb-input-group-label-width: {Width}px;", Width.HasValue)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private bool IsInnerLabel { get; set; }
 
