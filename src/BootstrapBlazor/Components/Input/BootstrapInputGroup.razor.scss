@@ -61,14 +61,23 @@
 
     > .form-check {
         --bb-form-check-padding: 0.375rem 0.75rem;
+        display: flex;
+        align-items: center;
+        padding: var(--bb-form-check-padding);
+    }
+
+    > .form-range {
+        --bb-form-range-padding: 0.375rem 0.75rem;
+        height: var(--bb-height);
+        padding: var(--bb-form-range-padding);
+    }
+
+    > .form-check, .form-range {
         border: 1px solid var(--bs-border-color);
         border-radius: var(--bs-border-radius);
         flex-grow: 1;
         width: 1%;
         min-width: 0;
-        display: flex;
-        align-items: center;
-        padding: var(--bb-form-check-padding);
 
         &:hover {
             border: 1px solid var(--bb-border-hover-color);
