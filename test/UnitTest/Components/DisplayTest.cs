@@ -191,7 +191,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Bind_Ok()
     {
-        var foo = new Foo();
+        var foo = new Foo() { Name = "test-name" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
@@ -201,21 +201,21 @@ public class DisplayTest : BootstrapBlazorTestBase
                 {
                     builder.OpenComponent<Display<string>>(0);
                     builder.AddAttribute(1, "Value", foo.Name);
-                    builder.AddAttribute(2, "ValueExpression",
-                        Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(2, "ValueExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
 
                     builder.OpenComponent<BootstrapInputGroupLabel>(3);
                     builder.AddAttribute(4, "Value", "Name");
-                    builder.AddAttribute(5, "ValueExpression",
-                        Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(5, "ValueExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<BootstrapInputGroupLabel>(3);
+                    builder.AddAttribute(6, "Value", "Name");
                     builder.CloseComponent();
                 });
             });
         });
-        Assert.Contains("is-display", cut.Markup);
-        Assert.Contains("input-group-text", cut.Markup);
-        Assert.DoesNotContain("<span>姓名</span>", cut.Markup);
+        Assert.Contains("<div class=\"input-group\"><div class=\"form-control is-display\">test-name</div><div class=\"input-group-text\"><span>姓名</span></div><div class=\"input-group-text\"><span></span></div></div>", cut.Markup);
     }
 
     [Fact]
