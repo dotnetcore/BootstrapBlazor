@@ -58,6 +58,22 @@
     > .form-label {
         display: none;
     }
+
+    > .form-check {
+        --bb-form-check-padding: 0.375rem 0.75rem;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        flex-grow: 1;
+        width: 1%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        padding: var(--bb-form-check-padding);
+
+        &:hover {
+            border: 1px solid var(--bb-border-hover-color);
+        }
+    }
 }
 
 .input-group-xs {
