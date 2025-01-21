@@ -7,18 +7,5 @@
 {
     <BootstrapLabel Value="@DisplayText" ShowLabelTooltip="ShowLabelTooltip" for="@Id" />
 }
-@if (InputGroup == null)
-{
-    @RenderRange
-}
-else
-{
-    <div class="form-control range-group">
-        @RenderRange
-    </div>
-}
 
-@code {
-    RenderFragment RenderRange =>
-    @<input type="range" id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@EventString" step="@StepString" min="@MinString" max="@MaxString" @onblur="OnBlur">;
-}
+<input @attributes="@AdditionalAttributes" type="range" id="@Id" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@EventString" step="@StepString" min="@MinString" max="@MaxString" @onblur="OnBlur">
