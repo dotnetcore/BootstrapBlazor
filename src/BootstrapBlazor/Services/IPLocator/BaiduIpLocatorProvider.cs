@@ -29,6 +29,7 @@ public class BaiduIpLocatorProvider(IHttpClientFactory httpClientFactory, IOptio
             using var token = new CancellationTokenSource(3000);
             ret = await Fetch(url, _client, token.Token);
         }
+        catch (TaskCanceledException) { }
         catch (Exception ex)
         {
             logger.LogError(ex, "Url: {url}", url);
