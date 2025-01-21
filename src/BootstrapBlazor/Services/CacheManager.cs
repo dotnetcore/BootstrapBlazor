@@ -91,6 +91,10 @@ internal class CacheManager : ICacheManager
     /// <param name="key"></param>
     public void Clear(object? key)
     {
+        if (key is "BootstrapBlazor_StartTime")
+        {
+            return;
+        }
         if (key is not null)
         {
             Cache.Remove(key);
@@ -98,9 +102,6 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
-
-            var dtm = GetStartTime();
-            SetStartTime(dtm);
         }
     }
 
