@@ -95,12 +95,6 @@ public sealed partial class Menus
         DynamicSideMenuItems = await MenusDataGenerator.GetSideMenuItemsAsync(Localizer);
     }
 
-    private Task OnClick2(MenuItem item)
-    {
-        DisabledLogger.Log($"菜单点击项: {item.Text}");
-        return Task.CompletedTask;
-    }
-
     private AttributeItem[] GetAttributes() =>
     [
         new()
