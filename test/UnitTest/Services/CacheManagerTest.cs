@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace UnitTest.Services;
 
 public class CacheManagerTest : BootstrapBlazorTestBase
@@ -14,18 +16,31 @@ public class CacheManagerTest : BootstrapBlazorTestBase
         var v = Cache.GetStartTime();
         Assert.Equal(DateTimeOffset.MinValue, v);
 
-        Cache.GetOrCreate("BootstrapBlazor_StartTime", entry =>
-        {
-            return 10;
-        });
-        var v1 = Cache.GetStartTime();
-        Assert.Equal(DateTimeOffset.MinValue, v);
-
-        Cache.Clear("BootstrapBlazor_StartTime");
         Cache.SetStartTime();
-        Assert.True(DateTime.Now > Cache.GetStartTime());
-
         Assert.Equal(1, Cache.Count);
+        Cache.Clear("BootstrapBlazor_StartTime");
+        Assert.Equal(1, Cache.Count);
+
+        Cache.Clear();
+        Assert.Equal(1, Cache.Count);
+        Assert.NotEqual(DateTimeOffset.MinValue, Cache.GetStartTime());
+    }
+
+    [Fact]
+    public void GetStartTime_Number()
+    {
+        var context = new TestContext();
+        context.Services.AddBootstrapBlazor();
+        var cache = context.Services.GetRequiredService<ICacheManager>();
+
+        var v = cache.GetOrCreate("BootstrapBlazor_StartTime", entry =>
+        {
+            return 1;
+        });
+        Assert.Equal(1, v);
+
+        var v2 = cache.GetStartTime();
+        Assert.Equal(DateTimeOffset.MinValue, v2);
         Assert.Single(Cache.Keys);
     }
 
@@ -90,6 +105,7 @@ public class CacheManagerTest : BootstrapBlazorTestBase
 
         int GetOrCreate(string key) => Cache.GetOrCreate<int>(key, entry =>
         {
+            entry.SlidingExpiration = TimeSpan.FromSeconds(1);
             val++;
             return val;
         });
@@ -108,6 +124,7 @@ public class CacheManagerTest : BootstrapBlazorTestBase
 
         int GetOrCreate(string key) => Cache.GetOrCreate<int>(key, entry =>
         {
+            entry.AbsoluteExpiration = DateTimeOffset.Now.AddSeconds(1);
             val++;
             return val;
         });
