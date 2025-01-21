@@ -11,56 +11,56 @@
         <div class="row g-3">
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="CurrentValue" />
-                    <BootstrapInput @bind-Value="@CurrentValue" />
+                    <BootstrapInputGroupLabel DisplayText="CurrentValue"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@CurrentValue"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="MinValue" />
-                    <BootstrapInput @bind-Value="@MinValue" />
+                    <BootstrapInputGroupLabel DisplayText="MinValue"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@MinValue"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="MaxValue" />
-                    <BootstrapInput @bind-Value="@MaxValue" />
+                    <BootstrapInputGroupLabel DisplayText="MaxValue"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@MaxValue"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="DisplayText" />
-                    <BootstrapInput @bind-Value="@DisplayText" />
+                    <BootstrapInputGroupLabel DisplayText="DisplayText"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@DisplayText"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="Step" />
-                    <BootstrapInput @bind-Value="@Step" />
+                    <BootstrapInputGroupLabel DisplayText="Step"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@Step"></BootstrapInput>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IsDisabled" />
-                    <Checkbox @bind-Value="@IsDisabled" />
+                    <BootstrapInputGroupLabel DisplayText="IsDisabled"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@IsDisabled"></Checkbox>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="UseInput" />
-                    <Checkbox @bind-Value="@UseInput" />
+                    <BootstrapInputGroupLabel DisplayText="UseInput"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@UseInput"></Checkbox>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="ShowLabel" />
-                    <Checkbox @bind-Value="@ShowLabel" />
+                    <BootstrapInputGroupLabel DisplayText="ShowLabel"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@ShowLabel"></Checkbox>
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-md-6 col-lg-4 xl-3">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="UseGroup" />
-                    <Checkbox @bind-Value="@UseGroup" />
+                    <BootstrapInputGroupLabel DisplayText="UseGroup"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@UseGroup"></Checkbox>
                 </BootstrapInputGroup>
             </div>
         </div>
@@ -68,7 +68,7 @@
     @if (UseGroup)
     {
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="@DisplayText" />
+            <BootstrapInputGroupLabel DisplayText="@DisplayText" Width="100"></BootstrapInputGroupLabel>
             <Slider @bind-Value="@CurrentValue" Max="MaxValue" Min="MinValue" Step="Step" UseInputEvent="UseInput"
                     DisplayText="@DisplayText" ShowLabel="ShowLabel" IsDisabled="IsDisabled" OnValueChanged="OnRangeSliderValueChanged"></Slider>
         </BootstrapInputGroup>
@@ -79,7 +79,7 @@
                 DisplayText="@DisplayText" ShowLabel="ShowLabel" IsDisabled="IsDisabled" OnValueChanged="OnRangeSliderValueChanged"></Slider>
     }
     <section ignore>
-        <ConsoleLogger @ref="Logger" />
+        <ConsoleLogger @ref="Logger"></ConsoleLogger>
     </section>
 </DemoBlock>
 
@@ -102,6 +102,6 @@
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
 
-<EventTable Items="@GetEvents()" />
+<EventTable Items="@GetEvents()"></EventTable>

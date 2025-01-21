@@ -11,8 +11,8 @@ namespace BootstrapBlazor.Components;
 public partial class BootstrapInputGroupLabel
 {
     private string? ClassString => CssBuilder.Default()
-        .AddClass("input-group-text", IsInnerLabel)
-        .AddClass("form-label", !IsInnerLabel)
+        .AddClass("input-group-text", IsInputGroupLabel)
+        .AddClass("form-label", !IsInputGroupLabel)
         .AddClass("justify-content-center", Alignment == Alignment.Center)
         .AddClass("justify-content-end", Alignment == Alignment.Right)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -22,8 +22,6 @@ public partial class BootstrapInputGroupLabel
         .AddClass($"--bb-input-group-label-width: {Width}px;", Width.HasValue)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    private bool IsInnerLabel { get; set; }
 
     /// <summary>
     /// 获得/设置 标签宽度 默认 null 未设置自动适应
@@ -45,6 +43,8 @@ public partial class BootstrapInputGroupLabel
 
     private string? Required => ShowRequiredMark ? "true" : null;
 
+    private bool IsInputGroupLabel => InputGroup != null;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -52,9 +52,7 @@ public partial class BootstrapInputGroupLabel
     {
         base.OnParametersSet();
 
-        IsInnerLabel = InputGroup != null;
-
-        if (IsInnerLabel)
+        if (IsInputGroupLabel)
         {
             DisplayText ??= FieldIdentifier?.GetDisplayName();
         }
