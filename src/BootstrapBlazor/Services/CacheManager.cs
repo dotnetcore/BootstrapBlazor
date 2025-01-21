@@ -114,7 +114,11 @@ internal class CacheManager : ICacheManager
     /// </summary>
     private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", _ => startDateTimeOffset);
+        GetOrCreate("BootstrapBlazor_StartTime", entry =>
+        {
+            entry.Priority = CacheItemPriority.NeverRemove;
+            return startDateTimeOffset;
+        });
     }
 
     /// <summary>
