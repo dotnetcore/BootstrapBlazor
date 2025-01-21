@@ -87,12 +87,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     protected IShowLabel? EditorForm { get; set; }
 
     /// <summary>
-    /// 获得 InputGroup 实例
-    /// </summary>
-    [CascadingParameter]
-    protected BootstrapInputGroup? InputGroup { get; set; }
-
-    /// <summary>
     /// 获得 IFilter 实例
     /// </summary>
     [CascadingParameter]
@@ -133,7 +127,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
         {
             IsShowLabel = false;
         }
-        else if (InputGroup == null)
+        else
         {
             // 如果被 InputGroup 包裹不显示 Label
             // 组件自身未设置 ShowLabel 取 EditorForm/ValidateForm 级联值
@@ -141,12 +135,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
             {
                 showLabel = EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? true;
             }
-
             IsShowLabel = showLabel ?? false;
-        }
-        else
-        {
-            IsShowLabel = showLabel ?? EditorForm?.ShowLabel ?? ValidateForm?.ShowLabel ?? false;
         }
 
         // 设置显示标签时未提供 DisplayText 通过双向绑定获取 DisplayName
