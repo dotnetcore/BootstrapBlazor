@@ -53,5 +53,10 @@ public partial class BootstrapInputGroupLabel
         base.OnParametersSet();
 
         IsInnerLabel = InputGroup != null;
+
+        if (IsInnerLabel)
+        {
+            DisplayText ??= FieldIdentifier?.GetDisplayName();
+        }
     }
 }
