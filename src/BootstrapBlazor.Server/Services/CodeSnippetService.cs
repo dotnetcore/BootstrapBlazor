@@ -4,53 +4,23 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Options;
-using System.Collections.Frozen;
+using System.Globalization;
 
 namespace BootstrapBlazor.Server.Services;
 
-class CodeSnippetService
+/// <summary>
+/// 构造方法
+/// </summary>
+/// <param name="factory"></param>
+/// <param name="cacheManager"></param>
+/// <param name="options"></param>
+/// <param name="localizerOptions"></param>
+class CodeSnippetService(
+    IHttpClientFactory factory,
+    ICacheManager cacheManager,
+    IOptions<WebsiteOptions> options,
+    IOptions<JsonLocalizationOptions> localizerOptions)
 {
-    private IHttpClientFactory Factory { get; set; }
-
-    private string ServerUrl { get; set; }
-
-    private string SourceCodePath { get; set; }
-
-    private FrozenDictionary<string, string?> SourceCodes { get; set; }
-
-    private bool IsDevelopment { get; }
-
-    private string ContentRootPath { get; }
-
-    private ICacheManager CacheManager { get; set; }
-
-    private JsonLocalizationOptions LocalizerOptions { get; }
-
-    /// <summary>
-    /// 构造方法
-    /// </summary>
-    /// <param name="factory"></param>
-    /// <param name="cacheManager"></param>
-    /// <param name="options"></param>
-    /// <param name="localizerOptions"></param>
-    public CodeSnippetService(
-        IHttpClientFactory factory,
-        ICacheManager cacheManager,
-        IOptionsMonitor<WebsiteOptions> options,
-        IOptionsMonitor<JsonLocalizationOptions> localizerOptions)
-    {
-        LocalizerOptions = localizerOptions.CurrentValue;
-
-        CacheManager = cacheManager;
-        Factory = factory;
-
-        IsDevelopment = options.CurrentValue.IsDevelopment;
-        ContentRootPath = options.CurrentValue.ContentRootPath;
-        ServerUrl = options.CurrentValue.ServerUrl;
-        SourceCodes = options.CurrentValue.SourceCodes;
-        SourceCodePath = options.CurrentValue.SourceCodePath;
-    }
-
     /// <summary>
     /// 获得示例源码方法
     /// </summary>
@@ -63,14 +33,16 @@ class CodeSnippetService
             // codeFile = ajax.razor.cs
             var segs = codeFile.Split('.');
             var key = segs[0];
-            var typeName = SourceCodes.TryGetValue(key.ToLowerInvariant(), out var value) ? value : string.Empty;
+            var typeName = options.Value.SourceCodes.TryGetValue(key.ToLowerInvariant(), out var value) ? value : string.Empty;
             if (!string.IsNullOrEmpty(typeName))
             {
                 var fileName = codeFile.Replace(key, typeName);
                 content = await GetFileContentAsync(fileName);
 
                 // 源码修正
-                CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => content = ReplacePayload(content, l));
+                var type = typeName.Replace('\\', '.');
+                Utility.GetJsonStringByTypeName(localizerOptions.Value, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Server.Components.Samples.{type}").ToList()
+                    .ForEach(l => content = ReplacePayload(content, l));
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
             }
@@ -93,15 +65,20 @@ class CodeSnippetService
         string? payload;
         if (OperatingSystem.IsBrowser())
         {
-            var client = Factory.CreateClient();
+            var client = factory.CreateClient();
             client.Timeout = TimeSpan.FromSeconds(5);
-            client.BaseAddress = new Uri($"{ServerUrl}/api/");
+            client.BaseAddress = new Uri($"{options.Value.ServerUrl}/api/");
             payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Server/Components/Samples/{fileName}");
         }
         else
         {
             // 读取硬盘文件
-            payload = await CacheManager.GetContentFromFileAsync(fileName, _ => ReadFileAsync(fileName));
+            var key = $"{nameof(GetFileContentAsync)}-{fileName}-{CultureInfo.CurrentUICulture.Name}";
+            payload = await cacheManager.GetOrCreateAsync(key, entry =>
+            {
+                entry.SlidingExpiration = TimeSpan.FromMinutes(10);
+                return ReadFileAsync(fileName);
+            });
         }
         return payload;
     }
@@ -109,9 +86,9 @@ class CodeSnippetService
     private async Task<string> ReadFileAsync(string fileName)
     {
         string? payload;
-        var file = IsDevelopment
-            ? $"{ContentRootPath}\\..\\BootstrapBlazor.Server\\Components\\Samples\\{fileName}"
-            : $"{SourceCodePath}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
+        var file = options.Value.IsDevelopment
+            ? $"{options.Value.ContentRootPath}\\..\\BootstrapBlazor.Server\\Components\\Samples\\{fileName}"
+            : $"{options.Value.SourceCodePath}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
         if (!OperatingSystem.IsWindows())
         {
             file = file.Replace('\\', '/');
