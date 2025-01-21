@@ -215,7 +215,7 @@ public class DisplayTest : BootstrapBlazorTestBase
                 });
             });
         });
-        Assert.Contains("<div class=\"input-group\"><label class=\"form-label is-display\">姓名</label><div class=\"form-control is-display\">test-name</div><div class=\"input-group-text\"><span>姓名</span></div><div class=\"input-group-text\"><span></span></div></div>", cut.Markup);
+        Assert.Contains("<div class=\"input-group\"><div class=\"form-control is-display\">test-name</div><div class=\"input-group-text\"><span>姓名</span></div><div class=\"input-group-text\"><span></span></div></div>", cut.Markup);
     }
 
     [Fact]
