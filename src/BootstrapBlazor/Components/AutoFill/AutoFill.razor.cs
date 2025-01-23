@@ -107,6 +107,8 @@ public partial class AutoFill<TValue>
 
     private string? _displayText;
 
+    private List<TValue> Rows => FilterItems ?? Items.ToList();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -122,7 +124,7 @@ public partial class AutoFill<TValue>
         OnGetDisplayText ??= v => v?.ToString();
         _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
-        FilterItems ??= Items?.ToList() ?? [];
+        Items ??= [];
     }
 
     /// <summary>
@@ -140,31 +142,46 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// TriggerOnChange 方法
+    /// TriggerFilter 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public async Task TriggerFilter(string val)
     {
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
             FilterItems = items.ToList();
         }
+        else if (string.IsNullOrEmpty(val))
+        {
+            FilterItems = Items.ToList();
+        }
         else
         {
-            var comparisionType = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            FilterItems = IsLikeMatch
-                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparisionType) ?? false).ToList()
-                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparisionType) ?? false).ToList();
+            var comparision = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var items = IsLikeMatch
+                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparision) ?? false)
+                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparision) ?? false);
+            FilterItems = items.ToList();
         }
 
         if (DisplayCount != null)
         {
             FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
         }
+        StateHasChanged();
+    }
 
+    /// <summary>
+    /// TriggerOnChange 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public Task TriggerChange(string val)
+    {
         _displayText = val;
         StateHasChanged();
+        return Task.CompletedTask;
     }
 }
