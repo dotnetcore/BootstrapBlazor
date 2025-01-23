@@ -44,6 +44,7 @@ public static class JSModuleExtensions
             throw;
 #endif
         }
+        catch (OperationCanceledException) { }
         return new JSModule(jSObjectReference);
     }
 
