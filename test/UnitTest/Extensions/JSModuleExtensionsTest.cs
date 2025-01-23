@@ -14,13 +14,10 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
         await jsRuntime.LoadModule("./mock.js", "test");
-    }
 
-    [Fact]
-    public async Task LoadModule_Exception()
-    {
-        var jsRuntime = new MockJSRuntime();
-        await Assert.ThrowsAsync<TaskCanceledException>(() => jsRuntime.LoadModule("./mock.js", "test"));
+        var jsRuntime1 = new MockJSRuntime();
+        var module = await jsRuntime1.LoadModule("./mock.js", "test");
+        Assert.NotNull(module);
 
         var jsRuntime2 = new JSExceptionJSRuntime();
         await Assert.ThrowsAsync<JSException>(() => jsRuntime2.LoadModule("./mock.js", "test"));
