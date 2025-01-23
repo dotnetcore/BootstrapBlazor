@@ -45,7 +45,6 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-    [EditorRequired]
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
