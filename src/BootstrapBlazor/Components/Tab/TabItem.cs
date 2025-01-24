@@ -113,7 +113,13 @@ public class TabItem : ComponentBase
     /// 设置是否被选中方法
     /// </summary>
     /// <param name="active"></param>
-    public virtual void SetActive(bool active) => IsActive = active;
+    public void SetActive(bool active) => IsActive = active;
+
+    /// <summary>
+    /// 设置是否被禁用
+    /// </summary>
+    /// <param name="disabled"></param>
+    public void SetDisabled(bool disabled) => IsDisabled = disabled;
 
     /// <summary>
     /// 重新设置标签文字等参数
