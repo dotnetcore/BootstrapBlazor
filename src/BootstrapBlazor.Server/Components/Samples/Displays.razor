@@ -83,19 +83,24 @@
 
 <DemoBlock Title="@Localizer["FormatStringTitle"]" Introduction="@Localizer["FormatStringIntro"]" Name="FormatString">
     <section ignore>
-        <div class="row g-3">
-            <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
-            <div class="col-12 col-sm-6">
-                <Display Value="DateTime.Now" FormatString="yyyy-MM-dd" />
-            </div>
-            <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
-            <div class="col-12 col-sm-6">
-                <Display Value="DateTime.Now" FormatterAsync="@DateTimeFormatter" />
-            </div>
-        </div>
+        @{
+            var v = 1.02145f;
+        }
         <p class="mt-3">@((MarkupString)Localizer["FormatStringP"].Value)</p>
     </section>
     <div class="row g-3">
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="DateTime.Now" FormatString="yyyy-MM-dd" />
+        </div>
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@v" FormatString="#.##" />
+        </div>
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="DateTime.Now" FormatterAsync="@DateTimeFormatter" />
+        </div>
         <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
         <div class="col-12 col-sm-6">
             <Display Value="@ByteArray" FormatterAsync="@ByteArrayFormatter" />
