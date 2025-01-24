@@ -681,6 +681,11 @@ public partial class Tab : IHandlerException
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
+        if(item.IsDisabled)
+        {
+            return;
+        }
+
         Options.Reset();
 
         if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
