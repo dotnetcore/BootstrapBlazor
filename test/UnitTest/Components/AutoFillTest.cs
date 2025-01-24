@@ -84,10 +84,9 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 return Task.FromResult(items.AsEnumerable());
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         Assert.True(filtered);
     }
-
 
     [Fact]
     public void SkipEnter_Ok()
@@ -172,13 +171,13 @@ public class AutoFillTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnGetDisplayText, null!);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsLikeMatch, true);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
     }
 
     [Fact]
@@ -192,7 +191,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnGetDisplayText, foo => foo.Name);
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         var menus = cut.FindAll(".dropdown-item");
         Assert.Equal(4, menus.Count);
 
@@ -200,7 +199,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.DisplayCount, 2);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
 
@@ -209,7 +208,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.IgnoreCase, false);
             pb.Add(a => a.DisplayCount, null);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
     }
@@ -225,7 +224,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnGetDisplayText, foo => foo.Name);
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         var menus = cut.FindAll(".dropdown-item");
         Assert.Equal(4, menus.Count);
 
@@ -233,7 +232,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.DisplayCount, 2);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(2, menus.Count);
 
@@ -242,7 +241,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsLikeMatch, true);
             pb.Add(a => a.DisplayCount, null);
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("a"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("a"));
         menus = cut.FindAll(".dropdown-item");
         Assert.Equal(4, menus.Count);
     }
