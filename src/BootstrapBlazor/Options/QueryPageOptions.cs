@@ -128,5 +128,5 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 是否为刷新分页查询 默认 false 
     /// </summary>
-    public bool TriggerByPagination { get; set; }
+    public bool IsTriggerByPagination { get; set; }
 }
