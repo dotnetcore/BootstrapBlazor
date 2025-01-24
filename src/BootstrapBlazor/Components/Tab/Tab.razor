@@ -42,6 +42,16 @@ else
                                 {
                                     @item.HeaderTemplate(item)
                                 }
+                                else if (item.IsDisabled)
+                                {
+                                    <div role="tab" class="@GetClassString(item)">
+                                        @if (!string.IsNullOrEmpty(item.Icon))
+                                        {
+                                            <i class="@GetIconClassString(item.Icon)"></i>
+                                        }
+                                        <span class="tabs-item-text">@item.Text</span>
+                                    </div>
+                                }
                                 else
                                 {
                                     <a @key="item" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">

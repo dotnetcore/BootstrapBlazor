@@ -417,11 +417,6 @@ public partial class Tab : IHandlerException
     /// </summary>
     private async Task OnClickTabItem(TabItem item)
     {
-        if (item.IsDisabled)
-        {
-            return;
-        }
-
         if (OnClickTabItemAsync != null)
         {
             await OnClickTabItemAsync(item);
@@ -681,11 +676,6 @@ public partial class Tab : IHandlerException
     /// <param name="item"></param>
     public async Task RemoveTab(TabItem item)
     {
-        if(item.IsDisabled)
-        {
-            return;
-        }
-
         Options.Reset();
 
         if (OnCloseTabItemAsync != null && !await OnCloseTabItemAsync(item))
