@@ -19,6 +19,8 @@ public partial class AutoFill<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private List<TValue>? _filterItems;
+
     /// <summary>
     /// 获得/设置 组件数据集合
     /// </summary>
@@ -101,10 +103,7 @@ public partial class AutoFill<TValue>
 
     private string? _displayText;
 
-    /// <summary>
-    /// 获得 最终搜索数据源
-    /// </summary>
-    private List<TValue>? _filterItems = null;
+    private List<TValue> Rows => _filterItems ?? Items.ToList();
 
     /// <summary>
     /// <inheritdoc/>
@@ -122,7 +121,6 @@ public partial class AutoFill<TValue>
         _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
         Items ??= [];
-        _filterItems ??= [];
     }
 
     /// <summary>
