@@ -87,9 +87,6 @@ public partial class AutoComplete
     /// </summary>
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
-    /// <summary>
-    /// 获得/设置 UI 呈现数据集合
-    /// </summary>
     private List<string>? _filterItems;
 
     /// <summary>
@@ -109,12 +106,12 @@ public partial class AutoComplete
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
-        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        _filterItems ??= Items?.ToList() ?? [];
+        Items ??= [];
     }
 
     /// <summary>
@@ -128,6 +125,8 @@ public partial class AutoComplete
             await OnSelectedItemChanged(val);
         }
     }
+
+    private List<string> Rows => _filterItems ?? Items.ToList();
 
     /// <summary>
     /// TriggerFilter 方法
