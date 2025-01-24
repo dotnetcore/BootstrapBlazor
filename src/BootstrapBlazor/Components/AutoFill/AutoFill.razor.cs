@@ -103,8 +103,6 @@ public partial class AutoFill<TValue>
 
     private string? _displayText;
 
-    private List<TValue> Rows => _filterItems ?? Items.ToList();
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -120,7 +118,7 @@ public partial class AutoFill<TValue>
         OnGetDisplayText ??= v => v?.ToString();
         _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
-        Items ??= [];
+        _filterItems ??= Items?.ToList() ?? [];
     }
 
     /// <summary>
