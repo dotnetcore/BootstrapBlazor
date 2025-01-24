@@ -1083,7 +1083,7 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     isQuery = true;
                     isFirstQuery = option.IsFirstQuery;
-                    triggerByPagination = option.TriggerByPagination;
+                    triggerByPagination = option.IsTriggerByPagination;
                     return Task.FromResult(new QueryData<Foo>()
                     {
                         Items = Array.Empty<Foo>(),
