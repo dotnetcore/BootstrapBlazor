@@ -33,6 +33,8 @@ public sealed partial class Tabs
 
     private string TabItemText { get; set; } = "Test";
 
+    private bool Disabled { get; set; }
+
     private void SetPlacement(Placement placement)
     {
         BindPlacement = placement;
@@ -68,6 +70,11 @@ public sealed partial class Tabs
             var item = tabset.Items.Last();
             await tabset.RemoveTab(item);
         }
+    }
+
+    private void OnToggleDisable()
+    {
+        Disabled = !Disabled;
     }
 
     /// <summary>
