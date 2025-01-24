@@ -90,7 +90,8 @@ public partial class AutoComplete
     /// <summary>
     /// 获得/设置 UI 呈现数据集合
     /// </summary>
-    private List<string>? _filterItems { get; set; }
+    [NotNull]
+    private List<string>? FilterItems { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -109,13 +110,12 @@ public partial class AutoComplete
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
 
         Items ??= [];
-        _filterItems ??= [];
     }
 
     /// <summary>
@@ -130,6 +130,8 @@ public partial class AutoComplete
         }
     }
 
+    private List<string> Rows => FilterItems ?? Items.ToList();
+
     /// <summary>
     /// TriggerFilter 方法
     /// </summary>
@@ -140,11 +142,11 @@ public partial class AutoComplete
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _filterItems = items.ToList();
+            FilterItems = items.ToList();
         }
         else if (string.IsNullOrEmpty(val))
         {
-            _filterItems = Items.ToList();
+            FilterItems = Items.ToList();
         }
         else
         {
@@ -152,12 +154,12 @@ public partial class AutoComplete
             var items = IsLikeMatch
                 ? Items.Where(s => s.Contains(val, comparison))
                 : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = items.ToList();
+            FilterItems = items.ToList();
         }
 
         if (DisplayCount != null)
         {
-            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
+            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
         }
         StateHasChanged();
     }
