@@ -118,7 +118,7 @@ public partial class AutoFill<TValue>
         OnGetDisplayText ??= v => v?.ToString();
         _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
-        _filterItems ??= Items?.ToList() ?? [];
+        Items ??= [];
     }
 
     /// <summary>
@@ -134,6 +134,8 @@ public partial class AutoFill<TValue>
             await OnSelectedItemChanged(val);
         }
     }
+
+    private List<TValue> Rows => _filterItems ?? Items.ToList();
 
     /// <summary>
     /// TriggerFilter 方法
