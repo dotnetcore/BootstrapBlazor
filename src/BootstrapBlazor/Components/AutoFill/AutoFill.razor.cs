@@ -115,9 +115,7 @@ public partial class AutoFill<TValue>
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        OnGetDisplayText ??= v => v?.ToString();
-        _displayText = Value is null ? "" : OnGetDisplayText(Value);
-
+        _displayText = GetDisplayText(Value);
         Items ??= [];
     }
 
@@ -127,13 +125,15 @@ public partial class AutoFill<TValue>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
-        _displayText = OnGetDisplayText(val);
+        _displayText = GetDisplayText(val);
 
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
         }
     }
+
+    private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
 
     private List<TValue> Rows => _filterItems ?? Items.ToList();
 
@@ -157,8 +157,8 @@ public partial class AutoFill<TValue>
         {
             var comparision = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
             var items = IsLikeMatch
-                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparision) ?? false)
-                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparision) ?? false);
+                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
+                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
             _filterItems = items.ToList();
         }
 
