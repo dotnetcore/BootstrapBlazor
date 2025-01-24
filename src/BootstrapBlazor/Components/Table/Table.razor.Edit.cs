@@ -458,7 +458,7 @@ public partial class Table<TItem>
         {
             var queryOption = BuildQueryPageOptions();
             // 是否为分页查询
-            queryOption.TriggerByPagination = triggerByPagination;
+            queryOption.IsTriggerByPagination = triggerByPagination;
             // 设置是否为首次查询
             queryOption.IsFirstQuery = _firstQuery;
 
