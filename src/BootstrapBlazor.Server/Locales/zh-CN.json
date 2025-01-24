@@ -1773,6 +1773,8 @@
     "IsFixedButtonTextIntro": "通过设置 <code>IsFixedButtonText</code> 使更改下拉选项时按钮文本不变",
     "FixedButtonTextTitle": "设置固定按钮文字",
     "FixedButtonTextIntro": "通过设置 <code>FixedButtonText</code> 来设置固定按钮的初始文字",
+    "ButtonTemplateTitle": "按钮模板",
+    "ButtonTemplateIntro": "通过设置 <code>ButtonTemlate</code> 可以自定义显示内容",
     "AttributeValue": "当前选中的值",
     "AttributeClass": "样式",
     "AttributeColor": "颜色",

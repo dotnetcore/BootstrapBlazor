@@ -1773,6 +1773,8 @@
     "IsFixedButtonTextIntro": "Set <code>IsFixedButtonText</code> to <b>true</b> make the ButtonText to const",
     "FixedButtonTextTitle": "Set the fixed button text",
     "FixedButtonTextIntro": "Set the <code>FixedButtonText</code> value for fixed button text",
+    "ButtonTemplateTitle": "Button Template",
+    "ButtonTemplateIntro": "You can customize the displayed content by setting <code>ButtonTemlate</code>",
     "AttributeValue": "Currently selected value",
     "AttributeClass": "Style",
     "AttributeColor": "Color",
