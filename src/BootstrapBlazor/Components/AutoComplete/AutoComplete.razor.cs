@@ -115,7 +115,7 @@ public partial class AutoComplete
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
         Items ??= [];
-        _filterItems ??= [];
+        _filterItems = Items;
     }
 
     /// <summary>

@@ -20,12 +20,6 @@ public partial class AutoFill<TValue>
         .Build();
 
     /// <summary>
-    /// 获得 最终候选数据源
-    /// </summary>
-    [NotNull]
-    private List<TValue>? FilterItems { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件数据集合
     /// </summary>
     [Parameter]
@@ -107,7 +101,10 @@ public partial class AutoFill<TValue>
 
     private string? _displayText;
 
-    private List<TValue> Rows => FilterItems ?? Items.ToList();
+    /// <summary>
+    /// 获得 最终搜索数据源
+    /// </summary>
+    private List<TValue>? _filterItems = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -125,6 +122,7 @@ public partial class AutoFill<TValue>
         _displayText = Value is null ? "" : OnGetDisplayText(Value);
 
         Items ??= [];
+        _filterItems ??= [];
     }
 
     /// <summary>
@@ -151,11 +149,11 @@ public partial class AutoFill<TValue>
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            FilterItems = items.ToList();
+            _filterItems = items.ToList();
         }
         else if (string.IsNullOrEmpty(val))
         {
-            FilterItems = Items.ToList();
+            _filterItems = Items.ToList();
         }
         else
         {
@@ -163,12 +161,12 @@ public partial class AutoFill<TValue>
             var items = IsLikeMatch
                 ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparision) ?? false)
                 : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparision) ?? false);
-            FilterItems = items.ToList();
+            _filterItems = items.ToList();
         }
 
         if (DisplayCount != null)
         {
-            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
+            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
         }
         StateHasChanged();
     }

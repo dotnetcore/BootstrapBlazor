@@ -196,11 +196,18 @@ public partial class Search<TValue>
     }
 
     /// <summary>
-    /// TriggerOnChange 方法
+    /// TriggerFilter 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public Task TriggerFilter(string val) => TriggerChange(val);
+
+    /// <summary>
+    /// TriggerChange 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public async Task TriggerChange(string val)
     {
         _displayText = val;
 
