@@ -35,6 +35,8 @@ public sealed partial class Tabs
 
     private bool Disabled { get; set; }
 
+    private string DisableText { get; set; } = "Disable";
+
     private void SetPlacement(Placement placement)
     {
         BindPlacement = placement;
@@ -75,6 +77,8 @@ public sealed partial class Tabs
     private void OnToggleDisable()
     {
         Disabled = !Disabled;
+
+        DisableText = Disabled ? "Enable" : "Disable";
     }
 
     /// <summary>

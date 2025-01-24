@@ -162,7 +162,7 @@ private void Navigation()
 
 <DemoBlock Title="@Localizer["TabsDisabledTitle"]" Introduction="@Localizer["TabsDisabledIntro"]" Name="IsDisabled">
     <section ignore>
-        <Button Text="Disable" OnClick="OnToggleDisable"></Button>
+        <Button Text="@DisableText" OnClick="OnToggleDisable"></Button>
     </section>
     <Tab IsCard="true" ShowClose="true">
         <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user" IsDisabled="@Disabled">
