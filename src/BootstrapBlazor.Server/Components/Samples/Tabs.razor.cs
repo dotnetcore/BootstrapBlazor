@@ -33,9 +33,9 @@ public sealed partial class Tabs
 
     private string TabItemText { get; set; } = "Test";
 
-    private bool Disabled { get; set; }
+    private bool Disabled { get; set; } = true;
 
-    private string DisableText { get; set; } = "Disable";
+    private string DisableText { get; set; } = "Enable";
 
     private void SetPlacement(Placement placement)
     {
