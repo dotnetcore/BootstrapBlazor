@@ -2100,7 +2100,9 @@
     "AttributeNotAuthorized": "NotAuthorized 模板",
     "AttributeNotFound": "NotFound 模板",
     "AttributeExcludeUrls": "排除地址支持通配符",
-    "AttributeButtonTemplate": "按钮模板"
+    "AttributeButtonTemplate": "按钮模板",
+    "TabsDisabledTitle": "禁用",
+    "TabsDisabledIntro": "通过设置 <code>IsDisabled=\"true\"</code> 禁用当前 <code>TabItem</code> 禁止点击、拖动、关闭等操作"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",

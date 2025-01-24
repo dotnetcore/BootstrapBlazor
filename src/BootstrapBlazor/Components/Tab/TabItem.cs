@@ -36,6 +36,12 @@ public class TabItem : ComponentBase
     public bool IsActive { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前状态是否 禁用 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
     /// </summary>
     [Parameter]
@@ -107,7 +113,22 @@ public class TabItem : ComponentBase
     /// 设置是否被选中方法
     /// </summary>
     /// <param name="active"></param>
-    public virtual void SetActive(bool active) => IsActive = active;
+    public void SetActive(bool active) => IsActive = active;
+
+    /// <summary>
+    /// 设置是否被禁用
+    /// </summary>
+    /// <param name="disabled"></param>
+    public void SetDisabled(bool disabled)
+    {
+        TabSet?.SetDisabledItem(this, disabled);
+    }
+
+    /// <summary>
+    /// 设置是否被禁用
+    /// </summary>
+    /// <param name="disabled"></param>
+    internal void SetDisabledWithoutRender(bool disabled) => IsDisabled = disabled;
 
     /// <summary>
     /// 重新设置标签文字等参数

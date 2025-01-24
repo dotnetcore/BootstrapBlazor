@@ -33,7 +33,7 @@ else
                             {
                                 if (!Items.Any(t => t.IsActive))
                                 {
-                                    Items.FirstOrDefault()?.SetActive(true);
+                                    Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
                                 }
                             }
                             @foreach (var item in Items)
@@ -41,6 +41,16 @@ else
                                 if (item.HeaderTemplate != null)
                                 {
                                     @item.HeaderTemplate(item)
+                                }
+                                else if (item.IsDisabled)
+                                {
+                                    <div role="tab" class="@GetClassString(item)">
+                                        @if (!string.IsNullOrEmpty(item.Icon))
+                                        {
+                                            <i class="@GetIconClassString(item.Icon)"></i>
+                                        }
+                                        <span class="tabs-item-text">@item.Text</span>
+                                    </div>
                                 }
                                 else
                                 {

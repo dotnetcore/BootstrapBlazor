@@ -26,6 +26,7 @@ public partial class Tab : IHandlerException
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
+        .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
         .Build();
@@ -745,8 +746,24 @@ public partial class Tab : IHandlerException
         item.SetActive(true);
     }
 
+    /// <summary>
+    /// 设置 TabItem 禁用状态
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="disabled"></param>
+    public void SetDisabledItem(TabItem item, bool disabled)
+    {
+        item.SetDisabledWithoutRender(disabled);
+        StateHasChanged();
+    }
+
     private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
+        if (item.IsDisabled)
+        {
+            return;
+        }
+
         if (item.IsActive)
         {
             var content = _errorContent ?? item.ChildContent;
