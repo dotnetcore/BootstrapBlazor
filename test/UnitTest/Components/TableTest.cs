@@ -1070,6 +1070,7 @@ public class TableTest : BootstrapBlazorTestBase
     {
         var isFirstQuery = true;
         var isQuery = false;
+        var triggerByPagination = true;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -1082,6 +1083,7 @@ public class TableTest : BootstrapBlazorTestBase
                 {
                     isQuery = true;
                     isFirstQuery = option.IsFirstQuery;
+                    triggerByPagination = option.TriggerByPagination;
                     return Task.FromResult(new QueryData<Foo>()
                     {
                         Items = Array.Empty<Foo>(),
@@ -1105,6 +1107,7 @@ public class TableTest : BootstrapBlazorTestBase
         // 首次加载为 true
         Assert.True(isFirstQuery);
         Assert.False(isQuery);
+        Assert.True(triggerByPagination);
 
         // 二次查询
         var table = cut.FindComponent<Table<Foo>>();
@@ -1112,6 +1115,7 @@ public class TableTest : BootstrapBlazorTestBase
 
         Assert.False(isFirstQuery);
         Assert.True(isQuery);
+        Assert.False(triggerByPagination);
     }
 
     [Fact]
