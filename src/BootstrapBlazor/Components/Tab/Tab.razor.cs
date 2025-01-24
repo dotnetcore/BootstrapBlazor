@@ -746,6 +746,17 @@ public partial class Tab : IHandlerException
         item.SetActive(true);
     }
 
+    /// <summary>
+    /// 设置 TabItem 禁用状态
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="disabled"></param>
+    public void SetDisabledItem(TabItem item, bool disabled)
+    {
+        item.SetDisabledWithoutRender(disabled);
+        StateHasChanged();
+    }
+
     private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
         if (item.IsDisabled)

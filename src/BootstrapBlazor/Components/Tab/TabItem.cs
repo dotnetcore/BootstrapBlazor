@@ -119,7 +119,16 @@ public class TabItem : ComponentBase
     /// 设置是否被禁用
     /// </summary>
     /// <param name="disabled"></param>
-    public void SetDisabled(bool disabled) => IsDisabled = disabled;
+    public void SetDisabled(bool disabled)
+    {
+        TabSet?.SetDisabledItem(this, disabled);
+    }
+
+    /// <summary>
+    /// 设置是否被禁用
+    /// </summary>
+    /// <param name="disabled"></param>
+    internal void SetDisabledWithoutRender(bool disabled) => IsDisabled = disabled;
 
     /// <summary>
     /// 重新设置标签文字等参数
