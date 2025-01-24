@@ -2100,7 +2100,9 @@
     "AttributeNotAuthorized": "The template for NotAuthorized",
     "AttributeNotFound": "The template for NotFound",
     "AttributeExcludeUrls": "Exclude address support for wildcards",
-    "AttributeButtonTemplate": "The template for Buttons"
+    "AttributeButtonTemplate": "The template for Buttons",
+    "TabsDisabledTitle": "Disabled",
+    "TabsDisabledIntro": "Disable the current <code>TabItem</code> by setting <code>IsDisabled=\"true\"</code> to prohibit click, drag, close etc."
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
