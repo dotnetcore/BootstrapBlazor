@@ -165,7 +165,7 @@ public partial class Table<TItem>
             }
 
             // 无刷新查询数据
-            await QueryAsync(false);
+            await QueryAsync(false, triggerByPagination: true);
 
             // 通知 SelectedRow 双向绑定集合改变
             await OnSelectedRowsChanged();

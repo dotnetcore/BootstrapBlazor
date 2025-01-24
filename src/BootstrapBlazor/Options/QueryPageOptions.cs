@@ -124,4 +124,9 @@ public class QueryPageOptions
     /// </summary>
     /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
     public bool IsFirstQuery { get; set; }
+
+    /// <summary>
+    /// 获得 是否为刷新分页查询 默认 false 
+    /// </summary>
+    public bool TriggerByPagination { get; set; }
 }

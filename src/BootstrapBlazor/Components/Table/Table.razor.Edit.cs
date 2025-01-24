@@ -392,7 +392,7 @@ public partial class Table<TItem>
         StateHasChanged();
     }
 
-    private async Task QueryAsync(bool shouldRender, int? pageIndex = null)
+    private async Task QueryAsync(bool shouldRender, int? pageIndex = null, bool triggerByPagination = false)
     {
         if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
         {
@@ -405,7 +405,7 @@ public partial class Table<TItem>
             {
                 PageIndex = pageIndex.Value;
             }
-            await QueryData();
+            await QueryData(triggerByPagination);
             await InternalToggleLoading(false);
         }
 
@@ -451,12 +451,14 @@ public partial class Table<TItem>
     /// <summary>
     /// 调用 OnQuery 回调方法获得数据源
     /// </summary>
-    protected async Task QueryData()
+    protected async Task QueryData(bool triggerByPagination = false)
     {
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
             var queryOption = BuildQueryPageOptions();
+            // 是否为分页查询
+            queryOption.TriggerByPagination = triggerByPagination;
             // 设置是否为首次查询
             queryOption.IsFirstQuery = _firstQuery;
 
