@@ -386,6 +386,29 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ClickTabToNavigation, false);
+
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                pb.Add(a => a.Icon, "fa fa-fa");
+                pb.Add(a => a.IsDisabled, true);
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text2");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test2"));
+            });
+        });
+        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div>", cut.Markup);
+    }
+
+    [Fact]
     public void MenuItem_Null()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
