@@ -200,7 +200,7 @@ public partial class Search<TValue>
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public async Task TriggerChange(string val)
     {
         _displayText = val;
 

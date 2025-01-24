@@ -19,11 +19,7 @@ public partial class AutoFill<TValue>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得 最终候选数据源
-    /// </summary>
-    [NotNull]
-    private List<TValue>? FilterItems { get; set; }
+    private List<TValue>? _filterItems;
 
     /// <summary>
     /// 获得/设置 组件数据集合
@@ -119,10 +115,8 @@ public partial class AutoFill<TValue>
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
-        OnGetDisplayText ??= v => v?.ToString();
-        _displayText = Value is null ? "" : OnGetDisplayText(Value);
-
-        FilterItems ??= Items?.ToList() ?? [];
+        _displayText = GetDisplayText(Value);
+        Items ??= [];
     }
 
     /// <summary>
@@ -131,7 +125,7 @@ public partial class AutoFill<TValue>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
-        _displayText = OnGetDisplayText(val);
+        _displayText = GetDisplayText(val);
 
         if (OnSelectedItemChanged != null)
         {
@@ -139,32 +133,51 @@ public partial class AutoFill<TValue>
         }
     }
 
+    private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
+
+    private List<TValue> Rows => _filterItems ?? Items.ToList();
+
+    /// <summary>
+    /// TriggerFilter 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public async Task TriggerFilter(string val)
+    {
+        if (OnCustomFilter != null)
+        {
+            var items = await OnCustomFilter(val);
+            _filterItems = items.ToList();
+        }
+        else if (string.IsNullOrEmpty(val))
+        {
+            _filterItems = Items.ToList();
+        }
+        else
+        {
+            var comparision = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var items = IsLikeMatch
+                ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
+                : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
+            _filterItems = items.ToList();
+        }
+
+        if (DisplayCount != null)
+        {
+            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
+        }
+        StateHasChanged();
+    }
+
     /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerOnChange(string val)
+    public Task TriggerChange(string val)
     {
-        if (OnCustomFilter != null)
-        {
-            var items = await OnCustomFilter(val);
-            FilterItems = items.ToList();
-        }
-        else
-        {
-            var comparisionType = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            FilterItems = IsLikeMatch
-                ? Items.Where(i => OnGetDisplayText(i)?.Contains(val, comparisionType) ?? false).ToList()
-                : Items.Where(i => OnGetDisplayText(i)?.StartsWith(val, comparisionType) ?? false).ToList();
-        }
-
-        if (DisplayCount != null)
-        {
-            FilterItems = FilterItems.Take(DisplayCount.Value).ToList();
-        }
-
         _displayText = val;
         StateHasChanged();
+        return Task.CompletedTask;
     }
 }

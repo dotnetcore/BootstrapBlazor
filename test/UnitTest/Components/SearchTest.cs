@@ -33,7 +33,7 @@ public class SearchTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
         await Task.Delay(20);
 
         Assert.Contains("Template-test1-Address 1", cut.Markup);
@@ -54,7 +54,7 @@ public class SearchTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnGetDisplayText, foo => foo?.Name);
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
         await Task.Delay(20);
 
         Assert.Contains("test1", cut.Markup);
@@ -144,7 +144,7 @@ public class SearchTest : BootstrapBlazorTestBase
                 return items;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.TriggerOnChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
 
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.Click());
