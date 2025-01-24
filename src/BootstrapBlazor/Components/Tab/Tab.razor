@@ -33,7 +33,7 @@ else
                             {
                                 if (!Items.Any(t => t.IsActive))
                                 {
-                                    Items.FirstOrDefault()?.SetActive(true);
+                                    Items.FirstOrDefault(i => i.IsDisabled == false)?.SetActive(true);
                                 }
                             }
                             @foreach (var item in Items)

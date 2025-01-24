@@ -36,6 +36,12 @@ public class TabItem : ComponentBase
     public bool IsActive { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前状态是否 禁用 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
     /// </summary>
     [Parameter]

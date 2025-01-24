@@ -26,6 +26,7 @@ public partial class Tab : IHandlerException
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
+        .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
         .Build();
@@ -416,6 +417,11 @@ public partial class Tab : IHandlerException
     /// </summary>
     private async Task OnClickTabItem(TabItem item)
     {
+        if (item.IsDisabled)
+        {
+            return;
+        }
+
         if (OnClickTabItemAsync != null)
         {
             await OnClickTabItemAsync(item);
@@ -747,6 +753,11 @@ public partial class Tab : IHandlerException
 
     private RenderFragment RenderTabItemContent(TabItem item) => builder =>
     {
+        if (item.IsDisabled)
+        {
+            return;
+        }
+
         if (item.IsActive)
         {
             var content = _errorContent ?? item.ChildContent;
