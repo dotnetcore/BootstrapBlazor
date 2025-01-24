@@ -196,14 +196,7 @@ public partial class Search<TValue>
     }
 
     /// <summary>
-    /// TriggerFilter 方法
-    /// </summary>
-    /// <param name="val"></param>
-    [JSInvokable]
-    public Task TriggerFilter(string val) => TriggerChange(val);
-
-    /// <summary>
-    /// TriggerChange 方法
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
