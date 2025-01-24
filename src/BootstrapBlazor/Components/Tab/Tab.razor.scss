@@ -3,6 +3,7 @@
     --bb-tabs-item-height: #{$bb-tabs-item-height};
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
     --bb-tabs-item-hover-color: #{$bb-tabs-item-hover-color};
+    --bb-tabs-item-disabled-opacity: #{$bb-tabs-item-disabled-opacity};
     --bb-tabs-border-card-top-item-margin-top: #{$bb-tabs-border-card-top-item-margin-top};
     --bb-tabs-bar-width: #{$bb-tabs-bar-width};
     --bb-tabs-bar-height: #{$bb-tabs-bar-height};
@@ -170,8 +171,12 @@
     color: var(--bb-tabs-item-active-color);
 }
 
-.tabs-item:hover {
+.tabs-item:not(.disabled):hover {
     color: var(--bb-tabs-item-hover-color);
+}
+
+.tabs-item.disabled {
+    opacity: var(--bb-tabs-item-disabled-opacity);
 }
 
 .tabs-item .tabs-item-text {
