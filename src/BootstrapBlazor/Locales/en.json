@@ -148,7 +148,7 @@
   },
   "BootstrapBlazor.Components.Search": {
     "SearchButtonText": "Search",
-    "NoDataTip": "Type something to search"
+    "NoDataTip": "No records found"
   },
   "BootstrapBlazor.Components.Select": {
     "PlaceHolder": "Please select ...",
