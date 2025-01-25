@@ -65,6 +65,8 @@ public partial class Search<TValue>
     /// 获得/设置 点击搜索后是否自动清空搜索框
     /// </summary>
     [Parameter]
+    [Obsolete("已弃用，删除即可; Deprecated. Just delete it")]
+    [ExcludeFromCodeCoverage]
     public bool IsAutoClearAfterSearch { get; set; }
 
     /// <summary>
