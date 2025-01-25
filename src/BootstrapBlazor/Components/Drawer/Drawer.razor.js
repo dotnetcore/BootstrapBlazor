@@ -101,9 +101,7 @@ export function execute(id, open) {
         }
         else {
             drawerBody.classList.add('show');
-            if (el.getAttribute('data-bb-keyboard') === 'true') {
-                el.focus();
-            }
+            el.focus();
         }
     }
 
