@@ -1,5 +1,6 @@
 ﻿import Data from "../../modules/data.js"
 import Drag from "../../modules/drag.js"
+import EventHandler from "../../modules/event-handler.js"
 
 const initDrag = el => {
     let originX = 0
@@ -60,7 +61,7 @@ const initDrag = el => {
     )
 }
 
-export function init(id) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id);
     if (el === null) {
         return;
@@ -73,6 +74,15 @@ export function init(id) {
     Data.set(id, dw)
 
     initDrag(el);
+
+    EventHandler.on(el, 'keyup', async e => {
+        if (e.key === 'Escape') {
+            const supportESC = el.getAttribute('data-bb-keyboard') === 'true';
+            if (supportESC) {
+                await invoke.invokeMethodAsync(method);
+            }
+        }
+    });
 }
 
 export function execute(id, open) {
@@ -125,7 +135,9 @@ export function dispose(id) {
     const dw = Data.get(id)
     Data.remove(id);
 
-    const { el, body } = dw
+    const { el, body } = dw;
+    EventHandler.off(el, 'keyup');
+
     if (el.classList.contains('show')) {
         el.classList.remove('show')
 

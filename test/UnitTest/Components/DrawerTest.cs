@@ -161,6 +161,27 @@ public class DrawerTest : BootstrapBlazorTestBase
         cut.Contains("--bb-drawer-position: absolute;");
     }
 
+    [Fact]
+    public void IsKeyboard_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.IsKeyboard, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("data-bb-keyboard=\"true\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsKeyboard, false);
+        });
+        cut.DoesNotContain("data-bb-keyboard=\"true\"");
+    }
+
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]

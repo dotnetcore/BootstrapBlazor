@@ -120,6 +120,14 @@ public partial class Drawer
     public object? BodyContext { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsKeyboard { get; set; }
+
+    private string? KeyboardString => IsKeyboard ? "true" : null;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
@@ -133,6 +141,12 @@ public partial class Drawer
             await InvokeVoidAsync("execute", Id, IsOpen);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
     /// 点击背景遮罩方法
@@ -153,6 +167,7 @@ public partial class Drawer
     /// 关闭抽屉方法
     /// </summary>
     /// <returns></returns>
+    [JSInvokable]
     public async Task Close()
     {
         IsOpen = false;

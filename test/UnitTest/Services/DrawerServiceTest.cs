@@ -23,11 +23,13 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
             OnCloseAsync = () => Task.CompletedTask,
             Placement = Placement.Bottom,
             ShowBackdrop = true,
-            BodyContext = "test-body-context"
+            BodyContext = "test-body-context",
+            IsKeyboard = true
         };
         var service = Context.Services.GetRequiredService<DrawerService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
         await service.Show(option);
+        cut.Contains("data-bb-keyboard=\"true\"");
         var button = cut.Find("button");
         await cut.InvokeAsync(() => button.Click());
 
