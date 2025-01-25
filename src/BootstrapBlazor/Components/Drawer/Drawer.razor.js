@@ -77,7 +77,10 @@ export function init(id, invoke, method) {
 
     EventHandler.on(el, 'keyup', async e => {
         if (e.key === 'Escape') {
-            await invoke.invokeMethodAsync(method);
+            const supportESC = el.getAttribute('data-bb-keyboard') === 'true';
+            if (supportESC) {
+                await invoke.invokeMethodAsync(method);
+            }
         }
     });
 }

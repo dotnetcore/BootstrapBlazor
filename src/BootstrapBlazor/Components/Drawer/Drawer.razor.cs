@@ -120,12 +120,12 @@ public partial class Drawer
     public object? BodyContext { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
+    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false
     /// </summary>
     [Parameter]
-    public bool IsKeyboard { get; set; } = true;
+    public bool IsKeyboard { get; set; }
 
-    private string? KeyboardString => IsKeyboard ? null : "false";
+    private string? KeyboardString => IsKeyboard ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>

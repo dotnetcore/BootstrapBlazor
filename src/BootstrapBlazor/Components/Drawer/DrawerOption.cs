@@ -26,9 +26,9 @@ public class DrawerOption
     public string? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
+    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 false
     /// </summary>
-    public bool IsKeyboard { get; set; } = true;
+    public bool IsKeyboard { get; set; }
 
     /// <summary>
     /// 获得/设置 点击遮罩是否关闭抽屉 默认为 false
