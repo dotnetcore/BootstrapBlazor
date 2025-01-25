@@ -69,7 +69,7 @@ public sealed partial class Searches
         }).ToList();
     }
 
-    private async Task<IEnumerable<string>> OnModelSearch(string v)
+    private async Task<IEnumerable<string?>> OnModelSearch(string v)
     {
         // 模拟异步延时
         await Task.Delay(100);
