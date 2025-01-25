@@ -16,7 +16,7 @@
         <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = true)">@Localizer["Open"]</button>
     </section>
 
-    <Drawer Placement="@DrawerAlign" IsOpen="@IsOpen" AllowResize="true">
+    <Drawer Placement="@DrawerAlign" @bind-IsOpen="@IsOpen" AllowResize="true">
         <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
             <p>@Localizer["Content"]</p>
             <button type="button" class="btn btn-primary" @onclick="@(e => IsOpen = false)">@Localizer["Close"]</button>
