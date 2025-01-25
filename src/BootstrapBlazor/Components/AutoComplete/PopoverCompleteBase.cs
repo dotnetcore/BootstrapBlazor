@@ -132,6 +132,11 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
 
     /// <summary>
+    /// 获得输入框 Id
+    /// </summary>
+    protected override string? GetInputId() => InputId;
+
+    /// <summary>
     /// 获得 CustomClass 字符串
     /// </summary>
     protected virtual string? CustomClassString => CssBuilder.Default(CustomClass)
