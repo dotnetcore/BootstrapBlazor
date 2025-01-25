@@ -260,15 +260,19 @@ internal class CacheManager : ICacheManager
             return null;
         }
 
-        IEnumerable<LocalizedString>? localizedItems = null;
         cultureName ??= CultureInfo.CurrentUICulture.Name;
+        if (string.IsNullOrEmpty(cultureName))
+        {
+            return [];
+        }
+
         var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
         if (forceLoad)
         {
             Instance.Cache.Remove(key);
         }
 
-        localizedItems = Instance.GetOrCreate(key, _ =>
+        var localizedItems = Instance.GetOrCreate(key, entry =>
         {
             var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
             var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
