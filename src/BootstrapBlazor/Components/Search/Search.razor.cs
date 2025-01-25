@@ -111,7 +111,7 @@ public partial class Search<TValue>
     /// 获得/设置 UI 呈现数据集合
     /// </summary>
     [NotNull]
-    private List<TValue>? FilterItems { get; set; }
+    private List<TValue>? _filterItems = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -126,7 +126,7 @@ public partial class Search<TValue>
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
         NoDataTip ??= Localizer[nameof(NoDataTip)];
-        FilterItems ??= [];
+        _filterItems ??= [];
     }
 
     private string _displayText = "";
@@ -142,7 +142,7 @@ public partial class Search<TValue>
             await Task.Yield();
 
             var items = await OnSearch(_displayText);
-            FilterItems = items.ToList();
+            _filterItems = items.ToList();
             ButtonIcon = SearchButtonIcon;
             if (IsAutoClearAfterSearch)
             {
@@ -168,7 +168,7 @@ public partial class Search<TValue>
             await OnClear(_displayText);
         }
         _displayText = "";
-        FilterItems = [];
+        _filterItems = [];
     }
 
     private string? GetDisplayText(TValue item)
@@ -196,11 +196,18 @@ public partial class Search<TValue>
     }
 
     /// <summary>
+    /// TriggerFilter 方法
+    /// </summary>
+    /// <param name="val"></param>
+    [JSInvokable]
+    public override Task TriggerFilter(string val) => TriggerChange(val);
+
+    /// <summary>
     /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerChange(string val)
+    public override async Task TriggerChange(string val)
     {
         _displayText = val;
 

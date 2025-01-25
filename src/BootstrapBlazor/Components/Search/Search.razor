@@ -20,7 +20,7 @@
         <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
     </div>
     <ul class="dropdown-menu">
-        @foreach (var item in FilterItems)
+        @foreach (var item in _filterItems)
         {
             <li class="dropdown-item" @onclick="() => OnClickItem(item)">
                 @if (ItemTemplate != null)
@@ -33,7 +33,7 @@
                 }
             </li>
         }
-        @if (FilterItems.Count == 0)
+        @if (_filterItems.Count == 0)
         {
             <li class="dropdown-item">@NoDataTip</li>
         }
