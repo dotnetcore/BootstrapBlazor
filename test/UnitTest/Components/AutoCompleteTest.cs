@@ -12,7 +12,11 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>();
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.IsSelectAllTextOnFocus, true);
+            pb.Add(a => a.IsSelectAllTextOnEnter, true);
+        });
         Assert.Contains("<div class=\"auto-complete\"", cut.Markup);
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
