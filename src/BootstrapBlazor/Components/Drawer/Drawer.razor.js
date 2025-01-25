@@ -100,7 +100,10 @@ export function execute(id, open) {
             requestAnimationFrame(show);
         }
         else {
-            drawerBody.classList.add('show')
+            drawerBody.classList.add('show');
+            if (el.getAttribute('data-bb-keyboard') === 'true') {
+                el.focus();
+            }
         }
     }
 
