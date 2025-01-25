@@ -302,4 +302,25 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
         cut.Contains("data-bb-scroll-behavior=\"auto\"");
     }
+
+    [Fact]
+    public void Trigger_Ok()
+    {
+        var cut = Context.RenderComponent<MockPopoverCompleteBase>();
+        cut.Instance.TriggerFilter("test");
+        cut.Instance.TriggerChange("test");
+    }
+
+    class MockPopoverCompleteBase : PopoverCompleteBase<string>
+    {
+        public override Task TriggerFilter(string val)
+        {
+            return base.TriggerFilter(val);
+        }
+
+        public override Task TriggerChange(string val)
+        {
+            return base.TriggerChange(val);
+        }
+    }
 }

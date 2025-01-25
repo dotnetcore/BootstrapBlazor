@@ -33,7 +33,7 @@ public class SearchTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         await Task.Delay(20);
 
         Assert.Contains("Template-test1-Address 1", cut.Markup);
