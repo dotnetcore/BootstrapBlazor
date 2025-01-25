@@ -60,11 +60,13 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
-        if (key is not string)
+        var item = await factory(entry);
+
+        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
-        return await factory(entry);
+        return item;
     })!;
 
     /// <summary>
