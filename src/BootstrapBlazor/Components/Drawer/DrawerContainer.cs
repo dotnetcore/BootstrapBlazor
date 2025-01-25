@@ -65,6 +65,7 @@ public class DrawerContainer : ComponentBase, IDisposable
         var parameters = new Dictionary<string, object>()
         {
             [nameof(Drawer.IsOpen)] = true,
+            [nameof(Drawer.IsKeyboard)] = option.IsKeyboard,
             [nameof(Drawer.IsBackdrop)] = option.IsBackdrop,
             [nameof(Drawer.ShowBackdrop)] = option.ShowBackdrop,
             [nameof(Drawer.Placement)] = option.Placement,
