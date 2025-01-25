@@ -29,6 +29,8 @@ internal class CacheManager : ICacheManager
     [NotNull]
     private static CacheManager? Instance { get; set; }
 
+    private const string CacheKeyPrefix = "BootstrapBlazor";
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -60,11 +62,13 @@ internal class CacheManager : ICacheManager
     /// </summary>
     public Task<TItem> GetOrCreateAsync<TItem>(object key, Func<ICacheEntry, Task<TItem>> factory) => Cache.GetOrCreateAsync(key, async entry =>
     {
-        if (key is not string)
+        var item = await factory(entry);
+
+        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
         {
             entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
         }
-        return await factory(entry);
+        return item;
     })!;
 
     /// <summary>
@@ -177,7 +181,7 @@ internal class CacheManager : ICacheManager
         if (value != null)
         {
             var type = value.GetType();
-            var cacheKey = $"Lambda-Count-{type.GetUniqueTypeName()}";
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-Count-{type.GetUniqueTypeName()}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 return LambdaExtensions.CountLambda(type).Compile();
@@ -258,15 +262,19 @@ internal class CacheManager : ICacheManager
             return null;
         }
 
-        IEnumerable<LocalizedString>? localizedItems = null;
         cultureName ??= CultureInfo.CurrentUICulture.Name;
-        var key = $"{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
+        if (string.IsNullOrEmpty(cultureName))
+        {
+            return [];
+        }
+
+        var key = $"{CacheKeyPrefix}-{nameof(GetJsonStringByTypeName)}-{assembly.GetUniqueName()}-{cultureName}";
         if (forceLoad)
         {
             Instance.Cache.Remove(key);
         }
 
-        localizedItems = Instance.GetOrCreate(key, _ =>
+        var localizedItems = Instance.GetOrCreate(key, entry =>
         {
             var sections = option.GetJsonStringFromAssembly(assembly, cultureName);
             var items = sections.SelectMany(section => section.GetChildren().Select(kv =>
@@ -345,7 +353,7 @@ internal class CacheManager : ICacheManager
 
     public static List<SelectedItem> GetNullableBoolItems(Type modelType, string fieldName)
     {
-        var cacheKey = $"{nameof(GetNullableBoolItems)}-{CultureInfo.CurrentUICulture.Name}-{modelType.GetUniqueTypeName()}-{fieldName}";
+        var cacheKey = $"{CacheKeyPrefix}-{nameof(GetNullableBoolItems)}-{modelType.GetUniqueTypeName()}-{fieldName}-{CultureInfo.CurrentUICulture.Name}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var items = new List<SelectedItem>();
@@ -475,7 +483,7 @@ internal class CacheManager : ICacheManager
         TResult GetValue()
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-Get-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TResult));
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-Get-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TResult)}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 if (type.Assembly.IsDynamic)
@@ -503,7 +511,7 @@ internal class CacheManager : ICacheManager
         else
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-Set-{type.GetUniqueTypeName()}", typeof(TModel), fieldName, typeof(TValue));
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-Set-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TValue)}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 if (type.Assembly.IsDynamic)
@@ -530,7 +538,7 @@ internal class CacheManager : ICacheManager
         if (model != null)
         {
             var type = model.GetType();
-            var cacheKey = ($"Lambda-GetKeyValue-{type.GetUniqueTypeName()}-{customAttribute?.GetUniqueTypeName()}", typeof(TModel));
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetKeyValue)}-{type.GetUniqueTypeName()}-{typeof(TModel)}-{customAttribute?.GetUniqueTypeName()}";
             var invoker = Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetKeyValue<TModel, TValue>(customAttribute).Compile());
             ret = invoker(model);
         }
@@ -541,13 +549,13 @@ internal class CacheManager : ICacheManager
     #region Lambda Sort
     public static Func<IEnumerable<T>, string, SortOrder, IEnumerable<T>> GetSortFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortLambda)}-{typeof(T).GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetSortFunc)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortLambda<T>().Compile());
     }
 
     public static Func<IEnumerable<T>, List<string>, IEnumerable<T>> GetSortListFunc<T>()
     {
-        var cacheKey = $"Lambda-{nameof(LambdaExtensions.GetSortListLambda)}-{typeof(T).GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetSortListFunc)}-{typeof(T).GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry => LambdaExtensions.GetSortListLambda<T>().Compile());
     }
     #endregion
@@ -555,7 +563,7 @@ internal class CacheManager : ICacheManager
     #region Lambda ConvertTo
     public static Func<object, IEnumerable<string?>> CreateConverterInvoker(Type type)
     {
-        var cacheKey = $"Lambda-{nameof(CreateConverterInvoker)}-{type.GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(CreateConverterInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             var method = typeof(CacheManager)
@@ -583,7 +591,7 @@ internal class CacheManager : ICacheManager
     /// <returns></returns>
     public static Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object> GetOnValueChangedInvoke<TModel>(Type fieldType)
     {
-        var cacheKey = $"Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetOnValueChangedInvoke)}-{typeof(TModel).GetUniqueTypeName()}-{fieldType.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry => Utility.CreateOnValueChanged<TModel>(fieldType).Compile());
     }
     #endregion
@@ -591,7 +599,7 @@ internal class CacheManager : ICacheManager
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatInvoker)}-{type.GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetFormatInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry => GetFormatLambda(type).Compile());
 
         static Expression<Func<object, string, IFormatProvider?, string>> GetFormatLambda(Type type)
@@ -629,7 +637,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetFormatProviderInvoker)}-{type.GetUniqueTypeName()}";
         return Instance.GetOrCreate(cacheKey, entry => GetFormatProviderLambda(type).Compile());
 
         static Expression<Func<object, IFormatProvider?, string>> GetFormatProviderLambda(Type type)
@@ -656,7 +664,7 @@ internal class CacheManager : ICacheManager
 
     public static object GetFormatterInvoker(Type type, Func<object, Task<string?>> formatter)
     {
-        var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-{nameof(GetFormatterInvoker)}-{type.GetUniqueTypeName()}";
         var invoker = Instance.GetOrCreate(cacheKey, entry => GetFormatterInvokerLambda(type).Compile());
         return invoker(formatter);
 
