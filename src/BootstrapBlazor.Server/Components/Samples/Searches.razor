@@ -73,7 +73,7 @@
            Introduction="@Localizer["SearchesValidateFormIntro"]"
            Name="ValidateForm">
     <ValidateForm Model="@Model">
-        <Search @bind-Value="Model.Name" />
+        <Search @bind-Value="Model.Name" OnSearch="@OnModelSearch" />
     </ValidateForm>
 </DemoBlock>
 

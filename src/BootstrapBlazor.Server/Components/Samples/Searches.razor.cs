@@ -54,7 +54,7 @@ public sealed partial class Searches
 
     private Foo Model { get; } = new() { Name = "" };
 
-    private string? OnGetDisplayText(Foo foo) => foo.Name;
+    private static string? OnGetDisplayText(Foo? foo) => foo?.Name;
 
     private async Task<IEnumerable<Foo>> OnSearchFoo(string searchText)
     {
@@ -67,6 +67,15 @@ public sealed partial class Searches
             Address = LocalizerFoo["Foo.Address", $"{Random.Shared.Next(1000, 2000)}"],
             Count = Random.Shared.Next(1, 100)
         }).ToList();
+    }
+
+    private async Task<IEnumerable<string>> OnModelSearch(string v)
+    {
+        // 模拟异步延时
+        await Task.Delay(100);
+        return string.IsNullOrEmpty(v)
+            ? Enumerable.Empty<string>()
+            : Enumerable.Range(1, 10).Select(i => LocalizerFoo["Foo.Name", $"{i:d4}"].Value).ToList();
     }
 
     /// <summary>
