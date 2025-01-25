@@ -100,7 +100,8 @@ export function execute(id, open) {
             requestAnimationFrame(show);
         }
         else {
-            drawerBody.classList.add('show')
+            drawerBody.classList.add('show');
+            el.focus();
         }
     }
 
@@ -123,11 +124,9 @@ export function execute(id, open) {
         body.classList.add('overflow-hidden')
         requestAnimationFrame(show)
     }
-    else {
-        if (el.classList.contains('show')) {
-            drawerBody.classList.remove('show')
-            requestAnimationFrame(hide)
-        }
+    else if (el.classList.contains('show')) {
+        drawerBody.classList.remove('show')
+        requestAnimationFrame(hide)
     }
 }
 
