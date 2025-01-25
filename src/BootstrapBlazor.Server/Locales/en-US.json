@@ -4191,8 +4191,6 @@
     "SearchesNormalTitle": "Basic usage",
     "SearchesNormalIntro": "Enter some of the data to search",
     "SearchesNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
-    "SearchesClearValueTitle": "Values are automatically emptied after searching",
-    "SearchesClearValueIntro": "Turn on the automatic emptying of the search box after search by setting <code>IsAutoClearAfterSearch=&quot;true&quot;</code>",
     "SearchesDisplayButtonTitle": "The Empty button is displayed",
     "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
     "SearchesKeyboardsTitle": "Keyboard input instant search",

@@ -142,7 +142,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public async Task TriggerFilter(string val)
+    public override async Task TriggerFilter(string val)
     {
         if (OnCustomFilter != null)
         {
@@ -174,7 +174,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
-    public Task TriggerChange(string val)
+    public override Task TriggerChange(string val)
     {
         _displayText = val;
         StateHasChanged();

@@ -12,7 +12,11 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
-        var cut = Context.RenderComponent<AutoComplete>();
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.IsSelectAllTextOnFocus, true);
+            pb.Add(a => a.IsSelectAllTextOnEnter, true);
+        });
         Assert.Contains("<div class=\"auto-complete\"", cut.Markup);
         var menus = cut.FindAll(".dropdown-item");
         Assert.Single(menus);
@@ -301,5 +305,26 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             pb.Add(a => a.ScrollIntoViewBehavior, ScrollIntoViewBehavior.Auto);
         });
         cut.Contains("data-bb-scroll-behavior=\"auto\"");
+    }
+
+    [Fact]
+    public void Trigger_Ok()
+    {
+        var cut = Context.RenderComponent<MockPopoverCompleteBase>();
+        cut.Instance.TriggerFilter("test");
+        cut.Instance.TriggerChange("test");
+    }
+
+    class MockPopoverCompleteBase : PopoverCompleteBase<string>
+    {
+        public override Task TriggerFilter(string val)
+        {
+            return base.TriggerFilter(val);
+        }
+
+        public override Task TriggerChange(string val)
+        {
+            return base.TriggerChange(val);
+        }
     }
 }

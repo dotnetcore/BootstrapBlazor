@@ -33,7 +33,7 @@ public class SearchTest : BootstrapBlazorTestBase
             });
         });
 
-        await cut.InvokeAsync(() => cut.Instance.TriggerChange("t"));
+        await cut.InvokeAsync(() => cut.Instance.TriggerFilter("t"));
         await Task.Delay(20);
 
         Assert.Contains("Template-test1-Address 1", cut.Markup);
@@ -84,7 +84,6 @@ public class SearchTest : BootstrapBlazorTestBase
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
             builder.Add(s => s.SearchButtonText, "SearchText");
             builder.Add(s => s.SearchButtonColor, Color.Warning);
-            builder.Add(s => s.IsAutoClearAfterSearch, true);
             builder.Add(s => s.IsTriggerSearchByInput, false);
             builder.Add(a => a.OnSearch, async v =>
             {
