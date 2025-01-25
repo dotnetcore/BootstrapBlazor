@@ -35,7 +35,7 @@
     </Drawer>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["NoBackdropTitle"]" Introduction="@Localizer["NoBackdropIntro"]" Name="IsOpen">
+<DemoBlock Title="@Localizer["NoBackdropTitle"]" Introduction="@Localizer["NoBackdropIntro"]" Name="ShowBackdrop">
     <section ignore>
         <button type="button" class="btn btn-primary" @onclick="@OpenNoBackdropDrawer">@Localizer["Open"]</button>
     </section>
@@ -43,6 +43,18 @@
         <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
             <p>@Localizer["Content"]</p>
             <button type="button" class="btn btn-primary" @onclick="@(e => IsShowBackdropOpen = false)">@Localizer["Close"]</button>
+        </div>
+    </Drawer>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IsKeyboardTitle"]" Introduction="@Localizer["IsKeyboardIntro"]" Name="IsKeyboard">
+    <section ignore>
+        <button type="button" class="btn btn-primary" @onclick="@OpenKeyboardDrawer">@Localizer["Open"]</button>
+    </section>
+    <Drawer Placement="Placement.Left" @bind-IsOpen="@IsKeyboardOpen" IsKeyboard="true">
+        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+            <p>@Localizer["Content"]</p>
+            <button type="button" class="btn btn-primary" @onclick="@(e => IsKeyboardOpen = false)">@Localizer["Close"]</button>
         </div>
     </Drawer>
 </DemoBlock>

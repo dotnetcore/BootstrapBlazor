@@ -53,6 +53,10 @@ public sealed partial class Drawers
 
     private void OpenNoBackdropDrawer() => IsShowBackdropOpen = true;
 
+    private bool IsKeyboardOpen { get; set; }
+
+    private void OpenKeyboardDrawer() => IsKeyboardOpen = true;
+
     private async Task DrawerServiceShow() => await DrawerService.Show(new DrawerOption()
     {
         Placement = Placement.Right,
