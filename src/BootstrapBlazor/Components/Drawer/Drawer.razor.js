@@ -124,11 +124,9 @@ export function execute(id, open) {
         body.classList.add('overflow-hidden')
         requestAnimationFrame(show)
     }
-    else {
-        if (el.classList.contains('show')) {
-            drawerBody.classList.remove('show')
-            requestAnimationFrame(hide)
-        }
+    else if (el.classList.contains('show')) {
+        drawerBody.classList.remove('show')
+        requestAnimationFrame(hide)
     }
 }
 
