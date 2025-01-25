@@ -6910,6 +6910,7 @@
     "CacheListIntro": "Manage the component library internal cache through the <code>ICacheManager</code> interface method",
     "CacheListKey": "Key",
     "CacheListValue": "Value",
+    "CacheListExpiration": "Expiration",
     "CacheListAction": "Action",
     "CacheListRefresh": "Refresh",
     "CacheListDelete": "Delete",

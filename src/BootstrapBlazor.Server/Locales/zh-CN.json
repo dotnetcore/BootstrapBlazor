@@ -6910,6 +6910,7 @@
     "CacheListIntro": "通过 <code>ICacheManager</code> 接口方法管理组件库内部缓存",
     "CacheListKey": "键",
     "CacheListValue": "值",
+    "CacheListExpiration": "到期时间",
     "CacheListAction": "操作",
     "CacheListRefresh": "刷新",
     "CacheListDelete": "删除",
