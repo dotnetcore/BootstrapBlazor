@@ -144,11 +144,6 @@ public partial class Search<TValue>
             var items = await OnSearch(_displayText);
             _filterItems = items.ToList();
             ButtonIcon = SearchButtonIcon;
-            if (IsAutoClearAfterSearch)
-            {
-                _displayText = "";
-            }
-
             if (IsTriggerSearchByInput == false)
             {
                 await InvokeVoidAsync("showList", Id);

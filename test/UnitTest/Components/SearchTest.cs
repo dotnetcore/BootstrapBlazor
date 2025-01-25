@@ -84,7 +84,6 @@ public class SearchTest : BootstrapBlazorTestBase
             builder.Add(s => s.SearchButtonIcon, "fa-fw fa-solid fa-magnifying-glass");
             builder.Add(s => s.SearchButtonText, "SearchText");
             builder.Add(s => s.SearchButtonColor, Color.Warning);
-            builder.Add(s => s.IsAutoClearAfterSearch, true);
             builder.Add(s => s.IsTriggerSearchByInput, false);
             builder.Add(a => a.OnSearch, async v =>
             {
