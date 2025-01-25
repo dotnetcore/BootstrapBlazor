@@ -372,14 +372,14 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         // improve code coverage
         var option = Context.Services.GetRequiredService<IOptions<JsonLocalizationOptions>>().Value;
-        Assert.Empty(Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true));
+        Assert.Empty(Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat1", null, true));
 
         // dynamic
         var dynamicType = EmitHelper.CreateTypeByName("test_type", new InternalTableColumn[] { new("Name", typeof(string)) });
         Assert.Empty(Utility.GetJsonStringByTypeName(option, dynamicType!.Assembly, "Test"));
 
         // empty cultureName
-        Assert.Empty(Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", "", false));
+        Assert.Empty(Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat1", "", false));
     }
 
     [Fact]
