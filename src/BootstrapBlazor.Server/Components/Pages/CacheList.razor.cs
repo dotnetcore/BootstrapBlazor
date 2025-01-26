@@ -49,7 +49,7 @@ public partial class CacheList
 
     private void UpdateCacheList()
     {
-        _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).ToList();
+        _cacheList = [.. CacheManager.Keys.OrderBy(i => i.ToString())];
     }
 
     private string GetValue(object key)

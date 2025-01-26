@@ -74,6 +74,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "cert", "cert", "{C075C6C8-B
 		scripts\linux\cert\www.blazor.zone.key = scripts\linux\cert\www.blazor.zone.key
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{9BAF50BE-141D-4429-93A9-942F373D1F68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Benchmarks", "tools\Benchmarks\UnitTest.Benchmarks.csproj", "{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,6 +108,10 @@ Global
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +127,7 @@ Global
 		{6D73FED6-0086-460B-84FA-1FA78176BF59} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{C075C6C8-B9CB-4AC0-9BDF-B2002B4AB99C} = {EA765165-0542-41C8-93F2-85787FEDEDFF}
+		{3E6D8D0E-5A36-4CFD-8612-7D64E3FFE7B1} = {9BAF50BE-141D-4429-93A9-942F373D1F68}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

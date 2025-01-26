@@ -146,4 +146,18 @@ public class CacheManagerTest : BootstrapBlazorTestBase
             return val;
         });
     }
+
+    [Fact]
+    public void TryGetCacheEntry()
+    {
+        Cache.GetOrCreate("test_01", entry =>
+        {
+            return 1;
+        });
+        Assert.True(Cache.TryGetCacheEntry("test_01", out var entry));
+        Assert.NotNull(entry);
+
+        Assert.False(Cache.TryGetCacheEntry(null, out var v));
+        Assert.Null(v);
+    }
 }
