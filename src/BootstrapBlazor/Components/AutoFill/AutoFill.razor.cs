@@ -58,7 +58,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
-    public Func<TValue, string?>? OnGetDisplayText { get; set; }
+    public Func<TValue?, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
     /// 图标

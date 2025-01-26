@@ -88,7 +88,7 @@
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="AutoFill" />
-                <AutoFill Items="AufoFillItems" IsLikeMatch="true" OnGetDisplayText="@(foo => foo.Name)">
+                <AutoFill Items="AufoFillItems" IsLikeMatch="true" OnGetDisplayText="@(foo => foo?.Name)">
                     <ItemTemplate>
                         <div class="d-flex">
                             <div>

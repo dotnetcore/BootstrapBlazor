@@ -178,6 +178,10 @@ internal class CacheManager : ICacheManager
 
     private MethodInfo? _allValuesMethodInfo = null;
 
+    private static readonly FieldInfo _coherentStateFieldInfo = typeof(MemoryCache).GetField("_coherentState", BindingFlags.Instance | BindingFlags.NonPublic)!;
+
+    private static MethodInfo GetAllValuesMethodInfo(Type type) => type.GetMethod("GetAllValues", BindingFlags.Instance | BindingFlags.Public)!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -200,18 +204,10 @@ internal class CacheManager : ICacheManager
         return entry != null;
     }
 
-    private static object GetCoherentState(MemoryCache cache)
-    {
-        var fieldInfo = cache.GetType().GetField("_coherentState", BindingFlags.Instance | BindingFlags.NonPublic)!;
-        return fieldInfo.GetValue(cache)!;
-    }
-
-    private static MethodInfo GetAllValuesMethodInfo(object coherentStateInstance) => coherentStateInstance.GetType().GetMethod("GetAllValues", BindingFlags.Instance | BindingFlags.Public)!;
-
     private List<ICacheEntry> GetAllValues(MemoryCache cache)
     {
-        _coherentStateInstance ??= GetCoherentState(cache);
-        _allValuesMethodInfo ??= GetAllValuesMethodInfo(_coherentStateInstance);
+        _coherentStateInstance = _coherentStateFieldInfo.GetValue(cache)!;
+        _allValuesMethodInfo ??= GetAllValuesMethodInfo(_coherentStateInstance.GetType());
 
         var ret = new List<ICacheEntry>();
         if (_allValuesMethodInfo.Invoke(_coherentStateInstance, null) is IEnumerable<ICacheEntry> values)
