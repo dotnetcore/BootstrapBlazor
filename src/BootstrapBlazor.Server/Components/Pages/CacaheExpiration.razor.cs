@@ -36,8 +36,6 @@ public partial class CacaheExpiration
         ExpirationTime = "loading ...";
         await Task.Yield();
 
-        ExpirationTime = Context is ICacheEntry entry
-            ? entry.GetExpiration()
-            : "-";
+        ExpirationTime = Context is ICacheEntry entry ? entry.GetExpiration() : "-";
     }
 }
