@@ -18,9 +18,9 @@
                     @GetValue(v.Row)
                 </Template>
             </TableTemplateColumn>
-            <TableTemplateColumn Text="@Localizer["CacheListExpiration"]" Width="160">
+            <TableTemplateColumn Text="@Localizer["CacheListExpiration"]" Width="180">
                 <Template Context="v">
-                    <CacaheExpiration Key="v.Row"></CacaheExpiration>
+                    <CacaheExpiration TableColumnContext="v"></CacaheExpiration>
                 </Template>
             </TableTemplateColumn>
             <TableTemplateColumn Text="@Localizer["CacheListAction"]" Width="80">

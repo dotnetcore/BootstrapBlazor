@@ -19,7 +19,7 @@ public partial class CacaheExpiration
     /// 获得/设置 <see cref="TableColumnContext{TItem, TValue}"/> 实例
     /// </summary>
     [Parameter, NotNull]
-    public object? Key { get; set; }
+    public TableColumnContext<object, object>? TableColumnContext { get; set; }
 
     private string? ExpirationTime { get; set; }
 
@@ -39,32 +39,9 @@ public partial class CacaheExpiration
         ExpirationTime = "loading ...";
         await Task.Yield();
 
-        if (CacheManager.TryGetCacheEntry(Key, out ICacheEntry? entry))
-        {
-            if (entry.Priority == CacheItemPriority.NeverRemove)
-            {
-                ExpirationTime = "Never Remove";
-            }
-            else if (entry.SlidingExpiration.HasValue)
-            {
-                ExpirationTime = $"Sliding: {entry.SlidingExpiration.Value}";
-            }
-            else if (entry.AbsoluteExpiration.HasValue)
-            {
-                ExpirationTime = $"Absolute: {entry.AbsoluteExpiration.Value}";
-            }
-            else if (entry.ExpirationTokens.Count != 0)
-            {
-                ExpirationTime = $"Token: {entry.ExpirationTokens.Count}";
-            }
-            else
-            {
-                ExpirationTime = "Not Set";
-            }
-        }
-        else
-        {
-            ExpirationTime = "Not Found";
-        }
+        var key = TableColumnContext.Row;
+        ExpirationTime = CacheManager.TryGetCacheEntry(key, out ICacheEntry? entry)
+            ? entry.GetExpiration()
+            : "Not Found";
     }
 }
