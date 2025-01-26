@@ -57,6 +57,14 @@ public partial class CacaheExpiration
             {
                 ExpirationTime = $"Token: {entry.ExpirationTokens.Count}";
             }
+            else
+            {
+                ExpirationTime = "Not Set";
+            }
+        }
+        else
+        {
+            ExpirationTime = "Not Found";
         }
     }
 }
