@@ -17,9 +17,14 @@ public static class ICacheEntryExtensions
     /// 获得缓存项 <see cref="ICacheEntry"/> 最后访问时间
     /// </summary>
     /// <param name="entry"></param>
+    /// <param name="force"></param>
     /// <returns></returns>
-    public static DateTime? GetLastAccessed(this ICacheEntry entry)
+    public static DateTime? GetLastAccessed(this ICacheEntry entry, bool force = false)
     {
+        if (force)
+        {
+            _lastAccessedProperty = null;
+        }
         _lastAccessedProperty ??= entry.GetType().GetProperty("LastAccessed", BindingFlags.Instance | BindingFlags.NonPublic);
 
         DateTime? ret = null;
