@@ -54,9 +54,9 @@ public partial class InputGroups
 
     private readonly IEnumerable<SelectedItem> Items = new SelectedItem[]
     {
-        new SelectedItem("", "请选择 ..."),
-        new SelectedItem("Beijing", "北京"),
-        new SelectedItem("Shanghai", "上海")
+        new("", "请选择 ..."),
+        new("Beijing", "北京"),
+        new("Shanghai", "上海")
     };
     private string? GroupFormClassString => CssBuilder.Default("row g-3").AddClass("form-inline", FormRowType == RowType.Inline).Build();
 
