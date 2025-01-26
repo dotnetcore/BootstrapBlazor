@@ -24,9 +24,11 @@ public partial class CacheList
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async Task OnParametersSetAsync()
     {
-        base.OnInitialized();
+        await base.OnParametersSetAsync();
+
+        await Task.Yield();
         UpdateCacheList();
     }
 
@@ -49,30 +51,29 @@ public partial class CacheList
 
     private void UpdateCacheList()
     {
-        _cacheList = [.. CacheManager.Keys.OrderBy(i => i.ToString())];
+        _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).Select(key =>
+        {
+            ICacheEntry? entry = null;
+            if (CacheManager.TryGetCacheEntry(key, out var val))
+            {
+                entry = val;
+            }
+            return (object)entry!;
+        }).ToList();
     }
 
-    private string GetValue(object key)
-    {
-        string ret = "-";
-        if (CacheManager.TryGetValue(key, out object? value))
-        {
-            if (value is string stringValue)
-            {
-                ret = stringValue;
-                return ret;
-            }
+    private static string GetKey(object data) => data is ICacheEntry entry ? entry.Key.ToString()! : "-";
 
-            if (value is IEnumerable)
-            {
-                ret = $"{LambdaExtensions.ElementCount(value)}";
-            }
-            else
-            {
-                ret = value?.ToString() ?? "-";
-            }
+    private static string GetValue(object data) => data is ICacheEntry entry ? GetCacheEntryValue(entry) : "-";
+
+    private static string GetCacheEntryValue(ICacheEntry entry)
+    {
+        var value = entry.Value;
+        if (value is string stringValue)
+        {
+            return stringValue;
         }
 
-        return ret;
+        return value is IEnumerable ? $"{LambdaExtensions.ElementCount(value)}" : value?.ToString() ?? "-";
     }
 }

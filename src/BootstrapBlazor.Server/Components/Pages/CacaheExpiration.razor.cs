@@ -12,14 +12,11 @@ namespace BootstrapBlazor.Server.Components.Pages;
 /// </summary>
 public partial class CacaheExpiration
 {
-    [Inject, NotNull]
-    private ICacheManager? CacheManager { get; set; }
-
     /// <summary>
-    /// 获得/设置 <see cref="TableColumnContext{TItem, TValue}"/> 实例
+    /// 获得/设置 <see cref="ICacheEntry"/> 实例
     /// </summary>
     [Parameter, NotNull]
-    public TableColumnContext<object, object>? TableColumnContext { get; set; }
+    public object? Context { get; set; }
 
     private string? ExpirationTime { get; set; }
 
@@ -39,9 +36,8 @@ public partial class CacaheExpiration
         ExpirationTime = "loading ...";
         await Task.Yield();
 
-        var key = TableColumnContext.Row;
-        ExpirationTime = CacheManager.TryGetCacheEntry(key, out ICacheEntry? entry)
+        ExpirationTime = Context is ICacheEntry entry
             ? entry.GetExpiration()
-            : "Not Found";
+            : "-";
     }
 }
