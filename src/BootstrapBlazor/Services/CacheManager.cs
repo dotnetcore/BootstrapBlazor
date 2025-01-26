@@ -12,6 +12,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 #if NET8_0_OR_GREATER
+using System.Runtime.CompilerServices;
 using System.Collections.Frozen;
 #endif
 
@@ -171,6 +172,53 @@ internal class CacheManager : ICacheManager
             }
             return keys;
         }
+    }
+
+    private object? _coherentStateInstance = null;
+
+    private MethodInfo? _allValuesMethodInfo = null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="entry"></param>
+    /// <returns></returns>
+    public bool TryGetCacheEntry(object? key, [NotNullWhen(true)] out ICacheEntry? entry)
+    {
+        entry = null;
+        if (key == null)
+        {
+            return false;
+        }
+
+        if (Cache is MemoryCache cache)
+        {
+            var values = GetAllValues(cache);
+            entry = values.Find(e => e.Key == key);
+        }
+        return entry != null;
+    }
+
+    private static object GetCoherentState(MemoryCache cache)
+    {
+        var fieldInfo = cache.GetType().GetField("_coherentState", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        return fieldInfo.GetValue(cache)!;
+    }
+
+    private static MethodInfo GetAllValuesMethodInfo(object coherentStateInstance) => coherentStateInstance.GetType().GetMethod("GetAllValues", BindingFlags.Instance | BindingFlags.Public)!;
+
+    private List<ICacheEntry> GetAllValues(MemoryCache cache)
+    {
+        _coherentStateInstance ??= GetCoherentState(cache);
+        _allValuesMethodInfo ??= GetAllValuesMethodInfo(_coherentStateInstance);
+
+        var ret = new List<ICacheEntry>();
+        if (_allValuesMethodInfo.Invoke(_coherentStateInstance, null) is IEnumerable<ICacheEntry> values)
+        {
+            ret.AddRange(values);
+        }
+        return ret;
     }
 #endif
 

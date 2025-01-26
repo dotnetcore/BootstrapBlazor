@@ -66,5 +66,13 @@ public interface ICacheManager
     /// 获得 缓存键集合
     /// </summary>
     IEnumerable<object> Keys { get; }
+
+    /// <summary>
+    /// 通过指定 key 获取缓存项 <see cref="ICacheEntry"/> 实例
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="entry"></param>
+    /// <returns></returns>
+    bool TryGetCacheEntry(object? key, [NotNullWhen(true)] out ICacheEntry? entry);
 #endif
 }
