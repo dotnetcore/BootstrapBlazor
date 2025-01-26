@@ -543,6 +543,44 @@ public class SelectTableTest : BootstrapBlazorTestBase
         Assert.Equal(2, labels.Count);
     }
 
+    [Fact]
+    public void EmptyTemplate_OK()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = [],
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.ShowEmpty, true);
+                pb.Add(a => a.EmptyTemplate, builder => builder.AddContent(0, "empty-template"));
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Searchable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.Contains("<div class=\"empty\"><div class=\"empty-telemplate\">empty-template</div></div>");
+    }
+
     private static Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
     {
         _filterItems = _filterItems.Where(options.ToFilterFunc<Foo>());
