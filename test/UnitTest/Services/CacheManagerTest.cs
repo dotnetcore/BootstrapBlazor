@@ -156,5 +156,8 @@ public class CacheManagerTest : BootstrapBlazorTestBase
         });
         Assert.True(Cache.TryGetCacheEntry("test_01", out var entry));
         Assert.NotNull(entry);
+
+        Assert.False(Cache.TryGetCacheEntry(null, out var v));
+        Assert.Null(v);
     }
 }
