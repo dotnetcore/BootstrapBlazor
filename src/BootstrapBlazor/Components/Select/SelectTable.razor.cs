@@ -68,6 +68,18 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public bool IsClearable { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示无数据空记录 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowEmpty { get; set; }
+
+    /// <summary>
+    /// 获得/设置 无数据时显示模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? EmptyTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 IIconTheme 服务实例
     /// </summary>
     [Inject]
