@@ -18,7 +18,7 @@ partial class AutoFills
     [NotNull]
     private Foo Model3 { get; set; } = new();
 
-    private static string OnGetDisplayText(Foo foo) => foo.Name ?? "";
+    private static string? OnGetDisplayText(Foo? foo) => foo?.Name;
 
     [NotNull]
     private IEnumerable<Foo>? Items1 { get; set; }
