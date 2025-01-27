@@ -11,13 +11,49 @@ namespace BootstrapBlazor.Components;
 public partial class DropUpload<TValue>
 {
     /// <summary>
-    /// 
+    /// 获得/设置 Body 模板 默认 null
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
 
+    /// <summary>
+    ///获得/设置 图标模板 默认 null
+    /// </summary>
+    public RenderFragment? IconTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 文字模板 默认 null
+    /// </summary>
+    public RenderFragment? TextTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Footer 默认 false 不显示
+    /// </summary>
+    public bool ShowFooter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Footer 字符串信息 默认 null 未设置
+    /// </summary>
+    public RenderFragment? FooterTemplate { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    public string? FooterString { get; set; }
+
     private string? DropUploadClassString => CssBuilder.Default(ClassString)
-        .AddClass("is-drag")
+        .AddClass("is-drop")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        FooterString ??= "just a test footer string";
+        ShowFooter = true;
+    }
 }

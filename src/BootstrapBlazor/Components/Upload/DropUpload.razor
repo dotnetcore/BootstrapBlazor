@@ -4,21 +4,36 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
 }
 <div @attributes="@AdditionalAttributes" class="@DropUploadClassString" id="@Id">
-    @if (BodyTemplate != null)
+    <div class="upload-drop-body">
+        @if (BodyTemplate != null)
+        {
+            @BodyTemplate
+        }
+        else
+        {
+            <div class="upload-drop-icon">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <div class="upload-drop-text">
+                Drop file here or <em>click to upload</em>
+            </div>
+        }
+    </div>
+    @if (ShowFooter)
     {
-        @BodyTemplate
-    }
-    else
-    {
-        <div class="upload-drag-icon">
-            <i class="fa-solid fa-cloud-arrow-up"></i>
+        <div class="upload-drop-footer">
+            @if (FooterTemplate != null)
+            {
+                @FooterTemplate
+            }
+            else
+            {
+                @FooterString
+            }
         </div>
-        <div class="upload-drag-text">
-            Drop file here or <em>click to upload</em>
-        </div>
     }
-    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange" />
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"/>
 </div>
