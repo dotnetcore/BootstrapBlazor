@@ -14,7 +14,7 @@ public partial class DropUpload<TValue>
     /// 
     /// </summary>
     [Parameter]
-    public RenderFragment? IconTemplate { get; set; }
+    public RenderFragment? BodyTemplate { get; set; }
 
     private string? DropUploadClassString => CssBuilder.Default(ClassString)
         .AddClass("is-drag")
