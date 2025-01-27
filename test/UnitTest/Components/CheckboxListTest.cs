@@ -28,6 +28,16 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ChildContent_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.ChildContent, pb => pb.AddContent(0, "test-childcontent"));
+        });
+        cut.MarkupMatches("<div class=\"form-check\"><input type=\"checkbox\" diff:ignore class=\"form-check-input\" blazor:onclick=\"1\" /><label class=\"form-check-label\" diff:ignore>test-childcontent</label></div>");
+    }
+
+    [Fact]
     public void StopPropagation_Ok()
     {
         var cut = Context.RenderComponent<Checkbox<string>>(builder =>
@@ -441,6 +451,26 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.Equal(CheckboxState.Checked, checkboxes[1].Instance.State);
         Assert.Equal(CheckboxState.UnChecked, checkboxes[2].Instance.State);
         Assert.False(max);
+    }
+
+    [Fact]
+    public void ItemTemplate_Ok()
+    {
+        var items = new List<SelectedItem>()
+        {
+            new("1", "Test 1"),
+            new("2", "Test 2"),
+            new("3", "Test 3")
+        };
+        var cut = Context.RenderComponent<CheckboxList<string>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ItemTemplate, item => b =>
+            {
+                b.AddContent(0, item.Text);
+            });
+        });
+        cut.MarkupMatches("<div diff:ignore class=\"checkbox-list form-control\" tabindex=\"0\" hidefocus=\"true\"><div class=\"checkbox-item\"><div class=\"form-check is-label\"><input type=\"checkbox\" diff:ignore class=\"form-check-input\" blazor:onclick=\"1\" /><label class=\"form-check-label\" diff:ignore>Test 1</label></div></div><div class=\"checkbox-item\"><div class=\"form-check is-label\"><input type=\"checkbox\" diff:ignore class=\"form-check-input\" blazor:onclick=\"2\" /><label class=\"form-check-label\" diff:ignore>Test 2</label></div></div><div class=\"checkbox-item\"><div class=\"form-check is-label\"><input type=\"checkbox\" diff:ignore class=\"form-check-input\" blazor:onclick=\"3\" /><label class=\"form-check-label\" diff:ignore>Test 3</label></div></div></div>");
     }
 
     private class CheckboxListGenericMock<T>
