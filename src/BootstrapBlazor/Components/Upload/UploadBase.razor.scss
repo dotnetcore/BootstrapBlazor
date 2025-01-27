@@ -10,6 +10,7 @@
     --bb-upload-card-padding: #{$bb-upload-card-padding};
     --bb-upload-card-margin: #{$bb-upload-card-margin};
     --bb-upload-card-item-width: #{$bb-upload-card-item-width};
+    --bb-upload-drop-height: #{$bb-upload-drop-height}
 }
 
 .upload .upload-body {
@@ -298,8 +299,28 @@
 }
 
 .upload {
-    .is-drag {
+    &.is-drag {
         border: 2px dashed var(--bs-primary);
         border-radius: var(--bs-border-radius);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: var(--bb-upload-drop-height);
+        cursor: pointer;
+
+        .upload-drag-icon > i {
+            font-size: 3em;
+            color: var(--bs-secondary);
+        }
+
+        .upload-drag-text {
+            margin-top: 1rem;
+        }
+
+        em {
+            color: var(--bs-primary);
+            font-style: normal;
+        }
     }
 }
