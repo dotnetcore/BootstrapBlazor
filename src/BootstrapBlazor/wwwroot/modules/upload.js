@@ -15,6 +15,12 @@ export function init(id) {
         inputFile.click()
     })
 
+    if (el.classList.contains('is-drag')) {
+        EventHandler.on(el, 'click', () => {
+            inputFile.click()
+        })
+    }
+
     EventHandler.on(document, "dragleave", preventHandler)
     EventHandler.on(document, 'drop', preventHandler)
     EventHandler.on(document, 'dragenter', preventHandler)
