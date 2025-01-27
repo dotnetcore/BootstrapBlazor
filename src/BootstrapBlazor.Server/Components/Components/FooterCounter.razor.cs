@@ -14,7 +14,7 @@ public partial class FooterCounter : IDisposable
 {
     private string? Runtime { get; set; }
 
-    private CancellationTokenSource DisposeTokenSource { get; } = new();
+    private CancellationTokenSource _disposeTokenSource = new();
 
     private ConnectionHubOptions _options = default!;
 
@@ -37,30 +37,17 @@ public partial class FooterCounter : IDisposable
     /// <inheritdoc />
     /// </summary>
     /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            _ = Task.Run(async () =>
-            {
-                while (!DisposeTokenSource.IsCancellationRequested)
-                {
-                    try
-                    {
-                        await Task.Delay(1000, DisposeTokenSource.Token);
-                    }
-                    catch (TaskCanceledException)
-                    {
+        await base.OnAfterRenderAsync(firstRender);
 
-                    }
-                    if (!DisposeTokenSource.IsCancellationRequested)
-                    {
-                        UpdateRuntime();
-                        await InvokeAsync(StateHasChanged);
-                    }
-                }
-            });
+        try
+        {
+            await Task.Delay(1000, _disposeTokenSource.Token);
+            UpdateRuntime();
+            StateHasChanged();
         }
+        catch { }
     }
 
     private void UpdateRuntime()
@@ -73,8 +60,8 @@ public partial class FooterCounter : IDisposable
     {
         if (disposing)
         {
-            DisposeTokenSource.Cancel();
-            DisposeTokenSource.Dispose();
+            _disposeTokenSource.Cancel();
+            _disposeTokenSource.Dispose();
         }
     }
 
