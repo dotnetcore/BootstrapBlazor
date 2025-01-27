@@ -83,7 +83,7 @@
     "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，本页面如果宽度过长，请 <kbd>F12</kbd> 人为减小可视页面宽度",
     "TablesFixedColHeaderTitle": "固定列头与列尾",
     "TablesFixedColHeaderIntro": "设置 <code>Fixed</code> 属性固定表头",
-    "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动",
+    "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动，本例中设置 <code>AllowResize=\"true\"</code> 固定列也可以调整宽度",
     "TablesFixedColTableHeaderTitle": "固定表头与列",
     "TablesFixedColTableHeaderIntro": "设置 <code>IsFixedHeader=\"true\"</code> 固定表头，设置 <code>Fixed</code> 对列进行固定",
     "TablesFixedExtendButtonsColumnTitle": "固定按钮操作列",

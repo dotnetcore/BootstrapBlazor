@@ -83,7 +83,7 @@
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
     "TablesFixedColHeaderTitle": "Fixed column header and column footer",
     "TablesFixedColHeaderIntro": "Set the <code>Fixed</code> attribute to fix the header",
-    "TablesFixedColHeaderDescription": "In this example, set <code>Name</code> <code>DateTime</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
+    "TablesFixedColHeaderDescription": "In this example, set  <code>Name</code> <code>Education</code> <code>Count</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
     "TablesFixedColTableHeaderTitle": "Fixed headers and columns",
     "TablesFixedColTableHeaderIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>Fixed</code> to fix the column",
     "TablesFixedExtendButtonsColumnTitle": "Fixed button action column",
