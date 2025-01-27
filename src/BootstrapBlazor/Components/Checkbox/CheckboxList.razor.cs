@@ -99,6 +99,12 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     public Func<Task>? OnMaxSelectedCountExceed { get; set; }
 
     /// <summary>
+    /// 获得/设置 项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得 当前选项是否被禁用
     /// </summary>
     /// <param name="item"></param>
@@ -295,4 +301,8 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
             throw new NotSupportedException();
         }
     }
+
+    private RenderFragment? GetChildContent(SelectedItem item) => ItemTemplate == null
+        ? null
+        : ItemTemplate(item);
 }
