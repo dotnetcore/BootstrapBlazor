@@ -10,7 +10,14 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class DropUpload<TValue>
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    public RenderFragment? IconTemplate { get; set; }
+
     private string? DropUploadClassString => CssBuilder.Default(ClassString)
+        .AddClass("is-drag")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 }
