@@ -296,3 +296,10 @@
 .btn-group .upload .upload-body {
     display: none;
 }
+
+.upload {
+    .is-drag {
+        border: 2px dashed var(--bs-primary);
+        border-radius: var(--bs-border-radius);
+    }
+}
