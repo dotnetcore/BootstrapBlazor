@@ -250,7 +250,6 @@
     display: flex;
     align-items: center;
     word-break: break-all;
-    overflow: hidden;
 }
 
 .table-cell.center {
@@ -382,6 +381,10 @@
 
 .table-fixed-body > .table > tbody > tr > td,
 .table-fixed-header > .table > thead > tr > th {
+    overflow: hidden;
+}
+
+td > .table-cell {
     overflow: hidden;
 }
 
@@ -554,10 +557,6 @@ tr.active:not(.is-edit):hover {
     transition: box-shadow .3s;
     content: "";
     pointer-events: none;
-}
-
-.table-fixed-column .table .fixed-right {
-    border-right: inherit;
 }
 
 .table-fixed-column .table .fixed-right.fl {
