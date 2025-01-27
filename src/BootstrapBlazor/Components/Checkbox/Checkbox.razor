@@ -9,7 +9,13 @@
 <div @attributes="AdditionalAttributes" class="@ClassString">
     <input type="checkbox" id="@Id" class="@InputClassString" disabled="@Disabled" checked="@CheckedString"
            @onclick="OnToggleClick" @onclick:stopPropagation="StopPropagation" @onclick:preventDefault="false" />
-    @if (IsShowAfterLabel)
+    @if(ChildContent != null)
+    {
+        <label class="form-check-label" for="@Id">
+            @ChildContent
+        </label>
+    }
+    else if (IsShowAfterLabel)
     {
         <label class="form-check-label" for="@Id">
             @if (ShowLabelTooltip is true)

@@ -26,12 +26,6 @@ public partial class RadioList<TValue>
     public string? NullItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
-
-    /// <summary>
     /// 获得/设置 未设置选中项时是否自动选择第一项 默认 true
     /// </summary>
     [Parameter]
