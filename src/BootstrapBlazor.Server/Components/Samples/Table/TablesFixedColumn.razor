@@ -15,15 +15,16 @@
     <section ignore>@((MarkupString)Localizer["TablesFixedColHeaderDescription"].Value)</section>
     <Table TItem="Foo"
            Items="@Items.Take(4)"
-           RenderMode="TableRenderMode.Table"
+           RenderMode="TableRenderMode.Table" AllowResizing="true"
            IsBordered="true"
            IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="120" Fixed="true" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Width="1400" Filterable="true" />
-            <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" />
-            <TableColumn @bind-Field="@context.Count" Width="100" Filterable="true" />
+            <TableColumn @bind-Field="@context.Hobby" Width="140" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" Fixed="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Filterable="true" Fixed="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Fixed="true" Filterable="true" />
         </TableColumns>
     </Table>
@@ -34,7 +35,7 @@
            Name="FixedColTableHeader">
     <Table TItem="Foo"
            Items="@Items.Take(10)"
-           RenderMode="TableRenderMode.Table"
+           RenderMode="TableRenderMode.Table" AllowResizing="true"
            IsBordered="true" IsStriped="true"
            IsMultipleSelect="true"
            Height="200"

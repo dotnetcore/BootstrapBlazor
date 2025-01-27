@@ -384,6 +384,10 @@
     overflow: hidden;
 }
 
+td > .table-cell {
+    overflow: hidden;
+}
+
 .table tbody td .table-cell:not(.is-wrap) {
     white-space: nowrap;
 }
@@ -553,10 +557,6 @@ tr.active:not(.is-edit):hover {
     transition: box-shadow .3s;
     content: "";
     pointer-events: none;
-}
-
-.table-fixed-column .table .fixed-right {
-    border-right: inherit;
 }
 
 .table-fixed-column .table .fixed-right.fl {

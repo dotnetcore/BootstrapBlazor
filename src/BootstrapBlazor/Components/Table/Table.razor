@@ -602,7 +602,7 @@
                                 </Popover>
                             }
                         </div>
-                        @if (!col.Fixed && AllowResizing)
+                        @if (AllowResizing)
                         {
                             <span class="col-resizer" data-bb-field="@col.GetFieldName()"></span>
                         }
