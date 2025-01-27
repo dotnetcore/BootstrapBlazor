@@ -99,6 +99,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public bool StopPropagation { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件 RenderFragment 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()

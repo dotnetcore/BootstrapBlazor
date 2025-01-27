@@ -89,6 +89,12 @@ public partial class CheckboxLists
             new() { Text = Localizer["item4"], Value = Localizer["item4"] },
         };
 
+        IconDemoValues = new List<IconSelectedItem>()
+        {
+            new() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
+            new() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
+        };
+
         Dummy = new Foo() { Name = Localizer["Foo"] };
         Model = Foo.Generate(LocalizerFoo);
         FooItems = Foo.GenerateHobbies(LocalizerFoo);
@@ -135,6 +141,9 @@ public partial class CheckboxLists
         new() { Text = "Item 4", Value = "4" },
     };
 
+    [NotNull]
+    private IEnumerable<IconSelectedItem>? IconDemoValues { get; set; }
+
     private Task OnSelectedChanged(IEnumerable<SelectedItem> items, string value)
     {
         NormalLogger.Log($"{Localizer["Header"]} {items.Count(i => i.Active)} {Localizer["Counter"]}：{value}");
@@ -155,6 +164,11 @@ public partial class CheckboxLists
     private Task OnMaxSelectedCountExceed()
     {
         return ToastService.Information(Localizer["OnMaxSelectedCountExceedTitle"], Localizer["OnMaxSelectedCountExceedContent", 2]);
+    }
+
+    class IconSelectedItem : SelectedItem
+    {
+        public string? Icon { get; init; }
     }
 
     private AttributeItem[] GetAttributes() =>
