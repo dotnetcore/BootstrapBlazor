@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// SingleUploadBase 基类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
