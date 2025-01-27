@@ -385,7 +385,7 @@ public partial class ModalDialog : IHandlerException
                 }
             }
         }
-        ResultTask?.SetResult(_result);
+        ResultTask?.TrySetResult(_result);
         await Modal.Close();
     }
 
