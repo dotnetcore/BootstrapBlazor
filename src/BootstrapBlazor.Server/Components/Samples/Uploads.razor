@@ -12,10 +12,6 @@
 
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
-<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="DropUpload">
-    <DropUpload ShowFooter="true" FooterText="@Localizer["DropUploadFooterText"]"></DropUpload>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["UploadNormalTitle"]"
            Introduction="@Localizer["UploadNormalIntro"]"
            Name="Normal">
@@ -187,6 +183,10 @@
            Introduction="@Localizer["UploadBase64Intro"]"
            Name="Base64">
     <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" IsSingle="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="DropUpload">
+    <DropUpload OnChange="@OnCardUpload" ShowProgress="true" ShowFooter="true" FooterText="@Localizer["DropUploadFooterText"]"></DropUpload>
 </DemoBlock>
 
 <AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
