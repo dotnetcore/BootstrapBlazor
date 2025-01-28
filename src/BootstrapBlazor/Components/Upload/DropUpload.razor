@@ -1,6 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@typeparam TValue
-@inherits SingleUploadBase<TValue>
+@inherits SingleUploadBase<string>
 
 @if (IsShowLabel)
 {
@@ -15,10 +14,24 @@
         else
         {
             <div class="upload-drop-icon">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
+                @if (IconTemplate != null)
+                {
+                    @IconTemplate
+                }
+                else
+                {
+                    <i class="@UploadIcon"></i>
+                }
             </div>
             <div class="upload-drop-text">
-                Drop file here or <em>click to upload</em>
+                @if (TextTemplate != null)
+                {
+                    @TextTemplate
+                }
+                else
+                {
+                    @(new MarkupString(UploadText))
+                }
             </div>
         }
     </div>
@@ -31,7 +44,7 @@
             }
             else
             {
-                @FooterString
+                @(new MarkupString(FooterText))
             }
         </div>
     }

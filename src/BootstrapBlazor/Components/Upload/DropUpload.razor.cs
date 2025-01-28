@@ -3,15 +3,18 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// DropUpload 组件
 /// </summary>
-public partial class DropUpload<TValue>
+public partial class DropUpload
 {
     /// <summary>
     /// 获得/设置 Body 模板 默认 null
+    /// <para>设置 BodyTemplate 后 <see cref="IconTemplate"/> <see cref="TextTemplate"/> 不生效</para>
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
@@ -19,27 +22,54 @@ public partial class DropUpload<TValue>
     /// <summary>
     ///获得/设置 图标模板 默认 null
     /// </summary>
+    [Parameter]
     public RenderFragment? IconTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图标 默认 null
+    /// </summary>
+    [Parameter]
+    public string? UploadIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 文字模板 默认 null
     /// </summary>
+    [Parameter]
     public RenderFragment? TextTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上传文字 默认 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? UploadText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 Footer 默认 false 不显示
     /// </summary>
+    [Parameter]
     public bool ShowFooter { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Footer 字符串模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 Footer 字符串信息 默认 null 未设置
     /// </summary>
-    public RenderFragment? FooterTemplate { get; set; }
+    [Parameter]
+    [NotNull]
+    public string? FooterText { get; set; }
 
-    /// <summary>
-    ///
-    /// </summary>
-    public string? FooterString { get; set; }
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<UploadBase<string>>? Localizer { get; set; }
 
     private string? DropUploadClassString => CssBuilder.Default(ClassString)
         .AddClass("is-drop")
@@ -53,7 +83,8 @@ public partial class DropUpload<TValue>
     {
         base.OnParametersSet();
 
-        FooterString ??= "just a test footer string";
-        ShowFooter = true;
+        UploadIcon ??= IconTheme.GetIconByKey(ComponentIcons.DropUploadIcon);
+        UploadText ??= Localizer["DropUploadText"];
+        FooterText ??= Localizer["DropFooterText"];
     }
 }
