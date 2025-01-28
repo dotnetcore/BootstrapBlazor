@@ -50,10 +50,9 @@ public partial class Downloads
         {
             await DownloadService.DownloadFolderAsync("test.zip", WebsiteOption.CurrentValue.WebRootPath);
         }
-        catch (FileNotFoundException msg)
+        catch (Exception ex)
         {
-
-            await ToastService.Error("下载", msg.Message);
+            await ToastService.Error("下载", ex.Message);
         }
     }
 

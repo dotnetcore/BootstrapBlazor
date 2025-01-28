@@ -47,6 +47,16 @@ public static class ICacheEntryExtensions
     private static TimeSpan GetSlidingLeftTime(this ICacheEntry entry)
     {
         var lastAccessed = entry.GetLastAccessed();
-        return lastAccessed == null ? TimeSpan.Zero : entry.SlidingExpiration!.Value - (DateTime.UtcNow - lastAccessed.Value);
+        if (lastAccessed == null)
+        {
+            return TimeSpan.Zero;
+        }
+
+        var ts = entry.SlidingExpiration!.Value - (DateTime.UtcNow - lastAccessed.Value);
+        if (ts < TimeSpan.Zero)
+        {
+            ts = TimeSpan.Zero;
+        }
+        return ts;
     }
 }

@@ -1,3 +1,9 @@
 ﻿.table-cache-list {
     height: calc(100vh - 180px);
 }
+
+::deep .table-cache-value {
+    max-height: 80px;
+    overflow: auto;
+    align-items: flex-start;
+}

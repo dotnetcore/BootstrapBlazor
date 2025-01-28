@@ -398,7 +398,7 @@ public static class Utility
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
-        var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
+        var displayName = item.GetDisplayName();
         var fieldValue = GenerateValue(model, fieldName);
         var type = (Nullable.GetUnderlyingType(fieldType) ?? fieldType);
         if (type == typeof(bool) || fieldValue?.GetType() == typeof(bool))
@@ -474,7 +474,7 @@ public static class Utility
     {
         var fieldType = item.PropertyType;
         var fieldName = item.GetFieldName();
-        var displayName = item.GetDisplayName() ?? GetDisplayName(model, fieldName);
+        var displayName = item.GetDisplayName();
 
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
