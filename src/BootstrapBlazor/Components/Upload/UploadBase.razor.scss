@@ -330,4 +330,15 @@
         font-size: var(--bb-upload-drop-footer-font-size);
         margin-top: var(--bb-upload-drop-footer-margin-top);
     }
+
+    .upload-drop-list {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+
+        .upload-drop-process {
+            position: relative;
+        }
+    }
 }

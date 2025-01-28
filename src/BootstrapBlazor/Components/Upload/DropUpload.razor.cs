@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -86,5 +87,28 @@ public partial class DropUpload
         UploadIcon ??= IconTheme.GetIconByKey(ComponentIcons.DropUploadIcon);
         UploadText ??= Localizer["DropUploadText"];
         FooterText ??= Localizer["DropFooterText"];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    protected override async Task OnFileChange(InputFileChangeEventArgs args)
+    {
+        var file = new UploadFile()
+        {
+            OriginFileName = args.File.Name,
+            Size = args.File.Size,
+            File = args.File,
+            Uploaded = false,
+            UpdateCallback = Update
+        };
+        UploadFiles.Add(file);
+        if (OnChange != null)
+        {
+            await OnChange(file);
+        }
+        file.Uploaded = true;
     }
 }

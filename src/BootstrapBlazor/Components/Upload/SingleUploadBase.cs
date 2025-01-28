@@ -102,4 +102,16 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
         }
         return ret;
     }
+
+    /// <summary>
+    /// 更新上传进度方法
+    /// </summary>
+    /// <param name="file"></param>
+    protected void Update(UploadFile file)
+    {
+        if (GetShowProgress(file))
+        {
+            StateHasChanged();
+        }
+    }
 }

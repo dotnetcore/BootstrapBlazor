@@ -48,5 +48,20 @@
             }
         </div>
     }
+    <ul class="upload-drop-list">
+        @foreach (var item in GetUploadFiles())
+        {
+            @if (GetShowProgress(item))
+            {
+                <li @key="item" class="upload-drop-item">
+                    <div class="upload-drop-item-file">
+                        <span>@item.GetFileName()</span>
+                        <span>(@item.Size.ToFileSizeString())</span>
+                    </div>
+                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" class="upload-drop-process" />
+                </li>
+            }
+        }
+    </ul>
     <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"/>
 </div>

@@ -220,14 +220,6 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         await base.OnFileChange(args);
     }
 
-    private void Update(UploadFile file)
-    {
-        if (GetShowProgress(file))
-        {
-            StateHasChanged();
-        }
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
