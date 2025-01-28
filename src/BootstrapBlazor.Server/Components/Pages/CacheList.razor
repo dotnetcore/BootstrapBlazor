@@ -13,7 +13,7 @@
                     @GetKey(v.Row)
                 </Template>
             </TableTemplateColumn>
-            <TableTemplateColumn Text="@Localizer["CacheListValue"]" TextWrap="true" Width="220">
+            <TableTemplateColumn Text="@Localizer["CacheListValue"]" TextWrap="true" Width="220" CssClass="table-cache-value scroll">
                 <Template Context="v">
                     @GetValue(v.Row)
                 </Template>
