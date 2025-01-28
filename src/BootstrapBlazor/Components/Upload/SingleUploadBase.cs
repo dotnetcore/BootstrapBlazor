@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// SingleUploadBase 基类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
@@ -101,5 +101,17 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
             }
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 更新上传进度方法
+    /// </summary>
+    /// <param name="file"></param>
+    protected void Update(UploadFile file)
+    {
+        if (GetShowProgress(file))
+        {
+            StateHasChanged();
+        }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 头像上传组件
 /// </summary>
 public partial class AvatarUpload<TValue>
 {

@@ -141,6 +141,11 @@ public enum ComponentIcons
     UploadCancelIcon,
 
     /// <summary>
+    /// Upload 组件 UploadIcon 图标
+    /// </summary>
+    DropUploadIcon,
+
+    /// <summary>
     /// Cascader 组件 Icon 属性图标
     /// </summary>
     CascaderIcon,

@@ -3441,7 +3441,10 @@
     "UploadsSaveFile": "保存文件",
     "UploadsSaveFileMsg": "当前模式为 WebAssembly 模式，请调用 Webapi 模式保存文件到服务器端或数据库中",
     "UploadsRemoveMsg": "成功移除",
-    "UploadsIconTemplate": "文件图标模板"
+    "UploadsIconTemplate": "文件图标模板",
+    "DropUploadTitle": "拖拽上传",
+    "DropUploadIntro": "将文件拖拽到特定区域以进行上传",
+    "DropUploadFooterText": "文件大小不超过 5Mb"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
     "ChangeButtonText": "更改组件",

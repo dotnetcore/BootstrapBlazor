@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 按钮上传组件
 /// </summary>
 public partial class ButtonUpload<TValue>
 {

@@ -199,6 +199,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
         { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" },
         { ComponentIcons.UploadCancelIcon, "fa-solid fa-ban" },
+        { ComponentIcons.DropUploadIcon, "fa-solid fa-cloud-arrow-up" },
 
         { ComponentIcons.FileIconExcel, "fa-regular fa-file-excel" },
         { ComponentIcons.FileIconDocx, "fa-regular fa-file-word" },

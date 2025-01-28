@@ -22,12 +22,18 @@ public partial class Synthesizers
         {
             if (!string.IsNullOrEmpty(InputText))
             {
-                await SynthesizerService.SynthesizerOnceAsync(InputText, Synthesizer);
+                try
+                {
+                    await SynthesizerService.SynthesizerOnceAsync(InputText, Synthesizer);
+                }
+                catch (Exception)
+                {
+                }
             }
-        }
-        else
-        {
-            await SynthesizerService.CloseAsync(Synthesizer);
+            else
+            {
+                await SynthesizerService.CloseAsync(Synthesizer);
+            }
         }
     }
 

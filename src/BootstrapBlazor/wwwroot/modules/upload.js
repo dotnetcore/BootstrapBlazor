@@ -15,6 +15,10 @@ export function init(id) {
         inputFile.click()
     })
 
+    EventHandler.on(el, 'click', '.upload-drop-body', () => {
+        inputFile.click()
+    })
+
     EventHandler.on(document, "dragleave", preventHandler)
     EventHandler.on(document, 'drop', preventHandler)
     EventHandler.on(document, 'dragenter', preventHandler)
