@@ -17,7 +17,10 @@
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear"></Button>
         }
-        <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
+        @if (ShowSearchButton)
+        {
+            <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
+        }
     </div>
     <ul class="dropdown-menu">
         @foreach (var item in _filterItems)

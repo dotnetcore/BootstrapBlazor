@@ -37,6 +37,12 @@ public partial class Search<TValue>
     public Color ClearButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
+    /// 获得/设置 是否显示搜索按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearchButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 搜索按钮颜色
     /// </summary>
     [Parameter]
