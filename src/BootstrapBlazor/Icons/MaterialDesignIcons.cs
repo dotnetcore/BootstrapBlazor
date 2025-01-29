@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-internal static class MaterialDesignIcon
+internal static class MaterialDesignIcons
 {
     public static Dictionary<ComponentIcons, string> Icons => new()
     {
