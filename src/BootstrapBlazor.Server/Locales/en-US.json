@@ -6721,8 +6721,8 @@
     "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Icons.OctIcons": {
-    "AntDesignIconTitle": "Oct Svg Icon Lib",
-    "AntDesignIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
+    "OctIconTitle": "Oct Svg Icon Lib",
+    "OctIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
     "CopiedTooltipText": "Copied",
     "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
     "P2": "2. Enable css isolation and automatically reference component styles after compilation",
