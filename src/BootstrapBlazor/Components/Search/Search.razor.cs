@@ -74,6 +74,12 @@ public partial class Search<TValue>
     public bool ShowPrefixIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 前缀图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? PrefixIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 前缀图标模板 默认为 null
     /// </summary>
     [Parameter]
@@ -144,6 +150,8 @@ public partial class Search<TValue>
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+        PrefixIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
+
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
         NoDataTip ??= Localizer[nameof(NoDataTip)];
