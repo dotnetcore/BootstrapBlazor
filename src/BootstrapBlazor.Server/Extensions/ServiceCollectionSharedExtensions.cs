@@ -73,9 +73,6 @@ public static class ServiceCollectionSharedExtensions
             options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
         });
 
-        // 增加 MaterialDesign 图标主题
-        services.ConfigureMaterialDesignIconTheme();
-
         // 增加 BootstrapBlazor 假日服务
         services.AddBootstrapHolidayService();
 

@@ -37,13 +37,15 @@ public class IconThemeOptions
         Icons = new Dictionary<string, FrozenDictionary<ComponentIcons, string>>()
         {
             { "fa", FontAwesomeIcons.Icons.ToFrozenDictionary() },
-            { "bootstrap", BootstrapIcons.Icons.ToFrozenDictionary() }
+            { "bootstrap", BootstrapIcons.Icons.ToFrozenDictionary() },
+            { "mdi", MaterialDesignIcons.Icons.ToFrozenDictionary() }
         }.ToFrozenDictionary();
 #else
         Icons = new()
         {
             { "fa", FontAwesomeIcons.Icons },
-            { "bootstrap", BootstrapIcons.Icons }
+            { "bootstrap", BootstrapIcons.Icons },
+            { "mdi", MaterialDesignIcons.Icons }
         };
 #endif
         ThemeKey = "fa";
