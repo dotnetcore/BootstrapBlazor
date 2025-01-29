@@ -1571,6 +1571,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["OctIcon"],
                     Url = "oct-icon"
                 }
