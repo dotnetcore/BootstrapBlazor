@@ -56,18 +56,22 @@ public partial class CultureChooser
                 var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.SafeUnescaped);
                 var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
 
-                // use a path that matches your culture redirect controller from the previous steps
-                NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+                try
+                {
+                    // use a path that matches your culture redirect controller from the previous steps
+                    NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+                }
+                catch { }
             }
-        }
-        else
-        {
-            if (SelectedCulture != item.Value)
+            else
             {
-                var culture = item.Value;
-                await JSRuntime.InvokeVoidAsync("bbCulture.set", culture);
+                if (SelectedCulture != item.Value)
+                {
+                    var culture = item.Value;
+                    await JSRuntime.InvokeVoidAsync("bbCulture.set", culture);
 
-                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+                    NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+                }
             }
         }
     }
