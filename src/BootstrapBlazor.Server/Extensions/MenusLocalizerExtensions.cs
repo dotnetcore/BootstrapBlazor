@@ -1568,6 +1568,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["IconPark"],
                     Url = "icon-park"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["OctIcon"],
+                    Url = "oct-icon"
                 }
             };
             AddBadge(item);

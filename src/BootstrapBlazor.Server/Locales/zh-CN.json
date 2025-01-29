@@ -4806,7 +4806,8 @@
     "RDKit": "分子式组件 RDKit",
     "SmilesDrawer": "分子式组件 SmilesDrawer",
     "Affix": "固钉组件 Affix",
-    "Watermark": "水印组件 Watermark"
+    "Watermark": "水印组件 Watermark",
+    "OctIcon": "OctIcons"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6718,6 +6719,15 @@
     "P2": "2. 开启样式隔离，编译后自动引用组件样式",
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcons": {
+    "OctIconTitle": "Github 图标库",
+    "OctIconDescription": "Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.",
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看"
   },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",
