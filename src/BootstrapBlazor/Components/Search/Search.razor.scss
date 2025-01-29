@@ -1,9 +1,10 @@
 .search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
-    --bb-search-prefix-padding-left: #{$bb-search-prefix-padding-left};
+    --bb-search-prefix-input-padding-left: #{$bb-search-prefix-input-padding-left};
+    --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
 
     &.search-prefix .form-control {
-        padding-left: var(--bb-search-prefix-padding-left);
+        padding-left: var(--bb-search-prefix-input-padding-left);
     }
 
     .search-prefix-icon {
@@ -15,6 +16,6 @@
         padding-left: 1rem;
         display: flex;
         align-items: center;
-        opacity: 0.6;
+        color: var(--bb-search-prefix-icon-color);
     }
 }
