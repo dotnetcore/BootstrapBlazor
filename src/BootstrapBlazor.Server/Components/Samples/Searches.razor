@@ -14,8 +14,8 @@
     <Search IsAutoFocus="true"
             PlaceHolder="@Localizer["SearchesPlaceHolder"]"
             OnSearch="@OnSearch"
-            IsSelectAllTextOnFocus="true" />
-    <ConsoleLogger @ref="Logger" />
+            IsSelectAllTextOnFocus="true"></Search>
+    <ConsoleLogger @ref="Logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesDisplayButtonTitle"]"
@@ -25,7 +25,7 @@
             ShowClearButton="true"
             OnSearch="@OnDisplaySearch"
             OnClear="@OnClear"></Search>
-    <ConsoleLogger @ref="DisplayLogger" />
+    <ConsoleLogger @ref="DisplayLogger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesItemTemplateTitle"]"
@@ -56,26 +56,41 @@
            Name="keyboards">
     <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
             IsTriggerSearchByInput="false"
-            OnSearch="@OnKeyboardSearch" />
-    <ConsoleLogger @ref="KeyboardLogger" />
+            OnSearch="@OnKeyboardSearch"></Search>
+    <ConsoleLogger @ref="KeyboardLogger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesValidateFormTitle"]"
            Introduction="@Localizer["SearchesValidateFormIntro"]"
            Name="ValidateForm">
     <ValidateForm Model="@Model">
-        <Search @bind-Value="Model.Name" OnSearch="@OnModelSearch" />
+        <Search @bind-Value="Model.Name" OnSearch="@OnModelSearch"></Search>
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SearchesNormalTitle"]"
-           Introduction="@Localizer["SearchesNormalIntro"]"
+<DemoBlock Title="@Localizer["SearchesShowPrefixIconTitle"]"
+           Introduction="@Localizer["SearchesShowPrefixIconIntro"]"
            Name="ShowPrefixIcon">
-    <section ignore>@((MarkupString)Localizer["SearchesNormalDescription"].Value)</section>
-    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-            OnSearch="@OnModelSearch"
-            ShowPrefixIcon="true" PrefixIcon="fa fa-flag"
-            ShowClearButton="false" ShowSearchButton="false" />
+    <section ignore>@((MarkupString)Localizer["SearchesShowPrefixIconDescription"].Value)</section>
+    <div class="row g-3">
+        <div class="col-12 sm-6">
+            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+                    OnSearch="@OnModelSearch"
+                    ShowClearButton="false" ShowSearchButton="false"
+                    ShowPrefixIcon="true" PrefixIcon="fa fa-flag"></Search>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+                    OnSearch="@OnModelSearch"
+                    ShowClearButton="false" ShowSearchButton="false"
+                    ShowPrefixIcon="true">
+                <PrefixIconTemplate>
+                    <div class="search-custom-prefix">/</div>
+                </PrefixIconTemplate>
+            </Search>
+        </div>
+    </div>
+
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
