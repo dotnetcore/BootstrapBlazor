@@ -149,4 +149,39 @@ public class SearchTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => item.Click());
         Assert.Null(selectedItem);
     }
+
+    [Fact]
+    public void ShowPrefixIcon_Ok()
+    {
+        var items = new List<string?>() { null, "test1", "test2" };
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.ShowPrefixIcon, true);
+        });
+        cut.Contains("search auto-complete search-prefix");
+        cut.Contains("<div class=\"search-prefix-icon\"><i class=\"fa-solid fa-magnifying-glass\"></i></div>");
+    }
+
+    [Fact]
+    public void PrefixIconTemplate_Ok()
+    {
+        var items = new List<string?>() { null, "test1", "test2" };
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.ShowPrefixIcon, true);
+            pb.Add(a => a.PrefixIconTemplate, b => b.AddContent(0, "test-prefix-icon-template"));
+        });
+        cut.Contains("<div class=\"search-prefix-icon\">test-prefix-icon-template</div>");
+    }
+
+    [Fact]
+    public void ShowSearchButton_Ok()
+    {
+        var items = new List<string?>() { null, "test1", "test2" };
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.ShowSearchButton, false);
+        });
+        cut.DoesNotContain("aria-label=\"Search\"");
+    }
 }
