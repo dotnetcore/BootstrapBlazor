@@ -3441,7 +3441,10 @@
     "UploadsSaveFile": "Save the file",
     "UploadsSaveFileMsg": "The current mode is WebAssembly, call Webapi mode to save files to the server side or database",
     "UploadsRemoveMsg": "The removal was successful",
-    "UploadsIconTemplate": "The template of file icon"
+    "UploadsIconTemplate": "The template of file icon",
+    "DropUploadTitle": "Drop to upload",
+    "DropUploadIntro": "Drag and drop files into the specified area to upload",
+    "DropUploadFooterText": "file size less than 5Mb"
   },
   "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
     "ChangeButtonText": "Change",

@@ -185,6 +185,10 @@
     <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" IsSingle="true" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DropUploadTitle"]" Introduction="@Localizer["DropUploadIntro"]" Name="DropUpload">
+    <DropUpload OnChange="@OnCardUpload" ShowProgress="true" ShowFooter="true" FooterText="@Localizer["DropUploadFooterText"]"></DropUpload>
+</DemoBlock>
+
 <AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
 
 <AttributeTable Items="@GetButtonAttributes()" Title="ButtonUpload/CardUpload" />

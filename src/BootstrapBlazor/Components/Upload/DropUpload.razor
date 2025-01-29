@@ -1,0 +1,67 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits SingleUploadBase<string>
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"/>
+}
+<div @attributes="@AdditionalAttributes" class="@DropUploadClassString" id="@Id">
+    <div class="upload-drop-body">
+        @if (BodyTemplate != null)
+        {
+            @BodyTemplate
+        }
+        else
+        {
+            <div class="upload-drop-icon">
+                @if (IconTemplate != null)
+                {
+                    @IconTemplate
+                }
+                else
+                {
+                    <i class="@UploadIcon"></i>
+                }
+            </div>
+            <div class="upload-drop-text">
+                @if (TextTemplate != null)
+                {
+                    @TextTemplate
+                }
+                else
+                {
+                    @(new MarkupString(UploadText))
+                }
+            </div>
+        }
+    </div>
+    @if (ShowFooter)
+    {
+        <div class="upload-drop-footer">
+            @if (FooterTemplate != null)
+            {
+                @FooterTemplate
+            }
+            else
+            {
+                @(new MarkupString(FooterText))
+            }
+        </div>
+    }
+    <ul class="upload-drop-list">
+        @foreach (var item in GetUploadFiles())
+        {
+            @if (GetShowProgress(item))
+            {
+                <li @key="item" class="upload-drop-item">
+                    <div class="upload-drop-item-file">
+                        <span>@item.GetFileName()</span>
+                        <span>(@item.Size.ToFileSizeString())</span>
+                    </div>
+                    <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" class="upload-drop-process" />
+                </li>
+            }
+        }
+    </ul>
+    <InputFile AdditionalAttributes="@GetUploadAdditionalAttributes()" OnChange="OnFileChange"/>
+</div>

@@ -10,6 +10,9 @@
     --bb-upload-card-padding: #{$bb-upload-card-padding};
     --bb-upload-card-margin: #{$bb-upload-card-margin};
     --bb-upload-card-item-width: #{$bb-upload-card-item-width};
+    --bb-upload-drop-height: #{$bb-upload-drop-height};
+    --bb-upload-drop-footer-font-size: #{$bb-upload-drop-footer-font-size};
+    --bb-upload-drop-footer-margin-top: #{$bb-upload-drop-footer-margin-top};
 }
 
 .upload .upload-body {
@@ -295,4 +298,47 @@
 
 .btn-group .upload .upload-body {
     display: none;
+}
+
+.upload.is-drop {
+    .upload-drop-body {
+        border: 1px dashed var(--bs-primary);
+        border-radius: var(--bs-border-radius);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: var(--bb-upload-drop-height);
+        cursor: pointer;
+
+        .upload-drop-icon > i {
+            font-size: 3em;
+            color: var(--bs-secondary);
+        }
+
+        .upload-drop-text {
+            margin-top: 1rem;
+        }
+
+        em {
+            color: var(--bs-primary);
+            font-style: normal;
+        }
+    }
+
+    .upload-drop-footer {
+        font-size: var(--bb-upload-drop-footer-font-size);
+        margin-top: var(--bb-upload-drop-footer-margin-top);
+    }
+
+    .upload-drop-list {
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+
+        .upload-drop-process {
+            position: relative;
+        }
+    }
 }

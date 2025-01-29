@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// InputUpload 组件
 /// </summary>
 public partial class InputUpload<TValue>
 {
