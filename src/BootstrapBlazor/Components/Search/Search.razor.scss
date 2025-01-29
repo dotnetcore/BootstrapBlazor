@@ -1,3 +1,20 @@
 .search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
+    --bb-search-prefix-padding-left: #{$bb-search-prefix-padding-left};
+
+    &.search-prefix .form-control {
+        padding-left: var(--bb-search-prefix-padding-left);
+    }
+
+    .search-prefix-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 6;
+        padding-left: 1rem;
+        display: flex;
+        align-items: center;
+        opacity: 0.6;
+    }
 }
