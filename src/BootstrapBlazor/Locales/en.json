@@ -314,7 +314,7 @@
     "FileExtensions": "File must have one of the following extensions: {0}",
     "FileSizeValidation": "File size must less than {0}",
     "DropUploadText": "Drop files here or <em>click to upload</em>",
-    "FooterText": ""
+    "DropFooterText": ""
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Save",
