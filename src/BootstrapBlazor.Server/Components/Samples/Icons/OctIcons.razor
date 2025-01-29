@@ -1,0 +1,27 @@
+﻿@page "/oct-icon"
+@layout MainLayout
+@inject IStringLocalizer<OctIcons> Localizer
+
+<HeadContent>
+    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.OctIcon/BootstrapBlazor.OctIcon.bundle.scp.css"]" />
+</HeadContent>
+
+<h3>@Localizer["OctIconTitle"]</h3>
+
+<h4>@Localizer["OctIconDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.OctIcon" />
+
+<Tips class="mt-3">
+    <ul class="ul-demo">
+        <li>@Localizer["P1"]</li>
+        <li>@Localizer["P2"]</li>
+    </ul>
+    <div>@Localizer["P3"]</div>
+</Tips>
+
+<Pre>&lt;link href="_content/BootstrapBlazor.OctIcon/BootstrapBlazor.OctIcon.bundle.scp.css" rel="stylesheet"&gt;</Pre>
+
+<Pre>&lt;OctIcon Name="abdominal"&gt;&lt;OctIcon&gt;</Pre>
+
+<div>@((MarkupString)Localizer["Icons"].Value)</div>
