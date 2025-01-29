@@ -37,6 +37,12 @@ public partial class Search<TValue>
     public Color ClearButtonColor { get; set; } = Color.Primary;
 
     /// <summary>
+    /// 获得/设置 是否显示搜索按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearchButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 搜索按钮颜色
     /// </summary>
     [Parameter]
@@ -60,6 +66,24 @@ public partial class Search<TValue>
     [Parameter]
     [NotNull]
     public string? SearchButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示前缀图标 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowPrefixIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前缀图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? PrefixIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前缀图标模板 默认为 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PrefixIconTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
@@ -99,6 +123,7 @@ public partial class Search<TValue>
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
+        .AddClass("search-prefix", ShowPrefixIcon)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -125,6 +150,8 @@ public partial class Search<TValue>
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
+        PrefixIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
+
         SearchButtonText ??= Localizer[nameof(SearchButtonText)];
         ButtonIcon ??= SearchButtonIcon;
         NoDataTip ??= Localizer[nameof(NoDataTip)];

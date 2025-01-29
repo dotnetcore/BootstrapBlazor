@@ -29,3 +29,8 @@
     font-size: 86%;
     color: #c0c4cc;
 }
+
+.search-custom-prefix {
+    display: flex;
+    margin-left: -2px;
+}

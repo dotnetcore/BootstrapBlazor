@@ -4220,7 +4220,10 @@
     "SearchesOnSearch": "点击搜索时回调此委托",
     "SearchesOnClear": "点击清空时回调此委托",
     "SearchesItemTemplateTitle": "模板",
-    "SearchesItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 配合泛型数据可以做出自己想要的任何效果，本例中通过搜索任意关键字，后台调用任意第三方搜索结果并且进行展示，选中搜索项后通过 <code>OnSelectedItemChanged</code> 回调方法可以自行处理"
+    "SearchesItemTemplateIntro": "通过设置 <code>ItemTemplate</code> 配合泛型数据可以做出自己想要的任何效果，本例中通过搜索任意关键字，后台调用任意第三方搜索结果并且进行展示，选中搜索项后通过 <code>OnSelectedItemChanged</code> 回调方法可以自行处理",
+    "SearchesShowPrefixIconTitle": "显示前缀图标",
+    "SearchesShowPrefixIconIntro": "通过设置 <code>ShowPrefixIcon</code> 参数控制是否显示前缀图标",
+    "SearchesShowPrefixIconDescription": "可以通过 <code>PrefixIconTemplate</code> 自定义前缀，本例中通过前缀模板使用 <code>Svg</code> 图标"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title 网站标题",
