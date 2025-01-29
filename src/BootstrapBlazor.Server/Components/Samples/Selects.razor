@@ -384,8 +384,11 @@
            Introduction="@Localizer["SelectsPopoverIntro"]"
            Name="Popover">
     <div class="row">
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="_showPopoverSearch"></Switch>
+        </div>
         <div class="col-12 col-sm-6 overflow-hidden">
-            <Select TValue="string" Items="Items" IsPopover="true" ShowSearch="true" />
+            <Select TValue="string" Items="Items" IsPopover="true" ShowSearch="_showPopoverSearch" />
         </div>
     </div>
 </DemoBlock>
