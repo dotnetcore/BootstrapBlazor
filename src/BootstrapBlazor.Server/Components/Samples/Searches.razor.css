@@ -32,4 +32,5 @@
 
 .search-custom-prefix {
     display: flex;
+    margin-left: -2px;
 }
