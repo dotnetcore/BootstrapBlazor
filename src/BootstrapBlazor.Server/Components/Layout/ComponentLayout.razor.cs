@@ -69,8 +69,8 @@ public partial class ComponentLayout : IAsyncDisposable
         IconThemes.AddRange(new SelectedItem[]
         {
             new("fa", "Font Awesome"),
-            new("mdi", "Material Design"),
-            new("bootstrap", "Bootstrap")
+            new("bootstrap", "Bootstrap"),
+            new("mdi", "Material Design")
         });
         IconThemeKey = IconThemeOptions.Value.ThemeKey;
 

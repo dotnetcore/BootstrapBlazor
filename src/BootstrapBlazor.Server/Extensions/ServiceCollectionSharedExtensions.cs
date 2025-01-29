@@ -76,12 +76,6 @@ public static class ServiceCollectionSharedExtensions
         // 增加 MaterialDesign 图标主题
         services.ConfigureMaterialDesignIconTheme();
 
-        // 增加 Bootstrap 图标主题
-        services.ConfigureBootstrapIconTheme();
-
-        // 增加 FontAwesome 图标主题
-        services.ConfigureIconThemeOptions();
-
         // 增加 BootstrapBlazor 假日服务
         services.AddBootstrapHolidayService();
 
