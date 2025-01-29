@@ -4220,7 +4220,10 @@
     "SearchesOnSearch": "Call back this delegate when you click Search",
     "SearchesOnClear": "Click Recall this order when emptying",
     "SearchesItemTemplateTitle": "Item Template",
-    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method"
+    "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method",
+    "SearchesShowPrefixIconTitle": "ShowPrefixIcon",
+    "SearchesShowPrefixIconIntro": "Control whether to show the prefix icon by setting the <code>ShowPrefixIcon</code> parameter",
+    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template."
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",
