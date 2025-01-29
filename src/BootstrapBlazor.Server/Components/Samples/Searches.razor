@@ -68,4 +68,14 @@
     </ValidateForm>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SearchesNormalTitle"]"
+           Introduction="@Localizer["SearchesNormalIntro"]"
+           Name="ShowPrefixIcon">
+    <section ignore>@((MarkupString)Localizer["SearchesNormalDescription"].Value)</section>
+    <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            OnSearch="@OnModelSearch"
+            ShowPrefixIcon="true" PrefixIcon="fa fa-flag"
+            ShowClearButton="false" ShowSearchButton="false" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
