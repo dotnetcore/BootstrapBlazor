@@ -43,6 +43,8 @@ public sealed partial class Selects
 
     private bool _showSearch;
 
+    private bool _showPopoverSearch = true;
+
     private bool _isShowSearchClearable;
 
     private bool _isClearable;
