@@ -68,6 +68,18 @@ public partial class Search<TValue>
     public string? SearchButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示前缀图标 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowPrefixIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 前缀图标模板 默认为 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PrefixIconTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
     /// </summary>
     [Parameter]
@@ -105,6 +117,7 @@ public partial class Search<TValue>
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
+        .AddClass("search-prefix", ShowPrefixIcon)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

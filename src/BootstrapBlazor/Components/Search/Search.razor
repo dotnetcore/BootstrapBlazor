@@ -22,6 +22,19 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
         }
     </div>
+    @if (ShowPrefixIcon)
+    {
+        <div class="search-prefix-icon">
+            @if (PrefixIconTemplate != null)
+            {
+                @PrefixIconTemplate
+            }
+            else
+            {
+                <i class="fa-solid fa-search"></i>
+            }
+        </div>
+    }
     <ul class="dropdown-menu">
         @foreach (var item in _filterItems)
         {
