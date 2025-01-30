@@ -320,7 +320,7 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法 
+    /// IQueryable 排序扩展方法
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -386,7 +386,7 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法 
+    /// IQueryable 排序扩展方法
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
