@@ -5,7 +5,7 @@
 
 namespace UnitTest.Components;
 
-public class TableColumnTest
+public class InternalTableColumnTest
 {
     [Fact]
     public void InternalTableColumn_Ok()
