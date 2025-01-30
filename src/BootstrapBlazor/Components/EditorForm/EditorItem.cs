@@ -12,11 +12,7 @@ namespace BootstrapBlazor.Components;
 /// EditorItem 组件
 /// </summary>
 /// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
-#if NET6_0_OR_GREATER
 public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
-#else
-public class EditorItem<TValue> : ComponentBase, IEditorItem
-#endif
 {
     /// <summary>
     /// 获得/设置 绑定字段值
@@ -108,9 +104,6 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// 获得/设置 编辑模板
     /// </summary>
     [Parameter]
-#if NET5_0
-    public RenderFragment<object>? EditTemplate { get; set; }
-#elif NET6_0_OR_GREATER
     public RenderFragment<TModel>? EditTemplate { get; set; }
 
     RenderFragment<object>? IEditorItem.EditTemplate
@@ -126,7 +119,6 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
         {
         }
     }
-#endif
 
     /// <summary>
     /// 获得/设置 组件类型 默认为 null
