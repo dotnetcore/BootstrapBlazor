@@ -620,8 +620,9 @@ public static class LambdaExtensions
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
+    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName)
+    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName, bool supportComplexProperty = true)
     {
         if (model == null)
         {
@@ -629,7 +630,10 @@ public static class LambdaExtensions
         }
         var type = model.GetType();
         var parameter = Expression.Parameter(typeof(TModel));
-        return propertyName.Contains('.') ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
+
+        return supportComplexProperty && propertyName.Contains('.')
+            ? GetComplexPropertyExpression()
+            : GetSimplePropertyExpression();
 
         Expression<Func<TModel, TResult>> GetSimplePropertyExpression()
         {
@@ -684,8 +688,9 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
+    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName)
+    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName, bool supportComplexProperty = true)
     {
         if (model == null)
         {
@@ -695,7 +700,9 @@ public static class LambdaExtensions
         var type = model.GetType();
         var parameter1 = Expression.Parameter(typeof(TModel));
         var parameter2 = Expression.Parameter(typeof(TValue));
-        return propertyName.Contains('.') ? SetComplexPropertyExpression() : SetSimplePropertyExpression();
+        return (supportComplexProperty && propertyName.Contains('.'))
+            ? SetComplexPropertyExpression()
+            : SetSimplePropertyExpression();
 
         Expression<Action<TModel, TValue>> SetSimplePropertyExpression()
         {
