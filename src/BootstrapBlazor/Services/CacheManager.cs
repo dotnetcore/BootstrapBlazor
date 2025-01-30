@@ -513,56 +513,53 @@ internal class CacheManager : ICacheManager
         return propertyInfo != null;
     }
 
-    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName)
+    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName, bool supportComplexProperty) => (model is IDynamicColumnsObject d)
+        ? (TResult)d.GetValue(fieldName)!
+        : GetValue<TModel, TResult>(model, fieldName, supportComplexProperty);
+
+    private static TResult GetValue<TModel, TResult>(TModel model, string fieldName, bool supportComplexProperty)
     {
         if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
 
-        return (model is IDynamicColumnsObject d)
-            ? (TResult)d.GetValue(fieldName)!
-            : GetValue();
-
-        TResult GetValue()
+        var type = model.GetType();
+        var cacheKey = $"{CacheKeyPrefix}-Lambda-Get-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TResult)}-{supportComplexProperty}";
+        var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
-            var type = model.GetType();
-            var cacheKey = $"{CacheKeyPrefix}-Lambda-Get-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TResult)}";
-            var invoker = Instance.GetOrCreate(cacheKey, entry =>
+            if (type.Assembly.IsDynamic)
             {
-                if (type.Assembly.IsDynamic)
-                {
-                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
-                }
+                entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+            }
 
-                return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
-            });
-            return invoker(model);
-        }
+            return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName, supportComplexProperty).Compile();
+        });
+        return invoker(model);
     }
 
-    public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value)
+    public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value, bool supportComplexProperty)
     {
-        if (model == null)
-        {
-            throw new ArgumentNullException(nameof(model));
-        }
-
         if (model is IDynamicColumnsObject d)
         {
             d.SetValue(fieldName, value);
         }
         else
         {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
             var type = model.GetType();
-            var cacheKey = $"{CacheKeyPrefix}-Lambda-Set-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TValue)}";
+            var cacheKey = $"{CacheKeyPrefix}-Lambda-Set-{type.GetUniqueTypeName()}-{typeof(TModel)}-{fieldName}-{typeof(TValue)}-{supportComplexProperty}";
             var invoker = Instance.GetOrCreate(cacheKey, entry =>
             {
                 if (type.Assembly.IsDynamic)
                 {
                     entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
                 }
-                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
+                return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName, supportComplexProperty).Compile();
             });
             invoker(model, value);
         }
