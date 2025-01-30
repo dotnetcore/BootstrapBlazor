@@ -274,12 +274,12 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>> GetSortListLambda<TItem>()
     {
-        var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
-        var exp_p2 = Expression.Parameter(typeof(List<string>));
+        var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+        var parameter2 = Expression.Parameter(typeof(List<string>));
 
         var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortList")).MakeGenericMethod(typeof(TItem));
-        var body = Expression.Call(mi, exp_p1, exp_p2);
-        return Expression.Lambda<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>>(body, exp_p1, exp_p2);
+        var body = Expression.Call(mi, parameter1, parameter2);
+        return Expression.Lambda<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>>(body, parameter1, parameter2);
     }
 
     /// <summary>
@@ -305,16 +305,10 @@ public static class LambdaExtensions
                     sortOrder = SortOrder.Desc;
                 }
             }
-            if (index == 0)
-            {
-                // OrderBy
-                items = EnumerableOrderBy(items, sortName, sortOrder);
-            }
-            else
-            {
-                // ThenBy
-                items = EnumerableThenBy(items, sortName, sortOrder);
-            }
+
+            items = index == 0
+                ? EnumerableOrderBy(items, sortName, sortOrder)
+                : EnumerableThenBy(items, sortName, sortOrder);
         }
         return items;
     }
@@ -342,16 +336,7 @@ public static class LambdaExtensions
                     sortOrder = SortOrder.Desc;
                 }
             }
-            if (index == 0)
-            {
-                // OrderBy
-                items = QueryableOrderBy(items, sortName, sortOrder);
-            }
-            else
-            {
-                // ThenBy
-                items = QueryableThenBy(items, sortName, sortOrder);
-            }
+            items = index == 0 ? QueryableOrderBy(items, sortName, sortOrder) : QueryableThenBy(items, sortName, sortOrder);
         }
         return items;
     }
@@ -363,13 +348,13 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
     {
-        var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
-        var exp_p2 = Expression.Parameter(typeof(string));
-        var exp_p3 = Expression.Parameter(typeof(SortOrder));
+        var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+        var parameter2 = Expression.Parameter(typeof(string));
+        var parameter3 = Expression.Parameter(typeof(SortOrder));
 
         var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortName")).MakeGenericMethod(typeof(TItem));
-        var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
-        return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
+        var body = Expression.Call(mi, parameter1, parameter2, parameter3);
+        return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, parameter1, parameter2, parameter3);
     }
 
     /// <summary>
@@ -416,15 +401,9 @@ public static class LambdaExtensions
 
     private static PropertyInfo? GetPropertyInfoByName<TItem>(this PropertyInfo? pi, string propertyName)
     {
-        if (pi == null)
-        {
-            pi = typeof(TItem).GetPropertyByName(propertyName);
-        }
-        else
-        {
-            pi = pi.PropertyType.GetPropertyByName(propertyName);
-        }
-        return pi;
+        return pi == null
+            ? typeof(TItem).GetPropertyByName(propertyName)
+            : pi.PropertyType.GetPropertyByName(propertyName);
     }
 
     private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
@@ -608,13 +587,13 @@ public static class LambdaExtensions
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
-        var exp_p1 = Expression.Parameter(typeof(TItem));
-        return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
+        var parameter1 = Expression.Parameter(typeof(TItem));
+        return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(parameter1, pi), parameter1);
     }
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambdaByName<TItem, TKey>(string propertyName)
     {
-        var exp_p1 = Expression.Parameter(typeof(TItem));
+        var parameter1 = Expression.Parameter(typeof(TItem));
         PropertyInfo? pi = null;
         Expression? expression = null;
         foreach (var name in propertyName.Split('.'))
@@ -622,7 +601,7 @@ public static class LambdaExtensions
             if (pi == null)
             {
                 pi = typeof(TItem).GetPropertyByName(name);
-                expression = Expression.PropertyOrField(exp_p1, name);
+                expression = Expression.PropertyOrField(parameter1, name);
             }
             else
             {
@@ -630,7 +609,7 @@ public static class LambdaExtensions
                 expression = Expression.PropertyOrField(expression!, name);
             }
         }
-        return Expression.Lambda<Func<TItem, TKey>>(expression!, exp_p1);
+        return Expression.Lambda<Func<TItem, TKey>>(expression!, parameter1);
     }
     #endregion
 
