@@ -18,7 +18,7 @@ public class DataTableDynamicObject : DynamicObject
     internal DataRow? Row { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -42,7 +42,7 @@ public class DataTableDynamicObject : DynamicObject
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>

@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// DynamicItemChangedType 类型
 /// </summary>
 public enum DynamicItemChangedType
 {
