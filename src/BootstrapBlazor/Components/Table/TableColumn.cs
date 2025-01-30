@@ -291,27 +291,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 显示模板
     /// </summary>
     [Parameter]
-#if NET5_0
-    public RenderFragment<TableColumnContext<object, TType>>? Template { get; set; }
-
-    /// <summary>
-    /// 内部使用负责把 object 类型的绑定数据值转化为泛型数据传递给前端
-    /// </summary>
-    RenderFragment<object>? ITableColumn.Template
-    {
-        get => Template == null ? null : new RenderFragment<object>(context => builder =>
-        {
-            // 此处 context 为行数据
-            var fieldName = GetFieldName();
-            var value = Utility.GetPropertyValue<object, TType>(context, fieldName);
-            builder.AddContent(0, Template.Invoke(new TableColumnContext<object, TType>(context, value)));
-        });
-        set
-        {
-
-        }
-    }
-#elif NET6_0_OR_GREATER
     public RenderFragment<TableColumnContext<TItem, TType?>>? Template { get; set; }
 
     /// <summary>
@@ -338,15 +317,11 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
 
         }
     }
-#endif
 
     /// <summary>
     /// 获得/设置 编辑模板
     /// </summary>
     [Parameter]
-#if NET5_0
-    public RenderFragment<object>? EditTemplate { get; set; }
-#elif NET6_0_OR_GREATER
     public RenderFragment<TItem>? EditTemplate { get; set; }
 
     RenderFragment<object>? IEditorItem.EditTemplate
@@ -362,16 +337,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         {
         }
     }
-#endif
 
     /// <summary>
     /// 获得/设置 搜索模板
     /// </summary>
     /// <value></value>
     [Parameter]
-#if NET5_0
-    public RenderFragment<object>? SearchTemplate { get; set; }
-#elif NET6_0_OR_GREATER
     public RenderFragment<TItem>? SearchTemplate { get; set; }
 
     RenderFragment<object>? ITableColumn.SearchTemplate
@@ -387,7 +358,6 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
         {
         }
     }
-#endif
 
     /// <summary>
     /// 获得/设置 过滤模板

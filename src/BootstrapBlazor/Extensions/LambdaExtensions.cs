@@ -22,7 +22,7 @@ public static class LambdaExtensions
     private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
         /// <summary>
-        /// 
+        /// <inheritdoc/>
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
@@ -48,17 +48,9 @@ public static class LambdaExtensions
         var express = new List<Expression<Func<TItem, bool>>>();
         if (filter.Filters != null)
         {
-            foreach (var f in filter.Filters)
-            {
-                if (f.Filters != null)
-                {
-                    express.Add(f.Filters.GetFilterLambda<TItem>(f.FilterLogic));
-                }
-                else
-                {
-                    express.Add(f.GetInnerFilterLambda<TItem>());
-                }
-            }
+            express.AddRange(filter.Filters.Select(f => f.Filters != null
+                ? f.Filters.GetFilterLambda<TItem>(f.FilterLogic)
+                : f.GetInnerFilterLambda<TItem>()));
         }
         else
         {
@@ -94,18 +86,10 @@ public static class LambdaExtensions
     /// <returns></returns>
     private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic)
     {
-        var express = new List<Expression<Func<TItem, bool>>>();
-        foreach (var filter in filters)
-        {
-            if (filter.Filters != null)
-            {
-                express.Add(filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic));
-            }
-            else
-            {
-                express.Add(filter.GetInnerFilterLambda<TItem>());
-            }
-        }
+        var express = filters.Select(filter => filter.Filters != null
+                ? filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic)
+                : filter.GetInnerFilterLambda<TItem>())
+            .ToList();
         return express.ExpressionAndLambda(logic);
     }
 
@@ -290,12 +274,12 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>> GetSortListLambda<TItem>()
     {
-        var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
-        var exp_p2 = Expression.Parameter(typeof(List<string>));
+        var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+        var parameter2 = Expression.Parameter(typeof(List<string>));
 
         var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortList")).MakeGenericMethod(typeof(TItem));
-        var body = Expression.Call(mi, exp_p1, exp_p2);
-        return Expression.Lambda<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>>(body, exp_p1, exp_p2);
+        var body = Expression.Call(mi, parameter1, parameter2);
+        return Expression.Lambda<Func<IEnumerable<TItem>, List<string>, IEnumerable<TItem>>>(body, parameter1, parameter2);
     }
 
     /// <summary>
@@ -321,22 +305,16 @@ public static class LambdaExtensions
                     sortOrder = SortOrder.Desc;
                 }
             }
-            if (index == 0)
-            {
-                // OrderBy
-                items = EnumerableOrderBy(items, sortName, sortOrder);
-            }
-            else
-            {
-                // ThenBy
-                items = EnumerableThenBy(items, sortName, sortOrder);
-            }
+
+            items = index == 0
+                ? EnumerableOrderBy(items, sortName, sortOrder)
+                : EnumerableThenBy(items, sortName, sortOrder);
         }
         return items;
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法 
+    /// IQueryable 排序扩展方法
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -358,16 +336,7 @@ public static class LambdaExtensions
                     sortOrder = SortOrder.Desc;
                 }
             }
-            if (index == 0)
-            {
-                // OrderBy
-                items = QueryableOrderBy(items, sortName, sortOrder);
-            }
-            else
-            {
-                // ThenBy
-                items = QueryableThenBy(items, sortName, sortOrder);
-            }
+            items = index == 0 ? QueryableOrderBy(items, sortName, sortOrder) : QueryableThenBy(items, sortName, sortOrder);
         }
         return items;
     }
@@ -379,13 +348,13 @@ public static class LambdaExtensions
     /// <returns></returns>
     public static Expression<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>> GetSortLambda<TItem>()
     {
-        var exp_p1 = Expression.Parameter(typeof(IEnumerable<TItem>));
-        var exp_p2 = Expression.Parameter(typeof(string));
-        var exp_p3 = Expression.Parameter(typeof(SortOrder));
+        var parameter1 = Expression.Parameter(typeof(IEnumerable<TItem>));
+        var parameter2 = Expression.Parameter(typeof(string));
+        var parameter3 = Expression.Parameter(typeof(SortOrder));
 
         var mi = typeof(LambdaExtensions).GetMethods().First(m => m.Name == nameof(Sort) && m.ReturnType.Name == typeof(IEnumerable<>).Name && m.GetParameters().Any(p => p.Name == "sortName")).MakeGenericMethod(typeof(TItem));
-        var body = Expression.Call(mi, exp_p1, exp_p2, exp_p3);
-        return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, exp_p1, exp_p2, exp_p3);
+        var body = Expression.Call(mi, parameter1, parameter2, parameter3);
+        return Expression.Lambda<Func<IEnumerable<TItem>, string, SortOrder, IEnumerable<TItem>>>(body, parameter1, parameter2, parameter3);
     }
 
     /// <summary>
@@ -402,7 +371,7 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// IQueryable 排序扩展方法 
+    /// IQueryable 排序扩展方法
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
@@ -432,15 +401,9 @@ public static class LambdaExtensions
 
     private static PropertyInfo? GetPropertyInfoByName<TItem>(this PropertyInfo? pi, string propertyName)
     {
-        if (pi == null)
-        {
-            pi = typeof(TItem).GetPropertyByName(propertyName);
-        }
-        else
-        {
-            pi = pi.PropertyType.GetPropertyByName(propertyName);
-        }
-        return pi;
+        return pi == null
+            ? typeof(TItem).GetPropertyByName(propertyName)
+            : pi.PropertyType.GetPropertyByName(propertyName);
     }
 
     private static IEnumerable<TItem> EnumerableOrderBy<TItem>(IEnumerable<TItem> query, string propertyName, SortOrder sortOrder)
@@ -624,13 +587,13 @@ public static class LambdaExtensions
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
-        var exp_p1 = Expression.Parameter(typeof(TItem));
-        return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
+        var parameter1 = Expression.Parameter(typeof(TItem));
+        return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(parameter1, pi), parameter1);
     }
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambdaByName<TItem, TKey>(string propertyName)
     {
-        var exp_p1 = Expression.Parameter(typeof(TItem));
+        var parameter1 = Expression.Parameter(typeof(TItem));
         PropertyInfo? pi = null;
         Expression? expression = null;
         foreach (var name in propertyName.Split('.'))
@@ -638,7 +601,7 @@ public static class LambdaExtensions
             if (pi == null)
             {
                 pi = typeof(TItem).GetPropertyByName(name);
-                expression = Expression.PropertyOrField(exp_p1, name);
+                expression = Expression.PropertyOrField(parameter1, name);
             }
             else
             {
@@ -646,7 +609,7 @@ public static class LambdaExtensions
                 expression = Expression.PropertyOrField(expression!, name);
             }
         }
-        return Expression.Lambda<Func<TItem, TKey>>(expression!, exp_p1);
+        return Expression.Lambda<Func<TItem, TKey>>(expression!, parameter1);
     }
     #endregion
 
@@ -657,16 +620,20 @@ public static class LambdaExtensions
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
+    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName)
+    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName, bool supportComplexProperty = true)
     {
         if (model == null)
         {
             throw new ArgumentNullException(nameof(model));
         }
         var type = model.GetType();
-        var param_p1 = Expression.Parameter(typeof(TModel));
-        return propertyName.Contains('.') ? GetComplexPropertyExpression() : GetSimplePropertyExpression();
+        var parameter = Expression.Parameter(typeof(TModel));
+
+        return supportComplexProperty && propertyName.Contains('.')
+            ? GetComplexPropertyExpression()
+            : GetSimplePropertyExpression();
 
         Expression<Func<TModel, TResult>> GetSimplePropertyExpression()
         {
@@ -674,7 +641,7 @@ public static class LambdaExtensions
             var p = type.GetPropertyByName(propertyName);
             if (p != null)
             {
-                body = Expression.Property(Expression.Convert(param_p1, type), p);
+                body = Expression.Property(Expression.Convert(parameter, type), p);
             }
             else if (type.IsAssignableTo(typeof(IDynamicMetaObjectProvider)))
             {
@@ -682,15 +649,15 @@ public static class LambdaExtensions
                     CSharpBinderFlags.None,
                     propertyName,
                     type,
-                    new[] { CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null) });
-                body = Expression.Dynamic(binder, typeof(object), param_p1);
+                    [CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)]);
+                body = Expression.Dynamic(binder, typeof(object), parameter);
             }
             else
             {
                 throw new InvalidOperationException($"类型 {type.Name} 未找到 {propertyName} 属性，无法获取其值");
             }
 
-            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), param_p1);
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body, typeof(TResult)), parameter);
         }
 
         Expression<Func<TModel, TResult>> GetComplexPropertyExpression()
@@ -707,16 +674,10 @@ public static class LambdaExtensions
                 {
                     t = propertyInstance.GetType();
                 }
-                if (body == null)
-                {
-                    body = Expression.Property(Expression.Convert(param_p1, type), p);
-                }
-                else
-                {
-                    body = Expression.Property(body, p);
-                }
+
+                body = Expression.Property(body ?? Expression.Convert(parameter, type), p);
             }
-            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body!, typeof(TResult)), param_p1);
+            return Expression.Lambda<Func<TModel, TResult>>(Expression.Convert(body!, typeof(TResult)), parameter);
         }
     }
 
@@ -727,8 +688,9 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
+    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName)
+    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName, bool supportComplexProperty = true)
     {
         if (model == null)
         {
@@ -736,9 +698,11 @@ public static class LambdaExtensions
         }
 
         var type = model.GetType();
-        var param_p1 = Expression.Parameter(typeof(TModel));
-        var param_p2 = Expression.Parameter(typeof(TValue));
-        return propertyName.Contains('.') ? SetComplexPropertyExpression() : SetSimplePropertyExpression();
+        var parameter1 = Expression.Parameter(typeof(TModel));
+        var parameter2 = Expression.Parameter(typeof(TValue));
+        return (supportComplexProperty && propertyName.Contains('.'))
+            ? SetComplexPropertyExpression()
+            : SetSimplePropertyExpression();
 
         Expression<Action<TModel, TValue>> SetSimplePropertyExpression()
         {
@@ -746,8 +710,8 @@ public static class LambdaExtensions
 
             //获取设置属性的值的方法
             var mi = p.GetSetMethod(true);
-            var body = Expression.Call(Expression.Convert(param_p1, model.GetType()), mi!, Expression.Convert(param_p2, p.PropertyType));
-            return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
+            var body = Expression.Call(Expression.Convert(parameter1, model.GetType()), mi!, Expression.Convert(parameter2, p.PropertyType));
+            return Expression.Lambda<Action<TModel, TValue>>(body, parameter1, parameter2);
         }
 
         Expression<Action<TModel, TValue>> SetComplexPropertyExpression()
@@ -764,17 +728,11 @@ public static class LambdaExtensions
                 {
                     t = propertyInstance.GetType();
                 }
-                if (body == null)
-                {
-                    body = Expression.Property(Expression.Convert(param_p1, type), p);
-                }
-                else
-                {
-                    body = Expression.Property(body, p);
-                }
+
+                body = Expression.Property(body ?? Expression.Convert(parameter1, type), p);
             }
-            body = Expression.Assign(body!, param_p2);
-            return Expression.Lambda<Action<TModel, TValue>>(body, param_p1, param_p2);
+            body = Expression.Assign(body!, parameter2);
+            return Expression.Lambda<Action<TModel, TValue>>(body, parameter1, parameter2);
         }
     }
 

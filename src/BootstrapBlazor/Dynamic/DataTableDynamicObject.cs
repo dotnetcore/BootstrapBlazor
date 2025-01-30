@@ -18,7 +18,7 @@ public class DataTableDynamicObject : DynamicObject
     internal DataRow? Row { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
@@ -33,16 +33,16 @@ public class DataTableDynamicObject : DynamicObject
                 if (!Row.Table.Columns[propertyName]!.AutoIncrement)
                 {
                     // 自增长列
-                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName);
+                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName, false);
                 }
             }
             ret = Row[propertyName];
         }
-        return ret ?? Utility.GetPropertyValue(this, propertyName);
+        return ret ?? Utility.GetPropertyValue(this, propertyName, false);
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>

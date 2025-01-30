@@ -11,22 +11,22 @@ namespace BootstrapBlazor.Components;
 public class DynamicObject : IDynamicObject
 {
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     [AutoGenerateColumn(Ignore = true)]
     public Guid DynamicObjectPrimaryKey { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得指定属性值方法
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
-    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
+    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName, false);
 
     /// <summary>
-    /// 
+    /// 给指定属性设置值方法
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>
-    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value);
+    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value, false);
 }

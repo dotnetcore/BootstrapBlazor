@@ -6206,6 +6206,22 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TableColumn_SupportComplexProperty_Ok()
+    {
+        var data = new DataTable();
+        data.Columns.Add("Foo.Name", typeof(string));
+        data.Rows.Add("test01");
+        data.AcceptChanges();
+
+        var cut = Context.RenderComponent<Table<DynamicObject>>(pb =>
+        {
+            pb.Add(a => a.RenderMode, TableRenderMode.Table);
+            pb.Add(a => a.DynamicContext, new DataTableDynamicContext(data));
+        });
+        cut.Contains("test01");
+    }
+
+    [Fact]
     public async Task IsKeepSelectedRowAfterAdd_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
