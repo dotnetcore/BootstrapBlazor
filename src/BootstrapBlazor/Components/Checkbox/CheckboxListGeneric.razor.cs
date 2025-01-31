@@ -111,6 +111,12 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     public Func<Task>? OnMaxSelectedCountExceed { get; set; }
 
     /// <summary>
+    /// 获得/设置 项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem<TValue>>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得 当前选项是否被禁用
     /// </summary>
     /// <param name="item"></param>
@@ -215,6 +221,10 @@ public partial class CheckboxListGeneric<TValue> : IModelEqualityComparer<TValue
     /// 点击选择框方法
     /// </summary>
     private Task OnClick(SelectedItem<TValue> item) => OnStateChanged(item, !item.Active);
+
+    private RenderFragment? GetChildContent(SelectedItem<TValue> item) => ItemTemplate == null
+        ? null
+        : ItemTemplate(item);
 
     /// <summary>
     /// <inheritdoc/>
