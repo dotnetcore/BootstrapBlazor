@@ -5,7 +5,7 @@
 
 <h4>@Localizer["MultiSelectsDescription"]</h4>
 
-@* <DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
+<DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@Items1" />
@@ -81,7 +81,7 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingNumberDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect Items="@LongItems" @bind-Value="@SelectedIntArrayValues" />
+            <MultiSelect Items="@LongItems" @bind-Value="@SelectedIntArrayValues"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
             <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddArrayItems" class="me-1"></Button>
@@ -96,7 +96,7 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingEnumCollectionDescription"].Value)</section>
     <MultiSelect @bind-Value="@SelectedEnumValues"></MultiSelect>
     <section ignore>@(string.Join(",", SelectedEnumValues))</section>
-</DemoBlock> *@
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectFlagsEnumTitle"]" Introduction="@Localizer["MultiSelectFlagsEnumIntro"]"
            Name="Flags">
@@ -113,28 +113,28 @@ private enum MultiSelectEnumFoo
     <MultiSelect @bind-Value="@EnumFoo"></MultiSelect>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
+<DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
     <section ignore>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
-    <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch" />
+    <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
     <section ignore>@SelectedSearchItemsValue</section>
-    <ConsoleLogger @ref="Logger" />
+    <ConsoleLogger @ref="Logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectGroupTitle"]" Introduction="@Localizer["MultiSelectGroupIntro"]" Name="Group">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="GroupItems" />
+            <MultiSelect TValue="string" Items="GroupItems"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectDisableTitle"]" Introduction="@Localizer["MultiSelectDisableIntro"]" Name="Disable">
     <section ignore>@Localizer["MultiSelectDisableDescription"]</section>
-    <MultiSelect Items="@Items" Value="@SelectedDisableItemsValue" IsDisabled="true" />
+    <MultiSelect Items="@Items" Value="@SelectedDisableItemsValue" IsDisabled="true"></MultiSelect>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectOptionChangeTitle"]" Introduction="@Localizer["MultiSelectOptionChangeIntro"]" Name="OptionChange">
-    <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedOptionItemsValue" />
+    <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedOptionItemsValue"></MultiSelect>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectClientValidationTitle"]" Introduction="@Localizer["MultiSelectClientValidationIntro"]" Name="ClientValidation">
@@ -142,7 +142,7 @@ private enum MultiSelectEnumFoo
     <ValidateForm Model="@Model">
         <div class="row g-3">
             <div class="col-12 col-sm-8">
-                <MultiSelect Items="Items" @bind-Value="@Model.Address" />
+                <MultiSelect Items="Items" @bind-Value="@Model.Address"></MultiSelect>
             </div>
             <div class="col-12 col-sm-4 align-self-end">
                 <Button ButtonType="ButtonType.Submit">@Localizer["MultiSelectClientValidationSubmit"]</Button>
@@ -154,12 +154,12 @@ private enum MultiSelectEnumFoo
 <DemoBlock Title="@Localizer["MultiSelectDisplayLabelTitle"]" Introduction="@Localizer["MultiSelectDisplayLabelIntro"]" Name="DisplayLabel">
     <section ignore>
         <p>@((MarkupString)Localizer["MultiSelectDisplayLabelDescription"].Value)</p>
-        <Divider Text="@Localizer["MultiSelectDisplayLabelShowLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+        <Divider Text="@Localizer["MultiSelectDisplayLabelShowLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     </section>
     <ValidateForm Model="@Foo">
         <div class="row g-3">
             <div class="col-12">
-                <MultiSelect Color="Color.Primary" Items="@Items1" @bind-Value="@Foo.Name" />
+                <MultiSelect Color="Color.Primary" Items="@Items1" @bind-Value="@Foo.Name"></MultiSelect>
             </div>
         </div>
     </ValidateForm>
@@ -177,7 +177,7 @@ private enum MultiSelectEnumFoo
 
 <DemoBlock Title="@Localizer["MultiSelectButtonTitle"]" Introduction="@Localizer["MultiSelectButtonIntro"]" Name="Button">
     <div style="max-width: 400px">
-        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue1" ShowToolbar="true" ShowSearch="true" />
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedLongItemsValue1" ShowToolbar="true" ShowSearch="true"></MultiSelect>
         <p>@SelectedLongItemsValue1</p>
     </div>
 </DemoBlock>
@@ -185,11 +185,11 @@ private enum MultiSelectEnumFoo
 <DemoBlock Title="@Localizer["MultiSelectMaxMinTitle"]" Introduction="@Localizer["MultiSelectMaxMinIntro"]" Name="MaxMin">
     <div style="max-width: 300px">
         <p>@Localizer["MultiSelectMaxMinMax"]</p>
-        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue" Max="2" />
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue" Max="2"></MultiSelect>
     </div>
     <div style="max-width: 300px" class="mt-3">
         <p>@Localizer["MultiSelectMaxMinMin"]</p>
-        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMinItemsValue" Min="2" />
+        <MultiSelect Items="@LongItems" @bind-Value="@SelectedMinItemsValue" Min="2"></MultiSelect>
     </div>
 </DemoBlock>
 
@@ -210,7 +210,7 @@ private enum MultiSelectEnumFoo
             <Select TValue="string" Items="@_cascadingItems2" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Items="@CascadingItems1" />
+            <MultiSelect TValue="string" Items="@CascadingItems1"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
@@ -251,7 +251,7 @@ private enum MultiSelectEnumFoo
 <DemoBlock Title="@Localizer["MultiSelectPopoverTitle"]" Introduction="@Localizer["MultiSelectPopoverIntro"]" Name="Popover">
     <div class="row">
         <div class="col-12 col-sm-6 overflow-hidden">
-            <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar />
+            <MultiSelect TValue="string" Items="@Items" IsPopover="true" ShowSearch="true" ShowToolbar="true"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
@@ -262,14 +262,14 @@ private enum MultiSelectEnumFoo
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect @bind-Value="@_editString" Items="@EditableItems" IsEditable="true" Max="2" EditSubmitKey="EditSubmitKey.Enter" OnEditCallback="OnEditCallback" />
+            <MultiSelect @bind-Value="@_editString" Items="@EditableItems" IsEditable="true" Max="2" EditSubmitKey="EditSubmitKey.Enter" OnEditCallback="OnEditCallback"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
             <Display Value="@_editString"></Display>
         </div>
     </div>
-</DemoBlock> *@
+</DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
 
-<EventTable Items="@GetEvents()" />
+<EventTable Items="@GetEvents()"></EventTable>
