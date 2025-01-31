@@ -2941,6 +2941,8 @@
     "MultiSelectSearchTitle": "Search function",
     "MultiSelectSearchIntro": "Turn on search by setting the <code>ShowSearch</code> value",
     "MultiSelectSearchDescription": "In this example, the search callback delegate method is set <code>onSearchTextChanged</code> to customize search results if the display text is used internally to make a fuzzy match when not set",
+    "MultiSelectFlagsEnumTitle": "Flags Enum",
+    "MultiSelectFlagsEnumIntro": "When the binding value is an <code>Enum</code> data type, if it has a <code>Flags</code> tag, multiple selection mode is automatically supported",
     "MultiSelectGroupTitle": "Grouping",
     "MultiSelectGroupIntro": "Alternatives are presented in groups",
     "MultiSelectDisableTitle": "Disable the feature",

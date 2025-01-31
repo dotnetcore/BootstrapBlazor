@@ -63,11 +63,7 @@ public static class EnumExtensions
         if (type.IsEnum())
         {
             var t = Nullable.GetUnderlyingType(type) ?? type;
-            foreach (var field in Enum.GetNames(t))
-            {
-                var desc = Utility.GetDisplayName(t, field);
-                ret.Add(new SelectedItem(field, desc));
-            }
+            ret.AddRange(from field in Enum.GetNames(t) let desc = Utility.GetDisplayName(t, field) select new SelectedItem(field, desc));
         }
         return ret;
     }
@@ -113,5 +109,34 @@ public static class EnumExtensions
             ret = t.IsEnum;
         }
         return ret;
+    }
+
+    /// <summary>
+    /// 判断类型是否为 Flag 枚举类型
+    /// </summary>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    public static bool IsFlagEnum(this Type? type) => type != null && IsEnum(type) && type.GetCustomAttribute<FlagsAttribute>() != null;
+
+    /// <summary>
+    /// 将 <see cref="IEnumerable{T}"/> 集合转换为 Flag 枚举值
+    /// </summary>
+    /// <param name="items"></param>
+    /// <param name="type"></param>
+    /// <returns></returns>
+    internal static object? ParseFlagEnum<TValue>(this IEnumerable<SelectedItem> items, Type type)
+    {
+        TValue? v = default;
+        if (type.IsFlagEnum())
+        {
+            foreach (var item in items)
+            {
+                if (Enum.TryParse(type, item.Value, true, out var val))
+                {
+                    v = (TValue)Enum.ToObject(type, Convert.ToInt32(v) | Convert.ToInt32(val));
+                }
+            }
+        }
+        return v;
     }
 }

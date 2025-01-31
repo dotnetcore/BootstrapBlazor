@@ -62,12 +62,23 @@ public partial class MultiSelects
 
     private string SelectedItemsValue { get; set; } = "Beijing";
 
-    private IEnumerable<string> SelectedArrayValues { get; set; } = Enumerable.Empty<string>();
+    private IEnumerable<string> SelectedArrayValues { get; set; } = [];
 
     private IEnumerable<EnumEducation> SelectedEnumValues { get; set; } = new List<EnumEducation>
     {
         EnumEducation.Middle, EnumEducation.Primary
     };
+
+    private MultiSelectEnumFoo EnumFoo { get; set; } = MultiSelectEnumFoo.One | MultiSelectEnumFoo.Two;
+
+    [Flags]
+    private enum MultiSelectEnumFoo
+    {
+        One = 1,
+        Two = 2,
+        Three = 4,
+        Four = 8
+    }
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
@@ -101,7 +112,7 @@ public partial class MultiSelects
     {
         await Task.Delay(100);
 
-        var item = EditableItems.Find(i => i.Text.Equals(value, System.StringComparison.OrdinalIgnoreCase));
+        var item = EditableItems.Find(i => i.Text.Equals(value, StringComparison.OrdinalIgnoreCase));
         if (item == null)
         {
             item = new SelectedItem(value, value);
@@ -120,7 +131,7 @@ public partial class MultiSelects
         new("Ningbo", "宁波") {GroupName = "华东", Active = true }
     ];
 
-    private readonly SelectedItem[] CascadingItems2 =
+    private readonly SelectedItem[] _cascadingItems2 =
     [
         new("", "请选择 ..."),
         new("Beijing", "北京") { Active = true },
@@ -209,12 +220,12 @@ public partial class MultiSelects
 
     private void RemoveListItems()
     {
-        SelectedArrayValues = new[] { "Beijing" };
+        SelectedArrayValues = ["Beijing"];
     }
 
     private void ClearListItems()
     {
-        SelectedArrayValues = Enumerable.Empty<string>();
+        SelectedArrayValues = [];
     }
 
     private void AddArrayItems()
@@ -236,7 +247,7 @@ public partial class MultiSelects
     {
         Logger.Log($"{Localizer["MultiSelectSearchLog"]}：{searchText}");
         SearchItemsSource ??= GenerateItems();
-        return SearchItemsSource.Where(i => i.Text.Contains(searchText, System.StringComparison.OrdinalIgnoreCase));
+        return SearchItemsSource.Where(i => i.Text.Contains(searchText, StringComparison.OrdinalIgnoreCase));
     }
 
     private Task OnSelectedItemsChanged8(IEnumerable<SelectedItem> items)

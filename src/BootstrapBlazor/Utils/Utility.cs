@@ -830,6 +830,10 @@ public static class Utility
                 }
             }
         }
+        else if (typeValue.IsFlagEnum())
+        {
+            ret = value!.ToString();
+        }
         return ret;
     }
 
