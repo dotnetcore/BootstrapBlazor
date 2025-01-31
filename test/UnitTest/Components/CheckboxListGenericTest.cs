@@ -252,6 +252,27 @@ public class CheckboxListGenericTest : BootstrapBlazorTestBase
         Assert.False(max);
     }
 
+    [Fact]
+    public void ItemTemplate_Ok()
+    {
+        var items = new List<SelectedItem<Foo>>()
+        {
+            new(new Foo() { Id = 1, Name = "Test1" }, "Test 1"),
+            new(new Foo() { Id = 2, Name = "Test2" }, "Test 2"),
+            new(new Foo() { Id = 3, Name = "Test3" }, "Test 3")
+        };
+        var cut = Context.RenderComponent<CheckboxListGeneric<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.ItemTemplate, foo => builder =>
+            {
+                builder.AddContent(0, foo.Text);
+            });
+        });
+        var labels = cut.FindAll(".checkbox-item .form-check-label");
+        Assert.Equal(3, labels.Count);
+    }
+
     private class Dummy
     {
         [Required]
