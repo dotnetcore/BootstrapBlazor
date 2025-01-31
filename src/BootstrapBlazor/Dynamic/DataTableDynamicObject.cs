@@ -33,12 +33,12 @@ public class DataTableDynamicObject : DynamicObject
                 if (!Row.Table.Columns[propertyName]!.AutoIncrement)
                 {
                     // 自增长列
-                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName, false);
+                    Row[propertyName] = Utility.GetPropertyValue(this, propertyName);
                 }
             }
             ret = Row[propertyName];
         }
-        return ret ?? Utility.GetPropertyValue(this, propertyName, false);
+        return ret ?? Utility.GetPropertyValue(this, propertyName);
     }
 
     /// <summary>

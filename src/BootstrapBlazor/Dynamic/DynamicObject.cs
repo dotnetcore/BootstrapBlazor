@@ -21,12 +21,12 @@ public class DynamicObject : IDynamicObject
     /// </summary>
     /// <param name="propertyName"></param>
     /// <returns></returns>
-    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName, false);
+    public virtual object? GetValue(string propertyName) => Utility.GetPropertyValue(this, propertyName);
 
     /// <summary>
     /// 给指定属性设置值方法
     /// </summary>
     /// <param name="propertyName"></param>
     /// <param name="value"></param>
-    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value, false);
+    public virtual void SetValue(string propertyName, object? value) => Utility.SetPropertyValue<object, object?>(this, propertyName, value);
 }

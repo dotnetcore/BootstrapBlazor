@@ -620,9 +620,8 @@ public static class LambdaExtensions
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
-    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName, bool supportComplexProperty = true)
+    public static Expression<Func<TModel, TResult>> GetPropertyValueLambda<TModel, TResult>(TModel model, string propertyName)
     {
         if (model == null)
         {
@@ -631,7 +630,7 @@ public static class LambdaExtensions
         var type = model.GetType();
         var parameter = Expression.Parameter(typeof(TModel));
 
-        return supportComplexProperty && propertyName.Contains('.')
+        return !type.Assembly.IsDynamic && propertyName.Contains('.')
             ? GetComplexPropertyExpression()
             : GetSimplePropertyExpression();
 
@@ -688,9 +687,8 @@ public static class LambdaExtensions
     /// <typeparam name="TValue"></typeparam>
     /// <param name="model"></param>
     /// <param name="propertyName"></param>
-    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName, bool supportComplexProperty = true)
+    public static Expression<Action<TModel, TValue>> SetPropertyValueLambda<TModel, TValue>(TModel model, string propertyName)
     {
         if (model == null)
         {
@@ -700,7 +698,7 @@ public static class LambdaExtensions
         var type = model.GetType();
         var parameter1 = Expression.Parameter(typeof(TModel));
         var parameter2 = Expression.Parameter(typeof(TValue));
-        return (supportComplexProperty && propertyName.Contains('.'))
+        return !type.Assembly.IsDynamic && propertyName.Contains('.')
             ? SetComplexPropertyExpression()
             : SetSimplePropertyExpression();
 
