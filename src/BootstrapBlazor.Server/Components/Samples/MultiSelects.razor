@@ -11,25 +11,25 @@
             <MultiSelect TValue="string" Items="@Items1" />
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Primary" Items="@Items2" />
+            <MultiSelect TValue="string" Color="Color.Primary" Items="@Items2"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Success" Items="@Items3" />
+            <MultiSelect TValue="string" Color="Color.Success" Items="@Items3"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Danger" Items="@Items4" />
+            <MultiSelect TValue="string" Color="Color.Danger" Items="@Items4"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Warning" Items="@Items5" />
+            <MultiSelect TValue="string" Color="Color.Warning" Items="@Items5"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Info" Items="@Items6" />
+            <MultiSelect TValue="string" Color="Color.Info" Items="@Items6"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items7" />
+            <MultiSelect TValue="string" Color="Color.Secondary" Items="@Items7"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <MultiSelect TValue="string" Color="Color.Dark" Items="@Items8" />
+            <MultiSelect TValue="string" Color="Color.Dark" Items="@Items8"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
@@ -40,7 +40,7 @@
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-4">
-            <MultiSelect TValue="string" Items="@Items1" IsSingleLine="true" />
+            <MultiSelect TValue="string" Items="@Items1" IsSingleLine="true"></MultiSelect>
         </div>
     </div>
 </DemoBlock>
@@ -51,12 +51,12 @@
     </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items1" @bind-Value="@SelectedItemsValue" />
+            <MultiSelect Items="@Items1" @bind-Value="@SelectedItemsValue"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddItems" class="me-1" />
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveItems" />
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearItems" />
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearItems"></Button>
         </div>
     </div>
     <section ignore>@SelectedItemsValue</section>
@@ -66,12 +66,12 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingCollectionDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <MultiSelect Items="@Items" @bind-Value="@SelectedArrayValues" Max="4" Min="2" />
+            <MultiSelect Items="@Items" @bind-Value="@SelectedArrayValues" Max="4" Min="2"></MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddListItems" class="me-1" />
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveListItems" />
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearListItems" />
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddListItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveListItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearListItems"></Button>
         </div>
     </div>
     <section ignore>@(string.Join(",", SelectedArrayValues))</section>
@@ -84,9 +84,9 @@
             <MultiSelect Items="@LongItems" @bind-Value="@SelectedIntArrayValues" />
         </div>
         <div class="col-12 col-sm-6">
-            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddArrayItems" class="me-1" />
-            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveArrayItems" />
-            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearArrayItems" />
+            <Button Icon="fa-solid fa-plus" Text="@Localizer["MultiSelectAdd"]" OnClick="@AddArrayItems" class="me-1"></Button>
+            <Button Icon="fa-solid fa-minus" Text="@Localizer["MultiSelectDecrease"]" OnClick="@RemoveArrayItems"></Button>
+            <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearArrayItems"></Button>
         </div>
     </div>
     <section ignore>@(string.Join(",", SelectedIntArrayValues))</section>
@@ -192,7 +192,7 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectCascadingDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="@CascadingItems2" OnSelectedItemChanged="@OnCascadeBindSelectClick" />
+            <Select TValue="string" Items="@CascadingItems2" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
         </div>
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@CascadingItems1" />
