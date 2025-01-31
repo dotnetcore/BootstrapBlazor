@@ -154,6 +154,33 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task FlagEnum_Ok()
+    {
+        var value = MockFlagEnum.One | MockFlagEnum.Two;
+        var cut = Context.RenderComponent<MultiSelect<MockFlagEnum>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+        });
+        var values = cut.FindAll(".multi-select-items .multi-select-item");
+        Assert.Equal(2, values.Count);
+
+        // 选中第四个
+        var item = cut.FindAll(".dropdown-menu .dropdown-item").Last();
+        await cut.InvokeAsync(() => item.Click());
+        values = cut.FindAll(".multi-select-items .multi-select-item");
+        Assert.Equal(3, values.Count);
+    }
+
+    [Flags]
+    private enum MockFlagEnum
+    {
+        One = 1,
+        Two = 2,
+        Three = 4,
+        Four = 8
+    }
+
+    [Fact]
     public void Group_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
