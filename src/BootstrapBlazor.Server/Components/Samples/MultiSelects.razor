@@ -94,8 +94,14 @@
 
 <DemoBlock Title="@Localizer["MultiSelectBindingEnumCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingEnumCollectionIntro"]" Name="BindingEnumCollection">
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingEnumCollectionDescription"].Value)</section>
-    <MultiSelect @bind-Value="@SelectedEnumValues" />
+    <MultiSelect @bind-Value="@SelectedEnumValues"></MultiSelect>
     <section ignore>@(string.Join(",", SelectedEnumValues))</section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiSelectFlagsEnumTitle"]" Introduction="@Localizer["MultiSelectFlagsEnumIntro"]"
+           Name="Flags">
+    <section ignore>@((MarkupString)Localizer["MultiSelectFlagsEnumDescription"].Value)</section>
+    <MultiSelect @bind-Value="@EnumFoo"></MultiSelect>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
@@ -192,7 +198,7 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectCascadingDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="@CascadingItems2" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
+            <Select TValue="string" Items="@_cascadingItems2" OnSelectedItemChanged="@OnCascadeBindSelectClick"></Select>
         </div>
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@CascadingItems1" />
