@@ -123,7 +123,7 @@ public class DataTableDynamicContext : DynamicObjectContext
                     {
                         if (!row.IsNull(col))
                         {
-                            Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col], false);
+                            Utility.SetPropertyValue<object, object?>(d, col.ColumnName, row[col]);
                         }
                     }
 
@@ -200,7 +200,7 @@ public class DataTableDynamicContext : DynamicObjectContext
             {
                 if (col.DefaultValue != DBNull.Value)
                 {
-                    Utility.SetPropertyValue<object, object?>(dynamicObject, col.ColumnName, col.DefaultValue, false);
+                    Utility.SetPropertyValue<object, object?>(dynamicObject, col.ColumnName, col.DefaultValue);
                 }
             }
             dynamicObject.Row = row;

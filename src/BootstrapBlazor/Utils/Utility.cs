@@ -108,20 +108,20 @@ public static class Utility
     /// <typeparam name="TResult"></typeparam>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
-    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName, bool supportComplexProperty = true) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName, supportComplexProperty);
+    public static TResult GetPropertyValue<TModel, TResult>(TModel model, string fieldName) => CacheManager.GetPropertyValue<TModel, TResult>(model, fieldName);
 
     /// <summary>
     /// 获取 指定对象的属性值
     /// </summary>
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
-    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static object? GetPropertyValue(object model, string fieldName, bool supportComplexProperty = true)
+    public static object? GetPropertyValue(object model, string fieldName)
     {
-        return model.GetType().Assembly.IsDynamic ? ReflectionInvoke() : LambdaInvoke();
+        return model.GetType().Assembly.IsDynamic
+            ? ReflectionInvoke()
+            : GetPropertyValue<object, object?>(model, fieldName);
 
         object? ReflectionInvoke()
         {
@@ -133,8 +133,6 @@ public static class Utility
             }
             return ret;
         }
-
-        object? LambdaInvoke() => GetPropertyValue<object, object?>(model, fieldName, supportComplexProperty);
     }
 
     /// <summary>
@@ -145,9 +143,8 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
     /// <param name="value"></param>
-    /// <param name="supportComplexProperty"></param>
     /// <returns></returns>
-    public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value, bool supportComplexProperty = true) => CacheManager.SetPropertyValue(model, fieldName, value, supportComplexProperty);
+    public static void SetPropertyValue<TModel, TValue>(TModel model, string fieldName, TValue value) => CacheManager.SetPropertyValue(model, fieldName, value);
 
     /// <summary>
     /// 获得 排序方法
@@ -869,7 +866,7 @@ public static class Utility
     /// <param name="model"></param>
     /// <param name="fieldName"></param>
     /// <returns></returns>
-    public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t, true));
+    public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
     /// 获得指定泛型的 IEditorItem 集合
