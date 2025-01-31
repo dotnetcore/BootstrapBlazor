@@ -5,6 +5,8 @@
 
 using Microsoft.Extensions.Localization;
 using System.Collections;
+using System.Collections.Specialized;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -397,14 +399,13 @@ public partial class MultiSelect<TValue>
 
     private async Task SetValue()
     {
-        var typeValue = NullableUnderlyingType ?? typeof(TValue);
-        if (typeValue == typeof(string))
+        if (ValueType == typeof(string))
         {
             CurrentValueAsString = string.Join(",", SelectedItems.Select(i => i.Value));
         }
-        else if (typeValue.IsGenericType || typeValue.IsArray)
+        else if (ValueType.IsGenericType || ValueType.IsArray)
         {
-            var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
+            var t = ValueType.IsGenericType ? ValueType.GenericTypeArguments[0] : ValueType.GetElementType()!;
             var listType = typeof(List<>).MakeGenericType(t);
             var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
 
@@ -415,7 +416,20 @@ public partial class MultiSelect<TValue>
                     instance.Add(val);
                 }
             }
-            CurrentValue = (TValue)(typeValue.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
+            CurrentValue = (TValue)(ValueType.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
+        }
+        else if (ValueType.IsEnum && ValueType.GetCustomAttribute<FlagsAttribute>() != null)
+        {
+            var count = 0;
+            foreach (var item in SelectedItems)
+            {
+                if (Enum.TryParse(ValueType, item.Value, true, out var val))
+                {
+                    count += (int)val;
+                }
+            }
+
+            CurrentValue = (TValue)(object)count;
         }
 
         if (ValidateForm == null && (Min > 0 || Max > 0))
