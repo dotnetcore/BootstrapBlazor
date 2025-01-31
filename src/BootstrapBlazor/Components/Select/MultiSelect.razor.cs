@@ -236,13 +236,15 @@ public partial class MultiSelect<TValue>
         ResetRules();
 
         _itemsCache = null;
+
         // 通过 Value 对集合进行赋值
-        if (PreviousValue != CurrentValueAsString)
+        var _currentValue = CurrentValueAsString;
+        if (PreviousValue != _currentValue)
         {
-            PreviousValue = CurrentValueAsString;
-            var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            PreviousValue = _currentValue;
+            var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
             SelectedItems.Clear();
-            SelectedItems.AddRange(Rows.Where(item => list.Any(i => i == item.Value)));
+            SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
         }
     }
 
@@ -418,18 +420,9 @@ public partial class MultiSelect<TValue>
             }
             CurrentValue = (TValue)(ValueType.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
         }
-        else if (ValueType.IsEnum && ValueType.GetCustomAttribute<FlagsAttribute>() != null)
+        else if (ValueType.IsFlagEnum())
         {
-            var count = 0;
-            foreach (var item in SelectedItems)
-            {
-                if (Enum.TryParse(ValueType, item.Value, true, out var val))
-                {
-                    count += (int)val;
-                }
-            }
-
-            CurrentValue = (TValue)(object)count;
+            CurrentValue = (TValue?)SelectedItems.ParseFlagEnum<TValue>(ValueType);
         }
 
         if (ValidateForm == null && (Min > 0 || Max > 0))
