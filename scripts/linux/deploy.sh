@@ -36,7 +36,7 @@ sudo cp BootstrapBlazor/scripts/linux/cert/* /etc/nginx/cert/
 
 echo "*********************** install chrome ***********************"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo apt install ./google-chrome-stable_current_amd64.deb
+sudo yes|sudo apt install ./google-chrome-stable_current_amd64.deb
 
 echo "*********************** install support font ***********************"
 sudo apt install fonts-wqy-microhei
