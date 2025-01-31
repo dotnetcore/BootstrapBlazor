@@ -2941,6 +2941,8 @@
     "MultiSelectSearchTitle": "搜索功能",
     "MultiSelectSearchIntro": "通过设置 <code>ShowSearch</code> 值开启搜索功能",
     "MultiSelectSearchDescription": "本例中设置搜索回调委托方法 <code>OnSearchTextChanged</code> 进行自定义搜索结果，如果未设置时内部使用显示文本进行模糊匹配",
+    "MultiSelectFlagsEnumTitle": "Flags 枚举",
+    "MultiSelectFlagsEnumIntro": "绑定值为 <code>Enum</code> 数据类型时，如果枚举有 <code>Flags</code> 标签时，自动支持多选模式",
     "MultiSelectGroupTitle": "分组",
     "MultiSelectGroupIntro": "通过设置 <code>GroupName</code> 将下拉框中的备选项进行分组显示",
     "MultiSelectDisableTitle": "禁用功能",

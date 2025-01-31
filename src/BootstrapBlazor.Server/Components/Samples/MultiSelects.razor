@@ -5,7 +5,7 @@
 
 <h4>@Localizer["MultiSelectsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
+@* <DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@Items1" />
@@ -96,15 +96,24 @@
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingEnumCollectionDescription"].Value)</section>
     <MultiSelect @bind-Value="@SelectedEnumValues"></MultiSelect>
     <section ignore>@(string.Join(",", SelectedEnumValues))</section>
-</DemoBlock>
+</DemoBlock> *@
 
 <DemoBlock Title="@Localizer["MultiSelectFlagsEnumTitle"]" Introduction="@Localizer["MultiSelectFlagsEnumIntro"]"
            Name="Flags">
-    <section ignore>@((MarkupString)Localizer["MultiSelectFlagsEnumDescription"].Value)</section>
+    <section ignore>
+        <Pre>[Flags]
+private enum MultiSelectEnumFoo
+{
+    One = 1,
+    Two = 2,
+    Three = 4,
+    Four = 8
+}</Pre>
+    </section>
     <MultiSelect @bind-Value="@EnumFoo"></MultiSelect>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
+@* <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
     <section ignore>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
     <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch" />
     <section ignore>@SelectedSearchItemsValue</section>
@@ -259,7 +268,7 @@
             <Display Value="@_editString"></Display>
         </div>
     </div>
-</DemoBlock>
+</DemoBlock> *@
 
 <AttributeTable Items="@GetAttributes()" />
 
