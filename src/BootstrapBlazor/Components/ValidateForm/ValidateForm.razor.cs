@@ -130,6 +130,10 @@ public partial class ValidateForm
 
     private string? ShowAllInvalidResultString => ShowAllInvalidResult ? "true" : null;
 
+    private string? StyleString => CssBuilder.Default()
+        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
+        .Build();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
