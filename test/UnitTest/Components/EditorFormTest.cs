@@ -276,6 +276,32 @@ public class EditorFormTest : BootstrapBlazorTestBase
         });
     }
 
+    [Fact]
+    public void LabelWidth_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.LabelWidth, 120);
+            pb.AddChildContent<EditorForm<Foo>>(pb =>
+            {
+                pb.Add(a => a.AutoGenerateAllItem, false);
+                pb.Add(a => a.FieldItems, f => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<EditorItem<Foo, string>>(index++);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Field), f.Name);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // EditorForm 使用 ValidatForm 级联参数值
+        cut.Contains("class=\"row g-3\" style=\"--bb-row-label-width: 120px;\"");
+    }
+
     [Theory]
     [InlineData(true)]
     [InlineData(false)]
