@@ -5961,7 +5961,9 @@
     "CustomCssIntro": "Set <code>class</code> parameter set the style for the file icon component",
     "ExtensionAttr": "The extension of file",
     "IconColorAttr": "The backgound color for badge of extension",
-    "BackgroundTemplateAttr": "The template for custom the backgroup file"
+    "BackgroundTemplateAttr": "The template for custom the backgroup file",
+    "SizeTitle": "Size",
+    "SizeIntro":"Set the icon size by setting <code>Size</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "Title": "PDF Reader",
