@@ -327,6 +327,14 @@ public partial class ValidateForms
         },
         new()
         {
+            Name = "LabelWidth",
+            Description = Localizer["LabelWidth"],
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["ChildContent"],
             Type = "RenderFragment",
