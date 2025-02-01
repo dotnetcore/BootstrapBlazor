@@ -11,6 +11,7 @@ namespace BootstrapBlazor.Components;
 public partial class FileIcon
 {
     private string? ClassString => CssBuilder.Default("file-icon")
+        .AddClass($"file-icon-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -22,9 +23,7 @@ public partial class FileIcon
     /// 获得/设置 文件类型扩展名 
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
     [EditorRequired]
-#endif
     public string? Extension { get; set; }
 
     /// <summary>
@@ -38,4 +37,10 @@ public partial class FileIcon
     /// </summary>
     [Parameter]
     public Color IconColor { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// 获得/设置 图标大小 默认 Color.None
+    /// </summary>
+    [Parameter]
+    public Size Size { get; set; }
 }

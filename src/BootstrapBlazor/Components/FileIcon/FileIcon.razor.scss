@@ -4,13 +4,14 @@
     --bb-file-icon-padding-left: #{$bb-file-icon-padding-left};
     --bb-file-icon-badge-bottom: #{$bb-file-icon-badge-bottom};
     --bb-file-icon-path-fill-color: #{$bb-file-icon-path-fill-color};
+    --bb-file-icon-size: 1;
     padding-left: var(--bb-file-icon-padding-left);
     display: inline-block;
     position: relative;
 
     .icon-svg {
-        width: var(--bb-file-icon-width);
-        height: var(--bb-file-icon-height);
+        width: calc(var(--bb-file-icon-width) * var(--bb-file-icon-size));
+        height: calc(var(--bb-file-icon-height) * var(--bb-file-icon-size));
 
         path {
             fill: var(--bb-file-icon-path-fill-color);
@@ -21,5 +22,30 @@
         position: absolute;
         bottom: var(--bb-file-icon-badge-bottom);
         left: 0;
+        font-size: calc(var(--bs-badge-font-size) * var(--bb-file-icon-size));
+    }
+
+    &.file-icon-xs {
+        --bb-file-icon-size: 0.5;
+    }
+
+    &.file-icon-sm {
+        --bb-file-icon-size: 0.75;
+    }
+
+    &.file-icon-md {
+        --bb-file-icon-size: 1.25;
+    }
+
+    &.file-icon-lg {
+        --bb-file-icon-size: 1.5;
+    }
+
+    &.file-icon-xl {
+        --bb-file-icon-size: 1.75;
+    }
+
+    &.file-icon-xxl {
+        --bb-file-icon-size: 2;
     }
 }
