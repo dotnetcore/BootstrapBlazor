@@ -39,4 +39,33 @@ public class FileIconTest : TestBase
         });
         cut.Contains("test-content");
     }
+
+    [Theory]
+    [InlineData(Size.ExtraSmall)]
+    [InlineData(Size.Small)]
+    [InlineData(Size.Medium)]
+    [InlineData(Size.Large)]
+    [InlineData(Size.ExtraLarge)]
+    [InlineData(Size.ExtraExtraLarge)]
+    public void Size_Ok(Size size)
+    {
+        var cut = Context.RenderComponent<FileIcon>(pb =>
+        {
+            pb.Add(a => a.Extension, ".xlsx");
+            pb.Add(a => a.Size, size);
+        });
+        cut.Contains($"file-icon file-icon-{size.ToDescriptionString()}");
+    }
+
+    [Fact]
+    public void Size_None()
+    {
+        var cut = Context.RenderComponent<FileIcon>(pb =>
+        {
+            pb.Add(a => a.Extension, ".xlsx");
+            pb.Add(a => a.Size, Size.None);
+        });
+        cut.Contains("file-icon");
+        cut.DoesNotContain("file-icon-none");
+    }
 }
