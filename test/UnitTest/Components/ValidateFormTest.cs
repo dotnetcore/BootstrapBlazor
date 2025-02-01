@@ -163,6 +163,25 @@ public class ValidateFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void LabelWidth_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.LabelWidth, 120);
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, v => foo.Name = v));
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+        });
+
+        cut.Contains("style=\"--bb-row-label-width: 120px;\"");
+    }
+
+    [Fact]
     public async Task SetError_Ok()
     {
         var foo = new Foo();
