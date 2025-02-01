@@ -36,7 +36,7 @@ public partial class BootstrapLabel
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
+        .AddStyle($"--bb-row-label-width", $"{LabelWidth}px", LabelWidth.HasValue)
         .Build();
 
     /// <summary>
