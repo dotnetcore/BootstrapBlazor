@@ -14,6 +14,12 @@ public class TextareaTest : BootstrapBlazorTestBase
 
         var component = cut.FindComponent<BootstrapLabel>();
         Assert.NotNull(component);
+
+        component.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.LabelWidth, 120);
+        });
+        cut.Contains("style=\"--bb-row-label-width: 120px;\"");
     }
 
     [Fact]
