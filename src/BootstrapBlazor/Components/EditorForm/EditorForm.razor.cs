@@ -234,6 +234,9 @@ public partial class EditorForm<TModel> : IShowLabel
 
         // 为空时使用级联参数 ValidateForm 的 ShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
+
+        // 为空时使用级联参数 ValidateForm 的 LabelWidth
+        LabelWidth ??= ValidateForm?.LabelWidth;
         _itemsCache = null;
     }
 
