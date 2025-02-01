@@ -26,6 +26,10 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     [NotNull]
     private ToastService? ToastService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
     /// </summary>
@@ -65,7 +69,7 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
                 await ToastService.Error(ToastTitle, exception.Message);
             }
 
-            Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync));
+            Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error occurred at {Page}", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync), NavigationManager.Uri);
         }
     }
 
