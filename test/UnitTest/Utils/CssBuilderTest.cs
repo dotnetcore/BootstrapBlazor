@@ -22,6 +22,51 @@ public class CssBuilderTest
     }
 
     [Fact]
+    public void AddStyle_When()
+    {
+        var classString = CssBuilder.Default()
+            .AddStyle("width", () => "cls_test", () => false)
+            .Build();
+        Assert.DoesNotContain("widht: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", () => "cls_test", false)
+            .Build();
+        Assert.DoesNotContain("widht: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", "cls_test", false)
+            .Build();
+        Assert.DoesNotContain("widht: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", () => "cls_test", () => true)
+            .Build();
+        Assert.Contains("width: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", () => "cls_test", true)
+            .Build();
+        Assert.Contains("width: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", "cls_test", true)
+            .Build();
+        Assert.Contains("width: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", "cls_test", () => true)
+            .Build();
+        Assert.Contains("width: cls_test;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle("width", "cls_test_width")
+            .AddStyle("height", "cls_test_height")
+            .Build();
+        Assert.Equal("width: cls_test_width; height: cls_test_height;", classString);
+    }
+
+    [Fact]
     public void AddClass_Builder()
     {
         var builder = CssBuilder.Default("cls_test");
@@ -35,6 +80,27 @@ public class CssBuilderTest
             .AddClass(builder, () => true)
             .Build();
         Assert.Contains("cls_test", classString);
+    }
+
+    [Fact]
+    public void AddStyle_Builder()
+    {
+        var builder = CssBuilder.Default("width: cls_test_width;");
+
+        var classString = CssBuilder.Default()
+            .AddStyle(builder, false)
+            .Build();
+        Assert.DoesNotContain("width: cls_test_width;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle(builder, () => true)
+            .Build();
+        Assert.Contains("width: cls_test_width;", classString);
+
+        classString = CssBuilder.Default()
+            .AddStyle(builder, true)
+            .Build();
+        Assert.Contains("width: cls_test_width;", classString);
     }
 
     [Fact]
