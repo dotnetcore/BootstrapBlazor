@@ -5961,7 +5961,9 @@
     "CustomCssIntro": "通过设置 <code>class</code> 自定义样式调整图标大小",
     "ExtensionAttr": "文件扩展名",
     "IconColorAttr": "扩展名标签背景色",
-    "BackgroundTemplateAttr": "自定义背景图模板"
+    "BackgroundTemplateAttr": "自定义背景图模板",
+    "SizeTitle": "大小",
+    "SizeIntro": "通过设置 <code>Size</code> 设置图标大小"
   },
   "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "Title": "PDF Reader PDF阅读器",
