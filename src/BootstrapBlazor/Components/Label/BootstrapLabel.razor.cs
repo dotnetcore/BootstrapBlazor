@@ -29,6 +29,9 @@ public partial class BootstrapLabel
     [Parameter]
     public int? LabelWidth { get; set; }
 
+    [CascadingParameter]
+    private BootstrapLabelSetting? Setting { get; set; }
+
     private bool _showTooltip;
 
     private string? ClassString => CssBuilder.Default("form-label")
@@ -52,5 +55,8 @@ public partial class BootstrapLabel
             _showTooltip = ShowLabelTooltip.Value;
         }
         Value ??= "";
+
+        // 获得级联参数的 LabelWidth
+        LabelWidth ??= Setting?.LabelWidth;
     }
 }
