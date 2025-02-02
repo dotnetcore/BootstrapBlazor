@@ -24,14 +24,16 @@
         </div>
     }
     <div class="toast-body">
-        @if (Options.ChildContent != null)
-        {
-            @Options.ChildContent
-        }
-        else if (!string.IsNullOrEmpty(Options.Content))
-        {
-            @((MarkupString)Options.Content)
-        }
+        <CascadingValue Value="Close" IsFixed="true">
+            @if (Options.ChildContent != null)
+            {
+                @Options.ChildContent
+            }
+            else if (!string.IsNullOrEmpty(Options.Content))
+            {
+                @((MarkupString)Options.Content)
+            }
+        </CascadingValue>
     </div>
     <div class="@ProgressClass"></div>
 </div>
