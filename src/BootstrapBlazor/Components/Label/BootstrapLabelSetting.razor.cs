@@ -15,4 +15,10 @@ public partial class BootstrapLabelSetting
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值
+    /// </summary>
+    [Parameter]
+    public int? LabelWidth { get; set; }
 }
