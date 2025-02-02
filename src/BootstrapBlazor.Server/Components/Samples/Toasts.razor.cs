@@ -198,14 +198,6 @@ public sealed partial class Toasts
         },
         new()
         {
-            Name = "IsHtml",
-            Description = Localizer["ToastsAttrIsHtml"],
-            Type = "boolean",
-            ValueList = "",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "Placement",
             Description = Localizer["ToastsAttrPlacement"],
             Type = "Placement",
