@@ -46,8 +46,9 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
         // 等待 SetData 方法执行完毕
         try
         {
-            await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(1));
+            await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(3));
         }
+        catch (TimeoutException) { }
         catch (Exception ex)
         {
             logger.LogError(ex, "method GetClientInfo failed");
