@@ -40,8 +40,8 @@ public partial class Affix
         .Build();
 
     private string? StyleString => CssBuilder.Default("position: sticky;")
-        .AddStyle("z-index", $"{ZIndex}", ZIndex.HasValue)
-        .AddStyle($"{Position.ToDescriptionString()}", $"{Offset}px")
+        .AddClass($"z-index: {ZIndex};", ZIndex.HasValue)
+        .AddClass($"{Position.ToDescriptionString()}: {Offset}px;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 }
