@@ -20,15 +20,15 @@ public partial class Captcha
     /// 获得 组件宽度
     /// </summary>
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"width: {Width + 42}px;", Width > 0)
+        .AddStyle("width", $"{Width + 42}px", Width > 0)
         .Build();
 
     /// <summary>
     /// 获得 加载图片失败样式
     /// </summary>
     private string? FailedStyle => CssBuilder.Default()
-        .AddClass($"width: {Width}px;", Width > 0)
-        .AddClass($"height: {Height}px;", Height > 0)
+        .AddStyle("width", $"{Width}px", Width > 0)
+        .AddStyle("height", $"{Height}px", Height > 0)
         .Build();
 
     /// <summary>
