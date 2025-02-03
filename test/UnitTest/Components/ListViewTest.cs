@@ -14,7 +14,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
         });
-        cut.Markup.Contains("listview-body");
+        cut.Contains("listview-body");
     }
 
     [Fact]
@@ -24,7 +24,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Height, "50vh");
         });
-        cut.Markup.Contains("style=\"height: 50vh;\"");
+        cut.Contains("style=\"height: 50vh;\"");
     }
 
     [Fact]
@@ -291,6 +291,32 @@ public class ListViewTest : BootstrapBlazorTestBase
             button.Click();
             Assert.NotNull(expect);
         });
+    }
+
+    [Fact]
+    public void EmptyTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<ListView<Product>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                var ret = new QueryData<Product>()
+                {
+                    Items = [],
+                    TotalCount = 0
+                };
+                return Task.FromResult(ret);
+            });
+            pb.Add(a => a.EmptyTemplate, builder => builder.AddContent(0, "empty-template"));
+        });
+        cut.Contains("empty-template");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add<RenderFragment?>(a => a.EmptyTemplate, null);
+            pb.Add(a => a.EmptyText, "text-empty");
+        });
+        cut.Contains("text-empty");
     }
 
     private class Product
