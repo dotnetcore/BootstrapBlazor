@@ -767,6 +767,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Typed"],
+                    Url = "typed"
+                },
+                new()
+                {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
                 },
@@ -1153,6 +1158,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["DriverJs"],
+                    Url = "driver-js"
+                },
+                new()
+                {
                     Text = Localizer["EditDialog"],
                     Url = "edit-dialog"
                 },
@@ -1160,11 +1170,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["FlipClock"],
                     Url = "flip-clock"
-                },
-                new()
-                {
-                    Text = Localizer["DriverJs"],
-                    Url = "driver-js"
                 },
                 new()
                 {

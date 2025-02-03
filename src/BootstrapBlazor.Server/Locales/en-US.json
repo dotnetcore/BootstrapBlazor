@@ -4810,7 +4810,8 @@
     "SmilesDrawer": "SmilesDrawer",
     "Affix": "Affix",
     "Watermark": "Watermark",
-    "OctIcon": "OctIcons"
+    "OctIcon": "Oct Icons",
+    "Typed": "Typed"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6941,5 +6942,13 @@
     "CacheListDelete": "Delete",
     "CacheListDeleteAll": "Clear",
     "CacheListCount": "Total {0} Entry"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Typeds": {
+    "TypedTitle": "Typed",
+    "TypedIntro": "Enter in any string, and watch it type at the speed you've set, backspace what it's typed, and begin a new sentence for however many strings you've set.",
+    "NormalTitle": "Text",
+    "NormalIntro": "Set the text to be displayed by setting the <code>Text</code> parameter",
+    "TypedOptionsTitle": "TypedOptions",
+    "TypedOptionsIntro": "Customize typing speed, delay, and other settings by setting the properties of the <code>TypedOptions</code> parameter"
   }
 }

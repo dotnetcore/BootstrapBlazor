@@ -4810,7 +4810,8 @@
     "SmilesDrawer": "分子式组件 SmilesDrawer",
     "Affix": "固钉组件 Affix",
     "Watermark": "水印组件 Watermark",
-    "OctIcon": "OctIcons"
+    "OctIcon": "Oct Icons",
+    "Typed": "打字机效果 Typed"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6941,5 +6942,13 @@
     "CacheListDelete": "删除",
     "CacheListDeleteAll": "清除全部",
     "CacheListCount": "共 {0} 个键值"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Typeds": {
+    "TypedTitle": "Typed 打字机效果",
+    "TypedIntro": "输入任意字符串，它会按照你设置的速度输入，输入的内容会退格，然后根据你设置的字符串数量开始一个新句子。",
+    "NormalTitle": "Text",
+    "NormalIntro": "通过设置 <code>Text</code> 参数设置要显示的文本",
+    "TypedOptionsTitle": "TypedOptions",
+    "TypedOptionsIntro": "通过设置 <code>TypedOptions</code> 参数的属性自定义打字速度、延时等设定"
   }
 }

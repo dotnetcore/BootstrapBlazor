@@ -1,0 +1,31 @@
+﻿@page "/typed"
+@inject IStringLocalizer<Typeds> Localizer
+
+<h3>@Localizer["TypedTitle"]</h3>
+
+<h4>@Localizer["TypedIntro"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal">
+    <div class="row">
+        <div class="col-12">
+            <Typed Text="<code>BootstrapBlazor</code> is an enterprise-level UI component library"></Typed>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TypedOptionsTitle"]"
+           Introduction="@Localizer["TypedOptionsIntro"]"
+           Name="Options">
+    <div class="row g-3">
+        <div class="col-12">
+            <Button Text="Update" OnClick="OnUpdate"></Button>
+        </div>
+        <div class="col-12">
+            <Typed Options="_options"></Typed>
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@TypedAttributes" Title="@Localizer["TypedAttribute"]"></AttributeTable>
