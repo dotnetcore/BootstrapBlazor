@@ -10,14 +10,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TypedJs 组件配置类
 /// </summary>
-public record TypedOptions
+public class TypedOptions : IEquatable<TypedOptions>
 {
     /// <summary>
     /// 获得/设置 要打字的字符串数组
     /// </summary>
     [JsonPropertyName("strings")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public List<string?>? Text { get; set; }
+    public List<string>? Text { get; set; }
 
     /// <summary>
     /// 获得/设置 打字速度 默认 null 未设置 单位毫秒
@@ -88,4 +88,46 @@ public record TypedOptions
     [JsonPropertyName("contentType")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? ContentType { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public bool Equals(TypedOptions? option)
+    {
+        if (option == null)
+        {
+            return false;
+        }
+
+        return EqualText(option.Text) &&
+               TypeSpeed == option.TypeSpeed &&
+               BackSpeed == option.BackSpeed &&
+               SmartBackspace == option.SmartBackspace &&
+               Shuffle == option.Shuffle &&
+               BackDelay == option.BackDelay &&
+               Loop == option.Loop &&
+               LoopCount == option.LoopCount &&
+               ShowCursor == option.ShowCursor &&
+               CursorChar == option.CursorChar &&
+               ContentType == option.ContentType;
+    }
+
+    private bool EqualText(List<string>? text)
+    {
+        if (Text == null && text == null)
+        {
+            return true;
+        }
+        if (Text == null || text == null)
+        {
+            return false;
+        }
+        if (Text.Count != text.Count)
+        {
+            return false;
+        }
+        return Text.SequenceEqual(text);
+    }
 }

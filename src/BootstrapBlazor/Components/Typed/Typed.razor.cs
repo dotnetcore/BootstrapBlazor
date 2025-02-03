@@ -28,9 +28,9 @@ public partial class Typed
     [Parameter]
     public Func<Task>? OnCompleteAsync { get; set; }
 
-    private string? _lastOptions;
-
     private string? _text;
+
+    private TypedOptions? _options;
 
     /// <summary>
     /// <inheritdoc/>
@@ -43,8 +43,8 @@ public partial class Typed
 
         if (firstRender)
         {
-            _lastOptions = Options?.ToString();
             _text = Text;
+            _options = Options;
         }
         else if (UpdateParameters())
         {
@@ -82,24 +82,12 @@ public partial class Typed
             return true;
         }
 
-        var optionString = GetOptionsString();
-        if (string.Equals(optionString, _lastOptions, StringComparison.Ordinal))
+        if (Options?.Equals(_options) ?? false)
         {
-            return false;
+            return true;
         }
 
-        _lastOptions = optionString;
-        return true;
-    }
-
-    private string? GetOptionsString()
-    {
-        if (Options == null)
-        {
-            return null;
-        }
-
-        var textString = Options.Text == null ? "" : string.Join(",", Options.Text);
-        return $"{Options} {textString}";
+        _options = Options;
+        return false;
     }
 }
