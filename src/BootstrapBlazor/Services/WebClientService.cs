@@ -42,7 +42,7 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
 
         try
         {
-            _jsModule ??= await runtime.LoadModuleByName("client");
+            _jsModule ??= await runtime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
             _interop ??= DotNetObjectReference.Create(this);
             await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
 
