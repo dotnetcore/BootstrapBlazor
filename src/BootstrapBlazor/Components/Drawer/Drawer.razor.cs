@@ -19,7 +19,7 @@ public partial class Drawer
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddStyle("--bb-drawer-position", $"{Position}", !string.IsNullOrEmpty(Position))
+        .AddStyle("--bb-drawer-position", Position)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -27,8 +27,8 @@ public partial class Drawer
     /// 获得 抽屉 Style 字符串
     /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
-        .AddStyle("--bb-drawer-width", $"{Width}", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddStyle("--bb-drawer-height", $"{Height}", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
+        .AddStyle("--bb-drawer-width", Width, Placement != Placement.Top && Placement != Placement.Bottom)
+        .AddStyle("--bb-drawer-height", Height, Placement == Placement.Top || Placement == Placement.Bottom)
         .Build();
 
     /// <summary>

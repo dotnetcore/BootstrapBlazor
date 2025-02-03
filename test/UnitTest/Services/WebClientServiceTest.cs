@@ -59,11 +59,17 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task Timeout_Ok()
+    public async Task GetClientInfo_Error()
     {
         var service = Context.Services.GetRequiredService<WebClientService>();
         var client = await service.GetClientInfo();
+
+        // TimeoutException
         Assert.Null(client.Ip);
+
+        // Exception
+        Context.JSInterop.SetupVoid("ping", _ => true).SetException(new Exception("test-exception"));
+        client = await service.GetClientInfo();
     }
 
     [Fact]
