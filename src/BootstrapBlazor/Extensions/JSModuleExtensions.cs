@@ -18,12 +18,6 @@ public static class JSModuleExtensions
     /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
     public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime, string? version = null) => LoadModuleByName(jsRuntime, "utility", version);
 
-    internal static Task<JSModule> LoadModuleByName(this IJSRuntime jsRuntime, string moduleName, string? version = null)
-    {
-        var fileName = $"./_content/BootstrapBlazor/modules/{moduleName}.js";
-        return LoadModule(jsRuntime, fileName, version);
-    }
-
     /// <summary>
     /// 通过名称导入内置脚本模块
     /// </summary>
