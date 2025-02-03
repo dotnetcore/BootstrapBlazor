@@ -37,6 +37,8 @@ public class TypedTest : BootstrapBlazorTestBase
         });
         cut.MarkupMatches("<span diff:ignore></span>");
 
+        cut.SetParametersAndRender();
+
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Options, new TypedOptions() { Text = ["test1", "test2", "test3"], TypeSpeed = 70 });
