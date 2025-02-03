@@ -28,7 +28,7 @@ class DefaultSerialService : ISerialService, IAsyncDisposable
 
     private async Task<JSModule> LoadModule()
     {
-        var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/serial.js");
+        var module = await _runtime.LoadModuleByName("serial");
 
         IsSupport = await module.InvokeAsync<bool>("init", _serialPortId);
         return module;

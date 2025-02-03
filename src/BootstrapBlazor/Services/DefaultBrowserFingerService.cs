@@ -13,14 +13,12 @@ class DefaultBrowserFingerService(IJSRuntime jSRuntime) : IBrowserFingerService
     [NotNull]
     private JSModule? _module = null;
 
-    private Task<JSModule> LoadModule() => jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
-
     /// <summary>
     /// 获取剪切板数据方法
     /// </summary>
     public async Task<string?> GetFingerCodeAsync(CancellationToken token = default)
     {
-        _module ??= await LoadModule();
+        _module ??= await jSRuntime.LoadUtility();
         return await _module.InvokeAsync<string?>("getFingerCode", token);
     }
 }

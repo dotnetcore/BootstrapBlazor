@@ -28,7 +28,7 @@ class DefaultGeoLocationService : IGeoLocationService
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js");
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModuleByName("geo");
 
     /// <summary>
     /// get the current position of the device

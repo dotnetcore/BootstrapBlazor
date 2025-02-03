@@ -19,7 +19,7 @@ public class TitleService(IJSRuntime jSRuntime)
     /// <returns></returns>
     public async Task SetTitle(string title, CancellationToken token = default)
     {
-        _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+        _module ??= await jSRuntime.LoadUtility();
         await _module.InvokeVoidAsync("setTitle", token, title);
     }
 }

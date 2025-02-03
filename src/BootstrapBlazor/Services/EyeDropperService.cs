@@ -19,7 +19,7 @@ public class EyeDropperService(IJSRuntime jSRuntime)
     /// <returns></returns>
     public async Task<string?> PickAsync(CancellationToken token = default)
     {
-        _module ??= await jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/eye-dropper.js");
+        _module ??= await jSRuntime.LoadModuleByName("eye-dropper");
         return await _module.InvokeAsync<string?>("open", token);
     }
 }
