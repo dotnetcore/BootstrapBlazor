@@ -15,7 +15,7 @@ public class AjaxService(IJSRuntime jSRuntime)
     [NotNull]
     private JSModule? _module = null;
 
-    private Task<JSModule> LoadModule() => jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/ajax.js");
+    private Task<JSModule> LoadModule() => jSRuntime.LoadModuleByName("ajax");
 
     /// <summary>
     /// 调用Ajax方法发送请求

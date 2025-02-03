@@ -16,10 +16,23 @@ public static class JSModuleExtensions
     /// <param name="jsRuntime"></param>
     /// <param name="version"></param>
     /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
-    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime, string? version = null) => LoadModule(jsRuntime, "./_content/BootstrapBlazor/modules/utility.js", version);
+    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime, string? version = null) => LoadModuleByName(jsRuntime, "utility", version);
 
     /// <summary>
-    /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
+    /// 通过名称导入内置脚本模块
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="moduleName"></param>
+    /// <param name="version"></param>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
+    public static Task<JSModule> LoadModuleByName(this IJSRuntime jsRuntime, string moduleName, string? version = null)
+    {
+        var fileName = $"./_content/BootstrapBlazor/modules/{moduleName}.js";
+        return LoadModule(jsRuntime, fileName, version);
+    }
+
+    /// <summary>
+    /// IJSRuntime 扩展方法 动态加载脚本
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="fileName"></param>

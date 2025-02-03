@@ -13,7 +13,7 @@ public class ClipboardService(IJSRuntime jSRuntime)
     [NotNull]
     private JSModule? _module = null;
 
-    private Task<JSModule> LoadModule() => jSRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+    private Task<JSModule> LoadModule() => jSRuntime.LoadUtility();
 
     /// <summary>
     /// 获取剪切板数据方法

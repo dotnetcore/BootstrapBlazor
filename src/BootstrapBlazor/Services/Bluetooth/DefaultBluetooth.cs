@@ -44,7 +44,7 @@ sealed class DefaultBluetooth : IBluetooth
 
     private async Task<JSModule> LoadModule()
     {
-        var module = await _runtime.LoadModule("./_content/BootstrapBlazor/modules/bt.js");
+        var module = await _runtime.LoadModuleByName("bt");
 
         IsSupport = await module.InvokeAsync<bool>("init");
         return module;
