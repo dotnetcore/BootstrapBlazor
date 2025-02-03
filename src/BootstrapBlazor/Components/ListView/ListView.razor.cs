@@ -129,6 +129,18 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public string? Height { get; set; }
 
     /// <summary>
+    /// 获得/设置 无数据时模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment? EmptyTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 无数据时显示文字 默认 null 未设置使用资源文件设置文字
+    /// </summary>
+    [Parameter]
+    public string? EmptyText { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
     private int _pageIndex;

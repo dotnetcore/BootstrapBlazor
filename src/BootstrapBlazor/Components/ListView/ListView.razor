@@ -10,42 +10,53 @@
         </div>
     }
     <div class="@BodyClassString">
-        @if (BodyTemplate != null)
+        @if (Rows.Count > 0)
         {
-            if (GroupName == null)
+            if (BodyTemplate != null)
             {
-                foreach (var item in Rows)
+                if (GroupName == null)
                 {
-                    <div class="listview-item" @onclick="@(e => OnClick(item))">
-                        @BodyTemplate(item)
-                    </div>
-                }
-            }
-            else if (Collapsible)
-            {
-                <Collapse IsAccordion="IsAccordion" OnCollapseChanged="OnCollapseChanged!">
-                    <CollapseItems>
-                        @RenderCollapsibleItems(GroupName)
-                    </CollapseItems>
-                </Collapse>
-            }
-            else
-            {
-                foreach (var key in GetGroupItems(GroupName))
-                {
-                    <div @key="@key.GroupName" class="accordion-item">
-                        <div class="accordion-header">@key.GroupName</div>
-                        <div class="accordion-body">
-                            @foreach (var item in key.Items)
-                            {
-                                <div class="listview-item" @onclick="@(e => OnClick(item))">
-                                    @BodyTemplate(item)
-                                </div>
-                            }
+                    foreach (var item in Rows)
+                    {
+                        <div class="listview-item" @onclick="@(e => OnClick(item))">
+                            @BodyTemplate(item)
                         </div>
-                    </div>
+                    }
+                }
+                else if (Collapsible)
+                {
+                    <Collapse IsAccordion="IsAccordion" OnCollapseChanged="OnCollapseChanged!">
+                        <CollapseItems>
+                            @RenderCollapsibleItems(GroupName)
+                        </CollapseItems>
+                    </Collapse>
+                }
+                else
+                {
+                    foreach (var key in GetGroupItems(GroupName))
+                    {
+                        <div @key="@key.GroupName" class="accordion-item">
+                            <div class="accordion-header">@key.GroupName</div>
+                            <div class="accordion-body">
+                                @foreach (var item in key.Items)
+                                {
+                                    <div class="listview-item" @onclick="@(e => OnClick(item))">
+                                        @BodyTemplate(item)
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
                 }
             }
+        }
+        else if (EmptyTemplate != null)
+        {
+            @EmptyTemplate
+        }
+        else
+        {
+            @EmptyText
         }
     </div>
     @if (FooterTemplate != null || Pageable)
