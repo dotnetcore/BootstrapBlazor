@@ -130,4 +130,25 @@ public class TypedOptions : IEquatable<TypedOptions>
         }
         return Text.SequenceEqual(text);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public override bool Equals(object? obj)
+    {
+        if (obj is TypedOptions option)
+        {
+            return Equals(option);
+        }
+
+        return false;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override int GetHashCode() => base.GetHashCode();
 }
