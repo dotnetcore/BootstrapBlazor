@@ -106,4 +106,21 @@ public class TypedTest : BootstrapBlazorTestBase
         Assert.Equal("|", options.CursorChar);
         Assert.Equal("html", options.ContentType);
     }
+
+    [Fact]
+    public void Equal_Ok()
+    {
+        var options = new TypedOptions() { Text = ["test1", "test2"], TypeSpeed = 70 };
+        Assert.False(options.Equals(null));
+
+        var options2 = new TypedOptions() { Text = ["test1", "test2", "test3"], TypeSpeed = 70 };
+        Assert.False(options.Equals(options2));
+
+        var options3 = new TypedOptions() { Text = ["test1", "test2"], TypeSpeed = 70 };
+        Assert.True(options.Equals(options3));
+
+        Assert.True(options.Equals((object)options3));
+        Assert.False(options.Equals(new object()));
+        Assert.True(options.GetHashCode() > 0);
+    }
 }
