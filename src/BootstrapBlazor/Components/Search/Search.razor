@@ -6,11 +6,7 @@
     <div class="input-group">
         @if (PrefixButtonTemplate != null)
         {
-            <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
-                <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
-                    @PrefixButtonTemplate
-                </CascadingValue>
-            </CascadingValue>
+            @PrefixButtonTemplate(_context)
         }
         <div class="form-control-group form-control">
             @if (ShowPrefixIcon)
@@ -18,7 +14,7 @@
                 <div class="search-prefix-icon">
                     @if (PrefixIconTemplate != null)
                     {
-                        @PrefixIconTemplate
+                        @PrefixIconTemplate(_context)
                     }
                     else
                     {
@@ -37,18 +33,18 @@
                    placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
             @if (IsClearable)
             {
-                <div class="search-clear-icon">
+                <div class="search-icon search-clear-icon">
                     <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
                 </div>
+            }
+            @if (IconTemplate != null)
+            {
+                @IconTemplate(_context)
             }
         </div>
         @if (ButtonTemplate != null)
         {
-            <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
-                <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
-                    @ButtonTemplate
-                </CascadingValue>
-            </CascadingValue>
+            @ButtonTemplate(_context)
         }
         @if (ShowClearButton)
         {

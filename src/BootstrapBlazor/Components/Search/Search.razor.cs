@@ -13,6 +13,12 @@ namespace BootstrapBlazor.Components;
 public partial class Search<TValue>
 {
     /// <summary>
+    /// 获得/设置 图标模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SearchContext<TValue>>? IconTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示清空小按钮 默认 false
     /// </summary>
     [Parameter]
@@ -83,13 +89,13 @@ public partial class Search<TValue>
     /// 获得/设置 按钮模板 默认 null 未设置
     /// </summary>
     [Parameter]
-    public RenderFragment? ButtonTemplate { get; set; }
+    public RenderFragment<SearchContext<TValue>>? ButtonTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 前置按钮模板 默认 null 未设置
     /// </summary>
     [Parameter]
-    public RenderFragment? PrefixButtonTemplate { get; set; }
+    public RenderFragment<SearchContext<TValue>>? PrefixButtonTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示前缀图标 默认为 false 不显示
@@ -107,7 +113,7 @@ public partial class Search<TValue>
     /// 获得/设置 前缀图标模板 默认为 null
     /// </summary>
     [Parameter]
-    public RenderFragment? PrefixIconTemplate { get; set; }
+    public RenderFragment<SearchContext<TValue>>? PrefixIconTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 点击搜索后是否自动清空搜索框
@@ -147,8 +153,6 @@ public partial class Search<TValue>
     private IStringLocalizer<Search<TValue>>? Localizer { get; set; }
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
-        .AddClass("search-prefix", ShowPrefixIcon)
-        .AddClass("search-clear", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -164,6 +168,18 @@ public partial class Search<TValue>
     /// </summary>
     [NotNull]
     private List<TValue>? _filterItems = null;
+
+    private SearchContext<TValue> _context = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _context = new SearchContext<TValue>(this, OnSearchClick, OnClearClick);
+    }
 
     /// <summary>
     /// <inheritdoc/>
