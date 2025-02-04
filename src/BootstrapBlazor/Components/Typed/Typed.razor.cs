@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TypedJs 组件类
 /// </summary>
-public partial class TypedJs
+public partial class Typed
 {
     /// <summary>
     /// 获得/设置 组件显示文字 默认 null 未设置
@@ -17,10 +17,10 @@ public partial class TypedJs
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件配置 <see cref="TypedJsOptions"/> 实例 默认 null
+    /// 获得/设置 组件配置 <see cref="TypedOptions"/> 实例 默认 null
     /// </summary>
     [Parameter]
-    public TypedJsOptions? Options { get; set; }
+    public TypedOptions? Options { get; set; }
 
     private string? _lastOptions;
 

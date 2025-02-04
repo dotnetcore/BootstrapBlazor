@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TypedJs 组件配置类
 /// </summary>
-public record TypedJsOptions
+public record TypedOptions
 {
     /// <summary>
     /// 获得/设置 要打字的字符串数组

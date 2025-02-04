@@ -1,0 +1,22 @@
+﻿@page "/typed"
+
+<div>
+    <Button Text="Update" OnClick="OnUpdate"></Button>
+</div>
+
+<div>
+    <TypedJs Options="_options"></TypedJs>
+</div>
+
+@code {
+    private TypedOptions _options = new();
+
+    private void OnUpdate()
+    {
+        //_options = new() { TypeSpeed = 70 };
+        _options.Text = ["Bootstrap Blazor is an enterprise-level UI component library", "BB 组件库你可以试试看"];
+        _options.TypeSpeed = 70;
+        _options.BackSpeed = 30;
+        _options.Loop = true;
+    }
+}
