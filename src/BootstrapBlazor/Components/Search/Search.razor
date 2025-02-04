@@ -7,16 +7,27 @@
         <div class="form-control-group">
             @if (ShowPrefixIcon)
             {
-                <div class="search-icon search-prefix-icon">
-                    @if (PrefixIconTemplate != null)
-                    {
-                        @PrefixIconTemplate
-                    }
-                    else
-                    {
-                        <i class="@PrefixIcon"></i>
-                    }
-                </div>
+                @if(PrefixButtonTemplate == null)
+                {
+                    <div class="search-icon search-prefix-icon">
+                        @if (PrefixIconTemplate != null)
+                        {
+                            @PrefixIconTemplate
+                        }
+                        else
+                        {
+                            <i class="@PrefixIcon"></i>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
+                        <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
+                            @PrefixButtonTemplate
+                        </CascadingValue>
+                    </CascadingValue>
+                }
             }
             <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
                    data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
@@ -27,21 +38,21 @@
                    data-bb-input="@UseInputString"
                    value="@_displayText"
                    placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
-                @if (ShowClearIcon)
-                {
-                    <div class="search-icon search-clear-icon">
-                        <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
-                    </div>
-                }
-            </div>
-        @if (ButtonTemplate == null)
-        {
-            <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
-                <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
-                    @ButtonTemplate
+            @if (ShowClearIcon)
+            {
+                <div class="search-icon search-clear-icon">
+                    <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
+                </div>
+            }
+            @if (ButtonTemplate == null)
+            {
+                <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
+                    <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
+                        @ButtonTemplate
+                    </CascadingValue>
                 </CascadingValue>
-            </CascadingValue>
-        }
+            }
+        </div>
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear"></Button>
