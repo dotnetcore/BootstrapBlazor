@@ -210,11 +210,21 @@ public class SearchTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonTemplate_Ok()
     {
+        SearchContext<string?>? val = null;
         var cut = Context.RenderComponent<Search<string?>>(pb =>
         {
-            pb.Add(a => a.ButtonTemplate, context => builder => builder.AddContent(0, "button-template"));
+            pb.Add(a => a.ButtonTemplate, context => builder =>
+            {
+                val = context;
+                builder.AddContent(0, "button-template");
+            });
         });
         cut.Contains("button-template");
+        Assert.NotNull(val);
+        Assert.NotNull(val.Search);
+        Assert.Equal(cut.Instance, val.Search);
+        Assert.NotNull(val.OnSearchAsync);
+        Assert.NotNull(val.OnClearAsync);
 
         cut.SetParametersAndRender(pb =>
         {
