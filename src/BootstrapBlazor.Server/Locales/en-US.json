@@ -1,4 +1,9 @@
 ﻿{
+  "BootstrapBlazor.Components.AutoComplete": {
+    "NoDataTip": "No Data123456",
+    "PlaceHolder": "Please Input789"
+  },
+
   "BootstrapBlazor.Server.Components.Pages.Online": {
     "SubTitle": "Online population statistics",
     "ConnectionTime": "ConnectionTime",
