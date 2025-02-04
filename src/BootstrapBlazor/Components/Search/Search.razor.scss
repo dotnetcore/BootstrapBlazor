@@ -7,15 +7,51 @@
         padding-left: var(--bb-search-prefix-input-padding-left);
     }
 
-    .search-prefix-icon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 6;
-        padding-left: 1rem;
-        display: flex;
-        align-items: center;
-        color: var(--bb-search-prefix-icon-color);
+    .form-control-group {
+        flex: 1;
+        width: 1%;
+        min-width: 0;
+        position: relative;
+
+        .search-icon {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .search-prefix-icon {
+            left: 0;
+            padding-left: 1rem;
+            color: var(--bb-search-prefix-icon-color);
+        }
+
+        .search-clear-icon {
+            right: 0;
+            width: 32px;
+            cursor: pointer;
+            display: none;
+        }
+
+        &:hover .search-clear-icon {
+            display: flex;
+        }
+
+        &:not(:first-child) {
+            .form-control {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        &:not(:last-child) {
+            .form-control {
+                border-top-right-radius: 0;
+                border-bottom-right-radius: 0;
+            }
+        }
     }
 }
