@@ -86,6 +86,12 @@ public partial class Search<TValue>
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 前置搜索按钮模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PrefixButtonTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示前缀图标 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -142,6 +148,7 @@ public partial class Search<TValue>
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClass("search-prefix", ShowPrefixIcon)
+        .AddClass("search-clear", ShowClearIcon)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
