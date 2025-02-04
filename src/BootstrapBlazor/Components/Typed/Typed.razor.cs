@@ -77,12 +77,33 @@ public partial class Typed
     private bool UpdateParameters()
     {
         var ret = false;
-        if (Text != _text || Options?.ToString() != _lastOptions)
+        if (Text != _text)
         {
             _text = Text;
-            _lastOptions = Options?.ToString();
+            ret = true;
+        }
+
+        if (!ret)
+        {
+            var optionString = GetOptionsString();
+            if (optionString != _lastOptions)
+            {
+                _lastOptions = optionString;
+            }
             ret = true;
         }
         return ret;
+    }
+
+    private string GetOptionsString()
+    {
+        var ret = "";
+        if (Options == null)
+        {
+            return ret;
+        }
+
+        var textString = Options.Text == null ? "" : string.Join(",", Options.Text);
+        return $"{Options} {textString}";
     }
 }
