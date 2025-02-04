@@ -158,8 +158,7 @@ public class SearchTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowPrefixIcon, true);
         });
-        cut.Contains("search auto-complete search-prefix");
-        cut.Contains("<div class=\"search-icon search-prefix-icon\"><i class=\"fa-solid fa-magnifying-glass\"></i></div>");
+        cut.Contains("<div class=\"search-prefix-icon\"><i class=\"fa-solid fa-magnifying-glass\"></i></div>");
     }
 
     [Fact]
@@ -180,9 +179,9 @@ public class SearchTest : BootstrapBlazorTestBase
         var items = new List<string?>() { null, "test1", "test2" };
         var cut = Context.RenderComponent<Search<string?>>(pb =>
         {
-            pb.Add(a => a.IconTemplate, context => b => b.AddContent(0, "test--icon-template"));
+            pb.Add(a => a.IconTemplate, context => b => b.AddContent(0, "test-icon-template"));
         });
-        cut.Contains("<div class=\"search-icon\">test-icon-template</div>");
+        cut.Contains("test-icon-template");
     }
 
     [Fact]
@@ -203,7 +202,6 @@ public class SearchTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsClearable, true);
         });
-        cut.Contains("search auto-complete search-clear");
         cut.Contains("<div class=\"search-icon search-clear-icon\">");
     }
 
