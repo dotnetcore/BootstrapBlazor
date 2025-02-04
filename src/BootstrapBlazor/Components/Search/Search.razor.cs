@@ -68,6 +68,12 @@ public partial class Search<TValue>
     public string? SearchButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 搜索按钮模板 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ButtonTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示前缀图标 默认为 false 不显示
     /// </summary>
     [Parameter]
