@@ -8,33 +8,27 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// <summary>
 /// SearchButtonTemplateDemo 示例组件
 /// </summary>
-public partial class SearchButtonTemplateDemo
+public partial class SearchButtonTemplateDemo<TValue>
 {
-    [CascadingParameter(Name = "OnSearch"), NotNull]
-    private Func<Task>? OnSearch { get; set; }
-
-    [CascadingParameter(Name = "OnClear"), NotNull]
-    private Func<Task>? OnClear { get; set; }
+    /// <summary>
+    /// 获得/设置 <see cref="SearchContext{TValue}"/> 实例"/>
+    /// </summary>
+    [Parameter, EditorRequired, NotNull]
+    public SearchContext<TValue>? Context { get; set; }
 
     [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
     private async Task OnClickSearch()
     {
-        if (OnSearch != null)
-        {
-            await OnSearch();
-        }
+        await Context.OnSearchAsync();
 
         await ToastService.Information("Search-ButtonTemplate", "Click Search1 Button");
     }
 
     private async Task OnClickClear()
     {
-        if (OnClear != null)
-        {
-            await OnClear();
-        }
+        await Context.OnClearAsync();
 
         await ToastService.Information("Search-ButtonTemplate", "Click Clear1 Button");
     }

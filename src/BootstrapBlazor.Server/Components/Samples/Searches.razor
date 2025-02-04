@@ -117,8 +117,34 @@ private Func&lt;Task&gt;? OnClear { get; set; }</Pre>
                     <Button Text="Text2"></Button>
                 </PrefixButtonTemplate>
                 <ButtonTemplate>
-                    <SearchButtonTemplateDemo></SearchButtonTemplateDemo>
+                    <SearchButtonTemplateDemo Context="context"></SearchButtonTemplateDemo>
                 </ButtonTemplate>
+            </Search>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchesIconTemplateTitle"]"
+           Introduction="@Localizer["SearchesIconTemplateIntro"]"
+           Name="IconTemplate">
+    <section ignore>
+        <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc"].Value)</p>
+        <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc2"].Value)</p>
+        <Pre>[CascadingParameter(Name = "OnSearch"), NotNull]
+private Func&lt;Task&gt;? OnSearch { get; set; }
+
+[CascadingParameter(Name = "OnClear"), NotNull]
+private Func&lt;Task&gt;? OnClear { get; set; }</Pre>
+    </section>
+    <div class="row g-3">
+        <div class="col-12">
+            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+                    OnSearch="@OnModelSearch"
+                    IsClearable="true"
+                    ShowPrefixIcon="true" PrefixIcon="fa fa-flag">
+                <IconTemplate>
+                    <i class="search-icon fa-solid fa-camera"></i>
+                </IconTemplate>
             </Search>
         </div>
     </div>
