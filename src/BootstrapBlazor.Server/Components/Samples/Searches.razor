@@ -94,17 +94,51 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["SearchesIconTemplateTitle"]"
+           Introduction="@Localizer["SearchesIconTemplateIntro"]"
+           Name="IconTemplate">
+    <section ignore>
+        <p>@((MarkupString)Localizer["SearchesIconTemplateDesc"].Value)</p>
+    </section>
+    <div class="row g-3">
+        <div class="col-12">
+            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+                    OnSearch="@OnModelSearch"
+                    IsClearable="true" ShowSearchButton="false"
+                    ShowPrefixIcon="true" PrefixIcon="fa fa-flag">
+                <IconTemplate>
+                    <i class="search-icon fa-solid fa-camera" @onclick="() => OnClickCamera(context)"></i>
+                </IconTemplate>
+            </Search>
+        </div>
+    </div>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SearchesButtonTemplateTitle"]"
            Introduction="@Localizer["SearchesButtonTemplateIntro"]"
            Name="ButtonTemplate">
     <section ignore>
         <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc"].Value)</p>
         <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc2"].Value)</p>
-        <Pre>[CascadingParameter(Name = "OnSearch"), NotNull]
-private Func&lt;Task&gt;? OnSearch { get; set; }
+        <Pre>[Parameter, EditorRequired, NotNull]
+public SearchContext&lt;TValue&gt;? Context { get; set; }
 
-[CascadingParameter(Name = "OnClear"), NotNull]
-private Func&lt;Task&gt;? OnClear { get; set; }</Pre>
+[Inject, NotNull]
+private ToastService? ToastService { get; set; }
+
+private async Task OnClickSearch()
+{
+    await Context.OnSearchAsync();
+
+    await ToastService.Information("Search-ButtonTemplate", "Click Search1 Button");
+}
+
+private async Task OnClickClear()
+{
+    await Context.OnClearAsync();
+
+    await ToastService.Information("Search-ButtonTemplate", "Click Clear1 Button");
+}</Pre>
     </section>
     <div class="row g-3">
         <div class="col-12">
@@ -119,32 +153,6 @@ private Func&lt;Task&gt;? OnClear { get; set; }</Pre>
                 <ButtonTemplate>
                     <SearchButtonTemplateDemo Context="context"></SearchButtonTemplateDemo>
                 </ButtonTemplate>
-            </Search>
-        </div>
-    </div>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["SearchesIconTemplateTitle"]"
-           Introduction="@Localizer["SearchesIconTemplateIntro"]"
-           Name="IconTemplate">
-    <section ignore>
-        <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc"].Value)</p>
-        <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc2"].Value)</p>
-        <Pre>[CascadingParameter(Name = "OnSearch"), NotNull]
-private Func&lt;Task&gt;? OnSearch { get; set; }
-
-[CascadingParameter(Name = "OnClear"), NotNull]
-private Func&lt;Task&gt;? OnClear { get; set; }</Pre>
-    </section>
-    <div class="row g-3">
-        <div class="col-12">
-            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-                    OnSearch="@OnModelSearch"
-                    IsClearable="true"
-                    ShowPrefixIcon="true" PrefixIcon="fa fa-flag">
-                <IconTemplate>
-                    <i class="search-icon fa-solid fa-camera"></i>
-                </IconTemplate>
             </Search>
         </div>
     </div>

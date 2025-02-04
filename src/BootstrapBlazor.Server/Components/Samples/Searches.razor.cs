@@ -10,6 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Searches
 {
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
@@ -76,6 +79,13 @@ public sealed partial class Searches
         return string.IsNullOrEmpty(v)
             ? Enumerable.Empty<string>()
             : Enumerable.Range(1, 10).Select(i => LocalizerFoo["Foo.Name", $"{i:d4}"].Value).ToList();
+    }
+
+    private async Task OnClickCamera(SearchContext<string?> context)
+    {
+        await Task.Delay(10);
+
+        await ToastService.Information("Custom IconTemplate", "Click custom icon");
     }
 
     private bool _isClearable = true;
