@@ -27,7 +27,7 @@ public record TypedOptions
     public int? TypeSpeed { get; set; }
 
     /// <summary>
-    /// 获得/设置 打字速度 默认 null 未设置 单位毫秒
+    /// 获得/设置 退格速度 默认 null 未设置 单位毫秒
     /// </summary>
     [JsonPropertyName("backSpeed")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
@@ -41,7 +41,7 @@ public record TypedOptions
     public bool? SmartBackspace { get; set; }
 
     /// <summary>
-    /// 获得/设置 shuffle shuffle the strings default false
+    /// 获得/设置 shuffle the strings default false
     /// </summary>
     [JsonPropertyName("shuffle")]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
