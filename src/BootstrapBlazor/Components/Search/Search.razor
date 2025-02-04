@@ -4,15 +4,48 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
-        <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
-               data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
-               data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
-               data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
-               data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
-               data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
-               data-bb-input="@UseInputString"
-               value="@_displayText"
-               placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
+        @if (PrefixButtonTemplate != null)
+        {
+            @PrefixButtonTemplate(_context)
+        }
+        <div class="form-control-group form-control">
+            @if (ShowPrefixIcon)
+            {
+                <div class="search-prefix-icon">
+                    @if (PrefixIconTemplate != null)
+                    {
+                        @PrefixIconTemplate(_context)
+                    }
+                    else
+                    {
+                        <i class="@PrefixIcon"></i>
+                    }
+                </div>
+            }
+            <input id="@InputId" class="search-input" autocomplete="off" type="text"
+                   data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
+                   data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
+                   data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
+                   data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
+                   data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
+                   data-bb-input="@UseInputString"
+                   value="@_displayText"
+                   placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
+            @if (IsClearable)
+            {
+                <div class="search-icon search-clear-icon">
+                    <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
+                </div>
+            }
+            @if (IconTemplate != null)
+            {
+                @IconTemplate(_context)
+            }
+        </div>
+        @if (ButtonTemplate != null)
+        {
+            @ButtonTemplate(_context)
+        }
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear"></Button>
@@ -22,19 +55,6 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
         }
     </div>
-    @if (ShowPrefixIcon)
-    {
-        <div class="search-prefix-icon">
-            @if (PrefixIconTemplate != null)
-            {
-                @PrefixIconTemplate
-            }
-            else
-            {
-                <i class="@PrefixIcon"></i>
-            }
-        </div>
-    }
     <ul class="dropdown-menu">
         @foreach (var item in _filterItems)
         {

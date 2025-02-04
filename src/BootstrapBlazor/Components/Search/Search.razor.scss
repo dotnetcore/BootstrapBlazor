@@ -1,21 +1,33 @@
 .search.auto-complete {
     --bb-ac-padding-right: #{$bb-search-padding-right};
-    --bb-search-prefix-input-padding-left: #{$bb-search-prefix-input-padding-left};
     --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
 
-    &.search-prefix .form-control {
-        padding-left: var(--bb-search-prefix-input-padding-left);
-    }
-
-    .search-prefix-icon {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        z-index: 6;
-        padding-left: 1rem;
+    .form-control-group {
         display: flex;
+        justify-content: center;
         align-items: center;
-        color: var(--bb-search-prefix-icon-color);
+        flex-wrap: nowrap;
+
+        .search-prefix-icon {
+            color: var(--bb-search-prefix-icon-color);
+            margin-right: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            width: 1%;
+            min-width: 0;
+            border: none;
+            padding: 0;
+        }
+
+        .search-icon {
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        &:not(:hover) .search-clear-icon {
+            display: none;
+        }
     }
 }

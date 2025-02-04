@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="9.0.0" />
@@ -32,7 +32,7 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.0.2" />
@@ -48,7 +48,7 @@
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.3" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.1" />
+    <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Player" Version="9.0.0" />
