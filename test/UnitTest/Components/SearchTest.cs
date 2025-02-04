@@ -169,9 +169,20 @@ public class SearchTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Search<string?>>(pb =>
         {
             pb.Add(a => a.ShowPrefixIcon, true);
-            pb.Add(a => a.PrefixIconTemplate, b => b.AddContent(0, "test-prefix-icon-template"));
+            pb.Add(a => a.PrefixIconTemplate, context => b => b.AddContent(0, "test-prefix-icon-template"));
         });
-        cut.Contains("<div class=\"search-icon search-prefix-icon\">test-prefix-icon-template</div>");
+        cut.Contains("<div class=\"search-prefix-icon\">test-prefix-icon-template</div>");
+    }
+
+    [Fact]
+    public void IconTemplate_Ok()
+    {
+        var items = new List<string?>() { null, "test1", "test2" };
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.IconTemplate, context => b => b.AddContent(0, "test--icon-template"));
+        });
+        cut.Contains("<div class=\"search-icon\">test-icon-template</div>");
     }
 
     [Fact]
@@ -201,13 +212,13 @@ public class SearchTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Search<string?>>(pb =>
         {
-            pb.Add(a => a.ButtonTemplate, builder => builder.AddContent(0, "button-template"));
+            pb.Add(a => a.ButtonTemplate, context => builder => builder.AddContent(0, "button-template"));
         });
         cut.Contains("button-template");
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.PrefixButtonTemplate, builder => builder.AddContent(0, "prefix-button-template"));
+            pb.Add(a => a.PrefixButtonTemplate, context => builder => builder.AddContent(0, "prefix-button-template"));
         });
         cut.Contains("prefix-button-template");
     }
