@@ -509,7 +509,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Affix"],
                     Url = "affix"
                 },
@@ -705,7 +704,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["RDKit"],
                     Url = "rdkit"
                 },
@@ -721,7 +719,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["SmilesDrawer"],
                     Url = "smiles-drawer"
                 },
@@ -767,6 +764,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["Typed"],
                     Url = "typed"
                 },
@@ -782,7 +780,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["Watermark"],
                     Url = "watermark"
                 }
@@ -1576,7 +1573,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["OctIcon"],
                     Url = "oct-icon"
                 }
