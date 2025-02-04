@@ -27,10 +27,20 @@ internal static class LocalizationOptionsExtensions
         var builder = new ConfigurationBuilder();
 
         // 获取程序集中的资源文件
-        var assemblies = new List<Assembly>() { assembly };
+        var assemblies = new HashSet<Assembly>() { assembly };
+
+        var entryAssembly = GetAssembly();
+        if (assembly != entryAssembly)
+        {
+            assemblies.Add(entryAssembly);
+        }
+
         if (option.AdditionalJsonAssemblies != null)
         {
-            assemblies.AddRange(option.AdditionalJsonAssemblies);
+            foreach (var item in option.AdditionalJsonAssemblies)
+            {
+                assemblies.Add(item);
+            }
         }
 
         var streams = assemblies.SelectMany(i => option.GetResourceStream(i, cultureName)).ToList();
@@ -65,6 +75,9 @@ internal static class LocalizationOptionsExtensions
         }
 
         return config.GetChildren();
+
+        [ExcludeFromCodeCoverage]
+        Assembly GetAssembly() => Assembly.GetEntryAssembly() ?? assembly;
     }
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
