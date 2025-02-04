@@ -14,6 +14,7 @@ public partial class SmilesDrawers
 
     private void OnClickUpdateSize()
     {
-        _options = new SmilesDrawerOptions { Theme = "light", Width = 200, Height = 200 };
+        _options.Width = 200;
+        _options.Height = 200;
     }
 }
