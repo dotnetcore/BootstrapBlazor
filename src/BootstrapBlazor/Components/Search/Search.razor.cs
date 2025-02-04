@@ -13,6 +13,18 @@ namespace BootstrapBlazor.Components;
 public partial class Search<TValue>
 {
     /// <summary>
+    /// 获得/设置 是否显示清除图标 默认为 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowClearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 清除图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示清除按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
