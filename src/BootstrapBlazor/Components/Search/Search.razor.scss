@@ -2,9 +2,14 @@
     --bb-ac-padding-right: #{$bb-search-padding-right};
     --bb-search-prefix-input-padding-left: #{$bb-search-prefix-input-padding-left};
     --bb-search-prefix-icon-color: #{$bb-search-prefix-icon-color};
+    --bb-search-icon-input-padding-right: #{$bb-search-icon-input-padding-right};
 
     &.search-prefix .form-control {
         padding-left: var(--bb-search-prefix-input-padding-left);
+    }
+
+    &.search-clear .form-control-group:hover .form-control {
+        padding-right: var(--bb-search-icon-input-padding-right);
     }
 
     .form-control-group {
@@ -31,7 +36,7 @@
 
         .search-clear-icon {
             right: 0;
-            width: 32px;
+            width: var(--bb-search-icon-input-padding-right);
             cursor: pointer;
             display: none;
         }
