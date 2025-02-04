@@ -4,6 +4,9 @@
 
     .form-control-group {
         display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
 
         .search-prefix-icon {
             color: var(--bb-search-prefix-icon-color);
@@ -18,7 +21,7 @@
             padding: 0;
         }
 
-        .search-clear-icon {
+        .search-icon {
             cursor: pointer;
             margin-left: 0.5rem;
         }
