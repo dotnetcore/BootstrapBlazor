@@ -12,10 +12,10 @@
                 </CascadingValue>
             </CascadingValue>
         }
-        <div class="form-control-group">
+        <div class="form-control-group form-control">
             @if (ShowPrefixIcon)
             {
-                <div class="search-icon search-prefix-icon">
+                <div class="search-prefix-icon">
                     @if (PrefixIconTemplate != null)
                     {
                         @PrefixIconTemplate
@@ -26,7 +26,7 @@
                     }
                 </div>
             }
-            <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
+            <input id="@InputId" class="search-input" autocomplete="off" type="text"
                    data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
                    data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
                    data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
@@ -37,7 +37,7 @@
                    placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
             @if (IsClearable)
             {
-                <div class="search-icon search-clear-icon">
+                <div class="search-clear-icon">
                     <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
                 </div>
             }
