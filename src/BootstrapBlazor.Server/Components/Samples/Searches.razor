@@ -92,7 +92,20 @@
             </Search>
         </div>
     </div>
+</DemoBlock>
 
+<DemoBlock Title="@Localizer["SearchesButtonTemplateTitle"]"
+           Introduction="@Localizer["SearchesButtonTemplateIntro"]"
+           Name="ButtonTemplate">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+                    OnSearch="@OnModelSearch"
+                    ShowClearIcon="true" ClearIcon="fa-regular fa-circle-xmark"
+                    ShowPrefixIcon="true" PrefixIcon="fa fa-flag">
+            </Search>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
