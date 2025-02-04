@@ -4,15 +4,44 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
-        <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
-               data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
-               data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
-               data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
-               data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
-               data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
-               data-bb-input="@UseInputString"
-               value="@_displayText"
-               placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
+        <div class="form-control-group">
+            @if (ShowPrefixIcon)
+            {
+                <div class="search-icon search-prefix-icon">
+                    @if (PrefixIconTemplate != null)
+                    {
+                        @PrefixIconTemplate
+                    }
+                    else
+                    {
+                        <i class="@PrefixIcon"></i>
+                    }
+                </div>
+            }
+            <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="text"
+                   data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString"
+                   data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
+                   data-bb-auto-dropdown-focus="@ShowDropdownListOnFocusString"
+                   data-bb-skip-esc="@SkipEscString" data-bb-skip-enter="@SkipEnterString"
+                   data-bb-scroll-behavior="@ScrollIntoViewBehaviorString"
+                   data-bb-input="@UseInputString"
+                   value="@_displayText"
+                   placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement" />
+                @if (ShowClearIcon)
+                {
+                    <div class="search-icon search-clear-icon">
+                        <i class="@ClearIcon" @onclick="OnClearClick" aria-label="Clear"></i>
+                    </div>
+                }
+            </div>
+        @if (ButtonTemplate == null)
+        {
+            <CascadingValue Value="OnSearchClick" Name="OnSearch" IsFixed="true">
+                <CascadingValue Value="OnClearClick" Name="OnClear" IsFixed="true">
+                    @ButtonTemplate
+                </CascadingValue>
+            </CascadingValue>
+        }
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear"></Button>
@@ -22,19 +51,6 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
         }
     </div>
-    @if (ShowPrefixIcon)
-    {
-        <div class="search-prefix-icon">
-            @if (PrefixIconTemplate != null)
-            {
-                @PrefixIconTemplate
-            }
-            else
-            {
-                <i class="@PrefixIcon"></i>
-            }
-        </div>
-    }
     <ul class="dropdown-menu">
         @foreach (var item in _filterItems)
         {
