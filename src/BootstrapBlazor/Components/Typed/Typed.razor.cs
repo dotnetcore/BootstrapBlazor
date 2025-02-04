@@ -22,6 +22,12 @@ public partial class Typed
     [Parameter]
     public TypedOptions? Options { get; set; }
 
+    /// <summary>
+    /// 获得/设置 打字结束回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCompleteAsync { get; set; }
+
     private string? _lastOptions;
 
     private string? _text;
@@ -52,27 +58,20 @@ public partial class Typed
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Text, Options, new
     {
-        TriggerStop = nameof(TriggerStop)
+        TriggerComplete = nameof(TriggerComplete)
     });
 
     /// <summary>
-    /// 
+    /// 打字结束方法 由 Javascript 触发
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public Task TriggerStart()
+    public async Task TriggerComplete()
     {
-        return Task.CompletedTask;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public Task TriggerStop()
-    {
-        return Task.CompletedTask;
+        if (OnCompleteAsync != null)
+        {
+            await OnCompleteAsync();
+        }
     }
 
     private bool UpdateParameters()
