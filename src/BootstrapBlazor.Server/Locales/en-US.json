@@ -4810,7 +4810,8 @@
     "SmilesDrawer": "SmilesDrawer",
     "Affix": "Affix",
     "Watermark": "Watermark",
-    "OctIcon": "OctIcons"
+    "OctIcon": "Oct Icons",
+    "Typed": "Typed"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

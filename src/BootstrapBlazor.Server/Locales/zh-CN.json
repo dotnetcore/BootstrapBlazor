@@ -4810,7 +4810,8 @@
     "SmilesDrawer": "分子式组件 SmilesDrawer",
     "Affix": "固钉组件 Affix",
     "Watermark": "水印组件 Watermark",
-    "OctIcon": "OctIcons"
+    "OctIcon": "Oct Icons",
+    "Typed": "打字机效果 Typed"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
