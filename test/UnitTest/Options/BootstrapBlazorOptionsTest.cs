@@ -103,4 +103,19 @@ public class BootstrapBlazorOptionsTest
 
         Assert.Equal(",", exportOptions.ArrayDelimiter);
     }
+
+    [Fact]
+    public void CacheManagerOptions_Ok()
+    {
+        var options = new BootstrapBlazorOptions();
+        Assert.NotNull(options.CacheManagerOptions);
+
+        options.CacheManagerOptions.Enable = true;
+        options.CacheManagerOptions.SlidingExpiration = TimeSpan.FromSeconds(1);
+        options.CacheManagerOptions.AbsoluteExpiration = TimeSpan.FromSeconds(1);
+
+        Assert.Equal(TimeSpan.FromSeconds(1), options.CacheManagerOptions.AbsoluteExpiration);
+        Assert.Equal(TimeSpan.FromSeconds(1), options.CacheManagerOptions.SlidingExpiration);
+        Assert.True(options.CacheManagerOptions.Enable);
+    }
 }
