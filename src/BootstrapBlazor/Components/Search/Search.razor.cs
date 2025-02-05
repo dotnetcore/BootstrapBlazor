@@ -13,10 +13,10 @@ namespace BootstrapBlazor.Components;
 public partial class Search<TValue>
 {
     /// <summary>
-    /// 获得/设置 是否显示清除图标 默认为 false 不显示
+    /// 获得/设置 是否显示清空小按钮 默认 false
     /// </summary>
     [Parameter]
-    public bool ShowClearIcon { get; set; }
+    public bool IsClearable { get; set; }
 
     /// <summary>
     /// 获得/设置 清除图标 默认为 null
@@ -148,7 +148,7 @@ public partial class Search<TValue>
 
     private string? ClassString => CssBuilder.Default("search auto-complete")
         .AddClass("search-prefix", ShowPrefixIcon)
-        .AddClass("search-clear", ShowClearIcon)
+        .AddClass("search-clear", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -172,6 +172,7 @@ public partial class Search<TValue>
     {
         base.OnParametersSet();
 
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputClearIcon);
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchClearButtonIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonIcon);
         SearchButtonLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.SearchButtonLoadingIcon);
