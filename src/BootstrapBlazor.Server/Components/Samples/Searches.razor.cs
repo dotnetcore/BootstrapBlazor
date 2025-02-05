@@ -78,6 +78,10 @@ public sealed partial class Searches
             : Enumerable.Range(1, 10).Select(i => LocalizerFoo["Foo.Name", $"{i:d4}"].Value).ToList();
     }
 
+    private bool _isClearable = true;
+    private bool _showClearButton = true;
+    private bool _showSearchButton = true;
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
