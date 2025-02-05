@@ -91,34 +91,39 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public TableSettings TableSettings { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 Step 配置实例
+    /// 获得/设置 <see cref="StepSettings"/> 配置实例
     /// </summary>
     public StepSettings StepSettings { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 ConnectionHubOptions 配置 默认不为空
+    /// 获得/设置 <see cref="ConnectionHubOptions"/> 配置 默认不为空
     /// </summary>
     public ConnectionHubOptions ConnectionHubOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 WebClientOptions 配置 默认不为空
+    /// 获得/设置 <see cref="WebClientOptions"/> 配置 默认不为空
     /// </summary>
     public WebClientOptions WebClientOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 IpLocatorOptions 配置 默认不为空
+    /// 获得/设置 <see cref="IpLocatorOptions"/> 配置 默认不为空
     /// </summary>
     public IpLocatorOptions IpLocatorOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 ScrollOptions 配置 默认不为空
+    /// 获得/设置 <see cref="ScrollOptions"/> 配置 默认不为空
     /// </summary>
     public ScrollOptions ScrollOptions { get; set; } = new();
 
     /// <summary>
-    /// 获得/设置 ContextMenuOptions 配置 默认不为空
+    /// 获得/设置 <see cref="ContextMenuOptions"/> 配置 默认不为空
     /// </summary>
     public ContextMenuOptions ContextMenuOptions { get; set; } = new();
+
+    /// <summary>
+    /// 获得/设置 CacheManagerOptions 配置 默认不为空
+    /// </summary>
+    public CacheManagerOptions CacheManagerOptions { get; set; } = new();
 
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
