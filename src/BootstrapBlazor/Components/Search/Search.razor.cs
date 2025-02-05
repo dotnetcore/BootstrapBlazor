@@ -198,6 +198,11 @@ public partial class Search<TValue>
         ButtonIcon ??= SearchButtonIcon;
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         _filterItems ??= [];
+
+        if (Debounce == 0)
+        {
+            Debounce = 200;
+        }
     }
 
     private string _displayText = "";
