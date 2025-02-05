@@ -28,6 +28,15 @@ internal static class LocalizationOptionsExtensions
 
         // 获取程序集中的资源文件
         var assemblies = new List<Assembly>() { assembly };
+
+        // 获得主程序集资源文件
+        // 支持合并操作
+        var entryAssembly = GetEntryAssembly();
+        if (assembly != entryAssembly)
+        {
+            assemblies.Add(entryAssembly);
+        }
+
         if (option.AdditionalJsonAssemblies != null)
         {
             assemblies.AddRange(option.AdditionalJsonAssemblies);
@@ -65,6 +74,9 @@ internal static class LocalizationOptionsExtensions
         }
 
         return config.GetChildren();
+
+        [ExcludeFromCodeCoverage]
+        Assembly GetEntryAssembly() => Assembly.GetEntryAssembly() ?? assembly;
     }
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
