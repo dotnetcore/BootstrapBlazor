@@ -10,6 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Searches
 {
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
@@ -78,6 +81,17 @@ public sealed partial class Searches
             : Enumerable.Range(1, 10).Select(i => LocalizerFoo["Foo.Name", $"{i:d4}"].Value).ToList();
     }
 
+    private async Task OnClickCamera(SearchContext<string?> context)
+    {
+        await Task.Delay(10);
+
+        await ToastService.Information("Custom IconTemplate", "Click custom icon");
+    }
+
+    private bool _isClearable = true;
+    private bool _showClearButton = false;
+    private bool _showSearchButton = false;
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
@@ -93,11 +107,35 @@ public sealed partial class Searches
         },
         new()
         {
-            Name="SearchButtonLoadingIcon",
-            Description = Localizer["SearchesButtonLoadingIcon"],
+            Name="IsClearable",
+            Description = Localizer["SearchesIsClearable"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name="ClearIcon",
+            Description = Localizer["SearchesClearIcon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name="PrefixButtonTemplate",
+            Description = Localizer["SearchesPrefixButtonTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name="ButtonTemplate",
+            Description = Localizer["SearchesButtonTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new() {
             Name = "ClearButtonIcon",

@@ -4231,7 +4231,20 @@
     "SearchesItemTemplateIntro": "By setting <code>ItemTemplate</code> and matching generic data, you can achieve any desired effect. In this example, by searching for any keyword, the backend calls any third-party search results and displays them. After selecting the search item, you can handle it yourself through the <code>OnSelectedItemChanged</code> callback method",
     "SearchesShowPrefixIconTitle": "ShowPrefixIcon",
     "SearchesShowPrefixIconIntro": "Control whether to show the prefix icon by setting the <code>ShowPrefixIcon</code> parameter",
-    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template."
+    "SearchesShowPrefixIconDescription": "You can customize the prefix through <code>PrefixIconTemplate</code>. In this example, the <code>Svg</code> icon is used through the prefix template.",
+    "SearchesButtonTemplateTitle": "Button Template",
+    "SearchesButtonTemplateIntro": "Customize the buttons displayed by the component by setting <code>ButtonTemplate</code>",
+    "SearchesButtonTemplateDesc": "Customize the buttons displayed in front of the component by setting <code>PrefixButtonTemplate</code>",
+    "SearchesButtonTemplateDesc2": "In a custom template, you can call the <code>OnClear</code> <code>OnSearch</code> method inside the <code>Search</code> component with the context.",
+    "SearchesIsClearableTitle": "IsClearable",
+    "SearchesIsClearableIntro": "Display the clear icon by setting <code>IsClearable=\"true\"</code>",
+    "SearchesIsClearable": "Whether to display the clear icon",
+    "SearchesClearIcon": "Clear Icon",
+    "SearchesPrefixButtonTemplate": "Prefix button template",
+    "SearchesButtonTemplate": "Button template",
+    "SearchesIconTemplateTitle": "Icon Template",
+    "SearchesIconTemplateIntro": "Customize the icon displayed by the component by setting <code>IconTemplate</code>",
+    "SearchesIconTemplateDesc": "The search component context <code>SearchContext&lt;string&gt;</code> provides the <code>OnClear</code> <code>OnSearch</code> methods within the component"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",
