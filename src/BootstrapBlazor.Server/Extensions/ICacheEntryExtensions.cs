@@ -27,11 +27,13 @@ public static class ICacheEntryExtensions
         }
         else if (entry.SlidingExpiration.HasValue)
         {
-            ret = $"Sliding: {entry.GetSlidingLeftTime().TotalSeconds:###}/{entry.SlidingExpiration.Value.TotalSeconds}";
+            var ts = entry.GetSlidingLeftTime();
+            ret = ts == TimeSpan.Zero ? "Expirated" : $"Sliding: {ts.TotalSeconds:###}/{entry.SlidingExpiration.Value.TotalSeconds}";
         }
         else if (entry.AbsoluteExpiration.HasValue)
         {
-            ret = $"Absolute: {entry.AbsoluteExpiration.Value}";
+            var ts = entry.GetAbsoluteLeftTime();
+            ret = ts == TimeSpan.Zero ? "Expirated" : $"Absolute: {ts.TotalSeconds:###}";
         }
         else if (entry.ExpirationTokens.Count != 0)
         {
@@ -53,6 +55,16 @@ public static class ICacheEntryExtensions
         }
 
         var ts = entry.SlidingExpiration!.Value - (DateTime.UtcNow - lastAccessed.Value);
+        if (ts < TimeSpan.Zero)
+        {
+            ts = TimeSpan.Zero;
+        }
+        return ts;
+    }
+
+    private static TimeSpan GetAbsoluteLeftTime(this ICacheEntry entry)
+    {
+        var ts = entry.AbsoluteExpiration!.Value - DateTimeOffset.UtcNow;
         if (ts < TimeSpan.Zero)
         {
             ts = TimeSpan.Zero;
