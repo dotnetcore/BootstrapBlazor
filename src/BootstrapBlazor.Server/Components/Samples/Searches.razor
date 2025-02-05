@@ -99,7 +99,7 @@
            Name="ButtonTemplate">
     <section ignore>
         <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc"].Value)</p>
-        <p>在自定义模板中可以通过级联参数获得 <code>Search</code> 组件内部的 <code>OnClear</code> <code>OnSearch</code> 方法</p>
+        <p>@((MarkupString)Localizer["SearchesButtonTemplateDesc2"].Value)</p>
         <Pre>[CascadingParameter(Name = "OnSearch"), NotNull]
 private Func&lt;Task&gt;? OnSearch { get; set; }
 
