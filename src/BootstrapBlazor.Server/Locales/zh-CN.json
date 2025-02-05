@@ -4232,7 +4232,11 @@
     "SearchesButtonTemplateDesc": "通过设置 <code>PrefixButtonTemplate</code> 自定义组件前置显示的按钮",
     "SearchesButtonTemplateDesc2": "在自定义模板中可以通过级联参数获得 <code>Search</code> 组件内部的 <code>OnClear</code> <code>OnSearch</code> 方法",
     "SearchesIsClearableTitle": "IsClearable",
-    "SearchesIsClearableIntro": "通过设置 <code>IsClearable=\"true\"</code> 显示清空小图标"
+    "SearchesIsClearableIntro": "通过设置 <code>IsClearable=\"true\"</code> 显示清空小图标",
+    "SearchesIsClearable": "是否显示清空小按钮",
+    "SearchesClearIcon": "清空图标",
+    "SearchesPrefixButtonTemplate": "前置按钮模板",
+    "SearchesButtonTemplate": "按钮模板"
   },
   "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title 网站标题",

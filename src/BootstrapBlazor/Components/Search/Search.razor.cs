@@ -19,7 +19,7 @@ public partial class Search<TValue>
     public bool IsClearable { get; set; }
 
     /// <summary>
-    /// 获得/设置 清除图标 默认为 null
+    /// 获得/设置 清空图标 默认为 null
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
@@ -80,13 +80,13 @@ public partial class Search<TValue>
     public string? SearchButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索按钮模板 默认 null 未设置
+    /// 获得/设置 按钮模板 默认 null 未设置
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 前置搜索按钮模板 默认 null 未设置
+    /// 获得/设置 前置按钮模板 默认 null 未设置
     /// </summary>
     [Parameter]
     public RenderFragment? PrefixButtonTemplate { get; set; }

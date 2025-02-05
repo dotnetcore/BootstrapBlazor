@@ -97,11 +97,35 @@ public sealed partial class Searches
         },
         new()
         {
-            Name="SearchButtonLoadingIcon",
-            Description = Localizer["SearchesButtonLoadingIcon"],
+            Name="IsClearable",
+            Description = Localizer["SearchesIsClearable"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name="ClearIcon",
+            Description = Localizer["SearchesClearIcon"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name="PrefixButtonTemplate",
+            Description = Localizer["SearchesPrefixButtonTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name="ButtonTemplate",
+            Description = Localizer["SearchesButtonTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new() {
             Name = "ClearButtonIcon",
