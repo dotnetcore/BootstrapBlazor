@@ -1,5 +1,8 @@
 ﻿{
-
+  "BootstrapBlazor.Components.AutoComplete": {
+    "NoDataTip": "No Data",
+    "PlaceHolder": "Please Input"
+  },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
     "BarText": "Slide to the right to solve puzzle",
