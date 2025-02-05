@@ -79,8 +79,8 @@ public sealed partial class Searches
     }
 
     private bool _isClearable = true;
-    private bool _showClearButton = true;
-    private bool _showSearchButton = true;
+    private bool _showClearButton = false;
+    private bool _showSearchButton = false;
 
     /// <summary>
     /// 获得属性方法
