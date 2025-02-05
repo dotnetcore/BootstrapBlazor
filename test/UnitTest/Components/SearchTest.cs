@@ -159,7 +159,7 @@ public class SearchTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowPrefixIcon, true);
         });
         cut.Contains("search auto-complete search-prefix");
-        cut.Contains("<div class=\"search-prefix-icon\"><i class=\"fa-solid fa-magnifying-glass\"></i></div>");
+        cut.Contains("<div class=\"search-icon search-prefix-icon\"><i class=\"fa-solid fa-magnifying-glass\"></i></div>");
     }
 
     [Fact]
@@ -171,7 +171,7 @@ public class SearchTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowPrefixIcon, true);
             pb.Add(a => a.PrefixIconTemplate, b => b.AddContent(0, "test-prefix-icon-template"));
         });
-        cut.Contains("<div class=\"search-prefix-icon\">test-prefix-icon-template</div>");
+        cut.Contains("<div class=\"search-icon search-prefix-icon\">test-prefix-icon-template</div>");
     }
 
     [Fact]
@@ -183,5 +183,32 @@ public class SearchTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSearchButton, false);
         });
         cut.DoesNotContain("aria-label=\"Search\"");
+    }
+
+    [Fact]
+    public void IsClearable_Ok()
+    {
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+        });
+        cut.Contains("search auto-complete search-clear");
+        cut.Contains("<div class=\"search-icon search-clear-icon\">");
+    }
+
+    [Fact]
+    public void ButtonTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Search<string?>>(pb =>
+        {
+            pb.Add(a => a.ButtonTemplate, builder => builder.AddContent(0, "button-template"));
+        });
+        cut.Contains("button-template");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PrefixButtonTemplate, builder => builder.AddContent(0, "prefix-button-template"));
+        });
+        cut.Contains("prefix-button-template");
     }
 }
