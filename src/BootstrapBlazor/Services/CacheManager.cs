@@ -55,12 +55,7 @@ internal class CacheManager : ICacheManager
     {
         var item = factory(entry);
 
-        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null
-            && entry.AbsoluteExpirationRelativeToNow == null
-            && entry.Priority != CacheItemPriority.NeverRemove)
-        {
-            entry.SetSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
-        }
+        entry.SetDefaultSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
         return item;
     })!;
 
@@ -71,12 +66,7 @@ internal class CacheManager : ICacheManager
     {
         var item = await factory(entry);
 
-        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null
-            && entry.AbsoluteExpirationRelativeToNow == null
-            && entry.Priority != CacheItemPriority.NeverRemove)
-        {
-            entry.SetSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
-        }
+        entry.SetDefaultSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
         return item;
     })!;
 
