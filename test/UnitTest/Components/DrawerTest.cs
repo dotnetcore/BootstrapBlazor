@@ -182,6 +182,21 @@ public class DrawerTest : BootstrapBlazorTestBase
         cut.DoesNotContain("data-bb-keyboard=\"true\"");
     }
 
+    [Fact]
+    public void BodyScroll_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.BodyScroll, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("data-bb-scroll=\"true\"");
+    }
+
     class MockContent : ComponentBase
     {
         [CascadingParameter(Name = "BodyContext")]

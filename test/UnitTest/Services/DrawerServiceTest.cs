@@ -24,7 +24,8 @@ public class DrawerServiceTest : BootstrapBlazorTestBase
             Placement = Placement.Bottom,
             ShowBackdrop = true,
             BodyContext = "test-body-context",
-            IsKeyboard = true
+            IsKeyboard = true,
+            BodyScroll = true
         };
         var service = Context.Services.GetRequiredService<DrawerService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
