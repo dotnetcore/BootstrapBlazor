@@ -125,7 +125,15 @@ public partial class Drawer
     [Parameter]
     public bool IsKeyboard { get; set; }
 
+    /// <summary>
+    /// 获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动
+    /// </summary>
+    [Parameter]
+    public bool BodyScroll { get; set; }
+
     private string? KeyboardString => IsKeyboard ? "true" : null;
+
+    private string? BodyScrollString => BodyScroll ? "true" : null;   
 
     /// <summary>
     /// <inheritdoc/>

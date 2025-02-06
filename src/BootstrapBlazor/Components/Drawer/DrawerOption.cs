@@ -41,6 +41,11 @@ public class DrawerOption
     public bool ShowBackdrop { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 抽屉显示时是否允许滚动 body 默认为 false 不滚动
+    /// </summary>
+    public bool BodyScroll { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件出现位置 默认显示在 Left 位置
     /// </summary>
     public Placement Placement { get; set; } = Placement.Left;
