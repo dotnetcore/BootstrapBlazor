@@ -58,15 +58,23 @@ export function init(id, invoke) {
         invoke.invokeMethodAsync('TriggerChange', e.target.value);
     });
 
-    Input.composition(input, async v => {
+    let filterDuration = duration;
+    if (filterDuration === 0) {
+        filterDuration = 200;
+    }
+    const filterCallback = debounce(async v => {
+        await invoke.invokeMethodAsync('TriggerFilter', v);
+        el.classList.remove('is-loading');
+    }, filterDuration);
+
+    Input.composition(input, v => {
         const useInput = input.getAttribute('data-bb-input') !== 'false';
         if (isPopover === false && useInput) {
             el.classList.add('show');
         }
 
         el.classList.add('is-loading');
-        await invoke.invokeMethodAsync('TriggerFilter', v);
-        el.classList.remove('is-loading');
+        filterCallback(v);
     });
 
     if (window.BootstrapBlazor.AutoComplete === void 0) {

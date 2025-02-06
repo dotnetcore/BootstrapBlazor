@@ -186,7 +186,7 @@ private async Task OnClickClear()
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Search PlaceHolder="@Localizer["SearchesPlaceHolder"]"
-                    OnSearch="@OnModelSearch"
+                    OnSearch="@OnModelSearch" Debounce="200"
                     IsClearable="_isClearable" ShowClearButton="_showClearButton" ShowSearchButton="_showSearchButton"
                     ShowPrefixIcon="true" PrefixIcon="fa-brands fa-github">
             </Search>
