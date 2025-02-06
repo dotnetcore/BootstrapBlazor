@@ -57,6 +57,10 @@ public sealed partial class Drawers
 
     private void OpenKeyboardDrawer() => IsKeyboardOpen = true;
 
+    private bool IsBodyScrollOpen { get; set; }
+
+    private void OpenBodyScrollDrawer() => IsKeyboardOpen = true;
+
     private async Task DrawerServiceShow() => await DrawerService.Show(new DrawerOption()
     {
         Placement = Placement.Right,
@@ -135,6 +139,14 @@ public sealed partial class Drawers
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "BodyScroll",
+            Description = "Where the enable body scrolling when drawer is shown",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         },
         new()
         {
