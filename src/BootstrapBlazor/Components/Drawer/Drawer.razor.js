@@ -115,13 +115,17 @@ export function execute(id, open) {
         }
         else {
             el.classList.remove('show')
-            body.classList.remove('overflow-hidden')
+            body.classList.remove('drawer-overflow-hidden')
         }
     }
 
     if (open) {
         el.classList.add('show')
-        body.classList.add('overflow-hidden')
+
+        const scroll = el.getAttribute('data-bb-scroll') === "true";
+        if (scroll === false) {
+            body.classList.add('drawer-overflow-hidden');
+        }
         requestAnimationFrame(show)
     }
     else if (el.classList.contains('show')) {

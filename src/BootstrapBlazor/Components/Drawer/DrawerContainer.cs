@@ -66,6 +66,7 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             [nameof(Drawer.IsOpen)] = true,
             [nameof(Drawer.IsKeyboard)] = option.IsKeyboard,
+            [nameof(Drawer.BodyScroll)] = option.BodyScroll,
             [nameof(Drawer.IsBackdrop)] = option.IsBackdrop,
             [nameof(Drawer.ShowBackdrop)] = option.ShowBackdrop,
             [nameof(Drawer.Placement)] = option.Placement,

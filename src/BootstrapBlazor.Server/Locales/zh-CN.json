@@ -894,6 +894,8 @@
     "DrawerServiceIntro": "通过调用 <code>DrawerService</code> 服务打开抽屉弹窗",
     "IsKeyboardTitle": "ESC 按键支持",
     "IsKeyboardIntro": "组件默认使用 <kbd>ESC</kbd> 按键关闭抽屉弹窗，可通过 <code>IsKeyboard=\"true\"</code> 开启此功能",
+    "BodyScrollTitle": "页面滚动",
+    "BodyScrollIntro": "通过设置 <code>BodyScroll</code> 控制抽屉弹窗显示时是否允许滚动 <code>Body</code> 默认 false 不允许滚动",
     "Open": "点我打开",
     "Content": "抽屉内布局、组件等完全可以自定义",
     "Close": "关闭抽屉",

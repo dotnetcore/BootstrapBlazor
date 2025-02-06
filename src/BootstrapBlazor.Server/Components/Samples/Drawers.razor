@@ -59,6 +59,18 @@
     </Drawer>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BodyScrollTitle"]" Introduction="@Localizer["BodyScrollIntro"]" Name="BodyScroll">
+    <section ignore>
+        <button type="button" class="btn btn-primary" @onclick="@OpenBodyScrollDrawer">@Localizer["Open"]</button>
+    </section>
+    <Drawer Placement="Placement.Left" @bind-IsOpen="@IsBodyScrollOpen" BodyScroll="true">
+        <div class="d-flex justify-content-center align-items-center flex-column" style="height: 290px;">
+            <p>@Localizer["Content"]</p>
+            <button type="button" class="btn btn-primary" @onclick="@(e => IsBodyScrollOpen = false)">@Localizer["Close"]</button>
+        </div>
+    </Drawer>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["DrawerServiceTitle"]" Introduction="@Localizer["DrawerServiceIntro"]" Name="DrawerService">
     <Button OnClickWithoutRender="@DrawerServiceShow" Text="@Localizer["Open"]"></Button>
 </DemoBlock>
