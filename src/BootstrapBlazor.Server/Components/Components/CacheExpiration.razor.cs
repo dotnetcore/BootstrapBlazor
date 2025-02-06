@@ -5,12 +5,12 @@
 
 using Microsoft.Extensions.Caching.Memory;
 
-namespace BootstrapBlazor.Server.Components.Pages;
+namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
-/// CacaheExpiration 组件
+/// CacheExpiration 组件
 /// </summary>
-public partial class CacaheExpiration
+public partial class CacheExpiration
 {
     /// <summary>
     /// 获得/设置 <see cref="ICacheEntry"/> 实例
