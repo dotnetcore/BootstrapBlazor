@@ -40,4 +40,17 @@ public static class ICacheEntryExtensions
     }
 
     private static PropertyInfo? _lastAccessedProperty = null;
+
+    /// <summary>
+    /// Sets default sliding expiration if no expiration is configured
+    /// </summary>
+    internal static void SetDefaultSlidingExpiration(this ICacheEntry entry, TimeSpan offset)
+    {
+        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null
+            && entry.AbsoluteExpirationRelativeToNow == null
+            && entry.Priority != CacheItemPriority.NeverRemove)
+        {
+            entry.SetSlidingExpiration(offset);
+        }
+    }
 }

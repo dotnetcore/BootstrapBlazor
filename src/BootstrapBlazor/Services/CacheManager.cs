@@ -30,6 +30,9 @@ internal class CacheManager : ICacheManager
     [NotNull]
     private static CacheManager? Instance { get; set; }
 
+    [NotNull]
+    private static BootstrapBlazorOptions? Options { get; set; }
+
     private const string CacheKeyPrefix = "BootstrapBlazor";
 
     /// <summary>
@@ -42,6 +45,7 @@ internal class CacheManager : ICacheManager
         Provider = provider;
         Cache = memoryCache;
         Instance = this;
+        Options = Provider.GetRequiredService<IOptions<BootstrapBlazorOptions>>().Value;
     }
 
     /// <summary>
@@ -51,10 +55,7 @@ internal class CacheManager : ICacheManager
     {
         var item = factory(entry);
 
-        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
+        entry.SetDefaultSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
         return item;
     })!;
 
@@ -65,10 +66,7 @@ internal class CacheManager : ICacheManager
     {
         var item = await factory(entry);
 
-        if (entry.SlidingExpiration == null && entry.AbsoluteExpiration == null && entry.Priority != CacheItemPriority.NeverRemove)
-        {
-            entry.SetSlidingExpiration(TimeSpan.FromMinutes(5));
-        }
+        entry.SetDefaultSlidingExpiration(Options.CacheManagerOptions.SlidingExpiration);
         return item;
     })!;
 
@@ -530,7 +528,7 @@ internal class CacheManager : ICacheManager
         {
             if (type.Assembly.IsDynamic)
             {
-                entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                entry.SetAbsoluteExpiration(Options.CacheManagerOptions.AbsoluteExpiration);
             }
 
             return LambdaExtensions.GetPropertyValueLambda<TModel, TResult>(model, fieldName).Compile();
@@ -557,7 +555,7 @@ internal class CacheManager : ICacheManager
             {
                 if (type.Assembly.IsDynamic)
                 {
-                    entry.SetAbsoluteExpiration(TimeSpan.FromSeconds(10));
+                    entry.SetAbsoluteExpiration(Options.CacheManagerOptions.AbsoluteExpiration);
                 }
                 return LambdaExtensions.SetPropertyValueLambda<TModel, TValue>(model, fieldName).Compile();
             });
