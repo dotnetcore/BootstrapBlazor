@@ -19,7 +19,7 @@ public partial class CacheList
     [Inject, NotNull]
     private IStringLocalizer<CacheList>? Localizer { get; set; }
 
-    private List<object>? _cacheList;
+    private List<object> _cacheList = [];
 
     /// <summary>
     /// <inheritdoc/>
