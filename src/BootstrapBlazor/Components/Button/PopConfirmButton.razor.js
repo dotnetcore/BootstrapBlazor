@@ -166,7 +166,10 @@ export function dispose(id) {
             EventHandler.off(document, 'click', confirm.closeConfirm)
         }
         if (confirm.popover) {
-            confirm.popover.dispose()
+            confirm.popover.dispose();
+            // workaround for https://github.com/twbs/bootstrap/issues/37474
+            confirm.popover._activeTrigger = {};
+            confirm.popover._element = document.createElement('noscript'); // placeholder with no behavior
         }
         if (config.dismiss) {
             EventHandler.off(document, 'click', config.dismiss, confirm.dismissHandler)
