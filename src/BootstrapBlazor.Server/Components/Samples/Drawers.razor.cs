@@ -59,7 +59,7 @@ public sealed partial class Drawers
 
     private bool IsBodyScrollOpen { get; set; }
 
-    private void OpenBodyScrollDrawer() => IsKeyboardOpen = true;
+    private void OpenBodyScrollDrawer() => IsBodyScrollOpen = true;
 
     private async Task DrawerServiceShow() => await DrawerService.Show(new DrawerOption()
     {

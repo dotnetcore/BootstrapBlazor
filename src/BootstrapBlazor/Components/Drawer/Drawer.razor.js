@@ -122,7 +122,7 @@ export function execute(id, open) {
     if (open) {
         el.classList.add('show')
 
-        const scroll = el.getAttribute('bb-drawer-scroll') === "true";
+        const scroll = el.getAttribute('data-bb-scroll') === "true";
         if (scroll === false) {
             body.classList.add('drawer-overflow-hidden');
         }
