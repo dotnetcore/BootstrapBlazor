@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "../../modules/utility.js"
+﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled } from "../../modules/utility.js"
 import { showTooltip, removeTooltip } from "./Button.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
@@ -14,6 +14,8 @@ export function init(id) {
     if (el == null) {
         return
     }
+
+    hackTooltip();
 
     const confirm = {
         el,
@@ -167,9 +169,6 @@ export function dispose(id) {
         }
         if (confirm.popover) {
             confirm.popover.dispose();
-            // workaround for https://github.com/twbs/bootstrap/issues/37474
-            confirm.popover._activeTrigger = {};
-            confirm.popover._element = document.createElement('noscript'); // placeholder with no behavior
         }
         if (config.dismiss) {
             EventHandler.off(document, 'click', config.dismiss, confirm.dismissHandler)

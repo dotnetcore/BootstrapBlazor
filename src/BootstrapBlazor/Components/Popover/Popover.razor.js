@@ -1,9 +1,10 @@
-﻿import { getDescribedElement } from "../../modules/utility.js"
+﻿import { getDescribedElement, hackTooltip } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, options) {
     const el = document.getElementById(id)
     if (el) {
+        hackTooltip();
         createPopover(el, options);
     }
 }

@@ -1,8 +1,10 @@
-﻿import { getDescribedElement, getDescribedOwner, hackPopover, isDisabled } from "./utility.js"
+﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled } from "./utility.js"
 import EventHandler from "./event-handler.js"
 
 const Popover = {
     init(el, config) {
+        hackTooltip();
+
         const popover = {
             ...{
                 el,
