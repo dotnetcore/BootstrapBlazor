@@ -570,6 +570,31 @@ const hackPopover = (popover, css) => {
     }
 }
 
+const hackTooltip = function () {
+    window.BootstrapBlazor ??= {};
+
+    if (window.BootstrapBlazor.Tooltip === void 0) {
+        window.BootstrapBlazor.Tooltip = {
+            hooked: false,
+            hackDispose: function () {
+                if (this.hooked === false) {
+                    this.hooked = true;
+
+                    const originalDispose = bootstrap.Tooltip.prototype.dispose;
+                    bootstrap.Tooltip.prototype.dispose = function () {
+                        originalDispose.call(this);
+                        // fix https://github.com/twbs/bootstrap/issues/37474
+                        this._activeTrigger = {};
+                        this._element = document.createElement('noscript'); // placeholder with no behavior
+                    }
+                }
+            }
+        }
+    }
+
+    window.BootstrapBlazor.Tooltip.hackDispose();
+}
+
 const setIndeterminate = (object, state) => {
     const element = getElementById(object)
     if (isElement(element)) {
@@ -832,6 +857,7 @@ export {
     getWindow,
     getWindowScroll,
     getUID,
+    hackTooltip,
     hackPopover,
     removeLink,
     removeScript,

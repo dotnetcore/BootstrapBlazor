@@ -1,8 +1,11 @@
-﻿import Data from "../../modules/data.js"
+﻿import { hackTooltip } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id)
     if (el) {
+        hackTooltip();
+
         const fallbackPlacements = (el.getAttribute('data-bs-fallbackPlacements') || 'top,right,bottom,left').split(',');
         const tip = {
             tooltip: new bootstrap.Tooltip(el, {
