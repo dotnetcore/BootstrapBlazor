@@ -20,6 +20,7 @@ public partial class Drawer
 
     private string? StyleString => CssBuilder.Default()
         .AddStyle("--bb-drawer-position", Position)
+        .AddClass($"--bb-drawer-zindex: {ZIndex};", ZIndex.HasValue)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -108,6 +109,12 @@ public partial class Drawer
     public bool AllowResize { get; set; }
 
     /// <summary>
+    /// 获得/设置 z-index 参数值 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? ZIndex { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭抽屉回调委托 默认 null
     /// </summary>
     [Parameter]
@@ -133,7 +140,7 @@ public partial class Drawer
 
     private string? KeyboardString => IsKeyboard ? "true" : null;
 
-    private string? BodyScrollString => BodyScroll ? "true" : null;   
+    private string? BodyScrollString => BodyScroll ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
