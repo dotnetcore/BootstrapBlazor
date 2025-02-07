@@ -162,6 +162,16 @@ public class DrawerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ZIndex_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.ZIndex, 1055);
+        });
+        cut.Contains("--bb-drawer-zindex: 1055;");
+    }
+
+    [Fact]
     public void IsKeyboard_Ok()
     {
         var cut = Context.RenderComponent<Drawer>(builder =>
