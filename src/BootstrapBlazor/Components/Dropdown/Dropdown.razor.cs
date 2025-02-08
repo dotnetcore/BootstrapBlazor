@@ -273,16 +273,11 @@ public partial class Dropdown<TValue>
             _isAsyncLoading = true;
             _buttonIcon = LoadingIcon;
             IsDisabled = true;
+            StateHasChanged();
+            await Task.Yield();
         }
 
-        if (IsAsync)
-        {
-            await Task.Run(() => InvokeAsync(HandlerClick));
-        }
-        else
-        {
-            await HandlerClick();
-        }
+        await HandlerClick();
 
         // 恢复按钮
         if (IsAsync)
@@ -291,6 +286,7 @@ public partial class Dropdown<TValue>
             IsDisabled = IsKeepDisabled;
             _isAsyncLoading = false;
         }
+        StateHasChanged();
     }
 
 
@@ -300,12 +296,9 @@ public partial class Dropdown<TValue>
     /// <returns></returns>
     private async Task HandlerClick()
     {
+        IsNotRender = true;
         if (OnClickWithoutRender != null)
         {
-            if (!IsAsync)
-            {
-                IsNotRender = true;
-            }
             await OnClickWithoutRender();
         }
         if (OnClick.HasDelegate)
@@ -313,5 +306,4 @@ public partial class Dropdown<TValue>
             await OnClick.InvokeAsync();
         }
     }
-
 }
