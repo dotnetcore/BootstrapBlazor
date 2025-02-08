@@ -106,12 +106,14 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// 获得/设置 OnClick 事件
+    /// <para><see cref="ShowSplit"/> 为 true 时生效</para>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
     /// 获得/设置 OnClick 事件不刷新父组件
+    /// <para><see cref="ShowSplit"/> 为 true 时生效</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickWithoutRender { get; set; }
