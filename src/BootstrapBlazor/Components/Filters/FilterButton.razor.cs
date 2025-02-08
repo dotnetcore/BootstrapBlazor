@@ -28,10 +28,6 @@ public partial class FilterButton<TValue> : Dropdown<TValue>
     [Parameter]
     public string? ClearIcon { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

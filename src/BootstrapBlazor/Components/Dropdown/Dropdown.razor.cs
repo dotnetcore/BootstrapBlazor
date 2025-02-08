@@ -38,10 +38,11 @@ public partial class Dropdown<TValue>
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("btn dropdown-toggle")
-      .AddClass("dropdown-toggle-split")
-      .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
-      .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-      .Build();
+        .AddClass("dropdown-toggle-split")
+        .AddClass($"btn-primary", Color == Color.None)
+        .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
+        .Build();
 
     /// <summary>
     /// 获得 是否分裂式按钮
@@ -106,15 +107,44 @@ public partial class Dropdown<TValue>
 
     /// <summary>
     /// 获得/设置 OnClick 事件
+    /// <para><see cref="ShowSplit"/> 为 true 时生效</para>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 
     /// <summary>
     /// 获得/设置 OnClick 事件不刷新父组件
+    /// <para><see cref="ShowSplit"/> 为 true 时生效</para>
     /// </summary>
     [Parameter]
     public Func<Task>? OnClickWithoutRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
+    /// <para><see cref="ShowSplit"/> 为 true 时生效</para>
+    /// </summary>
+    [Parameter]
+    public bool IsAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否异步结束后是否保持禁用状态，默认为 false
+    /// </summary>
+    /// <remarks><see cref="IsAsync"/> 开启时有效</remarks>
+    [Parameter]
+    public bool IsKeepDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 显示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? LoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 获取菜单对齐方式 默认 none 未设置
@@ -164,6 +194,13 @@ public partial class Dropdown<TValue>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
+    /// <summary>
+    /// 获得 IconTheme 实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
     [NotNull]
     private List<SelectedItem>? DataSource { get; set; }
 
@@ -171,6 +208,16 @@ public partial class Dropdown<TValue>
     /// 当前选择项实例
     /// </summary>
     private SelectedItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否当前正在异步执行操作
+    /// </summary>
+    private bool _isAsyncLoading;
+
+    /// <summary>
+    /// 获得/设置 实际按钮渲染图标
+    /// </summary>
+    protected string? _buttonIcon { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -194,6 +241,12 @@ public partial class Dropdown<TValue>
             ?? DataSource.FirstOrDefault();
 
         FixedButtonText ??= SelectedItem?.Text;
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
+
+        if (_isAsyncLoading == false)
+        {
+            _buttonIcon = Icon;
+        }
     }
 
     private IEnumerable<SelectedItem> GetItems() => (IsFixedButtonText && !ShowFixedButtonTextInDropdown)
@@ -220,6 +273,35 @@ public partial class Dropdown<TValue>
 
     private async Task OnClickButton()
     {
+        if (IsAsync)
+        {
+            _isAsyncLoading = true;
+            _buttonIcon = LoadingIcon;
+            IsDisabled = true;
+            StateHasChanged();
+            await Task.Yield();
+        }
+
+        await HandlerClick();
+
+        // 恢复按钮
+        if (IsAsync)
+        {
+            _buttonIcon = Icon;
+            IsDisabled = IsKeepDisabled;
+            _isAsyncLoading = false;
+        }
+        StateHasChanged();
+    }
+
+
+    /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    private async Task HandlerClick()
+    {
+        IsNotRender = true;
         if (OnClickWithoutRender != null)
         {
             await OnClickWithoutRender();

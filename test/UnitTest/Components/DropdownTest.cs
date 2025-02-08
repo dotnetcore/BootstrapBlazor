@@ -34,6 +34,25 @@ public class DropdownTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task IsAsync_Ok()
+    {
+        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.ShowSplit, true);
+            pb.Add(a => a.IsAsync, true);
+            pb.Add(a => a.IsKeepDisabled, false);
+            pb.Add(a => a.Icon, "fa-solid fa-test-icon");
+            pb.Add(a => a.OnClickWithoutRender, () =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+        cut.Contains("<i class=\"fa-solid fa-test-icon\"></i>");
+        var button = cut.Find("button");
+        await cut.InvokeAsync(() => button.Click());
+    }
+
+    [Fact]
     public void ShowSize_OK()
     {
         var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>

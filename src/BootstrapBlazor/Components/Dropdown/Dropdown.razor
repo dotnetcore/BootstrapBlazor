@@ -5,14 +5,18 @@
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+    <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText"></BootstrapLabel>
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
     <DynamicElement TagName="button" type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled"
                     TriggerClick="ShowSplit" OnClick="OnClickButton">
         @if (ButtonTemplate == null)
         {
-            @ButtonText
+            @if (!string.IsNullOrEmpty(_buttonIcon))
+            {
+                <i class="@_buttonIcon"></i>
+            }
+            <span>@ButtonText</span>
         }
         else
         {
