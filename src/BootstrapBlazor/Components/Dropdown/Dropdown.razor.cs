@@ -126,6 +126,26 @@ public partial class Dropdown<TValue>
     public bool IsAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否异步结束后是否保持禁用状态，默认为 false
+    /// </summary>
+    /// <remarks><see cref="IsAsync"/> 开启时有效</remarks>
+    [Parameter]
+    public bool IsKeepDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 显示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? LoadingIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 获取菜单对齐方式 默认 none 未设置
     /// </summary>
     [Parameter]
@@ -173,6 +193,13 @@ public partial class Dropdown<TValue>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
+    /// <summary>
+    /// 获得 IconTheme 实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
     [NotNull]
     private List<SelectedItem>? DataSource { get; set; }
 
@@ -180,6 +207,16 @@ public partial class Dropdown<TValue>
     /// 当前选择项实例
     /// </summary>
     private SelectedItem? SelectedItem { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否当前正在异步执行操作
+    /// </summary>
+    private bool _isAsyncLoading;
+
+    /// <summary>
+    /// 获得/设置 实际按钮渲染图标
+    /// </summary>
+    protected string? _buttonIcon { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -203,6 +240,7 @@ public partial class Dropdown<TValue>
             ?? DataSource.FirstOrDefault();
 
         FixedButtonText ??= SelectedItem?.Text;
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
     }
 
     private IEnumerable<SelectedItem> GetItems() => (IsFixedButtonText && !ShowFixedButtonTextInDropdown)
@@ -229,8 +267,44 @@ public partial class Dropdown<TValue>
 
     private async Task OnClickButton()
     {
+        if (IsAsync)
+        {
+            _isAsyncLoading = true;
+            _buttonIcon = LoadingIcon;
+            IsDisabled = true;
+        }
+
+        if (IsAsync)
+        {
+            await Task.Run(() => InvokeAsync(HandlerClick));
+        }
+        else
+        {
+            await HandlerClick();
+        }
+
+        // 恢复按钮
+        if (IsAsync)
+        {
+            _buttonIcon = Icon;
+            IsDisabled = IsKeepDisabled;
+            _isAsyncLoading = false;
+        }
+    }
+
+
+    /// <summary>
+    /// 处理点击方法
+    /// </summary>
+    /// <returns></returns>
+    private async Task HandlerClick()
+    {
         if (OnClickWithoutRender != null)
         {
+            if (!IsAsync)
+            {
+                IsNotRender = true;
+            }
             await OnClickWithoutRender();
         }
         if (OnClick.HasDelegate)
@@ -238,4 +312,5 @@ public partial class Dropdown<TValue>
             await OnClick.InvokeAsync();
         }
     }
+
 }
