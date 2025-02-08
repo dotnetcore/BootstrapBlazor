@@ -89,7 +89,7 @@ public partial class Button : ButtonBase
             {
                 IsNotRender = true;
             }
-            await OnClickWithoutRender.Invoke();
+            await OnClickWithoutRender();
         }
         if (OnClick.HasDelegate)
         {
