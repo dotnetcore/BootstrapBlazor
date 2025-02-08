@@ -38,10 +38,11 @@ public partial class Dropdown<TValue>
     /// </summary>
     /// <returns></returns>
     private string? ClassName => CssBuilder.Default("btn dropdown-toggle")
-      .AddClass("dropdown-toggle-split")
-      .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
-      .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-      .Build();
+        .AddClass("dropdown-toggle-split")
+        .AddClass($"btn-primary", Color == Color.None)
+        .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
+        .Build();
 
     /// <summary>
     /// 获得 是否分裂式按钮
