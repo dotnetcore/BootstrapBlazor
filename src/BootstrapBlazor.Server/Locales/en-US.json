@@ -1788,6 +1788,7 @@
     "AttributeMenuItem": "Menu item rendering label",
     "AttributeResponsive": "Menu alignment",
     "AttributeShowSplit": "Split button drop-down menu",
+    "AttributeIsAsync": "whether it is an asynchronous button",
     "AttributeSize": "Size",
     "AttributeTagName": "Label",
     "AttributeButtonTemplate": "The template of button",

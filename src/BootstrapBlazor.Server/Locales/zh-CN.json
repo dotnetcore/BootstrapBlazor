@@ -1788,6 +1788,7 @@
     "AttributeMenuItem": "菜单项渲染标签",
     "AttributeResponsive": "菜单对齐",
     "AttributeShowSplit": "分裂式按钮下拉菜单",
+    "AttributeIsAsync": "是否为异步按钮",
     "AttributeSize": "尺寸",
     "AttributeTagName": "标签",
     "AttributeButtonTemplate": "按钮模板",

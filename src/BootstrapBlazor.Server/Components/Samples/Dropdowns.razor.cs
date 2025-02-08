@@ -221,6 +221,14 @@ public sealed partial class Dropdowns
         },
         new()
         {
+            Name = "IsAsync",
+            Description = Localizer["AttributeIsAsync"],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Size",
             Description = Localizer["AttributeSize"],
             Type = "Size",
