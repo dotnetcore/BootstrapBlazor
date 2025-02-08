@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -102,6 +104,11 @@ public partial class Dropdown<TValue>
     [Parameter]
     public bool ShowSplit { get; set; }
 
+    /// <summary>
+    /// 获得/设置 OnClick 事件
+    /// </summary>
+    [Parameter]
+    public EventCallback<MouseEventArgs> OnClick { get; set; }
     /// <summary>
     /// 获得/设置 获取菜单对齐方式 默认 none 未设置
     /// </summary>
