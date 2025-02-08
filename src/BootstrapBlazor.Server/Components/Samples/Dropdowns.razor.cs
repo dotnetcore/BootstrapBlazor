@@ -10,6 +10,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Dropdowns
 {
+    [Inject, NotNull]
+    private ToastService? ToastService { get; set; }
+
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
@@ -140,6 +143,15 @@ public sealed partial class Dropdowns
             Items2 = Enumerable.Empty<SelectedItem>();
         }
         StateHasChanged();
+    }
+
+    private async Task OnIsAsyncClick()
+    {
+        // 模拟异步延时
+        await Task.Delay(1000);
+
+        // 提示任务完成
+        await ToastService.Success("Dropdown IsAsync", "Job done!");
     }
 
     /// <summary>
