@@ -19,24 +19,9 @@ public partial class Button : ButtonBase
     public bool IsAutoFocus { get; set; }
 
     /// <summary>
-    /// 按钮点击回调方法，内置支持 IsAsync 开关
-    /// </summary>
-    protected EventCallback<MouseEventArgs> OnClickButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 html button 实例
     /// </summary>
     protected ElementReference ButtonElement { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        SetClickHandler();
-    }
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -57,36 +42,33 @@ public partial class Button : ButtonBase
     }
 
     /// <summary>
-    /// 设置 OnClickButton 方法 
+    /// OnClickButton 方法 
     /// </summary>
-    protected virtual void SetClickHandler()
+    protected virtual async Task OnClickButton()
     {
-        OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+        if (IsAsync && ButtonType == ButtonType.Button)
         {
-            if (IsAsync && ButtonType == ButtonType.Button)
-            {
-                IsAsyncLoading = true;
-                ButtonIcon = LoadingIcon;
-                IsDisabled = true;
-            }
+            IsAsyncLoading = true;
+            ButtonIcon = LoadingIcon;
+            IsDisabled = true;
+        }
 
-            if (IsAsync)
-            {
-                await Task.Run(() => InvokeAsync(HandlerClick));
-            }
-            else
-            {
-                await HandlerClick();
-            }
+        if (IsAsync)
+        {
+            await Task.Run(() => InvokeAsync(HandlerClick));
+        }
+        else
+        {
+            await HandlerClick();
+        }
 
-            // 恢复按钮
-            if (IsAsync && ButtonType == ButtonType.Button)
-            {
-                ButtonIcon = Icon;
-                IsDisabled = IsKeepDisabled;
-                IsAsyncLoading = false;
-            }
-        });
+        // 恢复按钮
+        if (IsAsync && ButtonType == ButtonType.Button)
+        {
+            ButtonIcon = Icon;
+            IsDisabled = IsKeepDisabled;
+            IsAsyncLoading = false;
+        }
     }
 
     /// <summary>
