@@ -251,6 +251,18 @@ public sealed partial class Dropdowns
     /// <returns></returns>
     private EventItem[] GetEvents() =>
     [
+        new()
+        {
+            Name = "OnClick",
+            Description = Localizer["EventDesc1"],
+            Type ="EventCallback<MouseEventArgs>"
+        },
+        new()
+        {
+            Name = "OnClickWithoutRender",
+            Description = Localizer["EventDesc2"],
+            Type ="Func<Task>"
+        },
         new EventItem()
         {
             Name = "OnSelectedItemChanged",
