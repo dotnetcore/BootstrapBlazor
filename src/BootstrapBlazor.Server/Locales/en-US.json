@@ -1793,6 +1793,8 @@
     "AttributeButtonTemplate": "The template of button",
     "AttributeItemTemplate": "The template of item",
     "AttributeItemsTemplate": "The template of items",
+    "EventDesc1": "This event is triggered when the button is clicked",
+    "EventDesc2": "This event is triggered when the button is clicked and the current component is not refreshed for performance improvement",
     "EventOnSelectedItemChanged": "Triggered when the value of the drop-down box changes",
     "FixedButtonText": "The text of fixed button",
     "Item1": "Melbourne",
