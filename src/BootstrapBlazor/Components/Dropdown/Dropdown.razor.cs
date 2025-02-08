@@ -242,6 +242,11 @@ public partial class Dropdown<TValue>
 
         FixedButtonText ??= SelectedItem?.Text;
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
+
+        if (_isAsyncLoading == false)
+        {
+            _buttonIcon = Icon;
+        }
     }
 
     private IEnumerable<SelectedItem> GetItems() => (IsFixedButtonText && !ShowFixedButtonTextInDropdown)
