@@ -109,6 +109,13 @@ public partial class Dropdown<TValue>
     /// </summary>
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// 获得/设置 OnClick 事件不刷新父组件
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClickWithoutRender { get; set; }
+
     /// <summary>
     /// 获得/设置 获取菜单对齐方式 默认 none 未设置
     /// </summary>
