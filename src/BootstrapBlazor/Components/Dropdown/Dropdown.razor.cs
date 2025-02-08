@@ -217,4 +217,16 @@ public partial class Dropdown<TValue>
     }
 
     private string? ButtonText => IsFixedButtonText ? FixedButtonText : SelectedItem?.Text;
+
+    private async Task OnClickButton()
+    {
+        if (OnClickWithoutRender != null)
+        {
+            await OnClickWithoutRender();
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
 }
