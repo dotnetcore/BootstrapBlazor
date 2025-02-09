@@ -3,9 +3,9 @@
 @attribute [BootstrapModuleAutoLoader("Print/PrintButton.razor.js")]
 
 <a @attributes="@AdditionalAttributes" id="@Id" href="@PreviewUrl" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab">
-    @if (!string.IsNullOrEmpty(ButtonIcon))
+    @if (!string.IsNullOrEmpty(Icon))
     {
-        <i class="@ButtonIcon"></i>
+        <i class="@Icon"></i>
     }
     @if (!string.IsNullOrEmpty(Text))
     {

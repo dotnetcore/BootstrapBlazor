@@ -95,7 +95,7 @@ public partial class PopConfirmButton
         if (IsAsync)
         {
             IsDisabled = true;
-            ButtonIcon = LoadingIcon;
+            IsAsyncLoading = true;
             StateHasChanged();
             await Task.Run(() => InvokeAsync(OnConfirm));
 
@@ -106,7 +106,7 @@ public partial class PopConfirmButton
             else
             {
                 IsDisabled = false;
-                ButtonIcon = Icon;
+                IsAsyncLoading = false;
                 StateHasChanged();
             }
         }

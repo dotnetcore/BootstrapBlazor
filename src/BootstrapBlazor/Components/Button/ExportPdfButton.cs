@@ -83,7 +83,6 @@ public class ExportPdfButton : Button
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
-        ButtonIcon = Icon;
     }
 
     /// <summary>

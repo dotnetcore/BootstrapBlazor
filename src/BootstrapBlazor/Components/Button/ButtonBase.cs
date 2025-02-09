@@ -43,11 +43,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     protected string? Tab => IsDisabled ? "-1" : null;
 
     /// <summary>
-    /// 获得/设置 实际按钮渲染图标
-    /// </summary>
-    protected string? ButtonIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 按钮风格枚举
     /// </summary>
     [Parameter]
@@ -173,8 +168,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     {
         base.OnInitialized();
 
-        ButtonIcon = Icon;
-
         if (IsAsync && ValidateForm != null)
         {
             // 开启异步操作时与 ValidateForm 联动
@@ -190,11 +183,6 @@ public abstract class ButtonBase : TooltipWrapperBase
         base.OnParametersSet();
 
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
-
-        if (!IsAsyncLoading)
-        {
-            ButtonIcon = Icon;
-        }
 
         if (Tooltip != null && !string.IsNullOrEmpty(TooltipText))
         {
@@ -260,7 +248,6 @@ public abstract class ButtonBase : TooltipWrapperBase
     internal void TriggerAsync(bool loading)
     {
         IsAsyncLoading = loading;
-        ButtonIcon = loading ? LoadingIcon : Icon;
         SetDisable(loading);
     }
 
