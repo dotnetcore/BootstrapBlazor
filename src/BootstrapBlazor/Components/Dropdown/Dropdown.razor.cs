@@ -229,7 +229,7 @@ public partial class Dropdown<TValue>
             Items = typeof(TValue).ToSelectList();
         }
 
-        DataSource = Items.ToList();
+        DataSource = [.. Items];
 
         SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
             ?? DataSource.Find(i => i.Active)
