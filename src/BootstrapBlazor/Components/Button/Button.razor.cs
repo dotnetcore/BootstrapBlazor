@@ -49,7 +49,6 @@ public partial class Button : ButtonBase
         if (IsAsync && ButtonType == ButtonType.Button)
         {
             IsAsyncLoading = true;
-            ButtonIcon = LoadingIcon;
             IsDisabled = true;
         }
 
@@ -65,7 +64,6 @@ public partial class Button : ButtonBase
         // 恢复按钮
         if (IsAsync && ButtonType == ButtonType.Button)
         {
-            ButtonIcon = Icon;
             IsDisabled = IsKeepDisabled;
             IsAsyncLoading = false;
         }

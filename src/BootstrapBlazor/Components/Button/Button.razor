@@ -2,9 +2,13 @@
 @inherits ButtonBase
 
 <button @attributes="@AdditionalAttributes" type="@ButtonType.ToDescriptionString()" @onclick="@OnClickButton" id="@Id" class="@ClassName" disabled="@Disabled" role="button" data-bs-placement="@PlacementString" data-bs-trigger="@TriggerString" aria-disabled="@DisabledString" tabindex="@Tab" @onclick:stopPropagation="@StopPropagation" @ref="ButtonElement">
-    @if (!string.IsNullOrEmpty(ButtonIcon))
+    @if(IsAsyncLoading)
     {
-        <i class="@ButtonIcon"></i>
+        <i class="@LoadingIcon"></i>
+    }
+    else if (!string.IsNullOrEmpty(Icon))
+    {
+        <i class="@Icon"></i>
     }
     @if (!string.IsNullOrEmpty(Text))
     {

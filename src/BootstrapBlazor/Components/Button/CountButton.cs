@@ -34,14 +34,12 @@ public class CountButton : Button
     protected override async Task OnClickButton()
     {
         IsAsyncLoading = true;
-        ButtonIcon = LoadingIcon;
         IsDisabled = true;
 
         await Task.Run(() => InvokeAsync(HandlerClick));
         await UpdateCount();
 
         IsDisabled = false;
-        ButtonIcon = Icon;
         IsAsyncLoading = false;
     }
 
@@ -65,7 +63,6 @@ public class CountButton : Button
     {
         var count = Count;
         var text = Text;
-        ButtonIcon = null;
         while (count > 0)
         {
             Text = GetCountText(count--, text);

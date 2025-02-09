@@ -17,9 +17,13 @@ else
     @<DynamicElement TagName="@TagName" OnClick="Show" id="@Id"
                      class="@ClassString" role="dialog" tabindex="@Tab" data-bb-confirm="@ConfirmString"
                      data-bs-custom-class="@CustomClassString" data-bs-trigger="@TriggerString" data-bs-placement="@PlacementString">
-        @if (!string.IsNullOrEmpty(ButtonIcon))
+        @if(IsAsyncLoading)
         {
-            <i class="@ButtonIcon"></i>
+            <i class="@LoadingIcon"></i>
+        }
+        else if (!string.IsNullOrEmpty(Icon))
+        {
+            <i class="@Icon"></i>
         }
         @if (!string.IsNullOrEmpty(Text))
         {
