@@ -215,11 +215,6 @@ public partial class Dropdown<TValue>
     private bool _isAsyncLoading;
 
     /// <summary>
-    /// 获得/设置 实际按钮渲染图标
-    /// </summary>
-    protected string? _buttonIcon { get; set; }
-
-    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -242,11 +237,6 @@ public partial class Dropdown<TValue>
 
         FixedButtonText ??= SelectedItem?.Text;
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
-
-        if (_isAsyncLoading == false)
-        {
-            _buttonIcon = Icon;
-        }
     }
 
     private IEnumerable<SelectedItem> GetItems() => (IsFixedButtonText && !ShowFixedButtonTextInDropdown)
@@ -276,7 +266,6 @@ public partial class Dropdown<TValue>
         if (IsAsync)
         {
             _isAsyncLoading = true;
-            _buttonIcon = LoadingIcon;
             IsDisabled = true;
             StateHasChanged();
             await Task.Yield();
@@ -287,7 +276,6 @@ public partial class Dropdown<TValue>
         // 恢复按钮
         if (IsAsync)
         {
-            _buttonIcon = Icon;
             IsDisabled = IsKeepDisabled;
             _isAsyncLoading = false;
         }

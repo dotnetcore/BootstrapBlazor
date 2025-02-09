@@ -12,9 +12,13 @@
                     TriggerClick="ShowSplit" OnClick="OnClickButton">
         @if (ButtonTemplate == null)
         {
-            @if (!string.IsNullOrEmpty(_buttonIcon))
+            @if (_isAsyncLoading)
             {
-                <i class="@_buttonIcon"></i>
+                <i class="@LoadingIcon"></i>
+            }
+            else if (!string.IsNullOrEmpty(Icon))
+            {
+                <i class="@Icon"></i>
             }
             <span>@ButtonText</span>
         }
