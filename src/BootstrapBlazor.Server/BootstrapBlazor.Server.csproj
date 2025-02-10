@@ -58,7 +58,7 @@
     <PackageReference Include="BootstrapBlazor.Sortable" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.SvgEditor" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.1.1" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
