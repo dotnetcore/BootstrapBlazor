@@ -28,7 +28,10 @@
     }
 
     &:hover {
-        --bb-scroll-width: var(--bb-scroll-hover-width, var(--bb-scroll-default-hover-width));
+        &::-webkit-scrollbar {
+            width: var(--bb-scroll-hover-width, var(--bb-scroll-default-hover-width));
+            height: var(--bb-scroll-hover-width, var(--bb-scroll-default-hover-width));
+        }
 
         &::-webkit-scrollbar-thumb {
             background-color: var(--bb-scroll-thumb-hover-bg);
