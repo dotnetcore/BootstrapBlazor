@@ -5185,6 +5185,32 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Table_ComplexColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = new MockComplexFoo[]
+        {
+            new() { Name = "test1", Foo = Foo.Generate(localizer) }
+        };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<MockComplexFoo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.TableColumns, context => builder =>
+                {
+                    builder.OpenComponent<TableColumn<MockComplexFoo, string>>(0);
+                    builder.AddAttribute(1, "FieldName", "Foo.Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(context, "Foo.Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains(items[0].Foo.Name!);
+    }
+
+    [Fact]
     public async Task SelectedRowsChanged_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
