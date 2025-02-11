@@ -598,22 +598,16 @@ public partial class Table<TItem>
 
     private async Task ShowToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
-        var option = new ToastOption
-        {
-            Category = category,
-            Title = title,
-            Content = content
-        };
+        var option = GetToastOption(title);
+        option.Category = category;
+        option.Content = content;
         await Toast.Show(option);
     }
 
     private async Task ShowDeleteToastAsync(string title, string content, ToastCategory category = ToastCategory.Information)
     {
-        var option = new ToastOption
-        {
-            Category = category,
-            Title = title
-        };
+        var option = GetToastOption(title);
+        option.Category = category;
         option.Content = string.Format(content, Math.Ceiling(option.Delay / 1000.0));
         await Toast.Show(option);
     }
@@ -673,11 +667,8 @@ public partial class Table<TItem>
         }
         if (ShowToastAfterSaveOrDeleteModel)
         {
-            var option = new ToastOption
-            {
-                Category = valid ? ToastCategory.Success : ToastCategory.Error,
-                Title = SaveButtonToastTitle
-            };
+            var option = GetToastOption(SaveButtonToastTitle);
+            option.Category = valid ? ToastCategory.Success : ToastCategory.Error;
             option.Content = string.Format(SaveButtonToastResultContent, valid ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
             await Toast.Show(option);
         }
@@ -1023,11 +1014,8 @@ public partial class Table<TItem>
 
             if (ShowToastAfterSaveOrDeleteModel)
             {
-                var option = new ToastOption()
-                {
-                    Title = DeleteButtonToastTitle,
-                    Category = ret ? ToastCategory.Success : ToastCategory.Error
-                };
+                var option = GetToastOption(DeleteButtonToastTitle);
+                option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
                 option.Content = string.Format(DeleteButtonToastResultContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
                 await Toast.Show(option);
             }
@@ -1137,11 +1125,8 @@ public partial class Table<TItem>
         }
         else if (ShowToastBeforeExport)
         {
-            var option = new ToastOption
-            {
-                Title = ExportToastTitle,
-                Category = ToastCategory.Information
-            };
+            var option = GetToastOption(ExportToastTitle);
+            option.Category = ToastCategory.Information;
             option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
             await Toast.Show(option);
         }
@@ -1154,15 +1139,18 @@ public partial class Table<TItem>
         }
         else if (ShowToastAfterExport)
         {
-            var option = new ToastOption
-            {
-                Title = ExportToastTitle,
-                Category = ret ? ToastCategory.Success : ToastCategory.Error
-            };
+            var option = GetToastOption(ExportToastTitle);
+            option.Category = ret ? ToastCategory.Success : ToastCategory.Error;
             option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
             await Toast.Show(option);
         }
     }
+
+    private ToastOption GetToastOption(string title) => new()
+    {
+        Title = title,
+        Delay = Options.CurrentValue.ToastDelay
+    };
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
