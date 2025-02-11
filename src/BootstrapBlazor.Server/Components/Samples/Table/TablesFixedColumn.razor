@@ -16,7 +16,7 @@
     <Table TItem="Foo"
            Items="@Items.Take(4)"
            RenderMode="TableRenderMode.Table" AllowResizing="true"
-           IsBordered="true"
+           IsBordered="true" ScrollWidth="7" ScrollHoverWidth="10"
            IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="120" Fixed="true" />
@@ -101,7 +101,7 @@
            IsBordered="true"
            IsStriped="true"
            IsMultipleSelect="true"
-           IsFixedHeader="true"
+           IsFixedHeader="true" ScrollWidth="7" ScrollHoverWidth="10"
            FixedExtendButtonsColumn="true"
            IsExtendButtonsInRowHeader="true"
            FixedMultipleColumn="true"

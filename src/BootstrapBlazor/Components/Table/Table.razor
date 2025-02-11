@@ -198,7 +198,7 @@
         }
 
         <RenderTemplate OnRenderAsync="OnTableRenderAsync">
-            <div class="@WrapperClassName">
+            <div class="@WrapperClassName" style="@GetScrollStyleString(!IsFixedHeader)">
                 @if (ActiveRenderMode == TableRenderMode.Table)
                 {
                     if (IsFixedHeader)
@@ -209,7 +209,7 @@
                                 @RenderHeader(true)
                             </table>
                         </div>
-                        <div class="table-fixed-body scroll" style="@ScrollStyleString">
+                        <div class="table-fixed-body scroll" style="@GetScrollStyleString(true)">
                             @RenderTable(false)
                         </div>
                     }
