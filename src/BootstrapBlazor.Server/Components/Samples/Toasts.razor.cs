@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.Extensions.Options;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -32,6 +34,11 @@ public sealed partial class Toasts
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
+    [Inject, NotNull]
+    private IOptions<BootstrapBlazorOptions>? Options { get; set; }
+
+    private int _delayTs => Options.Value.ToastDelay / 1000;
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -39,10 +46,10 @@ public sealed partial class Toasts
     {
         base.OnInitialized();
 
-        Options1 = new ToastOption { Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
-        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "Save data", IsAutoHide = false, Content = "Save data successfully, automatically close after 4 seconds" };
-        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "Prompt information", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
-        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
+        Options1 = new ToastOption { Title = "Save data", IsAutoHide = false, Content = $"Save data successfully, automatically close after {_delayTs} seconds" };
+        Options2 = new ToastOption { Category = ToastCategory.Error, Title = "Save data", IsAutoHide = false, Content = $"Save data successfully, automatically close after {_delayTs} seconds" };
+        Options3 = new ToastOption { Category = ToastCategory.Information, Title = "Prompt information", IsAutoHide = false, Content = $"Information prompt pop-up window, automatically closes after {_delayTs} seconds" };
+        Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = $"Information prompt pop-up window, automatically closes after {_delayTs} seconds" };
 
         ToastContainer = Root.ToastContainer;
     }
@@ -55,7 +62,7 @@ public sealed partial class Toasts
             PreventDuplicates = true,
             Category = ToastCategory.Success,
             Title = "Successfully saved",
-            Content = "Save data successfully, automatically close after 4 seconds"
+            Content = $"Save data successfully, automatically close after {_delayTs} seconds"
         });
     }
 
@@ -66,7 +73,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Success,
             Title = "Successfully saved",
-            Content = "Save data successfully, automatically close after 4 seconds"
+            Content = $"Save data successfully, automatically close after {_delayTs} seconds"
         });
     }
 
@@ -77,7 +84,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Error,
             Title = "Failed to save",
-            Content = "Failed to save data, automatically closes after 4 seconds"
+            Content = $"Failed to save data, automatically closes after {_delayTs} seconds"
         });
     }
 
@@ -88,7 +95,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Information,
             Title = "Notification",
-            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+            Content = $"The system adds new components, it will automatically shut down after {_delayTs} seconds"
         });
     }
 
@@ -99,7 +106,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Warning,
             Title = "Warning",
-            Content = "If the system finds abnormality, please deal with it in time, and it will automatically shut down after 4 seconds"
+            Content = $"If the system finds abnormality, please deal with it in time, and it will automatically shut down after {_delayTs} seconds"
         });
     }
 
@@ -128,7 +135,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Warning,
             ShowHeader = false,
-            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+            Content = $"The system adds new components, it will automatically shut down after {_delayTs} seconds"
         });
     }
 
@@ -139,7 +146,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Information,
             HeaderTemplate = RenderHeader,
-            Content = "The system adds new components, it will automatically shut down after 4 seconds"
+            Content = $"The system adds new components, it will automatically shut down after {_delayTs} seconds"
         });
     }
 
@@ -150,7 +157,7 @@ public sealed partial class Toasts
         {
             Category = ToastCategory.Information,
             Title = "Notification",
-            Content = "<b>Toast</b> The component has changed position, it will automatically shut down after 4 seconds"
+            Content = $"<b>Toast</b> The component has changed position, it will automatically shut down after {_delayTs} seconds"
         });
     }
 
