@@ -186,7 +186,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string ScrollWidthString => $"width: {ActualScrollWidth}px;";
 
-    private string ScrollStyleString => $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;";
+    private string? GetScrollStyleString(bool condition) => condition
+        ? $"--bb-scroll-width: {ActualScrollWidth}px; --bb-scroll-hover-width: {ActualScrollHoverWidth}px;"
+        : null;
 
     private int ActualScrollWidth => ScrollWidth ?? Options.CurrentValue.ScrollOptions.ScrollWidth;
 
