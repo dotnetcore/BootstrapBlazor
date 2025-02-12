@@ -53,7 +53,7 @@ public partial class IFrame
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(CallbackAsync));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerPostData));
 
     /// <summary>
     /// 推送数据方法
@@ -68,7 +68,7 @@ public partial class IFrame
     /// <param name="data"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task CallbackAsync(object? data)
+    public async Task TriggerPostData(object? data)
     {
         if (OnPostDataAsync != null)
         {
