@@ -28,6 +28,12 @@ public partial class IFrame
     [Parameter]
     public Func<object?, Task>? OnPostDataAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 页面加载完毕后回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnReadyAsync { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-frame")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -53,7 +59,7 @@ public partial class IFrame
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(CallbackAsync));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerPostData));
 
     /// <summary>
     /// 推送数据方法
@@ -68,11 +74,24 @@ public partial class IFrame
     /// <param name="data"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task CallbackAsync(object? data)
+    public async Task TriggerPostData(object? data)
     {
         if (OnPostDataAsync != null)
         {
             await OnPostDataAsync(data);
+        }
+    }
+
+    /// <summary>
+    /// 由 JavaScript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerLoaded()
+    {
+        if (OnReadyAsync != null)
+        {
+            await OnReadyAsync();
         }
     }
 }

@@ -6,22 +6,17 @@ export function init(id, invoke, callback) {
     }
     Data.set(id, handler)
 
-    window.addEventListener('message', handler)
+    window.addEventListener('message', handler);
+    const frame = document.getElementById(id);
+
+    frame.onload = () => {
+        invoke.invokeMethodAsync("TriggerLoaded");
+    }
 }
 
-export function execute(id, data) {
-    const frame = document.getElementById(id)
-    if (frame) {
-        if (frame.loaded) {
-            frame.contentWindow.postMessage(data)
-        }
-        else {
-            frame.onload = () => {
-                frame.loaded = true
-                frame.contentWindow.postMessage(data)
-            }
-        }
-    }
+export async function execute(id, data) {
+    const frame = document.getElementById(id);
+    frame.contentWindow.postMessage(data);
 }
 
 export function dispose(id) {
