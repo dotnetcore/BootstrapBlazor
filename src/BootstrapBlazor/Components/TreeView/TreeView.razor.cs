@@ -355,13 +355,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     protected override async Task OnParametersSetAsync()
     {
         _rows = null;
-        TreeNodeStateCache.Reset();
-
         if (Items != null)
         {
             if (Items.Count > 0)
             {
                 await CheckExpand(Items);
+                _rows = null;
             }
 
             if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
