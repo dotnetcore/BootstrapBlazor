@@ -99,7 +99,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
             if (ExpandedNodeCache.Contains(node.Value))
             {
                 // 原来是展开状态，
-                if (node.HasChildren)
+                if (node.HasChildren || node.Items.Any())
                 {
                     // 当前节点有子节点
                     node.IsExpand = true;
