@@ -8,7 +8,7 @@ namespace UnitTest.Components;
 public class IFrameTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Frame_Ok()
+    public async Task Frame_Ok()
     {
         var postData = false;
         var cut = Context.RenderComponent<IFrame>(pb =>
@@ -27,10 +27,26 @@ public class IFrameTest : BootstrapBlazorTestBase
             pb.Add(a => a.Data, new { Rows = new List<string>() { "1", "2" } });
         });
 
-        cut.InvokeAsync(async () =>
+        await cut.InvokeAsync(async () =>
         {
-            await cut.Instance.CallbackAsync(new List<string> { "2", "3" });
+            await cut.Instance.TriggerPostData(new List<string> { "2", "3" });
             Assert.True(postData);
         });
+
+        var loaded = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnReadyAsync, () =>
+            {
+                loaded = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        await cut.InvokeAsync(async () =>
+        {
+            await cut.Instance.TriggerLoaded();
+        });
+        Assert.True(loaded);
     }
 }
