@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -35,6 +37,12 @@ public partial class Textarea
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
+    /// 获得/设置 文本框按键回调委托方法 默认为 null
+    /// </summary>
+    [Parameter]
+    public Func<KeyboardEventArgs, Task>? OnKeyUpAsync { get; set; }
+
+    /// <summary>
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
@@ -51,6 +59,22 @@ public partial class Textarea
         if (!firstRender)
         {
             await InvokeVoidAsync("execute", Id, "update");
+        }
+    }
+
+    private async Task OnKeyUp(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter" && OnEnterAsync != null)
+        {
+            await OnEnterAsync(Value);
+        }
+        if (args.Key == "Escape" && OnEscAsync != null)
+        {
+            await OnEscAsync(Value);
+        }
+        if (OnKeyUpAsync != null)
+        {
+            await OnKeyUpAsync(args);
         }
     }
 }
