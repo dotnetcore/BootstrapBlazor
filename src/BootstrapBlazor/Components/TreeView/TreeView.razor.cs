@@ -361,6 +361,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 await CheckExpand(Items);
                 _rows = null;
+                _keyboardArrowUpDownTrigger = true;
             }
 
             if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
@@ -397,7 +398,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (_keyboardArrowUpDownTrigger)
         {
             _keyboardArrowUpDownTrigger = false;
-            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions, _activeItem != null && IsVirtualize);
         }
     }
 
