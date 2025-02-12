@@ -28,11 +28,44 @@ export function init(id, options) {
     });
 }
 
-export function scroll(id, options) {
+const scrollIntoView = (el, options) => {
+    if (el) {
+        el.scrollIntoView(options ?? { behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+}
+
+const virtualScroll = (el, options) => {
+    const searchHeight = el.querySelector('.tree-search')?.offsetHeight ?? 0;
+
+    el.scrollHandler = setInterval(() => {
+        const item = el.querySelector(".tree-content.active");
+        const root = el.querySelector(".is-virtual");
+        if (item) {
+            clearInterval(el.scrollHandler);
+            scrollIntoView(item, options);
+            return;
+        }
+
+        const top = el.scrollTop + el.offsetHeight - searchHeight;
+        if (top < root.offsetHeight) {
+            el.scrollTo({ top: top, left: 0, behavior: "smooth" });
+        }
+        else {
+            clearInterval(el.scrollHandler);
+        }
+    }, 80);
+}
+
+export function scroll(id, options, find = false) {
     const el = document.getElementById(id);
+
     const item = el.querySelector(".tree-content.active");
     if (item) {
-        item.scrollIntoView(options ?? { behavior: 'smooth', block: 'nearest', inline: 'start' });
+        scrollIntoView(el, options);
+        return;
+    }
+    if (find) {
+        virtualScroll(el, options);
     }
 }
 
@@ -113,5 +146,8 @@ export function dispose(id) {
 
     if (el) {
         EventHandler.off(el, 'keyup', '.tree-root');
+        if (el.scrollHandler) {
+            clearInterval(el.scrollHandler);
+        }
     }
 }
