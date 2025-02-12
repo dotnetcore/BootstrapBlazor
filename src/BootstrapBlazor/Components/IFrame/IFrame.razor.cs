@@ -28,6 +28,12 @@ public partial class IFrame
     [Parameter]
     public Func<object?, Task>? OnPostDataAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 页面加载完毕后回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnReadyAsync { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-frame")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -73,6 +79,19 @@ public partial class IFrame
         if (OnPostDataAsync != null)
         {
             await OnPostDataAsync(data);
+        }
+    }
+
+    /// <summary>
+    /// 由 JavaScript 调用
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerLoaded()
+    {
+        if (OnReadyAsync != null)
+        {
+            await OnReadyAsync();
         }
     }
 }
