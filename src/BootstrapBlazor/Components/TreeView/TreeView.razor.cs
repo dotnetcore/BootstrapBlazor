@@ -402,7 +402,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (_keyboardArrowUpDownTrigger)
         {
             _keyboardArrowUpDownTrigger = false;
-            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions, _activeItem != null && IsVirtualize);
+            await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions);
         }
     }
 
