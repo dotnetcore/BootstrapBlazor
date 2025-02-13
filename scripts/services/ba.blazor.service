@@ -1,5 +1,5 @@
 [Unit]
-Description=Bootstrap Admin Blazor Application
+Description=BootstrapBlazor Offical Web Application
 
 [Service]
 Type=simple
