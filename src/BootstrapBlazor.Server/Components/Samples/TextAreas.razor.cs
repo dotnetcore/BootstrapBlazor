@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
@@ -14,6 +16,8 @@ public partial class TextAreas
     private Textarea? TextareaElement { get; set; }
 
     private string? Text { get; set; }
+
+    private string? KeyText { get; set; }
 
     private string? ChatText { get; set; }
 
@@ -86,6 +90,25 @@ public partial class TextAreas
                 }
             });
         }
+    }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task<bool> OnKeyDownAsync(KeyboardEventArgs args)
+    {
+        var ret = true;
+        if (args.ShiftKey && args.Key == "Enter")
+        {
+            Text += $"{Environment.NewLine}";
+            Logger.Log("Press <kbd>Shift</kbd> + <kbd>Enter</kbd>");
+            StateHasChanged();
+        }
+        else if (args.Key == "Enter")
+        {
+            Logger.Log("Press <kbd>Enter</kbd>: call some method.");
+        }
+        return Task.FromResult(ret);
     }
 
     /// <summary>
