@@ -3265,7 +3265,7 @@
     "TextAreaBindWayBindValue": "The binding value",
     "TextAreaReadOnlyTitle": "Readonly",
     "TextAreaReadOnlyIntro": "When you set the <code>readonly</code> property, the component prohibits input",
-    "TextAreaHeightTitle": "height",
+    "TextAreaHeightTitle": "Height",
     "TextAreaHeightIntro": "When you set the <code>rows</code> property, component initialization displays a fixed row height",
     "TextAreaBindWayTitle": "Two-way binding",
     "TextAreaBindWayIntro": "Binding variables within a component, data is automatically synchronized",
@@ -3284,7 +3284,10 @@
     "TextAreaUseShiftEnterTitle": "Shift Enter",
     "TextAreaUseShiftEnterIntro": "By setting <code>UseShiftEnter=\"true\"</code> you can start using <kbd>Shift</kbd> + <kbd>Enter</kbd> for line breaks, which is suitable for dialog applications.",
     "TextAreaUseShiftEnterPlaceHolder": "Please enter some text, Enter sends Shift + Enter line break",
-    "TextAreaUseShiftEnter": "Whether to use Shift + Enter instead of the original Enter key behavior"
+    "TextAreaUseShiftEnter": "Whether to use Shift + Enter instead of the original Enter key behavior",
+    "TextAreaKeyEventTitle": "Enter/Esc KeyEvent",
+    "TextAreaKeyEventIntro": "Start the <kbd>Enter</kbd> <kbd>Esc</kbd> key callback event by setting <code>OnEnterAsync</code> <code>OnEscAsync</code>",
+    "TextAreaKeyEventPlaceHolder": "Press Enter/Esc key to trigger the event"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "On",

@@ -65,4 +65,12 @@
               @bind-Value="@KeyText"></Textarea>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TextAreaKeyEventTitle"]"
+           Introduction="@Localizer["TextAreaKeyEventIntro"]"
+           Name="KeyEvent">
+    <Textarea rows="4" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync"
+              PlaceHolder="@Localizer["TextAreaKeyEventPlaceHolder"]"></Textarea>
+    <ConsoleLogger @ref="ConsoleLogger"></ConsoleLogger>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
