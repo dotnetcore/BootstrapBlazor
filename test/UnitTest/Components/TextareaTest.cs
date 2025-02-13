@@ -76,4 +76,20 @@ public class TextareaTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => { input.Blur(); });
         Assert.True(blur);
     }
+
+    [Fact]
+    public void UseShiftEnter_Ok()
+    {
+        var cut = Context.RenderComponent<Textarea>(builder =>
+        {
+            builder.Add(a => a.UseShiftEnter, true);
+        });
+        cut.Contains("data-bb-shift-enter=\"true\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.UseShiftEnter, false);
+        });
+        cut.DoesNotContain("data-bb-shift-enter=\"true\"");
+    }
 }

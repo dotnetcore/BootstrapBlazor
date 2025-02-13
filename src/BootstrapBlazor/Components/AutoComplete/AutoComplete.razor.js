@@ -1,4 +1,4 @@
-﻿import { debounce, getHeight } from "../../modules/utility.js"
+﻿import { debounce } from "../../modules/utility.js"
 import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"

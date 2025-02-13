@@ -3280,7 +3280,11 @@
     "TextAreaScrollToBottom": "滚动到底部",
     "TextAreaScrollToTop": "滚动到顶部",
     "TextAreaScrollTo": "滚动+20",
-    "TextAreaAutoScroll": "自动滚屏"
+    "TextAreaAutoScroll": "自动滚屏",
+    "TextAreaUseShiftEnterTitle": "Shift Enter",
+    "TextAreaUseShiftEnterIntro": "通过设置 <code>UseShiftEnter=\"true\"</code> 开始使用 <kbd>Shift</kbd> + <kbd>Enter</kbd> 进行换行操作，适用于对话框类应用",
+    "TextAreaUseShiftEnterPlaceHolder": "请输入一些文字，Enter 发送 Shift + Enter 换行",
+    "TextAreaUseShiftEnter": "是否使用 Shift + Enter 代替原回车按键行为"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "开启",

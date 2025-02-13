@@ -3280,7 +3280,11 @@
     "TextAreaScrollToBottom": "Scroll to bottom",
     "TextAreaScrollToTop": "Scroll to top",
     "TextAreaScrollTo": "Scroll +20",
-    "TextAreaAutoScroll": "Automatic scrolling"
+    "TextAreaAutoScroll": "Automatic scrolling",
+    "TextAreaUseShiftEnterTitle": "Shift Enter",
+    "TextAreaUseShiftEnterIntro": "By setting <code>UseShiftEnter=\"true\"</code> you can start using <kbd>Shift</kbd> + <kbd>Enter</kbd> for line breaks, which is suitable for dialog applications.",
+    "TextAreaUseShiftEnterPlaceHolder": "Please enter some text, Enter sends Shift + Enter line break",
+    "TextAreaUseShiftEnter": "Whether to use Shift + Enter instead of the original Enter key behavior"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "On",

@@ -35,9 +35,17 @@ public partial class Textarea
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否使用 Shift + Enter 代替原回车按键行为 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool UseShiftEnter { get; set; }
+
+    /// <summary>
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
+
+    private string? _shiftEnterString => UseShiftEnter ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
