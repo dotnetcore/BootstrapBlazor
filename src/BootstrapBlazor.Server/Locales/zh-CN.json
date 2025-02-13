@@ -3284,7 +3284,10 @@
     "TextAreaUseShiftEnterTitle": "Shift Enter",
     "TextAreaUseShiftEnterIntro": "通过设置 <code>UseShiftEnter=\"true\"</code> 开始使用 <kbd>Shift</kbd> + <kbd>Enter</kbd> 进行换行操作，适用于对话框类应用",
     "TextAreaUseShiftEnterPlaceHolder": "请输入一些文字，Enter 发送 Shift + Enter 换行",
-    "TextAreaUseShiftEnter": "是否使用 Shift + Enter 代替原回车按键行为"
+    "TextAreaUseShiftEnter": "是否使用 Shift + Enter 代替原回车按键行为",
+    "TextAreaKeyEventTitle": "Enter/Esc 按键事件",
+    "TextAreaKeyEventIntro": "通过设置 <code>OnEnterAsync</code> <code>OnEscAsync</code> 开始 <kbd>Enter</kbd> <kbd>Esc</kbd> 按键回调事件",
+    "TextAreaKeyEventPlaceHolder": "按下 Enter/Esc 键触发事件"
   },
   "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "开启",

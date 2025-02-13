@@ -90,6 +90,21 @@ public partial class TextAreas
         }
     }
 
+    [NotNull]
+    private ConsoleLogger? ConsoleLogger { get; set; }
+
+    private Task OnEnterAsync(string val)
+    {
+        ConsoleLogger.Log($"Trigger Enter Key Event");
+        return Task.CompletedTask;
+    }
+
+    private Task OnEscAsync(string val)
+    {
+        ConsoleLogger.Log($"Trigger Esc Key Event");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// Dispose
     /// </summary>
