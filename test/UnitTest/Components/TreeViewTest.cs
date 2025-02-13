@@ -364,6 +364,80 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task KeepExpandState_Ok()
+    {
+        // UI 重新刷新后保持状态节点状态
+        var items = TreeFoo.GetTreeItems();
+        items.RemoveAt(1);
+        items.RemoveAt(1);
+        items[0].HasChildren = true;
+
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnExpandNodeAsync, item =>
+            {
+                return OnExpandNodeAsync(item.Value);
+            });
+        });
+        var nodes = cut.FindAll(".tree-node");
+        Assert.Single(nodes);
+
+        // 展开节点
+        var bar = cut.Find(".fa-caret-right.visible");
+        await cut.InvokeAsync(() => bar.Click());
+
+        cut.WaitForAssertion(() =>
+        {
+            nodes = cut.FindAll(".tree-node");
+            Assert.Equal(3, nodes.Count);
+        });
+
+        // 重新渲染
+        items = TreeFoo.GetTreeItems();
+        items.RemoveAt(1);
+        items.RemoveAt(1);
+        items[0].HasChildren = true;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        cut.WaitForAssertion(() =>
+        {
+            nodes = cut.FindAll(".tree-node");
+            Assert.Equal(3, nodes.Count);
+        });
+
+        // 重新渲染
+        items = TreeFoo.GetTreeItems();
+        items.RemoveAt(1);
+        items.RemoveAt(1);
+        items[0].HasChildren = false;
+        items[0].Items =
+        [
+            new(new TreeFoo() { Id = "101", ParentId = "1010" })
+            {
+                Text = "懒加载子节点11",
+                HasChildren = true
+            },
+            new(new TreeFoo(){ Id = "102", ParentId = "1010" })
+            {
+                Text = "懒加载子节点22"
+            }
+        ];
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+        cut.WaitForAssertion(() =>
+        {
+            nodes = cut.FindAll(".tree-node");
+            Assert.Equal(3, nodes.Count);
+        });
+    }
+
+    [Fact]
     public async Task OnExpandRowAsync_CheckCascadeState_Ok()
     {
         var items = TreeFoo.GetCheckedTreeItems();

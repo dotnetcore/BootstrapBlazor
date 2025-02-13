@@ -37,15 +37,15 @@
     <section ignore>
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips1"].Value)</div>
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips2"].Value)</div>
-    </section>
-    <section ignore class="row form-inline">
-        <div class="col-12 col-lg-auto">
-            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
-            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
-        </div>
-        <div class="col-12 col-lg-auto">
-            <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
-            <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
+        <div class="row form-inline">
+            <div class="col-12 col-lg-auto">
+                <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren"></Checkbox>
+                <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3"></Checkbox>
+            </div>
+            <div class="col-12 col-lg-auto">
+                <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="@OnRefresh"></Button>
+                <Button Text="@Localizer["TreeViewCheckboxAddButtonText"]" OnClick="OnClickAddNode" class="ms-3"></Button>
+            </div>
         </div>
     </section>
     <TreeView Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent"></TreeView>
