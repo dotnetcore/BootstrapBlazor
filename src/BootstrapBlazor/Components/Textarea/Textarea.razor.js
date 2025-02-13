@@ -1,13 +1,24 @@
 ﻿import { select, handleKeyUp, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
+    var el = document.getElementById(id);
     const text = {
         prevMethod: '',
-        element: document.getElementById(id)
+        element: el
     }
 
-    Data.set(id, text)
+    Data.set(id, text);
+    EventHandler.on(el, 'keydown', e => {
+        if (e.key === "Enter" || e.key === "NumpadEnter") {
+            const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
+            const shiftKey = e.shiftKey;
+            if (!shiftKey || !useShiftEnter) {
+                e.preventDefault();
+            }
+        }
+    });
 }
 
 export function execute(id, method, position) {
@@ -36,7 +47,12 @@ export function execute(id, method, position) {
 }
 
 export function dispose(id) {
-    Data.remove(id)
+    const text = Data.get(id);
+    Data.remove(id);
+
+    if (text) {
+        EventHandler.off(text.element);
+    }
 }
 
 export { select, handleKeyUp, selectAllByFocus, selectAllByEnter }

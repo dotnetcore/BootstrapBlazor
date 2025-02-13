@@ -38,14 +38,23 @@ public partial class Textarea
 
     /// <summary>
     /// 获得/设置 文本框按键回调委托方法 默认为 null
+    /// <para>返回真时阻止按键</para>
     /// </summary>
     [Parameter]
-    public Func<KeyboardEventArgs, Task>? OnKeyUpAsync { get; set; }
+    public Func<KeyboardEventArgs, Task<bool>>? OnKeyDownAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否使用 Shift + Enter 代替原回车按键行为 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool UseShiftEnter { get; set; }
 
     /// <summary>
     /// 获得 客户端是否自动滚屏标识
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
+
+    private string? _shiftEnterString => UseShiftEnter ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -59,22 +68,6 @@ public partial class Textarea
         if (!firstRender)
         {
             await InvokeVoidAsync("execute", Id, "update");
-        }
-    }
-
-    private async Task OnKeyUp(KeyboardEventArgs args)
-    {
-        if (args.Key == "Enter" && OnEnterAsync != null)
-        {
-            await OnEnterAsync(Value);
-        }
-        if (args.Key == "Escape" && OnEscAsync != null)
-        {
-            await OnEscAsync(Value);
-        }
-        if (OnKeyUpAsync != null)
-        {
-            await OnKeyUpAsync(args);
         }
     }
 }
