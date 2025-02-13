@@ -366,7 +366,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 _shouldRender = true;
 
                 _rows = null;
-                _keyboardArrowUpDownTrigger = true;
             }
 
             if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
