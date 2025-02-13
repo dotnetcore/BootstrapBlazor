@@ -167,8 +167,16 @@ public partial class TextAreas
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Textarea.IsAutoScroll),
+            Name = nameof(Textarea.IsAutoScroll),
             Description = Localizer["TextAreaAutoScroll"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Textarea.UseShiftEnter),
+            Description = Localizer["TextAreaUseShiftEnter"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
