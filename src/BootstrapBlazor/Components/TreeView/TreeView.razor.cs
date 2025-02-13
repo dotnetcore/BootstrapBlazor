@@ -316,6 +316,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private string? EnableKeyboardString => EnableKeyboard ? "true" : null;
 
+    private bool _shouldRender = true;
+
     private static string? GetItemTextClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node-text")
         .AddClass(item.CssClass)
         .Build();
@@ -359,7 +361,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (Items.Count > 0)
             {
+                _shouldRender = false;
                 await CheckExpand(Items);
+                _shouldRender = true;
+
                 _rows = null;
                 _keyboardArrowUpDownTrigger = true;
             }
@@ -401,6 +406,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             await InvokeVoidAsync("scroll", Id, ScrollIntoViewOptions, _activeItem != null && IsVirtualize);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _shouldRender;
 
     /// <summary>
     /// <inheritdoc/>
