@@ -57,15 +57,12 @@
     </section>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TextAreaKeyUpTitle"]"
-           Introduction="@Localizer["TextAreaKeyUpIntro"]"
-           Name="KeyUp">
+<DemoBlock Title="@Localizer["TextAreaUseShiftEnterTitle"]"
+           Introduction="@Localizer["TextAreaUseShiftEnterIntro"]"
+           Name="UseShiftEnter">
     <Textarea rows="4" autocomplete="off" autocorrect="off" spellcheck="false"
-              UseInputEvent="true" UseShiftEnter="true" PlaceHolder="@Localizer["TextAreaKeyUpPlaceHolder"]"
+              UseInputEvent="true" UseShiftEnter="true" PlaceHolder="@Localizer["TextAreaUseShiftEnterPlaceHolder"]"
               @bind-Value="@KeyText"></Textarea>
-    <section ignore>
-        <ConsoleLogger @ref="Logger" IsHtml="true" />
-    </section>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

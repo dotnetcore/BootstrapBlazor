@@ -92,25 +92,6 @@ public partial class TextAreas
         }
     }
 
-    [NotNull]
-    private ConsoleLogger? Logger { get; set; }
-
-    private Task<bool> OnKeyDownAsync(KeyboardEventArgs args)
-    {
-        var ret = true;
-        if (args.ShiftKey && args.Key == "Enter")
-        {
-            Text += $"{Environment.NewLine}";
-            Logger.Log("Press <kbd>Shift</kbd> + <kbd>Enter</kbd>");
-            StateHasChanged();
-        }
-        else if (args.Key == "Enter")
-        {
-            Logger.Log("Press <kbd>Enter</kbd>: call some method.");
-        }
-        return Task.FromResult(ret);
-    }
-
     /// <summary>
     /// Dispose
     /// </summary>
