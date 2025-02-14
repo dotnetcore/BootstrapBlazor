@@ -43,7 +43,12 @@ public partial class Mask
 
         if (!firstRender)
         {
-            await InvokeVoidAsync("update", Id, new { Show = _options != null, _options?.ContainerId });
+            await InvokeVoidAsync("update", Id, new
+            {
+                Show = _options != null,
+                _options?.ContainerId,
+                _options?.Selector
+            });
         }
     }
 
