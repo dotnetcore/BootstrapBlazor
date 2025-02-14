@@ -38,7 +38,9 @@
             {
                 if (ItemTemplate != null)
                 {
-                    @ItemTemplate.Invoke(item)
+                    <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">
+                        @ItemTemplate(item)
+                    </div>
                 }
                 else if (item.IsDisabled)
                 {
