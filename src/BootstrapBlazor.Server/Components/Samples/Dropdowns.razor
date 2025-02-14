@@ -31,6 +31,17 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["DropdownItemTemplateTitle"]" Introduction="@Localizer["DropdownItemTemplateIntro"]" Name="ItemTemplate">
+    <Dropdown TValue="string" Items="ItemTemplateList">
+        <ItemTemplate>
+            <Tooltip Title="just a tooltip text demo" Trigger="hover">
+                <span class="fa-solid fa-flag"></span>
+                <div class="ms-2 flex-fill">@context.Text</div>
+            </Tooltip>
+        </ItemTemplate>
+    </Dropdown>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SplitTitle"]" Introduction='@Localizer["SplitIntro"]' Name="Split">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3">
