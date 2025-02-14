@@ -39,12 +39,14 @@ else
             }
             else
             {
-                @SearchTemplate
+                <div class="tree-search">
+                    @SearchTemplate
+                </div>
             }
         }
         @if (IsVirtualize)
         {
-            <div class="tree-root is-virtual" tabindex="0">
+            <div class="tree-root scroll is-virtual" tabindex="0">
                 <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Rows">
                     <ItemContent>
                         @RenderTreeRow(context)
@@ -54,7 +56,7 @@ else
         }
         else
         {
-            <div class="tree-root" tabindex="0">
+            <div class="tree-root scroll" tabindex="0">
                 @foreach (var item in Rows)
                 {
                     @RenderTreeRow(item)
