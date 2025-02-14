@@ -184,12 +184,20 @@
 
 <DemoBlock Title="@Localizer["TreeViewVirtualizeTitle"]"
            Introduction="@Localizer["TreeViewVirtualizeIntro"]"
-           Name="DefaultExpand">
-    <section ignore>
-        @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+           Name="IsVirtualize">
+    <section ignore class="row g-3">
+        <div class="col-12">
+            @((MarkupString)Localizer["TreeViewVirtualizeDescription"].Value)
+        </div>
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowSearch"></BootstrapInputGroupLabel>
+                <Switch @bind-Value="_showSearch"></Switch>
+            </BootstrapInputGroup>
+        </div>
     </section>
     <div style="height: 400px">
-        <TreeView Items="@VirtualizeItems" ShowCheckbox="true" IsVirtualize="true"
+        <TreeView Items="@VirtualizeItems" ShowCheckbox="true" ShowSearch="_showSearch" IsVirtualize="true"
                   AutoCheckChildren="true" AutoCheckParent="true"
                   OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
     </div>
