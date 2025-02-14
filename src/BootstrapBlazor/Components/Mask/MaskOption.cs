@@ -34,4 +34,9 @@ public class MaskOption
     /// 获得/设置 遮罩父容器 id 默认 null 未设置
     /// </summary>
     public string? ContainerId { get; set; }
+
+    /// <summary>
+    /// 获得/设置 遮罩父容器选择器 Selector 默认 null 未设置
+    /// </summary>
+    public string? Selector { get; set; }
 }
