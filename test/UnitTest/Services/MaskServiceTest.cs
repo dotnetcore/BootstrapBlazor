@@ -66,7 +66,8 @@ public class MaskServiceTest : TestBase
                         Opacity = 0.5f,
                         ZIndex = 1050,
                         ChildContent = builder => builder.AddContent(0, "test-mask-content"),
-                        ContainerId = "test-9527"
+                        ContainerId = "test-9527",
+                        Selector = "test-mask-selector"
                     });
                 });
             });
