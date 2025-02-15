@@ -606,6 +606,7 @@ public class UploadTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ButtonUpload_IsDirectory_Ok()
     {
+        var fileCount = 0;
         var fileNames = new List<string>();
         List<UploadFile> fileList = [];
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -613,6 +614,7 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsDirectory, true);
             pb.Add(a => a.OnChange, file =>
             {
+                fileCount = file.FileCount;
                 fileNames.Add(file.OriginFileName!);
                 return Task.CompletedTask;
             });
@@ -628,6 +630,7 @@ public class UploadTest : BootstrapBlazorTestBase
             new(),
             new("UploadTestFile2")
         })));
+        Assert.Equal(2, fileCount);
         Assert.Equal(2, fileNames.Count);
         Assert.Equal(2, fileList.Count);
     }

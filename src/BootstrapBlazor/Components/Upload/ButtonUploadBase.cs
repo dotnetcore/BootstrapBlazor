@@ -180,6 +180,7 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
                 OriginFileName = f.Name,
                 Size = f.Size,
                 File = f,
+                FileCount = args.FileCount,
                 Uploaded = OnChange == null,
                 UpdateCallback = Update
             }).ToList();

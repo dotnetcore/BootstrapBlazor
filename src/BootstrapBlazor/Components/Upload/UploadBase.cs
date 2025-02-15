@@ -21,7 +21,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         .Build();
 
     /// <summary>
-    /// 
+    /// 获得/设置 当前上传文件
     /// </summary>
     protected UploadFile? CurrentFile { get; set; }
 

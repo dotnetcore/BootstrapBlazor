@@ -48,6 +48,11 @@ public class UploadFile
     public IBrowserFile? File { get; set; }
 
     /// <summary>
+    /// 获得/设置 上传文件数量
+    /// </summary>
+    public int FileCount { get; init; } = 1;
+
+    /// <summary>
     /// 获得/设置 更新进度回调委托
     /// </summary>
     internal Action<UploadFile>? UpdateCallback { get; set; }
