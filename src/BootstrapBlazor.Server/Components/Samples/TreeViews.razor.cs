@@ -74,6 +74,8 @@ public sealed partial class TreeViews
 
     private Foo Model => Foo.Generate(LocalizerFoo);
 
+    private bool _showSearch;
+
     private string? _selectedValue;
 
     private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)

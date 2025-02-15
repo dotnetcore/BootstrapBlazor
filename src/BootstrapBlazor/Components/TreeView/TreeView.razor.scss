@@ -16,23 +16,20 @@
     --bb-tree-item-bg-radius: var(--bs-border-radius);
     position: relative;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 
     .tree-search {
-        padding: var(--bb-tree-padding);
         padding-bottom: .5rem;
-        background-color: var(--bs-body-bg);
-    }
-
-    &.is-fixed-search .tree-search {
-        position: sticky;
-        top: 0;
-        z-index: 5;
     }
 
     .tree-root {
         padding: var(--bb-tree-padding);
         margin: var(--bb-tree-margin);
         position: relative;
+        flex: 1;
+        min-height: 0;
+        height: 1%;
     }
 
     .tree-content {
