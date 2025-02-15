@@ -18,6 +18,8 @@ public sealed partial class Dropdowns
 
     private List<SelectedItem> Items { get; set; } = [];
 
+    private List<SelectedItem> ItemTemplateList { get; set; } = [];
+
     /// <summary>
     /// ShowMessage
     /// </summary>
@@ -35,6 +37,13 @@ public sealed partial class Dropdowns
         base.OnInitialized();
 
         Items =
+        [
+            new SelectedItem() { Text=Localizer["Item1"], Value="0"},
+            new SelectedItem() { Text=Localizer["Item2"], Value="1"},
+            new SelectedItem() { Text=Localizer["Item3"], Value="2"},
+        ];
+
+        ItemTemplateList =
         [
             new SelectedItem() { Text=Localizer["Item1"], Value="0"},
             new SelectedItem() { Text=Localizer["Item2"], Value="1"},

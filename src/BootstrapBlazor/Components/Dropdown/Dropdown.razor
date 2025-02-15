@@ -38,11 +38,13 @@
             {
                 if (ItemTemplate != null)
                 {
-                    @ItemTemplate.Invoke(item)
+                    <div class="@ActiveItem(item)">
+                        @ItemTemplate(item)
+                    </div>
                 }
                 else if (item.IsDisabled)
                 {
-                    <div class="@DisableItem(item)">@item.Text</div>
+                    <div class="@ActiveItem(item)">@item.Text</div>
                 }
                 else
                 {

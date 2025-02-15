@@ -63,14 +63,6 @@ public partial class Dropdown<TValue>
     /// <returns></returns>
     protected string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", () => item.Value == CurrentValueAsString)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 设置当前项是否 Active 方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected string? DisableItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
