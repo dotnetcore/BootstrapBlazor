@@ -3056,7 +3056,10 @@
     "RadiosAdd1": "北京",
     "RadiosAdd2": "上海",
     "RadioListGenericTitle": "泛型支持",
-    "RadioListGenericIntro": "通过使用 <code>RadioListGeneric</code> 组件配合 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持"
+    "RadioListGenericIntro": "通过使用 <code>RadioListGeneric</code> 组件配合 <code>SelectedItem&lt;TValue&gt;</code> 开启泛型支持",
+    "RadiosAutoSelectFirstWhenValueIsNullTitle": "自动选择第一候选项",
+    "RadiosAutoSelectFirstWhenValueIsNullIntro": "通过设置 <code>AutoSelectFirstWhenValueIsNull</code> 参数控制 <code>RadioList</code> 候选项选中情况，参数默认值为 <b>true</b>，即如果组件当前值与候选项中值无一致值时，自动选中第一个候选项，设置为 <b>false</b> 后，候选项将全部为未选中状态。",
+    "RadiosAutoSelectFirstWhenValueIsNull": "值未 null 时是否默认选中第一个候选项"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate 评分",

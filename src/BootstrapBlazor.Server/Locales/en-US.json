@@ -3056,7 +3056,10 @@
     "RadiosAdd1": "Beijing",
     "RadiosAdd2": "Shanghai",
     "RadioListGenericTitle": "Generic List",
-    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>"
+    "RadioListGenericIntro": "Enable generic support by using the <code>RadioListGeneric</code> component with <code>SelectedItem&lt;TValue&gt;</code>",
+    "RadiosAutoSelectFirstWhenValueIsNullTitle": "AutoSelectFirst",
+    "RadiosAutoSelectFirstWhenValueIsNullIntro": "The selection of <code>RadioList</code> candidates can be controlled by setting the <code>AutoSelectFirstWhenValueIsNull</code> parameter. The default value of the parameter is <b>true</b>, which means that if the current value of the component is inconsistent with the value in the candidate, the first candidate is automatically selected. If it is set to <b>false</b>, all candidates will be unselected.",
+    "RadiosAutoSelectFirstWhenValueIsNull": "Whether to select the first candidate by default when the value is not null"
   },
   "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",

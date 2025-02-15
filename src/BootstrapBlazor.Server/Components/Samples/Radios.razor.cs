@@ -17,6 +17,9 @@ public sealed partial class Radios
     private IEnumerable<SelectedItem>? DemoValues { get; set; }
 
     [NotNull]
+    private IEnumerable<SelectedItem>? AutoSelectValues { get; set; }
+
+    [NotNull]
     private IEnumerable<SelectedItem>? DisableValues { get; set; }
 
     [NotNull]
@@ -65,6 +68,12 @@ public sealed partial class Radios
         base.OnInitialized();
 
         DemoValues = new List<SelectedItem>(2)
+        {
+            new("1", Localizer["RadiosItem1"]),
+            new("2", Localizer["RadiosItem2"])
+        };
+
+        AutoSelectValues = new List<SelectedItem>(2)
         {
             new("1", Localizer["RadiosItem1"]),
             new("2", Localizer["RadiosItem2"])
@@ -177,6 +186,14 @@ public sealed partial class Radios
             Type = "IEnumerable<TItem>",
             ValueList = " — ",
             DefaultValue = "—"
+        },
+        new()
+        {
+            Name = "AutoSelectFirstWhenValueIsNull",
+            Description = Localizer["RadiosAutoSelectFirstWhenValueIsNull"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         }
     ];
 

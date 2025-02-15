@@ -13,6 +13,12 @@
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["RadiosAutoSelectFirstWhenValueIsNullTitle"]"
+           Introduction="@Localizer["RadiosAutoSelectFirstWhenValueIsNullIntro"]"
+           Name="AutoSelectFirstWhenValueIsNull">
+    <RadioList TValue="string" Items="@AutoSelectValues" AutoSelectFirstWhenValueIsNull="false" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["RadiosDisableTitle"]"
            Introduction='@Localizer["RadiosDisableIntro"]'
            Name="Disable">
