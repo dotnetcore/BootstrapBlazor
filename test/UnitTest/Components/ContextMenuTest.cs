@@ -247,4 +247,31 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             ]
         });
     }
+
+    [Fact]
+    public void ContextMenuDivider_Ok()
+    {
+        var cut = Context.RenderComponent<ContextMenuZone>(pb =>
+        {
+            pb.AddChildContent<ContextMenu>(pb =>
+            {
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(a => a.Text, "Item1");
+                });
+                pb.AddChildContent<ContextMenuDivider>();
+                pb.AddChildContent<ContextMenuItem>(builder =>
+                {
+                    builder.Add(a => a.Text, "Item2");
+                });
+            });
+        });
+
+        var menu = cut.Find(".dropdown-menu");
+        var children = menu.Children;
+        Assert.Equal(3, children.Length);
+        Assert.Equal("dropdown-item", children[0].ClassName);
+        Assert.Equal("divider", children[1].ClassName);
+        Assert.Equal("dropdown-item", children[2].ClassName);
+    }
 }
