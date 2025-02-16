@@ -116,18 +116,19 @@ public partial class Step
     }
 
     /// <summary>
-    /// 上一步
+    /// 移动到上一步方法 返回当前 StepIndex 值
     /// </summary>
-    public void Prev()
+    public int Prev()
     {
         _currentStepIndex = Math.Max(0, _currentStepIndex - 1);
         StateHasChanged();
+        return _currentStepIndex;
     }
 
     /// <summary>
-    /// 下一步
+    /// 移动到下一步方法 返回当前 StepIndex 值
     /// </summary>
-    public async Task Next()
+    public async Task<int> Next()
     {
         _currentStepIndex = Math.Min(Items.Count, _currentStepIndex + 1);
         if (IsFinished && OnFinishedCallback != null)
@@ -135,10 +136,11 @@ public partial class Step
             await OnFinishedCallback();
         }
         StateHasChanged();
+        return _currentStepIndex;
     }
 
     /// <summary>
-    /// 下一步
+    /// 重置步骤方法
     /// </summary>
     public void Reset()
     {
