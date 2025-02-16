@@ -22,7 +22,11 @@
                     <i class="@GetItemIconString(item)"></i>
                     <span>@item.Text</span>
                 </DynamicElement>
-            }    
+            }
+            else if (context is ComponentBase component)
+            {
+                 @BootstrapDynamicComponent.CreateComponent(component.GetType()).Render()
+            }
         }
     </RenderTemplate>
 </div>
