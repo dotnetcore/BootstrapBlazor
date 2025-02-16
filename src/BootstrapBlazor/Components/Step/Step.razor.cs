@@ -116,7 +116,7 @@ public partial class Step
     }
 
     /// <summary>
-    /// 上一步
+    /// 移动到上一步方法 返回当前 StepIndex 值
     /// </summary>
     public void Prev()
     {
@@ -125,7 +125,7 @@ public partial class Step
     }
 
     /// <summary>
-    /// 下一步
+    /// 移动到下一步方法 返回当前 StepIndex 值
     /// </summary>
     public async Task Next()
     {
@@ -138,7 +138,7 @@ public partial class Step
     }
 
     /// <summary>
-    /// 下一步
+    /// 重置步骤方法
     /// </summary>
     public void Reset()
     {
