@@ -41,7 +41,7 @@ public partial class ContextMenu
 
     private string ZoneId => ContextMenuZone.Id;
 
-    private List<ContextMenuItem> _contextMenuItems = [];
+    private readonly List<IContextMenuItem> _contextMenuItems = [];
 
     private static string? GetItemClassString(bool disabled) => CssBuilder.Default("dropdown-item")
         .AddClass("disabled", disabled)
