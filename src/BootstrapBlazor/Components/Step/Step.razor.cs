@@ -128,7 +128,7 @@ public partial class Step
     /// <summary>
     /// 移动到下一步方法 返回当前 StepIndex 值
     /// </summary>
-    public async Task Next()
+    public async Task<int> Next()
     {
         _currentStepIndex = Math.Min(Items.Count, _currentStepIndex + 1);
         if (IsFinished && OnFinishedCallback != null)
@@ -136,6 +136,7 @@ public partial class Step
             await OnFinishedCallback();
         }
         StateHasChanged();
+        return _currentStepIndex;
     }
 
     /// <summary>
