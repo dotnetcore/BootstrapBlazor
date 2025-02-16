@@ -118,10 +118,11 @@ public partial class Step
     /// <summary>
     /// 移动到上一步方法 返回当前 StepIndex 值
     /// </summary>
-    public void Prev()
+    public int Prev()
     {
         _currentStepIndex = Math.Max(0, _currentStepIndex - 1);
         StateHasChanged();
+        return _currentStepIndex;
     }
 
     /// <summary>
