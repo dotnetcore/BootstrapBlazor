@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuItem 类
 /// </summary>
-public class ContextMenuItem : ComponentBase, IDisposable
+public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
 {
     /// <summary>
     /// 获得/设置 显示文本
