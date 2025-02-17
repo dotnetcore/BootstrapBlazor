@@ -1029,9 +1029,14 @@
     "LabelsValidateForm2Description1": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
     "LabelsValidateForm2Description2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "LabelsValidateForm2Description3": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>",
-    "LabelsValidateForm2Description4": "<b>Tooltip</b>",
     "ValidateFormAlignRight": "<b>Right</b><div><code>form-inline-end</code> set the label alignment is right</div>",
-    "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>"
+    "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>",
+    "LabelsRowLabelWidthTitle": "Style setting label width",
+    "LabelsRowLabelWidthIntro": "Control label width by setting style variable <code>--bb-row-label-width</code>",
+    "LabelsWidthTitle": "Parameter setting label width",
+    "LabelsWidthIntro": "Control the label width by setting the variable <code>LabelWidth</code>",
+    "LabelsWidthDescription": "The components <code>ValidateForm</code> <code>EditorForm</code> <code>BootstrapLabelSetting</code> <code>ValidateForm</code> can set the label width value. The components use the <b>proximity principle</b> to determine the final value",
+    "LabelsWidthCode1": "As shown in the code above, the final value is <b>180</b> according to the principle of proximity"
   },
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "Install",

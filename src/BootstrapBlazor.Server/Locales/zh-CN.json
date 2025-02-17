@@ -1029,9 +1029,14 @@
     "LabelsValidateForm2Description1": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
     "LabelsValidateForm2Description2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "LabelsValidateForm2Description3": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>",
-    "LabelsValidateForm2Description4": "<b>标签提示</b>",
     "ValidateFormAlignRight": "<b>右对齐</b><div>通过设置样式 <code>form-inline-end</code> 标签右对齐</div>",
-    "ValidateFormAlignCenter": "<b>居中对齐</b><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>"
+    "ValidateFormAlignCenter": "<b>居中对齐</b><div>通过设置样式 <code>form-inline-center</code> 标签居中对齐</div>",
+    "LabelsRowLabelWidthTitle": "样式设置标签宽度",
+    "LabelsRowLabelWidthIntro": "通过设置样式变量 <code>--bb-row-label-width</code> 控制标签宽度",
+    "LabelsWidthTitle": "参数设置标签宽度",
+    "LabelsWidthIntro": "通过设置变量 <code>LabelWidth</code> 控制标签宽度",
+    "LabelsWidthDescription": "组件 <code>ValidateForm</code> <code>EditorForm</code> <code>BootstrapLabelSetting</code> <code>ValidateForm</code> 均可以设置标签宽度值，组件采用 <b>就近原则</b> 来确定最终值",
+    "LabelsWidthCode1": "如上代码所示, 根据就近原则最终取值 <b>180</b>"
   },
   "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "安装",
