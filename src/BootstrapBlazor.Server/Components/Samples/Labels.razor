@@ -201,12 +201,17 @@
             </div>
         </div>
     </ValidateForm>
+</DemoBlock>
 
-    <p class="mt-3">
-        @((MarkupString)Localizer["LabelsValidateForm2Description4"].Value)
-        <div>@((MarkupString)LocalizerForm["ValidateFormNormalFormLabelWidth"].Value)</div>
-        <div class="mt-2">@((MarkupString)LocalizerForm["LongDisplayDescription"].Value)</div>
-    </p>
+<DemoBlock Title="@Localizer["LabelsRowLabelWidthTitle"]" Introduction="@Localizer["LabelsRowLabelWidthIntro"]" Name="RowLabelWidth">
+    <section ignore>
+        <p>@((MarkupString)LocalizerForm["ValidateFormNormalFormLabelWidth"].Value)</p>
+        <p>@((MarkupString)LocalizerForm["LongDisplayDescription"].Value)</p>
+        <Pre>:root {
+    --bb-row-label-width: 120px;
+}</Pre>
+    </section>
+
     <ValidateForm Model="@Dummy4">
         <div class="row g-3">
             <div class="col-12">
@@ -218,5 +223,54 @@
                 <BootstrapInput @bind-Value="@Dummy4.Address" DisplayText="@LocalizerForm["LongDisplayText"]" ShowLabelTooltip="true" />
             </div>
         </div>
+    </ValidateForm>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LabelsWidthTitle"]" Introduction="@Localizer["LabelsWidthIntro"]" Name="LabelWidth">
+    <section ignore>
+        <p>@((MarkupString)Localizer["LabelsWidthDescription"].Value)</p>
+        <Pre>&lt;ValidateForm Model="@@Dummy4" LabelWidth="100"&gt;
+    &lt;EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right" LabelWidth="120"
+                AutoGenerateAllItem="false"&gt;
+        &lt;FieldItems&gt;
+            &lt;EditorItem @@bind-Field="@@Dummy4.Name"&gt;&lt;/EditorItem&gt;
+        &lt;/FieldItems&gt;
+    &lt;/EditorForm&gt;
+
+    &lt;BootstrapLabelSetting LabelWidth="220"&gt;
+        &lt;div class="row form-inline g-3 mt-0"&gt;
+            &lt;div class="col-12 col-sm-6"&gt;
+                &lt;BootstrapLabel LabelWidth="180" Value="@@LocalizerForm["LongDisplayText"]"&gt;&lt;/BootstrapLabel&gt;
+                &lt;BootstrapInput @@bind-Value="Dummy4.Name" ShowLabel="false" /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/BootstrapLabelSetting&gt;
+&lt;/ValidateForm&gt;</Pre>
+        <p>
+            @((MarkupString)Localizer["LabelsWidthCode1"].Value) <b>180</b>
+        </p>
+        <ul class="ul-demo">
+            <li><code>ValidateForm</code> <b>100</b></li>
+            <li><code>EditorForm</code> <b>120</b></li>
+            <li><code>BootstrapLabelSetting</code> <b>220</b></li>
+            <li><code>BootstrapLabel</code> <b>180</b></li>
+        </ul>
+    </section>
+    <ValidateForm Model="@Dummy4" LabelWidth="100">
+        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right" LabelWidth="120"
+                    AutoGenerateAllItem="false">
+            <FieldItems>
+                <EditorItem @bind-Field="@Dummy4.Name"></EditorItem>
+            </FieldItems>
+        </EditorForm>
+
+        <BootstrapLabelSetting LabelWidth="220">
+            <div class="row form-inline g-3 mt-0">
+                <div class="col-12 col-sm-6">
+                    <BootstrapLabel LabelWidth="180" Value="@LocalizerForm["LongDisplayText"]"></BootstrapLabel>
+                    <BootstrapInput @bind-Value="Dummy4.Name" ShowLabel="false" />
+                </div>
+            </div>
+        </BootstrapLabelSetting>
     </ValidateForm>
 </DemoBlock>
