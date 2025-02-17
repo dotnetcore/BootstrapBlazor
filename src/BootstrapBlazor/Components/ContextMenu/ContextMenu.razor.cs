@@ -41,7 +41,7 @@ public partial class ContextMenu
 
     private string ZoneId => ContextMenuZone.Id;
 
-    private List<ContextMenuItem> _contextMenuItems = [];
+    private readonly List<IContextMenuItem> _contextMenuItems = [];
 
     private static string? GetItemClassString(bool disabled) => CssBuilder.Default("dropdown-item")
         .AddClass("disabled", disabled)
@@ -112,11 +112,11 @@ public partial class ContextMenu
     /// 增加 ContextMenuItem 方法
     /// </summary>
     /// <param name="item"></param>
-    internal void AddItem(ContextMenuItem item) => _contextMenuItems.Add(item);
+    internal void AddItem(IContextMenuItem item) => _contextMenuItems.Add(item);
 
     /// <summary>
     /// 移除 ContextMenuItem 方法
     /// </summary>
     /// <param name="item"></param>
-    internal void RemoveItem(ContextMenuItem item) => _contextMenuItems.Remove(item);
+    internal void RemoveItem(IContextMenuItem item) => _contextMenuItems.Remove(item);
 }

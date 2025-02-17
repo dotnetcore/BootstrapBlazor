@@ -7,14 +7,22 @@
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        @foreach (var item in _contextMenuItems)
+        @foreach (var context in _contextMenuItems)
         {
-            var disabled = GetItemTriggerClick(item);
-            <DynamicElement @key="item" TagName="div" class="@GetItemClassString(disabled)"
-                            TriggerClick="!disabled" OnClick="() => OnClickItem(item)">
-                <i class="@GetItemIconString(item)"></i>
-                <span>@item.Text</span>
-            </DynamicElement>
+            if (context is ContextMenuDivider)
+            {
+                <Divider></Divider>
+                continue;
+            }
+            else if (context is ContextMenuItem item)
+            {
+                var disabled = GetItemTriggerClick(item);
+                <DynamicElement @key="item" TagName="div" class="@GetItemClassString(disabled)"
+                                TriggerClick="!disabled" OnClick="() => OnClickItem(item)">
+                    <i class="@GetItemIconString(item)"></i>
+                    <span>@item.Text</span>
+                </DynamicElement>
+            }
         }
     </RenderTemplate>
 </div>

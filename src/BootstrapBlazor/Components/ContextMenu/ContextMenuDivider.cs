@@ -3,43 +3,15 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ContextMenuItem 类
+/// ContextMenuDivider 组件
 /// </summary>
-public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
+public class ContextMenuDivider : Divider, IContextMenuItem, IDisposable
 {
-    /// <summary>
-    /// 获得/设置 显示文本
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/设置 图标
-    /// </summary>
-    [Parameter]
-    public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否被禁用 默认 false 优先级低于 <see cref="OnDisabledCallback"/>
-    /// </summary>
-    [Parameter]
-    public bool Disabled { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否被禁用回调方法 默认 null 优先级高于 <see cref="Disabled"/>
-    /// </summary>
-    [Parameter]
-    public Func<ContextMenuItem, object?, bool>? OnDisabledCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 点击回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
-
     [CascadingParameter]
     [NotNull]
     private ContextMenu? ContextMenu { get; set; }
@@ -53,6 +25,12 @@ public class ContextMenuItem : ComponentBase, IContextMenuItem, IDisposable
 
         ContextMenu.AddItem(this);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder) { }
 
     private bool disposedValue;
 
