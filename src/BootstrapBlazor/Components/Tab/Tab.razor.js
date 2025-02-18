@@ -13,6 +13,12 @@ const resize = tab => {
     if (wrap.classList.contains('extend')) {
         return
     }
+
+    const link = wrap.querySelector('.nav-link-bar');
+    if (link === null) {
+        return;
+    }
+
     const scroll = tab.scroll
     const lastItem = [...tabNav.querySelectorAll('.tabs-item')].pop()
     if (lastItem) {

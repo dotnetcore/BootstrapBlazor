@@ -45,6 +45,8 @@
 .tabs-nav-wrap {
     position: relative;
     height: var(--bb-tabs-item-height);
+    display: flex;
+    align-items: center;
 
     > .dropdown-toggle {
         &:after {
@@ -62,17 +64,15 @@
 }
 
 .tabs-nav-scroll {
-    position: absolute;
     overflow: hidden;
-    left: 0;
-    right: 0;
     height: 100%;
     border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    flex: 1;
+    width: 1%;
+    min-width: 0;
 }
 
 .extend .tabs-nav-scroll {
-    left: var(--bb-tabs-bar-width);
-    right: calc(2 * var(--bb-tabs-bar-width));
     border-radius: 0;
 }
 
@@ -85,7 +85,6 @@
 
 .tabs-nav-wrap {
     > .nav-link-bar {
-        position: absolute;
         cursor: pointer;
         font-size: 1rem;
         color: var(--bs-body-color);
@@ -98,20 +97,14 @@
 
         &.left {
             border-width: 0;
-            left: 0;
-            top: 0;
         }
 
         &.right {
             border-width: 0;
-            right: var(--bb-tabs-bar-width);
-            top: 0;
         }
 
         &.dropdown {
             border-width: 0 0 1px 1px;
-            right: 0;
-            top: 0;
             border-radius: 0 var(--bs-border-radius) 0 0;
         }
     }
@@ -130,17 +123,11 @@
 }
 
 .tabs .of .tabs-nav-scroll {
-    left: var(--bb-tabs-bar-width);
-    right: var(--bb-tabs-bar-width);
     border-radius: 0;
 }
 
 .tabs .of .nav-link-bar {
     display: flex;
-}
-
-.tabs .of .nav-link-bar.right {
-    right: 0;
 }
 
 .tabs .tabs-active-bar {
@@ -367,6 +354,7 @@
 
 .tabs.tabs-vertical > .tabs-header .tabs-nav-wrap {
     height: 100%;
+    flex-direction: column;
 }
 
 .tabs.tabs-vertical > .tabs-header .tabs-nav-wrap:after {
@@ -389,16 +377,9 @@
 
 .tabs.tabs-vertical > .tabs-header .tabs-nav-scroll {
     border-radius: 0;
-    top: 0;
-    bottom: 0;
-    height: auto;
-}
-
-.tabs.tabs-vertical > .tabs-header .of .tabs-nav-scroll {
-    top: var(--bb-tabs-bar-height);
-    bottom: var(--bb-tabs-bar-height);
-    left: 0;
-    right: 0;
+    height: 1%;
+    min-height: 0;
+    width: 100%;
 }
 
 .tabs.tabs-vertical > .tabs-header .tabs-active-bar {
@@ -475,14 +456,6 @@
 .tabs.tabs-vertical > .tabs-header .nav-link-bar {
     height: var(--bb-tabs-bar-height);
     width: 100%;
-}
-
-.tabs.tabs-vertical > .tabs-header .nav-link-bar.left {
-}
-
-.tabs.tabs-vertical > .tabs-header .nav-link-bar.right {
-    top: auto;
-    bottom: 0;
 }
 
 .tabs.tabs-right > .tabs-header .tabs-active-bar {
