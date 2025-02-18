@@ -227,6 +227,22 @@ public sealed partial class Tabs
         },
         new()
         {
+            Name = "ShowExtendButtons",
+            Description = Localizer["TabAttrShowNavigatorButtons"].Value,
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowExtendButtons",
+            Description = Localizer["TabAttrShowActiveBar"].Value,
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "ClickTabToNavigation",
             Description = Localizer["TabAtt6ClickTabToNavigation"].Value,
             Type = "boolean",
@@ -369,7 +385,6 @@ public sealed partial class Tabs
     /// <returns></returns>
     private MethodItem[] GetMethods() =>
     [
-
         new MethodItem()
         {
             Name = "AddTab",
