@@ -126,7 +126,7 @@ public partial class Tab : IHandlerException
     public bool ShowExtendButtons { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示导航按钮 默认为 true 显示
+    /// 获得/设置 是否显示前后导航按钮 默认为 true 显示
     /// </summary>
     [Parameter]
     public bool ShowNavigatorButtons { get; set; } = true;
