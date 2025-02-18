@@ -11,7 +11,10 @@ else
     <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
-                <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
+                @if (ShowNavigatorButtons)
+                {
+                    <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
+                }
                 <div class="tabs-nav-scroll">
                     <div role="tablist" class="tabs-nav">
                         <CascadingValue Value="this" IsFixed="true">
@@ -88,7 +91,10 @@ else
                 {
                     @ButtonTemplate
                 }
-                <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
+                @if (ShowNavigatorButtons)
+                {
+                    <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
+                }
                 @if (ShouldShowExtendButtons())
                 {
                     <div class="nav-link-bar dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
