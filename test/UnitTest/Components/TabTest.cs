@@ -656,6 +656,28 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowActiveBar_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowActiveBar, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+        cut.Contains("<div class=\"tabs-active-bar\"></div>");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowActiveBar, false);
+        });
+        cut.DoesNotContain("<div class=\"tabs-active-bar\"></div>");
+    }
+
+    [Fact]
     public void Text_Ok()
     {
         var text = "Tab1";
