@@ -109,11 +109,14 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <returns></returns>
     public override IEnumerable<IDynamicObject> GetItems()
     {
-        if (!UseCache)
+        if (UseCache)
         {
-            Items = null;
+            Items ??= BuildItems();
         }
-        Items ??= BuildItems();
+        else
+        {
+            Items = BuildItems();
+        }
         return Items;
     }
 
