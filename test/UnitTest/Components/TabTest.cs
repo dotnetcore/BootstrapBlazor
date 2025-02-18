@@ -631,6 +631,31 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowNavigatorButtons_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ShowNavigatorButtons, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+            });
+        });
+
+        var links = cut.FindAll(".nav-link-bar");
+        Assert.Equal(2, links.Count);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowNavigatorButtons, false);
+        });
+        links = cut.FindAll(".nav-link-bar");
+        Assert.Empty(links);
+    }
+
+    [Fact]
     public void Text_Ok()
     {
         var text = "Tab1";

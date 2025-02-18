@@ -1,0 +1,55 @@
+<Solution>
+  <Folder Name="/configuration/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="exclusion.dic" />
+    <File Path="Framework.props" />
+  </Folder>
+  <Folder Name="/docs/">
+    <File Path="README.md" />
+    <File Path="README.zh-CN.md" />
+  </Folder>
+  <Folder Name="/localization/">
+    <File Path="localization/de.json" />
+    <File Path="localization/es.json" />
+    <File Path="localization/pt.json" />
+    <File Path="localization/th-TH.json" />
+    <File Path="localization/zh-TW.json" />
+  </Folder>
+  <Folder Name="/scripts/" />
+  <Folder Name="/scripts/linux/">
+    <File Path="scripts/linux/ba.blazor.service" />
+    <File Path="scripts/linux/deploy-blazor.sh" />
+    <File Path="scripts/linux/deploy.sh" />
+    <File Path="scripts/linux/nginx.conf" />
+    <File Path="scripts/linux/remove.sh" />
+  </Folder>
+  <Folder Name="/scripts/linux/cert/">
+    <File Path="scripts/linux/cert/blazor.zone.cer" />
+    <File Path="scripts/linux/cert/blazor.zone.key" />
+    <File Path="scripts/linux/cert/www.blazor.zone.cer" />
+    <File Path="scripts/linux/cert/www.blazor.zone.key" />
+  </Folder>
+  <Folder Name="/scripts/wasm/">
+    <File Path="scripts/wasm/sync.cmd" />
+    <File Path="scripts/wasm/sync.sh" />
+  </Folder>
+  <Folder Name="/scripts/windows/">
+    <File Path="scripts/windows/pack.cmd" />
+    <File Path="scripts/windows/push.cmd" />
+    <File Path="scripts/windows/push.ps1" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/BootstrapBlazor.Server/BootstrapBlazor.Server.csproj" />
+    <Project Path="src/BootstrapBlazor/BootstrapBlazor.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/UniTest.Sass/UniTest.Sass.csproj" />
+    <Project Path="test/UnitTest.Localization/UnitTest.Localization.csproj" />
+    <Project Path="test/UnitTest/UnitTest.csproj" />
+    <Project Path="test/UnitTestDocs/UnitTestDocs.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Benchmarks/UnitTest.Benchmarks.csproj" />
+  </Folder>
+</Solution>
