@@ -132,6 +132,12 @@ public partial class Tab : IHandlerException
     public bool ShowNavigatorButtons { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示活动标签 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowActiveBar { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 点击 TabItem 时是否自动导航 默认为 false 不导航
     /// </summary>
     [Parameter]
