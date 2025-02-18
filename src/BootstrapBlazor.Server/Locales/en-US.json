@@ -2085,6 +2085,8 @@
     "TabAtt3IsOnlyRenderActiveTab": "Whether to render only Active labels",
     "TabAtt4ShowClose": "Whether to display the close button",
     "TabAtt5ShowExtendButtons": "Whether to display the extension button",
+    "TabAttShowNavigatorButtons": "Whether to display the previous and next navigation buttons",
+    "TabAttShowActiveBar": "Whether to display active bar",
     "TabAtt6ClickTabToNavigation": "Whether to navigate when you click on the title",
     "TabAtt7Placement": "Set the label position",
     "TabAtt8Height": "Set the label height",

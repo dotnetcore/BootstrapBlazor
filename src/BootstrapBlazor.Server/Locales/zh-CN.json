@@ -2085,6 +2085,8 @@
     "TabAtt3IsOnlyRenderActiveTab": "是否仅渲染 Active 标签",
     "TabAtt4ShowClose": "是否显示关闭按钮",
     "TabAtt5ShowExtendButtons": "是否显示扩展按钮",
+    "TabAttShowNavigatorButtons": "是否显示前后导航按钮",
+    "TabAttShowActiveBar": "是否显示活动标签",
     "TabAtt6ClickTabToNavigation": "点击标题时是否导航",
     "TabAtt7Placement": "设置标签位置",
     "TabAtt8Height": "设置标签高度",
