@@ -29,6 +29,11 @@ public class DataTableDynamicContext : DynamicObjectContext
     private Action<DataTableDynamicContext, ITableColumn>? AddAttributesCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否启用内部缓存 默认 true 启用
+    /// </summary>
+    public bool UseCache { get; set; } = true;
+
+    /// <summary>
     /// 负责将 DataRow 与 Items 关联起来方便查找提高效率
     /// </summary>
     private ConcurrentDictionary<Guid, (IDynamicObject DynamicObject, DataRow Row)> Caches { get; } = new();
@@ -104,7 +109,14 @@ public class DataTableDynamicContext : DynamicObjectContext
     /// <returns></returns>
     public override IEnumerable<IDynamicObject> GetItems()
     {
-        Items ??= BuildItems();
+        if (UseCache)
+        {
+            Items ??= BuildItems();
+        }
+        else
+        {
+            Items = BuildItems();
+        }
         return Items;
     }
 
