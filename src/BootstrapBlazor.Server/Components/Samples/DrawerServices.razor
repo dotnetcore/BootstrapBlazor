@@ -48,7 +48,7 @@ private Func&lt;Task&gt;? OnCloseAsync { get; set; }</Pre>
             <li>关闭按钮 <code>DialogCloseButton</code></li>
             <p>点击后直接关窗，不进行业务逻辑处理</p>
             <li>保存按钮 <code>DialogSaveButton</code></li>
-            <p>点击后触发 <b>Table</b> 组件内置的保存逻辑，此按钮实际为 <code>submit</code> 按钮，提交表单后触发表单验证逻辑，通过数据有效性验证后调用表格组件 <code>OnSaveAsync</code> 回调方法，控制权再次转移到开发者</p>
+            <p>点击按钮后触发 <code>OnSaveAsync</code> 回调方法，根据返回值决定是否关闭弹窗，返回 <b>true</b> 时关闭</p>
         </ul>
     </GroupBox>
 </div>
