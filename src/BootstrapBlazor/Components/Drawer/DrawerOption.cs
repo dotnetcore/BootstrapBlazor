@@ -79,4 +79,9 @@ public class DrawerOption
     /// 获得/设置 相关连数据，多用于传值使用
     /// </summary>
     public object? BodyContext { get; set; }
+
+    /// <summary>
+    /// 获得/设置 z-index 参数值 默认 null 未设置
+    /// </summary>
+    public int? ZIndex { get; set; }
 }
