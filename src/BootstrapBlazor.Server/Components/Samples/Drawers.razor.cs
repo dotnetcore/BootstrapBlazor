@@ -158,6 +158,14 @@ public sealed partial class Drawers
         },
         new()
         {
+            Name = "ZIndex",
+            Description = "sets the z-order",
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(Drawer.OnCloseAsync),
             Description = "The callback when close drawer",
             Type = "Func<Task>",

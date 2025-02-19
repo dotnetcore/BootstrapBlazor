@@ -29,26 +29,28 @@ private DrawerService? DrawerService { get; set; }</Pre>
 
 <p class="code-label">4. 常见问题</p>
 
-<div>
-    <GroupBox Title="代码中如何关闭弹窗" class="mb-3">
-        <p>在使用弹窗的过程中基本都是需要根据自己的业务需求放置一些业务逻辑处理按钮的，比如放置 <b>关闭</b> <b>保存</b> <b>应用</b> 等等，这些按钮逻辑有些是需要处理业务逻辑结束后，根据业务逻辑处理结果决定是否关闭弹窗，代码关闭弹窗我们组件库内置了一下几种办法</p>
+<GroupBox Title="代码中如何关闭弹窗" class="mb-3">
+    <p>在使用弹窗的过程中基本都是需要根据自己的业务需求放置一些业务逻辑处理按钮的，比如放置 <b>关闭</b> <b>保存</b> <b>应用</b> 等等，这些按钮逻辑有些是需要处理业务逻辑结束后，根据业务逻辑处理结果决定是否关闭弹窗，代码关闭弹窗我们组件库内置了一下几种办法</p>
 
-        <ul class="ul-demo">
-            <li>弹窗关闭按钮 <code>DialogCloseButton</code></li>
-            <p>这个组件时专门为弹窗设计的按钮组件，此组件内置了关闭所在弹窗功能，无需任何代码</p>
-            <Pre>&lt;DialogCloseButton&gt;</Pre>
-            <p>业务逻辑可使用 <code>OnClick</code> 或者 <code>OnClickWithoutRender</code> 处理，结束后自动关闭弹窗</p>
-            <li>关闭回调方法</li>
-            <Pre class="mt-3">[CascadingParameter]
+    <ul class="ul-demo">
+        <li>弹窗关闭按钮 <code>DialogCloseButton</code></li>
+        <p>这个组件时专门为弹窗设计的按钮组件，此组件内置了关闭所在弹窗功能，无需任何代码</p>
+        <Pre>&lt;DialogCloseButton&gt;</Pre>
+        <p>业务逻辑可使用 <code>OnClick</code> 或者 <code>OnClickWithoutRender</code> 处理，结束后自动关闭弹窗</p>
+        <li>关闭回调方法</li>
+        <Pre class="mt-3">[CascadingParameter]
 private Func&lt;Task&gt;? OnCloseAsync { get; set; }</Pre>
-            <p>弹窗内部任何组件中均可以通过此级联参数获得一个关闭弹窗的方法，可以根据自己的业务逻辑需求自行调用关闭弹窗</p>
-            <p><b>注意：</b>级联参数定义可以随意不一定是 <code>OnCloseAsync</code> 也可以根据自己需要更改为 <code>CloseDrawerAsync</code></p>
-        </ul>
-        <ul class="ul-demo">
-            <li>关闭按钮 <code>DialogCloseButton</code></li>
-            <p>点击后直接关窗，不进行业务逻辑处理</p>
-            <li>保存按钮 <code>DialogSaveButton</code></li>
-            <p>点击后触发 <b>Table</b> 组件内置的保存逻辑，此按钮实际为 <code>submit</code> 按钮，提交表单后触发表单验证逻辑，通过数据有效性验证后调用表格组件 <code>OnSaveAsync</code> 回调方法，控制权再次转移到开发者</p>
-        </ul>
-    </GroupBox>
-</div>
+        <p>弹窗内部任何组件中均可以通过此级联参数获得一个关闭弹窗的方法，可以根据自己的业务逻辑需求自行调用关闭弹窗</p>
+        <p><b>注意：</b>级联参数定义可以随意不一定是 <code>OnCloseAsync</code> 也可以根据自己需要更改为 <code>CloseDrawerAsync</code></p>
+    </ul>
+    <ul class="ul-demo">
+        <li>关闭按钮 <code>DialogCloseButton</code></li>
+        <p>点击后直接关窗，不进行业务逻辑处理</p>
+        <li>保存按钮 <code>DialogSaveButton</code></li>
+        <p>点击按钮后触发 <code>OnSaveAsync</code> 回调方法，根据返回值决定是否关闭弹窗，返回 <b>true</b> 时关闭</p>
+    </ul>
+</GroupBox>
+
+<GroupBox Title="设置 z-index 调整遮挡问题">
+    <p>通过设置 <code>DrawerOption</code> 参数 <code>ZIndex</code> 值调节抽屉 z-index 位置，防止被其他弹窗遮挡</p>
+</GroupBox>
