@@ -81,6 +81,10 @@ public class DrawerContainer : ComponentBase, IDisposable
         {
             parameters.Add(nameof(Drawer.Height), option.Height);
         }
+        if (option.ZIndex.HasValue)
+        {
+            parameters.Add(nameof(Drawer.ZIndex), option.ZIndex);
+        }
         var content = option.GetContent();
         if (content != null)
         {
