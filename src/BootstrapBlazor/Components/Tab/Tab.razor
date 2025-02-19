@@ -11,6 +11,10 @@ else
     <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
+                @if (BeforeNavigatorTemplate != null)
+                {
+                    @BeforeNavigatorTemplate
+                }
                 @if (ShowNavigatorButtons)
                 {
                     <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
@@ -105,6 +109,10 @@ else
                         <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
                         <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
                     </div>
+                }
+                @if (AfterNavigatorTemplate != null)
+                {
+                    @AfterNavigatorTemplate
                 }
             </div>
         </div>

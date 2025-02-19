@@ -877,6 +877,27 @@ public class TabTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button.Click());
     }
 
+    [Fact]
+    public void BeforeNavigatorTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Tab>(pb =>
+            {
+                pb.Add(a => a.BeforeNavigatorTemplate, builder => builder.AddContent(0, "before-navigator-template"));
+                pb.Add(a => a.AfterNavigatorTemplate, builder => builder.AddContent(0, "after-navigator-template"));
+                pb.AddChildContent<TabItem>(pb =>
+                {
+                    pb.Add(a => a.ShowFullScreen, true);
+                    pb.Add(a => a.Text, "Text1");
+                    pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                });
+            });
+        });
+        cut.Contains("before-navigator-template");
+        cut.Contains("after-navigator-template");
+    }
+
     class DisableTabItemButton : ComponentBase
     {
         [CascadingParameter, NotNull]

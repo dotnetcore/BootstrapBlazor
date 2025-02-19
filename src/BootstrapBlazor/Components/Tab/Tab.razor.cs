@@ -227,6 +227,20 @@ public partial class Tab : IHandlerException
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 标签页前置模板 默认 null
+    /// <para>在向前移动标签页按钮前</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? BeforeNavigatorTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页后置模板 默认 null
+    /// <para>在向后移动标签页按钮前</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? AfterNavigatorTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 上一个标签图标
     /// </summary>
     [Parameter]
