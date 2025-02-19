@@ -44,7 +44,10 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
         {
             _jsModule ??= await runtime.LoadModuleByName("client");
             _interop ??= DotNetObjectReference.Create(this);
-            await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
+            await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData), new
+            {
+                options.CurrentValue.WebClientOptions.EnableIpLocator
+            });
 
             // 等待 SetData 方法执行完毕
             await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(3));

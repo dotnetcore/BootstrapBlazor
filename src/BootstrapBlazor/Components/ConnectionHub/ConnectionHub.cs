@@ -51,7 +51,8 @@ public class ConnectionHub : BootstrapModuleComponentBase
                 Method = nameof(Callback),
                 ConnectionId = Guid.NewGuid(),
                 Interval = options.BeatInterval.TotalMilliseconds,
-                Url = "ip.axd"
+                Url = "ip.axd",
+                BootstrapBlazorOptions.Value.WebClientOptions.EnableIpLocator
             });
         }
     }
