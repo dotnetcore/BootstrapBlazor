@@ -62,33 +62,15 @@ public class IpLocatorTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task JuHeIpLocatorProvider_Ok()
-    {
-        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
-        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        var logger = Context.Services.GetRequiredService<ILogger<JuHeIpLocatorProvider>>();
-        var configuration = Context.Services.GetRequiredService<IConfiguration>();
-        var provider = new MockJuHeProvider(factory, configuration, option, logger);
-
-        var result = await provider.Locate("127.0.0.1");
-        Assert.Equal("localhost", result);
-
-        result = await provider.Locate("");
-        Assert.Equal("localhost", result);
-
-        // 河南省漯河市 移动
-        result = await provider.Locate("223.91.188.112");
-        Assert.Equal("省份城市区县 测试", result);
-    }
-
-    [Fact]
     public void Factory_Ok()
     {
         var factory = Context.Services.GetRequiredService<IIpLocatorFactory>();
         Assert.NotNull(factory.Create("BaiduIpLocatorProviderV2"));
         Assert.NotNull(factory.Create("BaiduIpLocatorProvider"));
-        Assert.NotNull(factory.Create("JuHeIpLocatorProvider"));
         Assert.NotNull(factory.Create());
+
+        Assert.NotNull(Context.Services.GetKeyedService<IIpLocatorProvider>("BaiduIpLocatorProvider"));
+        Assert.NotNull(Context.Services.GetKeyedService<IIpLocatorProvider>("BaiduIpLocatorProviderV2"));
     }
 
     [Fact]
@@ -111,12 +93,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         var cancelPprovider = new MockProviderFetchCancelError(factory, option, logger);
         result = await cancelPprovider.Locate("223.91.188.112");
         Assert.Null(result);
-
-        var configuration = Context.Services.GetRequiredService<IConfiguration>();
-        var juHeLogger = Context.Services.GetRequiredService<ILogger<JuHeIpLocatorProvider>>();
-        var juHeProvider = new MockProviderJuHeFetchError(factory, configuration, option, juHeLogger);
-        result = await juHeProvider.Locate("223.91.188.112");
-        Assert.Null(result);
     }
 
     [Fact]
@@ -134,32 +110,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         var providerV2 = new MockBaiduProviderV2(factory, option, loggerV2);
         result = await providerV2.Locate("223.91.188.112");
         Assert.Null(result);
-
-        var configuration = Context.Services.GetRequiredService<IConfiguration>();
-        var loggerJuHe = Context.Services.GetRequiredService<ILogger<JuHeIpLocatorProvider>>();
-        var providerJuHe = new MockJuHeNullProvider(factory, configuration, option, loggerJuHe);
-        result = await providerJuHe.Locate("223.91.188.112");
-        Assert.Null(result);
-
-        var providerJuHeFailed = new MockJuHeFailProvider(factory, configuration, option, loggerJuHe);
-        result = await providerJuHeFailed.Locate("223.91.188.112");
-        Assert.Null(result);
-    }
-
-    [Fact]
-    public async Task JuHe_Section_Error()
-    {
-        var factory = Context.Services.GetRequiredService<IHttpClientFactory>();
-        var option = Context.Services.GetRequiredService<IOptions<BootstrapBlazorOptions>>();
-        var logger = Context.Services.GetRequiredService<ILogger<JuHeIpLocatorProvider>>();
-        var builder = new ConfigurationBuilder();
-        builder.AddInMemoryCollection(new Dictionary<string, string?>
-        {
-            ["JuHe:IpLocatorKey"] = ""
-        });
-        var configuration = builder.Build();
-        var provider = new MockJuHeNullProvider(factory, configuration, option, logger);
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await provider.Locate("223.91.188.112"));
     }
 
     class MockProviderFetchError(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProviderFetchError> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
@@ -170,11 +120,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
     class MockProviderFetchCancelError(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProviderFetchError> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
     {
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token) => throw new TaskCanceledException();
-    }
-
-    class MockProviderJuHeFetchError(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> option, ILogger<JuHeIpLocatorProvider> logger) : JuHeIpLocatorProvider(httpClientFactory, configuration, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token) => throw new InvalidOperationException();
     }
 
     class MockBaiduProvider(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockBaiduProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
@@ -195,24 +140,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         }
     }
 
-    class MockJuHeNullProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> option, ILogger<JuHeIpLocatorProvider> logger) : JuHeIpLocatorProvider(httpClientFactory, configuration, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpNullMessageHandler(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
-    class MockJuHeFailProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> option, ILogger<JuHeIpLocatorProvider> logger) : JuHeIpLocatorProvider(httpClientFactory, configuration, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpFailedMessageHandlerJuHe(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
     class MockProvider(IHttpClientFactory httpClientFactory, IOptions<BootstrapBlazorOptions> option, ILogger<MockProvider> logger) : BaiduIpLocatorProvider(httpClientFactory, option, logger)
     {
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
@@ -227,24 +154,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
         {
             client = new HttpClient(new MockHttpSuccessMessageHandlerV2(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
-    class MockJuHeProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> option, ILogger<JuHeIpLocatorProvider> logger) : JuHeIpLocatorProvider(httpClientFactory, configuration, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpSuccessMessageHandlerJuHe(), true);
-            return base.Fetch(url, client, token);
-        }
-    }
-
-    class MockJuHeFailedProvider(IHttpClientFactory httpClientFactory, IConfiguration configuration, IOptions<BootstrapBlazorOptions> option, ILogger<JuHeIpLocatorProvider> logger) : JuHeIpLocatorProvider(httpClientFactory, configuration, option, logger)
-    {
-        protected override Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
-        {
-            client = new HttpClient(new MockHttpFailedMessageHandlerJuHe(), true);
             return base.Fetch(url, client, token);
         }
     }
