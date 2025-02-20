@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <IsWebProject>true</IsWebProject>
@@ -31,7 +31,7 @@
     <PackageReference Include="BootstrapBlazor.Chart" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
-    <PackageReference Include="BootstrapBlazor.DockView" Version="9.0.3" />
+    <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
@@ -41,6 +41,7 @@
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.1" />
