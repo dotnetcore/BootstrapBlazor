@@ -79,6 +79,9 @@ public static class ServiceCollectionSharedExtensions
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExportService();
 
+        // 增加离线 IP 定位服务
+        services.AddBootstrapBlazorIP2RegionfService();
+
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>
