@@ -4142,7 +4142,7 @@
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating",
-    "LocatorsProviderDesc": "The component library has two built-in geolocation locators: <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
+    "LocatorsProviderDesc": "<p>The component library has two built-in free online geolocation locators, <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>The component library has a built-in paid online geolocation locator <code>JuHeIpLocatorProvider</code> <a href=\"https://juhe.cn\" target=\"_blank\">Official website address</a></p><p>The component library has a built-in free offline geolocation locator <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget package</a></p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",

@@ -4142,7 +4142,7 @@
     "LocatorsNormalInputText": "Ip 地址",
     "LocatorsNormalDisplayText": "地理位置",
     "LocatorsNormalButtonText": "定位",
-    "LocatorsProviderDesc": "组件库内置两个地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code>"
+    "LocatorsProviderDesc": "<p>组件库内置两个免费在线地理位置定位器分别为 <code>BaiduIpLocatorProvider</code> <code>BaiduIpLocatorProviderV2</code><p><p>组件库内置一个收费在线地理位置定位器 <code>JuHeIpLocatorProvider</code> <a href=\"https://juhe.cn\" target=\"_blank\">官网地址</a></p><p>组件库内置一个免费离线地理位置定位器 <code>BootstrapBlazor.IP2Region</code> <a href=\"https://www.nuget.org/packages/BootstrapBlazor.IP2Region\" target=\"_blank\">Nuget 包</a></p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print 打印按钮",
