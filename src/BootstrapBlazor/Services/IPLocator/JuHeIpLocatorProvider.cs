@@ -21,7 +21,7 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
 {
     private HttpClient? _client;
 
-    private string? _key;
+    private JuHeIpLocatorOptions? _options;
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,13 +30,12 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
     protected override async Task<string?> LocateByIp(string ip)
     {
         string? ret = null;
-        _key ??= GetKey();
-        var url = $"https://apis.juhe.cn/iplocation/ipv4dist/query?ip={ip}&key={_key}";
+        _options ??= GetOptions();
+        var url = $"{_options.Url}?ip={ip}&key={_options.Key}";
         try
         {
             _client ??= httpClientFactory.CreateClient();
-            using var token = new CancellationTokenSource(3000);
-            ret = await Fetch(url, _client, token.Token);
+            ret = await Fetch(url, _client);
         }
         catch (Exception ex)
         {
@@ -45,14 +44,27 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
         return ret;
     }
 
-    private string GetKey()
+    private JuHeIpLocatorOptions GetOptions()
     {
-        var ret = configuration["JuHe:IpLocatorKey"];
-        if (string.IsNullOrEmpty(ret))
+        var options = new JuHeIpLocatorOptions();
+
+        try
         {
-            throw new InvalidOperationException("JuHe:IpLocatorKey not value in appsettings configuration file. 未配置 JuHe:IpLocatorKey 请在 appsettings.json 中配置 JuHe:IpLocatorKey");
+            configuration.Bind(nameof(JuHeIpLocatorOptions), options);
+            if (string.IsNullOrEmpty(options.Key))
+            {
+                throw new InvalidOperationException($"{nameof(JuHeIpLocatorOptions)}:Key not value in appsettings configuration file. 未配置 {nameof(JuHeIpLocatorOptions)}:Key 请在 appsettings.json 中配置 {nameof(JuHeIpLocatorOptions)}:Key");
+            }
+            if (string.IsNullOrEmpty(options.Url))
+            {
+                options.Url = "http://apis.juhe.cn/ip/ipNewV3";
+            }
         }
-        return ret;
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "{GetOptions} failed", nameof(GetOptions));
+        }
+        return options;
     }
 
     /// <summary>
@@ -60,11 +72,11 @@ public class JuHeIpLocatorProvider(IHttpClientFactory httpClientFactory, IConfig
     /// </summary>
     /// <param name="url"></param>
     /// <param name="client"></param>
-    /// <param name="token"></param>
     /// <returns></returns>
-    protected virtual async Task<string?> Fetch(string url, HttpClient client, CancellationToken token)
+    private async Task<string?> Fetch(string url, HttpClient client)
     {
-        var result = await client.GetFromJsonAsync<LocationResult>(url, token);
+        using var token = new CancellationTokenSource(_options?.Timeout ?? TimeSpan.FromSeconds(3));
+        var result = await client.GetFromJsonAsync<LocationResult>(url, token.Token);
         if (result != null && result.ErrorCode != 0)
         {
             logger.LogError("ErrorCode: {ErrorCode} Reason: {Reason}", result.ErrorCode, result.Reason);
