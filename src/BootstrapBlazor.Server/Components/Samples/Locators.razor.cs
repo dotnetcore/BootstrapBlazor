@@ -42,11 +42,11 @@ public partial class Locators
     {
         base.OnInitialized();
 
-        _providers = IpLocatorProviders.Select(provider => new SelectedItem
+        _providers = [.. IpLocatorProviders.Select(provider => new SelectedItem
         {
             Text = provider.GetType().Name,
             Value = provider.GetType().Name
-        }).ToList();
+        })];
     }
 
     /// <summary>
