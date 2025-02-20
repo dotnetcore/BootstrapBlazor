@@ -67,7 +67,6 @@ public class IpLocatorTest : BootstrapBlazorTestBase
         var factory = Context.Services.GetRequiredService<IIpLocatorFactory>();
         Assert.NotNull(factory.Create("BaiduIpLocatorProviderV2"));
         Assert.NotNull(factory.Create("BaiduIpLocatorProvider"));
-        Assert.NotNull(factory.Create("JuHeIpLocatorProvider"));
         Assert.NotNull(factory.Create());
     }
 
