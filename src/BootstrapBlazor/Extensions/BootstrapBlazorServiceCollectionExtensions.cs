@@ -50,6 +50,11 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>();
         services.AddSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>();
 
+#if NET8_0_OR_GREATER
+        services.AddKeyedSingleton<IIpLocatorProvider, BaiduIpLocatorProvider>(nameof(BaiduIpLocatorProvider));
+        services.AddKeyedSingleton<IIpLocatorProvider, BaiduIpLocatorProviderV2>(nameof(BaiduIpLocatorProviderV2));
+#endif
+
         // 节日服务
         services.TryAddSingleton<ICalendarFestivals, DefaultCalendarFestivals>();
 
