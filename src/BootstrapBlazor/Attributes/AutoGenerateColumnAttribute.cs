@@ -127,7 +127,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     bool? IEditorItem.ShowLabelTooltip
     {
         get => ShowLabelTooltip;
-        set => ShowLabelTooltip = value.HasValue && value.Value;
+        set => ShowLabelTooltip = value ?? false;
     }
 
     /// <summary>
