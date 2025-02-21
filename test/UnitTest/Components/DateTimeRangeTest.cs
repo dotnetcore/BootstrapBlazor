@@ -666,4 +666,14 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cells[0].Click());
         await cut.InvokeAsync(() => cells[1].Click());
     }
+
+    [Fact]
+    public async Task TriggerHideCallback_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue());
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerHideCallback());
+    }
 }
