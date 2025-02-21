@@ -14,9 +14,10 @@ const Popover = {
                 isDisabled: () => {
                     return isDisabled(el) || isDisabled(el.parentNode) || isDisabled(el.querySelector('.form-control'))
                 },
-                initCallback: null
+                initCallback: null,
+                hideCallback: null
             },
-            ...config || {}
+            ...(config ?? {})
         }
         const createPopover = () => {
             if (!popover.isDisabled()) {
@@ -69,6 +70,12 @@ const Popover = {
             }
         }
 
+        popover.triggerHideCallback = () => {
+            if (popover.hideCallback) {
+                popover.hideCallback();
+            };
+        }
+
         if (popover.isPopover) {
             popover.hasDisplayNone = false;
 
@@ -112,6 +119,8 @@ const Popover = {
                 popover.popover.tip.classList.remove('show');
                 el.classList.remove('show');
                 el.append(popover.toggleMenu);
+
+                popover.triggerHideCallback();
             }
 
             const active = e => {
@@ -176,6 +185,7 @@ const Popover = {
             }
 
             EventHandler.on(el, 'show.bs.dropdown', show)
+            EventHandler.on(el, 'hide.bs.dropdown', popover.triggerHideCallback)
 
             popover.popover = bootstrap.Dropdown.getOrCreateInstance(popover.toggleElement);
         }
@@ -200,6 +210,7 @@ const Popover = {
         }
         else {
             EventHandler.off(popover.el, 'show.bs.dropdown')
+            EventHandler.off(popover.el, 'hide.bs.dropdown')
         }
     }
 }
