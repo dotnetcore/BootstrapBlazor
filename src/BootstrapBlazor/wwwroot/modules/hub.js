@@ -3,7 +3,7 @@ import Data from "./data.js"
 import EventHandler from "./event-handler.js";
 
 export async function init(id, options) {
-    const { invoke, method, interval = 3000, url, connectionId, enableIpLocator } = options;
+    const { invoke, method, interval = 3000, url, connectionId } = options;
     const elKey = 'bb_hub_el_id';
     if (localStorage.getItem(elKey) === null) {
         localStorage.setItem(elKey, id);
@@ -34,7 +34,7 @@ export async function init(id, options) {
         }
     });
 
-    const info = await getClientInfo(url, { enableIpLocator: enableIpLocator });
+    const info = await getClientInfo(url);
     info.id = clientId;
 
     const callback = async () => {
