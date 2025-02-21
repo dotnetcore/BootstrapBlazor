@@ -81,20 +81,12 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
         set => IsVisibleWhenEdit = value ?? true;
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool? Required { get; set; }
+    bool? IEditorItem.Required { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool? IsRequiredWhenAdd { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public bool? IsRequiredWhenEdit { get; set; }
+    bool? ITableColumn.IsRequiredWhenAdd { get; set; }
+
+    bool? ITableColumn.IsRequiredWhenEdit { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -109,7 +101,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     bool? IEditorItem.ShowLabelTooltip
     {
         get => ShowLabelTooltip;
-        set => ShowLabelTooltip = value.HasValue && value.Value;
+        set => ShowLabelTooltip = value ?? false;
     }
 
     /// <summary>

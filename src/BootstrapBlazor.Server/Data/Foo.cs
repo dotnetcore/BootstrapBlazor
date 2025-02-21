@@ -109,7 +109,7 @@ public class Foo
     /// Generate Foo class, random data
     /// </summary>
     /// <returns>返回一个Foo类的List，Return a List of Foo class</returns>
-    public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer, int count = 80) => Enumerable.Range(1, count).Select(i => new Foo()
+    public static List<Foo> GenerateFoo(IStringLocalizer<Foo> localizer, int count = 80) => [.. Enumerable.Range(1, count).Select(i => new Foo()
     {
         Id = i,
         Name = localizer["Foo.Name", $"{i:d4}"],
@@ -119,7 +119,7 @@ public class Foo
         Complete = Random.Shared.Next(1, 100) > 50,
         Education = Random.Shared.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle,
         ReadonlyColumn = Random.Shared.Next(10, 50)
-    }).ToList();
+    })];
 
     /// <summary>
     /// 生成 Foo 类 Hobbies 数据

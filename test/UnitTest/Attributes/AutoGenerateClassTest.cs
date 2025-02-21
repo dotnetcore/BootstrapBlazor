@@ -70,10 +70,7 @@ public class AutoGenerateClassTest
             HeaderTextWrap = true,
             IsMarkupString = true,
 
-            Required = true,
-            RequiredErrorMessage = "test",
-            IsRequiredWhenAdd = true,
-            IsRequiredWhenEdit = true
+            RequiredErrorMessage = "test"
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
@@ -201,6 +198,11 @@ public class AutoGenerateClassTest
         attrInterface.ToolboxTemplate = col => builder => builder.AddContent(0, "test");
         Assert.NotNull(attrInterface.ToolboxTemplate);
 
+        attrInterface.IsRequiredWhenAdd = true;
+        Assert.True(attrInterface.IsRequiredWhenAdd);
+        attrInterface.IsRequiredWhenEdit = true;
+        Assert.True(attrInterface.IsRequiredWhenEdit);
+
         var attrEditor = (IEditorItem)attr;
         attrEditor.Items = null;
         Assert.Null(attrEditor.Items);
@@ -226,13 +228,13 @@ public class AutoGenerateClassTest
         attrEditor.LookupService = new LookupService();
         Assert.NotNull(attrEditor.LookupService);
 
+        attrEditor.Required = true;
+        Assert.True(attrEditor.Required);
+
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
 
-        Assert.True(attr.Required);
-        Assert.True(attr.IsRequiredWhenEdit);
-        Assert.True(attr.IsRequiredWhenAdd);
         Assert.Equal("test", attr.RequiredErrorMessage);
     }
 
