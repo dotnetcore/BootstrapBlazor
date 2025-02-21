@@ -70,10 +70,7 @@ public class AutoGenerateClassTest
             HeaderTextWrap = true,
             IsMarkupString = true,
 
-            Required = true,
-            RequiredErrorMessage = "test",
-            IsRequiredWhenAdd = true,
-            IsRequiredWhenEdit = true
+            RequiredErrorMessage = "test"
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
