@@ -960,6 +960,20 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void FirstDayOfWeek_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.FirstDayOfWeek, DayOfWeek.Monday);
+            pb.Add(a => a.Value, new DateTime(2025, 02, 20));
+        });
+
+        var labels = cut.FindAll(".date-table tbody > tr:first-child > th");
+        Assert.Equal("一", labels[0].TextContent);
+        Assert.Equal("日", labels[6].TextContent);
+    }
+
+    [Fact]
     public void GetSafeYearDateTime_Ok()
     {
         Assert.True(MockDateTimePicker.GetSafeYearDateTime_Ok());
