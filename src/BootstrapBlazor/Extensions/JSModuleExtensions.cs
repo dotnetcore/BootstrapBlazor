@@ -50,6 +50,7 @@ public static class JSModuleExtensions
         {
             jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
         }
+        catch (JSDisconnectedException) { }
         catch (JSException)
         {
 #if DEBUG
@@ -58,6 +59,7 @@ public static class JSModuleExtensions
 #endif
         }
         catch (OperationCanceledException) { }
+        catch (ObjectDisposedException) { }
         return new JSModule(jSObjectReference);
     }
 
