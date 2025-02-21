@@ -43,16 +43,17 @@ public class WebClientService(IIpLocatorFactory ipLocatorFactory,
         try
         {
             _jsModule ??= await runtime.LoadModuleByName("client");
-            _interop ??= DotNetObjectReference.Create(this);
-            await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
-
-            // 等待 SetData 方法执行完毕
-            await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(3));
+            if (_jsModule != null)
+            {
+                _interop ??= DotNetObjectReference.Create(this);
+                await _jsModule.InvokeVoidAsync("ping", "ip.axd", _interop, nameof(SetData));
+                // 等待 SetData 方法执行完毕
+                await _taskCompletionSource.Task.WaitAsync(TimeSpan.FromSeconds(3));
+            }
         }
-        catch (TimeoutException) { }
         catch (Exception ex)
         {
-            logger.LogError(ex, "method GetClientInfo failed");
+            logger.LogError(ex, "{GetClientInfo} throw exception", nameof(GetClientInfo));
         }
 
         // 补充 IP 地址信息
