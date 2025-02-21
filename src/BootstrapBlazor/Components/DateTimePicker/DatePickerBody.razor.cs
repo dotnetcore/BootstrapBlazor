@@ -20,7 +20,7 @@ public partial class DatePickerBody
         get
         {
             var d = GetSafeDayDateTime(CurrentDate, 1 - CurrentDate.Day);
-            d = GetSafeDayDateTime(d, 0 - (int)d.DayOfWeek);
+            d = GetSafeDayDateTime(d, (int)FirstDayOfWeek - (int)d.DayOfWeek);
             return d;
         }
     }
@@ -388,6 +388,12 @@ public partial class DatePickerBody
     [Parameter]
     public bool EnableDisabledDaysCache { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// </summary>
+    [Parameter]
+    public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
+
     [Inject]
     [NotNull]
     private ICalendarFestivals? CalendarFestivals { get; set; }
@@ -494,7 +500,7 @@ public partial class DatePickerBody
         YearPeriodText ??= Localizer[nameof(YearPeriodText)];
         MonthLists = [.. Localizer[nameof(MonthLists)].Value.Split(',')];
         Months = [.. Localizer[nameof(Months)].Value.Split(',')];
-        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
+        WeekLists = GetWeekList();
 
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
@@ -513,7 +519,9 @@ public partial class DatePickerBody
     {
         await base.OnParametersSetAsync();
 
+        _render = false;
         await UpdateDisabledDaysCache(true);
+        _render = true;
     }
 
     private bool _render = true;
@@ -522,6 +530,15 @@ public partial class DatePickerBody
     /// <inheritdoc/>
     /// </summary>
     protected override bool ShouldRender() => _render;
+
+    private List<string> GetWeekList()
+    {
+        var list = Localizer[nameof(WeekLists)].Value.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+        // 调整顺序
+        var firstDayIndex = (int)FirstDayOfWeek;
+        return list.Skip(firstDayIndex).Concat(list.Take(firstDayIndex)).ToList();
+    }
 
     private async Task UpdateDisabledDaysCache(bool force)
     {
