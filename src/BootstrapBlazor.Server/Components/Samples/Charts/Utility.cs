@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Charts;
 /// </summary>
 internal static class Utility
 {
-    public static IEnumerable<string> Colors { get; } = new List<string>() { "Red", "Blue", "Green", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
+    public static IEnumerable<string> Colors { get; } = new List<string>() { "Blue", "Green", "Red", "Orange", "Yellow", "Tomato", "Pink", "Violet" };
 
     /// <summary>
     /// 
