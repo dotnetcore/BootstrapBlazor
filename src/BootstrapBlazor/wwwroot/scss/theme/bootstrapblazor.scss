@@ -381,9 +381,9 @@ $bb-lv-border-color: var(--bs-border-color);
 $bb-lv-item-trans: border .3s linear;
 $bb-lv-item-border-hover-color: #409eff;
 $bb-lv-item-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-$bb-lv-body-padding: 1rem 0 0 1rem;
-$bb-lv-body-item-margin: 0 1rem 1rem 0;
-$bb-lv-footer-padding: 1rem;
+$bb-lv-body-padding: 0.5rem;
+$bb-lv-body-item-gap: 0.5rem;
+$bb-lv-footer-padding: 0.5rem;
 
 // Logout
 $bb-logout-avatar-width: 42px;
