@@ -15,7 +15,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? BodyClassString => CssBuilder.Default("listview-body")
+    private string? BodyClassString => CssBuilder.Default("listview-body scroll")
         .AddClass("is-group", GroupName != null)
         .Build();
 
