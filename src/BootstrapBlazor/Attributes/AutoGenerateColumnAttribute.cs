@@ -84,17 +84,35 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool? Required { get; set; }
+    public bool Required { get; set; }
+
+    bool? IEditorItem.Required
+    {
+        get => Required;
+        set => Required = value ?? false;
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool? IsRequiredWhenAdd { get; set; }
+    public bool IsRequiredWhenAdd { get; set; }
+
+    bool? ITableColumn.IsRequiredWhenAdd
+    {
+        get => IsRequiredWhenAdd;
+        set => IsRequiredWhenAdd = value ?? false;
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool? IsRequiredWhenEdit { get; set; }
+    public bool IsRequiredWhenEdit { get; set; }
+
+    bool? ITableColumn.IsRequiredWhenEdit
+    {
+        get => IsRequiredWhenEdit;
+        set => IsRequiredWhenEdit = value ?? false;
+    }
 
     /// <summary>
     /// <inheritdoc/>
