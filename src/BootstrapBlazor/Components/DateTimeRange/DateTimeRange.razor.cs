@@ -311,24 +311,7 @@ public partial class DateTimeRange
             new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddSeconds(-1) },
         ];
 
-        Value ??= new DateTimeRangeValue();
-        EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
-
-        if (ViewMode == DatePickerViewMode.Year)
-        {
-            var d = DateTime.Today.AddYears(-1);
-            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, 1, 1) : Value.Start;
-        }
-        else if (ViewMode == DatePickerViewMode.Month)
-        {
-            var d = DateTime.Today.AddMonths(-1);
-            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
-        }
-        else
-        {
-            StartValue = EndValue.AddMonths(-1).Date;
-        }
-
+        ResetBodyValue();
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
 
@@ -341,6 +324,15 @@ public partial class DateTimeRange
             }
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        TriggerHideCallback = nameof(TriggerHideCallback)
+    });
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
@@ -505,4 +497,37 @@ public partial class DateTimeRange
     public override bool IsComplexValue(object? propertyValue) => false;
 
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+
+    private void ResetBodyValue()
+    {
+        Value ??= new DateTimeRangeValue();
+        EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
+
+        if (ViewMode == DatePickerViewMode.Year)
+        {
+            var d = DateTime.Today.AddYears(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, 1, 1) : Value.Start;
+        }
+        else if (ViewMode == DatePickerViewMode.Month)
+        {
+            var d = DateTime.Today.AddMonths(-1);
+            StartValue = Value.Start == DateTime.MinValue ? new DateTime(d.Year, d.Month, 1) : Value.Start;
+        }
+        else
+        {
+            StartValue = EndValue.AddMonths(-1).Date;
+        }
+    }
+
+    /// <summary>
+    /// 客户端弹窗关闭后由 Javascript 调用此方法
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public Task TriggerHideCallback()
+    {
+        ResetBodyValue();
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 }

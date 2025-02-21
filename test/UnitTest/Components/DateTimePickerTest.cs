@@ -483,6 +483,19 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task TriggerHideCallback_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.DayTemplate, dt => builder =>
+            {
+                builder.AddContent(0, "day-template");
+            });
+        });
+        await cut.InvokeAsync(() => cut.Instance.TriggerHideCallback());
+    }
+
+    [Fact]
     public void DayTemplate_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>

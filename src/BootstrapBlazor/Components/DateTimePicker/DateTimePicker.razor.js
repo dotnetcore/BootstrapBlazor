@@ -2,7 +2,7 @@
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
 
-export function init(id) {
+export function init(id, invoke, options) {
     const el = document.getElementById(id)
     if (el == null) {
         return
@@ -13,6 +13,9 @@ export function init(id) {
         dropdownSelector: el.getAttribute('data-bb-dropdown'),
         isDisabled: () => {
             return el.classList.contains('disabled');
+        },
+        hideCallback: () => {
+            invoke?.invokeMethodAsync(options.triggerHideCallback);
         }
     });
     const dateTimePicker = {
