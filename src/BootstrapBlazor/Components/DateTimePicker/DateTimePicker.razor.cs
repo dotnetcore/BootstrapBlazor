@@ -87,6 +87,12 @@ public partial class DateTimePicker<TValue>
     public string? TimeFormat { get; set; }
 
     /// <summary>
+    /// 获得/设置 星期第一天 默认 <see cref="DayOfWeek.Sunday"/>
+    /// </summary>
+    [Parameter]
+    public DayOfWeek FirstDayOfWeek { get; set; } = DayOfWeek.Sunday;
+
+    /// <summary>
     /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
     /// </summary>
     [Parameter]
