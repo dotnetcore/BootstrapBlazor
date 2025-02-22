@@ -231,6 +231,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
+    private Table<TItem> _table = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -290,4 +292,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
         await OnClickRowCallback(default!);
     }
+
+    /// <summary>
+    /// 查询方法
+    /// </summary>
+    /// <returns></returns>
+    public Task QueryAsync() => _table.QueryAsync();
 }
