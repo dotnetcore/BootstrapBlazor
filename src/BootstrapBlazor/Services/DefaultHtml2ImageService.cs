@@ -6,7 +6,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 默认 Html2Image 实现 
+/// 默认 Html2Image 实现
 /// </summary>
 class DefaultHtml2ImageService : IHtml2Image
 {
@@ -15,10 +15,10 @@ class DefaultHtml2ImageService : IHtml2Image
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Task<string?> GetDataAsync(string selector, IHtml2ImageOptions? options) => throw new NotImplementedException(ErrorMessage);
+    public Task<string?> GetDataAsync(string selector, IHtml2ImageOptions? options = null) => throw new NotImplementedException(ErrorMessage);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Task<Stream?> GetStreamAsync(string selector, IHtml2ImageOptions? options) => throw new NotImplementedException(ErrorMessage);
+    public Task<Stream?> GetStreamAsync(string selector, IHtml2ImageOptions? options = null) => throw new NotImplementedException(ErrorMessage);
 }
