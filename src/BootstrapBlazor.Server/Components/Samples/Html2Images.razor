@@ -1,0 +1,23 @@
+﻿@page "/html2image"
+
+<h3>@Localizer["Html2ImageTitle"]</h3>
+
+<h4>@Localizer["Html2ImageDescription"]</h4>
+
+<Tips>
+    <div>@((MarkupString)Localizer["Html2ImageNote"].Value)</div>
+</Tips>
+
+<DemoBlock Title="@Localizer["Html2ImageElementTitle"]" Introduction="@Localizer["Html2ImageElementIntro"]" Name="Normal">
+    <section ignore>
+        <p>@((MarkupString)Localizer["Html2ImageElementDesc"].Value)</p>
+        <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["ExportButtonText"]" Icon="@_exportIcon"></Button>
+    </section>
+    <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
