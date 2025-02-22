@@ -6993,9 +6993,10 @@
   },
   "BootstrapBlazor.Server.Components.Samples.Html2Images": {
     "Html2ImageTitle": "Html to Image",
-    "Html2ImageIntro": "Convert any area of ​​the web page into an image service",
+    "Html2ImageIntro": "Convert any area web page into an image service",
     "Html2ImageElementTitle": "ToPng",
     "Html2ImageElementIntro": "Get the <b>base64-encoded</b> image by calling the <code>GetDataAsync</code> method",
-    "Html2ImageButtonText": "Image"
+    "Html2ImageButtonText": "Image",
+    "Html2ImageDesc": "Since the underlying library is <a href=\"https://github.com/bubkoo/html-to-image?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">html-to-image</a>, if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/bubkoo/html-to-image/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>"
   }
 }
