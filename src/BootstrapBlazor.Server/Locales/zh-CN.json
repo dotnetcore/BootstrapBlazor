@@ -6469,7 +6469,7 @@
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack 布局",
     "BasicTitle": "普通用法",
-    "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
+    "BasicIntro": "可用于在水平或垂直堆栈中排列其子组件",
     "RowMode": "行布局",
     "ColumnMode": "列布局",
     "Mode": "布局类型",

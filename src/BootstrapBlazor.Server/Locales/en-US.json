@@ -6469,7 +6469,7 @@
   "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",
     "BasicTitle": "Basic",
-    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "BasicIntro": "Lets you arrange its subcomponents in a horizontal or vertical stack",
     "RowMode": "Row",
     "ColumnMode": "Column",
     "Mode": "mode",
