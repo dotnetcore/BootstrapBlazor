@@ -19,16 +19,14 @@ public partial class CacheList
     [Inject, NotNull]
     private IStringLocalizer<CacheList>? Localizer { get; set; }
 
-    private List<object> _cacheList = [];
+    private List<object?> _cacheList = [];
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task OnParametersSetAsync()
+    protected override void OnInitialized()
     {
-        await base.OnParametersSetAsync();
-
-        await Task.Yield();
+        base.OnInitialized();
         UpdateCacheList();
     }
 
@@ -51,15 +49,15 @@ public partial class CacheList
 
     private void UpdateCacheList()
     {
-        _cacheList = CacheManager.Keys.OrderBy(i => i.ToString()).Select(key =>
+        _cacheList = [.. CacheManager.Keys.OrderBy(i => i.ToString()).Select(key =>
         {
             ICacheEntry? entry = null;
             if (CacheManager.TryGetCacheEntry(key, out var val))
             {
                 entry = val;
             }
-            return (object)entry!;
-        }).ToList();
+            return entry;
+        })];
     }
 
     private static string GetKey(object data) => data is ICacheEntry entry ? entry.Key.ToString()! : "-";
