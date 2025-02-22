@@ -27,7 +27,7 @@ public partial class Html2Images
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Html2Pdfs>? Localizer { get; set; }
+    private IStringLocalizer<Html2Images>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -36,7 +36,7 @@ public partial class Html2Images
     [NotNull]
     private List<Foo>? Items { get; set; }
 
-    private string? _exportIcon = "";
+    private string? _imageData;
 
     /// <summary>
     /// <inheritdoc/>
@@ -46,12 +46,11 @@ public partial class Html2Images
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(LocalizerFoo);
-
-        _exportIcon = IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
     }
+
     private async Task OnExportAsync()
     {
-        var stream = await Html2ImageService.GetStreamAsync("#table-9527", new Html2ImageOptions()
+        _imageData = await Html2ImageService.GetDataAsync("#table-9527", new Html2ImageOptions()
         {
             //IncludeStyleProperties = [
             //    $"{NavigationManager.BaseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
@@ -60,11 +59,13 @@ public partial class Html2Images
             //    $"{NavigationManager.BaseUri}css/site.css"
             //]
         });
-        if (stream != null)
-        {
-            var reader = new StreamReader(stream);
-            var data = await reader.ReadToEndAsync();
-            reader.Close();
-        }
+        StateHasChanged();
+
+        //if (stream != null)
+        //{
+        //    var reader = new StreamReader(stream);
+        //    var data = await reader.ReadToEndAsync();
+        //    reader.Close();
+        //}
     }
 }
