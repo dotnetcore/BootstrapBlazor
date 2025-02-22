@@ -50,22 +50,7 @@ public partial class Html2Images
 
     private async Task OnExportAsync()
     {
-        _imageData = await Html2ImageService.GetDataAsync("#table-9527", new Html2ImageOptions()
-        {
-            //IncludeStyleProperties = [
-            //    $"{NavigationManager.BaseUri}_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css",
-            //    $"{NavigationManager.BaseUri}_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css",
-            //    $"{NavigationManager.BaseUri}BootstrapBlazor.Server.styles.css",
-            //    $"{NavigationManager.BaseUri}css/site.css"
-            //]
-        });
+        _imageData = await Html2ImageService.GetDataAsync("#table-9527");
         StateHasChanged();
-
-        //if (stream != null)
-        //{
-        //    var reader = new StreamReader(stream);
-        //    var data = await reader.ReadToEndAsync();
-        //    reader.Close();
-        //}
     }
 }
