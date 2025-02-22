@@ -16,7 +16,12 @@
             {
                 if (GroupName == null)
                 {
-                    @RenderGroup(Rows)
+                    foreach (var item in Rows)
+                    {
+                        <div class="listview-item" @onclick="@(e => OnClick(item))">
+                            @BodyTemplate(item)
+                        </div>
+                    }
                 }
                 else if (Collapsible)
                 {
@@ -33,7 +38,12 @@
                         <div @key="@key.GroupName" class="accordion-item">
                             <div class="accordion-header">@key.GroupName</div>
                             <div class="accordion-body">
-                                @RenderGroup(key.Items)
+                                @foreach (var item in key.Items)
+                                {
+                                    <div class="listview-item" @onclick="@(e => OnClick(item))">
+                                        @BodyTemplate(item)
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
@@ -67,19 +77,14 @@
 @code {
     RenderFragment RenderItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
     @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
-        @RenderGroup(key.Items)
-    </CollapseItem>;
-
-    RenderFragment<IEnumerable<TItem>> RenderGroup => items =>
-    @<div class="listview-item-group">
-        @foreach (var item in items)
+        @foreach (var item in key.Items)
         {
-            <div @key="item" class="listview-item" @onclick="@(e => OnClick(item))">
+            <div class="listview-item" @onclick="@(e => OnClick(item))">
                 @if(BodyTemplate != null)
                 {
                     @BodyTemplate(item)
                 }
             </div>
         }
-    </div>;
+    </CollapseItem>;
 }
