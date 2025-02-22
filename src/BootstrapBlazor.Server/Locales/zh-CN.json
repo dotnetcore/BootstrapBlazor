@@ -6990,5 +6990,12 @@
     "NormalIntro": "通过设置 <code>Text</code> 参数设置要显示的文本",
     "TypedOptionsTitle": "TypedOptions",
     "TypedOptionsIntro": "通过设置 <code>TypedOptions</code> 参数的属性自定义打字速度、延时等设定"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Html2Images": {
+    "Html2ImageTitle": "Html2Image 网页元素转成图片服务",
+    "Html2ImageIntro": "将网页中任意区域内容转化成图片服务",
+    "Html2ImageElementTitle": "ToPng",
+    "Html2ImageElementIntro": "通过调用 <code>GetDataAsync</code> 方法获得 <b>base64-encoded</b> 图片",
+    "Html2ImageButtonText": "Image"
   }
 }

@@ -6990,5 +6990,12 @@
     "NormalIntro": "Set the text to be displayed by setting the <code>Text</code> parameter",
     "TypedOptionsTitle": "TypedOptions",
     "TypedOptionsIntro": "Customize typing speed, delay, and other settings by setting the properties of the <code>TypedOptions</code> parameter"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Html2Images": {
+    "Html2ImageTitle": "Html to Image",
+    "Html2ImageIntro": "Convert any area of ​​the web page into an image service",
+    "Html2ImageElementTitle": "ToPng",
+    "Html2ImageElementIntro": "Get the <b>base64-encoded</b> image by calling the <code>GetDataAsync</code> method",
+    "Html2ImageButtonText": "Image"
   }
 }
