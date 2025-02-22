@@ -15,10 +15,10 @@ class DefaultHtml2ImageService : IHtml2Image
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Task<string?> GetDataAsync(string selector, Html2ImageOptions options) => throw new NotImplementedException(ErrorMessage);
+    public Task<string?> GetDataAsync(string selector, IHtml2ImageOptions options) => throw new NotImplementedException(ErrorMessage);
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Task<Stream?> GetStreamAsync(string selector, Html2ImageOptions options) => throw new NotImplementedException(ErrorMessage);
+    public Task<Stream?> GetStreamAsync(string selector, IHtml2ImageOptions options) => throw new NotImplementedException(ErrorMessage);
 }
