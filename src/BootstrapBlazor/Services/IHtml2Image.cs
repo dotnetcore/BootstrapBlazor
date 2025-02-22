@@ -15,12 +15,12 @@ public interface IHtml2Image
     /// </summary>
     /// <param name="selector">选择器</param>
     /// <param name="options"></param>
-    Task<string?> GetDataAsync(string selector, Html2ImageOptions options);
+    Task<string?> GetDataAsync(string selector, IHtml2ImageOptions? options = null);
 
     /// <summary>
     /// Export method
     /// </summary>
     /// <param name="selector">选择器</param>
     /// <param name="options"></param>
-    Task<Stream?> GetStreamAsync(string selector, Html2ImageOptions options);
+    Task<Stream?> GetStreamAsync(string selector, IHtml2ImageOptions? options = null);
 }

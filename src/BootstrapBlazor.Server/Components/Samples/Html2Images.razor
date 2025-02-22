@@ -4,19 +4,24 @@
 
 <h4>@Localizer["Html2ImageIntro"]</h4>
 
+<PackageTips Name="BootstrapBlazor.Html2Image" />
+
 <DemoBlock Title="@Localizer["Html2ImageElementTitle"]" Introduction="@Localizer["Html2ImageElementIntro"]" Name="Normal">
+    <section ignore>
+        <div>@((MarkupString)Localizer["Html2ImageDesc"].Value)</div>
+    </section>
     <Button OnClickWithoutRender="OnExportAsync" Text="@Localizer["Html2ImageButtonText"]" Icon="fa-solid fa-image"></Button>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
         <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180"/>
+            <TableColumn @bind-Field="@context.Name" Sortable="true" Filterable="true"/>
+            <TableColumn @bind-Field="@context.Address"/>
         </TableColumns>
     </Table>
-    @if (!string.IsNullOrEmpty(_imageData))
-    {
-        <section ignore>
-            <img src="@_imageData" class="w-100" />
-        </section>
-    }
+    <section ignore>
+        @if (!string.IsNullOrEmpty(_imageData))
+        {
+            <img src="@_imageData" class="w-100"/>
+        }
+    </section>
 </DemoBlock>

@@ -88,7 +88,7 @@
     "group-box": "GroupBoxes",
     "handwritten": "Handwrittens",
     "html-renderer": "HtmlRenderers",
-    "html2images": "Html2Images",
+    "html2image": "Html2Images",
     "html2pdf": "Html2Pdfs",
     "label": "Labels",
     "layout": "Layouts",
