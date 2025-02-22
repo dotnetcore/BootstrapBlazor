@@ -1485,6 +1485,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Html2Image"],
+                    Url = "html2image"
+                },
+                new()
+                {
                     Text = Localizer["Html2Pdf"],
                     Url = "html2pdf"
                 },

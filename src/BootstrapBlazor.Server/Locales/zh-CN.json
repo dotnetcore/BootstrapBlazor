@@ -4771,6 +4771,7 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
+    "Html2Image": "Html 转 Image IHtml2Image",
     "Html2Pdf": "Html 转 Pdf IHtml2Pdf",
     "Mask": "遮罩服务 MaskService",
     "ContextMenu": "右键菜单 ContextMenu",

@@ -4771,6 +4771,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
+    "Html2Image": "IHtml2Image",
     "Html2Pdf": "IHtml2Pdf",
     "Mask": "MaskService",
     "ContextMenu": "ContextMenu",
