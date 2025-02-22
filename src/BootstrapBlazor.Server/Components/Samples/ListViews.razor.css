@@ -1,5 +1,5 @@
-﻿.lv-demo-img {
-    width: 100%;
+﻿img {
+    margin-bottom: 1rem;
     border-radius: var(--bs-border-radius);
 }
 
