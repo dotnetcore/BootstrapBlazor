@@ -40,7 +40,7 @@
     </CascadingValue>
     <RenderTemplate>
         <div class="dropdown-menu dropdown-table" style="@GetStyleString">
-            <Table TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" IsStriped="true"
+            <Table TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" IsStriped="true" @ref="_table"
                    RenderMode="TableRenderMode.Table" ClickToSelect="true" AutoGenerateColumns="AutoGenerateColumns"
                    ShowSearch="ShowSearch" SearchMode="SearchMode.Top"
                    SearchModel="SearchModel" SearchTemplate="SearchTemplate" CollapsedTopSearch="CollapsedTopSearch"

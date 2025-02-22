@@ -37,6 +37,31 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task QueryAsync_Ok()
+    {
+        var query = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.AutoGenerateColumns, false);
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    query = true;
+                    return OnFilterQueryAsync(options, items);
+                });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+            });
+        });
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        query = false;
+        await cut.InvokeAsync(table.Instance.QueryAsync);
+        Assert.True(query);
+    }
+
+    [Fact]
     public async Task IsClearable_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
