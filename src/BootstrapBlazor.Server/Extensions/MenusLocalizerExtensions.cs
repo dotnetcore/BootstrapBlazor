@@ -237,6 +237,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsUpdate = true,
                     Text = Localizer["Labels"],
                     Url = "label"
                 },
@@ -316,7 +317,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["Cascader"],
                     Url = "cascader"
                 },
@@ -405,7 +405,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["MultiSelect"],
                     Url = "multi-select"
                 },
@@ -431,14 +430,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Match = NavLinkMatch.All,
                     Text = Localizer["Select"],
                     Url = "select"
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["SelectObject"],
                     Url = "select-object"
                 },
@@ -966,7 +963,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    IsUpdate = true,
                     Text = Localizer["TableLookup"],
                     Url = "table/lookup"
                 },
@@ -1485,6 +1481,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["Html2Image"],
                     Url = "html2image"
                 },
