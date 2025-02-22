@@ -16,7 +16,10 @@
             {
                 if (GroupName == null)
                 {
-                    @RenderGroup(Rows)
+                    foreach (var item in Rows)
+                    {
+                        @RenderItem(item)
+                    }
                 }
                 else if (Collapsible)
                 {
@@ -32,8 +35,11 @@
                     {
                         <div @key="@key.GroupName" class="accordion-item">
                             <div class="accordion-header">@key.GroupName</div>
-                            <div class="accordion-body">
-                                @RenderGroup(key.Items)
+                            <div class="accordion-body scroll">
+                                @foreach (var item in key.Items)
+                                {
+                                    @RenderItem(item)
+                                }
                             </div>
                         </div>
                     }
@@ -65,21 +71,20 @@
 </div>
 
 @code {
-    RenderFragment RenderItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
-    @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
-        @RenderGroup(key.Items)
-    </CollapseItem>;
 
-    RenderFragment<IEnumerable<TItem>> RenderGroup => items =>
-    @<div class="listview-item-group">
-        @foreach (var item in items)
-        {
-            <div @key="item" class="listview-item" @onclick="@(e => OnClick(item))">
-                @if(BodyTemplate != null)
-                {
-                    @BodyTemplate(item)
-                }
-            </div>
-        }
-    </div>;
+    RenderFragment RenderGroupItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
+        @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
+            @foreach (var item in key.Items)
+            {
+                @RenderItem(item)
+            }
+        </CollapseItem>;
+
+    RenderFragment<TItem> RenderItem => item =>
+        @<div @key="item" class="listview-item" @onclick="@(e => OnClick(item))">
+            @if(BodyTemplate != null)
+            {
+                @BodyTemplate(item)
+            }
+        </div>;
 }
