@@ -32,8 +32,11 @@ public partial class CacheList
 
     private void OnDelete(object key)
     {
-        CacheManager.Clear(key);
-        UpdateCacheList();
+        if (key is ICacheEntry entry)
+        {
+            CacheManager.Clear(entry.Key);
+            UpdateCacheList();
+        }
     }
 
     private void OnDeleteAll()
