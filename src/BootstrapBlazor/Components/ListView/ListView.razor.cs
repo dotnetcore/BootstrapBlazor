@@ -232,7 +232,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
         foreach (var key in GetGroupItems(groupFunc))
         {
             var i = index++;
-            builder.AddContent(i, RenderItem(key, i));
+            builder.AddContent(i, RenderGroupItem(key, i));
         }
     };
 

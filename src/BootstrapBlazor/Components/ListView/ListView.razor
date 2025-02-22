@@ -75,16 +75,12 @@
 </div>
 
 @code {
-    RenderFragment RenderItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
-    @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
-        @foreach (var item in key.Items)
-        {
-            <div class="listview-item" @onclick="@(e => OnClick(item))">
-                @if(BodyTemplate != null)
-                {
-                    @BodyTemplate(item)
-                }
-            </div>
-        }
-    </CollapseItem>;
+
+    RenderFragment RenderGroupItem((object? GroupName, IOrderedEnumerable<TItem> Items) key, int index) =>
+        @<CollapseItem Text="@GetGroupName(key.GroupName)" IsCollapsed="IsCollapsed(index, key.GroupName)">
+            @foreach (var item in key.Items)
+            {
+                @RenderItem(item)
+            }
+        </CollapseItem>;
 }
