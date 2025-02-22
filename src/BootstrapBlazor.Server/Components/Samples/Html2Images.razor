@@ -18,10 +18,10 @@
             <TableColumn @bind-Field="@context.Address"/>
         </TableColumns>
     </Table>
-    @if (!string.IsNullOrEmpty(_imageData))
-    {
-        <section ignore>
+    <section ignore>
+        @if (!string.IsNullOrEmpty(_imageData))
+        {
             <img src="@_imageData" class="w-100"/>
-        </section>
-    }
+        }
+    </section>
 </DemoBlock>
