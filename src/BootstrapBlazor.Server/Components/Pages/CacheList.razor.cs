@@ -60,7 +60,7 @@ public partial class CacheList
                 entry = val;
             }
             return entry;
-        })];
+        }).Where(i => i != null)];
     }
 
     private static string GetKey(object data) => data is ICacheEntry entry ? entry.Key.ToString()! : "-";
