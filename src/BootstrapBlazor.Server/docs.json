@@ -88,6 +88,7 @@
     "group-box": "GroupBoxes",
     "handwritten": "Handwrittens",
     "html-renderer": "HtmlRenderers",
+    "html2images": "Html2Images",
     "html2pdf": "Html2Pdfs",
     "label": "Labels",
     "layout": "Layouts",
@@ -294,6 +295,7 @@
   "link": {
     "AntDesign": "http://www.antblazor.com/",
     "Pear Admin": "http://www.pearadmin.com/",
-    "SAPHP": "https://www.swiftadmin.net/"
+    "SAPHP": "https://www.swiftadmin.net/",
+    "Veterinary Hospital": "http://animal.jucun.zone/"
   }
 }
