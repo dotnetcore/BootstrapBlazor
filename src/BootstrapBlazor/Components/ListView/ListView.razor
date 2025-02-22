@@ -35,7 +35,7 @@
                     {
                         <div @key="@key.GroupName" class="accordion-item">
                             <div class="accordion-header">@key.GroupName</div>
-                            <div class="accordion-body">
+                            <div class="accordion-body scroll">
                                 @foreach (var item in key.Items)
                                 {
                                     @RenderItem(item)
