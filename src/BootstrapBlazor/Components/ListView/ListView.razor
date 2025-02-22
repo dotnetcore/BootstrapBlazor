@@ -18,9 +18,7 @@
                 {
                     foreach (var item in Rows)
                     {
-                        <div class="listview-item" @onclick="@(e => OnClick(item))">
-                            @BodyTemplate(item)
-                        </div>
+                        @RenderItem(item)
                     }
                 }
                 else if (Collapsible)
@@ -40,9 +38,7 @@
                             <div class="accordion-body">
                                 @foreach (var item in key.Items)
                                 {
-                                    <div class="listview-item" @onclick="@(e => OnClick(item))">
-                                        @BodyTemplate(item)
-                                    </div>
+                                    @RenderItem(item)
                                 }
                             </div>
                         </div>
@@ -83,4 +79,12 @@
                 @RenderItem(item)
             }
         </CollapseItem>;
+
+    RenderFragment<TItem> RenderItem => item =>
+        @<div @key="item" class="listview-item" @onclick="@(e => OnClick(item))">
+            @if(BodyTemplate != null)
+            {
+                @BodyTemplate(item)
+            }
+        </div>;
 }
