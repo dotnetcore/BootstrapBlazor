@@ -294,7 +294,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetSelectedRow()
     {
-        var item = GetItemWidthEnumValue()
+        var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
             ?? Rows.FirstOrDefault(i => !i.IsDisabled)
@@ -315,7 +315,7 @@ public partial class Select<TValue> : ISelect, ILookup
         return item;
     }
 
-    private SelectedItem? GetItemWidthEnumValue() => ValueType.IsEnum
+    private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum
         ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString())
         : null;
 
