@@ -240,6 +240,13 @@
         <div class="col-12 col-sm-6 align-self-end">
             <div class="form-control">@SelectedEnumItem</div>
         </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="_enumValueDemo" Items="_enumValueDemoItems" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText3"]">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6 align-self-end">
+            <div class="form-control">@_enumValueDemo</div>
+        </div>
     </div>
 </DemoBlock>
 
