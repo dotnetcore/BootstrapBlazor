@@ -185,13 +185,13 @@ public static class ObjectExtensions
                 }
                 else if (source == string.Empty)
                 {
-                    ret = BindConverter.TryConvertTo<TValue>(source, CultureInfo.CurrentCulture, out val);
+                    ret = BindConverter.TryConvertTo(source, CultureInfo.CurrentCulture, out val);
                 }
                 else
                 {
                     var isBoolean = type == typeof(bool);
                     var v = isBoolean ? (object)source.Equals("true", StringComparison.CurrentCultureIgnoreCase) : source;
-                    ret = BindConverter.TryConvertTo<TValue>(v, CultureInfo.CurrentCulture, out val);
+                    ret = BindConverter.TryConvertTo(v, CultureInfo.CurrentCulture, out val);
                 }
             }
             catch
