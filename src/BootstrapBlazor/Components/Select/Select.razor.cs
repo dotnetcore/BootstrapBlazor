@@ -294,7 +294,8 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetSelectedRow()
     {
-        var item = Rows.Find(i => i.Value == CurrentValueAsString)
+        var item = GetItemWidthEnumValue()
+            ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
             ?? Rows.FirstOrDefault(i => !i.IsDisabled)
             ?? GetVirtualizeItem(CurrentValueAsString);
@@ -314,6 +315,10 @@ public partial class Select<TValue> : ISelect, ILookup
         return item;
     }
 
+    private SelectedItem? GetItemWidthEnumValue() => ValueType.IsEnum
+        ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString())
+        : null;
+
     private List<SelectedItem> GetRowsByItems()
     {
         var items = new List<SelectedItem>();
@@ -328,7 +333,7 @@ public partial class Select<TValue> : ISelect, ILookup
     private List<SelectedItem> GetRowsBySearch()
     {
         var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return items.ToList();
+        return [.. items];
     }
 
     private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
