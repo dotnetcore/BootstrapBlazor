@@ -3146,6 +3146,7 @@
     "SelectsEnumDescription2": "绑定值为枚举类型时，设置 <code>PalceHolder</code> 无效",
     "SelectsEnumSelectText1": "可为空",
     "SelectsEnumSelectText2": "不为空",
+    "SelectsEnumSelectText3": "使用枚举整形值作为集合",
     "SelectsNullableTitle": "绑定可为空类型",
     "SelectsNullableIntro": "<code>Select</code> 组件绑定 <code>int?</code> 类型示例",
     "SelectsNullableDescription": "选中第一个选项时，绑定值 <code>SelectedIntItem</code> 为 <code>null</code>",

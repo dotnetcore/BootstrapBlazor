@@ -3146,6 +3146,7 @@
     "SelectsEnumDescription2": "Setting <code>PalceHolder</code> is not valid when the binding value is an enumerated type",
     "SelectsEnumSelectText1": "Can be empty",
     "SelectsEnumSelectText2": "Not empty",
+    "SelectsEnumSelectText3": "Using enum integer values ​​as Items",
     "SelectsNullableTitle": "The binding can be an empty type",
     "SelectsNullableIntro": "<code>an example of the Select</code> component binding <code>int?</code> type",
     "SelectsNullableDescription": "When the first option is selected, the binding value <code>SelectIntItem</code> to <code>null</code>",
