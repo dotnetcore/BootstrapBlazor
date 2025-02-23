@@ -99,6 +99,13 @@
     <li><code>OnTouchDelay</code> 移动端触控延时</li>
 </ul>
 
+<p class="code-label"><code>CacheManagerOptions</code> 缓存配置项</p>
+<ul class="demo-ul">
+    <li><code>Enable</code> 是否开启</li>
+    <li><code>SlidingExpiration</code> 滑动缓存时长 默认 5 分钟</li>
+    <li><code>AbsoluteExpiration</code> 绝对过期时长 默认 10 秒钟</li>
+</ul>
+
 <Pre>{
   "BootstrapBlazorOptions": {
     "ToastDelay": 4000,
@@ -142,6 +149,11 @@
     },
     "WebClientOptions": {
       "EnableIpLocator": true
+    },
+    "CacheManagerOptions": {
+      "Enable": true,
+      "SlidingExpiration": "00:05:00",
+      "AbsoluteExpiration": "00:00:10"
     }
   }
 }</Pre>

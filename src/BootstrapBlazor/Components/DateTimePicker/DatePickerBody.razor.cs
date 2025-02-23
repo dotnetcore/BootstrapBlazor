@@ -115,7 +115,7 @@ public partial class DatePickerBody
     /// 获得 年月日显示表格样式
     /// </summary>
     private string? CurrentMonthViewClassName => CssBuilder.Default("picker-panel-header-label")
-        .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
+        .AddClass("d-none", CurrentViewMode is DatePickerViewMode.Year or DatePickerViewMode.Month)
         .Build();
 
     private ClockPicker? TimePickerPanel { get; set; }
