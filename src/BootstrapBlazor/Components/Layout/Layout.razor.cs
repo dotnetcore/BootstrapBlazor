@@ -66,6 +66,13 @@ public partial class Layout : IHandlerException
     public RenderFragment? Side { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示分割栏 默认 false 不显示
+    /// 仅在 左右布局时有效
+    /// </summary>
+    [Parameter]
+    public bool ShowSplitBar { get; set; }
+
+    /// <summary>
     /// 获得/设置 NotAuthorized 模板 默认 null NET6.0/7.0 有效
     /// </summary>
     [Parameter]
