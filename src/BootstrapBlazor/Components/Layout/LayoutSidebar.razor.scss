@@ -1,0 +1,32 @@
+.layout-sidebar {
+    width: 1px;
+    position: absolute;
+    top: 0;
+    right: -1px;
+    bottom: 0;
+    background-color: var(--bs-border-color);
+    display: none;
+
+    .layout-sidebar-body {
+        position: absolute;
+        inset: 0px -2px;
+        cursor: col-resize;
+        background-color: transparent;
+        border-radius: 4px;
+
+        &:hover {
+            background-color: var(--bb-sidebar-body-hover-bg);
+        }
+
+        &.drag,
+        &.drag:hover {
+            background-color: var(--bb-sidebar-body-drag-hover-bg);
+        }
+    }
+}
+
+@media(min-width: 768px) {
+    .layout-sidebar {
+        display: block;
+    }
+}

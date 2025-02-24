@@ -22,16 +22,7 @@
                 }
                 else if (IsFullSide)
                 {
-                    <aside class="@SideClassString" style="@SideStyleString">
-                        @if (Side != null)
-                        {
-                            @Side
-                        }
-                        @if (Menus != null)
-                        {
-                            @RenderMenu
-                        }
-                    </aside>
+                    @RenderSide
                     <section class="layout-right">
                         @if (Header != null)
                         {
@@ -51,16 +42,7 @@
                         @RenderHeader(ShowCollapseBar)
                     }
                     <section class="has-sidebar">
-                        <aside class="@SideClassString" style="@SideStyleString">
-                            @if (Side != null)
-                            {
-                                @Side
-                            }
-                            @if (Menus != null)
-                            {
-                                @RenderMenu
-                            }
-                        </aside>
+                        @RenderSide
                         @RenderMain
                     </section>
                     @if (ShowFooter && Footer != null)
@@ -99,6 +81,22 @@
         }
         @Header
     </header>;
+
+    RenderFragment RenderSide =>
+    @<aside class="@SideClassString" style="@SideStyleString">
+        @if (Side != null)
+        {
+            @Side
+        }
+        @if (ShowSplitBar)
+        {
+            <LayoutSidebar></LayoutSidebar>
+        }
+        @if (Menus != null)
+        {
+            @RenderMenu
+        }
+    </aside>;
 
     RenderFragment RenderMenu =>
     @<div class="layout-menu">
