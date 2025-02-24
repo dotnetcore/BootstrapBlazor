@@ -1,0 +1,18 @@
+﻿@page "/univer-sheet"
+@inherits WebSiteModuleComponentBase
+@inject IStringLocalizer<Typeds> Localizer
+@attribute [JSModuleAutoLoader("Samples/UniverSheets.razor.js")]
+
+<h3>@Localizer["UniverSheetTitle"]</h3>
+
+<h4>@Localizer["UniverSheetIntro"]</h4>
+
+<PackageTips Name="BootstrapBlazor.UniverSheet" />
+
+<DemoBlock Title="@Localizer["NormalTitle"]"
+           Introduction="@Localizer["NormalIntro"]"
+           Name="Normal">
+    <div class="bb-sheet-demo">
+        <UniverSheet Plugins="Plugins"></UniverSheet>
+    </div>
+</DemoBlock>
