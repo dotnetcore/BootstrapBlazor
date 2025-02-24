@@ -767,6 +767,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["UniverSheet"],
+                    Url = "univer-sheet"
+                },
+                new()
+                {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
                 },
