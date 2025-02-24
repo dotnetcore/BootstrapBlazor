@@ -4852,7 +4852,8 @@
     "Affix": "Affix",
     "Watermark": "Watermark",
     "OctIcon": "Oct Icons",
-    "Typed": "Typed"
+    "Typed": "Typed",
+    "UniverSheet": "UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
