@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader("Components\Layout\LayoutSidebar.razor.js")]
+@attribute [BootstrapModuleAutoLoader("Layout/LayoutSidebar.razor.js")]
 
-<div id="@Id" class="layout-sidebar" data-bb-min="@_minWidthString" data-bb-max="@_maxWidthString">
+<div id="@Id" class="layout-sidebar"
+     data-bb-min="@_minWidthString" data-bb-max="@_maxWidthString" data-bb-selector="@ContainerSelector">
     <div class="layout-sidebar-body"></div>
 </div>
