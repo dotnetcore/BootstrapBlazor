@@ -78,7 +78,7 @@
 
 @media (min-width: 768px) {
     .section {
-        --bb-sidebar-width: 300px;
+        --bb-layout-sidebar-width: 300px;
         display: flex;
         flex-direction: row;
         -webkit-font-smoothing: antialiased;
@@ -89,7 +89,7 @@
     }
 
     .sidebar {
-        width: var(--bb-sidebar-width);
+        width: var(--bb-layout-sidebar-width);
         height: calc(100vh);
         position: sticky;
         top: 0;
@@ -98,7 +98,7 @@
     }
 
     .main {
-        width: calc(100% - var(--bb-sidebar-width));
+        width: calc(100% - var(--bb-layout-sidebar-width));
     }
 
     .sidebar-bar {
