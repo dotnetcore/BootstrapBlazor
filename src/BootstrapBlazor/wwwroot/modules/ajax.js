@@ -3,6 +3,7 @@
         method: 'POST',
         url: null,
         data: null,
+        toJson: true,
         ...option
     }
 
@@ -11,27 +12,25 @@
         return null
     }
 
-    const init = {
-        method: option.method,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    if (option.method === 'POST' && option.data) {
-        init.body = JSON.stringify(option.data)
-    }
-
-    let json = null;
+    let result = null;
     try {
-
-        const response = await fetch(option.url, init)
-        json = await response.json()
+        const toJson = opitons.toJson;
+        delete options.toJson;
+        result = await fetch(option.url, {
+            method: option.method,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: option.method === 'POST' ? JSON.stringify(option.data) : null
+        });
+        if (toJson === true) {
+            result = await result.json()
+        }
     }
     catch (e) {
         console.info(e);
     }
-    return json
+    return result
 }
 
 export function goto(url) {
