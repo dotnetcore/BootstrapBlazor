@@ -14,8 +14,8 @@
 
     let result = null;
     try {
-        const toJson = opitons.toJson;
-        delete options.toJson;
+        const toJson = option.toJson;
+        delete option.toJson;
         result = await fetch(option.url, {
             method: option.method,
             headers: {
