@@ -14,7 +14,8 @@ public class AjaxTest : BootstrapBlazorTestBase
         {
             Url = "/api/Login",
             Method = "POST",
-            Data = new { UserName = "admin", Password = "1234567" }
+            Data = new { UserName = "admin", Password = "1234567" },
+            ToJson = false
         };
         Assert.Equal("/api/Login", option.Url);
         Assert.Equal("POST", option.Method);
