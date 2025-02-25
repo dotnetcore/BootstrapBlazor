@@ -8,7 +8,7 @@ export function init(id) {
 
     const min = parseFloat(el.getAttribute("data-bb-min") ?? "0");
     const max = parseFloat(el.getAttribute("data-bb-max") ?? "0");
-    const selector = el.getAttribute("data-bb-selector");
+    const selector = el.getAttribute("data-bb-selector") ?? ".layout";
     const section = document.querySelector(selector);
     const bar = el.querySelector(".layout-splitebar-body");
     let originX = 0;
