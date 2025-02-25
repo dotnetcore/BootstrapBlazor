@@ -14,14 +14,13 @@
 
     let result = null;
     try {
-        const toJson = option.toJson;
-        delete option.toJson;
-        result = await fetch(option.url, {
-            method: option.method,
+        const { toJson, url, method, data } = option;
+        result = await fetch(url, {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: option.method === 'POST' ? JSON.stringify(option.data) : null
+            body: method === 'POST' ? JSON.stringify(data) : null
         });
         if (toJson === true) {
             result = await result.json()
