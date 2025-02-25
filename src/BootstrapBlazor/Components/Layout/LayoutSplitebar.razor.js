@@ -1,5 +1,4 @@
 ﻿import Drag from "../../modules/drag.js"
-import Data from "../../modules/data.js"
 
 export function init(id) {
     const el = document.getElementById(id);
@@ -9,9 +8,9 @@ export function init(id) {
 
     const min = parseFloat(el.getAttribute("data-bb-min") ?? "0");
     const max = parseFloat(el.getAttribute("data-bb-max") ?? "0");
-    const selector = el.getAttribute("data-bb-selector");
+    const selector = el.getAttribute("data-bb-selector") ?? ".layout";
     const section = document.querySelector(selector);
-    const bar = el.querySelector(".layout-sidebar-body");
+    const bar = el.querySelector(".layout-splitebar-body");
     let originX = 0;
     let width = 0;
     Drag.drag(bar,
@@ -37,7 +36,7 @@ export function init(id) {
 export function dispose(id) {
     const el = document.getElementById(id);
     if (el) {
-        const bar = el.querySelector(".layout-sidebar-body");
+        const bar = el.querySelector(".layout-splitebar-body");
         if (bar) {
             Drag.dispose(bar);
         }
