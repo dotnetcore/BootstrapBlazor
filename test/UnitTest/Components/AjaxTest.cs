@@ -19,6 +19,7 @@ public class AjaxTest : BootstrapBlazorTestBase
         };
         Assert.Equal("/api/Login", option.Url);
         Assert.Equal("POST", option.Method);
+        Assert.False(option.ToJson);
         Assert.NotNull(option.Data);
 
         var service = Context.Services.GetRequiredService<AjaxService>();
