@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// LayoutSidebar 组件
 /// </summary>
-public partial class LayoutSidebar
+public partial class LayoutSplitebar
 {
     /// <summary>
     /// 获得/设置 容器选择器 默认 null 未设置

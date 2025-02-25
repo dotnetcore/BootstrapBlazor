@@ -1,4 +1,4 @@
-.layout-sidebar {
+.layout-splitebar {
     width: 1px;
     position: absolute;
     top: 0;
@@ -7,7 +7,7 @@
     background-color: var(--bs-border-color);
     display: none;
 
-    .layout-sidebar-body {
+    .layout-splitebar-body {
         position: absolute;
         inset: 0px -2px;
         cursor: col-resize;
@@ -26,7 +26,7 @@
 }
 
 @media(min-width: 768px) {
-    .layout-sidebar {
+    .layout-splitebar {
         display: block;
     }
 }
