@@ -96,6 +96,8 @@ internal static class FontAwesomeIcons
         { ComponentIcons.PaginationNextEllipsisPageIcon, "fa-solid fa-ellipsis" },
 
         { ComponentIcons.PopConfirmButtonConfirmIcon, "fa-solid fa-circle-exclamation" },
+        { ComponentIcons.PopConfirmButtonContentCloseButtonIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.PopConfirmButtonContentConfirmButtonIcon, "fa-solid fa-check" },
 
         { ComponentIcons.RateStarIcon, "fa-solid fa-star" },
         { ComponentIcons.RateUnStarIcon, "fa-regular fa-star" },

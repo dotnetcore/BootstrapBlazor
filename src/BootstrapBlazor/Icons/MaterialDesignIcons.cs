@@ -97,7 +97,9 @@ internal static class MaterialDesignIcons
         { ComponentIcons.PaginationPrevEllipsisPageIcon, "mdi mdi-dots-horizontal" },
         { ComponentIcons.PaginationNextEllipsisPageIcon, "mdi mdi-dots-horizontal" },
 
-        { ComponentIcons.PopConfirmButtonConfirmIcon, "mdi mdi-exclamation" },
+        { ComponentIcons.PopConfirmButtonConfirmIcon, "mdi mdi-alert-circle" },
+        { ComponentIcons.PopConfirmButtonContentCloseButtonIcon, "mdi mdi-close" },
+        { ComponentIcons.PopConfirmButtonContentConfirmButtonIcon, "mdi mdi-check" },
 
         { ComponentIcons.RateStarIcon, "mdi mdi-star" },
         { ComponentIcons.RateUnStarIcon, "mdi mdi-star-outline" },
