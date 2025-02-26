@@ -2,9 +2,9 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<CascadingValue Value="this" IsFixed="true">
-    @if (_init)
-    {
+@if (_init)
+{
+    <CascadingValue Value="this" IsFixed="true">
         @if (IsAuthenticated)
         {
             <section @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
@@ -60,8 +60,8 @@
         {
             @RenderMain
         }
-    }
-</CascadingValue>
+    </CascadingValue>
+}
 
 @code {
     RenderFragment<bool> RenderHeader => collapse =>

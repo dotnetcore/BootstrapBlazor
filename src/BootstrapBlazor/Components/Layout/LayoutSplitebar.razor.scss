@@ -8,20 +8,32 @@
     display: none;
 
     .layout-splitebar-body {
+        --bb-splitebar-body-hover-bg: #{$bb-splitebar-body-hover-bg};
+        --bb-splitebar-body-drag-hover-bg: #{$bb-splitebar-body-drag-hover-bg};
         position: absolute;
         inset: 0px -2px;
         cursor: col-resize;
         background-color: transparent;
         border-radius: 4px;
+        transition: background .3s linear;
 
         &:hover {
-            background-color: var(--bb-sidebar-body-hover-bg);
+            background-color: var(--bb-splitebar-body-hover-bg);
         }
+    }
+}
 
-        &.drag,
-        &.drag:hover {
-            background-color: var(--bb-sidebar-body-drag-hover-bg);
+.drag {
+    .layout-splitebar {
+        .layout-splitebar-body:hover {
+            background-color: var(--bb-splitebar-body-drag-hover-bg);
         }
+    }
+}
+
+.is-collapsed {
+    .layout-splitebar-body {
+        display: none;
     }
 }
 

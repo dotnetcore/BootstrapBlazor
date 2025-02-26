@@ -84,7 +84,6 @@
     }
 
     .has-sidebar {
-        /*left-right*/
         position: relative;
         flex: 1;
 
@@ -267,12 +266,15 @@
             position: relative;
             width: var(--bb-layout-sidebar-width);
             transform: translateX(0);
-            transition: width .3s linear;
             flex-shrink: 0;
 
             .layout-menu {
                 border-right: 1px solid var(--bs-border-color);
             }
+        }
+
+        &:not(.drag) .layout-side {
+            transition: width .3s linear;
         }
 
         &.has-sidebar {
