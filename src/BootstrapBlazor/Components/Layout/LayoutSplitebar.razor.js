@@ -15,7 +15,7 @@ export function init(id) {
     let width = 0;
     Drag.drag(bar,
         e => {
-            bar.classList.add('drag')
+            section.classList.add('drag')
             width = parseInt(getComputedStyle(section).getPropertyValue('--bb-layout-sidebar-width'))
             originX = e.clientX || e.touches[0].clientX
         },
@@ -32,7 +32,7 @@ export function init(id) {
             section.style.setProperty('--bb-layout-sidebar-width', `${newWidth}px`)
         },
         e => {
-            bar.classList.remove('drag')
+            section.classList.remove('drag')
         }
     )
 }

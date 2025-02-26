@@ -18,13 +18,22 @@
         transition: background .3s linear;
 
         &:hover {
-            background-color: var(--bb-sidebar-body-hover-bg);
+            background-color: var(--bb-splitebar-body-hover-bg);
         }
+    }
+}
 
-        &.drag,
-        &.drag:hover {
-            background-color: var(--bb-sidebar-body-drag-hover-bg);
+.drag {
+    .layout-splitebar {
+        .layout-splitebar-body:hover {
+            background-color: var(--bb-splitebar-body-drag-hover-bg);
         }
+    }
+}
+
+.is-collapsed {
+    .layout-splitebar-body {
+        display: none;
     }
 }
 
