@@ -13,6 +13,7 @@
         cursor: col-resize;
         background-color: transparent;
         border-radius: 4px;
+        transition: background .3s linear;
 
         &:hover {
             background-color: var(--bb-sidebar-body-hover-bg);
