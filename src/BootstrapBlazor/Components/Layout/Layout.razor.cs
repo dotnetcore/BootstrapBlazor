@@ -70,7 +70,7 @@ public partial class Layout : IHandlerException
     /// 仅在 左右布局时有效
     /// </summary>
     [Parameter]
-    public bool ShowSplitbar { get; set; }
+    public bool ShowSplitebar { get; set; }
 
     /// <summary>
     /// 获得/设置 侧边栏最小宽度 默认 null 未设置

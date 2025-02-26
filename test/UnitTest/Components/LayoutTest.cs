@@ -245,7 +245,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.UseTabSet, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsFullSide, true);
-            pb.Add(a => a.ShowSplitbar, true);
+            pb.Add(a => a.ShowSplitebar, true);
             pb.Add(a => a.SidebarMinWidth, 100);
             pb.Add(a => a.SidebarMaxWidth, 300);
             pb.Add(a => a.Side, new RenderFragment(builder =>
