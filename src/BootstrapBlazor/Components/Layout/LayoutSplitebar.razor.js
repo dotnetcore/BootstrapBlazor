@@ -10,6 +10,11 @@ export function init(id) {
     const max = parseFloat(el.getAttribute("data-bb-max") ?? "-1");
     const selector = el.getAttribute("data-bb-selector") ?? ".layout";
     const section = document.querySelector(selector);
+    if (section === null) {
+        log.warning(`LayoutSplitebar: selector ${selector} not found`);
+        return;
+    }
+
     const bar = el.querySelector(".layout-splitebar-body");
     let originX = 0;
     let width = 0;
