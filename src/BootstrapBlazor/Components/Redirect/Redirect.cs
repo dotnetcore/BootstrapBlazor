@@ -28,10 +28,9 @@ public class Redirect : ComponentBase
     public bool ForceLoad { get; set; } = true;
 
     /// <summary>
-    /// OnAfterRender 方法
+    /// OnInitialized 方法
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnInitialized()
     {
         Navigation.NavigateTo(Url, ForceLoad);
     }
