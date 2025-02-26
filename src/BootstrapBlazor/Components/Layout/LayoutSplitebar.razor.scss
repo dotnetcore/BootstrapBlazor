@@ -8,6 +8,8 @@
     display: none;
 
     .layout-splitebar-body {
+        --bb-splitebar-body-hover-bg: #{$bb-splitebar-body-hover-bg};
+        --bb-splitebar-body-drag-hover-bg: #{$bb-splitebar-body-drag-hover-bg};
         position: absolute;
         inset: 0px -2px;
         cursor: col-resize;
