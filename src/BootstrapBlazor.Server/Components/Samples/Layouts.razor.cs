@@ -125,6 +125,30 @@ public sealed partial class Layouts
         },
         new()
         {
+            Name = "SidebarMinWidth",
+            Description =  Localizer["Layouts_SidebarMinWidth_Description"],
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "SidebarMaxWidth",
+            Description =  Localizer["Layouts_SidebarMaxWidth_Description"],
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ShowSplitebar",
+            Description =  Localizer["Layouts_ShowSplitebar_Description"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "ShowFooter",
             Description =  Localizer["Layouts_ShowFooter_Description"],
             Type = "bool",

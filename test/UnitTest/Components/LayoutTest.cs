@@ -245,13 +245,17 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.UseTabSet, true);
             pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
             pb.Add(a => a.IsFullSide, true);
-            pb.Add(a => a.ShowSplitBar, true);
+            pb.Add(a => a.ShowSplitebar, true);
+            pb.Add(a => a.SidebarMinWidth, 100);
+            pb.Add(a => a.SidebarMaxWidth, 300);
             pb.Add(a => a.Side, new RenderFragment(builder =>
             {
                 builder.AddContent(0, "test");
             }));
         });
         cut.Contains("layout-splitebar");
+        cut.Contains("data-bb-min=\"100\"");
+        cut.Contains("data-bb-max=\"300\"");
     }
 
     [Fact]

@@ -70,7 +70,19 @@ public partial class Layout : IHandlerException
     /// 仅在 左右布局时有效
     /// </summary>
     [Parameter]
-    public bool ShowSplitBar { get; set; }
+    public bool ShowSplitebar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏最小宽度 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? SidebarMinWidth { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏最大宽度 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? SidebarMaxWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 NotAuthorized 模板 默认 null NET6.0/7.0 有效
