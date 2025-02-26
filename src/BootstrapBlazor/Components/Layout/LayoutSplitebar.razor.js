@@ -6,8 +6,8 @@ export function init(id) {
         return;
     }
 
-    const min = parseFloat(el.getAttribute("data-bb-min") ?? "0");
-    const max = parseFloat(el.getAttribute("data-bb-max") ?? "0");
+    const min = parseFloat(el.getAttribute("data-bb-min") ?? "-1");
+    const max = parseFloat(el.getAttribute("data-bb-max") ?? "-1");
     const selector = el.getAttribute("data-bb-selector") ?? ".layout";
     const section = document.querySelector(selector);
     const bar = el.querySelector(".layout-splitebar-body");
@@ -23,9 +23,13 @@ export function init(id) {
             const eventX = e.clientX || (e.touches.length > 0 && e.touches[0].clientX)
             const moveX = eventX - originX
             const newWidth = width + moveX
-            if (newWidth >= min && newWidth <= max) {
-                section.style.setProperty('--bb-layout-sidebar-width', `${newWidth}px`)
+            if (min > -1 && newWidth < min) {
+                newWidth = min
             }
+            if (max > -1 && newWidth > max) {
+                newWidth = max
+            }
+            section.style.setProperty('--bb-layout-sidebar-width', `${newWidth}px`)
         },
         e => {
             bar.classList.remove('drag')
