@@ -411,6 +411,16 @@ public enum ComponentIcons
     PopConfirmButtonConfirmIcon,
 
     /// <summary>
+    /// PopConfirmButton 组件弹窗中 CloseButtonIcon 图标
+    /// </summary>
+    PopConfirmButtonContentCloseButtonIcon,
+
+    /// <summary>
+    /// PopConfirmButton 组件弹窗中 ConfirmButtonIcon 图标
+    /// </summary>
+    PopConfirmButtonContentConfirmButtonIcon,
+
+    /// <summary>
     /// Rate 组件 StarIcon 图标
     /// </summary>
     RateStarIcon,
