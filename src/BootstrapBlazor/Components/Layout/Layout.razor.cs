@@ -70,7 +70,7 @@ public partial class Layout : IHandlerException
     /// 仅在 左右布局时有效
     /// </summary>
     [Parameter]
-    public bool ShowSplitBar { get; set; }
+    public bool ShowSplitbar { get; set; }
 
     /// <summary>
     /// 获得/设置 NotAuthorized 模板 默认 null NET6.0/7.0 有效
