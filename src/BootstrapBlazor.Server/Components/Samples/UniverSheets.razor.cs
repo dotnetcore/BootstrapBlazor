@@ -19,7 +19,7 @@ public partial class UniverSheets
 
     private async Task OnPush()
     {
-        await _sheet.PushData(new UniverSheetData()
+        await _sheet.PushDataAsync(new UniverSheetData()
         {
             MessageName = "MessageName",
             CommandName = "CommandName",
