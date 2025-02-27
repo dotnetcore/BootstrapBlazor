@@ -97,7 +97,9 @@ internal static class BootstrapIcons
         { ComponentIcons.PaginationPrevEllipsisPageIcon, "bi bi-three-dots" },
         { ComponentIcons.PaginationNextEllipsisPageIcon, "bi bi-three-dots" },
 
-        { ComponentIcons.PopConfirmButtonConfirmIcon, "bi bi-exclamation-circle" },
+        { ComponentIcons.PopConfirmButtonConfirmIcon, "bi bi-exclamation-circle-fill" },
+        { ComponentIcons.PopConfirmButtonContentCloseButtonIcon, "bi bi-x" },
+        { ComponentIcons.PopConfirmButtonContentConfirmButtonIcon, "bi bi-check" },
 
         { ComponentIcons.RateStarIcon, "bi bi-star-fill" },
         { ComponentIcons.RateUnStarIcon, "bi bi-star" },

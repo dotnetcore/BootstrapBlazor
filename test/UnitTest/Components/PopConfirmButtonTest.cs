@@ -22,8 +22,13 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ConfirmButtonColor, Color.Danger);
                 pb.Add(a => a.Icon, "fa-solid fa-font-awesome");
                 pb.Add(a => a.Text, "Test_Text");
+                pb.Add(a => a.CloseButtonIcon, "fa-solid fa-xmark");
+                pb.Add(a => a.ConfirmButtonIcon, "fa-solid fa-check");
             });
         });
+
+        cut.Contains("fa-solid fa-xmark");
+        cut.Contains("fa-solid fa-check");
 
         // Show
         var button = cut.Find("div");
@@ -33,7 +38,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // Close
-        var buttons = cut.FindAll(".popover-confirm-buttons div");
+        var buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[0].Click();
@@ -45,7 +50,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         {
             button.Click();
         });
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[1].Click();
@@ -97,7 +102,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // Close
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[0].Click();
@@ -111,7 +116,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         {
             button.Click();
         });
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[1].Click();
@@ -132,7 +137,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // Confirm
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[1].Click();
@@ -158,7 +163,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // async confirm
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         _ = cut.InvokeAsync(() =>
         {
             buttons[1].Click();
@@ -178,7 +183,7 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
         });
 
         // async confirm
-        buttons = cut.FindAll(".popover-confirm-buttons div");
+        buttons = cut.FindAll(".popover-confirm-buttons button");
         await cut.InvokeAsync(() =>
         {
             buttons[1].Click();
@@ -248,10 +253,12 @@ public class PopConfirmButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ConfirmIcon_Ok()
+    public void Icon_Ok()
     {
         var cut = Context.RenderComponent<PopConfirmButtonContent>();
         cut.Contains("text-info fa-solid fa-circle-exclamation");
+        cut.Contains("fa-solid fa-xmark");
+        cut.Contains("fa-solid fa-check");
     }
 
     [Fact]
