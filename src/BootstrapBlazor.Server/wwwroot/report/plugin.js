@@ -12,7 +12,7 @@ const REPORT_PLUGIN = 'ReportPlugin';
 export class ReportPlugin extends Plugin {
     static type = UniverInstanceType.UNIVER_SHEET;
     static pluginName = REPORT_PLUGIN;
-
+    static DataServiceName = 'CustomerService';
     constructor(
         _injector,
         _localeService,
@@ -26,13 +26,15 @@ export class ReportPlugin extends Plugin {
             enUS
         });
     }
-    
-    onStarting() {console.log('onStarting');
+
+    onStarting() {
+        console.log('onStarting');
         this._injector.add([ReportController])
-        this._injector.add(['zhangsan', {useClass: CustomerService}])
+        this._injector.add([ReportPlugin.DataServiceName, { useClass: CustomerService }])
     }
 
-    onReady() {console.log('onReady');
+    onReady() {
+        console.log('onReady');
         this._injector.get(ReportController)
 
         // const customerService = this._injector.get('zhangsan')
@@ -43,10 +45,10 @@ export class ReportPlugin extends Plugin {
         // univerAPI.createUniverSheet(JSON.parse(resource))
         // univerAPI.disposeUnit(unitId)
 
-        const customerService = this._injector.get('zhangsan')
+        const customerService = this._injector.get(ReportPlugin.DataServiceName)
         const resource = customerService._getResource().find(item => item.name === 'CustomerService').data || {}
         const univerAPI = FUniver.newAPI(this._injector)
-        const sheet = univerAPI.getActiveWorkbook().getActiveSheet().getRange(2,2,2,1)
+        const sheet = univerAPI.getActiveWorkbook().getActiveSheet().getRange(2, 2, 2, 1)
         sheet.setValue(resource)
     }
     onRendered() {
@@ -55,7 +57,7 @@ export class ReportPlugin extends Plugin {
         // 动态添加link标签
         const link = document.createElement('link');
         link.type = 'text/css';
-        link.rel ='stylesheet';
+        link.rel = 'stylesheet';
         link.href = './report/report.css';
         document.head.appendChild(link);
 
