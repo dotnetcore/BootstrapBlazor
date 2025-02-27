@@ -14,13 +14,15 @@ public class AjaxTest : BootstrapBlazorTestBase
         {
             Url = "/api/Login",
             Method = "POST",
-            Data = new { UserName = "admin", Password = "1234567" },
-            ToJson = false
+            Data = new { UserName = "admin", Password = "1234567" }
         };
         Assert.Equal("/api/Login", option.Url);
         Assert.Equal("POST", option.Method);
-        Assert.False(option.ToJson);
+        Assert.True(option.ToJson);
         Assert.NotNull(option.Data);
+
+        option.ToJson = false;
+        Assert.False(option.ToJson);
 
         var service = Context.Services.GetRequiredService<AjaxService>();
         await service.InvokeAsync(option);
