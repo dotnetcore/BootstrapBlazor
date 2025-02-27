@@ -5538,47 +5538,6 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button[0].Click());
 
         // 取消按钮
-        var cancelButton = cut.Find(".form-footer .btn-secondary");
-        await cut.InvokeAsync(() => cancelButton.Click());
-        Assert.True(afterCancelSave);
-    }
-
-    [Fact]
-    public async Task OnAfterCancelSaveAsync_EditForm()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var items = Foo.GenerateFoo(localizer, 2);
-        var afterCancelSave = false;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.Items, items);
-                pb.Add(a => a.IsMultipleSelect, true);
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.EditMode, EditMode.EditForm);
-                pb.Add(a => a.OnAfterCancelSaveAsync, () =>
-                {
-                    afterCancelSave = true;
-                    return Task.CompletedTask;
-                });
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // test edit button
-        var button = cut.FindAll("tbody tr button");
-        await cut.InvokeAsync(() => button[0].Click());
-
-        // 取消按钮
         button = cut.FindAll("tbody tr.is-editform button");
         await cut.InvokeAsync(() => button[0].Click());
         Assert.True(afterCancelSave);
