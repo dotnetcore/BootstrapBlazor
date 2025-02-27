@@ -2,10 +2,19 @@ import { getCategoryList, getVariableList } from './getData.js';
 
 const { IDialogService } = UniverUi;
 const { useState } = React;
+const { IUniverInstanceService, Injector, FUniver, UniverInstanceService } = UniverCore
 
 export function insertVariable({cellData} = {}) {
     const categoryList = getCategoryList();
     console.log('insertVariable', cellData);
+    console.log(IUniverInstanceService)
+
+    const injector = new Injector([
+        [UniverInstanceService],
+    ]);
+
+    // const instance = injector.get(UniverInstanceService)
+    // console.log(instance, 'instance')
     if(!cellData){
         const sheet = univerAPI.getActiveWorkbook().getActiveSheet();
         cellData = sheet.getSelection().getActiveRange().getCellData() || {};
