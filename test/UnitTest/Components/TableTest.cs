@@ -5544,7 +5544,7 @@ public class TableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnAfterCancelSaveAsync_InCell()
+    public async Task OnAfterCancelSaveAsync_EditForm()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -5579,8 +5579,8 @@ public class TableTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => button[0].Click());
 
         // 取消按钮
-        button = cut.FindAll("tbody tr button");
-        await cut.InvokeAsync(() => button[1].Click());
+        button = cut.FindAll("tbody tr.is-editform button");
+        await cut.InvokeAsync(() => button[0].Click());
         Assert.True(afterCancelSave);
     }
 
