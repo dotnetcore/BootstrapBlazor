@@ -5,7 +5,6 @@ import EventHandler from "../../modules/event-handler.js"
 
 const config = {
     class: 'popover-confirm',
-    dismiss: '.popover-confirm-buttons > div',
     popoverSelector: '.popover-confirm.show'
 }
 
@@ -62,22 +61,6 @@ export function init(id) {
     EventHandler.on(el, 'show.bs.popover', confirm.show)
     EventHandler.on(el, 'inserted.bs.popover', confirm.inserted)
     EventHandler.on(el, 'hide.bs.popover', confirm.hide)
-
-    if (config.dismiss != null) {
-        confirm.dismissHandler = e => {
-            const ele = e.target.closest(config.popoverSelector)
-            if (ele) {
-                const element = getDescribedOwner(ele)
-                if (element) {
-                    const popover = bootstrap.Popover.getInstance(element);
-                    if (popover) {
-                        popover.hide()
-                    }
-                }
-            }
-        }
-        EventHandler.on(document, 'click', config.dismiss, confirm.dismissHandler)
-    }
 
     confirm.checkCancel = el => {
         // check button
@@ -169,9 +152,6 @@ export function dispose(id) {
         }
         if (confirm.popover) {
             confirm.popover.dispose();
-        }
-        if (config.dismiss) {
-            EventHandler.off(document, 'click', config.dismiss, confirm.dismissHandler)
         }
     }
 }

@@ -121,6 +121,7 @@ public partial class PopConfirmButtonContent
     /// </summary>
     public async Task OnCloseClick()
     {
+        await InvokeVoidAsync("hide", Id);
         if (OnClose != null)
         {
             await OnClose();
@@ -132,21 +133,10 @@ public partial class PopConfirmButtonContent
     /// </summary>
     public async Task OnConfirmClick()
     {
+        await InvokeVoidAsync("hide", Id);
         if (OnConfirm != null)
         {
             await OnConfirm();
         }
-    }
-
-    private async Task TriggerCloseAsync()
-    {
-        await InvokeVoidAsync("hide", Id);
-        await OnCloseClick();
-    }
-
-    private async Task TriggerConfirmAsync()
-    {
-        await InvokeVoidAsync("hide", Id);
-        await OnConfirmClick();
     }
 }
