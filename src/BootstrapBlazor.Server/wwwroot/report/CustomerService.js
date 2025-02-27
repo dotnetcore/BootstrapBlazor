@@ -1,8 +1,8 @@
-
-const {IResourceManagerService, setDependencies, IResourceLoaderService, IUniverInstanceService, Injector, FUniver } = UniverCore
+﻿
+const { IResourceManagerService, setDependencies, IResourceLoaderService, IUniverInstanceService, Injector, FUniver } = UniverCore
 const { UniverType } = UniverProtocol
 
-export class CustomerService{
+export class CustomerService {
     _model = {
         testResource: {
             name: 'testResource',
@@ -14,7 +14,8 @@ export class CustomerService{
         _resourceManagerService,
         _univerInstanceService,
         _resourceLoaderService,
-    ) {console.log('CustomerService constructor');
+    ) {
+        console.log('CustomerService constructor');
 
         this._injector = _injector;
 
@@ -32,7 +33,7 @@ export class CustomerService{
             },
             onUnLoad: (_unitId) => {
                 console.log(_unitId, 'onUnLoad');
-                this._model = { };
+                this._model = {};
             },
         });
     }
@@ -54,8 +55,22 @@ export class CustomerService{
 
     _setRangeValue(data = 'testValue001') {
         const univerAPI = FUniver.newAPI(this._injector)
-        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(5,3,2,1)
+        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(5, 3, 2, 1)
         range.setValue(data)
+    }
+
+    receiveData(data) {
+        console.log(data);
+
+        if (typeof (this.pushData) === 'function') {
+            this.pushData({
+                messageName: 'CustomerService',
+                commandName: 'setRangeValue',
+                data: {
+                    value: 1
+                }
+            });
+        }
     }
 }
 

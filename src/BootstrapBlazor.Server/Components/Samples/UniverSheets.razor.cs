@@ -14,4 +14,20 @@ public partial class UniverSheets
     {
         { "ReportPlugin", "report/plugin.js" }
     };
+
+    private UniverSheet _sheet = default!;
+
+    private async Task OnPush()
+    {
+        await _sheet.PushData(new UniverSheetData()
+        {
+            MessageName = "MessageName",
+            CommandName = "CommandName",
+            Data = new
+            {
+                Id = 01,
+                Name = "Test-Name"
+            }
+        });
+    }
 }
