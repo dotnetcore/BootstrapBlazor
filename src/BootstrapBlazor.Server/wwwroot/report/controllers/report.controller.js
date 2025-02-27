@@ -1,47 +1,58 @@
+import { ReportPlugin } from '../plugin.js';
+const { Disposable, setDependencies, Injector, ICommandService, CommandType, UniverInstanceType, FUniver } = UniverCore;
+const { ContextMenuGroup, ContextMenuPosition, RibbonStartGroup, ComponentManager, IMenuManagerService, MenuItemType, getMenuHiddenObservable } = UniverUi;
 
-import { SaveRangeIcon } from '../components/menus-icon/SaveRangeIcon.js';
-import { SaveAsTableTemplateIcon } from '../components/menus-icon/SaveAsTableTemplateIcon.js';
-import { SaveAsCommonTemplateIcon } from '../components/menus-icon/SaveAsCommonTemplateIcon.js';
-import {
-    REPORT_OPERATION_SAVE_RANGE_ID,
-    ReportSaveRangeFactory,
-    ReportSaveAsTableTemplateFactory,
-    ReportSaveAsCommonTemplateFactory
-} from './menu/save-range.menu.js';
-import { SaveAsTableTemplateOperation, SaveAsCommonTemplateOperation } from '../commands/operations/save-range.operation.js';
+function GetDataIcon() {
+    return React.createElement(
+        'svg',
+        { xmlns: "http://www.w3.org/2000/svg", width: "1em", height: "1em", viewBox: "0 0 24 24" },
+        React.createElement(
+            'path',
+            { fill: "currentColor", d: "M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2m.16 14a6.981 6.981 0 0 0-5.147 2.256A7.966 7.966 0 0 0 12 20a7.97 7.97 0 0 0 5.167-1.892A6.979 6.979 0 0 0 12.16 16M12 4a8 8 0 0 0-6.384 12.821A8.975 8.975 0 0 1 12.16 14a8.972 8.972 0 0 1 6.362 2.634A8 8 0 0 0 12 4m0 1a4 4 0 1 1 0 8a4 4 0 0 1 0-8m0 2a2 2 0 1 0 0 4a2 2 0 0 0 0-4" }
+        )
+    );
+}
 
-import { ReportInsertVariableFactory, ReportAddTableFactory, ReportAddPlotFactory, ReportPreviewFactory, ReportExitPreviewFactory, ReportSaveExcelFactory } from './menu/single-butten.menu.js';
+const GetDataOperation = {
+    id: 'report.operation.add-table',
+    type: CommandType.OPERATION,
+    handler: async (accessor) => {
+        const dataService = accessor.get(ReportPlugin.DataServiceName);
+        const data = await dataService.pushData({id: '123'})
+        console.log(data, 'GetDataOperation');
+        
+        const univerAPI = FUniver.newAPI(dataService._injector)
+        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
+        const defaultData1 = [
+            [{ v: 'A1' }, { v: 'B1' }],
+            [{ v: 'A2' }, { v: 'B2' }],
+        ]
+        const defaultData2 = {
+            0: {
+              0: 'A1',
+              1: 'B1',
+            },
+            1: {
+              0: 'A2',
+              1: 'B2',
+            },
+          }
 
-import { InsertVariableOperation } from '../commands/operations/insert-variable.operation.js';
-import { InsertVariableIcon } from '../components/menus-icon/InsertVariableIcon.js';
+        range.setValues(data || defaultData1)
 
-import { AddTableOperation } from '../commands/operations/add-table.operation.js';
-import { AddTableIcon } from '../components/menus-icon/AddTableIcon.js';
+    },
+};
 
-import { AddPlotOperation } from '../commands/operations/add-plot.operation.js';
-import { AddPlotIcon } from '../components/menus-icon/AddPlotIcon.js';
-
-import { PreviewOperation } from '../commands/operations/preview.operation.js';
-import { PreviewIcon } from '../components/menus-icon/PreviewIcon.js';
-
-import { ExitPreviewOperation } from '../commands/operations/exit-preview.operation.js';
-import { ExitPreviewIcon } from '../components/menus-icon/ExitPreviewIcon.js';
-
-import { SaveExcelOperation } from '../commands/operations/save-excel.operation.js';
-import { SaveExcelIcon } from '../components/menus-icon/SaveExcelIcon.js';
-
-import { FormulaSelection } from '../components/formula-selection/FormulaSelection.js';
-import { EditLayout } from '../components/variable-table-edit/EditLayout.js'
-
-import { OpenFormulaDialogCommand } from '../commands/openFormulaDialog.js'
-import { OpenEditDialogCommand } from '../commands/openEditDialog.js'
-
-
-
-const { Disposable, setDependencies, Injector, ICommandService } = UniverCore;
-const { ContextMenuGroup, ContextMenuPosition, RibbonStartGroup, ComponentManager, IMenuManagerService } = UniverUi;
-const { RibbonDataGroup, RibbonFormulasGroup, RibbonInsertGroup, RibbonOthersGroup, RibbonPosition, RibbonViewGroup } = UniverUi
-
+function ReportGetDataFactory(accessor) {
+    return {
+        id: GetDataOperation.id,
+        type: MenuItemType.BUTTON,
+        icon: 'GetDataIcon',
+        tooltip: '获取数据',
+        title: '获取数据',
+        hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET)
+    };
+}
 export class ReportController extends Disposable {
     constructor(_injector, _commandService, _menuManagerService, _componentManager) {
         super();
@@ -56,38 +67,14 @@ export class ReportController extends Disposable {
     }
     _initCommands() {
         [
-            InsertVariableOperation,
-            AddTableOperation,
-            AddPlotOperation,
-            PreviewOperation,
-            ExitPreviewOperation,
-            SaveExcelOperation,
-            
-            SaveAsTableTemplateOperation,
-            SaveAsCommonTemplateOperation,
-
-            OpenFormulaDialogCommand,
-            OpenEditDialogCommand,
-            
+            GetDataOperation,
         ].forEach((c) => {
             this.disposeWithMe(this._commandService.registerCommand(c));
         });
     }
     _registerComponents() {
         const componentMap = {
-            InsertVariableIcon,
-            AddTableIcon,
-            AddPlotIcon,
-            PreviewIcon,
-            ExitPreviewIcon,
-            SaveExcelIcon,
-
-            SaveRangeIcon,
-            SaveAsTableTemplateIcon,
-            SaveAsCommonTemplateIcon,
-
-            FormulaSelection,
-            EditLayout,
+            GetDataIcon,
         }
         Object.entries(componentMap).forEach((item) => {
             this.disposeWithMe(this._componentManager.register(...item));
@@ -95,82 +82,19 @@ export class ReportController extends Disposable {
 
     }
     _initMenus() {
-        console.log(this._menuManagerService, 'this._menuManagerService');
         this._menuManagerService.mergeMenu({
-            // {
-            //     "HISTORY": "ribbon.start.history",
-            //     "FORMAT": "ribbon.start.format",
-            //     "LAYOUT": "ribbon.start.layout",
-            //     "FORMULAS_INSERT": "ribbon.start.insert",
-            //     "FORMULAS_VIEW": "ribbon.start.view",
-            //     "FILE": "ribbon.start.file",
-            //     "OTHERS": "ribbon.start.others"
-            // }
-            [RibbonStartGroup.FILE]: {
-                [InsertVariableOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportInsertVariableFactory
+            
+            [RibbonStartGroup.HISTORY]: {
+                [GetDataOperation.id]: {
+                    order: -1,
+                    menuItemFactory: ReportGetDataFactory
                 },
-                [AddTableOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportAddTableFactory
-                },
-                [AddPlotOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportAddPlotFactory
-                },
-                [PreviewOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportPreviewFactory
-                },
-                [ExitPreviewOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportExitPreviewFactory
-                },
-                [SaveExcelOperation.id]: {
-                    order: 2,
-                    menuItemFactory: ReportSaveExcelFactory
-                },
-            },
-            [RibbonStartGroup.OTHERS]: {
-                // [REPORT_OPERATION_SAVE_RANGE_ID]: {
-                //     order: -1,
-                //     menuItemFactory: ReportSaveRangeFactory,
-                //     [SaveAsTableTemplateOperation.id]: {
-                //         order: 0,
-                //         menuItemFactory: ReportSaveAsTableTemplateFactory
-                //     },
-                //     [SaveAsCommonTemplateOperation.id]: {
-                //         order: 1,
-                //         menuItemFactory: ReportSaveAsCommonTemplateFactory
-                //     }
-                // }
             },
             [ContextMenuPosition.MAIN_AREA]: {
                 [ContextMenuGroup.DATA]: {
-                    [InsertVariableOperation.id]: {
+                    [GetDataOperation.id]: {
                         order: 0,
-                        menuItemFactory: ReportInsertVariableFactory
-                    },
-                    [AddTableOperation.id]: {
-                        order: 0,
-                        menuItemFactory: ReportAddTableFactory
-                    },
-                    [AddPlotOperation.id]: {
-                        order: 0,
-                        menuItemFactory: ReportAddPlotFactory
-                    },
-                    [REPORT_OPERATION_SAVE_RANGE_ID]: {
-                        order: 0,
-                        menuItemFactory: ReportSaveRangeFactory,
-                        [SaveAsTableTemplateOperation.id]: {
-                            order: 0,
-                            menuItemFactory: ReportSaveAsTableTemplateFactory
-                        },
-                        [SaveAsCommonTemplateOperation.id]: {
-                            order: 1,
-                            menuItemFactory: ReportSaveAsCommonTemplateFactory
-                        }
+                        menuItemFactory: ReportGetDataFactory
                     }
                 }
             }
