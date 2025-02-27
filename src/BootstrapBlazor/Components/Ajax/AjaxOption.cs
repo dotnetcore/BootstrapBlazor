@@ -31,5 +31,5 @@ public class AjaxOption
     /// 获得/设置 是否获得序列化 Json 结果 参数 默认为 true
     /// </summary>
     [NotNull]
-    public bool ToJson { get; set; }
+    public bool ToJson { get; set; } = true;
 }
