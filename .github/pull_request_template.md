@@ -1,9 +1,3 @@
-# {PR title}
-
-Summary of the changes (Less than 80 chars)
-
-简单描述你更改了什么, 不超过80个字符；如果有关联 Issue 请在下方填写相关编号
-
 ## Description
 
 fixes #{bug number} (in this specific format)
@@ -43,3 +37,5 @@ fixes #{bug number} (in this specific format)
 - [ ] Doc is updated/provided or not needed
 - [ ] Demo is updated/provided or not needed
 - [ ] Merge the latest code from the main branch
+
+## Summary of the changes
