@@ -389,7 +389,7 @@
     "ModalsDialogResizeIntro": "Resize the modal box by setting the <code>ShowResize</code> property",
     "ModalsSmallPopup": "small popup",
     "ModalsBigPopup": "big popup",
-    "ModalsOversizedPopup": "Oversized pop-up window",
+    "ModalsOverSizedPopup": "OverSized pop-up window",
     "ModalsSuperLargePopup": "super large pop-up window",
     "ModalsFullScreenSizeTitle": "Full screen popup",
     "ModalsFullScreenSizeIntro": "Just set the property <code>FullScreenSize</code>",

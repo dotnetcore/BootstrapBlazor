@@ -1,7 +1,7 @@
 ﻿@inherits WebSiteModuleComponentBase
 @attribute [JSModuleAutoLoader("Components/ThemeMode.razor.js")]
 
-<div id="@Id" class="btn btn-circle btn-fade btn-theme-mode icon-theme d-flex">
+<div id="@Id" class="btn btn-circle btn-fade btn-theme-mode icon-theme d-flex" @onclick:stopPropagation>
     <i class="@GetLightIconClassString"></i>
     <i class="@GetDarkIconClassString"></i>
 </div>
