@@ -266,12 +266,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool IsRequired() => ValidateForm != null;
-
-    /// <summary>
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>

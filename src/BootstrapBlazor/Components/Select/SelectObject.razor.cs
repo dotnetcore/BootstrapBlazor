@@ -180,12 +180,6 @@ public partial class SelectObject<TItem>
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override bool IsRequired() => ValidateForm != null;
-
     private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
