@@ -60,6 +60,12 @@ public partial class PopConfirmButtonContent
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮显示图标
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭按钮显示文字
     /// </summary>
     [Parameter]
@@ -70,6 +76,12 @@ public partial class PopConfirmButtonContent
     /// </summary>
     [Parameter]
     public Color CloseButtonColor { get; set; } = Color.Secondary;
+
+    /// <summary>
+    /// 获得/设置 确认按钮显示图标
+    /// </summary>
+    [Parameter]
+    public string? ConfirmButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮显示文字
@@ -87,7 +99,6 @@ public partial class PopConfirmButtonContent
     /// 获得/设置 确认框图标
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? Icon { get; set; }
 
     /// <summary>
@@ -114,6 +125,8 @@ public partial class PopConfirmButtonContent
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonConfirmIcon);
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonContentCloseButtonIcon);
+        ConfirmButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.PopConfirmButtonContentConfirmButtonIcon);
     }
 
     /// <summary>
@@ -121,6 +134,7 @@ public partial class PopConfirmButtonContent
     /// </summary>
     public async Task OnCloseClick()
     {
+        await InvokeVoidAsync("hide", Id);
         if (OnClose != null)
         {
             await OnClose();
@@ -132,21 +146,10 @@ public partial class PopConfirmButtonContent
     /// </summary>
     public async Task OnConfirmClick()
     {
+        await InvokeVoidAsync("hide", Id);
         if (OnConfirm != null)
         {
             await OnConfirm();
         }
-    }
-
-    private async Task TriggerCloseAsync()
-    {
-        await InvokeVoidAsync("hide", Id);
-        await OnCloseClick();
-    }
-
-    private async Task TriggerConfirmAsync()
-    {
-        await InvokeVoidAsync("hide", Id);
-        await OnConfirmClick();
     }
 }

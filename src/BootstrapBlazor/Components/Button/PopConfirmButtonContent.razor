@@ -10,8 +10,8 @@
         <div class="popover-confirm-body">
             @if (ChildContent != null)
             {
-                <CascadingValue Value="TriggerCloseAsync" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
-                    <CascadingValue Value="TriggerConfirmAsync" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
+                <CascadingValue Value="OnCloseClick" Name="PopoverConfirmButtonCloseAsync" IsFixed="true">
+                    <CascadingValue Value="OnConfirmClick" Name="PopoverConfirmButtonConfirmAsync" IsFixed="true">
                         @ChildContent
                     </CascadingValue>
                 </CascadingValue>
@@ -27,15 +27,17 @@
             <div class="popover-confirm-buttons">
                 @if (ShowCloseButton)
                 {
-                    <div class="@CloseButtonClass" @onclick="@OnCloseClick">
+                    <button class="@CloseButtonClass" @onclick="@OnCloseClick">
+                        <i class="@CloseButtonIcon"></i>
                         <span>@CloseButtonText</span>
-                    </div>
+                    </button>
                 }
                 @if (ShowConfirmButton)
                 {
-                    <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+                    <button class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+                        <i class="@ConfirmButtonIcon"></i>
                         <span>@ConfirmButtonText</span>
-                    </div>
+                    </button>
                 }
             </div>
         }

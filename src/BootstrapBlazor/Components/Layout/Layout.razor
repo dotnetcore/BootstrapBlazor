@@ -2,9 +2,9 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<CascadingValue Value="this" IsFixed="true">
-    @if (_init)
-    {
+@if (_init)
+{
+    <CascadingValue Value="this" IsFixed="true">
         @if (IsAuthenticated)
         {
             <section @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
@@ -22,16 +22,7 @@
                 }
                 else if (IsFullSide)
                 {
-                    <aside class="@SideClassString" style="@SideStyleString">
-                        @if (Side != null)
-                        {
-                            @Side
-                        }
-                        @if (Menus != null)
-                        {
-                            @RenderMenu
-                        }
-                    </aside>
+                    @RenderSide
                     <section class="layout-right">
                         @if (Header != null)
                         {
@@ -51,16 +42,7 @@
                         @RenderHeader(ShowCollapseBar)
                     }
                     <section class="has-sidebar">
-                        <aside class="@SideClassString" style="@SideStyleString">
-                            @if (Side != null)
-                            {
-                                @Side
-                            }
-                            @if (Menus != null)
-                            {
-                                @RenderMenu
-                            }
-                        </aside>
+                        @RenderSide
                         @RenderMain
                     </section>
                     @if (ShowFooter && Footer != null)
@@ -78,8 +60,8 @@
         {
             @RenderMain
         }
-    }
-</CascadingValue>
+    </CascadingValue>
+}
 
 @code {
     RenderFragment<bool> RenderHeader => collapse =>
@@ -99,6 +81,22 @@
         }
         @Header
     </header>;
+
+    RenderFragment RenderSide =>
+    @<aside class="@SideClassString" style="@SideStyleString">
+        @if (Side != null)
+        {
+            @Side
+        }
+        @if (ShowSplitebar)
+        {
+            <LayoutSplitebar Min="SidebarMinWidth" Max="SidebarMaxWidth"></LayoutSplitebar>
+        }
+        @if (Menus != null)
+        {
+            @RenderMenu
+        }
+    </aside>;
 
     RenderFragment RenderMenu =>
     @<div class="layout-menu">

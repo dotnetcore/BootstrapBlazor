@@ -106,6 +106,12 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public string? CloseButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮显示图标
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 确认按钮显示文字 默认为 确定
     /// </summary>
     [Parameter]
@@ -117,6 +123,12 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// </summary>
     [Parameter]
     public Color ConfirmButtonColor { get; set; } = Color.Primary;
+
+    /// <summary>
+    /// 获得/设置 确认按钮显示图标
+    /// </summary>
+    [Parameter]
+    public string? ConfirmButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 确认框图标
