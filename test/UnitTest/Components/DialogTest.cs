@@ -64,7 +64,9 @@ public class DialogTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }
         }));
-        Assert.Contains("<svg", cut.Markup);
+
+        // 由于设置了 ShowMaximizeButton 导致 ShowResize 参数失效
+        Assert.DoesNotContain("<svg", cut.Markup);
         Assert.Contains("data-bs-backdrop=\"static\"", cut.Markup);
 
         // 全屏按钮
