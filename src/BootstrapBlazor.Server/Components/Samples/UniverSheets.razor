@@ -14,10 +14,9 @@
            Name="Normal">
     <section ignore>
         <p>@((MarkupString)Localizer["NormalDesc"].Value)</p>
-        <Button OnClickWithoutRender="OnPush" Text="@Localizer["PushButtonText"]"></Button>
+        <Button OnClickWithoutRender="OnPushExcelData" Text="@Localizer["PushButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet Plugins="Plugins" @ref="_sheet"
-                     OnReadyAsync="OnReadyAsync" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
+        <UniverSheet @ref="_sheet" OnReadyAsync="OnReadyAsync" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
     </div>
 </DemoBlock>

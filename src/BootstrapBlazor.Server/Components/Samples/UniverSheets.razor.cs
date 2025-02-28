@@ -42,17 +42,16 @@ public partial class UniverSheets
         return Task.FromResult<UniverSheetData?>(result);
     }
 
-    private async Task OnPush()
+    private async Task OnPushExcelData()
     {
         await _sheet.PushDataAsync(new UniverSheetData()
         {
             MessageName = "MessageName",
             CommandName = "CommandName",
-            Data = new
+            Data = new object[]
             {
-                Id = 01,
-                Name = "Test-Name",
-                Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+                new object[] { "1", "2", "3", "4", "5" },
+                new object[] { "1", "2", "3", "4", "5" },
             }
         });
     }

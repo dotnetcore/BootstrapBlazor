@@ -7006,7 +7006,8 @@
     "UniverSheetIntro": "封装开源办公套件 ​Univer​ 的核心电子表格组件，提供高性能、可扩展的在线表格解决方案",
     "NormalTitle": "基础用法",
     "NormalIntro": "通过设置 <code>Plugins</code> 参数设置自己的插件",
-    "NormalDesc": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>工具栏</b> 第一个小按钮主动从服务器端获取数据",
+    "NormalDesc": "点击 <b>推送数据</b> 按钮主动将数据推送给表格",
+    "NormalDesc1": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>工具栏</b> 第一个小按钮主动从服务器端获取数据",
     "PushButtonText": "推送数据",
     "ToastOnReadyTitle": "组件通知",
     "ToastOnReadyContent": "表格组件已就绪，可进行后续数据推送等操作"
