@@ -12,7 +12,7 @@ public partial class UniverSheets
 {
     private readonly Dictionary<string, string> Plugins = new()
     {
-        { "ReportPlugin", "report/plugin.js" }
+        { "ReportPlugin", "univer-sheet/plugin.js" }
     };
 
     private UniverSheet _sheet = default!;

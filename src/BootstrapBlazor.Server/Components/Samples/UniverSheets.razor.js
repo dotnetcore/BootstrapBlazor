@@ -24,7 +24,7 @@ if (window.BootstrapBlazor.Univer.Sheet === void 0) {
 }
 
 export function init(id) {
-    console.log(id);
+
 }
 
 export function dispose(id) {
