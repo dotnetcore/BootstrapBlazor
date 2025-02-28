@@ -21,7 +21,9 @@ public partial class UniverSheets
         { "ReportPlugin", "univer-sheet/plugin.js" }
     };
 
-    private UniverSheet _sheet = default!;
+    private UniverSheet _sheetExcel = default!;
+
+    private UniverSheet _sheetPlugin = default!;
 
     private async Task OnReadyAsync() => await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
 
@@ -44,7 +46,7 @@ public partial class UniverSheets
 
     private async Task OnPushExcelData()
     {
-        await _sheet.PushDataAsync(new UniverSheetData()
+        await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
             MessageName = "MessageName",
             CommandName = "CommandName",
@@ -52,6 +54,21 @@ public partial class UniverSheets
             {
                 new object[] { "1", "2", "3", "4", "5" },
                 new object[] { "1", "2", "3", "4", "5" },
+            }
+        });
+    }
+
+    private async Task OnPushPluginData()
+    {
+        await _sheetPlugin.PushDataAsync(new UniverSheetData()
+        {
+            MessageName = "MessageName",
+            CommandName = "CommandName",
+            Data = new
+            {
+                Id = "1",
+                Name = "Test",
+                Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             }
         });
     }

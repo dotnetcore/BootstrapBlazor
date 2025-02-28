@@ -8,7 +8,6 @@
 
 <PackageTips Name="BootstrapBlazor.UniverSheet" />
 
-
 <DemoBlock Title="@Localizer["NormalTitle"]"
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal">
@@ -17,6 +16,18 @@
         <Button OnClickWithoutRender="OnPushExcelData" Text="@Localizer["PushButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheet" OnReadyAsync="OnReadyAsync" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
+        <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync"></UniverSheet>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["PluginTitle"]"
+           Introduction="@Localizer["PluginIntro"]"
+           Name="Plugin">
+    <section ignore>
+        <p>@((MarkupString)Localizer["NormalDesc"].Value)</p>
+        <Button OnClickWithoutRender="OnPushPluginData" Text="@Localizer["PushButtonText"]"></Button>
+    </section>
+    <div class="bb-sheet-demo">
+        <UniverSheet @ref="_sheetPlugin" Plugins="Plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
     </div>
 </DemoBlock>
