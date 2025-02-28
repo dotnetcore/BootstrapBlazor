@@ -36,7 +36,6 @@ public class Responsive : BootstrapModuleComponentBase
         if (OnBreakPointChanged != null && breakPoint != _breakPoint)
         {
             _breakPoint = breakPoint;
-
             await OnBreakPointChanged(breakPoint);
         }
     }
