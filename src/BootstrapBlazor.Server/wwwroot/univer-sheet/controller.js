@@ -9,7 +9,7 @@ const GetDataOperation = {
     handler: async (accessor) => {
         const dataService = accessor.get(DataService.name);
         const data = await dataService.getDataAsync({ id: '123' });
-        const univerAPI = dataService.getSheet().univerAPI;
+        const univerAPI = dataService.getUniverSheet().univerAPI;
         const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
         const defaultData1 = [
             [{ v: 'A1' }, { v: 'B1' }],
