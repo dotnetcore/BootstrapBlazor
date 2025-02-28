@@ -33,11 +33,13 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 全屏弹窗 默认 None
     /// </summary>
+    /// <remarks>为保证功能正常，设置值后 <see cref="ShowMaximizeButton"/> <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
     public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.None;
 
     /// <summary>
     /// 获得/设置 是否显示最大化按钮 默认 false 不显示
     /// </summary>
+    /// <remarks>为保证功能正常，设置值为 true 后 <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
     public bool ShowMaximizeButton { get; set; }
 
     /// <summary>
