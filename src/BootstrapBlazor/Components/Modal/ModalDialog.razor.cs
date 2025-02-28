@@ -61,6 +61,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// 获得/设置 弹窗大小 默认为 <see cref="FullScreenSize.None"/>
     /// </summary>
+    /// <remarks>为保证功能正常，设置值后 <see cref="ShowMaximizeButton"/> <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
     [Parameter]
     public FullScreenSize FullScreenSize { get; set; }
 
@@ -85,6 +86,7 @@ public partial class ModalDialog : IHandlerException
     /// <summary>
     /// 获得/设置 是否显示最大化按钮 默认为 false
     /// </summary>
+    /// <remarks>为保证功能正常，设置值为 true 后 <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
     [Parameter]
     public bool ShowMaximizeButton { get; set; }
 
@@ -329,6 +331,18 @@ public partial class ModalDialog : IHandlerException
         ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
 
         MaximizeIconString = MaximizeWindowIcon;
+
+        if (FullScreenSize != FullScreenSize.None)
+        {
+            ShowMaximizeButton = false;
+            ShowResize = false;
+            IsDraggable = false;
+        }
+        else if (ShowMaximizeButton)
+        {
+            ShowResize = false;
+            IsDraggable = false;
+        }
     }
 
     /// <summary>
