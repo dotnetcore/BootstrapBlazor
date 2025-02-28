@@ -389,7 +389,7 @@
     "ModalsDialogResizeIntro": "通过设置 <code>ShowResize=\"true\"</code> 可以通过鼠标拉动弹窗右下角进行窗口大小调整",
     "ModalsSmallPopup": "小弹窗",
     "ModalsBigPopup": "大弹窗",
-    "ModalsOversizedPopup": "超大弹窗",
+    "ModalsOverSizedPopup": "超大弹窗",
     "ModalsSuperLargePopup": "超超大弹窗",
     "ModalsFullScreenSizeTitle": "全屏弹窗",
     "ModalsFullScreenSizeIntro": "设置属性 <code>FullScreenSize</code> 即可",
