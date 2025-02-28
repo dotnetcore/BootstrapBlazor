@@ -1,6 +1,33 @@
-import { ReportPlugin } from '../plugin.js';
+﻿import { DataService } from '../_content/BootstrapBlazor.UniverSheet/univer.js'
+
 const { Disposable, setDependencies, Injector, ICommandService, CommandType, UniverInstanceType, FUniver } = UniverCore;
 const { ContextMenuGroup, ContextMenuPosition, RibbonStartGroup, ComponentManager, IMenuManagerService, MenuItemType, getMenuHiddenObservable } = UniverUi;
+
+const GetDataOperation = {
+    id: 'report.operation.add-table',
+    type: CommandType.OPERATION,
+    handler: async (accessor) => {
+        const dataService = accessor.get(DataService.name);
+        const data = await dataService.getData({ id: '123' });
+        const univerAPI = dataService.getSheet().univerAPI;
+        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
+        const defaultData1 = [
+            [{ v: 'A1' }, { v: 'B1' }],
+            [{ v: 'A2' }, { v: 'B2' }],
+        ]
+        const defaultData2 = {
+            0: {
+                0: 'A1',
+                1: 'B1',
+            },
+            1: {
+                0: 'A2',
+                1: 'B2',
+            }
+        }
+        range.setValues(data || defaultData1)
+    }
+};
 
 function GetDataIcon() {
     return React.createElement(
@@ -13,36 +40,6 @@ function GetDataIcon() {
     );
 }
 
-const GetDataOperation = {
-    id: 'report.operation.add-table',
-    type: CommandType.OPERATION,
-    handler: async (accessor) => {
-        const dataService = accessor.get(ReportPlugin.DataServiceName);
-        const data = await dataService.pushData({id: '123'})
-        console.log(data, 'GetDataOperation');
-        
-        const univerAPI = FUniver.newAPI(dataService._injector)
-        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
-        const defaultData1 = [
-            [{ v: 'A1' }, { v: 'B1' }],
-            [{ v: 'A2' }, { v: 'B2' }],
-        ]
-        const defaultData2 = {
-            0: {
-              0: 'A1',
-              1: 'B1',
-            },
-            1: {
-              0: 'A2',
-              1: 'B2',
-            },
-          }
-
-        range.setValues(data || defaultData1)
-
-    },
-};
-
 function ReportGetDataFactory(accessor) {
     return {
         id: GetDataOperation.id,
@@ -53,25 +50,35 @@ function ReportGetDataFactory(accessor) {
         hidden$: getMenuHiddenObservable(accessor, UniverInstanceType.UNIVER_SHEET)
     };
 }
+
 export class ReportController extends Disposable {
     constructor(_injector, _commandService, _menuManagerService, _componentManager) {
         super();
+
         this._injector = _injector;
         this._commandService = _commandService;
-        this._menuManagerService = _menuManagerService ;
+        this._menuManagerService = _menuManagerService;
         this._componentManager = _componentManager;
 
         this._initCommands();
         this._registerComponents();
         this._initMenus();
+        this._initDataService();
     }
+
+    _initDataService() {
+        const dataService = this._injector.get(DataService.name);
+        dataService.registerCallback(data => {
+            console.log(data);
+        });
+    }
+
     _initCommands() {
-        [
-            GetDataOperation,
-        ].forEach((c) => {
+        [GetDataOperation].forEach((c) => {
             this.disposeWithMe(this._commandService.registerCommand(c));
         });
     }
+
     _registerComponents() {
         const componentMap = {
             GetDataIcon,
@@ -81,9 +88,9 @@ export class ReportController extends Disposable {
         });
 
     }
+
     _initMenus() {
         this._menuManagerService.mergeMenu({
-            
             [RibbonStartGroup.HISTORY]: {
                 [GetDataOperation.id]: {
                     order: -1,
@@ -101,4 +108,5 @@ export class ReportController extends Disposable {
         });
     }
 }
+
 setDependencies(ReportController, [Injector, ICommandService, IMenuManagerService, ComponentManager]);
