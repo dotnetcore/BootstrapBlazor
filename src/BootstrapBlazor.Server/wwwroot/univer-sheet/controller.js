@@ -8,24 +8,19 @@ const GetDataOperation = {
     type: CommandType.OPERATION,
     handler: async (accessor) => {
         const dataService = accessor.get(DataService.name);
-        const data = await dataService.getDataAsync({ id: '123' });
-        const univerAPI = dataService.getUniverSheet().univerAPI;
-        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
-        const defaultData1 = [
-            [{ v: 'A1' }, { v: 'B1' }],
-            [{ v: 'A2' }, { v: 'B2' }],
-        ]
-        const defaultData2 = {
-            0: {
-                0: 'A1',
-                1: 'B1',
-            },
-            1: {
-                0: 'A2',
-                1: 'B2',
-            }
+        const data = await dataService.getDataAsync({
+            messageName: "getDataMessage",
+            commandName: "getDataCommand"
+        });
+        if (data) {
+            const univerAPI = dataService.getUniverSheet().univerAPI;
+            const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 1)
+            const defaultData = [
+                [{ v: data.data.key }],
+                [{ v: data.data.value }]
+            ]
+            range.setValues(defaultData);
         }
-        range.setValues(data || defaultData1)
     }
 };
 
@@ -69,7 +64,7 @@ export class ReportController extends Disposable {
     _registerReceiveDataCallback() {
         const dataService = this._injector.get(DataService.name);
         dataService.registerReceiveDataCallback(data => {
-            this.receiveData(data);
+            this.receiveData(data, dataService.getUniverSheet());
         });
     }
 
@@ -108,8 +103,15 @@ export class ReportController extends Disposable {
         });
     }
 
-    receiveData(data) {
-        console.log(data);
+    receiveData(data, sheet) {
+        const { univerAPI } = sheet;
+        const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 3)
+        const defaultData = [
+            [{ v: 'Id' }, { v: 'Name' }, { v: 'Value' }],
+            [{ v: data.data.id }, { v: data.data.name }, { v: data.data.value }]
+        ]
+        range.setValues(defaultData);
+
     }
 }
 
