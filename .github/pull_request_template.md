@@ -1,4 +1,4 @@
-## Description
+## Link issues
 
 fixes #{bug number} (in this specific format)
 
