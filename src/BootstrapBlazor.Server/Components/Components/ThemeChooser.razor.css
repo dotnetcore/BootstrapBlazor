@@ -59,8 +59,6 @@
     --bs-btn-hover-bg: var(--bb-layout-button-hover-bg);
     --bs-btn-active-bg: var(--bb-layout-button-active-bg);
     box-shadow: var(--bb-layout-button-shadow);
-    right: 1rem;
-    bottom: 9rem;
 }
 
     ::deep .btn-theme img {

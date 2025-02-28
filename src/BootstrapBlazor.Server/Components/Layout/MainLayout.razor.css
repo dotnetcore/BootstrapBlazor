@@ -72,6 +72,70 @@
             background-color: var(--bb-sidebar-body-drag-hover-bg);
         }
 
+::deep .dial-button {
+    display: none;
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+}
+
+::deep .btn-fade {
+    opacity: 0.7;
+    box-shadow: var(--bb-layout-button-shadow);
+    transition: opacity .3s linear;
+}
+
+    ::deep .btn-fade:hover {
+        opacity: 1;
+    }
+
+::deep .btn-update {
+    --bs-btn-bg: var(--bb-layout-button-update-bg);
+    --bs-btn-hover-bg: var(--bs-btn-bg);
+    --bs-btn-active-bg: var(--bs-btn-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+    ::deep .btn-update img {
+        width: 55%;
+        margin-inline-start: 2px;
+    }
+
+::deep .btn-chat {
+    --bs-btn-bg: var(--bb-layout-button-bg);
+    --bs-btn-hover-bg: var(--bb-layout-button-hover-bg);
+    --bs-btn-active-bg: var(--bb-layout-button-active-bg);
+    box-shadow: var(--bb-layout-button-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bb-button-chat-color);
+}
+
+::deep .btn-theme-mode {
+    --bs-btn-bg: var(--bb-layout-button-bg);
+    --bs-btn-hover-bg: var(--bb-layout-button-hover-bg);
+    --bs-btn-active-bg: var(--bb-layout-button-active-bg);
+    box-shadow: var(--bb-layout-button-shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--bb-button-chat-color);
+}
+
+.dial-button-gear {
+    background-color: var(--bb-primary-color);
+    border-radius: 50%;
+    padding: 4px;
+    cursor: pointer;
+}
+
+    .dial-button-gear img {
+        width: 100%;
+    }
+
 @media (min-width: 768px) {
     .section {
         --bb-layout-sidebar-width: 300px;
@@ -100,6 +164,10 @@
     }
 
     .sidebar-bar {
+        display: block;
+    }
+
+    ::deep .dial-button {
         display: block;
     }
 }
