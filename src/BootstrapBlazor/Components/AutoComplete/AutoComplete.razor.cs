@@ -126,7 +126,7 @@ public partial class AutoComplete
         }
     }
 
-    private List<string> Rows => _filterItems ?? Items.ToList();
+    private List<string> Rows => _filterItems ?? [.. Items];
 
     /// <summary>
     /// TriggerFilter 方法
@@ -138,11 +138,11 @@ public partial class AutoComplete
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
         else if (string.IsNullOrEmpty(val))
         {
-            _filterItems = Items.ToList();
+            _filterItems = [.. Items];
         }
         else
         {
@@ -150,12 +150,12 @@ public partial class AutoComplete
             var items = IsLikeMatch
                 ? Items.Where(s => s.Contains(val, comparison))
                 : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
 
         if (DisplayCount != null)
         {
-            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
+            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         StateHasChanged();
     }

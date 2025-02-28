@@ -107,7 +107,7 @@ export function init(id, invoke) {
 
 const handlerKeyup = (ac, e) => {
     const key = e.key;
-    const { el, input, menu } = ac;
+    const { el, input, invoke, menu } = ac;
     if (key === 'Enter' || key === 'NumpadEnter') {
         const skipEnter = el.getAttribute('data-bb-skip-enter') === 'true';
         if (!skipEnter) {
@@ -116,12 +116,14 @@ const handlerKeyup = (ac, e) => {
                 el.triggerEnter = true;
                 current.click();
             }
+            invoke.invokeMethodAsync('EnterCallback', input.value);
         }
     }
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
             EventHandler.trigger(menu, 'click');
+            invoke.invokeMethodAsync('EscCallback');
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
