@@ -331,6 +331,18 @@ public partial class ModalDialog : IHandlerException
         ExportPdfButtonOptions.Icon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
 
         MaximizeIconString = MaximizeWindowIcon;
+
+        if (FullScreenSize != FullScreenSize.None)
+        {
+            ShowMaximizeButton = false;
+            ShowResize = false;
+            IsDraggable = false;
+        }
+        else if (ShowMaximizeButton)
+        {
+            ShowResize = false;
+            IsDraggable = false;
+        }
     }
 
     /// <summary>
