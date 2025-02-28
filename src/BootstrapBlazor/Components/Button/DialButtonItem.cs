@@ -11,23 +11,17 @@ namespace BootstrapBlazor.Components;
 public class DialButtonItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 显示图标
+    /// 获得/设置 显示图标
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 选项值
+    /// 获得/设置 选项值
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     public string? Value { get; set; }
 
     [CascadingParameter]
