@@ -111,7 +111,6 @@ export class ReportController extends Disposable {
             [{ v: data.data.id }, { v: data.data.name }, { v: data.data.value }]
         ]
         range.setValues(defaultData);
-
     }
 }
 
