@@ -223,6 +223,24 @@ public class DialButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Item_ChildContent_Ok()
+    {
+        var cut = Context.RenderComponent<DialButton>(pb =>
+        {
+            pb.Add(i => i.ChildContent, new RenderFragment(pb =>
+            {
+                pb.OpenComponent<DialButtonItem>(0);
+                pb.AddAttribute(1, "ChildContent", new RenderFragment(pb =>
+                {
+                    pb.AddContent(0, "test-ChildContent");
+                }));
+                pb.CloseComponent();
+            }));
+        });
+        cut.Contains("test-ChildContent");
+    }
+
+    [Fact]
     public void DialButtonItem_Ok()
     {
         var cut = Context.RenderComponent<DialButtonItem>(pb =>
