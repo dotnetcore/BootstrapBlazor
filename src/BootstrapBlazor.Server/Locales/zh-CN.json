@@ -6988,7 +6988,7 @@
   "BootstrapBlazor.Server.Components.Samples.Typeds": {
     "TypedTitle": "Typed 打字机效果",
     "TypedIntro": "输入任意字符串，它会按照你设置的速度输入，输入的内容会退格，然后根据你设置的字符串数量开始一个新句子。",
-    "NormalTitle": "Text",
+    "NormalTitle": "基础用法",
     "NormalIntro": "通过设置 <code>Text</code> 参数设置要显示的文本",
     "TypedOptionsTitle": "TypedOptions",
     "TypedOptionsIntro": "通过设置 <code>TypedOptions</code> 参数的属性自定义打字速度、延时等设定"
@@ -7000,5 +7000,15 @@
     "Html2ImageElementIntro": "通过调用 <code>GetDataAsync</code> 方法获得 <b>base64-encoded</b> 图片",
     "Html2ImageButtonText": "Image",
     "Html2ImageDesc": "由于底层使用的是 <a href=\"https://github.com/bubkoo/html-to-image?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">html-to-image</a> 实际使用过程中遇到问题请参考项目 <a href=\"https://github.com/bubkoo/html-to-image/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UniverSheets": {
+    "UniverSheetTitle": "UniverSheet 电子表格组件",
+    "UniverSheetIntro": "封装开源办公套件 ​Univer​ 的核心电子表格组件，提供高性能、可扩展的在线表格解决方案",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "通过设置 <code>Plugins</code> 参数设置自己的插件",
+    "NormalDesc": "点击 <b>推送数据</b> 按钮主动将数据推送给表格，点击 <b>工具栏</b> 第一个小按钮主动从服务器端获取数据",
+    "PushButtonText": "推送数据",
+    "ToastOnReadyTitle": "组件通知",
+    "ToastOnReadyContent": "表格组件已就绪，可进行后续数据推送等操作"
   }
 }

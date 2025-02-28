@@ -7000,5 +7000,15 @@
     "Html2ImageElementIntro": "Get the <b>base64-encoded</b> image by calling the <code>GetDataAsync</code> method",
     "Html2ImageButtonText": "Image",
     "Html2ImageDesc": "Since the underlying library is <a href=\"https://github.com/bubkoo/html-to-image?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">html-to-image</a>, if you encounter any problems during actual use, please refer to the project <a href=\"https://github.com/bubkoo/html-to-image/issues?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Issue</a>"
+  },
+  "BootstrapBlazor.Server.Components.Samples.UniverSheets": {
+    "UniverSheetTitle": "UniverSheet",
+    "UniverSheetIntro": "Encapsulates the core spreadsheet component of the open source office suite ​Univer​, providing a high-performance, scalable online spreadsheet solution",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Set your own plugins by setting the <code>Plugins</code> parameter",
+    "NormalDesc": "Click the <b>Push Data</b> button to push data to the table, and click the first small button on the <b>Toolbar</b> to get data from the server.",
+    "PushButtonText": "Push",
+    "ToastOnReadyTitle": "Notification",
+    "ToastOnReadyContent": "The sheet is ready for push data."
   }
 }
