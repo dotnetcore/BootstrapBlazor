@@ -1,12 +1,11 @@
-﻿import { ReportController } from './controller.js'
-import { DataService } from '../_content/BootstrapBlazor.UniverSheet/univer.js'
+﻿import DataService from '../_content/BootstrapBlazor.UniverSheet/data-service.js'
+import { ReportController } from './controller.js'
 
 const { Plugin, Injector, setDependencies } = UniverCore;
-const REPORT_PLUGIN = 'ReportPlugin';
 
 // 定义插件类
 export class ReportPlugin extends Plugin {
-    static pluginName = REPORT_PLUGIN;
+    static pluginName = 'ReportPlugin';
 
     constructor(_injector) {
         super();

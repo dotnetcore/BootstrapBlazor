@@ -1,6 +1,6 @@
-﻿import { DataService } from '../_content/BootstrapBlazor.UniverSheet/univer.js'
+﻿import DataService from '../_content/BootstrapBlazor.UniverSheet/data-service.js'
 
-const { Disposable, setDependencies, Injector, ICommandService, CommandType, UniverInstanceType, FUniver } = UniverCore;
+const { Disposable, setDependencies, Injector, ICommandService, CommandType, UniverInstanceType } = UniverCore;
 const { ContextMenuGroup, ContextMenuPosition, RibbonStartGroup, ComponentManager, IMenuManagerService, MenuItemType, getMenuHiddenObservable } = UniverUi;
 
 const GetDataOperation = {
@@ -8,7 +8,7 @@ const GetDataOperation = {
     type: CommandType.OPERATION,
     handler: async (accessor) => {
         const dataService = accessor.get(DataService.name);
-        const data = await dataService.getData({ id: '123' });
+        const data = await dataService.getDataAsync({ id: '123' });
         const univerAPI = dataService.getSheet().univerAPI;
         const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 2)
         const defaultData1 = [
@@ -63,13 +63,13 @@ export class ReportController extends Disposable {
         this._initCommands();
         this._registerComponents();
         this._initMenus();
-        this._initDataService();
+        this._registerReceiveDataCallback();
     }
 
-    _initDataService() {
+    _registerReceiveDataCallback() {
         const dataService = this._injector.get(DataService.name);
-        dataService.registerCallback(data => {
-            console.log(data);
+        dataService.registerReceiveDataCallback(data => {
+            this.receiveData(data);
         });
     }
 
@@ -106,6 +106,10 @@ export class ReportController extends Disposable {
                 }
             }
         });
+    }
+
+    receiveData(data) {
+        console.log(data);
     }
 }
 
