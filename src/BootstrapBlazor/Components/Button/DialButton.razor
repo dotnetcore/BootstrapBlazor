@@ -29,7 +29,14 @@
                     <div @key="@item" class="dial-item" role="menuitem" @onclick="@(e => OnClickItem(item))">
                         @if (ItemTemplate == null)
                         {
-                            <i class="@item.Icon"></i>
+                            if(item.ChildContent != null)
+                            {
+                                @item.ChildContent
+                            }
+                            else
+                            {
+                                <i class="@item.Icon"></i>
+                            }
                         }
                         else
                         {

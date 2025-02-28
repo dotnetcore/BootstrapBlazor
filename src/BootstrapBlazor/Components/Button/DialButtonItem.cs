@@ -24,6 +24,12 @@ public class DialButtonItem : ComponentBase, IDisposable
     [NotNull]
     public string? Value { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [CascadingParameter]
     private List<DialButtonItem>? Items { get; set; }
 
