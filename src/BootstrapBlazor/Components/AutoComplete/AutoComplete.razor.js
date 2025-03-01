@@ -94,6 +94,11 @@ export function init(id, invoke) {
                             const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
                             if (el === null) {
                                 a.classList.remove('show');
+                                const id = a.getAttribute('id');
+                                const ac = Data.get(id);
+                                if (ac) {
+                                    ac.invoke.invokeMethodAsync('TriggerBlur');
+                                }
                             }
                         });
                     });
