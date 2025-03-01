@@ -54,10 +54,6 @@ export function init(id, invoke) {
         }
     });
 
-    EventHandler.on(menu, 'click', e => {
-        el.classList.remove('show');
-    });
-
     EventHandler.on(input, 'change', e => {
         invoke.invokeMethodAsync('TriggerChange', e.target.value);
     });
@@ -118,6 +114,7 @@ const handlerKeyup = (ac, e) => {
             const current = menu.querySelector('.active');
             if (current !== null) {
                 current.click();
+                input.blur();
             }
             invoke.invokeMethodAsync('EnterCallback', input.value);
         }
@@ -125,8 +122,8 @@ const handlerKeyup = (ac, e) => {
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
-            input.blur();
             invoke.invokeMethodAsync('EscCallback');
+            input.blur();
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
@@ -176,7 +173,6 @@ export function dispose(id) {
         }
         EventHandler.off(input, 'keyup');
         EventHandler.off(input, 'blur');
-        EventHandler.off(menu, 'click');
         Input.dispose(input);
     }
 }
