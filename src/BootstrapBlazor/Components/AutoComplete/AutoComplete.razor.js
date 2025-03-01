@@ -97,7 +97,11 @@ export function init(id, invoke) {
                                 const id = a.getAttribute('id');
                                 const ac = Data.get(id);
                                 if (ac) {
-                                    ac.invoke.invokeMethodAsync('TriggerBlur');
+                                    const { invoke, input } = ac;
+                                    const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
+                                    if (triggerBlur) {
+                                        invoke.invokeMethodAsync('TriggerBlur');
+                                    }
                                 }
                             }
                         });
