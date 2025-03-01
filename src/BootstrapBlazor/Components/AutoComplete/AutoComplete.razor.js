@@ -93,15 +93,10 @@ export function init(id, invoke) {
 
                             const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
                             if (el === null) {
-                                a.classList.remove('show');
                                 const id = a.getAttribute('id');
                                 const ac = Data.get(id);
                                 if (ac) {
-                                    const { invoke, input } = ac;
-                                    const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
-                                    if (triggerBlur) {
-                                        invoke.invokeMethodAsync('TriggerBlur');
-                                    }
+                                    triggerBlurEvent(ac);
                                 }
                             }
                         });
@@ -112,6 +107,15 @@ export function init(id, invoke) {
     }
 
     window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
+}
+
+const triggerBlurEvent = ac => {
+    const { el, invoke, input } = ac;
+    el.classList.remove('show');
+    const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
+    if (triggerBlur) {
+        invoke.invokeMethodAsync('TriggerBlur');
+    }
 }
 
 const handlerKeyup = (ac, e) => {
@@ -131,7 +135,8 @@ const handlerKeyup = (ac, e) => {
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
-            el.classList.remove('show');
+            input.blur();
+            triggerBlurEvent(ac);
             invoke.invokeMethodAsync('EscCallback');
         }
     }
