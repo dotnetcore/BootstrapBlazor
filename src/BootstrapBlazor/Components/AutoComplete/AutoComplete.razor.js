@@ -131,7 +131,7 @@ const handlerKeyup = (ac, e) => {
     else if (key === 'Escape') {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
-            EventHandler.trigger(menu, 'click');
+            el.classList.remove('show');
             invoke.invokeMethodAsync('EscCallback');
         }
     }
