@@ -37,6 +37,14 @@ export function init(id, invoke) {
         })
     }
 
+    EventHandler.on(input, 'blur', e => {
+        el.classList.remove('show');
+        const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
+        if (triggerBlur) {
+            invoke.invokeMethodAsync('TriggerBlur');
+        }
+    });
+
     EventHandler.on(input, 'focus', e => {
         const showDropdownOnFocus = input.getAttribute('data-bb-auto-dropdown-focus') === 'true';
         if (showDropdownOnFocus) {
@@ -48,10 +56,6 @@ export function init(id, invoke) {
 
     EventHandler.on(menu, 'click', e => {
         el.classList.remove('show');
-        if (el.triggerEnter !== true) {
-            invoke.invokeMethodAsync('TriggerBlur');
-        }
-        delete el.triggerEnter;
     });
 
     EventHandler.on(input, 'change', e => {
@@ -93,11 +97,7 @@ export function init(id, invoke) {
 
                             const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
                             if (el === null) {
-                                const id = a.getAttribute('id');
-                                const ac = Data.get(id);
-                                if (ac) {
-                                    triggerBlurEvent(ac);
-                                }
+                                a.classList.remove('show');
                             }
                         });
                     });
@@ -109,15 +109,6 @@ export function init(id, invoke) {
     window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
 }
 
-const triggerBlurEvent = ac => {
-    const { el, invoke, input } = ac;
-    el.classList.remove('show');
-    const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
-    if (triggerBlur) {
-        invoke.invokeMethodAsync('TriggerBlur');
-    }
-}
-
 const handlerKeyup = (ac, e) => {
     const key = e.key;
     const { el, input, invoke, menu } = ac;
@@ -126,7 +117,6 @@ const handlerKeyup = (ac, e) => {
         if (!skipEnter) {
             const current = menu.querySelector('.active');
             if (current !== null) {
-                el.triggerEnter = true;
                 current.click();
             }
             invoke.invokeMethodAsync('EnterCallback', input.value);
@@ -136,7 +126,6 @@ const handlerKeyup = (ac, e) => {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
             input.blur();
-            triggerBlurEvent(ac);
             invoke.invokeMethodAsync('EscCallback');
         }
     }
@@ -186,6 +175,7 @@ export function dispose(id) {
             }
         }
         EventHandler.off(input, 'keyup');
+        EventHandler.off(input, 'blur');
         EventHandler.off(menu, 'click');
         Input.dispose(input);
     }
