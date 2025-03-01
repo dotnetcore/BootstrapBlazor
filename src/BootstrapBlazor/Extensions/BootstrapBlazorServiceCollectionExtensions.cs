@@ -36,6 +36,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
 
+        // BootstrapBlazorRootRegisterService 服务
+        services.AddScoped<BootstrapBlazorRootRegisterService>();
+
         // Html2Pdf 服务
         services.TryAddSingleton<IHtml2Pdf, DefaultHtml2PdfService>();
 
