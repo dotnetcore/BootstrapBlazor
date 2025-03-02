@@ -60,7 +60,6 @@ export function dispose(id) {
     if (DialButton.items.length === 0) {
         EventHandler.off(document, 'click', closePopup)
     }
-
 }
 
 const toggle = (el, list) => {
