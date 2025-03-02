@@ -170,6 +170,7 @@ export function dispose(id) {
                 EventHandler.off(input, 'focus')
             }
         }
+        EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
         EventHandler.off(input, 'blur');
         Input.dispose(input);
