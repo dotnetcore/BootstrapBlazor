@@ -300,11 +300,11 @@ public partial class Table<TItem>
     {
         try
         {
-            return Activator.CreateInstance<TItem>();
+            return ObjectExtensions.CreateInstanceWithCascade<TItem>();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provider {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例");
+            throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例", ex);
         }
     }
 
