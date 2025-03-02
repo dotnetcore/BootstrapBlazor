@@ -159,7 +159,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 
+    /// Tries to convert the string representation of a value to a specified type.
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="source"></param>
@@ -203,7 +203,7 @@ public static class ObjectExtensions
     }
 
     /// <summary>
-    /// 格式化为 文件大小与单位格式 字符串
+    /// Formats the file size into a string with appropriate units
     /// </summary>
     /// <param name="fileSize"></param>
     /// <returns></returns>
