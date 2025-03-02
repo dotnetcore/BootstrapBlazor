@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled } from "../../modules/utility.js"
+﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import { showTooltip, removeTooltip } from "./Button.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
@@ -87,17 +87,19 @@ export function init(id) {
         }
     }
 
-    if (!window.bb_confirm) {
-        window.bb_confirm = {
-            handle: false,
-            items: []
+    const module = registerBootstrapBlazorModule('PopConfirmButton', {
+        handle: false,
+        items: [],
+        registerClosePopupHandler: function () {
+            if (this.handle === false) {
+                this.handle = true;
+
+                EventHandler.on(document, 'click', confirm.closeConfirm);
+            }
         }
-    }
-    if (!window.bb_confirm.handle) {
-        window.bb_confirm.handle = true
-        EventHandler.on(document, 'click', confirm.closeConfirm);
-    }
-    window.bb_confirm.items.push(id)
+    });
+    module.registerClosePopupHandler();
+    module.items.push(id);
 }
 
 export function showConfirm(id) {
@@ -144,15 +146,15 @@ export function dispose(id) {
     const confirm = Data.get(id)
     Data.remove(id)
 
-    if (confirm) {
-        window.bb_confirm.items.pop(id)
-        if (window.bb_confirm.items.length === 0) {
-            delete window.bb_confirm
-            EventHandler.off(document, 'click', confirm.closeConfirm)
-        }
-        if (confirm.popover) {
-            confirm.popover.dispose();
-        }
+    const { popover } = confirm ?? {};
+    if (popover) {
+        popover.dispose();
+    }
+
+    const { PopConfirmButton } = window.BootstrapBlazor;
+    PopConfirmButton.items.pop(id)
+    if (PopConfirmButton.items.length === 0) {
+        EventHandler.off(document, 'click', confirm.closeConfirm)
     }
 }
 
