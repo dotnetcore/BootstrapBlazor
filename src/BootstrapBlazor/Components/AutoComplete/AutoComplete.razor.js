@@ -68,8 +68,7 @@ export function init(id, invoke) {
     }, filterDuration);
 
     Input.composition(input, v => {
-        const useInput = input.getAttribute('data-bb-input') !== 'false';
-        if (isPopover === false && useInput) {
+        if (isPopover === false) {
             el.classList.add('show');
         }
 
