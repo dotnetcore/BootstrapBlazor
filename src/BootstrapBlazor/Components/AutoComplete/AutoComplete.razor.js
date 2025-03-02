@@ -72,7 +72,7 @@ export function init(id, invoke) {
         filterCallback(v);
     });
 
-    registerBootstrapBlazorModule('AutoComplete', {
+    const module = registerBootstrapBlazorModule('AutoComplete', {
         hooked: false,
         registerCloseDropdownHandler: function () {
             if (this.hooked === false) {
@@ -94,7 +94,7 @@ export function init(id, invoke) {
             }
         }
     });
-    window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
+    module.registerCloseDropdownHandler();
 }
 
 const handlerKeyup = (ac, e) => {
