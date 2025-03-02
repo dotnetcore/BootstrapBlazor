@@ -802,13 +802,17 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
     }
 }
 
-const deepMerge = (obj1, obj2) => {
-    for (let key in obj2) {
+const deepMerge = (obj1, obj2, skipNull = true) => {
+    for (const key in obj2) {
         if (obj2.hasOwnProperty(key)) {
             if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
                 obj1[key] = deepMerge(obj1[key], obj2[key]);
             }
             else {
+                const value = obj2[key];
+                if (skipNull && value === null) {
+                    continue;
+                }
                 obj1[key] = obj2[key];
             }
         }
