@@ -823,6 +823,7 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
 export function registerBootstrapBlazorModule(name, module) {
     window.BootstrapBlazor ??= {};
     window.BootstrapBlazor[name] ??= deepMerge(window.BootstrapBlazor[name] ?? {}, module);
+    return window.BootstrapBlazor[name];
 }
 
 export function setTitle(title) {
