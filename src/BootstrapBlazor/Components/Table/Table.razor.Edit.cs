@@ -300,7 +300,9 @@ public partial class Table<TItem>
     {
         try
         {
-            return Activator.CreateInstance<TItem>();
+            var instance = Activator.CreateInstance<TItem>();
+            instance.EnsureInitialized();
+            return instance;
         }
         catch (Exception)
         {
