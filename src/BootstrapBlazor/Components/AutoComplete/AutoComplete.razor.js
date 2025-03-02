@@ -1,13 +1,9 @@
-﻿import { debounce } from "../../modules/utility.js"
+﻿import { debounce, registerBootstrapBlazorModule } from "../../modules/utility.js"
 import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Input from "../../modules/input.js"
 import Popover from "../../modules/base-popover.js"
-
-if (window.BootstrapBlazor === void 0) {
-    window.BootstrapBlazor = {};
-}
 
 export function init(id, invoke) {
     const el = document.getElementById(id)
@@ -76,31 +72,28 @@ export function init(id, invoke) {
         filterCallback(v);
     });
 
-    if (window.BootstrapBlazor.AutoComplete === void 0) {
-        window.BootstrapBlazor.AutoComplete = {
-            hooked: false,
-            registerCloseDropdownHandler: function () {
-                if (this.hooked === false) {
-                    this.hooked = true;
+    registerBootstrapBlazorModule('AutoComplete', {
+        hooked: false,
+        registerCloseDropdownHandler: function () {
+            if (this.hooked === false) {
+                this.hooked = true;
 
-                    EventHandler.on(document, 'click', e => {
-                        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
-                            const ac = e.target.closest('.auto-complete');
-                            if (ac === a) {
-                                return;
-                            }
+                EventHandler.on(document, 'click', e => {
+                    [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+                        const ac = e.target.closest('.auto-complete');
+                        if (ac === a) {
+                            return;
+                        }
 
-                            const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
-                            if (el === null) {
-                                a.classList.remove('show');
-                            }
-                        });
+                        const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
+                        if (el === null) {
+                            a.classList.remove('show');
+                        }
                     });
-                }
+                });
             }
         }
-    }
-
+    });
     window.BootstrapBlazor.AutoComplete.registerCloseDropdownHandler();
 }
 
