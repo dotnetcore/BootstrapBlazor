@@ -239,17 +239,24 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// Creates an instance of a type and ensures all class-type properties are initialized.
+    /// </summary>
+    /// <typeparam name="TItem">The type to create an instance of.</typeparam>
+    /// <returns>An instance of the specified type with initialized properties.</returns>
+    public static TItem CreateInstanceWithInitialized<TItem>()
+    {
+        var instance = Activator.CreateInstance<TItem>();
+        instance?.EnsureInitialized();
+        return instance;
+    }
+
+    /// <summary>
     /// Ensures that all class-type properties of the instance are initialized.
     /// </summary>
-    /// <param name="instance"></param>
-    public static void EnsureInitialized(this object? instance)
+    /// <param name="instance">The instance to initialize properties for.</param>
+    public static void EnsureInitialized(this object instance)
     {
-        if (instance == null)
-        {
-            return;
-        }
-
-        // TODO: 这里使用了反射性能需要优化 Reflection performance needs to be optimized here
+        // Reflection performance needs to be optimized here
         foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
         {
             var type = propertyInfo.PropertyType;
