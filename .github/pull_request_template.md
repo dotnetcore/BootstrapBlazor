@@ -2,6 +2,8 @@
 
 fixes #{bug number} (in this specific format)
 
+## Summary By Copilot
+
 ## Regression?
 
 - [ ] Yes
@@ -37,5 +39,3 @@ fixes #{bug number} (in this specific format)
 - [ ] Doc is updated/provided or not needed
 - [ ] Demo is updated/provided or not needed
 - [ ] Merge the latest code from the main branch
-
-## Summary By Copilot
