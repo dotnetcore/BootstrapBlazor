@@ -68,8 +68,7 @@ export function init(id, invoke) {
     }, filterDuration);
 
     Input.composition(input, v => {
-        const useInput = input.getAttribute('data-bb-input') !== 'false';
-        if (isPopover === false && useInput) {
+        if (isPopover === false) {
             el.classList.add('show');
         }
 
@@ -164,13 +163,14 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
-        const { popover, input, menu } = ac;
+        const { popover, input } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
                 EventHandler.off(input, 'focus')
             }
         }
+        EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
         EventHandler.off(input, 'blur');
         Input.dispose(input);

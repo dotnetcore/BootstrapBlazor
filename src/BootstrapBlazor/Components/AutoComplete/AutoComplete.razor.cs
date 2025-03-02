@@ -157,7 +157,7 @@ public partial class AutoComplete
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
-        StateHasChanged();
+        await TriggerChange(val);
     }
 
     /// <summary>
