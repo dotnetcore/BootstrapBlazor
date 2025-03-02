@@ -14,6 +14,7 @@
     <section ignore>
         <p>@((MarkupString)Localizer["NormalDesc1"].Value)</p>
         <Button OnClickWithoutRender="OnPushExcelData" Text="@Localizer["PushButtonText"]"></Button>
+        <Button OnClickWithoutRender="OnSaveExcelData" Text="@Localizer["SaveButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
         <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync"></UniverSheet>

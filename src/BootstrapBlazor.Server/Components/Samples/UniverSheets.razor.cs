@@ -48,13 +48,20 @@ public partial class UniverSheets
     {
         await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
-            MessageName = "MessageName",
-            CommandName = "CommandName",
+            CommandName = "Push",
             Data = new object[]
             {
                 new object[] { "1", "2", "3", "4", "5" },
                 new object[] { "1", "2", "3", "4", "5" },
             }
+        });
+    }
+
+    private async Task OnSaveExcelData()
+    {
+        var data = await _sheetExcel.PushDataAsync(new UniverSheetData()
+        {
+            CommandName = "Save"
         });
     }
 
