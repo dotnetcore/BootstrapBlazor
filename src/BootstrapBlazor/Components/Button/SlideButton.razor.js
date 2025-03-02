@@ -61,7 +61,6 @@ export function dispose(id) {
     if (SlideButton.items.length === 0) {
         EventHandler.off(document, 'click', closePopup)
     }
-
 }
 
 const reset = slide => {

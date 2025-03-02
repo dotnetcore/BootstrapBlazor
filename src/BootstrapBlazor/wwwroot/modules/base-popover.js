@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled } from "./utility.js"
+﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "./utility.js"
 import EventHandler from "./event-handler.js"
 
 const Popover = {
@@ -131,7 +131,7 @@ const Popover = {
                 }
             }
 
-            const closePopover = e => {
+            popover.closePopover = e => {
                 const selector = `.${popover.class}.show`;
                 const el = e.target;
                 if (el.closest(selector)) {
@@ -161,11 +161,20 @@ const Popover = {
                 }
             })
 
-            if (!window.bb_dropdown) {
-                window.bb_dropdown = true
+            const module = registerBootstrapBlazorModule('Popover', {
+                handle: false,
+                items: [],
+                registerClosePopupHandler: function () {
+                    if (this.handle === false) {
+                        this.handle = true;
 
-                EventHandler.on(document, 'click', closePopover);
-            }
+                        EventHandler.on(document, 'click', popover.closePopover);
+                    }
+                }
+            });
+            module.registerClosePopupHandler();
+            module.items.push(popover);
+
 
             // update handler
             if (popover.toggleMenu) {
@@ -207,6 +216,12 @@ const Popover = {
             EventHandler.off(popover.el, 'hide.bs.popover')
             EventHandler.off(popover.el, 'click', '.dropdown-toggle')
             EventHandler.off(popover.toggleMenu, 'click', '.dropdown-item')
+
+            const { Popover } = window.BootstrapBlazor;
+            Popover.items.pop(popover)
+            if (Popover.items.length === 0) {
+                EventHandler.off(document, 'click', popover.closePopover)
+            }
         }
         else {
             EventHandler.off(popover.el, 'show.bs.dropdown')

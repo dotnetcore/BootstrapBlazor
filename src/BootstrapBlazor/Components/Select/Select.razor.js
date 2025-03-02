@@ -50,5 +50,8 @@ export function dispose(id) {
 
     if (select) {
         unregisterSelect(select);
+        if (select.popover) {
+            Popover.dispose(select.popover);
+        }
     }
 }
