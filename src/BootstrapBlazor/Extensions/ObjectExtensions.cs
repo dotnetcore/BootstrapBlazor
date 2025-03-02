@@ -137,7 +137,7 @@ public static class ObjectExtensions
     /// 字符串类型转换为其他数据类型
     /// </summary>
     /// <returns></returns>
-    public static bool TryConvertTo(this string? source, Type type, [MaybeNullWhen(false)] out object? val)
+    public static bool TryConvertTo(this string? source, Type type, out object? val)
     {
         var ret = true;
         val = source;
