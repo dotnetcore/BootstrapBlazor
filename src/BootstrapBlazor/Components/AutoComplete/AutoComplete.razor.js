@@ -164,7 +164,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
-        const { popover, input, menu } = ac;
+        const { popover, input } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
