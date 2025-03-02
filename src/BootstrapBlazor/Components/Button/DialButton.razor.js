@@ -1,4 +1,5 @@
-﻿import Data from "../../modules/data.js"
+﻿import { registerBootstrapBlazorModule } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
@@ -21,6 +22,19 @@ export function init(id) {
 
         EventHandler.on(document, 'click', e => closePopup(e));
     }
+
+    const module = registerBootstrapBlazorModule('DialButton', {
+        hooked: false,
+        registerClosePopupHandler: function () {
+            if (this.hooked === false) {
+                this.hooked = true;
+
+                EventHandler.on(document, 'click', e => closePopup(e));
+            }
+        }
+    });
+    module.registerClosePopupHandler();
+
 }
 
 export function update(id) {
