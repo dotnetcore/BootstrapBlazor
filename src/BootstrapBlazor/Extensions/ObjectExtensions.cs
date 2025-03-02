@@ -246,7 +246,7 @@ public static class ObjectExtensions
     public static TItem CreateInstanceWithCascade<TItem>()
     {
         var instance = Activator.CreateInstance<TItem>();
-        instance?.EnsureInitialized();
+        instance!.EnsureInitialized();
         return instance;
     }
 
@@ -272,7 +272,7 @@ public static class ObjectExtensions
     private static object? CreateInstance(Type type)
     {
         var instance = Activator.CreateInstance(type);
-        instance?.EnsureInitialized();
+        instance!.EnsureInitialized();
         return instance;
     }
 }
