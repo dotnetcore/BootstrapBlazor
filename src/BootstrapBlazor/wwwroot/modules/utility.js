@@ -571,28 +571,23 @@ const hackPopover = (popover, css) => {
 }
 
 const hackTooltip = function () {
-    window.BootstrapBlazor ??= {};
+    const tooltip = registerBootstrapBlazorModule('Tooltip', {
+        hooked: false,
+        hackDispose: function () {
+            if (this.hooked === false) {
+                this.hooked = true;
 
-    if (window.BootstrapBlazor.Tooltip === void 0) {
-        window.BootstrapBlazor.Tooltip = {
-            hooked: false,
-            hackDispose: function () {
-                if (this.hooked === false) {
-                    this.hooked = true;
-
-                    const originalDispose = bootstrap.Tooltip.prototype.dispose;
-                    bootstrap.Tooltip.prototype.dispose = function () {
-                        originalDispose.call(this);
-                        // fix https://github.com/twbs/bootstrap/issues/37474
-                        this._activeTrigger = {};
-                        this._element = document.createElement('noscript'); // placeholder with no behavior
-                    }
+                const originalDispose = bootstrap.Tooltip.prototype.dispose;
+                bootstrap.Tooltip.prototype.dispose = function () {
+                    originalDispose.call(this);
+                    // fix https://github.com/twbs/bootstrap/issues/37474
+                    this._activeTrigger = {};
+                    this._element = document.createElement('noscript'); // placeholder with no behavior
                 }
             }
         }
-    }
-
-    window.BootstrapBlazor.Tooltip.hackDispose();
+    });
+    tooltip.hackDispose();
 }
 
 const setIndeterminate = (object, state) => {
@@ -802,18 +797,28 @@ export function switchTheme(theme, x = 0, y = 0, sync = true) {
     }
 }
 
-const deepMerge = (obj1, obj2) => {
-    for (let key in obj2) {
+const deepMerge = (obj1, obj2, skipNull = true) => {
+    for (const key in obj2) {
         if (obj2.hasOwnProperty(key)) {
             if (obj2[key] instanceof Object && obj1[key] instanceof Object) {
                 obj1[key] = deepMerge(obj1[key], obj2[key]);
             }
             else {
+                const value = obj2[key];
+                if (skipNull && value === null) {
+                    continue;
+                }
                 obj1[key] = obj2[key];
             }
         }
     }
     return obj1;
+}
+
+export function registerBootstrapBlazorModule(name, module) {
+    window.BootstrapBlazor ??= {};
+    window.BootstrapBlazor[name] ??= deepMerge(window.BootstrapBlazor[name] ?? {}, module);
+    return window.BootstrapBlazor[name];
 }
 
 export function setTitle(title) {
