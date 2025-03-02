@@ -237,4 +237,35 @@ public static class ObjectExtensions
             }
         }
     }
+
+    /// <summary>
+    /// Ensures that all class-type properties of the instance are initialized.
+    /// </summary>
+    /// <param name="instance"></param>
+    public static void EnsureInitialized(this object? instance)
+    {
+        if (instance == null)
+        {
+            return;
+        }
+
+        // TODO: 这里使用了反射性能需要优化 Reflection performance needs to be optimized here
+        foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
+        {
+            var type = propertyInfo.PropertyType;
+            var value = propertyInfo.GetValue(instance, null);
+            if (value is null)
+            {
+                var pv = CreateInstance(type);
+                propertyInfo.SetValue(instance, pv);
+            }
+        }
+    }
+
+    private static object? CreateInstance(Type type)
+    {
+        var instance = Activator.CreateInstance(type);
+        instance?.EnsureInitialized();
+        return instance;
+    }
 }
