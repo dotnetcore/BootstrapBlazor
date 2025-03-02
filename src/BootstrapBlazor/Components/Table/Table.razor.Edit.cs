@@ -300,7 +300,7 @@ public partial class Table<TItem>
     {
         try
         {
-            return ObjectExtensions.CreateInstanceWithInitialized<TItem>();
+            return ObjectExtensions.CreateInstanceWithCascade<TItem>();
         }
         catch (Exception ex)
         {

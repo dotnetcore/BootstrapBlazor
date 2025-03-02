@@ -243,7 +243,7 @@ public static class ObjectExtensions
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <returns>An instance of the specified type with initialized properties.</returns>
-    public static TItem CreateInstanceWithInitialized<TItem>()
+    public static TItem CreateInstanceWithCascade<TItem>()
     {
         var instance = Activator.CreateInstance<TItem>();
         instance?.EnsureInitialized();
@@ -254,7 +254,7 @@ public static class ObjectExtensions
     /// Ensures that all class-type properties of the instance are initialized.
     /// </summary>
     /// <param name="instance">The instance to initialize properties for.</param>
-    public static void EnsureInitialized(this object instance)
+    private static void EnsureInitialized(this object instance)
     {
         // Reflection performance needs to be optimized here
         foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
