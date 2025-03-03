@@ -813,25 +813,22 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
     window.BootstrapBlazor[name] ??= {
         _init: false,
         _items: [],
-        register: function (identifier, callback) {
-            if (identifier) {
-                this._items.push(identifier);
+        register: function (id, cb) {
+            if (id) {
+                this._items.push(id);
             }
             if (this._init === false) {
                 this._init = true;
-                callback();
+                cb();
             }
             return this;
         },
-        dispose: function (identifier, callback) {
-            if (identifier) {
-                const index = this._items.indexOf(identifier);
-                if (index > -1) {
-                    this._items.splice(index, 1);
-                }
+        dispose: function (id, cb) {
+            if (id) {
+                this._items = this._items.filter(item => item !== id);
             }
-            if (this._items.length === 0) {
-                callback();
+            if (this._items.length === 0 && cb) {
+                cb();
             }
         }
     };
