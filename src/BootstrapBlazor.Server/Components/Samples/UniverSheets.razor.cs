@@ -48,7 +48,7 @@ public partial class UniverSheets
 
     private async Task OnReadyAsync() => await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
 
-    private static Task<UniverSheetData?> OnPostDataAsync(UniverSheetData data)
+    private static Task<UniverSheetData> OnPostDataAsync(UniverSheetData data)
     {
         // 这里可以根据 data 的内容进行处理然后返回处理后的数据
         // 本例返回与时间相关的数据
@@ -62,7 +62,7 @@ public partial class UniverSheets
                 Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
             }
         };
-        return Task.FromResult<UniverSheetData?>(result);
+        return Task.FromResult(result);
     }
 
     private async Task OnPushExcelData()
