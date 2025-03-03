@@ -1,7 +1,7 @@
 ﻿import { getDescribedElement, getDescribedOwner, hackTooltip, hackPopover, isDisabled, registerBootstrapBlazorModule } from "../../modules/utility.js"
-import { showTooltip, removeTooltip } from "./Button.razor.js"
 import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
+export { showTooltip, removeTooltip } from "./Button.razor.js"
 
 const config = {
     class: 'popover-confirm',
@@ -62,7 +62,7 @@ export function init(id) {
     EventHandler.on(el, 'inserted.bs.popover', confirm.inserted)
     EventHandler.on(el, 'hide.bs.popover', confirm.hide)
 
-    confirm.checkCancel = el => {
+    const checkCancel = el => {
         // check button
         let self = el === confirm.el || el.closest('.dropdown-toggle') === confirm.el
         self = self && confirm.popover && confirm.popover._isShown()
@@ -74,7 +74,7 @@ export function init(id) {
 
     confirm.closeConfirm = e => {
         const el = e.target
-        if (!confirm.checkCancel(el)) {
+        if (!checkCancel(el)) {
             document.querySelectorAll(config.popoverSelector).forEach(function (ele) {
                 const element = getDescribedOwner(ele)
                 if (element) {
@@ -87,19 +87,9 @@ export function init(id) {
         }
     }
 
-    const module = registerBootstrapBlazorModule('PopConfirmButton', {
-        handle: false,
-        items: [],
-        registerClosePopupHandler: function () {
-            if (this.handle === false) {
-                this.handle = true;
-
-                EventHandler.on(document, 'click', confirm.closeConfirm);
-            }
-        }
+    registerBootstrapBlazorModule('PopConfirmButton', id, () => {
+        EventHandler.on(document, 'click', confirm.closeConfirm);
     });
-    module.registerClosePopupHandler();
-    module.items.push(id);
 }
 
 export function showConfirm(id) {
@@ -152,13 +142,7 @@ export function dispose(id) {
     }
 
     const { PopConfirmButton } = window.BootstrapBlazor;
-    PopConfirmButton.items.pop(id)
-    if (PopConfirmButton.items.length === 0) {
+    PopConfirmButton.dispose(id, () => {
         EventHandler.off(document, 'click', confirm.closeConfirm)
-    }
-}
-
-export {
-    showTooltip,
-    removeTooltip
+    });
 }
