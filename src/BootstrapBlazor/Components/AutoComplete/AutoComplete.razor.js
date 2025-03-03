@@ -72,29 +72,22 @@ export function init(id, invoke) {
         filterCallback(v);
     });
 
-    const module = registerBootstrapBlazorModule('AutoComplete', {
-        hooked: false,
-        registerCloseDropdownHandler: function () {
-            if (this.hooked === false) {
-                this.hooked = true;
-
-                EventHandler.on(document, 'click', e => {
-                    [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
-                        const ac = e.target.closest('.auto-complete');
-                        if (ac === a) {
-                            return;
-                        }
-
-                        const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
-                        if (el === null) {
-                            a.classList.remove('show');
-                        }
-                    });
-                });
+    ac.closePopover = e => {
+        [...document.querySelectorAll('.auto-complete.show')].forEach(a => {
+            const ac = e.target.closest('.auto-complete');
+            if (ac === a) {
+                return;
             }
-        }
+
+            const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
+            if (el === null) {
+                a.classList.remove('show');
+            }
+        });
+    }
+    registerBootstrapBlazorModule('AutoComplete', id, () => {
+        EventHandler.on(document, 'click', ac.closePopover);
     });
-    module.registerCloseDropdownHandler();
 }
 
 const handlerKeyup = (ac, e) => {
@@ -168,6 +161,11 @@ export function dispose(id) {
         EventHandler.off(input, 'blur');
         Input.dispose(input);
     }
+
+    const { AutoComplete } = window.BootstrapBlazor;
+    AutoComplete.dispose(id, () => {
+        EventHandler.off(document, 'click', ac.closePopover);
+    });
 }
 
 const scrollIntoView = (el, item) => {
