@@ -14,10 +14,10 @@ const GetDataOperation = {
         });
         if (data) {
             const univerAPI = dataService.getUniverSheet().univerAPI;
-            const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 1)
+            const range = univerAPI.getActiveWorkbook().getActiveSheet().getRange(0, 0, 2, 3)
             const defaultData = [
-                [{ v: data.data.key }],
-                [{ v: data.data.value }]
+                [{ v: data.data.key }, { v: null }, { v: null }],
+                [{ v: data.data.value }, { v: null }, { v: null }]
             ]
             range.setValues(defaultData);
         }
