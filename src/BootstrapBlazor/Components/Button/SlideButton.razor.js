@@ -23,20 +23,9 @@ export function init(id) {
     EventHandler.on(list, 'click', '.slide-item', e => {
         list.classList.remove('show')
     })
-
-    const module = registerBootstrapBlazorModule('SlideButton', {
-        handle: false,
-        items: [],
-        registerClosePopupHandler: function () {
-            if (this.handle === false) {
-                this.handle = true;
-
-                EventHandler.on(document, 'click', closePopup);
-            }
-        }
+    registerBootstrapBlazorModule('SlideButton', id, () => {
+        EventHandler.on(document, 'click', closePopup)
     });
-    module.registerClosePopupHandler();
-    module.items.push(id);
 }
 
 export function update(id) {
@@ -57,10 +46,9 @@ export function dispose(id) {
     }
 
     const { SlideButton } = window.BootstrapBlazor;
-    SlideButton.items.pop(id)
-    if (SlideButton.items.length === 0) {
+    SlideButton.dispose(id, () => {
         EventHandler.off(document, 'click', closePopup)
-    }
+    });
 }
 
 const reset = slide => {
