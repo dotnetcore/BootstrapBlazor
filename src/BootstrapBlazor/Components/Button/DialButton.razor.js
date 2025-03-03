@@ -16,25 +16,9 @@ export function init(id) {
     EventHandler.on(button, 'click', () => {
         toggle(el, list)
     })
-
-    if (!window.bb_dial_button) {
-        window.bb_dial_button = true
-
-        EventHandler.on(document, 'click', e => closePopup(e));
-    }
-
-    const module = registerBootstrapBlazorModule('DialButton', {
-        hooked: false,
-        registerClosePopupHandler: function () {
-            if (this.hooked === false) {
-                this.hooked = true;
-
-                EventHandler.on(document, 'click', e => closePopup(e));
-            }
-        }
+    registerBootstrapBlazorModule('DialButton', id, () => {
+        EventHandler.on(document, 'click', closePopup);
     });
-    module.registerClosePopupHandler();
-
 }
 
 export function update(id) {
@@ -56,9 +40,15 @@ export function dispose(id) {
     Data.remove(id)
 
     if (dial) {
-        EventHandler.off(dial.button, 'click')
-        EventHandler.off(dial.list, 'animationend')
+        const { button, list } = dial;
+        EventHandler.off(button, 'click')
+        EventHandler.off(list, 'animationend')
     }
+
+    const { DialButton } = window.BootstrapBlazor;
+    DialButton.dispose(id, () => {
+        EventHandler.off(document, 'click', closePopup)
+    });
 }
 
 const toggle = (el, list) => {

@@ -1,4 +1,5 @@
-﻿import Data from "../../modules/data.js"
+﻿import { registerBootstrapBlazorModule } from "../../modules/utility.js"
+import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 
 export function init(id) {
@@ -22,12 +23,9 @@ export function init(id) {
     EventHandler.on(list, 'click', '.slide-item', e => {
         list.classList.remove('show')
     })
-
-    if (!window.bb_slide_button) {
-        window.bb_slide_button = true
-
-        EventHandler.on(document, 'click', e => closePopup(e));
-    }
+    registerBootstrapBlazorModule('SlideButton', id, () => {
+        EventHandler.on(document, 'click', closePopup)
+    });
 }
 
 export function update(id) {
@@ -42,10 +40,15 @@ export function dispose(id) {
     Data.remove(id)
 
     if (slide) {
-        EventHandler.off(slide.button, 'click')
-        EventHandler.off(slide.list, 'click', '.btn-close')
-        EventHandler.off(slide.list, 'click', '.slide-item')
+        const { button, list } = slide ?? {};
+        EventHandler.off(button, 'click');
+        EventHandler.off(list, 'click');
     }
+
+    const { SlideButton } = window.BootstrapBlazor;
+    SlideButton.dispose(id, () => {
+        EventHandler.off(document, 'click', closePopup)
+    });
 }
 
 const reset = slide => {
