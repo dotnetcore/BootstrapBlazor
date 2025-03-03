@@ -45,7 +45,7 @@ public partial class Textarea
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
 
-    private string? _shiftEnterString => UseShiftEnter ? "true" : null;
+    private string? ShiftEnterString => UseShiftEnter ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
