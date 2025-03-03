@@ -824,9 +824,11 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
             return this;
         },
         dispose: function (identifier, callback) {
-            const index = this._items.indexOf(identifier);
-            if (index > -1) {
-                this._items.splice(index, 1);
+            if (identifier) {
+                const index = this._items.indexOf(identifier);
+                if (index > -1) {
+                    this._items.splice(index, 1);
+                }
             }
             if (this._items.length === 0) {
                 callback();
