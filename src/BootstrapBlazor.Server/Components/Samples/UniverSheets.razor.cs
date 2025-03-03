@@ -19,16 +19,20 @@ public partial class UniverSheets
     [Inject, NotNull]
     private IStringLocalizer<UniverSheets>? Localizer { get; set; }
 
-    private readonly Dictionary<string, string> Plugins = new()
+    private readonly Dictionary<string, string> _plugins = new()
     {
         { "ReportPlugin", "univer-sheet/plugin.js" }
     };
 
-    private UniverSheet _sheetExcel = default!;
+    [NotNull]
+    private UniverSheet? _sheetExcel = null;
 
-    private UniverSheet _sheetPlugin = default!;
+    [NotNull]
+    private UniverSheet? _sheetPlugin = null;
 
-    private static string? _reportData = default!;
+    private static string? _reportData = null;
+
+    private string? _jsonData = null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -72,10 +76,12 @@ public partial class UniverSheets
 
     private async Task OnSaveExcelData()
     {
-        var data = await _sheetExcel.PushDataAsync(new UniverSheetData()
+        var result = await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
             CommandName = "GetWorkbook"
         });
+        _jsonData = result?.Data?.ToString();
+        StateHasChanged();
     }
 
     private async Task OnPushPluginData()
