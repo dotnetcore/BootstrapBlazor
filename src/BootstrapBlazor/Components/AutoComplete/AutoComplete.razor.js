@@ -160,12 +160,12 @@ export function dispose(id) {
         EventHandler.off(input, 'keyup');
         EventHandler.off(input, 'blur');
         Input.dispose(input);
-    }
 
-    const { AutoComplete } = window.BootstrapBlazor;
-    AutoComplete.dispose(id, () => {
-        EventHandler.off(document, 'click', ac.closePopover);
-    });
+        const { AutoComplete } = window.BootstrapBlazor;
+        AutoComplete.dispose(id, () => {
+            EventHandler.off(document, 'click', ac.closePopover);
+        });
+    }
 }
 
 const scrollIntoView = (el, item) => {
