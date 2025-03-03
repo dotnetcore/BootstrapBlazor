@@ -131,6 +131,17 @@ const Popover = {
                 }
             }
 
+
+            EventHandler.on(el, 'show.bs.popover', showPopover)
+            EventHandler.on(el, 'inserted.bs.popover', insertedPopover)
+            EventHandler.on(el, 'hide.bs.popover', hidePopover)
+            EventHandler.on(el, 'click', popover.toggleClass, active)
+            EventHandler.on(popover.toggleMenu, 'click', '.dropdown-item', e => {
+                if (popover.popover._config.autoClose !== 'outside') {
+                    popover.hide()
+                }
+            })
+
             popover.closePopover = e => {
                 const selector = `.${popover.class}.show`;
                 const el = e.target;
@@ -150,31 +161,9 @@ const Popover = {
                     }
                 });
             }
-
-            EventHandler.on(el, 'show.bs.popover', showPopover)
-            EventHandler.on(el, 'inserted.bs.popover', insertedPopover)
-            EventHandler.on(el, 'hide.bs.popover', hidePopover)
-            EventHandler.on(el, 'click', popover.toggleClass, active)
-            EventHandler.on(popover.toggleMenu, 'click', '.dropdown-item', e => {
-                if (popover.popover._config.autoClose !== 'outside') {
-                    popover.hide()
-                }
-            })
-
-            const module = registerBootstrapBlazorModule('Popover', {
-                handle: false,
-                items: [],
-                registerClosePopupHandler: function () {
-                    if (this.handle === false) {
-                        this.handle = true;
-
-                        EventHandler.on(document, 'click', popover.closePopover);
-                    }
-                }
+            registerBootstrapBlazorModule('Popover', el, () => {
+                EventHandler.on(document, 'click', popover.closePopover);
             });
-            module.registerClosePopupHandler();
-            module.items.push(popover);
-
 
             // update handler
             if (popover.toggleMenu) {
@@ -218,10 +207,9 @@ const Popover = {
             EventHandler.off(popover.toggleMenu, 'click', '.dropdown-item')
 
             const { Popover } = window.BootstrapBlazor;
-            Popover.items.pop(popover)
-            if (Popover.items.length === 0) {
-                EventHandler.off(document, 'click', popover.closePopover)
-            }
+            Popover.dispose(popover, () => {
+                EventHandler.off(document, 'click', popover.closePopover);
+            });
         }
         else {
             EventHandler.off(popover.el, 'show.bs.dropdown')
