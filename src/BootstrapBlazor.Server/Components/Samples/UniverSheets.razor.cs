@@ -11,6 +11,9 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public partial class UniverSheets
 {
     [Inject, NotNull]
+    private IWebHostEnvironment? WebHost { get; set; }
+
+    [Inject, NotNull]
     private ToastService? ToastService { get; set; }
 
     [Inject, NotNull]
@@ -24,6 +27,20 @@ public partial class UniverSheets
     private UniverSheet _sheetExcel = default!;
 
     private UniverSheet _sheetPlugin = default!;
+
+    private static string? _reportData = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        var reportFile = Path.Combine(WebHost.WebRootPath, "univer-sheet", "report.json");
+        if (File.Exists(reportFile))
+        {
+            _reportData = await File.ReadAllTextAsync(reportFile);
+        }
+    }
 
     private async Task OnReadyAsync() => await ToastService.Information(Localizer["ToastOnReadyTitle"], Localizer["ToastOnReadyContent"]);
 
@@ -48,12 +65,8 @@ public partial class UniverSheets
     {
         await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
-            CommandName = "Push",
-            Data = new object[]
-            {
-                new object[] { "1", "2", "3", "4", "5" },
-                new object[] { "1", "2", "3", "4", "5" },
-            }
+            CommandName = "SetWorkbook",
+            Data = _reportData
         });
     }
 
@@ -61,7 +74,7 @@ public partial class UniverSheets
     {
         var data = await _sheetExcel.PushDataAsync(new UniverSheetData()
         {
-            CommandName = "Save"
+            CommandName = "GetWorkbook"
         });
     }
 
