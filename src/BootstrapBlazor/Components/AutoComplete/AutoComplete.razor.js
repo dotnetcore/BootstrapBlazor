@@ -33,7 +33,7 @@ export function init(id, invoke) {
         })
     }
 
-    EventHandler.on(input, 'blur', e => {
+    ac.triggerBlur = () => {
         el.classList.remove('show');
         const triggerBlur = input.getAttribute('data-bb-blur') === 'true';
         if (triggerBlur) {
@@ -81,7 +81,11 @@ export function init(id, invoke) {
 
             const el = a.querySelector('[data-bs-toggle="bb.dropdown"]');
             if (el === null) {
-                a.classList.remove('show');
+                const id = a.getAttribute('id');
+                const d = Data.get(id);
+                if (d) {
+                    d.triggerBlur();
+                }
             }
         });
     }
@@ -99,7 +103,7 @@ const handlerKeyup = (ac, e) => {
             const current = menu.querySelector('.active');
             if (current !== null) {
                 current.click();
-                input.blur();
+                ac.triggerBlur();
             }
             invoke.invokeMethodAsync('EnterCallback', input.value);
         }
@@ -108,7 +112,7 @@ const handlerKeyup = (ac, e) => {
         const skipEsc = el.getAttribute('data-bb-skip-esc') === 'true';
         if (skipEsc === false) {
             invoke.invokeMethodAsync('EscCallback');
-            input.blur();
+            ac.triggerBlur();
         }
     }
     else if (key === 'ArrowUp' || key === 'ArrowDown') {
@@ -158,7 +162,6 @@ export function dispose(id) {
         }
         EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
-        EventHandler.off(input, 'blur');
         Input.dispose(input);
 
         const { AutoComplete } = window.BootstrapBlazor;
