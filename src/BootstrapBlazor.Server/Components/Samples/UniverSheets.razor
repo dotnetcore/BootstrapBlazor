@@ -14,10 +14,14 @@
     <section ignore>
         <p>@((MarkupString)Localizer["NormalDesc1"].Value)</p>
         <Button OnClickWithoutRender="OnPushExcelData" Text="@Localizer["PushButtonText"]"></Button>
+        <Button OnClickWithoutRender="OnSaveExcelData" Text="@Localizer["SaveButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
         <UniverSheet @ref="_sheetExcel" OnReadyAsync="OnReadyAsync"></UniverSheet>
     </div>
+    <section ignore>
+        <Textarea rows="3" readonly Value="@_jsonData"></Textarea>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PluginTitle"]"
@@ -28,6 +32,6 @@
         <Button OnClickWithoutRender="OnPushPluginData" Text="@Localizer["PushButtonText"]"></Button>
     </section>
     <div class="bb-sheet-demo">
-        <UniverSheet @ref="_sheetPlugin" Plugins="Plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
+        <UniverSheet @ref="_sheetPlugin" Plugins="_plugins" OnPostDataAsync="OnPostDataAsync"></UniverSheet>
     </div>
 </DemoBlock>
