@@ -571,23 +571,16 @@ const hackPopover = (popover, css) => {
 }
 
 const hackTooltip = function () {
-    const tooltip = registerBootstrapBlazorModule('Tooltip', {
-        hooked: false,
-        hackDispose: function () {
-            if (this.hooked === false) {
-                this.hooked = true;
-
-                const originalDispose = bootstrap.Tooltip.prototype.dispose;
-                bootstrap.Tooltip.prototype.dispose = function () {
-                    originalDispose.call(this);
-                    // fix https://github.com/twbs/bootstrap/issues/37474
-                    this._activeTrigger = {};
-                    this._element = document.createElement('noscript'); // placeholder with no behavior
-                }
-            }
+    const mock = () => {
+        const originalDispose = bootstrap.Tooltip.prototype.dispose;
+        bootstrap.Tooltip.prototype.dispose = function () {
+            originalDispose.call(this);
+            // fix https://github.com/twbs/bootstrap/issues/37474
+            this._activeTrigger = {};
+            this._element = document.createElement('noscript'); // placeholder with no behavior
         }
-    });
-    tooltip.hackDispose();
+    }
+    registerBootstrapBlazorModule('Tooltip', null, mock);
 }
 
 const setIndeterminate = (object, state) => {
@@ -815,10 +808,32 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
     return obj1;
 }
 
-export function registerBootstrapBlazorModule(name, module) {
+export function registerBootstrapBlazorModule(name, identifier, callback) {
     window.BootstrapBlazor ??= {};
-    window.BootstrapBlazor[name] ??= deepMerge(window.BootstrapBlazor[name] ?? {}, module);
-    return window.BootstrapBlazor[name];
+    window.BootstrapBlazor[name] ??= {
+        _init: false,
+        _items: [],
+        register: function (id, cb) {
+            if (id) {
+                this._items.push(id);
+            }
+            if (this._init === false) {
+                this._init = true;
+                cb();
+            }
+            return this;
+        },
+        dispose: function (id, cb) {
+            if (id) {
+                this._items = this._items.filter(item => item !== id);
+            }
+            if (this._items.length === 0 && cb) {
+                cb();
+            }
+        }
+    };
+
+    return window.BootstrapBlazor[name].register(identifier, callback);
 }
 
 export function setTitle(title) {
