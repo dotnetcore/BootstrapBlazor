@@ -571,23 +571,16 @@ const hackPopover = (popover, css) => {
 }
 
 const hackTooltip = function () {
-    const tooltip = registerBootstrapBlazorModule('Tooltip', {
-        hooked: false,
-        hackDispose: function () {
-            if (this.hooked === false) {
-                this.hooked = true;
-
-                const originalDispose = bootstrap.Tooltip.prototype.dispose;
-                bootstrap.Tooltip.prototype.dispose = function () {
-                    originalDispose.call(this);
-                    // fix https://github.com/twbs/bootstrap/issues/37474
-                    this._activeTrigger = {};
-                    this._element = document.createElement('noscript'); // placeholder with no behavior
-                }
-            }
+    const mock = () => {
+        const originalDispose = bootstrap.Tooltip.prototype.dispose;
+        bootstrap.Tooltip.prototype.dispose = function () {
+            originalDispose.call(this);
+            // fix https://github.com/twbs/bootstrap/issues/37474
+            this._activeTrigger = {};
+            this._element = document.createElement('noscript'); // placeholder with no behavior
         }
-    });
-    tooltip.hackDispose();
+    }
+    registerBootstrapBlazorModule('Tooltip', null, mock);
 }
 
 const setIndeterminate = (object, state) => {
