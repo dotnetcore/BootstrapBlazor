@@ -39,6 +39,10 @@ export function init(id, invoke) {
         if (triggerBlur) {
             invoke.invokeMethodAsync('TriggerBlur');
         }
+    }
+
+    EventHandler.on(menu, 'click', '.dropdown-item', e => {
+        ac.triggerBlur();
     });
 
     EventHandler.on(input, 'focus', e => {
@@ -153,7 +157,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
-        const { popover, input } = ac;
+        const { popover, input, menu } = ac;
         if (popover) {
             Popover.dispose(popover)
             if (input) {
@@ -162,6 +166,7 @@ export function dispose(id) {
         }
         EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
+        EventHandler.off(menu, 'click');
         Input.dispose(input);
 
         const { AutoComplete } = window.BootstrapBlazor;
