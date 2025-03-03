@@ -815,10 +815,33 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
     return obj1;
 }
 
-export function registerBootstrapBlazorModule(name, module) {
+export function registerBootstrapBlazorModule(name, identifier, callback) {
     window.BootstrapBlazor ??= {};
-    window.BootstrapBlazor[name] ??= deepMerge(window.BootstrapBlazor[name] ?? {}, module);
-    return window.BootstrapBlazor[name];
+    window.BootstrapBlazor[name] ??= {
+        _init: false,
+        _items: [],
+        register: function (identifier, callback) {
+            if (identifier) {
+                this._items.push(identifier);
+            }
+            if (this._init === false) {
+                this._init = true;
+                callback();
+            }
+            return this;
+        },
+        dispose: function (identifier, callback) {
+            const index = this._items.indexOf(identifier);
+            if (index > -1) {
+                this._items.splice(index, 1);
+            }
+            if (this._items.length === 0) {
+                callback();
+            }
+        }
+    };
+
+    return window.BootstrapBlazor[name].register(identifier, callback);
 }
 
 export function setTitle(title) {
