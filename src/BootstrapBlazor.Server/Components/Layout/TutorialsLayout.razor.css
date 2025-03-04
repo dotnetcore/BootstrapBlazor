@@ -1,8 +1,4 @@
-﻿.section {
-    --bb-sidebar-width: 0;
-}
-
-.main {
+﻿.main {
     padding: 1rem;
 }
 
@@ -24,7 +20,7 @@
 
 @media (min-width: 768px) {
     .section {
-        --bb-sidebar-width: 300px;
+        --bb-layout-sidebar-width: 300px;
         display: flex;
         flex-direction: row;
         -webkit-font-smoothing: antialiased;
@@ -35,7 +31,7 @@
     }
 
     .sidebar {
-        width: var(--bb-sidebar-width);
+        width: var(--bb-layout-sidebar-width);
         height: calc(100vh);
         position: sticky;
         top: 0;
@@ -44,7 +40,8 @@
     }
 
     .main {
-        flex: 1;
+        flex: 1 1 0%;
+        min-width: 0px;
         height: 100%;
     }
 }

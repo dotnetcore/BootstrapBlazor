@@ -44,6 +44,7 @@ static class ServiceCollectionExtensions
         // 增加后台任务服务
         services.AddTaskServices();
         services.AddHostedService<ClearTempFilesService>();
+        services.AddHostedService<MockOnlineContributor>();
 
         // 增加通用服务
         services.AddBootstrapBlazorServices();
