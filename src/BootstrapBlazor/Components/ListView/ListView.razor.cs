@@ -51,7 +51,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="Pageable"/> 参数不起作用，请自行实现分页功能
+    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="IsPagination"/> 参数不起作用，请自行实现分页功能
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
@@ -66,7 +66,15 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
     /// </summary>
     [Parameter]
-    public bool Pageable { get; set; }
+    [Obsolete("已弃用，请使用 IsPagination 代替。Deprecated, use IsPagination instead")]
+    [ExcludeFromCodeCoverage]
+    public bool Pageable { get => IsPagination; set => IsPagination = value; }
+
+    /// <summary>
+    /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
+    /// </summary>
+    [Parameter]
+    public bool IsPagination { get; set; }
 
     /// <summary>
     /// 获得/设置 分组 Lambda 表达式 默认 null
@@ -143,7 +151,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
-    private int _pageIndex;
+    private int _pageIndex = 1;
 
     /// <summary>
     /// 获得/设置 数据总条目
@@ -177,29 +185,31 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 点击页码调用此方法
     /// </summary>
     /// <param name="pageIndex"></param>
-    protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex);
+    protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex, true);
 
     /// <summary>
     /// 查询按钮调用此方法
     /// </summary>
     /// <returns></returns>
-    public async Task QueryAsync(int pageIndex = 1)
+    public async Task QueryAsync(int pageIndex = 1, bool triggerByPagination = false)
     {
         _pageIndex = pageIndex;
-        await QueryData();
+        await QueryData(triggerByPagination);
         StateHasChanged();
     }
 
     /// <summary>
     /// 调用 OnQuery 回调方法获得数据源
     /// </summary>
-    protected async Task QueryData()
+    protected async Task QueryData(bool triggerByPagination = false)
     {
         QueryData<TItem>? queryData = null;
         if (OnQueryAsync != null)
         {
             queryData = await OnQueryAsync(new QueryPageOptions()
             {
+                IsPage = IsPagination,
+                IsTriggerByPagination = triggerByPagination,
                 PageIndex = _pageIndex,
                 PageItems = PageItems,
             });
