@@ -185,23 +185,23 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 点击页码调用此方法
     /// </summary>
     /// <param name="pageIndex"></param>
-    protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex);
+    protected Task OnPageLinkClick(int pageIndex) => QueryAsync(pageIndex, true);
 
     /// <summary>
     /// 查询按钮调用此方法
     /// </summary>
     /// <returns></returns>
-    public async Task QueryAsync(int pageIndex = 1)
+    public async Task QueryAsync(int pageIndex = 1, bool triggerByPagination = false)
     {
         _pageIndex = pageIndex;
-        await QueryData();
+        await QueryData(triggerByPagination);
         StateHasChanged();
     }
 
     /// <summary>
     /// 调用 OnQuery 回调方法获得数据源
     /// </summary>
-    protected async Task QueryData()
+    protected async Task QueryData(bool triggerByPagination = false)
     {
         QueryData<TItem>? queryData = null;
         if (OnQueryAsync != null)
@@ -209,6 +209,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
             queryData = await OnQueryAsync(new QueryPageOptions()
             {
                 IsPage = IsPagination,
+                IsTriggerByPagination = triggerByPagination,
                 PageIndex = _pageIndex,
                 PageItems = PageItems,
             });
