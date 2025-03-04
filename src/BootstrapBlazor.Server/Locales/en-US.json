@@ -21,7 +21,8 @@
     "WaterfallSummary": "Waterfall",
     "TranslateSummary": "Translate",
     "DrawingSummary": "Drawing",
-    "AdminSummary": "Admin"
+    "AdminSummary": "Admin",
+    "OnlineSheet": "UniverSheet"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",
@@ -7017,5 +7018,9 @@
     "ToastOnReadyContent": "The sheet is ready for push data.",
     "PluginTitle": "Plugins",
     "PluginIntro": "Set custom plugins by setting the <code>Plugins</code> parameter"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.OnlineSheet": {
+    "ToastOnReadyTitle": "Collaboration Notification",
+    "ToastOnReadyContent": "After 4 seconds the table is updated by other writers to change the content"
   }
 }
