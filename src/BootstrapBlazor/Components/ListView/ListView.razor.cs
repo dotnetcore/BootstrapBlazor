@@ -151,7 +151,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// <summary>
     /// 获得/设置 当前页码
     /// </summary>
-    private int _pageIndex;
+    private int _pageIndex = 1;
 
     /// <summary>
     /// 获得/设置 数据总条目
