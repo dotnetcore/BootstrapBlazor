@@ -1,0 +1,4 @@
+﻿.bb-online-sheet-demo {
+    margin: -1rem;
+    height: calc(100vh - var(--bs-header-height));
+}
