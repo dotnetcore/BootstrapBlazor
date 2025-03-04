@@ -20,14 +20,19 @@ export function init(id) {
     let width = 0;
     Drag.drag(bar,
         e => {
-            section.classList.add('drag')
-            width = parseInt(getComputedStyle(section).getPropertyValue('--bb-layout-sidebar-width'))
-            originX = e.clientX || e.touches[0].clientX
+            section.classList.add('drag');
+            const widthString = getComputedStyle(section).getPropertyValue('--bb-layout-sidebar-width');
+            if (widthString === '') {
+                section.style.setProperty('--bb-layout-sidebar-width', '0');
+                widthString = '0';
+            }
+            width = parseInt(widthString);
+            originX = e.clientX || e.touches[0].clientX;
         },
         e => {
             const eventX = e.clientX || (e.touches.length > 0 && e.touches[0].clientX)
             const moveX = eventX - originX
-            const newWidth = width + moveX
+            let newWidth = width + moveX
             if (min > -1 && newWidth < min) {
                 newWidth = min
             }
