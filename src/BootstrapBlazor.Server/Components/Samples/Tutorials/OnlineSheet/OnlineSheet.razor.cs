@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 /// <summary>
 /// Online sheet sample code
 /// </summary>
-public partial class OnlineSheet : ComponentBase, IDisposable
+public partial class OnlineSheet : IDisposable
 {
     [Inject, NotNull]
     private IWebHostEnvironment? WebHost { get; set; }
