@@ -20,7 +20,6 @@ public partial class Collapse
         .Build();
 
     private static string? GetHeaderClassString(CollapseItem item) => CssBuilder.Default("accordion-header")
-        .AddClass("collapsed", item.IsCollapsed)
         .AddClass($"bg-{item.TitleColor.ToDescriptionString()}", item.TitleColor != Color.None)
         .AddClass(item.HeaderClass)
         .Build();
@@ -47,7 +46,7 @@ public partial class Collapse
     /// <summary>
     /// 获得/设置 CollapseItem 集合
     /// </summary>
-    protected List<CollapseItem> Children { get; } = new(10);
+    protected List<CollapseItem> Items { get; } = new(10);
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -69,6 +68,14 @@ public partial class Collapse
 
     private async Task OnClickItem(CollapseItem item)
     {
+        if (IsAccordion && item.IsCollapsed)
+        {
+            // 手风琴模式，设置其他项收起
+            foreach (var i in Items.Where(i => i != item && !i.IsCollapsed))
+            {
+                i.SetCollapsed(true);
+            }
+        }
         item.SetCollapsed(!item.IsCollapsed);
         if (OnCollapseChanged != null)
         {
@@ -80,11 +87,11 @@ public partial class Collapse
     /// 添加 CollapseItem 方法 由 CollapseItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void AddItem(CollapseItem item) => Children.Add(item);
+    internal void AddItem(CollapseItem item) => Items.Add(item);
 
     /// <summary>
     /// 移除 CollapseItem 方法 由 CollapseItem 方法 Dispose 时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void RemoveItem(CollapseItem item) => Children.Remove(item);
+    internal void RemoveItem(CollapseItem item) => Items.Remove(item);
 }

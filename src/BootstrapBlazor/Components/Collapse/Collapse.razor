@@ -6,7 +6,7 @@
         @CollapseItems
     </CascadingValue>
     <RenderTemplate>
-        @foreach (var item in Children)
+        @foreach (var item in Items)
         {
             <div @key="item" class="@GetItemClassString(item)">
                 <div class="@GetHeaderClassString(item)">
@@ -16,7 +16,9 @@
                             @item.HeaderTemplate
                         </div>
                     }
-                    <div class="@GetHeaderButtonClassString(item)" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" aria-expanded="@(item.IsCollapsed ? "false" : "true")" @onclick="() => OnClickItem(item)">
+                    <div class="@GetHeaderButtonClassString(item)"
+                         data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)"
+                         aria-expanded="@(item.IsCollapsed ? "false" : "true")" @onclick="() => OnClickItem(item)">
                         @if(!string.IsNullOrEmpty(item.Icon))
                         {
                             <i class="@GetItemIconString(item)"></i>

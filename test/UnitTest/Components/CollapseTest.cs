@@ -33,7 +33,7 @@ public class CollapseTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Accordion_Ok()
+    public async Task Accordion_Ok()
     {
         var cut = Context.RenderComponent<Collapse>(pb =>
         {
@@ -53,8 +53,11 @@ public class CollapseTest : BootstrapBlazorTestBase
         });
         cut.Contains("is-accordion");
 
-        var btn = cut.Find(".accordion-button");
-        cut.InvokeAsync(() => btn.Click());
+        var buttons = cut.FindAll(".accordion-button");
+        await cut.InvokeAsync(() => buttons[0].Click());
+
+        buttons = cut.FindAll(".accordion-button");
+        await cut.InvokeAsync(() => buttons[1].Click());
     }
 
     [Fact]
