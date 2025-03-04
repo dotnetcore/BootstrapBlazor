@@ -68,6 +68,10 @@ public partial class Collapse
 
     private async Task OnClickItem(CollapseItem item)
     {
+        if (IsAccordion && item.IsCollapsed)
+        {
+            Items.Where(i => i != item).ToList().ForEach(i => i.SetCollapsed(true));
+        }
         item.SetCollapsed(!item.IsCollapsed);
         if (OnCollapseChanged != null)
         {
