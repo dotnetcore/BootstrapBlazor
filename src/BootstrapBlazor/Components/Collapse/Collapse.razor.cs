@@ -70,7 +70,8 @@ public partial class Collapse
     {
         if (IsAccordion && item.IsCollapsed)
         {
-            Items.Where(i => i != item).ToList().ForEach(i => i.SetCollapsed(true));
+            // 手风琴模式，设置其他项收起
+            Items.Where(i => i != item && !i.IsCollapsed).ToList().ForEach(i => i.SetCollapsed(true));
         }
         item.SetCollapsed(!item.IsCollapsed);
         if (OnCollapseChanged != null)
