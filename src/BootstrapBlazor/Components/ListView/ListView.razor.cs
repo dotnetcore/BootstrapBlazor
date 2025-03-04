@@ -51,7 +51,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
     public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="Pageable"/> 参数不起作用，请自行实现分页功能
+    /// 获得/设置 FooterTemplate 默认 null 未设置 设置值后 <see cref="IsPagination"/> 参数不起作用，请自行实现分页功能
     /// </summary>
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
