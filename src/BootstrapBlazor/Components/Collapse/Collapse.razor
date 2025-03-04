@@ -6,7 +6,7 @@
         @CollapseItems
     </CascadingValue>
     <RenderTemplate>
-        @foreach (var item in Children)
+        @foreach (var item in Items)
         {
             <div @key="item" class="@GetItemClassString(item)">
                 <div class="@GetHeaderClassString(item)">
