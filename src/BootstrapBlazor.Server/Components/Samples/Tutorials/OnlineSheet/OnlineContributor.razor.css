@@ -1,0 +1,10 @@
+﻿.bb-contributor {
+    display: flex;
+    flex-direction: row;
+}
+
+    .bb-contributor img {
+        border-radius: 50%;
+        width: 56px;
+        margin-right: .5rem;
+    }
