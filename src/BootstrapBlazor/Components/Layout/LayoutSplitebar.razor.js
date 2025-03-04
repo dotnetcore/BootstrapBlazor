@@ -27,7 +27,7 @@ export function init(id) {
         e => {
             const eventX = e.clientX || (e.touches.length > 0 && e.touches[0].clientX)
             const moveX = eventX - originX
-            const newWidth = width + moveX
+            let newWidth = width + moveX
             if (min > -1 && newWidth < min) {
                 newWidth = min
             }
