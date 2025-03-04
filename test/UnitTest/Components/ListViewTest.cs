@@ -77,6 +77,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     public async Task Pageable_Ok()
     {
         var triggerByPage = false;
+        var pageIndex = 0;
         var items = Enumerable.Range(1, 6).Select(i => new Product()
         {
             ImageUrl = $"images/Pic{i}.jpg",
@@ -87,6 +88,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnQueryAsync, option =>
             {
+                pageIndex = option.PageIndex;
                 triggerByPage = option.IsTriggerByPagination;
                 return Task.FromResult(new QueryData<Product>()
                 {
@@ -98,6 +100,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.PageItems, 2);
         });
         Assert.False(triggerByPage);
+        Assert.Equal(1, pageIndex);
 
         var pages = cut.FindAll(".page-link");
         Assert.Equal(5, pages.Count);
