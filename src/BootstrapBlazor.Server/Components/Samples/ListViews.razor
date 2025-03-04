@@ -35,7 +35,7 @@
 <DemoBlock Title="@Localizer["PaginationTitle"]"
            Introduction="@Localizer["PaginationIntro"]"
            Name="Pagination">
-    <ListView TItem="Product" Pageable="true" PageItems="4" OnQueryAsync="@OnQueryAsync" Height="620px">
+    <ListView TItem="Product" IsPagination="true" PageItems="4" OnQueryAsync="@OnQueryAsync" Height="620px">
         <HeaderTemplate>
             <div>@Localizer["ProductListText"]</div>
         </HeaderTemplate>

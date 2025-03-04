@@ -66,7 +66,15 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
     /// </summary>
     [Parameter]
-    public bool Pageable { get; set; }
+    [Obsolete("已弃用，请使用 IsPagination 代替。Deprecated, use IsPagination instead")]
+    [ExcludeFromCodeCoverage]
+    public bool Pageable { get => IsPagination; set => IsPagination = value; }
+
+    /// <summary>
+    /// 获得/设置 是否分页 默认为 false 不分页 设置 <see cref="FooterTemplate"/> 时分页功能自动被禁用
+    /// </summary>
+    [Parameter]
+    public bool IsPagination { get; set; }
 
     /// <summary>
     /// 获得/设置 分组 Lambda 表达式 默认 null
@@ -200,6 +208,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
         {
             queryData = await OnQueryAsync(new QueryPageOptions()
             {
+                IsPage = IsPagination,
                 PageIndex = _pageIndex,
                 PageItems = PageItems,
             });
