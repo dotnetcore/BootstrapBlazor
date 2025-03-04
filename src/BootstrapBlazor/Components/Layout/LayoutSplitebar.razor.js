@@ -22,10 +22,10 @@ export function init(id) {
         e => {
             section.classList.add('drag');
             const widthString = getComputedStyle(section).getPropertyValue('--bb-layout-sidebar-width');
-            if (widthString === null) {
-                section.setProperty('--bb-layout-sidebar-width', `0`);
+            if (widthString === '') {
+                section.style.setProperty('--bb-layout-sidebar-width', '0');
+                widthString = '0';
             }
-            widthString ??= '0';
             width = parseInt(widthString);
             originX = e.clientX || e.touches[0].clientX;
         },
