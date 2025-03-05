@@ -303,6 +303,19 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         Assert.True(pi.IsStatic());
     }
 
+    [Fact]
+    public void CreateInstanceWithCascade_Ok()
+    {
+        var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstanceWithCascade<MockComplexObject>(true));
+    }
+
+    private class MockComplexObject
+    {
+        public Foo? Foo { get; set; }
+
+        public (string Name, int Count)[]? Test { get; set; }
+    }
+
     private class MockStatic
     {
         private static int _test;
