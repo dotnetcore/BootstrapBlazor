@@ -303,6 +303,27 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         Assert.True(pi.IsStatic());
     }
 
+    [Fact]
+    public void CreateInstance_Ok()
+    {
+        var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstance<MockComplexObject>(true));
+
+        var mi = typeof(ObjectExtensions).GetMethod("EnsureInitialized", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mi);
+        mi.Invoke(null, [null, false]);
+
+        var instance = ObjectExtensions.CreateInstance<MockComplexObject>(false);
+        Assert.NotNull(instance);
+        Assert.Null(instance.Test);
+    }
+
+    private class MockComplexObject
+    {
+        public Foo? Foo { get; set; }
+
+        public (string Name, int Count)[]? Test { get; set; }
+    }
+
     private class MockStatic
     {
         private static int _test;

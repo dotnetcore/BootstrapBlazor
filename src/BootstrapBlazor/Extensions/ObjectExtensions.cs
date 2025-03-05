@@ -242,20 +242,40 @@ public static class ObjectExtensions
     /// Creates an instance of a type and ensures all class-type properties are initialized.
     /// </summary>
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
+    /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <returns>An instance of the specified type with initialized properties.</returns>
-    public static TItem CreateInstanceWithCascade<TItem>()
+    public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
         var instance = Activator.CreateInstance<TItem>();
-        instance!.EnsureInitialized();
+        if (isAutoInitializeModelProperty)
+        {
+            instance.EnsureInitialized(isAutoInitializeModelProperty);
+        }
+        return instance;
+    }
+
+    private static object? CreateInstance(Type type, bool isAutoInitializeModelProperty = false)
+    {
+        var instance = Activator.CreateInstance(type);
+        if (isAutoInitializeModelProperty)
+        {
+            instance.EnsureInitialized();
+        }
         return instance;
     }
 
     /// <summary>
     /// Ensures that all class-type properties of the instance are initialized.
     /// </summary>
+    /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <param name="instance">The instance to initialize properties for.</param>
-    private static void EnsureInitialized(this object instance)
+    private static void EnsureInitialized(this object? instance, bool isAutoInitializeModelProperty = false)
     {
+        if (instance is null)
+        {
+            return;
+        }
+
         // Reflection performance needs to be optimized here
         foreach (var propertyInfo in instance.GetType().GetProperties().Where(p => p.PropertyType.IsClass && p.PropertyType != typeof(string)))
         {
@@ -263,16 +283,12 @@ public static class ObjectExtensions
             var value = propertyInfo.GetValue(instance, null);
             if (value is null)
             {
-                var pv = CreateInstance(type);
-                propertyInfo.SetValue(instance, pv);
+                var pv = CreateInstance(type, isAutoInitializeModelProperty);
+                if (pv is not null)
+                {
+                    propertyInfo.SetValue(instance, pv);
+                }
             }
         }
-    }
-
-    private static object? CreateInstance(Type type)
-    {
-        var instance = Activator.CreateInstance(type);
-        instance!.EnsureInitialized();
-        return instance;
     }
 }
