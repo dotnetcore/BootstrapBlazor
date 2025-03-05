@@ -72,12 +72,8 @@
     .navbar-header {
         position: sticky;
         top: 0;
-        z-index: 1050;
+        z-index: 15;
         height: var(--bs-header-height);
-    }
-
-    .modal-open .navbar-header {
-        z-index: 1040;
     }
 
     ::deep .bb-g-search {

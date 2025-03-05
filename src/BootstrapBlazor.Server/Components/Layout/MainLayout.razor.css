@@ -1,5 +1,11 @@
-﻿.main {
+﻿.section {
+    position: relative;
+}
+
+.main {
     padding: var(--bb-main-pading);
+    position: relative;
+    z-index: 5;
 }
 
 .sidebar-title {
@@ -75,6 +81,7 @@
 ::deep .dial-button {
     display: none;
     position: fixed;
+    z-index: 10;
     right: 1rem;
     bottom: 1rem;
 }
