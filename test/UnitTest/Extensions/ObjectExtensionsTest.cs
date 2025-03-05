@@ -304,7 +304,7 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void CreateInstanceWithCascade_Ok()
+    public void CreateInstance_Ok()
     {
         var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstanceWithCascade<MockComplexObject>(true));
     }

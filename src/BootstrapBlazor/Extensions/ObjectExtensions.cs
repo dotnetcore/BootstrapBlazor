@@ -244,7 +244,7 @@ public static class ObjectExtensions
     /// <typeparam name="TItem">The type to create an instance of.</typeparam>
     /// <param name="isAutoInitializeModelProperty">Whether to automatically initialize model properties default value is false.</param>
     /// <returns>An instance of the specified type with initialized properties.</returns>
-    public static TItem? CreateInstanceWithCascade<TItem>(bool isAutoInitializeModelProperty = false)
+    public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
         TItem? instance;
         try

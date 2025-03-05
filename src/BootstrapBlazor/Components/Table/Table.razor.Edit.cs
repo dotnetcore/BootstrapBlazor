@@ -309,13 +309,13 @@ public partial class Table<TItem>
         TItem? item;
         try
         {
-            item = ObjectExtensions.CreateInstanceWithCascade<TItem>(IsAutoInitializeModelProperty);
+            item = ObjectExtensions.CreateInstance<TItem>(IsAutoInitializeModelProperty);
         }
         catch (Exception ex)
         {
             throw new InvalidOperationException(ErrorMessage, ex);
         }
-        return item ?? throw new InvalidOperationException(ErrorMessage);
+        return item!;
     }
 
     /// <summary>
