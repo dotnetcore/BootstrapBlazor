@@ -311,6 +311,10 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
         var mi = typeof(ObjectExtensions).GetMethod("EnsureInitialized", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
         Assert.NotNull(mi);
         mi.Invoke(null, [null, false]);
+
+        var instance = ObjectExtensions.CreateInstance<MockComplexObject>(false);
+        Assert.NotNull(instance);
+        Assert.Null(instance.Test);
     }
 
     private class MockComplexObject
