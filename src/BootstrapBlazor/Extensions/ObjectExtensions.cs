@@ -246,36 +246,20 @@ public static class ObjectExtensions
     /// <returns>An instance of the specified type with initialized properties.</returns>
     public static TItem? CreateInstance<TItem>(bool isAutoInitializeModelProperty = false)
     {
-        TItem? instance;
-        try
+        var instance = Activator.CreateInstance<TItem>();
+        if (isAutoInitializeModelProperty)
         {
-            instance = Activator.CreateInstance<TItem>();
-            if (isAutoInitializeModelProperty)
-            {
-                instance.EnsureInitialized(isAutoInitializeModelProperty);
-            }
-        }
-        catch
-        {
-            throw;
+            instance.EnsureInitialized(isAutoInitializeModelProperty);
         }
         return instance;
     }
 
     private static object? CreateInstance(Type type, bool isAutoInitializeModelProperty = false)
     {
-        object? instance;
-        try
+        var instance = Activator.CreateInstance(type);
+        if (isAutoInitializeModelProperty)
         {
-            instance = Activator.CreateInstance(type);
-            if (isAutoInitializeModelProperty)
-            {
-                instance.EnsureInitialized();
-            }
-        }
-        catch
-        {
-            throw;
+            instance.EnsureInitialized();
         }
         return instance;
     }
