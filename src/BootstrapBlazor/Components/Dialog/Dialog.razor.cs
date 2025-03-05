@@ -6,53 +6,42 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Dialog 对话框组件
+/// Dialog component
 /// </summary>
 public partial class Dialog : IDisposable
 {
-    /// <summary>
-    /// 获得/设置 Modal 容器组件实例
-    /// </summary>
-    [NotNull]
-    private Modal? ModalContainer { get; set; }
-
-    /// <summary>
-    /// 获得/设置 弹出对话框实例集合
-    /// </summary>
-    private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = [];
-
-    private bool IsKeyboard { get; set; }
-
-    private bool IsBackdrop { get; set; }
-
-    /// <summary>
-    /// DialogServices 服务实例
-    /// </summary>
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
 
     [NotNull]
-    private Func<Task>? OnShownAsync { get; set; }
+    private Modal? _modal = null;
 
     [NotNull]
-    private Func<Task>? OnCloseAsync { get; set; }
+    private Func<Task>? _onShownAsync = null;
 
-    private Dictionary<string, object>? CurrentParameter { get; set; }
+    [NotNull]
+    private Func<Task>? _onCloseAsync = null;
+
+    private readonly Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters = [];
+    private Dictionary<string, object>? _currentParameter;
+    private bool _isKeyboard = false;
+    private bool _isBackdrop = false;
+    private bool _isFade = true;
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        // 注册 Dialog 弹窗事件
+        // Register Dialog popup event
         DialogService.Register(this, Show);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -60,15 +49,15 @@ public partial class Dialog : IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (CurrentParameter != null)
+        if (_currentParameter != null)
         {
-            await ModalContainer.Show();
+            await _modal.Show();
         }
     }
 
     private async Task Show(DialogOption option)
     {
-        OnShownAsync = async () =>
+        _onShownAsync = async () =>
         {
             if (option.OnShownAsync != null)
             {
@@ -76,33 +65,34 @@ public partial class Dialog : IDisposable
             }
         };
 
-        OnCloseAsync = async () =>
+        _onCloseAsync = async () =>
         {
-            // 回调 OnCloseAsync
+            // Callback OnCloseAsync
             if (option.OnCloseAsync != null)
             {
                 await option.OnCloseAsync();
             }
 
-            // 移除当前 DialogParameter
-            if (CurrentParameter != null)
+            // Remove current DialogParameter
+            if (_currentParameter != null)
             {
-                DialogParameters.Remove(CurrentParameter);
+                DialogParameters.Remove(_currentParameter);
 
-                // 多弹窗支持
+                // Support for multiple dialogs
                 var p = DialogParameters.LastOrDefault();
-                CurrentParameter = p.Key;
-                IsKeyboard = p.Value.IsKeyboard;
-                IsBackdrop = p.Value.IsBackdrop;
+                _currentParameter = p.Key;
+                _isKeyboard = p.Value.IsKeyboard;
+                _isBackdrop = p.Value.IsBackdrop;
 
                 StateHasChanged();
             }
         };
 
-        IsKeyboard = option.IsKeyboard;
-        IsBackdrop = option.IsBackdrop;
+        _isKeyboard = option.IsKeyboard;
+        _isBackdrop = option.IsBackdrop;
+        _isFade = option.IsFade;
 
-        option.Modal = ModalContainer;
+        option.Modal = _modal;
 
         var parameters = option.ToAttributes();
         var content = option.BodyTemplate ?? option.Component?.Render();
@@ -163,11 +153,11 @@ public partial class Dialog : IDisposable
             }
         }
 
-        // 保存当前 Dialog 参数
-        CurrentParameter = parameters;
+        // Save current Dialog parameters
+        _currentParameter = parameters;
 
-        // 添加 ModalDialog 到容器中
-        DialogParameters.Add(parameters, (IsKeyboard, IsBackdrop));
+        // Add ModalDialog to the container
+        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop));
         await InvokeAsync(StateHasChanged);
     }
 
@@ -180,7 +170,7 @@ public partial class Dialog : IDisposable
     };
 
     /// <summary>
-    /// Dispose 方法
+    /// Dispose method
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
@@ -192,7 +182,7 @@ public partial class Dialog : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

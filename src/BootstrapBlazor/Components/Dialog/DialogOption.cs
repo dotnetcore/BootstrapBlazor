@@ -6,194 +6,199 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Dialog 组件配置类
+/// Configuration class for the Dialog component
 /// </summary>
 public class DialogOption
 {
     /// <summary>
-    /// 获得/设置 相关弹窗实例
+    /// Gets or sets the related modal instance
     /// </summary>
     internal Modal? Modal { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗标题
+    /// Gets or sets the dialog title
     /// </summary>
     public string? Title { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗自定义样式
+    /// Gets or sets the custom style of the dialog
     /// </summary>
     public string? Class { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗大小
+    /// Gets or sets the size of the dialog
     /// </summary>
     public Size Size { get; set; } = Size.ExtraExtraLarge;
 
     /// <summary>
-    /// 获得/设置 全屏弹窗 默认 None
+    /// Gets or sets the full screen size of the dialog, default is None
     /// </summary>
-    /// <remarks>为保证功能正常，设置值后 <see cref="ShowMaximizeButton"/> <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
+    /// <remarks>To ensure functionality, when this value is set, <see cref="ShowMaximizeButton"/>, <seealso cref="ShowResize"/>, and <seealso cref="IsDraggable"/> are not available</remarks>
     public FullScreenSize FullScreenSize { get; set; } = FullScreenSize.None;
 
     /// <summary>
-    /// 获得/设置 是否显示最大化按钮 默认 false 不显示
+    /// Gets or sets whether to show the maximize button, default is false
     /// </summary>
-    /// <remarks>为保证功能正常，设置值为 true 后 <seealso cref="ShowResize"/> <seealso cref="IsDraggable"/> 均不可用</remarks>
+    /// <remarks>To ensure functionality, when this value is set to true, <seealso cref="ShowResize"/> and <seealso cref="IsDraggable"/> are not available</remarks>
     public bool ShowMaximizeButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否垂直居中 默认为 true
+    /// Gets or sets whether the dialog is vertically centered, default is true
     /// </summary>
     public bool IsCentered { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否弹窗正文超长时滚动 默认为 false
+    /// Gets or sets whether the dialog content scrolls when it is too long, default is false
     /// </summary>
     public bool IsScrolling { get; set; } = false;
 
     /// <summary>
-    /// 获得/设置 是否显示调整大小按钮 默认为 false
+    /// Gets or sets whether to show the resize button, default is false
     /// </summary>
     public bool ShowResize { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示关闭按钮 默认为 true
+    /// Gets or sets whether to show the close button, default is true
     /// </summary>
     public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示 Header 关闭按钮 默认为 true
+    /// Gets or sets whether to show the header close button, default is true
     /// </summary>
     public bool ShowHeaderCloseButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
+    /// Gets or sets whether to enable fade animation, default is true
+    /// </summary>
+    public bool IsFade { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets whether to support closing the dialog with the ESC key, default is true
     /// </summary>
     public bool IsKeyboard { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否支持点击遮罩关闭弹窗 默认 false
+    /// Gets or sets whether to support closing the dialog by clicking the backdrop, default is false
     /// </summary>
     public bool IsBackdrop { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Footer 默认为 true
+    /// Gets or sets whether to show the footer, default is true
     /// </summary>
     public bool ShowFooter { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示打印按钮 默认 false 不显示
+    /// Gets or sets whether to show the print button, default is false
     /// </summary>
     public bool ShowPrintButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示保存按钮 默认 false 不显示
+    /// Gets or sets whether to show the save button, default is false
     /// </summary>
     public bool ShowSaveButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 打印按钮是否显示在 Header 中 默认 false 不显示
+    /// Gets or sets whether to show the print button in the header, default is false
     /// </summary>
     public bool ShowPrintButtonInHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 
+    /// Gets or sets the text of the print button in the header, default is "Print" from the resource file
     /// </summary>
     public string? PrintButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关连数据，多用于传值使用
+    /// Gets or sets the related data, mostly used for passing values
     /// </summary>
     public object? BodyContext { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalBody 组件
+    /// Gets or sets the ModalBody component
     /// </summary>
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalFooter 组件
+    /// Gets or sets the ModalFooter component
     /// </summary>
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalHeader 组件模板
+    /// Gets or sets the ModalHeader component template
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalHeader 组件自定义按钮
+    /// Gets or sets the custom buttons in the ModalHeader component
     /// </summary>
     public RenderFragment? HeaderToolbarTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义组件
+    /// Gets or sets the custom component
     /// </summary>
     public BootstrapDynamicComponent? Component { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存按钮图标 默认 null 使用当前主题图标
+    /// Gets or sets the icon of the save button, default is null and uses the current theme icon
     /// </summary>
     public string? SaveButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存按钮文本
+    /// Gets or sets the text of the save button
     /// </summary>
     public string? SaveButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存按钮回调方法
+    /// Gets or sets the callback method for the save button
     /// </summary>
     public Func<Task<bool>>? OnSaveAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭按钮图标 默认 null 使用当前主题图标
+    /// Gets or sets the icon of the close button, default is null and uses the current theme icon
     /// </summary>
     public string? CloseButtonIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭按钮文本
+    /// Gets or sets the text of the close button
     /// </summary>
     public string? CloseButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭弹窗回调方法
+    /// Gets or sets the callback method for closing the dialog
     /// </summary>
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存成功后是否自动关闭弹窗 默认 true 自动关闭
+    /// Gets or sets whether to automatically close the dialog after saving successfully, default is true
     /// </summary>
     public bool IsAutoCloseAfterSave { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否可以拖拽弹窗 默认 false 不可以拖动
+    /// Gets or sets whether the dialog can be dragged, default is false
     /// </summary>
     public bool IsDraggable { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗已显示时回调此方法
+    /// Gets or sets the callback method when the dialog is shown
     /// </summary>
     public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示导出 Pdf 按钮 默认为 false 不显示
+    /// Gets or sets whether to show the export PDF button, default is false
     /// </summary>
     public bool ShowExportPdfButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 中是否显示导出 Pdf 按钮 默认 false 不显示
+    /// Gets or sets whether to show the export PDF button in the header, default is false
     /// </summary>
     public bool ShowExportPdfButtonInHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 导出 Pdf 按钮配置项
+    /// Gets or sets the configuration options for the export PDF button
     /// </summary>
     public ExportPdfButtonOptions? ExportPdfButtonOptions { get; set; }
 
     /// <summary>
-    /// 关闭弹窗方法
+    /// Method to close the dialog
     /// </summary>
     public async Task CloseDialogAsync()
     {
@@ -204,7 +209,7 @@ public class DialogOption
     }
 
     /// <summary>
-    /// 将参数转换为组件属性方法
+    /// Method to convert parameters to component attributes
     /// </summary>
     /// <returns></returns>
     public Dictionary<string, object> ToAttributes()

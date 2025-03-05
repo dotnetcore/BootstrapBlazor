@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<Modal @ref="ModalContainer" IsBackdrop="IsBackdrop" IsKeyboard="@IsKeyboard" OnShownAsync="@OnShownAsync" OnCloseAsync="OnCloseAsync">
+<Modal @ref="_modal" IsBackdrop="_isBackdrop" IsKeyboard="@_isKeyboard" IsFade="@_isFade"
+       OnShownAsync="@_onShownAsync" OnCloseAsync="@_onCloseAsync">
     @for (var index = 0; index < DialogParameters.Keys.Count; index++)
     {
         @RenderDialog(index, DialogParameters.Keys.ElementAt(index))
