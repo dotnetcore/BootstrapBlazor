@@ -306,7 +306,11 @@ public class ObjectExtensionsTest : BootstrapBlazorTestBase
     [Fact]
     public void CreateInstance_Ok()
     {
-        var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstanceWithCascade<MockComplexObject>(true));
+        var exception = Assert.ThrowsAny<Exception>(() => ObjectExtensions.CreateInstance<MockComplexObject>(true));
+
+        var mi = typeof(ObjectExtensions).GetMethod("EnsureInitialized", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(mi);
+        mi.Invoke(null, [null, false]);
     }
 
     private class MockComplexObject

@@ -127,6 +127,7 @@ public class TableTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.IsAutoInitializeModelProperty, true);
                 pb.Add(a => a.Items, items);
                 if (bind)
                 {
