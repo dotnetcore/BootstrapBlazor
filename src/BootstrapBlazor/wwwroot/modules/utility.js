@@ -828,6 +828,7 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
                 this._items = this._items.filter(item => item !== id);
             }
             if (this._items.length === 0 && cb) {
+                this._init = false;
                 cb();
             }
         }
