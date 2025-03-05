@@ -294,18 +294,28 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem>? CreateItemCallback { get; set; }
 
+    /// <summary>
+    /// Get or sets Whether to automatically initialize model properties default value is false.
+    /// </summary>
+    [Parameter]
+    public bool IsAutoInitializeModelProperty { get; set; }
+
     private TItem CreateTItem() => CreateItemCallback?.Invoke() ?? CreateInstance();
+
+    private readonly string ErrorMessage = $"{typeof(TItem)} create instrance failed. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 自动创建实例失败，请通过 {nameof(CreateItemCallback)} 回调方法手动创建实例";
 
     private TItem CreateInstance()
     {
+        TItem? item;
         try
         {
-            return ObjectExtensions.CreateInstanceWithCascade<TItem>();
+            item = ObjectExtensions.CreateInstanceWithCascade<TItem>(IsAutoInitializeModelProperty);
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException($"{typeof(TItem)} missing new() method. Please provide {nameof(CreateItemCallback)} create the {typeof(TItem)} instance. {typeof(TItem)} 未提供无参构造函数 new() 请通过 {nameof(CreateItemCallback)} 回调方法创建实例", ex);
+            throw new InvalidOperationException(ErrorMessage, ex);
         }
+        return item ?? throw new InvalidOperationException(ErrorMessage);
     }
 
     /// <summary>
