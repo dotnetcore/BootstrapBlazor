@@ -43,6 +43,16 @@ public partial class IFrame
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _lastData = Data;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -59,7 +69,12 @@ public partial class IFrame
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerPostData));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        Data,
+        TriggerPostDataCallback = nameof(TriggerPostData),
+        TriggerLoadedCallback = nameof(TriggerLoaded)
+    });
 
     /// <summary>
     /// 推送数据方法
