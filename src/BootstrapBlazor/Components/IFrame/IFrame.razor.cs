@@ -6,30 +6,30 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Frame 组件封装 Html iframe 元素
+/// Frame component encapsulates the Html iframe element
 /// </summary>
 public partial class IFrame
 {
     /// <summary>
-    /// 获得/设置 Frame 加载网页路径
+    /// Gets or sets the URL of the webpage to be loaded in the Frame
     /// </summary>
     [Parameter]
     public string? Src { get; set; }
 
     /// <summary>
-    /// 获得/设置 需要传递的数据
+    /// Gets or sets the data to be passed
     /// </summary>
     [Parameter]
     public object? Data { get; set; }
 
     /// <summary>
-    /// 获得/设置 Frame 加载页面传递过来的数据
+    /// Gets or sets Frame loads the data passed by the page
     /// </summary>
     [Parameter]
     public Func<object?, Task>? OnPostDataAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 页面加载完毕后回调方法
+    /// Gets or sets Callback method after the page is loaded.
     /// </summary>
     [Parameter]
     public Func<Task>? OnReadyAsync { get; set; }
@@ -39,6 +39,16 @@ public partial class IFrame
         .Build();
 
     private object? _lastData;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _lastData = Data;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -59,17 +69,22 @@ public partial class IFrame
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TriggerPostData));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        Data,
+        TriggerPostDataCallback = nameof(TriggerPostData),
+        TriggerLoadedCallback = nameof(TriggerLoaded)
+    });
 
     /// <summary>
-    /// 推送数据方法
+    /// Method to push data
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
     public Task PushData(object? data) => InvokeVoidAsync("execute", Id, data);
 
     /// <summary>
-    /// 由 JavaScript 调用
+    /// Called by JavaScript
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
@@ -83,7 +98,7 @@ public partial class IFrame
     }
 
     /// <summary>
-    /// 由 JavaScript 调用
+    /// Called by JavaScript
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
