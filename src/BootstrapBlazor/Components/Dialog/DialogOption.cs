@@ -68,6 +68,11 @@ public class DialogOption
     public bool ShowHeaderCloseButton { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets whether to enable fade animation, default is true
+    /// </summary>
+    public bool IsFade { get; set; } = true;
+
+    /// <summary>
     /// Gets or sets whether to support closing the dialog with the ESC key, default is true
     /// </summary>
     public bool IsKeyboard { get; set; } = true;
