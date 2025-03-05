@@ -1,5 +1,6 @@
 ## Link issues
 
+[请在下方 # 后面填写相关 Issue 编号，如 #42]
 fixes #{bug number} (in this specific format)
 
 ## Summary By Copilot
