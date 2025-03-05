@@ -135,6 +135,9 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
+        // Store the current input value to prevent it from being overwritten
+        var currentInputValue = val;
+        
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
@@ -152,12 +155,20 @@ public partial class AutoComplete
                 : Items.Where(s => s.StartsWith(val, comparison));
             _filterItems = [.. items];
         }
-
+    
         if (DisplayCount != null)
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
-        await TriggerChange(val);
+        
+        // Use currentInputValue here instead of potentially stale val
+        CurrentValue = currentInputValue;
+        
+        // Only trigger StateHasChanged if no binding is present
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
@@ -167,10 +178,15 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
-        CurrentValue = val;
-        if (!ValueChanged.HasDelegate)
+        // Only update CurrentValue if the value has actually changed
+        // This prevents overwriting the user's input
+        if (CurrentValue != val)
         {
-            StateHasChanged();
+            CurrentValue = val;
+            if (!ValueChanged.HasDelegate)
+            {
+                StateHasChanged();
+            }
         }
         return Task.CompletedTask;
     }
