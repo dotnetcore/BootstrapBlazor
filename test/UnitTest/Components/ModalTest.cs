@@ -18,6 +18,7 @@ public class ModalTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsFade, false);
         });
         Assert.DoesNotContain("static", cut.Markup);
+        Assert.DoesNotContain("modal fade", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -34,6 +35,7 @@ public class ModalTest : BootstrapBlazorTestBase
             pb.AddChildContent<ModalDialog>();
         });
         cut.InvokeAsync(async () => await cut.Instance.Toggle());
+        Assert.Contains("modal fade", cut.Markup);
         Assert.Contains("modal-dialog", cut.Markup);
     }
 
