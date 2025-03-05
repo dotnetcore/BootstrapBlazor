@@ -21,9 +21,11 @@ public partial class Dialog : IDisposable
     /// </summary>
     private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = [];
 
-    private bool IsKeyboard { get; set; }
+    private bool _isKeyboard = false;
 
-    private bool IsBackdrop { get; set; }
+    private bool _isBackdrop = false;
+
+    private bool _isFade = true;
 
     /// <summary>
     /// DialogServices 服务实例
@@ -92,15 +94,16 @@ public partial class Dialog : IDisposable
                 // 多弹窗支持
                 var p = DialogParameters.LastOrDefault();
                 CurrentParameter = p.Key;
-                IsKeyboard = p.Value.IsKeyboard;
-                IsBackdrop = p.Value.IsBackdrop;
+                _isKeyboard = p.Value.IsKeyboard;
+                _isBackdrop = p.Value.IsBackdrop;
 
                 StateHasChanged();
             }
         };
 
-        IsKeyboard = option.IsKeyboard;
-        IsBackdrop = option.IsBackdrop;
+        _isKeyboard = option.IsKeyboard;
+        _isBackdrop = option.IsBackdrop;
+        _isFade = option.IsFade;
 
         option.Modal = ModalContainer;
 
@@ -167,7 +170,7 @@ public partial class Dialog : IDisposable
         CurrentParameter = parameters;
 
         // 添加 ModalDialog 到容器中
-        DialogParameters.Add(parameters, (IsKeyboard, IsBackdrop));
+        DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop));
         await InvokeAsync(StateHasChanged);
     }
 
