@@ -12,7 +12,8 @@ export function init(id, invoke, shownCallback, closeCallback) {
             if (modal) {
                 modal.hide();
             }
-        }
+        },
+        originalStyle: null
     }
     Data.set(id, modal)
 
