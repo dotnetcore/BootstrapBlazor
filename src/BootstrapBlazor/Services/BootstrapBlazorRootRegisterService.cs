@@ -14,7 +14,7 @@ public class BootstrapBlazorRootRegisterService
     private readonly Dictionary<object, List<BootstrapBlazorRootContent>> _providersByIdentifier = [];
 
     /// <summary>
-    /// add provider
+    /// Add provider
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="provider"></param>
@@ -30,7 +30,7 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// remove provider
+    /// Remove provider
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="provider"></param>
@@ -58,7 +58,7 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// get all providers by identifier
+    /// Get all providers by identifier
     /// </summary>
     /// <param name="identifier"></param>
     /// <returns></returns>
@@ -69,7 +69,7 @@ public class BootstrapBlazorRootRegisterService
     }
 
     /// <summary>
-    /// subscribe
+    /// Subscribe
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="subscriber"></param>
@@ -77,22 +77,19 @@ public class BootstrapBlazorRootRegisterService
     {
         if (_subscribersByIdentifier.ContainsKey(identifier))
         {
-            throw new InvalidOperationException($"There is already a subscriber to the content with the given root ID '{identifier}'.");
+            return;
         }
 
         _subscribersByIdentifier.Add(identifier, subscriber);
     }
 
     /// <summary>
-    /// 取消订阅
+    /// Unsubscribe
     /// </summary>
     /// <param name="identifier"></param>
     public void Unsubscribe(object identifier)
     {
-        if (!_subscribersByIdentifier.Remove(identifier))
-        {
-            throw new InvalidOperationException($"The subscriber with the given root ID '{identifier}' is already unsubscribed.");
-        }
+        _subscribersByIdentifier.Remove(identifier);
     }
 
     /// <summary>
