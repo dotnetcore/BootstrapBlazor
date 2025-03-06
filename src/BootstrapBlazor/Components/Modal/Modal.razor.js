@@ -12,8 +12,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
             if (modal) {
                 modal.hide();
             }
-        },
-        originalStyle: null
+        }
     }
     Data.set(id, modal)
 
@@ -34,7 +33,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
     EventHandler.on(window, 'popstate', modal.pop)
 
     modal.show = () => {
-        modal.originalStyle ??= document.body.style;
+        backupBodyStyle(modal);
         const dialogs = el.querySelectorAll('.modal-dialog')
         if (dialogs.length === 1) {
             let backdrop = el.getAttribute('data-bs-backdrop') !== 'static'
@@ -63,8 +62,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
     modal.hide = () => {
         if (el.children.length === 1) {
             modal.modal.hide();
-            document.body.style = modal.originalStyle;
-            modal.originalStyle = null;
+            restoreBodyStyle(modal);
         }
         else {
             modal.invoke.invokeMethodAsync(modal.closeCallback)
@@ -148,11 +146,21 @@ export function dispose(id) {
                 dialog._hideModal();
             }
 
-            if(modal.originalStyle) {
-                document.body.style = modal.originalStyle;
-                modal.originalStyle = null;
-            }
+            restoreBodyStyle(modal);
             dialog.dispose()
         }
+    }
+}
+
+const backupBodyStyle = modal => {
+    if(modal.originalStyle === void 0) {
+        modal.originalStyle = document.body.style.cssText;
+    }
+}
+
+const restoreBodyStyle = modal => {
+    if(modal.originalStyle !== void 0) {
+        document.body.style.cssText = modal.originalStyle;
+        delete modal.originalStyle;
     }
 }
