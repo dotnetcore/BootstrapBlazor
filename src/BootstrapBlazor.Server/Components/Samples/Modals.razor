@@ -237,7 +237,7 @@
            Name="IsDraggable">
     <Button OnClick="() => DragModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
     <Modal @ref="DragModal">
-        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]" IsDraggable="true" ShowMaximizeButton="true">
+        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]" IsDraggable="true">
             <BodyTemplate>
                 <div>@Localizer["ModalsTitlePopupWindowText"]</div>
             </BodyTemplate>
