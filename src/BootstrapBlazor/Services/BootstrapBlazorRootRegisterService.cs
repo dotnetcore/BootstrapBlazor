@@ -77,7 +77,7 @@ public class BootstrapBlazorRootRegisterService
     {
         if (_subscribersByIdentifier.ContainsKey(identifier))
         {
-            throw new InvalidOperationException($"There is already a subscriber to the content with the given root ID '{identifier}'.");
+            return;
         }
 
         _subscribersByIdentifier.Add(identifier, subscriber);
@@ -89,10 +89,7 @@ public class BootstrapBlazorRootRegisterService
     /// <param name="identifier"></param>
     public void Unsubscribe(object identifier)
     {
-        if (!_subscribersByIdentifier.Remove(identifier))
-        {
-            throw new InvalidOperationException($"The subscriber with the given root ID '{identifier}' is already unsubscribed.");
-        }
+        _subscribersByIdentifier.Remove(identifier);
     }
 
     /// <summary>
