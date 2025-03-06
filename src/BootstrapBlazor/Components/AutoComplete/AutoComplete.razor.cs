@@ -4,7 +4,6 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
-using System.Threading;
 
 namespace BootstrapBlazor.Components;
 
@@ -91,6 +90,16 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     /// <summary>
+    /// Tracks the current user input to prevent it from being overwritten
+    /// </summary>
+    private string _currentUserInput = string.Empty;
+
+    /// <summary>
+    /// Flag to track whether we're handling debounced filtering
+    /// </summary>
+    private bool _isFiltering = false;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -113,6 +122,12 @@ public partial class AutoComplete
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         Items ??= [];
+
+        // Initialize _currentUserInput with current value if it hasn't been set yet
+        if (string.IsNullOrEmpty(_currentUserInput) && !string.IsNullOrEmpty(CurrentValueAsString))
+        {
+            _currentUserInput = CurrentValueAsString;
+        }
     }
 
     /// <summary>
@@ -120,7 +135,10 @@ public partial class AutoComplete
     /// </summary>
     private async Task OnClickItem(string val)
     {
+        // Update both the CurrentValue and _currentUserInput when an item is clicked
+        _currentUserInput = val;
         CurrentValue = val;
+
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
@@ -129,10 +147,6 @@ public partial class AutoComplete
 
     private List<string> Rows => _filterItems ?? [.. Items];
 
-    // Thread-safe tracking using SemaphoreSlim for async compatibility
-    private string _userCurrentInput = string.Empty;
-    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
-
     /// <summary>
     /// TriggerFilter method
     /// </summary>
@@ -140,62 +154,46 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
-        // Thread-safe update using SemaphoreSlim
-        await _semaphore.WaitAsync();
         try
         {
-            _userCurrentInput = val;
-        }
-        finally
-        {
-            _semaphore.Release();
-        }
+            _isFiltering = true;
+            // Update our tracking variable
+            _currentUserInput = val;
 
-        // Process filtering
-        if (OnCustomFilter != null)
-        {
-            var items = await OnCustomFilter(val);
-            _filterItems = [.. items];
-        }
-        else if (string.IsNullOrEmpty(val))
-        {
-            _filterItems = [.. Items];
-        }
-        else
-        {
-            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-            var items = IsLikeMatch
-                ? Items.Where(s => s.Contains(val, comparison))
-                : Items.Where(s => s.StartsWith(val, comparison));
-            _filterItems = [.. items];
-        }
+            // Filter items as usual
+            if (OnCustomFilter != null)
+            {
+                var items = await OnCustomFilter(val);
+                _filterItems = [.. items];
+            }
+            else if (string.IsNullOrEmpty(val))
+            {
+                _filterItems = [.. Items];
+            }
+            else
+            {
+                var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+                var items = IsLikeMatch
+                    ? Items.Where(s => s.Contains(val, comparison))
+                    : Items.Where(s => s.StartsWith(val, comparison));
+                _filterItems = [.. items];
+            }
 
-        if (DisplayCount != null)
-        {
-            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
-        }
+            if (DisplayCount != null)
+            {
+                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+            }
 
-        // Thread-safe read using SemaphoreSlim
-        await _semaphore.WaitAsync();
-        string latestInput;
-        try
-        {
-            latestInput = _userCurrentInput;
-        }
-        finally
-        {
-            _semaphore.Release();
-        }
-
-        // Only update CurrentValue if this is still the latest input
-        if (latestInput == val)
-        {
+            // Update the bound value to match the user input, triggering proper value change notifications
+            // This ensures OnValueChanged is triggered while preventing visual disruption
             CurrentValue = val;
 
-            if (!ValueChanged.HasDelegate)
-            {
-                StateHasChanged();
-            }
+            // Refresh UI
+            StateHasChanged();
+        }
+        finally
+        {
+            _isFiltering = false;
         }
     }
 
@@ -206,8 +204,10 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
-        // Only update CurrentValue if the value has actually changed
-        // This prevents overwriting the user's input
+        // Update our tracking variable
+        _currentUserInput = val;
+
+        // Update component value and trigger change notifications
         if (CurrentValue != val)
         {
             CurrentValue = val;
@@ -217,5 +217,25 @@ public partial class AutoComplete
             }
         }
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// Override CurrentValueAsString to return the current user input
+    /// </summary>
+    protected override string? FormatValueAsString(string? value)
+    {
+        // During filtering operations, use what the user is actually typing
+        if (_isFiltering)
+        {
+            return _currentUserInput;
+        }
+
+        // In non-filtering scenarios, sync our tracked value with the component value
+        if (!string.IsNullOrEmpty(value) && _currentUserInput != value)
+        {
+            _currentUserInput = value;
+        }
+
+        return base.FormatValueAsString(value);
     }
 }
