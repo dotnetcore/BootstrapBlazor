@@ -1,6 +1,6 @@
 ## Link issues
 
-fixes #{bug number}
+fixes #{issue number}
 [Please fill in the relevant Issue number after the # above, such as #42]
 [请在上方 # 后面填写相关 Issue 编号，如 #42]
 
