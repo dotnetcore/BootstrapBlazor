@@ -6,6 +6,4 @@
 
 main {
     min-height: calc(100vh - var(--bs-header-height));
-    position: relative;
-    z-index: 10;
 }
