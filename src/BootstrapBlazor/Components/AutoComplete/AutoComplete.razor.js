@@ -63,8 +63,12 @@ export function init(id, invoke) {
         filterDuration = 200;
     }
     const filterCallback = debounce(async v => {
-        await invoke.invokeMethodAsync('TriggerFilter', v);
-        el.classList.remove('is-loading');
+        // Check if the input value is still the same
+        // If not, this is an old operation that should be ignored
+        if (input.dataset.lastValue === v) {
+            await invoke.invokeMethodAsync('TriggerFilter', v);
+            el.classList.remove('is-loading');
+        }
     }, filterDuration);
 
     Input.composition(input, v => {
@@ -73,6 +77,12 @@ export function init(id, invoke) {
         }
 
         el.classList.add('is-loading');
+
+        // Store the current input value on the element
+        // This helps track the latest user input
+        input.dataset.lastValue = v;
+
+        // Modify the filterCallback to check if the input value has changed
         filterCallback(v);
     });
 

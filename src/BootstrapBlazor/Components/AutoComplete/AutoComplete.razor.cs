@@ -128,6 +128,10 @@ public partial class AutoComplete
 
     private List<string> Rows => _filterItems ?? [.. Items];
 
+    // In AutoComplete.razor.cs, add a tracking variable:
+    private string _userCurrentInput = string.Empty;
+    private SpinLock _spinLock = new SpinLock(false); // false for non-tracking mode
+
     /// <summary>
     /// TriggerFilter method
     /// </summary>
@@ -135,9 +139,19 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
-        // Store the current input value to prevent it from being overwritten
-        var currentInputValue = val;
-
+        // Update the current input with SpinLock protection
+        bool lockTaken = false;
+        try
+        {
+            _spinLock.Enter(ref lockTaken);
+            _userCurrentInput = val;
+        }
+        finally
+        {
+            if (lockTaken) _spinLock.Exit();
+        }
+        
+        // Process filtering
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
@@ -155,19 +169,34 @@ public partial class AutoComplete
                 : Items.Where(s => s.StartsWith(val, comparison));
             _filterItems = [.. items];
         }
-
+    
         if (DisplayCount != null)
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
-
-        // Use currentInputValue here instead of potentially stale val
-        CurrentValue = currentInputValue;
-
-        // Only trigger StateHasChanged if no binding is present
-        if (!ValueChanged.HasDelegate)
+    
+        // Check if still the latest input with SpinLock protection
+        string latestInput;
+        lockTaken = false;
+        try
         {
-            StateHasChanged();
+            _spinLock.Enter(ref lockTaken);
+            latestInput = _userCurrentInput;
+        }
+        finally
+        {
+            if (lockTaken) _spinLock.Exit();
+        }
+        
+        // Only update CurrentValue if this is still the latest input
+        if (latestInput == val)
+        {
+            CurrentValue = val;
+            
+            if (!ValueChanged.HasDelegate)
+            {
+                StateHasChanged();
+            }
         }
     }
 
