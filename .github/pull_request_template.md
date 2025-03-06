@@ -1,7 +1,8 @@
 ## Link issues
 
-[请在下方 # 后面填写相关 Issue 编号，如 #42]
-fixes #{bug number} (in this specific format)
+fixes #{bug number}
+[Please fill in the relevant Issue number after the # above, such as #42]
+[请在上方 # 后面填写相关 Issue 编号，如 #42]
 
 ## Summary By Copilot
 
@@ -12,7 +13,6 @@ fixes #{bug number} (in this specific format)
 - [ ] No
 
 [If yes, specify the version the behavior has regressed from]
-
 [是否影响老版本]
 
 ## Risk
