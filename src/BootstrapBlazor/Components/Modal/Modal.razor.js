@@ -154,13 +154,13 @@ export function dispose(id) {
 }
 
 const backupBodyStyle = modal => {
-    if(modal.originalStyle === void 0) {
+    if (modal.originalStyle === null) {
         modal.originalStyle = document.body.style.cssText;
     }
 }
 
 const restoreBodyStyle = modal => {
-    if(modal.originalStyle !== void 0) {
+    if (modal.originalStyle !== null) {
         document.body.style.cssText = modal.originalStyle;
         delete modal.originalStyle;
     }
