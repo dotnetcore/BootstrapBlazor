@@ -137,8 +137,13 @@ export function dispose(id) {
         }
 
         EventHandler.off(window, 'popstate', modal.pop)
-        if (modal.modal) {
-            modal.modal.dispose()
+        const dialog = modal.modal;
+        if (dialog) {
+            if (document.body.classList.contains('modal-open')) {
+                dialog._backdrop._config.isAnimated = false;
+                dialog._hideModal();
+            }
+            dialog.dispose()
         }
     }
 }
