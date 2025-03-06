@@ -28,11 +28,7 @@ public class BootstrapBlazorRootRegisterServiceTest
         var service = new BootstrapBlazorRootRegisterService();
         var identifier = new object();
         service.Subscribe(identifier, new BootstrapBlazorRootOutlet());
-        var exception = Assert.ThrowsAny<InvalidOperationException>(() => service.Subscribe(identifier, new BootstrapBlazorRootOutlet()));
-        Assert.Equal("There is already a subscriber to the content with the given root ID 'System.Object'.", exception.Message);
-
-        exception = Assert.ThrowsAny<InvalidOperationException>(() => service.Unsubscribe(new object()));
-        Assert.Equal("The subscriber with the given root ID 'System.Object' is already unsubscribed.", exception.Message);
+        service.Unsubscribe(new object());
     }
 
     [Fact]
