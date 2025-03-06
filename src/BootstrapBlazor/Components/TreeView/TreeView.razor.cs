@@ -158,20 +158,20 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <remarks>通过设置 <see cref="ShowSearch"/> 开启</remarks>
     [Parameter]
-    public Func<string?, Task<List<TreeViewItem<TItem>>?>>? OnSearchAsync { get; set; }
+    public Func<string?, Task<IList<TreeViewItem<TItem>>?>>? OnSearchAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 带层次数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public List<TreeViewItem<TItem>>? Items { get; set; }
+    public IList<TreeViewItem<TItem>>? Items { get; set; }
 
     ///// <summary>
     ///// 获得/设置 扁平化数据集合注意 <see cref="TreeViewItem{TItem}.Parent"/> 参数一定要赋值，不然无法呈现层次结构
     ///// </summary>
     //[Parameter]
-    //public List<TreeViewItem<TItem>>? FlatItems { get; set; }
+    //public IList<TreeViewItem<TItem>>? FlatItems { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 CheckBox 默认 false 不显示
@@ -207,7 +207,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// 获得/设置 树形控件节点选中时回调委托
     /// </summary>
     [Parameter]
-    public Func<List<TreeViewItem<TItem>>, Task>? OnTreeItemChecked { get; set; }
+    public Func<IList<TreeViewItem<TItem>>, Task>? OnTreeItemChecked { get; set; }
 
     /// <summary>
     /// 获得/设置 点击节点获取子数据集合回调方法
@@ -450,7 +450,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="items"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task<List<CheckboxState>> GetParentsState(List<int> items)
+    public Task<IList<CheckboxState>> GetParentsState(IList<int> items)
     {
         var rows = Rows;
         var result = items.Select(i =>
@@ -464,12 +464,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             item.CheckedState = checkedState;
             return checkedState;
         }).ToList();
-        return Task.FromResult(result);
+        return Task.FromResult<IList<CheckboxState>>(result);
     }
 
     private static bool IsExpand(TreeViewItem<TItem> item) => item.IsExpand && item.Items.Count > 0;
 
-    private List<TreeViewItem<TItem>> GetItems(TreeViewItem<TItem> item) => item.Parent?.Items ?? Items;
+    private IList<TreeViewItem<TItem>> GetItems(TreeViewItem<TItem> item) => item.Parent?.Items ?? Items;
 
     private async Task ActiveTreeViewItem(string key, TreeViewItem<TItem> item)
     {
@@ -615,7 +615,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private Task OnEscAsync(string? searchText) => OnClickResetSearch();
 
-    private List<TreeViewItem<TItem>>? _searchItems;
+    private IList<TreeViewItem<TItem>>? _searchItems;
 
     private async Task OnClickSearch()
     {
@@ -649,7 +649,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <summary>
     /// 重新设置 <see cref="Items"/> 数据源方法
     /// </summary>
-    public void SetItems(List<TreeViewItem<TItem>> items)
+    public void SetItems(IList<TreeViewItem<TItem>> items)
     {
         //FlatItems = null;
         Items = items;
@@ -661,7 +661,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     ///// 重新设置 <see cref="FlatItems"/> 数据源方法
     ///// </summary>
     ///// <param name="flatItems"></param>
-    //public void SetFlatItems(List<TreeViewItem<TItem>> flatItems)
+    //public void SetFlatItems(IList<TreeViewItem<TItem>> flatItems)
     //{
     //    Items = null;
     //    FlatItems = flatItems;
@@ -793,7 +793,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     public void ClearCheckedItems()
     {
-        Items.ForEach(item =>
+        foreach (var item in Items)
         {
             item.CheckedState = CheckboxState.UnChecked;
             TreeNodeStateCache.ToggleCheck(item);
@@ -802,7 +802,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 s.CheckedState = CheckboxState.UnChecked;
                 TreeNodeStateCache.ToggleCheck(s);
             });
-        });
+        }
         StateHasChanged();
     }
 
@@ -879,9 +879,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         TouchStart = false;
     }
 
-    private List<TreeViewItem<TItem>>? _rows = null;
+    private IList<TreeViewItem<TItem>>? _rows = null;
 
-    private List<TreeViewItem<TItem>> Rows
+    private IList<TreeViewItem<TItem>> Rows
     {
         get
         {
@@ -891,7 +891,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
-    private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
+    private IList<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
 
     private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
     {
