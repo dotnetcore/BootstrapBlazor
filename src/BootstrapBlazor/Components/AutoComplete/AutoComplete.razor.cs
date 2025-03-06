@@ -4,6 +4,7 @@
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
 using Microsoft.Extensions.Localization;
+using System.Threading;
 
 namespace BootstrapBlazor.Components;
 
@@ -128,9 +129,9 @@ public partial class AutoComplete
 
     private List<string> Rows => _filterItems ?? [.. Items];
 
-    // In AutoComplete.razor.cs, add a tracking variable:
+    // Thread-safe tracking using SemaphoreSlim for async compatibility
     private string _userCurrentInput = string.Empty;
-    private SpinLock _spinLock = new SpinLock(false); // false for non-tracking mode
+    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
 
     /// <summary>
     /// TriggerFilter method
@@ -139,18 +140,17 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
-        // Update the current input with SpinLock protection
-        bool lockTaken = false;
+        // Thread-safe update using SemaphoreSlim
+        await _semaphore.WaitAsync();
         try
         {
-            _spinLock.Enter(ref lockTaken);
             _userCurrentInput = val;
         }
         finally
         {
-            if (lockTaken) _spinLock.Exit();
+            _semaphore.Release();
         }
-        
+
         // Process filtering
         if (OnCustomFilter != null)
         {
@@ -169,30 +169,29 @@ public partial class AutoComplete
                 : Items.Where(s => s.StartsWith(val, comparison));
             _filterItems = [.. items];
         }
-    
+
         if (DisplayCount != null)
         {
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
-    
-        // Check if still the latest input with SpinLock protection
+
+        // Thread-safe read using SemaphoreSlim
+        await _semaphore.WaitAsync();
         string latestInput;
-        lockTaken = false;
         try
         {
-            _spinLock.Enter(ref lockTaken);
             latestInput = _userCurrentInput;
         }
         finally
         {
-            if (lockTaken) _spinLock.Exit();
+            _semaphore.Release();
         }
-        
+
         // Only update CurrentValue if this is still the latest input
         if (latestInput == val)
         {
             CurrentValue = val;
-            
+
             if (!ValueChanged.HasDelegate)
             {
                 StateHasChanged();
