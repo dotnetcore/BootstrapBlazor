@@ -4,12 +4,13 @@ on:
   push:
     branches:
       - pack
+      - release
       - hotfix
 
 jobs:
   pack:
     runs-on: ubuntu-latest
-    
+
     steps:
     - uses: actions/checkout@v4
 
@@ -19,7 +20,7 @@ jobs:
         dotnet-version: 9.0.x
 
     - name: Publish to Nuget
-      env: 
+      env:
         NUGET_API_KEY: ${{secrets.NUGET_API_KEY}}
         Bundle: True
 
