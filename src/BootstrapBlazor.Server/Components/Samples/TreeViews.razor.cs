@@ -117,7 +117,7 @@ public sealed partial class TreeViews
         return ToastService.Information(Localizer["OnMaxSelectedCountExceedTitle"], Localizer["OnMaxSelectedCountExceedContent", 2]);
     }
 
-    private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
+    private Task OnTreeItemChecked(IList<TreeViewItem<TreeFoo>> items)
     {
         Logger2.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
@@ -149,7 +149,7 @@ public sealed partial class TreeViews
         return Task.CompletedTask;
     }
 
-    private Task OnTreeItemChecked2(List<TreeViewItem<TreeFoo>> items)
+    private Task OnTreeItemChecked2(IList<TreeViewItem<TreeFoo>> items)
     {
         Logger3.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
@@ -191,7 +191,7 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private static async Task<List<TreeViewItem<TreeFoo>>?> OnSearchAsync(string searchText)
+    private static async Task<IList<TreeViewItem<TreeFoo>>?> OnSearchAsync(string searchText)
     {
         await Task.Delay(20);
 
