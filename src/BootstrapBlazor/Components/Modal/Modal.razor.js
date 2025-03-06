@@ -22,13 +22,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
     })
     EventHandler.on(el, 'hidden.bs.modal', e => {
         e.stopPropagation();
-        if (modal.draggable) {
-            modal.dialog.style.width = ''
-            modal.dialog.style.margin = ''
-
-            EventHandler.off(modal.dialog, 'mousedown')
-            EventHandler.off(modal.dialog, 'touchstart')
-        }
         invoke.invokeMethodAsync(closeCallback)
     })
     EventHandler.on(window, 'popstate', modal.pop)
@@ -154,13 +147,13 @@ export function dispose(id) {
 }
 
 const backupBodyStyle = modal => {
-    if(modal.originalStyle === void 0) {
+    if (modal.originalStyle === null) {
         modal.originalStyle = document.body.style.cssText;
     }
 }
 
 const restoreBodyStyle = modal => {
-    if(modal.originalStyle !== void 0) {
+    if (modal.originalStyle !== null) {
         document.body.style.cssText = modal.originalStyle;
         delete modal.originalStyle;
     }
