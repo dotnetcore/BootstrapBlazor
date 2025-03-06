@@ -22,13 +22,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
     })
     EventHandler.on(el, 'hidden.bs.modal', e => {
         e.stopPropagation();
-        if (modal.draggable) {
-            modal.dialog.style.width = ''
-            modal.dialog.style.margin = ''
-
-            EventHandler.off(modal.dialog, 'mousedown')
-            EventHandler.off(modal.dialog, 'touchstart')
-        }
         invoke.invokeMethodAsync(closeCallback)
     })
     EventHandler.on(window, 'popstate', modal.pop)
