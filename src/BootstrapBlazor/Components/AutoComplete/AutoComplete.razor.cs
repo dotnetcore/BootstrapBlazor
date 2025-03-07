@@ -89,6 +89,9 @@ public partial class AutoComplete
 
     private List<string>? _filterItems;
 
+    [NotNull]
+    private AutoCompleteItems? _dropdown = default;
+
     /// <summary>
     /// Tracks the current user input to prevent it from being overwritten
     /// </summary>
@@ -130,6 +133,14 @@ public partial class AutoComplete
         }
     }
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     /// <summary>
     /// Callback method when a candidate item is clicked
     /// </summary>
@@ -154,47 +165,30 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
-        try
+        if (OnCustomFilter != null)
         {
-            _isFiltering = true;
-            // Update our tracking variable
-            _currentUserInput = val;
-
-            // Filter items as usual
-            if (OnCustomFilter != null)
-            {
-                var items = await OnCustomFilter(val);
-                _filterItems = [.. items];
-            }
-            else if (string.IsNullOrEmpty(val))
-            {
-                _filterItems = [.. Items];
-            }
-            else
-            {
-                var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
-                var items = IsLikeMatch
-                    ? Items.Where(s => s.Contains(val, comparison))
-                    : Items.Where(s => s.StartsWith(val, comparison));
-                _filterItems = [.. items];
-            }
+            var items = await OnCustomFilter(val);
+            _filterItems = [.. items];
+        }
+        else if (string.IsNullOrEmpty(val))
+        {
+            _filterItems = [.. Items];
+        }
+        else
+        {
+            var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
+            var items = IsLikeMatch
+                ? Items.Where(s => s.Contains(val, comparison))
+                : Items.Where(s => s.StartsWith(val, comparison));
+            _filterItems = [.. items];
+        }
 
             if (DisplayCount != null)
             {
                 _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
             }
 
-            // Update the bound value to match the user input, triggering proper value change notifications
-            // This ensures OnValueChanged is triggered while preventing visual disruption
-            CurrentValue = val;
-
-            // Refresh UI
-            StateHasChanged();
-        }
-        finally
-        {
-            _isFiltering = false;
-        }
+        await TriggerChange(val);
     }
 
     /// <summary>
@@ -204,38 +198,22 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
-        // Update our tracking variable
-        _currentUserInput = val;
-
-        // Update component value and trigger change notifications
-        if (CurrentValue != val)
+        _render = false;
+        CurrentValue = val;
+        if (!ValueChanged.HasDelegate)
         {
-            CurrentValue = val;
-            if (!ValueChanged.HasDelegate)
-            {
-                StateHasChanged();
-            }
+            StateHasChanged();
         }
+        _render = true;
+        _dropdown.RenderContent();
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Override CurrentValueAsString to return the current user input
-    /// </summary>
-    protected override string? FormatValueAsString(string? value)
+    private RenderFragment RenderItems => builder =>
     {
-        // During filtering operations, use what the user is actually typing
-        if (_isFiltering)
-        {
-            return _currentUserInput;
-        }
-
-        // In non-filtering scenarios, sync our tracked value with the component value
-        if (!string.IsNullOrEmpty(value) && _currentUserInput != value)
-        {
-            _currentUserInput = value;
-        }
-
-        return base.FormatValueAsString(value);
-    }
+        builder.OpenComponent<AutoCompleteItems>(0);
+        builder.AddAttribute(10, "ChildContent", RenderDropdown);
+        builder.AddComponentReferenceCapture(20, dropdown => _dropdown = (AutoCompleteItems)dropdown);
+        builder.CloseComponent();
+    };
 }

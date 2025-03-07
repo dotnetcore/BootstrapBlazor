@@ -1,0 +1,27 @@
+﻿@page "/univer-icon"
+@inject IStringLocalizer<UniverIcons> Localizer
+@inherits BootstrapIconBase
+
+<h3>@Localizer["UniverIconTitle"]</h3>
+
+<h4>@Localizer["UniverIconDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.UniverIcon" />
+
+<Tips class="mt-3">
+    <ul class="ul-demo">
+        <li>@Localizer["P1"]</li>
+        <li>@Localizer["P2"]</li>
+    </ul>
+    <div>@Localizer["P3"]</div>
+</Tips>
+
+<Pre>&lt;link href="_content/BootstrapBlazor.UniverIcon/BootstrapBlazor.UniverIcon.bundle.scp.css" rel="stylesheet"&gt;</Pre>
+
+<Pre>&lt;UniverIcon Name="create-copy-single"&gt;&lt;/UniverIcon&gt;</Pre>
+
+<div>@((MarkupString)Localizer["Icons"].Value)</div>
+
+<div id="@Id" class="icon-list">
+    <UniverIconList></UniverIconList>
+</div>

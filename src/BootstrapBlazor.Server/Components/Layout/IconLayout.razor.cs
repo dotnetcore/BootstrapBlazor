@@ -3,12 +3,12 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-namespace BootstrapBlazor.Server.Components.Samples.Icons;
+namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
-/// IconPark 图标库示例
+/// Icon Layout Component
 /// </summary>
-public partial class AntDesignIcons
+public partial class IconLayout
 {
 
 }

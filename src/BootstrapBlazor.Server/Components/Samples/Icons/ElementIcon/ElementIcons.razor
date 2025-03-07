@@ -1,10 +1,6 @@
 ﻿@page "/element-icon"
-@layout MainLayout
 @inject IStringLocalizer<ElementIcons> Localizer
-
-<HeadContent>
-    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.ElementIcon/BootstrapBlazor.ElementIcon.bundle.scp.css"]" />
-</HeadContent>
+@inherits BootstrapIconBase
 
 <h3>@Localizer["ElementIconTitle"]</h3>
 
@@ -22,10 +18,10 @@
 
 <Pre>&lt;link href="_content/BootstrapBlazor.ElementIcon/BootstrapBlazor.ElementIcon.bundle.scp.css" rel="stylesheet"&gt;</Pre>
 
-<div class="mb-2">
-    <ElementIcon Name="upload-filled"></ElementIcon>
-</div>
-
 <Pre>&lt;ElementIcon Name="upload-filled"&gt;&lt;/ElementIcon&gt;</Pre>
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
+
+<div id="@Id" class="icon-list">
+    <ElementIconList></ElementIconList>
+</div>

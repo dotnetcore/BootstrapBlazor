@@ -1,10 +1,6 @@
 ﻿@page "/ant-design-icon"
-@layout MainLayout
 @inject IStringLocalizer<AntDesignIcons> Localizer
-
-<HeadContent>
-    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.AntDesignIcon/BootstrapBlazor.AntDesignIcon.bundle.scp.css"]" />
-</HeadContent>
+@inherits BootstrapIconBase
 
 <h3>@Localizer["AntDesignIconTitle"]</h3>
 
@@ -22,11 +18,23 @@
 
 <Pre>&lt;link href="_content/BootstrapBlazor.AntDesignIcon/BootstrapBlazor.AntDesignIcon.bundle.scp.css" rel="stylesheet"&gt;</Pre>
 
-<div class="mb-2">
-    <AntDesignIcon Category="AntDesignIconCategory.Filled" Name="left-circle"></AntDesignIcon>
-    <AntDesignIcon Category="AntDesignIconCategory.Outlined" Name="left-circle"></AntDesignIcon>
-</div>
-
 <Pre>&lt;AntDesignIcon Category="AntDesignIconCategory.Outlined" Name="github"&gt;&lt;/AntDesignIcon&gt;</Pre>
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
+
+<p class="code-label mt-3">Outlined</p>
+<div id="@Id" class="list">
+    <div class="icon-list">
+        <AntDesignIconListOutlined></AntDesignIconListOutlined>
+    </div>
+
+    <p class="code-label mt-3">Filled</p>
+    <div class="icon-list">
+        <AntDesignIconListFilled></AntDesignIconListFilled>
+    </div>
+
+    <p class="code-label mt-3">TwoTone</p>
+    <div class="icon-list">
+        <AntDesignIconListTwoTone></AntDesignIconListTwoTone>
+    </div>
+</div>

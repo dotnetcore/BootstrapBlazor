@@ -369,3 +369,28 @@ code {
     --bd-callout-code-color: #e685b5;
     --bd-pre-bg: #1b1f22;
 }
+
+.icon-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    .icon-list > div {
+        padding: 1rem 30px;
+        border: 1px solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
+        margin: 0.25rem;
+        cursor: pointer;
+        transition: background-color .3s linear;
+    }
+
+        .icon-list > div:hover {
+            background-color: var(--bb-primary-color);
+            color: #fff;
+        }
+
+    .icon-list .bb-iconpark-icon {
+        --bb-svg-icon-width: 16px;
+    }
