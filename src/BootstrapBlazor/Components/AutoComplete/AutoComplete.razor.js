@@ -17,28 +17,11 @@ export function init(id, invoke) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' });
     }
 
-    // Track the current user input to prevent it from being overwritten
-    ac.currentUserInput = input.value;
-
-    // Save original input value
-    const updateCurrentInput = (e) => {
-        if (e && e.target) {
-            ac.currentUserInput = e.target.value;
-        }
-    };
-
-    // Add an input event listener to track user typing in real-time
-    EventHandler.on(input, 'input', updateCurrentInput);
-
     // debounce
     const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
     if (duration > 0) {
         ac.debounce = true
         EventHandler.on(input, 'keyup', debounce(e => {
-            // Don't let the debounce overwrite what the user is currently typing
-            if (input.value !== ac.currentUserInput) {
-                input.value = ac.currentUserInput;
-            }
             handlerKeyup(ac, e);
         }, duration, e => {
             return ['ArrowUp', 'ArrowDown', 'Escape', 'Enter', 'NumpadEnter'].indexOf(e.key) > -1
@@ -46,8 +29,6 @@ export function init(id, invoke) {
     }
     else {
         EventHandler.on(input, 'keyup', e => {
-            // Make sure we're using the most current input value
-            updateCurrentInput(e);
             handlerKeyup(ac, e);
         })
     }
@@ -83,24 +64,11 @@ export function init(id, invoke) {
         filterDuration = 200;
     }
     const filterCallback = debounce(async v => {
-        // Keep track of what was filtered vs what might be currently typed
-        const currentTypedValue = input.value;
-
         await invoke.invokeMethodAsync('TriggerFilter', v);
-
-        // Only reset input value if the user hasn't typed something new
-        // during the async operation
-        if (input.value === v) {
-            input.value = ac.currentUserInput;
-        }
-
         el.classList.remove('is-loading');
     }, filterDuration);
 
     Input.composition(input, v => {
-        // Update our tracked input value
-        ac.currentUserInput = v;
-
         if (isPopover === false) {
             el.classList.add('show');
         }
@@ -199,7 +167,6 @@ export function dispose(id) {
         }
         EventHandler.off(input, 'change');
         EventHandler.off(input, 'keyup');
-        EventHandler.off(input, 'input'); // Remove the input event listener we added
         EventHandler.off(menu, 'click');
         Input.dispose(input);
 
