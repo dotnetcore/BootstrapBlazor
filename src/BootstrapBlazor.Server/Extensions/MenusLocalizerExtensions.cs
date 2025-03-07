@@ -1583,6 +1583,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["OctIcon"],
                     Url = "oct-icon"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["UniverIcon"],
+                    Url = "univer-icon"
                 }
             };
             AddBadge(item);
