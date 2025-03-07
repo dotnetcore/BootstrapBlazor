@@ -390,3 +390,7 @@ code {
             background-color: var(--bb-primary-color);
             color: #fff;
         }
+
+    .icon-list .bb-iconpark-icon {
+        --bb-svg-icon-width: 16px;
+    }
