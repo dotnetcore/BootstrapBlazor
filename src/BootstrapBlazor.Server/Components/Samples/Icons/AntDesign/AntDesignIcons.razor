@@ -1,5 +1,4 @@
 ﻿@page "/ant-design-icon"
-@layout MainLayout
 @inject IStringLocalizer<AntDesignIcons> Localizer
 
 <h3>@Localizer["AntDesignIconTitle"]</h3>
@@ -22,14 +21,17 @@
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
 
+<p class="code-label mt-3">Outlined</p>
 <div class="icon-list">
     <AntDesignIconListOutlined></AntDesignIconListOutlined>
 </div>
 
+<p class="code-label mt-3">Filled</p>
 <div class="icon-list">
     <AntDesignIconListFilled></AntDesignIconListFilled>
 </div>
 
+<p class="code-label mt-3">TwoTone</p>
 <div class="icon-list">
     <AntDesignIconListTwoTone></AntDesignIconListTwoTone>
 </div>
