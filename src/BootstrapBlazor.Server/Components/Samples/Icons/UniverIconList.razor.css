@@ -1,0 +1,13 @@
+﻿.icon-list {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+::deep .bb-univer-icon {
+    padding: 1rem 2rem;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    margin: 0.5rem;
+}
