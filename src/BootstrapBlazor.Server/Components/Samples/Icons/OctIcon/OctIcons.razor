@@ -1,10 +1,6 @@
 ﻿@page "/oct-icon"
-@layout MainLayout
 @inject IStringLocalizer<OctIcons> Localizer
-
-<HeadContent>
-    <link rel="stylesheet" href="@Assets["_content/BootstrapBlazor.OctIcon/BootstrapBlazor.OctIcon.bundle.scp.css"]" />
-</HeadContent>
+@inherits BootstrapIcon
 
 <h3>@Localizer["OctIconTitle"]</h3>
 
@@ -22,10 +18,10 @@
 
 <Pre>&lt;link href="_content/BootstrapBlazor.OctIcon/BootstrapBlazor.OctIcon.bundle.scp.css" rel="stylesheet"&gt;</Pre>
 
-<div class="mb-2">
-    <OctIcon Name="mark-github-16"></OctIcon>
-</div>
-
 <Pre>&lt;OctIcon Name="mark-github-16"&gt;&lt;/OctIcon&gt;</Pre>
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
+
+<div id="@Id" class="icon-list">
+    <OcticonIconList></OcticonIconList>
+</div>

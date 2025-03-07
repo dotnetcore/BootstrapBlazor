@@ -1,6 +1,6 @@
 ﻿@page "/univer-icon"
-@layout MainLayout
 @inject IStringLocalizer<UniverIcons> Localizer
+@inherits BootstrapIcon
 
 <h3>@Localizer["UniverIconTitle"]</h3>
 
@@ -22,6 +22,6 @@
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
 
-<div class="icon-list">
+<div id="@Id" class="icon-list">
     <UniverIconList></UniverIconList>
 </div>

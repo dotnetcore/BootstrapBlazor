@@ -6,9 +6,10 @@
 namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
-/// IconPark 图标库示例
+/// Icon component base class
 /// </summary>
-public partial class AntDesignIcons
+[JSModuleAutoLoader("Samples/Icons/BootstrapIcon.razor.js")]
+public partial class BootstrapIcon
 {
 
 }
