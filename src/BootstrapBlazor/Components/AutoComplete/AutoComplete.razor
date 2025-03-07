@@ -16,23 +16,6 @@
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
-    <ul class="dropdown-menu">
-        @foreach (var item in Rows)
-        {
-            <li @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
-                @if (ItemTemplate == null)
-                {
-                    <div>@item</div>
-                }
-                else
-                {
-                    @ItemTemplate(item)
-                }
-            </li>
-        }
-        @if (ShowNoDataTip && Rows.Count == 0)
-        {
-            <li class="dropdown-item">@NoDataTip</li>
-        }
-    </ul>
+    <DropdownMenu @ref="_dropdown" ShowNoDataTip="ShowNoDataTip" NoDataTip="@NoDataTip"
+                  OnItemClick="@OnClickItem" Rows="@Rows" ItemTemplate="@ItemTemplate"></DropdownMenu>
 </div>
