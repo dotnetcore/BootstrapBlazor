@@ -76,7 +76,7 @@
             background-color: var(--bb-sidebar-body-drag-hover-bg);
         }
 
-::deep .dial-button {
+::deep .bb-dial-gear {
     display: none;
     position: fixed;
     z-index: 10;
@@ -172,7 +172,7 @@
         display: block;
     }
 
-    ::deep .dial-button {
+    ::deep .bb-dial-gear {
         display: block;
     }
 }
