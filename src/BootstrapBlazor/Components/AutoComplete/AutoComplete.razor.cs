@@ -90,7 +90,7 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private DropdownMenu? _dropdown = default;
+    private AutoCompleteItems? _dropdown = default;
 
     /// <summary>
     /// <inheritdoc/>
@@ -186,7 +186,15 @@ public partial class AutoComplete
             StateHasChanged();
         }
         _render = true;
-        _dropdown.Render(Rows);
+        _dropdown.RenderContent();
         return Task.CompletedTask;
     }
+
+    private RenderFragment RenderItems => builder =>
+    {
+        builder.OpenComponent<AutoCompleteItems>(0);
+        builder.AddAttribute(10, "ChildContent", RenderDropdown);
+        builder.AddComponentReferenceCapture(20, dropdown => _dropdown = (AutoCompleteItems)dropdown);
+        builder.CloseComponent();
+    };
 }
