@@ -6729,7 +6729,7 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
     "ElementIconTitle": "饿了么图标库",
     "ElementIconDescription": "饿了么免费开源图标库",
     "CopiedTooltipText": "拷贝成功",
@@ -6755,7 +6755,7 @@
     "P1": "通过引用扩展组件包",
     "P2": "后添加样式表文件链接开启图标"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
     "IconParkTitle": "字节跳动图标库",
     "IconParkDescription": "已覆盖字节跳动商业化产品系所有平台，并被12个平台作为底层代码引入使用，保证了图标样式与认知的统一性",
     "CopiedTooltipText": "拷贝成功",
@@ -6764,7 +6764,7 @@
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[传送门]</a> 查看"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconTitle": "蚂蚁图标库",
     "AntDesignIconDescription": "语义化的矢量图形",
     "CopiedTooltipText": "拷贝成功",
@@ -6773,7 +6773,7 @@
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://ant.design/components/icon\" target=\"_blank\">[传送门]</a> 查看"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
     "OctIconTitle": "Github 图标库",
     "OctIconDescription": "Primer is a set of guidelines, principles, and patterns for designing and building UI at GitHub.",
     "CopiedTooltipText": "拷贝成功",
@@ -6782,7 +6782,7 @@
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
     "UniverIconTitle": "Univer Icon 图标库",
     "UniverIconDescription": "Icons used by Univer",
     "CopiedTooltipText": "拷贝成功",

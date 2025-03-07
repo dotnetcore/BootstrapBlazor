@@ -6729,7 +6729,7 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.ElementIcon.ElementIcons": {
     "ElementIconTitle": "Element-plus Icons",
     "ElementIconDescription": "Free, high quality, open source icon library",
     "CopiedTooltipText": "Copied",
@@ -6755,7 +6755,7 @@
     "P1": "Extending the Component Package by Reference",
     "P2": "After adding the stylesheet file link open icon"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.IconParks": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.IconPark.IconParks": {
     "IconParkTitle": "ByteDance Svg Icon Lib",
     "IconParkDescription": "It has covered all platforms of ByteDance commercial product series and has been introduced and used by 12 platforms as the underlying code, ensuring the uniformity of icon style and cognition.",
     "CopiedTooltipText": "Copied",
@@ -6764,7 +6764,7 @@
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://iconpark.oceanengine.com/official\" target=\"_blank\">[portal]</a>"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesignIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.AntDesign.AntDesignIcons": {
     "AntDesignIconTitle": "AntDesign Svg Icon Lib",
     "AntDesignIconDescription": "Semantic vector graphics.",
     "CopiedTooltipText": "Copied",
@@ -6773,7 +6773,7 @@
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://ant.design/components/icon\" target=\"_blank\">[portal]</a>"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.OctIcon.OctIcons": {
     "OctIconTitle": "Oct Svg Icon Lib",
     "OctIconDescription": "A scalable set of icons handcrafted with <3 by GitHub",
     "CopiedTooltipText": "Copied",
@@ -6782,7 +6782,7 @@
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[portal]</a>"
   },
-  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcons": {
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcon.UniverIcons": {
     "UniverIconTitle": "Univer Svg Icon Lib",
     "UniverIconDescription": "Icons used by Univer",
     "CopiedTooltipText": "Copied",
