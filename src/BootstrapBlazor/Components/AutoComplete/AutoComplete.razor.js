@@ -55,7 +55,6 @@ export function init(id, invoke) {
     });
 
     EventHandler.on(input, 'change', e => {
-        updateCurrentInput(e);
         invoke.invokeMethodAsync('TriggerChange', e.target.value);
     });
 
