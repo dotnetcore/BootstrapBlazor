@@ -6781,6 +6781,15 @@
     "P3": "请拷贝下方样式即可",
     "Icons": "图标列表请通过 <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[传送门]</a> 查看"
   },
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcons": {
+    "UniverIconTitle": "Univer Icon 图标库",
+    "UniverIconDescription": "Icons used by Univer",
+    "CopiedTooltipText": "拷贝成功",
+    "P1": "1. 引用扩展组件包后添加包内置样式文件开启图标",
+    "P2": "2. 开启样式隔离，编译后自动引用组件样式",
+    "P3": "请拷贝下方样式即可",
+    "Icons": "图标列表请通过 <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[传送门]</a> 查看"
+  },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon 图标",
     "IconsDescription": "同时支持字体图标、矢量 Svg 图标、以及 Image 图片",

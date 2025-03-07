@@ -6781,6 +6781,15 @@
     "P3": "Please copy the following code segement",
     "Icons": "For icon list, please visit <a href=\"https://primer.style/foundations/icons\" target=\"_blank\">[portal]</a>"
   },
+  "BootstrapBlazor.Server.Components.Samples.Icons.UniverIcons": {
+    "UniverIconTitle": "Univer Svg Icon Lib",
+    "UniverIconDescription": "Icons used by Univer",
+    "CopiedTooltipText": "Copied",
+    "P1": "1. After referencing the extension package, add the package built-in style file to open the icon",
+    "P2": "2. Enable css isolation and automatically reference component styles after compilation",
+    "P3": "Please copy the following code segement",
+    "Icons": "For icon list, please visit <a href=\"https://univer.ai/en-US/icons\" target=\"_blank\">[portal]</a>"
+  },
   "BootstrapBlazor.Server.Components.Samples.BootstrapBlazorIcons": {
     "IconsTitle": "Icon",
     "IconsDescription": "Supports font icons, vector SVG icons, and Image pictures",
