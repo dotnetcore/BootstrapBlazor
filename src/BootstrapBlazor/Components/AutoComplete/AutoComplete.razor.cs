@@ -93,16 +93,6 @@ public partial class AutoComplete
     private AutoCompleteItems? _dropdown = default;
 
     /// <summary>
-    /// Tracks the current user input to prevent it from being overwritten
-    /// </summary>
-    private string _currentUserInput = string.Empty;
-
-    /// <summary>
-    /// Flag to track whether we're handling debounced filtering
-    /// </summary>
-    private bool _isFiltering = false;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -125,12 +115,6 @@ public partial class AutoComplete
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         Items ??= [];
-
-        // Initialize _currentUserInput with current value if it hasn't been set yet
-        if (string.IsNullOrEmpty(_currentUserInput) && !string.IsNullOrEmpty(CurrentValueAsString))
-        {
-            _currentUserInput = CurrentValueAsString;
-        }
     }
 
     private bool _render = true;
@@ -146,8 +130,6 @@ public partial class AutoComplete
     /// </summary>
     private async Task OnClickItem(string val)
     {
-        // Update both the CurrentValue and _currentUserInput when an item is clicked
-        _currentUserInput = val;
         CurrentValue = val;
 
         if (OnSelectedItemChanged != null)
@@ -183,10 +165,10 @@ public partial class AutoComplete
             _filterItems = [.. items];
         }
 
-            if (DisplayCount != null)
-            {
-                _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
-            }
+        if (DisplayCount != null)
+        {
+            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
+        }
 
         await TriggerChange(val);
     }
