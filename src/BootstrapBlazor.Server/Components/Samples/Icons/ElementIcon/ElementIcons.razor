@@ -1,5 +1,6 @@
 ﻿@page "/element-icon"
 @inject IStringLocalizer<ElementIcons> Localizer
+@inherits BootstrapIcon
 
 <h3>@Localizer["ElementIconTitle"]</h3>
 
@@ -21,6 +22,6 @@
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
 
-<div class="icon-list">
+<div id="@Id" class="icon-list">
     <ElementIconList></ElementIconList>
 </div>

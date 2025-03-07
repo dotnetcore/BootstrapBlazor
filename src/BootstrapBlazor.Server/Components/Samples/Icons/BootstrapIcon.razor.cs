@@ -6,9 +6,10 @@
 namespace BootstrapBlazor.Server.Components.Samples.Icons;
 
 /// <summary>
-/// OctIcons 图标示例
+/// Icon component base class
 /// </summary>
-public partial class UniverIcons
+[JSModuleAutoLoader("Samples/Icons/BootstrapIcon.razor.js")]
+public partial class BootstrapIcon
 {
 
 }

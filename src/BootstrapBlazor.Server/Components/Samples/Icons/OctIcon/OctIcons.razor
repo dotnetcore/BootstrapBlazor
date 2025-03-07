@@ -1,5 +1,6 @@
 ﻿@page "/oct-icon"
 @inject IStringLocalizer<OctIcons> Localizer
+@inherits BootstrapIcon
 
 <h3>@Localizer["OctIconTitle"]</h3>
 
@@ -21,6 +22,6 @@
 
 <div>@((MarkupString)Localizer["Icons"].Value)</div>
 
-<div class="icon-list">
+<div id="@Id" class="icon-list">
     <OcticonIconList></OcticonIconList>
 </div>
