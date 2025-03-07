@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// DropdownMenu component
+/// AutoCompleteItems component
 /// </summary>
 class AutoCompleteItems : IComponent
 {
