@@ -28,6 +28,7 @@ public class BootstrapBlazorRootRegisterServiceTest
         var service = new BootstrapBlazorRootRegisterService();
         var identifier = new object();
         service.Subscribe(identifier, new BootstrapBlazorRootOutlet());
+        service.Subscribe(identifier, new BootstrapBlazorRootOutlet());
         service.Unsubscribe(new object());
     }
 
