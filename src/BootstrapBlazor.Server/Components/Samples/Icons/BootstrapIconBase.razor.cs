@@ -8,8 +8,8 @@ namespace BootstrapBlazor.Server.Components.Samples.Icons;
 /// <summary>
 /// Icon component base class
 /// </summary>
-[JSModuleAutoLoader("Samples/Icons/BootstrapIcon.razor.js")]
-public partial class BootstrapIcon
+[JSModuleAutoLoader("Samples/Icons/BootstrapIconBase.razor.js")]
+public partial class BootstrapIconBase
 {
 
 }
