@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.AntDesignIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="9.0.0" />
@@ -33,14 +33,14 @@
     <PackageReference Include="BootstrapBlazor.Dock" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.DockView" Version="9.1.1" />
     <PackageReference Include="BootstrapBlazor.DriverJs" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.ElementIcon" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.2" />
-    <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.2" />
+    <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.IP2Region" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.JuHeIpLocatorProvider" Version="9.0.0" />
