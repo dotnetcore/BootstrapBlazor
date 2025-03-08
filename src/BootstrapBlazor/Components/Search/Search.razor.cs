@@ -229,7 +229,7 @@ public partial class Search<TValue>
             await Task.Yield();
 
             var items = await OnSearch(_displayText);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
             ButtonIcon = SearchButtonIcon;
             if (IsTriggerSearchByInput == false)
             {
