@@ -55,9 +55,9 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
         }
     </div>
-    <BootstrapBlazorRender @ref="_dropdown">
+    <RenderTemplate @ref="_dropdown">
         @RenderDropdown
-    </BootstrapBlazorRender>
+    </RenderTemplate>
 </div>
 
 @code {

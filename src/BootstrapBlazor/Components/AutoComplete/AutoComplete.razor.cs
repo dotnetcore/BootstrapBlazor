@@ -90,7 +90,7 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private BootstrapBlazorRender? _dropdown = default;
+    private RenderTemplate? _dropdown = default;
 
     /// <summary>
     /// <inheritdoc/>

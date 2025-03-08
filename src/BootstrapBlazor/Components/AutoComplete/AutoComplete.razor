@@ -16,9 +16,9 @@
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
-    <BootstrapBlazorRender @ref="_dropdown">
+    <RenderTemplate @ref="_dropdown">
         @RenderDropdown
-    </BootstrapBlazorRender>
+    </RenderTemplate>
 </div>
 
 @code {

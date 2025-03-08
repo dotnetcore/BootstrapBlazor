@@ -6,18 +6,18 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// RenderTemplate 组件
+/// RenderTemplate component
 /// </summary>
 public partial class RenderTemplate
 {
     /// <summary>
-    /// 获得/设置 子组件
+    /// Gets or sets the child component
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 首次加载回调委托
+    /// Gets or sets the callback delegate for the first load
     /// </summary>
     [Parameter]
     public Func<bool, Task>? OnRenderAsync { get; set; }
@@ -35,5 +35,13 @@ public partial class RenderTemplate
         {
             await OnRenderAsync(firstRender);
         }
+    }
+
+    /// <summary>
+    /// Render method
+    /// </summary>
+    public void Render()
+    {
+        StateHasChanged();
     }
 }
