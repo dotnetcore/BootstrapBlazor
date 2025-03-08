@@ -13,7 +13,9 @@ export function init(id, invoke, options) {
             return el.classList.contains('disabled');
         },
         hideCallback: () => {
-            invoke?.invokeMethodAsync(options.triggerHideCallback);
+            if (invoke) {
+                invoke.invokeMethodAsync(options.triggerHideCallback);
+            }
         }
     });
     const dateTimePicker = {
