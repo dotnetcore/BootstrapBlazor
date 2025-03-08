@@ -16,7 +16,9 @@
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
-    <RenderTemplate ChildContent="RenderItems"></RenderTemplate>
+    <RenderTemplate @ref="_dropdown">
+        @RenderDropdown
+    </RenderTemplate>
 </div>
 
 @code {
