@@ -8,15 +8,17 @@ using Microsoft.AspNetCore.Components.Rendering;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoCompleteItems component
+/// BootstrapBlazorRender component
 /// </summary>
-class AutoCompleteItems : IComponent
+public class BootstrapBlazorRender : IComponent
 {
     /// <summary>
     /// Gets or sets the child content
     /// </summary>
     [Parameter, NotNull]
     public RenderFragment? ChildContent { get; set; }
+
+    private static readonly RenderFragment _emptyRenderFragment = _ => { };
 
     private RenderHandle _renderHandle;
 
@@ -38,23 +40,19 @@ class AutoCompleteItems : IComponent
     {
         parameters.SetParameterProperties(this);
 
-        RenderContent();
+        Render();
         return Task.CompletedTask;
     }
     /// <summary>
     /// Render method
     /// </summary>
-    public void RenderContent()
+    public void Render()
     {
         _renderHandle.Render(BuildRenderTree);
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="builder"></param>
     private void BuildRenderTree(RenderTreeBuilder builder)
     {
-        builder.AddContent(0, ChildContent);
+        builder.AddContent(0, ChildContent ?? _emptyRenderFragment);
     }
 }

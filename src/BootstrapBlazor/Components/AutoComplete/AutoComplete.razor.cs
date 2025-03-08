@@ -90,7 +90,7 @@ public partial class AutoComplete
     private List<string>? _filterItems;
 
     [NotNull]
-    private AutoCompleteItems? _dropdown = default;
+    private BootstrapBlazorRender? _dropdown = default;
 
     /// <summary>
     /// <inheritdoc/>
@@ -187,15 +187,7 @@ public partial class AutoComplete
             StateHasChanged();
         }
         _render = true;
-        _dropdown.RenderContent();
+        _dropdown.Render();
         return Task.CompletedTask;
     }
-
-    private RenderFragment RenderItems => builder =>
-    {
-        builder.OpenComponent<AutoCompleteItems>(0);
-        builder.AddAttribute(10, "ChildContent", RenderDropdown);
-        builder.AddComponentReferenceCapture(20, dropdown => _dropdown = (AutoCompleteItems)dropdown);
-        builder.CloseComponent();
-    };
 }
