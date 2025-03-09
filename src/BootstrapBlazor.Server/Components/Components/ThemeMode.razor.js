@@ -1,4 +1,4 @@
-﻿import { getTheme, switchTheme } from "../../_content/BootstrapBlazor/modules/utility.js"
+﻿import { getTheme, switchTheme, calcCenterPosition } from "../../_content/BootstrapBlazor/modules/utility.js"
 import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js"
 
 export function init(id) {
@@ -12,7 +12,9 @@ export function init(id) {
             else {
                 theme = 'dark';
             }
-            switchTheme(theme, window.innerWidth, window.innerHeight);
+
+            const rect = calcCenterPosition(el);
+            switchTheme(theme, rect.x, rect.y);
         });
     }
 }
