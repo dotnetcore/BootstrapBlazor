@@ -809,8 +809,8 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
 }
 
 export function registerBootstrapBlazorModule(name, identifier, callback) {
-    window.BootstrapBlazor ||= {};
-    window.BootstrapBlazor[name] ||= {
+    window.BootstrapBlazor = window.BootstrapBlazor || {};
+    window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
         _init: false,
         _items: [],
         register: function (id, cb) {
