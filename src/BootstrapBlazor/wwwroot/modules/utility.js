@@ -849,6 +849,26 @@ export function calcCenterPosition(el) {
     }
 }
 
+export function setMemorialMode(memorial) {
+    const el = document.documentElement;
+    if (memorial) {
+        const theme = el.getAttribute('data-bs-theme');
+        if (theme) {
+            el.setAttribute('data-bs-original-theme', theme);
+        }
+        el.setAttribute('data-bs-theme', 'dark');
+        el.setAttribute('data-bb-theme', 'memorial');
+    }
+    else {
+        const theme = el.getAttribute('data-bs-original-theme');
+        el.removeAttribute('data-bs-theme');
+        el.removeAttribute('data-bb-theme');
+        if (theme) {
+            el.setAttribute('data-bs-theme', theme);
+        }
+    }
+}
+
 export {
     autoAdd,
     autoRemove,

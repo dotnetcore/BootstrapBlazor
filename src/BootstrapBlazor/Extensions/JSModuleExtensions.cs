@@ -170,4 +170,12 @@ public static class JSModuleExtensions
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <returns></returns>
     public static ValueTask<string?> GetThemeAsync(this JSModule module) => module.InvokeAsync<string?>("getTheme");
+
+    /// <summary>
+    /// Set memorial mode
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    /// <param name="isMemorial">Whether it is memorial mode</param>
+    /// <returns></returns>
+    public static ValueTask SetMemorialModeAsync(this JSModule module, bool isMemorial) => module.InvokeVoidAsync("setMemorialMode", isMemorial);
 }
