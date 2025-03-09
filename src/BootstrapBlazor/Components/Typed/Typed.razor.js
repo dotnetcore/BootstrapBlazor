@@ -2,7 +2,7 @@
 import Typed from '../../lib/typedjs/typed.module.js'
 
 const getOptions = (text, invoke, options, callbacks) => {
-    options ??= {};
+    options = options || {};
 
     if (text) {
         options.strings = [text];

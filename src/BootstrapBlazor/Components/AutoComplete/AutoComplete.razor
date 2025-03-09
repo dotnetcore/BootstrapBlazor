@@ -16,7 +16,14 @@
            placeholder="@PlaceHolder" disabled="@Disabled" @ref="FocusElement"/>
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
-    <ul class="dropdown-menu">
+    <RenderTemplate @ref="_dropdown">
+        @RenderDropdown
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderDropdown =>
+    @<ul class="dropdown-menu">
         @foreach (var item in Rows)
         {
             <li @key="item" class="dropdown-item" @onclick="() => OnClickItem(item)">
@@ -34,5 +41,5 @@
         {
             <li class="dropdown-item">@NoDataTip</li>
         }
-    </ul>
-</div>
+    </ul>;
+}

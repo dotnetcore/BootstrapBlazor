@@ -1,4 +1,4 @@
-﻿import { getPreferredTheme, setTheme, switchTheme } from "../../modules/utility.js"
+﻿import { getPreferredTheme, setTheme, switchTheme, calcCenterPosition } from "../../modules/utility.js"
 import EventHandler from "../../modules/event-handler.js"
 import Data from "../../modules/data.js"
 
@@ -25,7 +25,9 @@ export function init(id, invoke, themeValue, callback) {
     EventHandler.on(el, 'click', '.dropdown-item', e => {
         const activeTheme = e.delegateTarget.getAttribute('data-bb-theme-value');
         theme.currentTheme = activeTheme;
-        switchTheme(activeTheme, window.innerWidth, 0);
+
+        const rect = calcCenterPosition(el);
+        switchTheme(activeTheme, rect.x, rect.y);
         if (callback) {
             invoke.invokeMethodAsync(callback, activeTheme);
         }

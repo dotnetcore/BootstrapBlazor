@@ -171,6 +171,9 @@ public partial class Search<TValue>
 
     private SearchContext<TValue> _context = default!;
 
+    [NotNull]
+    private RenderTemplate? _dropdown = default;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -205,6 +208,14 @@ public partial class Search<TValue>
         }
     }
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     private string _displayText = "";
     /// <summary>
     /// 点击搜索按钮时触发此方法
@@ -218,7 +229,7 @@ public partial class Search<TValue>
             await Task.Yield();
 
             var items = await OnSearch(_displayText);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
             ButtonIcon = SearchButtonIcon;
             if (IsTriggerSearchByInput == false)
             {
@@ -280,11 +291,13 @@ public partial class Search<TValue>
     [JSInvokable]
     public override async Task TriggerChange(string val)
     {
+        _render = false;
         _displayText = val;
-
         if (IsTriggerSearchByInput)
         {
             await OnSearchClick();
         }
+        _render = true;
+        _dropdown.Render();
     }
 }

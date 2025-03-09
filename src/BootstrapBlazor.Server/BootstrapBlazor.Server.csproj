@@ -38,7 +38,7 @@
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Holiday" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.0" />
+    <PackageReference Include="BootstrapBlazor.Html2Image" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="9.0.2" />
     <PackageReference Include="BootstrapBlazor.IconPark" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="9.0.0" />
@@ -47,9 +47,9 @@
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.7" />
+    <PackageReference Include="BootstrapBlazor.MeiliSearch" Version="9.1.9" />
     <PackageReference Include="BootstrapBlazor.Mermaid" Version="9.0.3" />
-    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.3" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="9.1.6" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="9.0.1" />
     <PackageReference Include="BootstrapBlazor.OctIcon" Version="9.0.4" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="9.0.1" />
@@ -65,7 +65,7 @@
     <PackageReference Include="BootstrapBlazor.TableExport" Version="9.2.1" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="9.0.0" />
     <PackageReference Include="BootstrapBlazor.UniverIcon" Version="9.0.1" />
-    <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.0-beta05" />
+    <PackageReference Include="BootstrapBlazor.UniverSheet" Version="9.0.0-beta07" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="9.0.3" />
     <PackageReference Include="BootstrapBlazor.WinBox" Version="9.0.7" />
   </ItemGroup>

@@ -809,8 +809,8 @@ const deepMerge = (obj1, obj2, skipNull = true) => {
 }
 
 export function registerBootstrapBlazorModule(name, identifier, callback) {
-    window.BootstrapBlazor ??= {};
-    window.BootstrapBlazor[name] ??= {
+    window.BootstrapBlazor = window.BootstrapBlazor || {};
+    window.BootstrapBlazor[name] = window.BootstrapBlazor[name] || {
         _init: false,
         _items: [],
         register: function (id, cb) {
@@ -839,6 +839,34 @@ export function registerBootstrapBlazorModule(name, identifier, callback) {
 
 export function setTitle(title) {
     document.title = title;
+}
+
+export function calcCenterPosition(el) {
+    const rect = el.getBoundingClientRect();
+    return {
+        x: rect.left + el.offsetWidth / 2,
+        y: rect.top + el.offsetHeight / 2
+    }
+}
+
+export function setMemorialMode(memorial) {
+    const el = document.documentElement;
+    if (memorial) {
+        const theme = el.getAttribute('data-bs-theme');
+        if (theme) {
+            el.setAttribute('data-bs-original-theme', theme);
+        }
+        el.setAttribute('data-bs-theme', 'dark');
+        el.setAttribute('data-bb-theme', 'memorial');
+    }
+    else {
+        const theme = el.getAttribute('data-bs-original-theme');
+        el.removeAttribute('data-bs-theme');
+        el.removeAttribute('data-bb-theme');
+        if (theme) {
+            el.setAttribute('data-bs-theme', theme);
+        }
+    }
 }
 
 export {

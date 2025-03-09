@@ -22,7 +22,8 @@
     "TranslateSummary": "翻译工具 Translate",
     "DrawingSummary": "画图 Drawing",
     "AdminSummary": "中台 Admin",
-    "OnlineSheet": "在线表格 UniverSheet"
+    "OnlineSheet": "在线表格 UniverSheet",
+    "MemorialMode": "追悼模式"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "正在加载 ...",

@@ -58,13 +58,13 @@ a, a:hover, a:focus {
 }
 
 .input-group {
-    @include direction(right,last);
-    @include direction(left,first)
+    @include direction(right, last);
+    @include direction(left, first)
 }
 
 .btn-group {
-    @include direction(right,last);
-    @include direction(left,first)
+    @include direction(right, last);
+    @include direction(left, first)
 }
 
 .popover.popover-table-column-toolbox {
@@ -76,54 +76,16 @@ a, a:hover, a:focus {
     --bs-popover-body-padding-y: 0.5rem;
 }
 
-::view-transition-old(root) {
-    animation: none;
-}
-
-::view-transition-new(root) {
+::view-transition-old(*) {
     mix-blend-mode: normal;
-    animation: clip .3s ease-in;
+    animation: none;
+    z-index: 1;
 }
 
-body:before {
-    content: "extraExtraSmall";
-    display: none;
-}
-
-@media (min-width:375px) {
-    body:before {
-        content: "extraSmall";
-    }
-}
-
-@media (min-width:576px) {
-    body:before {
-        content: "small";
-    }
-}
-
-@media (min-width:768px) {
-    body:before {
-        content: "medium";
-    }
-}
-
-@media (min-width:992px) {
-    body:before {
-        content: "large";
-    }
-}
-
-@media (min-width:1200px) {
-    body:before {
-        content: "extraLarge";
-    }
-}
-
-@media (min-width:1400px) {
-    body:before {
-        content: "extraExtraLarge";
-    }
+::view-transition-new(*) {
+    mix-blend-mode: normal;
+    animation: clip .3s ease-in-out;
+    z-index: 9999;
 }
 
 @keyframes clip {
@@ -133,5 +95,76 @@ body:before {
 
     to {
         clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+}
+
+[data-bs-theme='dark'] {
+    &::view-transition-old(*) {
+        animation: clip2 .3s ease-in-out;
+        z-index: 9999;
+    }
+
+    &::view-transition-new(*) {
+        animation: none;
+        z-index: 1;
+    }
+}
+
+@keyframes clip2 {
+    from {
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+
+    to {
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+}
+
+[data-bb-theme='memorial'] {
+    &:root {
+        --bs-body-bg: #000;
+        --bs-body-color: #b5b5c3;
+        filter: grayscale(100%);
+    }
+}
+
+body:before {
+    content: "extraExtraSmall";
+    display: none;
+}
+
+@media (min-width: 375px) {
+    body:before {
+        content: "extraSmall";
+    }
+}
+
+@media (min-width: 576px) {
+    body:before {
+        content: "small";
+    }
+}
+
+@media (min-width: 768px) {
+    body:before {
+        content: "medium";
+    }
+}
+
+@media (min-width: 992px) {
+    body:before {
+        content: "large";
+    }
+}
+
+@media (min-width: 1200px) {
+    body:before {
+        content: "extraLarge";
+    }
+}
+
+@media (min-width: 1400px) {
+    body:before {
+        content: "extraExtraLarge";
     }
 }

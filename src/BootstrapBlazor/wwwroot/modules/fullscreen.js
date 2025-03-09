@@ -2,10 +2,11 @@
 
 export async function toggle(options) {
     let el = null;
-    if (options?.id) {
+    options = options || {};
+    if (options.id) {
         el = document.getElementById(options.id);
     }
-    else if (options?.element && isElement(options.element)) {
+    else if (isElement(options.element)) {
         el = options.element;
     }
     else {

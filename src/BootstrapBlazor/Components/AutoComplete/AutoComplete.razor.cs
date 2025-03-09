@@ -89,6 +89,9 @@ public partial class AutoComplete
 
     private List<string>? _filterItems;
 
+    [NotNull]
+    private RenderTemplate? _dropdown = default;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -114,12 +117,21 @@ public partial class AutoComplete
         Items ??= [];
     }
 
+    private bool _render = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool ShouldRender() => _render;
+
     /// <summary>
     /// Callback method when a candidate item is clicked
     /// </summary>
     private async Task OnClickItem(string val)
     {
         CurrentValue = val;
+
         if (OnSelectedItemChanged != null)
         {
             await OnSelectedItemChanged(val);
@@ -135,9 +147,6 @@ public partial class AutoComplete
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
-        // Store the current input value to prevent it from being overwritten
-        var currentInputValue = val;
-
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
@@ -161,14 +170,7 @@ public partial class AutoComplete
             _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
 
-        // Use currentInputValue here instead of potentially stale val
-        CurrentValue = currentInputValue;
-
-        // Only trigger StateHasChanged if no binding is present
-        if (!ValueChanged.HasDelegate)
-        {
-            StateHasChanged();
-        }
+        await TriggerChange(val);
     }
 
     /// <summary>
@@ -178,16 +180,14 @@ public partial class AutoComplete
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
-        // Only update CurrentValue if the value has actually changed
-        // This prevents overwriting the user's input
-        if (CurrentValue != val)
+        _render = false;
+        CurrentValue = val;
+        if (!ValueChanged.HasDelegate)
         {
-            CurrentValue = val;
-            if (!ValueChanged.HasDelegate)
-            {
-                StateHasChanged();
-            }
+            StateHasChanged();
         }
+        _render = true;
+        _dropdown.Render();
         return Task.CompletedTask;
     }
 }

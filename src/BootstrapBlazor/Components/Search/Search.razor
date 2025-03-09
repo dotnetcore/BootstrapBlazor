@@ -55,7 +55,14 @@
             <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search"></Button>
         }
     </div>
-    <ul class="dropdown-menu">
+    <RenderTemplate @ref="_dropdown">
+        @RenderDropdown
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderDropdown =>
+    @<ul class="dropdown-menu">
         @foreach (var item in _filterItems)
         {
             <li class="dropdown-item" @onclick="() => OnClickItem(item)">
@@ -73,5 +80,5 @@
         {
             <li class="dropdown-item">@NoDataTip</li>
         }
-    </ul>
-</div>
+    </ul>;
+}
