@@ -55,7 +55,7 @@ public partial class Dialog : IDisposable
         }
     }
 
-    private async Task Show(DialogOption option)
+    private Task Show(DialogOption option)
     {
         _onShownAsync = async () =>
         {
@@ -158,7 +158,8 @@ public partial class Dialog : IDisposable
 
         // Add ModalDialog to the container
         DialogParameters.Add(parameters, (_isKeyboard, _isBackdrop));
-        await InvokeAsync(StateHasChanged);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private static RenderFragment RenderDialog(int index, Dictionary<string, object> parameter) => builder =>
