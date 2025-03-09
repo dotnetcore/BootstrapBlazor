@@ -125,6 +125,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     /// </summary>
     public CacheManagerOptions CacheManagerOptions { get; set; } = new();
 
+    /// <summary>
+    /// Get or sets website use memorial mode. default is false
+    /// </summary>
+    public bool IsMemorialMode { get; set; }
+
     BootstrapBlazorOptions IOptions<BootstrapBlazorOptions>.Value => this;
 
     /// <summary>
