@@ -102,6 +102,14 @@ public class JSModuleTest
         await module.InvokeAsync<int>("test");
     }
 
+    [Fact]
+    public async Task JSModule_SetMemorial()
+    {
+        var js = new MockTaskCanceledObjectReference();
+        var module = new JSModule(js);
+        await module.SetMemorialModeAsync(true);
+    }
+
     private class MockErrorJSObjectReference : MockJSObjectReference
     {
         protected override ValueTask DisposeAsyncCore(bool disposing)
