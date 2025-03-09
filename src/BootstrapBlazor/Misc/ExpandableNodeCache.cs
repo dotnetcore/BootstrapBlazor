@@ -130,7 +130,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="ret">查询结果 查无资料时为 null</param>
     /// <returns>是否存在 <paramref name="target"/></returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public bool TryFind(List<TNode> items, TItem target, [MaybeNullWhen(false)] out TNode ret)
+    public bool TryFind(IList<TNode> items, TItem target, [MaybeNullWhen(false)] out TNode ret)
     {
         ret = Find(items, target);
         return ret != null;
@@ -143,7 +143,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="target"></param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    private TNode? Find(List<TNode> items, TItem target) => Find(items, target, out _);
+    private TNode? Find(IList<TNode> items, TItem target) => Find(items, target, out _);
 
     /// <summary>
     /// 在全部树状结构 <paramref name="source"/> 中寻找指定 <paramref name="target"/>
@@ -153,7 +153,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <param name="degree">树状阶层，起始为0</param>
     /// <returns>查询结果 查无资料时为 null</returns>
     /// <remarks>采广度优先搜寻</remarks>
-    public TNode? Find(List<TNode> source, TItem target, out int degree)
+    public TNode? Find(IList<TNode> source, TItem target, out int degree)
     {
         degree = -1;
         var ret = source.FirstOrDefault(item => EqualityComparer.Equals(item.Value, target));

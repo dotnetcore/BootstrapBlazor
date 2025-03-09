@@ -92,7 +92,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         CheckChildren(nodes, node);
     }
 
-    private void CheckChildren(List<ICheckableNode<TItem>> nodes, TNode node)
+    private void CheckChildren(IList<ICheckableNode<TItem>> nodes, TNode node)
     {
         if (nodes.Count != 0)
         {
@@ -123,7 +123,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// 重置是否选中状态
     /// </summary>
     /// <param name="nodes"></param>
-    public void IsChecked(List<TNode> nodes)
+    public void IsChecked(IList<TNode> nodes)
     {
         if (nodes.Count != 0)
         {
@@ -131,7 +131,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
         }
     }
 
-    private void ResetCheckNodes(List<TNode> items)
+    private void ResetCheckNodes(IList<TNode> items)
     {
         // 恢复当前节点状态
         foreach (var node in items)
@@ -153,7 +153,7 @@ public class TreeNodeCache<TNode, TItem> : ExpandableNodeCache<TNode, TItem> whe
     /// <param name="nodes">数据集合</param>
     /// <param name="node">指定节点</param>
     /// <returns></returns>
-    public TNode? FindParentNode(List<TNode> nodes, TNode node)
+    public TNode? FindParentNode(IList<TNode> nodes, TNode node)
     {
         TNode? ret = default;
         foreach (var treeNode in nodes)
