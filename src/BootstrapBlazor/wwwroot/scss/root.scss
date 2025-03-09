@@ -76,13 +76,48 @@ a, a:hover, a:focus {
     --bs-popover-body-padding-y: 0.5rem;
 }
 
-::view-transition-old(root) {
+::view-transition-old(*) {
+    mix-blend-mode: normal;
     animation: none;
+    z-index: 1;
 }
 
-::view-transition-new(root) {
+::view-transition-new(*) {
     mix-blend-mode: normal;
-    animation: clip .3s ease-in;
+    animation: clip .3s ease-in-out;
+    z-index: 9999;
+}
+
+@keyframes clip {
+    from {
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+
+    to {
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+}
+
+[data-bs-theme='dark'] {
+    &::view-transition-old(*) {
+        animation: clip2 .3s ease-in-out;
+        z-index: 9999;
+    }
+
+    &::view-transition-new(*) {
+        animation: none;
+        z-index: 1;
+    }
+}
+
+@keyframes clip2 {
+    from {
+        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
+    }
+
+    to {
+        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
+    }
 }
 
 body:before {
@@ -123,15 +158,5 @@ body:before {
 @media (min-width:1400px) {
     body:before {
         content: "extraExtraLarge";
-    }
-}
-
-@keyframes clip {
-    from {
-        clip-path: circle(0% at var(--bb-theme-x) var(--bb-theme-y));
-    }
-
-    to {
-        clip-path: circle(100% at var(--bb-theme-x) var(--bb-theme-y));
     }
 }

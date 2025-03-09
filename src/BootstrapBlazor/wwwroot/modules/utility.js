@@ -841,6 +841,14 @@ export function setTitle(title) {
     document.title = title;
 }
 
+export function calcCenterPosition(el) {
+    const rect = el.getBoundingClientRect();
+    return {
+        x: rect.left + el.offsetWidth / 2,
+        y: rect.top + el.offsetHeight / 2
+    }
+}
+
 export {
     autoAdd,
     autoRemove,
