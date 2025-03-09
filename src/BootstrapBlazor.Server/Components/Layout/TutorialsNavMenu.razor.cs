@@ -110,6 +110,11 @@ public partial class TutorialsNavMenu
             {
                 Text = Localizer["OnlineSheet"],
                 Url = "tutorials/online-sheet",
+            },
+            new()
+            {
+                Text = Localizer["MemorialMode"],
+                Url = "tutorials/memorial",
             }
         ]);
     }

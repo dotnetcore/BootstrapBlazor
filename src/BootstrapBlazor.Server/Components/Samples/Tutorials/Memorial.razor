@@ -1,0 +1,9 @@
+﻿@page "/tutorials/memorial"
+
+<Button Text="切换哀悼模式" OnClick="OnToggle" class="mb-3"></Button>
+
+<p class="code-label">1. 加载 <code>Utlity</code> 工具</p>
+<Pre>var module = await JSRuntime.LoadUtility();</Pre>
+
+<p class="code-label">2. 设置哀悼模式</p>
+<Pre>await module.InvokeVoidAsync("SetMemorial", true);</Pre>
