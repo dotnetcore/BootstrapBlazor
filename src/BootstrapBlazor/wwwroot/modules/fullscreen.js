@@ -2,7 +2,7 @@
 
 export async function toggle(options) {
     let el = null;
-    options ||= {};
+    options = options || {};
     if (options.id) {
         el = document.getElementById(options.id);
     }
