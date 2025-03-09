@@ -99,17 +99,12 @@ public class BootstrapBlazorRootRegisterService
     /// <param name="provider"></param>
     public void NotifyContentProviderChanged(object identifier, BootstrapBlazorRootContent provider)
     {
-        if (!_providersByIdentifier.TryGetValue(identifier, out var providers))
+        if (!_providersByIdentifier.TryGetValue(identifier, out _))
         {
             throw new InvalidOperationException($"There are no content providers with the given root ID '{identifier}'.");
         }
 
-        // We only notify content changed for subscribers when the content of the
-        // most recently added provider changes.
-        if (providers.Count != 0 && providers[^1] == provider)
-        {
-            NotifyContentChangedForSubscriber(identifier, provider);
-        }
+        NotifyContentChangedForSubscriber(identifier, provider);
     }
 
     private static BootstrapBlazorRootContent? GetCurrentProviderContentOrDefault(List<BootstrapBlazorRootContent> providers)
