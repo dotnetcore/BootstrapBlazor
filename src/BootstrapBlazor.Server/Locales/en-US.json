@@ -22,7 +22,8 @@
     "TranslateSummary": "Translate",
     "DrawingSummary": "Drawing",
     "AdminSummary": "Admin",
-    "OnlineSheet": "UniverSheet"
+    "OnlineSheet": "UniverSheet",
+    "MemorialMode": "Memorial"
   },
   "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",
