@@ -17,6 +17,7 @@ public partial class Modal
     /// </summary>
     private string? ClassString => CssBuilder.Default("modal")
         .AddClass("fade", IsFade)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>

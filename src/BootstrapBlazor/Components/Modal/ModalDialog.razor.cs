@@ -27,6 +27,7 @@ public partial class ModalDialog : IHandlerException
         .AddClass("is-draggable-center", IsCentered && IsDraggable && _firstRender)
         .AddClass("d-none", !IsShown)
         .AddClass(Class, !string.IsNullOrEmpty(Class))
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>

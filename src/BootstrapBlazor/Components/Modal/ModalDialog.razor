@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Modal/ModalDialog.razor.js", JSObjectReference = true)]
 
-<div class="@ClassName" id="@Id">
+<div @attributes="AdditionalAttributes" class="@ClassName" id="@Id">
     <div class="modal-content">
         @if (ShowHeader)
         {
