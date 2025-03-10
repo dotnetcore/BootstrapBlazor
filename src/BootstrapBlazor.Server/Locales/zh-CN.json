@@ -1154,19 +1154,7 @@
     "P4": "创建工程后在当前文件夹内会生成 <code>BootstrapBlazorApp</code> 解决方案，<code>src</code> 目录内包含 <code>Server-Side</code> <code>Wasm</code> 两种类型的工程，均可以直接 <kbd>F5</kbd> 运行",
     "P5": "3. 更新项目模板",
     "P6": "注:此命令为检查是否有可用于当前安装的模板包的更新并安装这些更新。",
-    "P7": "4. 卸载项目模板",
-    "SubTitle1": "Bootstrap Blazor App Extension 扩展插件",
-    "P8": "为了方便使用 <code>Bootstrap Blazor</code> 组件库，作者制作了 <b>项目模板（<code>Bootstrap Blazor Project Template</code>）</b> 扩展插件，安装此插件可通过 <code>Visual Studio</code> 新建项目时选择 <code>Bootstrap Blazor 项目模板</code>，解决方案内置 <code>Server-Side</code> 与 <code>wasm</code> 两种类型工程",
-    "P9": "下载项目模板",
-    "P10": "可以通过",
-    "P11": "内置插件扩展",
-    "P12": "或者",
-    "P13": "微软插件扩展市场",
-    "P14": "传送门",
-    "P15": "直接下载; 国内访问微软插件市场速度比较慢，可以访问码云连接",
-    "P16": "传送门",
-    "P17": "安装项目模板",
-    "P18": "创建项目"
+    "P7": "4. 卸载项目模板"
   },
   "BootstrapBlazor.Server.Components.Pages.Globalization": {
     "Title": "全球化",
