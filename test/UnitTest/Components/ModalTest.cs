@@ -37,18 +37,15 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Toggle_Ok()
     {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        var container = Context.RenderComponent<BootstrapBlazorRootOutlet>();
+        var cut = Context.RenderComponent<Modal>(pb =>
         {
-            builder.AddChildContent<Modal>(pb =>
-            {
-                pb.AddChildContent<ModalDialog>();
-                pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
-            });
+            pb.AddChildContent<ModalDialog>();
+            pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
         });
 
-        var modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(modal.Instance.Toggle);
-        Assert.Contains("modal fade backdrop", cut.Markup);
+        await cut.InvokeAsync(cut.Instance.Toggle);
+        Assert.Contains("modal fade backdrop", container.Markup);
     }
 
     [Fact]
