@@ -339,11 +339,14 @@ public class InputTest : BootstrapBlazorTestBase
     [Fact]
     public void Focus_Ok()
     {
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            pb.AddChildContent<Modal>(pb =>
             {
-                pb.Add(a => a.IsAutoFocus, true);
+                pb.AddChildContent<BootstrapInput<string>>(pb =>
+                {
+                    pb.Add(a => a.IsAutoFocus, true);
+                });
             });
         });
     }
