@@ -1154,19 +1154,7 @@
     "P4": "After the project is created, the <code>BootstrapBlazorApp</code> solution will be generated in the current folder, and the <code>src</code> directory contains <code>Server-Side</code> <code>Wasm</code> Both types of projects can be run directly with <kbd>F5</kbd>",
     "P5": "3. Update project template",
     "P6": "The dotnet new update option checks if there are updates available for the template packages that are currently installed and installs them.",
-    "P7": "3. Uninstall project template",
-    "SubTitle1": "Bootstrap Blazor App Extension",
-    "P8": "In order to facilitate the use of the <code>Bootstrap Blazor</code> component library, the author has created the <b>Project Template (<code>Bootstrap Blazor Project Template</code>)</b> extension plug-in, which can be installed through <code >Visual Studio IDE</code> When creating a new project, select the <code>Bootstrap Blazor project template</code>, and the solution is built in two types: <code>Server-Side</code> and <code>wasm</code> project",
-    "P9": "Download Project template",
-    "P10": "able to pass",
-    "P11": "Built-in plugin extensions",
-    "P12": "or",
-    "P13": "Microsoft Plug-in Marketplace",
-    "P14": "portal",
-    "P15": "Direct download; domestic access to the Microsoft plug-in market is relatively slow, you can access the code cloud connection",
-    "P16": "portal",
-    "P17": "Install Project template",
-    "P18": "Create Project"
+    "P7": "3. Uninstall project template"
   },
   "BootstrapBlazor.Server.Components.Pages.Globalization": {
     "Title": "Globalization",
