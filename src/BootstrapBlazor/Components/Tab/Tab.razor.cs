@@ -306,6 +306,9 @@ public partial class Tab : IHandlerException
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject, NotNull]
+    private DialogService? DialogService { get; set; }
+
     private ConcurrentDictionary<TabItem, bool> LazyTabCache { get; } = new();
 
     private bool HandlerNavigation { get; set; }
@@ -792,9 +795,7 @@ public partial class Tab : IHandlerException
 
         if (item.IsActive)
         {
-            var content = _errorContent ?? item.ChildContent;
-            builder.AddContent(0, content);
-            _errorContent = null;
+            builder.AddContent(0, item.ChildContent);
             if (IsLazyLoadTabItem)
             {
                 LazyTabCache.AddOrUpdate(item, _ => true, (_, _) => true);
@@ -806,19 +807,12 @@ public partial class Tab : IHandlerException
         }
     };
 
-    private RenderFragment? _errorContent;
-
     /// <summary>
     /// HandlerException 错误处理方法
     /// </summary>
     /// <param name="ex"></param>
     /// <param name="errorContent"></param>
-    public virtual Task HandlerException(Exception ex, RenderFragment<Exception> errorContent)
-    {
-        _errorContent = errorContent(ex);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
+    public Task HandlerException(Exception ex, RenderFragment<Exception> errorContent) => DialogService.ShowErrorHandlerDialog(errorContent(ex));
 
     private IEnumerable<MenuItem>? _menuItems;
     private MenuItem? GetMenuItem(string url)

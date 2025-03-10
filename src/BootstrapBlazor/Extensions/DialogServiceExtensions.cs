@@ -226,4 +226,22 @@ public static class DialogServiceExtensions
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
     }
+
+    /// <summary>
+    /// 显示异常信息对话框扩展方法
+    /// </summary>
+    /// <param name="service"></param>
+    /// <param name="fragment"></param>
+    /// <param name="dialog"></param>
+    /// <returns></returns>
+    public static async Task ShowErrorHandlerDialog(this DialogService service, RenderFragment fragment, Dialog? dialog = null)
+    {
+        var option = new DialogOption
+        {
+            Title = "Error",
+            IsScrolling = true,
+            BodyTemplate = fragment
+        };
+        await service.Show(option, dialog);
+    }
 }
