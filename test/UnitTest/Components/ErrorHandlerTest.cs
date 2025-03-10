@@ -28,7 +28,7 @@ public class ErrorHandlerTest : BootstrapBlazorTestBase
         Assert.Contains("<div class=\"modal-body\"><div class=\"error-stack\">", cut.Markup);
 
         // 关闭弹窗
-        var btn = cut.Find(".btn-close");
+        var btn = cut.Find(".modal-header .btn-close");
         await cut.InvokeAsync(() => btn.Click());
 
         cut.Contains("<div class=\"toast-body\">test error logger</div>");
