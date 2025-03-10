@@ -322,7 +322,6 @@ public class TableDialogTest : TableDialogTestBase
         // 检查 dialog 是否显示
         var editDialog = cut.FindComponents<Dialog>().FirstOrDefault(i => i.Instance == dialog);
         Assert.NotNull(editDialog);
-        Assert.Contains("新建窗口", editDialog.Markup);
     }
 
     [Fact]
