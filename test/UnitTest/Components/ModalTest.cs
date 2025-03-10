@@ -12,47 +12,64 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public void IsBackdrop_Ok()
     {
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
-            pb.Add(m => m.IsBackdrop, true);
-            pb.Add(m => m.IsFade, false);
+            builder.AddChildContent<Modal>(pb =>
+            {
+                pb.Add(m => m.IsBackdrop, true);
+                pb.Add(m => m.IsFade, false);
+                pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
+            });
         });
-        Assert.DoesNotContain("static", cut.Markup);
-        Assert.DoesNotContain("modal fade", cut.Markup);
 
-        cut.SetParametersAndRender(pb =>
+        var modal = cut.Find(".backdrop");
+        Assert.Null(modal.GetAttribute("data-bs-backdrop"));
+
+        var m = cut.FindComponent<Modal>();
+        m.SetParametersAndRender(pb =>
         {
             pb.Add(m => m.IsBackdrop, false);
         });
-        Assert.Contains("static", cut.Markup);
+        modal = cut.Find(".backdrop");
+        Assert.Equal("static", modal.GetAttribute("data-bs-backdrop"));
     }
 
     [Fact]
-    public void Toggle_Ok()
+    public async Task Toggle_Ok()
     {
+        var container = Context.RenderComponent<BootstrapBlazorRootOutlet>();
         var cut = Context.RenderComponent<Modal>(pb =>
         {
             pb.AddChildContent<ModalDialog>();
+            pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
         });
-        cut.InvokeAsync(async () => await cut.Instance.Toggle());
-        Assert.Contains("modal fade", cut.Markup);
-        Assert.Contains("modal-dialog", cut.Markup);
+
+        await cut.InvokeAsync(cut.Instance.Toggle);
+        Assert.Contains("modal fade backdrop", container.Markup);
     }
 
     [Fact]
-    public void Close_Ok()
+    public async Task Close_Ok()
     {
-        var cut = Context.RenderComponent<Modal>();
-        cut.InvokeAsync(async () => await cut.Instance.Close());
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        {
+            builder.AddChildContent<Modal>(pb =>
+            {
+                pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
+            });
+        });
 
-        cut.SetParametersAndRender(pb =>
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(modal.Instance.Close);
+
+        modal.SetParametersAndRender(pb =>
         {
             pb.AddChildContent<ModalDialog>();
         });
-        cut.InvokeAsync(async () => await cut.Instance.Close());
+        await cut.InvokeAsync(modal.Instance.Close);
 
         // 多弹窗
-        cut.SetParametersAndRender(pb =>
+        modal.SetParametersAndRender(pb =>
         {
             pb.AddChildContent(builder =>
             {
@@ -62,56 +79,76 @@ public class ModalTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             });
         });
-        cut.InvokeAsync(async () => await cut.Instance.Close());
+        await modal.InvokeAsync(modal.Instance.Close);
     }
 
     [Fact]
     public async Task SetHeaderText_Ok()
     {
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
-            pb.AddChildContent<ModalDialog>();
+            builder.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>();
+                pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
+            });
         });
-        var header = cut.Find(".modal-title");
+
+        var header = cut.Find(".backdrop .modal-title");
         Assert.Equal("", header.TextContent);
 
-        await cut.InvokeAsync(() => cut.Instance.SetHeaderText("Test-Header"));
-        header = cut.Find(".modal-title");
+        var modal = cut.FindComponent<Modal>();
+        await cut.InvokeAsync(() => modal.Instance.SetHeaderText("Test-Header"));
+        header = cut.Find(".backdrop .modal-title");
         Assert.Equal("Test-Header", header.TextContent);
     }
 
     [Fact]
     public void SetHeaderText_Null()
     {
-        var cut = Context.RenderComponent<MockModal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
-            pb.AddChildContent<ModalDialog>();
+            builder.AddChildContent<MockModal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>();
+                pb.Add(m => m.AdditionalAttributes, new Dictionary<string, object> { { "class", "backdrop" } });
+            });
         });
-        cut.Instance.TestSetHeaderText();
+
+        var modal = cut.FindComponent<MockModal>();
+        modal.Instance.TestSetHeaderText();
     }
 
     [Fact]
     public async Task ShownCallbackAsync_Ok()
     {
-        var cut = Context.RenderComponent<MockComponent>();
-        var modal = cut.FindComponent<MockModal>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
+        {
+            builder.AddChildContent<MockComponent>();
+        });
+
+        var mock = Context.RenderComponent<MockComponent>();
+        var modal = mock.FindComponent<MockModal>();
         await cut.InvokeAsync(() => modal.Instance.Show_Test());
 
-        Assert.True(cut.Instance.Value);
+        Assert.True(mock.Instance.Value);
     }
 
     [Fact]
     public void FirstAfterRenderAsync_Ok()
     {
         var render = false;
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
-            pb.Add(a => a.FirstAfterRenderCallbackAsync, modal =>
+            builder.AddChildContent<Modal>(pb =>
             {
-                render = true;
-                return Task.CompletedTask;
+                pb.Add(a => a.FirstAfterRenderCallbackAsync, modal =>
+                {
+                    render = true;
+                    return Task.CompletedTask;
+                });
+                pb.AddChildContent<ModalDialog>();
             });
-            pb.AddChildContent<ModalDialog>();
         });
         Assert.True(render);
     }
@@ -119,15 +156,19 @@ public class ModalTest : BootstrapBlazorTestBase
     [Fact]
     public async Task RegisterShownCallback_Ok()
     {
-        var cut = Context.RenderComponent<Modal>(pb =>
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(builder =>
         {
-            pb.AddChildContent<MockFocusComponent>();
+            builder.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<MockFocusComponent>();
+            });
         });
 
+        var modal = cut.FindComponent<Modal>();
         var component = cut.FindComponent<MockFocusComponent>();
         Assert.False(component.Instance.Pass);
 
-        await cut.InvokeAsync(cut.Instance.ShownCallback);
+        await cut.InvokeAsync(modal.Instance.ShownCallback);
         Assert.True(component.Instance.Pass);
     }
 

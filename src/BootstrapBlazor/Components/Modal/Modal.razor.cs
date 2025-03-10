@@ -8,68 +8,69 @@ using System.Collections.Concurrent;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Modal 组件
+/// Modal component
 /// </summary>
 public partial class Modal
 {
     /// <summary>
-    /// 获得 样式字符串
+    /// Gets the style string
     /// </summary>
     private string? ClassString => CssBuilder.Default("modal")
         .AddClass("fade", IsFade)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得 ModalDialog 集合
+    /// Gets the collection of ModalDialog
     /// </summary>
     protected List<ModalDialog> Dialogs { get; } = new(8);
 
     private readonly ConcurrentDictionary<IComponent, Func<Task>> _shownCallbackCache = [];
 
     /// <summary>
-    /// 获得/设置 是否后台关闭弹窗 默认 false
+    /// Gets or sets whether to close the popup in the background, default is false
     /// </summary>
     [Parameter]
     public bool IsBackdrop { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启键盘支持 默认 true 响应键盘 ESC 按键
+    /// Gets or sets whether to enable keyboard support, default is true to respond to the ESC key
     /// </summary>
     [Parameter]
     public bool IsKeyboard { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否开启淡入淡出动画 默认为 true 开启动画
+    /// Gets or sets whether to enable fade in and out animation, default is true to enable animation
     /// </summary>
     [Parameter]
     public bool IsFade { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 子组件
+    /// Gets or sets the child component
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件已经渲染完毕回调方法
+    /// Gets or sets the callback method when the component has finished rendering
     /// </summary>
     [Parameter]
     public Func<Modal, Task>? FirstAfterRenderCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗已显示时回调此方法
+    /// Gets or sets the callback method when the popup is shown
     /// </summary>
     [Parameter]
     public Func<Task>? OnShownAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭弹窗回调委托
+    /// Gets or sets the callback delegate when the popup is closed
     /// </summary>
     [Parameter]
     public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// 获得 后台关闭弹窗设置
+    /// Gets the background close popup setting
     /// </summary>
     private string? Backdrop => IsBackdrop ? null : "static";
 
@@ -97,7 +98,7 @@ public partial class Modal
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ShownCallback), nameof(CloseCallback));
 
     /// <summary>
-    /// 添加对话框方法
+    /// Method to add a dialog
     /// </summary>
     /// <param name="dialog"></param>
     internal void AddDialog(ModalDialog dialog)
@@ -107,12 +108,12 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 移除对话框方法
+    /// Method to remove a dialog
     /// </summary>
     /// <param name="dialog"></param>
     internal void RemoveDialog(ModalDialog dialog)
     {
-        // 移除当前弹窗
+        // Remove the current popup
         Dialogs.Remove(dialog);
 
         if (Dialogs.Count > 0)
@@ -123,7 +124,7 @@ public partial class Modal
 
     private void ResetShownDialog(ModalDialog dialog)
     {
-        // 保证新添加的 Dialog 为当前弹窗
+        // Ensure the newly added Dialog is the current popup
         Dialogs.ForEach(d =>
         {
             d.IsShown = d == dialog;
@@ -131,7 +132,7 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 弹窗已经弹出回调方法 JSInvoke 调用
+    /// Callback method when the popup has been shown, called by JSInvoke
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -149,20 +150,20 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 弹窗已经关闭回调方法 JSInvoke 调用
+    /// Callback method when the popup has been closed, called by JSInvoke
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
     public async Task CloseCallback()
     {
-        // 移除当前弹窗
+        // Remove the current popup
         var dialog = Dialogs.FirstOrDefault(d => d.IsShown);
         if (dialog != null)
         {
             Dialogs.Remove(dialog);
         }
 
-        // 多级弹窗支持
+        // Support for multi-level popups
         if (Dialogs.Count > 0)
         {
             ResetShownDialog(Dialogs.Last());
@@ -175,7 +176,7 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 弹窗状态切换方法
+    /// Method to toggle the popup state
     /// </summary>
     public async Task Toggle()
     {
@@ -184,7 +185,7 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 显示弹窗方法
+    /// Method to show the popup
     /// </summary>
     /// <returns></returns>
     public async Task Show()
@@ -194,13 +195,13 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 关闭当前弹窗方法
+    /// Method to close the current popup
     /// </summary>
     /// <returns></returns>
     public Task Close() => InvokeVoidAsync("execute", Id, "hide");
 
     /// <summary>
-    /// 设置 Header 文字方法
+    /// Method to set the header text
     /// </summary>
     /// <param name="text"></param>
     public void SetHeaderText(string text)
@@ -210,19 +211,19 @@ public partial class Modal
     }
 
     /// <summary>
-    /// 注册弹窗显示后回调方法，供代码调用等效 OnShownAsync 参数赋值
+    /// Registers a callback method to be called after the popup is shown, equivalent to setting the OnShownAsync parameter
     /// </summary>
-    /// <param name="component">组件</param>
-    /// <param name="value">回调方法</param>
+    /// <param name="component">Component</param>
+    /// <param name="value">Callback method</param>
     public void RegisterShownCallback(IComponent component, Func<Task> value)
     {
         _shownCallbackCache.AddOrUpdate(component, _ => value, (_, _) => value);
     }
 
     /// <summary>
-    /// 取消注册窗口显示后回调方法
+    /// Unregisters the callback method to be called after the popup is shown
     /// </summary>
-    /// <param name="component">组件</param>
+    /// <param name="component">Component</param>
     public void UnRegisterShownCallback(IComponent component)
     {
         _shownCallbackCache.TryRemove(component, out _);

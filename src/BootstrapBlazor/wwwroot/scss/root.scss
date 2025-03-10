@@ -76,6 +76,10 @@ a, a:hover, a:focus {
     --bs-popover-body-padding-y: 0.5rem;
 }
 
+.modal-backdrop.show + .modal-backdrop.show {
+    display: none;
+}
+
 ::view-transition-old(*) {
     mix-blend-mode: normal;
     animation: none;
