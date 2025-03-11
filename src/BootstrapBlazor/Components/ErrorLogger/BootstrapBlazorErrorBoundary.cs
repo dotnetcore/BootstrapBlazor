@@ -61,16 +61,14 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
         if (OnErrorHandleAsync != null)
         {
             await OnErrorHandleAsync(Logger, exception);
+            return;
         }
-        else
-        {
-            if (ShowToast)
-            {
-                await ToastService.Error(ToastTitle, exception.Message);
-            }
 
-            Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error occurred at {Page}", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync), NavigationManager.Uri);
+        if (ShowToast)
+        {
+            await ToastService.Error(ToastTitle, exception.Message);
         }
+        Logger.LogError(exception, "{BootstrapBlazorErrorBoundary} {OnErrorAsync} log this error occurred at {Page}", nameof(BootstrapBlazorErrorBoundary), nameof(OnErrorAsync), NavigationManager.Uri);
     }
 
     /// <summary>
@@ -126,16 +124,14 @@ class BootstrapBlazorErrorBoundary : ErrorBoundaryBase
     /// <param name="handler"></param>
     public async Task RenderException(Exception exception, IHandlerException? handler)
     {
-        await OnErrorAsync(exception);
-
         if (handler != null)
         {
             await handler.HandlerException(exception, ExceptionContent);
+            return;
         }
-        else
-        {
-            _exception = exception;
-            StateHasChanged();
-        }
+
+        await OnErrorAsync(exception);
+        _exception = exception;
+        StateHasChanged();
     }
 }

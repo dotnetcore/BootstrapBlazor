@@ -56,7 +56,8 @@ public class ErrorLogger : ComponentBase, IErrorLogger
     [Parameter]
     public RenderFragment<Exception>? ErrorContent { get; set; }
 
-    private BootstrapBlazorErrorBoundary _errorBoundary = default!;
+    [NotNull]
+    private BootstrapBlazorErrorBoundary? _errorBoundary = default;
 
     /// <summary>
     /// <inheritdoc/>
