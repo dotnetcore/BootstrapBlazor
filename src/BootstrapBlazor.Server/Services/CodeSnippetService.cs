@@ -14,11 +14,13 @@ namespace BootstrapBlazor.Server.Services;
 /// <param name="factory"></param>
 /// <param name="cacheManager"></param>
 /// <param name="options"></param>
+/// <param name="configuration"></param>
 /// <param name="localizerOptions"></param>
 class CodeSnippetService(
     IHttpClientFactory factory,
     ICacheManager cacheManager,
     IOptions<WebsiteOptions> options,
+    IConfiguration configuration,
     IOptions<JsonLocalizationOptions> localizerOptions)
 {
     /// <summary>
@@ -88,7 +90,7 @@ class CodeSnippetService(
         string? payload;
         var file = options.Value.IsDevelopment
             ? $"{options.Value.ContentRootPath}\\..\\BootstrapBlazor.Server\\Components\\Samples\\{fileName}"
-            : $"{options.Value.SourceCodePath}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
+            : $"{GetSourceCodePath()}BootstrapBlazor.Server\\Components\\Samples\\{fileName}";
         if (!OperatingSystem.IsWindows())
         {
             file = file.Replace('\\', '/');
@@ -103,6 +105,8 @@ class CodeSnippetService(
         }
         return payload;
     }
+
+    private string GetSourceCodePath() => $"{configuration.GetValue<string>("SourceCodePath") ?? options.Value.SourceCodePath}";
 
     private static string ReplaceSymbols(string payload) => payload
         .Replace("@@", "@")
