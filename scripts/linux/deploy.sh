@@ -1,4 +1,5 @@
 #! /bin/bash
+# wget https://raw.githubusercontent.com/dotnetcore/BootstrapBlazor/refs/heads/main/scripts/linux/deploy.sh
 
 echo "*********************** clean env ***********************"
 sudo rm -fr BootstrapBlazor
@@ -8,7 +9,7 @@ echo "*********************** apt update ***********************"
 sudo apt update
 
 echo "*********************** install git ***********************"
-echo yes|sudo apt install git
+yes|sudo apt install git
 
 echo "*********************** install BootstrapBlazor ***********************"
 sudo git clone https://gitee.com/LongbowEnterprise/BootstrapBlazor.git
@@ -25,7 +26,7 @@ echo "*********************** install ba.blazor.service ***********************"
 sudo systemctl enable ba.blazor
 
 echo "*********************** install nginx ***********************"
-echo yes|sudo apt install nginx
+yes|sudo apt install nginx
 
 echo "*********************** copy nginx config ***********************"
 sudo cp BootstrapBlazor/scripts/linux/nginx.conf /etc/nginx/
@@ -36,7 +37,7 @@ sudo cp BootstrapBlazor/scripts/linux/cert/* /etc/nginx/cert/
 
 echo "*********************** install chrome ***********************"
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo yes|sudo apt install ./google-chrome-stable_current_amd64.deb
+yes|sudo apt install ./google-chrome-stable_current_amd64.deb
 
 echo "*********************** install support font ***********************"
 sudo apt install fonts-wqy-microhei
