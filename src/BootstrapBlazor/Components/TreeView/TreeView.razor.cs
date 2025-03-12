@@ -346,11 +346,9 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
             if (ShowCheckbox && (AutoCheckParent || AutoCheckChildren))
             {
-                // 开启 Checkbox 功能时初始化选中节点
                 _treeNodeStateCache.IsChecked(Items);
             }
 
-            // 从数据源中恢复当前 active 节点
             if (_activeItem != null)
             {
                 _activeItem = _treeNodeStateCache.Find(Items, _activeItem.Value, out _);
@@ -358,7 +356,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
             if (_init == false)
             {
-                // 设置 ActiveItem 默认值
                 _activeItem ??= Items.FirstOrDefaultActiveItem();
                 _activeItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
                 _init = true;
@@ -397,15 +394,15 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private bool _keyboardArrowUpDownTrigger;
 
     /// <summary>
-    /// 客户端用户键盘操作处理方法 由 JavaScript 调用
+    /// Client-side user keyboard operation handler method called by JavaScript
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
     [JSInvokable]
     public async ValueTask TriggerKeyDown(string key)
     {
-        // 通过 ActiveItem 找到兄弟节点
-        // 如果兄弟节点没有时，找到父亲节点
+        // Find sibling nodes through ActiveItem
+        // If there are no sibling nodes, find the parent node
         if (_activeItem != null)
         {
             if (key == "ArrowUp" || key == "ArrowDown")
@@ -421,7 +418,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 客户端查询指定行选择框状态方法 由 JavaScript 调用
+    /// Client-side method to query the state of the specified row checkbox, called by JavaScript
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
@@ -516,7 +513,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         {
             if (state == CheckboxState.Checked)
             {
-                // 展开节点
                 var items = GetCheckedItems().Where(i => i.HasChildren == false).ToList();
                 var count = items.Count + item.GetAllTreeSubItems().Count();
                 ret = count < MaxSelectedCount;
@@ -532,7 +528,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
     {
-        // 恢复当前节点状态
         foreach (var node in nodes)
         {
             await _treeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
@@ -557,10 +552,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         return ret;
     }
 
-    /// <summary>
-    /// 选中节点时触发此方法
-    /// </summary>
-    /// <returns></returns>
     private async Task OnClick(TreeViewItem<TItem> item)
     {
         _activeItem = item;
@@ -613,7 +604,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 设置选中节点
+    /// Set the active node
     /// </summary>
     public void SetActiveItem(TreeViewItem<TItem>? item)
     {
@@ -623,18 +614,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 重新设置 <see cref="Items"/> 数据源方法
+    /// Set the data source method for <see cref="Items"/>
     /// </summary>
     public void SetItems(List<TreeViewItem<TItem>> items)
     {
-        //FlatItems = null;
         Items = items;
         _rows = null;
         StateHasChanged();
     }
 
     /// <summary>
-    /// 设置选中节点
+    /// Set the active node
     /// </summary>
     public void SetActiveItem(TItem item)
     {
@@ -649,7 +639,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     };
 
     /// <summary>
-    /// 切换节点展开收缩状态方法
+    /// Toggle node expand collapse state method
     /// </summary>
     /// <param name="node"></param>
     /// <param name="shouldRender"></param>
@@ -705,12 +695,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
     }
 
-    /// <summary>
-    /// 节点 Checkbox 状态改变时触发此方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <param name="state"></param>
-    /// <returns></returns>
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, CheckboxState state)
     {
         item.CheckedState = state;
@@ -740,7 +724,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 清除 所有选中节点
+    /// Clear all selected nodes
     /// </summary>
     public void ClearCheckedItems()
     {
@@ -758,7 +742,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 获得 所有选中节点集合
+    /// Gets all selected node collections
     /// </summary>
     /// <returns></returns>
     public IEnumerable<TreeViewItem<TItem>> GetCheckedItems() => Items.Aggregate(new List<TreeViewItem<TItem>>(), (t, item) =>
@@ -769,7 +753,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }).Where(i => i.CheckedState == CheckboxState.Checked);
 
     /// <summary>
-    /// 比较数据是否相同
+    /// Check if the data is the same
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
@@ -786,27 +770,22 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private bool IsPreventDefault => ContextMenuZone != null;
 
-    /// <summary>
-    /// 是否触摸
-    /// </summary>
-    private bool TouchStart { get; set; }
+    private bool _touchStart = false;
 
-    /// <summary>
-    /// 触摸定时器工作指示
-    /// </summary>
-    private bool IsBusy { get; set; }
+    private bool _isBusy = false;
 
     private async Task OnTouchStart(TouchEventArgs e, TreeViewItem<TItem> item)
     {
-        if (!IsBusy && ContextMenuZone != null)
+        if (!_isBusy && ContextMenuZone != null)
         {
-            IsBusy = true;
-            TouchStart = true;
+            _isBusy = true;
+            _touchStart = true;
 
             // 延时保持 TouchStart 状态
+            // keep the TouchStart state for a while
             var delay = Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
             await Task.Delay(delay);
-            if (TouchStart)
+            if (_touchStart)
             {
                 var args = new MouseEventArgs()
                 {
@@ -815,19 +794,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     ScreenX = e.Touches[0].ScreenX,
                     ScreenY = e.Touches[0].ScreenY,
                 };
-                // 弹出关联菜单
                 await OnContextMenu(args, item);
 
-                //延时防止重复激活菜单功能
+                // prevents the menu from being activated repeatedly
                 await Task.Delay(delay);
             }
-            IsBusy = false;
+            _isBusy = false;
         }
     }
 
     private void OnTouchEnd()
     {
-        TouchStart = false;
+        _touchStart = false;
     }
 
     private List<TreeViewItem<TItem>>? _rows = null;
@@ -836,8 +814,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
         get
         {
-            // 扁平化数据集合
-            _rows ??= GetTreeItems().ToFlat<TItem>();
+            _rows ??= GetTreeItems().ToFlat();
             return _rows;
         }
     }
