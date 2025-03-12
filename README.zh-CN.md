@@ -126,20 +126,20 @@ dotnet new install Bootstrap.Blazor.Templates::*
 
 ## QQ交流群
 
-[![QQ](https://img.shields.io/badge/QQ-795206915-green.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=1-jF9-5WA_3GFiJgXem2U_AQfqbdyOlV&jump_from=webapi) [![QQ](https://img.shields.io/badge/QQ-675147445-green.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi)
+[![QQ](https://img.shields.io/badge/QQ-795206915-greenlight.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=1-jF9-5WA_3GFiJgXem2U_AQfqbdyOlV&jump_from=webapi) [![QQ](https://img.shields.io/badge/QQ-675147445-greenlight.svg?logo=tencent%20qq&logoColor=red)](https://qm.qq.com/cgi-bin/qm/qr?k=Geker7hCXK0HC-J8_974645j_n6w0OE0&jump_from=webapi)
 
 ## 视频教程
 
 B 站视频集锦 [传送门](https://space.bilibili.com/660853738/channel/index)
 
 ## 演示地址
-[![website](https://img.shields.io/badge/site-https://www.blazor.zone-success.svg?color=green&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/online-https://www.blazor.zone-success.svg?color=greenlight&logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## GVP 奖杯
 ![项目奖杯](https://images.gitee.com/uploads/images/2021/0112/120620_e596ac3c_554725.png "GVP.png")
 
 ## 开源协议
-[![Gitee license](https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&logoColor=red)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
+[![Gitee license](https://img.shields.io/github/license/dotnetcore/BootstrapBlazor.svg?logo=git&color=&logoColor=green)](https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/master/LICENSE)
 
 ## 特别鸣谢
 
