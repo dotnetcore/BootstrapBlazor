@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using AngleSharp.Dom;
 using Timer = BootstrapBlazor.Components.Timer;
 
 namespace UnitTest.Components;
@@ -135,16 +136,19 @@ public class TimerTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll(".timer-buttons button");
         // pause
         Assert.True(buttons[1].ClassList.Contains("btn-warning"));
+        Assert.Equal("暂停", buttons[1].GetInnerText());
         await cut.InvokeAsync(() => buttons[1].Click());
         await Task.Delay(500);
 
         // resume
         buttons = cut.FindAll(".timer-buttons button");
         Assert.True(buttons[1].ClassList.Contains("btn-success"));
+        Assert.Equal("继续", buttons[1].GetInnerText());
         await cut.InvokeAsync(() => buttons[1].Click());
 
         // cancel
         buttons = cut.FindAll(".timer-buttons button");
+        Assert.Equal("取消", buttons[0].GetInnerText());
         await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(cancelled);
 
