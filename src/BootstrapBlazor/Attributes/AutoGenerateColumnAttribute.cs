@@ -55,7 +55,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="Visible"/> value.
+    /// Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.
     /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
@@ -66,7 +66,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     }
 
     /// <summary>
-    /// Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="Visible"/> value.
+    /// Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="AutoGenerateBaseAttribute.Visible"/> value.
     /// </summary>
     public bool IsVisibleWhenEdit { get; set; } = true;
 
