@@ -20,7 +20,7 @@ English | <a href="README.zh-CN.md">中文</a>
 <p>This project is part of the <a href="https://www.dotnetfoundation.org/">.NET Foundation</a> and operates under their <a href="https://www.dotnetfoundation.org/code-of-conduct">code of conduct</a>. </p>
 
 ## Online Examples
-[![website](https://img.shields.io/badge/site-https://www.blazor.zone-success.svg?color=green&logo=buzzfeed&logoColor=red)](https://www.blazor.zone)
+[![website](https://img.shields.io/badge/online-https://www.blazor.zone-success.svg?color=&logo=buzzfeed&logoColor=green)](https://www.blazor.zone)
 
 ## Environment
 
