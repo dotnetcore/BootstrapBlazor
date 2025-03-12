@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components;
 public class TableMetadataForAttribute(Type dataType) : Attribute
 {
     /// <summary>
-    /// The target model/data type
+    /// Gets the target model/data type
     /// </summary>
     public Type DataType => dataType;
 }

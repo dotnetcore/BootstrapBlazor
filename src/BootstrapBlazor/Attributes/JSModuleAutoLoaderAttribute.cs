@@ -8,27 +8,27 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// JSModuleAutoLoaderAttribute class
 /// </summary>
-/// <param name="path"></param>
+/// <param name="path">The path to the JavaScript module</param>
 [AttributeUsage(AttributeTargets.Class)]
 public class JSModuleAutoLoaderAttribute(string? path = null) : Attribute
 {
     /// <summary>
-    /// 获得 Name 属性
+    /// Gets the path property
     /// </summary>
     public string? Path { get; } = path;
 
     /// <summary>
-    /// Represents a reference to a JavaScript object Default value false
+    /// Represents a reference to a JavaScript object. Default value is false.
     /// </summary>
     public bool JSObjectReference { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动调用 init 默认 true
+    /// Gets or sets whether to automatically invoke init. Default is true.
     /// </summary>
     public bool AutoInvokeInit { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动调用 dispose 默认 true
+    /// Gets or sets whether to automatically invoke dispose. Default is true.
     /// </summary>
     public bool AutoInvokeDispose { get; set; } = true;
 }

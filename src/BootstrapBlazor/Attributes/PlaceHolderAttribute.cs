@@ -6,22 +6,14 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// PlaceHolderAttribute 占位符标签类
+/// PlaceHolderAttribute class used to define a placeholder for a property.
 /// </summary>
+/// <param name="placeholder">The placeholder text.</param>
 [AttributeUsage(AttributeTargets.Property)]
-public class PlaceHolderAttribute : Attribute
+public class PlaceHolderAttribute(string placeholder) : Attribute
 {
     /// <summary>
-    /// 获得 Text 属性
+    /// Gets the placeholder text.
     /// </summary>
-    public string Text { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="placeholder"></param>
-    public PlaceHolderAttribute(string placeholder)
-    {
-        Text = placeholder;
-    }
+    public string Text { get; } = placeholder;
 }
