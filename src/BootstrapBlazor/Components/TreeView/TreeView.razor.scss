@@ -39,6 +39,10 @@
         align-items: center;
         cursor: pointer;
 
+        .tree-content-toolbar {
+            display: none;
+        }
+
         .tree-content-header {
             flex-basis: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
             flex-shrink: 0;

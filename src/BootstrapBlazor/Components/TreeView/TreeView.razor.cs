@@ -63,10 +63,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool IsReset { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the tree view is editable. Default is false.
+    /// Gets or sets whether show the toolbar of tree view item. Default is false.
     /// </summary>
     [Parameter]
-    public bool IsEditable { get; set; }
+    public bool ShowToolbar { get; set; }
+
+    /// <summary>
+    /// A callback method that determines whether to show the toolbar of the tree view item.
+    /// </summary>
+    [Parameter]
+    public Func<TItem, Task<bool>>? ShowToolbarCallback { get; set; }
 
     /// <summary>
     /// Gets or sets whether the entire component is disabled. Default is false.
@@ -832,4 +838,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         }
         return $"--bb-tree-view-level: {level};";
     }
+
+    private RenderFragment<TreeViewItem<TItem>> RenderToolbar = item => builder =>
+    {
+        builder.OpenComponent<TreeViewToolbar>(0);
+        builder.AddAttribute(10, nameof(TreeViewToolbar.ShowToolbar),   )
+        builder.CloseComponent();
+    };
 }
+
+
