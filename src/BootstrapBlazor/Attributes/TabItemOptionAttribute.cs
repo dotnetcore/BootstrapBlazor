@@ -6,23 +6,23 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TabItem 标签页配置属性类
+/// TabItem configuration attribute class
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
 public class TabItemOptionAttribute : Attribute
 {
     /// <summary>
-    /// 获得/设置 文本文字
+    /// Gets or sets the text of the tab item.
     /// </summary>
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
+    /// Gets or sets whether the current TabItem is closable. Default is true.
     /// </summary>
     public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串
+    /// Gets or sets the icon string.
     /// </summary>
     public string? Icon { get; set; }
 }

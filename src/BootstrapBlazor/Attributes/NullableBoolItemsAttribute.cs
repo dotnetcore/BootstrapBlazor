@@ -6,23 +6,23 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 可为空布尔类型转换器
+/// Nullable boolean type converter
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class NullableBoolItemsAttribute : Attribute
 {
     /// <summary>
-    /// 获得/设置 空值显示文本
+    /// Gets or sets the display text for null value
     /// </summary>
     public string? NullValueDisplayText { get; set; }
 
     /// <summary>
-    /// 获得/设置 True 值显示文本
+    /// Gets or sets the display text for true value
     /// </summary>
     public string? TrueValueDisplayText { get; set; }
 
     /// <summary>
-    /// 获得/设置 False 值显示文本
+    /// Gets or sets the display text for false value
     /// </summary>
     public string? FalseValueDisplayText { get; set; }
 }
