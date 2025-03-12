@@ -9,17 +9,18 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 枚举类型转换器 序列化时把枚举类型的 [Description] 标签内容序列化成字符串 推荐使用 <see cref="JsonEnumConverter"/> 转换器
+/// Enum type converter that serializes the [Description] attribute of enum values to strings.
+/// It is recommended to use <see cref="JsonEnumConverter"/> instead.
 /// </summary>
 public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct, Enum
 {
     /// <summary>
-    /// <inheritdoc/>
+    /// Reads and converts the JSON to the specified enum type.
     /// </summary>
-    /// <param name="reader"></param>
-    /// <param name="typeToConvert"></param>
-    /// <param name="options"></param>
-    /// <returns></returns>
+    /// <param name="reader">The reader.</param>
+    /// <param name="typeToConvert">The type to convert.</param>
+    /// <param name="options">The serializer options.</param>
+    /// <returns>The converted enum value.</returns>
     public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         T ret = default;
@@ -36,11 +37,11 @@ public class JsonDescriptionEnumConverter<T> : JsonConverter<T> where T : struct
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// Writes the specified enum value as a string using its [Description] attribute.
     /// </summary>
-    /// <param name="writer"></param>
-    /// <param name="value"></param>
-    /// <param name="options"></param>
+    /// <param name="writer">The writer.</param>
+    /// <param name="value">The value to write.</param>
+    /// <param name="options">The serializer options.</param>
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
     {
         writer.WriteStringValue(value.ToDescriptionString());

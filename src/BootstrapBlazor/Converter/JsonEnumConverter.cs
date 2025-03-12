@@ -9,17 +9,17 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// JsonEnumConverter 枚举转换器
+/// JsonEnumConverter is an enum converter that allows customization of enum serialization.
 /// </summary>
 /// <param name="camelCase">Optional naming policy for writing enum values.</param>
 /// <param name="allowIntegerValues">True to allow undefined enum values. When true, if an enum value isn't defined it will output as a number rather than a string.</param>
 public class JsonEnumConverter(bool camelCase = false, bool allowIntegerValues = true) : JsonConverterAttribute
 {
     /// <summary>
-    /// <inheritdoc/>
+    /// Creates a JsonConverter for the specified type.
     /// </summary>
-    /// <param name="typeToConvert"></param>
-    /// <returns></returns>
+    /// <param name="typeToConvert">The type to convert.</param>
+    /// <returns>A JsonConverter for the specified type.</returns>
     public override JsonConverter? CreateConverter(Type typeToConvert)
     {
         var converter = camelCase
