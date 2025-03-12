@@ -6,128 +6,128 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// IEditorItem 接口
+/// IEditorItem interface
 /// </summary>
 public interface IEditorItem : ILookup
 {
     /// <summary>
-    /// 获得/设置 绑定列类型
+    /// Gets or sets the type of the bound column.
     /// </summary>
     Type PropertyType { get; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否可编辑 默认为 true
+    /// Gets or sets whether the current edit item is editable. Default is true.
     /// </summary>
-    [Obsolete("已弃用，是否显示使用 Visible 参数，新建时使用 IsVisibleWhenAdd 编辑时使用 IsVisibleWhenEdit 只读使用 Readonly 参数，新建时使用 IsReadonlyWhenAdd 编辑时使用 IsReadonlyWhenEdit 参数; Deprecated use Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing")]
+    [Obsolete("Deprecated. Use the Visible parameter. IsVisibleWhenAdd should be used when creating a new one, and IsVisibleWhenEdit should be used when editing. Use the Readonly parameter for read-only. IsReadonlyWhenAdd should be used when creating a new one, and IsReadonlyWhenEdit should be used when editing.")]
     bool Editable { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否只读 默认为 false
+    /// Gets or sets whether the current edit item is read-only. Default is false.
     /// </summary>
     bool? Readonly { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否忽略 默认为 false 当设置为 true 时 UI 不生成此列
+    /// Gets or sets whether the current edit item is ignored. Default is false. When set to true, the UI will not generate this column.
     /// </summary>
     bool? Ignore { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// Gets or sets whether to skip validation. Default is false.
     /// </summary>
     bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 表头显示文字
+    /// Gets or sets the header display text.
     /// </summary>
     string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// Gets or sets whether to show label tooltip. Mostly used when the label text is too long and gets truncated. Default is null.
     /// </summary>
     bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 placeholder 文本 默认为 null
+    /// Gets or sets the placeholder text. Default is null.
     /// </summary>
     string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 额外数据源一般用于 Select 或者 CheckboxList 这种需要额外配置数据源组件使用
+    /// Gets or sets the additional data source, generally used for components like Select or CheckboxList that require additional configuration.
     /// </summary>
     IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null 设置 any 时忽略检查
+    /// Gets or sets the step. Default is null. When set to "any", validation is ignored.
     /// </summary>
     string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 Textarea 行数 默认为 0
+    /// Gets or sets the number of rows for a Textarea. Default is 0.
     /// </summary>
     int Rows { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑模板
+    /// Gets or sets the edit template.
     /// </summary>
     RenderFragment<object>? EditTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件类型 默认为 null
+    /// Gets or sets the component type. Default is null.
     /// </summary>
     Type? ComponentType { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件自定义类型参数集合 默认为 null
+    /// Gets or sets the custom component parameters. Default is null.
     /// </summary>
     IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// Gets or sets whether to show the search bar in the dropdown list. Default is false.
     /// </summary>
     bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
+    /// Gets or sets whether to use Popover to render the dropdown list. Default is false.
     /// </summary>
     bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义验证集合
+    /// Gets or sets the custom validation rules.
     /// </summary>
     List<IValidator>? ValidateRules { get; set; }
 
     /// <summary>
-    /// 获取绑定字段显示名称方法
+    /// Gets the display name of the bound field.
     /// </summary>
     string GetDisplayName();
 
     /// <summary>
-    /// 获取绑定字段信息方法
+    /// Gets the field information of the bound field.
     /// </summary>
     string GetFieldName();
 
     /// <summary>
-    /// 获得/设置 顺序号
+    /// Gets or sets the order number.
     /// </summary>
     int Order { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前属性分组
+    /// Gets or sets the group name of the current property.
     /// </summary>
     string? GroupName { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前属性分组排序 默认 0
+    /// Gets or sets the group order of the current property. Default is 0.
     /// </summary>
     int GroupOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为必填项 默认为 null
+    /// Gets or sets whether the field is required. Default is null.
     /// </summary>
     bool? Required { get; set; }
 
     /// <summary>
-    /// 获得/设置 必填项缺失时错误提示文本 默认为 null
+    /// Gets or sets the error message when the required field is missing. Default is null.
     /// </summary>
     string? RequiredErrorMessage { get; set; }
 }

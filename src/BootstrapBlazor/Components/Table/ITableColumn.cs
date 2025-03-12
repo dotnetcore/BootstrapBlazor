@@ -6,192 +6,192 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ITableHeader 接口
+/// ITableHeader interface
 /// </summary>
 public interface ITableColumn : IEditorItem
 {
     /// <summary>
-    /// 获得/设置 是否允许排序 默认为 null
+    /// Gets or sets whether sorting is allowed. Default is null.
     /// </summary>
     bool? Sortable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为默认排序列 默认为 false
+    /// Gets or sets whether it is the default sort column. Default is false.
     /// </summary>
     bool DefaultSort { get; set; }
 
     /// <summary>
-    /// 获得/设置 默认排序规则 默认为 SortOrder.Unset
+    /// Gets or sets the default sort order. Default is SortOrder.Unset.
     /// </summary>
     SortOrder DefaultSortOrder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否允许过滤数据 默认为 null
+    /// Gets or sets whether data filtering is allowed. Default is null.
     /// </summary>
     bool? Filterable { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否参与搜索 默认为 null
+    /// Gets or sets whether the column participates in search. Default is null.
     /// </summary>
     bool? Searchable { get; set; }
 
     /// <summary>
-    /// 获得/设置 列宽
+    /// Gets or sets the column width.
     /// </summary>
     int? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否固定本列 默认 false 不固定
+    /// Gets or sets whether the column is fixed. Default is false.
     /// </summary>
     bool Fixed { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列是否允许换行 默认为 null
+    /// Gets or sets whether text wrapping is allowed in this column. Default is null.
     /// </summary>
     bool? TextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 本列文本超出省略 默认为 null
+    /// Gets or sets whether text overflow is ellipsis in this column. Default is null.
     /// </summary>
     bool? TextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// Gets or sets whether the header text is allowed to wrap. Default is false.
     /// </summary>
     bool HeaderTextWrap { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头显示 Tooltip 默认 false 不显示 可配合 <see cref="HeaderTextEllipsis"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// Gets or sets whether the header shows a tooltip. Default is false. Can be used with <see cref="HeaderTextEllipsis"/>. This parameter is not effective when <see cref="HeaderTextWrap"/> is set to true.
     /// </summary>
     bool ShowHeaderTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头 Tooltip 内容
+    /// Gets or sets the header tooltip content.
     /// </summary>
     string? HeaderTextTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否表头溢出时截断 默认 false 不截断 可配合 <see cref="HeaderTextTooltip"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// Gets or sets whether the header text is truncated when overflowing. Default is false. Can be used with <see cref="HeaderTextTooltip"/>. This parameter is not effective when <see cref="HeaderTextWrap"/> is set to true.
     /// </summary>
     bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 列 td 自定义样式 默认为 null 未设置
+    /// Gets or sets the custom CSS class for the column td. Default is null.
     /// </summary>
     string? CssClass { get; set; }
 
     /// <summary>
-    /// 显示节点阈值 默认值 BreakPoint.None 未设置
+    /// Gets or sets the breakpoint at which the column is shown. Default is BreakPoint.None.
     /// </summary>
     BreakPoint ShownWithBreakPoint { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可以拷贝列 默认 null 不可以
+    /// Gets or sets whether the column can be copied. Default is null.
     /// </summary>
     bool? ShowCopyColumn { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示模板
+    /// Gets or sets the display template.
     /// </summary>
     RenderFragment<object>? Template { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索模板
+    /// Gets or sets the search template.
     /// </summary>
     RenderFragment<object>? SearchTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 过滤模板
+    /// Gets or sets the filter template.
     /// </summary>
     RenderFragment? FilterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 表头模板
+    /// Gets or sets the header template.
     /// </summary>
     RenderFragment<ITableColumn>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 工具栏模板 默认 null
+    /// Gets or sets the toolbox template. Default is null.
     /// </summary>
     RenderFragment<ITableColumn>? ToolboxTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 列过滤器
+    /// Gets or sets the column filter.
     /// </summary>
     IFilter? Filter { get; set; }
 
     /// <summary>
-    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// Gets or sets the format string, such as "yyyy-MM-dd" for date types.
     /// </summary>
     string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 列格式化回调委托 <see cref="TableColumnContext{TItem, TValue}"/>
+    /// Gets or sets the column format callback delegate <see cref="TableColumnContext{TItem, TValue}"/>.
     /// </summary>
     Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
-    /// 获得/设置 文字对齐方式 默认为 null 使用 Alignment.None
+    /// Gets or sets the text alignment. Default is null, using Alignment.None.
     /// </summary>
     Alignment? Align { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段鼠标悬停提示 默认为 null 使用 false 值
+    /// Gets or sets whether to show tooltips on mouse hover. Default is null, using false value.
     /// </summary>
     bool? ShowTips { get; set; }
 
     /// <summary>
-    /// 获得/设置 鼠标悬停提示自定义内容回调委托 默认 null 使用当前值
+    /// Gets or sets the custom tooltip content callback delegate. Default is null, using the current value.
     /// </summary>
     Func<object?, Task<string?>>? GetTooltipTextCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 单元格回调方法
+    /// Gets or sets the cell render callback method.
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为 MarkupString 默认 false
+    /// Gets or sets whether the column is a MarkupString. Default is false.
     /// </summary>
     bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时是否为必填项 默认为 null
+    /// Gets or sets whether the column is required when adding a new item. Default is null.
     /// </summary>
     bool? IsRequiredWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时是否为必填项 默认为 null
+    /// Gets or sets whether the column is required when editing an item. Default is null.
     /// </summary>
     bool? IsRequiredWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 null 使用 <see cref="IEditorItem.Readonly"/> 值
+    /// Gets or sets whether the column is read-only when adding a new item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.
     /// </summary>
     bool? IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 null 使用 <see cref="IEditorItem.Readonly"/> 值
+    /// Gets or sets whether the column is read-only when editing an item. Default is null, using the <see cref="IEditorItem.Readonly"/> value.
     /// </summary>
     bool? IsReadonlyWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前编辑项是否显示 默认为 null 未设置时为 true
+    /// Gets or sets whether the current edit item is visible. Default is null, using true value.
     /// </summary>
     bool? Visible { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
+    /// Gets or sets whether the column is visible when adding a new item. Default is null, using the <see cref="Visible"/> value.
     /// </summary>
     bool? IsVisibleWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时是否此列显示  默认为 null 使用 <see cref="Visible"/> 值
+    /// Gets or sets whether the column is visible when editing an item. Default is null, using the <see cref="Visible"/> value.
     /// </summary>
     bool? IsVisibleWhenEdit { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义搜索逻辑
+    /// Gets or sets the custom search logic.
     /// </summary>
     Func<ITableColumn, string?, SearchFilterAction>? CustomSearch { get; set; }
 }
