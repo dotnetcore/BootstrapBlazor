@@ -50,6 +50,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
             modal.modal._config.backdrop = 'static'
 
             modal.handlerKeyboardAndBackdrop()
+            el.classList.add('show');
         }
     }
 

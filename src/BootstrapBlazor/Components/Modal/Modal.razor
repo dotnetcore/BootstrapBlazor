@@ -3,7 +3,8 @@
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <BootstrapBlazorRootContent>
-    <div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString" id="@Id">
+    <div @attributes="@AdditionalAttributes" class="@ClassString" tabindex="-1" role="dialog" id="@Id"
+         data-bs-backdrop="@Backdrop" data-bs-keyboard="@KeyboardString">
         <CascadingValue Value="this" IsFixed="true">
             @ChildContent
         </CascadingValue>
