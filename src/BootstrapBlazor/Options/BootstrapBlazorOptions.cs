@@ -91,6 +91,11 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public TableSettings TableSettings { get; set; } = new();
 
     /// <summary>
+    /// Gets or sets the <see cref="ModalSettings"/> configuration instance
+    /// </summary>
+    public ModalSettings ModalSettings { get; set; } = new();
+
+    /// <summary>
     /// Gets or sets the <see cref="StepSettings"/> configuration instance
     /// </summary>
     public StepSettings StepSettings { get; set; } = new();
