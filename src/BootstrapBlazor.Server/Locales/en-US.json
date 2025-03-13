@@ -5768,7 +5768,7 @@
     "GetStarted": "Get Started",
     "QuickStart": "Quick Start",
     "Features": "Features of Components",
-    "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
+    "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>Online</code> components",
     "Advantage": "Advantage",
     "AdvantageLi1": "No need to write <code>JavaScript</code> to use components",
     "AdvantageLi2": "The component supports all <code>html</code> features",

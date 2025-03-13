@@ -5768,7 +5768,7 @@
     "GetStarted": "快速上手",
     "QuickStart": "快速入门",
     "Features": "组件特色",
-    "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
+    "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>Online</code> 组件",
     "Advantage": "优势",
     "AdvantageLi1": "使用组件无需编写 <code>JavaScript</code>",
     "AdvantageLi2": "组件支持所有 <code>html</code> 特性",
