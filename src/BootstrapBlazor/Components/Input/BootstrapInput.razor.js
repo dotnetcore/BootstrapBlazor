@@ -7,14 +7,12 @@ export function clear(id) {
     }
 }
 
-const hasNoModifiers = (e) => !e.ctrlKey && !e.shiftKey && !e.altKey && !e.metaKey;
-
 export function handleKeyUp(id, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
     const el = document.getElementById(id)
     if (el) {
         EventHandler.on(el, 'keyup', e => {
-            if (enter && (e.key === 'Enter' || e.key === 'NumpadEnter') && hasNoModifiers(e)) {
-                invoke.invokeMethodAsync(enterCallbackMethod, el.value)
+            if (enter && (e.key === 'Enter' || e.key === 'NumpadEnter')) {
+                invoke.invokeMethodAsync(enterCallbackMethod, { key: e.key, code: e.code, ctrlKey: e.ctrlKey, shiftKey: e.shiftKey, altKey: e.altKey, metaKey: e.metaKey, repeat: e.repeat, type: e.type, location: e.location }, el.value)
             }
             else if (esc && e.key === 'Escape') {
                 invoke.invokeMethodAsync(escCallbackMethod)

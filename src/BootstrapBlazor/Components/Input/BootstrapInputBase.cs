@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -213,7 +215,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task EnterCallback(string val)
+    public virtual async Task EnterCallback(KeyboardEventArgs e, string val)
     {
         if (OnEnterAsync != null)
         {
