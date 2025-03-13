@@ -2,6 +2,6 @@
 @inherits BootstrapComponentBase
 @inject SwalService Swal
 
-<Modal @ref="ModalContainer" IsKeyboard="false" OnCloseAsync="OnCloseAsync" class="swal">
+<Modal @ref="ModalContainer" IsKeyboard="false" OnCloseAsync="OnCloseAsync" IsFade="true" class="swal">
     @RenderDialog()
 </Modal>
