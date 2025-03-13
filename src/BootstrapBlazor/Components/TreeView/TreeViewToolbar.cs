@@ -28,7 +28,8 @@ class TreeViewToolbar<TItem> : ComponentBase
     {
         await base.OnParametersSetAsync();
 
-        _showToolbar = await ShowToolbarAsync(Item);
+        //_showToolbar = await ShowToolbarAsync(Item);
+        _showToolbar = true;
     }
 
     /// <summary>

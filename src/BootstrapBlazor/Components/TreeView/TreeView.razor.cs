@@ -839,24 +839,21 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         return $"--bb-tree-view-level: {level};";
     }
 
-    private RenderFragment RenderToolbar(TItem item) => builder =>
+    private RenderFragment RenderToolbar => builder =>
     {
         builder.OpenComponent<TreeViewToolbar<TItem>>(0);
-        builder.AddAttribute(10, nameof(TreeViewToolbar<TItem>.Item), item);
-        builder.AddAttribute(20, nameof(TreeViewToolbar<TItem>.ShowToolbarAsync), ShowTollbarAsync);
+        //builder.AddAttribute(20, nameof(TreeViewToolbar<TItem>.ShowToolbarAsync), ShowTollbarAsync);
         builder.AddAttribute(30, nameof(TreeViewToolbar<TItem>.ChildContent), RenderToolbarContent);
         builder.CloseComponent();
     };
 
-    private async Task<bool> ShowTollbarAsync(TItem item)
+    private async Task<bool> ShowTollbarAsync()
     {
         if (ShowToolbarCallback != null)
         {
-            return await ShowToolbarCallback(item);
+            return await ShowToolbarCallback(default!);
         }
 
         return ShowToolbar;
     }
 }
-
-
