@@ -47,5 +47,9 @@
         &.form-inline-center > div > .form-label {
             text-align: center;
         }
+
+        .form-label-tooltip + * {
+            flex: 1;
+        }
     }
 }
