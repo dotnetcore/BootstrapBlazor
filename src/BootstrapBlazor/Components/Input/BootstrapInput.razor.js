@@ -12,7 +12,11 @@ export function handleKeyUp(id, invoke, enter, enterCallbackMethod, esc, escCall
     if (el) {
         EventHandler.on(el, 'keyup', e => {
             if (enter && (e.key === 'Enter' || e.key === 'NumpadEnter')) {
-                invoke.invokeMethodAsync(enterCallbackMethod, { key: e.key, code: e.code, ctrlKey: e.ctrlKey, shiftKey: e.shiftKey, altKey: e.altKey, metaKey: e.metaKey, repeat: e.repeat, type: e.type, location: e.location }, el.value)
+                const useShiftEnter = el.getAttribute('data-bb-shift-enter') === 'true';
+                if (!e.shiftKey && useShiftEnter) {
+                    return;
+                }
+                invoke.invokeMethodAsync(enterCallbackMethod, el.value)
             }
             else if (esc && e.key === 'Escape') {
                 invoke.invokeMethodAsync(escCallbackMethod)
