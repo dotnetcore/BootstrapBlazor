@@ -3,45 +3,47 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Textarea 组件
+/// Textarea component
 /// </summary>
 public partial class Textarea
 {
     /// <summary>
-    /// 滚动到顶部
+    /// Scroll to the top
     /// </summary>
     /// <returns></returns>
     public Task ScrollToTop() => InvokeVoidAsync("execute", Id, "toTop");
 
     /// <summary>
-    /// 滚动到数值
+    /// Scroll to a specific value
     /// </summary>
     /// <returns></returns>
     public Task ScrollTo(int value) => InvokeVoidAsync("execute", Id, "to", value);
 
     /// <summary>
-    /// 滚动到底部
+    /// Scroll to the bottom
     /// </summary>
     /// <returns></returns>
     public Task ScrollToBottom() => InvokeVoidAsync("execute", Id, "toBottom");
 
     /// <summary>
-    /// 获得/设置 是否自动滚屏 默认 false
+    /// Gets or sets whether auto-scroll is enabled. Default is false.
     /// </summary>
     [Parameter]
     public bool IsAutoScroll { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否使用 Shift + Enter 代替原回车按键行为 默认为 false
+    /// Gets or sets whether Shift + Enter replaces the default Enter key behavior. Default is false.
     /// </summary>
     [Parameter]
     public bool UseShiftEnter { get; set; }
 
     /// <summary>
-    /// 获得 客户端是否自动滚屏标识
+    /// Gets the client-side auto-scroll identifier.
     /// </summary>
     private string? AutoScrollString => IsAutoScroll ? "auto" : null;
 
@@ -61,4 +63,20 @@ public partial class Textarea
             await InvokeVoidAsync("execute", Id, "update");
         }
     }
+
+    /// <summary>
+    /// Client-side EnterCallback method
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public override async Task EnterCallback(KeyboardEventArgs e, string val)
+    {
+        if (OnEnterAsync != null && TriggerEnter(e))
+        {
+            CurrentValueAsString = val;
+            await OnEnterAsync(Value);
+        }
+    }
+
+    private bool TriggerEnter(KeyboardEventArgs e) => UseShiftEnter ? e.ShiftKey : true;
 }
