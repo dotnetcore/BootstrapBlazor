@@ -69,7 +69,6 @@ else
 @code {
     private RenderFragment<TreeViewItem<TItem>> RenderTreeRow => item =>
     @<div @key="item" class="@GetContentClassString(item)" data-bb-tree-view-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
-        @RenderToolbar(item)
         <div class="tree-content-header"></div>
         <div class="tree-content-body">
             <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="CanTriggerClickNode(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
@@ -97,4 +96,7 @@ else
             </DynamicElement>
         </div>
     </div>;
+
+    RenderFragment RenderToolbarContent =>
+    @<div class="tree-node-toolbar">Test</div>;
 }
