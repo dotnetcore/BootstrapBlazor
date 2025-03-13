@@ -63,20 +63,4 @@ public partial class Textarea
             await InvokeVoidAsync("execute", Id, "update");
         }
     }
-
-    /// <summary>
-    /// Client-side EnterCallback method
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public override async Task EnterCallback(KeyboardEventArgs e, string val)
-    {
-        if (OnEnterAsync != null && TriggerEnter(e))
-        {
-            CurrentValueAsString = val;
-            await OnEnterAsync(Value);
-        }
-    }
-
-    private bool TriggerEnter(KeyboardEventArgs e) => UseShiftEnter ? e.ShiftKey : true;
 }
