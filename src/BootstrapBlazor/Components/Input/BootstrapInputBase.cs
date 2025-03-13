@@ -6,13 +6,13 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapInputBase 组件基类
+/// Base class for BootstrapInput components
 /// </summary>
 [BootstrapModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>
-    /// 获得 class 样式集合
+    /// Gets the class attribute value
     /// </summary>
     protected virtual string? ClassName => CssBuilder.Default("form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
@@ -20,72 +20,72 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// 元素实例引用
+    /// Gets or sets Element reference instance
     /// </summary>
     protected ElementReference FocusElement { get; set; }
 
     /// <summary>
-    /// 获得/设置 input 类型 placeholder 属性
+    /// Gets or sets the placeholder attribute value
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 文本框 Enter 键回调委托方法 默认为 null
+    /// Gets or sets the callback method for Enter key press, default is null
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnEnterAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 文本框 Esc 键回调委托方法 默认为 null
+    /// Gets or sets the callback method for Esc key press, default is null
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnEscAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// Gets or sets the button color
     /// </summary>
     [Parameter]
     public Color Color { get; set; } = Color.None;
 
     /// <summary>
-    /// 获得/设置 格式化字符串
+    /// Gets or sets the formatter function
     /// </summary>
     [Parameter]
     public Func<TValue?, string>? Formatter { get; set; }
 
     /// <summary>
-    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// Gets or sets the format string, e.g., "yyyy-MM-dd" for date types
     /// </summary>
     [Parameter]
     public string? FormatString { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动获取焦点 默认 false 不自动获取焦点
+    /// Gets or sets whether to automatically focus, default is false
     /// </summary>
     [Parameter]
     public bool IsAutoFocus { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得焦点后自动选择输入框内所有字符串 默认 false 未启用
+    /// Gets or sets whether to automatically select all text on focus, default is false
     /// </summary>
     [Parameter]
     public bool IsSelectAllTextOnFocus { get; set; }
 
     /// <summary>
-    /// 获得/设置 Enter 键自动选择输入框内所有字符串 默认 false 未启用
+    /// Gets or sets whether to automatically select all text on Enter key press, default is false
     /// </summary>
     [Parameter]
     public bool IsSelectAllTextOnEnter { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否自动修剪空白 默认 false 未启用
+    /// Gets or sets whether to automatically trim whitespace, default is false
     /// </summary>
     [Parameter]
     public bool IsTrim { get; set; }
 
     /// <summary>
-    /// 获得/设置 失去焦点回调方法 默认 null
+    /// Gets or sets the callback method for blur event, default is null
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnBlurAsync { get; set; }
@@ -94,24 +94,24 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     private Modal? Modal { get; set; }
 
     /// <summary>
-    /// 获得 input 组件类型 默认 text
+    /// Gets the input type, default is "text"
     /// </summary>
     protected string Type { get; set; } = "text";
 
     /// <summary>
-    /// 自动获得焦点方法
+    /// Method to focus the element
     /// </summary>
     /// <returns></returns>
     public async Task FocusAsync() => await FocusElement.FocusAsync();
 
     /// <summary>
-    /// 全选文字
+    /// Method to select all text
     /// </summary>
     /// <returns></returns>
     public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
 
     /// <summary>
-    /// 获得/设置 是否不注册 js 脚本处理 Enter/ESC 键盘处理函数 默认 false
+    /// Gets or sets whether to skip JS script registration for Enter/Esc key handling, default is false
     /// </summary>
     protected bool SkipRegisterEnterEscJSInvoke { get; set; }
 
@@ -173,12 +173,12 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 获得输入框 Id
+    /// Gets the input element Id
     /// </summary>
     protected virtual string? GetInputId() => Id;
 
     /// <summary>
-    /// 数值格式化委托方法
+    /// Value formatting delegate method
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -198,7 +198,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage) => base.TryParseValueFromString(IsTrim ? value.Trim() : value, out result, out validationErrorMessage);
 
     /// <summary>
-    /// OnBlur 方法
+    /// OnBlur method
     /// </summary>
     protected virtual async Task OnBlur()
     {
@@ -209,7 +209,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 客户端 EnterCallback 回调方法
+    /// Client-side EnterCallback method
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -223,7 +223,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 客户端 EscCallback 回调方法
+    /// Client-side EscCallback method
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
