@@ -36,5 +36,5 @@ public static class BootstrapBlazorOptionsExtensions
     /// <param name="options">The BootstrapBlazorOptions instance</param>
     /// <param name="value">The default value</param>
     /// <returns>The IsFade value as a boolean</returns>
-    public static bool GetIsFadeValue(this BootstrapBlazorOptions options, bool? value) => options.ModalSettings.IsFade ?? value ?? true;
+    public static bool GetIsFadeValue(this BootstrapBlazorOptions options, bool? value) => value ?? options.ModalSettings.IsFade ?? true;
 }
