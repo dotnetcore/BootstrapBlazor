@@ -27,7 +27,7 @@ public partial class Dialog : IDisposable
     private Dictionary<string, object>? _currentParameter;
     private bool _isKeyboard = false;
     private bool _isBackdrop = false;
-    private bool _isFade = true;
+    private bool? _isFade = null;
 
     /// <summary>
     /// <inheritdoc/>

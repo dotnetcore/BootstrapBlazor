@@ -12,11 +12,15 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Modal
 {
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+
     /// <summary>
     /// Gets the style string
     /// </summary>
     private string? ClassString => CssBuilder.Default("modal")
-        .AddClass("fade", IsFade)
+        .AddClass("fade", Options.CurrentValue.GetIsFadeValue(IsFade))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -40,10 +44,10 @@ public partial class Modal
     public bool IsKeyboard { get; set; } = true;
 
     /// <summary>
-    /// Gets or sets whether to enable fade in and out animation, default is true to enable animation
+    /// Gets or sets whether to enable fade in and out animation, default is null
     /// </summary>
     [Parameter]
-    public bool IsFade { get; set; } = true;
+    public bool? IsFade { get; set; }
 
     /// <summary>
     /// Gets or sets the child component
