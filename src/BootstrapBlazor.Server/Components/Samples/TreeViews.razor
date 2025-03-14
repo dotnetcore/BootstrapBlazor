@@ -203,6 +203,16 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewShowToolbarTitle"]"
+           Introduction="@Localizer["TreeViewShowToolbarIntro"]"
+           Name="ShowToolbar">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TreeViewShowToolbarDesc"].Value)</p>
+    </section>
+    <TreeView Items="@EditItems" ShowToolbar="true" OnUpdateCallbackAsync="OnUpdateCallbackAsync">
+    </TreeView>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <AttributeTable Items="@GetTreeItemAttributes()" Title="@Localizer["TreeViewsAttribute"]"></AttributeTable>
