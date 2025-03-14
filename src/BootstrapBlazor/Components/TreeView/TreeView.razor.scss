@@ -136,5 +136,17 @@
         &.disabled {
             opacity: var(--bb-tree-disabled-opacity);
         }
+
+        .tree-node-toolbar {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        &:not(:hover) .tree-node-toolbar {
+            display: none;
+        }
     }
 }

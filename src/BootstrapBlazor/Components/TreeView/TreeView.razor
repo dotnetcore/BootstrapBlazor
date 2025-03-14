@@ -63,7 +63,6 @@ else
                 }
             </div>
         }
-        @RenderToolbar
     </div>
 }
 
@@ -94,10 +93,18 @@ else
                 {
                     @item.Template(item.Value)
                 }
+                @RenderToolbar(item)
             </DynamicElement>
         </div>
     </div>;
 
-    RenderFragment RenderToolbarContent =>
-    @<div class="tree-node-toolbar">Test</div>;
+    RenderFragment<TreeViewItem<TItem>> RenderToolbarContent => item =>
+    @<div class="tree-node-toolbar">
+        <PopConfirmButton Icon="fa-solid fa-gear" OnConfirm="() => OnUpdateItemAsync(item)">
+            <BodyTemplate>
+                <span class="me-2">Label: </span>
+                <BootstrapInput @bind-Value="@item.Text"></BootstrapInput>
+            </BodyTemplate>
+        </PopConfirmButton>
+    </div>;
 }

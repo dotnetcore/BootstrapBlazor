@@ -72,7 +72,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// A callback method that determines whether to show the toolbar of the tree view item.
     /// </summary>
     [Parameter]
-    public Func<TItem, Task<bool>>? ShowToolbarCallback { get; set; }
+    public Func<TreeViewItem<TItem>, Task<bool>>? ShowToolbarCallback { get; set; }
 
     /// <summary>
     /// Gets or sets whether the entire component is disabled. Default is false.
@@ -261,6 +261,18 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <remarks>Effective when <see cref="ScrollMode"/> is set to Virtual.</remarks>
     [Parameter]
     public float RowHeight { get; set; } = 38f;
+
+    /// <summary>
+    /// Gets or sets the toolbar content template. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? ToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method when a tree item is updated.
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewItem<TItem>, Task<bool>>? OnUpdateTreeNodeAsync { get; set; }
 
     [CascadingParameter]
     private ContextMenuZone? ContextMenuZone { get; set; }
@@ -839,21 +851,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         return $"--bb-tree-view-level: {level};";
     }
 
-    private RenderFragment RenderToolbar => builder =>
+    private RenderFragment RenderToolbar(TreeViewItem<TItem> item) => builder =>
     {
         builder.OpenComponent<TreeViewToolbar<TItem>>(0);
-        //builder.AddAttribute(20, nameof(TreeViewToolbar<TItem>.ShowToolbarAsync), ShowTollbarAsync);
+        builder.AddAttribute(10, nameof(TreeViewToolbar<TItem>.Item), item);
+        builder.AddAttribute(20, nameof(TreeViewToolbar<TItem>.ShowToolbarAsync), ShowTollbarAsync);
         builder.AddAttribute(30, nameof(TreeViewToolbar<TItem>.ChildContent), RenderToolbarContent);
         builder.CloseComponent();
     };
 
-    private async Task<bool> ShowTollbarAsync()
+    private async Task<bool> ShowTollbarAsync(TreeViewItem<TItem> item)
     {
         if (ShowToolbarCallback != null)
         {
-            return await ShowToolbarCallback(default!);
+            return await ShowToolbarCallback(item);
         }
-
         return ShowToolbar;
+    }
+
+    private async Task OnUpdateItemAsync(TreeViewItem<TItem> item)
+    {
+
     }
 }
