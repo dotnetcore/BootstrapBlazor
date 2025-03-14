@@ -302,8 +302,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         _treeNodeStateCache = new(this);
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
-        ToolbarEditTitle = Localizer[nameof(ToolbarEditTitle)];
-        ToolbarEditLabelText = Localizer[nameof(ToolbarEditLabelText)];
+        ToolbarEditTitle ??= Localizer[nameof(ToolbarEditTitle)];
+        ToolbarEditLabelText ??= Localizer[nameof(ToolbarEditLabelText)];
     }
 
     /// <summary>
