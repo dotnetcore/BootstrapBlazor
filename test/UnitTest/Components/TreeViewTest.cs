@@ -1217,6 +1217,15 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var button = cut.Find(".popover-body .btn-primary");
         await cut.InvokeAsync(() => button.Click());
         Assert.True(edit);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ToolbarTemplate, foo => builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div class=\"test-toolbar-template\">foo.Text</div>"));
+            });
+        });
+        Assert.Contains("test-toolbar-template", cut.Markup);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
