@@ -11,8 +11,10 @@
             }
             else
             {
-                <label class="form-label">@Text</label>
-                <BootstrapInput @bind-Value="@_text" SkipValidate="true" ShowLabel="false"></BootstrapInput>
+                <div class="tree-view-edit-form">
+                    <span>@Text</span>
+                    <BootstrapInput @bind-Value="@_text" SkipValidate="true" ShowLabel="false"></BootstrapInput>
+                </div>
             }
         </BodyTemplate>
     </PopConfirmButton>

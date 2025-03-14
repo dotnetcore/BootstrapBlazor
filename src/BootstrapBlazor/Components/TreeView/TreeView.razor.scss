@@ -150,3 +150,19 @@
         }
     }
 }
+
+.tree-view-edit-form {
+    display: flex;
+
+    > span {
+        display: flex;
+        align-items: center;
+        margin-inline-end: 0.25rem;
+
+        & + * {
+            flex: 1;
+            width: 1%;
+            min-width: 0;
+        }
+    }
+}
