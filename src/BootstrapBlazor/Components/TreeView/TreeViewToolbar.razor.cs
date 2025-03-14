@@ -24,10 +24,17 @@ public partial class TreeViewToolbar<TItem> : ComponentBase
     public EventCallback<TreeViewItem<TItem>> ItemChanged { get; set; }
 
     /// <summary>
+    /// Gets or sets the update the tree text value callback. Default is null.
+    /// <para>If return true will update the tree text value, otherwise will not update.</para>
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
+
+    /// <summary>
     /// Gets or sets the child content of the tree view toolbar. Default is null.
     /// </summary>
     [Parameter, NotNull]
-    public RenderFragment<TreeViewItem<TItem>>? BodyTemplate { get; set; }
+    public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the popup-window. Default is null.
@@ -46,20 +53,30 @@ public partial class TreeViewToolbar<TItem> : ComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        _text = Item?.Text ?? "";
+        _text = Item.Text;
     }
 
     private async Task OnConfirm()
     {
-        Item.Text = _text;
-
-        if (ItemChanged.HasDelegate)
+        var ret = true;
+        if (OnUpdateCallbackAsync != null)
         {
-            await ItemChanged.InvokeAsync(Item);
+            var to = Utility.Clone(Item.Value);
+            var context = new TreeViewToolbarContext<TItem>(Item.Value, to);
+            await OnUpdateCallbackAsync(context);
+        }
+
+        if (ret)
+        {
+            Item.Text = _text;
+            if (ItemChanged.HasDelegate)
+            {
+                await ItemChanged.InvokeAsync(Item);
+            }
         }
     }
 }

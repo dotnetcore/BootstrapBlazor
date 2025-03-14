@@ -8,7 +8,7 @@
 {
     if (_init)
     {
-        
+
     }
     else if (ShowSkeleton)
     {
@@ -48,15 +48,7 @@ else
         {
             <div class="tree-root scroll is-virtual" tabindex="0">
                 <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Rows">
-                    <ItemContent>
-                        <TreeViewRow @key="context" IsActive="GetActive(context)" Index="GetIndex(context)" Item="context"
-                                     IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
-                                     ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
-                                     ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
-                                     OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
-                                     ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
-                                     OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"></TreeViewRow>
-                    </ItemContent>
+                    @RenderRow(context)
                 </Virtualize>
             </div>
         }
@@ -65,15 +57,21 @@ else
             <div class="tree-root scroll" tabindex="0">
                 @foreach (var item in Rows)
                 {
-                    <TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
-                                 IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
-                                 ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
-                                 ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
-                                 OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
-                                 ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
-                                 OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"></TreeViewRow>
+                    @RenderRow(item)
                 }
             </div>
         }
     </div>
+}
+
+@code {
+    RenderFragment RenderRow(TreeViewItem<TItem> item) =>
+    @<TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
+                  IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
+                  ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
+                  ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
+                  OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
+                  ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
+                  OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"
+                  OnUpdateCallbackAsync="OnUpdateCallbackAsync" ToolbarTemplate="ToolbarTemplate"></TreeViewRow>;
 }

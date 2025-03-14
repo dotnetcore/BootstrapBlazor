@@ -132,6 +132,19 @@ public partial class TreeViewRow<TItem>
     [Parameter]
     public string? ToolbarEditLabelText { get; set; }
 
+    /// <summary>
+    /// Gets or sets the toolbar content template. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? ToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the update the tree text value callback. Default is null.
+    /// <para>If return true will update the tree text value, otherwise will not update.</para>
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }

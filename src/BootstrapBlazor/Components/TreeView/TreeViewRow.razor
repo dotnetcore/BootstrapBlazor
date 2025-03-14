@@ -30,7 +30,8 @@
             }
             @if (_showToolbar)
             {
-                <TreeViewToolbar Title="@ToolbarEditTitle" Text="@ToolbarEditLabelText" @bind-Item="Item"></TreeViewToolbar>
+                <TreeViewToolbar Title="@ToolbarEditTitle" Text="@ToolbarEditLabelText" @bind-Item="Item"
+                                 OnUpdateCallbackAsync="OnUpdateCallbackAsync" BodyTemplate="ToolbarTemplate"></TreeViewToolbar>
             }
         </DynamicElement>
     </div>

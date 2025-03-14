@@ -241,12 +241,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public RenderFragment<TItem>? ToolbarTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method when a tree item is updated.
-    /// </summary>
-    [Parameter]
-    public Func<TreeViewItem<TItem>, Task<bool>>? OnUpdateTreeNodeAsync { get; set; }
-
-    /// <summary>
     /// Gets or sets the title of the popup-window. Default is null.
     /// </summary>
     [Parameter]
@@ -257,6 +251,13 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     [Parameter]
     public string? ToolbarEditLabelText { get; set; }
+
+    /// <summary>
+    /// Gets or sets the update the tree text value callback. Default is null.
+    /// <para>If return true will update the tree text value, otherwise will not update.</para>
+    /// </summary>
+    [Parameter]
+    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
 
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
@@ -761,23 +762,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
 
-    private async Task<bool> ShowTollbarAsync(TreeViewItem<TItem> item)
-    {
-        if (ShowToolbarCallback != null)
-        {
-            return await ShowToolbarCallback(item);
-        }
-        return ShowToolbar;
-    }
-
-    private async Task OnUpdateItemAsync(TreeViewItem<TItem> item)
-    {
-
-    }
-
     private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
 
     private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
-
-    private bool GetDisabled(TreeViewItem<TItem> item) => IsDisabled || (!CanExpandWhenDisabled && item.IsDisabled);
 }
