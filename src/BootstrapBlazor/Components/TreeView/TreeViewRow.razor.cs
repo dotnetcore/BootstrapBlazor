@@ -31,12 +31,6 @@ public partial class TreeViewRow<TItem>
     public TreeViewItem<TItem>? Item { get; set; }
 
     /// <summary>
-    /// Gets or sets the child content of the tree node. Default is null.
-    /// </summary>
-    [Parameter, NotNull]
-    public RenderFragment<TreeViewItem<TItem>>? ChildContent { get; set; }
-
-    /// <summary>
     /// Gets or sets the loading icon for tree nodes.
     /// </summary>
     [Parameter]
