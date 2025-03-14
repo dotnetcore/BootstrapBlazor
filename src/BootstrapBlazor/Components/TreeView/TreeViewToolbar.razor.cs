@@ -28,7 +28,7 @@ public partial class TreeViewToolbar<TItem> : ComponentBase
     /// <para>If return true will update the tree text value, otherwise will not update.</para>
     /// </summary>
     [Parameter]
-    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
+    public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
     /// <summary>
     /// Gets or sets the child content of the tree view toolbar. Default is null.
@@ -65,9 +65,7 @@ public partial class TreeViewToolbar<TItem> : ComponentBase
         var ret = true;
         if (OnUpdateCallbackAsync != null)
         {
-            var to = Utility.Clone(Item.Value);
-            var context = new TreeViewToolbarContext<TItem>(Item.Value, to);
-            await OnUpdateCallbackAsync(context);
+            ret = await OnUpdateCallbackAsync(Item.Value, _text);
         }
 
         if (ret)

@@ -257,7 +257,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <para>If return true will update the tree text value, otherwise will not update.</para>
     /// </summary>
     [Parameter]
-    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
+    public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }

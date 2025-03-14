@@ -143,7 +143,7 @@ public partial class TreeViewRow<TItem>
     /// <para>If return true will update the tree text value, otherwise will not update.</para>
     /// </summary>
     [Parameter]
-    public Func<TreeViewToolbarContext<TItem>, Task>? OnUpdateCallbackAsync { get; set; }
+    public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
 
     [Inject]
     [NotNull]
