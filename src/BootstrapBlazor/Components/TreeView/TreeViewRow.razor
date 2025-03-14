@@ -2,7 +2,9 @@
 @typeparam TItem
 @inherits ComponentBase
 
-<div class="@ContentClassString" data-bb-tree-view-index="@Index" @oncontextmenu="e => OnContextMenu(e)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle()">
+<div class="@ContentClassString" data-bb-tree-view-index="@Index" style="@GetTreeRowStyle()"
+     @oncontextmenu="e => OnContextMenu(e)" @oncontextmenu:preventDefault="IsPreventDefault"
+     @ontouchstart="e => OnTouchStart(e)" @ontouchend="OnTouchEnd">
     <div class="tree-content-header"></div>
     <div class="tree-content-body">
         <DynamicElement TagName="i" class="@CaretClassString" TriggerClick="CanTriggerClickNode" OnClick="ToggleNodeAsync"></DynamicElement>
