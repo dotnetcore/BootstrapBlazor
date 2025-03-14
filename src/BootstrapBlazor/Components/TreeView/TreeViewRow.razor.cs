@@ -282,11 +282,12 @@ public partial class TreeViewRow<TItem>
 
     private async Task<bool> TriggerBeforeStateChangedCallback(CheckboxState state)
     {
+        var ret = true;
         if (OnBeforeStateChangedCallback != null)
         {
-            return await OnBeforeStateChangedCallback(Item, state);
+            ret = await OnBeforeStateChangedCallback(Item, state);
         }
-        return true;
+        return ret;
     }
 
     private async Task ClickRow()
