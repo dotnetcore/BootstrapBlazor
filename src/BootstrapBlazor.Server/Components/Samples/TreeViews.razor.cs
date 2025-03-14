@@ -30,6 +30,8 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> Items { get; } = TreeFoo.GetTreeItems();
 
+    private List<TreeViewItem<TreeFoo>> EditItems { get; } = TreeFoo.GetTreeItems();
+
     private bool AutoCheckChildren { get; set; }
 
     private bool AutoCheckParent { get; set; }
@@ -216,6 +218,12 @@ public sealed partial class TreeViews
             items.Add(new TreeViewItem<TreeFoo>(new TreeFoo() { Text = text }) { Text = text, HasChildren = Random.Shared.Next(100) > 80 });
         });
         return items;
+    }
+
+    private Task<bool> OnUpdateCallbackAsync(TreeFoo foo, string? text)
+    {
+        foo.Text = text;
+        return Task.FromResult(true);
     }
 
     /// <summary>

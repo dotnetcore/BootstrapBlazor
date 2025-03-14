@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Threading.Tasks;
+
 namespace UnitTest.Components;
 
 public class TreeViewTest : BootstrapBlazorTestBase
@@ -1177,6 +1179,53 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.TriggerKeyDown("ArrowLeft"));
         cut.Contains("node-icon visible fa-solid fa-caret-right");
+    }
+
+    [Fact]
+    public async Task ShowToolbar_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" },
+            new() { Text = "1010-01", Id = "1010-01", ParentId = "1010" },
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        var count = 0;
+        var edit = false;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowToolbarCallback, foo =>
+            {
+                count++;
+                return Task.FromResult(true);
+            });
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnUpdateCallbackAsync, (foo, text) =>
+            {
+                edit = true;
+                return Task.FromResult(true);
+            });
+        });
+
+        // 节点未展开只回调一次
+        Assert.Equal(1, count);
+
+        // 点击确定按钮
+        var button = cut.Find(".popover-body .btn-primary");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(edit);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ToolbarTemplate, foo => builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div class=\"test-toolbar-template\">foo.Text</div>"));
+            });
+        });
+        Assert.Contains("test-toolbar-template", cut.Markup);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class

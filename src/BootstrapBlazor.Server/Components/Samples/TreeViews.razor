@@ -27,7 +27,7 @@
            Introduction="@Localizer["TreeViewNormalIntro"]"
            Name="Normal">
     <section ignore>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
-    <TreeView Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" />
+    <TreeView Items="@NormalItems" OnTreeItemClick="@OnTreeItemClick" ShowToolbar="true"></TreeView>
     <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
@@ -201,6 +201,16 @@
                   AutoCheckChildren="true" AutoCheckParent="true"
                   OnExpandNodeAsync="OnExpandVirtualNodeAsync"></TreeView>
     </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TreeViewShowToolbarTitle"]"
+           Introduction="@Localizer["TreeViewShowToolbarIntro"]"
+           Name="ShowToolbar">
+    <section ignore>
+        <p>@((MarkupString)Localizer["TreeViewShowToolbarDesc"].Value)</p>
+    </section>
+    <TreeView Items="@EditItems" ShowToolbar="true" OnUpdateCallbackAsync="OnUpdateCallbackAsync">
+    </TreeView>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>

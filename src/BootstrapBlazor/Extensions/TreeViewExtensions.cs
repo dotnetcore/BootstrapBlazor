@@ -68,4 +68,6 @@ public static class TreeViewExtensions
         }
         return rows;
     }
+
+    internal static bool CanTriggerClickNode<TItem>(this TreeViewItem<TItem> item, bool isDisabled, bool canExpandWhenDisabled) => !isDisabled && (canExpandWhenDisabled || !item.IsDisabled);
 }

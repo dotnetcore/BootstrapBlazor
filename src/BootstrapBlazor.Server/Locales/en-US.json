@@ -711,7 +711,10 @@
     "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,",
     "TreeViewVirtualizeTitle": "Virtualize",
     "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
-    "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data."
+    "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data.",
+    "TreeViewShowToolbarTitle": "Show Toolbar",
+    "TreeViewShowToolbarIntro": "Show the toolbar by setting <code>ShowToolbar=\"true\"</code>",
+    "TreeViewShowToolbarDesc": "After it is turned on, when the mouse hovers over a node, a toolbar icon appears on the right, and the toolbar function can be customized; data is updated by setting the <code>OnUpdateCallbackAsync</code> callback method; the toolbar template is defined by setting <code>ToolbarTemplate</code>, and if not set, the internal default node name template is used"
   },
   "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
     "SwitchButtonsTitle": "Switch Button state switch button",
