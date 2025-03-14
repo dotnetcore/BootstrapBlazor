@@ -39,7 +39,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public bool ShowToolbar { get; set; }
 
     /// <summary>
-    /// A callback method that determines whether to show the toolbar of the tree view item.
+    /// Gets or sts A callback method that determines whether to show the toolbar of the tree view item.
     /// </summary>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task<bool>>? ShowToolbarCallback { get; set; }
