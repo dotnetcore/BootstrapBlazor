@@ -412,22 +412,23 @@
 <DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
            Introduction="@Localizer["SelectsVirtualizeIntro"]"
            Name="IsVirtualize">
-    <section ignore>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</section>
-
-    <div class="row mb-3">
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="ShowSearch" />
-                <Checkbox @bind-Value="@_showSearch" />
-            </BootstrapInputGroup>
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
         </div>
-        <div class="col-12 col-sm-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="IsClearable" />
-                <Checkbox @bind-Value="@_isClearable" />
-            </BootstrapInputGroup>
-        </div>
-    </div>
+    </section>
 
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
