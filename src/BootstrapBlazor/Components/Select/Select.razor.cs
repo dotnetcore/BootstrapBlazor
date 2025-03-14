@@ -294,12 +294,15 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetSelectedRow()
     {
+        
+        var canBeNull = ValueCanBeNull();
         var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled&&!canBeNull)
             ?? GetVirtualizeItem(CurrentValueAsString);
-
+      
+        
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)
@@ -576,7 +579,26 @@ public partial class Select<TValue> : ISelect, ILookup
         {
             await OnClearAsync();
         }
+        
+        if (ValueCanBeNull())
+        {
 
+            if (SelectedItem != null) SelectedItem.Active = false;
+            SelectedItem = null;
+
+            // 触发 StateHasChanged
+            _lastSelectedValueString = string.Empty;
+            CurrentValueAsString = _lastSelectedValueString;
+            this.Value = default;
+            if (this.ValueChanged.HasDelegate)
+                await this.ValueChanged.InvokeAsync(default);
+            // 触发 SelectedItemChanged 事件--由于设置成了null
+            //if (OnSelectedItemChanged != null)
+            //{
+            //    await OnSelectedItemChanged(SelectedItem);
+            //}
+            return;
+        }
         SelectedItem? item;
         if (OnQueryAsync != null)
         {
@@ -592,7 +614,11 @@ public partial class Select<TValue> : ISelect, ILookup
             await SelectedItemChanged(item);
         }
     }
-
+    private bool ValueCanBeNull()
+    {
+        var tType = typeof(TValue);
+        return !tType.IsValueType || Nullable.GetUnderlyingType(tType) != null;
+    }
     private string? ReadonlyString => IsEditable ? null : "readonly";
 
     private async Task OnChange(ChangeEventArgs args)
