@@ -6,10 +6,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TreeViewToolbar component
+/// TreeViewToolbarEditButton component
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public partial class TreeViewToolbar<TItem> : ComponentBase
+public partial class TreeViewToolbarEditButton<TItem> : ComponentBase
 {
     /// <summary>
     /// Gets or sets the tree view item. Default is null.
@@ -29,12 +29,6 @@ public partial class TreeViewToolbar<TItem> : ComponentBase
     /// </summary>
     [Parameter]
     public Func<TItem, string?, Task<bool>>? OnUpdateCallbackAsync { get; set; }
-
-    /// <summary>
-    /// Gets or sets the child content of the tree view toolbar. Default is null.
-    /// </summary>
-    [Parameter, NotNull]
-    public RenderFragment<TItem>? BodyTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the popup-window. Default is null.
