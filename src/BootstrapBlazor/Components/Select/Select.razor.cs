@@ -42,7 +42,7 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
-    private bool GetClearable() => IsClearable && !IsDisabled;
+    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
     /// <summary>
     /// 设置当前项是否 Active 方法
@@ -294,15 +294,17 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetSelectedRow()
     {
-        
-        var canBeNull = ValueCanBeNull();
+        if (Value is null)
+        {
+            return null;
+        }
+
         var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled&&!canBeNull)
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
             ?? GetVirtualizeItem(CurrentValueAsString);
-      
-        
+
         if (item != null)
         {
             if (_init && DisableItemChangedWhenFirstRender)
@@ -396,7 +398,7 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     private int TotalCount { get; set; }
 
-    private List<SelectedItem> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
+    private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -542,7 +544,6 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (_lastSelectedValueString != item.Value)
         {
-
             item.Active = true;
             SelectedItem = item;
 
@@ -559,7 +560,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// 添加静态下拉项方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => _children.Add(item);
@@ -579,50 +580,18 @@ public partial class Select<TValue> : ISelect, ILookup
         {
             await OnClearAsync();
         }
-        
-        if (ValueCanBeNull())
-        {
 
-            if (SelectedItem != null) SelectedItem.Active = false;
-            SelectedItem = null;
-            if (Items != null) //数据中存在多个IsActive= true的 需要都清空
-                foreach (var nowItems in Items)
-                {
-                    nowItems.Active = false;
-                }
-            // 触发 StateHasChanged
-            _lastSelectedValueString = string.Empty;
-            CurrentValueAsString = _lastSelectedValueString;
-            this.Value = default;
-            if (this.ValueChanged.HasDelegate)
-                await this.ValueChanged.InvokeAsync(default);
-            // 触发 SelectedItemChanged 事件--由于设置成了null
-            //if (OnSelectedItemChanged != null)
-            //{
-            //    await OnSelectedItemChanged(SelectedItem);
-            //}
-            return;
-        }
-        SelectedItem? item;
         if (OnQueryAsync != null)
         {
             await VirtualizeElement.RefreshDataAsync();
-            item = _result.Items.FirstOrDefault();
         }
-        else
-        {
-            item = Items.FirstOrDefault();
-        }
-        if (item != null)
-        {
-            await SelectedItemChanged(item);
-        }
+
+        _lastSelectedValueString = string.Empty;
+        CurrentValue = default;
     }
-    private bool ValueCanBeNull()
-    {
-        var tType = typeof(TValue);
-        return !tType.IsValueType || Nullable.GetUnderlyingType(tType) != null;
-    }
+
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
+
     private string? ReadonlyString => IsEditable ? null : "readonly";
 
     private async Task OnChange(ChangeEventArgs args)
