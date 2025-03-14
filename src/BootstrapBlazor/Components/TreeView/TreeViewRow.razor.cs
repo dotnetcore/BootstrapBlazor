@@ -260,7 +260,7 @@ public partial class TreeViewRow<TItem>
         return $"--bb-tree-view-level: {level};";
     }
 
-    private bool CanTriggerClickNode => !IsDisabled && (CanExpandWhenDisabled || !Item.IsDisabled);
+    private bool CanTriggerClickNode => Item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled);
 
     private bool ItemDisabledState => Item.IsDisabled || IsDisabled;
 

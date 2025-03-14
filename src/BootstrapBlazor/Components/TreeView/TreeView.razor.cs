@@ -23,8 +23,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private bool CanTriggerClickNode(TreeViewItem<TItem> item) => !IsDisabled && (CanExpandWhenDisabled || !item.IsDisabled);
-
     private TreeViewItem<TItem>? _activeItem;
 
     /// <summary>
@@ -549,7 +547,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     private async Task OnClick(TreeViewItem<TItem> item)
     {
         _activeItem = item;
-        if (ClickToggleNode && CanTriggerClickNode(item))
+        if (ClickToggleNode && item.CanTriggerClickNode(IsDisabled, CanExpandWhenDisabled))
         {
             await OnToggleNodeAsync(item);
         }
