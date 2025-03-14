@@ -3,6 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using System.Threading.Tasks;
+
 namespace UnitTest.Components;
 
 public class TreeViewTest : BootstrapBlazorTestBase
@@ -1180,7 +1182,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowToolbar_Ok()
+    public async Task ShowToolbar_Ok()
     {
         List<TreeFoo> data =
         [
@@ -1191,6 +1193,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var items = TreeFoo.CascadingTree(data);
         items[0].IsActive = true;
         var count = 0;
+        var edit = false;
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
@@ -1200,10 +1203,20 @@ public class TreeViewTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
             pb.Add(a => a.Items, items);
+            pb.Add(a => a.OnUpdateCallbackAsync, (foo, text) =>
+            {
+                edit = true;
+                return Task.FromResult(true);
+            });
         });
 
         // 节点未展开只回调一次
         Assert.Equal(1, count);
+
+        // 点击确定按钮
+        var button = cut.Find(".popover-body .btn-primary");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(edit);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
