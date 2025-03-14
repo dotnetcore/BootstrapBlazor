@@ -10,13 +10,13 @@ namespace BootstrapBlazor.Components;
 class TreeViewToolbar<TItem> : ComponentBase
 {
     [Parameter, NotNull]
-    public Func<TItem, Task<bool>>? ShowToolbarAsync { get; set; }
+    public Func<TreeViewItem<TItem>, Task<bool>>? ShowToolbarAsync { get; set; }
 
     [Parameter, NotNull]
-    public TItem? Item { get; set; }
+    public TreeViewItem<TItem>? Item { get; set; }
 
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    [Parameter, NotNull]
+    public RenderFragment<TreeViewItem<TItem>>? ChildContent { get; set; }
 
     private bool _showToolbar = false;
 
@@ -28,8 +28,7 @@ class TreeViewToolbar<TItem> : ComponentBase
     {
         await base.OnParametersSetAsync();
 
-        //_showToolbar = await ShowToolbarAsync(Item);
-        _showToolbar = true;
+        _showToolbar = await ShowToolbarAsync(Item);
     }
 
     /// <summary>
@@ -40,7 +39,7 @@ class TreeViewToolbar<TItem> : ComponentBase
     {
         if (_showToolbar)
         {
-            builder.AddContent(0, ChildContent);
+            builder.AddContent(0, ChildContent(Item));
         }
     }
 }
