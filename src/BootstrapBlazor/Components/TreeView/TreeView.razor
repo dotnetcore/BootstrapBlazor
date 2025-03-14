@@ -67,12 +67,13 @@ else
 @code {
     RenderFragment RenderRow(TreeViewItem<TItem> item) =>
     @<TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
-                  NodeIcon="@NodeIcon" ExpandNodeIcon="@ExpandNodeIcon"
+                  NodeIcon="@NodeIcon" ExpandNodeIcon="@ExpandNodeIcon" MaxSelectedCount="MaxSelectedCount"
+                  ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
                   IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
                   ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
                   ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
                   OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
-                  ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
                   OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"
+                  OnCheckStateChanged="OnCheckStateChanged"
                   OnUpdateCallbackAsync="OnUpdateCallbackAsync" ToolbarTemplate="ToolbarTemplate"></TreeViewRow>;
 }
