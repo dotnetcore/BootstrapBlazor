@@ -160,7 +160,7 @@ public partial class TreeViewRow<TItem>
         .AddClass("visible", Item.HasChildren || Item.Items.Count > 0)
         .AddClass(NodeIcon, !Item.IsExpand)
         .AddClass(ExpandNodeIcon, Item.IsExpand)
-        .AddClass("disabled", IsDisabled)
+        .AddClass("disabled", !CanTriggerClickNode)
         .Build();
 
     private string? NodeLoadingClassString => CssBuilder.Default("node-icon node-loading")
