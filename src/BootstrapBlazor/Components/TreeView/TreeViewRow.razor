@@ -1,0 +1,47 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits ComponentBase
+
+<div class="@ContentClassString" data-bb-tree-view-index="@Index" style="@GetTreeRowStyle()"
+     @oncontextmenu="e => OnContextMenu(e)" @oncontextmenu:preventDefault="IsPreventDefault"
+     @ontouchstart="e => OnTouchStart(e)" @ontouchend="OnTouchEnd">
+    <div class="tree-content-header"></div>
+    <div class="tree-content-body">
+        <DynamicElement TagName="i" class="@CaretClassString" TriggerClick="CanTriggerClickNode" OnClick="ToggleNodeAsync"></DynamicElement>
+        <i class="@NodeLoadingClassString"></i>
+        @if (ShowCheckbox)
+        {
+            <Checkbox Value="@Item" IsDisabled="ItemDisabledState"
+                      SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
+                      State="@Item.CheckedState" OnStateChanged="(state, v) => CheckStateChanged(state)"
+                      OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => TriggerBeforeStateChangedCallback(state) : null)">
+            </Checkbox>
+        }
+        <DynamicElement class="@NodeClassString" TriggerClick="!ItemDisabledState" OnClick="ClickRow">
+            @if (ShowIcon)
+            {
+                <i class="@IconClassString"></i>
+            }
+            @if (Item.Template == null)
+            {
+                <span class="@ItemTextClassString">@Item.Text</span>
+            }
+            else
+            {
+                @Item.Template(Item.Value)
+            }
+            @if (_showToolbar)
+            {
+                @if (ToolbarTemplate != null)
+                {
+                    @ToolbarTemplate(Item.Value)
+                }
+                else
+                {
+                    <TreeViewToolbarEditButton Title="@ToolbarEditTitle" Text="@ToolbarEditLabelText" @bind-Item="Item"
+                                               OnUpdateCallbackAsync="OnUpdateCallbackAsync"></TreeViewToolbarEditButton>
+                }
+            }
+        </DynamicElement>
+    </div>
+</div>

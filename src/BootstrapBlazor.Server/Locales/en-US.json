@@ -711,7 +711,10 @@
     "TreeViewEnableKeyboardArrowUpDownIntro": "Support keyboard up and down arrow operations by setting <code>EnableKeyboardArrowUpDown=\"true\"</code>. <kbd>ArrowLeft</kbd> collapse the node, <kbd>ArrowRight</kbd> expand the node, <kbd>ArrowUp</kbd> move the node up, <kbd>ArrowDown</kbd> move the node down, <kbd>Space</kbd> select the node,",
     "TreeViewVirtualizeTitle": "Virtualize",
     "TreeViewVirtualizeIntro": "Enable virtual scrolling by setting <code>IsVirtualize=\"true\"</code> to support big data",
-    "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data."
+    "TreeViewVirtualizeDescription": "The component uses <code>Virtualize</code> to implement virtual scrolling logic, which reduces the pressure on the browser. However, if there is a lot of tree structure data, such as <b>Select All</b>, all data must be marked, resulting in large data in the memory. This problem has not been solved yet. Currently, this component still puts a lot of pressure on the <b>CPU</b> due to large data.",
+    "TreeViewShowToolbarTitle": "Show Toolbar",
+    "TreeViewShowToolbarIntro": "Show the toolbar by setting <code>ShowToolbar=\"true\"</code>",
+    "TreeViewShowToolbarDesc": "After it is turned on, when the mouse hovers over a node, a toolbar icon appears on the right, and the toolbar function can be customized; data is updated by setting the <code>OnUpdateCallbackAsync</code> callback method; the toolbar template is defined by setting <code>ToolbarTemplate</code>, and if not set, the internal default node name template is used"
   },
   "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
     "SwitchButtonsTitle": "Switch Button state switch button",
@@ -5747,11 +5750,9 @@
   },
   "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "Introduction",
-    "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
-    "P2": "The dependency is：BootstrapBlazor > Bootstrap",
-    "P3": "In the latest <a href='template' target='_blank'>Project Template</a> ,the above dependencies are packaged and bundled, which greatly simplifies use",
+    "SubTitle": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
     "UpdateTitle": "Update Log",
-    "UpdateLog": "In order to fix the components <b><code>bugs</code></b>, a small version of the component may be released every day. The second <b><code>Thursday</code></b> every month release <b><code>official version</code></b>",
+    "UpdateLog": "In order to fix the components <b><code>bugs</code></b>, a small version of the component may be released every day.",
     "UpdateLogLink": "[Update Log]",
     "LearnTitle": "Learning materials",
     "LearnLi1": "Blazor Official Document",
@@ -5770,7 +5771,7 @@
     "GetStarted": "Get Started",
     "QuickStart": "Quick Start",
     "Features": "Features of Components",
-    "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
+    "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>Online</code> components",
     "Advantage": "Advantage",
     "AdvantageLi1": "No need to write <code>JavaScript</code> to use components",
     "AdvantageLi2": "The component supports all <code>html</code> features",

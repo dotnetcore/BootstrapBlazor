@@ -306,7 +306,9 @@
     "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法"
   },
   "BootstrapBlazor.Components.TreeView": {
-    "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法"
+    "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法",
+    "ToolbarEditTitle": "节点名称编辑",
+    "ToolbarEditLabelText": "更改为"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "删除",

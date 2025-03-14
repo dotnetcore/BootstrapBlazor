@@ -118,4 +118,15 @@ public class BootstrapBlazorOptionsTest
         Assert.Equal(TimeSpan.FromSeconds(1), options.CacheManagerOptions.SlidingExpiration);
         Assert.True(options.CacheManagerOptions.Enable);
     }
+
+    [Fact]
+    public void ModalSettings_Ok()
+    {
+        var options = new BootstrapBlazorOptions();
+        Assert.NotNull(options.ModalSettings);
+
+        options.ModalSettings.IsFade = true;
+
+        Assert.True(options.ModalSettings.IsFade);
+    }
 }

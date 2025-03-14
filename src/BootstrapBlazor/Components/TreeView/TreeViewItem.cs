@@ -30,7 +30,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     /// <summary>
     /// 获得/设置 子节点集合
     /// </summary>
-    IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = value.OfType<TreeViewItem<TItem>>().ToList(); }
+    IEnumerable<IExpandableNode<TItem>> IExpandableNode<TItem>.Items { get => Items; set => Items = [.. value.OfType<TreeViewItem<TItem>>()]; }
 
     /// <summary>
     /// 获得/设置 父级节点

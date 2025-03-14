@@ -1,0 +1,14 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits ComponentBase
+
+<div class="tree-node-toolbar-edit" @onclick:preventDefault @onclick:stopPropagation>
+    <PopConfirmButton Icon="fa-solid fa-gear" Title="@Title" OnConfirm="OnConfirm">
+        <BodyTemplate>
+            <div class="tree-view-edit-form">
+                <span>@Text</span>
+                <BootstrapInput @bind-Value="@_text" SkipValidate="true" ShowLabel="false"></BootstrapInput>
+            </div>
+        </BodyTemplate>
+    </PopConfirmButton>
+</div>
