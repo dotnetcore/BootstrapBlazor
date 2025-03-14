@@ -711,7 +711,10 @@
     "TreeViewEnableKeyboardArrowUpDownIntro": "通过设置 <code>EnableKeyboardArrowUpDown=\"true\"</code> 支持键盘上下箭头操作。<kbd>左箭头</kbd> 收起节点，<kbd>右箭头</kbd> 展开节点，<kbd>上箭头</kbd> 向上移动节点，<kbd>下箭头</kbd> 向下移动节点，<kbd>空格</kbd> 选中节点",
     "TreeViewVirtualizeTitle": "虚拟滚动",
     "TreeViewVirtualizeIntro": "通过设置 <code>IsVirtualize=\"true\"</code> 开启虚拟滚动，支持大数据",
-    "TreeViewVirtualizeDescription": "组件内部使用 <code>Virtualize</code> 来实现虚拟滚动逻辑，对浏览器压力会减少很多；但是如果树状结构数据比较多，比如 <b>全选</b> 等操作必须对所有数据进行标记，导致内存中确实有大数据存在，目前还没有解决这个问题，目前此组件由于大数据对 <b>CPU</b> 压力还是比较大的"
+    "TreeViewVirtualizeDescription": "组件内部使用 <code>Virtualize</code> 来实现虚拟滚动逻辑，对浏览器压力会减少很多；但是如果树状结构数据比较多，比如 <b>全选</b> 等操作必须对所有数据进行标记，导致内存中确实有大数据存在，目前还没有解决这个问题，目前此组件由于大数据对 <b>CPU</b> 压力还是比较大的",
+    "TreeViewShowToolbarTitle": "显示工具栏",
+    "TreeViewShowToolbarIntro": "通过设置 <code>ShowToolbar=\"true\"</code> 显示工具栏",
+    "TreeViewShowToolbarDesc": "开启后鼠标悬浮节点时，右侧出现工具栏图标，可自定义工具栏功能；通过设置 <code>OnUpdateCallbackAsync</code> 回调方法进行数据的更新；通过设置 <code>ToolbarTemplate</code> 定义工具栏模板，如未设置时使用内部默认更改节点名称模板"
   },
   "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
     "SwitchButtonsTitle": "Switch Button 状态切换按钮",
@@ -5747,11 +5750,9 @@
   },
   "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "简介",
-    "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
-    "P2": "依赖关系为：BootstrapBlazor > Bootstrap",
-    "P3": "最新 <a href='template' target='_blank'>项目模板</a> 中将以上依赖进行了打包捆绑大大简化使用",
+    "SubTitle": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
     "UpdateTitle": "更新日志",
-    "UpdateLog": "为了修复组件 <code>bug</code> 每天可能有小版本发布，每个月第二个 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志",
+    "UpdateLog": "为了修复组件 <code>bug</code> 每天可能有小版本发布更新日志",
     "UpdateLogLink": "[传送门]",
     "LearnTitle": "学习资料",
     "LearnLi1": "Blazor 官方文档",
@@ -5770,7 +5771,7 @@
     "GetStarted": "快速上手",
     "QuickStart": "快速入门",
     "Features": "组件特色",
-    "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
+    "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>Online</code> 组件",
     "Advantage": "优势",
     "AdvantageLi1": "使用组件无需编写 <code>JavaScript</code>",
     "AdvantageLi2": "组件支持所有 <code>html</code> 特性",

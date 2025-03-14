@@ -86,9 +86,14 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public string? JSModuleVersion { get; set; }
 
     /// <summary>
-    /// Gets or sets the table settings instance
+    /// Gets or sets the <see cref="TableSettings"/> configuration instance
     /// </summary>
     public TableSettings TableSettings { get; set; } = new();
+
+    /// <summary>
+    /// Gets or sets the <see cref="ModalSettings"/> configuration instance
+    /// </summary>
+    public ModalSettings ModalSettings { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the <see cref="StepSettings"/> configuration instance
@@ -96,32 +101,32 @@ public class BootstrapBlazorOptions : IOptions<BootstrapBlazorOptions>
     public StepSettings StepSettings { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the <see cref="ConnectionHubOptions"/> configuration, default is not null
+    /// Gets or sets the <see cref="ConnectionHubOptions"/> configuration
     /// </summary>
     public ConnectionHubOptions ConnectionHubOptions { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the <see cref="WebClientOptions"/> configuration, default is not null
+    /// Gets or sets the <see cref="WebClientOptions"/> configuration
     /// </summary>
     public WebClientOptions WebClientOptions { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the <see cref="IpLocatorOptions"/> configuration, default is not null
+    /// Gets or sets the <see cref="IpLocatorOptions"/> configuration
     /// </summary>
     public IpLocatorOptions IpLocatorOptions { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the <see cref="ScrollOptions"/> configuration, default is not null
+    /// Gets or sets the <see cref="ScrollOptions"/> configuration
     /// </summary>
     public ScrollOptions ScrollOptions { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the <see cref="ContextMenuOptions"/> configuration, default is not null
+    /// Gets or sets the <see cref="ContextMenuOptions"/> configuration
     /// </summary>
     public ContextMenuOptions ContextMenuOptions { get; set; } = new();
 
     /// <summary>
-    /// Gets or sets the CacheManagerOptions configuration, default is not null
+    /// Gets or sets the CacheManagerOptions configuration
     /// </summary>
     public CacheManagerOptions CacheManagerOptions { get; set; } = new();
 

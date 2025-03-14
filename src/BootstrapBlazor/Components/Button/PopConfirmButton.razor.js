@@ -31,9 +31,8 @@ export function init(id) {
     confirm.inserted = () => {
         const popover = getDescribedElement(el)
         const children = confirm.container.children
-        const len = children.length
-        for (let i = 0; i < len; i++) {
-            popover.appendChild(children[i])
+        while (children.length > 0) {
+            popover.appendChild(children[0])
         }
     }
     confirm.hide = () => {

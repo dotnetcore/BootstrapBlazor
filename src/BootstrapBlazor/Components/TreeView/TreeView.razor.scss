@@ -39,6 +39,10 @@
         align-items: center;
         cursor: pointer;
 
+        .tree-content-toolbar {
+            display: none;
+        }
+
         .tree-content-header {
             flex-basis: calc(var(--bb-tree-padding-left) * var(--bb-tree-view-level, 0));
             flex-shrink: 0;
@@ -131,6 +135,34 @@
 
         &.disabled {
             opacity: var(--bb-tree-disabled-opacity);
+        }
+
+        .tree-node-toolbar-edit {
+            position: absolute;
+            right: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        &:not(:hover) .tree-node-toolbar-edit {
+            display: none;
+        }
+    }
+}
+
+.tree-view-edit-form {
+    display: flex;
+
+    > span {
+        display: flex;
+        align-items: center;
+        margin-inline-end: 0.25rem;
+
+        & + * {
+            flex: 1;
+            width: 1%;
+            min-width: 0;
         }
     }
 }

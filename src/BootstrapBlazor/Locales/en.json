@@ -306,7 +306,9 @@
     "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
   },
   "BootstrapBlazor.Components.TreeView": {
-    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter",
+    "ToolbarEditTitle": "Edit Tree Node",
+    "ToolbarEditLabelText": "Rename"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Delete",
