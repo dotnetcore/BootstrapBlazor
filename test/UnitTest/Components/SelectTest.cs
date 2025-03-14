@@ -434,8 +434,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
 
         // 值为 null
-        // 候选项中无，导致默认选择第一个 Value 被更改为 true
-        Assert.True(cut.Instance.Value);
+        Assert.Null(cut.Instance.Value);
     }
 
     [Fact]
