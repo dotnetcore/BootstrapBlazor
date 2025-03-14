@@ -171,11 +171,11 @@ public partial class TreeViewRow<TItem>
         .AddClass("disabled", ItemDisabledState)
         .Build();
 
-    private string? ItemTextClassString() => CssBuilder.Default("tree-node-text")
+    private string? ItemTextClassString => CssBuilder.Default("tree-node-text")
         .AddClass(Item.CssClass)
         .Build();
 
-    private string? IconClassString() => CssBuilder.Default("tree-icon")
+    private string? IconClassString => CssBuilder.Default("tree-icon")
         .AddClass(Item.Icon)
         .AddClass(Item.ExpandIcon, Item.IsExpand && !string.IsNullOrEmpty(Item.ExpandIcon))
         .Build();
