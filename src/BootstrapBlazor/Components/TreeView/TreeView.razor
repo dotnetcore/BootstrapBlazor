@@ -49,7 +49,13 @@ else
             <div class="tree-root scroll is-virtual" tabindex="0">
                 <Virtualize ItemSize="RowHeight" OverscanCount="10" Items="@Rows">
                     <ItemContent>
-                        @RenderTreeRow(context)
+                        <TreeViewRow @key="context" IsActive="GetActive(context)" Index="GetIndex(context)" Item="context"
+                                     IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
+                                     ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
+                                     ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
+                                     OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
+                                     ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
+                                     OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"></TreeViewRow>
                     </ItemContent>
                 </Virtualize>
             </div>
@@ -59,52 +65,15 @@ else
             <div class="tree-root scroll" tabindex="0">
                 @foreach (var item in Rows)
                 {
-                    @RenderTreeRow(item)
+                    <TreeViewRow @key="item" IsActive="GetActive(item)" Index="GetIndex(item)" Item="item"
+                                 IsDisabled="IsDisabled" CanExpandWhenDisabled="CanExpandWhenDisabled"
+                                 ShowCheckbox="ShowCheckbox" ShowIcon="ShowIcon"
+                                 ShowToolbar="ShowToolbar" ShowToolbarCallback="ShowToolbarCallback"
+                                 OnToggleNodeAsync="OnToggleNodeAsync" OnClick="OnClick"
+                                 ToolbarEditTitle="@ToolbarEditTitle" ToolbarEditLabelText="@ToolbarEditLabelText"
+                                 OnBeforeStateChangedCallback="OnBeforeStateChangedCallback"></TreeViewRow>
                 }
             </div>
         }
     </div>
-}
-
-@code {
-    private RenderFragment<TreeViewItem<TItem>> RenderTreeRow => item =>
-    @<div @key="item" class="@GetContentClassString(item)" data-bb-tree-view-index="@Rows.IndexOf(item)" @oncontextmenu="e => OnContextMenu(e, item)" @oncontextmenu:preventDefault="IsPreventDefault" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd" style="@GetTreeRowStyle(item)">
-        <div class="tree-content-header"></div>
-        <div class="tree-content-body">
-            <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="CanTriggerClickNode(item)" OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
-            <i class="@NodeLoadingClassString"></i>
-            @if (ShowCheckbox)
-            {
-                <Checkbox Value="@item" IsDisabled="GetItemDisabledState(item)"
-                          SkipValidate="true" ShowLabel="false" ShowAfterLabel="false"
-                          State="@item.CheckedState" OnStateChanged="(state, v) => OnCheckStateChanged(item, state)"
-                          OnBeforeStateChanged="@(MaxSelectedCount > 0 ? state => OnBeforeStateChangedCallback(item, state) : null)" ></Checkbox>
-            }
-            <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
-                @if (ShowIcon)
-                {
-                    <i class="@GetIconClassString(item)"></i>
-                }
-                @if (item.Template == null)
-                {
-                    <span class="@GetItemTextClassString(item)">@item.Text</span>
-                }
-                else
-                {
-                    @item.Template(item.Value)
-                }
-                @RenderToolbar(item)
-            </DynamicElement>
-        </div>
-    </div>;
-
-    RenderFragment<TreeViewItem<TItem>> RenderToolbarContent => item =>
-    @<div class="tree-node-toolbar">
-        <PopConfirmButton Icon="fa-solid fa-gear" OnConfirm="() => OnUpdateItemAsync(item)">
-            <BodyTemplate>
-                <span class="me-2">Label: </span>
-                <BootstrapInput @bind-Value="@item.Text"></BootstrapInput>
-            </BodyTemplate>
-        </PopConfirmButton>
-    </div>;
 }

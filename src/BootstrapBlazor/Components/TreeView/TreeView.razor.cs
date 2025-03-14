@@ -23,35 +23,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private static string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
-        .AddClass(item.Icon)
-        .AddClass(item.ExpandIcon, item.IsExpand && !string.IsNullOrEmpty(item.ExpandIcon))
-        .Build();
-
-    private string? GetCaretClassString(TreeViewItem<TItem> item) => CssBuilder.Default("node-icon")
-        .AddClass("visible", item.HasChildren || item.Items.Count > 0)
-        .AddClass(NodeIcon, !item.IsExpand)
-        .AddClass(ExpandNodeIcon, item.IsExpand)
-        .AddClass("disabled", IsDisabled || (!CanExpandWhenDisabled && item.IsDisabled))
-        .Build();
-
-    private string? NodeLoadingClassString => CssBuilder.Default("node-icon node-loading")
-        .AddClass(LoadingIcon)
-        .Build();
-
-    private string? GetContentClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-content")
-        .AddClass("active", _activeItem == item)
-        .Build();
-
-    private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", GetItemDisabledState(item))
-        .Build();
-
     private bool CanTriggerClickNode(TreeViewItem<TItem> item) => !IsDisabled && (CanExpandWhenDisabled || !item.IsDisabled);
-
-    private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
-
-    private bool GetItemDisabledState(TreeViewItem<TItem> item) => item.IsDisabled || IsDisabled;
 
     private TreeViewItem<TItem>? _activeItem;
 
@@ -274,8 +246,17 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Parameter]
     public Func<TreeViewItem<TItem>, Task<bool>>? OnUpdateTreeNodeAsync { get; set; }
 
-    [CascadingParameter]
-    private ContextMenuZone? ContextMenuZone { get; set; }
+    /// <summary>
+    /// Gets or sets the title of the popup-window. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ToolbarEditTitle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title of the popup-window. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? ToolbarEditLabelText { get; set; }
 
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
@@ -287,10 +268,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
 
     [NotNull]
     private TreeNodeCache<TreeViewItem<TItem>, TItem>? _treeNodeStateCache = null;
@@ -313,10 +290,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
     private bool _shouldRender = true;
 
-    private static string? GetItemTextClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node-text")
-        .AddClass(item.CssClass)
-        .Build();
-
     private bool _init;
 
     /// <summary>
@@ -328,6 +301,8 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 
         _treeNodeStateCache = new(this);
         NotSetOnTreeExpandErrorMessage = Localizer[nameof(NotSetOnTreeExpandErrorMessage)];
+        ToolbarEditTitle = Localizer[nameof(ToolbarEditTitle)];
+        ToolbarEditLabelText = Localizer[nameof(ToolbarEditLabelText)];
     }
 
     /// <summary>
@@ -430,7 +405,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             }
             else if (key == "ArrowLeft" || key == "ArrowRight")
             {
-                await OnToggleNodeAsync(_activeItem, true);
+                await OnToggleNodeAsync(_activeItem);
             }
         }
     }
@@ -575,7 +550,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         _activeItem = item;
         if (ClickToggleNode && CanTriggerClickNode(item))
         {
-            await OnToggleNodeAsync(item, false);
+            await OnToggleNodeAsync(item);
         }
 
         if (OnTreeItemClick != null)
@@ -660,8 +635,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// Toggle node expand collapse state method
     /// </summary>
     /// <param name="node"></param>
-    /// <param name="shouldRender"></param>
-    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node, bool shouldRender)
+    private async Task OnToggleNodeAsync(TreeViewItem<TItem> node)
     {
         // 手风琴效果逻辑
         node.IsExpand = !node.IsExpand;
@@ -706,11 +680,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                 node.Items[0].SetParentCheck(_treeNodeStateCache);
             }
         }
-
-        if (shouldRender)
-        {
-            StateHasChanged();
-        }
+        StateHasChanged();
     }
 
     private async Task OnCheckStateChanged(TreeViewItem<TItem> item, CheckboxState state)
@@ -778,54 +748,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     public bool Equals(TItem? x, TItem? y) => this.Equals<TItem>(x, y);
 
-    private async Task OnContextMenu(MouseEventArgs e, TreeViewItem<TItem> item)
-    {
-        if (ContextMenuZone != null)
-        {
-            await ContextMenuZone.OnContextMenu(e, item.Value);
-        }
-    }
-
-    private bool IsPreventDefault => ContextMenuZone != null;
-
-    private bool _touchStart = false;
-
-    private bool _isBusy = false;
-
-    private async Task OnTouchStart(TouchEventArgs e, TreeViewItem<TItem> item)
-    {
-        if (!_isBusy && ContextMenuZone != null)
-        {
-            _isBusy = true;
-            _touchStart = true;
-
-            // 延时保持 TouchStart 状态
-            // keep the TouchStart state for a while
-            var delay = Options.CurrentValue.ContextMenuOptions.OnTouchDelay;
-            await Task.Delay(delay);
-            if (_touchStart)
-            {
-                var args = new MouseEventArgs()
-                {
-                    ClientX = e.Touches[0].ClientX,
-                    ClientY = e.Touches[0].ClientY,
-                    ScreenX = e.Touches[0].ScreenX,
-                    ScreenY = e.Touches[0].ScreenY,
-                };
-                await OnContextMenu(args, item);
-
-                // prevents the menu from being activated repeatedly
-                await Task.Delay(delay);
-            }
-            _isBusy = false;
-        }
-    }
-
-    private void OnTouchEnd()
-    {
-        _touchStart = false;
-    }
-
     private List<TreeViewItem<TItem>>? _rows = null;
 
     private List<TreeViewItem<TItem>> Rows
@@ -838,27 +760,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     private List<TreeViewItem<TItem>> GetTreeItems() => _searchItems ?? Items;
-
-    private static string? GetTreeRowStyle(TreeViewItem<TItem> item)
-    {
-        var level = 0;
-        var parent = item.Parent;
-        while (parent != null)
-        {
-            level++;
-            parent = parent.Parent;
-        }
-        return $"--bb-tree-view-level: {level};";
-    }
-
-    private RenderFragment RenderToolbar(TreeViewItem<TItem> item) => builder =>
-    {
-        builder.OpenComponent<TreeViewToolbar<TItem>>(0);
-        builder.AddAttribute(10, nameof(TreeViewToolbar<TItem>.Item), item);
-        builder.AddAttribute(20, nameof(TreeViewToolbar<TItem>.ShowToolbarAsync), ShowTollbarAsync);
-        builder.AddAttribute(30, nameof(TreeViewToolbar<TItem>.ChildContent), RenderToolbarContent);
-        builder.CloseComponent();
-    };
 
     private async Task<bool> ShowTollbarAsync(TreeViewItem<TItem> item)
     {
@@ -873,4 +774,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     {
 
     }
+
+    private bool GetActive(TreeViewItem<TItem> item) => _activeItem == item;
+
+    private int GetIndex(TreeViewItem<TItem> item) => Rows.IndexOf(item);
+
+    private bool GetDisabled(TreeViewItem<TItem> item) => IsDisabled || (!CanExpandWhenDisabled && item.IsDisabled);
 }
