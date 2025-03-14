@@ -1179,6 +1179,33 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Contains("node-icon visible fa-solid fa-caret-right");
     }
 
+    [Fact]
+    public void ShowToolbar_Ok()
+    {
+        List<TreeFoo> data =
+        [
+            new() { Text = "1010", Id = "1010" },
+            new() { Text = "1010-01", Id = "1010-01", ParentId = "1010" },
+        ];
+
+        var items = TreeFoo.CascadingTree(data);
+        items[0].IsActive = true;
+        var count = 0;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowToolbar, true);
+            pb.Add(a => a.ShowToolbarCallback, foo =>
+            {
+                count++;
+                return Task.FromResult(true);
+            });
+            pb.Add(a => a.Items, items);
+        });
+
+        // 节点未展开只回调一次
+        Assert.Equal(1, count);
+    }
+
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
         public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
