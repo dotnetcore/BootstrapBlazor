@@ -585,7 +585,11 @@ public partial class Select<TValue> : ISelect, ILookup
 
             if (SelectedItem != null) SelectedItem.Active = false;
             SelectedItem = null;
-
+            if (Items != null) //数据中存在多个IsActive= true的 需要都清空
+                foreach (var nowItems in Items)
+                {
+                    nowItems.Active = false;
+                }
             // 触发 StateHasChanged
             _lastSelectedValueString = string.Empty;
             CurrentValueAsString = _lastSelectedValueString;
