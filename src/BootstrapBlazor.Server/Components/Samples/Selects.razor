@@ -338,12 +338,21 @@
 <DemoBlock Title="@Localizer["SelectsClearableTitle"]"
            Introduction="@Localizer["SelectsClearableIntro"]"
            Name="IsClearable">
+    <section ignore>
+        <p>@((MarkupString)Localizer["SelectsClearableDesc"].Value)</p>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
+            <Select IsClearable="true" Items="ClearableItems" Value="ClearableModel.NullableName" ShowLabel="true" DisplayText="string?"></Select>
         </div>
         <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
+            <Select IsClearable="true" Items="Items" Value="ClearableModel.Name" ShowLabel="true" DisplayText="string"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="IntItems" Value="ClearableModel.NullableCount" ShowLabel="true" DisplayText="int?"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select IsClearable="true" Items="IntItems" Value="ClearableModel.Count" ShowLabel="true" DisplayText="int"></Select>
         </div>
     </div>
 </DemoBlock>

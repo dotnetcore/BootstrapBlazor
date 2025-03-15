@@ -3111,6 +3111,7 @@
     "SelectsBindingIntro": "The values in the text box change as you change the drop-down option by binding the <code>Model.Name</code> property to the component with <code>Select</code>",
     "SelectsClearableTitle": "Clearable",
     "SelectsClearableIntro": "You can clear Select using a clear icon",
+    "SelectsClearableDesc": "Cannot be a null integer. Setting <code>IsClearable</code> has no effect. Its default value is <b>0</b>",
     "SelectsBindingSelectedItemTitle": "Select two-way binding SelectItem type",
     "SelectsBindingSelectedItemIntro": "The values in the text box change as you change the drop-down option by binding the <code>SelectItem</code> property to the component with <code>Select</code> .",
     "SelectsCascadingTitle": "Select cascading binding",
