@@ -588,6 +588,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
         _lastSelectedValueString = string.Empty;
         CurrentValue = default;
+        SelectedItem = null;
     }
 
     private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
