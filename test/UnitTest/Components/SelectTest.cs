@@ -178,7 +178,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsNullable_NotNullableString_Ok()
+    public void IsNullable_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
@@ -190,12 +190,8 @@ public class SelectTest : BootstrapBlazorTestBase
             });
         });
         Assert.True(IsNullable(cut.Instance));
-    }
 
-    [Fact]
-    public void IsNullable_NullableString_Ok()
-    {
-        var cut = Context.RenderComponent<Select<string?>>(pb =>
+        var cut1 = Context.RenderComponent<Select<string?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -204,13 +200,9 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("3", "Test3")
             });
         });
-        Assert.True(IsNullable(cut.Instance));
-    }
+        Assert.True(IsNullable(cut1.Instance));
 
-    [Fact]
-    public void IsNullable_NotNullableFoo_Ok()
-    {
-        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        var cut2 = Context.RenderComponent<Select<Foo>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -219,13 +211,9 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("3", "Test3")
             });
         });
-        Assert.False(IsNullable(cut.Instance));
-    }
+        Assert.True(IsNullable(cut2.Instance));
 
-    [Fact]
-    public void IsNullable_NullableFoo_Ok()
-    {
-        var cut = Context.RenderComponent<Select<Foo?>>(pb =>
+        var cut3 = Context.RenderComponent<Select<Foo?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -234,13 +222,9 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("3", "Test3")
             });
         });
-        Assert.True(IsNullable(cut.Instance));
-    }
+        Assert.True(IsNullable(cut3.Instance));
 
-    [Fact]
-    public void IsNullable_NotNullableInt_Ok()
-    {
-        var cut = Context.RenderComponent<Select<int>>(pb =>
+        var cut4 = Context.RenderComponent<Select<int>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -249,13 +233,9 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("3", "Test3")
             });
         });
-        Assert.False(IsNullable(cut.Instance));
-    }
+        Assert.False(IsNullable(cut4.Instance));
 
-    [Fact]
-    public void IsNullable_NullableInt_Ok()
-    {
-        var cut = Context.RenderComponent<Select<int?>>(pb =>
+        var cut5 = Context.RenderComponent<Select<int?>>(pb =>
         {
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
@@ -264,7 +244,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 new("3", "Test3")
             });
         });
-        Assert.True(IsNullable(cut.Instance));
+        Assert.True(IsNullable(cut5.Instance));
     }
 
     private static bool IsNullable(object select)
