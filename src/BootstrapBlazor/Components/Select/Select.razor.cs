@@ -57,90 +57,90 @@ public partial class Select<TValue> : ISelect, ILookup
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
-    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
     /// </summary>
     [Parameter]
     [NotNull]
     public string? ClearIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索文本发生变化时回调此方法
+    /// Gets or sets the callback method when the search text changes.
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
+    /// Gets or sets whether the search bar in the dropdown is fixed. Default is false.
     /// </summary>
     [Parameter]
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可编辑 默认 false
+    /// Gets or sets whether the select component is editable. Default is false.
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; }
 
     /// <summary>
-    /// 获得/设置 选项输入更新后回调方法 默认 null
+    /// Gets or sets the callback method when the input value changes. Default is null.
     /// </summary>
-    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    /// <remarks>Effective when <see cref="IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可清除 默认 false
+    /// Gets or sets whether the select component is clearable. Default is false.
     /// </summary>
     [Parameter]
     public bool IsClearable { get; set; }
 
     /// <summary>
-    /// 获得/设置 选项模板支持静态数据
+    /// Gets or sets the options template for static data.
     /// </summary>
     [Parameter]
     public RenderFragment? Options { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示部分模板 默认 null
+    /// Gets or sets the display template. Default is null.
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置，设置初始值时请设置 <see cref="DefaultVirtualizeItemText"/>
+    /// Gets or sets whether virtual scrolling is enabled. Default is false. Note: When virtual scrolling is enabled, <see cref="SelectBase{TValue}.ShowSearch"/>, <see cref="PopoverSelectBase{TValue}.IsPopover"/>, and <seealso cref="IsFixedSearch"/> are not supported. Set <see cref="DefaultVirtualizeItemText"/> when setting initial values.
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }
 
     /// <summary>
-    /// 获得/设置 虚拟滚动行高 默认为 33
+    /// Gets or sets the row height for virtual scrolling. Default is 33.
     /// </summary>
-    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
     public float RowHeight { get; set; } = 33f;
 
     /// <summary>
-    /// 获得/设置 过载阈值数 默认为 4
+    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
     /// </summary>
-    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
     [Parameter]
     public int OverscanCount { get; set; } = 4;
 
     /// <summary>
-    /// 获得/设置 默认文本 <see cref="IsVirtualize"/> 时生效 默认 null
+    /// Gets or sets the default text for virtualized items. Default is null.
     /// </summary>
-    /// <remarks>开启 <see cref="IsVirtualize"/> 并且通过 <see cref="OnQueryAsync"/> 提供数据源时，由于渲染时还未调用或者调用后数据集未包含 <see cref="DisplayBase{TValue}.Value"/> 选项值，此时使用 DefaultText 值渲染</remarks>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is enabled and data source is provided via <see cref="OnQueryAsync"/>. If the data set does not contain the <see cref="DisplayBase{TValue}.Value"/> option value during rendering, the DefaultText value is used.</remarks>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
+    /// Gets or sets the callback method when the clear button is clicked. Default is null.
     /// </summary>
     [Parameter]
     public Func<Task>? OnClearAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false
+    /// Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
@@ -149,50 +149,50 @@ public partial class Select<TValue> : ISelect, ILookup
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定数据集
+    /// Gets or sets the bound data set.
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 选项模板
+    /// Gets or sets the item template.
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉框项目改变前回调委托方法 返回 true 时选项值改变，否则选项值不变
+    /// Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task<bool>>? OnBeforeSelectedItemChange { get; set; }
 
     /// <summary>
-    /// SelectedItemChanged 回调方法
+    /// Gets or sets the callback method when the selected item changes.
     /// </summary>
     [Parameter]
     public Func<SelectedItem, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 Swal 图标 默认 Question
+    /// Gets or sets the Swal category. Default is Question.
     /// </summary>
     [Parameter]
     public SwalCategory SwalCategory { get; set; } = SwalCategory.Question;
 
     /// <summary>
-    /// 获得/设置 Swal 标题 默认 null
+    /// Gets or sets the Swal title. Default is null.
     /// </summary>
     [Parameter]
     public string? SwalTitle { get; set; }
 
     /// <summary>
-    /// 获得/设置 Swal 内容 默认 null
+    /// Gets or sets the Swal content. Default is null.
     /// </summary>
     [Parameter]
     public string? SwalContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 Footer 默认 null
+    /// Gets or sets the Swal footer. Default is null.
     /// </summary>
     [Parameter]
     public string? SwalFooter { get; set; }
@@ -216,6 +216,13 @@ public partial class Select<TValue> : ISelect, ILookup
     public object? LookupServiceData { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback method for loading virtualized items.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
@@ -230,21 +237,17 @@ public partial class Select<TValue> : ISelect, ILookup
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="ILookupService"/> 服务实例
+    /// Gets or sets the injected lookup service instance.
     /// </summary>
     [Inject]
     [NotNull]
     private ILookupService? InjectLookupService { get; set; }
 
     /// <summary>
-    /// 获得 input 组件 Id 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override string? RetrieveId() => InputId;
 
-    /// <summary>
-    /// 获得/设置 Select 内部 Input 组件 Id
-    /// </summary>
     private string? InputId => $"{Id}_input";
 
     private string _lastSelectedValueString = string.Empty;
@@ -255,9 +258,6 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private ItemsProviderResult<SelectedItem> _result;
 
-    /// <summary>
-    /// 当前选择项实例
-    /// </summary>
     private SelectedItem? SelectedItem { get; set; }
 
     private List<SelectedItem> Rows
@@ -383,13 +383,6 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
 
-    /// <summary>
-    /// 虚拟滚动数据加载回调方法
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
-
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
         // 有搜索条件时使用原生请求数量
@@ -456,14 +449,13 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
 
     /// <summary>
-    /// 客户端回车回调方法
+    /// Confirms the selected item.
     /// </summary>
-    /// <param name="index"></param>
-    /// <returns></returns>
+    /// <param name="index">The index of the selected item.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     [JSInvokable]
     public async Task ConfirmSelectedItem(int index)
     {
@@ -475,10 +467,10 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// 客户端搜索栏回调方法
+    /// Triggers the search callback method.
     /// </summary>
-    /// <param name="searchText"></param>
-    /// <returns></returns>
+    /// <param name="searchText">The search text.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
@@ -486,6 +478,11 @@ public partial class Select<TValue> : ISelect, ILookup
         StateHasChanged();
     }
 
+    /// <summary>
+    /// Handles the click event for a dropdown item.
+    /// </summary>
+    /// <param name="item">The selected item.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     private async Task OnClickItem(SelectedItem item)
     {
         var ret = true;
@@ -494,7 +491,7 @@ public partial class Select<TValue> : ISelect, ILookup
             ret = await OnBeforeSelectedItemChange(item);
             if (ret)
             {
-                // 返回 True 弹窗提示
+                // Return true to show modal
                 var option = new SwalOption()
                 {
                     Category = SwalCategory,
@@ -510,7 +507,7 @@ public partial class Select<TValue> : ISelect, ILookup
             }
             else
             {
-                // 返回 False 直接运行
+                // Return false to proceed
                 ret = true;
             }
         }
@@ -540,11 +537,10 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="item"></param>
     public void Add(SelectedItem item) => _children.Add(item);
 
     /// <summary>
-    /// 清空搜索栏文本内容
+    /// Clears the search text.
     /// </summary>
     public void ClearSearchText() => SearchText = null;
 
