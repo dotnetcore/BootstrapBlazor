@@ -47,6 +47,8 @@ public sealed partial class Selects
 
     private bool _isShowSearchClearable;
 
+    private bool _isFixedSearch;
+
     private bool _isClearable;
 
     private string? _fooName;

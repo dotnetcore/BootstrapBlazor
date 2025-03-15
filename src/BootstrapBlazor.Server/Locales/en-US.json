@@ -3154,7 +3154,7 @@
     "SelectsCustomTemplateTitle": "Custom option templates",
     "SelectsCustomTemplateIntro": "By setting the <code>ItemTemplate</code> you can customize the option rendering style",
     "SelectsShowSearchTitle": "Drop-down box with search box",
-    "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default false",
+    "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default <b>false</b>. Fixed the search bar by setting <code>IsFixedSearch</code>",
     "SelectsConfirmSelectTitle": "Drop-down box with confirmation",
     "SelectsConfirmSelectIntro": "Block changes to the current value by setting the <code>OnBeforeSelectedItemChange</code> delegate.",
     "SelectsTimeZoneTitle": "Timezone",

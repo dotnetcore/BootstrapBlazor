@@ -316,21 +316,27 @@
            Introduction="@Localizer["SelectsShowSearchIntro"]"
            Name="ShowSearch">
     <section ignore>
-        <div class="row mb-3">
+        <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="IsClearable" />
                     <Checkbox @bind-Value="@_isShowSearchClearable" />
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
+                    <Checkbox @bind-Value="@_isFixedSearch" />
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
-    <div class="row g-3 mt-3">
+    <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <Select TValue="string" Items="Items" ShowSearch="true" IsClearable="_isShowSearchClearable" IsFixedSearch="_isFixedSearch" />
         </div>
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+            <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" IsFixedSearch="_isFixedSearch" />
         </div>
     </div>
 </DemoBlock>
