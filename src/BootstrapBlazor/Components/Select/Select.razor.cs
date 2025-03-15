@@ -42,7 +42,7 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
 
-    private bool GetClearable() => IsClearable && !IsDisabled;
+    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
     /// <summary>
     /// 设置当前项是否 Active 方法
@@ -294,6 +294,11 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? GetSelectedRow()
     {
+        if (Value is null)
+        {
+            return null;
+        }
+
         var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
@@ -393,7 +398,7 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     private int TotalCount { get; set; }
 
-    private List<SelectedItem> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
+    private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -539,7 +544,6 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (_lastSelectedValueString != item.Value)
         {
-
             item.Active = true;
             SelectedItem = item;
 
@@ -556,7 +560,7 @@ public partial class Select<TValue> : ISelect, ILookup
     }
 
     /// <summary>
-    /// 添加静态下拉项方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => _children.Add(item);
@@ -577,21 +581,17 @@ public partial class Select<TValue> : ISelect, ILookup
             await OnClearAsync();
         }
 
-        SelectedItem? item;
         if (OnQueryAsync != null)
         {
             await VirtualizeElement.RefreshDataAsync();
-            item = _result.Items.FirstOrDefault();
         }
-        else
-        {
-            item = Items.FirstOrDefault();
-        }
-        if (item != null)
-        {
-            await SelectedItemChanged(item);
-        }
+
+        _lastSelectedValueString = string.Empty;
+        CurrentValue = default;
+        SelectedItem = null;
     }
+
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
 

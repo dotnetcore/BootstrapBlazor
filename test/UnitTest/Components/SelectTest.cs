@@ -8,6 +8,7 @@ using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -134,7 +135,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsClearable_Ok()
+    public async Task IsClearable_Ok()
     {
         var val = "Test2";
         var cut = Context.RenderComponent<Select<string>>(pb =>
@@ -154,8 +155,8 @@ public class SelectTest : BootstrapBlazorTestBase
             });
         });
         var clearButton = cut.Find(".clear-icon");
-        cut.InvokeAsync(() => clearButton.Click());
-        Assert.Empty(val);
+        await cut.InvokeAsync(() => clearButton.Click());
+        Assert.Null(val);
 
         // 提高代码覆盖率
         var select = cut;
@@ -174,6 +175,97 @@ public class SelectTest : BootstrapBlazorTestBase
         validPi.SetValue(select.Instance, false);
         val = pi.GetValue(select.Instance, null)!.ToString();
         Assert.Contains("text-danger", val);
+
+        // 更改数据类型为不可为空 int
+        // IsClearable 参数无效
+        var cut1 = Context.RenderComponent<Select<int>>(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("1", "Test1"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+            pb.Add(a => a.Value, 1);
+        });
+        cut1.DoesNotContain("clear-icon");
+    }
+
+    [Fact]
+    public void IsNullable_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut.Instance));
+
+        var cut1 = Context.RenderComponent<Select<string?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut1.Instance));
+
+        var cut2 = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut2.Instance));
+
+        var cut3 = Context.RenderComponent<Select<Foo?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut3.Instance));
+
+        var cut4 = Context.RenderComponent<Select<int>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.False(IsNullable(cut4.Instance));
+
+        var cut5 = Context.RenderComponent<Select<int?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut5.Instance));
+    }
+
+    private static bool IsNullable(object select)
+    {
+        var mi = select.GetType().GetMethod("IsNullable", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        return (bool)mi.Invoke(select, null)!;
     }
 
     [Fact]
@@ -434,8 +526,7 @@ public class SelectTest : BootstrapBlazorTestBase
         });
 
         // 值为 null
-        // 候选项中无，导致默认选择第一个 Value 被更改为 true
-        Assert.True(cut.Instance.Value);
+        Assert.Null(cut.Instance.Value);
     }
 
     [Fact]
@@ -735,8 +826,8 @@ public class SelectTest : BootstrapBlazorTestBase
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
 
-        // UI 恢复 Test1
-        Assert.Equal("Test1", el.Value);
+        // 可为空数据类型 UI 为 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         items = cut.FindAll(".dropdown-item");
@@ -794,8 +885,8 @@ public class SelectTest : BootstrapBlazorTestBase
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
 
-        // UI 恢复 Test1
-        Assert.Equal("All", el.Value);
+        // 可为空数据类型 UI 为 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         Assert.True(query);
