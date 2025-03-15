@@ -580,14 +580,14 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.IsFixedSearch, true);
         });
-        Assert.Contains("search show is-fixed", cut.Markup);
+        Assert.Contains("dropdown-menu is-fixed-search", cut.Markup);
         Assert.Contains("class=\"icon search-icon", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowSearch, false);
         });
-        Assert.Contains("search is-fixed", cut.Markup);
+        Assert.DoesNotContain("dropdown-menu is-fixed-search", cut.Markup);
     }
 
     [Fact]
