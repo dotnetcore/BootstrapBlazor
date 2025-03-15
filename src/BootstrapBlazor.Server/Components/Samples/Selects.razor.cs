@@ -51,7 +51,7 @@ public sealed partial class Selects
 
     private string? _fooName;
 
-    private List<SelectedItem> _enumValueDemoItems = [
+    private readonly List<SelectedItem> _enumValueDemoItems = [
         new("0", "Primary"),
         new("1", "Middle")
     ];
