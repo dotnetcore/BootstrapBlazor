@@ -6,99 +6,100 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SelectBase 组件基类
+/// SelectBase component base class
 /// </summary>
+/// <typeparam name="TValue">The type of the value.</typeparam>
 public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
 {
     /// <summary>
-    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// Gets or sets the color. The default is <see cref="Color.None"/> (no color).
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示
+    /// Gets or sets a value indicating whether to show the search box. The default is <c>false</c>.
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置搜索图标
+    /// Gets or sets the search icon.
     /// </summary>
     [Parameter]
     public string? SearchIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置正在搜索图标
+    /// Gets or sets the search loading icon.
     /// </summary>
     [Parameter]
     public string? SearchLoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索框文本
+    /// Gets or sets the search text.
     /// </summary>
     [NotNull]
     protected string? SearchText { get; set; }
 
     /// <summary>
-    /// 获得/设置 无搜索结果时显示文字
+    /// Gets or sets the text to display when no search results are found.
     /// </summary>
     [Parameter]
     public string? NoSearchDataText { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// Gets or sets the dropdown icon. The default is "fa-solid fa-angle-up".
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DropdownIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为 MarkupString 默认 false
+    /// Gets or sets a value indicating whether the content is a <see cref="MarkupString"/>. The default is <c>false</c>.
     /// </summary>
     [Parameter]
     public bool IsMarkupString { get; set; }
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
+    /// Gets or sets the string comparison rule. The default is <see cref="StringComparison.OrdinalIgnoreCase"/>.
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 分组项模板
+    /// Gets or sets the group item template.
     /// </summary>
     [Parameter]
     public RenderFragment<string>? GroupItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动行为 默认 <see cref="ScrollIntoViewBehavior.Smooth"/>
+    /// Gets or sets the scroll behavior. The default is <see cref="ScrollIntoViewBehavior.Smooth"/>.
     /// </summary>
     [Parameter]
     public ScrollIntoViewBehavior ScrollIntoViewBehavior { get; set; } = ScrollIntoViewBehavior.Smooth;
 
     /// <summary>
-    /// 获得/设置 IIconTheme 服务实例
+    /// Gets or sets the <see cref="IIconTheme"/> service instance.
     /// </summary>
     [Inject]
     [NotNull]
     protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得 PlaceHolder 属性
+    /// Gets or sets the placeholder text.
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
+    /// Gets the search icon string with default "icon search-icon" class.
     /// </summary>
     protected string? SearchIconString => CssBuilder.Default("icon search-icon")
         .AddClass(SearchIcon)
         .Build();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// Gets the custom class string.
     /// </summary>
     protected override string? CustomClassString => CssBuilder.Default()
         .AddClass("select", IsPopover)
@@ -106,7 +107,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .Build();
 
     /// <summary>
-    /// 获得 样式集合
+    /// Gets the append class string.
     /// </summary>
     protected string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
@@ -126,14 +127,14 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     }
 
     /// <summary>
-    /// 显示下拉框方法
+    /// Shows the dropdown.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task Show() => InvokeVoidAsync("show", Id);
 
     /// <summary>
-    /// 关闭下拉框方法
+    /// Hides the dropdown.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task Hide() => InvokeVoidAsync("hide", Id);
 }
