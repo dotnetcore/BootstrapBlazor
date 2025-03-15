@@ -8,6 +8,7 @@ using AngleSharp.Html.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -174,6 +175,102 @@ public class SelectTest : BootstrapBlazorTestBase
         validPi.SetValue(select.Instance, false);
         val = pi.GetValue(select.Instance, null)!.ToString();
         Assert.Contains("text-danger", val);
+    }
+
+    [Fact]
+    public void IsNullable_NotNullableString_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut.Instance));
+    }
+
+    [Fact]
+    public void IsNullable_NullableString_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut.Instance));
+    }
+
+    [Fact]
+    public void IsNullable_NotNullableFoo_Ok()
+    {
+        var cut = Context.RenderComponent<Select<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.False(IsNullable(cut.Instance));
+    }
+
+    [Fact]
+    public void IsNullable_NullableFoo_Ok()
+    {
+        var cut = Context.RenderComponent<Select<Foo?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut.Instance));
+    }
+
+    [Fact]
+    public void IsNullable_NotNullableInt_Ok()
+    {
+        var cut = Context.RenderComponent<Select<int>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.False(IsNullable(cut.Instance));
+    }
+
+    [Fact]
+    public void IsNullable_NullableInt_Ok()
+    {
+        var cut = Context.RenderComponent<Select<int?>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
+            });
+        });
+        Assert.True(IsNullable(cut.Instance));
+    }
+
+    private static bool IsNullable(object select)
+    {
+        var mi = select.GetType().GetMethod("IsNullable", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        return (bool)mi.Invoke(select, null)!;
     }
 
     [Fact]
