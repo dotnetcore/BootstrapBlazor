@@ -47,6 +47,8 @@ public sealed partial class Selects
 
     private bool _isShowSearchClearable;
 
+    private bool _isFixedSearch;
+
     private bool _isClearable;
 
     private string? _fooName;
@@ -352,6 +354,14 @@ public sealed partial class Selects
         {
             Name = "IsEditable",
             Description = Localizer["SelectsIsEditable"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsFixedSearch",
+            Description = Localizer["SelectsIsFixedSearch"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"

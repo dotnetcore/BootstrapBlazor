@@ -3154,7 +3154,7 @@
     "SelectsCustomTemplateTitle": "自定义选项模板",
     "SelectsCustomTemplateIntro": "通过设置 <code>ItemTemplate</code> 可以自定义选项渲染样式",
     "SelectsShowSearchTitle": "带搜索框的下拉框",
-    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框",
+    "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 <b>false</b> 不显示搜索框；通过设置 <code>IsFixedSearch</code> 固定搜索栏",
     "SelectsConfirmSelectTitle": "带确认的下拉框",
     "SelectsConfirmSelectIntro": "通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变",
     "SelectsTimeZoneTitle": "时区下拉框",
@@ -3194,7 +3194,8 @@
     "SelectsGenericDesc": "<p>请参考 <a href=\"https://github.com/dotnetcore/BootstrapBlazor/issues/4497?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">设计思路</a> 理解此功能。本例中通过选择下拉框选项，得到的值为 <code>Foo</code> 实例，右侧文本框内显示值为 <code>Foo</code> 属性 <code>Address</code> 值</p><p>本例中未设置 <code>ValueEqualityComparer</code> 以及 <code>CustomKeyAttribute</code> 参数，使用 <code>Foo</code> 属性 <code>Id</code> 的 <code>[Key]</code> 标签进行相等判定</p>",
     "SelectsOnInputChangedCallback": "编辑模式下输入文本转换为对应 Value 回调方法",
     "TextConvertToValueCallback": "编辑模式下输入文本变化时回调方法",
-    "SelectsIsEditable": "是否可编辑"
+    "SelectsIsEditable": "是否可编辑",
+    "SelectsIsFixedSearch": "是否固定搜索栏"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",
