@@ -43,13 +43,12 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
-    private string? SearchClassString => CssBuilder.Default("search")
-        .AddClass("show", ShowSearch)
-        .AddClass("is-fixed", IsFixedSearch)
-        .Build();
-
     private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
         .AddClass(SearchLoadingIcon)
+        .Build();
+
+    private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("is-fixed-search", IsFixedSearch)
         .Build();
 
     private readonly List<SelectedItem> _children = [];

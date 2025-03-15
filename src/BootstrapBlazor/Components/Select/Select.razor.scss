@@ -209,46 +209,45 @@
     border-color: transparent transparent var(--bs-info);
 }
 
-.dropdown-menu .search {
-    padding: var(--bb-select-search-padding);
-    position: relative;
-    border-block-end: var(--bs-border-width) solid var(--bb-select-search-border-color);
-    margin-block-end: var(--bb-select-search-margin-bottom);
+.dropdown-menu {
+    .dropdown-menu-search {
+        padding: var(--bb-select-search-padding);
+        position: relative;
+        border-block-end: var(--bs-border-width) solid var(--bb-select-search-border-color);
+        margin-block-end: var(--bb-select-search-margin-bottom);
 
-    &:not(.show) {
-        display: none;
-    }
+        &.l {
+            .search-icon {
+                display: none;
+            }
 
-    &.l {
-        .search-icon {
-            display: none;
+            .searching-icon {
+                display: block;
+            }
         }
 
         .searching-icon {
-            display: block;
+            display: none;
         }
     }
 
-    .searching-icon {
-        display: none;
+    .search-text {
+        padding-inline-end: var(--bb-select-search-padding-right);
     }
-}
 
-.dropdown-menu .search.is-fixed {
-    position: sticky;
-    top: calc(-1 * var(--bs-dropdown-padding-y));
-    background-color: var(--bs-dropdown-bg);
-}
+    .icon {
+        position: absolute;
+        right: var(--bb-select-search-icon-right);
+        top: var(--bb-select-search-icon-top);
+        color: var(--bb-select-search-icon-color);
+    }
 
-.dropdown-menu .search .search-text {
-    padding-inline-end: var(--bb-select-search-padding-right);
-}
-
-.dropdown-menu .search .icon {
-    position: absolute;
-    right: var(--bb-select-search-icon-right);
-    top: var(--bb-select-search-icon-top);
-    color: var(--bb-select-search-icon-color);
+    &.is-fixed-search {
+        .dropdown-menu-body {
+            max-height: calc(var(--bb-dropdown-max-height) - 76px);
+            overflow: auto;
+        }
+    }
 }
 
 .select:not(.multi-select) .dropdown-toggle {
