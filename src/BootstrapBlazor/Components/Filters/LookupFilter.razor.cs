@@ -58,6 +58,12 @@ public partial class LookupFilter : ILookup
     [Parameter]
     public bool IsShowSearch { get; set; }
 
+    /// <summary>
+    /// 获得 是否为 ShowSearch 呈现模式 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }

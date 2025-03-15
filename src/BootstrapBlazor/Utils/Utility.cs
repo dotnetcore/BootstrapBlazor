@@ -532,6 +532,7 @@ public static class Utility
         if (item.IsLookup() && item.Items == null)
         {
             builder.AddAttribute(110, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(111, nameof(Select<SelectedItem>.IsFixedSearch), item.IsFixedSearchWhenSelect);
             builder.AddAttribute(115, nameof(Select<SelectedItem>.Items), item.Lookup);
             builder.AddAttribute(120, nameof(Select<SelectedItem>.LookupService), lookupService);
             builder.AddAttribute(121, nameof(Select<SelectedItem>.LookupServiceKey), item.LookupServiceKey);
@@ -544,6 +545,7 @@ public static class Utility
         {
             builder.AddAttribute(140, nameof(Select<SelectedItem>.Items), item.Items.Clone());
             builder.AddAttribute(150, nameof(Select<SelectedItem>.ShowSearch), item.ShowSearchWhenSelect);
+            builder.AddAttribute(151, nameof(Select<SelectedItem>.IsFixedSearch), item.IsFixedSearchWhenSelect);
         }
 
         // 设置 SkipValidate 参数

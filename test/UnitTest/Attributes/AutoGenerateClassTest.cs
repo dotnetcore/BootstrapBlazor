@@ -222,6 +222,9 @@ public class AutoGenerateClassTest
         attrEditor.ShowSearchWhenSelect = true;
         Assert.True(attrEditor.ShowSearchWhenSelect);
 
+        attrEditor.IsFixedSearchWhenSelect = true;
+        Assert.True(attrEditor.IsFixedSearchWhenSelect);
+
         attrEditor.IsPopover = true;
         Assert.True(attrEditor.IsPopover);
 

@@ -9,9 +9,8 @@ using System.Linq.Expressions;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// EditorItem 组件
+/// EditorItem component
 /// </summary>
-/// <remarks>用于 EditorForm 的 FieldItems 模板内</remarks>
 public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
 {
     /// <summary>
@@ -27,7 +26,7 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public EventCallback<TValue> FieldChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定列类型
+    /// <inheritdoc/>
     /// </summary>
     [NotNull]
     public Type? PropertyType { get; set; }
@@ -71,19 +70,19 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public string? RequiredErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否不进行验证 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 表头显示文字
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
@@ -95,13 +94,13 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public string? Step { get; set; }
 
     /// <summary>
-    /// 获得/设置 Textarea行数
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public int Rows { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑模板
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public RenderFragment<TModel>? EditTemplate { get; set; }
@@ -121,46 +120,52 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     }
 
     /// <summary>
-    /// 获得/设置 组件类型 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public Type? ComponentType { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件自定义类型参数集合 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
-    /// 获得/设置 placeholder 文本 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示顺序
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public int Order { get; set; }
 
     /// <summary>
-    /// 获得/设置 额外数据源一般用于下拉框或者 CheckboxList 这种需要额外配置数据源组件使用
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -193,32 +198,28 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     public ILookupService? LookupService { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义验证集合
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public List<IValidator>? ValidateRules { get; set; }
 
-    /// <summary>
-    /// 获得/设置 IEditorItem 集合实例
-    /// </summary>
-    /// <remarks>EditorForm 组件级联传参下来的值</remarks>
     [CascadingParameter]
     private List<IEditorItem>? EditorItems { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前属性分组
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public string? GroupName { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前属性分组排序 默认 0
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public int GroupOrder { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -235,13 +236,14 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     }
 
     private FieldIdentifier? _fieldIdentifier;
+
     /// <summary>
-    /// 获取绑定字段显示名称方法
+    /// Gets the display name for the field.
     /// </summary>
     public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? string.Empty;
 
     /// <summary>
-    /// 获取绑定字段信息方法
+    /// Gets the field name for the field.
     /// </summary>
     public string GetFieldName() => _fieldIdentifier?.FieldName ?? string.Empty;
 }

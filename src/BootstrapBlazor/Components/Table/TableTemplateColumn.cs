@@ -6,10 +6,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableTemplateColumn 表格模板列
+/// TableTemplateColumn component
 /// </summary>
-/// <remarks>不需要绑定模型属性</remarks>
+/// <remarks>No need to bind model properties</remarks>
 public class TableTemplateColumn<TItem> : TableColumn<TItem, object>
 {
-    
+
 }
