@@ -87,19 +87,6 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsClearableTitle"]"
-           Introduction="@Localizer["SelectsClearableIntro"]"
-           Name="IsClearable">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
-        </div>
-        <div class="col-12 col-sm-6">
-            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
-        </div>
-    </div>
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["SelectsBindingSelectedItemTitle"]"
            Introduction="@Localizer["SelectsBindingSelectedItemIntro"]"
            Name="BindingSelectedItem">
@@ -344,6 +331,19 @@
         </div>
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="StringItems" ShowSearch="true" IsClearable="_isShowSearchClearable" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsClearableTitle"]"
+           Introduction="@Localizer["SelectsClearableIntro"]"
+           Name="IsClearable">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" IsClearable="true" Items="ClearableItems" Value="ClearableModel.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
         </div>
     </div>
 </DemoBlock>
