@@ -48,7 +48,7 @@ public partial class Select<TValue> : ISelect, ILookup
         .Build();
 
     private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", IsFixedSearch)
+        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .Build();
 
     private readonly List<SelectedItem> _children = [];
