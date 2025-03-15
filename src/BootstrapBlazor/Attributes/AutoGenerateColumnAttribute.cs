@@ -136,11 +136,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsFixedSearchWhenSelect { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     public string? FormatString { get; set; }
 
     /// <summary>
@@ -234,6 +229,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <inheritdoc/>
     /// </summary>
     public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

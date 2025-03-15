@@ -90,11 +90,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool IsFixedSearchWhenSelect { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
@@ -225,6 +220,11 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <inheritdoc/>
     /// </summary>
     public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
