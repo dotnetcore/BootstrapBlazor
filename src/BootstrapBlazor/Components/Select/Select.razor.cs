@@ -9,7 +9,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件实现类
+/// Select component
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class Select<TValue> : ISelect, ILookup
@@ -18,17 +18,11 @@ public partial class Select<TValue> : ISelect, ILookup
     [NotNull]
     private SwalService? SwalService { get; set; }
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
     private string? ClassString => CssBuilder.Default("select dropdown")
         .AddClass("cls", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
     private string? InputClassString => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
@@ -44,11 +38,6 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 
-    /// <summary>
-    /// 设置当前项是否 Active 方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", item.Value == CurrentValueAsString)
         .AddClass("disabled", item.IsDisabled)
@@ -59,9 +48,6 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass("is-fixed", IsFixedSearch)
         .Build();
 
-    /// <summary>
-    /// 获得 SearchLoadingIcon 图标字符串
-    /// </summary>
     private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
         .AddClass(SearchLoadingIcon)
         .Build();
@@ -393,9 +379,6 @@ public partial class Select<TValue> : ISelect, ILookup
         }
     }
 
-    /// <summary>
-    /// 获得/设置 数据总条目
-    /// </summary>
     private int TotalCount { get; set; }
 
     private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
@@ -503,9 +486,6 @@ public partial class Select<TValue> : ISelect, ILookup
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 下拉框选项点击时调用此方法
-    /// </summary>
     private async Task OnClickItem(SelectedItem item)
     {
         var ret = true;
@@ -547,11 +527,9 @@ public partial class Select<TValue> : ISelect, ILookup
             item.Active = true;
             SelectedItem = item;
 
-            // 触发 StateHasChanged
             _lastSelectedValueString = item.Value;
             CurrentValueAsString = _lastSelectedValueString;
 
-            // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
             {
                 await OnSelectedItemChanged(SelectedItem);
