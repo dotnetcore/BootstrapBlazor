@@ -87,6 +87,11 @@ public interface IEditorItem : ILookup
     bool ShowSearchWhenSelect { get; set; }
 
     /// <summary>
+    /// Gets or sets whether to allow fixed search box within dropdown. Default is false.
+    /// </summary>
+    bool IsFixedSearchWhenSelect { get; set; }
+
+    /// <summary>
     /// Gets or sets whether to use Popover to render the dropdown list. Default is false.
     /// </summary>
     bool IsPopover { get; set; }

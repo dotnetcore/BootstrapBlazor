@@ -5,10 +5,10 @@
 {
     if (IsHeaderRow)
     {
-        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="IsShowSearch"></Select>
+        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true" ShowSearch="IsShowSearch" IsFixedSearch="IsFixedSearch"></Select>
     }
     else
     {
-        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" ShowSearch="IsShowSearch" ></Select>
+        <Select Items="@Items" StringComparison="LookupStringComparison" @bind-Value="@Value" ShowSearch="IsShowSearch" IsFixedSearch="IsFixedSearch" ></Select>
     }
 }

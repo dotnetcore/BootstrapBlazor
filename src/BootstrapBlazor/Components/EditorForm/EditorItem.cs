@@ -166,6 +166,12 @@ public class EditorItem<TModel, TValue> : ComponentBase, IEditorItem
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
+    public bool IsFixedSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
     public bool IsPopover { get; set; }
 
     /// <summary>
