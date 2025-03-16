@@ -45,6 +45,7 @@ public partial class Tab : IHandlerException
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
         .AddClass("tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
         .AddClass("tabs-chrome", TabStyle == TabStyle.Chrome)
+        .AddClass("tabs-capsule", TabStyle == TabStyle.Capsule)
        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -878,9 +879,9 @@ public partial class Tab : IHandlerException
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
 
-    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => TabStyle == TabStyle.Chrome ? RenderChromeDisabledHeader(item) : RenderDefaultDisabledHeader(item);
+    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultDisabledHeader(item) : RenderChromeDisabledHeader(item);
 
-    private RenderFragment RenderHeaderByStyle(TabItem item) => TabStyle == TabStyle.Chrome ? RenderChromeHeader(item) : RenderDefaultHeader(item);
+    private RenderFragment RenderHeaderByStyle(TabItem item) => TabStyle == TabStyle.Default ? RenderDefaultHeader(item) : RenderChromeHeader(item);
 
     /// <summary>
     /// <inheritdoc/>
