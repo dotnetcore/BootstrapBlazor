@@ -461,6 +461,13 @@ public class TabTest : BootstrapBlazorTestBase
         var link = cut.Find("a");
         await cut.InvokeAsync(() => link.Click());
         Assert.True(clicked);
+
+        // placement top and chrome style
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Left);
+        });
+        Assert.Equal(TabStyle.Default, cut.Instance.TabStyle);
     }
 
     [Fact]
