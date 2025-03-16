@@ -544,7 +544,7 @@
                 margin-bottom: 4px;
 
                 .tabs-item-text {
-                    padding: 0 .25rem;
+                    padding: 0 .5rem;
                 }
 
                 .tabs-item-close {
@@ -590,6 +590,10 @@
             &::after {
                 border-bottom-left-radius: 50%;
             }
+        }
+
+        .btn-fs {
+            padding: 0;
         }
     }
 
