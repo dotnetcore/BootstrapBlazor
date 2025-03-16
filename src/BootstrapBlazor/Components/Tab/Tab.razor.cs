@@ -24,6 +24,10 @@ public partial class Tab : IHandlerException
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
 
+    private string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
+        .AddClass("active", item.IsActive)
+        .Build();
+
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
         .AddClass("active", item.IsActive)
         .AddClass("disabled", item.IsDisabled)
@@ -282,6 +286,12 @@ public partial class Tab : IHandlerException
     /// </summary>
     [Parameter]
     public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets Whether the tab style is Chrome. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsChromeStyle { get; set; }
 
     [CascadingParameter]
     private Layout? Layout { get; set; }
@@ -853,6 +863,10 @@ public partial class Tab : IHandlerException
     }
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
+
+    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => IsChromeStyle ? RenderChromeDisabledHeader(item) : RenderDefaultDisabledHeader(item);
+
+    private RenderFragment RenderHeaderByStyle(TabItem item) => IsChromeStyle ? RenderChromeHeader(item) : RenderDefaultHeader(item);
 
     /// <summary>
     /// <inheritdoc/>
