@@ -2083,6 +2083,7 @@
     "TabAtt5ShowExtendButtons": "Whether to display the extension button",
     "TabAttShowNavigatorButtons": "Whether to display the previous and next navigation buttons",
     "TabAttShowActiveBar": "Whether to display active bar",
+    "TabAttIsLazyLoadTabItem": "Whether lazy load tab item",
     "TabAtt6ClickTabToNavigation": "Whether to navigate when you click on the title",
     "TabAtt7Placement": "Set the label position",
     "TabAtt8Height": "Set the label height",
@@ -2118,7 +2119,8 @@
     "TabsDisabledTitle": "Disabled",
     "TabsDisabledIntro": "Disable the current <code>TabItem</code> by setting <code>IsDisabled=\"true\"</code> to prohibit click, drag, close etc.",
     "TabsChromeStyleTitle": "Chrome Style",
-    "TabsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>TabStyle=\"TabStyle.Chrome\"</code>"
+    "TabsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>TabStyle=\"TabStyle.Chrome\"</code>",
+    "TabAtt2TabStyle": "Set the tab style"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
