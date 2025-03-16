@@ -43,7 +43,8 @@ public partial class Tab : IHandlerException
         .AddClass("tabs-card", IsCard)
         .AddClass("tabs-border-card", IsBorderCard)
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
-        .AddClass($"tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+        .AddClass("tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+        .AddClass("tabs-chrome", IsChromeStyle)
        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
