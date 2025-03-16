@@ -501,6 +501,7 @@
         background-color: var(--bb-tabs-header-bg-color);
         display: flex;
         align-items: flex-end;
+        flex-shrink: 0;
         padding: 0 1rem;
         z-index: 1;
 
