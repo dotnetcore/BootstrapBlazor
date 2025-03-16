@@ -471,6 +471,25 @@ public class TabTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TabStyle_Capsule_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.TabStyle, TabStyle.Capsule);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                pb.Add(a => a.Icon, "fa fa-fa");
+            });
+        });
+        cut.Contains("tabs tabs-top tabs-capsule");
+        cut.Contains("tabs-item-wrap active");
+        cut.DoesNotContain("<i class=\"tab-corner tab-corner-left\"></i>");
+        cut.DoesNotContain("<i class=\"tab-corner tab-corner-right\"></i>");
+    }
+
+    [Fact]
     public void MenuItem_Null()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
