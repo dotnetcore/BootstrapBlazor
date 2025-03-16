@@ -144,9 +144,6 @@ public partial class Select<TValue> : ISelect, ILookup
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
-    [NotNull]
-    private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
-
     /// <summary>
     /// Gets or sets the bound data set.
     /// </summary>
@@ -246,6 +243,9 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <inheritdoc/>
     /// </summary>
     protected override string? RetrieveId() => InputId;
+
+    [NotNull]
+    private Virtualize<SelectedItem>? _virtualizeElement = default;
 
     private string? InputId => $"{Id}_input";
 
@@ -409,7 +409,7 @@ public partial class Select<TValue> : ISelect, ILookup
         if (IsVirtualize && OnQueryAsync != null)
         {
             // 通过 ItemProvider 提供数据
-            await VirtualizeElement.RefreshDataAsync();
+            await _virtualizeElement.RefreshDataAsync();
         }
     }
 
@@ -556,7 +556,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
         if (OnQueryAsync != null)
         {
-            await VirtualizeElement.RefreshDataAsync();
+            await _virtualizeElement.RefreshDataAsync();
         }
 
         _lastSelectedValueString = string.Empty;
