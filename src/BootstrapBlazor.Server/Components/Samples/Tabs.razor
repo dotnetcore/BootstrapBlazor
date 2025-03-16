@@ -436,6 +436,23 @@ private void Navigation()
     </Tab>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TabsIsChromeStyleTitle"]" Introduction="@Localizer["TabsIsChromeStyleIntro"]" Name="IsChromeStyle">
+    <Tab IsCard="true" ShowClose="true" IsChromeStyle="true">
+        <TabItem Text="@Localizer["TabItem1Text"]" Icon="fa-solid fa-user">
+            <div>@Localizer["TabItem1Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem2Text"]" Icon="fa-solid fa-gauge-high">
+            <div>@Localizer["TabItem2Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem3Text"]" Icon="fa-solid fa-sitemap">
+            <div>@Localizer["TabItem3Content"]</div>
+        </TabItem>
+        <TabItem Text="@Localizer["TabItem4Text"]" Icon="fa-solid fa-building-columns">
+            <div>@Localizer["TabItem4Content"]</div>
+        </TabItem>
+    </Tab>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" Title="@Localizer["AttTitle"]" />
 
 <MethodTable Items="@GetMethods()" Title="@Localizer["MethodTitle"]" />
