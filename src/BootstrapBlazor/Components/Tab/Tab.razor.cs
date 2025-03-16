@@ -29,7 +29,7 @@ public partial class Tab : IHandlerException
         .Build();
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", !IsChromeStyle && item.IsActive && !item.IsDisabled)
         .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)

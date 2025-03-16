@@ -491,7 +491,7 @@
 .tabs-chrome {
     --bb-tabs-header-bg-color: var(--bs-border-color);
     --bb-tabs-item-hover-bg-color: rgba(var(--bs-body-color-rgb), 0.1);
-    --bb-tabs-item-active-bg-color: var(--bs-body-color);
+    --bb-tabs-item-active-bg-color: var(--bs-body-bg);
     --bb-tabs-item-active-color: var(--bs-body-color);
     --bb-tabs-item-hover-color: var(--bs-body-color);
 
@@ -509,6 +509,10 @@
 
             .tab-corner {
                 background-color: var(--bs-body-bg);
+            }
+
+            .tabs-item {
+                background-color: var(--bb-tabs-item-active-bg-color);
             }
         }
 
@@ -531,10 +535,6 @@
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             height: 36px !important;
-
-            .active {
-                background-color: var(--bb-tabs-item-active-bg-color);
-            }
 
             .tabs-item-body {
                 padding: 4px 10px;
