@@ -2117,8 +2117,8 @@
     "AttributeButtonTemplate": "The template for Buttons",
     "TabsDisabledTitle": "Disabled",
     "TabsDisabledIntro": "Disable the current <code>TabItem</code> by setting <code>IsDisabled=\"true\"</code> to prohibit click, drag, close etc.",
-    "TabsIsChromeStyleTitle": "Chrome Style",
-    "TabsIsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>IsChromeStyle=\"true\"</code>"
+    "TabsChromeStyleTitle": "Chrome Style",
+    "TabsChromeStyleIntro": "Set the Chrome browser tab style by setting <code>TabStyle=\"TabStyle.Chrome\"</code>"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",

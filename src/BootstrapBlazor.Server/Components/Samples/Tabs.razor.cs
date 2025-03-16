@@ -195,6 +195,14 @@ public sealed partial class Tabs
         },
         new()
         {
+            Name = "TabStyle",
+            Description = Localizer["TabAtt2TabStyle"].Value,
+            Type = "enum",
+            ValueList = "Default|Chrome",
+            DefaultValue = "Default"
+        },
+        new()
+        {
             Name = "IsOnlyRenderActiveTab",
             Description = Localizer["TabAtt3IsOnlyRenderActiveTab"].Value,
             Type = "boolean",
