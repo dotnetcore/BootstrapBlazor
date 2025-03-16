@@ -18,5 +18,10 @@ public enum TabStyle
     /// <summary>
     /// The Chrome style
     /// </summary>
-    Chrome
+    Chrome,
+
+    /// <summary>
+    /// The Capsule style
+    /// </summary>
+    Capsule
 }
