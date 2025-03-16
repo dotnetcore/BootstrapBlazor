@@ -24,12 +24,12 @@ public partial class Tab : IHandlerException
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
 
-    private string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
-        .AddClass("active", item.IsActive)
+    private static string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
+        .AddClass("active", item.IsActive && !item.IsDisabled)
         .Build();
 
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
-        .AddClass("active", item.IsActive)
+        .AddClass("active", item.IsActive && !item.IsDisabled)
         .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
@@ -793,6 +793,14 @@ public partial class Tab : IHandlerException
     public void SetDisabledItem(TabItem item, bool disabled)
     {
         item.SetDisabledWithoutRender(disabled);
+        if (disabled)
+        {
+            item.SetActive(false);
+        }
+        if (TabItems.Any(i => i.IsActive) == false)
+        {
+            TabItems.Where(i => !i.IsDisabled).FirstOrDefault()?.SetActive(true);
+        }
         StateHasChanged();
     }
 

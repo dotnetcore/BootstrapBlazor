@@ -127,11 +127,7 @@ else
     RenderFragment RenderChromeDisabledHeader(TabItem item) =>
     @<div @key="@item" class="@GetItemWrapClassString(item)">
         <div role="tab" class="@GetClassString(item)">
-            @if (!string.IsNullOrEmpty(item.Icon))
-            {
-                <i class="@GetIconClassString(item.Icon)"></i>
-            }
-            <span class="tabs-item-text">@item.Text</span>
+            @RenderHeaderContent(item)
         </div>
         <i class="tab-corner tab-corner-left"></i>
         <i class="tab-corner tab-corner-right"></i>
@@ -139,11 +135,7 @@ else
 
     RenderFragment RenderDefaultDisabledHeader(TabItem item) =>
     @<div @key="item" role="tab" class="@GetClassString(item)">
-        @if (!string.IsNullOrEmpty(item.Icon))
-        {
-            <i class="@GetIconClassString(item.Icon)"></i>
-        }
-        <span class="tabs-item-text">@item.Text</span>
+        @RenderHeaderContent(item)
     </div>;
 
     RenderFragment RenderChromeHeader(TabItem item) =>
@@ -167,15 +159,18 @@ else
             <i class="@GetIconClassString(item.Icon)"></i>
         }
         <span class="tabs-item-text">@item.Text</span>
-        @if (ShowFullScreen && item.ShowFullScreen)
+        @if (!item.IsDisabled)
         {
-            <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
-        }
-        @if (ShowClose && item.Closable)
-        {
-            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
-                <i class="@CloseIcon"></i>
-            </span>
+            @if (ShowFullScreen && item.ShowFullScreen)
+            {
+                <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
+            }
+            @if (ShowClose && item.Closable)
+            {
+                <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
+                    <i class="@CloseIcon"></i>
+                </span>
+            }
         }
     </div>;
 }
