@@ -488,17 +488,61 @@
     }
 }
 
-.tabs-chrome > .tabs-header {
+.tabs-chrome > .tabs-header,
+.tabs-capsule > .tabs-header {
     --bb-tabs-header-bg-color: var(--bs-border-color);
     --bb-tabs-item-hover-bg-color: rgba(var(--bs-body-color-rgb), 0.1);
     --bb-tabs-item-active-bg-color: var(--bs-body-bg);
     --bb-tabs-item-active-color: var(--bs-body-color);
     --bb-tabs-item-hover-color: var(--bs-body-color);
+    --bb-tabs-item-bg-color: rgba(var(--bs-body-color-rgb), 0.08);
 
     .tabs-nav {
         background-color: var(--bb-tabs-header-bg-color);
     }
 
+    .tabs-item-fix {
+        border: none;
+    }
+
+    .tabs-item-wrap {
+        &:not(.active) {
+            .tabs-item:not(.disabled) .tabs-item-body {
+                &:hover {
+                    background-color: var(--bb-tabs-item-hover-bg-color);
+                }
+            }
+        }
+
+        .btn-fs {
+            padding: 0;
+        }
+
+        .tabs-item {
+            .tabs-item-body {
+                padding: 4px 10px;
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+                border-radius: 14.5px;
+
+                .tabs-item-text {
+                    padding: 0 .5rem;
+                }
+
+                .tabs-item-close {
+                    display: flex;
+                    position: unset;
+                    width: 21px;
+                    height: 21px;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
+
+.tabs-chrome > .tabs-header {
     .tabs-item-wrap {
         overflow: hidden;
         position: relative;
@@ -520,15 +564,6 @@
             }
         }
 
-        &:not(.active) {
-            .tabs-item:not(.disabled) .tabs-item-body {
-                &:hover {
-                    border-radius: 20px;
-                    background-color: var(--bb-tabs-item-hover-bg-color);
-                }
-            }
-        }
-
         &:not(:first-child) {
             margin-left: -2rem;
         }
@@ -540,23 +575,7 @@
             height: 36px !important;
 
             .tabs-item-body {
-                padding: 4px 10px;
-                display: flex;
-                align-items: center;
-                flex-wrap: nowrap;
                 margin-bottom: 4px;
-
-                .tabs-item-text {
-                    padding: 0 .5rem;
-                }
-
-                .tabs-item-close {
-                    display: flex;
-                    position: unset;
-                    width: 21px;
-                    height: 21px;
-                    border-radius: 50%;
-                }
             }
         }
 
@@ -594,29 +613,10 @@
                 border-bottom-left-radius: 50%;
             }
         }
-
-        .btn-fs {
-            padding: 0;
-        }
-    }
-
-    .tabs-item-fix {
-        border: none;
     }
 }
 
 .tabs-capsule > .tabs-header {
-    --bb-tabs-header-bg-color: var(--bs-border-color);
-    --bb-tabs-item-bg-color: rgba(var(--bs-body-color-rgb), 0.08);
-    --bb-tabs-item-hover-bg-color: rgba(var(--bs-body-color-rgb), 0.1);
-    --bb-tabs-item-active-bg-color: var(--bs-body-bg);
-    --bb-tabs-item-active-color: var(--bs-body-color);
-    --bb-tabs-item-hover-color: var(--bs-body-color);
-
-    .tabs-nav {
-        background-color: var(--bb-tabs-header-bg-color);
-    }
-
     .tabs-item-wrap {
         margin-left: .5rem;
 
@@ -628,49 +628,12 @@
             }
         }
 
-        &:not(.active) {
-            .tabs-item:not(.disabled) .tabs-item-body {
-                &:hover {
-                    background-color: var(--bb-tabs-item-hover-bg-color);
-                }
-            }
-        }
-
         .tabs-item {
             padding: 0;
 
             .tabs-item-body {
-                padding: 4px 10px;
-                display: flex;
-                align-items: center;
-                flex-wrap: nowrap;
-                border-radius: 14.5px;
                 background-color: var(--bb-tabs-item-bg-color);
-
-                .tabs-item-text {
-                    padding: 0 .5rem;
-                }
-
-                .tabs-item-close {
-                    display: flex;
-                    position: unset;
-                    width: 21px;
-                    height: 21px;
-                    border-radius: 50%;
-                }
-            }
-
-            .tabs-item-close {
-                display: flex;
-                position: unset;
-                width: 21px;
-                height: 21px;
-                border-radius: 50%;
             }
         }
-    }
-
-    .tabs-item-fix {
-        border: none;
     }
 }
