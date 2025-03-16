@@ -502,40 +502,25 @@
     padding: 0 1rem;
     z-index: 1;
 
-    .tab-corner {
-        height: 2rem;
-        width: 2rem;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        background-color: var(--bb-tabs-header-bg-color);
+    &.active {
+        z-index: 5;
 
-        &::after {
-            content: '';
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            background-color: var(--bb-tabs-header-bg-color);
+        .tab-corner {
+            background-color: var(--bs-body-bg);
         }
     }
 
-    .tab-corner-left {
-        bottom: 0;
-        left: -1rem;
-
-        &::after {
-            border-bottom-right-radius: 50%;
+    &:not(.active) {
+        .tabs-item:not(.disabled) .tabs-item-body {
+            &:hover {
+                border-radius: 20px;
+                background-color: var(--bb-tabs-item-hover-bg-color);
+            }
         }
     }
 
-    .tab-corner-right {
-        bottom: 0;
-        right: -1rem;
-
-        &::after {
-            border-bottom-left-radius: 50%;
-        }
+    &:not(:first-child) {
+        margin-left: -2rem;
     }
 
     .tabs-item {
@@ -561,31 +546,47 @@
             }
 
             .tabs-item-close {
-                display: block;
+                display: flex;
                 position: unset;
-                width: 1em;
+                width: 21px;
+                height: 21px;
+                border-radius: 50%;
             }
         }
     }
 
-    &:not(.active) {
-        .tabs-item .tabs-item-body {
-            &:hover {
-                border-radius: 20px;
-                background-color: var(--bb-tabs-item-hover-bg-color);
-            }
+    .tab-corner {
+        height: 2rem;
+        width: 2rem;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+
+        &::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            background-color: var(--bb-tabs-header-bg-color);
         }
     }
 
-    &:not(:first-child) {
-        margin-left: -2rem;
+    .tab-corner-left {
+        bottom: 0;
+        left: -1rem;
+
+        &::after {
+            border-bottom-right-radius: 50%;
+        }
     }
 
-    &.active {
-        z-index: 5;
+    .tab-corner-right {
+        bottom: 0;
+        right: -1rem;
 
-        .tab-corner {
-            background-color: var(--bs-body-bg);
+        &::after {
+            border-bottom-left-radius: 50%;
         }
     }
 }
