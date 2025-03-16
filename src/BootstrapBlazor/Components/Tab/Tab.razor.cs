@@ -363,6 +363,11 @@ public partial class Tab : IHandlerException
 
         AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
 
+        if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
+        {
+            TabStyle = TabStyle.Default;
+        }
+
         if (ClickTabToNavigation)
         {
             if (!HandlerNavigation)
