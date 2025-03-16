@@ -6,36 +6,36 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Represents a link within a tab component.
 /// </summary>
 public sealed partial class TabLink
 {
     /// <summary>
-    /// 获得/设置 文本文字
+    /// Gets or sets the text of the link. Default is null
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 请求地址
+    /// Gets or sets the URL of the link. Default is null
     /// </summary>
     [Parameter]
     public string? Url { get; set; }
 
     /// <summary>
-    /// 获得/设置 图标字符串
+    /// Gets or sets the icon of the link. Default is null
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前 TabItem 是否可关闭 默认为 true 可关闭
+    /// Gets or sets a value indicating whether the tab item is closable. Default is true.
     /// </summary>
     [Parameter]
     public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// 点击组件时回调此委托方法 默认为空
+    /// Gets or sets the callback method when the link is clicked. Default is null.
     /// </summary>
     [Parameter]
     public Func<Task>? OnClick { get; set; }
@@ -45,7 +45,7 @@ public sealed partial class TabLink
     private TabItemTextOptions? TabItemOptions { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件内容
+    /// Gets or sets the content of the component. Default is null
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }

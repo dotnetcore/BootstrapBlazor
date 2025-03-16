@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components.Routing;
@@ -12,31 +11,31 @@ using System.Collections.ObjectModel;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapBlazorAuthorizeView 组件
+/// BootstrapBlazorAuthorizeView component
 /// </summary>
 public class BootstrapBlazorAuthorizeView : ComponentBase
 {
     /// <summary>
-    /// 获得/设置 路由关联上下文
+    /// Gets or sets the type associated with the route. default is null
     /// </summary>
     [Parameter]
     [NotNull]
     public Type? Type { get; set; }
 
     /// <summary>
-    /// 获得/设置 路由关联上下文
+    /// Gets or sets the parameters associated with the route. default is null
     /// </summary>
     [Parameter]
     public IReadOnlyDictionary<string, object>? Parameters { get; set; }
 
     /// <summary>
-    /// 获得/设置 NotAuthorized 模板
+    /// Gets or sets the template to display when the user is not authorized. default is null
     /// </summary>
     [Parameter]
     public RenderFragment? NotAuthorized { get; set; }
 
     /// <summary>
-    /// The resource to which access is being controlled.
+    /// Gets or sets the resource to which access is being controlled. default is null
     /// </summary>
     [Parameter]
     public object? Resource { get; set; }
@@ -56,7 +55,7 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A task that represents the asynchronous operation.</returns>
     protected override async Task OnInitializedAsync()
     {
         Authorized = Type == null || await Type.IsAuthorizedAsync(ServiceProvider, AuthenticationState, Resource);
@@ -65,10 +64,9 @@ public class BootstrapBlazorAuthorizeView : ComponentBase
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="builder"></param>
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        // 判断是否开启权限
+        // Check if authorization is enabled
         if (Authorized && Type != null)
         {
             var index = 0;
