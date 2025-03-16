@@ -406,13 +406,13 @@ public class TabTest : BootstrapBlazorTestBase
                 pb.AddChildContent<DisableTabItemButton>();
             });
         });
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div>", cut.Markup);
+        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><i class=\"fa fa-fa\"></i><span class=\"tabs-item-text\">Text1</span></div></div>", cut.Markup);
 
         var button = cut.FindComponent<DisableTabItemButton>();
         Assert.NotNull(button);
 
         await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
-        Assert.Contains("<div role=\"tab\" class=\"tabs-item active disabled\"><span class=\"tabs-item-text\">Text2</span></div>", cut.Markup);
+        Assert.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>", cut.Markup);
     }
 
     [Fact]
@@ -420,6 +420,54 @@ public class TabTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<TabItem>();
         cut.Instance.SetDisabled(true);
+    }
+
+    [Fact]
+    public async Task TabStyle_Chrome_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.TabStyle, TabStyle.Chrome);
+            pb.Add(a => a.OnClickTabItemAsync, item =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+                pb.Add(a => a.Icon, "fa fa-fa");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.IsActive, true);
+                pb.Add(a => a.Text, "Text2");
+                pb.AddChildContent<DisableTabItemButton>();
+            });
+        });
+        cut.Contains("tabs tabs-top tabs-chrome");
+        cut.Contains("tabs-item-wrap active");
+        cut.Contains("<i class=\"tab-corner tab-corner-left\"></i>");
+        cut.Contains("<i class=\"tab-corner tab-corner-right\"></i>");
+
+        var button = cut.FindComponent<DisableTabItemButton>();
+        Assert.NotNull(button);
+        await cut.InvokeAsync(() => button.Instance.OnDisabledTabItem());
+        cut.Contains("<div role=\"tab\" class=\"tabs-item disabled\"><div class=\"tabs-item-body\"><span class=\"tabs-item-text\">Text2</span></div></div>");
+
+        // trigger click
+        var link = cut.Find("a");
+        await cut.InvokeAsync(() => link.Click());
+        Assert.True(clicked);
+
+        // placement top and chrome style
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Left);
+        });
+        Assert.Equal(TabStyle.Default, cut.Instance.TabStyle);
     }
 
     [Fact]

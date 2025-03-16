@@ -45,39 +45,17 @@ else
                             }
                             @foreach (var item in Items)
                             {
-                                if (item.HeaderTemplate != null)
+                                @if (item.HeaderTemplate != null)
                                 {
                                     @item.HeaderTemplate(item)
                                 }
                                 else if (item.IsDisabled)
                                 {
-                                    <div role="tab" class="@GetClassString(item)">
-                                        @if (!string.IsNullOrEmpty(item.Icon))
-                                        {
-                                            <i class="@GetIconClassString(item.Icon)"></i>
-                                        }
-                                        <span class="tabs-item-text">@item.Text</span>
-                                    </div>
+                                    @RenderDisabledHeaderByStyle(item)
                                 }
                                 else
                                 {
-                                    <a @key="item" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
-                                        @if (!string.IsNullOrEmpty(item.Icon))
-                                        {
-                                            <i class="@GetIconClassString(item.Icon)"></i>
-                                        }
-                                        <span class="tabs-item-text">@item.Text</span>
-                                        @if (ShowFullScreen && item.ShowFullScreen)
-                                        {
-                                            <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
-                                        }
-                                        @if (ShowClose && item.Closable)
-                                        {
-                                            <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
-                                                <i class="@CloseIcon"></i>
-                                            </span>
-                                        }
-                                    </a>
+                                    @RenderHeaderByStyle(item)
                                 }
                             }
                             @if (IsCard || IsBorderCard)
@@ -145,4 +123,54 @@ else
     @<CascadingValue Value="item" IsFixed="true">
         @RenderTabItemContent(item)
     </CascadingValue>;
+
+    RenderFragment RenderChromeDisabledHeader(TabItem item) =>
+    @<div @key="@item" class="@GetItemWrapClassString(item)">
+        <div role="tab" class="@GetClassString(item)">
+            @RenderHeaderContent(item)
+        </div>
+        <i class="tab-corner tab-corner-left"></i>
+        <i class="tab-corner tab-corner-right"></i>
+    </div>;
+
+    RenderFragment RenderDefaultDisabledHeader(TabItem item) =>
+    @<div @key="item" role="tab" class="@GetClassString(item)">
+        @RenderHeaderContent(item)
+    </div>;
+
+    RenderFragment RenderChromeHeader(TabItem item) =>
+    @<div @key="@item" class="@GetItemWrapClassString(item)">
+        <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
+            @RenderHeaderContent(item)
+        </a>
+        <i class="tab-corner tab-corner-left"></i>
+        <i class="tab-corner tab-corner-right"></i>
+    </div>;
+
+    RenderFragment RenderDefaultHeader(TabItem item) =>
+    @<a @key="item" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
+        @RenderHeaderContent(item)
+    </a>;
+
+    RenderFragment RenderHeaderContent(TabItem item) =>
+    @<div class="tabs-item-body">
+        @if (!string.IsNullOrEmpty(item.Icon))
+        {
+            <i class="@GetIconClassString(item.Icon)"></i>
+        }
+        <span class="tabs-item-text">@item.Text</span>
+        @if (!item.IsDisabled)
+        {
+            @if (ShowFullScreen && item.ShowFullScreen)
+            {
+                <FullScreenButton TargetId="@GetIdByTabItem(item)"></FullScreenButton>
+            }
+            @if (ShowClose && item.Closable)
+            {
+                <span class="tabs-item-close" @onclick:stopPropagation @onclick:preventDefault @onclick="() => RemoveTab(item)">
+                    <i class="@CloseIcon"></i>
+                </span>
+            }
+        }
+    </div>;
 }

@@ -2083,6 +2083,7 @@
     "TabAtt5ShowExtendButtons": "是否显示扩展按钮",
     "TabAttShowNavigatorButtons": "是否显示前后导航按钮",
     "TabAttShowActiveBar": "是否显示活动标签",
+    "TabAttIsLazyLoadTabItem": "是否延时加载标签内容",
     "TabAtt6ClickTabToNavigation": "点击标题时是否导航",
     "TabAtt7Placement": "设置标签位置",
     "TabAtt8Height": "设置标签高度",
@@ -2116,7 +2117,10 @@
     "AttributeExcludeUrls": "排除地址支持通配符",
     "AttributeButtonTemplate": "按钮模板",
     "TabsDisabledTitle": "禁用",
-    "TabsDisabledIntro": "通过设置 <code>IsDisabled=\"true\"</code> 禁用当前 <code>TabItem</code> 禁止点击、拖动、关闭等操作"
+    "TabsDisabledIntro": "通过设置 <code>IsDisabled=\"true\"</code> 禁用当前 <code>TabItem</code> 禁止点击、拖动、关闭等操作",
+    "TabsChromeStyleTitle": "Chrome 样式",
+    "TabsChromeStyleIntro": "通过设置 <code>TabStyle=\"TabStyle.Chrome\"</code> 设置 Chrome 浏览器标签页样式，目前仅支持 <code>Placement=\"Placement.Top\"</code> 模式",
+    "TabAtt2TabStyle": "设置标签页样式"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",

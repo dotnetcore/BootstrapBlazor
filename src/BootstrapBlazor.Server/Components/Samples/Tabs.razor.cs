@@ -204,7 +204,7 @@ public sealed partial class Tabs
         new()
         {
             Name = "IsLazyLoadTabItem",
-            Description = Localizer["AttributeIsLazyLoadTabItem"].Value,
+            Description = Localizer["TabAttIsLazyLoadTabItem"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
@@ -222,21 +222,21 @@ public sealed partial class Tabs
             Name = "ShowExtendButtons",
             Description = Localizer["TabAtt5ShowExtendButtons"].Value,
             Type = "boolean",
-            ValueList = " — ",
+            ValueList = "true|false",
             DefaultValue = "false"
         },
         new()
         {
-            Name = "ShowExtendButtons",
-            Description = Localizer["TabAttrShowNavigatorButtons"].Value,
+            Name = "ShowNavigatorButtons",
+            Description = Localizer["TabAttShowNavigatorButtons"].Value,
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
         new()
         {
-            Name = "ShowExtendButtons",
-            Description = Localizer["TabAttrShowActiveBar"].Value,
+            Name = "ShowActiveBar",
+            Description = Localizer["TabAttShowActiveBar"].Value,
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -248,6 +248,14 @@ public sealed partial class Tabs
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "TabStyle",
+            Description = Localizer["TabAtt2TabStyle"].Value,
+            Type = "TabStyle",
+            ValueList = "Default|Chrome",
+            DefaultValue = "Default"
         },
         new()
         {

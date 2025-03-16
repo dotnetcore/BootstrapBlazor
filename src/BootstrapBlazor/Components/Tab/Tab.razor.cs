@@ -24,8 +24,12 @@ public partial class Tab : IHandlerException
         .AddClass("extend", ShouldShowExtendButtons())
         .Build();
 
+    private static string? GetItemWrapClassString(TabItem item) => CssBuilder.Default("tabs-item-wrap")
+        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .Build();
+
     private string? GetClassString(TabItem item) => CssBuilder.Default("tabs-item")
-        .AddClass("active", item.IsActive)
+        .AddClass("active", TabStyle == TabStyle.Default && item.IsActive && !item.IsDisabled)
         .AddClass("disabled", item.IsDisabled)
         .AddClass(item.CssClass)
         .AddClass("is-closeable", ShowClose)
@@ -39,7 +43,8 @@ public partial class Tab : IHandlerException
         .AddClass("tabs-card", IsCard)
         .AddClass("tabs-border-card", IsBorderCard)
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
-        .AddClass($"tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+        .AddClass("tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+        .AddClass("tabs-chrome", TabStyle == TabStyle.Chrome)
        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -283,6 +288,12 @@ public partial class Tab : IHandlerException
     [Parameter]
     public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
 
+    /// <summary>
+    /// Gets or sets the tab style. Default is <see cref="TabStyle.Default"/>.
+    /// </summary>
+    [Parameter]
+    public TabStyle TabStyle { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -351,6 +362,11 @@ public partial class Tab : IHandlerException
         CloseIcon ??= IconTheme.GetIconByKey(ComponentIcons.TabCloseIcon);
 
         AdditionalAssemblies ??= new[] { Assembly.GetEntryAssembly()! };
+
+        if (Placement != Placement.Top && TabStyle == TabStyle.Chrome)
+        {
+            TabStyle = TabStyle.Default;
+        }
 
         if (ClickTabToNavigation)
         {
@@ -783,6 +799,14 @@ public partial class Tab : IHandlerException
     public void SetDisabledItem(TabItem item, bool disabled)
     {
         item.SetDisabledWithoutRender(disabled);
+        if (disabled)
+        {
+            item.SetActive(false);
+        }
+        if (TabItems.Any(i => i.IsActive) == false)
+        {
+            TabItems.Where(i => !i.IsDisabled).FirstOrDefault()?.SetActive(true);
+        }
         StateHasChanged();
     }
 
@@ -853,6 +877,10 @@ public partial class Tab : IHandlerException
     }
 
     private string? GetIdByTabItem(TabItem item) => (ShowFullScreen && item.ShowFullScreen) ? ComponentIdGenerator.Generate(item) : null;
+
+    private RenderFragment RenderDisabledHeaderByStyle(TabItem item) => TabStyle == TabStyle.Chrome ? RenderChromeDisabledHeader(item) : RenderDefaultDisabledHeader(item);
+
+    private RenderFragment RenderHeaderByStyle(TabItem item) => TabStyle == TabStyle.Chrome ? RenderChromeHeader(item) : RenderDefaultHeader(item);
 
     /// <summary>
     /// <inheritdoc/>
