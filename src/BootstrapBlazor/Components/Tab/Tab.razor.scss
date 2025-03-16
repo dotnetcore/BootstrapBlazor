@@ -598,7 +598,7 @@
         }
     }
 
-    .tabs-item-fix {
+    > .tabs-header .tabs-item-fix {
         background-color: var(--bb-tabs-header-bg-color);
         border: none;
     }
