@@ -178,6 +178,7 @@ internal static class BootstrapIcons
         { ComponentIcons.TreeViewSearchIcon, "bi bi-search" },
         { ComponentIcons.TreeViewResetSearchIcon, "bi bi-backspace" },
         { ComponentIcons.TreeViewLoadingIcon, "bi bi-arrow-clockwise bi-spin" },
+        { ComponentIcons.TreeViewToolbarEditButton, "bi bi-check2-square" },
 
         // Upload
         { ComponentIcons.AvatarUploadDeleteIcon, "bi bi-trash3" },

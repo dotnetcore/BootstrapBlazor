@@ -37,10 +37,20 @@ public partial class TreeViewToolbarEditButton<TItem> : ComponentBase
     public string? Title { get; set; }
 
     /// <summary>
-    /// Gets or sets the title of the popup-window. Default is null.
+    /// Gets or sets the text of the popup-window label. Default is null.
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
+
+    /// <summary>
+    /// Gets or sets the icon of the edit button. Default is null.
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string? _text;
 
@@ -52,6 +62,7 @@ public partial class TreeViewToolbarEditButton<TItem> : ComponentBase
         base.OnParametersSet();
 
         _text = Item.Text;
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewToolbarEditButton);
     }
 
     private async Task OnConfirm()

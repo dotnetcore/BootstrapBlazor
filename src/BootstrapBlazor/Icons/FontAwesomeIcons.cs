@@ -176,6 +176,7 @@ internal static class FontAwesomeIcons
         { ComponentIcons.TreeViewSearchIcon, "fa-solid fa-magnifying-glass" },
         { ComponentIcons.TreeViewResetSearchIcon, "fa-solid fa-delete-left" },
         { ComponentIcons.TreeViewLoadingIcon, "fa-solid fa-spinner fa-spin" },
+        { ComponentIcons.TreeViewToolbarEditButton, "fa-regular fa-pen-to-square" },
 
         // Upload
         { ComponentIcons.AvatarUploadDeleteIcon, "fa-regular fa-trash-can" },

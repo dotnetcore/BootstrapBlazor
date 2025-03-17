@@ -741,6 +741,11 @@ public enum ComponentIcons
     TreeViewLoadingIcon,
 
     /// <summary>
+    /// TreeView 组件 ToolbarEditButton 属性图标
+    /// </summary>
+    TreeViewToolbarEditButton,
+
+    /// <summary>
     /// TreeView 组件 NodeIcon 属性图标
     /// </summary>
     TreeViewNodeIcon,

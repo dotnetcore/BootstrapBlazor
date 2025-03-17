@@ -3,7 +3,7 @@
 @inherits ComponentBase
 
 <div class="tree-node-toolbar-edit" @onclick:preventDefault @onclick:stopPropagation>
-    <PopConfirmButton Icon="fa-solid fa-gear" Title="@Title" OnConfirm="OnConfirm">
+    <PopConfirmButton Icon="@Icon" Title="@Title" OnConfirm="OnConfirm">
         <BodyTemplate>
             <div class="tree-view-edit-form">
                 <span>@Text</span>
