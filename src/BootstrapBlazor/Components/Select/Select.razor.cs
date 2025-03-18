@@ -176,9 +176,6 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
-    [NotNull]
-    private Virtualize<SelectedItem>? _virtualizeElement = default;
-
     private string? InputId => $"{Id}_input";
 
     private string _lastSelectedValueString = string.Empty;

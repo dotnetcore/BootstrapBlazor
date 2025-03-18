@@ -210,9 +210,6 @@ public partial class MultiSelect<TValue>
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
-    [NotNull]
-    private Virtualize<SelectedItem>? _virtualizeElement = default;
-
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
