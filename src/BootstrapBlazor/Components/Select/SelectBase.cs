@@ -183,6 +183,13 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .Build();
 
     /// <summary>
+    /// Gets the SearchLoadingIcon icon class string.
+    /// </summary>
+    protected string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
+        .AddClass(SearchLoadingIcon)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()

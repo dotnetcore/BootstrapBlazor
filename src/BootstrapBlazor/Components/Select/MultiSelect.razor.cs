@@ -40,10 +40,6 @@ public partial class MultiSelect<TValue>
         .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
-    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
-        .AddClass(SearchLoadingIcon)
-        .Build();
-
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>

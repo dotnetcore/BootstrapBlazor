@@ -35,10 +35,6 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
-    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
-        .AddClass(SearchLoadingIcon)
-        .Build();
-
     private readonly List<SelectedItem> _children = [];
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();

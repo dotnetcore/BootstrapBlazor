@@ -188,13 +188,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
 
     private ItemsProviderResult<SelectedItem<TValue>> _result;
 
-    /// <summary>
-    /// 获得 SearchLoadingIcon 图标字符串
-    /// </summary>
-    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
-        .AddClass(SearchLoadingIcon)
-        .Build();
-
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
