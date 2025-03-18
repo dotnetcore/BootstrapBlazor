@@ -41,6 +41,12 @@ public partial class MultiSelect<TValue>
         .Build();
 
     /// <summary>
+    /// 获得/设置 显示部分模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<List<SelectedItem>>? DisplayTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
     /// </summary>
     [Parameter]
@@ -154,15 +160,6 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
-    private List<SelectedItem> Rows
-    {
-        get
-        {
-            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
-            return _itemsCache;
-        }
-    }
-
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
@@ -254,30 +251,6 @@ public partial class MultiSelect<TValue>
         int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
     }
 
-    private List<SelectedItem> GetRowsByItems()
-    {
-        var items = new List<SelectedItem>();
-        if (_result.Items != null)
-        {
-            items.AddRange(_result.Items);
-        }
-        else if (Items != null)
-        {
-            items.AddRange(Items);
-        }
-        return items;
-    }
-
-    private List<SelectedItem> GetRowsBySearch()
-    {
-        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return [.. items];
-    }
-
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
-        ? source
-        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -299,6 +272,24 @@ public partial class MultiSelect<TValue>
         : Utility.ConvertValueToString(value);
 
     private bool _isToggle;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (_result.Items != null)
+        {
+            items.AddRange(_result.Items);
+        }
+        else if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        return items;
+    }
 
     /// <summary>
     /// 客户端回车回调方法

@@ -51,12 +51,6 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     public bool IsEditable { get; set; }
 
     /// <summary>
-    /// Gets or sets the display template. Default is null.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets the item template.
     /// </summary>
     [Parameter]
@@ -66,6 +60,39 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// Gets or sets the selected items cache.
     /// </summary>
     protected List<SelectedItem>? _itemsCache;
+
+    /// <summary>
+    /// Gets the dropdown menu rows.
+    /// </summary>
+    protected List<SelectedItem> Rows
+    {
+        get
+        {
+            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
+            return _itemsCache;
+        }
+    }
+
+    /// <summary>
+    /// Gets the rows by Items.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual List<SelectedItem> GetRowsByItems() => [];
+
+    private List<SelectedItem> GetRowsBySearch()
+    {
+        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
+        return [.. items];
+    }
+
+    /// <summary>
+    /// Filter the items by search text.
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    protected IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+        ? source
+        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// Triggers the search callback method.

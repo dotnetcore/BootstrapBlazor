@@ -40,6 +40,12 @@ public partial class Select<TValue> : ISelect, ILookup
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
+    /// Gets or sets the display template. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the callback method when the input value changes. Default is null.
     /// </summary>
     /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
@@ -146,15 +152,6 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private SelectedItem? SelectedItem { get; set; }
 
-    private List<SelectedItem> Rows
-    {
-        get
-        {
-            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
-            return _itemsCache;
-        }
-    }
-
     private SelectedItem? SelectedRow
     {
         get
@@ -201,27 +198,6 @@ public partial class Select<TValue> : ISelect, ILookup
     private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum
         ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString())
         : null;
-
-    private List<SelectedItem> GetRowsByItems()
-    {
-        var items = new List<SelectedItem>();
-        if (Items != null)
-        {
-            items.AddRange(Items);
-        }
-        items.AddRange(_children);
-        return items;
-    }
-
-    private List<SelectedItem> GetRowsBySearch()
-    {
-        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return [.. items];
-    }
-
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
-        ? source
-        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// <inheritdoc/>
@@ -316,6 +292,21 @@ public partial class Select<TValue> : ISelect, ILookup
         ConfirmMethodCallback = nameof(ConfirmSelectedItem),
         SearchMethodCallback = nameof(TriggerOnSearch)
     });
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        items.AddRange(_children);
+        return items;
+    }
 
     /// <summary>
     /// Confirms the selected item.
