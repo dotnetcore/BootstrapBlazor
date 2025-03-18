@@ -295,6 +295,42 @@ private enum MultiSelectEnumFoo
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MultiSelectVirtualizeTitle"]"
+           Introduction="@Localizer["MultiSelectVirtualizeIntro"]"
+           Name="IsVirtualize">
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiSelectVirtualizeDescription"].Value)</p>
+        <div class="row mb-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row mb-3">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItemString1" ShowSearch="_showSearch"></MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItemString1"></Display>
+        </div>
+    </div>
+
+    <p class="code-label">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItemString2" ShowSearch="_showSearch"></MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItemString2"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 
 <EventTable Items="@GetEvents()"></EventTable>

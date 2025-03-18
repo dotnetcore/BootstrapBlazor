@@ -10,6 +10,10 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class MultiSelects
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo tet, please download the source code if necessary
@@ -106,9 +110,20 @@ public partial class MultiSelects
 
     private List<SelectedItem> CascadingItems1 { get; set; } = [];
 
+    [NotNull]
+    private List<Foo>? Foos { get; set; }
+
+    private string? VirtualItemString1 { get; set; }
+
+    private string? VirtualItemString2 { get; set; }
+
+    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+
     private string? _editString;
 
     private bool _isFixedSearch;
+
+    private bool _showSearch;
 
     private async Task<SelectedItem> OnEditCallback(string value)
     {
@@ -121,6 +136,21 @@ public partial class MultiSelects
             EditableItems.Add(item);
         }
         return item;
+    }
+
+    private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
+    {
+        await Task.Delay(200);
+        var items = Foos;
+        if (!string.IsNullOrEmpty(option.SearchText))
+        {
+            items = [.. Foos.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase))];
+        }
+        return new QueryData<SelectedItem>
+        {
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            TotalCount = items.Count
+        };
     }
 
     private SelectedItem[] GroupItems { get; } =
@@ -142,7 +172,7 @@ public partial class MultiSelects
     ];
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -183,6 +213,7 @@ public partial class MultiSelects
         LongItems = GenerateDataSource(LongDataSource);
 
         Items = GenerateDataSource(DataSource);
+        Foos = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private static List<SelectedItem> GenerateItems() =>
@@ -198,7 +229,7 @@ public partial class MultiSelects
         new ("Lianyungang", "连云港")
     ];
 
-    private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => source.Select(i => new SelectedItem(i.Value, i.Text)).ToList();
+    private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => [.. source.Select(i => new SelectedItem(i.Value, i.Text))];
 
     private void AddItems()
     {
