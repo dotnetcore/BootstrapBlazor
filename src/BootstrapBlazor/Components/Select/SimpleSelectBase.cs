@@ -19,6 +19,9 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     [NotNull]
     protected Virtualize<SelectedItem>? _virtualizeElement = default;
 
+    /// <summary>
+    /// Gets or sets the last selected value string.
+    /// </summary>
     protected string _lastSelectedValueString = string.Empty;
 
     /// <summary>
@@ -41,6 +44,9 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     [Parameter]
     public bool IsEditable { get; set; }
 
+    /// <summary>
+    /// Gets or sets the selected items cache.
+    /// </summary>
     protected List<SelectedItem>? _itemsCache;
 
     /// <summary>
@@ -57,6 +63,10 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
         StateHasChanged();
     }
 
+    /// <summary>
+    /// Refreshes the virtualize component.
+    /// </summary>
+    /// <returns></returns>
     protected async Task RefreshVirtualizeElement()
     {
         if (IsVirtualize && OnQueryAsync != null)
