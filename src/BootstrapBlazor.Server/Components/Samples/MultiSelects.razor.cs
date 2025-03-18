@@ -113,16 +113,16 @@ public partial class MultiSelects
     [NotNull]
     private List<Foo>? Foos { get; set; }
 
-    private string? VirtualItemString1 { get; set; }
+    private string? _virtualItemString1;
 
-    private string? VirtualItemString2 { get; set; }
+    private string? _virtualItemString2;
 
     private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
 
     private string? _editString;
 
     private bool _isFixedSearch;
-
+    private bool _isClearable;
     private bool _showSearch;
 
     private async Task<SelectedItem> OnEditCallback(string value)
@@ -214,6 +214,8 @@ public partial class MultiSelects
 
         Items = GenerateDataSource(DataSource);
         Foos = Foo.GenerateFoo(LocalizerFoo);
+        _virtualItemString1 = Foos[79].Name;
+        _virtualItemString2 = Foos[45].Name;
     }
 
     private static List<SelectedItem> GenerateItems() =>

@@ -5,7 +5,7 @@
 
 <h4>@Localizer["MultiSelectsDescription"]</h4>
 
-@* <DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
+<DemoBlock Title="@Localizer["MultiSelectColorTitle"]" Introduction="@Localizer["MultiSelectColorIntro"]" Name="Color">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <MultiSelect TValue="string" Items="@Items1" />
@@ -293,14 +293,14 @@ private enum MultiSelectEnumFoo
             <Display Value="@_editString"></Display>
         </div>
     </div>
-</DemoBlock> *@
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectVirtualizeTitle"]"
            Introduction="@Localizer["MultiSelectVirtualizeIntro"]"
            Name="IsVirtualize">
     <section ignore>
         <p>@((MarkupString)Localizer["MultiSelectVirtualizeDescription"].Value)</p>
-        <div class="row mb-3">
+        <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="ShowSearch" />
@@ -309,8 +309,14 @@ private enum MultiSelectEnumFoo
             </div>
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
                     <Checkbox @bind-Value="@_isFixedSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
                 </BootstrapInputGroup>
             </div>
         </div>
@@ -319,24 +325,24 @@ private enum MultiSelectEnumFoo
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
         <div class="col-6">
-            <MultiSelect IsVirtualize="true" @bind-Value="VirtualItemString1" OnQueryAsync="OnQueryAsync"
-                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString1" OnQueryAsync="OnQueryAsync"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
         <div class="col-6">
-            <Display TValue="string" Value="@VirtualItemString1"></Display>
+            <Display TValue="string" Value="@_virtualItemString1"></Display>
         </div>
     </div>
  
     <p class="code-label">2. 使用 Items 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <MultiSelect IsVirtualize="true" @bind-Value="VirtualItemString2" Items="VirtualItems"
-                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString2" Items="VirtualItems"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
         <div class="col-6">
-            <Display TValue="string" Value="@VirtualItemString2"></Display>
+            <Display TValue="string" Value="@_virtualItemString2"></Display>
         </div>
     </div>
  </DemoBlock>
