@@ -305,12 +305,6 @@ public partial class MultiSelect<TValue>
     {
         await base.OnClearValue();
 
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-
-        _lastSelectedValueString = string.Empty;
         SelectedItems.Clear();
     }
 

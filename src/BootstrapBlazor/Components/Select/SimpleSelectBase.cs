@@ -75,4 +75,26 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
             await _virtualizeElement.RefreshDataAsync();
         }
     }
+
+    /// <summary>
+    /// Clears the selected value.
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnClearValue()
+    {
+        if (ShowSearch)
+        {
+            ClearSearchText();
+        }
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+        CurrentValue = default;
+        if (OnQueryAsync != null)
+        {
+            await _virtualizeElement.RefreshDataAsync();
+        }
+        _lastSelectedValueString = string.Empty;
+    }
 }

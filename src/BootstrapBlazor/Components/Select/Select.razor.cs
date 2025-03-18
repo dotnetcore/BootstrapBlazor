@@ -419,11 +419,6 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         await base.OnClearValue();
 
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-        _lastSelectedValueString = string.Empty;
         SelectedItem = null;
     }
 
