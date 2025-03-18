@@ -10,7 +10,7 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// MultiSelect 组件
+/// MultiSelect component
 /// </summary>
 public partial class MultiSelect<TValue>
 {
