@@ -125,6 +125,25 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback method when the clear button is clicked. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
+    /// <summary>
     /// Gets the search icon string with default "icon search-icon" class.
     /// </summary>
     protected string? SearchIconString => CssBuilder.Default("icon search-icon")
@@ -156,6 +175,15 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .Build();
 
     /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    protected string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -177,4 +205,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     public Task Hide() => InvokeVoidAsync("hide", Id);
+
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
 }

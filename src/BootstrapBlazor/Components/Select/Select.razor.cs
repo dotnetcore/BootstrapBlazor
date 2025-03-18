@@ -30,14 +30,6 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    private string? ClearClassString => CssBuilder.Default("clear-icon")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
-        .Build();
-
-    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
-
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", item.Value == CurrentValueAsString)
         .AddClass("disabled", item.IsDisabled)
@@ -50,13 +42,6 @@ public partial class Select<TValue> : ISelect, ILookup
     private readonly List<SelectedItem> _children = [];
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// Gets or sets the callback method when the search text changes.
@@ -78,12 +63,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select component is clearable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
     /// Gets or sets the options template for static data.
     /// </summary>
     [Parameter]
@@ -94,12 +73,6 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method when the clear button is clicked. Default is null.
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnClearAsync { get; set; }
 
     /// <summary>
     /// Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
@@ -521,8 +494,6 @@ public partial class Select<TValue> : ISelect, ILookup
         CurrentValue = default;
         SelectedItem = null;
     }
-
-    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
 

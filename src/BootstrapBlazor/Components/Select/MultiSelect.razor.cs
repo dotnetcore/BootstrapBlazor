@@ -185,13 +185,6 @@ public partial class MultiSelect<TValue>
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
-    /// <summary>
-    /// 获得/设置 设置清除图标 默认 fa-solid fa-xmark
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -290,7 +283,11 @@ public partial class MultiSelect<TValue>
     private List<SelectedItem> GetRowsByItems()
     {
         var items = new List<SelectedItem>();
-        if (Items != null)
+        if (_result.Items != null)
+        {
+            items.AddRange(_result.Items);
+        }
+        else if (Items != null)
         {
             items.AddRange(Items);
         }
@@ -306,6 +303,32 @@ public partial class MultiSelect<TValue>
     private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
         ? source
         : source.Where(i => i.Text.Contains(SearchText, StringComparison));
+
+    private async Task OnClearValue()
+    {
+        if (ShowSearch)
+        {
+            ClearSearchText();
+        }
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+
+        if (OnQueryAsync != null)
+        {
+            await _virtualizeElement.RefreshDataAsync();
+        }
+
+        PreviousValue = string.Empty;
+        CurrentValue = default;
+        SelectedItems.Clear();
+    }
+
+    /// <summary>
+    /// Clears the search text.
+    /// </summary>
+    public void ClearSearchText() => SearchText = null;
 
     /// <summary>
     /// FormatValueAsString 方法

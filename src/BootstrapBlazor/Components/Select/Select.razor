@@ -41,7 +41,7 @@
             }
             @if (IsVirtualize)
             {
-                <div class="dropdown-virtual">
+                <div class="dropdown-menu-body dropdown-virtual">
                     @if (OnQueryAsync == null)
                     {
                         <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow" />
