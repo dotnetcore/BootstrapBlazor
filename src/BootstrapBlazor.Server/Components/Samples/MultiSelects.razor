@@ -114,10 +114,41 @@ private enum MultiSelectEnumFoo
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
-    <section ignore>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
-    <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch"></MultiSelect>
-    <section ignore>@SelectedSearchItemsValue</section>
-    <ConsoleLogger @ref="Logger"></ConsoleLogger>
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
+                    <Checkbox @bind-Value="@_isFixedSearch" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" OnSearchTextChanged="@OnSearch">
+            </MultiSelect>
+        </div>
+        <div class="col-12 col-sm-6">
+            <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch">
+            </MultiSelect>
+        </div>
+    </div>
+
+    <section ignore>
+        <p>@SelectedSearchItemsValue</p>
+        <ConsoleLogger @ref="Logger"></ConsoleLogger>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectGroupTitle"]" Introduction="@Localizer["MultiSelectGroupIntro"]" Name="Group">

@@ -108,6 +108,10 @@ public partial class MultiSelects
 
     private string? _editString;
 
+    private bool _isFixedSearch;
+
+    private bool _showSearch;
+
     private async Task<SelectedItem> OnEditCallback(string value)
     {
         await Task.Delay(100);
