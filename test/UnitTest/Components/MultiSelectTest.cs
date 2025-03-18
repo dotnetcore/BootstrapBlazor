@@ -889,6 +889,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("select dropdown multi-select is-clearable");
+        cut.Contains("fa-regular fa-circle-xmark");
 
         var span = cut.Find(".clear-icon");
         Assert.NotNull(span);
