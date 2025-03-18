@@ -27,7 +27,7 @@
                     {
                         <div class="multi-select-item-group">
                             <DynamicElement TagName="span" class="multi-select-close" data-bb-val="@GetValueString(item)"
-                            TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
+                                            TriggerClick="@(!IsPopover)" OnClick="() => ToggleRow(item.Value)">
                                 <i class="@ClearIcon"></i>
                             </DynamicElement>
                             <span class="multi-select-item">@item.Text</span>

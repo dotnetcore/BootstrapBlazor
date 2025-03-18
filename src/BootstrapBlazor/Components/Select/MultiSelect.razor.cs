@@ -238,8 +238,16 @@ public partial class MultiSelect<TValue>
         {
             PreviousValue = _currentValue;
             var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
+
             SelectedItems.Clear();
-            SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
+            if (IsVirtualize)
+            {
+                SelectedItems.AddRange(list.Select(i => new SelectedItem(i, i)));
+            }
+            else
+            {
+                SelectedItems.AddRange(Rows.Where(item => list.Any(i => i.Trim() == item.Value)));
+            }
         }
     }
 
