@@ -150,7 +150,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
         var clearButton = cut.Find(".clear-icon");
         cut.InvokeAsync(() => clearButton.Click());
-        Assert.Empty(val);
+        Assert.Null(val);
 
         // 提高代码覆盖率
         var select = cut;
@@ -159,10 +159,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.Color, Color.Danger);
         });
 
-        var validPi = typeof(SelectGeneric<string>).GetProperty("IsValid", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var validPi = typeof(SelectGeneric<string>).BaseType!.GetProperty("IsValid", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         validPi.SetValue(select.Instance, true);
 
-        var pi = typeof(SelectGeneric<string>).GetProperty("ClearClassString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var pi = typeof(SelectGeneric<string>).BaseType!.GetProperty("ClearClassString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         val = pi.GetValue(select.Instance, null)!.ToString();
         Assert.Contains("text-success", val);
 
@@ -703,9 +703,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 点击 Clear 按钮
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
+        Assert.Null(cut.Instance.Value);
 
-        // UI 恢复 Test1
-        Assert.Equal("Test1", el.Value);
+        // UI 恢复 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         items = cut.FindAll(".dropdown-item");
@@ -761,9 +762,10 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         // 点击 Clear 按钮
         var button = cut.Find(".clear-icon");
         await cut.InvokeAsync(() => button.Click());
+        Assert.Null(cut.Instance.Value);
 
-        // UI 恢复 Test1
-        Assert.Equal("All", el.Value);
+        // UI 恢复 ""
+        Assert.Equal("", el.Value);
 
         // 下拉框显示所有选项
         Assert.True(query);

@@ -638,15 +638,16 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 new("1", "Test1"),
                 new("2", "Test2")
             });
-            pb.Add(a => a.ClearIcon, "icon-clear");
+            pb.Add(a => a.IsClearable, true);
         });
-        Assert.Contains("icon-clear", cut.Markup);
+        Assert.Contains("fa-regular fa-circle-xmark", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ClearIcon, null);
+            pb.Add(a => a.ClearableIcon, "icon-clear-test");
         });
-        Assert.Contains("fa-regular fa-circle-xmark", cut.Markup);
+        Assert.DoesNotContain("fa-regular fa-circle-xmark", cut.Markup);
+        Assert.Contains("icon-clear-test", cut.Markup);
     }
 
     [Fact]

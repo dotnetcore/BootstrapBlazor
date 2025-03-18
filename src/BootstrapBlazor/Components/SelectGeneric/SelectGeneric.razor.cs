@@ -461,6 +461,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         {
             await VirtualizeElement.RefreshDataAsync();
         }
+        SelectedItem = new SelectedItem<TValue>(default!, "");
     }
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
