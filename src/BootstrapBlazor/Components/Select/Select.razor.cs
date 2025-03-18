@@ -192,14 +192,20 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (Value is null)
         {
+            _init = false;
             return null;
+        }
+
+        if (IsVirtualize)
+        {
+            _init = false;
+            return new SelectedItem(CurrentValueAsString, CurrentValueAsString);
         }
 
         var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
-            ?? GetVirtualizeItem(CurrentValueAsString);
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
 
         if (item != null)
         {
