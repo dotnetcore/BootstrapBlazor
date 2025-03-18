@@ -3,6 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Reflection;
+
 namespace UnitTest.Components;
 
 public class MultiSelectTest : BootstrapBlazorTestBase
@@ -660,5 +663,208 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsMarkupString, true);
         });
         Assert.Contains("<div>Test1</div>", cut.Markup);
+    }
+
+    [Fact]
+    public void IsVirtualize_Items()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 33f);
+            pb.Add(a => a.OverscanCount, 4);
+        });
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
+        cut.InvokeAsync(async () =>
+        {
+            // 搜索 T
+            cut.Find(".search-text").Input("T");
+            await cut.Instance.ConfirmSelectedItem(0);
+        });
+    }
+
+    [Fact]
+    public async Task IsVirtualize_Items_Clearable_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 33f);
+            pb.Add(a => a.OverscanCount, 4);
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.ShowSearch, true);
+        });
+
+        // 覆盖有搜索条件时，点击清空按钮
+        // 期望 UI 显示值为默认值
+        // 期望 下拉框为全数据
+        var input = cut.Find(".search-text");
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
+
+        // 下拉框仅显示一个选项 Test2
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Single(items);
+
+        // 点击 Clear 按钮
+        var button = cut.Find(".clear-icon");
+        await cut.InvokeAsync(() => button.Click());
+
+        // 下拉框显示所有选项
+        items = cut.FindAll(".dropdown-item");
+        Assert.Equal(2, items.Count);
+    }
+
+    [Fact]
+    public async Task IsVirtualize_OnQueryAsync_Clearable_Ok()
+    {
+        var query = false;
+        var startIndex = 0;
+        var requestCount = 0;
+        var searchText = string.Empty;
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                query = true;
+                startIndex = option.StartIndex;
+                requestCount = option.Count;
+                searchText = option.SearchText;
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = string.IsNullOrEmpty(searchText)
+                        ? [new("", "All"), new("1", "Test1"), new("2", "Test2")]
+                        : [new("2", "Test2")],
+                    TotalCount = string.IsNullOrEmpty(searchText) ? 2 : 1
+                });
+            });
+            pb.Add(a => a.Value, "");
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.ShowSearch, true);
+        });
+
+        // 覆盖有搜索条件时，点击清空按钮
+        // 期望 UI 显示值为默认值
+        // 期望 下拉框为全数据
+        var input = cut.Find(".search-text");
+        await cut.InvokeAsync(() => cut.Instance.TriggerOnSearch("2"));
+
+        // 下拉框仅显示一个选项 Test2
+        var items = cut.FindAll(".dropdown-item");
+        Assert.Single(items);
+
+        query = false;
+        // 点击 Clear 按钮
+        var button = cut.Find(".clear-icon");
+        await cut.InvokeAsync(() => button.Click());
+
+        // 下拉框显示所有选项
+        Assert.True(query);
+    }
+
+    [Fact]
+    public async Task IsVirtualize_BindValue()
+    {
+        var value = "3";
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create(this, new Action<string?>(item =>
+            {
+                value = item;
+            })));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = new SelectedItem[]
+                    {
+                        new("1", "Test1"),
+                        new("2", "Test2")
+                    },
+                    TotalCount = 2
+                });
+            });
+        });
+
+        // 3 不在集合内，但是由于是虚拟集合，只能显示
+        var select = cut.Instance;
+        Assert.Equal("3", select.Value);
+
+        var item = cut.Find(".dropdown-item");
+        await cut.InvokeAsync(() =>
+        {
+            item.Click();
+        });
+        Assert.Equal("3,1", value);
+    }
+
+    [Fact]
+    public void IsVirtualize_DefaultVirtualizeItemText()
+    {
+        string? value = "3";
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create(this, new Action<string?>(item =>
+            {
+                value = item;
+            })));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = new SelectedItem[]
+                    {
+                        new("1", "Test1"),
+                        new("2", "Test2")
+                    },
+                    TotalCount = 2
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find(".form-select");
+            Assert.Equal("Test 3", input.GetAttribute("value"));
+        });
+    }
+
+    [Fact]
+    public void LoadItems_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>());
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+        });
+        var select = cut.Instance;
+        var mi = select.GetType().GetMethod("LoadItems", BindingFlags.NonPublic | BindingFlags.Instance);
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
+
+        var totalCountProperty = select.GetType().GetProperty("TotalCount", BindingFlags.NonPublic | BindingFlags.Instance);
+        totalCountProperty?.SetValue(select, 2);
+        mi?.Invoke(select, [new ItemsProviderRequest(0, 1, CancellationToken.None)]);
     }
 }
