@@ -47,10 +47,6 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass(SearchLoadingIcon)
         .Build();
 
-    private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
-        .Build();
-
     private readonly List<SelectedItem> _children = [];
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
@@ -100,7 +96,7 @@ public partial class Select<TValue> : ISelect, ILookup
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets whether virtual scrolling is enabled. Default is false. Note: When virtual scrolling is enabled, <see cref="SelectBase{TValue}.ShowSearch"/>, <see cref="PopoverSelectBase{TValue}.IsPopover"/>, and <seealso cref="IsFixedSearch"/> are not supported. Set <see cref="DefaultVirtualizeItemText"/> when setting initial values.
+    /// Gets or sets whether virtual scrolling is enabled. Default is false.
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }

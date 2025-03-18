@@ -40,14 +40,8 @@ public partial class MultiSelect<TValue>
         .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
-    /// <summary>
-    /// 获得 SearchLoadingIcon 图标字符串
-    /// </summary>
     private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
         .AddClass(SearchLoadingIcon)
-        .Build();
-    private string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .Build();
 
     /// <summary>

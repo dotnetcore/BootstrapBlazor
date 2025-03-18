@@ -122,6 +122,13 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .Build();
 
     /// <summary>
+    /// Gets the dropdown menu class string.
+    /// </summary>
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
