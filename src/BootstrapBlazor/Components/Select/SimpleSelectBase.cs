@@ -35,6 +35,12 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     [NotNull]
     public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
 
+    /// <summary>
+    /// Gets or sets whether the select component is editable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
     protected List<SelectedItem>? _itemsCache;
 
     /// <summary>

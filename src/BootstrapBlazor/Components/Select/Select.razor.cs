@@ -46,15 +46,9 @@ public partial class Select<TValue> : ISelect, ILookup
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the select component is editable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsEditable { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback method when the input value changes. Default is null.
     /// </summary>
-    /// <remarks>Effective when <see cref="IsEditable"/> is set.</remarks>
+    /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task>? OnInputChangedCallback { get; set; }
 

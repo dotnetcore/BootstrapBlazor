@@ -77,16 +77,10 @@ public partial class MultiSelect<TValue>
     public bool IsSingleLine { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可编辑 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsEditable { get; set; }
-
-    /// <summary>
     /// 获得/设置 编辑模式下输入选项更新后回调方法 默认 null
     /// <para>返回 <see cref="SelectedItem"/> 实例时输入选项生效，返回 null 时选项不生效进行舍弃操作，建议在回调方法中自行提示</para>
     /// </summary>
-    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
     public Func<string, Task<SelectedItem>>? OnEditCallback { get; set; }
 
