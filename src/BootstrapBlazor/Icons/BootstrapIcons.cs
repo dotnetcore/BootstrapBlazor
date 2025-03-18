@@ -110,6 +110,7 @@ internal static class BootstrapIcons
 
         { ComponentIcons.MultiSelectDropdownIcon, "bi bi-chevron-up" },
         { ComponentIcons.MultiSelectClearIcon, "bi bi-x" },
+        { ComponentIcons.MultiSelectClearableIcon, "bi bi-x-circle" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "bi bi-chevron-up" },
 

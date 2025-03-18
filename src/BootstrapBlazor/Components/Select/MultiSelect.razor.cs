@@ -186,6 +186,13 @@ public partial class MultiSelect<TValue>
     [NotNull]
     public string? MinErrorMessage { get; set; }
 
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is null.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearableIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -227,6 +234,7 @@ public partial class MultiSelect<TValue>
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
+        ClearableIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearableIcon);
 
         ResetItems();
         ResetRules();
