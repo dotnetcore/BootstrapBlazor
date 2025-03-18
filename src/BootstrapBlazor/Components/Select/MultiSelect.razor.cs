@@ -41,20 +41,6 @@ public partial class MultiSelect<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 绑定数据集
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method for loading virtualized items.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
-
-    /// <summary>
     /// 获得/设置 选项模板
     /// </summary>
     [Parameter]
@@ -193,8 +179,6 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
-    private List<SelectedItem>? _itemsCache;
-
     private List<SelectedItem> Rows
     {
         get
@@ -203,8 +187,6 @@ public partial class MultiSelect<TValue>
             return _itemsCache;
         }
     }
-
-    private string? _lastSelectedValueString;
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
@@ -268,7 +250,13 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch), TriggerEditTag = nameof(TriggerEditTag), ToggleRow = nameof(ToggleRow) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        ConfirmMethodCallback = nameof(ConfirmSelectedItem),
+        SearchMethodCallback = nameof(TriggerOnSearch),
+        TriggerEditTag = nameof(TriggerEditTag),
+        ToggleRow = nameof(ToggleRow)
+    });
 
     private int _totalCount;
     private ItemsProviderResult<SelectedItem> _result;
@@ -603,29 +591,6 @@ public partial class MultiSelect<TValue>
             {
                 Items = [];
             }
-        }
-    }
-
-    /// <summary>
-    /// 客户端搜索栏回调方法
-    /// </summary>
-    /// <param name="searchText"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task TriggerOnSearch(string searchText)
-    {
-        _itemsCache = null;
-        SearchText = searchText;
-        await RefreshVirtualizeElement();
-        StateHasChanged();
-    }
-
-    private async Task RefreshVirtualizeElement()
-    {
-        if (IsVirtualize && OnQueryAsync != null)
-        {
-            // 通过 ItemProvider 提供数据
-            await _virtualizeElement.RefreshDataAsync();
         }
     }
 }

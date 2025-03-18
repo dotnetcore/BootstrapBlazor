@@ -77,13 +77,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public bool DisableItemChangedWhenFirstRender { get; set; }
 
     /// <summary>
-    /// Gets or sets the bound data set.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
     /// Gets or sets the item template.
     /// </summary>
     [Parameter]
@@ -144,13 +137,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method for loading virtualized items.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
@@ -178,11 +164,7 @@ public partial class Select<TValue> : ISelect, ILookup
 
     private string? InputId => $"{Id}_input";
 
-    private string _lastSelectedValueString = string.Empty;
-
     private bool _init = true;
-
-    private List<SelectedItem>? _itemsCache;
 
     private ItemsProviderResult<SelectedItem> _result;
 
@@ -292,21 +274,6 @@ public partial class Select<TValue> : ISelect, ILookup
         SelectedItem = null;
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await RefreshVirtualizeElement();
-            StateHasChanged();
-        }
-    }
-
     private int _totalCount;
 
     private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
@@ -325,15 +292,6 @@ public partial class Select<TValue> : ISelect, ILookup
         return _result;
 
         int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
-    }
-
-    private async Task RefreshVirtualizeElement()
-    {
-        if (IsVirtualize && OnQueryAsync != null)
-        {
-            // 通过 ItemProvider 提供数据
-            await _virtualizeElement.RefreshDataAsync();
-        }
     }
 
     /// <summary>
@@ -371,7 +329,11 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        ConfirmMethodCallback = nameof(ConfirmSelectedItem),
+        SearchMethodCallback = nameof(TriggerOnSearch)
+    });
 
     /// <summary>
     /// Confirms the selected item.
@@ -386,20 +348,6 @@ public partial class Select<TValue> : ISelect, ILookup
             await OnClickItem(Rows[index]);
             StateHasChanged();
         }
-    }
-
-    /// <summary>
-    /// Triggers the search callback method.
-    /// </summary>
-    /// <param name="searchText">The search text.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    [JSInvokable]
-    public async Task TriggerOnSearch(string searchText)
-    {
-        _itemsCache = null;
-        SearchText = searchText;
-        await RefreshVirtualizeElement();
-        StateHasChanged();
     }
 
     /// <summary>
