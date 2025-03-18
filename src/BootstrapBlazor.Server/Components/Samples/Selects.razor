@@ -433,11 +433,17 @@
            Name="IsVirtualize">
     <section ignore>
         <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
-        <div class="row mb-3">
+        <div class="row g-3">
             <div class="col-12 col-sm-6">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="ShowSearch" />
                     <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
+                    <Checkbox @bind-Value="@_isFixedSearch" />
                 </BootstrapInputGroup>
             </div>
             <div class="col-12 col-sm-6">
@@ -452,7 +458,8 @@
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row mb-3">
         <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1"
+                    ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
@@ -462,7 +469,8 @@
     <p class="code-label">2. 使用 Items 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" ShowSearch="_showSearch" IsClearable="_isClearable"></Select>
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
+                    ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>

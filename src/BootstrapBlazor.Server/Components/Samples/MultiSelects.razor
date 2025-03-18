@@ -123,18 +123,24 @@ private enum MultiSelectEnumFoo
                     <Checkbox @bind-Value="@_isFixedSearch" />
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
 
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue"
-                         ShowSearch="true" IsFixedSearch="_isFixedSearch" OnSearchTextChanged="@OnSearch">
+                         ShowSearch="true" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable" OnSearchTextChanged="@OnSearch">
             </MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
             <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue"
-                         ShowSearch="true" IsFixedSearch="_isFixedSearch">
+                         ShowSearch="true" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
     </div>
@@ -294,6 +300,58 @@ private enum MultiSelectEnumFoo
         </div>
     </div>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["MultiSelectVirtualizeTitle"]"
+           Introduction="@Localizer["MultiSelectVirtualizeIntro"]"
+           Name="IsVirtualize">
+    <section ignore>
+        <p>@((MarkupString)Localizer["MultiSelectVirtualizeDescription"].Value)</p>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                    <Checkbox @bind-Value="@_showSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsFixedSearch" />
+                    <Checkbox @bind-Value="@_isFixedSearch" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
+        </div>
+    </section>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row mb-3">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString1" OnQueryAsync="OnQueryAsync"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
+            </MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@_virtualItemString1"></Display>
+        </div>
+    </div>
+ 
+    <p class="code-label">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <MultiSelect IsVirtualize="true" @bind-Value="_virtualItemString2" Items="VirtualItems"
+                         ShowSearch="_showSearch" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
+            </MultiSelect>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@_virtualItemString2"></Display>
+        </div>
+    </div>
+ </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()"></AttributeTable>
 

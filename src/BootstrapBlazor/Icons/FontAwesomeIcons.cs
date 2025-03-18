@@ -108,6 +108,7 @@ internal static class FontAwesomeIcons
 
         { ComponentIcons.MultiSelectDropdownIcon, "fa-solid fa-angle-up" },
         { ComponentIcons.MultiSelectClearIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.MultiSelectClearableIcon, "fa-regular fa-circle-xmark" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
 

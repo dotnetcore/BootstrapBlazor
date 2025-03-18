@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
-@inherits SelectBase<TValue>
+@inherits SimpleSelectBase<TValue>
 @attribute [BootstrapModuleAutoLoader("Select/MultiSelect.razor.js", JSObjectReference = true)]
 
 @if (IsShowLabel)
@@ -48,6 +49,10 @@
             <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
         }
     </div>
+    @if (GetClearable())
+    {
+        <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearableIcon"></i></span>
+    }
     <div class="@DropdownMenuClassString">
         @if (ShowSearch)
         {
@@ -57,7 +62,23 @@
                 <i class="@SearchLoadingIconString"></i>
             </div>
         }
-        @if (Rows.Count == 0)
+        @if (IsVirtualize)
+        {
+            <div class="dropdown-menu-body dropdown-virtual">
+                @if (OnQueryAsync == null)
+                {
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow">
+                    </Virtualize>
+                }
+                else
+                {
+                    <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
+                                Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
+                    </Virtualize>
+                }
+            </div>
+        }
+        else if (Rows.Count == 0)
         {
             <div class="dropdown-item">@NoSearchDataText</div>
         }
@@ -91,28 +112,50 @@
                     }
                     @foreach (var item in itemGroup)
                     {
-                        <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
-                            <div class="multi-select-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
-                                </div>
-                                @if (ItemTemplate != null)
-                                {
-                                    @ItemTemplate(item)
-                                }
-                                else if (IsMarkupString)
-                                {
-                                    @((MarkupString)item.Text)
-                                }
-                                else
-                                {
-                                    <span>@item.Text</span>
-                                }
-                            </div>
-                        </DynamicElement>
+                        @RenderRow(item)
+                    }
+
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        if (GroupItemTemplate != null)
+                        {
+                            @GroupItemTemplate(itemGroup.Key)
+                        }
+                        else
+                        {
+                            <Divider Text="@itemGroup.Key" />
+                        }
                     }
                 }
             </div>
         }
     </div>
 </div>
+
+@code {
+    RenderFragment<SelectedItem> RenderRow => item =>
+    @<DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+        <div class="multi-select-item">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
+            </div>
+            @if (ItemTemplate != null)
+            {
+                @ItemTemplate(item)
+            }
+            else if (IsMarkupString)
+            {
+                @((MarkupString)item.Text)
+            }
+            else
+            {
+                <span>@item.Text</span>
+            }
+        </div>
+    </DynamicElement>;
+
+    RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
+    @<div class="dropdown-item">
+        <div class="is-ph"></div>
+    </div>;
+}

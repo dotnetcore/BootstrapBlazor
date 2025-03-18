@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
-@inherits SelectBase<TValue>
+@inherits SimpleSelectBase<TValue>
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 @if (IsShowLabel)
@@ -41,14 +41,17 @@
             }
             @if (IsVirtualize)
             {
-                <div class="dropdown-virtual">
+                <div class="dropdown-menu-body dropdown-virtual">
                     @if (OnQueryAsync == null)
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow" />
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow">
+                        </Virtualize>
                     }
                     else
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement" />
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems"
+                                    Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="_virtualizeElement">
+                        </Virtualize>
                     }
                 </div>
             }

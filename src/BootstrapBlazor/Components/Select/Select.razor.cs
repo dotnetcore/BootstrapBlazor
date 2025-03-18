@@ -19,7 +19,7 @@ public partial class Select<TValue> : ISelect, ILookup
     private SwalService? SwalService { get; set; }
 
     private string? ClassString => CssBuilder.Default("select dropdown")
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -30,64 +30,14 @@ public partial class Select<TValue> : ISelect, ILookup
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    private string? ClearClassString => CssBuilder.Default("clear-icon")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
-        .Build();
-
-    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
-
     private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
         .AddClass("active", item.Value == CurrentValueAsString)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
-    private string? SearchLoadingIconString => CssBuilder.Default("icon searching-icon")
-        .AddClass(SearchLoadingIcon)
-        .Build();
-
     private readonly List<SelectedItem> _children = [];
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method when the search text changes.
-    /// </summary>
-    [Parameter]
-    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the select component is editable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsEditable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method when the input value changes. Default is null.
-    /// </summary>
-    /// <remarks>Effective when <see cref="IsEditable"/> is set.</remarks>
-    [Parameter]
-    public Func<string, Task>? OnInputChangedCallback { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the select component is clearable. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
-    /// Gets or sets the options template for static data.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? Options { get; set; }
 
     /// <summary>
     /// Gets or sets the display template. Default is null.
@@ -96,56 +46,23 @@ public partial class Select<TValue> : ISelect, ILookup
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// Gets or sets whether virtual scrolling is enabled. Default is false.
+    /// Gets or sets the callback method when the input value changes. Default is null.
     /// </summary>
+    /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
     [Parameter]
-    public bool IsVirtualize { get; set; }
+    public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
-    /// Gets or sets the row height for virtual scrolling. Default is 33.
-    /// </summary>
-    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
-    [Parameter]
-    public float RowHeight { get; set; } = 33f;
-
-    /// <summary>
-    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
-    /// </summary>
-    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
-    [Parameter]
-    public int OverscanCount { get; set; } = 4;
-
-    /// <summary>
-    /// Gets or sets the default text for virtualized items. Default is null.
-    /// </summary>
-    /// <remarks>Effective when <see cref="IsVirtualize"/> is enabled and data source is provided via <see cref="OnQueryAsync"/>. If the data set does not contain the <see cref="DisplayBase{TValue}.Value"/> option value during rendering, the DefaultText value is used.</remarks>
-    [Parameter]
-    public string? DefaultVirtualizeItemText { get; set; }
-
-    /// <summary>
-    /// Gets or sets the callback method when the clear button is clicked. Default is null.
+    /// Gets or sets the options template for static data.
     /// </summary>
     [Parameter]
-    public Func<Task>? OnClearAsync { get; set; }
+    public RenderFragment? Options { get; set; }
 
     /// <summary>
     /// Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
-
-    /// <summary>
-    /// Gets or sets the bound data set.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
-    /// Gets or sets the item template.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.
@@ -202,13 +119,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public object? LookupServiceData { get; set; }
 
     /// <summary>
-    /// Gets or sets the callback method for loading virtualized items.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     IEnumerable<SelectedItem>? ILookup.Lookup { get; set; }
@@ -234,29 +144,13 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     protected override string? RetrieveId() => InputId;
 
-    [NotNull]
-    private Virtualize<SelectedItem>? _virtualizeElement = default;
-
     private string? InputId => $"{Id}_input";
 
-    private string _lastSelectedValueString = string.Empty;
-
     private bool _init = true;
-
-    private List<SelectedItem>? _itemsCache;
 
     private ItemsProviderResult<SelectedItem> _result;
 
     private SelectedItem? SelectedItem { get; set; }
-
-    private List<SelectedItem> Rows
-    {
-        get
-        {
-            _itemsCache ??= string.IsNullOrEmpty(SearchText) ? GetRowsByItems() : GetRowsBySearch();
-            return _itemsCache;
-        }
-    }
 
     private SelectedItem? SelectedRow
     {
@@ -271,14 +165,20 @@ public partial class Select<TValue> : ISelect, ILookup
     {
         if (Value is null)
         {
+            _init = false;
             return null;
+        }
+
+        if (IsVirtualize)
+        {
+            _init = false;
+            return new SelectedItem(CurrentValueAsString, CurrentValueAsString);
         }
 
         var item = GetItemWithEnumValue()
             ?? Rows.Find(i => i.Value == CurrentValueAsString)
             ?? Rows.Find(i => i.Active)
-            ?? Rows.FirstOrDefault(i => !i.IsDisabled)
-            ?? GetVirtualizeItem(CurrentValueAsString);
+            ?? Rows.FirstOrDefault(i => !i.IsDisabled);
 
         if (item != null)
         {
@@ -298,27 +198,6 @@ public partial class Select<TValue> : ISelect, ILookup
     private SelectedItem? GetItemWithEnumValue() => ValueType.IsEnum
         ? Rows.Find(i => i.Value == Convert.ToInt32(Value).ToString())
         : null;
-
-    private List<SelectedItem> GetRowsByItems()
-    {
-        var items = new List<SelectedItem>();
-        if (Items != null)
-        {
-            items.AddRange(Items);
-        }
-        items.AddRange(_children);
-        return items;
-    }
-
-    private List<SelectedItem> GetRowsBySearch()
-    {
-        var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return [.. items];
-    }
-
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
-        ? source
-        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// <inheritdoc/>
@@ -353,22 +232,7 @@ public partial class Select<TValue> : ISelect, ILookup
         SelectedItem = null;
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await RefreshVirtualizeElement();
-            StateHasChanged();
-        }
-    }
-
-    private int TotalCount { get; set; }
+    private int _totalCount;
 
     private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
 
@@ -379,21 +243,13 @@ public partial class Select<TValue> : ISelect, ILookup
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
-        TotalCount = data.TotalCount;
+        _itemsCache = null;
+        _totalCount = data.TotalCount;
         var items = data.Items ?? [];
-        _result = new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        _result = new ItemsProviderResult<SelectedItem>(items, _totalCount);
         return _result;
 
-        int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
-    }
-
-    private async Task RefreshVirtualizeElement()
-    {
-        if (IsVirtualize && OnQueryAsync != null)
-        {
-            // 通过 ItemProvider 提供数据
-            await _virtualizeElement.RefreshDataAsync();
-        }
+        int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
     }
 
     /// <summary>
@@ -423,7 +279,7 @@ public partial class Select<TValue> : ISelect, ILookup
         SelectedItem? item = null;
         if (_result.Items != null)
         {
-            item = _result.Items.FirstOrDefault(i => i.Value == value) ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
+            item = _result.Items.FirstOrDefault(i => i.Value == value);
         }
         return item;
     }
@@ -431,7 +287,26 @@ public partial class Select<TValue> : ISelect, ILookup
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch) });
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new
+    {
+        ConfirmMethodCallback = nameof(ConfirmSelectedItem),
+        SearchMethodCallback = nameof(TriggerOnSearch)
+    });
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override List<SelectedItem> GetRowsByItems()
+    {
+        var items = new List<SelectedItem>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        items.AddRange(_children);
+        return items;
+    }
 
     /// <summary>
     /// Confirms the selected item.
@@ -446,20 +321,6 @@ public partial class Select<TValue> : ISelect, ILookup
             await OnClickItem(Rows[index]);
             StateHasChanged();
         }
-    }
-
-    /// <summary>
-    /// Triggers the search callback method.
-    /// </summary>
-    /// <param name="searchText">The search text.</param>
-    /// <returns>A task that represents the asynchronous operation.</returns>
-    [JSInvokable]
-    public async Task TriggerOnSearch(string searchText)
-    {
-        _itemsCache = null;
-        SearchText = searchText;
-        await RefreshVirtualizeElement();
-        StateHasChanged();
     }
 
     /// <summary>
@@ -524,32 +385,15 @@ public partial class Select<TValue> : ISelect, ILookup
     public void Add(SelectedItem item) => _children.Add(item);
 
     /// <summary>
-    /// Clears the search text.
+    /// <inheritdoc/>
     /// </summary>
-    public void ClearSearchText() => SearchText = null;
-
-    private async Task OnClearValue()
+    /// <returns></returns>
+    protected override async Task OnClearValue()
     {
-        if (ShowSearch)
-        {
-            ClearSearchText();
-        }
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
+        await base.OnClearValue();
 
-        if (OnQueryAsync != null)
-        {
-            await _virtualizeElement.RefreshDataAsync();
-        }
-
-        _lastSelectedValueString = string.Empty;
-        CurrentValue = default;
         SelectedItem = null;
     }
-
-    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
 
     private string? ReadonlyString => IsEditable ? null : "readonly";
 
