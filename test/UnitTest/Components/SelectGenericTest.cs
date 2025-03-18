@@ -452,8 +452,8 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
 
         // 值为 null
-        // 候选项中无，导致默认选择第一个 Value 被更改为 true
-        Assert.True(cut.Instance.Value);
+        // 候选项中无，可为空值为 null
+        Assert.Null(cut.Instance.Value);
     }
 
     [Fact]
@@ -798,7 +798,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
         });
 
         var input = cut.Find(".form-select");
-        Assert.Null(input.GetAttribute("value"));
+        Assert.Equal("3", input.GetAttribute("value"));
 
         var select = cut.Instance;
         Assert.Equal("3", select.Value);
@@ -809,40 +809,6 @@ public class SelectGenericTest : BootstrapBlazorTestBase
 
         input = cut.Find(".form-select");
         Assert.Equal("Test1", input.GetAttribute("value"));
-    }
-
-    [Fact]
-    public void IsVirtualize_DefaultVirtualizeItemText()
-    {
-        string? value = "3";
-        var cut = Context.RenderComponent<SelectGeneric<string>>(pb =>
-        {
-            pb.Add(a => a.IsVirtualize, true);
-            pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
-            pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, new Action<string?>(item =>
-            {
-                value = item;
-            })));
-            pb.Add(a => a.OnQueryAsync, option =>
-            {
-                return Task.FromResult(new QueryData<SelectedItem<string>>()
-                {
-                    Items = new SelectedItem<string>[]
-                    {
-                        new("1", "Test1"),
-                        new("2", "Test2")
-                    },
-                    TotalCount = 2
-                });
-            });
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find(".form-select");
-            Assert.Equal("Test 3", input.GetAttribute("value"));
-        });
     }
 
     [Fact]

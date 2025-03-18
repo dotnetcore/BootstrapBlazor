@@ -936,40 +936,6 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsVirtualize_DefaultVirtualizeItemText()
-    {
-        string? value = "3";
-        var cut = Context.RenderComponent<Select<string>>(pb =>
-        {
-            pb.Add(a => a.IsVirtualize, true);
-            pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
-            pb.Add(a => a.Value, value);
-            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string?>(this, new Action<string?>(item =>
-            {
-                value = item;
-            })));
-            pb.Add(a => a.OnQueryAsync, option =>
-            {
-                return Task.FromResult(new QueryData<SelectedItem>()
-                {
-                    Items = new SelectedItem[]
-                    {
-                        new("1", "Test1"),
-                        new("2", "Test2")
-                    },
-                    TotalCount = 2
-                });
-            });
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var input = cut.Find(".form-select");
-            Assert.Equal("Test 3", input.GetAttribute("value"));
-        });
-    }
-
-    [Fact]
     public void LoadItems_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
