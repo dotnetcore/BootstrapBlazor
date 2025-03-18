@@ -23,7 +23,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// 获得 样式集合
     /// </summary>
     private string? ClassString => CssBuilder.Default("select dropdown")
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -37,14 +37,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    private string? ClearClassString => CssBuilder.Default("clear-icon")
-        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
-        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
-        .Build();
-
-    private bool GetClearable() => IsClearable && !IsDisabled;
-
     /// <summary>
     /// 设置当前项是否 Active 方法
     /// </summary>
@@ -56,13 +48,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         .Build();
 
     private readonly List<SelectedItem<TValue>> _children = [];
-
-    /// <summary>
-    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
@@ -91,12 +76,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public Func<string, Task<TValue>>? TextConvertToValueCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否可清除 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsClearable { get; set; }
-
-    /// <summary>
     /// 获得/设置 选项模板支持静态数据
     /// </summary>
     [Parameter]
@@ -107,12 +86,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem<TValue>?>? DisplayTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnClearAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false

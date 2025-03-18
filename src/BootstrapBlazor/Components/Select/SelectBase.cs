@@ -120,7 +120,6 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <summary>
     /// Gets or sets the default text for virtualized items. Default is null.
     /// </summary>
-    /// <remarks>Effective when <see cref="IsVirtualize"/> is enabled and data source is provided via <see cref="OnQueryAsync"/>. If the data set does not contain the <see cref="DisplayBase{TValue}.Value"/> option value during rendering, the DefaultText value is used.</remarks>
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
