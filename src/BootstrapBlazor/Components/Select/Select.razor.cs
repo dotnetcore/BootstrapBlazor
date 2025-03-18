@@ -69,12 +69,6 @@ public partial class Select<TValue> : ISelect, ILookup
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
-    /// Gets or sets whether the search bar in the dropdown is fixed. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsFixedSearch { get; set; }
-
-    /// <summary>
     /// Gets or sets whether the select component is editable. Default is false.
     /// </summary>
     [Parameter]

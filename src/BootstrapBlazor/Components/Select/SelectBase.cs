@@ -24,6 +24,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the search bar in the dropdown is fixed. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
+
+    /// <summary>
     /// Gets or sets the search icon.
     /// </summary>
     [Parameter]
