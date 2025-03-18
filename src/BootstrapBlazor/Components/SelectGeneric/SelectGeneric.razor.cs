@@ -375,13 +375,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
-    private async Task SearchTextChanged(string val)
-    {
-        SearchText = val;
-        _itemsCache = null;
-        await RefreshVirtualizeElement();
-    }
-
     private async Task RefreshVirtualizeElement()
     {
         if (IsVirtualize && OnQueryAsync != null)
@@ -420,7 +413,9 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
-        await SearchTextChanged(searchText);
+        _itemsCache = null;
+        SearchText = searchText;
+        await RefreshVirtualizeElement();
         StateHasChanged();
     }
 

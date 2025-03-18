@@ -387,13 +387,6 @@ public partial class Select<TValue> : ISelect, ILookup
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
-    private async Task SearchTextChanged(string val)
-    {
-        _itemsCache = null;
-        SearchText = val;
-        await RefreshVirtualizeElement();
-    }
-
     private async Task RefreshVirtualizeElement()
     {
         if (IsVirtualize && OnQueryAsync != null)
@@ -463,7 +456,9 @@ public partial class Select<TValue> : ISelect, ILookup
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
-        await SearchTextChanged(searchText);
+        _itemsCache = null;
+        SearchText = searchText;
+        await RefreshVirtualizeElement();
         StateHasChanged();
     }
 
