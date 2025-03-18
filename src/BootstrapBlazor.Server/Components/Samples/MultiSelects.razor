@@ -123,18 +123,24 @@ private enum MultiSelectEnumFoo
                     <Checkbox @bind-Value="@_isFixedSearch" />
                 </BootstrapInputGroup>
             </div>
+            <div class="col-12 col-sm-6">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="IsClearable" />
+                    <Checkbox @bind-Value="@_isClearable" />
+                </BootstrapInputGroup>
+            </div>
         </div>
     </section>
 
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue"
-                         ShowSearch="true" IsFixedSearch="_isFixedSearch" OnSearchTextChanged="@OnSearch">
+                         ShowSearch="true" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable" OnSearchTextChanged="@OnSearch">
             </MultiSelect>
         </div>
         <div class="col-12 col-sm-6">
             <MultiSelect Items="@LongItems" @bind-Value="@SelectedMaxItemsValue"
-                         ShowSearch="true" IsFixedSearch="_isFixedSearch">
+                         ShowSearch="true" IsFixedSearch="_isFixedSearch" IsClearable="_isClearable">
             </MultiSelect>
         </div>
     </div>
