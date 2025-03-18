@@ -3,10 +3,9 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 using System.Collections;
-using System.Collections.Specialized;
-using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -50,6 +49,13 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method for loading virtualized items.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 选项模板
@@ -207,6 +213,9 @@ public partial class MultiSelect<TValue>
 
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
+    [NotNull]
+    private Virtualize<SelectedItem>? _virtualizeElement = default;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -258,6 +267,26 @@ public partial class MultiSelect<TValue>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, new { ConfirmMethodCallback = nameof(ConfirmSelectedItem), SearchMethodCallback = nameof(TriggerOnSearch), TriggerEditTag = nameof(TriggerEditTag), ToggleRow = nameof(ToggleRow) });
 
+    private int _totalCount;
+    private ItemsProviderResult<SelectedItem> _result;
+
+    private List<SelectedItem> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
+
+    private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
+    {
+        // 有搜索条件时使用原生请求数量
+        // 有总数时请求剩余数量
+        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
+
+        _totalCount = data.TotalCount;
+        var items = data.Items ?? [];
+        _result = new ItemsProviderResult<SelectedItem>(items, _totalCount);
+        return _result;
+
+        int GetCountByTotal() => _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
+    }
+
     private List<SelectedItem> GetRowsByItems()
     {
         var items = new List<SelectedItem>();
@@ -271,10 +300,12 @@ public partial class MultiSelect<TValue>
     private List<SelectedItem> GetRowsBySearch()
     {
         var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return items.ToList();
+        return [.. items];
     }
 
-    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => source.Where(i => i.Text.Contains(SearchText, StringComparison));
+    private IEnumerable<SelectedItem> FilterBySearchText(IEnumerable<SelectedItem> source) => string.IsNullOrEmpty(SearchText)
+        ? source
+        : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
     /// <summary>
     /// FormatValueAsString 方法

@@ -98,6 +98,33 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
+    /// Gets or sets whether virtual scrolling is enabled. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// Gets or sets the row height for virtual scrolling. Default is 33.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    /// <summary>
+    /// Gets or sets the default text for virtualized items. Default is null.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is enabled and data source is provided via <see cref="OnQueryAsync"/>. If the data set does not contain the <see cref="DisplayBase{TValue}.Value"/> option value during rendering, the DefaultText value is used.</remarks>
+    [Parameter]
+    public string? DefaultVirtualizeItemText { get; set; }
+
+    /// <summary>
     /// Gets the search icon string with default "icon search-icon" class.
     /// </summary>
     protected string? SearchIconString => CssBuilder.Default("icon search-icon")

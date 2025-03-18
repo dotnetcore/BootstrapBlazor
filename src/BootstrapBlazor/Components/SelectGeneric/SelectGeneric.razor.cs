@@ -109,33 +109,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public RenderFragment<SelectedItem<TValue>?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启
-    /// </summary>
-    [Parameter]
-    public bool IsVirtualize { get; set; }
-
-    /// <summary>
-    /// 获得/设置 虚拟滚动行高 默认为 33
-    /// </summary>
-    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
-    [Parameter]
-    public float RowHeight { get; set; } = 33f;
-
-    /// <summary>
-    /// 获得/设置 过载阈值数 默认为 4
-    /// </summary>
-    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
-    [Parameter]
-    public int OverscanCount { get; set; } = 4;
-
-    /// <summary>
-    /// 获得/设置 默认文本 <see cref="IsVirtualize"/> 时生效 默认 null
-    /// </summary>
-    /// <remarks>开启 <see cref="IsVirtualize"/> 并且通过 <see cref="OnQueryAsync"/> 提供数据源时，由于渲染时还未调用或者调用后数据集未包含 <see cref="DisplayBase{TValue}.Value"/> 选项值，此时使用 DefaultText 值渲染</remarks>
-    [Parameter]
-    public string? DefaultVirtualizeItemText { get; set; }
-
-    /// <summary>
     /// 获得/设置 清除文本内容 OnClear 回调方法 默认 null
     /// </summary>
     [Parameter]
