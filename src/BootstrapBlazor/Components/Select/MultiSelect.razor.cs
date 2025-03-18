@@ -621,11 +621,20 @@ public partial class MultiSelect<TValue>
     /// <param name="searchText"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task TriggerOnSearch(string searchText)
+    public async Task TriggerOnSearch(string searchText)
     {
         _itemsCache = null;
         SearchText = searchText;
+        await RefreshVirtualizeElement();
         StateHasChanged();
-        return Task.CompletedTask;
+    }
+
+    private async Task RefreshVirtualizeElement()
+    {
+        if (IsVirtualize && OnQueryAsync != null)
+        {
+            // 通过 ItemProvider 提供数据
+            await _virtualizeElement.RefreshDataAsync();
+        }
     }
 }
