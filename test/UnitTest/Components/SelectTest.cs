@@ -264,7 +264,7 @@ public class SelectTest : BootstrapBlazorTestBase
 
     private static bool IsNullable(object select)
     {
-        var mi = select.GetType().GetMethod("IsNullable", BindingFlags.Instance | BindingFlags.NonPublic)!;
+        var mi = select.GetType().BaseType!.GetMethod("IsNullable", BindingFlags.Instance | BindingFlags.NonPublic)!;
         return (bool)mi.Invoke(select, null)!;
     }
 
