@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// SimpleSelectBase component base class
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public class SimpleSelectBase<TValue> : SelectBase<TValue>
+public abstract class SimpleSelectBase<TValue> : SelectBase<TValue>
 {
     /// <summary>
     /// Gets virtualize component instrance
@@ -77,7 +77,7 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     /// Gets the rows by Items.
     /// </summary>
     /// <returns></returns>
-    protected virtual List<SelectedItem> GetRowsByItems() => [];
+    protected abstract List<SelectedItem> GetRowsByItems();
 
     private List<SelectedItem> GetRowsBySearch()
     {
