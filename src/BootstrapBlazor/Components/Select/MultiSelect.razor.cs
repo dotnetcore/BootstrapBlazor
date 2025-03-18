@@ -272,6 +272,7 @@ public partial class MultiSelect<TValue>
         var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
+        _itemsCache = null;
         _totalCount = data.TotalCount;
         var items = data.Items ?? [];
         _result = new ItemsProviderResult<SelectedItem>(items, _totalCount);
