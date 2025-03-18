@@ -39,6 +39,12 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
+    /// Gets or sets the callback method when the search text changes.
+    /// </summary>
+    [Parameter]
+    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
+
+    /// <summary>
     /// Gets or sets whether the select component is editable. Default is false.
     /// </summary>
     [Parameter]

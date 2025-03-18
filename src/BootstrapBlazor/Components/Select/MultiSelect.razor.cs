@@ -91,13 +91,6 @@ public partial class MultiSelect<TValue>
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 搜索文本发生变化时回调此方法
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
     /// 获得/设置 选中项集合发生改变时回调委托方法
     /// </summary>
     [Parameter]

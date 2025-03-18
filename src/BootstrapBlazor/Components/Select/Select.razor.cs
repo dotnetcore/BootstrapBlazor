@@ -40,12 +40,6 @@ public partial class Select<TValue> : ISelect, ILookup
     private string? ScrollIntoViewBehaviorString => ScrollIntoViewBehavior == ScrollIntoViewBehavior.Smooth ? null : ScrollIntoViewBehavior.ToDescriptionString();
 
     /// <summary>
-    /// Gets or sets the callback method when the search text changes.
-    /// </summary>
-    [Parameter]
-    public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
     /// Gets or sets the callback method when the input value changes. Default is null.
     /// </summary>
     /// <remarks>Effective when <see cref="SimpleSelectBase{TValue}.IsEditable"/> is set.</remarks>
