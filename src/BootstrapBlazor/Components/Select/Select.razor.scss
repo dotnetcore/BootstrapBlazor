@@ -164,7 +164,7 @@
         display: flex;
     }
 
-    &.cls:not(.disabled):hover .form-select-append {
+    &.is-clearable:not(.disabled):hover .form-select-append {
         display: none;
     }
 }

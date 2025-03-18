@@ -19,7 +19,7 @@ public partial class Select<TValue> : ISelect, ILookup
     private SwalService? SwalService { get; set; }
 
     private string? ClassString => CssBuilder.Default("select dropdown")
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

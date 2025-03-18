@@ -17,7 +17,7 @@ public partial class MultiSelect<TValue>
     private List<SelectedItem> SelectedItems { get; } = [];
 
     private string? ClassString => CssBuilder.Default("select dropdown multi-select")
-        .AddClass("cls", IsClearable)
+        .AddClass("is-clearable", IsClearable)
         .Build();
 
     private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
