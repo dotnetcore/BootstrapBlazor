@@ -204,7 +204,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         }
     }
 
-    private SelectedItem<TValue> SelectedRow
+    private SelectedItem<TValue>? SelectedRow
     {
         get
         {
@@ -213,17 +213,35 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         }
     }
 
-    private SelectedItem<TValue> GetSelectedRow()
+    private SelectedItem<TValue>? GetSelectedRow()
     {
+        if (Value is null)
+        {
+            _init = false;
+            return null;
+        }
+
+        if (IsVirtualize)
+        {
+            _init = false;
+            return new SelectedItem<TValue>(default!, CurrentValueAsString);
+        }
+
         var item = Rows.Find(i => Equals(i.Value, Value))
             ?? Rows.Find(i => i.Active)
-            ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault()
-            ?? new SelectedItem<TValue>(Value, DefaultVirtualizeItemText!);
+            ?? Rows.Where(i => !i.IsDisabled).FirstOrDefault();
 
-        if (!_init || !DisableItemChangedWhenFirstRender)
+        if (item != null)
         {
-            _ = SelectedItemChanged(item);
-            _init = false;
+            if (_init && DisableItemChangedWhenFirstRender)
+            {
+
+            }
+            else
+            {
+                _ = SelectedItemChanged(item);
+                _init = false;
+            }
         }
         return item;
     }

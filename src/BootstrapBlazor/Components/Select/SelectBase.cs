@@ -121,6 +121,8 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// Gets or sets the default text for virtualized items. Default is null.
     /// </summary>
     [Parameter]
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已弃用，删除即可；Deprecated, just delete")]
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>

@@ -279,7 +279,7 @@ public partial class Select<TValue> : ISelect, ILookup
         SelectedItem? item = null;
         if (_result.Items != null)
         {
-            item = _result.Items.FirstOrDefault(i => i.Value == value) ?? new SelectedItem(value, DefaultVirtualizeItemText ?? value);
+            item = _result.Items.FirstOrDefault(i => i.Value == value);
         }
         return item;
     }
