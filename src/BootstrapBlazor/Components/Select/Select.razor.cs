@@ -470,24 +470,19 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     public void Add(SelectedItem item) => _children.Add(item);
 
-    private async Task OnClearValue()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnClearValue()
     {
-        if (ShowSearch)
-        {
-            ClearSearchText();
-        }
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
+        await base.OnClearValue();
 
         if (OnQueryAsync != null)
         {
             await _virtualizeElement.RefreshDataAsync();
         }
-
         _lastSelectedValueString = string.Empty;
-        CurrentValue = default;
         SelectedItem = null;
     }
 

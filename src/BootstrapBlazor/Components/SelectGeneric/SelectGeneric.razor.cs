@@ -449,30 +449,17 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <param name="item"></param>
     public void Add(SelectedItem<TValue> item) => _children.Add(item);
 
-    private async Task OnClearValue()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnClearValue()
     {
-        if (ShowSearch)
-        {
-            ClearSearchText();
-        }
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
+        await base.OnClearValue();
 
-        SelectedItem<TValue>? item;
         if (OnQueryAsync != null)
         {
             await VirtualizeElement.RefreshDataAsync();
-            item = _result.Items.FirstOrDefault();
-        }
-        else
-        {
-            item = Items.FirstOrDefault();
-        }
-        if (item != null)
-        {
-            await SelectedItemChanged(item);
         }
     }
 

@@ -217,4 +217,21 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// Clears the search text.
     /// </summary>
     public void ClearSearchText() => SearchText = null;
+
+    /// <summary>
+    /// Clears the selected value.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task OnClearValue()
+    {
+        if (ShowSearch)
+        {
+            ClearSearchText();
+        }
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+        CurrentValue = default;
+    }
 }

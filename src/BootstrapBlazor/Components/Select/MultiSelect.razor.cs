@@ -208,7 +208,7 @@ public partial class MultiSelect<TValue>
         }
     }
 
-    private string? PreviousValue { get; set; }
+    private string? _lastSelectedValueString;
 
     private string? PlaceholderString => SelectedItems.Count == 0 ? PlaceHolder : null;
 
@@ -243,9 +243,9 @@ public partial class MultiSelect<TValue>
 
         // 通过 Value 对集合进行赋值
         var _currentValue = CurrentValueAsString;
-        if (PreviousValue != _currentValue)
+        if (_lastSelectedValueString != _currentValue)
         {
-            PreviousValue = _currentValue;
+            _lastSelectedValueString = _currentValue;
             var list = _currentValue.Split(',', StringSplitOptions.RemoveEmptyEntries);
 
             SelectedItems.Clear();
@@ -322,24 +322,20 @@ public partial class MultiSelect<TValue>
         ? source
         : source.Where(i => i.Text.Contains(SearchText, StringComparison));
 
-    private async Task OnClearValue()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnClearValue()
     {
-        if (ShowSearch)
-        {
-            ClearSearchText();
-        }
-        if (OnClearAsync != null)
-        {
-            await OnClearAsync();
-        }
+        await base.OnClearValue();
 
         if (OnQueryAsync != null)
         {
             await _virtualizeElement.RefreshDataAsync();
         }
 
-        PreviousValue = string.Empty;
-        CurrentValue = default;
+        _lastSelectedValueString = string.Empty;
         SelectedItems.Clear();
     }
 
@@ -499,8 +495,7 @@ public partial class MultiSelect<TValue>
             await OnSelectedItemsChanged.Invoke(SelectedItems);
         }
 
-        PreviousValue = CurrentValueAsString;
-
+        _lastSelectedValueString = CurrentValueAsString;
         if (!ValueChanged.HasDelegate)
         {
             StateHasChanged();
