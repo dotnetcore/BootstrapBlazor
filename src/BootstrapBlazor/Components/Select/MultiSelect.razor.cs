@@ -41,12 +41,6 @@ public partial class MultiSelect<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 选项模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true 显示
     /// </summary>
     [Parameter]
@@ -95,12 +89,6 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 显示部分模板 默认 null
-    /// </summary>
-    [Parameter]
-    public RenderFragment<List<SelectedItem>>? DisplayTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法

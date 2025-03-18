@@ -59,22 +59,10 @@ public partial class Select<TValue> : ISelect, ILookup
     public RenderFragment? Options { get; set; }
 
     /// <summary>
-    /// Gets or sets the display template. Default is null.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
-
-    /// <summary>
     /// Gets or sets whether to disable the OnSelectedItemChanged callback method on first render. Default is false.
     /// </summary>
     [Parameter]
     public bool DisableItemChangedWhenFirstRender { get; set; }
-
-    /// <summary>
-    /// Gets or sets the item template.
-    /// </summary>
-    [Parameter]
-    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// Gets or sets the callback method before the selected item changes. Returns true to change the selected item value; otherwise, the selected item value does not change.

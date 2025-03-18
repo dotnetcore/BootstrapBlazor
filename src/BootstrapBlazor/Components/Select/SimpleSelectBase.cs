@@ -45,6 +45,18 @@ public class SimpleSelectBase<TValue> : SelectBase<TValue>
     public bool IsEditable { get; set; }
 
     /// <summary>
+    /// Gets or sets the display template. Default is null.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
+
+    /// <summary>
+    /// Gets or sets the item template.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
     /// Gets or sets the selected items cache.
     /// </summary>
     protected List<SelectedItem>? _itemsCache;
