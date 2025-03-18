@@ -235,6 +235,18 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowToolbar, true);
             pb.Add(a => a.ButtonTemplate, builder => builder.AddContent(0, new MarkupString("<button class=\"btn-test\">ButtonTemplate</button>")));
         });
+
+        // 没有数据不显示 Toolbar 
+        Assert.DoesNotContain("btn-test", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new("1", "Test1"),
+                new("2", "Test2")
+            });
+        });
         Assert.Contains("btn-test", cut.Markup);
     }
 

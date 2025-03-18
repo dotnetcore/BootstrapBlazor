@@ -3,10 +3,8 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
-using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Components;
 
@@ -57,10 +55,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         .AddClass("disabled", item.IsDisabled)
         .Build();
 
-    private string? SearchClassString => CssBuilder.Default("search")
-        .AddClass("is-fixed", IsFixedSearch)
-        .Build();
-
     private readonly List<SelectedItem<TValue>> _children = [];
 
     /// <summary>
@@ -75,12 +69,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<SelectedItem<TValue>>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否固定下拉框中的搜索栏 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsFixedSearch { get; set; }
 
     /// <summary>
     /// 获得/设置 是否可编辑 默认 false
@@ -121,7 +109,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     public RenderFragment<SelectedItem<TValue>?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置，设置初始值时请设置 <see cref="DefaultVirtualizeItemText"/>
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }
@@ -312,7 +300,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     private List<SelectedItem<TValue>> GetRowsBySearch()
     {
         var items = OnSearchTextChanged?.Invoke(SearchText) ?? FilterBySearchText(GetRowsByItems());
-        return items.ToList();
+        return [.. items];
     }
 
     private IEnumerable<SelectedItem<TValue>> FilterBySearchText(IEnumerable<SelectedItem<TValue>> source) => string.IsNullOrEmpty(SearchText)
@@ -363,7 +351,7 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// </summary>
     private int TotalCount { get; set; }
 
-    private List<SelectedItem<TValue>> GetVirtualItems() => FilterBySearchText(GetRowsByItems()).ToList();
+    private List<SelectedItem<TValue>> GetVirtualItems() => [.. FilterBySearchText(GetRowsByItems())];
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -385,13 +373,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
         return _result;
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
-    }
-
-    private async Task SearchTextChanged(string val)
-    {
-        SearchText = val;
-        _itemsCache = null;
-        await RefreshVirtualizeElement();
     }
 
     private async Task RefreshVirtualizeElement()
@@ -432,7 +413,9 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     [JSInvokable]
     public async Task TriggerOnSearch(string searchText)
     {
-        await SearchTextChanged(searchText);
+        _itemsCache = null;
+        SearchText = searchText;
+        await RefreshVirtualizeElement();
         StateHasChanged();
     }
 

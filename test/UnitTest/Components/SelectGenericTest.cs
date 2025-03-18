@@ -487,7 +487,7 @@ public class SelectGenericTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.IsFixedSearch, true);
         });
-        Assert.Contains("search is-fixed", cut.Markup);
+        Assert.Contains("dropdown-menu is-fixed-search", cut.Markup);
         Assert.Contains("class=\"icon", cut.Markup);
     }
 

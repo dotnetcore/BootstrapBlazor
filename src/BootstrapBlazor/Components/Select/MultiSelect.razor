@@ -48,63 +48,71 @@
             <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
         }
     </div>
-    <div class="dropdown-menu">
-        <div class="@SearchClassString">
-            <input type="text" class="form-control search-text" autocomplete="off" value="@SearchText" aria-label="search" />
-            <i class="@SearchIconString"></i>
-            <i class="@SearchLoadingIconString"></i>
-        </div>
-        @if (ShowToolbar)
+    <div class="@DropdownMenuClassString">
+        @if (ShowSearch)
         {
-            <div class="toolbar">
-                @if (ShowDefaultButtons)
-                {
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
-                    <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
-                }
-                @ButtonTemplate
+            <div class="dropdown-menu-search">
+                <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" aria-label="search" />
+                <i class="@SearchIconString"></i>
+                <i class="@SearchLoadingIconString"></i>
             </div>
-        }
-        @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
-        {
-            if (!string.IsNullOrEmpty(itemGroup.Key))
-            {
-                if (GroupItemTemplate != null)
-                {
-                    @GroupItemTemplate(itemGroup.Key)
-                }
-                else
-                {
-                    <Divider Text="@itemGroup.Key" />
-                }
-            }
-            @foreach (var item in itemGroup)
-            {
-                <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
-                    <div class="multi-select-item">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
-                        </div>
-                        @if (ItemTemplate != null)
-                        {
-                            @ItemTemplate(item)
-                        }
-                        else if (IsMarkupString)
-                        {
-                            @((MarkupString)item.Text)
-                        }
-                        else
-                        {
-                            <span>@item.Text</span>
-                        }
-                    </div>
-                </DynamicElement>
-            }
         }
         @if (Rows.Count == 0)
         {
             <div class="dropdown-item">@NoSearchDataText</div>
+        }
+        else
+        {
+            <div class="dropdown-menu-body">
+                @if (ShowToolbar)
+                {
+                    <div class="toolbar">
+                        @if (ShowDefaultButtons)
+                        {
+                            <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
+                            <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
+                            <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
+                        }
+                        @ButtonTemplate
+                    </div>
+                }
+                @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
+                {
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        if (GroupItemTemplate != null)
+                        {
+                            @GroupItemTemplate(itemGroup.Key)
+                        }
+                        else
+                        {
+                            <Divider Text="@itemGroup.Key" />
+                        }
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
+                            <div class="multi-select-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
+                                </div>
+                                @if (ItemTemplate != null)
+                                {
+                                    @ItemTemplate(item)
+                                }
+                                else if (IsMarkupString)
+                                {
+                                    @((MarkupString)item.Text)
+                                }
+                                else
+                                {
+                                    <span>@item.Text</span>
+                                }
+                            </div>
+                        </DynamicElement>
+                    }
+                }
+            </div>
         }
     </div>
 </div>

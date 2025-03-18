@@ -24,6 +24,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the search bar in the dropdown is fixed. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsFixedSearch { get; set; }
+
+    /// <summary>
     /// Gets or sets the search icon.
     /// </summary>
     [Parameter]
@@ -113,6 +119,13 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
+    /// <summary>
+    /// Gets the dropdown menu class string.
+    /// </summary>
+    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
+        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .Build();
 
     /// <summary>
