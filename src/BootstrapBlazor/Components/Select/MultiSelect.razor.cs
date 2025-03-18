@@ -344,11 +344,6 @@ public partial class MultiSelect<TValue>
     }
 
     /// <summary>
-    /// Clears the search text.
-    /// </summary>
-    public void ClearSearchText() => SearchText = null;
-
-    /// <summary>
     /// FormatValueAsString 方法
     /// </summary>
     /// <param name="value"></param>

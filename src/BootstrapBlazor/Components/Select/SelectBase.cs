@@ -212,4 +212,9 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// </summary>
     /// <returns></returns>
     protected bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+
+    /// <summary>
+    /// Clears the search text.
+    /// </summary>
+    public void ClearSearchText() => SearchText = null;
 }

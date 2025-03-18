@@ -449,11 +449,6 @@ public partial class SelectGeneric<TValue> : ISelectGeneric<TValue>, IModelEqual
     /// <param name="item"></param>
     public void Add(SelectedItem<TValue> item) => _children.Add(item);
 
-    /// <summary>
-    /// 清空搜索栏文本内容
-    /// </summary>
-    public void ClearSearchText() => SearchText = null;
-
     private async Task OnClearValue()
     {
         if (ShowSearch)

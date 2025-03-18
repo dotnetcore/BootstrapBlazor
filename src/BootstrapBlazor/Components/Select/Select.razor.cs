@@ -470,11 +470,6 @@ public partial class Select<TValue> : ISelect, ILookup
     /// </summary>
     public void Add(SelectedItem item) => _children.Add(item);
 
-    /// <summary>
-    /// Clears the search text.
-    /// </summary>
-    public void ClearSearchText() => SearchText = null;
-
     private async Task OnClearValue()
     {
         if (ShowSearch)
