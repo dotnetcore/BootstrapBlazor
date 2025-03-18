@@ -646,7 +646,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ClearIcon, null);
         });
-        Assert.Contains("fa-solid fa-xmark", cut.Markup);
+        Assert.Contains("fa-regular fa-circle-xmark", cut.Markup);
     }
 
     [Fact]
