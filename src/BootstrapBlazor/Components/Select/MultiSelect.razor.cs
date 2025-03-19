@@ -57,6 +57,12 @@ public partial class MultiSelect<TValue>
     public bool ShowCloseButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 关闭按钮图标 默认为 null
+    /// </summary>
+    [Parameter]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示功能按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
@@ -152,14 +158,6 @@ public partial class MultiSelect<TValue>
     [Parameter]
     [NotNull]
     public string? MinErrorMessage { get; set; }
-
-    /// <summary>
-    /// Gets or sets the right-side clear icon. Default is null.
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? ClearableIcon { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
@@ -184,8 +182,8 @@ public partial class MultiSelect<TValue>
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
 
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectDropdownIcon);
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectCloseIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
-        ClearableIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearableIcon);
 
         ResetItems();
         ResetRules();
