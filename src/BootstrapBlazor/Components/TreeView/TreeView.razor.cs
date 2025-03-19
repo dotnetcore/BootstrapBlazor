@@ -3,7 +3,6 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -15,7 +14,6 @@ namespace BootstrapBlazor.Components;
 public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
     private string? ClassString => CssBuilder.Default("tree-view")
-        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -85,12 +83,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     [Parameter]
     public bool ShowSearch { get; set; }
-
-    /// <summary>
-    /// Gets or sets whether the search bar is fixed. Default is false.
-    /// </summary>
-    [Parameter]
-    public bool IsFixedSearch { get; set; }
 
     /// <summary>
     /// Gets or sets whether to show the reset search button. Default is true.
