@@ -18,6 +18,7 @@ public partial class AutoFill<TValue>
     /// Gets the component style.
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
+        .AddClass("is-clearable", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -125,6 +126,19 @@ public partial class AutoFill<TValue>
     [Parameter]
     public bool IsClearable { get; set; }
 
+    /// <summary>
+    /// Gets or sets the right-side clear icon. Default is fa-solid fa-angle-up.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// Gets or sets the callback method when the clear button is clicked. Default is null.
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClearAsync { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
@@ -139,6 +153,15 @@ public partial class AutoFill<TValue>
     private Virtualize<TValue>? _virtualizeElement = default;
 
     /// <summary>
+    /// Gets the clear icon class string.
+    /// </summary>
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
@@ -149,9 +172,35 @@ public partial class AutoFill<TValue>
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         _displayText = GetDisplayText(Value);
         Items ??= [];
+    }
+
+    private bool IsNullable() => !ValueType.IsValueType || NullableUnderlyingType != null;
+
+    /// <summary>
+    /// Gets whether show the clear button.
+    /// </summary>
+    /// <returns></returns>
+    private bool GetClearable() => IsClearable && !IsDisabled && IsNullable();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    private async Task OnClearValue()
+    {
+        if (OnClearAsync != null)
+        {
+            await OnClearAsync();
+        }
+        CurrentValue = default;
+        if (OnQueryAsync != null)
+        {
+            await _virtualizeElement.RefreshDataAsync();
+        }
     }
 
     /// <summary>
