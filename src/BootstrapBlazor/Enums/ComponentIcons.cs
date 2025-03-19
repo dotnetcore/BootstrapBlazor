@@ -451,14 +451,14 @@ public enum ComponentIcons
     MultiSelectDropdownIcon,
 
     /// <summary>
+    /// MultiSelect 组件 CloseButtonIcon 图标
+    /// </summary>
+    MultiSelectCloseIcon,
+
+    /// <summary>
     /// MultiSelect 组件 ClearIcon 图标
     /// </summary>
     MultiSelectClearIcon,
-
-    /// <summary>
-    /// MultiSelect 组件 ClearableIcon 图标
-    /// </summary>
-    MultiSelectClearableIcon,
 
     /// <summary>
     /// SelectTree 组件 DropdownIcon 图标
