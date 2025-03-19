@@ -20,6 +20,10 @@ public partial class MultiSelect<TValue>
         .AddClass("is-clearable", IsClearable)
         .Build();
 
+    private string? MultipleDropdownMenuClassString => CssBuilder.Default(DropdownMenuClassString)
+        .AddClass("is-fixed-toolbar", ShowToolbar)
+        .Build();
+
     private string? EditSubmitKeyString => EditSubmitKey == EditSubmitKey.Space ? EditSubmitKey.ToDescriptionString() : null;
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle scroll")
@@ -290,6 +294,12 @@ public partial class MultiSelect<TValue>
         }
         return items;
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool CheckFixedSearch() => ShowToolbar ? true : base.CheckFixedSearch();
 
     /// <summary>
     /// 客户端回车回调方法

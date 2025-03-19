@@ -209,6 +209,13 @@
 }
 
 .dropdown-menu {
+    &.is-fixed-search {
+        .dropdown-menu-body {
+            max-height: calc(var(--bb-dropdown-max-height) - 76px);
+            overflow: auto;
+        }
+    }
+
     .dropdown-menu-search {
         padding: var(--bb-select-search-padding);
         position: relative;
@@ -239,13 +246,6 @@
         right: var(--bb-select-search-icon-right);
         top: var(--bb-select-search-icon-top);
         color: var(--bb-select-search-icon-color);
-    }
-
-    &.is-fixed-search {
-        .dropdown-menu-body {
-            max-height: calc(var(--bb-dropdown-max-height) - 76px);
-            overflow: auto;
-        }
     }
 }
 

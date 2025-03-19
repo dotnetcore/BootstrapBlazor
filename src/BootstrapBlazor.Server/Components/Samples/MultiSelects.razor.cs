@@ -121,9 +121,10 @@ public partial class MultiSelects
 
     private string? _editString;
 
-    private bool _isFixedSearch;
-    private bool _isClearable;
-    private bool _showSearch;
+    private bool _isFixedSearch = true;
+    private bool _isClearable = true;
+    private bool _showToolbar = true;
+    private bool _showSearch = true;
 
     private async Task<SelectedItem> OnEditCallback(string value)
     {
@@ -371,6 +372,22 @@ public partial class MultiSelects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowSearch",
+            Description = Localizer["MultiSelectsAttribute_ShowSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "IsFixedSearch",
+            Description = Localizer["MultiSelectsAttribute_IsFixedSearch"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         },
         new()
         {

@@ -3024,7 +3024,12 @@
     "MultiSelectOptionChangeLog": "Select the collection of items",
     "MultiSelectIsEditableTitle": "Editable",
     "MultiSelectIsEditableIntro": "Make the component editable by setting the <code>IsEditable</code> parameter",
-    "MultiSelectIsEditableDescription": "By setting the <code>EditSubmitKey</code> parameter, you can specify whether to submit via <kbd>Enter</kbd> or <kbd>Space</kbd>"
+    "MultiSelectIsEditableDescription": "By setting the <code>EditSubmitKey</code> parameter, you can specify whether to submit via <kbd>Enter</kbd> or <kbd>Space</kbd>",
+    "MultiSelectVirtualizeTitle": "Virtualize",
+    "MultiSelectVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
+    "MultiSelectVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
+    "MultiSelectsAttribute_ShowSearch": "Whether to display the search box",
+    "MultiSelectsAttribute_IsFixedSearch": "Whether fixed the search box"
   },
   "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
@@ -3193,7 +3198,7 @@
     "SelectsIsEditableIntro": "By setting <code>IsEditable=\"true\"</code> to make the component editable",
     "SelectsIsEditableDesc": "After the editable function is enabled, if the input value is not in the candidate items, the new value can be returned through the <code>TextConvertToValueCallback</code> callback method, and the <code>Items</code> data source can be updated through the <code>OnInputChangedCallback</code> callback to prevent the input value from being lost after the page is refreshed.",
     "SelectsVirtualizeTitle": "Virtualize",
-    "SelectsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for larg data",
+    "SelectsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for large data",
     "SelectsVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods",
     "SelectsGenericTitle": "Generic",
     "SelectsGenericIntro": "Data source <code>Items</code> supports generics when using <code>SelectedItem&lt;TValue&gt;</code>",

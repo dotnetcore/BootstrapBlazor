@@ -53,13 +53,25 @@
     {
         <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearableIcon"></i></span>
     }
-    <div class="@DropdownMenuClassString">
+    <div class="@MultipleDropdownMenuClassString">
         @if (ShowSearch)
         {
             <div class="dropdown-menu-search">
                 <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" aria-label="search" />
                 <i class="@SearchIconString"></i>
                 <i class="@SearchLoadingIconString"></i>
+            </div>
+        }
+        @if (ShowToolbar)
+        {
+            <div class="toolbar">
+                @if (ShowDefaultButtons)
+                {
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
+                    <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
+                }
+                @ButtonTemplate
             </div>
         }
         @if (IsVirtualize)
@@ -85,18 +97,6 @@
         else
         {
             <div class="dropdown-menu-body">
-                @if (ShowToolbar)
-                {
-                    <div class="toolbar">
-                        @if (ShowDefaultButtons)
-                        {
-                            <DynamicElement TagName="button" type="button" class="btn" OnClick="SelectAll">@SelectAllText</DynamicElement>
-                            <DynamicElement TagName="button" type="button" class="btn" OnClick="InvertSelect">@ReverseSelectText</DynamicElement>
-                            <DynamicElement TagName="button" type="button" class="btn" OnClick="Clear">@ClearText</DynamicElement>
-                        }
-                        @ButtonTemplate
-                    </div>
-                }
                 @foreach (var itemGroup in Rows.GroupBy(i => i.GroupName))
                 {
                     if (!string.IsNullOrEmpty(itemGroup.Key))

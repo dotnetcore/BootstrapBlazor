@@ -172,7 +172,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// Gets the dropdown menu class string.
     /// </summary>
     protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("is-fixed-search", ShowSearch && IsFixedSearch)
+        .AddClass("is-fixed-search", CheckFixedSearch())
         .Build();
 
     /// <summary>
@@ -243,4 +243,10 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
         }
         CurrentValue = default;
     }
+
+    /// <summary>
+    /// Gets whether to show the search box.
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool CheckFixedSearch() => ShowSearch && IsFixedSearch;
 }
