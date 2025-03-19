@@ -104,7 +104,10 @@
                 </ItemTemplate>
             </AutoFill>
             <section ignore>
-                <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                @if (Model4 != null)
+                {
+                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                }
             </section>
         </div>
     </div>
@@ -128,7 +131,10 @@
                 </ItemTemplate>
             </AutoFill>
             <section ignore>
-                <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                @if (Model4 != null)
+                {
+                    <EditorForm Model="@Model4" RowType="RowType.Inline" ItemsPerRow="2" />
+                }
             </section>
         </div>
     </div>
