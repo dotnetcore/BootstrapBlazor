@@ -3,10 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
-using AngleSharp.Html.Dom;
-using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
-using System.Reflection;
 
 namespace UnitTest.Components;
 
