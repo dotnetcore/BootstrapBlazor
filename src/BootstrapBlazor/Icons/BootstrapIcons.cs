@@ -109,8 +109,8 @@ internal static class BootstrapIcons
         { ComponentIcons.RibbonTabArrowPinIcon, "bi bi-pin bi-pin-angle" },
 
         { ComponentIcons.MultiSelectDropdownIcon, "bi bi-chevron-up" },
-        { ComponentIcons.MultiSelectClearIcon, "bi bi-x" },
-        { ComponentIcons.MultiSelectClearableIcon, "bi bi-x-circle" },
+        { ComponentIcons.MultiSelectCloseIcon, "bi bi-x" },
+        { ComponentIcons.MultiSelectClearIcon, "bi bi-x-circle" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "bi bi-chevron-up" },
 

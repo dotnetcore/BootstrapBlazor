@@ -107,8 +107,8 @@ internal static class FontAwesomeIcons
         { ComponentIcons.RibbonTabArrowPinIcon, "fa-solid fa-thumbtack fa-rotate-90" },
 
         { ComponentIcons.MultiSelectDropdownIcon, "fa-solid fa-angle-up" },
-        { ComponentIcons.MultiSelectClearIcon, "fa-solid fa-xmark" },
-        { ComponentIcons.MultiSelectClearableIcon, "fa-regular fa-circle-xmark" },
+        { ComponentIcons.MultiSelectCloseIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.MultiSelectClearIcon, "fa-regular fa-circle-xmark" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "fa-solid fa-angle-up" },
 

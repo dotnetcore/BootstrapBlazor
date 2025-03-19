@@ -109,8 +109,8 @@ internal static class MaterialDesignIcons
         { ComponentIcons.RibbonTabArrowPinIcon, "mdi mdi-pin mdi-pin-off" },
 
         { ComponentIcons.MultiSelectDropdownIcon, "mdi mdi-chevron-up" },
-        { ComponentIcons.MultiSelectClearIcon, "mdi mdi-close" },
-        { ComponentIcons.MultiSelectClearableIcon, "mdi mdi-trash-can-outline" },
+        { ComponentIcons.MultiSelectCloseIcon, "mdi mdi-close" },
+        { ComponentIcons.MultiSelectClearIcon, "mdi mdi-trash-can-outline" },
 
         { ComponentIcons.SelectTreeDropdownIcon, "mdi mdi-chevron-up" },
 
