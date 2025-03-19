@@ -8,84 +8,83 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoFill 组件
+/// AutoFill component
 /// </summary>
+/// <typeparam name="TValue">The type of the value.</typeparam>
 public partial class AutoFill<TValue>
 {
     /// <summary>
-    /// 获得 组件样式
+    /// Gets the component style.
     /// </summary>
     private string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private List<TValue>? _filterItems;
-
     /// <summary>
-    /// 获得/设置 组件数据集合
+    /// Gets or sets the collection of items for the component.
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<TValue>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配数据时显示的数量 默认 null 未设置
+    /// Gets or sets the number of items to display when matching data. Default is null.
     /// </summary>
     [Parameter]
     [NotNull]
     public int? DisplayCount { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启模糊查询，默认为 false
+    /// Gets or sets whether to enable fuzzy search. Default is false.
     /// </summary>
     [Parameter]
     public bool IsLikeMatch { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配时是否忽略大小写，默认为 true
+    /// Gets or sets whether to ignore case when matching. Default is true.
     /// </summary>
     [Parameter]
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// Gets or sets whether to expand the dropdown candidate menu when focused. Default is true.
     /// </summary>
     [Parameter]
     public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 通过模型获得显示文本方法 默认使用 ToString 重载方法
+    /// Gets or sets the method to get the display text from the model. Default is to use the ToString override method.
     /// </summary>
     [Parameter]
     [NotNull]
     public Func<TValue?, string?>? OnGetDisplayText { get; set; }
 
     /// <summary>
-    /// 图标
+    /// Gets or sets the icon.
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 加载图标
+    /// Gets or sets the loading icon.
     /// </summary>
     [Parameter]
     public string? LoadingIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义集合过滤规则
+    /// Gets or sets the custom collection filtering rules.
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<TValue>>>? OnCustomFilter { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示无匹配数据选项 默认 true 显示
+    /// Gets or sets whether to show the no matching data option. Default is true.
     /// </summary>
     [Parameter]
     public bool ShowNoDataTip { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 候选项模板 默认 null
+    /// Gets or sets the candidate item template. Default is null.
     /// </summary>
     [Parameter]
     [Obsolete("已弃用，请使用 ItemTemplate 代替；Deprecated please use ItemTemplate parameter")]
@@ -96,12 +95,11 @@ public partial class AutoFill<TValue>
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    /// <summary>
-    /// 获得 获得焦点自动显示下拉框设置字符串
-    /// </summary>
     private string? ShowDropdownListOnFocusString => ShowDropdownListOnFocus ? "true" : null;
 
     private string? _displayText;
+
+    private List<TValue>? _filterItems;
 
     /// <summary>
     /// <inheritdoc/>
@@ -120,8 +118,9 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// 鼠标点击候选项时回调此方法
+    /// Callback method when a candidate item is clicked.
     /// </summary>
+    /// <param name="val">The value of the clicked item.</param>
     private async Task OnClickItem(TValue val)
     {
         CurrentValue = val;
@@ -138,9 +137,9 @@ public partial class AutoFill<TValue>
     private List<TValue> Rows => _filterItems ?? [.. Items];
 
     /// <summary>
-    /// TriggerFilter 方法
+    /// Triggers the filter method.
     /// </summary>
-    /// <param name="val"></param>
+    /// <param name="val">The value to filter by.</param>
     [JSInvokable]
     public override async Task TriggerFilter(string val)
     {
@@ -170,9 +169,9 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// TriggerOnChange 方法
+    /// Triggers the change method.
     /// </summary>
-    /// <param name="val"></param>
+    /// <param name="val">The value to change to.</param>
     [JSInvokable]
     public override Task TriggerChange(string val)
     {
