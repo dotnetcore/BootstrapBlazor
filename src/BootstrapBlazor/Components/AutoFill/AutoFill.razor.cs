@@ -135,7 +135,7 @@ public partial class AutoFill<TValue>
 
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
 
-    private List<TValue> Rows => _filterItems ?? Items.ToList();
+    private List<TValue> Rows => _filterItems ?? [.. Items];
 
     /// <summary>
     /// TriggerFilter 方法
@@ -147,11 +147,11 @@ public partial class AutoFill<TValue>
         if (OnCustomFilter != null)
         {
             var items = await OnCustomFilter(val);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
         else if (string.IsNullOrEmpty(val))
         {
-            _filterItems = Items.ToList();
+            _filterItems = [.. Items];
         }
         else
         {
@@ -159,12 +159,12 @@ public partial class AutoFill<TValue>
             var items = IsLikeMatch
                 ? Items.Where(i => OnGetDisplayText?.Invoke(i)?.Contains(val, comparision) ?? false)
                 : Items.Where(i => OnGetDisplayText?.Invoke(i)?.StartsWith(val, comparision) ?? false);
-            _filterItems = items.ToList();
+            _filterItems = [.. items];
         }
 
         if (DisplayCount != null)
         {
-            _filterItems = _filterItems.Take(DisplayCount.Value).ToList();
+            _filterItems = [.. _filterItems.Take(DisplayCount.Value)];
         }
         StateHasChanged();
     }
