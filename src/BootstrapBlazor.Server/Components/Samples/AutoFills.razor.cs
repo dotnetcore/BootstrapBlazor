@@ -196,6 +196,14 @@ partial class AutoFills
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(AutoFill<string>.IsVirtualize),
+            Description = Localizer["AttrIsVirtualize"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
     ];
 }
