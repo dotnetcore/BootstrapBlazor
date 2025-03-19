@@ -7,20 +7,11 @@
     --bb-select-focus-shadow: #{$bb-select-focus-shadow};
     --bb-select-padding-right: #{$bb-select-padding-right};
     --bb-select-padding: #{$bb-select-padding};
-    --bb-select-search-padding: #{$bb-select-search-padding};
-    --bb-select-search-margin-bottom: #{$bb-select-search-margin-bottom};
-    --bb-select-search-border-color: #{$bb-select-search-border-color};
-    --bb-select-search-padding-right: #{$bb-select-search-padding-right};
-    --bb-select-search-icon-color: #{$bb-select-search-icon-color};
-    --bb-select-search-icon-right: #{$bb-select-search-icon-right};
-    --bb-select-search-icon-top: #{$bb-select-search-icon-top};
-    --bb-select-search-height: #{$bb-select-search-height};
     --bb-select-append-width: #{$bb-select-append-width};
     --bb-select-append-color: #{$bb-select-append-color};
 }
 
 .select:not(.cascade) .dropdown-menu {
-    overflow-x: hidden;
     width: 100%;
 }
 
@@ -46,22 +37,6 @@
 
 .select .form-select:disabled {
     background-color: var(--bs-secondary-bg);
-}
-
-.dropdown-menu {
-    --bs-dropdown-border-radius: var(--bs-border-radius);
-    overflow: auto;
-    max-height: var(--bb-dropdown-max-height);
-}
-
-.dropdown-menu .dropdown-virtual {
-    overflow-y: auto;
-    margin: calc(0px - var(--bs-dropdown-padding-y)) var(--bs-dropdown-padding-x);
-    padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
-}
-
-.dropdown-menu .search + .dropdown-virtual {
-    max-height: calc(var(--bb-dropdown-max-height) - var(--bb-select-search-height));
 }
 
 .dropdown-item {
@@ -209,12 +184,14 @@
 }
 
 .dropdown-menu {
-    &.is-fixed-search {
-        .dropdown-menu-body {
-            max-height: calc(var(--bb-dropdown-max-height) - 76px);
-            overflow: auto;
-        }
-    }
+    --bb-select-search-padding: #{$bb-select-search-padding};
+    --bb-select-search-margin-bottom: #{$bb-select-search-margin-bottom};
+    --bb-select-search-padding-right: #{$bb-select-search-padding-right};
+    --bb-select-search-border-color: #{$bb-select-search-border-color};
+    --bb-select-search-icon-color: #{$bb-select-search-icon-color};
+    --bb-select-search-icon-right: #{$bb-select-search-icon-right};
+    --bb-select-search-icon-top: #{$bb-select-search-icon-top};
+    --bb-select-search-height: #{$bb-select-search-height};
 
     .dropdown-menu-search {
         padding: var(--bb-select-search-padding);
@@ -235,6 +212,11 @@
         .searching-icon {
             display: none;
         }
+    }
+
+    .dropdown-menu-body {
+        max-height: var(--bb-dropdown-max-height);
+        overflow: auto;
     }
 
     .search-text {
