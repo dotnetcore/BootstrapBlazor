@@ -89,6 +89,7 @@ public interface IEditorItem : ILookup
     /// <summary>
     /// Gets or sets whether to allow fixed search box within dropdown. Default is false.
     /// </summary>
+    [Obsolete("已弃用 Departur")]
     bool IsFixedSearchWhenSelect { get; set; }
 
     /// <summary>
