@@ -381,14 +381,6 @@ public partial class MultiSelects
         },
         new()
         {
-            Name = "IsFixedSearch",
-            Description = Localizer["MultiSelectsAttribute_IsFixedSearch"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "ShowToolbar",
             Description = Localizer["MultiSelectsAttribute_ShowToolbar"],
             Type = "bool",

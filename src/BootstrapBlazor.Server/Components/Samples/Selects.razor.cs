@@ -354,14 +354,6 @@ public sealed partial class Selects
         },
         new()
         {
-            Name = "IsFixedSearch",
-            Description = Localizer["SelectsIsFixedSearch"],
-            Type = "boolean",
-            ValueList = "true / false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = "IsDisabled",
             Description = Localizer["SelectsIsDisabled"],
             Type = "boolean",
