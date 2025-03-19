@@ -91,6 +91,12 @@ public partial class AutoFill<TValue>
     [ExcludeFromCodeCoverage]
     public RenderFragment<TValue>? Template { get => ItemTemplate; set => ItemTemplate = value; }
 
+    /// <summary>
+    /// Gets or sets whether virtual scrolling is enabled. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
