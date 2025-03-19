@@ -3204,7 +3204,8 @@
     "SelectsGenericDesc": "<p>Please refer to <a href=\"https://github.com/dotnetcore/BootstrapBlazor/issues/4497?wt.mc_id=DT-MVP-5004174\" target=\"_blank\">Design Ideas</a> to understand this feature. In this example, by selecting the drop-down box option, the value obtained is the <code>Foo</code> instance, and the value displayed in the text box on the right is the <code>Address</code> value of the <code>Foo</code> attribute</p><p>In this example, the <code>ValueEqualityComparer</code> and <code>CustomKeyAttribute</code> parameters are not set, and the <code>[Key]</code> tag of the <code>Id</code> attribute of <code>Foo</code> is used for equality judgment</p>",
     "SelectsOnInputChangedCallback": "Callback method for converting input text into corresponding Value in edit mode",
     "TextConvertToValueCallback": "Callback method when input text changes in edit mode",
-    "SelectsIsEditable": "Whether editable"
+    "SelectsIsEditable": "Whether editable",
+    "SelectsIsVirtualize": "Wether to enable virtualize"
   },
   "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider",
