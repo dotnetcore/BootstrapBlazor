@@ -3,6 +3,7 @@
 // See the LICENSE file in the project root for more information.
 // Maintainer: Argo Zhang(argo@live.ca) Website: https://www.blazor.zone
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -97,6 +98,33 @@ public partial class AutoFill<TValue>
     [Parameter]
     public bool IsVirtualize { get; set; }
 
+    /// <summary>
+    /// Gets or sets the row height for virtual scrolling. Default is 33.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// Gets or sets the overscan count for virtual scrolling. Default is 4.
+    /// </summary>
+    /// <remarks>Effective when <see cref="IsVirtualize"/> is set to true.</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    /// <summary>
+    /// Gets or sets the callback method for loading virtualized items.
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<VirtualizeQueryOption, Task<QueryData<TValue>>>? OnQueryAsync { get; set; }
+
+    /// <summary>
+    /// Gets or sets whether the select component is clearable. Default is false.
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
@@ -106,6 +134,9 @@ public partial class AutoFill<TValue>
     private string? _displayText;
 
     private List<TValue>? _filterItems;
+
+    [NotNull]
+    private Virtualize<TValue>? _virtualizeElement = default;
 
     /// <summary>
     /// <inheritdoc/>
@@ -141,6 +172,34 @@ public partial class AutoFill<TValue>
     private string? GetDisplayText(TValue item) => OnGetDisplayText?.Invoke(item) ?? item?.ToString();
 
     private List<TValue> Rows => _filterItems ?? [.. Items];
+
+    private int _totalCount;
+    private TValue? _itemsCache;
+    private ItemsProviderResult<TValue> _result;
+
+    private async ValueTask<ItemsProviderResult<TValue>> LoadItems(ItemsProviderRequest request)
+    {
+        // 有搜索条件时使用原生请求数量
+        // 有总数时请求剩余数量
+        var count = _totalCount == 0 ? request.Count : Math.Min(request.Count, _totalCount - request.StartIndex);
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count });
+
+        _itemsCache = default;
+        _totalCount = data.TotalCount;
+        var items = data.Items ?? [];
+        _result = new ItemsProviderResult<TValue>(items, _totalCount);
+        return _result;
+    }
+
+    private List<TValue> GetVirtualItems()
+    {
+        var items = new List<TValue>();
+        if (Items != null)
+        {
+            items.AddRange(Items);
+        }
+        return items;
+    }
 
     /// <summary>
     /// Triggers the filter method.
