@@ -415,6 +415,14 @@ public sealed partial class Selects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Select<string>.IsVirtualize),
+            Description = Localizer["SelectsIsVirtualize"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }

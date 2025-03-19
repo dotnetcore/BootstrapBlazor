@@ -474,6 +474,14 @@ public partial class MultiSelects
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(MultiSelect<string>.IsVirtualize),
+            Description = Localizer["MultiSelectsAttribute_IsVirtualize"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }
