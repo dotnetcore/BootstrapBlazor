@@ -120,8 +120,6 @@ public partial class MultiSelects
     private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
 
     private string? _editString;
-
-    private bool _isFixedSearch = true;
     private bool _isClearable = true;
     private bool _showToolbar = true;
     private bool _showSearch = true;
