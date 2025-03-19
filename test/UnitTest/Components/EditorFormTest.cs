@@ -269,7 +269,6 @@ public class EditorFormTest : BootstrapBlazorTestBase
                         new("False", "Test-False")
                     });
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, bool>.ShowSearchWhenSelect), false);
-                    builder.AddAttribute(index++, nameof(EditorItem<Foo, bool>.IsFixedSearchWhenSelect), false);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, bool>.IsPopover), false);
                     builder.CloseComponent();
                 });

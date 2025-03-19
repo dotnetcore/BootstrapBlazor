@@ -5045,7 +5045,6 @@ public class TableTest : BootstrapBlazorTestBase
         Assert.Equal("test", column.Instance.GroupName);
         Assert.Equal(1, column.Instance.GroupOrder);
         Assert.True(column.Instance.ShowSearchWhenSelect);
-        Assert.True(column.Instance.IsFixedSearchWhenSelect);
         Assert.False(column.Instance.IsPopover);
         Assert.NotNull(column.Instance.LookupService);
 
